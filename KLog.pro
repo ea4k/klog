@@ -42,6 +42,7 @@ HEADERS += setupdialog.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     pstrotatorsupport.h \
+    qso.h \
     widgets/adiflotwexportwidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -118,6 +119,7 @@ SOURCES += main.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
     pstrotatorsupport.cpp \
+    qso.cpp \
     setupdialog.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/rotator.cpp \
@@ -276,6 +278,7 @@ unix:!mac {
     INSTALLS += translations
     INSTALLS += datafiles
     LIBS += -lhamlib
+
 }
 
 macx: {
@@ -291,8 +294,8 @@ win32: {
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L"$$PWD/../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
-    INCLUDEPATH += "$$PWD/../libs/hamlib-w32-3.3/include/"
+    LIBS += -L"$$PWD/../../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
+    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
 }
 
 else:

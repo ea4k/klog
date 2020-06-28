@@ -43,7 +43,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
-    keepMyDataCheckBox = new QCheckBox(tr("&Keep My Data for all QSOs"), this);
+    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
@@ -751,6 +751,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         else
         {
             msgBox.setIcon(QMessageBox::Warning);
+
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
 
@@ -772,6 +773,8 @@ void SetupPageMisc::slotMoveDBButtonClicked()
             dbPathApplied = false;
             moveDBPushButton->setEnabled(true);
         }
+
+
     }
     else
     {

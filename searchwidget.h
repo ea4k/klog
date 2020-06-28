@@ -93,6 +93,9 @@ private slots:
     void slotStationCallsignChanged();
     void slotRadioButtonToggled();
 
+    void slotStartDelayInputTimer();
+    void slotDelayInputTimedOut();
+
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
@@ -124,6 +127,7 @@ private:
     bool searchSelectAllClicked, stationCallSignShownInSearch;
     int currentLog;
     QString mainStationCallsign;
+    QString lastSearch;
 
     DataProxy_SQLite *dataProxy;
     Awards *awards;
@@ -145,6 +149,8 @@ private:
 
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
+
+    QTimer *delayInputTimer;
 
 
 

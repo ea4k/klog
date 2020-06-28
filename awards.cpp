@@ -86,7 +86,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid)
     bool sqlOK = false;
     QString answer = QString();
 
-    stringQuery = QString("SELECT call, qso_date, time_on from log where id=(SELECT qsoid from awarddxcc where dxcc='%1' and band='%2')").arg(_enti).arg(_bandid);
+    stringQuery = QString("SELECT call, qso_date, from log where id=(SELECT qsoid from awarddxcc where dxcc='%1' and band='%2')").arg(_enti).arg(_bandid);
 
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getQSOofAward: stringQuery: " << stringQuery << endl;
@@ -95,7 +95,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid)
         query.next();
         if (query.isValid())
         {
-            answer = query.value(0).toString() + " / " + query.value(1).toString() + " / " + query.value(2).toString();
+            answer = query.value(0).toString() + " / " + query.value(1).toString() ;
 
             query.finish();
                //qDebug() << "Awards::getQSOofAward: answer: " << answer << endl;

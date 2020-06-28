@@ -6,6 +6,7 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
        //qDebug() << "SearchWidget::SearchWidget"   << endl;
     searchBoxLineEdit = new QLineEdit;
     dataProxy = dp;
+    delayInputTimer = new QTimer;
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities;
@@ -49,6 +50,7 @@ void SearchWidget::clear()
     searchResultsTreeWidget->clear();
     qslingNeeded = false;
     searchSelectAllClicked = false;
+    lastSearch = QString();
 }
 
 void SearchWidget::setShowCallInSearch(const bool _sh)
@@ -140,7 +142,9 @@ void SearchWidget::createUI()
 
     //connect(dataProxy, SIGNAL(qsoFound(QStringList)), this, SLOT(slotQsoFound(QStringList)) );
 
-    connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
+    connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
+    connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut()) );
+    //connect(searchBoxLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchBoxTextChanged() ) );
     connect(searchBoxExportButton, SIGNAL(clicked()), this, SLOT(slotSearchExportButtonClicked() ) );
     connect(searchBoxClearButton, SIGNAL(clicked()), this, SLOT(slotSearchClearButtonClicked() ) );
     connect(searchBoxReSearchButton, SIGNAL(clicked()), this, SLOT(slotSearchBoxReSearchButtonClicked() ) );
@@ -152,6 +156,30 @@ void SearchWidget::createUI()
     connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotRadioButtonToggled() ) ) ;
 
 
+}
+
+void SearchWidget::slotStartDelayInputTimer()
+{
+    qDebug() << "SearchWidget::slotStartDelayInputTimer"  << endl;
+    int cursorP = searchBoxLineEdit->cursorPosition();
+    searchBoxLineEdit->setText((searchBoxLineEdit->text()).toUpper());
+    searchBoxLineEdit->setCursorPosition(cursorP);
+
+    delayInputTimer->start(800); //TODO: Define the delay in the Settings
+}
+
+void SearchWidget::slotDelayInputTimedOut()
+{
+    qDebug() << "SearchWidget::slotDelayInputTimedOut"  << endl;
+    delayInputTimer->stop();
+    QString _text = (searchBoxLineEdit->text()).toUpper();
+    if( _text != lastSearch)
+    {
+        //DO WHATEVER
+        lastSearch = _text;
+        slotSearchBoxTextChanged();
+
+    }
 }
 
 void SearchWidget::fillStationCallsignComboBox()
@@ -282,7 +310,7 @@ void SearchWidget::slotSearchBoxTextChanged()
         return;
     }
 
-    queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE") + STQuery + "AND" + stationCallQuery + "AND" + searchAllQuery;
+    queryString = QString("SELECT call, qso_date, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE") + STQuery + "AND" + stationCallQuery + "AND" + searchAllQuery;
 
     //qDebug() << "SearchWidget::slotSearchBoxTextChanged: Query: "  << queryString << endl;
     fillTheList(queryString);
@@ -378,9 +406,6 @@ bool SearchWidget::fillTheList(const QString _query)
 
             nameCol = rec.indexOf("qso_date");
             _dateTime = (query.value(nameCol)).toString();
-
-            nameCol = rec.indexOf("time_on");
-            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
 
             nameCol = rec.indexOf("bandid");
             _bandid = (query.value(nameCol)).toString();
@@ -850,8 +875,8 @@ void SearchWidget::slotQSLSentViaBureuMarkDXReqFromSearch()
        //qDebug() << "slotQSLSentViaBureuMarkDXReqFromSearch" << endl;
      int _qsoId = (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt();
 
-    dataProxy->qslSentViaBureau(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
-    dataProxy->qslRecAsRequested(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
+    dataProxy->qslRecAsRequested(_qsoId, QDate::currentDate());
 
 
     if(qslingNeeded)
@@ -871,8 +896,8 @@ void SearchWidget::slotQSLSentViaDirectMarkDXReqFromSearch()
        //qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << endl;
     int _qsoId = (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt();
 
-    dataProxy->qslSentViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
-    dataProxy->qslRecAsRequested(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
+    dataProxy->qslRecAsRequested(_qsoId, QDate::currentDate());
 
 
     if(qslingNeeded)
@@ -891,7 +916,7 @@ void SearchWidget::slotQSLSentViaBureauFromSearch()
    //    //qDebug() << "SearchWidget::slotQSLSentViaBureauFromSearch: " << (qslSentViaBureauFromSearchAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromSearchAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
     int _qsoId = (qslSentViaBureauFromSearchAct->data()).toInt();
 
-    dataProxy->qslSentViaBureau(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
 
     //logWindow->qslSentViaBureau(_qsoId);
     //qslSentViaBureau(_qsoId);
@@ -909,7 +934,7 @@ void SearchWidget::slotQSLSentViaDirectFromSearch()
 {
        //qDebug() << "SearchWidget::slotQSLSentViaDirectFromSearch: " << endl;
      int _qsoId = ((qslSentViaDirectFromSearchAct->data()).toInt());
-    dataProxy->qslSentViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
     if(qslingNeeded)
     {
         searchToolNeededQSLToSend();
@@ -928,7 +953,7 @@ void SearchWidget::slotQSLSentMarkAsRequested()
    // bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
 
     int _qsoId = (qslSentRequestedAct->data()).toInt();
-    dataProxy->qslSentAsRequested(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslSentAsRequested(_qsoId, QDate::currentDate());
     if(qslingNeeded)
     {
         searchToolNeededQSLToSend();
@@ -942,7 +967,7 @@ void SearchWidget::slotQSLSentMarkAsRequested()
 void SearchWidget::slotQSLRecMarkAsRequested()
 {
     int _qsoId = (qslRecRequestedAct->data()).toInt();
-    dataProxy->qslRecAsRequested(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecAsRequested(_qsoId, QDate::currentDate());
     if(qslingNeeded)
     {
         searchToolNeededQSLToSend();
@@ -958,7 +983,7 @@ void SearchWidget::slotQSLRecViaBureauFromSearch()
        //qDebug() << "SearchWidget::slotQSLRecViaBureauFromLog: " << endl;
     int _qsoId = (qslRecViaBureauFromSearchAct->data()).toInt();
     //logWindow->qslRecViaBureau(_qsoId);
-    dataProxy->qslRecViaBureau(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate());
 
     if(qslingNeeded)
     {
@@ -997,7 +1022,7 @@ void SearchWidget::slotQSLRecViaDirectFromSearch()
        //qDebug() << "SearchWidget::slotQSLRecViaDirectFromLog: " << endl;
      int _qsoId = (qslRecViaDirectFromSearchAct->data()).toInt();
     //logWindow->qslRecViaDirect(_qsoId);
-    dataProxy->qslRecViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"));
+    dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate());
     if(qslingNeeded)
     {
         searchToolNeededQSLToSend();
@@ -1027,9 +1052,9 @@ void SearchWidget::slotQSLRecViaDirectMarkReqFromSearch()
 
 void SearchWidget::qslRecViaBureauMarkReq(const int _qsoId)
 {
-      //qDebug() << "SearchWidget::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (QDate::currentDate()).toString("yyyy/MM/dd") << endl;
+      //qDebug() << "SearchWidget::qslRecViaBureau: " << QString::number(_qsoId) << "/" << QDate::currentDate() << endl;
     //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
-    dataProxy->qslRecViaBureau(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"), true);
+    dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), true);
     //awards->setAwards(_qsoId);   //Update the DXCC award status
     //emit logRefresh();
     //emit updateAwards();
@@ -1041,7 +1066,7 @@ void SearchWidget::qslRecViaDirectMarkReq(const int _qsoId)
 {
        //qDebug() << "SearchWidget::qslRecViaDirect: " << QString::number(_qsoId) << endl;
 
-    dataProxy->qslRecViaDirect(_qsoId, (QDate::currentDate()).toString("yyyy/MM/dd"), true);
+    dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), true);
     //awards->setAwards(_qsoId);
     //setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed);
 
@@ -1133,7 +1158,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         case 0://void searchToolNeededQSLToSend();
          //aux = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(currentLog);
             //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 0" << endl;
-            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
+            stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
             message = tr("Needed QSO to send the QSL");
             qslingNeeded = true;
             requestBeingShown();
@@ -1141,17 +1166,17 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         break;
         case 1:
                //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 1" << endl;
-            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
+            stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, id FROM log  WHERE qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
             message = tr("My QSL requested to be sent");
         break;
         case 2://void slotToolSearchNeededQSLPendingToReceive();
                //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 2" << endl;
-            stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
+            stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, log.id FROM log WHERE lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
             message = tr("DX QSL pending to be received");
         break;
     case 3://void slotToolSearchNeededQSLRequested()
                //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 3" << endl;
-        stringQuery = QString("SELECT call, qso_date, time_on, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
+        stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, dxcc, station_callsign, log.id FROM log WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
         message = tr("DX QSL pending to be received");
     break;
         default:
@@ -1177,124 +1202,7 @@ void SearchWidget::slotToolSearchQSL(const int actionQSL)
         requestBeingShown();
     }
 
-    /*
-    return;
-       //qDebug() << "SearchWidget::slotToolSearchQSL: After the return" << endl;
 
-    if (!query.exec())
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-           //qDebug() << "SearchWidget::slotToolSearchQSL: Query ERROR" << endl;
-     //TODO: Control the error!!
-    }
-
-    else
-    {
-        emit toStatusBar(message); // updating the status bar
-        while(query.next())
-        {
-        if (query.isValid())
-        {
-            QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
-
-            i = world->getQRZARRLId(_call);
-            aux = world->getEntityName(i) + " - CQ: " + QString::number(world->getEntityCqz(i));
-            item->setToolTip(0, aux);
-            item->setToolTip(1, aux);
-            item->setToolTip(2, aux);
-            item->setToolTip(3, aux);
-            item->setToolTip(4, aux);
-            item->setToolTip(5, aux);
-            item->setToolTip(6, aux);
-
-            nameCol = rec.indexOf("call");
-            _call= (query.value(nameCol)).toString();
-            nameCol = rec.indexOf("qso_date");
-            _dateTime = (query.value(nameCol)).toString();
-            nameCol = rec.indexOf("time_on");
-            _dateTime = _dateTime + "-" +(query.value(nameCol)).toString();
-
-            nameCol = rec.indexOf("bandid");
-            _freq = (query.value(nameCol)).toString();
-            _band = dataProxy->getNameFromBandId(_freq.toInt());
-            //_band = db->getBandNameFromNumber( _freq.toInt() );
-
-            nameCol = rec.indexOf("modeid");
-            _mode = dataProxy->getSubModeFromId((query.value(nameCol)).toInt());
-
-            nameCol = rec.indexOf("dxcc");
-            _dxcc= (query.value(nameCol)).toString();
-
-               //qDebug() << "SearchWidget::slotToolSearchQSL: Mode: " << _mode << endl;
-               //qDebug() << "SearchWidget::slotToolSearchQSL: mode " << QString::number((query.value(nameCol)).toInt()) << endl;
-
-            nameCol = rec.indexOf("qsl_sent");
-            _qsltx = (query.value(nameCol)).toString();
-            if (_qsltx.length()<1)
-            {
-                _qsltx = "N";
-            }
-
-            nameCol = rec.indexOf("qsl_rcvd");
-            _qslrx = (query.value(nameCol)).toString();
-            if (_qslrx.length()<1)
-            {
-                _qslrx = "N";
-            }
-
-            if (stationCallSignShownInSearch)
-            {
-                   //qDebug() << "SearchWidget::slotToolSearchQSL: stationCallSign "<< endl;
-
-                nameCol = rec.indexOf("station_callsign");
-                if (((query.value(nameCol)).toString()).length()>=3)
-                {
-                    _stationcallsign = (query.value(nameCol)).toString();
-                }
-                else
-                {
-                    _stationcallsign.clear();
-                }
-
-            }
-
-            nameCol = rec.indexOf("id");
-            _id= (query.value(nameCol)).toString();
-
-            q.clear();
-            q << _dxcc << _freq << _mode << QString::number(currentLog);
-
-            color = awards->getQRZDXStatusColor(q);
-
-            item->setText(0, _call);
-            item->setText(1, _dateTime);
-            item->setText(2, _band);
-            item->setText(3, _mode);
-            item->setText(4, _qsltx);
-            item->setText(5, _qslrx);
-            if (stationCallSignShownInSearch)
-            {
-                item->setText(6, _stationcallsign);
-                item->setText(7, _id);
-                item->setToolTip(7, aux);
-            }
-            else
-            {
-                item->setText(6, _id);
-            }
-
-            item->setForeground(0, QBrush(color));
-        }
-        else
-        {
-        //TODO: Check what is happening here!
-        }
-    }
-        //qslingNeeded = true;
-        requestBeingShown();
-        //dxUpRightTab->setCurrentIndex(2);
-    }
-    */
 }
 
 void SearchWidget::showQSOs(QList<int> qsoIdList)
@@ -1310,7 +1218,7 @@ void SearchWidget::showQSOs(QList<int> qsoIdList)
        //qDebug() << "SearchWidget::showQSOs query: : 01"  << endl;
     int i = 0;
     QSqlQuery query;
-    QString queryString = QString("SELECT call, qso_date, time_on, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE ");
+    QString queryString = QString("SELECT call, qso_date, bandid, modeid, dxcc, qsl_rcvd, qsl_sent, station_callsign, id FROM log WHERE ");
 
 
     while ( (qsoIdList.at(i)<= 0) && (i<qsoIdList.length()) )

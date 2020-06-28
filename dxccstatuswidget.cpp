@@ -444,7 +444,6 @@ void DXCCStatusWidget::refresh()
                    //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << band << endl;
                 bandi = dataProxy->getIdFromBandName(band);
                    //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << QString::number(bandi) << endl;
-                //tip = awards->getQSOofAward(row, bandi);
                 tip = awards->getQSOofAward(entiID, bandi);
                    //qDebug() << "DXCCStatusWidget::slotItemEntered: tip: " << tip << endl;
                 if (tip.length()>3)

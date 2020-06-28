@@ -30,9 +30,17 @@
         <translation>Per</translation>
     </message>
     <message>
+        <source>Please know that this is an BETA release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!</source>
+        <translation type="vanished">Tingueu present que aquesta és un llançament BETA i podria contenir algun error.&lt;br&gt;Feu una còpia de seguretat abans d&apos;usar aquest programari!</translation>
+    </message>
+    <message>
         <location filename="../aboutdialog.cpp" line="35"/>
         <source>Author</source>
         <translation>Autor</translation>
+    </message>
+    <message>
+        <source>KLog has been fully rewritten from the 0.6.2 to be able to provide a cross-platform application that runs in the main operating systems (Linux, macOS &amp; Windows) and provide new functionalities that KLog was not providing.</source>
+        <translation type="vanished">El KLog s&apos;ha reescrit completament a partir de la 0.6.2 per ser capaç de proporcionar una aplicació multiplataforma que s&apos;executa en els sistemes operatius principals (Linux, macOS i Windows) i proporciona funcionalitats noves que el KLog no feia.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="26"/>
@@ -42,7 +50,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="29"/>
         <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.</source>
-        <translation>A partir de la versió 0.6.2, el KLog s&apos;ha reescrit completament per proporcionar una aplicació multiplataforma que s&apos;executa a tots els principals sistemes operatius (Linux, macOS i Windows) i per implementar funcionalitats noves.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="31"/>
@@ -72,12 +80,20 @@
     <message>
         <location filename="../aboutdialog.cpp" line="92"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users&apos; needs.</source>
-        <translation>Els desenvolupadors del KLog han inclòs una funcionalitat que informa de diverses dades de l&apos;usuari al servidor del KLog amb l&apos;únic propòsit d&apos;identificar el nombre de versions instal·lades, per tal d&apos;enfocar el desenvolupament en una direcció o una altra tenint en compte les necessitats dels usuaris.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account user&apos;s needs</source>
+        <translation type="vanished">Els desenvolupadors del KLog han inclòs una funcionalitat que informa de vàries dades d&apos;usuari al servidor del KLog amb l&apos;únic propòsit d&apos;identificat el nombre de versions instal·lades, per enfocar el desenvolupament cap a una direcció o una altre tenint en compte les necessitats dels usuaris</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="93"/>
         <source>At present, the data that is provided is the following:</source>
         <translation>Actualment, les dades proporcionades són les següents:</translation>
+    </message>
+    <message>
+        <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page</source>
+        <translation type="vanished">Tingueu present que podeu activar/desactivar aquesta funcionalitat des de la pestanya Varis a la pestanya de configuració</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="78"/>
@@ -92,7 +108,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="27"/>
         <source>Please be aware that this is a development release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!</source>
-        <translation>Tingueu en compte que aquest és un llançament de desenvolupament i pot contenir molts errors.&lt;br&gt;Feu una còpia de seguretat de les dades abans d&apos;usar aquest programari!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="79"/>
@@ -123,7 +139,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="95"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page.</source>
-        <translation>Tingueu en compte que podeu activar/desactivar aquesta funcionalitat des de la pestanya Varis de la pàgina de Configuració.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="133"/>
@@ -141,87 +157,87 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="23"/>
         <source>Select the Station Callsign that you want to use to upload the log.</source>
-        <translation>Seleccioneu l&apos;indicatiu de l&apos;estació de la qual voleu usar per pujar el registre.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="26"/>
         <source>Select the start date to export the QSOs. The default date is the date of the first QSO with this station callsign.</source>
-        <translation>Seleccioneu la data d&apos;inici a exportar els QSO. La data predeterminada és la data del primer QSO amb aquest indicatiu d&apos;estació.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="31"/>
         <source>Select the end date to export the QSOs. The default date is the date of the last QSO with this station callsign.</source>
-        <translation>Seleccioneu la data de fi a exportar els QSO. La data predeterminada és la data del darrer QSO amb aquest indicatiu d&apos;estació.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="35"/>
         <source>Station callsign</source>
-        <translation>Indicatiu de l&apos;estació</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="38"/>
         <source>Start date</source>
-        <translation>Data d&apos;inici</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="41"/>
         <source>End date</source>
-        <translation>Data fi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="43"/>
         <source>Ok</source>
-        <translation>D&apos;acord</translation>
+        <translation type="unfinished">D&apos;acord</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>Cancel·la</translation>
+        <translation type="unfinished">Cancel·la</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="54"/>
         <source>DX</source>
-        <translation>DX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="54"/>
         <source>Date/Time</source>
-        <translation>Data/hora</translation>
+        <translation type="unfinished">Data/hora</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="54"/>
         <source>Band</source>
-        <translation>Banda</translation>
+        <translation type="unfinished">Banda</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="54"/>
         <source>Mode</source>
-        <translation>Mode</translation>
+        <translation type="unfinished">Mode</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="82"/>
         <source>Not defined</source>
-        <translation>No s&apos;ha definit</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="85"/>
         <source>All</source>
-        <translation>Tot</translation>
+        <translation type="unfinished">Tot</translation>
     </message>
     <message>
-        <location filename="../widgets/adiflotwexportwidget.cpp" line="149"/>
+        <location filename="../widgets/adiflotwexportwidget.cpp" line="153"/>
         <source>QSOs: </source>
-        <translation>QSO: </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/adiflotwexportwidget.cpp" line="263"/>
+        <location filename="../widgets/adiflotwexportwidget.cpp" line="267"/>
         <source>This table shows the QSOs that will be sent to LoTW.</source>
-        <translation>Aquesta taula mostra els QSO que s&apos;enviaran al LoTW.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/adiflotwexportwidget.cpp" line="268"/>
+        <location filename="../widgets/adiflotwexportwidget.cpp" line="272"/>
         <source>This table shows the QSOs that will be exported to ADIF.</source>
-        <translation>Aquesta taula mostra els QSO que s&apos;exportaran a ADIF.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -323,22 +339,38 @@
     <message>
         <location filename="../awardswidget.cpp" line="262"/>
         <source>Number of QSOs worked in the selected year.</source>
-        <translation>Nombre de QSO treballats durant l&apos;any seleccionat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="263"/>
         <source>Number of DXCCs worked in the selected year.</source>
-        <translation>Nombre de DXCC treballades durant l&apos;any seleccionat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="264"/>
         <source>Number of CQ Zones worked in the selected year.</source>
-        <translation>Nombre de zones CQ treballades durant l&apos;any seleccionat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="265"/>
         <source>Score for the DXMarathon in the selected year.</source>
-        <translation>Puntuació per al DXMarathon a l&apos;any seleccionat.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of QSOs worked on the selected year.</source>
+        <translation type="vanished">Nombre de QSO treballats durant l&apos;any seleccionat.</translation>
+    </message>
+    <message>
+        <source>Number of DXCC worked on the selected year.</source>
+        <translation type="vanished">Nombre de DXCC treballats durant l&apos;any seleccionat.</translation>
+    </message>
+    <message>
+        <source>Number of CQ Zones worked on the selected year.</source>
+        <translation type="vanished">Nombre de zones CQ treballades durant l&apos;any seleccionat.</translation>
+    </message>
+    <message>
+        <source>Score for the DXMarathon on the selected year.</source>
+        <translation type="vanished">Puntuació per al DXMarathon a l&apos;any seleccionat.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="379"/>
@@ -376,12 +408,20 @@
     <message>
         <location filename="../startwizard.cpp" line="947"/>
         <source>KLog uses the cty.csv file from https://www.country-files.com/ to get DXCC information.</source>
-        <translation>El KLog usa el fitxer «cty.csv» de https://www.country-files.com/ per aconseguir la informació de les DXCC.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="949"/>
         <source>You need to download the cty.csv file if you want KLog to show you the countries, locator, etc. of the QSOs you do.</source>
-        <translation>Cal baixar el fitxer «cty.csv» si voleu que el KLog mostri els països, el localitzador, etc. dels QSO que feu.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KLog uses the cty.csv file from http://www.country-files.com/ to get DXCC information.</source>
+        <translation type="vanished">El KLog usa el fitxer «cty.csv» de http://www.country-files.com/ per obtenir la informació DXCC.</translation>
+    </message>
+    <message>
+        <source>You need to download the cty.csv file if you want KLog to show you the countries, locator, ... of the QSOs you do.</source>
+        <translation type="vanished">Cal baixar el fitxer «cty.csv» si voleu que el KLog mostri els països, localitzadors, ... dels QSO que feu.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="951"/>
@@ -409,6 +449,10 @@ Voleu tornar-ho a intentar?</translation>
         <translation>Actualitza</translation>
     </message>
     <message>
+        <source>ID</source>
+        <translation type="vanished">ID</translation>
+    </message>
+    <message>
         <location filename="../dxccstatuswidget.cpp" line="318"/>
         <source>Entity</source>
         <translation>Entitat</translation>
@@ -416,7 +460,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="318"/>
         <source>Prefix</source>
-        <translation>Prefix</translation>
+        <translation type="unfinished">Prefix</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="428"/>
@@ -535,10 +579,6 @@ Voleu tornar-ho a intentar?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It was not possible to open the file to save the DX-Spots for writting. DX-Cluster activity will not be saved!</source>
-        <translation type="vanished">No s&apos;ha pogut obrir un fitxer per escriptura a on desar els avisos DX. No es desarà l&apos;activitat del DX-Cluster!</translation>
-    </message>
-    <message>
         <location filename="../dxcluster.cpp" line="520"/>
         <location filename="../dxcluster.cpp" line="599"/>
         <source>Disconnect</source>
@@ -580,89 +620,93 @@ Voleu tornar-ho a intentar?</translation>
         <translation>La versió del programari a la BD és nul</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3446"/>
+        <source>No query failed</source>
+        <translation type="vanished">No ha fallat cap consulta</translation>
+    </message>
+    <message>
+        <location filename="../dataproxy_sqlite.cpp" line="3445"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Aircraft Scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3450"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3449"/>
         <source>Aurora</source>
         <translation>Aurora</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3454"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3453"/>
         <source>Aurora-E</source>
         <translation>Aurora-E</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3458"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3457"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Back scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3462"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3461"/>
         <source>Earth-Moon-Earth</source>
         <translation>Terra-Lluna-Terra</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3466"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3465"/>
         <source>Sporadic E</source>
         <translation>Sporadic E</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3478"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3477"/>
         <source>Internet-assisted</source>
         <translation>Assistit per Internet</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3482"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3481"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Ionoscatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3486"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3485"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Meteor scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3490"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3489"/>
         <source>Terrestrial or atmospheric repeater or transponder</source>
         <translation>Repetidor o transponedor terrestre o atmosfèric</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3494"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3493"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Rain scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3498"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3497"/>
         <source>Satellite</source>
         <translation>Satèl·lit</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4254"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4253"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Bureau</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4266"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4265"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Manager</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5111"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5110"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
         <translation>S&apos;han actualitzat tots els QSO amb un DXCC i el continent.</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3470"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3469"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Field Aligned Irregularities</translation>
@@ -670,87 +714,87 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="74"/>
         <source>Query didn&apos;t failed</source>
-        <translation>No ha fallat la consulta</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3474"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3473"/>
         <source>F2 Reflection</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>F2 Reflection</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3502"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3501"/>
         <source>Trans-equatorial</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Trans-equatorial</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="3506"/>
+        <location filename="../dataproxy_sqlite.cpp" line="3505"/>
         <source>Tropospheric ducting</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Tropospheric ducting</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4065"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4132"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4064"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4131"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4069"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4136"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4068"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4135"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4073"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4140"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4072"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4139"/>
         <source>Requested</source>
         <translation>Sol·licitat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4077"/>
-        <location filename="../dataproxy_sqlite.cpp" line="4148"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4076"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4147"/>
         <source>Ignore/Invalid</source>
         <translation>Ignora/No vàlid</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4081"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4080"/>
         <source>Validated</source>
         <translation>Validat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4144"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4143"/>
         <source>Queued</source>
         <translation>En cua</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4196"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4195"/>
         <source>Uploaded</source>
         <translation>Pujat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4200"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4199"/>
         <source>Do not upload</source>
         <translation>No pujat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4204"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4203"/>
         <source>Modified</source>
         <translation>Modificat</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4258"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4257"/>
         <source>Direct</source>
         <translation>Directe</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4262"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4261"/>
         <source>Electronic</source>
         <translation>Electrònic</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5110"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5109"/>
         <source>KLog DXCC</source>
         <translation>DXCC del KLog</translation>
     </message>
@@ -760,7 +804,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../downloadcty.cpp" line="62"/>
         <source>Download of cty.csv failed with the following error code: </source>
-        <translation>La baixada del «cty.csv» ha fallat amb el codi d&apos;error següent: </translation>
+        <translation>La baixada del «cty.csv» ha fallat amb el codi d&apos;error següent:</translation>
     </message>
     <message>
         <location filename="../downloadcty.cpp" line="74"/>
@@ -781,356 +825,388 @@ Voleu tornar-ho a intentar?</translation>
 <context>
     <name>FileManager</name>
     <message>
-        <location filename="../filemanager.cpp" line="4983"/>
+        <location filename="../filemanager.cpp" line="4884"/>
         <source>Reading ADIF file...</source>
         <translation>S&apos;està llegint el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4583"/>
-        <location filename="../filemanager.cpp" line="4983"/>
+        <location filename="../filemanager.cpp" line="4463"/>
+        <location filename="../filemanager.cpp" line="4884"/>
         <source>Abort reading</source>
         <translation>Interromp la lectura</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="253"/>
-        <location filename="../filemanager.cpp" line="716"/>
-        <location filename="../filemanager.cpp" line="2051"/>
+        <source>The log that you have selected contains more than just one station callsign.</source>
+        <translation type="vanished">El registre que heu seleccionat conté més d&apos;un indicatiu d&apos;estació.</translation>
+    </message>
+    <message>
+        <source>Station Callsign:</source>
+        <translation type="vanished">Indicatiu d&apos;estació:</translation>
+    </message>
+    <message>
+        <source>Define Station Callsign</source>
+        <translation type="vanished">Defineix l&apos;indicatiu d&apos;estació</translation>
+    </message>
+    <message>
+        <source>You have selected no callsign. KLog will export QSOs without a station callsign defined and those with the call you are entering here.</source>
+        <translation type="vanished">No heu seleccionat cap indicatiu. El KLog exportarà els QSO sense cap indicatiu d&apos;estació definit i aquells amb l&apos;indicatiu que introduïu aquí.</translation>
+    </message>
+    <message>
+        <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
+        <translation type="vanished">Introduïu l&apos;indicatiu emprat en aquest registre o deixeu-ho buit pels QSO sense indicatiu d&apos;estació definit:</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="255"/>
+        <location filename="../filemanager.cpp" line="723"/>
+        <location filename="../filemanager.cpp" line="2038"/>
         <source>Writing ADIF file...</source>
         <translation>Escrivint el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="253"/>
-        <location filename="../filemanager.cpp" line="716"/>
-        <location filename="../filemanager.cpp" line="2051"/>
-        <location filename="../filemanager.cpp" line="4315"/>
+        <location filename="../filemanager.cpp" line="255"/>
+        <location filename="../filemanager.cpp" line="723"/>
+        <location filename="../filemanager.cpp" line="2038"/>
+        <location filename="../filemanager.cpp" line="4208"/>
         <source>Abort writing</source>
         <translation>Interromp l&apos;escriptura</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="370"/>
-        <location filename="../filemanager.cpp" line="783"/>
-        <location filename="../filemanager.cpp" line="2116"/>
-        <location filename="../filemanager.cpp" line="3167"/>
+        <location filename="../filemanager.cpp" line="372"/>
+        <location filename="../filemanager.cpp" line="791"/>
+        <location filename="../filemanager.cpp" line="2103"/>
+        <location filename="../filemanager.cpp" line="3119"/>
         <source>KLog - Invalid call detected</source>
-        <translation>KLog - S&apos;ha detectat un indicatiu no vàlid</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="371"/>
-        <location filename="../filemanager.cpp" line="785"/>
-        <location filename="../filemanager.cpp" line="2117"/>
-        <location filename="../filemanager.cpp" line="3168"/>
-        <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
-        <translation>S&apos;ha detectat un indicatiu no vàlid %1. Voleu exportar igualment aquest indicatiu (clic a Sí) o eliminar l&apos;indicatiu del fitxer de registre exportat?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="373"/>
-        <location filename="../filemanager.cpp" line="789"/>
-        <location filename="../filemanager.cpp" line="2119"/>
-        <location filename="../filemanager.cpp" line="3170"/>
+        <location filename="../filemanager.cpp" line="793"/>
+        <location filename="../filemanager.cpp" line="2104"/>
+        <location filename="../filemanager.cpp" line="3120"/>
+        <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="375"/>
+        <location filename="../filemanager.cpp" line="797"/>
+        <location filename="../filemanager.cpp" line="2106"/>
+        <location filename="../filemanager.cpp" line="3122"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished.</source>
-        <translation>L&apos;exportació d&apos;indicatius incorrectes pot crear problemes potencials a les aplicacions a les quals s&apos;importa aquest fitxer de registre. Tanmateix, podria ser un indicatiu correcte que el KLog ha identificat incorrectament com a no vàlid. En qualsevol cas podreu editar el fitxer ADIF una vegada acabi el procés d&apos;exportació.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="533"/>
+        <location filename="../filemanager.cpp" line="539"/>
         <source>Exporting LoTW ADIF file...</source>
-        <translation>S&apos;està exportant el fitxer ADIF del LoTW...</translation>
+        <translation>S&apos;està exportant el fitxer LoTW ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="641"/>
+        <location filename="../filemanager.cpp" line="648"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
-        <translation>L&apos;indicatiu (%1) seleccionat no és vàlid, comproveu-ho de nou per a exportar el registre.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="1906"/>
+        <location filename="../filemanager.cpp" line="1893"/>
         <source>Exporting ADIF file...</source>
-        <translation>S&apos;està exportant el fitxer ADIF...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4156"/>
+        <location filename="../filemanager.cpp" line="4049"/>
         <source>Writing ADIF file...
  QSO: </source>
         <translation>S&apos;està escrivint el fitxer ADIF...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4583"/>
+        <location filename="../filemanager.cpp" line="4463"/>
         <source>Reading LoTW file...</source>
-        <translation>S&apos;està llegint el fitxer del LoTW...</translation>
+        <translation>S&apos;està llegint el fitxer LoTW...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4856"/>
-        <location filename="../filemanager.cpp" line="5360"/>
+        <location filename="../filemanager.cpp" line="4757"/>
+        <location filename="../filemanager.cpp" line="5196"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.</source>
-        <translation>Heu cancel·lat la importació del fitxer. El fitxer s&apos;eliminarà i no s&apos;importarà cap dada.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6401"/>
+        <location filename="../filemanager.cpp" line="6291"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
         <translation>Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6422"/>
+        <location filename="../filemanager.cpp" line="6312"/>
         <source>Do you want to continue with the current file?</source>
         <translation>Voleu continuar amb el fitxer actual?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6472"/>
+        <source>This log seems to lack of RST-TX information.</source>
+        <translation type="vanished">Sembla que aquest registre li manca informació de RST-TX.</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6362"/>
         <source>Click on Yes to add a default 59 to all QSO with a similar problem.</source>
         <translation>Cliqueu a Sí per afegir un 59 per defecte a tots els QSO amb un problema semblant.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6472"/>
+        <location filename="../filemanager.cpp" line="6362"/>
         <source>If you select NO, the QSO may not be imported.</source>
         <translation>Si seleccioneu No, el QSO pot no importar-se.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6597"/>
-        <source>KLog has found one QSO without the Station Callsign defined.
-
-Enter the Station Callsign that was used to do this QSO on %1:</source>
-        <translation type="unfinished"></translation>
+        <source>This log seems to lack of RST-RX information.</source>
+        <translation type="vanished">Sembla que aquest registre li manca informació de RST-RX.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6405"/>
+        <location filename="../filemanager.cpp" line="6295"/>
         <source> - The band missing and the following call: </source>
         <translation> - Manca la banda i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6410"/>
+        <source> - The call missing but was done at this time: </source>
+        <translation type="vanished"> - Manca l&apos;indicatiu però s&apos;ha fet a hores d&apos;ara: </translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6300"/>
         <source> - The mode missing and the following call: </source>
         <translation> - Manca el mode i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6414"/>
+        <location filename="../filemanager.cpp" line="6304"/>
         <source> - The date missing and the following call: </source>
         <translation> - Manca la data i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6418"/>
+        <location filename="../filemanager.cpp" line="6308"/>
         <source> - The time missing and the following call: </source>
         <translation> - Manca l&apos;hora i l&apos;indicatiu següent: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="547"/>
-        <location filename="../filemanager.cpp" line="1916"/>
-        <location filename="../filemanager.cpp" line="4165"/>
+        <location filename="../filemanager.cpp" line="553"/>
+        <location filename="../filemanager.cpp" line="1903"/>
+        <location filename="../filemanager.cpp" line="4058"/>
         <source>You have canceled the file export. The file will be removed and no data will be exported.</source>
         <translation>Heu cancel·lat l&apos;exportació del fitxer. El fitxer s&apos;eliminarà i no s&apos;exportarà cap dada.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="181"/>
         <source>KLog - Error</source>
-        <translation>KLog - Error</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="207"/>
-        <location filename="../filemanager.cpp" line="587"/>
+        <location filename="../filemanager.cpp" line="593"/>
         <source>The selected log does not exist, please check it again.</source>
-        <translation>El registre seleccionat no existeix, comproveu-ho de nou.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="237"/>
+        <location filename="../filemanager.cpp" line="239"/>
         <source>The selected callsign (%1) is not valid, please check it again.</source>
-        <translation>L&apos;indicatiu (%1) seleccionat no és vàlid, comproveu-ho de nou.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="244"/>
-        <location filename="../filemanager.cpp" line="649"/>
+        <location filename="../filemanager.cpp" line="246"/>
+        <location filename="../filemanager.cpp" line="656"/>
         <source>The file %1 can&apos;t be opened.</source>
-        <translation>El fitxer «%1» no s&apos;ha pogut obrir.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="289"/>
-        <location filename="../filemanager.cpp" line="705"/>
+        <location filename="../filemanager.cpp" line="291"/>
+        <location filename="../filemanager.cpp" line="712"/>
         <source>There are no QSOs pending to be uploaded with that station callsign.</source>
-        <translation>No hi ha cap QSO pendent de pujar amb aquest indicatiu d&apos;estació.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="546"/>
-        <location filename="../filemanager.cpp" line="1915"/>
-        <location filename="../filemanager.cpp" line="4164"/>
-        <location filename="../filemanager.cpp" line="4855"/>
-        <location filename="../filemanager.cpp" line="5359"/>
+        <location filename="../filemanager.cpp" line="552"/>
+        <location filename="../filemanager.cpp" line="1902"/>
+        <location filename="../filemanager.cpp" line="4057"/>
+        <location filename="../filemanager.cpp" line="4756"/>
+        <location filename="../filemanager.cpp" line="5195"/>
         <source>KLog - User cancelled</source>
-        <translation>KLog - L&apos;usuari ha cancel·lat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="547"/>
-        <location filename="../filemanager.cpp" line="1916"/>
-        <location filename="../filemanager.cpp" line="4165"/>
-        <location filename="../filemanager.cpp" line="4856"/>
-        <location filename="../filemanager.cpp" line="5360"/>
+        <location filename="../filemanager.cpp" line="553"/>
+        <location filename="../filemanager.cpp" line="1903"/>
+        <location filename="../filemanager.cpp" line="4058"/>
+        <location filename="../filemanager.cpp" line="4757"/>
+        <location filename="../filemanager.cpp" line="5196"/>
         <source>Do you still want to cancel?</source>
         <translation>Encara voleu cancel·lar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="533"/>
-        <location filename="../filemanager.cpp" line="1906"/>
-        <location filename="../filemanager.cpp" line="4842"/>
-        <location filename="../filemanager.cpp" line="5192"/>
+        <location filename="../filemanager.cpp" line="539"/>
+        <location filename="../filemanager.cpp" line="1893"/>
+        <location filename="../filemanager.cpp" line="4743"/>
+        <location filename="../filemanager.cpp" line="5093"/>
         <source> QSO: </source>
         <translation> QSO: </translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4315"/>
+        <source>Please select the station callsign you want to export the log from:</source>
+        <translation type="vanished">Seleccioneu l&apos;indicatiu de l&apos;estació de la qual voleu exportar el registre:</translation>
+    </message>
+    <message>
+        <source>No station callsign has been selected and therefore no log will be exported</source>
+        <translation type="vanished">No s&apos;ha seleccionat cap indicatiu, i per tant no s&apos;exportarà cap registre</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="4208"/>
         <source>Writing Cabrillo file...</source>
         <translation>S&apos;està escrivint el fitxer Cabrillo...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4500"/>
+        <location filename="../filemanager.cpp" line="4379"/>
         <source>KLog: Cabrillo Log Export not implemented</source>
         <oldsource>Kontest: Cabrillo Log Export not implemented</oldsource>
         <translation>KLog: L&apos;exportació del registre en format Cabrillo no està implementada</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4501"/>
+        <location filename="../filemanager.cpp" line="4380"/>
         <source>I am sorry but the Cabrillo Export To File feature has still not been implemented.</source>
         <translation>Ho sentim però la funció d&apos;exportar Cabrillo encara no està implementada.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4538"/>
+        <location filename="../filemanager.cpp" line="4417"/>
         <source>KLog - File not opened</source>
-        <translation>KLog - Fitxer no obert</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4539"/>
+        <location filename="../filemanager.cpp" line="4418"/>
         <source>It was not possible to open the file %1 for reading.</source>
-        <translation>No ha estat possible obrir el fitxer %1 per a lectura.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4540"/>
+        <location filename="../filemanager.cpp" line="4419"/>
         <source>KLog was not able to read the LoTW file</source>
-        <translation>El KLog no ha pogut llegir el fitxer del LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4842"/>
+        <location filename="../filemanager.cpp" line="4743"/>
         <source>Importing LoTW ADIF file...</source>
-        <translation>S&apos;està important el fitxer ADIF del LoTW...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4937"/>
+        <location filename="../filemanager.cpp" line="4838"/>
         <source>KLog - Log selection</source>
-        <translation>KLog - Selecció de registre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4938"/>
+        <location filename="../filemanager.cpp" line="4839"/>
         <source>There is more than one log in this logfile.</source>
         <translation>Hi ha més d&apos;un registre en aquest fitxer de registre.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4938"/>
+        <location filename="../filemanager.cpp" line="4839"/>
         <source>All logs will be imported into the current log.</source>
         <translation>S&apos;importaran tots els registres al registre actual.</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="4938"/>
+        <location filename="../filemanager.cpp" line="4839"/>
         <source>Do you want to continue?</source>
         <translation>Voleu continuar?</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5192"/>
+        <location filename="../filemanager.cpp" line="5093"/>
         <source>Importing ADIF file...</source>
         <translation>S&apos;està important el fitxer ADIF...</translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5219"/>
+        <location filename="../filemanager.cpp" line="5120"/>
         <source>KLog - Duplicated QSOs</source>
-        <translation>KLog - QSO duplicats</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="5220"/>
+        <location filename="../filemanager.cpp" line="5121"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
         <translation>Sembla que hi ha diversos QSO duplicats al fitxer ADIF que s&apos;està important. Voleu continuar? (Els QSO duplicats no s&apos;importaran)</translation>
     </message>
     <message>
-        <source>KLog has found one QSO without the Station Callsign defined.
-
-Enter the Station Callsign that was used to do this QSO with %1%2:</source>
-        <translation type="vanished">El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
-
-Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO amb %1%2:</translation>
-    </message>
-    <message>
-        <source>KLog has found one QSO without the Station Callsign defined.
-
-Enter the Station Callsign that was used to do this QSO%1:</source>
-        <translation type="vanished">El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
-
-Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO%1:</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6450"/>
-        <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
-        <translation>Sembla que manca la informació RST-TX a diversos QSO d&apos;aquest registre (p. ex.: %1).</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6450"/>
-        <source>Click on Yes to add a default 59 to all QSOs with a similar problem.</source>
-        <translation>Feu clic a Sí per afegir un 59 predeterminat a tots els QSO amb un problema semblant.</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6450"/>
-        <source>If you select NO, maybe the QSO will not be imported.</source>
-        <translation>Si seleccioneu No, potser no s&apos;importaran els QSO.</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6472"/>
-        <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
-        <translation>Sembla que manca la informació RST-RX a diversos QSO d&apos;aquest registre (p. ex.: %1).</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6545"/>
-        <source>KLog - Apply to all QSOs in this log?</source>
-        <translation>KLog - Aplico a totes els QSO d&apos;aquest registre?</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6401"/>
-        <source>Please edit the ADIF file and make sure that it include at least:</source>
-        <translation>Editeu el fitxer ADIF i assegureu-vos que inclou, com a mínim:</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6401"/>
-        <source>and</source>
-        <translation>i</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6401"/>
-        <source>This QSO had:</source>
-        <translation>Aquest QSO té:</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6426"/>
-        <source>KLog: Not all required data found!</source>
-        <translation>KLog: No s&apos;han trobat totes les dades necessàries!</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6451"/>
-        <source>KLog: No RST TX found!</source>
-        <translation>KLog: No s&apos;ha trobat RST TX!</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6474"/>
-        <source>KLog: No RST RX found!</source>
-        <translation>KLog: No s&apos;ha trobat RST RX!</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6518"/>
-        <location filename="../filemanager.cpp" line="6529"/>
-        <source>KLog - No Station callsign entered.</source>
-        <translation>KLog - No s&apos;ha introduït l&apos;identificador de l&apos;estació.</translation>
-    </message>
-    <message>
-        <location filename="../filemanager.cpp" line="6590"/>
+        <location filename="../filemanager.cpp" line="6480"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../filemanager.cpp" line="6591"/>
-        <location filename="../filemanager.cpp" line="6596"/>
+        <location filename="../filemanager.cpp" line="6487"/>
+        <source>KLog has found one QSO without the Station Callsign defined.
+
+Enter the Station Callsign that was used to do this QSO on %1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6340"/>
+        <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6340"/>
+        <source>Click on Yes to add a default 59 to all QSOs with a similar problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6340"/>
+        <source>If you select NO, maybe the QSO will not be imported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6362"/>
+        <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6435"/>
+        <source>KLog - Apply to all QSOs in this log?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have cancelled the file import. The file will be removed and no data will be imported.</source>
+        <translation type="vanished">Heu cancel·lat la importació del fitxer. El fitxer s&apos;eliminarà i no s&apos;importarà cap dada.</translation>
+    </message>
+    <message>
+        <source>This QSO is not including the minimum data to consider a QSO as valid!.</source>
+        <translation type="vanished">Aquest QSO no inclou les dades mínimes per a considerar-se un QSO vàlid!</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6291"/>
+        <source>Please edit the ADIF file and make sure that it include at least:</source>
+        <translation>Editeu el fitxer ADIF i assegureu-vos que inclou, com a mínim:</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6291"/>
+        <source>and</source>
+        <translation>i</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6291"/>
+        <source>This QSO had:</source>
+        <translation>Aquest QSO té:</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6316"/>
+        <source>KLog: Not all required data found!</source>
+        <translation>KLog: No s&apos;han trobat totes les dades necessàries!</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6341"/>
+        <source>KLog: No RST TX found!</source>
+        <translation>KLog: No s&apos;ha trobat RST TX!</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6364"/>
+        <source>KLog: No RST RX found!</source>
+        <translation>KLog: No s&apos;ha trobat RST RX!</translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6408"/>
+        <location filename="../filemanager.cpp" line="6419"/>
+        <source>KLog - No Station callsign entered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../filemanager.cpp" line="6481"/>
+        <location filename="../filemanager.cpp" line="6486"/>
         <source>KLog - QSO without Station Callsign</source>
-        <translation>KLog - QSO sense identificador de l&apos;estació</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1268,19 +1344,27 @@ Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
         <translation>Sembla que aquesta és la primera vegada que s&apos;executa el KLog en aquest ordinador.</translation>
     </message>
     <message>
+        <source>KLog is a free hamradio logging program that can run on Linux macOS and Windows.</source>
+        <translation type="vanished">El KLog és un programa lliure d&apos;enregistrament de radioafició que es pot executar en el Linux, MacOS i Windows.</translation>
+    </message>
+    <message>
+        <source>It is designed to provide general purpose, DX and contest logging.</source>
+        <translation type="vanished">Està dissenyat per proporcionar enregistrament de propòsit general, DX i concurs.</translation>
+    </message>
+    <message>
         <location filename="../startwizard.cpp" line="153"/>
         <source>KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.</source>
-        <translation>El KLog és un programa lliure d&apos;enregistrament de radioafició que es pot executar al Linux, macOS, i Windows.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="154"/>
         <source>It is designed to provide general purpose DX, and contest logging.</source>
-        <translation>Està dissenyat per proporcionar un enregistrament de caràcter general de DX i per a concursos.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="155"/>
         <source>It supports QSL management, import and export of ADIF </source>
-        <translation>Permet la gestió de QSL, importació i exportació de formats </translation>
+        <translation>Permet la gestió de QSL, importació i exportació d&apos;ADIF</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="156"/>
@@ -1341,216 +1425,195 @@ Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
     <message>
         <location filename="../lotwutilities.cpp" line="63"/>
         <source>KLog - LoTW password needed</source>
-        <translation>KLog - Cal la contrasenya del LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="64"/>
         <source>Please enter your LoTW password: </source>
-        <translation>Introduïu la contrasenya del LoTW: </translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="158"/>
+        <source>KLog - File exist</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="159"/>
-        <source>KLog - File exist</source>
-        <translation>KLog - El fitxer existeix</translation>
+        <source>There is a file already existing with the name that will be used.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="160"/>
-        <source>There is a file already existing with the name that will be used.</source>
-        <translation>Ja hi ha un fitxer existent amb el nom que s&apos;usarà.</translation>
+        <source>The file %1 already exist. Do you want to overwrite?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="161"/>
-        <source>The file %1 already exist. Do you want to overwrite?</source>
-        <translation>El fitxer %1 ja existeix. Voleu sobreescriure&apos;l?</translation>
+        <location filename="../lotwutilities.cpp" line="190"/>
+        <source>KLog - Can&apos;t write the file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="191"/>
-        <source>KLog - Can&apos;t write the file</source>
-        <translation>KLog - No s&apos;ha pogut escriure el fitxer</translation>
+        <source>KLog was not able to save the file %1.
+Error returned: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="192"/>
-        <source>KLog was not able to save the file %1.
-Error returned: %2</source>
-        <translation>El KLog no ha pogut desar el fitxer %1.
-Error retornat: %2</translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="193"/>
         <source>The file already %1 exist.</source>
-        <translation>El fitxer %1 ja existeix.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="211"/>
+        <location filename="../lotwutilities.cpp" line="210"/>
         <source>Downloading data to file: %1.</source>
-        <translation>S&apos;estan baixant les dades al fitxer: %1.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="213"/>
-        <location filename="../lotwutilities.cpp" line="479"/>
+        <location filename="../lotwutilities.cpp" line="212"/>
+        <location filename="../lotwutilities.cpp" line="478"/>
         <source>KLog - LoTW download</source>
-        <translation>KLog - Baixada del LoTW</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lotwutilities.cpp" line="288"/>
+        <source>KLog - Download error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="289"/>
-        <source>KLog - Download error</source>
-        <translation>KLog - Error de baixada</translation>
+        <source>The downloading error is: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="290"/>
-        <source>The downloading error is: %1</source>
-        <translation>L&apos;error de la baixada és: %1</translation>
+        <source>There was an error while downloading the file from LoTW.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="291"/>
-        <source>There was an error while downloading the file from LoTW.</source>
-        <translation>S&apos;ha produït un error en baixar el fitxer des del LoTW.</translation>
+        <location filename="../lotwutilities.cpp" line="301"/>
+        <source>KLog - Redirection found</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="302"/>
-        <source>KLog - Redirection found</source>
-        <translation>KLog - S&apos;ha trobat una redirecció</translation>
+        <source>The remote server redirected our connection to %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="303"/>
-        <source>The remote server redirected our connection to %1</source>
-        <translation>El el servidor remot ha redireccionat la connexió a %1</translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="304"/>
         <source>Do you want to follow the redirection?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="391"/>
+        <location filename="../lotwutilities.cpp" line="390"/>
         <source>It was not possible for find the file %1 that has been just downloaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="458"/>
+        <location filename="../lotwutilities.cpp" line="457"/>
         <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="464"/>
+        <location filename="../lotwutilities.cpp" line="463"/>
         <source>Try again and send the downloaded file (%1) to the KLog developer for analysis.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="480"/>
+        <location filename="../lotwutilities.cpp" line="479"/>
         <source>KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do you want to follow the redirection)</source>
-        <translation type="vanished">Voleu seguir la redirecció?</translation>
+        <location filename="../lotwutilities.cpp" line="388"/>
+        <source>KLog - File not found</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="389"/>
-        <source>KLog - File not found</source>
-        <translation>KLog - No s&apos;ha trobat el fitxer</translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="390"/>
         <source>KLog can&apos;t find the downloaded file.</source>
-        <translation>No s&apos;ha pogut trobar el fitxer baixat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It was not possible for find the file %1 that has been just downloaded</source>
-        <translation type="vanished">No ha estat possible trobar el fitxer %1 que s&apos;acaba de baixar</translation>
+        <location filename="../lotwutilities.cpp" line="449"/>
+        <source>KLog - LoTW user/password error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="450"/>
-        <source>KLog - LoTW user/password error</source>
-        <translation>KLog - Error d&apos;usuari/contrasenya del LoTW</translation>
+        <source>LoTW server did not recognized your user/password</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="451"/>
-        <source>LoTW server did not recognized your user/password</source>
-        <translation>El servidor LoTW no ha reconegut l&apos;usuari/contrasenya</translation>
+        <source>Check your user and password and ensure your are using the right one before trying again.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="452"/>
-        <source>Check your user and password and ensure your are using the right one before trying again.</source>
-        <translation>Verifiqueu l&apos;usuari i la contrasenya i assegureu-vos que esteu usant els correctes abans de tornar a provar-ho.</translation>
+        <location filename="../lotwutilities.cpp" line="455"/>
+        <source>KLog - LoTW No QSOs </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="456"/>
-        <source>KLog - LoTW No QSOs </source>
-        <translation>KLog - LoTW no QSO </translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="457"/>
         <source>LoTW sent no QSOs</source>
-        <translation>El LoTW no ha enviat cap QSO</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1)</source>
-        <translation type="vanished">Sembla que el LoTW no té cap QSO amb l&apos;indicatiu d&apos;estació que esteu usant (%1)</translation>
+        <location filename="../lotwutilities.cpp" line="461"/>
+        <source>KLog - LoTW Unknown error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="462"/>
-        <source>KLog - LoTW Unknown error</source>
-        <translation>KLog - Error desconegut del LoTW</translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="463"/>
         <source>KLog can&apos;t recognize the file that has been downloaded from LoTW.</source>
-        <translation>El KLog no ha pogut reconèixer el fitxer que s&apos;ha baixat des del LoTW.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Try again and send the downloaded file (%1) to the KLog developer for analysis</source>
-        <translation type="vanished">Torneu a intentar-ho i envieu el fitxer baixat (%1) al desenvolupador del KLog per a la seva anàlisi</translation>
-    </message>
-    <message>
-        <source>KLog downloaded %1 QSOs suscessfully. Do you want to update your log with the downloaded data?</source>
-        <translation type="vanished">El KLog ha baixat correctament %1 QSO. Voleu actualitzar el registre amb les dades baixades?</translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="481"/>
+        <location filename="../lotwutilities.cpp" line="480"/>
         <source>Now KLog will process the downloaded QSO and update your local log.</source>
-        <translation>Ara el KLog processarà els QSO baixats i actualitzarà el registre local.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LogModel</name>
     <message>
-        <location filename="../logmodel.cpp" line="107"/>
+        <location filename="../logmodel.cpp" line="105"/>
         <source>Date</source>
         <translation>Data</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="110"/>
+        <location filename="../logmodel.cpp" line="108"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="113"/>
+        <location filename="../logmodel.cpp" line="111"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="116"/>
+        <location filename="../logmodel.cpp" line="114"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="119"/>
+        <location filename="../logmodel.cpp" line="117"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="122"/>
+        <location filename="../logmodel.cpp" line="120"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="125"/>
+        <location filename="../logmodel.cpp" line="123"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../logmodel.cpp" line="128"/>
+        <location filename="../logmodel.cpp" line="126"/>
         <source>Comment</source>
         <translation>Comentari</translation>
     </message>
@@ -1558,102 +1621,102 @@ Error retornat: %2</translation>
 <context>
     <name>LogWindow</name>
     <message>
-        <location filename="../logwindow.cpp" line="251"/>
+        <location filename="../logwindow.cpp" line="256"/>
         <source>QSL Send</source>
         <translation>QSL enviada</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="263"/>
+        <location filename="../logwindow.cpp" line="268"/>
         <source>QSL Rcvd</source>
         <translation>QSL rebuda</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="308"/>
+        <location filename="../logwindow.cpp" line="313"/>
         <source>&amp;Delete</source>
         <translation>&amp;Suprimeix</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="310"/>
+        <location filename="../logwindow.cpp" line="315"/>
         <source>Delete a QSO</source>
         <translation>Suprimeix un QSO</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="313"/>
+        <location filename="../logwindow.cpp" line="318"/>
         <source>&amp;Edit QSO</source>
         <translation>&amp;Edita QSO</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="315"/>
+        <location filename="../logwindow.cpp" line="320"/>
         <source>Edit this QSO</source>
         <translation>Edita aquest QSO</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="318"/>
+        <location filename="../logwindow.cpp" line="323"/>
         <source>Via &amp;bureau</source>
         <translation>Via &amp;bureau</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="320"/>
+        <location filename="../logwindow.cpp" line="325"/>
         <source>Send this QSL via bureau</source>
         <translation>Envia aquesta QSL via bureau</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="323"/>
+        <location filename="../logwindow.cpp" line="328"/>
         <source>D&amp;irect</source>
         <translation>D&amp;irecta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="325"/>
+        <location filename="../logwindow.cpp" line="330"/>
         <source>Send this QSL via direct</source>
         <translation>Envia aquesta QSL via directa</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="328"/>
+        <location filename="../logwindow.cpp" line="333"/>
         <source>Via bureau</source>
         <translation>Via bureau</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="330"/>
+        <location filename="../logwindow.cpp" line="335"/>
         <source>QSL &amp;received via bureau</source>
         <translation>QSL &amp;rebuda via bureau</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="333"/>
+        <location filename="../logwindow.cpp" line="338"/>
         <source>Direct</source>
         <translation>Directa</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="335"/>
+        <location filename="../logwindow.cpp" line="340"/>
         <source>QSL received via direc&amp;t</source>
         <translation>QSL rebuda via direc&amp;ta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="338"/>
-        <source>Check in QRZ.com</source>
-        <translation>Comprova a QRZ.com</translation>
-    </message>
-    <message>
-        <location filename="../logwindow.cpp" line="340"/>
-        <source>Check this callsign in QRZ.com</source>
-        <translation>Comprova aquest identificador a QRZ.com</translation>
-    </message>
-    <message>
         <location filename="../logwindow.cpp" line="343"/>
-        <source>Check in DXHeat.com</source>
-        <translation>Comprova a DXHeat.com</translation>
+        <source>Check in QRZ.com</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="345"/>
-        <source>Check this callsign in DXHeat.com</source>
-        <translation>Comprova aquest identificador a DXHeat.com</translation>
+        <source>Check this callsign in QRZ.com</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="432"/>
+        <location filename="../logwindow.cpp" line="348"/>
+        <source>Check in DXHeat.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../logwindow.cpp" line="350"/>
+        <source>Check this callsign in DXHeat.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../logwindow.cpp" line="437"/>
         <source>You have requested to delete this QSO.</source>
         <translation>Heu sol·licitat suprimir aquest QSO.</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="433"/>
+        <location filename="../logwindow.cpp" line="438"/>
         <source>Are you sure?</source>
         <translation>Esteu segur?</translation>
     </message>
@@ -1661,66 +1724,70 @@ Error retornat: %2</translation>
 <context>
     <name>MainQSOEntryWidget</name>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="16"/>
-        <location filename="../mainqsoentrywidget.cpp" line="291"/>
-        <location filename="../mainqsoentrywidget.cpp" line="542"/>
+        <location filename="../mainqsoentrywidget.cpp" line="15"/>
+        <location filename="../mainqsoentrywidget.cpp" line="290"/>
+        <location filename="../mainqsoentrywidget.cpp" line="554"/>
         <source>&amp;Add</source>
-        <translation>&amp;Afegeix</translation>
+        <translation type="unfinished">&amp;Afegeix</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="17"/>
+        <location filename="../mainqsoentrywidget.cpp" line="16"/>
         <source>&amp;Clear</source>
-        <translation>&amp;Neteja</translation>
+        <translation type="unfinished">&amp;Neteja</translation>
+    </message>
+    <message>
+        <location filename="../mainqsoentrywidget.cpp" line="32"/>
+        <source>QRZ of the QSO.</source>
+        <translation type="unfinished">QRZ del QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="33"/>
-        <source>QRZ of the QSO.</source>
-        <translation>QRZ del QSO.</translation>
+        <source>Band of the QSO.</source>
+        <translation type="unfinished">Banda del QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="34"/>
-        <source>Band of the QSO.</source>
-        <translation>Banda del QSO.</translation>
+        <source>Mode of the QSO.</source>
+        <translation type="unfinished">Mode del QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="35"/>
-        <source>Mode of the QSO.</source>
-        <translation>Mode del QSO.</translation>
+        <source>Date of the QSO.</source>
+        <translation type="unfinished">Data del QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="36"/>
-        <source>Date of the QSO.</source>
-        <translation>Data del QSO.</translation>
+        <source>Time of the QSO.</source>
+        <translation type="unfinished">Hora del QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="37"/>
-        <source>Time of the QSO.</source>
-        <translation>Hora del QSO.</translation>
+        <source>Add the QSO to the log.</source>
+        <translation type="unfinished">Afegeix el QSO al registre.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="38"/>
-        <source>Add the QSO to the log.</source>
-        <translation>Afegeix el QSO al registre.</translation>
+        <source>Clears the QSO entry.</source>
+        <translation type="unfinished">Neteja l&apos;entrada QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="39"/>
-        <source>Clears the QSO entry.</source>
-        <translation>Neteja l&apos;entrada QSO.</translation>
-    </message>
-    <message>
-        <location filename="../mainqsoentrywidget.cpp" line="40"/>
         <source>KLog will show real time if enabled.</source>
-        <translation>El KLog mostrarà l&apos;hora real si està activada.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="55"/>
+        <location filename="../mainqsoentrywidget.cpp" line="54"/>
         <source>QRZ</source>
-        <translation>QRZ</translation>
+        <translation type="unfinished">QRZ</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="537"/>
+        <source>Invalid characters used in the QRZ</source>
+        <translation type="obsolete">Caràcters no vàlids usats al QRZ</translation>
+    </message>
+    <message>
+        <location filename="../mainqsoentrywidget.cpp" line="550"/>
         <source>&amp;Modify</source>
-        <translation>&amp;Modifica</translation>
+        <translation type="unfinished">&amp;Modifica</translation>
     </message>
 </context>
 <context>
@@ -1729,6 +1796,18 @@ Error retornat: %2</translation>
         <location filename="../mainwindow.cpp" line="134"/>
         <source>Starting KLog</source>
         <translation>S&apos;està iniciant el KLog</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="vanished">&amp;Afegeix</translation>
+    </message>
+    <message>
+        <source>&amp;Clear</source>
+        <translation type="vanished">&amp;Neteja</translation>
+    </message>
+    <message>
+        <source>Status bar...</source>
+        <translation type="vanished">Barra d&apos;estat...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="108"/>
@@ -1740,6 +1819,10 @@ Error retornat: %2</translation>
         <location filename="../mainwindow.cpp" line="181"/>
         <source>&amp;Log Window</source>
         <translation>&amp;Finestra del registre</translation>
+    </message>
+    <message>
+        <source>&amp;Score Window</source>
+        <translation type="vanished">Fine&amp;stra de puntuació</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="339"/>
@@ -1754,24 +1837,24 @@ Error retornat: %2</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="667"/>
-        <location filename="../mainwindow.cpp" line="3934"/>
+        <location filename="../mainwindow.cpp" line="3909"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="582"/>
         <source>It seems that you have never done a backup or exported your log to ADIF.</source>
-        <translation>Sembla que mai s&apos;ha fet una còpia de seguretat o s&apos;ha exportat el registre a ADIF.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="588"/>
         <source>It seems that the latest backup you did is older than one month.</source>
-        <translation>Sembla que la darrera còpia de seguretat que s&apos;ha fet és anterior a un mes.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="598"/>
         <source>Log backup recommended!</source>
-        <translation>Es recomana una còpia de seguretat del registre!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="601"/>
@@ -1781,12 +1864,7 @@ Once you export your log to an ADIF file, you should copy that file to a safe pl
 KLog will remind you to backup on a monthly basis.
 
 </source>
-        <translation>És una bona pràctica fer regularment una còpia de seguretat del registre complet per a evitar perdre dades en cas d&apos;algun problema.
-Un cop feta l&apos;exportació  del registre a una fitxer ADIF, caldria copiar aquest fitxer en un lloc segur, com una unitat USB, una unitat al núvol, un altre ordinador,...
-
-El KLog us recordarà que feu una còpia de seguretat mensualment.
-
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="649"/>
@@ -1800,13 +1878,13 @@ El KLog us recordarà que feu una còpia de seguretat mensualment.
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1038"/>
-        <location filename="../mainwindow.cpp" line="1801"/>
+        <location filename="../mainwindow.cpp" line="1775"/>
         <source>You have selected an entity:</source>
         <translation>Heu seleccionat una entitat:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1038"/>
-        <location filename="../mainwindow.cpp" line="1801"/>
+        <location filename="../mainwindow.cpp" line="1775"/>
         <source>that is different from the KLog proposed entity:</source>
         <translation>que és diferent de l&apos;entitat proposada pel KLog:</translation>
     </message>
@@ -1816,499 +1894,683 @@ El KLog us recordarà que feu una còpia de seguretat mensualment.
         <translation>Feu clic al prefix de l&apos;entitat correcta o Cancel·la per tornar a editar el QSO.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1802"/>
+        <location filename="../mainwindow.cpp" line="1776"/>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
         <translation>Feu clic al prefix de l&apos;entitat correcta o Cancel·la per corregir.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5017"/>
+        <source>QRZ of the QSO.</source>
+        <translation type="vanished">QRZ del QSO.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4992"/>
         <source>TX RST.</source>
         <translation>TX RST.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5019"/>
+        <location filename="../mainwindow.cpp" line="4994"/>
         <source>RX RST.</source>
         <translation>RX RST.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6583"/>
+        <source>TX Exchange.</source>
+        <translation type="vanished">Intercanvi TX.</translation>
+    </message>
+    <message>
+        <source>Band of the QSO.</source>
+        <translation type="vanished">Banda del QSO.</translation>
+    </message>
+    <message>
+        <source>Mode of the QSO.</source>
+        <translation type="vanished">Mode del QSO.</translation>
+    </message>
+    <message>
+        <source>Date of the QSO.</source>
+        <translation type="vanished">Data del QSO.</translation>
+    </message>
+    <message>
+        <source>Time of the QSO.</source>
+        <translation type="vanished">Hora del QSO.</translation>
+    </message>
+    <message>
+        <source>Add the QSO to the log.</source>
+        <translation type="vanished">Afegeix el QSO al registre.</translation>
+    </message>
+    <message>
+        <source>Clear the box.</source>
+        <translation type="vanished">Neteja el quadre.</translation>
+    </message>
+    <message>
+        <source>Input</source>
+        <translation type="vanished">Entrada</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="6460"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6581"/>
+        <location filename="../mainwindow.cpp" line="6458"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <source>KLog - Select the Station Callsign</source>
-        <translation type="vanished">KLog - Selecció de l&apos;indicatiu d&apos;estació</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="5565"/>
+        <location filename="../mainwindow.cpp" line="5425"/>
         <source>Select the Station Callsign to use when quering LoTW:</source>
-        <translation>Seleccioneu l&apos;indicatiu d&apos;estació a usar per consultar el LoTW:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5582"/>
+        <location filename="../mainwindow.cpp" line="5442"/>
         <source>Please check the LoTW setup</source>
-        <translation>Comproveu la configuració del LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5583"/>
+        <location filename="../mainwindow.cpp" line="5443"/>
         <source>You have not defined a LoTW user or a proper Station Callsign.
 Open the LoTW tab in the Setup and configure your LoTW connection.</source>
-        <translation>No s&apos;ha definit cap usuari del LoTW o un indicatiu d&apos;estació adequat.
-Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del LoTW.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6579"/>
+        <location filename="../mainwindow.cpp" line="6456"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2581"/>
+        <source>STX</source>
+        <translation type="vanished">STX</translation>
+    </message>
+    <message>
+        <source>SRX</source>
+        <translation type="vanished">SRX</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2557"/>
         <source>Do you really want to exit KLog?</source>
         <translation>Esteu segur que voleu sortir del KLog?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2995"/>
+        <source>NEW MULT</source>
+        <translation type="vanished">NEW MULT</translation>
+    </message>
+    <message>
+        <source>Invalid characters used in the QRZ</source>
+        <translation type="vanished">Caràcters no vàlids usats al QRZ</translation>
+    </message>
+    <message>
+        <source>Ready...</source>
+        <translation type="vanished">Llest...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2971"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxer</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3006"/>
+        <source>&amp;New...</source>
+        <translation type="vanished">&amp;Nou...</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation type="vanished">&amp;Obre...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2982"/>
         <source>&amp;Import from ADIF...</source>
         <translation>&amp;Importa des d&apos;ADIF...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3009"/>
+        <location filename="../mainwindow.cpp" line="2985"/>
         <source>Import an ADIF file into the current log.</source>
         <translation>Importa un fitxer ADIF al registre actual.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3026"/>
+        <source>&amp;Save As...</source>
+        <translation type="vanished">&amp;Desa com a...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3002"/>
         <source>Export to ADIF...</source>
         <translation>Exporta a ADIF...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3030"/>
+        <location filename="../mainwindow.cpp" line="3006"/>
         <source>Export the current log to an ADIF logfile.</source>
         <translation>Exporta el registre actual a un fitxer ADIF.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3032"/>
+        <location filename="../mainwindow.cpp" line="3008"/>
         <source>Export all logs to ADIF...</source>
         <translation>Exporta tots els registres a ADIF...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3036"/>
+        <location filename="../mainwindow.cpp" line="3012"/>
         <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
         <translation>Exporta tots els QSO a un fitxer ADIF, fusionant els QSO de tots els registres.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3050"/>
+        <source>Export Requested QSL to ADIF...</source>
+        <translation type="vanished">Exporta les QSL sol·licitades a ADIF...</translation>
+    </message>
+    <message>
+        <source>Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program).</source>
+        <translation type="vanished">Exporta tots els QSO que sol·licitin QSL a un fitxer ADIF (p. ex. en importar-los a un programa d&apos;impressió d&apos;etiquetes QSL).</translation>
+    </message>
+    <message>
+        <source>Export ADIF for LoTW...</source>
+        <translation type="vanished">Exporta l&apos;ADIF per a LoTW...</translation>
+    </message>
+    <message>
+        <source>Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!</source>
+        <translation type="vanished">Exporta un fitxer ADIF per enviar a LoTW. Recordeu signar-lo amb TQSL abans de pujar-lo a LoTW!</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3026"/>
         <source>&amp;Print Log...</source>
         <translation>Im&amp;primeix el registre...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3053"/>
+        <location filename="../mainwindow.cpp" line="3029"/>
         <source>Print your log.</source>
         <translation>Imprimeix el registre.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3058"/>
+        <location filename="../mainwindow.cpp" line="3034"/>
         <source>KLog folder</source>
         <translation>Carpeta del KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3060"/>
+        <location filename="../mainwindow.cpp" line="3036"/>
         <source>Opens the data folder of KLog.</source>
         <translation>Obre la carpeta de dades del KLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3065"/>
+        <location filename="../mainwindow.cpp" line="3041"/>
         <source>E&amp;xit</source>
         <translation>S&amp;urt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3072"/>
+        <location filename="../mainwindow.cpp" line="3048"/>
         <source>&amp;Tools</source>
         <translation>&amp;Eines</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3074"/>
+        <location filename="../mainwindow.cpp" line="3050"/>
         <source>Fill in QSO data</source>
         <translation>Omple les dades QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3078"/>
+        <location filename="../mainwindow.cpp" line="3054"/>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
         <translation>Recorre el registre reutilitzant els QSO anteriors per omplir informació que manqui en altres QSO.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3086"/>
+        <source>Fill in DXCC data</source>
+        <translation type="vanished">Omple les dades DXCC</translation>
+    </message>
+    <message>
+        <source>Go through the log filling QSOs without a DXCC defined.</source>
+        <translation type="vanished">Recorre el registre omplint els QSO sense cap DXCC definit.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3062"/>
         <source>QSL tools...</source>
         <translation>Eines QSL...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3093"/>
+        <location filename="../mainwindow.cpp" line="3069"/>
         <source>&amp;Find QSO to QSL</source>
         <translation>&amp;Cerca QSO a les QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3096"/>
+        <location filename="../mainwindow.cpp" line="3072"/>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
         <translation>Mostra els QSO pels quals cal enviar la vostra QSL i sol·licitar la DX QSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3098"/>
+        <location filename="../mainwindow.cpp" line="3074"/>
         <source>Find My-QSLs pending to send</source>
         <translation>Cerca les meves QSL pendents d&apos;enviar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3102"/>
+        <location filename="../mainwindow.cpp" line="3078"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
         <translation>Mostra els QSO amb sol·licituds pendents d&apos;enviar les QSL. Cal mantenir buida aquesta cua!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3104"/>
+        <location filename="../mainwindow.cpp" line="3080"/>
         <source>&amp;Find DX-QSLs pending to receive</source>
         <translation>&amp;Cerca les DX-QSL pendents de rebre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3109"/>
+        <source>Shows the DX-QSL that has been requested or QSLs has been sent with no answer.</source>
+        <translation type="vanished">Mostra les DX-QSL que s&apos;han sol·licitat o les QSL que s&apos;han enviat sense resposta.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3085"/>
         <source>&amp;Find requested pending to receive</source>
         <translation>&amp;Cerca sol·licituds pendents de rebre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3115"/>
+        <source>Shows the DX-QSL that has been requested.</source>
+        <translation type="vanished">Mostra les DX-QSL que s&apos;han sol·licitat.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3091"/>
         <source>LoTW tools...</source>
         <translation>Eines LoTW...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3132"/>
+        <source>Queue all QSL to be sent of this log</source>
+        <translation type="vanished">Posa a la cua totes les QSL a enviar d&apos;aquest registre</translation>
+    </message>
+    <message>
+        <source>Mark all non sent QSOs in this log as queued to be uploaded.</source>
+        <translation type="vanished">Marca tots els QSO no enviats en aquest registre com a posats en cua per a ser pujats.</translation>
+    </message>
+    <message>
+        <source>Queue all QSL to be sent</source>
+        <translation type="vanished">Posa a la cua totes les QSL a enviar</translation>
+    </message>
+    <message>
+        <source>Mark all non sent QSOs as queued to be uploaded.</source>
+        <translation type="vanished">Marca tots els QSO no enviats com a posats en cua per a ser pujats.</translation>
+    </message>
+    <message>
+        <source>Mark as sent all queued QSO of this log</source>
+        <translation type="vanished">Marca com a enviats tots els QSO d&apos;aquest registre</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3108"/>
         <source>Mark all queued QSOs in this log as sent to LoTW.</source>
         <translation>Marca tots els QSO posats en cua d&apos;aquest registre com a enviats al LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3137"/>
+        <source>Mark all queued QSO as sent</source>
+        <translation type="vanished">Marca tots els QSO posats en cua com a enviats</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3113"/>
         <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation>Marca tots els QSO posats en cua com a enviats al LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="210"/>
         <source>Upload to LoTW</source>
-        <translation>Puja al LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4726"/>
+        <location filename="../mainwindow.cpp" line="4701"/>
         <source>Sends the log to LoTW calling TQSL.</source>
-        <translation>Envia el registre al LoTW cridant el TQSL.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3151"/>
+        <location filename="../mainwindow.cpp" line="3127"/>
         <source>&amp;Update cty.csv</source>
         <translation>&amp;Actualitza el «cty.csv»</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3155"/>
-        <location filename="../mainwindow.cpp" line="3160"/>
+        <location filename="../mainwindow.cpp" line="3131"/>
+        <location filename="../mainwindow.cpp" line="3136"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation>Per a dades DX-Entity actualitzades, actualitzeu el «cty.csv».</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3157"/>
+        <location filename="../mainwindow.cpp" line="3133"/>
         <source>&amp;Update Satellite Data</source>
         <translation>Act&amp;ualitza les dades dels satèl·lits</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3164"/>
+        <location filename="../mainwindow.cpp" line="3140"/>
         <source>Stats</source>
         <translation>Estadístiques</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3167"/>
+        <location filename="../mainwindow.cpp" line="3143"/>
         <source>Show the statistics of your radio activity.</source>
         <translation>Mostra les estadístiques de la vostra activitat de ràdio.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3184"/>
+        <location filename="../mainwindow.cpp" line="3160"/>
         <source>&amp;Setup</source>
         <translation>&amp;Configuració</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3186"/>
+        <location filename="../mainwindow.cpp" line="3162"/>
         <source>&amp;Setup...</source>
         <translation>&amp;Configuració...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3192"/>
+        <location filename="../mainwindow.cpp" line="3168"/>
         <source>&amp;Help</source>
         <translation>&amp;Ajuda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3214"/>
+        <location filename="../mainwindow.cpp" line="3190"/>
         <source>Check updates...</source>
         <translation>Comprova les actualitzacions...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3201"/>
+        <location filename="../mainwindow.cpp" line="3177"/>
         <source>&amp;About...</source>
         <translation>&amp;Quant a...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3194"/>
+        <location filename="../mainwindow.cpp" line="3170"/>
         <source>&amp;Tips...</source>
         <translation>&amp;Consells...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3206"/>
+        <location filename="../mainwindow.cpp" line="3182"/>
         <source>About Qt...</source>
         <translation>Quant a les Qt...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3267"/>
-        <location filename="../mainwindow.cpp" line="3276"/>
-        <location filename="../mainwindow.cpp" line="3293"/>
-        <location filename="../mainwindow.cpp" line="3325"/>
-        <location filename="../mainwindow.cpp" line="3333"/>
-        <location filename="../mainwindow.cpp" line="3515"/>
-        <location filename="../mainwindow.cpp" line="3523"/>
-        <location filename="../mainwindow.cpp" line="3542"/>
-        <location filename="../mainwindow.cpp" line="3550"/>
-        <location filename="../mainwindow.cpp" line="5482"/>
-        <location filename="../mainwindow.cpp" line="5505"/>
-        <location filename="../mainwindow.cpp" line="5515"/>
+        <location filename="../mainwindow.cpp" line="3244"/>
+        <location filename="../mainwindow.cpp" line="3253"/>
+        <location filename="../mainwindow.cpp" line="3270"/>
+        <location filename="../mainwindow.cpp" line="3303"/>
+        <location filename="../mainwindow.cpp" line="3311"/>
+        <location filename="../mainwindow.cpp" line="3493"/>
+        <location filename="../mainwindow.cpp" line="3501"/>
+        <location filename="../mainwindow.cpp" line="3520"/>
+        <location filename="../mainwindow.cpp" line="3528"/>
+        <location filename="../mainwindow.cpp" line="5342"/>
+        <location filename="../mainwindow.cpp" line="5365"/>
+        <location filename="../mainwindow.cpp" line="5375"/>
         <source>KLog LoTW</source>
         <translation>KLog LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3268"/>
-        <location filename="../mainwindow.cpp" line="3326"/>
+        <source>All pending QSO of this log has been marked as queued for LoTW!</source>
+        <translation type="vanished">Tots els QSO pendents d&apos;aquest registre s&apos;han marcat com a posats en cua pel LoTW!</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3245"/>
+        <location filename="../mainwindow.cpp" line="3304"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
-        <translation>Ara podeu anar al menú Fitxer per exportar el fitxer ADIF del LoTW i pujar-lo al LoTW.</translation>
+        <translation>Ara podeu anar al menú Fitxer per exportar el fitxer LoTW ADIF i pujar-lo a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3354"/>
+        <source>There was a problem to mark all pending QSO of this log as queued for LoTW!</source>
+        <translation type="vanished">Hi ha hagut un problema en marcar tots els QSO pendents d&apos;aquest registre com a posats en cua pel LoTW!</translation>
+    </message>
+    <message>
+        <source>All pending QSO has been marked as queued for LoTW!</source>
+        <translation type="vanished">Tots els QSO pendents s&apos;han marcat com a posats en cua pel LoTW!</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3332"/>
         <source>KLog - TQSL</source>
-        <translation>KLog - TQSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3358"/>
+        <location filename="../mainwindow.cpp" line="3336"/>
         <source>TQSL is not installed or KLog can&apos;t find it. Please check the configuration.</source>
-        <translation>El TQSL no està instal·lat o el KLog no l&apos;ha pogut trobar. Comproveu la configuració.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3377"/>
+        <location filename="../mainwindow.cpp" line="3355"/>
         <source>Error #1: The process was cancelled by the user or TQSL was not configured. No QSOs were uploaded.</source>
-        <translation>Error núm. 1: L&apos;usuari ha cancel·lat el procés o el TQSL no estava configurat. No s&apos;ha pujat cap QSO.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3381"/>
+        <location filename="../mainwindow.cpp" line="3359"/>
         <source>Error #2: Upload was rejected by LoTW, please check your data.</source>
-        <translation>Error núm. 2: El LoTW ha rebutjat la pujada, comproveu les dades.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3385"/>
+        <location filename="../mainwindow.cpp" line="3363"/>
         <source>Error #3: The TQSL server returned an unexpected response.</source>
-        <translation>Error núm. 3: El servidor TQSL ha retornat una resposta inesperada.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3389"/>
+        <location filename="../mainwindow.cpp" line="3367"/>
         <source>Error #4: There was a TQSL error.</source>
-        <translation>Error núm. 4: Hi ha hagut un error del TQSL.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3393"/>
+        <location filename="../mainwindow.cpp" line="3371"/>
         <source>Error #5: There was a TQSLLib error.</source>
-        <translation>Error núm. 5: Hi ha hagut un error del TQSLLib.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3397"/>
+        <location filename="../mainwindow.cpp" line="3375"/>
         <source>Error #6: It was not possible to open the input file.</source>
-        <translation>Error núm. 6: No ha estat possible obrir el fitxer d&apos;entrada.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3401"/>
+        <location filename="../mainwindow.cpp" line="3379"/>
         <source>Error #7: It was not possible to open the ouput file.</source>
-        <translation>Error núm. 7: No ha estat possible obrir el fitxer de sortida.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3405"/>
+        <location filename="../mainwindow.cpp" line="3383"/>
         <source>Error #8: No QSOs were processed since some QSOs were duplicates or out of date range.</source>
-        <translation>Error núm. 8: No s&apos;ha processat cap QSO ja que alguns QSO estaven duplicats o fora de l&apos;interval de dates.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3409"/>
+        <location filename="../mainwindow.cpp" line="3387"/>
         <source>Error #9: Some QSOs were processed, and some QSOs were ignored because they were duplicates or out of date range.</source>
-        <translation>Error núm. 9: S&apos;han processat alguns QSO, i alguns QSO s&apos;han ignorat perquè estaven duplicats o fora de l&apos;interval de dates.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3413"/>
+        <location filename="../mainwindow.cpp" line="3391"/>
         <source>Error #10: Command syntax error. KLog sent a bad syntax command.</source>
-        <translation>Error núm. 10: Error de sintaxi de l&apos;ordre. El KLog ha enviat una ordre amb sintaxi incorrecta.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3417"/>
+        <location filename="../mainwindow.cpp" line="3395"/>
         <source>Error #11: LoTW Connection error (no network or LoTW is unreachable).</source>
-        <translation>Error núm. 11: Error de connexió al LoTW (no hi ha xarxa o el LoTW no és accessible).</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3420"/>
+        <location filename="../mainwindow.cpp" line="3398"/>
         <source>Error #00: Unexpected error. Please contact the development team.</source>
-        <translation>Error núm. 00: Error inesperat. Contacteu amb l&apos;equip de desenvolupament.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3452"/>
+        <location filename="../mainwindow.cpp" line="3430"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>El registre que heu seleccionat conté més d&apos;un indicatiu d&apos;estació.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3452"/>
+        <location filename="../mainwindow.cpp" line="3430"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
-        <translation>Seleccioneu l&apos;indicatiu d&apos;estació que voleu marcar com enviat al LoTW:</translation>
+        <translation>Seleccioneu l&apos;indicatiu d&apos;estació que voleu marcar com enviat a LoTW:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3455"/>
+        <location filename="../mainwindow.cpp" line="3433"/>
         <source>Station Callsign:</source>
         <translation>Indicatiu d&apos;estació:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3466"/>
+        <location filename="../mainwindow.cpp" line="3444"/>
         <source>Define Station Callsign</source>
         <translation>Defineix l&apos;indicatiu d&apos;estació</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3467"/>
+        <location filename="../mainwindow.cpp" line="3445"/>
         <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
         <translation>No heu seleccionat cap indicatiu. El KLog marcarà els QSO sense cap indicatiu d&apos;estació definit i aquells amb l&apos;indicatiu que introduïu aquí.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3467"/>
+        <location filename="../mainwindow.cpp" line="3445"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
         <translation>Introduïu l&apos;indicatiu d&apos;estació emprat en aquest registre o deixeu-ho buit pels QSO sense indicatiu d&apos;estació definit:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3484"/>
+        <location filename="../mainwindow.cpp" line="3462"/>
         <source>KLog - No station selected</source>
-        <translation>KLog - No s&apos;ha seleccionat cap estació</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3485"/>
+        <location filename="../mainwindow.cpp" line="3463"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>No s&apos;ha seleccionat cap indicatiu, i per tant no es marcarà cap registre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3606"/>
+        <source>All queued QSO of this log has been marked as sent for LoTW!</source>
+        <translation type="vanished">Tots els QSO posats en cua d&apos;aquest registre s&apos;han marcat com a enviats pel LoTW!</translation>
+    </message>
+    <message>
+        <source>There was a problem to mark all queued QSO of this log as sent for LoTW!</source>
+        <translation type="vanished">Hi ha hagut un problema en marcar tots els QSO posats en cua d&apos;aquest registre com a enviats pel LoTW!</translation>
+    </message>
+    <message>
+        <source>All queued QSO has been marked as sent to LoTW!</source>
+        <translation type="vanished">Tots els QSO posats en cua s&apos;han marcat com a enviats al LoTW!</translation>
+    </message>
+    <message>
+        <source>There was a problem to mark all queued QSO of this log as sent to LoTW!</source>
+        <translation type="vanished">Hi ha hagut un problema en marcar tots els QSO posats en cua d&apos;aquest registre com a enviats al LoTW!</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3581"/>
         <source>About...</source>
         <translation>Quant a...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3664"/>
+        <location filename="../mainwindow.cpp" line="3639"/>
         <source>KLog update checking result</source>
         <translation>Resultat de la comprovació d&apos;actualitzacions del KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3665"/>
+        <location filename="../mainwindow.cpp" line="3640"/>
         <source>Congratulations!</source>
         <translation>Enhorabona!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3665"/>
+        <location filename="../mainwindow.cpp" line="3640"/>
         <source>You already have the latest version.</source>
         <translation>Ja teniu la versió més recent.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3927"/>
-        <source>You can find the KLog data folder here: </source>
-        <translation>Podeu trobar la carpeta de dades del KLog aquí: </translation>
+        <source>Nothing has been saved. You have to select a valid file type.</source>
+        <translation type="vanished">No s&apos;ha guardat res. Cal seleccionar un tipus de fitxer vàlid.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4149"/>
+        <source>Save File</source>
+        <translation type="vanished">Desa el fitxer</translation>
+    </message>
+    <message>
+        <source>ADIF file</source>
+        <translation type="vanished">Fitxer ADIF</translation>
+    </message>
+    <message>
+        <source>Cabrillo files</source>
+        <translation type="vanished">Fitxers Cabrillo</translation>
+    </message>
+    <message>
+        <source>Any file</source>
+        <translation type="vanished">Qualsevol fitxer</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3902"/>
+        <source>You can find the KLog data folder here: </source>
+        <translation>Podeu trobar la carpeta de dades del KLog aquí:</translation>
+    </message>
+    <message>
+        <source>DUPE</source>
+        <translation type="vanished">DUPLICAT</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4124"/>
         <source>start</source>
         <translation>començar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4171"/>
+        <location filename="../mainwindow.cpp" line="4146"/>
         <source>stop</source>
         <translation>aturar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4616"/>
+        <source>It seems that there are no QSO in the database.</source>
+        <translation type="vanished">Sembla que no hi ha cap QSO a la base de dades.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4591"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
         <translation>Si esteu segur que la base de dades conté QSO i el KLog no és capaç de trobar-los, contacteu amb els desenvolupadors (vegeu Quant al KLog) per sol·licitar ajuda.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5003"/>
-        <location filename="../mainwindow.cpp" line="7110"/>
+        <location filename="../mainwindow.cpp" line="4978"/>
+        <location filename="../mainwindow.cpp" line="6987"/>
         <source>TX Frequency in MHz.</source>
         <translation>Freqüència de TX en MHz.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5004"/>
-        <location filename="../mainwindow.cpp" line="7161"/>
+        <location filename="../mainwindow.cpp" line="4979"/>
+        <location filename="../mainwindow.cpp" line="7038"/>
         <source>RX Frequency in MHz.</source>
         <translation>Freqüència de RX en MHz.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5006"/>
+        <location filename="../mainwindow.cpp" line="4981"/>
         <source>Power used by the DX.</source>
         <translation>Potència usada pel DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5007"/>
+        <location filename="../mainwindow.cpp" line="4982"/>
         <source>Logging operator&apos;s callsign.</source>
         <translation>Indicatiu de l&apos;operador del registre.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5008"/>
+        <location filename="../mainwindow.cpp" line="4983"/>
         <source>Callsign used over the air.</source>
         <translation>Indicatiu usat a l&apos;aire.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6211"/>
+        <location filename="../mainwindow.cpp" line="5424"/>
+        <source>KLog - Select the Station Callsign.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="6078"/>
         <source>My QTH locator.</source>
         <translation>El meu localitzador QTH.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5011"/>
+        <location filename="../mainwindow.cpp" line="4986"/>
         <source>Name of the DX.</source>
         <translation>Nom del DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5012"/>
+        <location filename="../mainwindow.cpp" line="4987"/>
         <source>QTH of the DX.</source>
         <translation>QTH del DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5013"/>
+        <location filename="../mainwindow.cpp" line="4988"/>
         <source>Locator of the DX.</source>
         <translation>Localitzador del DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5080"/>
+        <location filename="../mainwindow.cpp" line="5055"/>
         <source>DX Locator</source>
         <translation>Localitzador DX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7135"/>
+        <location filename="../mainwindow.cpp" line="7012"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Freqüència TX en MHz.
-La freqüència no es en cap banda de radioafició!</translation>
+La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7174"/>
+        <location filename="../mainwindow.cpp" line="7051"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Freqüència RX en MHz.
 La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7330"/>
+        <location filename="../mainwindow.cpp" line="7207"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO enregistrat des del WSJT-X:</translation>
+    </message>
+    <message>
+        <source>RX Exchange.</source>
+        <translation type="vanished">Intercanvi RX.</translation>
     </message>
     <message>
         <source>It was not possible to open the debug file for writting. No debug log will be saved!</source>
@@ -2330,18 +2592,28 @@ La freqüència no es en una banda de radioafició!</translation>
         <translation>S&apos;obrirà la configuració per permetre establir qualsevol paràmetre nou que calgui.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2950"/>
+        <location filename="../mainwindow.cpp" line="2926"/>
         <source>The logfile has been modified.</source>
         <translation>El fitxer de registre s&apos;ha modificat.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2950"/>
+        <location filename="../mainwindow.cpp" line="2926"/>
         <source>Do you want to save your changes?</source>
         <translation>Voleu desar els canvis?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4150"/>
-        <location filename="../mainwindow.cpp" line="4172"/>
+        <location filename="../mainwindow.cpp" line="3275"/>
+        <source>Your log has been updated with the LoTW downloaded QSOs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3276"/>
+        <source>KLog has updated %1 QSOs from LoTW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4125"/>
+        <location filename="../mainwindow.cpp" line="4147"/>
         <source>UDP Server error
 The UDP server failed to %1.</source>
         <comment>start or stop</comment>
@@ -2349,133 +2621,109 @@ The UDP server failed to %1.</source>
 El servidor UDP ha fallat en %1.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5022"/>
+        <source>Clears the QSO entry.</source>
+        <translation type="vanished">Neteja l&apos;entrada QSO.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4997"/>
         <source>Status of the DX entity.</source>
         <translation>Estat de l&apos;entitat DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5024"/>
+        <location filename="../mainwindow.cpp" line="4999"/>
         <source>Name of the DX entity.</source>
         <translation>Nom de l&apos;entitat DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5073"/>
-        <location filename="../mainwindow.cpp" line="7269"/>
+        <location filename="../mainwindow.cpp" line="5048"/>
+        <location filename="../mainwindow.cpp" line="7146"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5077"/>
+        <location filename="../mainwindow.cpp" line="5052"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5083"/>
+        <source>Locator</source>
+        <translation type="vanished">Localitzador</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="5058"/>
         <source>Power(rx)</source>
         <translation>Potència (rx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5086"/>
+        <location filename="../mainwindow.cpp" line="5061"/>
         <source>RST(tx)</source>
         <translation>RST (tx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5089"/>
+        <location filename="../mainwindow.cpp" line="5064"/>
         <source>RST(rx)</source>
         <translation>RST(rx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5114"/>
+        <location filename="../mainwindow.cpp" line="5089"/>
         <source>Freq TX</source>
         <translation>Freq TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5116"/>
+        <location filename="../mainwindow.cpp" line="5091"/>
         <source>Freq RX</source>
         <translation>Freq RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5180"/>
+        <location filename="../mainwindow.cpp" line="5155"/>
         <source>QSO</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5191"/>
+        <location filename="../mainwindow.cpp" line="5166"/>
         <source>QSL</source>
         <translation>QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5192"/>
+        <location filename="../mainwindow.cpp" line="5167"/>
         <source>eQSL</source>
         <translation>eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5193"/>
-        <location filename="../mainwindow.cpp" line="6589"/>
+        <location filename="../mainwindow.cpp" line="5168"/>
+        <location filename="../mainwindow.cpp" line="6466"/>
         <source>Comment</source>
         <translation>Comentari</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5196"/>
+        <location filename="../mainwindow.cpp" line="5171"/>
         <source>Others</source>
         <translation>Altres</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5198"/>
+        <location filename="../mainwindow.cpp" line="5173"/>
         <source>My Data</source>
         <translation>Les meves dades</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5199"/>
+        <location filename="../mainwindow.cpp" line="5174"/>
         <source>Satellite</source>
         <translation>Satèl·lit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5344"/>
+        <location filename="../mainwindow.cpp" line="5204"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5251"/>
+        <location filename="../mainwindow.cpp" line="5192"/>
         <source>Info</source>
         <translation>Informació</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="61"/>
         <source>KLog - File not open</source>
-        <translation>KLog - Fitxer no obert</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="107"/>
-        <source>Status bar ...</source>
-        <translation>Barra d&apos;estat...</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="822"/>
-        <source>KLog - Unexpected error</source>
-        <translation>KLog - Error inesperat</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="972"/>
-        <location filename="../mainwindow.cpp" line="1698"/>
-        <source>KLog - Not valid call</source>
-        <translation>KLog - Indicatiu no vàlid</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="973"/>
-        <location filename="../mainwindow.cpp" line="1699"/>
-        <source>The call %1 is not a valid call. Do you really want to add this call to the log?</source>
-        <translation>L&apos;indicatiu %1 no és un indicatiu vàlid. Esteu segur que voleu afegir aquest indicatiu al registre?</translation>
-    </message>
-    <message>
-        <source>Adding non-valid calls to the log may create problems when appliting for awards, exporting ADIF files to other systems or applications.</source>
-        <translation type="vanished">Afegir indicatiu no vàlids al registre pot crear problemes en sol·licitar diplomes, exportar a fitxers ADIF o a altres sistemes o aplicacions.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="1037"/>
-        <location filename="../mainwindow.cpp" line="1800"/>
-        <source>KLog - Select correct entity</source>
-        <translation>KLog - Seleccioneu l&apos;entitat correcta</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="62"/>
@@ -2483,471 +2731,532 @@ El servidor UDP ha fallat en %1.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="107"/>
+        <source>Status bar ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="822"/>
+        <source>KLog - Unexpected error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="972"/>
+        <location filename="../mainwindow.cpp" line="1677"/>
+        <source>KLog - Not valid call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="973"/>
+        <location filename="../mainwindow.cpp" line="1678"/>
+        <source>The call %1 is not a valid call. Do you really want to add this call to the log?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="975"/>
-        <location filename="../mainwindow.cpp" line="1701"/>
+        <location filename="../mainwindow.cpp" line="1680"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1771"/>
-        <location filename="../mainwindow.cpp" line="1784"/>
+        <location filename="../mainwindow.cpp" line="1037"/>
+        <location filename="../mainwindow.cpp" line="1774"/>
+        <source>KLog - Select correct entity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1745"/>
+        <location filename="../mainwindow.cpp" line="1758"/>
         <source>No DXCC</source>
-        <translation>Sense DXCC</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1772"/>
-        <location filename="../mainwindow.cpp" line="1785"/>
+        <location filename="../mainwindow.cpp" line="1746"/>
+        <location filename="../mainwindow.cpp" line="1759"/>
         <source>None</source>
-        <translation>Sense</translation>
+        <translation type="unfinished">Cap</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2580"/>
+        <location filename="../mainwindow.cpp" line="2556"/>
         <source>KLog - Exit</source>
-        <translation>KLog - Sortida</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3107"/>
+        <location filename="../mainwindow.cpp" line="3083"/>
         <source>Shows DX-QSLs for which requests or QSLs have been sent with no answer.</source>
-        <translation>Mostra les DX-QSL que s&apos;han sol·licitat o els QSL enviats que no tenen resposta.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3112"/>
+        <location filename="../mainwindow.cpp" line="3088"/>
         <source>Shows the DX-QSLs that have been requested.</source>
-        <translation>Mostra les DX-QSL que s&apos;han sol·licitat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3117"/>
+        <location filename="../mainwindow.cpp" line="3093"/>
         <source>Queue all QSLs from this log to be sent</source>
-        <translation>Posa a la cua per a enviar tots els QSL d&apos;aquest registre</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3096"/>
+        <source>Mark all non-sent QSOs in this log as queued to be uploaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3098"/>
+        <source>Queue all QSLs to be sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3101"/>
+        <source>Put all the non-sent QSOs in the queue to be uploaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3105"/>
+        <source>Mark as sent all queued QSOs of this log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3110"/>
+        <source>Mark all queued QSOs as sent</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3120"/>
-        <source>Mark all non-sent QSOs in this log as queued to be uploaded.</source>
-        <translation>Marca tots els QSO no enviats en aquest registre com a posats en cua per pujar.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3122"/>
-        <source>Queue all QSLs to be sent</source>
-        <translation>Posa a la cua per a enviar tots els QSL</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3125"/>
-        <source>Put all the non-sent QSOs in the queue to be uploaded.</source>
-        <translation>Posa tots els QSO no enviats a la cua per pujar.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3129"/>
-        <source>Mark as sent all queued QSOs of this log</source>
-        <translation>Marca com a enviats tots els QSO posats en cua d&apos;aquest registre</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3134"/>
-        <source>Mark all queued QSOs as sent</source>
-        <translation>Marca tots els QSO posats en cua com a enviats</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3144"/>
         <source>Download from LoTW</source>
-        <translation>Baixa des del LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3268"/>
+        <location filename="../mainwindow.cpp" line="3245"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
-        <translation>Tots els QSO pendents d&apos;aquest registre s&apos;han marcat com a posats en cua per al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3277"/>
-        <location filename="../mainwindow.cpp" line="3334"/>
+        <location filename="../mainwindow.cpp" line="3254"/>
+        <location filename="../mainwindow.cpp" line="3312"/>
         <source>There was a problem to mark all pending QSOs of this log as queued for LoTW!</source>
-        <translation>Hi ha hagut un problema en marcar tots els QSO pendents d&apos;aquest registre com a posats en cua per al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your log has been updated with the LoTW downloaded QSOs</source>
-        <translation type="vanished">El registre s&apos;ha actualitzat amb els QSO baixats del LoTW</translation>
-    </message>
-    <message>
-        <source>KLog has updated %1 QSOs from LoTW</source>
-        <translation type="vanished">El KLog ha actualitzat %1 QSO des del LoTW</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3307"/>
+        <location filename="../mainwindow.cpp" line="3284"/>
         <source>Your log has not been updated.</source>
-        <translation>El regsitre no s&apos;ha actualitzat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3308"/>
+        <location filename="../mainwindow.cpp" line="3285"/>
         <source>No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated.</source>
-        <translation>No s&apos;ha actualitzat cap QSO amb les dades provinents del LoTW. Això pot passar per errors al fitxer de registre o senzillament perquè el registre ja estava actualitzat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3326"/>
+        <location filename="../mainwindow.cpp" line="3304"/>
         <source>All pending QSOs has been marked as queued for LoTW!</source>
-        <translation>Tots els QSO pendents s&apos;han marcat com a posats en cua per al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3372"/>
+        <location filename="../mainwindow.cpp" line="3350"/>
         <source>TQSL finished with no error.</source>
-        <translation>El TQSL ha finalitzat sense cap error.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3516"/>
+        <location filename="../mainwindow.cpp" line="3494"/>
         <source>All queued QSOs of this log has been marked as sent for LoTW!</source>
-        <translation>Tots els QSO posats en cua d&apos;aquest registre s&apos;han marcat com a enviats per al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3524"/>
+        <location filename="../mainwindow.cpp" line="3502"/>
         <source>There was a problem to mark all queued QSOs of this log as sent for LoTW!</source>
-        <translation>Hi ha hagut un problema en marcar tots els QSO posats en cua d&apos;aquest registre com a enviats per al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3543"/>
+        <location filename="../mainwindow.cpp" line="3521"/>
         <source>All queued QSOs has been marked as sent to LoTW!</source>
-        <translation>Tots els QSO posats en cua s&apos;han marcat com a enviats al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3551"/>
+        <location filename="../mainwindow.cpp" line="3529"/>
         <source>There was a problem to mark all queued QSOs of this log as sent to LoTW!</source>
-        <translation>Hi ha hagut un problema en marcar tots els QSO posats en cua d&apos;aquest registre com a enviats al LoTW!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4616"/>
+        <location filename="../mainwindow.cpp" line="4591"/>
         <source>It seems that there are no QSOs in the database.</source>
-        <translation>Sembla que no hi ha cap QSO a la base de dades.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4731"/>
+        <location filename="../mainwindow.cpp" line="4706"/>
         <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
-        <translation>Aquesta funció està desactivada. Aneu a la Configuració -&gt; Pestanya LoTW per activar-la.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5338"/>
+        <location filename="../mainwindow.cpp" line="5198"/>
         <source>Awards</source>
         <translation>Diplomes</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5339"/>
+        <location filename="../mainwindow.cpp" line="5199"/>
         <source>Search</source>
         <translation>Cerca</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5342"/>
+        <location filename="../mainwindow.cpp" line="5202"/>
         <source>Log</source>
         <translation>Registre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5343"/>
+        <location filename="../mainwindow.cpp" line="5203"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5410"/>
+        <location filename="../mainwindow.cpp" line="5270"/>
         <source>KLog ADIF export</source>
-        <translation>Exportació ADIF del KLog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5413"/>
+        <location filename="../mainwindow.cpp" line="5273"/>
         <source>No QSOs have been exported to ADIF.</source>
-        <translation>No s&apos;ha exportat cap QSO a ADIF.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5417"/>
+        <location filename="../mainwindow.cpp" line="5277"/>
         <source>KLog has exported %1 QSOs to the ADIF file: %2</source>
-        <translation>El KLog ha exportat %1 QSO al fitxer ADIF: %2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5429"/>
-        <location filename="../mainwindow.cpp" line="5444"/>
-        <location filename="../mainwindow.cpp" line="5599"/>
+        <location filename="../mainwindow.cpp" line="5289"/>
+        <location filename="../mainwindow.cpp" line="5304"/>
+        <location filename="../mainwindow.cpp" line="5459"/>
         <source>Save ADIF File</source>
         <translation>Desa el fitxer ADIF</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5483"/>
+        <location filename="../mainwindow.cpp" line="5343"/>
         <source>If you uploaded any QSO to LoTW while you were using TQSL you can now mark them as sent in KLog.
 
 Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
-        <translation>Si s&apos;ha pujat algun QSO al LoTW mentre estàveu usant el TQSL ara els podreu marcar com a enviats al KLog.
-
-Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5496"/>
+        <location filename="../mainwindow.cpp" line="5356"/>
         <source>There was an error while updating to Yes the LoTW QSL sent information.</source>
-        <translation>Hi ha hagut un error en actualitzar a Sí la informació d&apos;enviament QSL al LoTW.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5506"/>
+        <location filename="../mainwindow.cpp" line="5366"/>
         <source>The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
-        <translation>El procés de pujada al LoTW ha finalitzat i el KLog ha creat un fitxer (%1) a la carpeta del KLog.
-
-Voleu que el KLog elimini aquest fitxer?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5516"/>
+        <location filename="../mainwindow.cpp" line="5376"/>
         <source>The file has been removed.</source>
-        <translation>El fitxer s&apos;ha eliminat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7365"/>
+        <source>Please select the station callsign you want to export the log from:</source>
+        <translation type="obsolete">Seleccioneu l&apos;indicatiu de l&apos;estació de la qual voleu exportar el registre:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7242"/>
         <source>KLog - Non-supported mode</source>
-        <translation>KLog - Mode no implementat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7368"/>
+        <location filename="../mainwindow.cpp" line="7245"/>
         <source>A new mode not supported by KLog has been received from an external program or radio:</source>
-        <translation>El KLog ha rebut un mode nou no admès des d&apos;un programa extern o ràdio:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7368"/>
+        <location filename="../mainwindow.cpp" line="7245"/>
         <source>Do you want to keep receiving these alerts? (disabling these alerts will prevent non-valid modes being detected)</source>
-        <translation>Voleu mantenir la recepció d&apos;aquestes alertes? (la desactivació d&apos;aquestes alertes evitarà que es detectin els modes no vàlids)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7557"/>
+        <location filename="../mainwindow.cpp" line="7434"/>
         <source>Recommendation:</source>
-        <translation>Recomanació:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7557"/>
+        <location filename="../mainwindow.cpp" line="7434"/>
         <source>Periodically export your data to ADIF to prevent a potential data loss.</source>
-        <translation>Exporteu periòdicament les dades a ADIF per a evitar la pèrdua potencial de les dades.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5494"/>
-        <location filename="../mainwindow.cpp" line="5580"/>
+        <location filename="../mainwindow.cpp" line="5354"/>
+        <location filename="../mainwindow.cpp" line="5440"/>
         <source>KLog - LoTW</source>
-        <translation>KLog - LoTW</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="3298"/>
-        <source>Your log has been updated with the LoTW downloaded QSOs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3299"/>
-        <source>KLog has updated %1 QSOs from LoTW.</source>
-        <translation type="unfinished"></translation>
+        <source>LoTW logfile has been properly exported!</source>
+        <translation type="vanished">El fitxer de registre LoTW s&apos;ha exportat adequadament!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5564"/>
-        <source>KLog - Select the Station Callsign.</source>
-        <translation type="unfinished"></translation>
+        <source>Remember to:</source>
+        <translation type="vanished">Recordeu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5628"/>
+        <source>Before uploading: sign the LoTW log; and</source>
+        <translation type="vanished">Abans de la pujada: signeu el registre LoTW; i</translation>
+    </message>
+    <message>
+        <source>After uploading: mark as sent all the queued QSO (LoTW Tools).</source>
+        <translation type="vanished">Després de la pujada: marca com a enviats tots els QSO en la cau (eines LoTW).</translation>
+    </message>
+    <message>
+        <source>There was no QSO to be exported.</source>
+        <translation type="vanished">No hi ha cap QSO a exportar.</translation>
+    </message>
+    <message>
+        <source>If you think that some QSO should have been exported, please look for them and ensure that the eQSL LoTW QSL sent box is marked as:</source>
+        <translation type="vanished">Si penseu que s&apos;haurien d&apos;haver exportat alguns QSO, cerqueu-los i assegureu-vos que la casella d&apos;enviament eQSL LoTW QSL està marcada amb:</translation>
+    </message>
+    <message>
+        <source>Q - Queued</source>
+        <translation type="vanished">Q - A la cua</translation>
+    </message>
+    <message>
+        <source>There was an error while exporting the LoTW. The log has not been exported!</source>
+        <translation type="vanished">S&apos;ha produït un error en exportar el LoTW. No s&apos;ha exportat el registre!</translation>
+    </message>
+    <message>
+        <source>Save Cabrillo File</source>
+        <translation type="vanished">Desa el fitxer Cabrillo</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="5488"/>
         <source>Open File</source>
         <translation>Obre un fitxer</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6219"/>
-        <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation>El meu localitzador QTH. El format hauria de ser «Maidenhead» (p. ex. IN70AA) de fins a 10 caràcters.</translation>
+        <source>&amp;Modify</source>
+        <translation type="vanished">&amp;Modifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6298"/>
+        <location filename="../mainwindow.cpp" line="6086"/>
+        <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="6165"/>
         <source> - Needed for DXMarathon</source>
         <translation>- Necessari per DXMarathon</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6352"/>
+        <location filename="../mainwindow.cpp" line="6219"/>
         <source>Filling QSOs...</source>
         <translation>Omplint els QSO...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6352"/>
+        <location filename="../mainwindow.cpp" line="6219"/>
         <source>Abort filling</source>
         <translation>Interromp l&apos;ompliment</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6485"/>
+        <location filename="../mainwindow.cpp" line="6361"/>
         <source>Filling DXCC, CQz, ITUz, Continent in QSOs...
  QSO: </source>
         <translation>S&apos;està omplint DXCC, CQz, ITUz, continent al QSO...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6573"/>
+        <location filename="../mainwindow.cpp" line="6450"/>
         <source>Number</source>
         <translation>Número</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6575"/>
+        <location filename="../mainwindow.cpp" line="6452"/>
         <source>Date</source>
         <translation>Data</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6577"/>
+        <location filename="../mainwindow.cpp" line="6454"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6585"/>
+        <location filename="../mainwindow.cpp" line="6462"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6587"/>
-        <location filename="../mainwindow.cpp" line="7254"/>
+        <location filename="../mainwindow.cpp" line="6464"/>
+        <location filename="../mainwindow.cpp" line="7131"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6602"/>
+        <location filename="../mainwindow.cpp" line="6479"/>
         <source>Print Log</source>
         <translation>Imprimeix el registre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6607"/>
+        <location filename="../mainwindow.cpp" line="6484"/>
         <source>Printing the log...</source>
         <translation>S&apos;està imprimint el registre...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6607"/>
+        <location filename="../mainwindow.cpp" line="6484"/>
         <source>Abort printing</source>
         <translation>Interromp la impressió</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6623"/>
-        <location filename="../mainwindow.cpp" line="6638"/>
+        <location filename="../mainwindow.cpp" line="6500"/>
+        <location filename="../mainwindow.cpp" line="6515"/>
         <source>Printing the log...
  QSO: </source>
         <translation>S&apos;està imprimint el registre...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7240"/>
+        <location filename="../mainwindow.cpp" line="7117"/>
         <source>KLog QSO received</source>
         <translation>S&apos;ha rebut un QSO al KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7245"/>
+        <location filename="../mainwindow.cpp" line="7122"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>S&apos;han rebut les dades QSO següents des del WSJT-X per a enregistrar:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7248"/>
+        <location filename="../mainwindow.cpp" line="7125"/>
         <source>Call</source>
         <translation>Trucada</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7251"/>
+        <location filename="../mainwindow.cpp" line="7128"/>
         <source>Freq</source>
         <translation>Freq.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7257"/>
+        <location filename="../mainwindow.cpp" line="7134"/>
         <source>Time On</source>
         <translation>Hora d&apos;inici</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7260"/>
+        <location filename="../mainwindow.cpp" line="7137"/>
         <source>Time Off</source>
         <translation>Hora final</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7263"/>
+        <location filename="../mainwindow.cpp" line="7140"/>
         <source>RST TX</source>
         <translation>RST TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7263"/>
+        <location filename="../mainwindow.cpp" line="7140"/>
         <source>RST RX</source>
         <translation>RST RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7266"/>
+        <location filename="../mainwindow.cpp" line="7143"/>
         <source>DX-Grid</source>
         <translation>DX-Grid</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7272"/>
+        <location filename="../mainwindow.cpp" line="7149"/>
         <source>Comments</source>
         <translation>Comentaris</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7275"/>
+        <location filename="../mainwindow.cpp" line="7152"/>
         <source>TX Pwr</source>
         <translation>TX Pwr</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7278"/>
+        <location filename="../mainwindow.cpp" line="7155"/>
         <source>Operator</source>
         <translation>Operador</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7281"/>
+        <location filename="../mainwindow.cpp" line="7158"/>
         <source>Local-Grid</source>
         <translation>Local-Grid</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7368"/>
+        <location filename="../mainwindow.cpp" line="7245"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation>Si el mode rebut és correcte, contacteu amb l&apos;equip de desenvolupament del KLog i sol·liciteu la implementació d&apos;aquest mode</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7540"/>
-        <source>KLog - Duplicated satellite</source>
-        <translation>KLog - Satèl·lit duplicat</translation>
+        <source>Do you want to keep receiving this alerts? (disabling this alerts will prevent that non-valid modes are detected)</source>
+        <translation type="vanished">Voleu continuar rebent aquestes alertes? (la desactivació d&apos;aquestes alertes evitarà que es detectin modes no vàlids)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7542"/>
+        <source>A new mode not supported by KLog has been received from an external software or radio:</source>
+        <translation type="vanished">S&apos;ha rebut un mode nou des de programari extern o ràdio no suportat pel KLog:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7417"/>
+        <source>KLog - Duplicated satellite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7419"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
         <translation>S&apos;ha detectat un satèl·lit duplicat al fitxer i no s&apos;importarà.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7543"/>
+        <location filename="../mainwindow.cpp" line="7420"/>
         <source>Please check the satellite information file and ensure it is properly populated.</source>
         <translation>Comproveu el fitxer d&apos;informació del satèl·lit i assegureu que estigui correctament omplert.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7543"/>
+        <location filename="../mainwindow.cpp" line="7420"/>
         <source>Now you will see a more detailed error that can be used for debugging...</source>
         <translation>Ara veureu un error més detallat que es pot usar per a la depuració...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7550"/>
+        <location filename="../mainwindow.cpp" line="7427"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Hi ha hagut un error inesperat!!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7550"/>
+        <location filename="../mainwindow.cpp" line="7427"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Si el problema persisteix, contacteu amb els desenvolupadors</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7550"/>
+        <location filename="../mainwindow.cpp" line="7427"/>
         <source>for analysis:</source>
         <translation>per a l&apos;anàlisi:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7552"/>
+        <location filename="../mainwindow.cpp" line="7429"/>
         <source>Error in function</source>
         <translation>Error a la funció</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7553"/>
+        <location filename="../mainwindow.cpp" line="7430"/>
         <source>Error code</source>
         <translation>Codi d&apos;error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7554"/>
+        <location filename="../mainwindow.cpp" line="7431"/>
         <source>Error text</source>
         <translation>Text de l&apos;error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7555"/>
+        <location filename="../mainwindow.cpp" line="7432"/>
         <source>Failed query</source>
         <translation>Ha fallat la consulta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7564"/>
-        <source>KLog - Show errors</source>
-        <translation>KLog - Mostra els errors</translation>
+        <source>Recomendation:</source>
+        <translation type="vanished">Recomanació:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7566"/>
+        <source>Export, periodically, your data to ADIF to prevent a potential data loss.</source>
+        <translation type="vanished">Periódicament exporteu les dades a l&apos;ADIF per evitar una pèrdua potencial de dades.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7441"/>
+        <source>KLog - Show errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7443"/>
         <source>Do you want to keep showing errors?</source>
         <translation>Voleu mantenir la visualització dels errors?</translation>
     </message>
@@ -3173,9 +3482,13 @@ Voleu que el KLog elimini aquest fitxer?</translation>
 <context>
     <name>MainWindowMyDataTab</name>
     <message>
+        <source>Watt</source>
+        <translation type="vanished">Watt</translation>
+    </message>
+    <message>
         <location filename="../mainwindowmydatatab.cpp" line="66"/>
         <source>Watts</source>
-        <translation>Watts</translation>
+        <translation type="unfinished">Watts</translation>
     </message>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="69"/>
@@ -3232,7 +3545,7 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindowmydatatab.cpp" line="191"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation>El meu localitzador QTH. El format hauria de ser «Maidenhead» (p. ex. IN70AA) de fins a 10 caràcters.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3312,7 +3625,7 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindowsattab.cpp" line="276"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation>Localitzador de l&apos;estació DX. El format hauria de ser «Maidenhead» (p. ex. IN70AA) de fins a 10 caràcters.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="403"/>
@@ -3327,7 +3640,11 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindowsattab.cpp" line="441"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
-        <translation>Tingueu en compte que el nom del satèl·lit no es desarà si no és a la llista, i per tant, aquesta informació es podria perdre!</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please know that the satellite name will not be saved if it is not in the list so that information may be lost!</source>
+        <translation type="vanished">Sapigueu que el nom del satèl·lit no es desarà si no és a la llista, per tant, aquesta informació es podria perdre!</translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="531"/>
@@ -3374,135 +3691,139 @@ La freqüència no es en una banda de radioafició!</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../database.cpp" line="277"/>
-        <location filename="../database.cpp" line="343"/>
+        <location filename="../database.cpp" line="216"/>
+        <location filename="../database.cpp" line="282"/>
         <source>Database Error</source>
         <translation>Error de base de dades</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1493"/>
+        <location filename="../database.cpp" line="1440"/>
         <source>KLog DB needs to be upgraded.</source>
         <translation>La BD del KLog necessita actualitzar-se.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1494"/>
+        <location filename="../database.cpp" line="1441"/>
         <source>Do you want to upgrade it now?</source>
         <translation>La voleu actualitzar ara?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1494"/>
+        <location filename="../database.cpp" line="1441"/>
         <source>If DB is not upgraded KLog may not work properly.</source>
         <translation>Si la BD no s&apos;actualitza, el KLog podria no funcionar adequadament.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2048"/>
-        <location filename="../database.cpp" line="3704"/>
-        <location filename="../database.cpp" line="3882"/>
-        <location filename="../database.cpp" line="4084"/>
-        <location filename="../database.cpp" line="4293"/>
+        <location filename="../database.cpp" line="1994"/>
+        <location filename="../database.cpp" line="3649"/>
+        <location filename="../database.cpp" line="3827"/>
+        <location filename="../database.cpp" line="4029"/>
+        <location filename="../database.cpp" line="4238"/>
         <source>KLog - DB update</source>
-        <translation>KLog - Actualitza la BD</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2105"/>
+        <location filename="../database.cpp" line="2051"/>
         <source>KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you.</source>
         <translation>El KLog ha detectat un registre anterior a la BD. Es migraran totes les dades a un registre de tipus DX creat de nou.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2123"/>
+        <location filename="../database.cpp" line="2069"/>
         <source>KLog: Enter Station callsign</source>
         <translation>KLog: Introduïu l&apos;indicatiu de l&apos;estació</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2124"/>
+        <location filename="../database.cpp" line="2070"/>
         <source>Enter the station callsign used in this log</source>
         <translation>Introduïu l&apos;indicatiu emprat en aquest registre</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2125"/>
+        <location filename="../database.cpp" line="2071"/>
         <source>Station Callsign</source>
         <translation>Indicatiu de l&apos;estació</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3629"/>
-        <location filename="../database.cpp" line="3813"/>
-        <location filename="../database.cpp" line="7441"/>
-        <location filename="../database.cpp" line="7664"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5092"/>
+        <source>All the data was migrated correctly. You should now go to Setup-&gt;Preferences-&gt;Logs to check that everything is OK.</source>
+        <translation type="vanished">Totes les dades s&apos;han migrat correctament. Ara hauríeu d&apos;anar a Configuració-&gt;Preferències-&gt;Registres per comprovar que tot és correcte.</translation>
+    </message>
+    <message>
+        <location filename="../database.cpp" line="3574"/>
+        <location filename="../database.cpp" line="3758"/>
+        <location filename="../database.cpp" line="7477"/>
+        <location filename="../database.cpp" line="7700"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5091"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3705"/>
-        <location filename="../database.cpp" line="3883"/>
-        <location filename="../database.cpp" line="4085"/>
-        <location filename="../database.cpp" line="4294"/>
+        <location filename="../database.cpp" line="3650"/>
+        <location filename="../database.cpp" line="3828"/>
+        <location filename="../database.cpp" line="4030"/>
+        <location filename="../database.cpp" line="4239"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>La cancel·lació d&apos;aquesta actualització provocarà inconsistència de dades i possiblement pèrdua de dades. Encara voleu cancel·lar?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4014"/>
-        <location filename="../database.cpp" line="4217"/>
+        <location filename="../database.cpp" line="3959"/>
+        <location filename="../database.cpp" line="4162"/>
         <source>Progress: </source>
         <translation>Progrés: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7349"/>
+        <location filename="../database.cpp" line="7385"/>
         <source>Updating DXCC award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7441"/>
+        <location filename="../database.cpp" line="7477"/>
         <source>Updating DXCC Award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes DXCC...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7572"/>
+        <location filename="../database.cpp" line="7608"/>
         <source>Updating WAZ award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7664"/>
+        <location filename="../database.cpp" line="7700"/>
         <source>Updating WAZ Award information...</source>
         <translation>S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3608"/>
-        <location filename="../database.cpp" line="3629"/>
+        <location filename="../database.cpp" line="3553"/>
+        <location filename="../database.cpp" line="3574"/>
         <source>Updating mode information...</source>
         <translation>Actualitzant informació del mode...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2176"/>
+        <location filename="../database.cpp" line="2122"/>
         <source>All the data was migrated correctly. You should now go to Setup-&gt;Preferences-&gt;Logs to check that everything is okay.</source>
-        <translation>Totes les dades s&apos;han migrat correctament. Ara cal anar a Configuració -&gt; Preferències -&gt; Registres per a comprovar que tot és correcte.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3608"/>
-        <location filename="../database.cpp" line="3794"/>
-        <location filename="../database.cpp" line="3992"/>
-        <location filename="../database.cpp" line="4194"/>
-        <location filename="../database.cpp" line="7349"/>
-        <location filename="../database.cpp" line="7572"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5047"/>
+        <location filename="../database.cpp" line="3553"/>
+        <location filename="../database.cpp" line="3739"/>
+        <location filename="../database.cpp" line="3937"/>
+        <location filename="../database.cpp" line="4139"/>
+        <location filename="../database.cpp" line="7385"/>
+        <location filename="../database.cpp" line="7608"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5046"/>
         <source>Abort updating</source>
         <translation>Interromp l&apos;actualització</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3794"/>
-        <location filename="../database.cpp" line="3813"/>
-        <location filename="../database.cpp" line="4014"/>
-        <location filename="../database.cpp" line="4217"/>
+        <location filename="../database.cpp" line="3739"/>
+        <location filename="../database.cpp" line="3758"/>
+        <location filename="../database.cpp" line="3959"/>
+        <location filename="../database.cpp" line="4162"/>
         <source>Updating bands information...</source>
         <translation>Actualitzant informació de bandes...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3990"/>
+        <location filename="../database.cpp" line="3935"/>
         <source>Updating bands information in %1 status...</source>
         <translation>Actualitzant informació de bandes en %1...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4192"/>
+        <location filename="../database.cpp" line="4137"/>
         <source>Updating mode information in %1 status...</source>
         <translation>Actualitzant informació dels modes en %1...</translation>
     </message>
@@ -3543,67 +3864,71 @@ La freqüència no es en una banda de radioafició!</translation>
         <translation>No identificat</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="270"/>
+        <location filename="../main.cpp" line="269"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>L&apos;assistent d&apos;instal·lació s&apos;ha cancel·lat abans de finalitzar...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="271"/>
+        <location filename="../main.cpp" line="270"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>Voleu eliminar el directori del KLog del disc?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="284"/>
+        <location filename="../main.cpp" line="283"/>
         <source>Your KLog dir has been removed</source>
         <translation>S&apos;ha eliminat el directori del KLog</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="289"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation>No s&apos;ha pogut eliminar el directori del KLog. Caldria fer-ho manualment si el voleu eliminar del disc dur.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="297"/>
+        <location filename="../main.cpp" line="296"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation>No s&apos;ha pogut eliminar el directori del KLog. Caldria fer-ho manualment si el voleu eliminar del disc dur.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="303"/>
+        <location filename="../main.cpp" line="302"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation>Recordeu que el directori del KLog és al vostre sistema...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="284"/>
-        <location filename="../main.cpp" line="290"/>
-        <location filename="../main.cpp" line="297"/>
-        <location filename="../main.cpp" line="303"/>
+        <location filename="../main.cpp" line="283"/>
+        <location filename="../main.cpp" line="289"/>
+        <location filename="../main.cpp" line="296"/>
+        <location filename="../main.cpp" line="302"/>
         <source>Thank you for running KLog!</source>
         <translation>Moltes gràcies per usar el KLog!</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5047"/>
-        <source>Updating information...</source>
-        <translation>S&apos;està actualitzant la informació...</translation>
+        <source>Urt information...</source>
+        <translation type="vanished">Informació URT...</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5092"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5046"/>
+        <source>Updating information...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dataproxy_sqlite.cpp" line="5091"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>S&apos;està actualitzant la informació dels DXCC i del continent...</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="968"/>
+        <location filename="../utilities.cpp" line="947"/>
         <source>A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.</source>
-        <translation>S&apos;ha trobat un indicatiu incorrecte: %1. Introduïu un indicatiu nou o confirmeu que l&apos;actual és un indicatiu correcte.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="973"/>
+        <location filename="../utilities.cpp" line="952"/>
         <source>An empty callsign has been detected. If it is possible, please enter the right call.</source>
-        <translation>S&apos;ha detectat un indicatiu buit. Introduïu l&apos;indicatiu correcte, si és possible.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="976"/>
+        <location filename="../utilities.cpp" line="955"/>
         <source>KLog - Not valid callsign found</source>
-        <translation>KLog - S&apos;ha trobat un indicatiu no vàlid</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3611,307 +3936,346 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../widgets/rotator.cpp" line="14"/>
         <source>Rotator</source>
-        <translation>Rotor</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SearchWidget</name>
     <message>
-        <location filename="../searchwidget.cpp" line="28"/>
+        <location filename="../searchwidget.cpp" line="29"/>
         <source>&amp;Clear</source>
         <translation>&amp;Neteja</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="30"/>
-        <location filename="../searchwidget.cpp" line="547"/>
-        <location filename="../searchwidget.cpp" line="579"/>
+        <location filename="../searchwidget.cpp" line="31"/>
+        <location filename="../searchwidget.cpp" line="575"/>
+        <location filename="../searchwidget.cpp" line="607"/>
         <source>&amp;Select All</source>
         <translation>&amp;Selecciona-ho tot</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="31"/>
+        <location filename="../searchwidget.cpp" line="32"/>
         <source>&amp;Search</source>
         <translation>&amp;Cerca</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="29"/>
+        <source>All</source>
+        <translation type="vanished">Tot</translation>
+    </message>
+    <message>
+        <location filename="../searchwidget.cpp" line="30"/>
         <source>&amp;Export Highlighted</source>
         <translation>&amp;Exporta els ressaltats</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="32"/>
+        <location filename="../searchwidget.cpp" line="33"/>
         <source>All logs</source>
-        <translation>Tots els registres</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="90"/>
+        <location filename="../searchwidget.cpp" line="92"/>
         <source>Clear the searches.</source>
         <translation>Neteja les cerques.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="91"/>
+        <location filename="../searchwidget.cpp" line="93"/>
         <source>Export the search result to an ADIF file.</source>
         <translation>Exporta el resultat de la cerca a un fitxer ADIF.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="92"/>
+        <location filename="../searchwidget.cpp" line="94"/>
         <source>Select/Unselect all the QSOs shown.</source>
         <translation>Selecciona/Desselecciona tots els QSO mostrats.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="93"/>
+        <location filename="../searchwidget.cpp" line="95"/>
         <source>Search in the log.</source>
         <translation>Cerca al registre.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="94"/>
+        <location filename="../searchwidget.cpp" line="96"/>
         <source>Search in all logs.</source>
         <translation>Cerca a tots els registres.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="95"/>
-        <source>Enter the QRZ to search for. Enter &apos;*&apos; to show all the QSOs... it may be slow in big logs!</source>
-        <translation>Introduïu el QRZ a cercar. Introduïu «*» per a mostrar tots els QSO... pot ser lent als registres grans!</translation>
+        <source>Enter the QRZ to search for.</source>
+        <translation type="vanished">Introduïu el QRZ a cercar.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="96"/>
+        <location filename="../searchwidget.cpp" line="97"/>
+        <source>Enter the QRZ to search for. Enter &apos;*&apos; to show all the QSOs... it may be slow in big logs!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../searchwidget.cpp" line="98"/>
         <source>Search results.</source>
         <translation>Resultats de la cerca.</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="97"/>
+        <location filename="../searchwidget.cpp" line="99"/>
         <source>Select the Station Callsign used to do this QSO.</source>
-        <translation>Seleccioneu l&apos;indicatiu d&apos;estació usat per fer aquest QSO.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
         <source>QRZ</source>
         <translation>QRZ</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
         <source>Date/Time</source>
         <translation>Data/hora</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
         <source>QSL Sent</source>
         <translation>QSL enviada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
-        <location filename="../searchwidget.cpp" line="756"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
+        <location filename="../searchwidget.cpp" line="784"/>
         <source>QSL Rcvd</source>
         <translation>QSL rebuda</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
+        <location filename="../searchwidget.cpp" line="106"/>
         <source>Station Callsign</source>
         <translation>Indicatiu d&apos;estació</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="104"/>
-        <location filename="../searchwidget.cpp" line="109"/>
+        <location filename="../searchwidget.cpp" line="106"/>
+        <location filename="../searchwidget.cpp" line="111"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="160"/>
+        <location filename="../searchwidget.cpp" line="188"/>
         <source>All in log</source>
-        <translation>A tot el registre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="161"/>
+        <location filename="../searchwidget.cpp" line="189"/>
         <source>Not defined</source>
-        <translation>No s&apos;ha definit</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="348"/>
+        <location filename="../searchwidget.cpp" line="376"/>
         <source>Searching for the QSOs... 
 (It may take long in big logs.)</source>
-        <translation>S&apos;estan cercant els QSO... 
-(Pot trigar en els registres grans).</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="349"/>
+        <location filename="../searchwidget.cpp" line="377"/>
         <source>KLog - Search</source>
-        <translation>KLog - Cerca</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="555"/>
-        <location filename="../searchwidget.cpp" line="574"/>
+        <location filename="../searchwidget.cpp" line="583"/>
+        <location filename="../searchwidget.cpp" line="602"/>
         <source>&amp;Clear selection</source>
         <translation>&amp;Neteja la selecció</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="649"/>
+        <location filename="../searchwidget.cpp" line="677"/>
         <source>Save File</source>
         <translation>Desa fitxer</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="731"/>
+        <location filename="../searchwidget.cpp" line="759"/>
         <source>QSL Send</source>
         <translation>QSL enviada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="789"/>
+        <location filename="../searchwidget.cpp" line="817"/>
         <source>&amp;Delete</source>
         <translation>&amp;Suprimeix</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="791"/>
+        <location filename="../searchwidget.cpp" line="819"/>
         <source>Delete a QSO</source>
         <translation>Suprimeix un QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="794"/>
+        <location filename="../searchwidget.cpp" line="822"/>
         <source>&amp;Edit QSO</source>
         <translation>&amp;Edita QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="796"/>
+        <location filename="../searchwidget.cpp" line="824"/>
         <source>Edit this QSO</source>
         <translation>Edita aquest QSO</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="799"/>
+        <location filename="../searchwidget.cpp" line="827"/>
         <source>Via &amp;bureau</source>
         <translation>Via &amp;bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="801"/>
+        <location filename="../searchwidget.cpp" line="829"/>
         <source>Send this QSL via bureau</source>
         <translation>Envia aquesta QSL via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="804"/>
+        <location filename="../searchwidget.cpp" line="832"/>
         <source>D&amp;irect</source>
         <translation>D&amp;irecta</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="806"/>
+        <location filename="../searchwidget.cpp" line="834"/>
         <source>Send this QSL via direct</source>
         <translation>Envia aquesta QSL via directa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="809"/>
+        <location filename="../searchwidget.cpp" line="837"/>
         <source>&amp;Request my QSL</source>
         <translation>&amp;Sol·licita la meva QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="811"/>
+        <location filename="../searchwidget.cpp" line="839"/>
         <source>Mark my QSL as requested</source>
         <translation>Marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="814"/>
+        <location filename="../searchwidget.cpp" line="842"/>
         <source>Via Direct and mark DX QSL as requested</source>
-        <translation>Via directa i marca la DX QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="815"/>
+        <location filename="../searchwidget.cpp" line="843"/>
         <source>Send this QSL via direct and mark DX QSL as requested</source>
-        <translation>Envia aquesta QSL via directa i marca la DX QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="818"/>
+        <location filename="../searchwidget.cpp" line="846"/>
         <source>Via Bureau and mark DX QSL as requested</source>
-        <translation>Via bureau i marca la DX QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="819"/>
+        <location filename="../searchwidget.cpp" line="847"/>
         <source>Send this QSL via bureau and mark DX QSL as requested</source>
-        <translation>Envia aquesta QSL via bureau i marca la DX QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="829"/>
+        <location filename="../searchwidget.cpp" line="857"/>
         <source>Via bureau and mark my QSL as requested</source>
-        <translation>Via bureau i marca la meva QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="830"/>
+        <location filename="../searchwidget.cpp" line="858"/>
         <source>QSL received via bureau and mark my QSL as requested</source>
-        <translation>QSL rebuda via bureau i marca la meva QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="838"/>
+        <location filename="../searchwidget.cpp" line="866"/>
         <source>Direc&amp;t and mark as my QSL requested</source>
-        <translation>Direc&amp;ta i marca la meva QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="839"/>
+        <location filename="../searchwidget.cpp" line="867"/>
         <source>QSL received via direct and mark my QSL as requested</source>
-        <translation>QSL rebuda via directa i marca la meva QSL com a sol·licitada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="823"/>
+        <source>Via Direct &amp;&amp; mark DX QSL as requested</source>
+        <translation type="vanished">Via directa i marca la QSL DX com a sol·licitada</translation>
+    </message>
+    <message>
+        <source>Send this QSL via direct &amp; mark DX QSL as requested</source>
+        <translation type="vanished">Envia aquesta QSL via directa i marca la QSL DX com sol·licitada</translation>
+    </message>
+    <message>
+        <source>Via Bureau &amp;&amp; mark DX QSL as requested</source>
+        <translation type="vanished">Via bureau i marca la QSL DX com a sol·licitada</translation>
+    </message>
+    <message>
+        <source>Send this QSL via bureau &amp; mark DX QSL as requested</source>
+        <translation type="vanished">Envia aquesta QSL via bureau i marca la QSL DX com a sol·licitada</translation>
+    </message>
+    <message>
+        <location filename="../searchwidget.cpp" line="851"/>
         <source>&amp;Request the QSL</source>
         <translation>&amp;Sol·licita la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="825"/>
+        <location filename="../searchwidget.cpp" line="853"/>
         <source>Mark the QSL as requested</source>
         <translation>Marca la QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="833"/>
+        <source>Via bureau &amp;&amp; mark my QSL as requested</source>
+        <translation type="vanished">Via bureau i marcar la meva QSL com a sol·licitada</translation>
+    </message>
+    <message>
+        <source>QSL received via bureau &amp; mark my QSL as requested</source>
+        <translation type="vanished">QSL rebuda via bureau i marca la meva QSL com a sol·licitada</translation>
+    </message>
+    <message>
+        <location filename="../searchwidget.cpp" line="861"/>
         <source>Via bureau</source>
         <translation>Via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="834"/>
+        <location filename="../searchwidget.cpp" line="862"/>
         <source>QSL received via bureau</source>
         <translation>QSL rebuda via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="842"/>
+        <source>Direc&amp;t &amp;&amp; mark as my QSL requested</source>
+        <translation type="vanished">Direc&amp;ta i marca-la com a QSL sol·licitada</translation>
+    </message>
+    <message>
+        <source>QSL received via direct &amp; mark my QSL as requested</source>
+        <translation type="vanished">QSL rebuda via directa i marca la meva QSL com a sol·licitada</translation>
+    </message>
+    <message>
+        <location filename="../searchwidget.cpp" line="870"/>
         <source>Direc&amp;t</source>
         <translation>Direc&amp;ta</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="843"/>
+        <location filename="../searchwidget.cpp" line="871"/>
         <source>QSL received via direct</source>
         <translation>QSL rebuda via directa</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1069"/>
+        <location filename="../searchwidget.cpp" line="1097"/>
         <source>You have requested to delete the QSO with: %1</source>
         <translation>Heu demanat suprimir el QSO amb: %1</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1074"/>
+        <location filename="../searchwidget.cpp" line="1102"/>
         <source>Are you sure?</source>
         <translation>Esteu segur?</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1137"/>
+        <location filename="../searchwidget.cpp" line="1165"/>
         <source>Needed QSO to send the QSL</source>
         <translation>QSO necessari per enviar la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1145"/>
+        <location filename="../searchwidget.cpp" line="1173"/>
         <source>My QSL requested to be sent</source>
         <translation>La meva QSL sol·licitada per enviar</translation>
     </message>
     <message>
-        <location filename="../searchwidget.cpp" line="1150"/>
-        <location filename="../searchwidget.cpp" line="1155"/>
+        <location filename="../searchwidget.cpp" line="1178"/>
+        <location filename="../searchwidget.cpp" line="1183"/>
         <source>DX QSL pending to be received</source>
         <translation>QSL del DX pendent de rebre</translation>
     </message>
@@ -3972,7 +4336,7 @@ La freqüència no es en una banda de radioafició!</translation>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Aneu a la pestanya Varis i feu clic a Mou la BD
- o la BD no es mourà a la ubicació nova.</translation>
+ o la BD no es mourà  a la ubicació nova.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="108"/>
@@ -3995,7 +4359,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../setupdialog.cpp" line="200"/>
         <source>Interfaces</source>
-        <translation>Interfícies</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -4011,7 +4375,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../setupdialog.cpp" line="109"/>
         <source>Ok</source>
-        <translation>D&apos;acord</translation>
+        <translation type="unfinished">D&apos;acord</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="190"/>
@@ -4021,7 +4385,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../setupdialog.cpp" line="196"/>
         <source>LoTW</source>
-        <translation>LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="197"/>
@@ -4190,7 +4554,11 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="121"/>
         <source>Ok</source>
-        <translation>D&apos;acord</translation>
+        <translation type="unfinished">D&apos;acord</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="vanished">D&apos;acord</translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="209"/>
@@ -4315,27 +4683,31 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
         <source>Color when the DXCC is an ATNO (All Time New One).</source>
-        <translation>Color quan el DXCC és un ATNO («All Time New One», Un de nou de tots els temps ).</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
         <source>DXCC is confirmed in this band.</source>
-        <translation>El DXCC està confirmat en aquesta banda.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
         <source>Default color.</source>
-        <translation>Color predeterminat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
         <source>Sets a palette of colors similar to the one used in WSJT-X.</source>
-        <translation>Estableix una paleta de colors semblant a la usada al WSJT-X.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
         <source>Sets the default palette.</source>
-        <translation>Estableix la paleta predeterminada.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color when the DXCC is an ATNO (All Time New One)</source>
+        <translation type="vanished">Color quan el DXCC és un ATNO («All Time New One», Un de nou de tots els temps )</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="53"/>
@@ -4346,6 +4718,22 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
         <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
         <source>Worked DXCC, but not confirmed in this band.</source>
         <translation>DXCC treballat, però no confirmat en aquesta banda.</translation>
+    </message>
+    <message>
+        <source>DXCC is confirmed in this band</source>
+        <translation type="vanished">El DXCC està confirmat en aquesta banda</translation>
+    </message>
+    <message>
+        <source>Default color</source>
+        <translation type="vanished">Color predeterminat</translation>
+    </message>
+    <message>
+        <source>Sets a palette of colors similar to the one used in WSJT-X</source>
+        <translation type="vanished">Estableix una paleta de colors similar a la usada al WSJT-X</translation>
+    </message>
+    <message>
+        <source>Sets the default palette</source>
+        <translation type="vanished">Estableix la paleta predeterminada</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="168"/>
@@ -4416,12 +4804,12 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="87"/>
         <source>Save DX Cluster activity</source>
-        <translation>Desa l&apos;activitat del DX Cluster</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="88"/>
         <source>Saves all the DX-Cluster activity to a file in the KLog folder</source>
-        <translation>Desa tota l&apos;activitat del DX Cluster a un fitxer a la carpeta del KLog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="91"/>
@@ -4431,7 +4819,7 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="102"/>
         <source>Others</source>
-        <translation>Altres</translation>
+        <translation type="unfinished">Altres</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="109"/>
@@ -4472,12 +4860,12 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="54"/>
         <source>Read-Only mode</source>
-        <translation>Mode de només lectura</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="55"/>
         <source>If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio.</source>
-        <translation>Si està activat, el KLog llegirà la freqüència i el mode des de la ràdio però mai enviarà cap ordre a la ràdio.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="73"/>
@@ -4650,32 +5038,32 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppageinterfaceswindows.cpp" line="24"/>
         <source>UDP port number where the PSTRotator Server will listen for packets.</source>
-        <translation>Número de port UDP a on el servidor PSTRotator escoltarà els paquets.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageinterfaceswindows.cpp" line="24"/>
         <source>Default port is 12040.</source>
-        <translation>El port predeterminat és 12040.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageinterfaceswindows.cpp" line="31"/>
         <source>PST Rotator UDP Port</source>
-        <translation>Port UDP del PST Rotator</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageinterfaceswindows.cpp" line="37"/>
         <source>Hostname or IP address of the computer running PSTRotator. Leave it as localhost if you are running KLog and PSTRotator in the same computer.</source>
-        <translation>Nom del servidor o adreça IP de l&apos;ordinador que està executant el PSTRotator. Deixeu-ho com a «localhost» si executeu el KLog i el PSTRotator al mateix ordinador.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageinterfaceswindows.cpp" line="39"/>
         <source>PST Rotator host</source>
-        <translation>Servidor del PST Rotator</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageinterfaceswindows.cpp" line="51"/>
         <source>Send antenna bearing to PST Rotator</source>
-        <translation>Envia l&apos;orientació de l&apos;antena al PST Rotator</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4683,42 +5071,42 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="59"/>
         <source>LoTW upload</source>
-        <translation>Pujada al LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="68"/>
         <source>TQSL Path</source>
-        <translation>Camí al TQSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="70"/>
         <source>Route to TQSL</source>
-        <translation>Camí al TQSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="75"/>
         <source>Use TQSL</source>
-        <translation>Usa el TQSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="76"/>
         <source>Path to the TQSL software.</source>
-        <translation>Camí al programari del TQSL.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="77"/>
         <source>Enable the LoTW integration with TQSL. You will need to have TQSL installed</source>
-        <translation>Activa la integració LoTW amb el TQSL. Cal tenir instal·lat el TQSL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="84"/>
         <source>User:</source>
-        <translation>Usuari:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="85"/>
         <source>Password:</source>
-        <translation>Contrasenya:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="91"/>
@@ -4726,34 +5114,34 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! (If you don&apos;t want to enter the password, KLog will ask you when it is needed.</source>
-        <translation type="vanished">Introduïu aquí la contrasenya per al LoTW. Avís: La contrasenya es desarà tal qual al fitxer de configuració del KLog! Si no voleu introduir la contrasenya, el KLog la preguntarà quan sigui necessària.</translation>
-    </message>
-    <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="93"/>
         <source>LoTW download</source>
-        <translation>Baixada del LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="107"/>
         <location filename="../setuppages/setuppagelotw.cpp" line="108"/>
         <source>Enter your LoTW user</source>
-        <translation>Introduïu l&apos;usuari del LoTW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="109"/>
         <location filename="../setuppages/setuppagelotw.cpp" line="110"/>
         <source>Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! (If you don&apos;t want to enter the password, KLog will ask you when it is needed.)</source>
-        <translation>Introduïu aquí la contrasenya per al LoTW. Avís: La contrasenya es desarà tal qual al fitxer de configuració del KLog! (Si no voleu introduir la contrasenya, el KLog la preguntarà quan sigui necessària)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelotw.cpp" line="181"/>
         <source>Select File</source>
-        <translation>Selecció de fitxer</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SetupPageLogs</name>
+    <message>
+        <source>Type</source>
+        <translation type="vanished">Tipus</translation>
+    </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="70"/>
         <source>&amp;New</source>
@@ -4779,6 +5167,10 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <location filename="../setuppages/setuppagelogs.cpp" line="229"/>
         <source>Do you really want to remove this log?</source>
         <translation>Esteu segur que voleu eliminar aquest registre?</translation>
+    </message>
+    <message>
+        <source>All the QSOs from this log will be also deleted...</source>
+        <translation type="vanished">També s&apos;eliminaran tots els QSO d&apos;aquest registre...</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="345"/>
@@ -4818,7 +5210,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="230"/>
         <source>All the QSOs from this log will also be deleted...</source>
-        <translation>Tots els QSO d&apos;aquest registre també se suprimiran...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="269"/>
@@ -4869,6 +5261,10 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <translation>&amp;Cancel·la</translation>
     </message>
     <message>
+        <source>Select categories</source>
+        <translation type="vanished">Seleccioneu les categories</translation>
+    </message>
+    <message>
         <location filename="../setuppages/setuppagelogsnew.cpp" line="94"/>
         <source>&amp;Date</source>
         <translation>&amp;Data</translation>
@@ -4909,6 +5305,66 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <translation>Afegiu un comentari quant a aquest registre.</translation>
     </message>
     <message>
+        <source>&amp;Type of Operation</source>
+        <translation type="vanished">&amp;Tipus d&apos;operació</translation>
+    </message>
+    <message>
+        <source>Select the kind of operation for this log.</source>
+        <translation type="vanished">Seleccioneu la classe d&apos;operació per a aquest registre.</translation>
+    </message>
+    <message>
+        <source>&amp;Mode Category</source>
+        <translation type="vanished">Categoria de &amp;mode</translation>
+    </message>
+    <message>
+        <source>Select the mode category.</source>
+        <translation type="vanished">Seleccioneu la categoria del mode.</translation>
+    </message>
+    <message>
+        <source>O&amp;perators Category</source>
+        <translation type="vanished">Categoria d&apos;o&amp;peradors</translation>
+    </message>
+    <message>
+        <source>Select the operators category.</source>
+        <translation type="vanished">Seleccioneu la categoria dels operadors.</translation>
+    </message>
+    <message>
+        <source>&amp;Assisted Category</source>
+        <translation type="vanished">Categoria d&apos;&amp;assistit</translation>
+    </message>
+    <message>
+        <source>Select the assisted category.</source>
+        <translation type="vanished">Seleccioneu la categoria d&apos;assistit.</translation>
+    </message>
+    <message>
+        <source>Po&amp;wer Category</source>
+        <translation type="vanished">Categoria de &amp;potència</translation>
+    </message>
+    <message>
+        <source>Select the power category.</source>
+        <translation type="vanished">Seleccioneu la categoria de la potència.</translation>
+    </message>
+    <message>
+        <source>&amp;Bands Category</source>
+        <translation type="vanished">Categoria de &amp;bandes</translation>
+    </message>
+    <message>
+        <source>Select the bands category.</source>
+        <translation type="vanished">Seleccioneu la categoria de les bandes.</translation>
+    </message>
+    <message>
+        <source>O&amp;verlay</source>
+        <translation type="vanished">S&amp;uperposició</translation>
+    </message>
+    <message>
+        <source>Select the Overlay category.</source>
+        <translation type="vanished">Seleccioneu la categoria de la superposició.</translation>
+    </message>
+    <message>
+        <source>Categories not OK</source>
+        <translation type="vanished">Categories no correctes</translation>
+    </message>
+    <message>
         <location filename="../setuppages/setuppagelogsnew.cpp" line="582"/>
         <source>You need to enter a valid QRZ in the Station Callsign box.
 The log will not be opened.</source>
@@ -4916,6 +5372,18 @@ The log will not be opened.</source>
 The log will not be opened.</oldsource>
         <translation>Cal introduir un QRZ vàlid a la casella d&apos;indicatiu d&apos;estació.
 El registre no s&apos;obrirà.</translation>
+    </message>
+    <message>
+        <source>You selected an invalid combination.
+The log will not be opened.</source>
+        <oldsource>You selected an invalid combination
+The log will not be opened.</oldsource>
+        <translation type="vanished">Heu seleccionat una combinació no vàlida.
+El registre no s&apos;obrirà.</translation>
+    </message>
+    <message>
+        <source>Categories OK</source>
+        <translation type="vanished">Categories correctes</translation>
     </message>
 </context>
 <context>
@@ -4962,8 +5430,9 @@ El registre no s&apos;obrirà.</translation>
         <translation>Completa QSO amb dades prèvies</translation>
     </message>
     <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="46"/>
         <source>&amp;Reset to My Data for all QSOs</source>
-        <translation type="vanished">&amp;Restaura les meves dades a tots els QSO</translation>
+        <translation>&amp;Restaura les meves dades a tots els QSO</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="49"/>
@@ -4979,6 +5448,10 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../setuppages/setuppagemisc.cpp" line="60"/>
         <source>Move DB</source>
         <translation>Mou la BD</translation>
+    </message>
+    <message>
+        <source>If new version checking is selected, KLog will send the developer your callsign, KLog version &amp; Operating system to help in improving KLog.</source>
+        <translation type="vanished">Si s&apos;ha seleccionat la comprovació de versió nova, el KLog enviarà al desenvolupador el vostre indicatiu, la versió del KLog i el sistema operatiu per ajudar a millorar el KLog.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="131"/>
@@ -5018,7 +5491,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="145"/>
         <source>Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the new QSO by default.</source>
-        <translation>Cliqueu per canviar com a posat a la cua (per enviar) tots els eQSL (LoTW i eQSL) a tots els QSO nous de manera predeterminada.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="693"/>
@@ -5031,14 +5504,9 @@ El registre no s&apos;obrirà.</translation>
         <translation>Aquest és el directori a on es desarà la BD (logbook.dat).</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="46"/>
-        <source>&amp;Keep My Data for all QSOs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="52"/>
         <source>Mark sent eQSL &amp;&amp; LoTW in new QSO as queued</source>
-        <translation>Marca els eQSL enviats i LoTW als QSO nous com a posats a la cua</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="140"/>
@@ -5071,29 +5539,33 @@ El registre no s&apos;obrirà.</translation>
         <translation>S&apos;ha copiat el fitxer</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="761"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="762"/>
         <source>File already exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="762"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="763"/>
         <source>The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="767"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="768"/>
         <source>File NOT copied</source>
         <translation>NO s&apos;ha copiat el fitxer</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="768"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="769"/>
         <source>The file was not copied due to an unknown problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="780"/>
+        <location filename="../setuppages/setuppagemisc.cpp" line="783"/>
         <source>The target directory does not exist. Please select an existing directory.</source>
         <translation>El directori de destinació no existeix. Seleccioneu un directori existent.</translation>
+    </message>
+    <message>
+        <source>The search box will show also the callsign on the air to do the QSO.</source>
+        <translation type="vanished">El quadre de cerca mostrarà també l&apos;indicatiu a l&apos;aire emprat per fer el QSO.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="45"/>
@@ -5128,12 +5600,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="127"/>
         <source>The search box will also show the callsign on the air to do the QSO.</source>
-        <translation>El quadre de cerca també mostrà l&apos;indicatiu a l&apos;aire per fer el QSO.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="130"/>
         <source>If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog.</source>
-        <translation>Si s&apos;ha seleccionat la comprovació de versió nova, el KLog enviarà al desenvolupador el vostre indicatiu, la versió del KLog i el sistema operatiu per ajudar a millorar el KLog.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="132"/>
@@ -5210,6 +5682,10 @@ El registre no s&apos;obrirà.</translation>
         <translation>Elimina el satèl·lit seleccionat.</translation>
     </message>
     <message>
+        <source>Import a satellites file. It will replace the satellites you have now configured.</source>
+        <translation type="vanished">Importa un fitxers de satèl·lits. Substituirà els satèl·lits que tingueu configurats ara.</translation>
+    </message>
+    <message>
         <location filename="../setuppages/setuppagesats.cpp" line="74"/>
         <source>Export your current satellites to a file.</source>
         <translation>Exporta els satèl·lits actuals a un fitxer.</translation>
@@ -5230,14 +5706,18 @@ El registre no s&apos;obrirà.</translation>
         <translation>Esteu segur que voleu eliminar aquest satèl·lit?</translation>
     </message>
     <message>
+        <source>This satellite will not be longer available to be selected ...</source>
+        <translation type="vanished">Aquest satèl·lit ja no estarà disponible per a sigui seleccionable...</translation>
+    </message>
+    <message>
         <location filename="../setuppages/setuppagesats.cpp" line="73"/>
         <source>Import a satellites file. It will replace the satellites you have in the current list.</source>
-        <translation>Importa un fitxer de satèl·lits. Substituirà els satèl·lits que hi ha a la llista actual.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="214"/>
         <source>This satellite will no be longer available to be selected ...</source>
-        <translation>Aquest satèl·lit ja no tornarà a estar disponible per a ser seleccionat...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="246"/>
@@ -5316,7 +5796,7 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="597"/>
         <source>Please check the format or contact the developer for analysis with the error code: </source>
-        <translation>Verifiqueu el format o contacteu amb el desenvolupador per a una anàlisi amb el codi d&apos;error: </translation>
+        <translation>Verifiqueu el format o contacteu amb el desenvolupador per a un anàlisi amb el codi d&apos;error: </translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="664"/>
@@ -5364,7 +5844,7 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="103"/>
         <source>Enter the short name. Try to use the LoTW short name so you can upload your QSO to LoTW afterwards.</source>
-        <translation>Introduïu el nom curt. Intenteu usar el nom curt LoTW per a que pugueu pujar després el QSO al LoTW.</translation>
+        <translation>Introduïu el nom curt. Intenteu usar el nom curt LoTW per a que pugueu pujar després el QSO a LoTW.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="104"/>
@@ -5389,7 +5869,11 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="385"/>
         <source>Some of the data you have entered is not correct; the satellite can&apos;t be added.</source>
-        <translation>Alguna dada que heu introduït no és correcta; no s&apos;ha pogut afegir el satèl·lit.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some of the data you have entered is not correct, the satellite can&apos;t be added.</source>
+        <translation type="vanished">Diverses dades que heu introduït no són correctes, no s&apos;ha pogut afegir el satèl·lit.</translation>
     </message>
 </context>
 <context>
@@ -5400,34 +5884,66 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
         <translation>Inicia el servidor UDP</translation>
     </message>
     <message>
+        <source>Log automatically QSOs from WSJT-X</source>
+        <translation type="vanished">Enregistra automàticament els QSO del WSJT-X</translation>
+    </message>
+    <message>
+        <source>Allow WSJT-X to send logged QSO to KLog</source>
+        <translation type="vanished">Permet que el WSJT-X enviï QSO enregistrats al KLog</translation>
+    </message>
+    <message>
+        <source>KLog will log automatically any QSO coming from WSJT-X without any manual confirmation.</source>
+        <translation type="vanished">El KLog enregistrarà automàticament qualsevol QSO que vingui del WSJT-X sense cap confirmació manual.</translation>
+    </message>
+    <message>
+        <source>Receive and Update QSO data to KLog</source>
+        <translation type="vanished">Recepció i actualització de dades QSO al KLog</translation>
+    </message>
+    <message>
         <location filename="../setuppages/setuppageudp.cpp" line="42"/>
         <source>KLog will automatically show and update data coming from WSJT-X (DX callsign, locator, RPT, ...)</source>
-        <translation>El KLog mostrarà i actualitzarà automàticament les dades provinents del WSJT-X (indicatiu DX, localitzador, RPT, ...)</translation>
+        <translation>El KLog mostrarà i actualitzarà automàticament les dades provinents del WSJT-X (indicador DX, localitzador, RPT, ...)</translation>
+    </message>
+    <message>
+        <source>QSO notification timeout (milisecs)</source>
+        <translation type="vanished">Temps excedit de la notificació QSO (mil·lisegons)</translation>
+    </message>
+    <message>
+        <source>Milliseconds that the notification of QSO received from WSJTX will be shown.</source>
+        <translation type="vanished">Mil·lisegons durant els que es mostrarà la notificació del QSO rebut des del WSJTX.</translation>
+    </message>
+    <message>
+        <source>Make sure it is the same port where the other programs are sending the data to. Default port is 2237.</source>
+        <translation type="vanished">Comproveu que sigui el mateix port a on els altres programes envien les dades. El port predeterminat és el 2237.</translation>
+    </message>
+    <message>
+        <source>QSO logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless &quot;%1&quot; is selected</source>
+        <translation type="vanished">Els QSO enregistrats al WSJT-X s&apos;enviaran al KLog i el KLog preguntarà abans d&apos;enregistrar-los al KLog a menys que se seleccioni «%1»</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="33"/>
         <source>Automatically log QSOs from WSJT-X</source>
-        <translation>Registra automàticament els QSO des del WSJT-X</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="34"/>
         <source>Allow WSJT-X to send logged QSOs to KLog</source>
-        <translation>Permet que el WSJT-X enviï QSO enregistrats al KLog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="35"/>
         <source>QSOs logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless &quot;%1&quot; is selected</source>
-        <translation>Els QSO enregistrats al WSJT-X s&apos;enviaran al KLog i el KLog preguntarà abans d&apos;enregistrar al KLog a menys que se seleccioni «%1»</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="38"/>
         <source>KLog will automatically log any QSO coming from WSJT-X without any manual confirmation.</source>
-        <translation>El KLog enregistrarà automàticament qualsevol QSO provinent del WSJT-X sense cap confirmació manual.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="41"/>
         <source>Receive QSOs data and update to KLog</source>
-        <translation>Rep les dades dels QSO i actualitza el KLog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="58"/>
@@ -5437,7 +5953,7 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="58"/>
         <source>Make sure it is the same port that the other programs are sending the data to. Default port is 2237.</source>
-        <translation>Assegureu-vos que és el mateix port al qual els altres programes estan les dades. El port predeterminat és 2237.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="59"/>
@@ -5452,12 +5968,12 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="78"/>
         <source>QSOs notification timeout (milisecs)</source>
-        <translation>Temps d&apos;expiració de les notificacions dels QSO (mil·lisegons)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="79"/>
         <source>Miliseconds that the notification of QSOs received from WSJTX will be shown.</source>
-        <translation>Mil·lisegons en que es mostrarà la notificació dels QSO rebuts des del WSJTX.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5795,10 +6311,6 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
 <context>
     <name>ShowAdifImportWidget</name>
     <message>
-        <source>The following QSO are those QSOs that you have received the LoTW confirmation.</source>
-        <translation type="vanished">Els QSO següents són aquells QSO pels que heu rebut la confirmació del LoTW.</translation>
-    </message>
-    <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="19"/>
         <source>The following QSOs are those QSOs that you have received the LoTW confirmation.</source>
         <translation type="unfinished"></translation>
@@ -5806,27 +6318,27 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="20"/>
         <source>Ok</source>
-        <translation>D&apos;acord</translation>
+        <translation type="unfinished">D&apos;acord</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="30"/>
         <source>DX</source>
-        <translation>DX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="30"/>
         <source>Date/Time</source>
-        <translation>Data/hora</translation>
+        <translation type="unfinished">Data/hora</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="30"/>
         <source>Band</source>
-        <translation>Banda</translation>
+        <translation type="unfinished">Banda</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="30"/>
         <source>Mode</source>
-        <translation>Mode</translation>
+        <translation type="unfinished">Mode</translation>
     </message>
 </context>
 <context>
@@ -6047,7 +6559,11 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="57"/>
         <source>QSOs per band distribution</source>
-        <translation>QSO per distribució de banda</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO per band distribution</source>
+        <translation type="vanished">QSO per distribució de bandes</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
@@ -6196,7 +6712,11 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="57"/>
         <source>QSOs per mode distribution</source>
-        <translation>QSO per distribució de mode</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QSO per mode distribution</source>
+        <translation type="vanished">QSO per distribució de modes</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
@@ -6402,10 +6922,23 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
         <translation>Anterior</translation>
     </message>
     <message>
+        <source>Tip #1:</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
+        <translation type="vanished">Consell núm. 1:</translation>
+    </message>
+    <message>
+        <source>Do you know...</source>
+        <translation type="vanished">Sabíeu que...</translation>
+    </message>
+    <message>
+        <source>You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
+        <translation type="vanished">podeu usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Eines-&gt;Omple les dades QSO&lt;/a&gt; per a llegir automàticament el registre complet per omplir el DXCC, CQ, les zones ITU i el continent?</translation>
+    </message>
+    <message>
         <location filename="../tipsdialog.cpp" line="123"/>
         <source>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
-        <translation>&lt;b&gt;Consell núm. 1:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;poseu usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Eines -&gt; Omple les dades QSO&lt;/a&gt; per llegir automàticament el registre complet per a omplir les zones DXCC, CQ, ITU i el continent?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="127"/>
@@ -6426,46 +6959,56 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
         <translation>&lt;b&gt;Consell núm. 4:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu exportar el vostre QSO marcat com a QSL sol·licitada amb &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Fitxer-&gt;Exporta les QSL sol·licitades a ADIF...&lt;/a&gt; per a crear un fitxer ADIF que podreu importar a un programa de creació d&apos;etiquetes QSL per a imprimir les etiquetes de les vostres targetes QSL?</translation>
     </message>
     <message>
+        <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as requested, via LoTW, in your log with &lt;a href=&quot;#FileExportLoTWADIF&quot;&gt;File-&gt;Export ADIF for LoTW...&lt;/a&gt; to create an ADIF file that you will be able to import in TQSL to be signed and uploaded to LoTW?&lt;br&gt;&lt;br&gt;You have to mark as Q-Queued all the QSOs you want to be exported to be sent to LoTW.</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
+        <translation type="vanished">&lt;b&gt;Consell núm. 5:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu exportar el vostre QSO marcat com a sol·licitat, via LoTW, en el registre amb &lt;a href=&quot;#FileExportLoTWADIF&quot;&gt;Fitxer-&gt;Exporta l&apos;ADIF per a LoTW...&lt;/a&gt; per crear un fitxer ADIF que podreu importar al TQSL per a signar i pujar al to LoTW?&lt;br&gt;&lt;br&gt;Cal marcar tots els QSO que vulgueu que s&apos;exportin com a enviats al LoTW com a Q-«En cua».</translation>
+    </message>
+    <message>
         <location filename="../tipsdialog.cpp" line="138"/>
         <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
-        <translation>&lt;b&gt;Consell núm. 5:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu introduir un «*» al quadre de cerca de la finestra de cerca per a cercar tots els QSO efectuats amb un indicatiu d&apos;estació específic?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="165"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation>&lt;b&gt;Consell núm. 12:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s a la &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;llista de correu KLog-users&lt;/a&gt; per comentar en anglès via correu electrònic quant al KLog?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="168"/>
         <source>&lt;b&gt;Tip #13:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can &lt;a href=https://twitter.com/_ea4k&gt;follow EA4K on twitter&lt;/a&gt; to get updates about KLog?</source>
-        <translation>&lt;b&gt;Consell núm. 13:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu &lt;a href=https://twitter.com/_ea4k&gt;seguir a EA4K al Twitter&lt;/a&gt; per aconseguir notícies quant al KLog?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="183"/>
         <source>&lt;b&gt;Tip #18:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can double-click on an entity name in the DXCC table and all the QSOs with that DXCC Entity will be shown in the search box?</source>
-        <translation>&lt;b&gt;Consell núm. 18:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu fer un clic doble a un nom d&apos;entitat a la taula de DXCC i tots els QSO amb una entitat DXCC es mostraran al quadre de cerca?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="186"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
-        <translation>&lt;b&gt;Consell núm. 19:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu fer clic amb el botó dret a un QSO i seleccionar &lt;i&gt;Comprova a QRZ.com&lt;/i&gt; per comprovar aquest identificador a QRZ.com?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="189"/>
         <source>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
-        <translation>&lt;b&gt;Consell núm. 20:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu veure el QSO que confirma una entitat DXCC específica a una banda específica apuntant el ratolí sobre aquesta banda al giny del DXCC?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="193"/>
         <source>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;Upload to LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation>&lt;b&gt;Consell núm. 21:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu pujar els vostres QSO marcats com a en cua al LoTW via el TQSL amb &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Eines -&gt; Puja al LoTW...&lt;/a&gt;?&lt;br&gt;&lt;br&gt;Cal configurar el TQSL a les preferències per a poder usar aquesta funcionalitat.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu.</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
+        <translation type="vanished">&lt;b&gt;Consell núm. 6:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar el fitxer que conté tot el vostre registre i altra informació en el fitxer «logbook.dat» i el fitxer «klogrc», que conté el fitxer de configuració del KLog, a la carpeta del KLog obrint el menú &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Fitxer-&gt;Carpeta del KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="142"/>
         <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation>&lt;b&gt;Consell núm. 6:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar el fitxer que conté tot el vostre registre i altra informació al fitxer «logbook.dat», i al «klogrc» que conté el fitxer de configuració del KLog, a la carpeta del KLog obrint el menú &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Fitxer-&gt;Carpeta del KLog&lt;/a&gt;?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="148"/>
@@ -6491,9 +7034,21 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
         <translation>&lt;b&gt;Consell núm. 10:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=https://t.me/klogchat&gt;grup de Telegram del KLog en anglès&lt;/a&gt; per conversar en anglès quant al KLog?</translation>
     </message>
     <message>
+        <source>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=//https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; to discuss about KLog in Spanish?</source>
+        <translation type="vanished">&lt;b&gt;Consell núm. 11:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=//https://t.me/KLogES&gt;grup de Telegram en castellà&lt;/a&gt; per conversar en castellà quant al KLog?</translation>
+    </message>
+    <message>
         <location filename="../tipsdialog.cpp" line="162"/>
         <source>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; to discuss about KLog in Spanish?</source>
-        <translation>&lt;b&gt;Consell núm. 11:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=//https://t.me/KLogES&gt;grup de Telegram en castellà&lt;/a&gt; per conversar en castellà quant al KLog?</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=http://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
+        <translation type="vanished">&lt;b&gt;Consell núm. 12:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s a la &lt;a href=http://lists.nongnu.org/mailman/listinfo/klog-users&gt;llista de correu KLog-users&lt;/a&gt; per comentar en anglès via correu electrònic quant al KLog?</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Tip #13:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can &lt;a href=https://twitter.com/ea4tv&gt;follow EA4TV on twitter&lt;/a&gt; to get updates about KLog?</source>
+        <translation type="vanished">&lt;b&gt;Consell núm. 13:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu &lt;a href=https://twitter.com/ea4tv&gt;seguir a EA4TV al Twitter&lt;/a&gt; per aconseguir notícies quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="171"/>
@@ -6513,7 +7068,11 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../tipsdialog.cpp" line="180"/>
         <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt; page.</source>
-        <translation>&lt;b&gt;Consell núm. 17:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu ajudar a traduir el KLog al vostre idioma? Si us plau, reviseu la pàgina de &lt;a href=https://www.klog.xyz/contrib/translations&gt;traduccions del KLog&lt;/a&gt;.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt; page?</source>
+        <translation type="vanished">&lt;b&gt;Consell núm. 17:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu ajudar a traduir el KLog al vostre idioma? Si us plau, reviseu la pàgina de &lt;a href=https://www.klog.xyz/contrib/translations&gt;traduccions del KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="196"/>

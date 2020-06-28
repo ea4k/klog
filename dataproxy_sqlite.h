@@ -22,13 +22,12 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 #include <QString>
 #include <QStringList>
 #include <QObject>
-//#include <QtGlobal>
 
 #include "database.h"
 
@@ -41,6 +40,7 @@ public:
 
     DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction);
     ~DataProxy_SQLite();
+
 
     QString getSoftVersion();
     QString getDBVersion();
@@ -101,15 +101,15 @@ public:
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
-    bool qslSentViaDirect(const int _qsoId, const QString &_updateDate);
-    bool qslSentViaBureau(const int _qsoId, const QString &_updateDate);
-    bool qslRecViaBureau(const int _qsoId, const QString &_updateDate);
-    bool qslRecViaBureau(const int _qsoId, const QString &_updateDate, const bool _queueSentQSL);
-    bool qslRecViaDirect(const int _qsoId, const QString &_updateDate);
-    bool qslRecViaDirect(const int _qsoId, const QString &_updateDate, const bool _queueSentQSL);
-    bool qslSentAsRequested(const int _qsoId, const QString &_updateDate);
-    bool qslRecAsRequested(const int _qsoId, const QString &_updateDate);
-    bool setClubLogSent(const int _qsoId, const QString &_st, const QString &_updateDate);
+    bool qslSentViaDirect(const int _qsoId, const QDate &_updateDate);
+    bool qslSentViaBureau(const int _qsoId, const QDate &_updateDate);
+    bool qslRecViaBureau(const int _qsoId, const QDate &_updateDate);
+    bool qslRecViaBureau(const int _qsoId, const QDate &_updateDate, const bool _queueSentQSL);
+    bool qslRecViaDirect(const int _qsoId, const QDate &_updateDate);
+    bool qslRecViaDirect(const int _qsoId, const QDate &_updateDate, const bool _queueSentQSL);
+    bool qslSentAsRequested(const int _qsoId, const QDate &_updateDate);
+    bool qslRecAsRequested(const int _qsoId, const QDate &_updateDate);
+    bool setClubLogSent(const int _qsoId, const QString &_st, const QDate &_updateDate);
 
     bool isHF(const int _band);
     bool isWARC(const int _band);
@@ -135,10 +135,10 @@ public:
 
 
     //LOTW
-    bool lotwSentQueue(const QString &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
-    bool lotwSentYes(const QString &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
+    bool lotwSentQueue(const QDate &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
+    bool lotwSentYes(const QDate &_updateDate, const int _currentLog, const QString &_station);         // Update LOTW QSL SENT marked as Q as Y (Queued)
     bool lotwSentQSOs(const QList<int> &_qsos);
-    int lotwUpdateQSLReception (const QString &_call, const QString &_qso_date, const QString &_time_on, const QString &_band, const QString &_mode, const QString &_qslrdate);
+    int lotwUpdateQSLReception (const QString &_call, const QDateTime &_dateTime, const QString &_band, const QString &_mode, const QDate &_qslrdate);
     QList<int> getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
     QStringList getQSODetailsForLoTWDownload(const int _id);
 

@@ -33,11 +33,11 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     dataProxy = dp;
     //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
+    util = new Utilities;
     connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
-    elogClublog = new eLogClubLog();
-
+    elogClublog = new eLogClubLog();    
     currentLog = -1;
     //proxyModel = new LogViewSortFilterProxyModel(this);
 
@@ -109,6 +109,7 @@ void LogWindow::createlogPanel(const int _currentLog)
     logModel->createlogModel(currentLog);
     //proxyModel->setSourceModel(logModel);
     logView->setModel(logModel);
+
     logView->setCurrentIndex(logModel->index(0, 0));
 
     //setProxyModel(false);
@@ -135,7 +136,11 @@ void LogWindow::createlogPanel(const int _currentLog)
            //qDebug() << "LogWindow::createlogPanel: No log type found!"  << endl;
     }
 */
-    logView->setItemDelegate(new QSqlRelationalDelegate(this));
+
+    //qDebug() << "LogWindow::createlogPanel " << logModel->record(0).field(1).value().toString() << endl;
+    //logView->setItemDelegateForColumn(1, new ItemDelegate);
+    //logView->setItemDelegate(new QSqlRelationalDelegate(this));
+
     logView->setSelectionMode(QAbstractItemView::SingleSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logView->resizeColumnsToContents();
@@ -176,8 +181,6 @@ void LogWindow::setColumnsToDX()
     }
 
     columns = rec.indexOf("qso_date");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("time_on");
     logView->setColumnHidden(columns, false);
     columns = rec.indexOf("call");
     logView->setColumnHidden(columns, false);
@@ -227,7 +230,7 @@ void LogWindow::righButtonFromLogMenu(const int trow)
        //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
 
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
-       //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
@@ -355,14 +358,14 @@ void LogWindow::slotQSLSentViaBureauFromLog()
       //qDebug() << "LogWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
     int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
-
 }
 
 void LogWindow::slotQSLSentViaDirectFromLog()
 {
        //qDebug() << "LogWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
-    int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"));
+     int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
+    dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
 
 }
 
@@ -456,15 +459,14 @@ void LogWindow::slotQsoDeleteFromLog()
 
 void LogWindow::qslSentViaBureau(const int _qsoId)
 {
-       //qDebug() << "LogWindow::qslSentViaBureau: " << QString::number(_qsoId) << endl;
-
-    dataProxy->qslSentViaBureau(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"));
+       //qDebug() << "LogWindow::qslSentViaBureau: " << QString::number(_qsoId)yyyy-MM-dd
+    dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
 }
 
 void LogWindow::qslRecViaBureau(const int _qsoId)
 {
-   //    //qDebug() << "LogWindow::qslRecViaBureau: " << QString::number(_qsoId) << "/" << (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
-    dataProxy->qslRecViaBureau(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"), false);
+   //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
+    dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
     awards->setAwards(_qsoId);   //Update the Award status
 
     refresh();
@@ -474,9 +476,8 @@ void LogWindow::qslRecViaBureau(const int _qsoId)
 
 void LogWindow::qslRecViaDirect(const int _qsoId)
 {
-       //qDebug() << "LogWindow::qslRecViaDirect: " << QString::number(_qsoId) << endl;
-
-    dataProxy->qslRecViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy/MM/dd"), false);
+       //qDebug() << "LogWindow::qslRecViaDirect: " << QString::number(_qsoId)yyyy-MM-dd
+    dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), false);
     awards->setAwards(_qsoId);
 
     refresh();
@@ -508,3 +509,4 @@ void LogWindow::slotCheckDXHeatCom()
     QString url = "https://www.dxheat.com/db/" + _qrz;
     QDesktopServices::openUrl(QUrl(url));
 }
+

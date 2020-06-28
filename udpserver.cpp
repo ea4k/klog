@@ -1,5 +1,6 @@
 #include "udpserver.h"
 #include <QDateTime>
+//https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/UDPExamples/MessageServer.cpp
 
 UDPServer::UDPServer(QObject *parent) :
     QObject(parent)
@@ -27,7 +28,7 @@ void UDPServer::slotReadPendingDatagrams()
            //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize()) << endl;
         socketServer->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
         parse (datagram);
-           //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram << endl;
+        qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram << endl;
     }
 
 }
@@ -52,7 +53,7 @@ bool UDPServer::start()
 
 void UDPServer::parse(const QByteArray &msg)
 {
-       //qDebug() << "UDPServer::parse"<< endl;
+    qDebug() << "UDPServer::parse"<< endl;
     quint32 magic;
     quint32 schema;
     quint32 type;
@@ -77,8 +78,8 @@ void UDPServer::parse(const QByteArray &msg)
     bool tx_enabled = false;
     bool transmitting = false;
     bool decoding = false;
-    qint32 rx_df = -1;
-    qint32 tx_df = -1;
+    qint32 rx_df = -1;  // Delta frequency
+    qint32 tx_df = -1;  // Delta time
     QByteArray de_call;
     QByteArray de_grid;
     bool watchdog_timeout = false;

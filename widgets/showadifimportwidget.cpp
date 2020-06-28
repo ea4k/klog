@@ -149,13 +149,19 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
         //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received" << endl;
         return;
     }
-    if (!QDateTime::fromString(_qso.at(1), "yyyyMMdd-hhmmss").isValid())
+
+    QDateTime _dateTime = util->getDateTimeFromSQLiteString(_qso.at(1));
+    if (!_dateTime.isValid())
     {
         //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received" << endl;
         return;
     }
 
+    QStringList _newQSO;
+    _newQSO.clear();
 
-    qsosList << _qso;
+    _newQSO << _qso.at(0) << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _qso.at(2) << _qso.at(3);
+    qsosList << _newQSO;
     //qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END" << endl;
 }
+

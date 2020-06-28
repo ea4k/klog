@@ -31,10 +31,12 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 {
        //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName << endl;
     constrid = 1;
+    created = false;
 
     util = new Utilities();
     softVersion = util->getVersion();
     dbName = _DBName;
+
 
        //qDebug() << "DataBase::DataBase1: dbName: " << dbName << endl;
 
@@ -54,6 +56,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
        //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName << endl;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     constrid = 2;
+    created = false;
     dbVersion = DBVersionf;
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
@@ -61,7 +64,6 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     util = new Utilities();
     util->setVersion(softVersion);
 
-    //dbName = util->getKLogDBFile();
     dbName = _DBName;
 
        //qDebug() << "DataBase::DataBase2: dbName: " << dbName << endl;
@@ -85,69 +87,6 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 
        //qDebug() << "DataBase::DataBase2: END"  << endl;
 }
-
-
-
-/*
-bool DataBase::queryAddField(const QString _field, const QString value)
-{
-    //QStringList insertPreparedQueries, insertQueryFields;
-    insertQueryFields << _field << value;
-
-}
-
-
-bool DataBase::queryPrepare()
-{
-    //insertPreparedQueries.clear();
-    //insertQueryFields.clear();
-    for (int i = 0; i < insertQueryFields.size(); ++i)
-    {
-        if (insertQueryFields.at(i) != "EOR")
-        {
-            insertPreparedQueries << insertQueryFields.at(i) << insertQueryFields.at(i+1);
-        }
-        else
-        {
-            insertPreparedQueries << "EOR";
-            return true;
-        }
-    }
-    return true;
-
-}
-
-
-bool DataBase::queryExec()
-{
-       //qDebug()  << "DataBase::queryExec  "  << endl;
-    bool sqlOK;
-    //insertQueryFields.clear();
-    //insertPreparedQueries.clear();
-    //bool sqlOK = preparedQuery.exec();
-    QSqlQuery preparedQuery;
-    //Prepare the Query
-    for (int i = 0; i < insertPreparedQueries.size(); ++i)
-    {
-        preparedQuery.bindValue(insertPreparedQueries.at(i), insertPreparedQueries.at(i+1));
-    }
-
-
-
-    if (!sqlOK)
-    {
-        queryErrorManagement("DataBase::queryExec", preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
-        //emit queryError(Q_FUNC_INFO, preparedQuery.lastError().databaseText(), preparedQuery.lastError().number(), preparedQuery.lastQuery());
-           //qDebug()  << "DataBase::queryExec - FAILED execution: "  << preparedQuery.lastQuery() << endl;
-    }
-    else
-    {
-           //qDebug()  << "DataBase::queryExec - executed: "  << preparedQuery.lastQuery() << endl;
-    }
-    return sqlOK;
-}
-
-*/
 
 
 DataBase::~DataBase()
@@ -290,7 +229,6 @@ bool DataBase::reConnect(const QString &_DBName)
     db.close();
     dbName = _DBName;
         //qDebug() << "DataBase::reConnect: DB closed"  << endl;
-    //dbName = util->getKLogDBFile();
         //qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
     return createConnection(Q_FUNC_INFO);
         //qDebug() << "DataBase::reConnect: END"  << endl;
@@ -473,6 +411,19 @@ bool DataBase::recreateTableLog()
     QStringList columns;
     columns.clear();
     columns << getColumnNamesFromTable("log");
+    /*
+    if (columns.contains("time_on"))
+    {   // This is required to upgrade from old DB to 0.017.
+        QString stringQuery;
+        stringQuery = "update log set qso_date = replace((SELECT qso_date from log)||' '||time_on, '', '')";
+
+        bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+        if (!sqlOK)
+        {return false;}
+
+        columns.removeOne("time_on");
+    }
+    */
 
     queryString =  columns.first();
 
@@ -531,8 +482,7 @@ bool DataBase::createTableLog(bool temp)
     }
 
              stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-             "qso_date VARCHAR(10) NOT NULL, "
-             "time_on VARCHAR(8) NOT NULL, "
+             "qso_date DATETIME NOT NULL, " // 2020-01-01 10:12:01
              "call VARCHAR(40) NOT NULL, "
              "rst_sent VARCHAR, "
              "rst_rcvd VARCHAR, "
@@ -569,8 +519,8 @@ bool DataBase::createTableLog(bool temp)
              "distance INTEGER, "
              "email VARCHAR, "
              "eq_call VARCHAR, "
-             "eqsl_qslrdate VARCHAR(10), "
-             "eqsl_qslsdate VARCHAR(10), "
+             "eqsl_qslrdate DATETIME, "
+             "eqsl_qslsdate DATETIME, "
              "eqsl_qsl_rcvd VARCHAR(1), "
              "eqsl_qsl_sent VARCHAR(1), "
              "fists INTEGER, "
@@ -580,18 +530,18 @@ bool DataBase::createTableLog(bool temp)
              "freq_rx VARCHAR, "
              "gridsquare VARCHAR, "
              "guest_op VARCHAR,"
-             "hrdlog_qso_upload_date VARCHAR(10), "
+             "hrdlog_qso_upload_date DATETIME, "
              "hrdlog_qso_upload_status  VARCHAR(1), "
              "iota VARCHAR(6), "
              "iota_island_id VARCHAR, "
              "k_index INTEGER, "
              "lat VARCHAR(11), "
              "lon VARCHAR(11), "
-             "lotw_qslrdate VARCHAR(10), "
-             "lotw_qslsdate VARCHAR(10), "
+             "lotw_qslrdate DATETIME, "
+             "lotw_qslsdate DATETIME, "
              "lotw_qsl_rcvd VARCHAR(1), "
              "lotw_qsl_sent VARCHAR(1), "
-             "clublog_qso_upload_date VARCHAR(10), "
+             "clublog_qso_upload_date DATETIME, "
              "clublog_qso_upload_status VARCHAR(1), "
              "max_bursts INTEGER, "
              "ms_shower VARCHAR, "
@@ -628,11 +578,11 @@ bool DataBase::createTableLog(bool temp)
              "precedence VARCHAR, "
              "prop_mode VARCHAR, "
              "public_key VARCHAR, "
-             "qrzcom_qso_upload_date VARCHAR(10), "
+             "qrzcom_qso_upload_date DATETIME, "
              "qrzcom_qso_upload_status VARCHAR(1), "
              "qslmsg VARCHAR, "
-             "qslrdate VARCHAR(10), "
-             "qslsdate VARCHAR(10), "
+             "qslrdate DATETIME, "
+             "qslsdate DATETIME, "
              "qsl_rcvd VARCHAR(1), "
              "qsl_sent VARCHAR(1), "
              "qsl_rcvd_via VARCHAR(1), "
@@ -665,13 +615,13 @@ bool DataBase::createTableLog(bool temp)
              "ten_ten INTEGER, "
              "tx_pwr REAL, "
              "web VARCHAR, "
-             "qso_date_off VARCHAR(10), "
-             "time_off VARCHAR(8), "
+             "qso_date_off DATETIME, " //2020-01-01
+             "time_off VARCHAR(8), "    //10:10:10
              "transmiterid VARCHAR, "
              "marked VARCHAR(1), "
              "lognumber INTEGER NOT NULL, "
 
-             "UNIQUE (call, qso_date, time_on, bandid, modeid, lognumber), "
+             "UNIQUE (call, qso_date, bandid, modeid, lognumber), "
              "FOREIGN KEY (qso_complete) REFERENCES qso_complete_enumeration, "
              "FOREIGN KEY (qsl_rcvd_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_sent_via) REFERENCES qsl_via_enumeration, "
@@ -749,7 +699,6 @@ bool DataBase::createDataBase()
                 "dbversion REAL NOT NULL)");
 
     execQuery(Q_FUNC_INFO, stringQuery);
-    //dateString = (date.currentDateTime()).toString("yyyyMMdd");
 
     updateDBVersion(softVersion, QString::number(DBVersionf));
 
@@ -766,9 +715,6 @@ bool DataBase::createDataBase()
 
     createTableEntity(true);
 
-
-      //DATE YYYY-MM-DD
-      //TIME HHmmss
       //http://www.sqlite.org/lang_datefunc.html
       /*
        "confirmed INTEGER NOT NULL, "
@@ -1505,7 +1451,7 @@ bool DataBase::updateIfNeeded()
         {
             case QMessageBox::Apply:
             // Save was clicked
-                updateToLatest();
+                backupB4Update();
             break;
             case QMessageBox::Discard:
             // Discard was clicked
@@ -1522,6 +1468,119 @@ bool DataBase::updateIfNeeded()
 
      //qDebug() << "DataBase::updateIfNeeded - END!" << endl;
     return true;
+}
+
+void DataBase::backupB4Update()
+{
+    //qDebug() << "DataBase::backupB4Update - Start" << endl;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("KLog backup");
+    msgBox.setText( QObject::tr("Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea."));
+    msgBox.setInformativeText( QObject::tr("Do you want to backup your DB now?") );
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.raise();
+    //this->setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
+    msgBox.setWindowFlags(Qt::WindowStaysOnTopHint|Qt::Popup);
+
+    int ret = msgBox.exec();
+
+    switch (ret)
+    {
+        case QMessageBox::Yes:
+        // Save was clicked
+            logBackup();
+
+        break;
+        case QMessageBox::No:
+        // NO backup was selected
+            updateToLatest();
+        break;
+    }
+
+    //qDebug() << "DataBase::backupB4Update - END" << endl;
+}
+
+void DataBase::logBackup()
+{
+    //qDebug() << "DataBase::logBackup - Start" << endl;
+
+    QFile DBFile(util->getKLogDBFile());
+    QString newFile = util->getKLogDBBackupFile();
+    bool copied = DBFile.copy(newFile);
+    //qDebug() << "DataBase::logBackup copy: " << newFile << endl;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("KLog DB backup");
+    msgBox.setWindowFlags(Qt::WindowStaysOnTopHint|Qt::Popup);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+
+    if (copied)
+    {
+        //qDebug() << "DataBase::logBackup - DB backup was OK"  << endl;
+
+        msgBox.setText( QObject::tr("The backup finished successfully."));
+        msgBox.setInformativeText( QObject::tr("You can find the backup in this file: %1").arg(newFile) );
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.raise();
+
+        msgBox.exec();
+        updateToLatest();
+    }
+    else
+    {
+        //qDebug() << "DataBase::logBackup - DB backup was NOK"  << endl;
+        msgBox.setText( QObject::tr("The backup was not properly done."));
+        msgBox.setInformativeText( QObject::tr("You will be sent back to the starting point."));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.raise();
+
+
+        msgBox.exec();
+        updateIfNeeded();
+    }
+    /*
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("KLog DB backup");
+    msgBox.setText( QObject::tr("KLog is backing up the DB to a file..."));
+    msgBox.setInformativeText( QObject::tr("Did the DB backup worked well?") );
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.raise();
+    //this->setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
+    msgBox.setWindowFlags(Qt::WindowStaysOnTopHint|Qt::Popup);
+
+    int ret = msgBox.exec();
+    switch (ret)
+    {
+        case QMessageBox::Yes:
+        // Save was clicked
+            updateToLatest();
+
+        break;
+        case QMessageBox::No:
+        // NO backup was DONE
+            msgBox.setWindowTitle("KLog DB backup not done.");
+            msgBox.setText( QObject::tr("KLog DB backup was not done."));
+            msgBox.setInformativeText( QObject::tr("You will be redirected to the first message.") );
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.raise();
+            msgBox.exec();
+            updateIfNeeded();
+
+        break;
+        default:
+        // should never be reached
+            //qDebug() << "DataBase::backupB4Update - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
+            //return false;
+        //break;
+    }
+*/
+    //qDebug() << "DataBase::logBackup - END" << endl;
 }
 
 bool DataBase::createTheBandQuickReference()
@@ -1599,7 +1658,7 @@ bool DataBase::createTheModeQuickReference()
     */
           //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
 
-    if (getDBVersion().toFloat()<0.010)
+    if (getDBVersion().toDouble()<0.010)
     {
         // If the version is not updated we don't create the reference
         return true;
@@ -1917,7 +1976,7 @@ bool DataBase::updateToLatest()
 
       //qDebug() << "DataBase::updateToLatest " << endl;
 
-    return updateTo016();
+    return updateTo017();
 
 }
 
@@ -2041,8 +2100,7 @@ bool DataBase::updateTo005()
        bool IAmIn005 = false;
        bool IAmIn004 = false;
        bool ErrorUpdating = false;
-       QString stringQuery = QString();
-       //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+       QString stringQuery = QString();      
        QSqlQuery query;
        QMessageBox msgBox;
        msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
@@ -2114,7 +2172,7 @@ bool DataBase::updateTo005()
                                  //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << endl;
                         }
 
-                        QString dateString = (QDate::currentDate()).toString("yyyy/MM/dd");
+                        QString dateString = (QDate::currentDate()).toString("yyyy-MM-dd");
                         QString callToUse = QString();
                         bool ok;
                         //QString text;
@@ -2880,7 +2938,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('LO-87', 'LUSEX-OSCAR 87', '435.935-435.965', '145.935-145.965', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('MIREX', 'Mir packet digipeater', '145.985', '145.985', 'PKT')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-44', 'Navy-OSCAR 44', '145.827', '145.827', 'PKT')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-83', 'BRICsat','145.825,28.120', '145.825,435.975', 'PKT,PSK31')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-83', 'BRICsat','145.825,28.120', '145.825,435.975','PKT,PSK31')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('NO-84', 'PSAT', '145.825,28.120', '435.350', 'PKT,PSK31')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-1',  'Radio Sputnik 1', '145', '29', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-10', 'Radio Sputnik 10', '','29.357,29.403', '')").arg(tableName));
@@ -3186,7 +3244,6 @@ bool DataBase::updateTo006()
     bool IAmIn005 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
 
     bool sqlOk = false;
     latestReaded = getDBVersion().toFloat();
@@ -3375,7 +3432,7 @@ bool DataBase::updateTableLog(const int _v)
     {
     case 6:     // If 6, we copy in logtemp the full data coming from the old log. This way, the structure of
                 // the log table is updated without any data loss.
-        queryString = QString ("INSERT INTO logtemp (qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
+        queryString = QString ("INSERT INTO logtemp (qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
     break;
     default:
             //qDebug() << "DataBase::updateTableLog FALSE END" << endl;
@@ -4508,7 +4565,7 @@ bool DataBase::updateTo007()
     bool IAmIn006 = false;
     bool ErrorUpdating = false;
     QString stringQuery = QString();
-    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
+
     QSqlQuery query;
     latestReaded = getDBVersion().toFloat();
     bool sqlOk = false;
@@ -4563,14 +4620,10 @@ bool DataBase::updateTo007()
 bool DataBase::updateTo008()
 {// Updates the DB to 0.0.8
 
-       //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << endl;
+    //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << endl;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
     bool ErrorUpdating = false;
-    //QString stringQuery = QString();
-    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
-    //QSqlQuery query;
-
 
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= (0.008))
@@ -4635,13 +4688,8 @@ bool DataBase::updateTo009()
     bool IAmIn009 = false;
     bool IAmIn008 = false;
     bool ErrorUpdating = false;
-    //QString stringQuery = QString();
-    //QString dateString = (date.currentDateTime()).toString("yyyyMMdd");
-    //QSqlQuery query;
 
-
-    //if (latestReaded >= 0.009)
-        //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< endl;
+    //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< endl;
     latestReaded = getDBVersion().toFloat();
    if (latestReaded >= float(0.009))
     //if ((latestReaded = 0.009) || (latestReaded > 0.009))
@@ -4747,7 +4795,7 @@ bool DataBase::updateTo010()
 
     latestReaded = getDBVersion().toFloat();
         //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.01))
+    if (latestReaded >= float(0.010))
     {
            //qDebug() << "DataBase::updateTo010: - I am in 010" << endl;
         IAmIn010 = true;
@@ -4815,7 +4863,8 @@ bool DataBase::updateTo010()
 
 bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 {
-    QString dateString = (QDate::currentDate()).toString("yyyyMMdd");
+
+    QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
 
        //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << endl;
     QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
@@ -7038,7 +7087,7 @@ bool DataBase::updateTo014()
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
            //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.14))
+        if (latestReaded >= float(0.014))
         {
                //qDebug() << "DataBase::updateto014: - I am in 013" << endl;
             return true;
@@ -7103,7 +7152,7 @@ bool DataBase::updateTo015()
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
       //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.15))
+    if (latestReaded >= float(0.015))
     {
           //qDebug() << "DataBase::updateto015: - I am in 013" << endl;
         return true;
@@ -7173,7 +7222,7 @@ bool DataBase::updateTo016()
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
            //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.16))
+        if (latestReaded >= float(0.016))
         {
                //qDebug() << "DataBase::updateto016: - I am in 015" << endl;
             return true;
@@ -7221,6 +7270,159 @@ bool DataBase::updateTo016()
         }
            //qDebug() << "DataBase::updateTo016: UPDATED OK!" << endl;
         return true;
+}
+
+bool DataBase::updateTo017()
+{
+    // Updates the DB to 0.017:
+    // Updates the Satellite DB
+
+    //qDebug() << "DataBase::updateto017: latestRead: " << getDBVersion() << endl;
+    bool IAmIn016 = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+    //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    if (latestReaded >= float(0.017))
+    {
+        //qDebug() << "DataBase::updateto017: - I am in 017" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateto017: - I am not in 0.017 I am in: " << getDBVersion() << endl;
+        while (!IAmIn016 && !ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateto017: - Check if I am in 016: !" << endl;
+            IAmIn016 = updateTo016();
+            if (IAmIn016)
+            {
+                //qDebug() << "DataBase::updateto017: - updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) << endl;
+            }
+            else
+            {
+                //qDebug() << "DataBase::updateto017: - updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) << endl;
+                ErrorUpdating = false;
+            }
+        }
+        if (ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) << endl;
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+        // Query to remove the "/" from a Date: update log set qso_date = replace(qso_date, '/', '')
+        // Query to remove the ":" from the Time: update log set time_on = replace(time_on, ':', '')
+        // Query to join columns:
+        //  update log set qso_date = replace((SELECT qso_date from log)||'-'||time_on, '', '')
+    /*
+    PROCEDURE: Move to SQLITE - datetime type: // 2020-01-01 10:12:01
+    // Query to remove the "/" from a Date: update log set qso_date = replace(qso_date, '/', '-')
+    // Join: SELECT qso_date || ' ' || time_on from log
+    UPDATE logtemp SET qso_date = (SELECT qso_date || ' ' || time_on FROM log)
+    */
+
+    /*
+    QString stringQuery;
+    stringQuery = "update log set qso_date = replace((SELECT qso_date from log)||'-'||time_on, '', '')";
+    //UPDATE log set qso_date =  qso_date ||'-'||time_on
+    bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+    */
+
+    // Modify the qso_date with the time_on data with the right format
+    QString stringQuery;
+
+    stringQuery = "UPDATE log set qso_date = replace(qso_date ||' '||time_on, '/', '-')";
+    bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set qso_date_off = replace(qso_date_off, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set qslsdate = replace(qslsdate, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set qslrdate = replace(qslrdate, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set lotw_qslsdate = replace(lotw_qslsdate, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set lotw_qslrdate = replace(lotw_qslrdate, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set eqsl_qslrdate = replace(eqsl_qslrdate, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set eqsl_qslsdate = replace(eqsl_qslsdate, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set hrdlog_qso_upload_date = replace(hrdlog_qso_upload_date, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set hrdlog_qso_upload_date = replace(hrdlog_qso_upload_date, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set clublog_qso_upload_date = replace(clublog_qso_upload_date, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    stringQuery = "UPDATE log set qrzcom_qso_upload_date = replace(qrzcom_qso_upload_date, '/', '-')";
+    sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {return false;}
+
+    /*
+    if (!recreateTableLog())
+    {
+        //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << endl;
+        return false;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateTo017: - Table log recreated OK" << endl;
+    }
+    */
+
+    // REMOVE THE FOLLOWING LINE ONCE THIS FUNCTION HAS BEEN UPDATED
+    //return false;
+
+    // If everything went OK, we update the DB number.
+    if (updateDBVersion(softVersion, "0.017"))
+    {
+        //qDebug() << "DataBase::updateto017: - We are in 017! " << endl;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateto017: - Failed to go to 017! " << endl;
+        return false;
+    }
+    //qDebug() << "DataBase::updateTo017: UPDATED OK!" << endl;
+    return true;
 }
 
 bool DataBase::updateAwardDXCCTable()

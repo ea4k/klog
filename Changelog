@@ -1,3 +1,13 @@
+TODO: New feature: KLog can now control a rotator through PSTRotator.
+TODO: UI: Added a DXCC summary obtained from the Tools menu.
+
+- New feature: KLog proposes to do a database backup before it is upgraded so data can be recovered if there is any problem.
+- Improvement: When receiving the status from WSJT-X,the RX frequency is also updated with the same TX freq
+- Improvement: Dates and Times are now together and it is possible to sort the log based on date & time. Date format has been overall updated.
+- Improvement: Search is now more confortable as the search does not start inmediately after a key is pressed but some time after so it's possible
+               to enter more letters and reduce the search time.
+- Bugfix: Fixed the DB update processes.
+
 May 2020 - 1.1
 - Improvement: Search widget has been improved.
 - Improvement: Callsigns are always checked to be a good callsign before they are saved to the log, imported and exported to ADIF.
@@ -585,7 +595,7 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: KLog ask the user for a comment when Importing a TLF log (for example 
   to note that those QSO are from an specific contest or whatever).
 - Bug fixed: When selecting a DX-Spot from the DX-Cluster it did not overwrote the name.
-- Bug fixed: When writing the log, there was an space missing before the <EOR>.
+- Bug fixed: When writting the log, there was an space missing before the <EOR>.
   It is just a "cosmetic" fix, not a real bug.
 - Bug fixed: The same with the QSL card status.
 - Bug fixed: KLog now recognises all the prefix that appears in cty.dat file with 

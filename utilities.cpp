@@ -3,7 +3,7 @@
 Utilities::Utilities()
 {
        //qDebug() << "Utilities::Utilities"  << endl;
-    //dbPath = getKLogDBFile();
+
     softwareVersion = "0.0";
        //qDebug() << "Utilities::Utilities - END"  << endl;
 }
@@ -238,12 +238,37 @@ QString Utilities::getKLogDBFile()
         {
             dbPath = getKLogDefaultDatabaseFile();
         }
-
     }
-
        //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
-
     return dbPath + "/logbook.dat";
+}
+
+QString Utilities::getKLogDBBackupFile()
+{
+        //qDebug() << "Utilities::getKLogDBFile: start " << endl;
+
+    dbPath = getKLogDefaultDatabaseFile();
+    QFile file(getCfgFile());
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+
+        //return dbPath;
+        //return getKLogDatabaseFile(dbPath);
+    }
+    else
+    {
+        while (!file.atEnd()) {
+            QByteArray line = file.readLine();
+            processConfigLine(line);
+        }
+
+        if (dbPath.length()<1)
+        {
+            dbPath = getKLogDefaultDatabaseFile();
+        }
+    }
+       //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
+    return dbPath + "/" + QDateTime::currentDateTime().toString("yyyyHHdd-hhmmss") + "-backup-logbook.dat" ;
 }
 
 bool Utilities::processConfigLine(const QString &_line)
@@ -652,27 +677,6 @@ bool Utilities::isValidCall(const QString &_c)
     return true;
 }
 
-bool Utilities::isValidTime(const QString &_t)
-{
-    QTime time = QTime::fromString(_t, "hhmmss");
-    if (time.isValid())
-    {
-        return true;
-    }
-    time = QTime::fromString(_t, "hhmm");
-    if (time.isValid())
-    {
-        return true;
-    }
-    time = QTime::fromString(_t, "hhmm");
-    if (time.isValid())
-    {
-        return true;
-    }
-
-    return false;
-}
-
 bool Utilities::isValidBandId(const int _b)
 {
     if (_b>0)
@@ -988,4 +992,148 @@ QString Utilities::getAValidCall (const QString &_wrongCall)
 
     //qDebug() << "Utilities::getAValidCall: " << _confirmedCall << endl;
     return _confirmedCall;
+}
+
+
+QString Utilities::getDateTimeSQLiteStringFromDateTime(const QDateTime &_d)
+{
+    return QString(_d.toString("yyyy-MM-dd hh:mm:ss"));
+}
+
+QString Utilities::getDateSQLiteStringFromDate(const QDate &_d)
+{
+    return QString(_d.toString("yyyy-MM-dd"));
+}
+
+bool Utilities::isValidDateFromString(const QString &_s)
+{
+    return getDateFromSQliteString(_s).isValid();
+}
+
+bool Utilities::isValidTimeFromString(const QString &_s)
+{
+    return getDateTimeFromSQLiteString(_s).time().isValid();
+}
+
+bool Utilities::isValidDateTimeFromString(const QString &_s)
+{
+    return getDateTimeFromSQLiteString(_s).isValid();
+}
+
+QDateTime Utilities::getDateTimeFromSQLiteString(const QString &_s)
+{
+    return QDateTime::fromString(_s, "yyyy-MM-dd hh:mm:ss");
+}
+
+QTime Utilities::getTimeFromSQLiteString(const QString &_s)
+{
+    if (_s.length()==5)
+    {
+        return QTime::fromString(_s, "hh:mm");
+    }
+    else
+    {
+        return QTime::fromString(_s, "hh:mm:ss");
+    }
+
+}
+
+QDate Utilities::getDateFromSQliteString(const QString &_s)
+{
+    //It may receive "just" a date or a "date time".
+
+    if (getDateTimeFromSQLiteString(_s).isValid()) // if we have received a full date time
+    {
+        return (getDateTimeFromSQLiteString(_s)).date();
+
+    }
+    else // If we have received "just a date" or an error
+    {
+        return  QDate::fromString(_s, "yyyy-MM-dd");
+    }
+
+
+}
+
+QDate Utilities::getDateFromADIFDateString(const QString &_s)
+{// Expects an ADIF DATE format string: "YYYYMMDD"
+
+    return QDate::fromString(_s, "yyyyMMdd");
+
+}
+
+QTime Utilities::getTimeFromADIFTimeString(const QString &_s)
+{// Expects and ADIF TIME format String "HHMMSS" or "HHMM"
+    qDebug() << "Utilities::getTimeFromADIFTimeString: " << _s << endl;
+    if (_s.length()==4)
+    {
+
+        return QTime::fromString(_s, "hhmm");
+    }
+    else
+    {
+        return QTime::fromString(_s, "hhmmss");
+    }
+}
+
+
+QString Utilities::getADIFDateFromQDateTime(const QDateTime &_d)
+{
+    if (!_d.isValid())
+    {
+        return QString();
+    }
+    else
+    {
+        return _d.date().toString("yyyyMMdd");
+    }
+}
+
+QString Utilities::getADIFDateFromQDate(const QDate &_d)
+{
+    if (!_d.isValid())
+    {
+        return QString();
+    }
+    else
+    {
+        return _d.toString("yyyyMMdd");
+    }
+}
+
+QString Utilities::getADIFTimeFromQDateTime(const QDateTime &_d)
+{
+    if (!_d.isValid())
+    {
+        return QString();
+    }
+    else
+    {
+        return _d.time().toString("hhmmss");
+    }
+}
+
+
+QString Utilities::getCabrilloDateFromQDate(const QDate &_d)
+{// Will produce the Cabrillo DATE format: "YYYY-MM-DD"
+    if (!_d.isValid())
+    {
+        return QString("0000-00-00");
+    }
+    else
+    {
+        return _d.toString("yyyy-MM-dd");
+    }
+}
+
+QString Utilities::getCabrilloTimeFromQDateTime(const QDateTime &_d)
+{// Will produce the Cabrillo TIME format: "HHMM"
+    if (!_d.isValid())
+    {
+        return QString("0000");
+    }
+    else
+    {
+        return _d.time().toString("hhmm");
+    }
 }

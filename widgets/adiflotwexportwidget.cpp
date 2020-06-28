@@ -87,14 +87,14 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
     stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(-1));
 }
 
-void AdifLoTWExportWidget::setTopLabel()
-{
-
+void AdifLoTWExportWidget::setTopLabel(const QString _t)
+{    
+    topLabel->setText(_t);
 }
 
 void AdifLoTWExportWidget::fillTable()
 {
-    //qDebug() << "AdifLoTWExportWidget::fillTable " << endl;
+    qDebug() << "AdifLoTWExportWidget::fillTable " << endl;
     //header << tr("DX") << tr("Date/Time") << tr("Band") << tr("Mode");
     /*
     QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg((row+1)*(column+1)));
@@ -131,6 +131,10 @@ void AdifLoTWExportWidget::fillTable()
     //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
     //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << endl;
 
+
+
+
+
     QString aux, prefix;
     //qDebug() << "AdifLoTWExportWidget::fillTable: -3"  << endl;
     tableWidget->clearContents();
@@ -155,10 +159,10 @@ void AdifLoTWExportWidget::fillTable()
     }
     else
     {
-        //qDebug() << "AdifLoTWExportWidget::fillTable Disable OKButton" << endl;
+        qDebug() << "AdifLoTWExportWidget::fillTable Disable OKButton" << endl;
         okButton->setEnabled(false);
     }
-    //qDebug() << "AdifLoTWExportWidget::fillTable END" << endl;
+    qDebug() << "AdifLoTWExportWidget::fillTable END" << endl;
 }
 
 void AdifLoTWExportWidget::addQSO(const int _qsoID)
@@ -199,8 +203,8 @@ void AdifLoTWExportWidget::slotStationCallsignChanged()
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged"  << endl;
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
-    //startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
-    //endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
+    //startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy-MM-dd"));
+    //endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy-MM-dd"));
     fillTable();
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged - END" << endl;
 }
@@ -244,9 +248,9 @@ void AdifLoTWExportWidget::closeEvent(QCloseEvent *event)
 
 void AdifLoTWExportWidget::showEvent(QShowEvent *event)
 {
-    //qDebug() << "AdifLoTWExportWidget::showEvent" << endl;
-    //startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
-    //endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy/MM/dd"));
+    //qDebug() << "AdifLoTWExportWidget::showEvent" << << endl;
+    //startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy-MM-dd"));
+    //endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy-MM-dd"));
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
 

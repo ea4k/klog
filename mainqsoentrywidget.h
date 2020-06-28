@@ -44,7 +44,7 @@ public:
     bool setMode(const QString &_mode);
     bool setQRZ(const QString &_qrz);
     void setCurrentQRZ(const QString &_qrz);
-    bool setDate(const QDate _date);
+    bool setDate(const QDateTime _date);
     bool setTime(const QTime _time);
     void setCleaning (const bool _c);
     bool isModeExisting(const QString &_m);
@@ -56,6 +56,7 @@ public:
     QStringList getModes();
     QDate getDate();
     QTime getTime();
+    QDateTime getDateTime();
 
     void setRealTime(const bool _realTime);
     void setUTC(const bool _utc);
