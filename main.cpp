@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
       //qDebug() << "KLog Main: Start! " << endl;
       //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
     QDir d1 = QDir();
-    QString version = "1.2-alpha";
+    QString version = "1.2-alpha-1";
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
@@ -319,9 +319,9 @@ int main(int argc, char *argv[])
         }
         else
         {
-            qDebug() << "Main: DB to be updated" << endl;
+            //qDebug() << "Main: DB to be updated" << endl;
             db->updateIfNeeded(); // Check if we need to update the DB
-            qDebug() << "Main: DB Updated" << endl;
+            //qDebug() << "Main: DB Updated" << endl;
         }
         db->~DataBase();
 

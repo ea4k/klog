@@ -168,7 +168,7 @@ bool FileManager::checkADIFValidFormat(const QStringList &_qs)
 
 bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
 {
-     //qDebug() << "FileManager::adifLogExport" << _fileName << endl;
+    //qDebug() << "FileManager::adifLogExport" << _fileName << endl;
 
 
     return adifLogExportToFile(_fileName, _logN, false, false, false);
@@ -532,10 +532,10 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
 
             out << "<EOR> " << endl;
             i++;
-
+            //qDebug() << "FileManager::adifLoTWLogExport: Counting = " << QString::number(i)  << endl;
             if (( (i % step ) == 0) )
             { // To update the speed I will only show the progress once each X QSOs
-                  //qDebug() << "FileManager::adifLoTWLogExport: MOD 0 - i = " << QString::number(i)  << endl;
+                //qDebug() << "FileManager::adifLoTWLogExport: *************************** Updating progress: " << QString::number(i)  << endl;
                 aux = tr("Exporting LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
                 progress.setLabelText(aux);
                 progress.setValue(i);
@@ -722,8 +722,10 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
 
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
-    progress.setWindowModality(Qt::NonModal);
-    //progress.setWindowModality(Qt::ApplicationModal);
+    //progress.setWindowModality(Qt::NonModal);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.setValue(0);
+
 
     out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
     //qDebug() << "FileManager::adifLogExport: Number: " << QString::number(numberOfQsos) << endl;
@@ -799,8 +801,8 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
                 msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                 msgBox.setDefaultButton(QMessageBox::No);
                 int ret = msgBox.exec();
-                int tempValue = progress.value();
-                progress.cancel();
+                //int tempValue = progress.value();
+                //progress.cancel();
                 //qDebug() << "FileManager::adifLogExport: NOT Valid Call: ret = " << QString::number(ret)  << endl;
                 switch (ret)
                 {
@@ -819,9 +821,9 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
                      // should never be reached
                     break;
                 }
-                progress.reset();
-                progress.setMaximum(numberOfQsos);
-                progress.setValue(tempValue);
+                //progress.reset();
+                //progress.setMaximum(numberOfQsos);
+                //progress.setValue(tempValue);
 
                 //qDebug() << "FileManager::adifLogExport: End of NOT Valid Call: " << aux << endl;
             }
@@ -841,14 +843,14 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
             }
             else
             {
-                qDebug() << "FileManager::adifLogExportToFile: DateTime not Valid: " << aux  << endl;
+                //qDebug() << "FileManager::adifLogExport: DateTime not Valid: " << aux  << endl;
             }
 
             nameCol = rec.indexOf("bandid");
             aux = (query.value(nameCol)).toString();
-            //qDebug() << "FileManager::adifLogExportToFile-Band-1: "  << aux << endl;
+            //qDebug() << "FileManager::adifLogExport-Band-1: "  << aux << endl;
             aux = util->checkAndFixASCIIinADIF(aux);
-            //qDebug() << "FileManager::adifLogExportToFile-Band-2: "  << aux << endl;
+            //qDebug() << "FileManager::adifLogExport-Band-2: "  << aux << endl;
             aux = dataProxy->getNameFromBandId(aux.toInt());
             if (dataProxy->getIdFromBandName(aux)>=0)
             {
@@ -1334,7 +1336,7 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
 
                 nameCol = rec.indexOf("iota");
                 aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                //qDebug() << "FileManager::adifLogExportToFile (IOTA): " << aux << endl;
+                //qDebug() << "FileManager::adifLogExport (IOTA): " << aux << endl;
                 if (((aux.length())>=4) && ((aux.length())<=6))
                 {
                     out << "<IOTA:" << QString::number(aux.length()) << ">" << aux  << " ";
@@ -1342,7 +1344,7 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
 
                 nameCol = rec.indexOf("iota_island_id");
                 aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-                //qDebug() << "FileManager::adifLogExportToFile (IOTA_ID): " << aux << endl;
+                //qDebug() << "FileManager::adifLogExport (IOTA_ID): " << aux << endl;
 
                 if ((aux.length())>0)
                 {
@@ -1884,18 +1886,23 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
 
 
             out << "<EOR> " << endl;
+            //qDebug() << "FileManager::adifLogExport: Increasing i: " << QString::number(i) << "/ Step: "  << QString::number(step) << endl;
             i++;
-
+            //qDebug() << "FileManager::adifLogExport: Counting...  = " << QString::number(i)  << endl;
             if (( (i % step ) == 0) )
             { // To update the speed I will only show the progress once each X QSOs
-                //qDebug() << "FileManager::adifLogExport: MOD 0 - i = " << QString::number(i)  << endl;
+                //qDebug() << "FileManager::adifLogExport: ********************************   UPDATING THE MESSAGE! " << QString::number(i)  << endl;
 
-                aux = tr("Exporting ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+                //aux = tr("Exporting ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+                aux = tr("Exporting ADIF file...\n QSO: %1 / %2 ").arg(i).arg(numberOfQsos);
+
                 progress.setLabelText(aux);
                 progress.setValue(i);
+                //qDebug() << "FileManager::adifLogExport: ********************************   UPDATING THE MESSAGE: " << aux  << endl;
             }
+            //qDebug() << "FileManager::adifLogExport: End Of Valid"  << endl;
         } // END of if (query.isValid())
-        //qDebug() << "FileManager::adifLogExport: End Of Valid"  << endl;
+        //qDebug() << "FileManager::adifLogExport: Checking if cancelled"  << endl;
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
@@ -1920,7 +1927,7 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
                 break;
             }
         }
-    } // END OF WHOLE
+    } // END OF WHILE
 
     //qDebug() << "FileManager::adifLogExport: End: " << QString::number(qsos.count()) << endl;
 
@@ -2031,9 +2038,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
           //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< endl;
     }
 
-       //qDebug() << "FileManager::adifLogExportToFile END -  numberOfQsos = " << QString::number(numberOfQsos) << endl;
+    //qDebug() << "FileManager::adifLogExportToFile END -  numberOfQsos = " << QString::number(numberOfQsos) << endl;
 
     step = util->getProgresStepForDialog(numberOfQsos);
+    //qDebug() << "FileManager::adifLogExportToFile END -  Steps = " << QString::number(step) << endl;
     //step = getProgresStepForDialog(numberOfQsos);
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
@@ -4033,7 +4041,40 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 {
                     nameCol = rec.indexOf("lognumber");
                     aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    if ((aux1.length())>0){
+                    if ((aux1.length())>0){qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso) << endl;
+                        if (( (currentQso % step )== 0) )
+                        { // To update the speed I will only show the progress once each X QSOs
+                            //qDebug() << "FileManager::adifLogExportToFile -  Showing progress: "  << endl;
+                            aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQsos);
+                            progress.setLabelText(aux1);
+                            progress.setValue(currentQso);
+                        }
+                        //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step) << endl;
+
+                    if ( progress.wasCanceled() )
+                    {
+                        QMessageBox msgBox;
+                        msgBox.setWindowTitle(tr("KLog - User cancelled"));
+                        QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
+                        msgBox.setText(aux);
+                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                        msgBox.setDefaultButton(QMessageBox::No);
+                        int ret = msgBox.exec();
+                        switch (ret) {
+                          case QMessageBox::Yes:
+                              // Yes was clicked
+                                noMoreQso = true;
+                              break;
+                          case QMessageBox::No:
+                                // No Save was clicked
+                              break;
+                          default:
+                                // should never be reached
+                              break;
+                        }
+
+                    }
+
                         out << "<APP_KLOG_LOGN:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
                 }
@@ -4042,14 +4083,21 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 using namespace std;
                 EndOfWhile:
                 ;
+
             }
 
-            if (( (currentQso % step )== 0) )
-            { // To update the speed I will only show the progress once each X QSOs
-                aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQsos);
-                progress.setLabelText(aux1);
-                progress.setValue(currentQso);
-            }
+        } // Closes the isValid
+        else
+        {}
+        //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso) << endl;
+        if (( (currentQso % step )== 0) )
+        { // To update the speed I will only show the progress once each X QSOs
+            //qDebug() << "FileManager::adifLogExportToFile -  Showing progress: "  << endl;
+            aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQsos);
+            progress.setLabelText(aux1);
+            progress.setValue(currentQso);
+        }
+        //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step) << endl;
 
         if ( progress.wasCanceled() )
         {
@@ -4072,12 +4120,8 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     // should never be reached
                   break;
             }
-
         }
 
-    } // Closes the isValid
-        else
-        {}
     } //Closes the While
 
       //qDebug() << "FileManager::adifLogExportToFile -  after the While" << endl;
@@ -4403,7 +4447,7 @@ bool FileManager::adifLogExportMarked(const QString& _fileName)
 
 QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 {
-    qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
+    //qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
     QString fileName = tfileName;
     QList<int> readed;
     readed.clear();
@@ -4457,7 +4501,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 
     //<APP_LoTW_NUMREC:3>847
 
-    qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
+    //qDebug() << "FileManager::adifLoTWReadLog QSOs found: " << QString::number(numberOfQsos) << endl;
     //qDebug() << "FileManager::adifLoTWReadLog STEP: " << QString::number(step) << endl;
 
     QProgressDialog progress(tr("Reading LoTW file..."), tr("Abort reading"), 0, numberOfQsos, this);
@@ -4526,7 +4570,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 
     file.seek(pos);
     //START reading QSO data...
-    qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
+    //qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
     QDate _tdate;
     while (!noMoreQso )
     {
@@ -4634,8 +4678,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                         }
                         else if (field == "QSO_DATE")
                         {
-                            qDebug() << "FileManager::adifLoTWReadLog: field: " << field << endl;
-                            qDebug() << "FileManager::adifLoTWReadLog: data: " << data << endl;
+                            //qDebug() << "FileManager::adifLoTWReadLog: field: " << field << endl;
+                            //qDebug() << "FileManager::adifLoTWReadLog: data: " << data << endl;
 
                              _tdate = util->getDateFromADIFDateString(data);
                              if (_tdate.isValid())
@@ -4645,8 +4689,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                         }
                         else if (field == "TIME_ON")
                         {
-                            qDebug() << "FileManager::adifLoTWReadLog: field: " << field << endl;
-                            qDebug() << "FileManager::adifLoTWReadLog: data: " << data << endl;
+                            //qDebug() << "FileManager::adifLoTWReadLog: field: " << field << endl;
+                            //qDebug() << "FileManager::adifLoTWReadLog: data: " << data << endl;
                             _time = data;
 
                             if (util->getTimeFromADIFTimeString(data).isValid())
@@ -5448,7 +5492,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         haveDate = true;
                     }
                     else {
-                       qDebug() << "FileManager::processQsoReadingADIF QSO_DATE is NOT VALID: " << data << endl;
+                       //qDebug() << "FileManager::processQsoReadingADIF QSO_DATE is NOT VALID: " << data << endl;
 
                     }
                 }

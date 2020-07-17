@@ -2066,8 +2066,8 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
     }
 
     if (util->isValidTimeFromString(_time_on))
-    {//EA4K - FALLAR: Ver estos datos de donde vienen y en qué formato
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " <<  _time_on << endl;
+    {
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " <<  _time_on << endl;
         stringFields  = stringFields  + "qso_date, time_on, ";
         QDateTime _dateTime;
         //_dateTime.setDate(QDate::currentDate());
@@ -2076,7 +2076,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
     }
     else
     {
-        qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on" << endl;
         return false;
     }
 
@@ -2118,7 +2118,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
     }
 
     if (util->isValidTimeFromString(_time_off))
-    {//EA4K - FALLAR: Ver estos datos de donde vienen y en qué formato
+    {
         stringFields  = stringFields  + "time_off, ";
         stringData =  stringData + "'" + QDateTime::fromString(_time_off, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
     }
@@ -2696,26 +2696,26 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
                 query.finish();
                 if (sqlOK)
                 {
-                    qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception: Modified Id: " << QString::number(id) << endl;
+                    //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception: Modified Id: " << QString::number(id) << endl;
                     return id;
                 }
                 else
                 {
                     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                    qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception: SQL ERROR" << endl;
+                    //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception: SQL ERROR" << endl;
                     return -4;
                 }
             }
             else
             {
-                qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception ID Not found" << endl;
+                //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception ID Not found" << endl;
                 query.finish();
                 return -1;
             }
         }
         else
         {
-            qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Query not valid: " << query.lastQuery() << endl;
+            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Query not valid: " << query.lastQuery() << endl;
 
             query.finish();
             return -2;
@@ -2732,6 +2732,9 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
 QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
 {
     //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << endl;
+
+
+
     QList <int> qsoList;
     qsoList.clear();
     QDate tmpDate;
@@ -2820,6 +2823,114 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCalls
 
 }
 
+
+QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
+{
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent2 Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << endl;
+    QStringList list;
+    list.clear();
+
+
+
+
+    QList <int> qsoList;
+    qsoList.clear();
+    QDate tmpDate;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString;
+
+    QString _queryST_string;
+    if (util->isValidCall(_stationCallsign))
+    {
+        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
+    }
+    else if (_stationCallsign == "ALL")
+    {
+        _queryST_string = QString("station_callsign!='ALL'");
+    }
+    else
+    {
+        _queryST_string = QString("station_callsign=''");
+    }
+
+    QString _query_justQueued;
+    if (_justQueued)
+    {
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent justQueued TRUE" << endl;
+        _query_justQueued = QString("lotw_qsl_sent='Q'");
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent justQueued FALSE" << endl;
+        _query_justQueued = QString("lotw_qsl_sent!='1'");
+    }
+
+    queryString = QString("SELECT call, qso_date, bandid, modeid FROM log WHERE  ") + _queryST_string + " AND " + _query_justQueued;
+    //queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + " AND " + _query_justQueued;
+
+
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Query: " << query.lastQuery() << endl;
+
+    if (sqlOK)
+    {
+       // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Query: " << query.lastQuery() << endl;
+        QStringList result;
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                result.clear();
+
+                QString call = query.value(0).toString();
+                QString date = query.value(1).toString();
+                //QString date = util->getDateTimeFromSQLiteString(query.value(1).toString());
+
+                //QString time = query.value(2).toString();
+                QString bandid = query.value(3).toString();
+                QString modeid = query.value(4).toString();
+                //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - date: " << date << endl;
+                //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - time: " << time << endl;
+
+                //getDateTimeSQLiteStringFromDateTime
+                //QString dateTime = (QDateTime::fromString(date, "yyyy-MM-dd hh:mm:ss")).toString("yyyy-MM-dd hh:mm");
+                QString dateTime = (util->getDateTimeFromSQLiteString(date)).toString("yyyy-MM-dd hh:mm");
+
+                bandid = getNameFromBandId(bandid.toInt());
+                modeid = getNameFromModeId(modeid.toInt());
+
+                result.append(call);
+                result.append(dateTime);
+                result.append(bandid);
+                result.append(modeid);
+                list.append(result);
+
+
+
+            }
+            else
+            {
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        list.clear();
+        return list;
+    }
+    query.finish();
+//  qs.sort();
+    return list;
+
+}
+
+
+
 QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
 { //Returns QRZ << date+time << Band (txt) << mode (txt)
     //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload" << QString::number(_id) << endl;
@@ -2827,7 +2938,7 @@ QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
     result.clear();
     //getNameFromBandId
     QSqlQuery query;
-    QString queryString = QString("SELECT call, qso_date, time_on, bandid, modeid FROM log WHERE id='%0'").arg(_id);
+    QString queryString = QString("SELECT call, qso_date, bandid, modeid FROM log WHERE id='%0'").arg(_id);
 
     bool sqlOk = query.exec(queryString);
 

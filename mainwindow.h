@@ -71,9 +71,8 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
-#include "pstrotatorsupport.h"
+//#include "pstrotatorsupport.h"
 #include "lotwutilities.h"
-#include "widgets/rotator.h"
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
 //#include "worldmapwidget.h"
@@ -287,7 +286,7 @@ private slots:
     //void slotHamlibModeNotADIF();
 
     // PST Rotator
-    void slotRotatorShow();
+    //void slotRotatorShow();
     // WORLD MAP
     //void slotWorldMapShow();
 
@@ -334,9 +333,9 @@ private:
     bool hamlibModeNotADIFSupported;
 
     // PST Rotator
-    PSTRotatorSupport *pstRotator;
-    bool usePSTRotator;
-    RotatorWidget *rotatorWidget;
+    //PSTRotatorSupport *pstRotator;
+    //bool usePSTRotator;
+    //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
     void createStatusBar();
@@ -514,7 +513,7 @@ private:
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
     QAction *showStatsAct;
-    QAction *showRotatorAct;
+    //QAction *showRotatorAct;
     //QAction *showDXCCSummaryAct;
 
     QAction *loggWinAct;

@@ -79,8 +79,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     UDPLogServer = new UDPServer();
       //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
-    pstRotator = new PSTRotatorSupport(this);
-    rotatorWidget = new RotatorWidget;
+    //pstRotator = new PSTRotatorSupport(this);
+    //rotatorWidget = new RotatorWidget;
     //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
 
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
@@ -240,7 +240,7 @@ void MainWindow::init()
     hamlibChangingMode = false;
     yearChangedDuringModification = false;
 
-    usePSTRotator = false;
+    //usePSTRotator = false;
 
     readingTheUI = false;
     itIsANewversion = false;
@@ -4408,18 +4408,18 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         defaultColor.setNamedColor(value);
     }
-    else if (field=="PSTROTATORACTIVE")
-    {
-        usePSTRotator = true;
-    }
-    else if (field=="PSTROTATORPORT")
-    {
-        pstRotator->setPort(value.toInt());
-    }
-    else if (field=="PSTROTATORSERVER")
-    {
-        pstRotator->setServer(value);
-    }
+    //else if (field=="PSTROTATORACTIVE")
+    //{
+        //usePSTRotator = true;
+    //}
+    //else if (field=="PSTROTATORPORT")
+    //{
+    //    pstRotator->setPort(value.toInt());
+    //}
+    //else if (field=="PSTROTATORSERVER")
+    //{
+    //    pstRotator->setServer(value);
+    //}
     else if (field=="UDPSERVER")
     {
                //qDebug() << "MainWindow::processConfigLine: UDPSERVER: " << value.toUpper()  << endl;
@@ -5584,7 +5584,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
-    qDebug() << "MainWindow::qsoToEdit - date: " << aux1 << endl;
+    //qDebug() << "MainWindow::qsoToEdit - date: " << aux1 << endl;
     mainQSOEntryWidget->setDate(util->getDateTimeFromSQLiteString(aux1));
     //mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
     dateTimeTemp->setDate(util->getDateFromSQliteString(aux1));
@@ -6991,10 +6991,10 @@ void MainWindow::slotFreqTXChanged()
            {
             hamlib->setFreq(txFreqSpinBox->value());
            }
-           if (usePSTRotator)
-           {
-               pstRotator->sendFreq(txFreqSpinBox->value(), 1); // KLog is only able to manage one radio
-           }
+           //if (usePSTRotator)
+           //{
+           //    pstRotator->sendFreq(txFreqSpinBox->value(), 1); // KLog is only able to manage one radio
+           //}
        }
 
         bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(txFreqSpinBox->value()));
@@ -7585,11 +7585,12 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+/*
 void MainWindow::slotRotatorShow()
 {
     rotatorWidget->show();
 }
-
+*/
 void MainWindow::slotUpdateLocator(QString _loc)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);

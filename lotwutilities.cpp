@@ -189,7 +189,7 @@ int LoTWUtilities::download()
           msgBox.setIcon(QMessageBox::Warning);
           msgBox.setWindowTitle(tr("KLog - Can't write the file"));
           QString aux = QString(tr("KLog was not able to save the file %1.\nError returned: %2") ).arg(fileName).arg(file->errorString());
-          msgBox.setText(tr("The file already %1 exist.").arg(fileName));
+          msgBox.setText(tr("The file %1 already exists.").arg(fileName));
           msgBox.setDetailedText(aux);
           msgBox.setStandardButtons(QMessageBox::Ok);
           msgBox.setDefaultButton(QMessageBox::Ok);

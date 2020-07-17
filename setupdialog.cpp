@@ -86,7 +86,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
       //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
     satsPage = new SetupPageSats(dataProxy, this);
     //hamlibPage = new SetupPageHamLib(dataProxy, this);
-    interfacesWindowsPage = new SetupPageInterfacesWindows(this);
+    //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
 
       //qDebug() << "SetupDialog::SetupDialog 4" << endl;
 
@@ -181,7 +181,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     UDPPage = new SetupPageUDP(this);
     satsPage = new SetupPageSats(dataProxy, this);
     hamlibPage = new SetupPageHamLib(dataProxy, this);
-    interfacesWindowsPage = new SetupPageInterfacesWindows(this);
+    //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
 
 
     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
@@ -197,7 +197,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
-    tabWidget->addTab(interfacesWindowsPage, tr ("Interfaces"));
+    //tabWidget->addTab(interfacesWindowsPage, tr ("Interfaces"));
 
     //qDebug() << "SetupDialog::SetupDialog 03" << endl;
 
@@ -578,9 +578,9 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
         //stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << endl;
-        stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << endl;
-        stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << endl;
-        stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << endl;
+        //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << endl;
+        //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << endl;
+        //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << endl;
 
 
         if ((miscPage->getReportInfo()).toUpper() == "TRUE")
@@ -837,6 +837,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="SENDEQSLBYDEFAULT"){
         miscPage->setSetEQSLByDefault(value);
     }
+    /*
     else if (tab=="PSTROTATORACTIVE"){
         interfacesWindowsPage->setSendToPSTRotator(value);
     }
@@ -847,6 +848,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     {
         interfacesWindowsPage->setPSTRotatorUDPServer(value);
     }
+    */
     else if (tab=="UDPSERVER"){
         UDPPage->setUDPServer(value);
     }
@@ -1193,9 +1195,9 @@ void SetupDialog::setDefaults()
     UDPPage->setLogFromWSJTx("FALSE");
     UDPPage->setReaDataFromWSJTx("FALSE");
     UDPPage->setAutoLogFromWSJTx("FALSE");
-    interfacesWindowsPage->setSendToPSTRotator("FALSE");
-    interfacesWindowsPage->setPSTRotatorUDPServer("locahost");
-    interfacesWindowsPage->setPSTRotatorUDPServerPort("12040");
+    //interfacesWindowsPage->setSendToPSTRotator("FALSE");
+    //interfacesWindowsPage->setPSTRotatorUDPServer("locahost");
+    //interfacesWindowsPage->setPSTRotatorUDPServerPort("12040");
 
     dxClusterPage->setShowHFRadiobutton("TRUE");
     dxClusterPage->setShowVHFRadiobutton("TRUE");
