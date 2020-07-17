@@ -3,8 +3,9 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.1
+VERSION = 1.2
 DEFINES += APP_VERSION="$$VERSION"
+
 
 APP_NAME = KLog
 DEFINES += APP_NAME="$$APP_NAME"
@@ -41,8 +42,7 @@ HEADERS += setupdialog.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
-    pstrotatorsupport.h \
-    qso.h \
+    qso.h \    
     widgets/adiflotwexportwidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -78,9 +78,6 @@ HEADERS += setupdialog.h \
     hamlibclass.h \
     tipsdialog.h \
     worldmapwidget.h \
-    widgets/rotator.h \
-    widgets/rotatorcontrol.h \
-    setuppages/setuppageinterfaceswindows.h \
     setuppages/setuppagelotw.h \
     setuppages/setuppagemisc.h \
     setuppages/setuppageuserdata.h \
@@ -118,12 +115,9 @@ SOURCES += main.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
-    pstrotatorsupport.cpp \
     qso.cpp \
     setupdialog.cpp \
     widgets/adiflotwexportwidget.cpp \
-    widgets/rotator.cpp \
-    widgets/rotatorcontrol.cpp \
     widgets/showadifimportwidget.cpp \
     world.cpp \
     logwindow.cpp \
@@ -134,7 +128,6 @@ SOURCES += main.cpp \
     dxcluster.cpp \      
     locator.cpp \
     awards.cpp \ 
-    setuppages/setuppageinterfaceswindows.cpp \
     setuppages/setuppagelotw.cpp \
     setuppages/setuppagemisc.cpp \
     setuppages/setuppageuserdata.cpp \

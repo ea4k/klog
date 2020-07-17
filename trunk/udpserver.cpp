@@ -28,7 +28,7 @@ void UDPServer::slotReadPendingDatagrams()
            //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize()) << endl;
         socketServer->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
         parse (datagram);
-        qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram << endl;
+        //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram << endl;
     }
 
 }
@@ -53,7 +53,7 @@ bool UDPServer::start()
 
 void UDPServer::parse(const QByteArray &msg)
 {
-    qDebug() << "UDPServer::parse"<< endl;
+    //qDebug() << "UDPServer::parse"<< endl;
     quint32 magic;
     quint32 schema;
     quint32 type;

@@ -94,7 +94,7 @@ void AdifLoTWExportWidget::setTopLabel(const QString _t)
 
 void AdifLoTWExportWidget::fillTable()
 {
-    qDebug() << "AdifLoTWExportWidget::fillTable " << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillTable " << endl;
     //header << tr("DX") << tr("Date/Time") << tr("Band") << tr("Mode");
     /*
     QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg((row+1)*(column+1)));
@@ -102,6 +102,9 @@ void AdifLoTWExportWidget::fillTable()
     */
     //QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool justQueued)
     QList<int> qsos;
+    QList<QStringList> qsosLong;
+    qsosLong.clear();
+
     qsos.clear();
     bool justQueued;
     switch (currentExportMode)
@@ -118,20 +121,18 @@ void AdifLoTWExportWidget::fillTable()
     if (stationCallsignComboBox->currentIndex() == 0)
     { // Not defined station_callsign (blank)
         //
-        qsos.append(dataProxy->getQSOsListLoTWNotSent(QString(), startDate->date(), endDate->date(), justQueued));
+        qsosLong.append(dataProxy->getQSOsListLoTWNotSent2(QString(), startDate->date(), endDate->date(), justQueued));
     }
     else if(stationCallsignComboBox->currentIndex() == 1)
     { // ALL stations, no matter the station.
-        qsos.append(dataProxy->getQSOsListLoTWNotSent("ALL", startDate->date(), endDate->date(), justQueued));
+        qsosLong.append(dataProxy->getQSOsListLoTWNotSent2("ALL", startDate->date(), endDate->date(), justQueued));
     }
     else
     {
-        qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), justQueued));
+        qsosLong.append(dataProxy->getQSOsListLoTWNotSent2(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), justQueued));
     }
     //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
     //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << endl;
-
-
 
 
 
@@ -142,10 +143,38 @@ void AdifLoTWExportWidget::fillTable()
     if (tableWidget->columnCount()>0)
     {        
        //qDebug() << "AdifLoTWExportWidget::fillTable pre FOR" << endl;
-        for (int i=0; i<qsos.length(); i++)
+        for (int i=0; i<qsosLong.length(); i++)
         {
-            //qDebug() << "AdifLoTWExportWidget::fillTable in FOR " << QString::number(i) << endl;
-            addQSO(qsos.at(i));
+
+            QStringList qsoToAdd;
+            qsoToAdd.clear();
+            for (int j = i; j<4; j++)
+            {
+                qsoToAdd.append(qsosLong.at(i+j));
+            }
+            i = i+4;
+
+
+            qDebug() << "AdifLoTWExportWidget::fillTable qsoToAdd Length: " << QString::number(qsoToAdd.length()) << endl;
+            qDebug() << "AdifLoTWExportWidget::fillTable Table Length: " << QString::number(tableWidget->columnCount()) << endl;
+            if (qsoToAdd.length() == tableWidget->columnCount())
+            {
+                tableWidget->insertRow(tableWidget->rowCount());
+
+                for (int i = 0; i<qsoToAdd.length(); i++)
+                {
+                    //qDebug() << "AdifLoTWExportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i) << endl;
+                    QTableWidgetItem *newItemID = new QTableWidgetItem(qsoToAdd.at(i));
+                    newItemID->setTextAlignment(Qt::AlignCenter);
+                    newItemID->setFlags(Qt::NoItemFlags);
+                    tableWidget->setItem(tableWidget->rowCount()-1, i, newItemID);
+                }
+
+            }
+
+
+
+
         }
 
     }
@@ -159,10 +188,10 @@ void AdifLoTWExportWidget::fillTable()
     }
     else
     {
-        qDebug() << "AdifLoTWExportWidget::fillTable Disable OKButton" << endl;
+        //qDebug() << "AdifLoTWExportWidget::fillTable Disable OKButton" << endl;
         okButton->setEnabled(false);
     }
-    qDebug() << "AdifLoTWExportWidget::fillTable END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillTable END" << endl;
 }
 
 void AdifLoTWExportWidget::addQSO(const int _qsoID)
@@ -189,9 +218,6 @@ void AdifLoTWExportWidget::addQSO(const int _qsoID)
             newItemID->setFlags(Qt::NoItemFlags);
             tableWidget->setItem(tableWidget->rowCount()-1, i, newItemID);
         }
-
-        //QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(pow(row, column+1)));
-        //tableWidget->setItem(row, column, newItem);
 
     }
 

@@ -424,7 +424,7 @@ bool MainQSOEntryWidget::setDate(const QDateTime _date)
     }
     else
     {
-        qDebug() << "MainQSOEntryWidget::setDate - NO VALID DATE" << endl;
+        //qDebug() << "MainQSOEntryWidget::setDate - NO VALID DATE" << endl;
         emit debugLog(Q_FUNC_INFO, "END", logSeverity);
         return false;
     }

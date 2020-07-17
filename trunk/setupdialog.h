@@ -40,7 +40,7 @@
 #include "setuppages/setuppageudp.h"
 #include "setuppages/setuppagesats.h"
 #include "setuppages/setuppagehamlib.h"
-#include "setuppages/setuppageinterfaceswindows.h"
+//#include "setuppages/setuppageinterfaceswindows.h"
 #include "utilities.h"
 #include "locator.h"
 
@@ -127,7 +127,7 @@ private:
     SetupPageUDP *UDPPage;
     SetupPageSats *satsPage;
     SetupPageHamLib *hamlibPage;
-    SetupPageInterfacesWindows *interfacesWindowsPage;
+    //SetupPageInterfacesWindows *interfacesWindowsPage;
 
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;

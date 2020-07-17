@@ -1488,7 +1488,7 @@ bool World::checkQRZValidFormat(const QString &_qrz)
     //QString prefix = QString();
     //QString suffix = QString();
     //QString separator = QString();
-    // If barPos > 0 we have a complex call like F/EA4K
+    // If barPos > 0 we have a complex call like F/EA0K
 
     QCharRef c = aux[aux.length()-1];
 

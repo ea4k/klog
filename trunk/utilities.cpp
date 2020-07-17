@@ -1064,7 +1064,7 @@ QDate Utilities::getDateFromADIFDateString(const QString &_s)
 
 QTime Utilities::getTimeFromADIFTimeString(const QString &_s)
 {// Expects and ADIF TIME format String "HHMMSS" or "HHMM"
-    qDebug() << "Utilities::getTimeFromADIFTimeString: " << _s << endl;
+    //qDebug() << "Utilities::getTimeFromADIFTimeString: " << _s << endl;
     if (_s.length()==4)
     {
 
