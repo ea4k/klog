@@ -934,7 +934,8 @@ Vuoi riprovare?</translation>
         <location filename="../filemanager.cpp" line="1897"/>
         <source>Exporting ADIF file...
  QSO: %1 / %2 </source>
-        <translation type="unfinished"></translation>
+        <translation>Esportazione file ADIF in corso...
+ QSO: %1 / %2 </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="4252"/>
@@ -1539,7 +1540,7 @@ Codice di errore restituito: %2</translation>
     <message>
         <location filename="../lotwutilities.cpp" line="192"/>
         <source>The file %1 already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>File %1 già presente.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="389"/>
@@ -3596,32 +3597,32 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
     <message>
         <location filename="../database.cpp" line="1478"/>
         <source>Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;aggiornamento software potrebbe causare problemi. Fare il backup dle tuo database, prima dell&apos;aggiornamento, è sempre un&apos;ottima idea.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1479"/>
         <source>Do you want to backup your DB now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi fare il backup del tuo DB adesso?</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1523"/>
         <source>The backup finished successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup terminato con successo.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1524"/>
         <source>You can find the backup in this file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Il backup si trova sul file: %1</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1534"/>
         <source>The backup was not properly done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup non completato correttamente.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1535"/>
         <source>You will be sent back to the starting point.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarai spedito indietro al punto di partenza.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="2234"/>
@@ -6190,7 +6191,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="66"/>
         <source>Entities: </source>
-        <translation>Collegamenti:</translation>
+        <translation>Collegamenti: </translation>
     </message>
 </context>
 <context>
@@ -6228,7 +6229,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="67"/>
         <source>Bands: </source>
-        <translation>Bande:</translation>
+        <translation>Bande: </translation>
     </message>
 </context>
 <context>
@@ -6262,7 +6263,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="70"/>
         <source>Hours: </source>
-        <translation>Ore:</translation>
+        <translation>Ore: </translation>
     </message>
 </context>
 <context>
@@ -6291,7 +6292,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
         <source>Entity: </source>
-        <translation>Collegamento:</translation>
+        <translation>Collegamento: </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="119"/>
@@ -6339,7 +6340,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="70"/>
         <source>Hours: </source>
-        <translation>Ore:</translation>
+        <translation>Ore: </translation>
     </message>
 </context>
 <context>
@@ -6377,7 +6378,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="67"/>
         <source>Modes: </source>
-        <translation>Modi:</translation>
+        <translation>Modi: </translation>
     </message>
 </context>
 <context>
@@ -6390,7 +6391,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation>lettura dati ...</translation>
+        <translation>Lettura dati ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="51"/>
@@ -6475,7 +6476,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="70"/>
         <source>Months: </source>
-        <translation>Mesi:</translation>
+        <translation>Mesi: </translation>
     </message>
 </context>
 <context>
@@ -6488,7 +6489,7 @@ Il file che stai cercando di importare potrebbe non essere nel corretto formato.
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
         <source>Reading data ... </source>
-        <translation>lettura dati ...</translation>
+        <translation>lettura dati ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="51"/>
