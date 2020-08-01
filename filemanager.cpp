@@ -202,7 +202,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
 
     if (!dataProxy->doesThisLogExist(_logN))
     {
-           //qDebug() << "FileManager::adifLoTWLogExport - The log does not exist" << endl;
+        //qDebug() << "FileManager::adifLoTWLogExport - The log does not exist" << endl;
 
         showError(tr("The selected log does not exist, please check it again."));
         return qsos;
@@ -293,7 +293,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
             }
         }
     }
-      out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
+    out << "ADIF v3.0.7 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:7>KLOG" << endl;
       //qDebug() << "FileManager::adifLoTWLogExport: Number: " << QString::number(numberOfQsos) << endl;
     out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
 
@@ -312,11 +312,11 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
 
     if (_callsign == "ALL")
     {
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log ");
+        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log ");
     }
     else
     {
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
+        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, prop_mode, sat_name, lotw_qsl_sent, station_callsign FROM log WHERE lognumber='%1' AND station_callsign ='%2' AND lotw_qsl_sent='Q'").arg(_logN).arg(_callsign);
     }
 
 
@@ -367,27 +367,12 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
             }
             else
             {//ea4k
-                QMessageBox msgBox;
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                QString aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux));
-                msgBox.setText(aux);
-                msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                msgBox.setDefaultButton(QMessageBox::No);
-                int ret = msgBox.exec();
-                switch (ret) {
-                  case QMessageBox::Yes:
-                      // Yes was clicked
-                       out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
-                      break;
-                  case QMessageBox::No:
-                        // No Save was clicked
-                      break;
-                  default:
-                        // should never be reached
-                      break;
+                if (showInvalidCallMessage(aux))
+                {
+                     out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
                 }
+
+
             }
               //qDebug() << "FileManager::adifLoTWLogExport: CALL"  << endl;
 
@@ -395,15 +380,21 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
             aux = (query.value(nameCol)).toString();
             aux = util->checkAndFixASCIIinADIF(aux);
 
-            dateTime = QDateTime (util->getDateFromSQliteString(aux));
+            dateTime = QDateTime (util->getDateTimeFromSQLiteString(aux));
 
             //QDate _date = util->getDateFromSQliteString(aux);
             if (util->isValidDate(dateTime.date()))
             {
                 aux = util->getADIFDateFromQDateTime(dateTime);
                 out << "<QSO_DATE:" << QString::number(aux.length()) << ">" << aux  << " ";
+                aux = util->getADIFTimeFromQDateTime(dateTime);
+                out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
             }
-
+            else
+            {
+                //qDebug() << "FileManager::adifLoTWLogExport: DateTime not Valid (): " << aux  << endl;
+            }
+            /*
             nameCol = rec.indexOf("time_on");
             aux = (query.value(nameCol)).toString();
             aux = util->checkAndFixASCIIinADIF(aux);
@@ -416,7 +407,7 @@ QList<int> FileManager::adifLoTWLogExport(const QString& _fileName, const QStrin
                 aux.remove(QChar(':'), Qt::CaseInsensitive);
                 out << "<TIME_ON:" << QString::number(aux.length()) << ">" << aux  << " ";
             }
-
+            */
             nameCol = rec.indexOf("bandid");
             aux = (query.value(nameCol)).toString();
               //qDebug() << "FileManager::adifLoTWLogExportToFile-Band-1: "  << aux << endl;
@@ -666,7 +657,7 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
         // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
         queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, time_on, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
+        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, qso_date, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
     }
     else
     {
@@ -785,45 +776,10 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
             }
             else
             {
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: " << aux << endl;
-                QMessageBox msgBox;
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 00"  << endl;
-                msgBox.setIcon(QMessageBox::Warning);
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 01"  << endl;
-                msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 02"  << endl;
-                QString msgText = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux));
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 03"  << endl;
-                msgBox.setText(msgText);
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 04"  << endl;
-                msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: 05"  << endl;
-                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                msgBox.setDefaultButton(QMessageBox::No);
-                int ret = msgBox.exec();
-                //int tempValue = progress.value();
-                //progress.cancel();
-                //qDebug() << "FileManager::adifLogExport: NOT Valid Call: ret = " << QString::number(ret)  << endl;
-                switch (ret)
+                if (showInvalidCallMessage(aux))
                 {
-                case QMessageBox::Yes:
-                   // Yes was clicked
-                    //qDebug() << "FileManager::adifLogExport: NOT Valid Call: YES clicked"  << endl;
-                    out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
-
-                   break;
-                case QMessageBox::No:
-                     // No Save was clicked
-                    //qDebug() << "FileManager::adifLogExport: NOT Valid Call: NO Clicked"  << endl;
-                   break;
-                default:
-                    //qDebug() << "FileManager::adifLogExport: NOT Valid Call: DEFAULT"  << endl;
-                     // should never be reached
-                    break;
+                     out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";
                 }
-                //progress.reset();
-                //progress.setMaximum(numberOfQsos);
-                //progress.setValue(tempValue);
 
                 //qDebug() << "FileManager::adifLogExport: End of NOT Valid Call: " << aux << endl;
             }
@@ -843,7 +799,7 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
             }
             else
             {
-                //qDebug() << "FileManager::adifLogExport: DateTime not Valid: " << aux  << endl;
+                //qDebug() << "FileManager::adifLogExport: DateTime not Valid (848): " << aux  << endl;
             }
 
             nameCol = rec.indexOf("bandid");
@@ -957,32 +913,20 @@ QList<int> FileManager::adifLogExport(const QString& _fileName, const QString &_
                 out << "<STATION_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
             }
 
-            QDate _tDate;
+            QDateTime _tDate;
             if (_em == ModeADIF)
             { // START OF EXPORT OF GENERAL ADIF
 
                 nameCol = rec.indexOf("qso_date_off");
                 aux = (query.value(nameCol)).toString();
                 aux = util->checkAndFixASCIIinADIF(aux);
-                _tDate = util->getDateFromSQliteString(aux);
+                _tDate = util->getDateTimeFromSQLiteString(aux);
 
-                if (util->isValidDate(_tDate))
+                if (_tDate.isValid())
                 {
-                    aux = util->getADIFDateFromQDate(_tDate);
+                    aux = util->getADIFDateFromQDateTime(_tDate);
                     out << "<QSO_DATE_OFF:" << QString::number(aux.length()) << ">" << aux  << " ";
-                }
-
-                nameCol = rec.indexOf("time_off");
-                aux = (query.value(nameCol)).toString();
-                aux = util->checkAndFixASCIIinADIF(aux);
-
-                //qDebug() << "FileManager::adifLogExport: time_off-682" << QString::number(nameCol) << "/" << aux << endl;
-                tDateTime = util->getDateTimeFromSQLiteString(aux);
-
-                if (tDateTime.isValid())
-                {
-
-                    aux = util->getADIFTimeFromQDateTime(tDateTime);
+                    aux = util->getADIFTimeFromQDateTime(_tDate);
                     out << "<TIME_OFF:" << QString::number(aux.length()) << ">" << aux  << " ";
                 }
 
@@ -2075,9 +2019,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
     //QSqlQuery query("SELECT * FROM log");
     QSqlRecord rec = query.record();
-    QDate date;
+    QDateTime date;
 
       //qDebug() << "FileManager::adifLogExportToFile -  before the While" << endl;
+    QDate date2;
     while ( (query.next()) && (!noMoreQso) )
     {
         //marked = false;
@@ -2106,50 +2051,40 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     }
                     else
                     {//ea4k
-                        QMessageBox msgBox;
-                        msgBox.setIcon(QMessageBox::Warning);
-                        msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                        QString aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux1));
-                        msgBox.setText(aux);
-                        msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                        msgBox.setDefaultButton(QMessageBox::No);
-                        int ret = msgBox.exec();
-                        switch (ret) {
-                          case QMessageBox::Yes:
-                              // Yes was clicked
-                               out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
-                              break;
-                          case QMessageBox::No:
-                                // No Save was clicked
-                              break;
-                          default:
-                                // should never be reached
-                              break;
+                        if (showInvalidCallMessage(aux1))
+                        {
+                             out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                         }
                     }
 
                     nameCol = rec.indexOf("qso_date");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
+                    date = util->getDateTimeFromSQLiteString(aux1);
 
-                    if (util->isValidDate(date))
+                    if (date.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDateTime(date);
                         out << "<QSO_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        aux1 = util->getADIFTimeFromQDateTime(date);
+                        out << "<TIME_ON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    }
+                    else
+                    {
+                        //qDebug() << "FileManager::adifLogExport: DateTime not Valid (2148): " << aux1  << endl;
                     }
 
                     nameCol = rec.indexOf("qso_date_off");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date = util->getDateTimeFromSQLiteString(aux1);
+                    if (date.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDateTime(date);
                         out << "<QSO_DATE_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                        out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
-
+                    /*
                     nameCol = rec.indexOf("time_on");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
@@ -2170,7 +2105,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                            //qDebug() << "FileManager::adifLogExportToFile: time_off exported-682" << endl;
                     }
-
+                    */
                     nameCol = rec.indexOf("bandid");
                     aux1 = (query.value(nameCol)).toString();
                       //qDebug() << "FileManager::adifLogExportToFile: bandid1: " << aux1 << endl;
@@ -2417,13 +2352,15 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                         }
                     }
 
+
                     nameCol = rec.indexOf("eqsl_qslrdate");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<EQSL_QSLRDATE:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                     }
 
@@ -2431,12 +2368,12 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     nameCol = rec.indexOf("eqsl_qslsdate");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
+                    date2 = util->getDateFromSQliteString(aux1);
 
-                    if (util->isValidDate(date))
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
-                        out << "<EQSL_QSLSDATE:" << QString::number(aux1.length()) << ">" << util->getADIFDateFromQDate(date) << " ";
+                        aux1 = util->getADIFDateFromQDate(date2);
+                        out << "<EQSL_QSLSDATE:" << QString::number(aux1.length()) << ">" << util->getADIFDateFromQDate(date2) << " ";
                     }
 
                     nameCol = rec.indexOf("eqsl_qsl_rcvd");
@@ -2504,11 +2441,11 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     nameCol = rec.indexOf("hrdlog_qso_upload_date");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
+                    date2 = util->getDateFromSQliteString(aux1);
 
-                    if (util->isValidDate(date))
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<HRDLOG_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -2624,20 +2561,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     nameCol = rec.indexOf("lotw_qslrdate");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<LOTW_QSLRDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("lotw_qslsdate");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<LOTW_QSLSDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -2656,10 +2593,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
 
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<CLUBLOG_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -2674,10 +2611,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
 
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<QRZCOM_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -2851,20 +2788,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     nameCol = rec.indexOf("qslrdate");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);                    
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<QSLRDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
                     nameCol = rec.indexOf("qslsdate");
                     aux1 = (query.value(nameCol)).toString();
                     aux1 = util->checkAndFixASCIIinADIF(aux1);
-                    date = util->getDateFromSQliteString(aux1);
-                    if (util->isValidDate(date))
+                    date2 = util->getDateFromSQliteString(aux1);
+                    if (date2.isValid())
                     {
-                        aux1 = util->getADIFDateFromQDate(date);
+                        aux1 = util->getADIFDateFromQDate(date2);
                         out << "<QSLSDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                     }
 
@@ -3122,26 +3059,9 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
                 else
                 {//ea4k
-                    QMessageBox msgBox;
-                    msgBox.setIcon(QMessageBox::Warning);
-                    msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
-                    QString aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux1));
-                    msgBox.setText(aux);
-                    msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
-                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                    msgBox.setDefaultButton(QMessageBox::No);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Yes:
-                          // Yes was clicked
-                           out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
-                          break;
-                      case QMessageBox::No:
-                            // No Save was clicked
-                          break;
-                      default:
-                            // should never be reached
-                          break;
+                    if (showInvalidCallMessage(aux1))
+                    {
+                         out << "<CALL:" << QString::number(aux1.length()) << ">" << aux1 << " ";
                     }
                 }
                   //qDebug() << "FileManager::adifLogExportToFile before 30 " << endl;
@@ -3149,24 +3069,33 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 aux1 = (query.value(nameCol)).toString();
                   //qDebug() << "FileManager::adifLogExportToFile: QSO_DATE: " << aux1 << endl;
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date = util->getDateTimeFromSQLiteString(aux1);
+                if (date.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDateTime(date);
                     out << "<QSO_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    aux1 = util->getADIFTimeFromQDateTime(date);
+                    out << "<TIME_ON:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
-
+                else
+                {
+                    //qDebug() << "FileManager::adifLogExport: DateTime not Valid (3187): " << aux1  << endl;
+                }
 
                 nameCol = rec.indexOf("qso_date_off");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date = util->getDateTimeFromSQLiteString(aux1);
+                if (date.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDateTime(date);
                     out << "<QSO_DATE_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
+                    aux1 = util->getADIFTimeFromQDateTime(date);
+                    out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
+
                 //qDebug() << "FileManager::adifLogExportToFile before 50 " << endl;
+                /*
                 nameCol = rec.indexOf("time_on");
                 aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
                    //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
@@ -3183,7 +3112,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                     out << "<TIME_OFF:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                        //qDebug() << "FileManager::adifLogExportToFile: time_off-1489-exported"  << endl;
                 }
-
+                */
                 nameCol = rec.indexOf("bandid");
                 aux1 = (query.value(nameCol)).toString();
                   //qDebug() << "FileManager::adifLogExportToFile: bandid21: " << aux1 << endl;
@@ -3443,20 +3372,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
 
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<EQSL_QSLRDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("eqsl_qslsdate");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<EQSL_QSLSDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
                    //qDebug() << "FileManager::adifLogExportToFile before eqsl_qsl_rcvd: " << endl;
@@ -3533,10 +3462,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("hrdlog_qso_upload_date");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<HRDLOG_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -3630,20 +3559,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("lotw_qslrdate");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<LOTW_QSLRDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
                 nameCol = rec.indexOf("lotw_qslsdate");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<LOTW_QSLSDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -3661,10 +3590,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("clublog_qso_upload_date");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<CLUBLOG_QSO_UPLOAD_DATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -3831,10 +3760,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("qslrdate");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<QSLRDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -3842,10 +3771,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 nameCol = rec.indexOf("qslsdate");
                 aux1 = (query.value(nameCol)).toString();
                 aux1 = util->checkAndFixASCIIinADIF(aux1);
-                date = util->getDateFromSQliteString(aux1);
-                if (util->isValidDate(date))
+                date2 = util->getDateFromSQliteString(aux1);
+                if (date2.isValid())
                 {
-                    aux1 = util->getADIFDateFromQDate(date);
+                    aux1 = util->getADIFDateFromQDate(date2);
                     out << "<QSLSDATE:" << QString::number(aux1.length()) << ">" << aux1  << " ";
                 }
 
@@ -4080,8 +4009,9 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 }
 
                 out << "<EOR> " << endl;
-                using namespace std;
                 EndOfWhile:
+                using namespace std;
+
                 ;
 
             }
@@ -4273,7 +4203,7 @@ QFile file(_fileName);
 
 
     //TODO: When the software supports several log, this should be taken into account in the following query.
-    queryString = "SELECT freq, bandid, modeid, qso_date, time_on, station_callsign, rst_sent, rst_rcvd, call, stx FROM log";
+    queryString = "SELECT freq, bandid, modeid, qso_date, station_callsign, rst_sent, rst_rcvd, call, stx FROM log";
     sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
@@ -4347,13 +4277,10 @@ QFile file(_fileName);
             aux1 = (query.value(nameCol)).toString();
             aux1 = util->checkAndFixASCIIinADIF(aux1);
 
-            QDateTime dateTime = QDateTime(util->getDateFromSQliteString(aux1));
+            QDateTime dateTime = QDateTime(util->getDateTimeFromSQLiteString(aux1));
             aux1 = util->getCabrilloDateFromQDate(dateTime.date());
             out << aux1  << " ";
 
-
-            nameCol = rec.indexOf("time_on");
-            aux1 = (query.value(nameCol)).toString(); aux1 = util->checkAndFixASCIIinADIF(aux1);
             //qDebug() << "FileManager::adifLogExportToFile-time_on: "  << aux1 << endl;
             dateTime.setTime(util->getTimeFromSQLiteString(aux1));
             aux1 = util->getCabrilloTimeFromQDateTime(dateTime);
@@ -5000,7 +4927,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     // START reading QSO data...
       //qDebug() << "FileManager::adifReadLog: QSO data reading started..."  << endl;
 
-    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
+    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
 /*
     if (db.transaction())
     {
@@ -6294,7 +6221,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     if ( (haveDate) && (haveTime))
     {       
         preparedQuery.bindValue( ":qso_date", util->getDateTimeSQLiteStringFromDateTime(dateTime));
-        preparedQuery.bindValue( ":time_on", dateTime.toString("hhmmss"));
+        //preparedQuery.bindValue( ":time_on", dateTime.toString("hhmmss"));
     }
 
 
@@ -6983,6 +6910,7 @@ bool FileManager::writeBackupDate()
     return true;
 }
 
+
 void FileManager::setStationCallSign(const QString& _st)
 {
       //qDebug() << "FileManager::setStationCallSign: " << _st << endl;
@@ -7000,3 +6928,37 @@ void FileManager::setStationCallSign(const QString& _st)
    //qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << "-END" << endl;
 }
 
+bool FileManager::showInvalidCallMessage(const QString &_call){
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
+
+    QString aux = _call;
+
+    if (aux.length()<1)
+    {
+        aux = QString(tr("An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported log file?"));
+
+    }
+    else
+    {
+        aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux));
+    }
+
+    msgBox.setText(aux);
+    msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+    switch (ret) {
+    case QMessageBox::Yes:
+          // Yes was clicked
+           return true;
+    case QMessageBox::No:
+            // No Save was clicked
+        return false;
+    default:
+            // should never be reached
+        return false;
+    }
+}

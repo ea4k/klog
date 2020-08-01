@@ -1612,21 +1612,6 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 //dataC << (query.value(nameCol)).toString();
                 dataC << util->getADIFDateFromQDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
                 dataC << util->getADIFTimeFromQDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
-                /*
-                  nameCol = rec.indexOf("time_on");
-
-                aux1 = (query.value(nameCol)).toString();
-                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time: " << aux1 << endl;
-                if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
-                    aux1.remove(QChar(':'), Qt::CaseInsensitive);
-                    dataC << aux1;
-                        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time1.5: " << aux1 << endl;
-
-                }
-                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2: " << aux1 << endl;
-                */
-
-
 
                 dataC << (query.value(nameCol)).toString();
                 nameCol = rec.indexOf("qslrdate");
@@ -1709,22 +1694,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                         nameCol = rec.indexOf("qso_date");
                         dataC << util->getADIFDateFromQDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
                         dataC << util->getADIFTimeFromQDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
-                        /*
-                        dataC << (query2.value(nameCol)).toString();
-                        nameCol = rec.indexOf("time_on");
 
-                        aux1 = (query2.value(nameCol)).toString();
-                            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2-1: " << aux1 << endl;
-                        if ( ((aux1.length()) == 5) || ((aux1.length()) == 8) ){
-                            aux1.remove(QChar(':'), Qt::CaseInsensitive);
-                            dataC << aux1;
-                                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2-1.5: " << aux1 << endl;
-
-                        }
-                            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId time2-2: " << aux1 << endl;
-
-                        */
-                        //dataC << (query.value(nameCol)).toString();
                         nameCol = rec.indexOf("qslrdate");
                         dataC << (query2.value(nameCol)).toString();
                         nameCol = rec.indexOf("qslsdate");
@@ -2023,12 +1993,11 @@ bool DataProxy_SQLite::updateAwardWAZ()
     return db->updateAwardWAZTable();
 }
 
-bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _freq, const QString &_mode,
-                                       const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
-                                       const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on,
-                                       const int _dxcc, const QString &_opQrz, const QString &_stQrz, const QString &_myLoc, const int _logN)
+bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
+                                        const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_stationcallsign, const QString &_operator,
+                                        const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower, const int _dxcc, const int _logNumber)
 {
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
 
     //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const quint64 _freq, const QString &_mode,
     //                                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
@@ -2037,8 +2006,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
     //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
 /*
     Mandatory data:
-             "qso_date VARCHAR(10) NOT NULL, "
-             "time_on VARCHAR(8) NOT NULL, "
+             "qso_date VARCHAR(10) NOT NULL, "             
              "call VARCHAR(40) NOT NULL, "
              "bandid INTEGER NOT NULL, "
              "modeid INTEGER NOT NULL, "
@@ -2061,31 +2029,35 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
     }
     else
     {
-           //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: call" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: call" << endl;
         return false;
     }
 
-    if (util->isValidTimeFromString(_time_on))
+    if (_datetime.isValid())
     {
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " <<  _time_on << endl;
-        stringFields  = stringFields  + "qso_date, time_on, ";
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " <<  _datetime << endl;
+        stringFields  = stringFields  + "qso_date, ";
         QDateTime _dateTime;
         //_dateTime.setDate(QDate::currentDate());
         //_dateTime.setTime(QTime::fromString(_time_on, "yyyyMMddhhmmss"));
-        stringData =  stringData + "'" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("yyyy-MM-dd") + "', '" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " << _datetime << endl;
+        //stringData =  stringData + "'" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("yyyy-MM-dd") + "', '" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
+        stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime) + "', ";
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " << stringData << endl;
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on_ " << _datetime << endl;
         return false;
     }
 
+    QString band = getBandNameFromFreq(_freq);
+    if (band != _band)
+    {
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: FREQ / BAND inconsistency " << _band << "/" << QString::number(_freq) << endl;
+    }
 
-    QString _band;
-    _band = QString::number(_freq);
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: freq: " << QString::number(_freq) << endl;
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: freq: " << QString::number(_freq/1000) << endl;
-    if (_band.length()>0)
+    if (band.length()>0)
     {
             stringFields  = stringFields  + "bandid, " ;
             stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
@@ -2117,58 +2089,54 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
         return false;
     }
 
-    if (util->isValidTimeFromString(_time_off))
+    if (_datetime.isValid())
     {
-        stringFields  = stringFields  + "time_off, ";
-        stringData =  stringData + "'" + QDateTime::fromString(_time_off, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
+        stringFields  = stringFields  + "qso_date_off, ";
+        stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime_off) + "', ";
     }
 
-    if (util->isValidName(_name))
-    {
-        stringFields  = stringFields  + "name, ";
-        stringData =  stringData + "'" + _name + "', ";
-    }
 
-    if (util->isValidRST(_report_sent))
+
+    if (util->isValidRST(_rstTX))
     {
         stringFields  = stringFields  + "rst_sent, ";
-        stringData =  stringData + "'" + _report_sent + "', ";
+        stringData =  stringData + "'" + _rstTX + "', ";
     }
 
-    if (util->isValidRST(_report_rec))
+    if (util->isValidRST(_rstRX))
     {
         stringFields   = stringFields   + "rst_rcvd, ";
-        stringData =  stringData + "'" + _report_rec + "', ";
+        stringData =  stringData + "'" + _rstRX + "', ";
     }
 
-    if (util->isValidGrid(_dx_grid))
+    if (util->isValidGrid(_dxgrid))
     {
         stringFields   = stringFields   + "gridsquare, ";
-        stringData =  stringData + "'" + _dx_grid + "', ";
+        stringData =  stringData + "'" + _dxgrid + "', ";
     }
 
-    if (util->isValidGrid(_myLoc))
+    if (util->isValidGrid(_mygrid))
     {
         stringFields   = stringFields   + "my_gridsquare, ";
-        stringData =  stringData + "'" + _myLoc + "', ";
+        stringData =  stringData + "'" + _mygrid + "', ";
     }
 
-    if (util->isValidPower(_tx_power))
+    if (util->isValidPower(QString::number(txpower)))
     {
         stringFields  = stringFields  + "tx_pwr, ";
-        stringData =  stringData + "'" + _tx_power + "', ";
+        stringData =  stringData + "'" + QString::number(txpower) + "', ";
     }
 
-    if (util->isValidCall(_opQrz))
+    if (util->isValidCall(_operator))
     {
         stringFields  = stringFields  + "operator, ";
-        stringData =  stringData + "'" + _opQrz + "', ";
+        stringData =  stringData + "'" + _operator + "', ";
     }
 
-    if (util->isValidCall(_stQrz))
+    if (util->isValidCall(_stationcallsign))
     {
             stringFields  = stringFields  + "station_callsign, ";
-            stringData =  stringData + "'" + _stQrz + "', ";
+            stringData =  stringData + "'" + _stationcallsign + "', ";
     }
     if (_dxcc>0)
     {
@@ -2176,17 +2144,17 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
         stringData =  stringData + "'" + QString::number(_dxcc) + "', ";
     }
 
-    if (util->isValidComment(_comments))
-    {
-        stringFields  = stringFields  + "comment, ";
-        stringData =  stringData + "'" + _comments + "', ";
-    }
+    stringFields  = stringFields  + "qsl_via, ";
+    stringData =  stringData + "'B', ";
 
     stringFields  = stringFields  + "qsl_via, ";
     stringData =  stringData + "'B', ";
 
+    stringFields  = stringFields  + "lotw_qsl_sent, ";
+    stringData =  stringData + "'Q', ";
+
     stringFields  = stringFields  + "lognumber";
-    stringData =  stringData + "'" + QString::number(_logN) + "'";
+    stringData =  stringData + "'" + QString::number(_logNumber) + "'";
 
 /*
     if ( stringFields.endsWith(", ") )
@@ -2200,23 +2168,23 @@ bool DataProxy_SQLite::addQSOFromWSJTX(const QString &_dxcall, const double _fre
     }
 */
     stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Query: " << stringQuery << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Query: " << stringQuery << endl;
 
     bool sqlOK = query.exec(stringQuery);
 
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: LastQuery: " << query.lastQuery() << endl;
+    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: LastQuery: " << query.lastQuery() << endl;
 
     if (sqlOK)
     {
         query.finish();
-           //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL OK" << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL OK" << endl;
         return true;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
-           //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: SQL " << endl;
+        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: SQL " << endl;
         return false;
     }
 
@@ -2289,7 +2257,7 @@ bool DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QString &_
     QSqlQuery query;
     QString queryString;
 
-    queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND time_on='%3' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(_date).arg(_time).arg(_band).arg(_mode);
+    queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(_date).arg(_band).arg(_mode);
 
     bool sqlOK = query.exec(queryString);
 
@@ -2331,7 +2299,7 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QString &_da
      QString queryString;
      int qsoId = -1;
 
-     queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND time_on='%3' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(_date).arg(_time).arg(_band).arg(_mode);
+     queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(_date).arg(_band).arg(_mode);
 
      bool sqlOK = query.exec(queryString);
 
@@ -2658,7 +2626,7 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
     qso_date = util->getDateTimeSQLiteStringFromDateTime(_dateTime);
 
     QString queryString;
-    //queryString = QString("SELECT id, lotw_qsl_rcvd FROM log WHERE call='%1' AND qso_date='%2' AND time_on='%3' AND bandid='%4' AND modeid='%5'").arg(_call).arg(qso_date).arg(timeon).arg(bandid).arg(modeid);
+    //queryString = QString("SELECT id, lotw_qsl_rcvd FROM log WHERE call='%1' AND qso_date='%2' AND bandid='%4' AND modeid='%5'").arg(_call).arg(qso_date).arg(bandid).arg(modeid);
     queryString = QString("SELECT id, lotw_qsl_rcvd FROM log WHERE call='%1' AND qso_date='%2' AND bandid='%4' AND modeid='%5'").arg(_call).arg(qso_date).arg(bandid).arg(modeid);
 
     QSqlQuery query;
@@ -2892,8 +2860,8 @@ QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCal
                 //QString time = query.value(2).toString();
                 QString bandid = query.value(3).toString();
                 QString modeid = query.value(4).toString();
-                //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - date: " << date << endl;
-                //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - time: " << time << endl;
+                //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent2 - date: " << date << endl;
+                //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent2 - time: " << time << endl;
 
                 //getDateTimeSQLiteStringFromDateTime
                 //QString dateTime = (QDateTime::fromString(date, "yyyy-MM-dd hh:mm:ss")).toString("yyyy-MM-dd hh:mm");
@@ -2953,8 +2921,8 @@ QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
                 //QString date = util->getDateTimeFromSQLiteString(query.value(1).toString());
 
                 //QString time = query.value(2).toString();
-                QString bandid = query.value(3).toString();
-                QString modeid = query.value(4).toString();
+                QString bandid = query.value(2).toString();
+                QString modeid = query.value(3).toString();
                 query.finish();
                 //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - date: " << date << endl;
                 //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - time: " << time << endl;                
@@ -3190,11 +3158,11 @@ int DataProxy_SQLite::getQSOsAtHour(const int _hour, const int _log)
 
   if (_log < 0)
   {
-      queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE time_on LIKE '%1:%'").arg(aux);
+      queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE qso_date LIKE '% %1:%'").arg(aux);
   }
   else
   {
-      queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND time_on LIKE '%2:%'").arg(_log).arg(aux);
+      queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND qso_date LIKE '% %2:%'").arg(_log).arg(aux);
   }
 
   sqlOK = query.exec(queryString);
@@ -3246,11 +3214,11 @@ int DataProxy_SQLite::getQSOsAtHourOnBand(const int _hour, const int _band, cons
 
    if (_log < 0)
    {
-       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE time_on LIKE '%1:%' AND bandid='%2'").arg(aux).arg(_band);
+       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE qso_date LIKE '% %1:%' AND bandid='%2'").arg(aux).arg(_band);
    }
    else
    {
-       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND time_on LIKE '%2:%' AND bandid='%3'").arg(_log).arg(aux).arg(_band);
+       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND qso_date LIKE '% %2:%' AND bandid='%3'").arg(_log).arg(aux).arg(_band);
    }
 
    sqlOK = query.exec(queryString);
@@ -4939,7 +4907,7 @@ QString DataProxy_SQLite::getStationCallSignFromLog(const int _log)
 
 QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
 {
-       //qDebug() << "DataProxy_SQLite::getStationCallSignsFromLog" << endl;
+    //qDebug() << "DataProxy_SQLite::getStationCallSignsFromLog" << endl;
    QStringList calls = QStringList();
    QSqlQuery query;
    QString queryString;
@@ -4972,22 +4940,23 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
            else
            {
                query.finish();
+               //qDebug() << "DataProxy_SQLite::getStationCallSignsFromLog-END-1 - fail" << endl;
                return QStringList();
            }
 
        }
        query.finish();
        calls.removeDuplicates();
-
-
    }
    else
    {
        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
        query.finish();
+       //qDebug() << "DataProxy_SQLite::getStationCallSignsFromLog-END-2 - fail" << endl;
        return QStringList();
    }
    calls.sort();
+   //qDebug() << "DataProxy_SQLite::getStationCallSignsFromLog-END" << endl;
    return calls;
 }
 
@@ -6789,10 +6758,7 @@ void DataProxy_SQLite::getFoundInLog(const QString &_txt, const int _log)
 bool DataProxy_SQLite::queryPrepare(const QString &_query)
 {
        //qDebug()  << "DataProxy_SQLite::queryPrepare: " << _query << endl;
-    //return preparedQuery.prepare( _query );
-    //return preparedQuery.prepare("INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)");
 
-    //return db->queryPrepare("INSERT INTO log (call, qso_date, bandid, modeid, time_on, time_off, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :time_on, :time_off, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)");
     return true;
 }
 

@@ -300,10 +300,10 @@ private slots:
                                  const QString &_dx_grid, const QString &_sub_mode);
 
 
+    void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &band, const double _freq,
+                     const QString &mygrid, const QString &dxgrid, const QString &rstTX, const QString &rstRX, const QString &stationcallsign,
+                     const QDateTime &datetime, const QDateTime &datetime_off);
 
-    void slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
-                             const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
-                             const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid);
 
 
     //void slotTipsFindQSL2QSO();

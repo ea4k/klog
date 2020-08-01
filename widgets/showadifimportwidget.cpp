@@ -70,7 +70,7 @@ void ShowAdifImportWidget::fillTable()
     //qDebug() << "ShowAdifImportWidget::fillTable END" << endl;
 }
 
-void ShowAdifImportWidget::addQSO(const QStringList _qso)
+void ShowAdifImportWidget::addQSO(const QStringList &_qso)
 {
     //qDebug() << "ShowAdifImportWidget::addQSO: " << QString::number(_qsoID) << endl;
     // QRZ-DX, Date-Time, Band, Mode

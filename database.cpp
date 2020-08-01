@@ -398,11 +398,11 @@ bool DataBase::isTheDBCreated()
 
 bool DataBase::recreateTableLog()
 {
-       //qDebug() << "DataBase::recreateTableLog" << endl;
+    //qDebug() << "DataBase::recreateTableLog" << endl;
 
     if (!createTableLog(false))         // Create modetemp
     {
-           //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << endl;
+        //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << endl;
         return false;
     }
 
@@ -411,25 +411,16 @@ bool DataBase::recreateTableLog()
     QStringList columns;
     columns.clear();
     columns << getColumnNamesFromTable("log");
-    /*
-    if (columns.contains("time_on"))
-    {   // This is required to upgrade from old DB to 0.017.
-        QString stringQuery;
-        stringQuery = "update log set qso_date = replace((SELECT qso_date from log)||' '||time_on, '', '')";
 
-        bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
-        if (!sqlOK)
-        {return false;}
-
-        columns.removeOne("time_on");
-    }
-    */
 
     queryString =  columns.first();
 
     for (int i=1;i<columns.size()-1;i++)
     {
-        queryString = queryString + ", " + columns.at(i);
+        if ( !(columns.at(i) == "time_on") && !(columns.at(i) == "time_off")  )
+        {
+            queryString = queryString + ", " + columns.at(i);
+        }
     }
 
     queryString = "INSERT INTO logtemp (" + queryString + ", " + columns.last() + ") SELECT " + queryString + ", " + columns.last() + " FROM log";
@@ -445,18 +436,18 @@ bool DataBase::recreateTableLog()
             }
             else
             {
-                   //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
+                //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
                 return false;
             }
         }
         else
         {
-               //qDebug() << "recreateTableLog ERROR - log table not dropped" << endl;
+            //qDebug() << "recreateTableLog ERROR - log table not dropped" << endl;
         }
     }
     else
     {
-           //qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
+        //qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
         return false;
     }
        //qDebug() << "recreateTableLog END" << endl;
@@ -488,10 +479,6 @@ bool DataBase::createTableLog(bool temp)
              "rst_rcvd VARCHAR, "
              "bandid INTEGER NOT NULL, "
              "modeid INTEGER NOT NULL, "
-             "srx VARCHAR(10), "
-             "stx VARCHAR(10), "
-             "points INTEGER,"
-             "multiplier INTEGER,"
              "cqz INTEGER, "
              "ituz INTEGER, "
              "dxcc INTEGER, "
@@ -544,6 +531,7 @@ bool DataBase::createTableLog(bool temp)
              "clublog_qso_upload_date DATETIME, "
              "clublog_qso_upload_status VARCHAR(1), "
              "max_bursts INTEGER, "
+             "multiplier INTEGER,"
              "ms_shower VARCHAR, "
              "my_antenna VARCHAR,"
              "my_city VARCHAR, "
@@ -575,6 +563,7 @@ bool DataBase::createTableLog(bool temp)
              "operator VARCHAR, "
              "owner_callsign VARCHAR, "
              "pfx VARCHAR, "
+             "points INTEGER,"
              "precedence VARCHAR, "
              "prop_mode VARCHAR, "
              "public_key VARCHAR, "
@@ -603,7 +592,9 @@ bool DataBase::createTableLog(bool temp)
              "skcc VARCHAR, "
              "sota_ref VARCHAR, "
              "srx_string VARCHAR, "
-             "stx_string VARCHAR, "
+             "srx VARCHAR(10), "
+             "stx_string VARCHAR, "             
+             "stx VARCHAR(10), "
              "state VARCHAR, "
              "station_callsign VARCHAR, "
              "submode VARCHAR,"
@@ -616,7 +607,6 @@ bool DataBase::createTableLog(bool temp)
              "tx_pwr REAL, "
              "web VARCHAR, "
              "qso_date_off DATETIME, " //2020-01-01
-             "time_off VARCHAR(8), "    //10:10:10
              "transmiterid VARCHAR, "
              "marked VARCHAR(1), "
              "lognumber INTEGER NOT NULL, "
@@ -689,7 +679,6 @@ bool DataBase::createDataBase()
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists prefixesofentity");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists continent");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists entity");
-
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists softwarecontrol");
 
     QString stringQuery = QString ("CREATE TABLE softwarecontrol ("
@@ -3432,7 +3421,7 @@ bool DataBase::updateTableLog(const int _v)
     {
     case 6:     // If 6, we copy in logtemp the full data coming from the old log. This way, the structure of
                 // the log table is updated without any data loss.
-        queryString = QString ("INSERT INTO logtemp (qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber) SELECT qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, time_off, transmiterid, marked, lognumber FROM log");
+        queryString = QString ("INSERT INTO logtemp (qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, transmiterid, marked, lognumber) SELECT qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, transmiterid, marked, lognumber FROM log");
     break;
     default:
             //qDebug() << "DataBase::updateTableLog FALSE END" << endl;
@@ -7395,13 +7384,15 @@ bool DataBase::updateTo017()
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
     {return false;}
-
-    /*
     if (!recreateTableLog())
     {
         //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << endl;
         return false;
     }
+    //qDebug() << "DataBase::updateTo017: - Recreated Table Log " << endl;
+
+    /*
+
     else
     {
         //qDebug() << "DataBase::updateTo017: - Table log recreated OK" << endl;

@@ -388,7 +388,7 @@ bool MainQSOEntryWidget::setBand(const QString &_band)
 bool MainQSOEntryWidget::setMode(const QString &_mode)
 {
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-      //qDebug() << "MainQSOEntryWidget::setMode: " << _mode << endl;
+    //qDebug() << "MainQSOEntryWidget::setMode: " << _mode << endl;
     if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
     {
         emit debugLog(Q_FUNC_INFO, "END-1", logSeverity);

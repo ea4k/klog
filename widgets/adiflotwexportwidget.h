@@ -31,7 +31,7 @@ signals:
 private:
     void createUI();
     void fillTable();
-    void setTopLabel(const QString _t);
+    void setTopLabel(const QString &_t);
     void addQSO(const int _qsoID);
     void fillStationCallsignComboBox();
 

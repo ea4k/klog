@@ -518,7 +518,7 @@ void MainWindow::createActionsCommon(){
     // UDPLogServer - WSJT-x
 
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString)), this, SLOT(slotWSJTXloggedQSO(int,QString,double,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString,QString) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QDateTime, QDateTime)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QDateTime, QDateTime) ) );
 
    connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
    connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
@@ -1638,7 +1638,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields.remove(0,2);
     }
 
-    stringFields += ", call, bandid, modeid, qso_date, time_on, lognumber, rst_sent, rst_rcvd";
+    stringFields += ", call, bandid, modeid, qso_date, lognumber, rst_sent, rst_rcvd";
 
     if (stringFields.startsWith(", ") )
     {
@@ -1652,7 +1652,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
     stringData.remove(0,1);
     //stringData += QString(", '%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8'").arg(tqrz).arg(tband).arg(tmode).arg(tdate).arg(ttime).arg(QString::number(currentLog)).arg(trsttx).arg(trstrx);
-    stringData += QString(", '%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8'").arg(tqrz).arg(tband).arg(tmode).arg(tdate).arg(ttime).arg(QString::number(currentLog)).arg(trsttx).arg(trstrx);
+    stringData += QString(", '%1', '%2', '%3', '%4', '%5', '%6', '%7'").arg(tqrz).arg(tband).arg(tmode).arg(tdate).arg(QString::number(currentLog)).arg(trsttx).arg(trstrx);
 
     if (stringData.startsWith(", ") )
     {
@@ -1804,7 +1804,7 @@ QString MainWindow::readDataFromUIDXModifying()
     /**/
 
 
-    QString updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', time_on = '" + ttime + "', rst_sent = '" + trsttx + "', rst_rcvd = '" + trstrx + "', lognumber = '" + QString::number(currentLog) + "', ";
+    QString updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', rst_sent = '" + trsttx + "', rst_rcvd = '" + trstrx + "', lognumber = '" + QString::number(currentLog) + "', ";
 
     aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
     if (dataProxy->isValidContinentShortName(aux1))
@@ -5313,12 +5313,26 @@ void MainWindow::slotADIFExportAll()
 void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
     //qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << endl;
+
+    QMessageBox msgBox;
+
     if (!util->isValidCall(_st))
     {
+        //qDebug() << "MainWindow::fileExportLoTW - no valid call" << endl;
+        if (_st == "ALL")
+        {
+            msgBox.setWindowTitle(tr("KLog - LoTW"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("You need to select one station callsign to be able to send your log to LoTW."));
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+        }
         return;
     }
     if ((!_startDate.isValid()) || (!_endDate.isValid()))
     {
+        //qDebug() << "MainWindow::fileExportLoTW - no valid date" << endl;
         return;
     }
 
@@ -5328,13 +5342,14 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
+        //qDebug() << "MainWindow::fileExportLoTW NO QSOs" << endl;
         return;
     }
-          //qDebug() << "MainWindow::fileExportLoTW - 50" << endl;
+    //qDebug() << "MainWindow::fileExportLoTW - 50" << endl;
     bool uploadedToLoTW = callTQSL(fileName, _st);
     //bool uploadedToLoTW = true;
-          //qDebug() << "MainWindow::fileExportLoTW - 51" << endl;
-    QMessageBox msgBox;
+    //qDebug() << "MainWindow::fileExportLoTW - 51" << endl;
+
     int i ;
     if (uploadedToLoTW)
     {
@@ -5588,11 +5603,6 @@ void MainWindow::qsoToEdit (const int _qso)
     mainQSOEntryWidget->setDate(util->getDateTimeFromSQLiteString(aux1));
     //mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
     dateTimeTemp->setDate(util->getDateFromSQliteString(aux1));
-
-    //nameCol = rec.indexOf("time_on");
-    //aux1 = (query.value(nameCol)).toString();
-    //mainQSOEntryWidget->setTime(util->getTimeFromSQLiteString(aux1));
-
 
     nameCol = rec.indexOf("bandid");
     aux1 = (query.value(nameCol)).toString();
@@ -6190,8 +6200,7 @@ void MainWindow::fillQSOData()
           //qDebug() << "MainWindow::fillQSOData" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
-    //QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, confirmed, id, cqz, ituz, dxcc FROM log WHERE lognumber='%1'").arg(currentLog);
-    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, time_on, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE lognumber='%1'").arg(currentLog);
+    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE lognumber='%1'").arg(currentLog);
 
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
@@ -6246,18 +6255,6 @@ void MainWindow::fillQSOData()
                 _tdate = (query.value(nameCol)).toString();
             }
 
-            nameCol = rec.indexOf("time_on");
-            if ( (query.value(nameCol)).isValid() )
-            {
-                if ((QDate::fromString("hh:mm:ss")).isValid())
-                {
-                    _ttime = (query.value(nameCol)).toString();
-                }
-                else if((QDate::fromString("hh:mm")).isValid())
-                {
-                    _ttime = (query.value(nameCol)).toString();
-                }
-            }
 
             nameCol = rec.indexOf("lognumber");
             if ( (query.value(nameCol)).isValid() )
@@ -6276,7 +6273,7 @@ void MainWindow::fillQSOData()
             }
                       //qDebug() << "MainWindow::fillQSOData: ID: " << _id << endl;
             //TODO: Prepare this query
-            updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "', time_on = '" + _ttime + "', lognumber = '" + _lognumber + "'";//  + "', confirmed = '" + _confirmed + "'";
+            updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "', lognumber = '" + _lognumber + "'";//  + "', confirmed = '" + _confirmed + "'";
 
             nameCol = rec.indexOf("cqz");
             if (( (query.value(nameCol)).toString()).length() < 1 )
@@ -6449,20 +6446,18 @@ void MainWindow::slotFilePrint()
     cursor.setBlockFormat(centerAlignment);
     cursor.insertText(tr("Number"));
     cursor = textTable->cellAt(row, 1).firstCursorPosition();
-    cursor.insertText(tr("Date"));
+    cursor.insertText(tr("Date/Time"));
     cursor = textTable->cellAt(row, 2).firstCursorPosition();
-    cursor.insertText(tr("Time"));
-    cursor = textTable->cellAt(row, 3).firstCursorPosition();
     cursor.insertText(tr("QRZ"));
-    cursor = textTable->cellAt(row, 4).firstCursorPosition();
+    cursor = textTable->cellAt(row, 3).firstCursorPosition();
     cursor.insertText(tr("RSTtx"));
-    cursor = textTable->cellAt(row, 5).firstCursorPosition();
+    cursor = textTable->cellAt(row, 4).firstCursorPosition();
     cursor.insertText(tr("RSTrx"));
-    cursor = textTable->cellAt(row, 6).firstCursorPosition();
+    cursor = textTable->cellAt(row, 5).firstCursorPosition();
     cursor.insertText(tr("Band"));
-    cursor = textTable->cellAt(row, 7).firstCursorPosition();
+    cursor = textTable->cellAt(row, 6).firstCursorPosition();
     cursor.insertText(tr("Mode"));
-    cursor = textTable->cellAt(row, 8).firstCursorPosition();
+    cursor = textTable->cellAt(row, 7).firstCursorPosition();
     cursor.insertText(tr("Comment"));
 
     int nameCol = 0;
@@ -6486,7 +6481,7 @@ void MainWindow::slotFilePrint()
         progress.setWindowModality(Qt::WindowModal);
 
 
-        QString stringQuery = QString("SELECT id, qso_date, time_on, call, rst_sent, rst_rcvd, bandid, modeid, comment FROM log WHERE lognumber='%1'").arg(currentLog);
+        QString stringQuery = QString("SELECT id, qso_date, call, rst_sent, rst_rcvd, bandid, modeid, comment FROM log WHERE lognumber='%1'").arg(currentLog);
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
@@ -6518,7 +6513,6 @@ void MainWindow::slotFilePrint()
 
                 }
 
-
                 nameCol = rec.indexOf("id");
                 cursor = textTable->cellAt(row, 0).firstCursorPosition();
                 cursor.insertText((query.value(nameCol)).toString());
@@ -6527,20 +6521,16 @@ void MainWindow::slotFilePrint()
                 cursor = textTable->cellAt(row, 1).firstCursorPosition();
                 cursor.insertText((query.value(nameCol)).toString());
 
-                nameCol = rec.indexOf("time_on");
+                nameCol = rec.indexOf("call");
                 cursor = textTable->cellAt(row, 2).firstCursorPosition();
                 cursor.insertText((query.value(nameCol)).toString());
 
-                nameCol = rec.indexOf("call");
+                nameCol = rec.indexOf("rst_sent");
                 cursor = textTable->cellAt(row, 3).firstCursorPosition();
                 cursor.insertText((query.value(nameCol)).toString());
 
-                nameCol = rec.indexOf("rst_sent");
-                cursor = textTable->cellAt(row, 4).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
-
                 nameCol = rec.indexOf("rst_rcvd");
-                cursor = textTable->cellAt(row, 5).firstCursorPosition();
+                cursor = textTable->cellAt(row, 4).firstCursorPosition();
                 cursor.insertText((query.value(nameCol)).toString());
 
                 nameCol = rec.indexOf("bandid");
@@ -6552,7 +6542,7 @@ void MainWindow::slotFilePrint()
                     query1.next();
                     if (query1.isValid())
                     {
-                        cursor = textTable->cellAt(row, 6).firstCursorPosition();
+                        cursor = textTable->cellAt(row, 5).firstCursorPosition();
                         cursor.insertText((query1.value(0)).toString());
                     }
                 }
@@ -6570,7 +6560,7 @@ void MainWindow::slotFilePrint()
                       //qDebug() << "MainWindow::slotFilePrint: Mode2: " << aux << endl;
                 if (aux.length()>1)
                 {
-                    cursor = textTable->cellAt(row, 7).firstCursorPosition();
+                    cursor = textTable->cellAt(row, 6).firstCursorPosition();
                     cursor.insertText(aux);
                 }
                 else
@@ -6582,7 +6572,7 @@ void MainWindow::slotFilePrint()
                 aux = (query.value(nameCol)).toString();
                 if ((aux.length())>0)
                 {
-                    cursor = textTable->cellAt(row, 8).firstCursorPosition();
+                    cursor = textTable->cellAt(row, 7).firstCursorPosition();
                     cursor.insertText(aux);
                 }
             }
@@ -7080,38 +7070,46 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 }
 
-void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
-                                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
-                                              const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid)
+void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
+                 const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_stationcallsign,
+                 const QDateTime &_datetime, const QDateTime &_datetime_off)
+
+//void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
+//                                    const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
+//                                    const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid)
 {
 
-           //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     bool logTheQso = false;
 
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO type: " << QString::number(_type) << endl;
+    if (!_datetime.isValid() || !_datetime_off.isValid())
+    {
+        //qDebug() << "MainWindow::slotWSJTX-loggedQSO: DATES NOT VALID " << endl;
+        return ;
+    }
+
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq  no div: " << QString::number(_freq) << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO my_grid: " << _mygrid << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dxgrid << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) << endl;
 
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dx_grid << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << _time_on << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << _time_off << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _rstTX << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _rstRX << endl;
 
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _report_sent << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _report_rec << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO tx_power: " << _tx_power << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO comments: " << _comments << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO name: " << _name << endl;
 
-    if (_type == 5)
-    {
-        if (wsjtxAutoLog)
-        { // Log automatically, without confirmation
-            logTheQso = true;
-        }
-        else
-        { // Ask for confirmation before logging
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO Type 5"  << endl;
+    if (wsjtxAutoLog)
+    { // Log automatically, without confirmation
+        logTheQso = true;
+        //qDebug() << "MainWindow::slotWSJTX-loggedQSO: LogTheQSO = true"  << endl;
+    }
+    else
+    { // Ask for confirmation before logging
+            //qDebug() << "MainWindow::slotWSJTX-loggedQSO: LogTheQSO = false - we ask for confirmation"  << endl;
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog QSO received"));
@@ -7131,31 +7129,24 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, con
                     "<b>" + tr("Mode") + ": " + "</b>" + _mode.toUpper() +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("Time On") + ": " + "</b>" + (QDateTime::fromString(_time_on, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                    //"<b>" + tr("Time On") + ": " + "</b>" + (QDateTime::fromString(_time_on, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                    "<b>" + tr("Time On") + ": " + "</b>" + util->getDateTimeSQLiteStringFromDateTime(_datetime) +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("Time Off") + ": " + "</b>" + (QDateTime::fromString(_time_off, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                    //"<b>" + tr("Time Off") + ": " + "</b>" + (QDateTime::fromString(_time_off, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
+                    "<b>" + tr("Time Off") + ": " + "</b>" + util->getDateTimeSQLiteStringFromDateTime(_datetime_off) +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("RST TX") + ": " + "</b>" + _report_sent + " - <b>" + tr("RST RX") + ": " + "</b>" + _report_rec  +
+                    "<b>" + tr("RST TX") + ": " + "</b>" + _rstTX + " - <b>" + tr("RST RX") + ": " + "</b>" + _rstRX  +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("DX-Grid") + ": " + "</b>" + _dx_grid.toUpper()  +
+                    "<b>" + tr("DX-Grid") + ": " + "</b>" + _dxgrid.toUpper()  +
+                    "</LI>" +                   
+                    "<LI>" +
+                    "<b>" + tr("Local-Grid") + ": " + "</b>" + _mygrid.toUpper() +
                     "</LI>" +
                     "<LI>" +
-                    "<b>" + tr("Name") + ": " + "</b>" + _name  +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Comments") + ": " + "</b>" + _comments +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("TX Pwr") + ": " + "</b>" + _tx_power +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Operator") + ": " + "</b>" + _de_call.toUpper() +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Local-Grid") + ": " + "</b>" + _de_grid +
+                    "<b>" + tr("Station Callsign") + ": " + "</b>" + _stationcallsign.toUpper() +
                     "</LI>" +
                     "</UL>" ;
 
@@ -7179,28 +7170,24 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, con
 
         if (logTheQso)
         {
-                   //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
+            //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
             bool qsoLogged = false;
             int dxcc = world->getQRZARRLId(_dxcall);
             dxcc = util->getNormalizedDXCCValue(dxcc);
 
-            QString _oper = _de_call;
-            if (!(util->isValidCall(_oper)))
-            {
-                _oper = operatorQRZ;
-            }
-
-            QString _myLoc = _de_grid;
+            QString _myLoc = _mygrid;
             if (!(locator->isValidLocator(_myLoc)))
             {
                 _myLoc = myDataTabWidget->getMyLocator();
             }
 
-            qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall.toUpper(), _freq,  _mode, _dx_grid, _time_off, _report_sent, _report_rec, _tx_power, _comments, _name, _time_on, dxcc, _oper, stationQRZ, _myLoc, currentLog);
+        qsoLogged = dataProxy->addQSOFromWSJTX (_dxcall, _mode, _band,  _freq, _myLoc, _dxgrid, _rstTX,
+                                                _rstRX, _stationcallsign, operatorQRZ, _datetime,
+                                                _datetime_off, myPower, dxcc, currentLog);
 
             if (qsoLogged)
             {
-                       //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
+                //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
                 actionsJustAfterAddingOneQSO();
                 infoLabel1T = infoLabel1->text();
                 infoLabel2T = infoLabel2->text();
@@ -7212,26 +7199,22 @@ void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, con
             }
             else
             {
-                       //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO NOK: " << _dxcall << endl;
+                //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO NOK: " << _dxcall << endl;
             }
         }
         else
         {
-                   //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must NOT be logged ... ending" << endl;
+            //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must NOT be logged ... ending" << endl;
         }
 
-    }
-    else
-    {
-               //qDebug() << "MainWindow::slotWSJTX-loggedQSO: type != 5, nothing to do or an error"<< endl;
-    }
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-           //qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
 }
 
 bool MainWindow::checkIfNewMode(const QString &_mode)
 {
-          //qDebug() << "MainWindow::checkIfNewMode: " << _mode << endl;
+    //qDebug() << "MainWindow::checkIfNewMode: " << _mode << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
     {// The mode is not existing; it is not an accepted mode for KLog
@@ -7269,7 +7252,7 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
     {
         //noMoreModeErrorShown = false;
         //TODO: Add the new mode to the list of active modes
-              //qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
+              //qDebug() << "MainWindow::checkIfNewMode: VALID NEW MODE: Adding... - " << _mode << endl;
         addNewValidMode(_mode);
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -7296,53 +7279,17 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
           //qDebug() << "MainWindow::slotStatusFromUDPServer dx_grid: " << _dx_grid << endl;
           //qDebug() << "MainWindow::slotStatusFromUDPServer sub_mode: " << _sub_mode << endl;
 
-    if ((mainQSOEntryWidget->isModeExisting(_mode)) && (!noMoreModeErrorShown))
+    if ((!mainQSOEntryWidget->isModeExisting(_mode)) && (!noMoreModeErrorShown))
     {
-
-
-              //qDebug() << "MainWindow::slotStatusFromUDPServer New mode: " << _mode << endl;
         noMoreModeErrorShown = checkIfNewMode(_mode);
-/*
-        if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
-        {// The mode is not existing; it is not an accepted mode for KLog
-         // TODO: Show an error to the user
-                  //qDebug() << "MainWindow::slotStatusFromUDPServer: Mode not valid! - " << _mode << endl;
-
-            QMessageBox msgBox;
-
-            msgBox.setIcon(QMessageBox::Warning);
-            QString aux = tr("A new mode not supported by KLog has been received from an external software:") + "(" + _mode + ")\n\n" + tr("If the received mode is correct, please contact KLog development team and request support for that mode") +  "\n\n" + tr("Do you want to keep receiving these alerts? (disabling these alerts will prevent non-valid modes being detected)");
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int ret = msgBox.exec();
-            switch (ret)
-            {
-                case QMessageBox::Yes:
-                break;
-                case QMessageBox::No:RX
-                    noMoreModeErrorShown = true;
-                    break;
-                default:
-                // should never be reached
-                break;
-            }
-        }
-        else
-        {
-            //noMoreModeErrorShown = false;
-            //TODO: Add the new mode to the list of active modes
-                  //qDebug() << "MainWindow::slotStatusFromUDPServer: VALID NEW MODE: Adding... - " << _mode << endl;
-            addNewValidMode(_mode);
-        }
-    */
     }
+
+
 
     switch (_type)
     {
         case 0:
-            //MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT/IN - Heartbeat" << endl;
+            //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT/IN - Heartbeat" << endl;
         break;
         case 1:
                   //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
@@ -7352,7 +7299,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
                  mainQSOEntryWidget->setMode(_mode);
                 //modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
              }
-                  //qDebug() << "MainWindow::slotWSJXstatusFromUDPServer updating txFreqSpinBox" << QString::number(_freq) << endl;
+             //qDebug() << "MainWindow::slotWSJXstatusFromUDPServer updating txFreqSpinBox" << QString::number(_freq) << endl;
              txFreqSpinBox->setValue(_freq);
              rxFreqSpinBox->setValue(_freq);
              slotUpdateLocator(_dx_grid);
@@ -7368,17 +7315,15 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
              //bandComboBox->setCurrentIndex(bandComboBox->findText(, Qt::MatchCaseSensitive));
             break;
         default: //NO
-                  //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - ERROR on Type" << endl;
+            //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - ERROR on Type" << endl;
         break;
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-
-
 void MainWindow::addNewValidMode(const QString &_mode)
 {
-          //qDebug() << "MainWindow::addNewMode: " << _mode << endl;
+    //qDebug() << "MainWindow::addNewMode: " << _mode << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QStringList _newM;
     _newM.clear();
@@ -7389,7 +7334,7 @@ void MainWindow::addNewValidMode(const QString &_mode)
     mainQSOEntryWidget->setModes(modes);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-          //qDebug() << "MainWindow::addNewValidMode: END"  << endl;
+    //qDebug() << "MainWindow::addNewValidMode: END"  << endl;
 }
 
 void MainWindow::slotClearNoMorErrorShown()

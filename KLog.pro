@@ -278,8 +278,8 @@ macx: {
     ICON = klog.icns
     TARGET = KLog
     CONFIG += c++11
-    INCLUDEPATH +=../hamlib/include/
-    LIBS += -L"../hamlib/lib" -lhamlib
+    INCLUDEPATH +=../../../hamlib/include/
+    LIBS += -L"../../../hamlib/lib" -lhamlib
 }
 
 win32: {    
