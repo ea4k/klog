@@ -93,7 +93,7 @@ private:
     QStringList getListOfLogsInFile(QFile & _f);
     bool writeBackupDate();
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
-
+    bool showInvalidCallMessage(const QString &_call);
     void showError (const QString &_txt);
 
 

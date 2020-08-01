@@ -30,7 +30,7 @@ signals:
 private:
     void createUI();
     void fillTable();    
-    void addQSO(const QStringList _qso);
+    void addQSO(const QStringList &_qso);
 
     QList<QStringList> qsosList;
     DataProxy_SQLite *dataProxy;
