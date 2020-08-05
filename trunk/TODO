@@ -1,7 +1,11 @@
 RC-BUGS:
 
+
 TODO: Check if dxccStatusWidget in logwindow is useful and remove it if not.
 NONE
+
+TODO: New feature: KLog can now control a rotator through PSTRotator.
+TODO: UI: Added a DXCC summary obtained from the Tools menu.
 
 TBD - 0.9.8
 Hamlib: COMports in Windows must follow the format: \\.\com14 for ports highet than 9 but it works also for lower so ALL should be managed that way.
@@ -9,14 +13,10 @@ Hamlib: COMports in Windows must follow the format: \\.\com14 for ports highet t
 For next release:
 TODO: - Some warnings removed from compilation time.
 TODO: - The log can be now updated with a LoTW ADIF file import.
-TODO: - Add a warning or periodically ADIF export so data is backup.
 TODO: - Isolate the Awards tab and create a widget with it.
 TODO: - ADD A TIP ON the DXCC tab stating Prefix, CQ, ITU & Bearing.
 TODO: Rework the band & mode hash tables to optimize queries (not sql queries)
 TODO: Rework the DXCC & WAZ hash table sto optimize queries (not SQL queries)
-
-TODO: - Add an option to disable DX-Marathon support.
-TODO: - Check if the save to adif on exit is working properly
 
 TODO: Import LOTW (MainWindow::slotADIFImport)
 TODO: Remove the Querys from void SetupPageLogs::

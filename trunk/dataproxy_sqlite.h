@@ -272,10 +272,13 @@ private:
     Utilities *util;
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
+private slots:
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void debugLog(QString functionFailed, QString errorCode, int level); // emitted as the KLog application log
 
 };
 #endif // DATAPROXY_SQLITE_H

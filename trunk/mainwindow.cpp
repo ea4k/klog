@@ -558,6 +558,7 @@ void MainWindow::createActionsCommon(){
 
    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
 
+    connect(dataProxy, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
@@ -1181,7 +1182,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = QString::number(myDataTabWidget->getMyPower());
-    if ((aux1.toDouble())>0.0)
+    if ((aux1.toFloat())>0.0f)
     {
         //lastPower = aux1.toDouble();
         stringFields = stringFields + ", tx_pwr";
@@ -1189,7 +1190,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = QString::number(rxPowerSpinBox->value());
-    if ((aux1.toDouble())>0.0)
+    if ((aux1.toFloat())>0.0f)
     {
         stringFields = stringFields + ", rx_pwr";
         stringData = stringData + ", '" + aux1 + "'";
@@ -4249,7 +4250,7 @@ bool MainWindow::processConfigLine(const QString &_line){
 
     else if(field=="POWER")
     {
-        if (value.toDouble()>0.0)
+        if (value.toFloat()>0.0f)
         {
             myPower = value.toDouble();
         }
@@ -7582,8 +7583,9 @@ void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg,
 
 void MainWindow::logEvent(const QString &_func, const QString &_msg, const int _level)
 {   //This function is the only one not logging the activity
-    if ((!logEvents) | (!debugFileOpen) | (_level<4)) // Increase to 7 show the full Debug
+    if ((!logEvents) | (!debugFileOpen) | (_level<=7)) // Increase to 7 show the full Debug
     {
+        //qDebug() << "MainWindow::slotCaptureDebugLogs: Not logging: " << _func << " / " << _msg << " / " << QString::number(_level) << endl;
         return;
     }
     //Criticality

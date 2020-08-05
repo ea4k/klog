@@ -559,7 +559,7 @@ void MainQSOEntryWidget::setModify(const bool _modify)
 void MainQSOEntryWidget::slotUpdateTime()
 {
     //qDebug()<< "MainQSOEntryWidget::slotUpdateTime" << endl;
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    //emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
 
     if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
@@ -579,7 +579,7 @@ void MainQSOEntryWidget::slotUpdateTime()
         }
     }
 
-    emit debugLog(Q_FUNC_INFO, "END", logSeverity);
+    //emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
 
 bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
