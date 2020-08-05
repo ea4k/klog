@@ -34,7 +34,7 @@
 #include <QNetworkReply>
 #include <QtAlgorithms>
 
-#include "database.h"
+//#include "database.h"
 #include "setupdialog.h"
 //#include "helpaboutdialog.h"
 #include "aboutdialog.h"
@@ -689,7 +689,7 @@ private:
     // Contest
     DataProxy_SQLite *dataProxy;
 
-    DataBase *db;
+    //DataBase *db;
 
 
     SoftwareUpdate *softUpdate;

@@ -36,6 +36,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     util = new Utilities();
     softVersion = util->getVersion();
     dbName = _DBName;
+    //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
 
 
        //qDebug() << "DataBase::DataBase1: dbName: " << dbName << endl;
@@ -48,6 +49,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
        //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
+
        //qDebug() << "DataBase::DataBase: PLAIN: - END" << endl;
 }
 
@@ -60,11 +62,12 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     dbVersion = DBVersionf;
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
-    latestReaded = 0.0;
+    latestReaded = 0.0f;
     util = new Utilities();
     util->setVersion(softVersion);
 
     dbName = _DBName;
+    //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
 
        //qDebug() << "DataBase::DataBase2: dbName: " << dbName << endl;
     //dbDir = dbName;
@@ -93,6 +96,13 @@ DataBase::~DataBase()
 {
          //qDebug() << "DataBase::~DataBase"  << endl;
 }
+
+//void DataBase::slotPrintErrors(QString _func, QString _msg, int _level)
+//{
+    //qDebug() << "DataBase::slotPrintErrors: FUNC: " << _func << endl;
+    //qDebug() << "DataBase::slotPrintErrors: MSG: " << _msg << endl;
+    //qDebug() << "DataBase::slotPrintErrors: LEVEL: " << QString::number(_level) << endl;
+//}
 
 QString DataBase::getSoftVersion()
 {
@@ -230,7 +240,12 @@ bool DataBase::reConnect(const QString &_DBName)
     dbName = _DBName;
         //qDebug() << "DataBase::reConnect: DB closed"  << endl;
         //qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
-    return createConnection(Q_FUNC_INFO);
+    bool sqlOK =  createConnection(Q_FUNC_INFO);
+    if (!sqlOK)
+    {
+   //// emit debugLog(Q_FUNC_INFO, "1", 7);
+    }
+    return sqlOK;
         //qDebug() << "DataBase::reConnect: END"  << endl;
 
 }
@@ -280,6 +295,7 @@ bool DataBase::createConnection(const QString &function, bool newDB)
               //qDebug() << "DataBase::createConnection:Not open "  << endl;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
               //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+           //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         else
@@ -371,6 +387,7 @@ bool DataBase::isTheDBCreated()
                     //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
                     //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << endl;
                  query.finish();
+                //// emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
@@ -380,6 +397,7 @@ bool DataBase::isTheDBCreated()
                 //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
                 //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << endl;
              query.finish();
+            //// emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
     }
@@ -388,6 +406,7 @@ bool DataBase::isTheDBCreated()
            //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------ ERROR IN QUERY EXECUTION" << endl;
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //query.finish();
@@ -403,6 +422,7 @@ bool DataBase::recreateTableLog()
     if (!createTableLog(false))         // Create modetemp
     {
         //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << endl;
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
@@ -437,6 +457,7 @@ bool DataBase::recreateTableLog()
             else
             {
                 //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
+               //// emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
@@ -448,6 +469,7 @@ bool DataBase::recreateTableLog()
     else
     {
         //qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
+       //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
        //qDebug() << "recreateTableLog END" << endl;
@@ -642,6 +664,9 @@ bool DataBase::createTableLog(bool temp)
     }
     else
     {
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
+
+
         return false;
     }
 /*
@@ -1207,6 +1232,7 @@ bool DataBase::isValidBand (const QString &b)
         //qDebug() << "DataBase::isValidBand: " << b << endl;
     if (b.length()<1)
     {
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
     QSqlQuery query;
@@ -1223,6 +1249,7 @@ bool DataBase::isValidBand (const QString &b)
         else
         {
             query.finish();
+           //// emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
 
@@ -1232,6 +1259,7 @@ bool DataBase::isValidBand (const QString &b)
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
     }
+   //// emit debugLog(Q_FUNC_INFO, "3", 7);
     return false;
 }
 
@@ -1242,6 +1270,7 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
     if (b.length()<2)
     {
              //qDebug() << "DataBase::isValidMode: (length<2) FALSE"  << endl;
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
@@ -1349,6 +1378,7 @@ bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
     else
     {
            //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << endl;
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
         //qDebug() << "DataBase::isThisFreqInBand: END" << endl;
@@ -1395,6 +1425,7 @@ bool DataBase::updateIfNeeded()
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
@@ -1448,6 +1479,7 @@ bool DataBase::updateIfNeeded()
             default:
             // should never be reached
                //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
+           //// emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             //break;
         }
@@ -1565,7 +1597,7 @@ void DataBase::logBackup()
         default:
         // should never be reached
             //qDebug() << "DataBase::backupB4Update - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
-            //return false;
+            //lse;
         //break;
     }
 */
@@ -1600,6 +1632,7 @@ bool DataBase::createTheBandQuickReference()
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
@@ -1624,6 +1657,7 @@ bool DataBase::createTheBandQuickReference()
           // QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheBandQuickReference)"),
           //                      query.lastError().text());
             query.finish();
+           //// emit debugLog(Q_FUNC_INFO, "2", 7);
            return false;
            //TODO: Manage this error, in case the query is NOK.
 
@@ -1647,7 +1681,7 @@ bool DataBase::createTheModeQuickReference()
     */
           //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
 
-    if (getDBVersion().toDouble()<0.010)
+    if (getDBVersion().toFloat()<0.01f)
     {
         // If the version is not updated we don't create the reference
         return true;
@@ -1669,6 +1703,7 @@ bool DataBase::createTheModeQuickReference()
         {
             queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             query.finish();
+           //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         while (query.next())
@@ -1693,6 +1728,7 @@ bool DataBase::createTheModeQuickReference()
                //QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheModeQuickReference)"),
                //                     query.lastError().text());
                 query.finish();
+               //// emit debugLog(Q_FUNC_INFO, "2", 7);
                return false;
                //TODO: Manage this error, in case the query is NOK.
 
@@ -1871,11 +1907,20 @@ bool DataBase::createBandModeMaps()
         m = createTheModeQuickReference();
 
              //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << endl;
+        if (!b)
+        {
+           //// emit debugLog(Q_FUNC_INFO, "1", 7);
+        }
+        if (!m)
+        {
+           //// emit debugLog(Q_FUNC_INFO, "2", 7);
+        }
         return (b && m);
     }
     else
     {
              //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << endl;
+       //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //return false;
@@ -1965,8 +2010,46 @@ bool DataBase::updateToLatest()
 
       //qDebug() << "DataBase::updateToLatest " << endl;
 
+    if (requiresManualUpgrade())
+    {
+        //qDebug() << "DataBase::updateToLatest requires" << endl;
+        exit(1);
+        //return false;
+    }
     return updateTo017();
 
+}
+
+bool DataBase::requiresManualUpgrade()
+{
+    // If DB version <= 0.006, DB can't be upgraded automatically.
+    // Recomendation is to export to ADIF in an olf KLog version (before KLog 1.1);
+    // Install new KLog version
+    // import ADIF file
+    float ver = getDBVersion().toFloat();
+    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << QString::number(ver) << endl;
+    if (ver >= 0.007f)
+    {
+        //qDebug() << "DataBase::requiresManualUpgrade false" << endl;
+        return false;
+    }
+    else
+    {
+        //qDebug() << "DataBase::requiresManualUpgrade true" << endl;
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setWindowTitle(QObject::tr("KLog - DB can't be updated automatically"));
+        QString aux = QObject::tr("You are upgrading from a too old KLog version and this upgrade can't be upgraded automatically from that version.");
+        QString aux2 = QObject::tr("The process to upgrade is:\n- Using an old KLog version export your log to ADIF.\n- Remove your logbook.dat file from your KLog folder.\n- Install the new KLog version.\n- Import your ADIF file.\n\nKLog will finish when you click on OK.");
+
+        msgBox.setText(aux);
+        msgBox.setDetailedText(aux2);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+
+    return true;
 }
 
 bool DataBase::updateTo003()
@@ -1987,7 +2070,7 @@ bool DataBase::updateTo003()
     bool ErrorUpdating = false;
 
     latestReaded = getDBVersion().toFloat();
-    if (latestReaded >= float(0.003))
+    if (latestReaded >= 0.003f)
     {
         //IAmIn003 = true;
         return true;
@@ -2007,6 +2090,7 @@ bool DataBase::updateTo003()
         }
         if (ErrorUpdating)
         {
+           //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         //DO ALL THE TASKS TO BE IN 0.003 from 0.002 HERE and set ErrorUpdating if it is not possible.
@@ -2028,7 +2112,7 @@ bool DataBase::updateTo004()
 
     bool sqlOk = false;
     latestReaded = getDBVersion().toFloat();
-    if (latestReaded >= float(0.004))
+    if (latestReaded >= 0.004f)
     {
             //qDebug() << "DataBase::updateTo004: - I am in 004" << endl;
         return true;
@@ -2050,6 +2134,7 @@ bool DataBase::updateTo004()
         }
         if (ErrorUpdating)
         {
+           //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
            //qDebug() << "DataBase::updateTo004: - And I am in 003" << endl;
@@ -2099,7 +2184,7 @@ bool DataBase::updateTo005()
        bool sqlOk = false;
        latestReaded = getDBVersion().toFloat();
 
-       if (latestReaded >= float(0.005))
+       if (latestReaded >= 0.005f)
        {
                 //qDebug() << "DataBase::updateTo005 - Already in 005" << endl;
            return true;
@@ -2123,6 +2208,7 @@ bool DataBase::updateTo005()
            if (ErrorUpdating)
            {
                   //qDebug() << "DataBase::updateTo005 - 005 update false2" << endl;
+              //// emit debugLog(Q_FUNC_INFO, "1", 7);
                return false;
            }
            sqlOk = updateDBVersion(softVersion, "0.005");
@@ -2223,6 +2309,10 @@ bool DataBase::updateTo005()
             msgBox.setText(QObject::tr("All the data was migrated correctly. You should now go to Setup->Preferences->Logs to check that everything is okay."));
             msgBox.exec();
        }
+       else
+        {
+          //// emit debugLog(Q_FUNC_INFO, "2", 7);
+        }
              //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << endl;
           //qDebug() << "DataBase::updateTo005: UPDATED OK!" << endl;
        return IAmIn005;
@@ -3236,7 +3326,7 @@ bool DataBase::updateTo006()
 
     bool sqlOk = false;
     latestReaded = getDBVersion().toFloat();
-    if (latestReaded >= float(0.006))
+    if (latestReaded >= 0.006f)
     {
         return true;
     }
@@ -3409,6 +3499,10 @@ bool DataBase::updateTo006()
              //qDebug() << "DataBase::updateTo006 - I am in 006 " << endl;
          //qDebug() << "DataBase::updateTo006 - END " << endl;
        //qDebug() << "DataBase::updateTo006: UPDATED OK!" << endl;
+    if (!IAmIn006)
+     {
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
+     }
     return IAmIn006;
 }
 
@@ -4559,7 +4653,7 @@ bool DataBase::updateTo007()
     latestReaded = getDBVersion().toFloat();
     bool sqlOk = false;
 
-    if (latestReaded >= float(0.007))
+    if (latestReaded >= 0.007f)
     {
              //qDebug() << "DataBase::updateTo007: - I am in 007" << endl;
         return true;
@@ -4584,6 +4678,8 @@ bool DataBase::updateTo007()
         if (ErrorUpdating)
         {
                //qDebug() << "DataBase::updateTo007: NOK-1" << endl;
+             // emit debugLog(Q_FUNC_INFO, "1", 7);
+
             return false;
         }
         sqlOk = updateDBVersion(softVersion, "0.007");
@@ -4595,12 +4691,18 @@ bool DataBase::updateTo007()
         else
         { // Version not updated
                //qDebug() << "DataBase::updateTo007: NOK-2" << endl;
+              // emit debugLog(Q_FUNC_INFO, "2", 7);
+
             return false;
         }
         //DO ALL THE TASKS TO BE IN 0.007 from 0.006 HERE and set ErrorUpdating if it is not possible.
         IAmIn007 = true;
     }
        //qDebug() << "DataBase::updateTo007: END" << endl;
+    if (!IAmIn007)
+    {
+       // emit debugLog(Q_FUNC_INFO, "3", 7);
+    }
     return IAmIn007;
 }
 
@@ -4615,7 +4717,7 @@ bool DataBase::updateTo008()
     bool ErrorUpdating = false;
 
     latestReaded = getDBVersion().toFloat();
-    if (latestReaded >= (0.008))
+    if (latestReaded >= 0.008f)
     {
           //qDebug() << "DataBase::updateTo008: - I am in 008" << endl;
         return true;
@@ -4639,6 +4741,7 @@ bool DataBase::updateTo008()
         if (ErrorUpdating)
         {
                //qDebug() << "DataBase::updateTo008: - NOK-1" << endl;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
 
@@ -4655,17 +4758,23 @@ bool DataBase::updateTo008()
             else
             { // Version not updated
                    //qDebug() << "DataBase::updateTo008: - NOK-3" << endl;
+               // emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
         else
         {
                //qDebug() << "DataBase::updateTo008: - NOK-2" << endl;
+           // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
 
     }
        //qDebug() << "DataBase::updateTo008: - END" << endl;
+    if (!IAmIn008)
+    {/*emit debugLog(Q_FUNC_INFO, "4", 7);*/
+
+    }
     return IAmIn008;
 }
 
@@ -4680,7 +4789,7 @@ bool DataBase::updateTo009()
 
     //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< endl;
     latestReaded = getDBVersion().toFloat();
-   if (latestReaded >= float(0.009))
+   if (latestReaded >= 0.009f)
     //if ((latestReaded = 0.009) || (latestReaded > 0.009))
     {
             //qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
@@ -4704,6 +4813,7 @@ bool DataBase::updateTo009()
            //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
         if (ErrorUpdating)
         {
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         bool sqlOk = updateDBVersion(softVersion, "0.009");
@@ -4766,6 +4876,10 @@ bool DataBase::updateTo009()
     }
 
          //qDebug() << "DataBase::updateTo009: - END" << endl;
+    if (!IAmIn009)
+    {
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
+    }
     return IAmIn009;
 }
 
@@ -4784,7 +4898,7 @@ bool DataBase::updateTo010()
 
     latestReaded = getDBVersion().toFloat();
         //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.010))
+    if (latestReaded >= 0.010f)
     {
            //qDebug() << "DataBase::updateTo010: - I am in 010" << endl;
         IAmIn010 = true;
@@ -4813,6 +4927,7 @@ bool DataBase::updateTo010()
         if (ErrorUpdating)
         {
                  //qDebug() << "DataBase::updateTo010: - I Could not update to: " << QString::number(dbVersion) << endl;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
 
@@ -4844,6 +4959,7 @@ bool DataBase::updateTo010()
     {
              //qDebug() << "DataBase::updateTo010: - Failed to go to 010! " << endl;
         IAmIn010 = false;
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
     }
 
          //qDebug() << "DataBase::updateTo010: - END" << endl;
@@ -4857,7 +4973,12 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 
        //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << endl;
     QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
-    return execQuery(Q_FUNC_INFO, stringQuery);
+    bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
+    if (!sqlOK)
+    {
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
+    }
+    return sqlOK;
 }
 
 
@@ -4881,13 +5002,19 @@ bool DataBase::updateTheModeTableAndSyncLog()
         //QSqlDatabase::database().commit();
              //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" << endl;
 
-        return execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
+        sqlOK = execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
+        if (!sqlOK)
+        {
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
+        }
+        return sqlOK;
 
     }
     else
     {
         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << endl;
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
          //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << endl;
@@ -4904,12 +5031,14 @@ bool DataBase::recreateTableBand()
 
     if (execQuery(Q_FUNC_INFO, "DROP TABLE band"))
     {
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
         return execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO mode");
     }
     else
     {
         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" << endl;
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
         //qDebug() << "DataBase::recreateTableBand END" << endl;
@@ -4926,6 +5055,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!hasTheTableData("entity"))
     {
             //qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << endl;
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
@@ -4936,6 +5066,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
         //qDebug() << "DataBase::updateTheEntityTableISONames-2" << endl;
@@ -4945,1351 +5076,1352 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+       // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
     sq = QString ("UPDATE entity SET isoname='mc' WHERE dxcc='260'");  //Monaco
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "4", 7); */return false;}
 
     sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='4'");  // Agalega
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "5", 7); */return false;}
 
     sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='165'");  //Mauricio
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "6", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='207'");  //Rodriguez
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "7", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='49'");  // Equatorial Guinea
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "8", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='176'");  //Fidji
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "9", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='195'");  //Annobon
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "10", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='489'");  // Conway reef
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "11", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='460'");  // Rotuma
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "12", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sz' WHERE dxcc='468'");  // Swaziland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tn' WHERE dxcc='474'");  // Tunisia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "14", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='vn' WHERE dxcc='293'");  // Vietnam
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "15", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gn' WHERE dxcc='107'");  // Guinea
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "16", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bv' WHERE dxcc='24'");  // Bouvet
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "17", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='199'");  // Peter 1 Is"
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "18", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='az' WHERE dxcc='18'");  // Azerbaijan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "19", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ge' WHERE dxcc='75'");  // Georgia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='me' WHERE dxcc='514'");  // Montenegro
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lk' WHERE dxcc='315'");  // Sri lanka
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='117'");  // ITU HQ
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='289'");  // UN HQ
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tl' WHERE dxcc='511'");  // Timor Leste
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='il' WHERE dxcc='336'");  // Israel
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ly' WHERE dxcc='436'");  // Libya
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cy' WHERE dxcc='215'");  // Cyprus
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tz' WHERE dxcc='470'");  // Tanzania
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ng' WHERE dxcc='450'");  // Nigeria
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mg' WHERE dxcc='438'");  // Madagascar
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mr' WHERE dxcc='444'");  // Mauritania
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ne' WHERE dxcc='187'");  // Niger
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tg' WHERE dxcc='483'");  // Togo
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ws' WHERE dxcc='190'");  // Samoa
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ug' WHERE dxcc='286'");  // Uganda
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ke' WHERE dxcc='430'");  // Kenya
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sn' WHERE dxcc='456'");  // Senegal
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='jm' WHERE dxcc='82'");  // Jamaica
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='es' WHERE dxcc='281'");  // Spain
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ls' WHERE dxcc='432'");  //Lesotho
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mw' WHERE dxcc='440'");  // Malawi
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='dz' WHERE dxcc='400'");  // Algeria
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ye' WHERE dxcc='492'");  // Yemen
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bb' WHERE dxcc='62'");  // Barbados
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='159'");  // Maldives
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gy' WHERE dxcc='129'");  // Guyana
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='hr' WHERE dxcc='497'");  // Croatia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gh' WHERE dxcc='424'");  // Ghana
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='257'");  // Malta
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='zm' WHERE dxcc='482'");  // Zambia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kw' WHERE dxcc='348'");  // Kuwait
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sl' WHERE dxcc='458'");  // Sierra Leone
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='299'");  // West Malaysia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='46'");  // East Malaysia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='np' WHERE dxcc='369'");  // Nepal
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cd' WHERE dxcc='414'");  // Dem Rep Congo
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bi' WHERE dxcc='404'");  // Burundi
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sg' WHERE dxcc='381'");  // Singapore
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='rw' WHERE dxcc='454'");  // Rwanda
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tt' WHERE dxcc='90'");  // Trinidad & Tobago
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bw' WHERE dxcc='402'");  // Botswana
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='to' WHERE dxcc='160'");  //  Tonga
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='om' WHERE dxcc='370'");  // Oman
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bt' WHERE dxcc='306'");  // Bhutan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ae' WHERE dxcc='391'");  // Un Arab Emirates
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='qa' WHERE dxcc='376'");  // Qatar
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bh' WHERE dxcc='304'");  // Bahrain
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pk' WHERE dxcc='372'");  // Pakistan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='386'");  // Taiwan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='505'");  // Pratas Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cn' WHERE dxcc='318'");  // China
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nr' WHERE dxcc='157'");  //  Nauru
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ad' WHERE dxcc='203'");  // Andorra
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gm' WHERE dxcc='422'");  // Gambia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bs' WHERE dxcc='60'");  // Bahamas
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mz' WHERE dxcc='181'");  // Mozambique
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='112'");  // Chile
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='217'");  // San Felix
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='47'");  // Easter Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='125'");  //  Juan Fernandez is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cu' WHERE dxcc='70'");  // Cuba
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ma' WHERE dxcc='446'");  // Morocco
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bo' WHERE dxcc='104'");  // Bolivia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='272'");  // Portugal
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='256'");  // Madeira
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='149'");  // Azores
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='uy' WHERE dxcc='144'");  // Uruguay
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='211'");  // Sable Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='252'");  // St Paul is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ao' WHERE dxcc='401'");  // Angola
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cv' WHERE dxcc='409'");  // Cape Verde
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='km' WHERE dxcc='411'");  // Comoros
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='de' WHERE dxcc='230'");  // Fed Rep Germany
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ph' WHERE dxcc='375'");  //Philippines
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='er' WHERE dxcc='51'");  // Eritrea
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ps' WHERE dxcc='510'");  // Palestine
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='191'");  // North Cook
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='234'");  // South Cook
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nu' WHERE dxcc='188'");  // Niue
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ba' WHERE dxcc='501'");  // Bosnia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='balear' WHERE dxcc='21'");  // Balearic is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='canary' WHERE dxcc='29'");  // Canary Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ceuta' WHERE dxcc='32'");  // Ceuta & Melilla //TODO: Fix the flag
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ie' WHERE dxcc='245'");  // Ireland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='am' WHERE dxcc='14'");  // Armenia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lr' WHERE dxcc='434'");  // Liberia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ir' WHERE dxcc='330'");  // Iran
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='179'");  // Moldova
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ee' WHERE dxcc='52'");  //  Estonia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='et' WHERE dxcc='53'");  // Ethiopia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='by' WHERE dxcc='27'");  // Belarus
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kg' WHERE dxcc='135'");  // Kyrgyzstan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tm' WHERE dxcc='280'");  // Turkmenistan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tj' WHERE dxcc='262'");  // Turkmenistan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='227'");  // France
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='79'");  // Guadeloupe
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='yt' WHERE dxcc='169'");  // Mayotte
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='516'");  // St Barthelemy
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='36'");  // Clipperton Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='162'");  // New Caledonia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='512'");  // Chesterfield Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mq' WHERE dxcc='84'");  // Martinique
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='175'");  // French Polynesia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='508'");  // Austral Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pm' WHERE dxcc='277'");  //  St Pierre & Miquelon
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='re' WHERE dxcc='453'");  //Reunion Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='213'");  // St Marteen
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='99'");  // Glorioso is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='124'");  // Juan de nova, Europa
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='276'");  //  Tromelin - TODO: Add the wikipedia flag
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='41'");  // Crozet
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='131'");  // Kerguelen
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='10'");  //Amsterdam & St Paul is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='wf' WHERE dxcc='298'");  // Wallis & Futuna is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gf' WHERE dxcc='63'");  // French Guiana
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='england' WHERE dxcc='223'");  // England
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='114'");  //Isle of Man
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='northernireland' WHERE dxcc='265'");  // Northern Ireland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='122'");  // Jersey
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='1279'");  //  Shetland is (Scotland)
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='106'");  // Guernsey
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='wales' WHERE dxcc='294'");  // Wales
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='185'");  // Solomon
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='507'");  // Temotu Province
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='hu' WHERE dxcc='239'");  // Hungary
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='287'");  // Switzerland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='li' WHERE dxcc='251'");   // Liechtenstein
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='120'");  // Ecuador
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='71'");  // Galapagos Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ht' WHERE dxcc='78'");  // Haiti
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='do' WHERE dxcc='72'");  // Dominican Rep
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='116'");  // Colombia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='216'");  // San Andres & Providencia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='161'");  // Malpelo
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kr' WHERE dxcc='137'");  // Rep Korea
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pa' WHERE dxcc='88'");  // Panama
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='hn' WHERE dxcc='80'");  // Honduras
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='th' WHERE dxcc='387'");  // Thailand
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='va' WHERE dxcc='295'");  // Vatican City
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sa' WHERE dxcc='378'");  // Saudi Arabia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='248'");  // Italy
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='1248'");  // African Italy
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='2248'");  // Sicily
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='225'");  // Sardinia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='dj' WHERE dxcc='382'");  // Djibouti
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gd' WHERE dxcc='77'");  // Grenada
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gw' WHERE dxcc='109'");  // Guinea-Bissau
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lc' WHERE dxcc='97'");  // St Lucia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='dm' WHERE dxcc='95'");  // Dominica
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='vc' WHERE dxcc='98'");  // St Vicent
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='339'");  // Japan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='177'");  // Minami Torishima
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='192'");  // Ogasawara
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mn' WHERE dxcc='363'");  // Mongolia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='259'");  // Svalbard
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='1259'");  // Svalbard
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='118'");  // Jan Mayen
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='jo' WHERE dxcc='342'");  // Jordan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='291'");  // United States
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='105'");  // Guantanamo Bay
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mp' WHERE dxcc='166'");  //  Mariana is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='20'");  // Baker & Howland is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gu' WHERE dxcc='103'");  // Guam
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='123'");  // Johnston is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='174'");  // Midway is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='197'");  // Palmyra & Jarbis is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='134'");  // Kingman Reef
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='110'");  // Hawaii
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='138'");  // Kure is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='9'");  // American Samoa
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='515'");  // Swains is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='297'");  // Wake is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='6'");  // Alaska
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='182'");  // Navassa Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='vi' WHERE dxcc='285'");  // Us Virgin is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pr' WHERE dxcc='202'");  // Puerto Rico
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='43'");  // Desecheo Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='266'");  // Norway
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ar' WHERE dxcc='100'");  // Argentina
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lu' WHERE dxcc='254'");  // Luxembourg
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lt' WHERE dxcc='146'");  // Lithuania
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bg' WHERE dxcc='212'");  // Bulgaria
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pe' WHERE dxcc='136'");  // Peru
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lb' WHERE dxcc='354'");  // Lebanon
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='at' WHERE dxcc='206'");  // Austria & Viena Intl HQ
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='224'");  // Findland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='5'");  // Aland is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='167'");  // Market Reef
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cz' WHERE dxcc='503'");  // Czech Rep
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sk' WHERE dxcc='504'");  // Slovak Rep
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='be' WHERE dxcc='209'");  // Belgium
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gl' WHERE dxcc='237'");  // Greenland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='222'");  // Faroe is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='221'");  // Denmark
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pg' WHERE dxcc='163'");  // Papua New Guinea
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='aw' WHERE dxcc='91'");  // Aruba
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kp' WHERE dxcc='344'");  //Dpr Korea
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='263'");  // Netherlands
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cw' WHERE dxcc='517'");  // Curacao
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='bq' WHERE dxcc='520'");  // Bonaire
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='519'");  // Saba & St Eustatius
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='shm' WHERE dxcc='518'");  // Sint Marteen
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='108'");  // Brazil
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='56'");  // Fernando de Noronha
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='253'");  //  St Peter & St Paul
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='273'");  // Trindade & Martim Vaz
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sr' WHERE dxcc='140'");  // Suriname
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='61'");  // Franz Josef Land
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='eh' WHERE dxcc='302'");  // Western Sahara
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='bd' WHERE dxcc='305'");  // Bangladesh
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='si' WHERE dxcc='499'");  // Slovenia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sc' WHERE dxcc='379'");  // Seychelles
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='st' WHERE dxcc='219'");  // Sao Tome & Principe
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='se' WHERE dxcc='284'");  // Sweden
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pl' WHERE dxcc='269'");  // Poland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sd' WHERE dxcc='466'");  // Sudan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='eg' WHERE dxcc='478'");  // Egypt
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='236'");  // Greece
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='180'");  // Mount Athos
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='45'");  // Dodecanese
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='40'");  // Crete
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tv' WHERE dxcc='282'");  // Tuvalu
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='301'");  // Western Kiribati
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='31'");  // Central Kiribati
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='48'");  // Eastern Kiribati
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='490'");  // Banaba is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='so' WHERE dxcc='232'");  // Somalia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sm' WHERE dxcc='278'");  // San Marino
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pw' WHERE dxcc='22'");  // Palau
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='390'");  // Turkey
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='1390'");  // European Turkey
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='is' WHERE dxcc='242'");  // Iceland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gt' WHERE dxcc='76'");  // Guatemala
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     //TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='308'");  // Costa Rica
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='37'");  // Coco is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cm' WHERE dxcc='406'");  // Cameroon
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='214'");  // Corsica
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
     // TODO: Add the wikipedia flag
 
     sq = QString ("UPDATE entity SET isoname='cf' WHERE dxcc='408'");  // Central African Rep
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cg' WHERE dxcc='412'");  // Rep of Congo
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='ga' WHERE dxcc='420'");  // Gabon
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='td' WHERE dxcc='410'");  // Chad
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ci' WHERE dxcc='428'");  // Cote d'Ivoire
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bj' WHERE dxcc='416'");  // Benin
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ml' WHERE dxcc='442'");  // Mali
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Russia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Russia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='126'");  // Kaliningrad
     sqlOK = execQuery(Q_FUNC_INFO, sq);
@@ -6298,399 +6430,399 @@ bool DataBase::updateTheEntityTableISONames()
     sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Rusia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='uz' WHERE dxcc='292'");  // Uzbekistan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kz' WHERE dxcc='130'");  // Kazakhstan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ua' WHERE dxcc='288'");  // Ukraine
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ag' WHERE dxcc='94'");  // Antigua & Barbuda
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bz' WHERE dxcc='66'");  // Belize
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kn' WHERE dxcc='249'");  // St Kitts & Nevis
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='na' WHERE dxcc='464'");  // Namibia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='173'");  // Micronesia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='168'");  // Marshall Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bn' WHERE dxcc='345'");  // Brunei Darusalam
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='1'");  // Canada
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='150'");  // Australia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='hm' WHERE dxcc='111'");  // Heard Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='153'");  // Macquarie is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cc' WHERE dxcc='38'");  //  Cocos / Keeling is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='147'");  //  Lord Howe is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='171'");  // Mellish Reed
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nf' WHERE dxcc='189'");  // Norkfolk is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='303'");  // Willis Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='cx' WHERE dxcc='35'");  // Christmas is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ai' WHERE dxcc='12'");  //  Anguilla
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ms' WHERE dxcc='96'");  // Montserrat
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='vg' WHERE dxcc='65'");  // British is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tc' WHERE dxcc='89'");  // Turks & Caicos is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='pn' WHERE dxcc='172'");  // Pitcairn
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='513'");  // Ducie is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='fk' WHERE dxcc='141'");  // Falkland is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='235'");  // South Georgia is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='southbritish' WHERE dxcc='241'");  // South Shetland is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='238'");  // South Orkney is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='240'");  // South Sandwich Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bm' WHERE dxcc='64'");  // Bermuda
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='io' WHERE dxcc='33'");  // Chagos is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='hk' WHERE dxcc='321'");  // Hong Kong
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='324'");  // India
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='11'");  // Andaman & Nicobar
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='142'");  // Lakshadweep Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='50'");  // Mexico
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='204'");  // Revilagigedo
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='bf' WHERE dxcc='480'");  // Burkina Faso
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='kh' WHERE dxcc='312'");  //  Cambodia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='la' WHERE dxcc='143'");  // Laos
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mo' WHERE dxcc='152'");  // Macao
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mm' WHERE dxcc='309'");  // Myanmar
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='af' WHERE dxcc='3'");  // Afganistan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='id' WHERE dxcc='327'");  // Indonesia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='iq' WHERE dxcc='333'");  // Iraq
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc='158'");  // Vanuatu
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sy' WHERE dxcc='384'");  // Syria
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='lv' WHERE dxcc='145'");  // Latvia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ni' WHERE dxcc='86'");  //  Nicaragua
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ro' WHERE dxcc='275'");  // Romania
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sv' WHERE dxcc='74'");  // El Salvador
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='rs' WHERE dxcc='296'");  // Serbia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='148'");  // Venezuela
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='17'");  // Aves Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='zw' WHERE dxcc='452'");  // Zimbabwe
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='mk' WHERE dxcc='502'");  // Macedonia
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ss' WHERE dxcc='521'");  //Rep South Sudan
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='al' WHERE dxcc='7'");  // Albania
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gi' WHERE dxcc='233'");  // Gibraltar
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='283'");  // UK Base Aereas Cyprus
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='250'");  // St Helena
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='205'");  // Ascension is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='274'");  // Tristan da Cunha & Gough is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='ky' WHERE dxcc='69'");  // Cayman Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='tk' WHERE dxcc='270'");  // Tokelau Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='marquesas' WHERE dxcc='509'");  // Marquesas Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='170'");  // New Zeland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='34'");  // Chatham Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='133'");  // Kermadec is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='16'");  // Auckland & Campbell is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='py' WHERE dxcc='132'");  // Paraguay
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='462'");  // South Africa
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='201'");  // Pr Edward & Marion Is
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='xk' WHERE dxcc='522'");  // Kosovo
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
 // Countries without flag or controversial - Data is added just to keep the DB filled-up
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='506'");  // Scarboroug Reef
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}    
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='13'");  //  Antartica
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
         //qDebug() << "DataBase::updateTheEntityTableISONames-END" << endl;
     return true;
@@ -6718,6 +6850,7 @@ bool DataBase::isTheTableExisting(const QString &_tableName)
                 else
                 {
                         //qDebug() << "DataBase::isTheTableExisting - Table does not Exist"  << endl;
+                   // emit debugLog(Q_FUNC_INFO, "1", 7);
                     return false;
                 }
             }
@@ -6725,8 +6858,10 @@ bool DataBase::isTheTableExisting(const QString &_tableName)
     }
     else
     {
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
+   // emit debugLog(Q_FUNC_INFO, "3", 7);
     return false;
 }
 
@@ -6757,6 +6892,7 @@ bool DataBase::hasTheTableData(const QString &_tableName)
             else
             {
                     //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << endl;
+               // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
@@ -6764,6 +6900,7 @@ bool DataBase::hasTheTableData(const QString &_tableName)
         {
                 //qDebug() << "DataBase::hasTheTableData - not valid"  << endl;
             query.finish();
+           // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
     }
@@ -6776,6 +6913,7 @@ bool DataBase::hasTheTableData(const QString &_tableName)
             //qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
@@ -6800,7 +6938,7 @@ bool DataBase::updateTo011()
     //bool sqlOk = false;
     latestReaded = getDBVersion().toFloat();
        //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.011))
+    if (latestReaded >= 0.011f)
     {
            //qDebug() << "DataBase::updateTo011: - I am in 011" << endl;
         IAmIn011 = true;
@@ -6829,6 +6967,7 @@ bool DataBase::updateTo011()
         if (ErrorUpdating)
         {
                  //qDebug() << "DataBase::updateTo011: - I Could not update to: " << QString::number(dbVersion) << endl;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
 
@@ -6837,24 +6976,28 @@ bool DataBase::updateTo011()
     if (!recreateSatelliteData())
     {
            //qDebug() << "DataBase::updateTo011: - Sats update NOK " << endl;
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
     if (!recreateTableDXCC())
     {
            //qDebug() << "DataBase::updateTo011: - recreateTableDXCC NOK " << endl;
+       // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
     if (!recreateTableWAZ())
     {
            //qDebug() << "DataBase::updateTo011: - recreateTableWAZ NOK " << endl;
+       // emit debugLog(Q_FUNC_INFO, "4", 7);
         return false;
     }
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
            //qDebug() << "DataBase::updateTo011: - MSK NOK " << endl;
+       // emit debugLog(Q_FUNC_INFO, "5", 7);
         return false;
     }
 
@@ -6862,6 +7005,7 @@ bool DataBase::updateTo011()
     if (!recreateTableLog())
     {
            //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " << endl;
+       // emit debugLog(Q_FUNC_INFO, "6", 7);
         return false;
     }
 
@@ -6881,15 +7025,20 @@ bool DataBase::updateTo011()
     {
          //qDebug() << "DataBase::updateTo011: - updateAwardDXCCTable NOK " << endl;
       IAmIn011 = false;
+     // emit debugLog(Q_FUNC_INFO, "7", 7);
       return false;
     }
     if (!updateAwardWAZTable())
     {
            //qDebug() << "DataBase::updateTo011: - updateAwardWAZTable NOK " << endl;
         IAmIn011 = false;
+
     }
 
        //qDebug() << "DataBase::updateTo011: - END" << endl;
+    if (!IAmIn011)
+    {// emit debugLog(Q_FUNC_INFO, "8", 7);
+    }
     return IAmIn011;
 }
 
@@ -6906,7 +7055,7 @@ bool DataBase::updateTo012()
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
            //qDebug() << "DataBase::updateTo012: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.012))
+        if (latestReaded >= 0.012f)
         {
                //qDebug() << "DataBase::updateTo012: - I am in 012" << endl;
             return true;
@@ -6932,6 +7081,7 @@ bool DataBase::updateTo012()
             if (ErrorUpdating)
             {
                     //qDebug() << "DataBase::updateTo012: - I Could not update to: " << QString::number(dbVersion) << endl;
+                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
@@ -6951,6 +7101,7 @@ bool DataBase::updateTo012()
                 else
                 {
                        //qDebug() << "DataBase::updateTo012: UPDATED NOK-1!" << endl;
+                   // emit debugLog(Q_FUNC_INFO, "2", 7);
                    return false;
                 }
             }
@@ -6962,6 +7113,7 @@ bool DataBase::updateTo012()
                if (!recreateSupportedContest())
                {
                       //qDebug() << "DataBase::updateTo012: UPDATED NOK-2!" << endl;
+                  // emit debugLog(Q_FUNC_INFO, "3", 7);
                    return false;
                }
             }
@@ -6974,6 +7126,7 @@ bool DataBase::updateTo012()
         else
         {
                //qDebug() << "DataBase::updateTo011: - Failed to go to 012! " << endl;
+           // emit debugLog(Q_FUNC_INFO, "4", 7);
             return false;
         }
 
@@ -6994,7 +7147,7 @@ bool DataBase::updateTo013()
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
            //qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.013))
+        if (latestReaded >= 0.013f)
         {
                //qDebug() << "DataBase::updateTo013: - I am in 013" << endl;
             return true;
@@ -7020,6 +7173,7 @@ bool DataBase::updateTo013()
             if (ErrorUpdating)
             {
                     //qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) << endl;
+               // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
@@ -7028,6 +7182,8 @@ bool DataBase::updateTo013()
 
         if (!recreateSupportedContest())
         {
+           // emit debugLog(Q_FUNC_INFO, "2", 7);
+            /*emit debugLog(Q_FUNC_INFO, "0", 7);*/
             return false;
         }
 
@@ -7040,11 +7196,13 @@ bool DataBase::updateTo013()
              }
              else
              {
+                // emit debugLog(Q_FUNC_INFO, "3", 7);
                  return false;
              }
          }
          else
          {
+            // emit debugLog(Q_FUNC_INFO, "4", 7);
              return false;
          }
 
@@ -7056,6 +7214,7 @@ bool DataBase::updateTo013()
         else
         {
                //qDebug() << "DataBase::updateTo013: - Failed to go to 013! " << endl;
+           // emit debugLog(Q_FUNC_INFO, "5", 7);
             return false;
         }
 
@@ -7076,7 +7235,7 @@ bool DataBase::updateTo014()
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
            //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.014))
+        if (latestReaded >= 0.014f)
         {
                //qDebug() << "DataBase::updateto014: - I am in 013" << endl;
             return true;
@@ -7102,6 +7261,7 @@ bool DataBase::updateTo014()
             if (ErrorUpdating)
             {
                     //qDebug() << "DataBase::updateto014: - I Could not update to: " << QString::number(dbVersion) << endl;
+               // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
@@ -7112,6 +7272,7 @@ bool DataBase::updateTo014()
         if (!recreateSatelliteData())
         {
                //qDebug() << "DataBase::updateTo014: - Sats update NOK " << endl;
+           // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
 
@@ -7123,6 +7284,7 @@ bool DataBase::updateTo014()
         else
         {
                //qDebug() << "DataBase::updateto014: - Failed to go to 013! " << endl;
+           // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
 
@@ -7141,7 +7303,7 @@ bool DataBase::updateTo015()
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
       //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.015))
+    if (latestReaded >= 0.015f)
     {
           //qDebug() << "DataBase::updateto015: - I am in 013" << endl;
         return true;
@@ -7166,6 +7328,7 @@ bool DataBase::updateTo015()
         if (ErrorUpdating)
         {
               //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) << endl;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
     }
@@ -7191,6 +7354,7 @@ bool DataBase::updateTo015()
     else
     {
           //qDebug() << "DataBase::updateto015: - Failed to go to 014! " << endl;
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
@@ -7211,7 +7375,7 @@ bool DataBase::updateTo016()
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
            //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-        if (latestReaded >= float(0.016))
+        if (latestReaded >= 0.016f)
         {
                //qDebug() << "DataBase::updateto016: - I am in 015" << endl;
             return true;
@@ -7237,6 +7401,7 @@ bool DataBase::updateTo016()
             if (ErrorUpdating)
             {
                     //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) << endl;
+               // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
@@ -7246,6 +7411,7 @@ bool DataBase::updateTo016()
         if (!recreateSatelliteData())
         {
                //qDebug() << "DataBase::updateTo016: - Sats update NOK " << endl;
+           // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
         if (updateDBVersion(softVersion, "0.016"))
@@ -7255,6 +7421,7 @@ bool DataBase::updateTo016()
         else
         {
                //qDebug() << "DataBase::updateto014: - Failed to go to 016! " << endl;
+           // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
            //qDebug() << "DataBase::updateTo016: UPDATED OK!" << endl;
@@ -7271,7 +7438,7 @@ bool DataBase::updateTo017()
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
     //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-    if (latestReaded >= float(0.017))
+    if (latestReaded >= 0.017f)
     {
         //qDebug() << "DataBase::updateto017: - I am in 017" << endl;
         return true;
@@ -7296,6 +7463,7 @@ bool DataBase::updateTo017()
         if (ErrorUpdating)
         {
             //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) << endl;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
     }
@@ -7328,65 +7496,66 @@ bool DataBase::updateTo017()
     stringQuery = "UPDATE log set qso_date = replace(qso_date ||' '||time_on, '/', '-')";
     bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
 
     stringQuery = "UPDATE log set qso_date_off = replace(qso_date_off, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "3", 7);*/return false;}
 
     stringQuery = "UPDATE log set qslsdate = replace(qslsdate, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "4", 7);*/return false;}
 
     stringQuery = "UPDATE log set qslrdate = replace(qslrdate, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "5", 7);*/return false;}
 
     stringQuery = "UPDATE log set lotw_qslsdate = replace(lotw_qslsdate, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "6", 7);*/return false;}
 
     stringQuery = "UPDATE log set lotw_qslrdate = replace(lotw_qslrdate, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "7", 7);*/return false;}
 
     stringQuery = "UPDATE log set eqsl_qslrdate = replace(eqsl_qslrdate, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "8", 7);*/return false;}
 
     stringQuery = "UPDATE log set eqsl_qslsdate = replace(eqsl_qslsdate, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "9", 7);*/return false;}
 
     stringQuery = "UPDATE log set hrdlog_qso_upload_date = replace(hrdlog_qso_upload_date, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "10", 7);*/return false;}
 
     stringQuery = "UPDATE log set hrdlog_qso_upload_date = replace(hrdlog_qso_upload_date, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "11", 7);*/return false;}
 
     stringQuery = "UPDATE log set clublog_qso_upload_date = replace(clublog_qso_upload_date, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "12", 7);*/return false;}
 
     stringQuery = "UPDATE log set qrzcom_qso_upload_date = replace(qrzcom_qso_upload_date, '/', '-')";
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
     if (!recreateTableLog())
     {
         //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << endl;
+       // emit debugLog(Q_FUNC_INFO, "14", 7);
         return false;
     }
     //qDebug() << "DataBase::updateTo017: - Recreated Table Log " << endl;
@@ -7410,6 +7579,7 @@ bool DataBase::updateTo017()
     else
     {
         //qDebug() << "DataBase::updateto017: - Failed to go to 017! " << endl;
+       // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
     //qDebug() << "DataBase::updateTo017: UPDATED OK!" << endl;
@@ -7448,6 +7618,7 @@ bool DataBase::updateAwardDXCCTable()
 
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
     else
@@ -7524,7 +7695,7 @@ bool DataBase::updateAwardDXCCTable()
 
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
     else
     {
            //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << endl;
@@ -7574,6 +7745,7 @@ bool DataBase::updateAwardDXCCTable()
                     {
                         queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
                         query2.finish();
+                       // emit debugLog(Q_FUNC_INFO, "3", 7);
                         return false;
                     }
                     else
@@ -7619,6 +7791,7 @@ bool DataBase::updateAwardDXCCTable()
             {
                 queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
+               // emit debugLog(Q_FUNC_INFO, "4", 7);
                 return false;
             }
         }
@@ -7671,6 +7844,7 @@ bool DataBase::updateAwardWAZTable()
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
     else
@@ -7747,7 +7921,7 @@ bool DataBase::updateAwardWAZTable()
 
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {return false;}
+    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
     else
     {
            //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << endl;
@@ -7797,6 +7971,7 @@ bool DataBase::updateAwardWAZTable()
                     {
                         queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
                         query2.finish();
+                       // emit debugLog(Q_FUNC_INFO, "3", 7);
                         return false;
                     }
                     else
@@ -7842,6 +8017,7 @@ bool DataBase::updateAwardWAZTable()
             {
                 queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
+               // emit debugLog(Q_FUNC_INFO, "5", 7);
                 return false;
             }
         }
@@ -7953,6 +8129,7 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
 
         queryErrorManagement(function, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+       // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
  }

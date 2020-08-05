@@ -27,6 +27,8 @@
  *****************************************************************************/
 
 #include <QObject>
+//#include<QtCore/QtCore>
+//#include<QtCore/QObject>
 #include <QSqlDatabase>
 #include <QMessageBox>
 #include <QSqlQuery>
@@ -40,7 +42,7 @@
 class QSqlRelationalTableModel;
 // Previous db update 0.011
 
-const float DBVersionf = 0.017; // This is the latest version of the DB.
+const float DBVersionf = 0.017f; // This is the latest version of the DB.
 
 
 struct AwarddxccEntry
@@ -62,14 +64,17 @@ struct AwarddxccEntryCheck
     QString logNumber;
 };
 
-class DataBase
+class DataBase //: public QObject
 {
+   // Q_OBJECT
 
 public:
     DataBase(const QString &_parentClass, const QString &_DBName);
     //DataBase(const QString _softVersion, bool  inmemoryonly = false);
     DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName);
+    //virtual ~DataBase();
     ~DataBase();
+
     QString getSoftVersion();
     QString getDBVersion();
     QString getDBName();
@@ -131,6 +136,8 @@ public:
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
 
+//private slots:
+//    void slotPrintErrors(QString _func, QString _msg, int _level);
 
 private:
     //bool beginTransaction();
@@ -141,6 +148,7 @@ private:
     bool isTheDBCreated();
     bool isTheTableExisting(const QString &_tableName);
     bool hasTheTableData(const QString &_tableName);
+    bool requiresManualUpgrade();
     bool updateToLatest();
     bool updateTo003(); // Updates the DB to 0.0.3
     bool updateTo004();
@@ -247,8 +255,9 @@ private:
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
-signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+//signals:
+    //void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    //void debugLog(QString functionFailed, QString errorCode, int level); // emitted when a function retuns false due to an error
 
 
 };

@@ -63,7 +63,7 @@ private:
     void startRequest(QUrl url);
     bool selectQuery(const int _queryId);
     void parseDownloadedFile(const QString &_fn);
-    void showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt);
+    //void showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt);
 
     Utilities *util;
 

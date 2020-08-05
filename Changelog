@@ -1,12 +1,11 @@
-TODO: New feature: KLog can now control a rotator through PSTRotator.
-TODO: UI: Added a DXCC summary obtained from the Tools menu.
-
+Aug 2020 - 1.2
 - New feature: KLog proposes to do a database backup before it is upgraded so data can be recovered if there is any problem.
 - Improvement: When receiving the status from WSJT-X,the RX frequency is also updated with the same TX freq
 - Improvement: Dates and Times are now together and it is possible to sort the log based on date & time. Date format has been overall updated.
 - Improvement: Search is now more confortable as the search does not start inmediately after a key is pressed but some time after so it's possible
                to enter more letters and reduce the search time.
 - Bugfix: Fixed the DB update processes.
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU), Spanish (EA4K).
 
 May 2020 - 1.1
 - Improvement: Search widget has been improved.

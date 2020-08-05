@@ -499,7 +499,8 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
      //qDebug() << "LoTWUtilities::parseDownloadedFile - END"  << endl;
 }
 
-void LoTWUtilities::showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt)
+/*void LoTWUtilities::showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt)
 {
 
 }
+*/

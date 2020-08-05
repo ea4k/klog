@@ -48,6 +48,8 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_
     //DataProxy_SQLite = new DataProxy_SQLite();
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite  END" << endl;
 
+    //connect(db, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+
 }
 DataProxy_SQLite::~DataProxy_SQLite(){
          //qDebug() << "DataProxy_SQLite::~DataProxy_SQLite" << endl;
@@ -2803,7 +2805,7 @@ QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCal
 
     QList <int> qsoList;
     qsoList.clear();
-    QDate tmpDate;
+    //QDate tmpDate;
     QString aux = QString();
     QStringList qs;
     qs.clear();
@@ -6861,4 +6863,9 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
         }
     }
     return aux;
+}
+
+void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level)
+{
+   emit debugLog(_func, _msg, _level);
 }
