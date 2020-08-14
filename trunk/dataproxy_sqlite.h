@@ -89,7 +89,7 @@ public:
     QDate getLastQSODateFromCall (const QString &_call);   // If the callsign provided is not valid it provides the date of the last QSO
 
     bool addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                          const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_stationcallsign, const QString &_operator,
+                          const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_comment, const QString &_stationcallsign, const QString &_operator,
                           const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower, const int _dxcc, const int _logNumber);
 
     bool deleteQSO(const int _qsoId);

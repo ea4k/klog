@@ -854,10 +854,12 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
             query.finish();
             if (_date.isValid())
             {
+                //qDebug() << "DataProxy_SQLite::getFirstQSODateFromCall: END OK"  << endl;
                 return _date;
             }
             else
             {
+                //qDebug() << "DataProxy_SQLite::getFirstQSODateFromCall: END-1 "  << endl;
                 return QDate();
             }
 
@@ -865,6 +867,7 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
         else
         {
             query.finish();
+            //qDebug() << "DataProxy_SQLite::getFirstQSODateFromCall: END-2"  << endl;
             return QDate();
         }
     }
@@ -872,6 +875,7 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+        //qDebug() << "DataProxy_SQLite::getFirstQSODateFromCall: END-3"  << endl;
         return QDate();
     }
 }
@@ -904,10 +908,12 @@ QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
             query.finish();
             if (_date.isValid())
             {
+                //qDebug() << "DataProxy_SQLite::getLastQSODateFromCall: OK" << endl;
                 return _date;
             }
             else
             {
+                //qDebug() << "DataProxy_SQLite::getLastQSODateFromCall: END-1" << endl;
                 return QDate();
             }
 
@@ -915,6 +921,7 @@ QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
         else
         {
             query.finish();
+            //qDebug() << "DataProxy_SQLite::getLastQSODateFromCall: END-2" << endl;
             return QDate();
         }
     }
@@ -922,6 +929,7 @@ QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
+        //qDebug() << "DataProxy_SQLite::getLastQSODateFromCall: END-3" << endl;
         return QDate();
     }
 }
@@ -1996,7 +2004,7 @@ bool DataProxy_SQLite::updateAwardWAZ()
 }
 
 bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                                        const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_stationcallsign, const QString &_operator,
+                                        const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_comment, const QString &_stationcallsign, const QString &_operator,
                                         const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower, const int _dxcc, const int _logNumber)
 {
     //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
@@ -2109,6 +2117,12 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
     {
         stringFields   = stringFields   + "rst_rcvd, ";
         stringData =  stringData + "'" + _rstRX + "', ";
+    }
+
+    if (_comment.length()>0)
+    {
+        stringFields   = stringFields   + "comment, ";
+        stringData =  stringData + "'" + _comment + "', ";
     }
 
     if (util->isValidGrid(_dxgrid))

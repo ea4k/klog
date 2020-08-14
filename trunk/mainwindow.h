@@ -299,10 +299,13 @@ private slots:
                                  const QString &_report, const QString &_de_call, const QString &_de_grid,
                                  const QString &_dx_grid, const QString &_sub_mode);
 
+    void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
+                     const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_comment, const QString &_stationcallsign,
+                     const QDateTime &_datetime, const QDateTime &_datetime_off);
 
-    void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &band, const double _freq,
-                     const QString &mygrid, const QString &dxgrid, const QString &rstTX, const QString &rstRX, const QString &stationcallsign,
-                     const QDateTime &datetime, const QDateTime &datetime_off);
+    //void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &band, const double _freq,
+    //                 const QString &mygrid, const QString &dxgrid, const QString &rstTX, const QString &rstRX, const QString &comment, const QString &stationcallsign,
+    //                 const QDateTime &datetime, const QDateTime &datetime_off);
 
 
 

@@ -518,7 +518,7 @@ void MainWindow::createActionsCommon(){
     // UDPLogServer - WSJT-x
 
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QDateTime, QDateTime)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QDateTime, QDateTime) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime) ) );
 
    connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
    connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
@@ -559,7 +559,7 @@ void MainWindow::createActionsCommon(){
    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
 
     connect(dataProxy, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
-
+    connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
@@ -677,6 +677,7 @@ void MainWindow::createUI()
 void MainWindow::slotTimeOutInfoBars()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //qDebug() << "MainWindow::slotTimeOutInfoBars - Start" << endl;
     slotShowInfoLabel(infoLabel1T);
     //slotShowInfoLabel(infoLabel2T);
     //infoLabel1->setText(infoLabel1T);
@@ -5266,6 +5267,7 @@ void MainWindow::slotADIFExport()
 
 void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 {
+    //qDebug() << "MainWindow::showNumberOfSavedQSO: " << _fn << "/" << QString::number(_n) << endl;
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Information);
     msgBox.setWindowTitle(tr("KLog ADIF export"));
@@ -5282,13 +5284,14 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
     msgBox.setStandardButtons(QMessageBox::Ok );
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
+    //qDebug() << "MainWindow::showNumberOfSavedQSO - END" << endl;
 }
 
 void MainWindow::fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
     //qDebug() << "MainWindow::fileExportADIF " << _st << endl;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    QList<int> qsos = filemanager->adifLogExport(fileName, _st, _startDate, _endDate, currentLog, ModeADIF);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeADIF);
 
     showNumberOfSavedQSO(fileName, qsos.count());
 
@@ -5303,8 +5306,9 @@ void MainWindow::slotADIFExportAll()
     QString _callToUse = "ALL";
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    QList<int> qsos = filemanager->adifLogExport(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
-
+    //qDebug() << "MainWindow::slotADIFExportAll-2" << endl;
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
+    //qDebug() << "MainWindow::slotADIFExportAll-3" << endl;
     showNumberOfSavedQSO(fileName, qsos.count());
 
     //filemanager->adifLogExport(fileName, 0);
@@ -5339,7 +5343,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
 
     QString fileName = "klog-lotw-upload.adi";
 
-    QList<int> qsos = filemanager->adifLogExport(fileName, _st, _startDate, _endDate, currentLog, ModeLotW);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeLotW);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
@@ -7072,7 +7076,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 }
 
 void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                 const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_stationcallsign,
+                 const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_comment, const QString &_stationcallsign,
                  const QDateTime &_datetime, const QDateTime &_datetime_off)
 
 //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
@@ -7141,6 +7145,9 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                     "<b>" + tr("RST TX") + ": " + "</b>" + _rstTX + " - <b>" + tr("RST RX") + ": " + "</b>" + _rstRX  +
                     "</LI>" +
                     "<LI>" +
+                    "<b>" + tr("Comment") + ": " + "</b>" + _comment  +
+                    "</LI>" +
+                    "<LI>" +
                     "<b>" + tr("DX-Grid") + ": " + "</b>" + _dxgrid.toUpper()  +
                     "</LI>" +                   
                     "<LI>" +
@@ -7183,7 +7190,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             }
 
         qsoLogged = dataProxy->addQSOFromWSJTX (_dxcall, _mode, _band,  _freq, _myLoc, _dxgrid, _rstTX,
-                                                _rstRX, _stationcallsign, operatorQRZ, _datetime,
+                                                _rstRX, _comment, _stationcallsign, operatorQRZ, _datetime,
                                                 _datetime_off, myPower, dxcc, currentLog);
 
             if (qsoLogged)

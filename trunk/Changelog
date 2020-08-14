@@ -1,3 +1,9 @@
+Aug 2020 - 1.2.1
+- Bugfix: ADIF export was not exporting dates with the right format in some eQSL fields.
+- Improvement: ADIF creation has been optimized.
+- Improvement: Comment field is now saved when receiving data from WSJT-X.
+- Improvement: GRIDSQUARE & MY_GRIDSQUARE ADIF fields are now also exported to LoTW upload.
+
 Aug 2020 - 1.2
 - New feature: KLog proposes to do a database backup before it is upgraded so data can be recovered if there is any problem.
 - Improvement: When receiving the status from WSJT-X,the RX frequency is also updated with the same TX freq

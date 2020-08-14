@@ -36,12 +36,13 @@ int main(int argc, char *argv[])
       //qDebug() << "KLog Main: Start! " << endl;
       //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
     QDir d1 = QDir();
-    QString version = "1.2";
+    QString version = "1.2.1-RC1";
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
 
     QApplication app(argc, argv);
+
 
     QString iconSt;
     iconSt = ":/img/klog.ico";
@@ -327,7 +328,8 @@ int main(int argc, char *argv[])
 
         splash.show();
           //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
-        MainWindow mw(klogDir, version);        
+        MainWindow mw(klogDir, version);
+
         mw.init();
         splash.finish(&mw);
         mw.checkIfNewVersion();
