@@ -164,7 +164,7 @@ void UDPServer::parse(const QByteArray &msg)
 
                 in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on >> de_call >> de_grid;
                 //qDebug() << "UDPServer::parse: QSO to be logged: Time_on: " << time_on << endl;
-                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off << endl;
+                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off << endl;                
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
 
@@ -302,6 +302,7 @@ void UDPServer::adifParse(QByteArray &msg)
     QString dxgrid = QString();
     QString rstTX = QString();
     QString rstRX = QString();
+    QString _comment = QString();
     QString stationcallsign = QString(); ;
     double freq = 0.0;
     QDateTime datetime, datetime_off;
@@ -386,6 +387,10 @@ void UDPServer::adifParse(QByteArray &msg)
             {
               _time_off = util->getTimeFromADIFTimeString(data);
             }
+            else if (type == "COMMENT")
+            {
+              _comment = data;
+            }
             else if (type == "BAND")
             {
               band  = data;
@@ -419,8 +424,9 @@ void UDPServer::adifParse(QByteArray &msg)
                     datetime_off = QDateTime();
                 }
                 //qDebug() << "UDPServer::adifParse: Emitting"  <<  endl;
+
                 emit logged_qso (dx_call, mode, band, freq,
-                                 mygrid, dxgrid, rstTX, rstRX, stationcallsign,
+                                 mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign,
                                  datetime, datetime_off);
                 return;
             }

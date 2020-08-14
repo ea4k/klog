@@ -3,8 +3,8 @@
 IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\radio\\Desktop\\DEVEL\\klog\\trunk\\klog.ico"
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION 1,2,0,0
-	PRODUCTVERSION 1,2,0,0
+	FILEVERSION 1,2,1,0
+	PRODUCTVERSION 1,2,1,0
 	FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
 	FILEFLAGS VS_FF_DEBUG
@@ -21,11 +21,11 @@ VS_VERSION_INFO VERSIONINFO
 			BEGIN
 				VALUE "CompanyName", "EA4K\0"
 				VALUE "FileDescription", "Hamradio logging\0"
-				VALUE "FileVersion", "1.2.0.0\0"
+				VALUE "FileVersion", "1.2.1.0\0"
 				VALUE "LegalCopyright", "\0"
 				VALUE "OriginalFilename", "klog.exe\0"
 				VALUE "ProductName", "klog\0"
-				VALUE "ProductVersion", "1.2.0.0\0"
+				VALUE "ProductVersion", "1.2.1.0\0"
 			END
 		END
 		BLOCK "VarFileInfo"

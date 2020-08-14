@@ -69,14 +69,13 @@ public:
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog(const QString& tfileName);
-    QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
-    //QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
-    QList<int> adifLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
+    //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
+    //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
+    QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
     bool adifLogExport(const QString& _fileName, const int _logN);
-   // QList<int> adifLogExportDates(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
-    bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
+    //bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
     bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
     void setVersion(const QString &_version);
     QDateTime getDateTimeOfLastBackup();
@@ -85,8 +84,8 @@ public:
 
 private:    
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
-    bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
-    bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
+    //bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
+    //bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
     int howManyLogsInFile(QFile & _f);
     bool fillHashLog(QFile & _f);
@@ -95,7 +94,6 @@ private:
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
     bool showInvalidCallMessage(const QString &_call);
     void showError (const QString &_txt);
-
 
     //QString checkAndFixASCIIinADIF(_data);
 
@@ -108,6 +106,7 @@ private:
     // void writeAdifField(const QString &_field, const QString &_data); // It should possibly receive also the QTextStream
     QString prepareStringLog();
 
+    void writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
 
     bool dbCreated;
     DataBase *db;
