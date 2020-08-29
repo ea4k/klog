@@ -7,7 +7,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     activateHamlibCheckBox = new QCheckBox();
     readOnlyModeCheckBox = new QCheckBox();
     rigTypeComboBox = new QComboBox();
-    poolIntervalQSpinBox = new QSpinBox();
+    pollIntervalQSpinBox = new QSpinBox();
     serialBaudsComboBox = new QComboBox();
     serialPortComboBox = new QComboBox();
 
@@ -76,21 +76,21 @@ void SetupPageHamLib::createUI()
     rigTypeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     rigTypeLabel->setEnabled(true);
       //qDebug() << "SetupPageHamLib::createUI-30" << endl;
-    QString poolTip = QString(tr("Defines the interval to pool the radio in msecs."));
+    QString pollTip = QString(tr("Defines the interval to poll the radio in msecs."));
 
-    poolIntervalQSpinBox->setToolTip(poolTip);
-    poolIntervalQSpinBox->setMinimum(10);
-    poolIntervalQSpinBox->setMaximum(5000);
+    pollIntervalQSpinBox->setToolTip(pollTip);
+    pollIntervalQSpinBox->setMinimum(10);
+    pollIntervalQSpinBox->setMaximum(5000);
 
-    QLabel *poolIntervalLabel = new QLabel(tr("Pool interval"));
-    poolIntervalLabel->setBuddy(rigTypeComboBox);
-    poolIntervalLabel->setToolTip(poolTip);
-    poolIntervalLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    poolIntervalLabel->setEnabled(true);
+    QLabel *pollIntervalLabel = new QLabel(tr("Poll interval"));
+    pollIntervalLabel->setBuddy(rigTypeComboBox);
+    pollIntervalLabel->setToolTip(pollTip);
+    pollIntervalLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    pollIntervalLabel->setEnabled(true);
 
-    QHBoxLayout *poolIntervalLayout = new QHBoxLayout;
-    poolIntervalLayout->addWidget(poolIntervalLabel);
-    poolIntervalLayout->addWidget(poolIntervalQSpinBox);
+    QHBoxLayout *pollIntervalLayout = new QHBoxLayout;
+    pollIntervalLayout->addWidget(pollIntervalLabel);
+    pollIntervalLayout->addWidget(pollIntervalQSpinBox);
 
 
     serialPortComboBox->addItems(serialPorts);
@@ -162,7 +162,7 @@ void SetupPageHamLib::createUI()
     QGridLayout *topData = new QGridLayout;
     topData->addWidget(rigTypeLabel, 0, 0);
     topData->addWidget(rigTypeComboBox, 0, 1);
-    topData->addLayout(poolIntervalLayout, 0, 2);
+    topData->addLayout(pollIntervalLayout, 0, 2);
     topData->addWidget(serialPortLabel, 1, 0);
     topData->addWidget(serialPortComboBox, 1, 1);
     topData->addWidget(scanSerialPortButton, 1, 2);

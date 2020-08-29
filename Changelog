@@ -1,7 +1,12 @@
 Aug 2020 - 1.2.1
 - Bugfix: ADIF export was not exporting dates with the right format in some eQSL fields.
+- Bugfix: QSOs were not properly imported when received from WSJT-X.
+- Bugfix: Pool/Poll typo fixed. (TNX Barry!).
+- Bugfix: QSO editing - Locator was being cleared from sat tab.
+- Bugfix: QSO editing - User Inferface was not properly clearedn after editing.
+- Bugfix: QSOs tag in the Award tab was not properly formatted in Windows OS.
 - Improvement: ADIF creation has been optimized.
-- Improvement: Comment field is now saved when receiving data from WSJT-X.
+- Improvement: All fields received from WSJTX are now added to the log.
 - Improvement: GRIDSQUARE & MY_GRIDSQUARE ADIF fields are now also exported to LoTW upload.
 
 Aug 2020 - 1.2

@@ -44,9 +44,11 @@ signals:
     //                 const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
     //                 const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid);
 
-    void logged_qso (const QString _dxcall, const QString _mode, const QString band, const double _freq,
-                     const QString mygrid, const QString dxgrid, const QString rstTX, const QString rstRX, const QString comment, const QString stationcallsign,
-                     const QDateTime datetime, const QDateTime datetime_off);
+    void logged_qso (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
+                     const QString &_mygrid, const QString &_dxgrid, const QString &rstTX, const QString &rstRX,
+                     const QString &comment, const QString &stationcallsign, const QString &name,
+                     const QString &_operator, const QDateTime datetime, const QDateTime datetime_off,
+                     const QString &_exchangeTX, const QString &_exchangeRX, const QString &_txpwr);
 
 private slots:
     void slotReadPendingDatagrams();

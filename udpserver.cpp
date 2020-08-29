@@ -54,14 +54,20 @@ bool UDPServer::start()
 void UDPServer::parse(const QByteArray &msg)
 {
     //qDebug() << "UDPServer::parse: " << msg << endl;
+    //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString()) << endl;
+    //in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
+    //        tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
+    //        exchange_sent >> exchange_received;
+
     quint32 magic;
     quint32 schema;
     quint32 type;
     QByteArray id;
     QByteArray adifReceived;
 
-    QByteArray time_off;
+    QDateTime time_off, time_on;
     QByteArray dx_call;
+    QByteArray operatorCall;
     QByteArray dx_grid;
     quint64 frequency = 0; //  In Hz??
     double frequencyDouble;
@@ -69,10 +75,12 @@ void UDPServer::parse(const QByteArray &msg)
     QByteArray mode;
     QByteArray report_sent;
     QByteArray report_received;
+    QByteArray exchange_sent;
+    QByteArray exchange_received;
     QByteArray tx_power;
     QByteArray comments;
     QByteArray name;
-    QByteArray time_on; // Note: LOTW uses TIME_ON for their +/- 30-minute time
+    //QByteArray time_on; // Note: LOTW uses TIME_ON for their +/- 30-minute time
 
     QByteArray report;
     QByteArray tx_mode;
@@ -87,12 +95,11 @@ void UDPServer::parse(const QByteArray &msg)
     QByteArray sub_mode;
     bool fast_mode = false;
 
+
     //QByteArray msgOut;
 
     QDataStream in(msg);
     //QDataStream out(msgOut, QIODevice::ReadWrite);
-
-
     in.setVersion(16);
     in.setByteOrder(QDataStream::BigEndian);
 
@@ -107,16 +114,18 @@ void UDPServer::parse(const QByteArray &msg)
        //qDebug() << "UDPServer::parse: -  Magic = " << QString::number(magic)<< endl;
        //qDebug() << "UDPServer::parse: - schema = " << QString::number(schema)<< endl;
        //qDebug() << "UDPServer::parse: -   type = " << QString::number(type)<< endl;
+       //qDebug() << "UDPServer::parse: -   id = " << id << endl;
 
 
-    if (magic != 2914831322)
+    if ((magic != 2914831322) || (id != "WSJT-X"))
     {
-       //qDebug() << "UDPServer::parse: - Magic BAD FORMAT = " << QString::number(magic)<< endl;
+        //qDebug() << "UDPServer::parse: - Magic BAD FORMAT = " << QString::number(magic)<< endl;
         return;
     }
 
     //qDebug() << "UDPServer::parse: TYPE: " << QString::number(type)<< endl;
-
+    //QDateTime dateTime, dateTimeOff;
+    //QString line;
     switch (type)
     {
         case 0:
@@ -157,49 +166,58 @@ void UDPServer::parse(const QByteArray &msg)
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay " << endl;
         break;
         case 5:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - QSO logged" << endl;
+        //      out << time_off << dx_call.toUtf8 () << dx_grid.toUtf8 () << dial_frequency << mode.toUtf8 ()
+        //  << report_sent.toUtf8 () << report_received.toUtf8 () << tx_power.toUtf8 () << comments.toUtf8 ()
+        // << name.toUtf8 () << time_on << operator_call.toUtf8 () << my_call.toUtf8 () << my_grid.toUtf8 ()
+        // << exchange_sent.toUtf8 () << exchange_rcvd.toUtf8 ();
+        //in >> adifReceived;
+        //line = QString(adifReceived);
+        //qDebug() << "UDPServer::parse: -   Line = " << line << endl;
+
+        in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
+                    tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
+                    exchange_sent >> exchange_received;
+        //qDebug() << "UDPServer::parse: -   Time_off = " << time_off.toString("yyyyMMdd-hhmmss") << endl;
+        //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - QSO logged" << endl;
+            //qDebug() << "UDPServer::parse: -   DXCall = " << dx_call << endl;
+            //qDebug() << "UDPServer::parse: -   Grid = " << dx_grid << endl;
+            //qDebug() << "UDPServer::parse: -   Freq = " << QString::number(frequency) << endl;
+            //qDebug() << "UDPServer::parse: -   Mode = " << mode << endl;
+            //qDebug() << "UDPServer::parse: -   ReportSent = " << report_sent << endl;
+            //qDebug() << "UDPServer::parse: -   ReportReceived = " << report_received << endl;
+            //qDebug() << "UDPServer::parse: -   TX_PWR = " << tx_power << endl;
+            //qDebug() << "UDPServer::parse: -   Comments = " << comments << endl;
+            //qDebug() << "UDPServer::parse: -   Name = " << name << endl;
+            //qDebug() << "UDPServer::parse: -   Time = " << time_on.toString("yyyyMMdd-hhmmss") << endl;
+
             if (logging)
             {
-                //qDebug() << "UDPServer::parse: QSO to be logged: " << endl;
+                //qDebug() << "UDPServer::parse: logging = true " << endl;
 
-                in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >> tx_power >> comments >> name >> time_on >> de_call >> de_grid;
+
                 //qDebug() << "UDPServer::parse: QSO to be logged: Time_on: " << time_on << endl;
                 //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off << endl;                
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
 
+                //qDebug() << "UDPServer::parse: Data to be logged: Comment: " << comments << endl;
 
-                /*qso_logged (id, time_off, QString::fromUtf8 (dx_call), QString::fromUtf8 (dx_grid)
-                                                              , dial_frequency, QString::fromUtf8 (mode), QString::fromUtf8 (report_sent)
-                                                              , QString::fromUtf8 (report_received), QString::fromUtf8 (tx_power)
-                                                              , QString::fromUtf8 (comments), QString::fromUtf8 (name), time_on
-                                                              , QString::fromUtf8 (operator_call), QString::fromUtf8 (my_call)
-                                                              , QString::fromUtf8 (my_grid), QString::fromUtf8 (exchange_sent)
-                                                              , QString::fromUtf8 (exchange_rcvd));
-                */
+                //dateTime.setDate(QDate::currentDate());
+                //dateTime.setTime(QTime::fromString(time_on, "hhmmss"));
+
+                //dateTimeOff.setDate(QDate::currentDate());
+                //dateTimeOff.setTime(QTime::fromString(time_off, "hhmmss"));
 
 
+                emit logged_qso(dx_call, mode, QString(), frequencyDouble,
+                                de_grid, dx_grid, report_sent, report_received,
+                                comments, de_call, name, operatorCall, time_on, time_off,
+                                exchange_sent, exchange_received, tx_power);
             }
             else
             {
-                //qDebug() << "UDPServer::parse: logging = FALSE" << endl;
+                //qDebug() << "UDPServer::parse: logging = false" << endl;
             }
-
-
-            //emit status_update (type, dx_call, frequency, mode, report, de_call, de_grid, dx_grid, sub_mode)
-
-            //out << type;
-            //emit status_update (out);
-
-               //qDebug() << "UDPServer::parse: -   DXCall = " << dx_call << endl;
-               //qDebug() << "UDPServer::parse: -   Grid = " << dx_grid << endl;
-               //qDebug() << "UDPServer::parse: -   Freq = " << QString::number(frequency) << endl;
-               //qDebug() << "UDPServer::parse: -   Mode = " << mode << endl;
-               //qDebug() << "UDPServer::parse: -   ReportSent = " << report_sent << endl;
-               //qDebug() << "UDPServer::parse: -   TX_PWR = " << tx_power << endl;
-               //qDebug() << "UDPServer::parse: -   Comments = " << comments << endl;
-               //qDebug() << "UDPServer::parse: -   Name = " << name << endl;
-               //qDebug() << "UDPServer::parse: -   Time = " << time_on.toString("HHMMSSzzz") << endl;
 
         break;
         case 6:
@@ -303,7 +321,8 @@ void UDPServer::adifParse(QByteArray &msg)
     QString rstTX = QString();
     QString rstRX = QString();
     QString _comment = QString();
-    QString stationcallsign = QString(); ;
+    QString operatorCall = QString();
+    QString stationcallsign = QString();
     double freq = 0.0;
     QDateTime datetime, datetime_off;
     QDate _date_on, _date_off;
@@ -395,6 +414,10 @@ void UDPServer::adifParse(QByteArray &msg)
             {
               band  = data;
             }
+            else if (type == "OPERATOR")
+            {
+              operatorCall  = data;
+            }
             else if (type == "FREQ")
             {
               freq = data.toDouble();
@@ -424,10 +447,11 @@ void UDPServer::adifParse(QByteArray &msg)
                     datetime_off = QDateTime();
                 }
                 //qDebug() << "UDPServer::adifParse: Emitting"  <<  endl;
-
+                /*
                 emit logged_qso (dx_call, mode, band, freq,
                                  mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign,
-                                 datetime, datetime_off);
+                                 operatorCall, datetime, datetime_off);
+                */
                 return;
             }
             else

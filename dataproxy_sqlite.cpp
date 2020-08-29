@@ -2004,8 +2004,12 @@ bool DataProxy_SQLite::updateAwardWAZ()
 }
 
 bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                                        const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_comment, const QString &_stationcallsign, const QString &_operator,
-                                        const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower, const int _dxcc, const int _logNumber)
+                      const QString &_mygrid, const QString &_dxgrid,
+                      const QString &_rstTX, const QString &_rstRX, const QString &_sRX, const QString &_sTX,
+                      const QString &_comment,
+                      const QString &_stationcallsign, const QString &_name, const QString &_operator,
+                      const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
+                      const int _dxcc, const int _logNumber)
 {
     //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
 
@@ -2099,13 +2103,11 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
         return false;
     }
 
-    if (_datetime.isValid())
+    if (_datetime_off.isValid())
     {
         stringFields  = stringFields  + "qso_date_off, ";
         stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime_off) + "', ";
     }
-
-
 
     if (util->isValidRST(_rstTX))
     {
@@ -2119,10 +2121,28 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
         stringData =  stringData + "'" + _rstRX + "', ";
     }
 
+    if (_sTX.length()>0)
+    {
+        stringFields  = stringFields  + "stx_string, ";
+        stringData =  stringData + "'" + _sTX + "', ";
+    }
+
+    if (_sRX.length()>0)
+    {
+        stringFields  = stringFields  + "srx_string, ";
+        stringData =  stringData + "'" + _sRX + "', ";
+    }
+
     if (_comment.length()>0)
     {
         stringFields   = stringFields   + "comment, ";
         stringData =  stringData + "'" + _comment + "', ";
+    }
+
+    if (_name.length()>0)
+    {
+        stringFields   = stringFields   + "name, ";
+        stringData =  stringData + "'" + _name + "', ";
     }
 
     if (util->isValidGrid(_dxgrid))
@@ -2136,6 +2156,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
         stringFields   = stringFields   + "my_gridsquare, ";
         stringData =  stringData + "'" + _mygrid + "', ";
     }
+
 
     if (util->isValidPower(QString::number(txpower)))
     {
@@ -2158,6 +2179,24 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
     {
         stringFields  = stringFields  + "dxcc, ";
         stringData =  stringData + "'" + QString::number(_dxcc) + "', ";
+
+        int _cqz, _ituz;
+        _cqz = getCQzFromEntity(_dxcc);
+        _ituz = getITUzFromEntity(_dxcc);
+        if (_cqz >0)
+        {
+            stringFields  = stringFields  + "cqz, ";
+            stringData =  stringData + "'" + QString::number(_cqz) + "', ";
+
+        }
+        if (_ituz >0)
+        {
+            stringFields  = stringFields  + "ituz, ";
+            stringData =  stringData + "'" + QString::number(_ituz) + "', ";
+
+        }
+
+
     }
 
     stringFields  = stringFields  + "qsl_via, ";

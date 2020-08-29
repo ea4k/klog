@@ -24,7 +24,7 @@ public:
     QString getNameFromModelId(const int _id);
     void setModelId(const int _id);
     void setPort(const QString &_port);
-    void setPool(const int _milsecs);
+    void setPoll(const int _milsecs);
 
     void setData(const QString &_data);
     void setStop(const QString &_stop);
@@ -95,7 +95,7 @@ private:
     QString flowControl;            // default QSerialPort::NoFLowControl
     QString parity;                 // default QSerialPort::NoParity
     QString serialPort;
-    int pollInterval;           // Pool interval in mSecs
+    int pollInterval;           // Poll interval in mSecs
     int errorCount;            // Number of times that the rig has returned an error since last time OK.
     bool rigLaunched;
     bool readOnlyMode;          // If true, KLog will not modify any parameter (freq/mode...) in the radio. KLog just will follow the radio.
