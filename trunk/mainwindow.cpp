@@ -518,7 +518,12 @@ void MainWindow::createActionsCommon(){
     // UDPLogServer - WSJT-x
 
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-   connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime) ) );
+   connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString) ) );
+
+
+
+
+
 
    connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
    connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
@@ -559,7 +564,7 @@ void MainWindow::createActionsCommon(){
    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
 
     connect(dataProxy, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
-    connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
+    //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
@@ -862,6 +867,7 @@ void MainWindow::slotQRZReturnPressed()
     modifyingQSO = -1;
     yearChangedDuringModification = false;    
     readingTheUI = false;
+    slotClearButtonClicked();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -5592,6 +5598,35 @@ void MainWindow::qsoToEdit (const int _qso)
 
     // ADD THE DATA THAT IS PRESENT IN ALL THE MODES
 
+        // ** Start of SAT data
+        // ** BAND / MODE / Locator shoule be executed after SAT or may be removed
+
+        nameCol = rec.indexOf("sat_name");
+        aux1 = (query.value(nameCol)).toString();
+        if (aux1.length()>0)
+        {
+            satTabWidget->setSatName(aux1);
+        }
+        else
+        {
+            satTabWidget->clear();
+        }
+
+
+        nameCol = rec.indexOf("sat_mode");
+        aux1 = (query.value(nameCol)).toString();
+        if (aux1.length()>1)
+        {
+            satTabWidget->setSatMode(aux1);
+        }
+        else
+        {
+            satTabWidget->setSatMode("-CLEAR-");
+        }
+
+        // END of SAT data
+
+
     //QString currentQrz = dataProxy->getCallFromId(modifyingQSO);
     nameCol = rec.indexOf("call");
     aux1 = (query.value(nameCol)).toString();
@@ -5702,7 +5737,6 @@ void MainWindow::qsoToEdit (const int _qso)
 
     if (contestMode == "DX")
     {
-
                   //qDebug() << "MainWindow::qsoToEdit: - in default"  << endl;
 
         nameCol = rec.indexOf("qsl_via");
@@ -5747,6 +5781,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("gridsquare");
         aux1 = (query.value(nameCol)).toString();
+        //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << endl;
         locatorLineEdit->setText(aux1);
         satTabWidget->setLocator(aux1);
 
@@ -5974,29 +6009,6 @@ void MainWindow::qsoToEdit (const int _qso)
                 aux1 = awards->checkIfValidIOTA(aux1);
                 othersTabWidget->setIOTA(aux1);
 
-                nameCol = rec.indexOf("sat_name");
-                aux1 = (query.value(nameCol)).toString();
-                if (aux1.length()>0)
-                {
-                    satTabWidget->setSatName(aux1);
-                }
-                else
-                {
-                    satTabWidget->clear();
-                }
-
-
-                nameCol = rec.indexOf("sat_mode");
-                aux1 = (query.value(nameCol)).toString();
-                if (aux1.length()>1)
-                {
-                    satTabWidget->setSatMode(aux1);
-                }
-                else
-                {
-                    satTabWidget->setSatMode("-CLEAR-");
-                }
-
                          //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  << endl;
 
                 nameCol = rec.indexOf("dxcc");
@@ -6080,12 +6092,15 @@ void MainWindow::setModifying(const bool _m)
 
 void MainWindow::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-          //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
+    //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    int cursorP = locatorLineEdit->cursorPosition();
+
     locatorLineEdit->setText((locatorLineEdit->text()).toUpper());
 
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
     {
+        //qDebug() << "MainWindow::slotLocatorTextChanged: VALID: " << locatorLineEdit->text() << endl;
         locatorLineEdit->setPalette(palBlack);
         dxLocator = (locatorLineEdit->text());
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
@@ -6097,11 +6112,14 @@ void MainWindow::slotLocatorTextChanged()
     }
     else
     {
+        //qDebug() << "MainWindow::slotLocatorTextChanged: NOT VALID: " << locatorLineEdit->text() << endl;
         locatorLineEdit->setPalette(palRed);
         locatorLineEdit->setToolTip(tr("My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
+        locatorLineEdit->setCursorPosition(cursorP);
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
+    locatorLineEdit->setCursorPosition(cursorP);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -7076,16 +7094,24 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 }
 
 void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                 const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX, const QString &_comment, const QString &_stationcallsign,
-                 const QDateTime &_datetime, const QDateTime &_datetime_off)
-
-//void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
-//                                    const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
-//                                    const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid)
+                 const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX,
+                 const QString &_comment, const QString &_stationcallsign, const QString &_name,
+                 const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
+                 const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr)
 {
 
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     bool logTheQso = false;
+    QString opCall = stationQRZ;
+    if (util->isValidCall(_opCall))
+    {
+        opCall = _opCall.toUpper();
+    }
+    double pwr = _mypwr.toDouble();
+    if (pwr<=0.0)
+    {
+        pwr = myPower;
+    }
 
     if (!_datetime.isValid() || !_datetime_off.isValid())
     {
@@ -7095,18 +7121,24 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq  no div: " << QString::number(_freq) << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq no div: " << QString::number(_freq) << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO band: " << _band << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO my_grid: " << _mygrid << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dxgrid << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO comment: " << _comment << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO StationCall: " << _stationcallsign << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO _opCall: " << _opCall << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO opCall: " << opCall << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) << endl;
-
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _rstTX << endl;
           //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _rstRX << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_sent: " << _exchangeTX << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_rec: " << _exchangeRX << endl;
+          //qDebug() << "MainWindow::slotWSJTX-loggedQSO MY_PWR: " << _mypwr << endl;
 
 
-    //qDebug() << "MainWindow::slotWSJTX-loggedQSO Type 5"  << endl;
     if (wsjtxAutoLog)
     { // Log automatically, without confirmation
         logTheQso = true;
@@ -7156,6 +7188,9 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                     "<LI>" +
                     "<b>" + tr("Station Callsign") + ": " + "</b>" + _stationcallsign.toUpper() +
                     "</LI>" +
+                    "<LI>" +
+                    "<b>" + tr("Operator Callsign") + ": " + "</b>" + opCall.toUpper() +
+                    "</LI>" +
                     "</UL>" ;
 
             msgBox.setText(aux);
@@ -7189,9 +7224,13 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                 _myLoc = myDataTabWidget->getMyLocator();
             }
 
-        qsoLogged = dataProxy->addQSOFromWSJTX (_dxcall, _mode, _band,  _freq, _myLoc, _dxgrid, _rstTX,
-                                                _rstRX, _comment, _stationcallsign, operatorQRZ, _datetime,
-                                                _datetime_off, myPower, dxcc, currentLog);
+
+            qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall, _mode, _band,  _freq,
+                                                _myLoc, _dxgrid, _rstTX, _rstRX,
+                                                _exchangeRX, _exchangeTX, _comment,
+                                                _stationcallsign, _name, opCall,
+                                                _datetime, _datetime_off, pwr, dxcc, currentLog);
+
 
             if (qsoLogged)
             {
@@ -7547,7 +7586,9 @@ void MainWindow::slotRotatorShow()
 void MainWindow::slotUpdateLocator(QString _loc)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    locatorLineEdit->setText(_loc.toUpper());    
+    //qDebug() << "MainWindow::slotUpdateLocator: " << _loc<< endl;
+    locatorLineEdit->setText(_loc.toUpper());
+    //qDebug() << "MainWindow::slotUpdateLocator - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

@@ -38,7 +38,7 @@ HamLibClass::~HamLibClass()
     }
 }
 
-void HamLibClass::setPool(const int _milsecs)
+void HamLibClass::setPoll(const int _milsecs)
 {
     if (_milsecs>0)
     {

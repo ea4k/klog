@@ -42,12 +42,12 @@ public:
     ~MainWindowSatTab();
 
     QString getSatName();
-    void setSatName(const QString _t);   
-    void setOtherSatName(const QString _t);
+    void setSatName(const QString &_t);
+    void setOtherSatName(const QString &_t);
     QString getOtherSatName();
     QString getSatMode();
     double getRXFreq();
-    void setSatMode(const QString _t);
+    void setSatMode(const QString &_t);
 
 
     bool getRepeatThis();
@@ -60,22 +60,22 @@ public:
     void setUpLinkFreq(const double _t);
     void setDownLinkFreq(const double _t);
 
-    void setLocator(const QString _t);
+    void setLocator(const QString &_t);
     void refreshData();
     void setModifying (const bool _m);
 
     void clear();
 
 signals:
-    void setPropModeSat(const QString _p);
-    //void satBandTXChanged(const QString _p);
-    //void satBandRXChanged(const QString _p);
+    void setPropModeSat(const QString &_p);
+    //void satBandTXChanged(const QString &_p);
+    //void satBandRXChanged(const QString &_p);
     void newBandsToBeAdded(const QStringList _p);
     void satTxFreqChanged(const double _p);
     void satRxFreqChanged(const double _p);
     void satTXFreqNeeded(const double _p);
     void satRXFreqNeeded(const double _p);
-    void dxLocatorChanged(const QString _p);
+    void dxLocatorChanged(const QString &_p);
     void returnPressed();
 
 private slots:
@@ -92,11 +92,11 @@ private slots:
 private:
     void createUI();
     void populateSatComboBox();
-    void setSatelliteCombo(const QString _p);
-    int getSatIndex(const QString _p);
-    void setBandsOfSat(const QString _p);
-    void addNewBand(const QString _p);
-    void setUpLink(const QString _t);
+    void setSatelliteCombo(const QString &_p);
+    int getSatIndex(const QString &_p);
+    void setBandsOfSat(const QString &_p);
+    void addNewBand(const QString &_p);
+    void setUpLink(const QString &_t);
 
 
     QLineEdit *satNameLineEdit;

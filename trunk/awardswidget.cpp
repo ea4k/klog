@@ -127,12 +127,14 @@ void AwardsWidget::createUI()
     yearlyQSOsLabelN->setFrameShadow(QFrame::Raised);
     yearlyScoreLabelN->setFrameShadow(QFrame::Raised);
     yearlyLabelN->setFrameShadow(QFrame::Raised);
+    yearlyCQLabelN->setFrameShadow(QFrame::Raised);
 
     yearlyQSOsLabelN->setFrameStyle(QFrame::StyledPanel);
     yearlyDXCCLabelN->setFrameStyle(QFrame::StyledPanel);
     yearlyQSOsLabelN->setFrameStyle(QFrame::StyledPanel);
     yearlyScoreLabelN->setFrameStyle(QFrame::StyledPanel);
     yearlyLabelN->setFrameStyle(QFrame::StyledPanel);
+    yearlyCQLabelN->setFrameStyle(QFrame::StyledPanel);
 
 
 #else
