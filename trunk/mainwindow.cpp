@@ -5404,7 +5404,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
             msgBox.setDefaultButton(QMessageBox::Ok);
         }
     }
-qDebug() << "MainWindow::fileExportLoTW -END " << endl;
+    //qDebug() << "MainWindow::fileExportLoTW -END " << endl;
 }
 
 void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
