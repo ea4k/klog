@@ -254,7 +254,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
         // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
         queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_grisquare, qso_date, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
+        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_gridsquare, qso_date, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
     }
     else
     {
@@ -628,7 +628,7 @@ bool FileManager::adifLogExportMarked(const QString& _fileName)
     return adifLogExportToFile(_fileName, 0, true, false, false);
 }
 
-QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
+QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN)
 {
     //qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
     QString fileName = tfileName;
@@ -666,6 +666,10 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
     fields.clear();
     qsToPass.clear();
     QDateTime _dateTime;
+    bool alwaysAdd = false;
+    bool alwaysIgnore = false;
+    QString stationCallsign = QString();
+
     //int step = 1;
 
     while ( !file.atEnd()   )
@@ -721,6 +725,14 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
         while ( inHeader && hasEOH)
         {
             line = file.readLine().trimmed().toUpper();
+            if (line.contains("OWNCALL:"))
+            {
+                stationCallsign = line.section(": ", 1, 1);
+                if (!util->isValidCall(stationCallsign))
+                {
+                    stationCallsign = QString();
+                }
+            }
             if (line.contains("<EOH>"))
             {
                 inHeader = false;
@@ -826,6 +838,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
 
                 //int getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
                 QString str, _call, _date, _time, _band, _mode;
+                double _freq = 0.0;
+                bool haveBand = false;
                 QDate _qslrdate;
                 _qslrdate.currentDate();
 
@@ -884,13 +898,38 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                         else if (field == "BAND")
                         {
                             _band  = data;
+                            haveBand = true;
                         }
                         else if (field == "MODE")
                         {
                             _mode = data;
                         }
                         else if (field == "FREQ") // In MHz with 5 decimal places
-                        {
+                        {        
+                            if (haveBand)
+                            {
+                                int bandi = dataProxy->getIdFromBandName(_band);
+                                if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandi)
+                                {
+                                    _freq = data.toDouble();
+                                }
+                                else
+                                {
+                                    _freq = dataProxy->getLowLimitBandFromBandId(bandi);
+                                    // IF band is defined but not the same than freq, Band wins
+                                }
+                            }
+                            else
+                            {
+                                _freq = data.toDouble();
+                                int bandi = dataProxy->getBandIdFromFreq(data.toDouble());
+                                if (bandi>=0)
+                                {
+                                    _band = dataProxy->getBandNameFromFreq(_freq);
+                                    haveBand = true;
+                                }
+                             }
+
 
                         }
                         else if (field == "APP_LoTW_RXQSO")
@@ -921,6 +960,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                     }
 
                 }
+                //qDebug() << "FileManager::adifLoTWReadLog: If QSO is valid, we will call the addQSOToList" << "<" + str << endl;
                 if (validQSO)
                 {
 
@@ -930,9 +970,82 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
                        //qDebug() << "FileManager::adifLoTWReadLog: QSO Modified:  " << _call << endl;
                        readed.append(modifiedQSO);
 
-                       modifiedQSOList << _call << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _band << _mode << util->getDateSQLiteStringFromDate(_qslrdate);
+                       modifiedQSOList << _call << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _band << _mode;// << util->getDateSQLiteStringFromDate(_qslrdate);
                        emit addQSOToList(modifiedQSOList);
                        modifiedQSOList.clear();
+                    }
+                    else if (modifiedQSO == -1 )
+                    {
+                        bool ignoreQSO = false;
+                        //qDebug() << "FileManager::adifLoTWReadLog: QSO NOT found but confirmed by LoTW - Is it an error or should I add it to the log? " << _call << endl;
+                        if (alwaysAdd)
+                        {
+                            //qDebug() << "FileManager::adifLoTWReadLog: ADD THE QSO AUTOMATICALLY!!!"  << endl;
+                            modifiedQSO = dataProxy->addQSOFromLoTW(_call, _dateTime, _mode, _band, _freq, _qslrdate, stationCallsign, logN);
+                            if (modifiedQSO>0)
+                            {
+                                readed.append(modifiedQSO);
+                                //qDebug() << "FileManager::adifLoTWReadLog QSO ADDED readed: " << QString::number(readed.length()) << endl;
+                                modifiedQSOList << _call << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _band << _mode;// << util->getDateSQLiteStringFromDate(_qslrdate);
+                                emit addQSOToList(modifiedQSOList);
+                                modifiedQSOList.clear();
+                                //qDebug() << "FileManager::adifLoTWReadLog: QSO ADDED: " << QString::number(modifiedQSO) << endl;
+
+                            }
+                            else
+                            {
+                                //qDebug() << "FileManager::adifLoTWReadLog: QSO NOT ADDED: " << QString::number(modifiedQSO) << endl;
+                            }
+                        }
+                        else if (alwaysIgnore)
+                        {
+                            //qDebug() << "FileManager::adifLoTWReadLog: IGNORE THE QSO AUTOMATICALLY!!!"  << endl;
+                        }
+                        else
+                        {
+
+                            if (askUserToAddThisQSOToLog(_call, _dateTime, _mode, _band, _freq, _qslrdate))
+                            {
+                                //qDebug() << "FileManager::adifLoTWReadLog: ADD THE QSO !!!"  << endl;
+                                modifiedQSO = dataProxy->addQSOFromLoTW(_call, _dateTime, _mode, _band, _freq, _qslrdate, stationCallsign, logN);
+                                if (modifiedQSO>0)
+                                {
+                                    readed.append(modifiedQSO);
+                                    //qDebug() << "FileManager::adifLoTWReadLog QSO ADDED-2 readed: " << QString::number(readed.length()) << endl;
+                                    modifiedQSOList << _call << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _band << _mode;// << util->getDateSQLiteStringFromDate(_qslrdate);
+                                    emit addQSOToList(modifiedQSOList);
+                                    modifiedQSOList.clear();
+                                    //qDebug() << "FileManager::adifLoTWReadLog: QSO ADDED-2: " << QString::number(modifiedQSO) << endl;
+                                }
+                                else
+                                {
+                                    //qDebug() << "FileManager::adifLoTWReadLog: QSO NOT ADDED-2: " << QString::number(modifiedQSO) << endl;
+                                }
+                            }
+                            else
+                            {
+                                //qDebug() << "FileManager::adifLoTWReadLog: IGNORE THE QSO !!!"  << endl;
+                            }
+                            if (askUserToUseAlwaysSameAnswer())
+                            {
+                                if (!ignoreQSO)
+                                {
+                                    alwaysAdd = true;
+                                }
+                                else
+                                {
+                                    alwaysIgnore = true;
+                                }
+
+                            }
+                            else
+                            {
+                                alwaysAdd = false;
+                                alwaysIgnore = false;
+                            }
+
+                        }
+
                     }
                     else
                     {
@@ -1003,7 +1116,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName)
     }
     progress.setValue(numberOfQsos);
 
-    //qDebug() << "FileManager::adifLoTWReadLog - END" << endl;
+    //qDebug() << "FileManager::adifLoTWReadLog - END: " << QString::number(readed.length()) << endl;
 
     return readed;
 }
@@ -3167,6 +3280,7 @@ bool FileManager::writeBackupDate()
 }
 
 
+
 void FileManager::setStationCallSign(const QString& _st)
 {
       //qDebug() << "FileManager::setStationCallSign: " << _st << endl;
@@ -3182,6 +3296,65 @@ void FileManager::setStationCallSign(const QString& _st)
     }
 
    //qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << "-END" << endl;
+}
+
+
+bool FileManager::askUserToUseAlwaysSameAnswer()
+{
+    //qDebug() << "FileManager::askUserToUseAlwaysSameAnswer: "  << endl;
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle(tr("KLog - Don't ask again"));
+
+    msgBox.setText(tr("Do you want to reuse your answer?"));
+    msgBox.setInformativeText(tr("KLog will use automatically your previous answer for any other similar ocurrence, if any, without asking you again."));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+    switch (ret) {
+    case QMessageBox::Yes:
+          // Yes was clicked
+           return true;
+    case QMessageBox::No:
+            // No Save was clicked
+        return false;
+    default:
+            // should never be reached
+        return false;
+    }
+
+    //qDebug() << "FileManager::askUserToUseAlwaysSameAnswer: - END" << endl;
+}
+
+bool FileManager::askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate)
+{
+    //qDebug() << "FileManager::askUserToAddThisQSOToLog: " << _call << endl;
+    QString qsoData = QString(tr("<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: %3</li><li>Mode: %4</li></ul>")).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime)).arg(_call).arg(_band).arg(_mode);
+    QMessageBox msgBox;
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle(tr("KLog - QSO not found"));
+
+    msgBox.setText(tr("Do you want to add this QSO to the log?:\n\n") + qsoData);
+    msgBox.setInformativeText(tr("We have found a QSO coming from LoTW that is not in your local log.\n\nDo you want KLog to add this QSO to the log?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+    switch (ret) {
+    case QMessageBox::Yes:
+          // Yes was clicked
+           return true;
+    case QMessageBox::No:
+            // No Save was clicked
+        return false;
+    default:
+            // should never be reached
+        return false;
+    }
+
+    //qDebug() << "FileManager::askUserToAddThisQSOToLog: - END" << endl;
+
 }
 
 bool FileManager::showInvalidCallMessage(const QString &_call){

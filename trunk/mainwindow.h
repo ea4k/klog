@@ -71,6 +71,7 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
+
 //#include "pstrotatorsupport.h"
 #include "lotwutilities.h"
 #include "widgets/adiflotwexportwidget.h"
@@ -169,6 +170,7 @@ private slots:
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
     void slotLoTWDownloadedFileProcess(const QString &_fn);
+    //void slotLoTWTest();
 
     //void slotModeComboBoxChanged();
     //void slotBandComboBoxChanged();

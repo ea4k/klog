@@ -68,7 +68,7 @@ public:
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
-    QList<int> adifLoTWReadLog(const QString& tfileName);
+    QList<int> adifLoTWReadLog(const QString& tfileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
     QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
@@ -94,6 +94,9 @@ private:
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
     bool showInvalidCallMessage(const QString &_call);
     void showError (const QString &_txt);
+
+    bool askUserToUseAlwaysSameAnswer();
+    bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate);
 
     //QString checkAndFixASCIIinADIF(_data);
 

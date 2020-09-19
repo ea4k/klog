@@ -209,6 +209,35 @@ QString Utilities::getHomeDir()
 #endif
 }
 
+QString Utilities::getDefaultRST(const QString &_m)
+{
+   //qDebug() << "Utilities::getDefaultRST: " << _m << endl;
+
+   if ((_m == "SSB") || (_m== "LSB") || (_m=="USB") )
+   {
+        //qDebug() << "MainWindow::setRSTToMode: Detected SSB/LSB/USB"  << endl;
+       return "59";
+   }
+   else if ((_m == "CW") || (_m == "RTTY"))
+   {
+       return "599";
+   }
+   else if (_m == "PSK31")
+   {
+       return "599";
+   }
+   else if ( (_m.contains("FT", Qt::CaseInsensitive)) || (_m.contains("JT", Qt::CaseInsensitive)) || (_m.contains("QRA64", Qt::CaseInsensitive)) || (_m.contains("JS", Qt::CaseInsensitive)))
+   {
+        return "0";
+   }
+   else
+   { // By default SSB RST is configured but anything could be added
+        return "59";
+   }
+
+
+}
+
 QString Utilities::getKLogDefaultDatabaseFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file

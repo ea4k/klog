@@ -98,7 +98,7 @@ private:
     void createActions();
 
     void deleteQSO(const int _qsoID);
-    void righButtonFromLogMenu(const int trow);
+    void rightButtonFromLogMenu(const int trow);
     void showMenuRightButtonFromLogCreateActions();
 
 

@@ -16,6 +16,7 @@ public:
     void clear();
 
 
+
 protected:
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);

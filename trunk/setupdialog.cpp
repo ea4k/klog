@@ -256,6 +256,7 @@ void SetupDialog::connectActions()
     connect (userDataPage, SIGNAL(stationCallSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
+    connect (lotwPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 
 }

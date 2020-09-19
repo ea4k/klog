@@ -81,7 +81,7 @@ public:
     QString getBandNameFromFreq(const double _n);
 
     double getLowLimitBandFromBandName(const QString &_sm);
-    double getLowLimitBandFromBandId(const QString &_sm);
+    double getLowLimitBandFromBandId(const int _sm);
     bool isThisFreqInBand(const QString &_band, const QString &_fr);
 
     int getLastQSOid();
@@ -96,10 +96,12 @@ public:
                           const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
                           const int _dxcc, const int _logNumber);
 
+    int addQSOFromLoTW(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate, const QString &_stationcallsign, const int _logn);
+
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
-    bool isThisQSODuplicated(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode);
-    int getDuplicatedQSOId(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode);
+    bool isThisQSODuplicated(const QString &_qrz, const QString &_date, const int _band, const int _mode);
+    int getDuplicatedQSOId(const QString &_qrz, const QString &_date, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);

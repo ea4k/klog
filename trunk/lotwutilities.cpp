@@ -82,34 +82,40 @@ bool LoTWUtilities::selectQuery(const int _queryId)
 
 bool LoTWUtilities::setStationCallSign (const QString &_call)
 {
-     //qDebug() << "LoTWUtilities::setStationCallSign: " << _call << endl;
+    //qDebug() << "LoTWUtilities::setStationCallSign: " << _call << endl;
     if (!util->isValidCall(_call))
     {
-         //qDebug() << "LoTWUtilities::setStationCallSign: FALSE "  << endl;
+        //qDebug() << "LoTWUtilities::setStationCallSign: FALSE "  << endl;
         return false;
     }
     if (((dataProxy->getStationCallSignsFromLog(-1)).contains(_call)))
     {
-         //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
+        //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
         stationCallsign = _call;
         QDate date = dataProxy->getFirstQSODateFromCall(stationCallsign);
-         //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;                
+        //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;
         if (date.isValid())
         {
             startDate = date.toString("yyyyMMdd");
-             //qDebug() << "LoTWUtilities::setStationCallSign: StartDate" << startDate  << endl;
+            //qDebug() << "LoTWUtilities::setStationCallSign: StartDate" << startDate  << endl;
         }
         else
         {
             startDate.clear();
-             //qDebug() << "LoTWUtilities::setStationCallSign: StartDate not valid Date" << endl;
+            //qDebug() << "LoTWUtilities::setStationCallSign: StartDate not valid Date" << endl;
             return false;
         }
 
-         //qDebug() << "LoTWUtilities::setStationCallSign: startDate: " << startDate  << endl;
+        //qDebug() << "LoTWUtilities::setStationCallSign: startDate: " << startDate  << endl;
         return true;
     }
-      //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 2"  << endl;
+    else if (dataProxy->getHowManyQSOInLog(-1) <1)
+    {
+        //qDebug() << "LoTWUtilities::setStationCallSign:TRUE Empty log"  << endl;
+        stationCallsign = _call;
+        return true;
+    }
+    //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 2"  << endl;
     return false;
 }
 
@@ -375,7 +381,7 @@ bool LoTWUtilities::getIsReady()
 
 void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 {
-     //qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
+    //qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
     QString _fileName = _fn;
     QMessageBox msgBox;
     QString aux;

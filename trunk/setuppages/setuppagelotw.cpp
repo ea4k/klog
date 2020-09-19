@@ -114,6 +114,12 @@ void SetupPageLoTW::createUI()
     mainLayout->addWidget(uploadGroupBox);
     mainLayout->addWidget(downloadGroupBox);
     setLayout(mainLayout);
+
+    connect(tqslPathLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(lotwUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(lotwPassLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+
+
     /*
     QHBoxLayout *pathLayout = new QHBoxLayout;
     pathLayout->addWidget(lotwActiveCheckBox);
@@ -224,3 +230,9 @@ QString SetupPageLoTW::getLoTWPass()
 {
     return lotwPassLineEdit->text();
 }
+
+void SetupPageLoTW::slotEnterKeyPressed()
+{
+    emit enterKey();
+}
+

@@ -221,11 +221,11 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
        //qDebug() << "LogWindow::slotshowRighButtonFromLog"  << endl;
     int row = (logView->indexAt(pos)).row();
     showMenuRightButtonFromLogCreateActions();
-    righButtonFromLogMenu(row);
+    rightButtonFromLogMenu(row);
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 }
 
-void LogWindow::righButtonFromLogMenu(const int trow)
+void LogWindow::rightButtonFromLogMenu(const int trow)
 {
        //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
 
@@ -492,8 +492,9 @@ void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCo
 
 void LogWindow::slotCheckQRZCom()
 {
-    int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    QString _qrz = dataProxy->getCallFromId(_qsoId);
+    QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
+    //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    //QString _qrz = dataProxy->getCallFromId(_qsoId);
       //qDebug() << "LogWindow::sloTCheckQRZCom: " << _qrz << endl;
     QString url = "https://www.qrz.com/db/" + _qrz;
 
@@ -503,8 +504,9 @@ void LogWindow::slotCheckQRZCom()
 
 void LogWindow::slotCheckDXHeatCom()
 {
-    int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
-    QString _qrz = dataProxy->getCallFromId(_qsoId);
+    QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
+    //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
+    //QString _qrz = dataProxy->getCallFromId(_qsoId);
       //qDebug() << "LogWindow::slotCheckDXHeatCom(): " << _qrz << endl;
     QString url = "https://www.dxheat.com/db/" + _qrz;
     QDesktopServices::openUrl(QUrl(url));

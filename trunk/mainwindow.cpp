@@ -113,6 +113,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
 
     searchWidget = new SearchWidget (dataProxy, this);
+    //qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
     infoWidget = new InfoWidget(dataProxy, this);
 
     //qDebug() << "MainWindow::MainWindow: 00088" << endl;
@@ -215,7 +216,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 
-    //qDebug() << "MainWindow::MainWindow: END" << endl;
+   //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 void MainWindow::init()
@@ -521,10 +522,6 @@ void MainWindow::createActionsCommon(){
    connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString) ) );
 
 
-
-
-
-
    connect(this, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
    connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
    connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
@@ -558,6 +555,7 @@ void MainWindow::createActionsCommon(){
 
    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
+
 
    connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
 
@@ -2748,8 +2746,9 @@ void MainWindow::setRSTToMode(const QString &_m)
               //qDebug() << "MainWindow::setRSTToMode: Detected SSB/LSB/USB"  << endl;
         rstTXLineEdit->setInputMask("#DD");
         rstRXLineEdit->setInputMask("#DD");
-        rstTXLineEdit->setText("59");
-        rstRXLineEdit->setText("59");
+
+        //rstTXLineEdit->setText("59");
+        //rstRXLineEdit->setText("59");
         rstTXLineEdit->setMaxLength(2);
         rstRXLineEdit->setMaxLength(2);
     }
@@ -2757,8 +2756,8 @@ void MainWindow::setRSTToMode(const QString &_m)
     {
         rstTXLineEdit->setInputMask("DDD");
         rstRXLineEdit->setInputMask("DDD");
-        rstTXLineEdit->setText("599");
-        rstRXLineEdit->setText("599");
+        //rstTXLineEdit->setText("599");
+        //rstRXLineEdit->setText("599");
         rstTXLineEdit->setMaxLength(3);
         rstRXLineEdit->setMaxLength(3);
     }
@@ -2766,8 +2765,8 @@ void MainWindow::setRSTToMode(const QString &_m)
     {
         rstTXLineEdit->setInputMask("#DD0");
         rstRXLineEdit->setInputMask("#DD0");
-        rstTXLineEdit->setText("599");
-        rstRXLineEdit->setText("599");
+        //rstTXLineEdit->setText("599");
+        //rstRXLineEdit->setText("599");
         rstTXLineEdit->setMaxLength(4);
         rstRXLineEdit->setMaxLength(4);
     }
@@ -2775,8 +2774,8 @@ void MainWindow::setRSTToMode(const QString &_m)
     {
         rstTXLineEdit->setInputMask("#99");
         rstRXLineEdit->setInputMask("#99");
-        rstTXLineEdit->setText("0");
-        rstRXLineEdit->setText("0");
+        //rstTXLineEdit->setText("0");
+        //rstRXLineEdit->setText("0");
         rstTXLineEdit->setMaxLength(3);
         rstRXLineEdit->setMaxLength(3);
     }
@@ -2784,11 +2783,14 @@ void MainWindow::setRSTToMode(const QString &_m)
     { // By default SSB RST is configured but anything could be added
         rstTXLineEdit->setInputMask("#xxx");
         rstRXLineEdit->setInputMask("#xxx");
-        rstTXLineEdit->setText("59");
-        rstRXLineEdit->setText("59");
+        //rstTXLineEdit->setText("59");
+        //rstRXLineEdit->setText("59");
         rstTXLineEdit->setMaxLength(4);
         rstRXLineEdit->setMaxLength(4);
     }
+
+    rstTXLineEdit->setText(util->getDefaultRST(_m));
+    rstRXLineEdit->setText(util->getDefaultRST(_m));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -3186,6 +3188,7 @@ void MainWindow::createMenusCommon()
     helpMenu->addAction(aboutAct);
     aboutAct->setMenuRole(QAction::AboutRole);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotHelpAboutAction()));    
+    //connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotLoTWTest()) );
 
     aboutQtAct = new QAction(tr("About Qt..."), this);
     helpMenu->addAction(aboutQtAct);
@@ -3265,6 +3268,15 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+/*
+ void MainWindow::slotLoTWTest()
+{
+     //qDebug() << "MainWindow::slotLoTWTest: "  << endl;
+     slotLoTWDownloadedFileProcess("lotwimport.adi");
+     //qDebug() << "MainWindow::slotLoTWTest - END"  << endl;
+}
+*/
+
 void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -3272,13 +3284,13 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
     QList<int> a;
     a.clear();
 
-    a.append(filemanager->adifLoTWReadLog(_fn));
+    a.append(filemanager->adifLoTWReadLog(_fn, currentLog));
     QString aux;
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog LoTW"));
 
     if (a.length()>0)
-    {        
+    {
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("Your log has been updated with the LoTW downloaded QSOs."));
         aux = QString(tr("KLog has updated %1 QSOs from LoTW.")).arg(a.length());
@@ -3546,7 +3558,7 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     // Receiving:  modifiedQSOList << _call << _date + "-" +_time << _band << _mode << _qslrdate;
     // Must send QRZ-DX, Date-Time(yyyyMMdd-hhmmss), Band, Mode
-    if (_qs.length()!=5)
+    if (_qs.length()!=4)
     {
         //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile - NO valid qso list received - length: " << QString::number(_qs.length()) << endl;
         return;
@@ -3560,7 +3572,7 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
 
     if (dataProxy->getIdFromBandName(_qs.at(2))<0)
     {
-        //qDebug() << "SMainWindow::slotReceiveQSOListToShowFromFile - NO valid BAND received"<< _qs.at(2) << endl;
+       //qDebug() << "SMainWindow::slotReceiveQSOListToShowFromFile - NO valid BAND received"<< _qs.at(2) << endl;
         return;
     }
     if (dataProxy->getIdFromModeName(_qs.at(3))<0)
@@ -3571,9 +3583,10 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
     if (!util->isValidDateTimeFromString(_qs.at(1)))
 
     {
+        //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile No valid date" << endl;
             return;
     }
-
+    //qDebug() << "MainWindow::slotReceiveQSOListToShowFromFile ALL OK" << endl;
     //QStringList qsoToSend;
     //qsoToSend.clear();
     //qsoToSend << _qs.at(0) << _qs.at(1) << _qs.at(2) << _qs.at(3);
@@ -4073,6 +4086,7 @@ void MainWindow::readConfigData()
     infoWidget->showEntityInfo(currentEntity);
           //qDebug() << "MainWindow::readConfigData-90"  << endl;
     configured = true;
+    searchWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
@@ -4112,7 +4126,7 @@ void MainWindow::readConfigData()
            //qDebug() << "MainWindow::readConfigData: 103" << endl;
     infoWidget->setCurrentLog(currentLog);
           //qDebug() << "MainWindow::readConfigData: 104" << endl;
-    searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
+    //searchWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
     satTabWidget->refreshData();
@@ -5312,7 +5326,12 @@ void MainWindow::slotADIFExportAll()
     QString _callToUse = "ALL";
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    //qDebug() << "MainWindow::slotADIFExportAll-2" << endl;
+    //qDebug() << "MainWindow::slotADIFExportAll: " << fileName << endl;
+    if ((!fileName.endsWith(".adi")) || ( !fileName.endsWith(".adif") ))
+    {
+        fileName = fileName +  ".adi";
+    }
+        //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName << endl;
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
     //qDebug() << "MainWindow::slotADIFExportAll-3" << endl;
     showNumberOfSavedQSO(fileName, qsos.count());
@@ -6785,6 +6804,7 @@ void MainWindow::defineStationCallsign()
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     searchWidget->setStationCallsign(stationQRZ);
+    lotwUtilities->setStationCallSign(stationQRZ);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
            //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << endl;
 
