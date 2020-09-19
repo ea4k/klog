@@ -35,15 +35,16 @@
 #include "world.h"
 #include "utilities.h"
 #include "filemanager.h"
+#include "searchwindow.h"
 
 class SearchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SearchWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
+    explicit SearchWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~SearchWidget();
     void setCurrentLog(const int _log);
-    void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
+    //void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setVersion (const QString _version); // Defines the KLog version to be written in the exported logs
     void setShowCallInSearch(const bool _sh);
     void clear();
@@ -52,11 +53,10 @@ public:
     void setStationCallsign(const QString &_st);
 
     void searchToolNeededQSLToSend();
+    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
 
 public slots:
-    //void slotQsoFound(QStringList _qso);
     void slotSearchBoxTextChanged();
-    void slotToolSearchQSL(const int actionQSL);
 
     void slotToolSearchRequestedQSLToSend();
     void slotToolSearchNeededQSLPendingToReceive();
@@ -64,7 +64,7 @@ public slots:
 
 private slots:
 
-    void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
+    //void slotDoubleClickSearch( QTreeWidgetItem* item, int); // Double click on a QSO in the search box
 
     void slotSearchExportButtonClicked();
     void slotSearchBoxSelectAllButtonClicked();
@@ -72,29 +72,30 @@ private slots:
     void slotSearchBoxSelectionChanged();
     void slotSearchBoxReSearchButtonClicked();
 
-    void slotRighButtonSearch(const QPoint& pos);
-    void showMenuRightButtonSearchCreateActions();
-    void righButtonSearchMenu(const int trow);
+    //void slotRightButtonSearch(const QPoint& pos);
+    //void showMenuRightButtonSearchCreateActions();
+    //void rightButtonSearchMenu(const int trow);
 
-    void slotQsoDeleteFromSearch();
-    void slotQSLSentViaBureauFromSearch();
+    void slotQsoDeleteFromSearch(const int _qsoId);
+    //void slotQSLSentViaBureauFromSearch();
     void slotQSLSentViaDirectFromSearch();
     void slotQSLSentViaDirectMarkDXReqFromSearch();
-    void slotQSLSentViaBureuMarkDXReqFromSearch();
+    //void slotQSLSentViaBureuMarkDXReqFromSearch();
     void slotQSLRecViaDirectFromSearch();
     void slotQSLRecViaBureauFromSearch();
-    void slotQSLRecViaDirectMarkReqFromSearch();
-    void slotQSLRecViaBureauMarkReqFromSearch();
-    void slotQSLSentMarkAsRequested();
-    void slotQSLRecMarkAsRequested();
-    void slotQSOToEditFromSearch();
-    void qslRecViaBureauMarkReq(const int _qsoId);
-    void qslRecViaDirectMarkReq(const int _qsoId);
+    //void slotQSLRecViaDirectMarkReqFromSearch();
+    //void slotQSLRecViaBureauMarkReqFromSearch();
+    //void slotQSLSentMarkAsRequested();
+    //void slotQSLRecMarkAsRequested();
+    void slotQSOToEditFromSearch(const int _qsoId);
+    //void qslRecViaBureauMarkReq(const int _qsoId);
+//    void qslRecViaDirectMarkReq(const int _qsoId);
     void slotStationCallsignChanged();
     void slotRadioButtonToggled();
 
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
+    void slotRequestFocus();
 
 
 signals:
@@ -109,19 +110,24 @@ signals:
 
 private:
     void createUI();
+    void setNeedingQSL(bool const _q);
     void selectStationCallSign();
     void fillStationCallsignComboBox();
+    void setModelFilter();
     // The following  function is adding a line to the search list
-    void addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color);
+    //void addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color);
     bool fillTheList(const QString _query);
+
 //    void addQSOToTheList(const int _id);
 
-
+    QString callFilter, stationCallsignFilter, currentLogFilter;
     QLineEdit *searchBoxLineEdit;
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
     QRadioButton *searchAllRadioButton;
-    QTreeWidget *searchResultsTreeWidget;
+    //QTreeWidget *searchResultsTreeWidget;
     QComboBox *stationCallsignComboBox;
+
+    SearchWindow *searchWindow;
 
     bool qslingNeeded;
     bool searchSelectAllClicked, stationCallSignShownInSearch;
@@ -144,8 +150,8 @@ private:
     QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
     QAction *qslRecViaBureauFromSearchAct;
     QAction *qslRecViaDirectFromSearchAct;
-    QAction *qslRecViaBureauMarkReqFromSearchAct;
-    QAction *qslRecViaDirectMarkReqFromSearchAct;
+    //QAction *qslRecViaBureauMarkReqFromSearchAct;
+    //QAction *qslRecViaDirectMarkReqFromSearchAct;
 
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;

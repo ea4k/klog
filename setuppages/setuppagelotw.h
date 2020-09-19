@@ -50,8 +50,12 @@ public:
 private slots:
     void slotSelectTQSLClicked();
     void slotPathLineEditChanged(const QString _q);
+    void slotEnterKeyPressed();
     //void slotClubLogActive(bool _s);
     //void slotUseStationCall(bool _s);
+
+signals:
+    void enterKey();
 
 private:
     void createUI();

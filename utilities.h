@@ -69,7 +69,8 @@ public:
     QString getVersion();
     double getVersionDouble();
 
-    QDate getDefaultDate();    
+    QDate getDefaultDate();
+    QString getDefaultRST(const QString &_m);
     int getNormalizedDXCCValue(const int _dxcc);
 
     // Validations

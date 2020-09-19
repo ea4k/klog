@@ -702,7 +702,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
 
-      //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
     //_qs << Entity << BandID << ModeId << lognumber;
 
@@ -717,8 +717,8 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 
     int status = getDXStatus(_qs);
 
-       //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
-       //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
 
     switch (status) {
         case 0:

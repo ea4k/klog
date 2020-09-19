@@ -1,3 +1,14 @@
+TBD - 1.3
+- Improved the search widget to make searching much quicker.
+- Improved the Edit of QSO related to the default QSL sent status.
+- Improved the QRZ.com & DXHeat.com queries from the log & search window.
+- Adds an ".adi" file extension to the log ADIF files if not added by the user.
+- When reading a log from LoTW, if there are new QSOs not present on the current logfile, KLog offers the option to import them.
+- Bugfix: When reading a log from LoTW, the list of QSOs were not shown at the end. (TNX EA5WA)
+
+Sept 2020 - 1.2.2
+- Bugfix: LoTW export was failing due to a wrong SQL sentence. (TNX PD9Q).
+
 Aug 2020 - 1.2.1
 - Bugfix: ADIF export was not exporting dates with the right format in some eQSL fields.
 - Bugfix: QSOs were not properly imported when received from WSJT-X.

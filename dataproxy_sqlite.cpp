@@ -450,11 +450,11 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 }
 
 
-double DataProxy_SQLite::getLowLimitBandFromBandId(const QString &_sm)
+double DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
 {
          //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId" << endl;
     QSqlQuery query;
-    QString queryString = QString("SELECT lower FROM band WHERE id='%1'").arg(_sm.toUpper());
+    QString queryString = QString("SELECT lower FROM band WHERE id='%1'").arg(_sm);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -633,7 +633,7 @@ QStringList DataProxy_SQLite::sortBandIdBottonUp(const QStringList _qs)
 
     for (int j=0; j<_qs.count(); j++)
     {
-        map.insert(getLowLimitBandFromBandId(_qs.at(j)), _qs.at(j));
+        map.insert(getLowLimitBandFromBandId(_qs.at(j).toInt()), _qs.at(j));
     }
 
     QMap<double, QString>::const_iterator i = map.constBegin();
@@ -1050,7 +1050,7 @@ bool DataProxy_SQLite::qslSentViaDirect(const int _qsoId, const QDate &_updateDa
 
 bool DataProxy_SQLite::qslSentViaBureau(const int _qsoId, const QDate &_updateDate)
 {
-         //qDebug() << "DataProxy_SQLite::qslSentViaBureau" << endl;
+    //qDebug() << "DataProxy_SQLite::qslSentViaBureau" << endl;
 
     QSqlQuery query;
     QString queryString;
@@ -1060,11 +1060,13 @@ bool DataProxy_SQLite::qslSentViaBureau(const int _qsoId, const QDate &_updateDa
     query.finish();
     if (sqlOK)
     {
+        //qDebug() << "DataProxy_SQLite::qslSentViaBureau - OK" << endl;
         return true;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //qDebug() << "DataProxy_SQLite::qslSentViaBureau - NOK" << endl;
     }
 
     return false;
@@ -1298,7 +1300,7 @@ bool DataProxy_SQLite::qslSentAsRequested(const int _qsoId, const QDate &_update
 bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QDate &_updateDate)
 {
 //TODO: Add some protection to the data before modifying
-         //qDebug() << "DataProxy_SQLite::qslRecAsRequested" << endl;
+    //qDebug() << "DataProxy_SQLite::qslRecAsRequested" << endl;
     QSqlQuery query;
     QString queryString;
     queryString = QString("UPDATE log SET qsl_rcvd = 'R', qslsdate = '%1' WHERE id = '%2'").arg(util->getDateSQLiteStringFromDate(_updateDate)).arg(_qsoId);
@@ -1308,12 +1310,13 @@ bool DataProxy_SQLite::qslRecAsRequested(const int _qsoId, const QDate &_updateD
 
     if (sqlOK)
     {
-             //qDebug() << "DataProxy_SQLite::qslRecAsRequested" << endl;
+        //qDebug() << "DataProxy_SQLite::qslRecAsRequested OK" << endl;
         query.finish();
         return true;
     }
     else
     {
+        //qDebug() << "DataProxy_SQLite::qslRecAsRequested NOK" << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     query.finish();
@@ -2245,6 +2248,194 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
 
 }
 
+int DataProxy_SQLite::addQSOFromLoTW(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate, const QString &_stationcallsign, const int _logn)
+{
+    //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: " << _call << endl;
+
+
+/*
+    Mandatory data:
+             "qso_date VARCHAR(10) NOT NULL, "
+             "call VARCHAR(40) NOT NULL, "
+             "bandid INTEGER NOT NULL, "
+             "modeid INTEGER NOT NULL, "
+             "lognumber"
+*/
+
+    QString stringFields  = QString();
+    QString stringData = QString();
+    QString stringQuery = QString();
+
+    //getITUzFromEntity()
+
+    QSqlQuery query;
+
+    if (util->isValidCall(_call))
+    {
+        stringFields   = "call, ";
+        stringData =  "'" + _call + "', ";
+
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Error: call" << endl;
+        return -1;
+    }
+
+    if (_datetime.isValid())
+    {
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: time-on: " <<  _datetime << endl;
+        stringFields  = stringFields  + "qso_date, ";
+        QDateTime _dateTime;
+        stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime) + "', ";
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: time-on: " << stringData << endl;
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Error: time-on_ " << _datetime << endl;
+        return -2;
+    }
+
+    QString band = getBandNameFromFreq(_freq);
+    if (band != _band)
+    {
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Error: FREQ / BAND inconsistency " << _band << "/" << QString::number(_freq) << endl;
+    }
+
+    if (band.length()>0)
+    {
+            stringFields  = stringFields  + "bandid, " ;
+            stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
+
+            stringFields  = stringFields  + "freq, " ;
+            stringData =  stringData + "'" + QString::number(_freq) + "', ";
+    }
+    else
+    {
+           //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Error: band" << endl;
+
+
+        emit queryError(Q_FUNC_INFO, "Incorrect band: " + _band, -1000 , "No query error");
+        return -3;
+    }
+
+    int _modeid = getSubModeIdFromSubMode(_mode);
+    if (util->isValidModeId(_modeid))
+    {
+        stringFields  = stringFields  + "modeid, ";
+        stringData =  stringData + "'" +  QString::number(_modeid) + "', ";
+
+        QString rst =  util->getDefaultRST(_mode);
+        if (rst.length()>0)
+        {
+            stringFields  = stringFields  + "rst_sent, ";
+            stringData =  stringData + "'" + rst + "', ";
+
+            stringFields  = stringFields  + "rst_rcvd, ";
+            stringData =  stringData + "'" +  rst + "', ";
+        }
+    }
+    else
+    {
+           //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Error: mode" << endl;
+        emit queryError(Q_FUNC_INFO, "Incorrect mode: " + _mode, -1000, "No query error");
+        return -4;
+    }
+
+    if (_qslrdate.isValid())
+    {
+        stringFields  = stringFields  + "lotw_qslrdate, ";
+        stringData =  stringData + "'" +  util->getDateSQLiteStringFromDate(_qslrdate) + "', ";
+
+        stringFields  = stringFields  + "lotw_qsl_rcvd, ";
+        stringData =  stringData + "'Y', ";
+
+        stringFields  = stringFields  + "lotw_qsl_sent, ";
+        stringData =  stringData + "'Q', ";
+    }
+
+
+    if (util->isValidCall(_stationcallsign))
+    {
+            stringFields  = stringFields  + "station_callsign, ";
+            stringData =  stringData + "'" + _stationcallsign + "', ";
+    }
+    int _dxcc = getDXCCFromPrefix(_call);
+    if (_dxcc>0)
+    {
+        stringFields  = stringFields  + "dxcc, ";
+        stringData =  stringData + "'" + QString::number(_dxcc) + "', ";
+
+        int _cqz, _ituz;
+        _cqz = getCQzFromEntity(_dxcc);
+        _ituz = getITUzFromEntity(_dxcc);
+        if (_cqz >0)
+        {
+            stringFields  = stringFields  + "cqz, ";
+            stringData =  stringData + "'" + QString::number(_cqz) + "', ";
+
+        }
+        if (_ituz >0)
+        {
+            stringFields  = stringFields  + "ituz, ";
+            stringData =  stringData + "'" + QString::number(_ituz) + "', ";
+
+        }
+
+    }
+
+    stringFields  = stringFields  + "lognumber";
+    stringData =  stringData + "'" + QString::number(_logn) + "'";
+
+    stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
+    //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Query: " << stringQuery << endl;
+
+    bool sqlOK = query.exec(stringQuery);
+
+    //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: LastQuery: " << query.lastQuery() << endl;
+
+    if (sqlOK)
+    {
+        //query.finish();
+        if (query.exec("SELECT MAX(id) FROM log"))
+        {
+            if (query.next())
+            {
+                if (query.isValid())
+                {
+                    int v = (query.value(0)).toInt();
+                    query.finish();
+                    return v;
+                }
+                else
+                {
+                    //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: NOT VALID" << endl;
+                }
+            }
+            else
+            {
+                //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: QUERY EXEC NOT NEXT" << endl;
+
+            }
+        }
+        else
+        {
+            //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: NOT OK: " << query.lastError().databaseText() << endl;
+            //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: NOT OK: " << QString::number(query.lastError().number()) << endl;
+        }
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: SQL OK" << endl;
+        return -5;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        //qDebug() << "DataProxy_SQLite::addQSOFromLoTW: Error: SQL " << endl;
+        return -100;
+    }
+
+}
+
 bool DataProxy_SQLite::deleteQSO(const int _qsoId)
 {
          //qDebug() << "DataProxy_SQLite::deleteQSO" << endl;
@@ -2264,6 +2455,8 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
         return false;
     }
 }
+
+
 
 int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 {
@@ -2306,7 +2499,7 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 
 }
 
-bool DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
+bool DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QString &_date, const int _band, const int _mode)
 {
         //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << endl;
     QSqlQuery query;
@@ -2347,7 +2540,7 @@ bool DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QString &_
 }
 
 
-int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
+int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QString &_date, const int _band, const int _mode)
 {
          //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << endl;
      QSqlQuery query;
@@ -2733,23 +2926,30 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
             {
                 //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception ID Not found" << endl;
                 query.finish();
-                return -1;
+                return -5;
             }
+        }
+        else if (query.lastError().number() == -1)
+        {
+            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception QSO not found " << query.lastQuery() << endl;
+            return -1;
         }
         else
         {
-            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Query not valid: " << query.lastQuery() << endl;
-
+            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Unknown error " << query.lastQuery() << endl;
+            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Error: " << query.lastError().databaseText() << endl;
+            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Error: " << QString::number(query.lastError().number()) << endl;
             query.finish();
-            return -2;
+            return -3;
         }
     }
     else
     {
+        //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Query error: " << query.lastQuery() << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     query.finish();
-    return -3;
+    return -100;
 }
 
 QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
@@ -3027,8 +3227,6 @@ int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
         queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year);
     }
 
-
-
     sqlOK = query.exec(queryString);
 
          //qDebug() << "DataProxy_SQLite::getQSOonYear: queryString: " << queryString << endl;
@@ -3134,7 +3332,7 @@ int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
         }
         else
         {
-                 //qDebug() << "DataProxy_SQLite::getCQzonYear: 0" << endl;
+            //qDebug() << "DataProxy_SQLite::getCQzonYear: 0" << endl;
             query.finish();
             return 0;
         }
@@ -3323,11 +3521,11 @@ int DataProxy_SQLite::getQSOsOnMonth(const int _month, const int _log)
 
     if (_log < 0)
     {
-        queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE qso_date LIKE '%/%1/%'").arg(aux);
+        queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE qso_date LIKE '%-%1-%'").arg(aux);
     }
     else
     {
-        queryString = QString("SELECT COUNT(DISTINCT id) FROM log Wwhere lognumber='%1' AND qso_date LIKE '%/%2/%'").arg(_log).arg(aux);
+        queryString = QString("SELECT COUNT(DISTINCT id) FROM log Wwhere lognumber='%1' AND qso_date LIKE '%-%2-%'").arg(_log).arg(aux);
     }
 
     sqlOK = query.exec(queryString);

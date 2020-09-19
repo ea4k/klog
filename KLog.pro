@@ -3,7 +3,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.2.1
+VERSION = 1.3
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -42,7 +42,9 @@ HEADERS += setupdialog.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
-    qso.h \    
+    qso.h \     \
+    searchmodel.h \
+    searchwindow.h \
     widgets/adiflotwexportwidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -116,6 +118,8 @@ SOURCES += main.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
     qso.cpp \
+    searchmodel.cpp \
+    searchwindow.cpp \
     setupdialog.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/showadifimportwidget.cpp \

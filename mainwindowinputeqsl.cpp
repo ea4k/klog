@@ -147,15 +147,6 @@ void MainWindowInputEQSL::clear()
     eqslRecComboBox->setCurrentIndex(1);    
     lotwRecComboBox->setCurrentIndex(1);
 
-    //dateEdit->setDate(QDate::fromString(aux1, "yyyy-MM-dd"));
-    //QString date;
-    //date = "18000101";
-    //eqslSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    //eqslRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    //lotwSentQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    //lotwRecQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-    //clublogQDateEdit->setDate(QDate::fromString(date, "yyyyMMdd"));
-
     eqslSentQDateEdit->setDate(util->getDefaultDate());
     eqslRecQDateEdit->setDate(util->getDefaultDate());
     lotwSentQDateEdit->setDate(util->getDefaultDate());
@@ -235,13 +226,15 @@ QString MainWindowInputEQSL::getLOTWSenStatus()
 void MainWindowInputEQSL::setClubLogStatus(const QString _qs)
 {
        //qDebug() << "MainWindowInputEQSL::setClubLogStatus: " << _qs << endl;
-     if(( clublogComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
+    if((( clublogComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
+     //if(( clublogComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
+
      {
          clublogComboBox->setCurrentIndex( clublogComboBox->findText(_qs+" -", Qt::MatchStartsWith));
      }
      else
      {
-         clublogComboBox->setCurrentIndex(1);
+         clublogComboBox->setCurrentIndex( clublogComboBox->findText("N", Qt::MatchStartsWith));
      }
 
 }
@@ -249,41 +242,58 @@ void MainWindowInputEQSL::setClubLogStatus(const QString _qs)
 void MainWindowInputEQSL::setEQSLRecStatus(const QString _qs)
 {
        //qDebug() << "MainWindowInputEQSL::setEQSLRecStatus: " << _qs << endl;
-     if(( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
+     //if(( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
+    if((( eqslRecComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
      {
          eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith));
      }
      else
      {
-         eqslRecComboBox->setCurrentIndex(1);
+         eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText("N", Qt::MatchStartsWith));
      }
 }
 
 void MainWindowInputEQSL::setEQSLSenStatus(const QString _qs)
 {
-       //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: #" << _qs+" -" << endl;
+    //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: #" << _qs+" -" << endl;
 
-     if(( eqslSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0)
+     if((( eqslSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
      {
+         //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: found: " << _qs << " - Index: " << QString::number(eqslSentComboBox->findText(_qs, Qt::MatchStartsWith)) << endl;
          eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(_qs, Qt::MatchStartsWith));
      }
      else
      {
-            //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found" << endl;
-         eqslSentComboBox->setCurrentIndex(1);
+        //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found" << endl;
+         if (queueSentByDefault)
+         {
+             //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found - Q is defined by default" << endl;
+              eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
+         }
+         else
+         {
+             //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found - Q is NOT defined by default" << endl;
+             eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("N", Qt::MatchStartsWith));
+             eqslSentComboBox->setCurrentIndex(1);
+         }
+
+        //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: NOT found" << endl;
+         //eqslSentComboBox->setCurrentIndex(1);
      }
+     //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus - END" << endl;
 }
 
 void MainWindowInputEQSL::setLOTWRecStatus(const QString _qs)
 {
       //qDebug() << "MainWindowInputEQSL::setLOTWRecStatus: " << _qs << endl;
-     if(( lotwRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
+    if((( lotwRecComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
+     //if(( lotwRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
          lotwRecComboBox->setCurrentIndex( lotwRecComboBox->findText(_qs+" -", Qt::MatchStartsWith));
      }
      else
      {
-         lotwRecComboBox->setCurrentIndex(1);
+         lotwRecComboBox->setCurrentIndex(lotwRecComboBox->findText("N", Qt::MatchStartsWith));
      }
 }
 
@@ -291,13 +301,23 @@ void MainWindowInputEQSL::setLOTWRecStatus(const QString _qs)
 void MainWindowInputEQSL::setLOTWSenStatus(const QString _qs)
 {
       //qDebug() << "MainWindowInputEQSL::setLOTWSenStatus: " << _qs << endl;
-     if(( lotwSentComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
+    if((( lotwSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
+     //if(( lotwSentComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
          lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(_qs+" -", Qt::MatchStartsWith));
      }
      else
      {
-         lotwSentComboBox->setCurrentIndex(1);
+         if (queueSentByDefault)
+         {
+              lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
+         }
+         else
+         {
+             lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("N", Qt::MatchStartsWith));
+         }
+
+         //lotwSentComboBox->setCurrentIndex(1);
      }
 }
 
