@@ -190,7 +190,7 @@ private slots:
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
-
+    void setMainWindowTitle(const QString _s);
     void slotSetup(const int _page=0);
 
     //void slotrstTXTextChanged();
@@ -320,6 +320,8 @@ private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
     //void setWidgetsOrder();
+    void saveWindowsSize();
+    void setWindowsSize(const int _width, const int _height);
     bool maybeSave();
     void setCleaning(const bool _c);
 

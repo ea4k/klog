@@ -232,7 +232,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
          _queryLog = QString();
     }
 
-    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL"))
+    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
     {
          showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
          return qsos;
@@ -2905,6 +2905,7 @@ bool FileManager::modifySetupFile(const QString& _filename, const QString &_fiel
     QTextStream out(&tmp);
     qint64 pos1 = in.pos();
     qint64 pos2 = out.pos();
+    bool modified = false;
 
     out << in.readAll();
 
@@ -2919,12 +2920,18 @@ bool FileManager::modifySetupFile(const QString& _filename, const QString &_fiel
         if (line.startsWith(_field))
         {
             in << _field << "=" << _value << ";" << endl;
+            modified = true;
         }
         else
         {
             in << line << endl;
         }
     }
+    if (!modified)
+    {// If the data is not found, we will add it to the end.
+        in << _field << "=" << _value << ";" << endl;
+    }
+
     return true;
 }
 

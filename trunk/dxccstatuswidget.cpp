@@ -321,6 +321,8 @@ void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
 
       //qDebug() << "DXCCStatusWidget::setBands - 9 PRE-END" << endl;
 
+    //bool hasCurrentLoGSatellitesQSOs(const int _logn);
+
     if (!_creating)
     {
           //qDebug() << "DXCCStatusWidget::setBands: 9.1 !_creating" << endl;

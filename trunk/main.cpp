@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
       //qDebug() << "KLog Main: Start! " << endl;
       //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
     QDir d1 = QDir();
-    QString version = "1.3-RC4";
+    QString version = "1.3-RC8";
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
@@ -334,6 +334,7 @@ int main(int argc, char *argv[])
         splash.finish(&mw);
         mw.checkIfNewVersion();
         mw.recommendBackupIfNeeded();
+
 
             //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();

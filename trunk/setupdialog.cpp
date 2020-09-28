@@ -131,6 +131,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Config Dialog"));
+    windowSize.clear();
     slotReadConfigData();
 
 
@@ -674,6 +675,11 @@ void SetupDialog::slotOkButtonClicked()
 
         //WSJTX
 
+        //Windows Size
+        if (windowSize.length()>0)
+        {
+            stream << "MainWindowSize=" << windowSize << ";" <<  endl;
+        }
         file.close ();
     }
        //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << endl;
@@ -1065,6 +1071,16 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="LOTWPASS"){
             lotwPage->setLoTWPass(value);
+
+    }
+    else if(tab =="MAINWINDOWSIZE"){
+        QStringList values;
+        values.clear();
+        values << value.split("x");
+        if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
+        {
+            windowSize = value;
+        }
 
     }else{
            //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;

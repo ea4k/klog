@@ -163,7 +163,7 @@ void SetupPageLogsNew::createWidget()
     operatorsLineEdit->setToolTip(tr("Comma separated list of operators: callsign1, callsign2."));
 
     dateEdit->setToolTip(tr("Start date of this log."));
-    commentLineEdit->setToolTip(tr("Add a comment about this log."));
+    commentLineEdit->setToolTip(tr("Add a comment about this log. If filled, it will be shown in the main KLog title to identify the log."));
 
     //typeLabel->setText(tr("&Type of Operation"));
     //typeLabel->setWordWrap(true);
@@ -813,7 +813,7 @@ void SetupPageLogsNew::setOperators(const QString &_st)
 void SetupPageLogsNew::setComment(const QString &_st)
 {
     comment = _st;
-    commentLineEdit->setText(comment.toUpper());
+    commentLineEdit->setText(comment);
 }
 
 void SetupPageLogsNew::setDateString(const QString &_st)

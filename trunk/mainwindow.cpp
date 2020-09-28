@@ -212,11 +212,39 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
 
+
     //lotwUtilities->download();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 
    //qDebug() << "MainWindow::MainWindow: END" << endl;
+}
+void MainWindow::saveWindowsSize()
+{
+    //qDebug()() << "MainWindow::saveWindows" << endl;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    QSize size = this->size();
+
+    int height = size.height();
+    int width = size.width();
+    //qDebug()() << "MainWindow::windowsSizeAndPosition: Heigth: " << QString::number(height)  << endl;
+    //qDebug()() << "MainWindow::windowsSizeAndPosition: Width: " << QString::number(width)  << endl;
+    //(const QString& _filename, const QString &_field, const QString &_value)
+    filemanager->modifySetupFile(configFileName, "MainWindowSize", QString::number(width) + "x" + QString::number(height));
+    //return QString::number(width) + "x" + QString::number(height);
+
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+    //qDebug()() << "MainWindow::windowsSizeAndPosition: END" << endl;
+
+}
+
+void MainWindow::setWindowsSize(const int _width, const int _height)
+{
+    QSize size;
+    size.setHeight(_height);
+    size.setWidth(_width);
+    this->resize(size);
+
 }
 
 void MainWindow::init()
@@ -494,6 +522,7 @@ void MainWindow::createActionsCommon(){
     // SEARCH TAB
     connect(searchWidget, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
     connect(searchWidget, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
+
     connect(searchWidget, SIGNAL(logRefresh() ), this, SLOT(slotLogRefresh() ) );
     connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
     connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
@@ -662,6 +691,22 @@ void MainWindow::slotWorldMapShow()
     worldMapWidget->show();
 }
 */
+void MainWindow::setMainWindowTitle(const QString _s)
+{
+    QString aux = dataProxy->getCommentsFromLog(currentLog);
+    //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux << endl;
+    if (aux.length()>0)
+    {
+        setWindowTitle(tr("KLog - %1 - QSOs: %2 - %3" ).arg(stationQRZ).arg(_s).arg(aux));
+    }
+    else
+    {
+        setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationQRZ).arg(_s));
+    }
+
+
+}
+
 void MainWindow::createUI()
 {
 
@@ -2534,7 +2579,7 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
 
 void MainWindow::slotExitFromSlotDialog(const int exitID)
 {
-          //qDebug() << "MainWindow::slotExitFromSlotDialog: " << QString::number(exitID) << endl;
+    //qDebug()() << "MainWindow::slotExitFromSlotDialog: " << QString::number(exitID) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     if (exitID == 2)
@@ -2544,6 +2589,7 @@ void MainWindow::slotExitFromSlotDialog(const int exitID)
 
         exitQuestion();
     }
+    //qDebug()() << "MainWindow::slotExitFromSlotDialog: END "  << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -2557,6 +2603,7 @@ void MainWindow::slotFileClose()
 void MainWindow::exitQuestion()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //qDebug()() << "MainWindow::exitQuestion"  << endl;
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog - Exit"));
@@ -2570,6 +2617,7 @@ void MainWindow::exitQuestion()
         case QMessageBox::Yes:
           // Ok was clicked
         logEvent(Q_FUNC_INFO, "Exiting KLog!", 0);
+            saveWindowsSize();
             exit(0);
         default:
             // should never be reached
@@ -2718,6 +2766,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
            //qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : "  << endl;
 
     completeWithPreviousQSO(_qrz);
+    searchWidget->setCallToSearch(_qrz);
     //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
            //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
@@ -2860,6 +2909,10 @@ void MainWindow::slotClearButtonClicked()
     clearUIDX(true);
     statusBar()->clearMessage();
     setCleaning(false);
+
+    //qDebug() << "MainWindow::slotClearButtonClicked: Log: " << QString::number(currentLog) << endl;
+    setMainWindowTitle(QString::number(dataProxy->getHowManyQSOInLog(currentLog)));
+
               //qDebug() << "MainWindow::slotClearButtonClicked: " << mainQSOEntryWidget->getMode() << endl;
               //qDebug() << "MainWindow::slotClearButtonClicked - currentMode = " << QString::number(currentMode) << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -2911,21 +2964,25 @@ void MainWindow::slotRefreshDXCCWidget()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-              //qDebug() << "MainWindow::closeEvent" << endl;
+    //qDebug()() << "MainWindow::closeEvent" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     if (maybeSave())
     {
+        //qDebug()() << "MainWindow::closeEvent saving needed" << endl;
         dataProxy->unMarkAllQSO();
         //slotFileClose();
         dataProxy->compressDB();
         //db->compress();
+        saveWindowsSize();
         event->accept();
     }
     else
     {
+        //qDebug()() << "MainWindow::closeEvent not saving needed" << endl;
         event->ignore();
     }
+    //qDebug()() << "MainWindow::closeEvent-END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4141,6 +4198,7 @@ void MainWindow::readConfigData()
         if (!UDPLogServer->isStarted())
         {
                    //qDebug() << "MainWindow::readConfigData: 104: Server off" << endl;
+        //start(quint16 _port, QHostAddress const& _multicast_group_address)
             if (!UDPLogServer->start())
             {
                 errorMSG =  tr("start");
@@ -4461,12 +4519,10 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if (field=="INFOTIMEOUT")
     {
         int a = value.toInt();
-        if ((a>0) && (a<=30000))
+        if ((a>0) && (a<=65535))
         {
             infoTimeout = a;
         }
-
-
     }
     else if (field=="LOGFROMWSJTX")
     {
@@ -4746,6 +4802,16 @@ bool MainWindow::processConfigLine(const QString &_line){
         if (softwareVersion!=value)
         {
             itIsANewversion = true;
+        }
+    }
+    else if(field=="MAINWINDOWSIZE")
+    {
+        QStringList values;
+        values.clear();
+        values << value.split("x");
+        if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
+        {
+            setWindowsSize(values.at(0).toInt(), values.at(1).toInt());
         }
     }
     else
@@ -6231,6 +6297,7 @@ void MainWindow::slotShowAwards()
     awardsWidget->showAwards();
            //qDebug() << "MainWindow::slotShowAwards-3"  << endl;
     dxccStatusWidget->refresh();
+    setMainWindowTitle(QString::number(dataProxy->getHowManyQSOInLog(currentLog)));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
            //qDebug() << "MainWindow::slotShowAwards-END"  << endl;
 }
@@ -7119,7 +7186,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                  const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
                  const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr)
 {
-
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO" << endl;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     bool logTheQso = false;
     QString opCall = stationQRZ;
@@ -7414,7 +7481,7 @@ void MainWindow::slotClearNoMorErrorShown()
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed)
 {
            //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << endl;
-           //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
+          //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
            //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 

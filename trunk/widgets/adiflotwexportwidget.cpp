@@ -222,7 +222,7 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
     this->hide();
     if (stationCallsignComboBox->currentIndex() == 0)
     {
-        emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
+        emit selection("NOT", startDate->date(), endDate->date(), currentExportMode);
     }
     else if (stationCallsignComboBox->currentIndex() == 1)
     {

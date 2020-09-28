@@ -53,6 +53,11 @@ void SearchWidget::clear()
     setModelFilter();
 }
 
+void SearchWidget::setCallToSearch (const QString _st)
+{
+    searchBoxLineEdit->setText(_st);
+}
+
 void SearchWidget::setShowCallInSearch(const bool _sh)
 {
     stationCallSignShownInSearch = _sh;
