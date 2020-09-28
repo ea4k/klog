@@ -233,6 +233,8 @@ public:
     QStringList getQSLSentList();
     QStringList getClubLogStatusList();
     QStringList getQSLViaList();
+    int getHowManyQSOPerPropMode(const QString &_p, const int _logn);
+
 
     //QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 

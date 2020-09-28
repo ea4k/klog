@@ -138,6 +138,7 @@ private:
     DataProxy_SQLite *dataProxy;
 
     Utilities *util;
+    QString windowSize;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
     int logSeverity;    // Manages as syslog, the severity of the application debug log

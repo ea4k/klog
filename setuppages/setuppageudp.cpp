@@ -38,8 +38,8 @@ void SetupPageUDP::createUI()
     logAutomaticallyWSJTXCheckbox->setToolTip(tr("KLog will automatically log any QSO coming from WSJT-X without any manual confirmation."));
 
 
-    realDataFromWSJTXCheckbox->setText(tr("Receive QSOs data and update to KLog"));
-    realDataFromWSJTXCheckbox->setToolTip(tr("KLog will automatically show and update data coming from WSJT-X (DX callsign, locator, RPT, ...)"));
+    realDataFromWSJTXCheckbox->setText(tr("Update status information from WSJT-X"));
+    realDataFromWSJTXCheckbox->setToolTip(tr("KLog will automatically show and update data coming from WSJT-X (DX callsign, Report, mode, ...)"));
     
     UDPServerCheckBox->setChecked(false);
     logFromWSJTXCheckbox->setChecked(false);

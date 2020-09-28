@@ -56,6 +56,51 @@ DataProxy_SQLite::~DataProxy_SQLite(){
 
 }
 
+int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _logn)
+{
+    //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: " << _p << "/" << QString::number(_logn) << endl;
+
+    QSqlQuery query;
+    QString queryString;
+    bool sqlOK;
+    if (_logn < 0)
+    {
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log WHERE prop_mode='%1'").arg(_p);
+    }
+    else
+    {
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND prop_mode='%2'").arg(_logn).arg(_p);
+    }
+
+    sqlOK = query.exec(queryString);
+
+    //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: queryString: " << queryString << endl;
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: " << QString::number((query.value(0)).toInt()) << endl;
+            int v = (query.value(0)).toInt();
+            query.finish();
+            return v;
+        }
+        else
+        {
+            //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropModer: 0" << endl;
+            query.finish();
+            return 0;
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: Query error" << endl;
+        query.finish();
+        return 0;
+    }
+}
+
 QString DataProxy_SQLite::getSoftVersion()
 { //SELECT MAX (softversion) FROM softwarecontrol
 
@@ -5788,10 +5833,10 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
     // First we check if the log is already there
     //queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
-    queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2'").arg(_dateString).arg(_stationCallsign);
+    queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND operators = '%3' AND comment = '%4'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment);
     //"logs"
     //"id, logdate, stationcall, comment, logtype"
-         //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << endl;
+    //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << endl;
 
     sqlOK = query.exec(queryString);
     if (sqlOK)
@@ -5799,6 +5844,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
         query.next();
         if (query.isValid())
         {
+            //qDebug() << "DataProxy_SQLite::addNewLog query error: " << queryString << endl;            
             // It seems that the log is already existing!
             return false;
         }

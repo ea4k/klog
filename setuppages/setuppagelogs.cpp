@@ -527,6 +527,10 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
         logsModel->select();
         updateSelectedLogs();
     }
+    else
+    {
+        showError(tr("The new log could not be created."));
+    }
 
     // We send the data to the main tab
     QStringList logData;
