@@ -1,3 +1,4 @@
+# Josep Ma. Ferrer <txemaq@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
@@ -6,6 +7,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: ca_ES\n"
 "X-Qt-Contexts: true\n"
+"Last-Translator: Josep Ma. Ferrer <txemaq@gmail.com>\n"
+"PO-Revision-Date: 2020-09-28 20:32+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../aboutdialog.cpp:17
 msgctxt "AboutDialog|"
@@ -850,12 +857,12 @@ msgstr "Interromp l'escriptura"
 #: ../filemanager.cpp:3315
 msgctxt "FileManager|"
 msgid "KLog - Don't ask again"
-msgstr ""
+msgstr "KLog - No ho tornis a preguntar"
 
 #: ../filemanager.cpp:3317
 msgctxt "FileManager|"
 msgid "Do you want to reuse your answer?"
-msgstr ""
+msgstr "Voleu reutilitzar la resposta?"
 
 #: ../filemanager.cpp:3318
 msgctxt "FileManager|"
@@ -863,6 +870,8 @@ msgid ""
 "KLog will use automatically your previous answer for any other similar "
 "ocurrence, if any, without asking you again."
 msgstr ""
+"El KLog usarà automàticament la resposta anterior per a altres ocurrències"
+" similars, si n'hi ha, sense tornar-ho a preguntar."
 
 #: ../filemanager.cpp:3340
 #, qt-format
@@ -871,11 +880,13 @@ msgid ""
 "<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: "
 "%3</li><li>Mode: %4</li></ul>"
 msgstr ""
+"<ul><li>Data/Hora:</i> %1</li><li>Indicatiu: %2</li><li>Banda: "
+"%3</li><li>Mode: %4</li></ul>"
 
 #: ../filemanager.cpp:3344
 msgctxt "FileManager|"
 msgid "KLog - QSO not found"
-msgstr ""
+msgstr "KLog - No s'ha trobat el QSO"
 
 #: ../filemanager.cpp:3346
 msgctxt "FileManager|"
@@ -883,6 +894,8 @@ msgid ""
 "Do you want to add this QSO to the log?:\n"
 "\n"
 msgstr ""
+"Voleu afegir aquest QSO al registre?:\n"
+"\n"
 
 #: ../filemanager.cpp:3347
 msgctxt "FileManager|"
@@ -891,6 +904,9 @@ msgid ""
 "\n"
 "Do you want KLog to add this QSO to the log?"
 msgstr ""
+"S'ha trobat un QSO que ve del LoTW que no és al vostre registre local.\n"
+"\n"
+"Voleu que el KLog afegeixi aquest QSO al registre?"
 
 #: ../filemanager.cpp:3370
 msgctxt "FileManager|"
@@ -903,6 +919,8 @@ msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported log file?"
 msgstr ""
+"S'ha detectat un indicatiu buit. Voleu exportar igualment aquest QSO (clic a"
+" Sí) o eliminar el camp del fitxer de registre exportat?"
 
 #: ../filemanager.cpp:3381
 #, qt-format
@@ -941,17 +959,17 @@ msgstr ""
 #: ../filemanager.cpp:298
 msgctxt "FileManager|"
 msgid "There are no QSOs pending to be exported with that station callsign."
-msgstr ""
+msgstr "No hi ha cap QSO pendent d'exportar amb aquest indicatiu d'estació."
 
 #: ../filemanager.cpp:313
 msgctxt "FileManager|"
 msgid "Export"
-msgstr ""
+msgstr "Exporta"
 
 #: ../filemanager.cpp:541
 msgctxt "FileManager|"
 msgid "Export progress"
-msgstr ""
+msgstr "Progrés de l'exportació"
 
 #: ../filemanager.cpp:564
 msgctxt "FileManager|"
@@ -2405,6 +2423,8 @@ msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to LoTW."
 msgstr ""
+"Cal seleccionar un indicatiu d'estació per ser capaç d'enviar el vostre"
+" registre al LoTW."
 
 #: ../mainwindow.cpp:5535
 msgctxt "MainWindow|"
@@ -2620,13 +2640,13 @@ msgstr "Barra d'estat..."
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1 - QSOs: %2 - %3"
-msgstr ""
+msgstr "KLog - %1 - QSO: %2 - %3"
 
 #: ../mainwindow.cpp:704
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1 - QSOs: %2"
-msgstr ""
+msgstr "KLog - %1 - QSO: %2"
 
 #: ../mainwindow.cpp:872
 msgctxt "MainWindow|"
@@ -2887,7 +2907,6 @@ msgid "The file has been removed."
 msgstr "El fitxer s'ha eliminat."
 
 #: ../mainwindow.cpp:6558
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "Date/Time"
 msgstr "Data/hora"
@@ -2895,12 +2914,12 @@ msgstr "Data/hora"
 #: ../mainwindow.cpp:7276
 msgctxt "MainWindow|"
 msgid "Station Callsign"
-msgstr ""
+msgstr "Indicatiu de l'estació"
 
 #: ../mainwindow.cpp:7279
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
-msgstr ""
+msgstr "Indicatiu de l'operador"
 
 #: ../mainwindow.cpp:7359
 msgctxt "MainWindow|"
@@ -3634,7 +3653,7 @@ msgstr "Retornareu al punt d'inici."
 #: ../database.cpp:2041
 msgctxt "QObject|"
 msgid "KLog - DB can't be updated automatically"
-msgstr ""
+msgstr "KLog - No s'ha pogut actualitzar automàticament la BD"
 
 #: ../database.cpp:2042
 msgctxt "QObject|"
@@ -3642,6 +3661,8 @@ msgid ""
 "You are upgrading from a too old KLog version and this upgrade can't be "
 "upgraded automatically from that version."
 msgstr ""
+"S'està actualitzant des d'una versió massa antiga del KLog i aquesta"
+" actualització no es pot fer automàticament des d'aquesta versió."
 
 #: ../database.cpp:2180 ../database.cpp:3844 ../database.cpp:4022
 #: ../database.cpp:4224 ../database.cpp:4433
@@ -3730,6 +3751,13 @@ msgid ""
 "\n"
 "KLog will finish when you click on OK."
 msgstr ""
+"El procés per actualitzar és:\n"
+"- Usant una versió antiga del KLog, exportar el registre a ADIF.\n"
+"- Eliminar el fitxer «logbook.dat» de la carpeta del KLog.\n"
+"- Instal·lar la versió nova del KLog.\n"
+"- Importar el fitxer ADIF.\n"
+"\n"
+"El KLog finalitzarà quan feu clic a D'acord."
 
 #: ../database.cpp:2309
 msgctxt "QObject|"
@@ -3965,38 +3993,32 @@ msgid "Are you sure?"
 msgstr "Esteu segur?"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:197
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QRZ"
 msgstr "QRZ"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Date/Time"
 msgstr "Data/hora"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:203
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Band"
 msgstr "Banda"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:208
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mode"
 msgstr "Mode"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:214
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL Sent"
 msgstr "QSL enviada"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:218
 #: ../searchwindow.cpp:316
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL Rcvd"
 msgstr "QSL rebuda"
@@ -4004,10 +4026,9 @@ msgstr "QSL rebuda"
 #: ../searchwindow.cpp:85
 msgctxt "SearchWindow|"
 msgid "Station Callsign"
-msgstr ""
+msgstr "Indicatiu de l'estació"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "ID"
 msgstr "ID"
@@ -4015,76 +4036,64 @@ msgstr "ID"
 #: ../searchwindow.cpp:192
 msgctxt "SearchWindow|"
 msgid "Date/time"
-msgstr ""
+msgstr "Data/hora"
 
 #: ../searchwindow.cpp:224
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Station callsign"
 msgstr "Indicatiu de l'estació"
 
 #: ../searchwindow.cpp:295
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL Send"
 msgstr "QSL enviada"
 
 #: ../searchwindow.cpp:369
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Delete"
 msgstr "&Suprimeix"
 
 #: ../searchwindow.cpp:370
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Delete a QSO"
 msgstr "Suprimeix un QSO"
 
 #: ../searchwindow.cpp:373
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Edit QSO"
 msgstr "&Edita QSO"
 
 #: ../searchwindow.cpp:374
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Edit this QSO"
 msgstr "Edita aquest QSO"
 
 #: ../searchwindow.cpp:377
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via &bureau"
 msgstr "Via &bureau"
 
 #: ../searchwindow.cpp:378
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Envia aquesta QSL via bureau"
 
 #: ../searchwindow.cpp:381
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "D&irect"
 msgstr "D&irecta"
 
 #: ../searchwindow.cpp:382
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct"
 msgstr "Envia aquesta QSL via directa"
 
 #: ../searchwindow.cpp:385
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via bureau"
 msgstr "Via bureau"
 
 #: ../searchwindow.cpp:386
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &rebuda via bureau"
@@ -4092,124 +4101,104 @@ msgstr "QSL &rebuda via bureau"
 #: ../searchwindow.cpp:389
 msgctxt "SearchWindow|"
 msgid "Direct"
-msgstr ""
+msgstr "Directa"
 
 #: ../searchwindow.cpp:390
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL rebuda via direc&ta"
 
 #: ../searchwindow.cpp:393
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Check in QRZ.com"
 msgstr "Comprova a QRZ.com"
 
 #: ../searchwindow.cpp:394
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr "Comprova aquest identificador a QRZ.com"
 
 #: ../searchwindow.cpp:397
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Check in DXHeat.com"
 msgstr "Comprova a DXHeat.com"
 
 #: ../searchwindow.cpp:398
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr "Comprova aquest identificador a DXHeat.com"
 
 #: ../searchwindow.cpp:401
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Request my QSL"
 msgstr "&Sol·licita la meva QSL"
 
 #: ../searchwindow.cpp:402
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mark my QSL as requested"
 msgstr "Marca la meva QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:405
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via Direct and mark DX QSL as requested"
 msgstr "Via directa i marca la DX QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:406
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct and mark DX QSL as requested"
 msgstr "Envia aquesta QSL via directa i marca la DX QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:409
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via Bureau and mark DX QSL as requested"
 msgstr "Via bureau i marca la DX QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:410
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau and mark DX QSL as requested"
 msgstr "Envia aquesta QSL via bureau i marca la DX QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:413
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Request the QSL"
 msgstr "&Sol·licita la QSL"
 
 #: ../searchwindow.cpp:414
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mark the QSL as requested"
 msgstr "Marca la QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:417
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via bureau and mark my QSL as requested"
 msgstr "Via bureau i marca la meva QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:418
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL received via bureau and mark my QSL as requested"
 msgstr "QSL rebuda via bureau i marca la meva QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:421
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Direc&t and mark as my QSL requested"
 msgstr "Direc&ta i marca la meva QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:422
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL received via direct and mark my QSL as requested"
 msgstr "QSL rebuda via directa i marca la meva QSL com a sol·licitada"
 
 #: ../searchwindow.cpp:655
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Needed QSO to send the QSL"
 msgstr "QSO necessari per enviar la QSL"
 
 #: ../searchwindow.cpp:663
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "My QSL requested to be sent"
 msgstr "La meva QSL sol·licitada per enviar"
 
 #: ../searchwindow.cpp:668 ../searchwindow.cpp:673
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "DX QSL pending to be received"
 msgstr "QSL del DX pendent de rebre"
@@ -4774,12 +4763,12 @@ msgstr "Seleccioneu el vostre equip."
 #: ../setuppages/setuppagehamlib.cpp:79
 msgctxt "SetupPageHamLib|"
 msgid "Defines the interval to poll the radio in msecs."
-msgstr ""
+msgstr "Defineix l'interval de sondeig de la ràdio en ms."
 
 #: ../setuppages/setuppagehamlib.cpp:85
 msgctxt "SetupPageHamLib|"
 msgid "Poll interval"
-msgstr ""
+msgstr "Interval de sondeig"
 
 #: ../setuppages/setuppagehamlib.cpp:97
 msgctxt "SetupPageHamLib|"
@@ -5084,7 +5073,7 @@ msgstr "No s'ha eliminat el registre. (#1)"
 #: ../setuppages/setuppagelogs.cpp:532
 msgctxt "SetupPageLogs|"
 msgid "The new log could not be created."
-msgstr ""
+msgstr "No s'ha pogut crear el registre nou."
 
 #: ../setuppages/setuppagelogs.cpp:696
 msgctxt "SetupPageLogs|"
@@ -5162,6 +5151,8 @@ msgid ""
 "Add a comment about this log. If filled, it will be shown in the main KLog "
 "title to identify the log."
 msgstr ""
+"Afegiu un comentari quant a aquest registre. Si està omplert, es mostrarà al"
+" títol principal del KLog per a identificar el registre."
 
 #: ../setuppages/setuppagelogsnew.cpp:582
 #| msgid ""
@@ -5734,7 +5725,7 @@ msgstr ""
 #: ../setuppages/setuppageudp.cpp:41
 msgctxt "SetupPageUDP|"
 msgid "Update status information from WSJT-X"
-msgstr ""
+msgstr "Actualitza la informació d'estat des del WSJT-X"
 
 #: ../setuppages/setuppageudp.cpp:42
 msgctxt "SetupPageUDP|"
@@ -5742,6 +5733,8 @@ msgid ""
 "KLog will automatically show and update data coming from WSJT-X (DX "
 "callsign, Report, mode, ...)"
 msgstr ""
+"El KLog mostrarà i actualitzarà automàticament les dades provinents del "
+"WSJT-X (indicatiu DX, informe, mode, ...)"
 
 #: ../setuppages/setuppageudp.cpp:58
 msgctxt "SetupPageUDP|"
@@ -7178,3 +7171,5 @@ msgstr "S'ha rebutjat l'inici de sessió"
 msgctxt "eLogClubLog|"
 msgid "Rejected: Callsign is your own call"
 msgstr "Rebutjat: L'indicatiu és el vostre propi indicatiu"
+
+
