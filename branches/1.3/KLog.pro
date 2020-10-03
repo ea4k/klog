@@ -1,0 +1,302 @@
+CONFIG += app_bundle
+CONFIG += static
+CONFIG -=depend_includepath
+#CONFIG += release
+TEMPLATE = app
+VERSION = 1.3
+DEFINES += APP_VERSION="$$VERSION"
+
+
+APP_NAME = KLog
+DEFINES += APP_NAME="$$APP_NAME"
+
+APP_UNIX_NAME = klog
+DEFINES += APP_UNIX_NAME="$$APP_UNIX_NAME"
+
+message(Building $${APP_NAME} $${VERSION})
+message(Qt $$[QT_VERSION] in $$[QT_INSTALL_PREFIX])
+
+#DEFINES *= QT_NO_DEBUG_OUTPUT
+DEFINES *= QT_USE_QSTRINGBUILDER
+DEFINES *= QT_STRICT_ITERATORS
+
+TARGET = $${APP_UNIX_NAME}
+
+QT += core \
+    gui \   
+    sql \
+    network \
+    serialport \
+    printsupport \
+    charts \
+    widgets
+
+greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
+{
+    macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
+}
+
+HEADERS += setupdialog.h \
+    aboutdialog.h \
+    awardswidget.h \
+    lotwutilities.h \
+    mainqsoentrywidget.h \
+    mainwindow.h \
+    qso.h \     \
+    searchmodel.h \
+    searchwindow.h \
+    widgets/adiflotwexportwidget.h \
+    widgets/showadifimportwidget.h \
+    world.h \
+    logwindow.h \
+    filemanager.h \
+    database.h \
+    locator.h \
+    dxcluster.h \
+    awards.h \
+    startwizard.h \
+    downloadcty.h \
+    dataproxy_sqlite.h \
+    mainwindowsattab.h \
+    awarddxmarathon.h \
+    elogclublog.h \
+    softwareupdate.h \
+    softwareupdatedialog.h \
+    utilities.h \
+    dxccstatuswidget.h \
+    mainwindowmydatatab.h \
+    mainwindowinputcomment.h \
+    mainwindowinputothers.h \
+    mainwindowinputeqsl.h \
+    mainwindowinputqsl.h \
+    logmodel.h \
+    searchwidget.h \
+    infowidget.h \
+    showerrordialog.h \
+    udpserver.h \
+    statisticswidget.h \
+    charts/barchartstats.h \
+    updatesatsdata.h \
+    hamlibclass.h \
+    tipsdialog.h \
+    worldmapwidget.h \
+    setuppages/setuppagelotw.h \
+    setuppages/setuppagemisc.h \
+    setuppages/setuppageuserdata.h \
+    setuppages/setuppagedxcluster.h \
+    setuppages/setuppagecolors.h \
+    setuppages/setuppagelogs.h \
+    setuppages/setuppageworldeditor.h \
+    setuppages/setuppagesats.h \
+    setuppages/setuppagesatsnew.h \
+    setuppages/setuppagehamlib.h \
+    setuppages/setuppagelogsnew.h \
+    setuppages/setuppageclublog.h \
+    setuppages/setuppagebandmode.h \
+    setuppages/setupentitydialog.h \
+    setuppages/setuppageudp.h \
+    charts/statsgeneralchartwidget.h \
+    charts/statsqsosperyearbarchartwidget.h \
+    charts/statsentitiesperyearbarchartwidget.h \
+    charts/statscqzperyearbarchartwidget.h \
+    charts/statsqsosperbandbarchartwidget.h \
+    charts/statsqsospermodebarchartwidget.h \
+    charts/statsqsosperdxccbarchartwidget.h \
+    charts/statsqsospercontinentbarchartwidget.h \
+    charts/statsqsosperhourbarchartwidget.h \
+    charts/statsqsospermonthbarchartwidget.h \
+    charts/statsworkedconfirmedpiechartwidget.h \
+    charts/statsworkedsentpiechartwidget.h \
+    charts/statssentconfirmedpiechartwidget.h
+
+message(Sources)
+
+SOURCES += main.cpp \
+    aboutdialog.cpp \
+    awardswidget.cpp \
+    lotwutilities.cpp \
+    mainqsoentrywidget.cpp \
+    mainwindow.cpp \
+    qso.cpp \
+    searchmodel.cpp \
+    searchwindow.cpp \
+    setupdialog.cpp \
+    widgets/adiflotwexportwidget.cpp \
+    widgets/showadifimportwidget.cpp \
+    world.cpp \
+    logwindow.cpp \
+    filemanager.cpp \
+    database.cpp \
+    dataproxy_sqlite.cpp \
+    downloadcty.cpp \
+    dxcluster.cpp \      
+    locator.cpp \
+    awards.cpp \ 
+    setuppages/setuppagelotw.cpp \
+    setuppages/setuppagemisc.cpp \
+    setuppages/setuppageuserdata.cpp \
+    setuppages/setuppagedxcluster.cpp \
+    setuppages/setuppagecolors.cpp \
+    setuppages/setuppagelogs.cpp \
+    setuppages/setuppageworldeditor.cpp \
+    setuppages/setuppagelogsnew.cpp \
+    setuppages/setuppageclublog.cpp \
+    setuppages/setuppagebandmode.cpp \
+    setuppages/setuppageudp.cpp \
+    setuppages/setuppagesats.cpp \
+    setuppages/setuppagesatsnew.cpp \
+    setuppages/setuppagehamlib.cpp \
+    setuppages/setupentitydialog.cpp \
+    startwizard.cpp \
+    mainwindowsattab.cpp \
+    awarddxmarathon.cpp \ 
+    elogclublog.cpp \
+    softwareupdate.cpp \
+    softwareupdatedialog.cpp \
+    utilities.cpp \  
+    dxccstatuswidget.cpp \
+    mainwindowmydatatab.cpp \
+    mainwindowinputcomment.cpp \
+    mainwindowinputothers.cpp \   
+    mainwindowinputeqsl.cpp \
+    mainwindowinputqsl.cpp \
+    logmodel.cpp \
+    searchwidget.cpp \
+    infowidget.cpp \
+    showerrordialog.cpp \
+    udpserver.cpp \
+    statisticswidget.cpp \
+    charts/barchartstats.cpp \
+    updatesatsdata.cpp \
+    charts/statsgeneralchartwidget.cpp \
+    charts/statsqsosperyearbarchartwidget.cpp \
+    charts/statsentitiesperyearbarchartwidget.cpp \
+    charts/statscqzperyearbarchartwidget.cpp \
+    charts/statsqsospermodebarchartwidget.cpp \
+    charts/statsqsosperdxccbarchartwidget.cpp \
+    charts/statsqsospercontinentbarchartwidget.cpp \
+    charts/statsqsosperhourbarchartwidget.cpp \
+    charts/statsqsospermonthbarchartwidget.cpp \
+    charts/statsworkedconfirmedpiechartwidget.cpp \
+    charts/statsworkedsentpiechartwidget.cpp \
+    charts/statssentconfirmedpiechartwidget.cpp \
+    charts/statsqsosperbandbarchartwidget.cpp \
+    hamlibclass.cpp \
+    tipsdialog.cpp \
+    worldmapwidget.cpp
+
+
+message (Other files)
+
+OTHER_FILES += \
+    README-DEVEL \
+    TODO \
+    tips-for-devel.txt \
+    INSTALL.txt \
+    INSTALL-linux \
+    INSTALL-win.txt \
+    Changelog \
+    INSTALL-osx.txt \
+    NEWS \
+    klog.1 \
+    COPYING \
+    AUTHORS \
+    README
+
+message (More...)
+RESOURCES += klog.qrc
+DESTDIR = build/target/
+OBJECTS_DIR = build/obj/
+MOC_DIR = build/moc/
+RCC_DIR = build/rcc/
+#D_OBJECTS = $(SRC:%.cpp=build/obj/%.o)
+#R_OBJECTS = $(SRC:%.cpp=build/obj/%.o)
+
+# Tell Qt Linguist that we use UTF-8 strings in our sources
+CODECFORTR = UTF-8
+CODECFORSRC = UTF-8
+#include(translations/translations.pri)
+message (Translations)
+
+TRANSLATIONS = translations/klog_es.ts \
+    translations/klog_ca.ts \
+    translations/klog_da.ts \
+    translations/klog_de.ts \
+    translations/klog_fi.ts \
+    translations/klog_fr.ts \
+    translations/klog_hr.ts \
+    translations/klog_it.ts \
+    translations/klog_pl.ts \
+    translations/klog_ja.ts
+
+message(End of translations...)
+
+isEmpty(QMAKE_LRELEASE) {
+    win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+    unix {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease-qt5 }
+    } else {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease }
+    }
+}
+
+updateqm.input = TRANSLATIONS
+updateqm.output = $$DESTDIR/translations/${QMAKE_FILE_BASE}.qm
+updateqm.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN} -qm $$DESTDIR/translations/${QMAKE_FILE_BASE}.qm
+updateqm.CONFIG += no_link target_predeps
+QMAKE_EXTRA_COMPILERS += updateqm
+
+
+# deploy
+DISTFILES += Changelog COPYING
+
+unix:!mac {
+    DEFINES += APP_LINUX
+    CONFIG  += c++11
+# Translations should be copied in /usr/share/klog/translations
+# https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+#    QT += dbus
+    isEmpty(PREFIX):PREFIX = /usr
+    BINDIR = $$PREFIX/bin
+    DATADIR = $$PREFIX/share
+    PKGDATADIR = $$DATADIR/klog
+    INSTALLS += target
+    target.path = $$BINDIR
+#   DEFINES += DATADIR=\\\"$$DATADIR\\\" \
+#   PKGDATADIR=\\\"$$PKGDATADIR\\\"
+#    translations.path = /usr/share/klog/translations
+    translations.path = $$PKGDATADIR/translations
+#    translations.files += build/target/translations/*
+    translations.files += $$DESTDIR/translations/*
+    #INSTALLS += translations
+    datafiles.path = $$PKGDATADIR
+    datafiles.files = $$DISTFILES
+    INSTALLS += translations
+    INSTALLS += datafiles
+    LIBS += -lhamlib
+
+}
+
+macx: {
+    ICON = klog.icns
+    TARGET = KLog
+    CONFIG += c++11
+    INCLUDEPATH +=../../../hamlib/include/
+    LIBS += -L"../../../hamlib/lib" -lhamlib
+}
+
+win32: {    
+    RC_ICONS = klog.ico
+    TARGET = klog
+    QMAKE_TARGET_COMPANY = EA4K
+    QMAKE_TARGET_DESCRIPTION = Hamradio logging
+    LIBS += -L"$$PWD/../../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
+    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
+}
+
+else:
+{
+    TARGET = klog
+}
+

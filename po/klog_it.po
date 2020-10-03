@@ -1,3 +1,4 @@
+# Simona Pisano <simona.pisano.70@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
@@ -6,6 +7,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: it_IT\n"
 "X-Qt-Contexts: true\n"
+"Last-Translator: Simona Pisano <simona.pisano.70@gmail.com>\n"
+"PO-Revision-Date: 2020-09-29 22:59+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"Language: it_IT\n"
+"X-Generator: Lokalize 20.08.1\n"
 
 #: ../aboutdialog.cpp:17
 msgctxt "AboutDialog|"
@@ -889,6 +896,8 @@ msgid ""
 "Exporting ADIF file...\n"
 " QSO: %1 / %2 "
 msgstr ""
+"Export file ADIF...\n"
+" QSO: %1 / %2 "
 
 #: ../filemanager.cpp:694
 msgctxt "FileManager|"
@@ -979,27 +988,27 @@ msgstr "Import annullato. File rcancellato e nessun dato importato."
 #: ../filemanager.cpp:298
 msgctxt "FileManager|"
 msgid "There are no QSOs pending to be exported with that station callsign."
-msgstr ""
+msgstr "Non ci sono QSO in attesa di export con il nominativo indicato."
 
 #: ../filemanager.cpp:313
 msgctxt "FileManager|"
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: ../filemanager.cpp:541
 msgctxt "FileManager|"
 msgid "Export progress"
-msgstr ""
+msgstr "Progresso export"
 
 #: ../filemanager.cpp:3315
 msgctxt "FileManager|"
 msgid "KLog - Don't ask again"
-msgstr ""
+msgstr "KLog - Non chiedere ancora"
 
 #: ../filemanager.cpp:3317
 msgctxt "FileManager|"
 msgid "Do you want to reuse your answer?"
-msgstr ""
+msgstr "Vuoi riciclare la tua risposta?"
 
 #: ../filemanager.cpp:3318
 msgctxt "FileManager|"
@@ -1007,6 +1016,8 @@ msgid ""
 "KLog will use automatically your previous answer for any other similar "
 "ocurrence, if any, without asking you again."
 msgstr ""
+"KLog utilizzerà automaticamente la tua precedente risposta per ogni altro"
+" riferimento simile, se trovato, senza richiedertelo."
 
 #: ../filemanager.cpp:3340
 #, qt-format
@@ -1015,11 +1026,13 @@ msgid ""
 "<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: "
 "%3</li><li>Mode: %4</li></ul>"
 msgstr ""
+"<ul><li>Data/Ora:</i> %1</li><li>Nominativo: %2</li><li>Banda: "
+"%3</li><li>Modo: %4</li></ul>"
 
 #: ../filemanager.cpp:3344
 msgctxt "FileManager|"
 msgid "KLog - QSO not found"
-msgstr ""
+msgstr "KLog - QSO non trovato"
 
 #: ../filemanager.cpp:3346
 msgctxt "FileManager|"
@@ -1027,6 +1040,8 @@ msgid ""
 "Do you want to add this QSO to the log?:\n"
 "\n"
 msgstr ""
+"Aggiungo questo QSO al log?:\n"
+"\n"
 
 #: ../filemanager.cpp:3347
 msgctxt "FileManager|"
@@ -1035,6 +1050,9 @@ msgid ""
 "\n"
 "Do you want KLog to add this QSO to the log?"
 msgstr ""
+"Trovato un QSO proveniente da LoTW assente dal tuo log locale.\n"
+"\n"
+"Aggiungo questo QSO al log?"
 
 #: ../filemanager.cpp:3370
 msgctxt "FileManager|"
@@ -1047,6 +1065,8 @@ msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported log file?"
 msgstr ""
+"Manca il nominativo. Esporto comunque il QSO "
+"(clicca su Sì) o rimuove il campo dal file log esportato?"
 
 #: ../filemanager.cpp:3381
 #, qt-format
@@ -1539,7 +1559,7 @@ msgstr "KLog - File non trovato"
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "The file %1 already exists."
-msgstr ""
+msgstr "Il file %1 è già presente."
 
 #: ../lotwutilities.cpp:395
 msgctxt "LoTWUtilities|"
@@ -1800,7 +1820,7 @@ msgstr "Collegamento DX"
 #: ../mainwindow.cpp:182
 msgctxt "MainWindow|"
 msgid "&Log Window"
-msgstr ""
+msgstr "Finestra &Log"
 
 #: ../mainwindow.cpp:368
 msgctxt "MainWindow|"
@@ -1978,6 +1998,7 @@ msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to LoTW."
 msgstr ""
+"Devi scegliere un nominativo di stazione per trasmettere il tuo log a LoTW."
 
 #: ../mainwindow.cpp:5454
 msgctxt "MainWindow|"
@@ -2070,7 +2091,7 @@ msgstr "Esporta l'attuale log su un log file ADIF."
 #: ../mainwindow.cpp:3075
 msgctxt "MainWindow|"
 msgid "Export all logs to ADIF..."
-msgstr ""
+msgstr "Esporta tutti i logs su ADIF..."
 
 #: ../mainwindow.cpp:3079
 msgctxt "MainWindow|"
@@ -2546,13 +2567,13 @@ msgstr ""
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1 - QSOs: %2 - %3"
-msgstr ""
+msgstr "KLog - %1 - QSOs: %2 - %3"
 
 #: ../mainwindow.cpp:704
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1 - QSOs: %2"
-msgstr ""
+msgstr "KLog - %1 - QSOs: %2"
 
 #: ../mainwindow.cpp:2993
 msgctxt "MainWindow|"
@@ -2810,7 +2831,7 @@ msgstr "Nominativo di stazione"
 #: ../mainwindow.cpp:7279
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
-msgstr ""
+msgstr "Nominativo operatore"
 
 #: ../mainwindow.cpp:7359
 msgctxt "MainWindow|"
@@ -3591,6 +3612,13 @@ msgid ""
 "\n"
 "KLog will finish when you click on OK."
 msgstr ""
+"La sequenza di aggiornamento è:\n"
+"- Esporta il log su ADIF utilizzando una vecchia versione di KLog.\n"
+"- Rimuovi il file logbook.dat dalla tua cartella dati KLog.\n"
+"- Installa la nuova versione KLog.\n"
+"- Importa il file ADIF appena esportato.\n"
+"\n"
+"KLog terminerà appena cliccherai su OK."
 
 #: ../database.cpp:2180 ../database.cpp:3844 ../database.cpp:4022
 #: ../database.cpp:4224 ../database.cpp:4433
@@ -3684,37 +3712,39 @@ msgid ""
 "Upgrading software may potentially cause problems. Backing up your DB, "
 "before upgrading, is always a good idea."
 msgstr ""
+"Aggiornare il software può causare problemi. Fare un backup del tuo DB, prima"
+" di procedere con l'aggiornamento, è sempre una buona idea."
 
 #: ../database.cpp:1500
 msgctxt "QObject|"
 msgid "Do you want to backup your DB now?"
-msgstr ""
+msgstr "Vuoi fare il backup del tuo DB, adesso?"
 
 #: ../database.cpp:1544
 msgctxt "QObject|"
 msgid "The backup finished successfully."
-msgstr ""
+msgstr "Il backup è terminato correttamente."
 
 #: ../database.cpp:1545
 #, qt-format
 msgctxt "QObject|"
 msgid "You can find the backup in this file: %1"
-msgstr ""
+msgstr "Il tuo backup si trova nel file: %1"
 
 #: ../database.cpp:1555
 msgctxt "QObject|"
 msgid "The backup was not properly done."
-msgstr ""
+msgstr "Il backup NON è stato completato con successo."
 
 #: ../database.cpp:1556
 msgctxt "QObject|"
 msgid "You will be sent back to the starting point."
-msgstr ""
+msgstr "Sarai riportato al punto di partenza."
 
 #: ../database.cpp:2041
 msgctxt "QObject|"
 msgid "KLog - DB can't be updated automatically"
-msgstr ""
+msgstr "KLog - Il DB non può essere aggiornato automaticamente"
 
 #: ../database.cpp:2042
 msgctxt "QObject|"
@@ -3722,6 +3752,8 @@ msgid ""
 "You are upgrading from a too old KLog version and this upgrade can't be "
 "upgraded automatically from that version."
 msgstr ""
+"Ho trovato una versione KLog troppo vecchia, quindi l'aggiornamento  alla"
+" nuova versione non può avvenire in modo automatico."
 
 #: ../database.cpp:2309
 msgctxt "QObject|"
@@ -3952,18 +3984,18 @@ msgstr "Banda"
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:208
 msgctxt "SearchWindow|"
 msgid "Mode"
-msgstr ""
+msgstr "Modo"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:214
 msgctxt "SearchWindow|"
 msgid "QSL Sent"
-msgstr ""
+msgstr "QSL Trasmessa"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:218
 #: ../searchwindow.cpp:316
 msgctxt "SearchWindow|"
 msgid "QSL Rcvd"
-msgstr ""
+msgstr "QSL Ricevuta"
 
 #: ../searchwindow.cpp:85
 #, fuzzy
@@ -3980,7 +4012,7 @@ msgstr "ID"
 #: ../searchwindow.cpp:192
 msgctxt "SearchWindow|"
 msgid "Date/time"
-msgstr ""
+msgstr "Data/ora"
 
 #: ../searchwindow.cpp:224
 #, fuzzy
@@ -3991,7 +4023,7 @@ msgstr "Nominativo di stazione"
 #: ../searchwindow.cpp:295
 msgctxt "SearchWindow|"
 msgid "QSL Send"
-msgstr ""
+msgstr "Trasmette QSL"
 
 #: ../searchwindow.cpp:369
 #, fuzzy
@@ -4026,17 +4058,17 @@ msgstr "Via &bureau"
 #: ../searchwindow.cpp:378
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau"
-msgstr ""
+msgstr "Trasmetti la QSL via bureau"
 
 #: ../searchwindow.cpp:381
 msgctxt "SearchWindow|"
 msgid "D&irect"
-msgstr ""
+msgstr "D&irect"
 
 #: ../searchwindow.cpp:382
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct"
-msgstr ""
+msgstr "Trasmetti la QSL via direct"
 
 #: ../searchwindow.cpp:385
 #, fuzzy
@@ -4053,7 +4085,7 @@ msgstr "QSL &ricevuta via bureau"
 #: ../searchwindow.cpp:389
 msgctxt "SearchWindow|"
 msgid "Direct"
-msgstr ""
+msgstr "Direct"
 
 #: ../searchwindow.cpp:390
 #, fuzzy
@@ -4720,12 +4752,12 @@ msgstr "seleziona il tuo rig."
 #: ../setuppages/setuppagehamlib.cpp:79
 msgctxt "SetupPageHamLib|"
 msgid "Defines the interval to poll the radio in msecs."
-msgstr ""
+msgstr "Imposta l'intervallo di poll della radio in msecondi."
 
 #: ../setuppages/setuppagehamlib.cpp:85
 msgctxt "SetupPageHamLib|"
 msgid "Poll interval"
-msgstr ""
+msgstr "Intervallo di poll"
 
 #: ../setuppages/setuppagehamlib.cpp:97
 msgctxt "SetupPageHamLib|"
@@ -4774,7 +4806,7 @@ msgstr "6 bit"
 #: ../setuppages/setuppagehamlib.cpp:118
 msgctxt "SetupPageHamLib|"
 msgid "7 bits"
-msgstr ""
+msgstr "7 bit"
 
 #: ../setuppages/setuppagehamlib.cpp:118
 msgctxt "SetupPageHamLib|"
@@ -5050,7 +5082,7 @@ msgstr "Commenti"
 #: ../setuppages/setuppagelogs.cpp:532
 msgctxt "SetupPageLogs|"
 msgid "The new log could not be created."
-msgstr ""
+msgstr "Il nuovo log potrebbe non essere creato."
 
 #: ../setuppages/setuppagelogs.cpp:693
 msgctxt "SetupPageLogs|"
@@ -5098,6 +5130,8 @@ msgid ""
 "Add a comment about this log. If filled, it will be shown in the main KLog "
 "title to identify the log."
 msgstr ""
+"Inserisci una breve descrizione per questo log. Se lo inserisci, sarà"
+" mostrato sul titolo principale di KLog per distinguerlo."
 
 #: ../setuppages/setuppagelogsnew.cpp:162
 msgctxt "SetupPageLogsNew|"
@@ -5680,7 +5714,7 @@ msgstr ""
 #: ../setuppages/setuppageudp.cpp:41
 msgctxt "SetupPageUDP|"
 msgid "Update status information from WSJT-X"
-msgstr ""
+msgstr "Aggiornamento informazione di stato da WSJT-X"
 
 #: ../setuppages/setuppageudp.cpp:42
 msgctxt "SetupPageUDP|"
@@ -5688,6 +5722,8 @@ msgid ""
 "KLog will automatically show and update data coming from WSJT-X (DX "
 "callsign, Report, mode, ...)"
 msgstr ""
+"KLog automaticamente mosterò ed aggiornerà i dati provenienti da WSJT-X (DX,"
+" nominativo, report, modo, ...)"
 
 #: ../setuppages/setuppageudp.cpp:58
 msgctxt "SetupPageUDP|"
@@ -6220,7 +6256,7 @@ msgstr "Zone CQ"
 #: ../charts/statscqzperyearbarchartwidget.cpp:58
 msgctxt "StatsCQZPerYearBarChartWidget|"
 msgid "CQ zones per year"
-msgstr ""
+msgstr "Zone CQ per anno"
 
 #: ../charts/statscqzperyearbarchartwidget.cpp:70
 msgctxt "StatsCQZPerYearBarChartWidget|"
