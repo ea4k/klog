@@ -1,9 +1,9 @@
-#ifndef SETUPPAGEINTERFACESWINDOWS_H
-#define SETUPPAGEINTERFACESWINDOWS_H
+#ifndef SEARCHMODEL_H
+#define SEARCHMODEL_H
 /***************************************************************************
-                          setuppageinterfaceswindows.h  -  description
+                          searchmodel.h  -  description
                              -------------------
-    begin                : feb 2020
+    begin                : sep 2020
     copyright            : (C) 2020 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
@@ -25,45 +25,44 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
+#include <QDebug>
+#include <QSqlRelationalTableModel>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QSqlError>
+#include "awards.h"
+#include "dataproxy_sqlite.h"
 
-#include <QObject>
-#include <QtWidgets>
 
-
-class SetupPageInterfacesWindows : public QWidget
+class SearchModel : public QSqlRelationalTableModel
 {
     Q_OBJECT
 public:
-    SetupPageInterfacesWindows(QWidget *parent = nullptr);
-    ~SetupPageInterfacesWindows();
-
-    void setSendToPSTRotator(const QString &_t);
-    void setPSTRotatorUDPServerPort(const QString &_t);
-    void setPSTRotatorUDPServer(const QString &_t);
-
-    QString getSendToPSTRotator();
-    QString getPSTRotatorUDPServerPort();
-    QString getPSTRotatorUDPServer();
-
+    SearchModel(DataProxy_SQLite *dp, QObject *parent);
+    void createSearchModel(const int _i);
+    void setFilterString(const QString &_st);
+    void setStationCallsignInHeader(const bool _s);
+    void update();
+    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void setDXCCColumn(const int _i);
+    void setBandIdColumn(const int _i);
+    void setModeIdColumn(const int _i);
+    void setLogNColumn(const int _i);
 
 private:
-    void createUI();
-    void createActions();
+    //void setColumnsToDX();
+    //QSqlRelationalTableModel *SearchModel;
+    QVariant data(const QModelIndex &index, int role) const;
+    Awards *award;
 
-    QCheckBox *sendToPSTRotatorCheckBox;
-    QSpinBox *PSTRotatorUDPServerPortSpinBox;
-    QLineEdit *PSTRotatorServerLineEdit;
-    int PSTRotatorDefaultport;
-    QString PSTRotatorServer;
-
-    
+    DataProxy_SQLite *dataProxy;
+    bool stationCallsignInHeader;
+    int dxcc, bandid, modeid, logn;
 signals:
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
-public slots:
-    //void slotLogFromWSJTCheckBoxClicked();
-    //void slotUDPServerCheckBoxClicked();
-    void slotSendToPSTRotatorCheckBoxClicked();
-    
 };
 
-#endif // SetupPageInterfacesWindows_H
+#endif // SEARCHMODEL_H
+
+
