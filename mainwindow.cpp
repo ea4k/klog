@@ -7202,28 +7202,28 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
     if (!_datetime.isValid() || !_datetime_off.isValid())
     {
-        //qDebug() << "MainWindow::slotWSJTX-loggedQSO: DATES NOT VALID " << endl;
+         //qDebug() << "MainWindow::slotWSJTX-loggedQSO: DATES NOT VALID " << endl;
         return ;
     }
 
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq no div: " << QString::number(_freq) << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO band: " << _band << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO my_grid: " << _mygrid << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dxgrid << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO comment: " << _comment << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO StationCall: " << _stationcallsign << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO _opCall: " << _opCall << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO opCall: " << opCall << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _rstTX << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _rstRX << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_sent: " << _exchangeTX << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_rec: " << _exchangeRX << endl;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO MY_PWR: " << _mypwr << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq no div: " << QString::number(_freq) << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO band: " << _band << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO my_grid: " << _mygrid << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dxgrid << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO comment: " << _comment << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO StationCall: " << _stationcallsign << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO _opCall: " << _opCall << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO opCall: " << opCall << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _rstTX << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _rstRX << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_sent: " << _exchangeTX << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_rec: " << _exchangeRX << endl;
+           //qDebug() << "MainWindow::slotWSJTX-loggedQSO MY_PWR: " << _mypwr << endl;
 
 
     if (wsjtxAutoLog)
@@ -7426,7 +7426,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
             //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT/IN - Heartbeat" << endl;
         break;
         case 1:
-                  //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
+            //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" << endl;
              mainQSOEntryWidget->setQRZ(_dxcall);
              if ((!noMoreModeErrorShown) && (dataProxy->getSubModeIdFromSubMode(_mode)>0) )
              {

@@ -3,7 +3,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.3.1
+VERSION = 1.3.2
 DEFINES += APP_VERSION="$$VERSION"
 
 
