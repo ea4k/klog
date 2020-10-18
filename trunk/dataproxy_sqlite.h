@@ -137,7 +137,11 @@ public:
 
     bool updateAwardDXCC();
     bool updateAwardWAZ();
+    //CLUBLOG
+    bool clublogSentQSOs(const QList<int> &_qsos); // Mark as uploaded
+    bool clublogModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to CLubLog
 
+    // CLUBLOG
 
     //LOTW
     bool lotwSentQueue(const QDate &_updateDate, const int _currentLog);          // Mark LOTW QSL SENT as Q (Queued)
@@ -147,6 +151,8 @@ public:
     QList<int> getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
     QStringList getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
     QStringList getQSODetailsForLoTWDownload(const int _id);
+
+    QList<int> getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);

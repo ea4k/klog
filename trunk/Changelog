@@ -1,3 +1,18 @@
+TBD - 1.4
+TODO:- New feature: eQSL syncronization
+
+- New feature: - New feature: ClubLog log upload.
+- New feature: It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
+- Bugfix: PROGRAMID ADIF data was not properly tagged.
+- Bugfix: When selecting the QSOs to upload to LoTW, if the selected call was the first one on the combobox, selection didn't worked properly.
+- Bugfix: When importing ADIF files with fields without RST_SENT or RST_RCVD the proposed default value was not adapted to the mode of that QSO.
+- Bugfix: Extension .adi was always added, even if the file had it already.
+- Bugfix: When doing a database backup, the name of the file was not being properly defined.
+- Bugfix: ClubLog realtime syncronization was not working properly.
+
+October - 1.3.2
+- Bugfix: Data comming from WSJT-X, when several WSJT-X instances were running was not properly parsed. (TNX 2E0WJW)
+
 October - 1.3.1
 - Translations: Croatian (TNX M0NKC).
 

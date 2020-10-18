@@ -3,7 +3,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.3.1
+VERSION = 1.4
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -39,12 +39,14 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
+    eqslutilities.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     qso.h \     \
     searchmodel.h \
     searchwindow.h \
+    setuppages/setuppageeqsl.h \
     widgets/adiflotwexportwidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -114,6 +116,7 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
+    eqslutilities.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
@@ -121,6 +124,7 @@ SOURCES += main.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
+    setuppages/setuppageeqsl.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/showadifimportwidget.cpp \
     world.cpp \

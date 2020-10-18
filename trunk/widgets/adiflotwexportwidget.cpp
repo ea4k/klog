@@ -110,25 +110,39 @@ void AdifLoTWExportWidget::fillTable()
        {
            case ModeADIF:
            justQueued = false;
+           //qDebug() << "AdifLoTWExportWidget::fillTable ADIF" << endl;
            break;
        case ModeLotW:
+           //qDebug() << "AdifLoTWExportWidget::fillTable LoTW" << endl;
            justQueued = true;
+
+           break;
+       case ModeClubLog:
+           //qDebug() << "AdifLoTWExportWidget::fillTable ClubLog" << endl;
+           //justQueued = false;
 
            break;
        }
 
        if (stationCallsignComboBox->currentIndex() == 0)
        { // Not defined station_callsign (blank)
-           //
            qsos.append(dataProxy->getQSOsListLoTWNotSent(QString(), startDate->date(), endDate->date(), justQueued));
        }
-       else if(stationCallsignComboBox->currentIndex() == 1)
+       else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
        { // ALL stations, no matter the station.
            qsos.append(dataProxy->getQSOsListLoTWNotSent("ALL", startDate->date(), endDate->date(), justQueued));
        }
        else
        {
-           qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), justQueued));
+           if (currentExportMode == ModeClubLog)
+           {
+               qsos.append(dataProxy->getQSOsListClubLogToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+           }
+           else
+           {
+                qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), justQueued));
+           }
+
        }
        //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
        //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << endl;
@@ -226,7 +240,7 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
     }
     else if (stationCallsignComboBox->currentIndex() == 1)
     {
-        if (currentExportMode == ModeLotW)
+        if ((currentExportMode == ModeLotW) || (currentExportMode == ModeClubLog))
         {
             emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
         }
@@ -259,8 +273,7 @@ void AdifLoTWExportWidget::closeEvent(QCloseEvent *event)
 void AdifLoTWExportWidget::showEvent(QShowEvent *event)
 {
     //qDebug() << "AdifLoTWExportWidget::showEvent" << endl;
-    //startDate->setDate(QDate::fromString((dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy-MM-dd"));
-    //endDate->setDate(QDate::fromString((dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText())), "yyyy-MM-dd"));
+
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
 
@@ -275,8 +288,13 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
     currentExportMode = _EMode;
     if (currentExportMode == ModeLotW)
     {
-        setWindowTitle("KLog - QSOs to be uploaded to LoTW.");
+        setWindowTitle(tr("KLog - QSOs to be uploaded to LoTW."));
         topLabel->setText(tr("This table shows the QSOs that will be sent to LoTW."));
+    }
+    else if (currentExportMode == ModeClubLog)
+    {
+        setWindowTitle(tr("KLog - QSOs to be uploaded to ClubLog."));
+        topLabel->setText(tr("This table shows the QSOs that will be sent to ClubLog."));
     }
     else
     {

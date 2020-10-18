@@ -239,7 +239,8 @@ void UDPServer::parse(const QByteArray &msg)
        //qDebug() << "UDPServer::parse: -   id = " << id << endl;
 
 
-    if ((magic != 2914831322) || (id != "WSJT-X"))
+    //if ((magic != 2914831322) || (id != "WSJT-X"))
+    if (magic != 2914831322)
     {
         //qDebug() << "UDPServer::parse: - Magic BAD FORMAT = " << QString::number(magic)<< endl;
         return;

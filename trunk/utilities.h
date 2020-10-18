@@ -37,7 +37,7 @@
 #include "locator.h"
 #include <QtDebug>
 
-enum ExportMode {ModeLotW, ModeADIF};
+enum ExportMode {ModeLotW, ModeADIF, ModeClubLog};
 
 class Utilities
 {

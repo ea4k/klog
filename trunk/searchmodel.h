@@ -1,10 +1,10 @@
-#ifndef MAINWINDOWINPUTCOMMENT_H
-#define MAINWINDOWINPUTCOMMENT_H
+#ifndef SEARCHMODEL_H
+#define SEARCHMODEL_H
 /***************************************************************************
-                          mainwindowminputcomment.h  -  description
+                          searchmodel.h  -  description
                              -------------------
-    begin                : ago 2016
-    copyright            : (C) 2016 by Jaime Robles
+    begin                : sep 2020
+    copyright            : (C) 2020 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -25,29 +25,44 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
-//
-// This class implement the tab of the mainwindow that supports the Comment
-//
-#include <QWidget>
-#include <QtWidgets>
+#include <QDebug>
+#include <QSqlRelationalTableModel>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QSqlError>
+#include "awards.h"
+#include "dataproxy_sqlite.h"
 
-class MainWindowInputComment : public QWidget
+
+class SearchModel : public QSqlRelationalTableModel
 {
     Q_OBJECT
-
 public:
-    explicit MainWindowInputComment(QWidget *parent = nullptr);
-    ~MainWindowInputComment();
-    void createUI();
-    void setData(const QString &_comment);
-    QString getComment();
-    void clear();
+    SearchModel(DataProxy_SQLite *dp, QObject *parent);
+    void createSearchModel(const int _i);
+    void setFilterString(const QString &_st);
+    void setStationCallsignInHeader(const bool _s);
+    void update();
+    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void setDXCCColumn(const int _i);
+    void setBandIdColumn(const int _i);
+    void setModeIdColumn(const int _i);
+    void setLogNColumn(const int _i);
 
 private:
-    QString comment;
-    QLineEdit *commentLineEdit;
-    QRadioButton *keepThisDataForNextQSORadiobutton;
+    //void setColumnsToDX();
+    //QSqlRelationalTableModel *SearchModel;
+    QVariant data(const QModelIndex &index, int role) const;
+    Awards *award;
+
+    DataProxy_SQLite *dataProxy;
+    bool stationCallsignInHeader;
+    int dxcc, bandid, modeid, logn;
+signals:
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
 
-#endif // MAINWINDOWINPUTCOMMENT_H
+#endif // SEARCHMODEL_H
+
+

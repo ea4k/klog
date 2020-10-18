@@ -132,20 +132,22 @@ void MainWindowInputEQSL::setDefaultData()
 void MainWindowInputEQSL::clear()
 {
       //qDebug() << "MainWindowInputEQSL::clear"  << endl;
-    clublogComboBox->setCurrentIndex(1); // Do not upload
+     // Do not upload
     if (queueSentByDefault)
     {
-         eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
-         lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
+        clublogComboBox->setCurrentIndex( clublogComboBox->findText("M", Qt::MatchStartsWith));
+        eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
+        lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
     }
     else
     {
-        eqslSentComboBox->setCurrentIndex(1);
-        lotwSentComboBox->setCurrentIndex(1);
+        clublogComboBox->setCurrentIndex( clublogComboBox->findText("N", Qt::MatchStartsWith));
+        eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("N", Qt::MatchStartsWith));
+        lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("N", Qt::MatchStartsWith));
     }
 
-    eqslRecComboBox->setCurrentIndex(1);    
-    lotwRecComboBox->setCurrentIndex(1);
+    eqslRecComboBox->setCurrentIndex(eqslRecComboBox->findText("N", Qt::MatchStartsWith));
+    lotwRecComboBox->setCurrentIndex(lotwRecComboBox->findText("N", Qt::MatchStartsWith));
 
     eqslSentQDateEdit->setDate(util->getDefaultDate());
     eqslRecQDateEdit->setDate(util->getDefaultDate());
@@ -159,7 +161,7 @@ void MainWindowInputEQSL::clear()
 QString MainWindowInputEQSL::getClubLogStatus()
 {
     QString _pm = QString();
-     //qDebug() << "MainWindowInputEQSL::getClubLogStatus:" << clublogComboBox->currentText() << endl;
+    //qDebug() << "MainWindowInputEQSL::getClubLogStatus:" << clublogComboBox->currentText() << endl;
      _pm = (((clublogComboBox->currentText()).split('-')).at(0)).simplified();
      //qDebug() << "MainWindowInputEQSL::getClubLogStatus: " << _pm << endl;
      //if (_pm == "Not")
