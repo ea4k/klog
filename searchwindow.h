@@ -1,11 +1,11 @@
-#ifndef LOGWINDOW_H
-#define LOGWINDOW_H
+#ifndef SEARCHWINDOW_H
+#define SEARCHWINDOW_H
 
 /***************************************************************************
-                          logwindow.h  -  description
+                          searchwindow.h  -  description
                              -------------------
-    begin                : sept 2011
-    copyright            : (C) 2011 by Jaime Robles
+    begin                : sept 2020
+    copyright            : (C) 2020 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -29,35 +29,34 @@
 
 #include <QtWidgets>
 #include <QWidget>
-//#include <QSqlRelationalTableModel>
-#include <QTableView>
+//#include <QTableView>
+#include <QTreeView>
 #include <QAction>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
 #include <QDesktopServices>
 #include "dataproxy_sqlite.h"
-#include "logmodel.h"
+#include "searchmodel.h"
 #include "awards.h"
-//#include "dxccstatuswidget.h"
 //#include "elogclublog.h"
 #include "utilities.h"
-//#include "logviewsortfilterproxymodel.h"
 
-//class  LogViewSortFilterProxyModel;
-//class ItemDelegate;
-
-class LogWindow : public  QWidget
+class SearchWindow : public  QWidget
 {
     Q_OBJECT
 
 public:
-    explicit LogWindow(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    ~LogWindow();
+    explicit SearchWindow(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    ~SearchWindow();
     void createlogPanel(const int _currentLog);
     void clear();
     void refresh();
-    void setCurrentLog(const int _currentLog);
+
+    void selectAll();
+    void clearSelection();
+    void setStationCallsignInHeader(const bool _h);
+
 
     void qslSentViaBureau(const int _qsoId);    //Maybe this could be defined as private and call it with an action, if needed.
     void qslRecViaBureau(const int _qsoId);     //Maybe this could be defined as private and call it with an action, if needed.
@@ -67,15 +66,22 @@ public:
     bool isQSLSent(const int _qsoId);
     //void setProxyModel (const bool _p);
     void sortColumn(const int _c);
+    void setFilterString(const QString &_st);
+    QList<int> getSelectedQSOs();
+    void setNeedingQSL(bool const _q);
+    void slotToolSearchQSL(const int actionQSL);
+    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+
+
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
     void actionDeleteQSO(const int _qsoid);
     void updateAwards();
-    void updateSearchText();   
-    //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
+    void updateSearchText();
+    void updateSearchLineEdit();
+    void requestFocus();
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
-    //void clearError();
 
 private slots:
 
@@ -86,11 +92,19 @@ private slots:
     void slotQSLSentViaDirectFromLog();
     void slotQSLRecViaDirectFromLog();
     void slotQSLRecViaBureauFromLog();
+    void slotQSLSentMarkAsRequested();
+    void slotQSLRecMarkAsRequested();
     void slotQsoDeleteFromLog();
     void slotQSOToEditFromLog();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
     void slotCheckQRZCom();
     void slotCheckDXHeatCom();
+
+    void slotQSLSentViaDirectMarkDXReqFromSearch();
+    void slotQSLSentViaBureauMarkDXReqFromSearch();
+    //void slotQSLRecMarkAsRequested();
+    void slotQSLRecViaDirectMarkReqFromSearch();
+    void slotQSLRecViaBureauMarkReqFromSearch();
 
 
 private:    
@@ -98,22 +112,26 @@ private:
     void createActionsCommon();
     void createActions();
 
-    void deleteQSO(const int _qsoID);
-    void rightButtonFromLogMenu(const int trow);
+    //void deleteQSO(const int _qsoID);
+    void rightButtonFromLogMenu(const int row);
     void showMenuRightButtonFromLogCreateActions();
-
-
+    //void slotToolSearchQSL(const int actionQSL);
+    void searchToolNeededQSLToSend();
     void setDefaultData();
     void setColumnsToDX();
+    //void qslRecViaDirectMarkReq(const int _qsoId);
+    //void qslRecViaBureauMarkReq(const int _qsoId);
+    //void colorTheList();
 
-
+    bool qslingNeeded;
     DataProxy_SQLite *dataProxy;
-    LogModel *logModel;
+    SearchModel *searchModel;
     Awards *awards;
-    //DXCCStatusWidget *dxccStatusWidget;
+
     //eLogClubLog *elogClublog;
 
-    QTableView *logView;
+    //QTableView *logView;
+    QTreeView *treeView;
     QLabel *logLabel;
 
     QAction *delQSOFromLogAct;
@@ -125,24 +143,18 @@ private:
     QAction *checkQRZCOMFromLogAct;
     QAction *checkDXHeatFromLogAct;
 
+    QAction *qslSentRequestedAct;
+    QAction *qslSentViaDirectMarkRcvReqFromSearchAct;
+    QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
+    QAction *qslRecViaBureauMarkReqFromSearchAct;
+    QAction *qslRecViaDirectMarkReqFromSearchAct;
+    QAction *qslRecRequestedAct;
+
     int currentLog;
 
     Utilities *util;
+    bool showStationCallsignInHeader;
 
-   //LogViewSortFilterProxyModel *proxyModel;
-   //bool sortingThroughProxyModel;
 };
-/*
-class ItemDelegate: public QStyledItemDelegate
-{
-    Q_OBJECT
 
-public:
-    ItemDelegate(QWidget *parent=nullptr){}
-
-    QString displayText(const QVariant &value, const QLocale &locale) const;
-
-    //QString displayText (const QVariant &value);
-};
-*/
-#endif // LOGWINDOW_H
+#endif // SEARCHWINDOW_H

@@ -3,7 +3,7 @@
 /***************************************************************************
                           setuppclublog.h  -  description
                              -------------------
-    begin                : apt 2015
+    begin                : apr 2015
     copyright            : (C) 2015 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
@@ -39,7 +39,7 @@ public:
 
     void setEmail(const QString &c);
     void setPassword(const QString &c);
-    void setCallsign(const QString &c);
+    //void setCallsign(const QString &c);
     void setClubLog(const QString &_s);
     void setClubLogRealTime(const QString &_s);
     void setUseStationCall(const QString &_s);
@@ -48,26 +48,30 @@ public:
 
     QString getEmail();
     QString getPassword();
-    QString getCallsign();
+    //QString getCallsign();
     QString getClubLog();
     QString getClubLogRealTime();
-    QString getUseQSOStationCallsign();
+    //QString getUseQSOStationCallsign();
 
 
 
 private slots:
 
     void slotClubLogActive(bool _s);
-    void slotUseStationCall(bool _s);
+    //void slotUseStationCall(bool _s);
+    void slotEnterKeyPressed();
+
+signals:
+    void enterKey();
 
 private:
 
     //QString defaultFileName;
 
-    QCheckBox *sendInRealTimeCheckBox, *clubLogActiveCheckBox, *useQSOStationCallCheckBox;
-    QLineEdit *passwordLineEdit, *emailLineEdit, *callLineEdit;
-    QString call, email, pass;
-    QLabel *callLabel, *passwordLabel, *emailLabel;
+    QCheckBox *sendInRealTimeCheckBox, *clubLogActiveCheckBox;//, *useQSOStationCallCheckBox;
+    QLineEdit *passwordLineEdit, *emailLineEdit;//, *callLineEdit;
+    QString email, pass; //call,
+    QLabel *passwordLabel, *emailLabel; //*callLabel,
     bool clubLogActive;
 
     //QPushButton *fileNameButton;

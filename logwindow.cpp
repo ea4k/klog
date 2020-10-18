@@ -37,7 +37,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
-    elogClublog = new eLogClubLog();    
+    //elogClublog = new eLogClubLog();
     currentLog = -1;
     //proxyModel = new LogViewSortFilterProxyModel(this);
 
@@ -408,12 +408,22 @@ void LogWindow::slotQSOToEditFromLog()
     //TODO: To be added to the logWindow and create an action that emit the QSO id
 }
 
+void LogWindow::deleteQSO(const int _qsoId)
+{
+   //qDebug() << "LogWindow::deleteQSO " << QString::number(_qsoId) << endl;
+    emit actionDeleteQSO(_qsoId);
+}
 
-
+/*
 void LogWindow::deleteQSO(const int _qsoID)
 {
        //qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID) << endl;
-    elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(_qsoID));
+
+
+
+
+    emit actionDeleteQSO(_qsoID);
+    //elogClublog->deleteQSO(dataProxy->getClubLogRealTimeFromId(_qsoID));
     dataProxy->deleteQSO(_qsoID);
 
     //logModel->removeRow((delQSOFromLogAct->data()).toInt()); //TODO: This has been replaced by the previous line
@@ -424,12 +434,12 @@ void LogWindow::deleteQSO(const int _qsoID)
     emit updateSearchText();
 
 }
-
+*/
 void LogWindow::slotQsoDeleteFromLog()
 {
       //qDebug() << "LogWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << endl;
     //TODO: To be added to the logWindow and create an action that emist the QSO id
-
+/*
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Information);
     msgBox.setText(tr("You have requested to delete this QSO."));
@@ -437,11 +447,11 @@ void LogWindow::slotQsoDeleteFromLog()
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     int ret = msgBox.exec();
-
+*/
     int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
-
+    deleteQSO(QSOid);
       //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << endl;
-
+    /*
     switch (ret) {
       case QMessageBox::Yes:
           //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): -1" << endl;
@@ -455,6 +465,7 @@ void LogWindow::slotQsoDeleteFromLog()
           // should never be reached
           break;
     }
+    */
 }
 
 void LogWindow::qslSentViaBureau(const int _qsoId)

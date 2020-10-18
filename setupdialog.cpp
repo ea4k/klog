@@ -81,6 +81,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
       //qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
     clubLogPage = new SetupPageClubLog(this);
     lotwPage = new SetupPageLoTW(this);
+    eQSLPage = new SetupPageEQSL(this);
        //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
     UDPPage = new SetupPageUDP(this);    
       //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
@@ -99,6 +100,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, "ClubLog");
     tabWidget->addTab(lotwPage, "LoTW");
+    tabWidget->addTab(eQSLPage, "eQSL");
     tabWidget->addTab(UDPPage, "WSJT-X");
     tabWidget->addTab(satsPage , tr("Satellites"));
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
@@ -179,6 +181,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     logsPage = new SetupPageLogs(dataProxy, this);
     clubLogPage = new SetupPageClubLog(this);
     lotwPage = new SetupPageLoTW(this);
+    eQSLPage = new SetupPageEQSL(this);
     UDPPage = new SetupPageUDP(this);
     satsPage = new SetupPageSats(dataProxy, this);
     hamlibPage = new SetupPageHamLib(dataProxy, this);
@@ -195,6 +198,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
     tabWidget->addTab(clubLogPage, tr("ClubLog"));
     tabWidget->addTab(lotwPage, tr("LoTW"));
+    tabWidget->addTab(eQSLPage, tr("eQSL"));
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
@@ -258,6 +262,9 @@ void SetupDialog::connectActions()
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     connect (lotwPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
+    connect (eQSLPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
+    connect (clubLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
+
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 
 }
@@ -627,17 +634,25 @@ void SetupDialog::slotOkButtonClicked()
 
         // CLUBLOG
 
-        if ((clubLogPage->getClubLog()).toUpper() == "TRUE" )
-        {
+        if (((clubLogPage->getClubLog()).toUpper() == "TRUE" )  && (clubLogPage->getPassword().length()>0) && (clubLogPage->getEmail().length()>2) )
+        { //TODO: Add a isValidEmail funcion in the clibLogPage
             stream << "ClubLogActive=" << clubLogPage->getClubLog() << ";" <<  endl;
             stream << "ClubLogRealTime=" << clubLogPage->getClubLogRealTime() << ";" <<  endl;
-            stream << "ClubLogCall=" << clubLogPage->getCallsign() << ";" <<  endl;
+            //stream << "ClubLogCall=" << clubLogPage->getCallsign() << ";" <<  endl;
             stream << "ClubLogPass=" << clubLogPage->getPassword() << ";" <<  endl;
             stream << "ClubLogEmail=" << clubLogPage->getEmail() << ";" <<  endl;
-            stream << "ClubLogUseStationCallsign=" << clubLogPage->getUseQSOStationCallsign() << ";" << endl;
+            //stream << "ClubLogUseStationCallsign=" << clubLogPage->getUseQSOStationCallsign() << ";" << endl;
         }
 
-        // CLUBLOG
+        // eQSL
+        if (((eQSLPage->getActive()).toUpper() == "TRUE" ) && (eQSLPage->getCallsign().length()>0) && (eQSLPage->getPassword().length()>0))
+        {
+            stream << "eQSLActive=" << eQSLPage->getActive() << ";" <<  endl;
+            stream << "eQSLCall=" << eQSLPage->getCallsign() << ";" <<  endl;
+            stream << "eQSLPass=" << eQSLPage->getPassword() << ";" <<  endl;
+            stream << "eQSLRealTime=" << eQSLPage->getRealTime() << ";" <<  endl;
+            stream << "eQSLUseStationCallsign=" << eQSLPage->getUseQSOStationCallsign() << ";" << endl;
+        }
 
         // LOTW
         stream << "LoTWActive=" << lotwPage->getLoTW() << ";" <<  endl;
@@ -1048,17 +1063,32 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if(tab =="CLUBLOGREALTIME"){
         clubLogPage->setClubLogRealTime(value);
     }
-    else if(tab =="CLUBLOGCALL"){
-        clubLogPage->setCallsign(value);
-    }
+    //else if(tab =="CLUBLOGCALL"){
+    //    clubLogPage->setCallsign(value);
+    //}
     else if(tab =="CLUBLOGPASS"){
         clubLogPage->setPassword(value);
     }
     else if(tab =="CLUBLOGEMAIL"){
         clubLogPage->setEmail(value);
     }
-    else if(tab =="CLUBLOGUSESTATIONCALLSIGN"){
-            clubLogPage->setUseStationCall(value);
+    //else if(tab =="CLUBLOGUSESTATIONCALLSIGN"){
+    //        clubLogPage->setUseStationCall(value);
+    //}
+    else if(tab =="EQSLACTIVE"){
+    eQSLPage->setActive(value);
+    }
+    else if(tab =="EQSLREALTIME"){
+        eQSLPage->setRealTime(value);
+    }
+    else if(tab =="EQSLCALL"){
+        eQSLPage->setCallsign(value);
+    }
+    else if(tab =="EQSLPASS"){
+        eQSLPage->setPassword(value);
+    }
+    else if(tab =="EQSLUSESTATIONCALLSIGN"){
+        eQSLPage->setUseStationCall(value);
     }
     else if(tab =="LOTWACTIVE"){
         lotwPage->setLoTW(value);

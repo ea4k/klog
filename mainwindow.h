@@ -74,6 +74,7 @@
 
 //#include "pstrotatorsupport.h"
 #include "lotwutilities.h"
+#include "eqslutilities.h"
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
 //#include "worldmapwidget.h"
@@ -172,6 +173,7 @@ private slots:
     void slotLoTWDownloadedFileProcess(const QString &_fn);
     //void slotLoTWTest();
 
+    void slotClubLogLogUpload();
     //void slotModeComboBoxChanged();
     //void slotBandComboBoxChanged();
     //void slotIOTAComboBoxChanged();
@@ -270,6 +272,8 @@ private slots:
     void slotElogClubLogShowMessage(const QString &_s);
     void slotElogClubLogProcessAnswer(const int _i, const int _qID);
     void slotElogClubLogDisable(const bool _b);
+    void slotElogClubLogFileUploaded (const int _reply, QList<int> _qsos);
+    void slotElogClubLogModifyCurrentLog();
     //CLUBLOG
 
     void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
@@ -329,6 +333,7 @@ private:
     void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
@@ -475,6 +480,7 @@ private:
     QMenu *toolMenu;
     QMenu *qslToolMenu;
     QMenu *lotwToolMenu;
+    QMenu *clublogToolMenu;
     //QMenu *lotwMarkAllAsQueuedMenu;
     //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
@@ -518,6 +524,9 @@ private:
     QAction *lotwMarkSentYesAct;
     QAction *lotwCallTQSL;
     QAction *lotwUpdateFromLoTWAct;
+
+    QAction *clublogLogUploadAct;
+    QAction *clublogLogModifyCurrentLogAct;
 
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
@@ -682,8 +691,8 @@ private:
     QColor newOneColor;
 
     //<CLUBLOG>
-    bool clublogActive, clublogRealTime;
-    QString clublogUser, clublogPass, clublogEmail;
+    bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
+    QString clublogPass, clublogEmail; //clublogUser,
 
     eLogClubLog *elogClublog;
     int clublogAnswer;
@@ -707,6 +716,10 @@ private:
     bool UDPServerStart;
     // LOTWUTILITIES
     LoTWUtilities *lotwUtilities;
+
+    //eQSLUtilities
+    eQSLUtilities *eqslUtilities;
+
     //LOGVIEW
     //QString bandOld, modeOld;
     //LOGVIEW

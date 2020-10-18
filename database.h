@@ -165,6 +165,7 @@ private:
     bool updateTo015(); // Adds the FT4 mode
     bool updateTo016(); // Recreates the satellite table to add the QO-100
     bool updateTo017(); // Merges the qso_date & time_on fields
+
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);
 

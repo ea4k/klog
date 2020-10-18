@@ -82,11 +82,11 @@ void MainWindowMyDataTab::createUI()
 
     QLabel *operatorLabelN = new QLabel(tr("Operator"));
     operatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
     QLabel *stationCallSignLabelN = new QLabel(tr("Station Callsign"));
-
     stationCallSignLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    QLabel *myLocatorLabelN = new QLabel(tr("My Locator"));
 
+    QLabel *myLocatorLabelN = new QLabel(tr("My Locator"));
     myLocatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     QGridLayout *myDataInputTabWidgetLayout = new QGridLayout;

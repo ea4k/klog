@@ -32,6 +32,7 @@ MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
 {
        //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << endl;
     commentLineEdit = new QLineEdit();
+    keepThisDataForNextQSORadiobutton = new QRadioButton;
     comment.clear();
     createUI();
        //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << endl;
@@ -43,11 +44,24 @@ MainWindowInputComment::~MainWindowInputComment(){}
 void MainWindowInputComment::createUI()
 {
 
+    QLabel *commentLabel = new QLabel(tr("Comment"));
+    commentLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     commentLineEdit->setToolTip(tr("Add a comment for this QSO."));
 
-    QVBoxLayout *tabLayout = new QVBoxLayout;
-    tabLayout->addWidget(commentLineEdit);
+    QLabel *keepLabel = new QLabel();
+    keepLabel->setText(tr("Keep this data"));
+    keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
+    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
+
+    QGridLayout *tabLayout = new QGridLayout;
+    //QVBoxLayout *tabLayout = new QVBoxLayout;
+    //tabLayout->addWidget(commentLineEdit);
+    tabLayout->addWidget(commentLabel, 0, 0);
+    tabLayout->addWidget(commentLineEdit, 0, 1);
+    tabLayout->addWidget(keepLabel, 2, 1);
+    tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 2, 2);
     setLayout(tabLayout);
 }
 
@@ -64,6 +78,9 @@ QString MainWindowInputComment::getComment()
 
 void MainWindowInputComment::clear()
 {
-    comment.clear();
-    commentLineEdit->clear();
+    if (!keepThisDataForNextQSORadiobutton->isChecked())
+    {
+        comment.clear();
+        commentLineEdit->clear();
+    }
 }

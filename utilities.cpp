@@ -297,7 +297,7 @@ QString Utilities::getKLogDBBackupFile()
         }
     }
        //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
-    return dbPath + "/" + QDateTime::currentDateTime().toString("yyyyHHdd-hhmmss") + "-backup-logbook.dat" ;
+    return dbPath + "/" + QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss") + "-backup-logbook.dat" ;
 }
 
 bool Utilities::processConfigLine(const QString &_line)
