@@ -35,9 +35,10 @@
 #include "setuppages/setuppagecolors.h"
 #include "setuppages/setuppagelogs.h"
 #include "setuppages/setuppageworldeditor.h"
-#include "setuppages/setuppageclublog.h"
-#include "setuppages/setuppageeqsl.h"
-#include "setuppages/setuppagelotw.h"
+//#include "setuppages/setuppageclublog.h"
+#include "setuppages/setuppageelog.h"
+//#include "setuppages/setuppageeqsl.h"
+//#include "setuppages/setuppagelotw.h"
 #include "setuppages/setuppageudp.h"
 #include "setuppages/setuppagesats.h"
 #include "setuppages/setuppagehamlib.h"
@@ -123,9 +124,10 @@ private:
     SetupPageColors *colorsPage;
     SetupPageLogs *logsPage;
     SetupPageWorldEditor *worldEditorPage;
-    SetupPageClubLog *clubLogPage;
-    SetupPageEQSL *eQSLPage;
-    SetupPageLoTW *lotwPage;
+    SetupPageELog *eLogPage;
+    //SetupPageClubLog *clubLogPage;
+    //SetupPageEQSL *eQSLPage;
+    //SetupPageLoTW *lotwPage;
     SetupPageUDP *UDPPage;
     SetupPageSats *satsPage;
     SetupPageHamLib *hamlibPage;

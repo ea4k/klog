@@ -174,6 +174,8 @@ private slots:
     //void slotLoTWTest();
 
     void slotClubLogLogUpload();
+    void sloteQSLLogUpload();
+    void slotElogEQSLModifyCurrentLog();
     //void slotModeComboBoxChanged();
     //void slotBandComboBoxChanged();
     //void slotIOTAComboBoxChanged();
@@ -189,6 +191,8 @@ private slots:
     void slotLogRefresh();
     //void slotScoreWinShow();
     void slotQSODelete(const int _id);
+    void slotQSOsDelete(QList<int> _id);
+    void slotQSOsExportToADIF(QList<int> _id);
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
@@ -272,10 +276,13 @@ private slots:
     void slotElogClubLogShowMessage(const QString &_s);
     void slotElogClubLogProcessAnswer(const int _i, const int _qID);
     void slotElogClubLogDisable(const bool _b);
-    void slotElogClubLogFileUploaded (const int _reply, QList<int> _qsos);
+    void slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     void slotElogClubLogModifyCurrentLog();
-    //CLUBLOG
 
+    //CLUBLOG
+    // EQSL
+    void slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
+    // EQSL
     void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
 
     //SATELLITE
@@ -334,6 +341,7 @@ private:
     void updateBandComboBox(const QString &_band);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
@@ -481,6 +489,7 @@ private:
     QMenu *qslToolMenu;
     QMenu *lotwToolMenu;
     QMenu *clublogToolMenu;
+    QMenu *eQSLToolMenu;
     //QMenu *lotwMarkAllAsQueuedMenu;
     //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
@@ -527,6 +536,8 @@ private:
 
     QAction *clublogLogUploadAct;
     QAction *clublogLogModifyCurrentLogAct;
+    QAction *eqslUploadAct;
+    QAction *eqslLogModifyCurrentLogAct;
 
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;

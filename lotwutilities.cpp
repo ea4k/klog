@@ -161,7 +161,7 @@ int LoTWUtilities::download()
         //qDebug() << "LoTWUtilities::download: - 12" << endl;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog - File exist"));
+        msgBox.setWindowTitle(tr("KLog - LoTW File already exists"));
         QString aux = QString(tr("There is a file already existing with the name that will be used.") );
         msgBox.setText(tr("The file %1 already exist. Do you want to overwrite?").arg(fileName));
         msgBox.setDetailedText(aux);
@@ -193,7 +193,7 @@ int LoTWUtilities::download()
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Warning);
-          msgBox.setWindowTitle(tr("KLog - Can't write the file"));
+          msgBox.setWindowTitle(tr("KLog - LoTW Can't write the file"));
           QString aux = QString(tr("KLog was not able to save the file %1.\nError returned: %2") ).arg(fileName).arg(file->errorString());
           msgBox.setText(tr("The file %1 already exists.").arg(fileName));
           msgBox.setDetailedText(aux);
@@ -291,7 +291,7 @@ void LoTWUtilities::slotFinished()
         file->remove();
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - Download error"));
+        msgBox.setWindowTitle(tr("KLog - LoTW Download error"));
         QString aux = QString(tr("The downloading error is: %1") ).arg(reply->errorString());
         msgBox.setText(tr("There was an error while downloading the file from LoTW."));
         msgBox.setDetailedText(aux);
@@ -304,7 +304,7 @@ void LoTWUtilities::slotFinished()
         QUrl newUrl = url.resolved(redirectionTarget.toUrl());
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog - Redirection found"));
+        msgBox.setWindowTitle(tr("KLog - LoTW Redirection found"));
         QString aux = QString(tr("The remote server redirected our connection to %1") ).arg(newUrl.toString());
         msgBox.setText(tr("Do you want to follow the redirection?"));
         msgBox.setDetailedText(aux);
@@ -391,7 +391,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
     {
          //qDebug() << "LoTWUtilities::parseDownloadedFile File not found" << _fileName << endl;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - File not found"));
+        msgBox.setWindowTitle(tr("KLog - LoTW File not found"));
         msgBox.setText(tr("KLog can't find the downloaded file."));
         aux = QString(tr("It was not possible for find the file %1 that has been just downloaded.") ).arg(_fn);
 

@@ -36,6 +36,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     util = new Utilities;
     connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
     logView = new QTableView;
+
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     //elogClublog = new eLogClubLog();
     currentLog = -1;
@@ -109,8 +110,8 @@ void LogWindow::createlogPanel(const int _currentLog)
     logModel->createlogModel(currentLog);
     //proxyModel->setSourceModel(logModel);
     logView->setModel(logModel);
-
     logView->setCurrentIndex(logModel->index(0, 0));
+
 
     //setProxyModel(false);
 
@@ -141,7 +142,7 @@ void LogWindow::createlogPanel(const int _currentLog)
     //logView->setItemDelegateForColumn(1, new ItemDelegate);
     //logView->setItemDelegate(new QSqlRelationalDelegate(this));
 
-    logView->setSelectionMode(QAbstractItemView::SingleSelection);
+    logView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
@@ -206,6 +207,7 @@ void LogWindow::refresh()
 void LogWindow::createActions()
 {
     createActionsCommon();
+    showMenuRightButtonFromLogCreateActions();
 }
 
 void LogWindow::createActionsCommon()
@@ -220,14 +222,53 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 {
        //qDebug() << "LogWindow::slotshowRighButtonFromLog"  << endl;
     int row = (logView->indexAt(pos)).row();
-    showMenuRightButtonFromLogCreateActions();
-    rightButtonFromLogMenu(row);
+    QItemSelectionModel *select = logView->selectionModel();
+    if (select->hasSelection())
+    {       
+        rightButtonMultipleFromLogMenu();
+    }
+    else
+    {
+        rightButtonFromLogMenu(row);
+    }
+
+
+
     //TODO: To be added to the logWindow and create an action that emist the QSO id
+}
+void LogWindow::rightButtonMultipleFromLogMenu()
+{
+    //qDebug() << "LogWindow::slotshowRighButtonMultipleFromLogMenu:  "  << endl;
+
+    QMenu menu(this);
+    menu.addAction(multipleDelQSOsFromLogAct);
+    //menu.addSeparator();
+    menu.addAction(multipleExportToADIFFromLogAct);
+    /*
+    menu.addSeparator();
+
+    QMenu *menuEQsl = menu.addMenu(tr("eQSL"));
+    menuEQsl->addAction(multipleQueueForLoTWFromLogAct);
+    menuEQsl->addAction(multipleQueueForClubLogFromLogAct);
+    menuEQsl->addAction(multipleQueueForEQSLFromLogAct);
+    menu.addMenu(menuEQsl);
+
+    QMenu *menuQslS = menu.addMenu(tr("QSL"));
+
+    QMenu *menuSentQsl = menuQslS->addMenu(tr("QSLs Send"));
+    menuSentQsl->addAction(multipleQslSentViaBureauFromLogAct);
+    menuSentQsl->addAction(multipleQslSentViaDirectFromLogAct);
+
+    QMenu *menuRcvdQsl = menuQslS->addMenu(tr("QSLs Rcvd"));
+    menuRcvdQsl->addAction(multipleQslRecViaBureauFromLogAct);
+    menuRcvdQsl->addAction(multipleQslRecViaDirectFromLogAct);
+    */
+    menu.exec(QCursor::pos());
 }
 
 void LogWindow::rightButtonFromLogMenu(const int trow)
 {
-       //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << endl;
 
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
     //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
@@ -243,7 +284,6 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
     checkQRZCOMFromLogAct->setData(trow);
     menu.addAction(checkDXHeatFromLogAct);
     checkDXHeatFromLogAct->setData(trow);
-
 
         menu.addSeparator();
         if (qslSent)
@@ -348,6 +388,43 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
     checkDXHeatFromLogAct->setStatusTip(tr("Check this callsign in DXHeat.com"));
     connect(checkDXHeatFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckDXHeatCom() ));
 
+    multipleDelQSOsFromLogAct = new QAction(tr("Delete selected QSOs"), this);
+    //multipleDelQSOsFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
+    multipleDelQSOsFromLogAct->setStatusTip(tr("Delete the selected QSOs"));
+    connect(multipleDelQSOsFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsDeleteFromLog()));
+
+    multipleExportToADIFFromLogAct = new QAction(tr("Export to ADIF"), this);
+    //multipleExportToADIFFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
+    multipleExportToADIFFromLogAct->setStatusTip(tr("Export the selected QSOs to an ADIF file."));
+    connect(multipleExportToADIFFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsExportFromLog()));
+
+    multipleQueueForLoTWFromLogAct = new QAction(tr("Upload to LoTW"), this);
+    multipleQueueForLoTWFromLogAct->setStatusTip(tr("Upload the selected QSOs to LoTW"));
+    connect(multipleQueueForLoTWFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsUploadToLoTWFromLog()));
+
+    multipleQueueForClubLogFromLogAct = new QAction(tr("Upload to ClubLog"), this);
+    multipleQueueForClubLogFromLogAct->setStatusTip(tr("Upload the selected QSOs to ClubLog"));
+    connect(multipleQueueForClubLogFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsUploadToClubLogFromLog()));
+
+    multipleQueueForEQSLFromLogAct = new QAction(tr("Upload to eQSL.cc"), this);
+    multipleQueueForEQSLFromLogAct->setStatusTip(tr("Upload the selected QSOs to eQSL.cc"));
+    connect(multipleQueueForEQSLFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsUploadToEQSLFromLog()));
+
+   multipleQslSentViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
+   multipleQslSentViaBureauFromLogAct->setStatusTip(tr("Send these QSLs via bureau"));
+   connect(multipleQslSentViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotMultipleQSLSentViaBureauFromLog() ));
+
+   multipleQslSentViaDirectFromLogAct = new QAction(tr("Direct"), this);
+   multipleQslSentViaDirectFromLogAct->setStatusTip(tr("Send these QSLs via direct"));
+   connect(multipleQslSentViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotMultipleQSLSentViaDirectFromLog()   ));
+
+   multipleQslRecViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
+   multipleQslRecViaBureauFromLogAct->setStatusTip(tr("QSLs received via bureau"));
+   connect(multipleQslRecViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotMultipleQSLRecViaBureauFromLog() ));
+
+   multipleQslRecViaDirectFromLogAct = new QAction(tr("Direct"), this);
+   multipleQslRecViaDirectFromLogAct->setStatusTip(tr("QSLs received via direc&t"));
+   connect(multipleQslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotMultipleQSLRecViaDirectFromLog() ));
 
 }
 
@@ -467,6 +544,87 @@ void LogWindow::slotQsoDeleteFromLog()
     }
     */
 }
+
+void LogWindow::slotQSOsDeleteFromLog()
+{
+    //qDebug() << "LogWindow::slotQSOsDeleteFromLog" << endl;
+    QItemSelectionModel *select = logView->selectionModel();
+    QList<int> qsos;
+    qsos.clear();
+    if (select->hasSelection())
+    {
+        QModelIndexList list = select->selectedRows();
+        foreach (QModelIndex index, list)
+        {
+            qsos.append(index.data(0).toInt());
+            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.row())  << endl;
+            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.data(0).toInt())  << endl;
+        }
+    }
+    if (qsos.length()>0)
+    {
+        emit deleteTheseQSOs(qsos);
+    }
+}
+
+void LogWindow::slotQSOsExportFromLog()
+{
+    //qDebug() << "LogWindow::slotQSOsExportFromLog - TO BE IMPLEMENTED" << endl;
+    QItemSelectionModel *select = logView->selectionModel();
+    QList<int> qsos;
+    qsos.clear();
+    if (select->hasSelection())
+    {
+        QModelIndexList list = select->selectedRows();
+        foreach (QModelIndex index, list)
+        {
+            qsos.append(index.data(0).toInt());
+            //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row())  << endl;
+            //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt())  << endl;
+        }
+    }
+    if (qsos.length()>0)
+    {
+        emit exportToADIFTheseQSOs(qsos);
+    }
+}
+
+
+void LogWindow::slotQSOsUploadToLoTWFromLog()
+{
+    //qDebug() << "LogWindow::slotQSOsUploadToLoTWFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotQSOsUploadToClubLogFromLog()
+{
+    //qDebug() << "LogWindow::slotQSOsUploadToClubLogFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotQSOsUploadToEQSLFromLog()
+{
+    //qDebug() << "LogWindow::slotQSOsUploadToEQSLFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotMultipleQSLSentViaBureauFromLog()
+{
+    //qDebug() << "LogWindow::slotMultipleQSLSentViaBureauFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotMultipleQSLSentViaDirectFromLog()
+{
+    //qDebug() << "LogWindow::slotMultipleQSLSentViaDirectFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotMultipleQSLRecViaBureauFromLog()
+{
+    //qDebug() << "LogWindow::slotMultipleQSLRecViaBureauFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotMultipleQSLRecViaDirectFromLog()
+{
+    //qDebug() << "LogWindow::slotMultipleQSLRecViaDirectFromLog - TO BE IMPLEMENTED" << endl;
+}
+
 
 void LogWindow::qslSentViaBureau(const int _qsoId)
 {

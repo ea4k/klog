@@ -32,10 +32,10 @@
 #include <QProgressDialog>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
-
 #include <QUrlQuery>
 #include <QHttpMultiPart>
 #include <QHttpPart>
+#include "utilities.h"
 
 class eLogClubLog : public QObject {
     Q_OBJECT
@@ -49,12 +49,12 @@ public:
     //int deleteQSOid(const int _qsoId);
     int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
 
-    void sendLogFile(const QString &_file, QList<int> _qso);
+    void sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite);
 
 
 private:
     QString getClubLogAdif(const QStringList _q);
-    int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
+    //int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
     int sendDataParams(const QString &_clublogCall, const QUrlQuery &_params, bool _adding);
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
@@ -64,10 +64,11 @@ private:
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
     int currentQSO;
-    int result;
+    QNetworkReply::NetworkError result;
     QString target;
     bool uploadingFile;
     QList<int> qsos;
+    Utilities *util;
     //bool useQSOStationCallsign;
 
 private slots:
@@ -84,7 +85,7 @@ signals:
     void actionError(const int _i);
     void showMessage(const QString _t);
     void disableClubLogAction(const bool _b);
-    void signalFileUploaded(int _code, QList<int>);
+    void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
 
 };
 #endif // DOWNLOADCTY_H

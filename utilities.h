@@ -37,7 +37,7 @@
 #include "locator.h"
 #include <QtDebug>
 
-enum ExportMode {ModeLotW, ModeADIF, ModeClubLog};
+enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL};
 
 class Utilities
 {
@@ -64,6 +64,10 @@ public:
     QString getCTYFile();
     QString getDebugLogFile();
     QString getSaveSpotsLogFile();
+    QString getBackupADIFile();
+    QString getClubLogFile();
+    QString getEQSLFile();
+    QString getLoTWAdifFile();
 
     void setVersion(const QString &_v);
     QString getVersion();

@@ -35,7 +35,6 @@ private:
     void addQSO(const int _qsoID);
     void fillStationCallsignComboBox();
 
-
     DataProxy_SQLite *dataProxy;
     QComboBox *stationCallsignComboBox;
     QDateEdit *startDate, *endDate;

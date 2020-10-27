@@ -442,6 +442,13 @@ int World::getPrefixId(const QString &_qrz)
     while ((entityID <= 0) && (aux.length()>=1) )
     {
           //qDebug() << "World::getPrefixId: in the while before calling dataProxy: " << aux << endl;
+        if (aux == "KG4")
+        {
+            if (_qrz.length()!=5)
+            {
+                aux = "K";
+            }
+        }
         entityID = dataProxy->getDXCCFromPrefix(aux);
           //qDebug() << "World::getPrefixId: in the while After calling dataProxy" << endl;
 
