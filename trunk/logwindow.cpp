@@ -223,7 +223,9 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
        //qDebug() << "LogWindow::slotshowRighButtonFromLog"  << endl;
     int row = (logView->indexAt(pos)).row();
     QItemSelectionModel *select = logView->selectionModel();
-    if (select->hasSelection())
+    QModelIndexList list = select->selectedRows();
+
+    if (select->hasSelection() && (list.length()>1) )
     {       
         rightButtonMultipleFromLogMenu();
     }
