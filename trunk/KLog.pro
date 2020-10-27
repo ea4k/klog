@@ -1,5 +1,6 @@
 CONFIG += app_bundle
 CONFIG += static
+#CONFIG += console
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
@@ -46,7 +47,7 @@ HEADERS += setupdialog.h \
     qso.h \     \
     searchmodel.h \
     searchwindow.h \
-    setuppages/setuppageeqsl.h \
+    setuppages/setuppageelog.h \
     widgets/adiflotwexportwidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -82,7 +83,6 @@ HEADERS += setupdialog.h \
     hamlibclass.h \
     tipsdialog.h \
     worldmapwidget.h \
-    setuppages/setuppagelotw.h \
     setuppages/setuppagemisc.h \
     setuppages/setuppageuserdata.h \
     setuppages/setuppagedxcluster.h \
@@ -93,7 +93,6 @@ HEADERS += setupdialog.h \
     setuppages/setuppagesatsnew.h \
     setuppages/setuppagehamlib.h \
     setuppages/setuppagelogsnew.h \
-    setuppages/setuppageclublog.h \
     setuppages/setuppagebandmode.h \
     setuppages/setupentitydialog.h \
     setuppages/setuppageudp.h \
@@ -124,7 +123,7 @@ SOURCES += main.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
-    setuppages/setuppageeqsl.cpp \
+    setuppages/setuppageelog.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/showadifimportwidget.cpp \
     world.cpp \
@@ -136,7 +135,6 @@ SOURCES += main.cpp \
     dxcluster.cpp \      
     locator.cpp \
     awards.cpp \ 
-    setuppages/setuppagelotw.cpp \
     setuppages/setuppagemisc.cpp \
     setuppages/setuppageuserdata.cpp \
     setuppages/setuppagedxcluster.cpp \
@@ -144,7 +142,6 @@ SOURCES += main.cpp \
     setuppages/setuppagelogs.cpp \
     setuppages/setuppageworldeditor.cpp \
     setuppages/setuppagelogsnew.cpp \
-    setuppages/setuppageclublog.cpp \
     setuppages/setuppagebandmode.cpp \
     setuppages/setuppageudp.cpp \
     setuppages/setuppagesats.cpp \

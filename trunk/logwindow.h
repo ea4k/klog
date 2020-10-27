@@ -76,6 +76,8 @@ signals:
     //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
     //void clearError();
+    void deleteTheseQSOs(QList<int> _qsos);
+    void exportToADIFTheseQSOs(QList<int> _qsos);
 
 private slots:
 
@@ -92,6 +94,17 @@ private slots:
     void slotCheckQRZCom();
     void slotCheckDXHeatCom();
 
+    void slotQSOsDeleteFromLog();
+    void slotQSOsExportFromLog();
+    void slotQSOsUploadToLoTWFromLog();
+    void slotQSOsUploadToClubLogFromLog();
+    void slotQSOsUploadToEQSLFromLog();
+    void slotMultipleQSLSentViaBureauFromLog();
+    void slotMultipleQSLSentViaDirectFromLog();
+    void slotMultipleQSLRecViaBureauFromLog();
+    void slotMultipleQSLRecViaDirectFromLog();
+
+
 
 private:    
     void createUI();
@@ -100,6 +113,7 @@ private:
 
     void deleteQSO(const int _qsoID);
     void rightButtonFromLogMenu(const int trow);
+    void rightButtonMultipleFromLogMenu();
     void showMenuRightButtonFromLogCreateActions();
 
 
@@ -109,6 +123,7 @@ private:
 
     DataProxy_SQLite *dataProxy;
     LogModel *logModel;
+    //QItemSelectionModel *selectionModel;
     Awards *awards;
     //DXCCStatusWidget *dxccStatusWidget;
     //eLogClubLog *elogClublog;
@@ -124,6 +139,18 @@ private:
     QAction *qslRecViaDirectFromLogAct;
     QAction *checkQRZCOMFromLogAct;
     QAction *checkDXHeatFromLogAct;
+
+    //Multiple selection actions
+    QAction *multipleDelQSOsFromLogAct;
+    QAction *multipleExportToADIFFromLogAct;
+    QAction *multipleQueueForLoTWFromLogAct;
+    QAction *multipleQueueForClubLogFromLogAct;
+    QAction *multipleQueueForEQSLFromLogAct;
+    QAction *multipleQslSentViaBureauFromLogAct;
+    QAction *multipleQslSentViaDirectFromLogAct;
+    QAction *multipleQslRecViaBureauFromLogAct;
+    QAction *multipleQslRecViaDirectFromLogAct;
+    //QAction *moveToAnotherLog; // MOves the selected QSOs to another log.
 
     int currentLog;
 

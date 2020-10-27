@@ -1,8 +1,16 @@
 TBD - 1.4
-TODO:- New feature: eQSL syncronization
+BUG: Chen pushing enter directly after clublog password is introduced, klog crashes
+BUG: Too many mesages when uploading in realtime to Clublog. It should be done silently.
+TODO:- New feature: QRZ.com sync - https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
+TODO:- New feature: eQSL syncronization - QSL Upload.
+TODO:- New feature: eQSL syncronization - QSL Download.
+TODO:- New feature: Regional Award support.
 
-- New feature: - New feature: ClubLog log upload.
+- Improved the KG4xx (Guantanamo bay) DXCC detection from KG4 calls.
+- New feature: - New feature: ClubLog full log upload (adding or overwriting).
 - New feature: It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
+- UI: Consolidation of all the electronic logs configurations in one single setup page into the eLog tab.
+- Bugfix: Complete with previous QSO (name, locator, ...) was not working properly.
 - Bugfix: PROGRAMID ADIF data was not properly tagged.
 - Bugfix: When selecting the QSOs to upload to LoTW, if the selected call was the first one on the combobox, selection didn't worked properly.
 - Bugfix: When importing ADIF files with fields without RST_SENT or RST_RCVD the proposed default value was not adapted to the mode of that QSO.

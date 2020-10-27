@@ -71,6 +71,8 @@ public:
     QList<int> adifLoTWReadLog(const QString& tfileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
+
+    bool adifQSOsExport(const QString& _fileName, QList<int> _qsos);
     QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
@@ -83,6 +85,7 @@ public:
 
 
 private:    
+
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
     //bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     //bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
@@ -110,6 +113,7 @@ private:
     QString prepareStringLog();
 
     void writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
+    void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
 
     bool dbCreated;
     DataBase *db;

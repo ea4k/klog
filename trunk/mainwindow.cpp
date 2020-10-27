@@ -86,7 +86,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
 
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
-    eqslUtilities = new eQSLUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
+    eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
 
     //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
@@ -500,6 +500,10 @@ void MainWindow::createActionsCommon(){
     // LOGVIEW
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
     connect(logWindow, SIGNAL(actionDeleteQSO ( int ) ), this, SLOT(slotQSODelete(int) ) );
+    connect(logWindow, SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
+    connect(logWindow, SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
+
+
     connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
     connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
     connect(logWindow, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );    
@@ -513,9 +517,12 @@ void MainWindow::createActionsCommon(){
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
     connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
-    connect (elogClublog, SIGNAL (signalFileUploaded(int, QList<int>)), this, SLOT (slotElogClubLogFileUploaded(int, QList<int>)));
+    connect (elogClublog, SIGNAL (signalFileUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogClubLogFileUploaded(QNetworkReply::NetworkError, QList<int>)));
 
-
+    connect (eqslUtilities, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
+    //connect (eqslUtilities, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
+    connect (eqslUtilities, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
+    connect (eqslUtilities, SIGNAL (signalFileUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogEQSLFileUploaded(QNetworkReply::NetworkError, QList<int>)));
     // SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
     //connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
@@ -646,7 +653,8 @@ void MainWindow::recommendBackupIfNeeded()
         switch (ret)
         {
             case QMessageBox::Yes:
-            QString filename = (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
+            //QString filename = (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
+            QString filename = util->getBackupADIFile();
             filemanager->adifLogExport(filename, 0); // 0 will save ALL the logs
             break;
         }
@@ -937,7 +945,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
                yearChangedDuringModification = false;
            }
 
-           if ((clublogActive) & (clublogRealTime))
+           if ((clublogActive) && (clublogRealTime))
            {
               //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << endl;
                // Delete QSO in CLubLog
@@ -2507,6 +2515,83 @@ void MainWindow::slotSearchBoxTextChanged()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+void MainWindow::slotQSOsExportToADIF(QList<int> _id)
+{
+    //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << endl;
+    if (_id.length()<1)
+    {
+        return; // NO QSO TO EXPORT
+    }
+    foreach(int i, _id)
+    {
+        //qDebug() << "MainWindow::slotQSOsExportToADIFF " << QString::number(i)  << endl;
+    }
+
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    //qDebug() << "MainWindow::slotQSOsExportToADIF: " << fileName << endl;
+    if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
+    {
+       //qDebug() << "MainWindow::slotQSOsExportToADIF: Adding the .adi to the file" << fileName << endl;
+        fileName = fileName +  ".adi";
+    }
+    //qDebug() << "MainWindow::slotQSOsExportToADIF-1: " << fileName << endl;
+    filemanager->adifQSOsExport(fileName, _id);
+    //qDebug() << "MainWindow::slotQSOsExportToADIF-3" << endl;
+    showNumberOfSavedQSO(fileName, _id.count());
+    //qDebug() << "MainWindow::slotQSOsExportToADIF - END" << endl;
+}
+
+void MainWindow::slotQSOsDelete(QList<int> _id)
+{
+    //qDebug() << "MainWindow::slotQSOsDelete " << QString::number(_id.length())  << endl;
+    //foreach(int i, _id)
+    //{
+    //    //qDebug() << "MainWindow::slotQSOsDelete " << QString::number(i)  << endl;
+    //}
+
+    QString message = QString(tr("You have requested to delete several QSOs "));
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.setText(message);
+    msgBox.setDetailedText(tr("This operation shall remove definetly all the selected QSO and associated data and you will not be able to recover it again."));
+    msgBox.setInformativeText(tr("Are you sure?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+
+    switch (ret)
+    {
+        case QMessageBox::Yes :
+
+        foreach (int i, _id)
+        {
+            QStringList qsoToDelete;
+            qsoToDelete.clear();
+            qsoToDelete << dataProxy->getClubLogRealTimeFromId(i);
+            if(dataProxy->deleteQSO(i))
+            {
+                //qDebug() << "MainWindow::slotQSODelete: Just removed from log, now I will try to remove from ClubLog, if needed" << endl;
+                if (clublogActive && clublogRealTime)
+                {
+                    //qDebug() << "MainWindow::slotQSODelete: Removing from ClubLog" << endl;
+                    elogClublog->deleteQSO(qsoToDelete);
+                }
+                else
+                {
+                    //qDebug() << "MainWindow::slotQSODelete: NOT emoving from ClubLog" << endl;
+                }
+            }
+        }
+        logWindow->refresh();
+        slotShowAwards();
+
+
+        break;
+    case QMessageBox::No :
+        break;
+    }
+}
+
 void MainWindow::slotQSODelete(const int _id)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -2539,8 +2624,17 @@ void MainWindow::slotQSODelete(const int _id)
             qsoToDelete << dataProxy->getClubLogRealTimeFromId(QSOid);
             if(dataProxy->deleteQSO(QSOid))
             {
+                //qDebug() << "MainWindow::slotQSODelete: Just removed from log, now I will try to remove from ClubLog, if needed" << endl;
+                if (clublogActive && clublogRealTime)
+                {
+                    //qDebug() << "MainWindow::slotQSODelete: Removing from ClubLog" << endl;
+                    elogClublog->deleteQSO(qsoToDelete);
+                }
+                else
+                {
+                    //qDebug() << "MainWindow::slotQSODelete: NOT emoving from ClubLog" << endl;
+                }
 
-                elogClublog->deleteQSO(qsoToDelete);
                 logWindow->refresh();
                 slotShowAwards();
                //emit updateSearchText();
@@ -2615,12 +2709,26 @@ void MainWindow::slotElogClubLogDisable(const bool _b)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotElogClubLogFileUploaded (const int _reply, QList<int> _qsos)
+void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos)
 {
 
     //qDebug() << "MainWindow::slotElogClubLogFileUploaded: " << QString::number(_reply) << endl;
-    bool uploadedToClubLog = false;
-    QString fileName = "klog-clublog-upload.adi";
+
+    QMessageBox msgBox;
+    if (_error != QNetworkReply::NoError)
+    {
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog ClubLog error"));
+        msgBox.setText(tr("The ClubLog upload process has finished with an error and the log was possibly not uploaded."));
+        msgBox.setDetailedText(tr("Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1").arg(_error));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return;
+    }
+
+
+    QString fileName = util->getClubLogFile();
      if (QFile::exists(fileName))
      {
           //qDebug() << "MainWindow::slotElogClubLogFileUploaded file exist" << endl;
@@ -2629,38 +2737,31 @@ void MainWindow::slotElogClubLogFileUploaded (const int _reply, QList<int> _qsos
      {
          //qDebug() << "MainWindow::slotElogClubLogFileUploaded file DOES NOT exist" << endl;
      }
-    int i  = _reply;
-    if (i == 0)
-    {
-        uploadedToClubLog = true;
-    }
-    QMessageBox msgBox;
-    if (uploadedToClubLog)
-    {
-        msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog ClubLog"));
-        msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?") );
 
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int i = msgBox.exec();
-        if (i == QMessageBox::Yes)
+     msgBox.setIcon(QMessageBox::Question);
+     msgBox.setWindowTitle(tr("KLog ClubLog"));
+     msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?") );
+
+     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+     msgBox.setDefaultButton(QMessageBox::Yes);
+     int i = msgBox.exec();
+
+     if (i == QMessageBox::Yes)
+     {
+         bool uploadedToClubLog = dataProxy->clublogSentQSOs(_qsos);
+
+         // TODO: Check if QSOS where sent
+        if (!uploadedToClubLog)
         {
-            uploadedToClubLog = dataProxy->clublogSentQSOs(_qsos);
-
-            // TODO: Check if QSOS where sent
-           if (!uploadedToClubLog)
-           {
-               QMessageBox msgBox;
-               msgBox.setWindowTitle(tr("KLog - ClubLog"));
-               msgBox.setIcon(QMessageBox::Warning);
-               msgBox.setText(tr("There was an error while updating to Yes the ClubLog QSO upload information."));
-               msgBox.setStandardButtons(QMessageBox::Ok );
-               msgBox.setDefaultButton(QMessageBox::Ok);
-               msgBox.exec();
-           }
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("KLog - ClubLog"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("There was an error while updating to Yes the ClubLog QSO upload information."));
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
         }
-    }
+     }
 
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog ClubLog"));
@@ -2721,6 +2822,95 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
         dataProxy->setClubLogSent(_qID, "M", eQSLTabWidget->getClubLogDate());
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+
+void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos)
+{
+
+    //qDebug() << "MainWindow::slotElogEQSLFileUploaded: " << QString::number(_error) << endl;
+
+    QMessageBox msgBox;
+    if (_error != QNetworkReply::NoError)
+    {
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog eQSL error"));
+        msgBox.setText(tr("The eQSL upload process has finished with an error and the log was possibly not uploaded."));
+        msgBox.setDetailedText(tr("Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1").arg(_error));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return;
+    }
+
+
+    QString fileName = util->getEQSLFile();
+     if (QFile::exists(fileName))
+     {
+          //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << endl;
+     }
+     else
+     {
+         //qDebug() << "MainWindow::slotElogEQSLFileUploaded file DOES NOT exist" << endl;
+     }
+
+     msgBox.setIcon(QMessageBox::Question);
+     msgBox.setWindowTitle(tr("KLog eQSL"));
+     msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to eQSL?") );
+
+     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+     msgBox.setDefaultButton(QMessageBox::Yes);
+     int i = msgBox.exec();
+
+     if (i == QMessageBox::Yes)
+     {
+         bool uploadedToeQSL = dataProxy->eQSLSentQSOs(_qsos);
+
+         // TODO: Check if QSOS where sent
+        if (!uploadedToeQSL)
+        {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("KLog - eQSL"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("There was an error while updating to Yes the eQSL QSO upload information."));
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+        }
+     }
+
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.setWindowTitle(tr("KLog eQSL"));
+    msgBox.setText(tr("The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    i = msgBox.exec();
+    if (i == QMessageBox::Yes)
+    {
+        if (QFile::remove(fileName))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("KLog eQSL"));
+            msgBox.setText(tr("The file has been removed."));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+
+            //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE REMOVED: " << fileName << endl;
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("KLog eQSL"));
+            msgBox.setText(tr("The file has not been removed."));
+            msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+
+            //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName << endl;
+        }
+        i = msgBox.exec();
+    }
+    //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << endl;
 }
 
 
@@ -3054,6 +3244,7 @@ void MainWindow::slotClearButtonClicked()
     mainQSOEntryWidget->clear();
 
     clearUIDX(true);
+    //completedWithPreviousName = false;
     statusBar()->clearMessage();
     setCleaning(false);
 
@@ -3349,7 +3540,18 @@ void MainWindow::createMenusCommon()
     connect(clublogLogUploadAct, SIGNAL(triggered()), this, SLOT(slotClubLogLogUpload()));
     clublogLogUploadAct->setToolTip("Uploads your log to ClubLog. Please ensure that you have created log for that callsign before uploading.");
 
+    toolMenu->addSeparator();
+    eQSLToolMenu = toolMenu->addMenu(tr("eQSL tools..."));
 
+    eqslLogModifyCurrentLogAct = new QAction(tr("Mark all the QSO to be uploaded"), this);
+    eQSLToolMenu->addAction(eqslLogModifyCurrentLogAct);
+    connect(eqslLogModifyCurrentLogAct, SIGNAL(triggered()), this, SLOT( slotElogEQSLModifyCurrentLog()));
+    eqslLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded againto eQSL.");
+
+    eqslUploadAct = new QAction(tr("Upload the log to eQSL.cc"), this);
+    eQSLToolMenu->addAction(eqslUploadAct);
+    connect(eqslUploadAct, SIGNAL(triggered()), this, SLOT(sloteQSLLogUpload()));
+    eqslUploadAct->setToolTip("Uploads your log to eQSL.cc.");
 
 
     toolMenu->addSeparator();
@@ -5617,7 +5819,9 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
         return;
     }
 
-    QString fileName = "klog-lotw-upload.adi";
+    //QString fileName = "klog-lotw-upload.adi";
+    QString fileName = util->getLoTWAdifFile();
+
 
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeLotW);
 
@@ -5703,7 +5907,8 @@ void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, 
         return;
     }
 
-    QString fileName = "klog-clublog-upload.adi";
+    //QString fileName = "klog-clublog-upload.adi";
+    QString fileName = util->getClubLogFile();
 
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeClubLog);
 
@@ -5712,12 +5917,93 @@ void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, 
         //qDebug() << "MainWindow::fileExportClubLog NO QSOs" << endl;
         return;
     }
+
+    msgBox.setWindowTitle(tr("KLog - ClubLog"));
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setText(tr("Do you want to add this QSOs to your ClubLog existing log?"));
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::No);
+    msgBox.setDetailedText(tr("If you don't agree, this upload will overwrite your current ClubLog existing log."));
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    int ret = msgBox.exec();
+    bool overwrite = false;
+    switch (ret)
+    {
+    case QMessageBox::Ok:         // General ADIF
+            overwrite = false;
+        break;
+    case QMessageBox::No:         // ClubLog
+            overwrite = true;
+        break;
+    }
     //qDebug() << "MainWindow::fileExportClubLog - 50" << endl;
-    elogClublog->sendLogFile(fileName, qsos);
+    elogClublog->sendLogFile(fileName, qsos, overwrite);
 
 
 
     //qDebug() << "MainWindow::fileExportClubLog -END " << endl;
+}
+
+void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate)
+{
+    //qDebug() << "MainWindow::fileExportEQSL  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << endl;
+
+    QMessageBox msgBox;
+
+    if (!util->isValidCall(_st))
+    {
+        //qDebug() << "MainWindow::fileExportEQSL - no valid call" << endl;
+        if (_st == "ALL")
+        {
+            msgBox.setWindowTitle(tr("KLog - eQSL"));
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("You need to select one station callsign to be able to send your log to eQSL.cc."));
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+        }
+        return;
+    }
+    if ((!_startDate.isValid()) || (!_endDate.isValid()))
+    {
+        //qDebug() << "MainWindow::fileExportEQSL - no valid date" << endl;
+        return;
+    }
+
+    //QString fileName = "klog-eqsl-upload.adi";
+    QString fileName = util->getEQSLFile();
+    //QString eQSLUser = ;
+    //QString eQSLPass = ;
+
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeEQSL);
+
+    if (qsos.count() <= 0)
+    { // TODO: Check if errors should be managed.
+        //qDebug() << "MainWindow::fileExportEQSL NO QSOs" << endl;
+        return;
+    }
+    /*
+    msgBox.setWindowTitle(tr("KLog - eQSL"));
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setText(tr("Do you want to add this QSOs to your eQSL existing log?"));
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::No);
+    msgBox.setDetailedText(tr("If you don't agree, this upload will overwrite your current ClubLog existing log."));
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    int ret = msgBox.exec();
+    bool overwrite = false;
+    switch (ret)
+    {
+    case QMessageBox::Ok:
+            overwrite = false;
+        break;
+    case QMessageBox::No:
+            overwrite = true;
+        break;
+    }
+    //qDebug() << "MainWindow::fileExportEQSL - 50" << endl;
+    */     
+    eqslUtilities->sendLogFile(fileName, qsos);
+
+    //qDebug() << "MainWindow::fileExportEQSL -END " << endl;
 }
 
 
@@ -5738,6 +6024,10 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_start
     case ModeClubLog:         // General ADIF
         //qDebug() << "MainWindow::slotADIFExportSelection  - ClubLog" << endl;
         fileExportClubLog(_st, _startDate, _endDate);
+        break;
+    case ModeEQSL:         // General eQSL
+        //qDebug() << "MainWindow::slotADIFExportSelection  - ClubLog" << endl;
+        fileExportEQSL(_st, _startDate, _endDate);
         break;
     }
 
@@ -5821,10 +6111,43 @@ void MainWindow::slotElogClubLogModifyCurrentLog()
     msgBox.exec();
 }
 
+
+void MainWindow::slotElogEQSLModifyCurrentLog()
+{
+    QMessageBox msgBox;
+
+    if (dataProxy->eQSLModifyFullLog(currentLog))
+    {
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(tr("The log is ready to be uploaded to eQSL.cc."));
+        msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the eQSL.cc status field"));
+
+    }
+    else
+    {
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("KLog could not mark the full log to be sent to eQSL"));
+        msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
+    }
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+}
+
+
 void MainWindow::slotClubLogLogUpload()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     adifLoTWExportWidget->setExportMode(ModeClubLog);
+    adifLoTWExportWidget->show();
+
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::sloteQSLLogUpload()
+{
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    adifLoTWExportWidget->setExportMode(ModeEQSL);
     adifLoTWExportWidget->show();
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -7161,12 +7484,13 @@ void MainWindow::slotSetPropMode(const QString &_p)
 
 void MainWindow::completeWithPreviousQSO(const QString &_call)
 {
-          //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
+    //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
     //This function completes: Name, QTH, Locator, Entity, Iota
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if ((!completeWithPrevious) || (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     {
+        //qDebug() << "MainWindow::completeWithPreviousQSO NOT completing..." << endl;
         if (completedWithPreviousName)
         {
             nameLineEdit->clear();
@@ -7204,24 +7528,33 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-
+    //qDebug() << "MainWindow::completeWithPreviousQSO completing..." << endl;
     QString aux = QString();
 
     aux = dataProxy->getNameFromQRZ(_call);
+    //qDebug() << "MainWindow::completeWithPreviousQSO aux: " << aux << endl;
+    //qDebug() << "MainWindow::completeWithPreviousQSO nameLineEdit: " << nameLineEdit->text() << endl;
+
+    //qDebug() << "MainWindow::completeWithPreviousQSO aux length: " << QString::number(aux.length()) << endl;
+    //qDebug() << "MainWindow::completeWithPreviousQSO nameL length: " << QString::number((nameLineEdit->text()).length()) << endl;
+
     if ((aux.length()>=0) && ((nameLineEdit->text()).length()<=0) )
     {
+        //qDebug() << "MainWindow::completeWithPreviousQSO name: 1" << endl;
         nameLineEdit->setPalette(palRed);
         completedWithPreviousName = true;
         nameLineEdit->setText(aux);
     }
-    else if (completedWithPreviousName)
+    else if (completedWithPreviousName && (aux != nameLineEdit->text()))
     {
+        //qDebug() << "MainWindow::completeWithPreviousQSO name: 2" << endl;
         nameLineEdit->clear();
         completedWithPreviousName = false;
         nameLineEdit->setPalette(palBlack);
     }
     else
     {
+        //qDebug() << "MainWindow::completeWithPreviousQSO name: 3" << endl;
     }
 
     aux = dataProxy->getQTHFromQRZ(_call);
@@ -7231,7 +7564,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         completedWithPreviousQTH = true;
         qthLineEdit->setText(aux);
     }
-    else if (completedWithPreviousQTH)
+    else if (completedWithPreviousQTH && (aux != qthLineEdit->text()))
     {
         qthLineEdit->clear();
         completedWithPreviousQTH = false;
@@ -7246,7 +7579,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         locatorLineEdit->setText(aux);
         completedWithPreviousLocator=true;
     }
-    else if (completedWithPreviousLocator)
+    else if (completedWithPreviousLocator && (aux != locatorLineEdit->text()))
     {
         locatorLineEdit->clear();
         completedWithPreviousLocator = false;
@@ -7271,13 +7604,13 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
             //iotaNumberLineEdit->setText(values.at(1));
             completedWithPreviousIOTA=true;
         }
-        else if (completedWithPreviousIOTA)
+        else if (completedWithPreviousIOTA && (aux != othersTabWidget->getIOTA()))
         {
             othersTabWidget->clearIOTA();
             completedWithPreviousName = false;
         }
     }
-    else if (completedWithPreviousIOTA)
+    else if (completedWithPreviousIOTA )
     {
         othersTabWidget->clearIOTA();
         completedWithPreviousIOTA = false;
@@ -7290,7 +7623,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         QSLTabWidget->setQSLVia(aux, Qt::red);
         completedWithPreviousQSLVia=true;
     }
-    else if (completedWithPreviousQSLVia)
+    else if (completedWithPreviousQSLVia && (aux != QSLTabWidget->getQSLVia()))
     {
         QSLTabWidget->setQSLVia("");
     }

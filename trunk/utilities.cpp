@@ -385,7 +385,26 @@ QString Utilities::getSaveSpotsLogFile()
     QString filename = "/" + (QDateTime::currentDateTime()).toString("yyyyMMdd") + "-klogdxcluster.txt";
 
     return getHomeDir() + filename;
+}
 
+QString Utilities::getBackupADIFile()
+{
+   return getHomeDir() + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
+}
+
+QString Utilities::getClubLogFile()
+{
+    return getHomeDir() + "/klog-clublog-upload.adi";
+}
+
+QString Utilities::getEQSLFile()
+{
+    return getHomeDir() + "/klog-eqsl-upload.adi";
+}
+
+QString Utilities::getLoTWAdifFile()
+{
+    return getHomeDir() + "/klog-lotw-upload.adi";
 }
 
 QString Utilities::getTQSLsFileName()
