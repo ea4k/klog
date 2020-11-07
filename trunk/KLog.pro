@@ -40,19 +40,23 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
+    elogqrzlog.h \
     eqslutilities.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
-    qso.h \     \
+    qso.h \
     searchmodel.h \
     searchwindow.h \
     setuppages/setuppageelog.h \
+    setuppages/setuppagesubdivisionnew.h \
+    setuppages/setuppagesubdivisions.h \
     widgets/adiflotwexportwidget.h \
     widgets/showadifimportwidget.h \
     world.h \
     logwindow.h \
     filemanager.h \
+    fileawardmanager.h \
     database.h \
     locator.h \
     dxcluster.h \
@@ -115,6 +119,7 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
+    elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
@@ -124,11 +129,14 @@ SOURCES += main.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
     setuppages/setuppageelog.cpp \
+    setuppages/setuppagesubdivisionnew.cpp \
+    setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/showadifimportwidget.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \
+    fileawardmanager.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \

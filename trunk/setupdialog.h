@@ -42,6 +42,7 @@
 #include "setuppages/setuppageudp.h"
 #include "setuppages/setuppagesats.h"
 #include "setuppages/setuppagehamlib.h"
+#include "setuppages/setuppagesubdivisions.h"
 //#include "setuppages/setuppageinterfaceswindows.h"
 #include "utilities.h"
 #include "locator.h"
@@ -62,15 +63,17 @@ public:
 
     void setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
+    void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
     void setSeverity(const int _sev);
 
-public slots:
+
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
     void debugLog (QString _func, QString _msg, int _level);
+    void qrzcomAuto(bool);
     //void newLogRequested(const bool _s); // true show new log
 
 private slots:
@@ -83,6 +86,7 @@ private slots:
     void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
     void slotFocusOK();
+    void slotQRZCOMAuto(const bool _b);
 
 private:
     void showEvent(QShowEvent *event);
@@ -132,7 +136,8 @@ private:
     SetupPageSats *satsPage;
     SetupPageHamLib *hamlibPage;
     //SetupPageInterfacesWindows *interfacesWindowsPage;
-
+    SetupPageSubdivisions *subdivisionsPage;
+    //SetupPageRegionalAwards *regionalAwardsPage;
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;
     QString configFileName, version;

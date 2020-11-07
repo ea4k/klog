@@ -45,7 +45,7 @@ If qt5 is still not there, check your instalallation as one of the previous pack
 
 3.- Untar klog
 
-    tar xyzf klog-version.tar.gz
+    tar xvzf klog-version.tar.gz
 
     enter the KLog directory
 

@@ -1,15 +1,19 @@
 TBD - 1.4
-BUG: Chen pushing enter directly after clublog password is introduced, klog crashes
-BUG: Too many mesages when uploading in realtime to Clublog. It should be done silently.
+
 TODO:- New feature: QRZ.com sync - https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
-TODO:- New feature: eQSL syncronization - QSL Upload.
 TODO:- New feature: eQSL syncronization - QSL Download.
-TODO:- New feature: Regional Award support.
+TODO:- New feature: Regional Award support: #include "setuppages/setuppagesubdivisions.h"
 
 - Improved the KG4xx (Guantanamo bay) DXCC detection from KG4 calls.
-- New feature: - New feature: ClubLog full log upload (adding or overwriting).
-- New feature: It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
+- New feature: New feature: eQSL syncronization - QSO Upload.
+- New feature: ClubLog full log upload (adding or overwriting).
+- New feature: - It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
+- New feature: - It is possible to select multiple QSOs in the log and execute several actions with the selected QSOs.(TNX EA5WA)
+- New feature: - It is possible to check for the data of calls in QRZ.com (you need a subscription in QRZ.com)
 - UI: Consolidation of all the electronic logs configurations in one single setup page into the eLog tab.
+- Bugfix: Too many mesages when uploading in realtime to Clublog. It should be done silently.(TNX EA5WA)
+- Bugfix: Typo in the INSTALL-linux. (TNX DL4TO)
+- Bugfix: Hamlib polling rate was not being saved from the setup. Default value is defined to 300ms. (TNX G4MKT)
 - Bugfix: Complete with previous QSO (name, locator, ...) was not working properly.
 - Bugfix: PROGRAMID ADIF data was not properly tagged.
 - Bugfix: When selecting the QSOs to upload to LoTW, if the selected call was the first one on the combobox, selection didn't worked properly.

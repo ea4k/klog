@@ -1639,41 +1639,96 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
 
 */
 
-    QSqlQuery query, query2;
+    QSqlQuery query;
     int nameCol = -1;
     QStringList dataC = QStringList();
-    QString aux1 = QString();
-    QString aux2 = QString();
-    QString call = QString();
+    //QString aux1 = QString();
+    //QString aux2 = QString();
+    //QString call = QString();
 
 // IMPORTANT: band_rx is not always present, and if it is not present, the query with INNER JOIN will fail.
 // To fix that we will do two queries, one to check if I have all the data and if not another one with a reduced scope.
-
-    QString queryString = QString("SELECT qso_date, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, R.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN band as R ON band_rx = R.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+    QString queryString = QString("SELECT band_rx FROM log WHERE id='%1'").arg(_qsoId);
 
     bool sqlOk = query.exec(queryString);
+    bool haveBandRX = false;
+    if (sqlOk)
+    {
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: sqlOK -1" << endl;
+        if (query.next())
+        {
+            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: qsl next -1" << endl;
+            if (query.isValid())
+            {
+                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: sql valid -1" << endl;
+                QSqlRecord rec = query.record();
+                nameCol = rec.indexOf("band_rx");
+                QString aux = (query.value(nameCol)).toString();
+                if (aux.length()<1)
+                { // We DON'T have a band_rx available
+                    query.finish();
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: without BAND-RX" << endl;
+                    queryString = QString("SELECT qso_date, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+
+                }
+                else {
+                    haveBandRX = true;
+                    queryString = QString("SELECT qso_date, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, R.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN band as R ON band_rx = R.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
+                }
+            }
+            else
+            { // We have a band_rx available
+                query.finish();
+                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: NO VALID" << endl;
+                return QStringList();
+            }
+        }
+        else
+        {
+            query.finish();
+            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-1" << endl;
+            return QStringList();
+        }
+    }
+    else
+    {
+        query.finish();
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-2" << endl;
+        return QStringList();
+    }
+
+
+    sqlOk = query.exec(queryString);
     dataC << QString::number(_qsoId);
     //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: lastQuery: " << query.lastQuery() << endl;
 
     if (sqlOk)
     {
-
-
-       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK-1" << endl;
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId sqlOK-1" << endl;
         if (query.next())
         {
-           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId query next = OK" << endl;
+            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId query next = OK" << endl;
             if (query.isValid())
             {
                 QSqlRecord rec = query.record();
-               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId query valid = OK" << endl;
+                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId query valid = OK" << endl;
                 QString aux;
                 nameCol = rec.indexOf("qso_date");
                 aux = util->getADIFDateFromQDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
-                //dataC << (query.value(nameCol)).toString();
-               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId Date: " << aux << endl;
+                if (aux.length()<1)
+                {
+                    query.finish();
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-3: " << aux << endl;
+                    return QStringList();
+                }
                 dataC << aux;
                 aux = util->getADIFTimeFromQDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
+                if (aux.length()<1)
+                {
+                    query.finish();
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-4: " << aux<< endl;
+                    return QStringList();
+                }
                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId Time_on: " << aux << endl;
                 dataC << aux;
                 //dataC << (query.value(nameCol)).toString();
@@ -1685,20 +1740,48 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 //dataC << (query.value(nameCol)).toString();
 
                 nameCol = rec.indexOf("call");
-                call = (query.value(nameCol)).toString();
+                if (aux.length()<1)
+                {
+                    query.finish();
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-5: " << aux << endl;
+                    return QStringList();
+                }
+                QString call = (query.value(nameCol)).toString();
                 dataC << call;
 
                 nameCol = rec.indexOf("operator");
                 dataC << (query.value(nameCol)).toString();
 
                 //nameCol = rec.indexOf("M.name");   //MODE       //TODO: Fix this to get the proper column
-                dataC << (query.value(6)).toString();
+                aux = (query.value(6)).toString();
+                if (aux.length()<1)
+                {
+                    query.finish();
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-6: " << aux<< endl;
+                    return QStringList();
+                }
+                dataC << aux;
 
                 //nameCol = rec.indexOf("B.name"); // BAND
-                dataC << (query.value(7)).toString();            //TODO: Fix this to get the proper column
+                aux = (query.value(7)).toString();
+                if (aux.length()<1)
+                {
+                    query.finish();
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-7: " << aux << endl;
+                    return QStringList();
+                }
+                dataC << aux;
 
+                if (haveBandRX)
+                {
+
+                    dataC << (query.value(8)).toString();
+                }
+                else
+                {
+                    dataC << "";
+                }
                 //nameCol = rec.indexOf("R.name"); //BAND_RX    //TODO: Fix this to get the proper column (use an index instead of a number)
-                dataC << (query.value(8)).toString();
 
                 nameCol = rec.indexOf("freq");
                 dataC << (query.value(nameCol)).toString();
@@ -1715,7 +1798,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 nameCol = rec.indexOf("credit_granted");
                 dataC << (query.value(nameCol)).toString();
                 nameCol = rec.indexOf("station_callsign");
-                aux2 = (query.value(nameCol)).toString();
+                QString aux2 = (query.value(nameCol)).toString();
 
                 if (util->isValidCall(aux2))
                 {
@@ -1726,9 +1809,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                     dataC << call;
                 }
 
-
-                //dataC << (query.value(nameCol)).toString();
-               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
+                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
                 query.finish();
                 return dataC;
             }
@@ -1740,176 +1821,20 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 return QStringList();
             }
         }
-        else
-        {
-
-            QString queryString = QString("SELECT qso_date, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
-            //QString queryString = QString("SELECT qso_date, time_on, qslrdate, qslsdate, call, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
-            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO NEXT NOT OK" << endl;
-            call = QString();
-
-            sqlOk = query2.exec(queryString);
-            QSqlRecord rec = query2.record();
-            //rec = query2.record();
-            if (sqlOk)
-            {
-               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId OK2" << endl;
-                if (query2.next())
-                {
-                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NEXT OK2" << endl;
-                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId - query: " << query2.lastQuery() << endl;
-                    if (query2.isValid())
-                    {
-                        QString auxx;
-                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId VALID OK2" << endl;
-                        nameCol = rec.indexOf("qso_date");
-                        if (nameCol>=0)
-                        {
-                            auxx = util->getADIFDateFromQDateTime(util->getDateTimeFromSQLiteString((query2.value(nameCol)).toString()));
-                            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId VALID OK2: " << auxx << endl;
-                            dataC << auxx;
-                            dataC << util->getADIFDateFromQDateTime(util->getDateTimeFromSQLiteString((query2.value(nameCol)).toString()));
-
-                            auxx = util->getADIFTimeFromQDateTime(util->getDateTimeFromSQLiteString((query2.value(nameCol)).toString()));
-                            //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId VALID OK2: " << auxx << endl;
-                            dataC << auxx;
-                            dataC << util->getADIFTimeFromQDateTime(util->getDateTimeFromSQLiteString((query2.value(nameCol)).toString()));
-
-                        }
-
-                        nameCol = rec.indexOf("qslrdate");
-                        if (nameCol>=0)
-                        {
-                            dataC << util->getADIFDateFromQDate( util->getDateFromSQliteString((query2.value(nameCol)).toString()) );
-                            //dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("qslsdate");
-                        if (nameCol>=0)
-                        {
-                            dataC << util->getADIFDateFromQDate( util->getDateFromSQliteString((query2.value(nameCol)).toString()) );
-                        }
-                        //dataC << (query2.value(nameCol)).toString();
-                        nameCol = rec.indexOf("call");
-                        if (nameCol>=0)
-                        {
-                        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId VALID OK2: " << call << endl;
-                            call = (query2.value(nameCol)).toString();
-                            dataC << call;
-                        }
-                        nameCol = rec.indexOf("operator");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        //nameCol = rec.indexOf("M.name");                 //TODO: Fix this to get the proper column
-                        dataC << (query2.value(6)).toString(); // Mode is column 6
-
-                        //nameCol = rec.indexOf("B.name");
-                        dataC << (query2.value(7)).toString(); // Band is column 7
-
-
-                        //nameCol = rec.indexOf("band_rx");                 //TODO: Fix this to get the proper column (use an index instead of a number)
-                        dataC << "";
-
-                        nameCol = rec.indexOf("freq");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("qsl_rcvd");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("lotw_qsl_rcvd");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("qsl_sent");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("dxcc");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("prop_mode");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        nameCol = rec.indexOf("credit_granted");
-                        if (nameCol>=0)
-                        {
-                            dataC << (query2.value(nameCol)).toString();
-                        }
-                        aux2 = QString();
-                        nameCol = rec.indexOf("station_callsign");
-                        if (nameCol>=0)
-                        {
-                            aux2 = (query2.value(nameCol)).toString();
-                            if (aux2.length()>2)
-                            {
-                                dataC <<  aux2;
-                            }
-                            else
-                            {
-                                dataC << "";
-                            }
-                        }
-
-                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: RETURNING ... OK" << endl;
-                        query2.finish();
-                        return dataC;
-
-                    }
-                    else
-                    {
-                       //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO VALID NOT OK2" << endl;
-                        query2.finish();
-                        return QStringList();
-                    }
-                }
-                else
-                {
-                   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NO NEXT NOT OK2" << endl;
-                    query.finish();
-                    return QStringList();
-                }
-
-
-
-            }
-            else
-            {
-               //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT OK2" << endl;
-                emit queryError(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
-                query2.finish();
-                return QStringList();
-            }
-            //query.finish();
-            //return QStringList();
-            // NO NEXT
-        }
     }
     else
     {
-           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT sqlOK" << endl;
-           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastQuery: " << query.lastQuery()  << endl;
-           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-data: " << query.lastError().databaseText()  << endl;
-           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-driver: " << query.lastError().driverText()  << endl;
-           //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-n: " << QString::number(query.lastError().number() ) << endl;
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId NOT sqlOK" << endl;
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastQuery: " << query.lastQuery()  << endl;
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-data: " << query.lastError().databaseText()  << endl;
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-driver: " << query.lastError().driverText()  << endl;
+        //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: 2 LastError-n: " << QString::number(query.lastError().number() ) << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
         return QStringList();
     }
-    //query.finish();
-    //query2.finish();
-   //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId END NOT OK" << endl;
-    //return QStringList();
+    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-10" << endl;
+    return QStringList();
 }
 
 QString DataProxy_SQLite::getNameFromQRZ(const QString &_call)
@@ -5494,6 +5419,50 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
     return true;
 
 }
+bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref,
+                                                const QString &_group, const int _regId,
+                                                const int _dxcc, const int _cq, const int _itu,
+                                                const QDate &_startDate, const QDate &_endDate,
+                                                const bool _deleted)
+{
+    //qDebug() << "DataProxy_SQLite::addDXCCEntitySubdivision: length: " << _name << endl;
+    // id / name / shortname / prefix / regionalgroup / regionalid / dxcc / cqz / ituz / start_date / end_date / deleted
+    QString queryString;
+    QSqlQuery query;
+    bool sqlOK = false;
+
+    //qDebug() << "DataProxy_SQLite::addRegionalAward: Importing: " << _regionalAward.getRegionalAwardRefName(i)  << endl;
+    queryString = QString("INSERT INTO primary_subdivisions (name, shortname, prefix, regionalgroup, "
+                          "regionalid, dxcc, cqz, ituz, start_date, end_date, deleted) "
+                              "values ('%1','%2','%3', '%4','%5','%6', '%7','%8', '%9', '%10','%11')")
+            .arg(_name).arg(_short).arg(_pref).arg(_group).arg(_regId).arg(_dxcc)
+            .arg(_cq).arg(_itu).arg(util->getDateSQLiteStringFromDate(_startDate))
+            .arg(util->getDateSQLiteStringFromDate(_endDate)).arg(util->boolToCharToSQLite(_deleted));
+
+    sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: " << query.lastQuery() << endl;
+        query.finish();
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: ERROR " << endl;
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: - query error: " << QString::number(query.lastError().number()) << endl;
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: LastQuery: " << query.lastQuery()  << endl;
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: LastError-data: " << query.lastError().databaseText()  << endl;
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: LastError-driver: " << query.lastError().driverText()  << endl;
+        //qDebug() << "DataProxy_SQLite::addRegionalAward: LastError-n: " << QString::number(query.lastError().number() ) << endl;
+
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    //qDebug() << "DataProxy_SQLite::addDXCCEntitySubdivision: END"  << endl;
+    return true;
+}
+
 
 
 int DataProxy_SQLite::getNumberOfManagedLogs()
@@ -7587,4 +7556,1358 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
 void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level)
 {
    emit debugLog(_func, _msg, _level);
+}
+
+QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
+{
+    QString ADIFqso;
+    ADIFqso.clear();
+
+    //qDebug() << "DataProxy_SQLite::getADIFQSO: " <<  query.lastQuery() << endl;
+    int nameCol;
+    QString aux;
+    bool propsat = false;    // Reset the QSO in case it is a Satellite QSO
+
+    QSqlQuery query;
+    QString queryString = QString("SELECT * FROM log WHERE id='%1'").arg(_qsoId);
+    bool sqlOk =query.exec(queryString);
+
+    QSqlRecord rec = query.record();
+
+
+
+    nameCol = rec.indexOf("call");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        //qDebug() << "DataProxy_SQLite::getADIFQSO: " << QString::number(nameCol) << "/" << aux1 << endl;
+        if (util->isValidCall(aux))
+        {
+            ADIFqso.append("<CALL:" + QString::number(aux.length()) + ">" + aux + " ");
+        }
+        else
+        {
+            if (showInvalidCallMessage(aux))
+            {
+                 ADIFqso.append("<CALL:" + QString::number(aux.length()) + ">" + aux + " ");
+            }
+        }
+    }
+    nameCol = rec.indexOf("qso_date");
+    QDateTime tDateTime;
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        tDateTime = util->getDateTimeFromSQLiteString(aux);
+        if (tDateTime.isValid())
+        {
+            aux = util->getADIFDateFromQDateTime(tDateTime);
+            ADIFqso.append("<QSO_DATE:" + QString::number(aux.length()) + ">" + aux + " ");
+            aux = util->getADIFTimeFromQDateTime(tDateTime);
+            //aux.chop(2);
+            ADIFqso.append("<TIME_ON:" + QString::number(aux.length()) + ">" + aux + " ");
+         }
+    }
+
+    nameCol = rec.indexOf("bandid");
+    QString bandst = QString();
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+        aux = getNameFromBandId(aux.toInt());
+
+        if (getIdFromBandName(aux)>=0)
+        {
+          bandst = aux;
+        }
+    }
+    nameCol = rec.indexOf("freq");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+
+        double freqTX = aux.toDouble();
+        if (freqTX > 0.0)
+        {
+            //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+            if (getBandIdFromFreq(freqTX) != getIdFromBandName(bandst))
+            {
+                bandst = getBandNameFromFreq(freqTX);
+            }
+            ADIFqso.append("<FREQ:" + QString::number(aux.length()) + ">" + aux  + " ");
+
+
+        }
+        if (getIdFromBandName(bandst)>0)
+        {
+            ADIFqso.append("<BAND:" + QString::number(bandst.length()) + ">" + bandst  + " ");
+        }
+    }
+    // Now the BAND RX
+    nameCol = rec.indexOf("band_rx");
+    QString bandrxst = QString();
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+        aux = getNameFromBandId(aux.toInt());
+
+        if (getIdFromBandName(aux)>=0)
+        {
+            bandrxst = aux;
+        }
+    }
+    nameCol = rec.indexOf("freq_rx");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+        double freqRX = aux.toDouble();
+        if (freqRX > 0.0)
+        {
+        //TODO: Check if the Band is correctly defined. BAND Wins and freq is lost if not correct
+            if (getBandIdFromFreq(freqRX) != getIdFromBandName(bandrxst))
+            {
+                bandrxst = getBandNameFromFreq(freqRX);
+            }
+            ADIFqso.append("<FREQ_RX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+        if (getIdFromBandName(bandrxst)>0)
+        {
+            ADIFqso.append("<BAND_RX:" + QString::number(bandrxst.length()) + ">" + bandrxst  + " ");
+        }
+        // END of Band RX
+    }
+    nameCol = rec.indexOf("modeid");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+        // get SubModeId to check if it is the same or not from modeid
+        QString aux2 = getSubModeFromId(aux.toInt());
+        //aux = db->getModeNameFromID2(aux.toInt());
+        aux = getNameFromSubMode(aux2);
+        if ((aux.length()>1) && (getIdFromModeName(aux)>=0))
+        {
+            ADIFqso.append("<MODE:" + QString::number(aux.length()) + ">" + aux + " ");
+        }
+        if ((aux != aux2) && (aux.length()>1) && (getSubModeIdFromSubMode(aux2)>=0) )
+        {
+            ADIFqso.append("<SUBMODE:" + QString::number(aux2.length()) + ">" + aux2  +  " ");
+        }
+    }
+    nameCol = rec.indexOf("prop_mode");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>1)
+        {
+            ADIFqso.append("<PROP_MODE:" + QString::number(aux.length()) + ">" + aux  + " ");
+            if (aux == "SAT")
+            {
+                propsat = true;
+            }
+        }
+        //qDebug() << "DataProxy_SQLite::getADIFQSO: PROP_MODE"  << endl;
+    }
+    nameCol = rec.indexOf("sat_name");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<SAT_NAME:" + QString::number(aux.length()) + ">" + aux  + " ");
+            if (!propsat)
+            {
+                ADIFqso.append("<PROP_MODE:3>SAT ");
+                propsat = false;
+            }
+        }
+    //qDebug() << "DataProxy_SQLite::getADIFQSO: SAT_NAME"  << endl;
+    }
+    nameCol = rec.indexOf("gridsquare");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<GRIDSQUARE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_gridsquare");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_GRIDSQUARE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("station_callsign");
+    if ((nameCol>=0) )
+    {
+        aux = (query.value(nameCol)).toString();
+        //qDebug() << "DataProxy_SQLite::getADIFQSO: StationCallSign: " << aux  << endl;
+        if ((util->isValidCall(aux)))
+        { // User selected one station callsign from the log
+            ADIFqso.append("<STATION_CALLSIGN:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qso_date_off");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+        tDateTime = util->getDateTimeFromSQLiteString(aux);
+
+        if (tDateTime.isValid())
+        {
+            aux = util->getADIFDateFromQDateTime(tDateTime);
+            ADIFqso.append("<QSO_DATE_OFF:" + QString::number(aux.length()) + ">" + aux  + " ");
+            aux = util->getADIFTimeFromQDateTime(tDateTime);
+            ADIFqso.append("<TIME_OFF:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("srx");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<SRX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+
+    nameCol = rec.indexOf("srx_string");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<SRX_STRING:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("stx");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<STX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("stx_string");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<STX_STRING:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    //qDebug() << "DataProxy_SQLite::getADIFQSO - 100" << endl;
+    nameCol = rec.indexOf("cqz");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())>0) && (0 < aux.toInt()) && (aux.toInt() < CQZones+1) )
+        {
+            ADIFqso.append("<CQZ:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ituz");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())>0) && (0 < aux.toInt()) && (aux.toInt() < ITUZones+1) )
+        {
+            ADIFqso.append("<ITUZ:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+        //qDebug() << "DataProxy_SQLite::getADIFQSO: DXCC - Now..."  << endl;
+    }
+    nameCol = rec.indexOf("dxcc");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<DXCC:" + QString::number(aux.length()) + ">" + aux  + " ");
+            //qDebug() << "DataProxy_SQLite::getADIFQSO: DXCC " << aux << endl;
+        }
+        //qDebug() << "DataProxy_SQLite::getADIFQSO: DXCC - Exported!"  << endl;
+    }
+    nameCol = rec.indexOf("address");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<ADDRESS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("age");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<AGE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("cnty");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CNTY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("comment");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<COMMENT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+        //qDebug() << "DataProxy_SQLite::getADIFQSO - 200" << endl;
+    }
+    nameCol = rec.indexOf("a_index");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<A_INDEX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ant_az");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<ANT_AZ:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ant_el");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<ANT_EL:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ant_path");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<ANT_PATH:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("arrl_sect");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<ARRL_SECT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("checkcontest");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CHECKCONTEST:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    //qDebug() << "DataProxy_SQLite::getADIFQSO - 30" << endl;
+    nameCol = rec.indexOf("class");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CLASS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("cont");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CONT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("contacted_op");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (util->isValidCall(aux))
+        {
+            ADIFqso.append("<CONTACTED_OP:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("contest_id");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CONTEST_ID:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("points");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<APP_KLOG_POINTS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("multiplier");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<APP_KLOG_MULTIPLIER:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+        //qDebug() << "DataProxy_SQLite::getADIFQSO - 40" << endl;
+    }
+    nameCol = rec.indexOf("transmiterid");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<APP_KLOG_TRX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+
+    }
+    nameCol = rec.indexOf("country");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<COUNTRY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+
+    }
+    nameCol = rec.indexOf("credit_submitted");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CREDIT_SUBMITTED:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("credit_granted");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<CREDIT_GRANTED:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("distance");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<DISTANCE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("darc_dok");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<DARC_DOK:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("eq_call");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (util->isValidCall(aux))
+        {
+            ADIFqso.append("<EQ_CALL:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("email");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            if (aux.contains("@") && (aux.contains(".")))
+            {
+                ADIFqso.append("<EMAIL:" + QString::number(aux.length()) + ">" + aux  + " ");
+            }
+        }
+    }
+    nameCol = rec.indexOf("eqsl_qslrdate");
+    QDate date;
+    if (nameCol>=0)
+    {
+            aux = (query.value(nameCol)).toString();
+            date = util->getDateFromSQliteString(aux);
+            if (date.isValid())
+            {
+                aux = util->getADIFDateFromQDate(date);
+                ADIFqso.append("<EQSL_QSLRDATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+            }
+    }
+    nameCol = rec.indexOf("eqsl_qslsdate");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<EQSL_QSLSDATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("eqsl_qsl_rcvd");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (  ((aux.length())==1) && (aux!="N") )
+        {
+            ADIFqso.append("<EQSL_QSL_RCVD:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("eqsl_qsl_sent");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (  ((aux.length())==1) && (aux!="N") )
+        {
+            ADIFqso.append("<EQSL_QSL_SENT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("fists");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<FISTS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("fists_cc");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<FISTS_CC:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("force_init");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<FORCE_INIT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("guest_op");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<GUEST_OP:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("hrdlog_qso_upload_date");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<HRDLOG_QSO_UPLOAD_DATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("hrdlog_qso_upload_status");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        {
+            ADIFqso.append("<HRDLOG_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_antenna");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_ANTENNA:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_dxcc");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_DXCC:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_fists");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_FISTS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("iota");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        //qDebug() << "DataProxy_SQLite::getADIFQSO (IOTA): " << aux << endl;
+        if (((aux.length())>=4) && ((aux.length())<=6))
+        {
+            ADIFqso.append("<IOTA:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("iota_island_id");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        //qDebug() << "DataProxy_SQLite::getADIFQSO (IOTA_ID): " << aux << endl;
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<IOTA_ISLAND_ID:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_iota");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (((aux.length())>=4) && ((aux.length())<=6))
+        {
+            ADIFqso.append("<MY_IOTA:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+
+    nameCol = rec.indexOf("my_iota_island_id");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_IOTA_ISLAND_ID:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("k_index");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<K_INDEX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_itu_zone");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_ITU_ZONE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("lat");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<LAT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("lon");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<LON:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+     }
+    nameCol = rec.indexOf("my_lat");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_LAT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+     }
+    nameCol = rec.indexOf("my_lon");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_LON:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+     }
+    nameCol = rec.indexOf("lotw_qslrdate");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<LOTW_QSLRDATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("lotw_qslsdate");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<LOTW_QSLSDATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+
+    }
+    nameCol = rec.indexOf("lotw_qsl_rcvd");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())==1) && (aux!="N") )
+        {
+            ADIFqso.append("<LOTW_QSL_RCVD:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("lotw_qsl_sent");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())==1)  && (aux!="N") )
+        {
+            ADIFqso.append("<LOTW_QSL_SENT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+
+    }
+    nameCol = rec.indexOf("clublog_qso_upload_date");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<CLUBLOG_QSO_UPLOAD_DATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("clublog_qso_upload_status");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        {
+            ADIFqso.append("<CLUBLOG_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qrzcom_qso_upload_date");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<QRZCOM_QSO_UPLOAD_DATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qrzcom_qso_upload_status");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        {
+            ADIFqso.append("<QRZCOM_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("max_bursts");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MAX_BURSTS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ms_shower");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MS_SHOWER:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_city");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_CITY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_cnty");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_CNTY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_country");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_COUNTRY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_cq_zone");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.toInt()>0) && (aux.toInt()<41))
+        {
+            ADIFqso.append("<MY_CQ_ZONE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_name");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_NAME:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("name");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<NAME:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("operator");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (util->isValidCall(aux))
+        {
+            ADIFqso.append("<OPERATOR:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("owner_callsign");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (util->isValidCall(aux))
+        {
+            ADIFqso.append("<OWNER_CALLSIGN:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_postal_code");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_POSTAL_CODE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_rig");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_RIG:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_sig");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_SIG:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_sota_ref");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_SOTA_REF:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_postal_code");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_POSTAL_CODE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_state");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_STATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_street");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<MY_STREET:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("notes");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            aux.replace("\n", "---");
+            ADIFqso.append("<NOTES:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("nr_bursts");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<NR_BURSTS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("nr_pings");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<NR_PINGS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("pfx");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<PFX:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("precedence");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<PRECEDENCE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("public_key");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<PUBLIC_KEY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qslmsg");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<QSLMSG:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qslrdate");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);            
+            ADIFqso.append("<QSLRDATE:" + QString::number(aux.length()) + ">" + aux + " ");
+        }
+    }
+    nameCol = rec.indexOf("qslsdate");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString();
+        date = util->getDateFromSQliteString(aux);
+        if (date.isValid())
+        {
+            aux = util->getADIFDateFromQDate(date);
+            ADIFqso.append("<QSLSDATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qsl_rcvd");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (((aux.length())==1) && (aux!="N") )
+        {
+            ADIFqso.append("<QSL_RCVD:" + QString::number(aux.length()) + ">" + aux  + " ");
+
+            nameCol = rec.indexOf("qsl_rcvd_via");
+            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length())==1)
+            {
+                ADIFqso.append("<QSL_RCVD_VIA:" + QString::number(aux.length()) + ">" + aux  + " ");
+            }
+        }
+    }
+    nameCol = rec.indexOf("qsl_sent");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (((aux.length())==1) && (aux!="N") )
+        {
+            ADIFqso.append("<QSL_SENT:" + QString::number(aux.length()) + ">" + aux  + " ");
+            nameCol = rec.indexOf("qsl_sent_via");
+            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length())==1)
+            {
+                ADIFqso.append("<QSL_SENT_VIA:" + QString::number(aux.length()) + ">" + aux  + " ");
+            }
+        }
+    }
+    nameCol = rec.indexOf("qsl_via");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<QSL_VIA:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qso_complete");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<QSO_COMPLETE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qso_random");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<QSO_RANDOM:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("qth");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<QTH:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("rst_sent");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<RST_SENT:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("rst_rcvd");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<RST_RCVD:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("region");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<REGION:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("rig");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<RIG:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("rx_pwr");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if (((aux.length())>0) && (aux.toDouble()>0) )
+        {
+            ADIFqso.append("<RX_PWR:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("tx_pwr");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ( ((aux.length())>0) && (aux.toDouble()>0))
+        {
+            ADIFqso.append("<TX_PWR:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("sat_mode");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0)
+        {
+            ADIFqso.append("<SAT_MODE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("sfi");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SFI:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("sig");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SIG:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("sig_info");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SIG_INFO:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("silent_key");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SILENT_KEY:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("skcc");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SKCC:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("sota_ref");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SOTA_REF:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("state");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<STATE:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("swl");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<SWL:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ten_ten");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<TEN_TEN:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("ten_ten");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<TEN_TEN:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("uksmg");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<UKSMG:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+        }
+    nameCol = rec.indexOf("ve_prov");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<VE_PROV:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_usaca_counties");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<MY_USACA_COUNTIES:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("usaca_counties");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<USACA_COUNTIES:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("vucc_grids");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<VUCC_GRIDS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("my_vucc_grids");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<MY_VUCC_GRIDS:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+    nameCol = rec.indexOf("web");
+    if (nameCol>=0)
+    {
+        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        if ((aux.length())>0){
+            ADIFqso.append("<WEB:" + QString::number(aux.length()) + ">" + aux  + " ");
+        }
+    }
+
+        nameCol = rec.indexOf("lognumber");
+        if (nameCol>=0)
+        {
+            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length())>0)
+            {
+                ADIFqso.append("<APP_KLOG_LOGN:" + QString::number(aux.length()) + ">" + aux  + " ");
+            }
+        }
+
+    ADIFqso.append("<EOR>");
+
+
+
+    return ADIFqso;
+}
+
+bool DataProxy_SQLite::showInvalidCallMessage(const QString &_call){
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle(tr("KLog - Invalid call detected"));
+
+    QString aux = _call;
+
+    if (aux.length()<1)
+    {
+        aux = QString(tr("An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?"));
+
+    }
+    else
+    {
+        aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?").arg(aux));
+    }
+
+    msgBox.setText(aux);
+    msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid."));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+    switch (ret) {
+    case QMessageBox::Yes:
+          // Yes was clicked
+           return true;
+    case QMessageBox::No:
+            // No Save was clicked
+        return false;
+    default:
+            // should never be reached
+        return false;
+    }
 }

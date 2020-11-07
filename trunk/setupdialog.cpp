@@ -87,11 +87,13 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
     UDPPage = new SetupPageUDP(this);    
       //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
     satsPage = new SetupPageSats(dataProxy, this);
+    subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
+    //regionalAwardsPage = new SetupPageRegionalAwards(dataProxy, this);
     //hamlibPage = new SetupPageHamLib(dataProxy, this);
     //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
 
       //qDebug() << "SetupDialog::SetupDialog 4" << endl;
-
+    //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
     tabWidget->addTab(userDataPage, tr("My Data"));    
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
@@ -155,7 +157,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     {
           //qDebug() << "/True";
     }
-    else {
+    else
+    {
           //qDebug() << "/False";
     }
       //qDebug() << endl;
@@ -188,10 +191,13 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     UDPPage = new SetupPageUDP(this);
     satsPage = new SetupPageSats(dataProxy, this);
     hamlibPage = new SetupPageHamLib(dataProxy, this);
+    //subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
+    //regionalAwardsPage = new SetupPageRegionalAwards(dataProxy, this);
     //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
 
 
     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
+    //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("D&X-Cluster"));
@@ -268,9 +274,15 @@ void SetupDialog::connectActions()
     //connect (lotwPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     connect (eLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     //connect (clubLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
+    connect (eLogPage, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotQRZCOMAuto(bool)));
 
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 
+}
+
+void SetupDialog::slotQRZCOMAuto(const bool _b)
+{
+    emit qrzcomAuto(_b);
 }
 
 void SetupDialog::setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
@@ -684,7 +696,7 @@ void SetupDialog::slotOkButtonClicked()
             tmp = eLogPage->getEQSLEmail();
             if (tmp.length()>0)
             {
-                 stream << "eQSLCall==" << tmp << ";" <<  endl;
+                 stream << "eQSLCall=" << tmp << ";" <<  endl;
             }
 
             tmp = eLogPage->getEQSLPassword() ;
@@ -692,9 +704,35 @@ void SetupDialog::slotOkButtonClicked()
             {
                 stream << "eQSLPass=" << tmp << ";" <<  endl;
             }
-        }
+        }        
+        // eQSL - END
 
-        // eQSL
+        // QRZ.com
+        if (((eLogPage->getQRZCOMActive()).toUpper() == "TRUE" ) && (eLogPage->getQRZCOMUser().length()>0) )
+        {
+            tmp = eLogPage->getQRZCOMActive();
+            if (tmp.length()>0)
+            {
+                stream << "QRZcomActive=" << tmp << ";" <<  endl;
+            }
+            tmp = eLogPage->getQRZCOMUser();
+            if (tmp.length()>0)
+            {
+                 stream << "QRZcomUser=" << tmp << ";" <<  endl;
+            }
+            tmp = eLogPage->getQRZCOMPassword();
+            if (tmp.length()>0)
+            {
+                 stream << "QRZcomPass=" << tmp << ";" <<  endl;
+            }
+            tmp = eLogPage->getQRZCOMAutoCheck();
+            if (tmp.length()>0)
+            {
+                 stream << "QRZcomAuto=" << tmp << ";" <<  endl;
+            }
+        }
+        // QRZ.com - END
+
         //qDebug() << "SetupDialog::slotOkButtonClicked - 60" << endl;
 
         // LOTW
@@ -1079,7 +1117,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if(tab =="HAMLIBSERIALDTR"){
           //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
         //hamlibPage->setDTR(value);
-
+    }else if (tab == "HAMLIBRIGPOLLRATE"){
+        hamlibPage->setPollingInterval(value.toInt());
     }else if(tab =="SELECTEDLOG"){
            //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << endl;
         i = value.toInt();
@@ -1134,6 +1173,21 @@ bool SetupDialog::processConfigLine(const QString &_line)
         //eQSLPage->setPassword(value);
         eLogPage->setEQSLPassword(value);
     }    
+
+    else if(tab =="QRZCOMACTIVE"){
+        //eQSLPage->setActive(value);
+        eLogPage->setQRZCOMActive(value);
+    }
+    else if(tab =="QRZCOMUSER"){
+        eLogPage->setQRZCOMUser(value);
+    }
+    else if(tab =="QRZCOMAUTO"){
+        eLogPage->setQRZCOMAutoCheck(value);
+    }
+    else if(tab =="QRZCOMPASS"){
+        eLogPage->setQRZCOMPassword(value);
+    }
+
     else if(tab =="LOTWACTIVE"){
         //lotwPage->setLoTW(value);
         eLogPage->setLoTWActive(value);
@@ -1370,6 +1424,10 @@ void SetupDialog::setClubLogActive(const bool _b)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
+void SetupDialog::setQRZCOMAutoCheckActive(const bool _b)
+{
+     eLogPage->setQRZCOMAutoCheck(util->boolToQString(_b));
+}
 
 void SetupDialog::checkIfNewBandOrMode()
 {

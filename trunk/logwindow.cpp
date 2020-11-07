@@ -265,6 +265,10 @@ void LogWindow::rightButtonMultipleFromLogMenu()
     menuRcvdQsl->addAction(multipleQslRecViaBureauFromLogAct);
     menuRcvdQsl->addAction(multipleQslRecViaDirectFromLogAct);
     */
+
+    menu.addSeparator();
+    menu.addAction(multipleSelectAll);
+    menu.addAction(multipleDeselectAll);
     menu.exec(QCursor::pos());
 }
 
@@ -311,6 +315,8 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
             qslRecViaBureauFromLogAct->setData(trow);
             qslRecViaDirectFromLogAct->setData(trow);
         }
+        menu.addSeparator();
+        menu.addAction(multipleSelectAll);
     menu.exec(QCursor::pos());
 }
 
@@ -428,9 +434,24 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
    multipleQslRecViaDirectFromLogAct->setStatusTip(tr("QSLs received via direc&t"));
    connect(multipleQslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotMultipleQSLRecViaDirectFromLog() ));
 
+   multipleDeselectAll = new QAction(tr("Deselect all"), this);
+   multipleDeselectAll->setStatusTip(tr("Remove all selections"));
+   connect(multipleDeselectAll, SIGNAL(triggered()), this, SLOT( slotQSOsDeselectAll() ));
+
+   multipleSelectAll = new QAction(tr("Select all"), this);
+   multipleSelectAll->setStatusTip(tr("Select all the QSOs"));
+   connect(multipleSelectAll, SIGNAL(triggered()), this, SLOT( slotQSOsSelectAll() ));
 }
 
+void LogWindow::slotQSOsSelectAll()
+{
+    logView->selectAll();
+}
 
+void LogWindow::slotQSOsDeselectAll()
+{
+    logView->selectionModel()->clearSelection();
+}
 
 void LogWindow::slotQSLSentViaBureauFromLog()
 {

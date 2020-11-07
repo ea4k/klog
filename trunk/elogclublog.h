@@ -45,6 +45,7 @@ public:
 
     void setCredentials(const QString &_email, const QString &_pass, const QString _defaultStationCallsign);
     int sendQSO(QStringList _qso);
+
     int deleteQSO(QStringList _qso);
     //int deleteQSOid(const int _qsoId);
     int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
