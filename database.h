@@ -42,7 +42,7 @@
 class QSqlRelationalTableModel;
 // Previous db update 0.011
 
-const float DBVersionf = 0.017f; // This is the latest version of the DB.
+const float DBVersionf = 0.018f; // This is the latest version of the DB.
 
 
 struct AwarddxccEntry
@@ -165,6 +165,7 @@ private:
     bool updateTo015(); // Adds the FT4 mode
     bool updateTo016(); // Recreates the satellite table to add the QO-100
     bool updateTo017(); // Merges the qso_date & time_on fields
+    bool updateTo018(); // Creates Subdivision
 
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);
@@ -196,6 +197,8 @@ private:
     bool recreateTableWAZ();
     bool createTableAwardWAZ();
 
+    bool createTableSubdivision(const bool NoTmp);
+    
     bool recreateSatelliteData();
     bool createTableSatellites(const bool NoTmp);
     bool populateTableSatellites(const bool NoTmp);

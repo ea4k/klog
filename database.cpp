@@ -728,6 +728,7 @@ bool DataBase::createDataBase()
     createTableLog(true);
 
     createTableEntity(true);
+    createTableSubdivision(true);
 
       //http://www.sqlite.org/lang_datefunc.html
       /*
@@ -932,6 +933,51 @@ bool DataBase::createTableAwardWAZ()
 
 
 
+bool DataBase::createTableSubdivision(const bool NoTmp)
+{
+    //qDebug() << "DataBase::createTableSubdivisions" << endl;
+    // NoTmp = false => TMP data table to operate and be deleted afterwards
+
+    //qDebug() << "DataBase::createTableSubdivisions" << endl;
+
+    QString stringQuery = QString();
+    QString table = QString();
+    if (NoTmp)
+    {
+        table = "primary_subdivisions" ;
+    }
+    else
+    {
+        table = "primary_subdivisionstemp" ;
+    }
+
+    stringQuery = "CREATE TABLE "+ table;
+
+    stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "dxcc INTEGER NOT NULL, "
+        "name VARCHAR NOT NULL, "
+        "shortname VARCHAR NOT NULL, "
+        "prefix VARCHAR, "
+        "cqz INTEGER NOT NULL, "
+        "ituz INTEGER NOT NULL, "
+        "regionalgroup VARCHAR, "
+        "regionalid INTEGER, "       
+        "start_date DATETIME, "
+        "end_date DATETIME, "
+        "deleted VARCHAR, "
+        "UNIQUE (id, shortname, name), "
+        "FOREIGN KEY (cqz) REFERENCES entity, "
+        "FOREIGN KEY (ituz) REFERENCES entity, "
+        "FOREIGN KEY (dxcc) REFERENCES entity)");
+
+    QString delS = QString();
+    delS = "DROP TABLE IF exists " + table;
+    execQuery(Q_FUNC_INFO, delS);
+    //qDebug() << "DataBase::createTableSubdivision - END" << endl;
+    return execQuery(Q_FUNC_INFO, stringQuery);
+
+    //qDebug() << "DataBase::createTableSubdivision - END" << endl;
+}
 
 
 int DataBase::getBandIdFromName(const QString &b)
@@ -2016,7 +2062,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    return updateTo017();
+    return updateTo018();
 
 }
 
@@ -7586,6 +7632,73 @@ bool DataBase::updateTo017()
     return true;
 }
 
+bool DataBase::updateTo018()
+{
+    // Updates the DB to 0.018:
+    // Adds the Subdivisions
+
+    //qDebug() << "DataBase::updateto018: latestRead: " << getDBVersion() << endl;
+    bool IAmIn017 = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+    //qDebug() << "DataBase::updateto018: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    if (latestReaded >= 0.018f)
+    {
+        //qDebug() << "DataBase::updateto018: - I am in 018" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateto018: - I am not in 0.018 I am in: " << getDBVersion() << endl;
+        while (!IAmIn017 && !ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateto017: - Check if I am in 017: !" << endl;
+            IAmIn017 = updateTo017();
+            if (IAmIn017)
+            {
+                //qDebug() << "DataBase::updateto018: - updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) << endl;
+            }
+            else
+            {
+                //qDebug() << "DataBase::updateto017: - updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) << endl;
+                ErrorUpdating = false;
+            }
+        }
+        if (ErrorUpdating)
+        {
+            //qDebug() << "DataBase::updateto018: - I Could not update to: " << QString::number(dbVersion) << endl;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+    bool ok = createTableSubdivision(true);
+
+    if (!ok)
+    {
+        return false;
+    }
+    // REMOVE THE FOLLOWING LINE ONCE THIS FUNCTION HAS BEEN UPDATED
+    //return false;
+
+    // If everything went OK, we update the DB number.
+    if (updateDBVersion(softVersion, "0.018"))
+    {
+        //qDebug() << "DataBase::updateto018: - We are in 018! " << endl;
+    }
+    else
+    {
+        //qDebug() << "DataBase::updateto018: - Failed to go to 018! " << endl;
+       // emit debugLog(Q_FUNC_INFO, "15", 7);
+        return false;
+    }
+    //qDebug() << "DataBase::updateTo018: UPDATED OK!" << endl;
+    return true;
+}
+
+
 bool DataBase::updateAwardDXCCTable()
 {
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
@@ -8109,7 +8222,7 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
 
  bool DataBase::execQuery(const QString &function, const QString &stringQuery)
  {
-       //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << endl;
+    //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << endl;
     QSqlQuery query;
 
 
@@ -8121,7 +8234,7 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
                //qDebug() << "DataBase::execQuery: Still active... " << endl;
             query.finish();
         }
-           //qDebug() << "DataBase::execQuery: No longer active... " << endl;
+    //qDebug() << "DataBase::execQuery: No longer active... " << endl;
         return true;
     }
     else

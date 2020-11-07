@@ -80,6 +80,31 @@ bool Utilities::trueOrFalse(const QString &_s)
     //return false;
 }
 
+QChar Utilities::boolToCharToSQLite(const bool _b)
+{
+    if (_b)
+    {
+        return 'Y';
+    }
+    else
+    {
+        return 'N';
+    }
+
+}
+
+QString Utilities::boolToQString(const bool _b)
+{
+    if (_b)
+    {
+        return "True";
+    }
+    else
+    {
+        return "False";
+    }
+}
+
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
          //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << endl;

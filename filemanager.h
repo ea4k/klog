@@ -47,14 +47,14 @@
 #include "utilities.h"
 
 
-
+/*
 enum
 {
     CQZones = 40,
     ITUZones = 90,
     DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
 };
-
+*/
 //enum ExportMode {ModeLotW, ModeADIF};
 
 class FileManager : public QWidget

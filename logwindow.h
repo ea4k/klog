@@ -94,6 +94,8 @@ private slots:
     void slotCheckQRZCom();
     void slotCheckDXHeatCom();
 
+    void slotQSOsDeselectAll();
+    void slotQSOsSelectAll();
     void slotQSOsDeleteFromLog();
     void slotQSOsExportFromLog();
     void slotQSOsUploadToLoTWFromLog();
@@ -141,6 +143,8 @@ private:
     QAction *checkDXHeatFromLogAct;
 
     //Multiple selection actions
+    QAction *multipleDeselectAll;
+    QAction *multipleSelectAll;
     QAction *multipleDelQSOsFromLogAct;
     QAction *multipleExportToADIFFromLogAct;
     QAction *multipleQueueForLoTWFromLogAct;

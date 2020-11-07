@@ -41,7 +41,7 @@ class MainWindowMyDataTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowMyDataTab(QWidget *parent = 0);
+    explicit MainWindowMyDataTab(QWidget *parent = nullptr);
     ~MainWindowMyDataTab();
 
     void createUI();

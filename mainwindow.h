@@ -42,6 +42,7 @@
 #include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
+#include "fileawardmanager.h"
 //#include "contest.h"
 //#include "contest_cqwwdxssb.h"
 #include "dataproxy_sqlite.h"
@@ -71,7 +72,7 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
-
+#include "elogqrzlog.h"
 //#include "pstrotatorsupport.h"
 #include "lotwutilities.h"
 #include "eqslutilities.h"
@@ -147,6 +148,7 @@ public:
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void slotAWAImport();
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
     void slotQRZReturnPressed();
@@ -284,7 +286,15 @@ private slots:
     void slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // EQSL
     void slotShowSoftUpdateResults(const bool _b);   // Software Update: Receives the signal to see if it is needed or not to update
+    // EQSL
+    // QRZCOM
+    void slotElogQRZCOMShowMessage(const QString &_s);
+    void slotElogQRZCOMFoundData(const QString &_t, const QString & _d);
+    void slotElogQRZCOMCheckThisCall();
+    void slotElogQRZCOMAutoCheck();
+    void slotElogQRZCOMAutoCheckFromSetup(const bool _s);
 
+    // QRZCOM
     //SATELLITE
     //void slotSatBandTXComboBoxChanged(const QString _q);
     void slotDefineNewBands (const QStringList _bands);
@@ -438,6 +448,7 @@ private:
     //QWidget *dxClusterTabWidget;//, *searchTabWidget;
     World *world;
     FileManager *filemanager;
+    FileAwardManager *fileAwardManager;
     Locator *locator;
     Awards *awards;
     Utilities *util;
@@ -490,12 +501,14 @@ private:
     QMenu *lotwToolMenu;
     QMenu *clublogToolMenu;
     QMenu *eQSLToolMenu;
+    QMenu *QRZCOMToolMenu;
     //QMenu *lotwMarkAllAsQueuedMenu;
     //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
     QMenu *setupMenu;
     QMenu *helpMenu;
 
+    QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;
     //QAction *saveAct;
@@ -538,6 +551,9 @@ private:
     QAction *clublogLogModifyCurrentLogAct;
     QAction *eqslUploadAct;
     QAction *eqslLogModifyCurrentLogAct;
+
+    QAction *QRZCOMCheckThisCallAct;
+    QAction *QRZCOMAutoCheckAct;
 
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
@@ -703,13 +719,18 @@ private:
 
     //<CLUBLOG>
     bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
-    QString clublogPass, clublogEmail; //clublogUser,
+    QString clublogPass, clublogEmail; //clublogUser,   
 
     eLogClubLog *elogClublog;
     int clublogAnswer;
     QStringList clublogPrevQSO;
 
     //</CLUBLOG>
+    // QRZ.com
+    bool qrzcomActive;
+    eLogQrzLog *elogQRZcom;
+    QString qrzcomUser, qrzcomPass;
+    // QRz.com - END
 
     // Contest
     //int points, qsoPoints, multipliers, qsoMultiplier;

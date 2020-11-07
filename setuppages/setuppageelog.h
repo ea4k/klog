@@ -38,7 +38,6 @@ public:
     ~SetupPageELog();
 
     //Clublog
-
     void setClubLogEmail(const QString &c);
     void setClubLogPassword(const QString &c);
     void setClubLogActive(const QString &_s);
@@ -71,12 +70,29 @@ public:
     QString getEQSLActive();
     //QString getEQSLRealTime();
 
+    //QRZ.COM
+    void setQRZCOMUser(const QString &_s);
+    void setQRZCOMPassword(const QString &_s);
+
+    //void setQRZCOMAPI(const QString &c);
+    void setQRZCOMActive(const QString &_s);
+    void setQRZCOMAutoCheck(const QString &_s);
+
+    QString getQRZCOMUser();
+    QString getQRZCOMPassword();
+
+    //QString getQRZCOMAPI();
+    QString getQRZCOMActive();    
+    QString getQRZCOMAutoCheck();
+
 
 private slots:
 
     void slotClubLogActive(bool _s);
     void slotEQSLActive(bool _s);
     void slotTQSLActive(bool _s);
+    void slotQRZCOMActive(bool _s);
+    void slotQRZCOMAuto(bool _s);
 
     void slotSelectTQSLClicked();
     void slotPathLineEditChanged(const QString _q);
@@ -84,20 +100,27 @@ private slots:
 
 signals:
     void enterKey();
+    void qrzcomAuto(bool _s);
 
+protected:
+    //void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
 private:
-
+    void setDefaults();
     //QString defaultFileName;
     QGroupBox *clubLogGroup;
     QCheckBox *clubLogSendInRealTimeCheckBox, *clubLogActiveCheckBox;//, *useQSOStationCallCheckBox;
-    QLineEdit *clubLogPasswordLineEdit, *clubLogEmailLineEdit;//, *callLineEdit;
-    QString clubLogEmail, clubLogPass; //call,
+    QLineEdit *clubLogPasswordLineEdit, *clubLogEmailLineEdit;//, *callLineEdit;   
     QLabel *clubLogPasswordLabel, *clubLogEmailLabel; //*callLabel,
+    QString clubLogEmail, clubLogPass;
+    bool clubLogActive, clubLogRealTime;
 
     QGroupBox *eQSLccGroup;
-    QLineEdit *eQSLUserLineEdit, *eQSLPasswordLineEdit;
+    QLineEdit *eQSLUserLineEdit, *eQSLPasswordLineEdit;    
     QCheckBox *eQSLActiveCheckBox; //*eQSLSendInRealTimeCheckBox,
     QLabel *eQSLpasswordLabel, *eQSLemailLabel;
+    bool eqslActive;
+    QString eqslUser, eqslPass;
 
     QGroupBox *lotwGroup, *lotwUpGroup, *lotwDownGroup;
     QLineEdit *lotwUserLineEdit, *lotwPasswordLineEdit;
@@ -105,6 +128,17 @@ private:
     QPushButton *lotwSearchTQSLPushButton;
     QCheckBox *lotwUseTQSLCheckBox;
     QLabel *lotwpasswordLabel, *lotwemailLabel;
+    bool lotwTQSL;
+    QString lotwPath, lotwUser, lotwPass;
+
+    QGroupBox *QRZCOMGroup;
+    //QLineEdit *QRZCOMAPILineEdit;
+    QLineEdit *QRZCOMUserLineEdit, *QRZCOMPasswordLineEdit;
+    QLabel *QRZCOMPasswordLabel, *QRZCOMUserLabel;
+    QCheckBox *QRZCOMActiveCheckBox, *QRZCOMAutoCheckCheckBox;
+
+    bool qrzcomActive, qrzcomAutoFill;
+    QString qrzComUser, qrzcomPass;
 
     Utilities *util;
 

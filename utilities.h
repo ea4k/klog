@@ -46,6 +46,8 @@ public:
     ~Utilities();
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
+    QChar boolToCharToSQLite(const bool _b);
+    QString boolToQString(const bool _b);
     QString checkAndFixASCIIinADIF(const QString &_data);
     QString getAgent(const QString &_klogversion);
     //QOperatingSystemVersion getOS();

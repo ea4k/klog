@@ -1,5 +1,6 @@
 #ifndef DATAPROXY_SQLITE_H
 #define DATAPROXY_SQLITE_H
+
 /***************************************************************************
                           dataproxy_sqlite.h  -  description
                              -------------------
@@ -30,7 +31,13 @@
 #include <QObject>
 
 #include "database.h"
-
+//#include "regionalaward.h"
+enum
+{
+    CQZones = 40,
+    ITUZones = 90,
+    DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
+};
 
 class DataProxy_SQLite : public QObject
 {
@@ -272,9 +279,12 @@ public:
     bool setDXCCAwardStatus(const int _qsoId);
     bool setWAZAwardStatus(const int _qsoId);
 
-
+    //bool addRegionalAward(RegionalAward _regionalAward);
+    bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);
 
     void getFoundInLog(const QString &_txt, const int _log=-1);
+    QString getADIFQSO(const int _qsoId);
+    bool showInvalidCallMessage(const QString &_call);
 
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
@@ -304,4 +314,5 @@ signals:
     void debugLog(QString functionFailed, QString errorCode, int level); // emitted as the KLog application log
 
 };
-#endif // DATAPROXY_SQLITE_H
+
+#endif //DATAPROXY_SQLITE_H

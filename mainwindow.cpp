@@ -48,7 +48,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
-
+    QRZCOMAutoCheckAct = new QAction(tr("Check always the current QRZ in QRZ.com"), this);
+    QRZCOMAutoCheckAct->setCheckable(true);
+    QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
     //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
     debugFile = new QFile(debugName);
@@ -95,8 +97,10 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow: 00081" << endl;
     elogClublog = new eLogClubLog();
     //qDebug() << "MainWindow::MainWindow: 00082" << endl;
+    elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO);
 
-    //qDebug() << "MainWindow::MainWindow: 00083" << endl;
+
+   //qDebug() << "MainWindow::MainWindow: 00083" << endl;
     updateSatsData = new UpdateSatsData(dataProxy);
     //qDebug() << "MainWindow::MainWindow: 00084" << endl;
     statsWidget = new StatisticsWidget(dataProxy);
@@ -184,9 +188,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox = new QDoubleSpinBox;
 
-   //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
     // </UI>
@@ -201,10 +205,11 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
 
 
-     //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+    //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-
+    fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
+    
     lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
@@ -214,8 +219,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 
-   //qDebug() << "MainWindow::MainWindow: END" << endl;
+  //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
+
 void MainWindow::saveWindowsSize()
 {
     //qDebug()() << "MainWindow::saveWindows" << endl;
@@ -348,10 +354,15 @@ void MainWindow::init()
     clublogEmail = QString();
     clublogActive = false;
     clublogRealTime = false;
+
     //clublogUseStationCallSign = false;
     eQSLActive = false;
     eQSLRealTime = false;
     eQSLUseQSOStationCallSign = false;
+    qrzcomActive = false;
+
+    qrzcomUser = QString();
+    qrzcomPass = QString();
 
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     //previousQrz = "";
@@ -391,9 +402,9 @@ void MainWindow::init()
     {
         world->create(ctyDatFile);
     }
-          //qDebug() << "MainWindow::init: 0013" << endl;
+   //qDebug() << "MainWindow::init: 0013" << endl;
     readConfigData();
-          //qDebug() << "MainWindow::init: 0014" << endl;
+   //qDebug() << "MainWindow::init: 0014" << endl;
     logWindow->createlogPanel(currentLog);
           //qDebug() << "MainWindow::init: 0015" << endl;
     awards->setManageModes(manageMode);
@@ -523,6 +534,13 @@ void MainWindow::createActionsCommon(){
     //connect (eqslUtilities, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
     connect (eqslUtilities, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
     connect (eqslUtilities, SIGNAL (signalFileUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogEQSLFileUploaded(QNetworkReply::NetworkError, QList<int>)));
+
+    // QRZCOM
+    connect (elogQRZcom, SIGNAL (showMessage(QString)), this, SLOT (slotElogQRZCOMShowMessage(QString)));
+    connect (elogQRZcom, SIGNAL (dataFoundSignal(QString, QString)), this, SLOT (slotElogQRZCOMFoundData(QString, QString)));
+
+
+
     // SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
     //connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
@@ -566,6 +584,9 @@ void MainWindow::createActionsCommon(){
    connect(setupDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
    connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
    connect(setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
+   connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
+
+
 
    connect(tipsDialog, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
@@ -928,13 +949,13 @@ void MainWindow::slotQRZReturnPressed()
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-   //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
+    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int lastId = -1;
     needToSave = true;
     if (modify)
     {
-               //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Modifying! " << endl;
+    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Modifying! " << endl;
        needToSave = true;
        if(modifyingQSO>0)
        {
@@ -965,31 +986,30 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     else
     {
-              //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
+        //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " << endl;
         lastId = dataProxy->getLastQSOid();
         if (lastId>=0)
         {
-                  //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
+            //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << endl;
             awards->setAwards(lastId);   //Update the DXCC award status
 
             // Send to CLUBLOG if enabled
 
             if ((clublogActive) && (clublogRealTime))
             {
-               //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
-
+                //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Sending ClubLog) Lastid: "<< QString::number(lastId) << endl;
                 elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
             }
             else
             {
-             //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
+                //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) << endl;
             }
             //<CLUBLOG>
         }
         else
 
         {
-                  //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid < 0 "<< QString::number(lastId) << endl;
+            //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid < 0 "<< QString::number(lastId) << endl;
         }
         //awards->setAwards(lastId);
     }
@@ -997,7 +1017,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     logWindow->refresh();
     dxccStatusWidget->refresh();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-   //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << endl;
+    //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << endl;
 
 }
 
@@ -2522,11 +2542,13 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
     {
         return; // NO QSO TO EXPORT
     }
-    foreach(int i, _id)
+   /*
+     int i=0;
+    foreach(i, _id)
     {
         //qDebug() << "MainWindow::slotQSOsExportToADIFF " << QString::number(i)  << endl;
     }
-
+º*/
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     //qDebug() << "MainWindow::slotQSOsExportToADIF: " << fileName << endl;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
@@ -2914,6 +2936,70 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
 }
 
 
+
+void MainWindow::slotElogQRZCOMShowMessage(const QString &_s)
+{
+    //qDebug() << "MainWindow::slotElogQRZCOMShowMessage: " << _s << endl;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    slotUpdateStatusBar(_s);
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
+{
+   //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << endl;
+   if (_t == "name")
+   {
+        nameLineEdit->setText(_d);
+   }
+   else if (_t == "grid")
+   {
+        locatorLineEdit->setText(_d);
+   }
+   else if (_t == "qth")
+   {
+        qthLineEdit->setText(_d);
+   }
+   else if (_t == "qslmgr")
+   {
+        //QSLTabWidget->setQSLVia(_d);
+   }
+   else if (_t == "error")
+   {
+
+       QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Warning);
+       msgBox.setWindowTitle(tr("KLog - QRZ.com error"));
+       QString aux = QString(tr("KLog has received an error from QRZ.com.") );
+       msgBox.setText(aux);
+       msgBox.setDetailedText(_d);
+       msgBox.setStandardButtons(QMessageBox::Ok);
+       msgBox.setDefaultButton(QMessageBox::Ok);
+       msgBox.exec();
+
+   }
+   else
+   {
+       //qDebug() << "MainWindow::slotElogQRZCOMFoundData: QRZ value not recognized" << endl;
+   }
+}
+
+void MainWindow::slotElogQRZCOMCheckThisCall()
+{
+  //qDebug() << "MainWindow::slotElogQRZCOMCheckThisCall: " << endl;
+   elogQRZcom->checkQRZ(mainQSOEntryWidget->getQrz());
+}
+
+void MainWindow::slotElogQRZCOMAutoCheck()
+{
+   //qDebug() << "MainWindow::slotElogQRZCOMAutoCheck: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << endl;
+    setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
+}
+void MainWindow::slotElogQRZCOMAutoCheckFromSetup(const bool _s)
+{
+    QRZCOMAutoCheckAct->setEnabled(_s);
+}
+
 void MainWindow::slotExitFromSlotDialog(const int exitID)
 {
     //qDebug()() << "MainWindow::slotExitFromSlotDialog: " << QString::number(exitID) << endl;
@@ -2983,7 +3069,7 @@ bool MainWindow::validCharactersInCall(const QString &_qrz)
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-        //qDebug()<< "MainWindow::slotQRZTextChanged: "  << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
@@ -3002,11 +3088,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
 
-    //qrzAutoChanging = true;
-
-        //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position.1: "  << endl;
-
-        //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
+     //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
@@ -3016,7 +3098,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
 
-        //qDebug()<< "MainWindow::slotQRZTextChanged: running..." << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: running..." << endl;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -3024,16 +3106,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
 
-    //currentQrz = _qrz;
-
-          //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
     currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
           //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
-
-             //qDebug() << "MainWindow::slotQRZTextChanged: DXCC/ISOname: " << QString::number(currentEntity) << "/" << dataProxy->getISOName(currentEntity) << endl;
-             //qDebug() << "MainWindow::slotQRZTextChanged: Entity: " << QString::number(currentEntity) << endl;
 
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
@@ -3068,9 +3145,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
 
           //qDebug() << "MainWindow::slotQRZTextChanged: Going to check the DXCC" << endl;
-
-                  //qDebug() << "MainWindow::slotQRZTextChanged: DX:" << endl;
-                  //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
+        //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
                   //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
@@ -3104,9 +3179,14 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
     completeWithPreviousQSO(_qrz);
     searchWidget->setCallToSearch(_qrz);
+    if (qrzcomActive && QRZCOMAutoCheckAct->isChecked())
+    {
+        elogQRZcom->checkQRZ(_qrz);
+    }
+
     //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-           //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
 /*
@@ -3367,7 +3447,12 @@ bool MainWindow::maybeSave()
     return true;
 }
 
-
+void MainWindow::slotAWAImport()
+{
+    //qDebug() << "MainWindow::slotAWAImport" << endl;
+    fileAwardManager->importNewAwardFile();
+    //qDebug() << "MainWindow::slotAWAImport - END" << endl;
+}
 
 void MainWindow::createMenusCommon()
 {
@@ -3375,14 +3460,11 @@ void MainWindow::createMenusCommon()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     fileMenu = menuBar()->addMenu(tr("&File"));
 
-    //openAct = new QAction(tr("&New..."), this);
-    //fileMenu->addAction(openAct);
-    //connect(openAct, SIGNAL(triggered()), this, SLOT(newFile()));
+    //awardAddAct = new QAction(tr("Import Award definition file..."), this);
+    //fileMenu->addAction(awardAddAct);
+    //connect(awardAddAct , SIGNAL(triggered()), this, SLOT(slotAWAImport()));
+    //awardAddAct ->setToolTip(tr("Import an Award file."));
 
-    //openAct = new QAction(tr("&Open..."), this);
-    //fileMenu->addAction(openAct);
-    //openAct->setShortcut(Qt::CTRL + Qt::Key_O);
-    //connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
 
     ADIFImport = new QAction(tr("&Import from ADIF..."), this);
     fileMenu->addAction(ADIFImport);
@@ -3546,13 +3628,26 @@ void MainWindow::createMenusCommon()
     eqslLogModifyCurrentLogAct = new QAction(tr("Mark all the QSO to be uploaded"), this);
     eQSLToolMenu->addAction(eqslLogModifyCurrentLogAct);
     connect(eqslLogModifyCurrentLogAct, SIGNAL(triggered()), this, SLOT( slotElogEQSLModifyCurrentLog()));
-    eqslLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded againto eQSL.");
+    eqslLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
 
     eqslUploadAct = new QAction(tr("Upload the log to eQSL.cc"), this);
     eQSLToolMenu->addAction(eqslUploadAct);
     connect(eqslUploadAct, SIGNAL(triggered()), this, SLOT(sloteQSLLogUpload()));
     eqslUploadAct->setToolTip("Uploads your log to eQSL.cc.");
 
+    toolMenu->addSeparator();
+    QRZCOMToolMenu = toolMenu->addMenu(tr("QRZ.com tools..."));
+
+    QRZCOMCheckThisCallAct = new QAction(tr("Check the current QRZ in QRZ.com"), this);
+    QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
+    connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
+    QRZCOMCheckThisCallAct->setToolTip("Checks the current QRZ in QRZ.com.");
+
+
+    QRZCOMAutoCheckAct->setText(tr("Check always the current QRZ in QRZ.com"));
+    QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
+    connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
+    QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded againto eQSL.");
 
     toolMenu->addSeparator();
 
@@ -4175,7 +4270,7 @@ void MainWindow::openSetup(const int _page)
         }
         else
         {
-                   //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
+           //qDebug() << "MainWindow::slotSetup - Just before readConfigData"  << endl;
             logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
             readConfigData();
             reconfigureDXMarathonUI(manageDxMarathon);
@@ -4183,7 +4278,7 @@ void MainWindow::openSetup(const int _page)
             //{
             //}
             logEvent(Q_FUNC_INFO, "Just after readConfigData", logSeverity);
-                   //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
+           //qDebug() << "MainWindow::slotSetup - Just after readConfigData"  << endl;
         }
 
 
@@ -4459,7 +4554,7 @@ void MainWindow::checkIfWorkedB4(const QString &_qrz)
 
 void MainWindow::readConfigData()
 {
-          //qDebug() << "MainWindow::readConfigData - 01" << endl;
+   //qDebug() << "MainWindow::readConfigData - 01" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (needToEnd)
     {
@@ -4468,29 +4563,29 @@ void MainWindow::readConfigData()
     }
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-                  //qDebug() << "MainWindow::readConfigData: File not found" << configFileName << endl;
+       //qDebug() << "MainWindow::readConfigData: File not found" << configFileName << endl;
         if (configured)
         {
-                      //qDebug() << "MainWindow::readConfigData: configured = true" << endl;
+           //qDebug() << "MainWindow::readConfigData: configured = true" << endl;
         }
         else
         {
-                      //qDebug() << "MainWindow::readConfigDataw: configured = false" << endl;
+           //qDebug() << "MainWindow::readConfigDataw: configured = false" << endl;
         }
         openSetup();
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
     hamlibActive = false;
-          //qDebug() << "MainWindow::readConfigData: Before processConfigLine "  << endl;
+   //qDebug() << "MainWindow::readConfigData: Before processConfigLine "  << endl;
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
         processConfigLine(line);
     }
-         //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << endl;
+   //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << endl;
     defineStationCallsign();
 
-          //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
+   //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << endl;
 
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
@@ -4521,9 +4616,9 @@ void MainWindow::readConfigData()
 
     if (upAndRunning)
     { // Next actions will not be executed in the first run
-               //qDebug() << "MainWindow::readConfigData: 99.1" << endl;
+       //qDebug() << "MainWindow::readConfigData: 99.1" << endl;
         slotClearButtonClicked();
-               //qDebug() << "MainWindow::readConfigData: 99.2" << endl;
+       //qDebug() << "MainWindow::readConfigData: 99.2" << endl;
         //createSearchResultsPanel();
     }
 
@@ -4531,15 +4626,24 @@ void MainWindow::readConfigData()
     if (clublogActive)
     {
         //           setCredentials(const QString &_call, const QString &_email, const QString &_pass, const bool _useQSOStationCall)
-       //qDebug() << "MainWindow::readConfigData: Setting ClublogCredentials" << endl;
+      //qDebug() << "MainWindow::readConfigData: Setting ClublogCredentials" << endl;
         //elogClublog->setCredentials(clublogUser, clublogEmail, clublogPass, clublogUseStationCallSign);
         elogClublog->setCredentials(clublogEmail, clublogPass, stationQRZ);
     }
     else
     {
-       //qDebug() << "MainWindow::readConfigData: NOT Setting ClublogCredentials" << endl;
+      //qDebug() << "MainWindow::readConfigData: NOT Setting ClublogCredentials" << endl;
     }
-          //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
+   //qDebug() << "MainWindow::readConfigData: QRZcom active????" << endl;
+    if (qrzcomActive)
+    {
+       //qDebug() << "MainWindow::readConfigData: QRZcom active" << endl;
+        elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
+       //qDebug() << "MainWindow::readConfigData: login" << endl;
+        elogQRZcom->login();
+       //qDebug() << "MainWindow::readConfigData: after login" << endl;
+    }
+   //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << endl;
 
 
            //qDebug() << "MainWindow::readConfigData: 100" << endl;
@@ -4621,7 +4725,7 @@ void MainWindow::readConfigData()
               //qDebug() << "MainWindow::readConfigData: NOT STARTING HAMLIB";
     }
 
-          //qDebug() << "MainWindow::readConfigData - END" << endl;
+   //qDebug() << "MainWindow::readConfigData - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4957,8 +5061,9 @@ bool MainWindow::processConfigLine(const QString &_line){
            //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
         //hamlib->setDTR(value);
            //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << endl;
-    }
-    else if (field == "HAMLIB")
+    }else if (field == "HAMLIBRIGPOLLRATE"){
+        hamlib->setPoll(value.toInt());
+    }else if (field == "HAMLIB")
     {
               //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
         if (value.toUpper() == "TRUE")
@@ -5116,7 +5221,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         dxccStatusWidget->setCurrentLog(currentLog);
                //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << endl;
     }
-        else if(field=="CLUBLOGACTIVE")
+    else if(field=="CLUBLOGACTIVE")
     {
                 //qDebug() << "MainWindow::processConfigLine: clublogActive: " << value << endl;
         clublogActive = util->trueOrFalse(value);
@@ -5136,7 +5241,27 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
        //qDebug() << "MainWindow::processConfigLine: clublogEmail: " << value << endl;
         clublogEmail = value;
-    }    
+    }
+    else if(field=="QRZCOMACTIVE")
+    {
+        qrzcomActive = util->trueOrFalse(value);
+    }
+    else if(field =="QRZCOMAUTO")
+    {
+       //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto: " << value << endl;
+       //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto was: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << endl;
+
+        QRZCOMAutoCheckAct->setChecked(util->trueOrFalse(value));        
+       //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto is: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << endl;
+    }
+    else if(field=="QRZCOMPASS")
+    {
+        qrzcomPass = value;
+    }
+    else if(field=="QRZCOMUSER")
+    {
+        qrzcomUser = value;
+    }
     else if(field =="EQSLACTIVE"){
         eQSLActive = util->trueOrFalse(value);
        //qDebug() << "MainWindow::processConfigLine - EQSLACTIVE" << endl;
@@ -5452,14 +5577,14 @@ void MainWindow::createUIDX()
     txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
     rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
     //myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
-    rxPowerSpinBox->setToolTip(tr("Power used by the DX."));
+    rxPowerSpinBox->setToolTip(tr("Power used by the contacted station."));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
     stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
 
 
-    nameLineEdit->setToolTip(tr("Name of the DX."));
-    qthLineEdit->setToolTip(tr("QTH of the DX."));
-    locatorLineEdit->setToolTip(tr("Locator of the DX."));
+    nameLineEdit->setToolTip(tr("Name of the contacted operator."));
+    qthLineEdit->setToolTip(tr("QTH of the contacted station."));
+    locatorLineEdit->setToolTip(tr("Locator of the contacted station."));
           //qDebug() << "MainWindow::createUIDX-10" << endl;
     //freqQLCDNumber->setToolTip(tr("Frequency of the QSO"));
     //qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
@@ -5545,15 +5670,12 @@ void MainWindow::createUIDX()
     RSTLayout->addWidget(rstRxLabelN, 0, 1);
     RSTLayout->addWidget(rstRXLineEdit, 1, 1);
 
-    //QLabel *spacerLabel = new QLabel(tr("SPACERQTH"));
-          //qDebug() << "MainWindow::createUIDX-50" << endl;
-    QHBoxLayout *qthHLayout = new QHBoxLayout;
-    qthHLayout->addWidget(qthLabel);
-    //qthHLayout->addSpacerItem(new QSpacerItem(50,1));
-    //qthHLayout->addWidget(spacerLabel);
+    //qDebug() << "MainWindow::createUIDX-50" << endl;
+    //QHBoxLayout *qthHLayout = new QHBoxLayout;
+    //qthHLayout->addWidget(qthLabel);
 
     QVBoxLayout *qthLayout = new QVBoxLayout;
-    qthLayout->addLayout(qthHLayout);
+    qthLayout->addWidget(qthLabel);
     qthLayout->addWidget(qthLineEdit);
 
     QVBoxLayout *rstQTHLayout = new QVBoxLayout;
@@ -5576,14 +5698,14 @@ void MainWindow::createUIDX()
     locVLayout->addWidget(locatorLineEdit);
           //qDebug() << "MainWindow::createUIDX-60" << endl;
     //QLabel *spacerLocLabel = new QLabel(tr("SPACERLoc"));
-    QHBoxLayout *locLayout = new QHBoxLayout;
+    //QHBoxLayout *locLayout = new QHBoxLayout;
     //locLayout->addSpacerItem(new QSpacerItem(50,1));
     //locLayout->addWidget(spacerLocLabel);
-    locLayout->addLayout(locVLayout);
+    //locLayout->addLayout(locVLayout);
 
     QVBoxLayout *freqLocLayout = new QVBoxLayout;
     freqLocLayout->addLayout(freqLayout);
-    freqLocLayout->addLayout(locLayout);
+    freqLocLayout->addLayout(locVLayout);
 
     QHBoxLayout *rstfreqLayout = new QHBoxLayout;
     rstfreqLayout->addLayout(rstQTHLayout);
@@ -5594,13 +5716,13 @@ void MainWindow::createUIDX()
     rxPowerLayout->addWidget(rxPowerSpinBox);
 
     //QLabel *spacerNameLabel = new QLabel(tr("SPACERName"));
-    QHBoxLayout *nameHLayout = new QHBoxLayout;
-    nameHLayout->addWidget(nameLabel);
+    //QHBoxLayout *nameHLayout = new QHBoxLayout;
+    //nameHLayout->addWidget(nameLabel);
     //nameHLayout->addSpacerItem(new QSpacerItem(50,1));
     //nameHLayout->addWidget(spacerNameLabel );
           //qDebug() << "MainWindow::createUIDX-70" << endl;
     QVBoxLayout *nameLayout = new QVBoxLayout;
-    nameLayout->addLayout(nameHLayout);
+    nameLayout->addWidget(nameLabel);
     nameLayout->addWidget(nameLineEdit);
 
     QVBoxLayout *rxPwrLayout = new QVBoxLayout;
@@ -7929,6 +8051,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                 //infoLabel1->setText(tr("QSO logged from WSJT-X:"));
                 infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
                 timerInfoBars->start(infoTimeout);
+                elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(dataProxy->getLastQSOid()));
             }
             else
             {

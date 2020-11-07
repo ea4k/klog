@@ -27,6 +27,8 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 
    strings.clear();
    //strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
+    pollMax = 5000;
+    pollMin = 10;
 
 
     createUI();
@@ -79,8 +81,8 @@ void SetupPageHamLib::createUI()
     QString pollTip = QString(tr("Defines the interval to poll the radio in msecs."));
 
     pollIntervalQSpinBox->setToolTip(pollTip);
-    pollIntervalQSpinBox->setMinimum(10);
-    pollIntervalQSpinBox->setMaximum(5000);
+    pollIntervalQSpinBox->setMinimum(pollMin);
+    pollIntervalQSpinBox->setMaximum(pollMax);
 
     QLabel *pollIntervalLabel = new QLabel(tr("Poll interval"));
     pollIntervalLabel->setBuddy(rigTypeComboBox);
@@ -262,6 +264,7 @@ void SetupPageHamLib::setDefaults()
     flowControlComboBox->setCurrentIndex(0);
     parityComboBox->setCurrentIndex(0);
     stopBitsComboBox->setCurrentIndex(0);
+    pollIntervalQSpinBox->setValue(300);
 
     //RTSCheckBox->setChecked(false);
     //DTRCheckBox->setChecked(false);
@@ -321,6 +324,7 @@ QString SetupPageHamLib::getData()
     //_output = _output + "HamLibRigType=" + _rigType + "\n";
     _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
     _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
+    _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value()) + ";\n";
 
 
       //qDebug() << "SetupPageHamLib::getData: " << _output << endl;
@@ -596,6 +600,14 @@ void SetupPageHamLib::setStopBits(const QString &_st)
         stopBitsComboBox->setCurrentIndex(0);
     }
 }
+bool SetupPageHamLib::setPollingInterval(const int _msecs)
+{
+    if ((_msecs>=pollMin) && (_msecs<=pollMax))
+    {
+        pollIntervalQSpinBox->setValue(_msecs);
+    }
+}
+
 /*
 void SetupPageHamLib::setRTS(const QString &_state)
 {
