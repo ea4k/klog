@@ -56,22 +56,7 @@ LogWindow::~LogWindow()
 {
 //    emit clearError();
 }
-/*
-void LogWindow::setProxyModel (const bool _p)
-{
-    sortingThroughProxyModel = _p;
-    if (sortingThroughProxyModel)
-    {
-        logView->setModel(proxyModel);
-        logView->setCurrentIndex(proxyModel->index(0, 0));
-    }
-    else
-    {
-        logView->setModel(logModel);
-        logView->setCurrentIndex(logModel->index(0, 0));
-    }
-}
-*/
+
 
 void LogWindow::sortColumn(const int _c)
 {
@@ -119,24 +104,6 @@ void LogWindow::createlogPanel(const int _currentLog)
     setColumnsToDX();
     sortColumn(1);  //Initial sort by column 1 (date & time)
 
-/*
-    if (contestMode == "DX")
-    {
-           //qDebug() << "LogWindow::createlogPanel: DX"  << endl;
-        setColumnsToDX();
-    }
-    else if (contestMode == "CQ-WW-SSB")
-    {
-           //qDebug() << "LogWindow::createlogPanel: CQ-WW-SSB"  << endl;
-    }
-
-    else
-    {
-        // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
-        // Maybe the way should be to move ALL the actions from DX here.
-           //qDebug() << "LogWindow::createlogPanel: No log type found!"  << endl;
-    }
-*/
 
     //qDebug() << "LogWindow::createlogPanel " << logModel->record(0).field(1).value().toString() << endl;
     //logView->setItemDelegateForColumn(1, new ItemDelegate);
@@ -147,16 +114,7 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
     logView->sortByColumn(1);
-    /*
-    if (sortingThroughProxyModel)
-    {
-        proxyModel->sort(1);
-    }
-    else
-    {
-        logView->sortByColumn(1);
-    }
-    */
+
 
 }
 
@@ -281,7 +239,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
-
+    menu.addAction(multipleExportToADIFFromLogAct);
     menu.addAction(delQSOFromLogAct);
     delQSOFromLogAct->setData(trow);
     menu.addAction(qsoToEditFromLogAct);
@@ -317,6 +275,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
         }
         menu.addSeparator();
         menu.addAction(multipleSelectAll);
+        menu.addAction(multipleDeselectAll);
     menu.exec(QCursor::pos());
 }
 

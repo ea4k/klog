@@ -647,11 +647,11 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  endl;
         stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  endl;
         stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  endl;
-
+        //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << endl;
         // CLUBLOG
         //qDebug() << "SetupDialog::slotOkButtonClicked - 40" << endl;
         if (((  (eLogPage->getClubLogActive())).toUpper() == "TRUE" )  && (eLogPage->getClubLogEmail().length()>2) )
-        { //TODO: Add a isValidEmail funcion in the clibLogPage
+        { //TODO: Add a isValidEmail funcion in the clubLogPage
             tmp = eLogPage->getClubLogActive();
             if (tmp.length()>0)
             {

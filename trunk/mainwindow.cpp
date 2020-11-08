@@ -40,6 +40,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
+
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = 7;
@@ -5105,7 +5106,8 @@ bool MainWindow::processConfigLine(const QString &_line){
         currentLog = value.toInt();
                 //qDebug() << "MainWindow::processConfigLine: currentLog - SelectedLog: " << QString::number(currentLog) << endl;
 
-        if ( ((dataProxy->doesThisLogExist(currentLog))  && (dataProxy->getHowManyQSOInLog(currentLog) > 0)) )
+        //if ( ((dataProxy->doesThisLogExist(currentLog))  && (dataProxy->getHowManyQSOInLog(currentLog) > 0)) )
+        if ( ((dataProxy->doesThisLogExist(currentLog)) ) )
         {
                     //qDebug() << "MainWindow::processConfigLine: currentLog - Log with QSO - SelectedLog: " << QString::number(currentLog) << endl;
         }
@@ -5119,42 +5121,40 @@ bool MainWindow::processConfigLine(const QString &_line){
             logs << dataProxy->getListOfManagedLogs();
                    //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
             for (int i = 0;i<logs.length();i++)
-        {
-            _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
-                    //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
-            if (_howManyQSOMax < _howManyQSOMaxT)
             {
-                        //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
-                _howManyQSOMax = _howManyQSOMaxT;
-                _logWithMoreQSOs = (logs.at(i)).toInt();
+                _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
+                        //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
+                if (_howManyQSOMax < _howManyQSOMaxT)
+                {
+                            //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
+                    _howManyQSOMax = _howManyQSOMaxT;
+                   _logWithMoreQSOs = (logs.at(i)).toInt();
+                }
             }
-        }
             if (_logWithMoreQSOs>0)
-        {
-            currentLog = _logWithMoreQSOs;
-            filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
-        }
-            else
-        {
-            QMessageBox msgBox;
-
-            msgBox.setIcon(QMessageBox::Critical);
-            QString aux = tr("It seems that there are no QSOs in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            int ret = msgBox.exec();
-            switch (ret)
             {
-                case QMessageBox::Ok:
-                break;
-                default:
-                // should never be reached
-                break;
+                currentLog = _logWithMoreQSOs;
+                filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
             }
-        }
+                else
+            {
+                QMessageBox msgBox;
 
-
+                msgBox.setIcon(QMessageBox::Critical);
+                QString aux = tr("It seems that there are no QSOs in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                int ret = msgBox.exec();
+                switch (ret)
+                {
+                    case QMessageBox::Ok:
+                    break;
+                    default:
+                    // should never be reached
+                    break;
+                }
+            }
 /*
                     //qDebug() << "MainWindow::processConfigLine: currentLog - Log without QSO - SelectedLog: " << QString::number(currentLog) << endl;
             QMessageBox msgBox;

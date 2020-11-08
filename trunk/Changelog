@@ -11,6 +11,8 @@ TODO:- New feature: Regional Award support: #include "setuppages/setuppagesubdiv
 - New feature: - It is possible to select multiple QSOs in the log and execute several actions with the selected QSOs.(TNX EA5WA)
 - New feature: - It is possible to check for the data of calls in QRZ.com (you need a subscription in QRZ.com)
 - UI: Consolidation of all the electronic logs configurations in one single setup page into the eLog tab.
+- Bugfix: It was not possible to select empty logs from the preferences. (TNX G4MKT)
+- Bugfix: QSOs comming from WSJTx were not being uploaded to ClubLog. (TNX PD9Q)
 - Bugfix: Too many mesages when uploading in realtime to Clublog. It should be done silently.(TNX EA5WA)
 - Bugfix: Typo in the INSTALL-linux. (TNX DL4TO)
 - Bugfix: Hamlib polling rate was not being saved from the setup. Default value is defined to 300ms. (TNX G4MKT)
