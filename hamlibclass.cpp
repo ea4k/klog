@@ -9,12 +9,14 @@
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
       //qDebug() << "HamLibClass::HamLibClass" << endl;
+    strings.clear();
     timer = new QTimer(this);
     rigLaunched = false;
     pollInterval = 300;
     errorCount = 0;
     readOnlyMode = false;
     justEmitted = false;
+
     //m_serial = new QSerialPort();
 
 
@@ -460,12 +462,12 @@ QStringList HamLibClass::getRigList ()
   // and continue...
 
   strings.clear();
-  rig_load_all_backends ();
+  rig_load_all_backends();
     //qDebug() << "HamLibClass::getRigList-10" << endl;
   rig_list_foreach (addRigToList, this);
     //qDebug() << "HamLibClass::getRigList-11" << endl;
 
-  strings.sort ();
+  strings.sort();
     //qDebug() << "HamLibClass::getRigList-12" << endl;
   return strings;
  }

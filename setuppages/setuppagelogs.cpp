@@ -612,7 +612,7 @@ int SetupPageLogs::getSelectedLog()
     qs.clear();
     qs << selectedLog.split("-");
     i = (qs.at(0)).toInt();
-      //qDebug() << "SetupPageLogs::getSelectedLog: " << QString::number(i) << endl;
+    //qDebug() << "SetupPageLogs::getSelectedLog: " << QString::number(i) << endl;
     if (i>=1)
     {
         return i;
