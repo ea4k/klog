@@ -1316,7 +1316,9 @@ Introduzca el indicativo de estación que fue usado en este QSO en %1:</translat
         <source>Do you want to add this QSO to the log?:
 
 </source>
-        <translation>¿Quiere añadir este QSO al log?:</translation>
+        <translation type="unfinished">¿Quiere añadir este QSO al log?:
+
+</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3501"/>
