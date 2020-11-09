@@ -107,7 +107,7 @@ eLogClubLog::~eLogClubLog()
         text = "ClubLog: " + tr("QSO dupe or not existing (#%1)... ").arg(result);
         int i = QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
                                        tr("We have received an undefined error from Clublog (%1)").arg(result) + "\n" +
-                                          tr("This error may be caused for teh QSO being duplicated or, if removing, trying to remove a non existing QSO."),
+                                          tr("This error may be caused for the QSO being duplicated or, if removing, trying to remove a non existing QSO."),
                                        QMessageBox::Ok);
     }
     else

@@ -47,6 +47,10 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     clubLogEmailLineEdit->setToolTip(tr("Enter the email you used to register in ClubLog."));
     clubLogPasswordLineEdit->setToolTip(tr("Enter your password ClubLog here. Warning: The password will be save on clear in the KLog config file!! (If you don't want to enter the password, KLog will ask you when it is needed.)"));
 
+    QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
+                              QRegularExpression::CaseInsensitiveOption);
+    clubLogEmailLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
+
     clubLogSendInRealTimeCheckBox = new QCheckBox(tr("Send QSOs in real time"), this);
     clubLogActiveCheckBox = new QCheckBox(tr("Activate ClubLog"), this);
     clubLogSendInRealTimeCheckBox->setToolTip(tr("Send each QSO to ClubLog in real time, as they are added (or modified) in KLog."));
@@ -129,6 +133,8 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwDownGroup = new QGroupBox (tr("Download"));
 
     lotwUserLineEdit = new QLineEdit;
+    lotwUserLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
+
     lotwPasswordLineEdit = new QLineEdit;
     lotwPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
     lotwTQSLPathLineEdit = new QLineEdit;
@@ -199,6 +205,10 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     connect(lotwSearchTQSLPushButton, SIGNAL(clicked()), this, SLOT(slotSelectTQSLClicked()) );
     connect(lotwTQSLPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotPathLineEditChanged(QString)) );
     connect(lotwUseTQSLCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotTQSLActive(bool)));
+
+    connect(clubLogEmailLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotClubLogEmailDefineColor() ) );
+    connect(lotwUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLoTWEmailDefineColor() ) );
+
     //qDebug() << "SetupPageELog::SetupPageELog - 00150" << endl;
     setDefaults();
     slotClubLogActive(false);
@@ -212,6 +222,24 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 
 SetupPageELog::~SetupPageELog()
 {
+}
+
+void SetupPageELog::slotClubLogEmailDefineColor()
+{
+    qDebug() << "SetupPageELog::slotCLubLogEmailDefineColor" << endl;
+    if(!clubLogEmailLineEdit->hasAcceptableInput())
+        clubLogEmailLineEdit->setStyleSheet("QLineEdit { color: red;}");
+    else
+        clubLogEmailLineEdit->setStyleSheet("QLineEdit { color: black;}");
+}
+
+void SetupPageELog::slotLoTWEmailDefineColor()
+{
+    qDebug() << "SetupPageELog::slotLoTWEmailDefineColor" << endl;
+    if(!lotwUserLineEdit->hasAcceptableInput())
+        lotwUserLineEdit->setStyleSheet("QLineEdit { color: red;}");
+    else
+        lotwUserLineEdit->setStyleSheet("QLineEdit { color: black;}");
 }
 
 void SetupPageELog::setDefaults()
