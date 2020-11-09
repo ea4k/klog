@@ -1,5 +1,6 @@
 TBD - 1.4
 
+
 TODO:- New feature: QRZ.com sync - https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
 TODO:- New feature: eQSL syncronization - QSL Download.
 TODO:- New feature: Regional Award support: #include "setuppages/setuppagesubdivisions.h"
