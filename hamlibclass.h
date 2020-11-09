@@ -44,7 +44,7 @@ public:
 
     void init(bool _active);
     void stop();
-    void readRadio();
+    void readRadio(bool _forceRead);
     bool isRunning();
     void clean();
     void checkErrorCountAndStop();
@@ -61,6 +61,7 @@ public slots:
     void slotTimer();
 
 private:
+    void readRadioInternal(bool _forceRead);
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
     rmode_t mode2HamlibMode(const QString &_m);

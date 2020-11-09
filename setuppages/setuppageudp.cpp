@@ -279,6 +279,7 @@ QString SetupPageUDP::getReaDataFromWSJTx()
 
 void SetupPageUDP::setLogFromWSJTx(const QString t)
 {
+
     if (t.toUpper() == "TRUE")
     {
         logFromWSJTXCheckbox->setChecked(true);

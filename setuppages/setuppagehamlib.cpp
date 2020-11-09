@@ -382,6 +382,7 @@ bool SetupPageHamLib::setSerialSpeed(const QString &_speed )
 void SetupPageHamLib::setActive(const QString &_active)
 {
       //qDebug() << "SetupPageHamLib::setActive: " << _active << endl;
+
     if (_active.toUpper() == "TRUE")
     {
         activateHamlibCheckBox->setChecked(true);

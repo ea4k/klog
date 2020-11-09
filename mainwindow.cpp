@@ -38,7 +38,7 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
 
     softwareVersion = tversion;
@@ -53,7 +53,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
-    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
+    qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
     debugFile = new QFile(debugName);
 
 
@@ -76,15 +76,15 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //QTime start;
     //start = QTime::currentTime();
-    //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+    qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-      //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
+    qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
     //pstRotator = new PSTRotatorSupport(this);
     //rotatorWidget = new RotatorWidget;
-    //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
+    qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
 
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
 
@@ -92,39 +92,39 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
 
-    //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
+    qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
-    //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
-    //qDebug() << "MainWindow::MainWindow: 00081" << endl;
+    qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
+    qDebug() << "MainWindow::MainWindow: 00081" << endl;
     elogClublog = new eLogClubLog();
-    //qDebug() << "MainWindow::MainWindow: 00082" << endl;
+    qDebug() << "MainWindow::MainWindow: 00082" << endl;
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO);
 
 
-   //qDebug() << "MainWindow::MainWindow: 00083" << endl;
+   qDebug() << "MainWindow::MainWindow: 00083" << endl;
     updateSatsData = new UpdateSatsData(dataProxy);
-    //qDebug() << "MainWindow::MainWindow: 00084" << endl;
+    qDebug() << "MainWindow::MainWindow: 00084" << endl;
     statsWidget = new StatisticsWidget(dataProxy);
 
-    //qDebug() << "MainWindow::MainWindow: 00085" << endl;
+    qDebug() << "MainWindow::MainWindow: 00085" << endl;
     //statsWidget->show();
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
-    //qDebug() << "MainWindow::MainWindow: 00086" << endl;
+    qDebug() << "MainWindow::MainWindow: 00086" << endl;
     logWindow = new LogWindow(dataProxy, this);
-    //qDebug() << "MainWindow::MainWindow: 00087" << endl;
+    qDebug() << "MainWindow::MainWindow: 00087" << endl;
 
     searchWidget = new SearchWidget (dataProxy, this);
-    //qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
+    qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
     infoWidget = new InfoWidget(dataProxy, this);
 
-    //qDebug() << "MainWindow::MainWindow: 00088" << endl;
+    qDebug() << "MainWindow::MainWindow: 00088" << endl;
     logEvent(Q_FUNC_INFO, "Creating AwardsWidget", 7);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
-    //qDebug() << "MainWindow::MainWindow: 0009" << endl;
+    qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
@@ -132,7 +132,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     configFileName = util->getCfgFile();
     ctyDatFile = util->getCTYFile();
 
-    //downloadcty = new DownLoadCTY(klogDir, softwareVersion, Q_FUNC_INFO);
     downloadcty = new DownLoadCTY(klogDir, softwareVersion);
 
     statusBarMessage = tr("Starting KLog");
@@ -145,13 +144,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         }
     }
 
-    //qDebug() << "MainWindow::MainWindow: 4" << endl;
+    qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
-    //qDebug() << "MainWindow::MainWindow: xx" << endl;
+    qDebug() << "MainWindow::MainWindow: xx" << endl;
 
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
-    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+    qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
     myDataTabWidget = new MainWindowMyDataTab();
@@ -160,18 +159,16 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
-    //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
+    qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-    //qDebug() << "MainWindow::MainWindow: 8" << endl;
+    qDebug() << "MainWindow::MainWindow: 8" << endl;
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
-//    timer = new QTimer(this);
 
-    //qrzLineEdit = new QLineEdit;
     nameLineEdit = new QLineEdit;
     qthLineEdit = new QLineEdit;
     locatorLineEdit = new QLineEdit;
@@ -189,11 +186,11 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox = new QDoubleSpinBox;
 
-    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+    qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-   //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
+    qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
+    qDebug() << "MainWindow::MainWindow: Awards created" << endl;
     // </UI>
 
 
@@ -202,17 +199,21 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
        exit(0);
     }
 
-    //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
 
 
 
-    //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+    qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
+    qDebug() << "MainWindow::MainWindow: FileManager to be created" << endl;
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
+    qDebug() << "MainWindow::MainWindow: FileAwardManager to be created" << endl;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
     
     lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
+    qDebug() << "MainWindow::MainWindow: AdifLoTWExportWidget to be created" << endl;
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
+    qDebug() << "MainWindow::MainWindow: ShowAdifImportWidget to be created" << endl;
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
 
 
@@ -220,7 +221,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 
-  //qDebug() << "MainWindow::MainWindow: END" << endl;
+    qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 void MainWindow::saveWindowsSize()
@@ -454,7 +455,7 @@ void MainWindow::init()
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
-    hamlib->readRadio();
+    hamlib->readRadio(true); // Forcing the radio update
           //qDebug() << "MainWindow::init: END" << endl;
 }
 
@@ -3008,9 +3009,7 @@ void MainWindow::slotExitFromSlotDialog(const int exitID)
 
     if (exitID == 2)
     {
-
         needToEnd = true;
-
         exitQuestion();
     }
     //qDebug()() << "MainWindow::slotExitFromSlotDialog: END "  << endl;
@@ -4297,6 +4296,10 @@ void MainWindow::openSetup(const int _page)
     dataProxy->reconnectDB();
     logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
       //qDebug() << "MainWindow::MainWindow: after db->reConnect" << endl;
+    if (hamlibActive)
+    {
+        qDebug() << "MainWindow::MainWindow: Hamlib is active, let's read the VFO Freq/Mode" << endl;
+    }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4976,14 +4979,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if (field=="UDPSERVER")
     {
                //qDebug() << "MainWindow::processConfigLine: UDPSERVER: " << value.toUpper()  << endl;
-        if (value.toUpper() == "TRUE")
-        {
-            UDPServerStart = true;            
-        }
-        else
-        {
-            UDPServerStart = false;
-        }
+        UDPServerStart = util->trueOrFalse(value);
     }
     else if (field=="UDPSERVERPORT")
     {
@@ -4999,27 +4995,12 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field=="LOGFROMWSJTX")
     {
-        if (value.toUpper() == "TRUE")
-        {
-            UDPLogServer->setLogging(true);
-        }
-        else
-        {
-            UDPLogServer->setLogging(false);
-        }
+        UDPLogServer->setLogging(util->trueOrFalse(value));
+
     }
     else if (field=="LOGAUTOFROMWSJTX")
     {
-        if (value.toUpper() == "TRUE")
-        {
-            wsjtxAutoLog = true;
-            //UDPLogServer->setLogging(true);
-        }
-        else
-        {
-            wsjtxAutoLog = false;
-            //UDPLogServer->setLogging(false);
-        }
+        wsjtxAutoLog = util->trueOrFalse(value);
     }
     else if (field == "HAMLIBRIGTYPE" )
     {
@@ -5066,40 +5047,19 @@ bool MainWindow::processConfigLine(const QString &_line){
         hamlib->setPoll(value.toInt());
     }else if (field == "HAMLIB")
     {
-              //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
-        if (value.toUpper() == "TRUE")
-        {
-            hamlibActive = true;
-        }
-        else
-        {
-            hamlibActive = false;
-        }
-              //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        hamlibActive = util->trueOrFalse(value);
+        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
     }
     else if (field == "HAMLIBREADONLY")
     {
               //qDebug() << "MainWindow::processConfigLine: HAMLIBREADONLY: " << value << endl;
-        if (value.toUpper() == "TRUE")
-        {
-            hamlib->setReadOnly(true);
-        }
-        else
-        {
-            hamlib->setReadOnly(false);
-        }
+        hamlib->setReadOnly(util->trueOrFalse(value));
     }
     else if (field=="REALTIMEFROMWSJTX")
     {
                //qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
-        if (value.toUpper() == "TRUE")
-        {
-            UDPLogServer->setRealTimeUpdate(true);
-        }
-        else
-        {
-            UDPLogServer->setRealTimeUpdate(false);
-        }
+        UDPLogServer->setRealTimeUpdate(util->trueOrFalse(value));
     }
     else if(field=="SELECTEDLOG")
     {
@@ -7515,10 +7475,7 @@ void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
         //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
         //bandComboBox->setCurrentIndex(defaultBand);
     }
-    if (hamlibActive)
-    {
-        //hamlib->readRadio();
-    }
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
@@ -7526,7 +7483,7 @@ void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
 
 void MainWindow::updateQSLRecAndSent()
 {
-           //qDebug() << "MainWindow::updateQSLRecAndSent "  << endl;
+    //qDebug() << "MainWindow::updateQSLRecAndSent "  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     // Checks the log to fill all the qsl_rcvd and qsl_sent
     QSqlQuery query, query1;

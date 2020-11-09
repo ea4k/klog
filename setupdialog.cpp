@@ -608,7 +608,8 @@ void SetupDialog::slotOkButtonClicked()
         //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << endl;
 
         //qDebug() << "SetupDialog::slotOkButtonClicked - 30" << endl;
-        if ((miscPage->getReportInfo()).toUpper() == "TRUE")
+
+        if ( util->trueOrFalse((miscPage->getReportInfo()).toUpper()))
         {
             stream << "ProvideInfo=True;"  <<  endl;
         }
@@ -650,7 +651,9 @@ void SetupDialog::slotOkButtonClicked()
         //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << endl;
         // CLUBLOG
         //qDebug() << "SetupDialog::slotOkButtonClicked - 40" << endl;
-        if (((  (eLogPage->getClubLogActive())).toUpper() == "TRUE" )  && (eLogPage->getClubLogEmail().length()>2) )
+
+        if (    (util->trueOrFalse(eLogPage->getClubLogActive())) && (eLogPage->getClubLogEmail().length()>2)  )
+        //if (((  util->trueOrFalse((eLogPage->getClubLogActive()))) )  && (eLogPage->getClubLogEmail().length()>2) )
         { //TODO: Add a isValidEmail funcion in the clubLogPage
             tmp = eLogPage->getClubLogActive();
             if (tmp.length()>0)
@@ -678,7 +681,8 @@ void SetupDialog::slotOkButtonClicked()
         }
         //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << endl;
         // eQSL
-        if (((eLogPage->getEQSLActive()).toUpper() == "TRUE" ) && (eLogPage->getEQSLEmail().length()>0) )
+
+        if (( util->trueOrFalse((eLogPage->getEQSLActive()).toUpper())) && (eLogPage->getEQSLEmail().length()>0) )
         {
             tmp = eLogPage->getEQSLActive();
             if (tmp.length()>0)
@@ -708,7 +712,8 @@ void SetupDialog::slotOkButtonClicked()
         // eQSL - END
 
         // QRZ.com
-        if (((eLogPage->getQRZCOMActive()).toUpper() == "TRUE" ) && (eLogPage->getQRZCOMUser().length()>0) )
+
+        if (( util->trueOrFalse((eLogPage->getEQSLActive()).toUpper()) ) && (eLogPage->getQRZCOMUser().length()>0) )
         {
             tmp = eLogPage->getQRZCOMActive();
             if (tmp.length()>0)
