@@ -28,21 +28,24 @@
 
 #include <QObject>
 #include <QtWidgets>
+#include <QNetworkInterface>
+#include "utilities.h"
 
 
 class SetupPageUDP : public QWidget
 {
     Q_OBJECT
 public:
-    SetupPageUDP(QWidget *parent = 0);
+    SetupPageUDP(QWidget *parent = nullptr);
     ~SetupPageUDP();
 
-    void setLogFromWSJTx(const QString t);
-    void setAutoLogFromWSJTx(const QString t);
-    void setReaDataFromWSJTx(const QString t);
-    void setUDPServer(const QString t);
-    void setUDPServerPort(const QString t);
-    void setTimeout(const QString t);
+    void setLogFromWSJTx(const QString &_t);
+    void setAutoLogFromWSJTx(const QString &_t);
+    void setReaDataFromWSJTx(const QString &_t);
+    void setUDPServer(const QString &_t);
+    void setUDPServerPort(const QString &_t);
+    void setTimeout(const QString &_t);
+    void setNetworkInterface(const QString &_t);
 
     QString getLogFromWSJTx();
     QString getAutoLogFromWSJTx();
@@ -50,17 +53,22 @@ public:
     QString getUDPServerPort();
     QString getUDPServer();
     QString getTimeout();
+    QString getNetworkInterface();
+
 
 private:
     void createUI();
     void createActions();
+    void fillNetworkInterfaceComboBox();
 
     QCheckBox *logFromWSJTXCheckbox, *logAutomaticallyWSJTXCheckbox, *realDataFromWSJTXCheckbox, *UDPServerCheckBox;
     //QLineEdit *wsjtxIPAddress, *wsjtxPortNumber;
     QSpinBox *UDPServerPortSpinBox;
     QSpinBox *miliSecsSpinBox;
+    QComboBox *networkInterfacesComboBox;
 
     int defaultport, defaultTimer;
+    Utilities *util;
 
     //bool logFromWSJTx, autoLogFromWSJTx, realDataFromWSJTx;
     

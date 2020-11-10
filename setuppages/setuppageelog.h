@@ -74,14 +74,14 @@ public:
     void setQRZCOMUser(const QString &_s);
     void setQRZCOMPassword(const QString &_s);
 
-    //void setQRZCOMAPI(const QString &c);
+    void setQRZCOMLogBookKEY(const QString &_s);
     void setQRZCOMActive(const QString &_s);
     void setQRZCOMAutoCheck(const QString &_s);
 
     QString getQRZCOMUser();
     QString getQRZCOMPassword();
 
-    //QString getQRZCOMAPI();
+    QString getQRZCOMLogBookKEY();
     QString getQRZCOMActive();    
     QString getQRZCOMAutoCheck();
 
@@ -134,12 +134,12 @@ private:
 
     QGroupBox *QRZCOMGroup;
     //QLineEdit *QRZCOMAPILineEdit;
-    QLineEdit *QRZCOMUserLineEdit, *QRZCOMPasswordLineEdit;
-    QLabel *QRZCOMPasswordLabel, *QRZCOMUserLabel;
+    QLineEdit *QRZCOMUserLineEdit, *QRZCOMPasswordLineEdit, *QRZCOMLogBookKEYLineEdit;
+    QLabel *QRZCOMPasswordLabel, *QRZCOMUserLabel, *QRZLogBookKeyLabel;
     QCheckBox *QRZCOMActiveCheckBox, *QRZCOMAutoCheckCheckBox;
 
     bool qrzcomActive, qrzcomAutoFill;
-    QString qrzComUser, qrzcomPass;
+    QString qrzComUser, qrzcomPass, qrcomLogbookKey;
 
     Utilities *util;
 

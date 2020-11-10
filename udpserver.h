@@ -44,6 +44,7 @@ public:
     void setRealTimeUpdate(const bool _t);
     //void setAddress(const QString _address);
     void setPort(const int _port);
+    void setNetworkInterface(const QString &_t);
 
 private:
     void readPendingDatagrams();
@@ -53,12 +54,14 @@ private:
     void joinMultiCastGroup();
     bool startNow(quint16 _port, QHostAddress const& _multicast_group_address);
 
+    QNetworkInterface networkInterface;
     QUdpSocket *socketServer;    
     QHostAddress groupAddress;
 
     //QString address;
     int port;
     bool logging, realtime;
+    bool haveNetworkInterface;
 
     Utilities *util;
 

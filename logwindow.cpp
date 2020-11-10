@@ -556,7 +556,7 @@ void LogWindow::slotQSOsDeleteFromLog()
 
 void LogWindow::slotQSOsExportFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsExportFromLog - TO BE IMPLEMENTED" << endl;
+   //qDebug() << "LogWindow::slotQSOsExportFromLog" << endl;
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -566,14 +566,15 @@ void LogWindow::slotQSOsExportFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-            //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row())  << endl;
-            //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt())  << endl;
+           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row())  << endl;
+           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt())  << endl;
         }
     }
     if (qsos.length()>0)
     {
         emit exportToADIFTheseQSOs(qsos);
     }
+   //qDebug() << "LogWindow::slotQSOsExportFromLog - END - " << QString::number(qsos.length()) << endl;
 }
 
 
@@ -589,7 +590,7 @@ void LogWindow::slotQSOsUploadToClubLogFromLog()
 
 void LogWindow::slotQSOsQRZUploadFromLog()
 {
-    qDebug() << "LogWindow::slotQSOsQRZUploadFromLog - TO BE IMPLEMENTED" << endl;
+   //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog - TO BE IMPLEMENTED" << endl;
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
