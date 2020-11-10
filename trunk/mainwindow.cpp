@@ -2542,7 +2542,7 @@ void MainWindow::slotSearchBoxTextChanged()
 
 void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 {
-    //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << endl;
+   //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << endl;
     if (_id.length()<1)
     {
         return; // NO QSO TO EXPORT
@@ -2553,7 +2553,7 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
     {
         //qDebug() << "MainWindow::slotQSOsExportToADIFF " << QString::number(i)  << endl;
     }
-º*/
+    */
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     //qDebug() << "MainWindow::slotQSOsExportToADIF: " << fileName << endl;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
@@ -2561,9 +2561,9 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
        //qDebug() << "MainWindow::slotQSOsExportToADIF: Adding the .adi to the file" << fileName << endl;
         fileName = fileName +  ".adi";
     }
-    //qDebug() << "MainWindow::slotQSOsExportToADIF-1: " << fileName << endl;
+   //qDebug() << "MainWindow::slotQSOsExportToADIF-1: " << fileName << endl;
     filemanager->adifQSOsExport(fileName, _id);
-    //qDebug() << "MainWindow::slotQSOsExportToADIF-3" << endl;
+   //qDebug() << "MainWindow::slotQSOsExportToADIF-3" << endl;
     showNumberOfSavedQSO(fileName, _id.count());
     //qDebug() << "MainWindow::slotQSOsExportToADIF - END" << endl;
 }
@@ -2571,14 +2571,14 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 void MainWindow::slotQRZcomUpload(QList<int> _id)
 {
 
-   qDebug() << "MainWindow::slotQRZcomUpload " << QString::number(_id.length())  << endl;
+  //qDebug() << "MainWindow::slotQRZcomUpload " << QString::number(_id.length())  << endl;
    elogQRZcom->fetchData();
    foreach (int i, _id)
    {
-       qDebug() << "MainWindow::slotQRZcomUpload - Sending: " << QString::number(i)  << endl;
+      //qDebug() << "MainWindow::slotQRZcomUpload - Sending: " << QString::number(i)  << endl;
        elogQRZcom->sendQSO(i);
    }
-   qDebug() << "MainWindow::slotQRZcomUpload - END" << endl;
+  //qDebug() << "MainWindow::slotQRZcomUpload - END" << endl;
 }
 void MainWindow::slotQSOsDelete(QList<int> _id)
 {
@@ -2980,6 +2980,18 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    else if (_t == "qslmgr")
    {
         //QSLTabWidget->setQSLVia(_d);
+   }
+   else if (_t == "message")
+   {
+       QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Information);
+       msgBox.setWindowTitle(tr("KLog - QRZ.com message"));
+       QString aux = QString(tr("KLog has received a message from QRZ.com.") );
+       msgBox.setText(aux);
+       msgBox.setDetailedText(_d);
+       msgBox.setStandardButtons(QMessageBox::Ok);
+       msgBox.setDefaultButton(QMessageBox::Ok);
+       msgBox.exec();
    }
    else if (_t == "error")
    {
@@ -4996,6 +5008,10 @@ bool MainWindow::processConfigLine(const QString &_line){
                //qDebug() << "MainWindow::processConfigLine: UDPSERVER: " << value.toUpper()  << endl;
         UDPServerStart = util->trueOrFalse(value);
     }
+    else if (field=="UDPNETWORKINTERFACE")
+    {
+        UDPLogServer->setNetworkInterface(value);
+    }
     else if (field=="UDPSERVERPORT")
     {
         UDPLogServer->setPort(value.toInt());
@@ -5236,6 +5252,9 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if(field=="QRZCOMUSER")
     {
         qrzcomUser = value;
+    }
+    else if (field =="QRZCOMLOGBOOKKEY"){
+        elogQRZcom->setLogBookKey(value);
     }
     else if(field =="EQSLACTIVE"){
         eQSLActive = util->trueOrFalse(value);

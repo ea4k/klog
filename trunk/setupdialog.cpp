@@ -736,6 +736,11 @@ void SetupDialog::slotOkButtonClicked()
             {
                  stream << "QRZcomAuto=" << tmp << ";" <<  endl;
             }
+            tmp = eLogPage->getQRZCOMLogBookKEY();
+            if (tmp.length()>0)
+            {
+                 stream << "QRZcomLogBookKey=" << tmp << ";" <<  endl;
+            }
         }
         else
         {
@@ -767,6 +772,7 @@ void SetupDialog::slotOkButtonClicked()
         //qDebug() << "SetupDialog::slotOkButtonClicked - 70" << endl;
         //WSJTX
         stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  endl;
+        stream << "UDPNetworkInterface=" << UDPPage->getNetworkInterface() << ";" <<  endl;
         stream << "UDPServerPort=" << UDPPage->getUDPServerPort() << ";" <<  endl;
         stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  endl;
         stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  endl;
@@ -964,6 +970,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     */
     else if (tab=="UDPSERVER"){
         UDPPage->setUDPServer(value);
+    }
+    else if (tab=="UDPNETWORKINTERFACE"){
+        UDPPage->setNetworkInterface(value);
     }
     else if (tab=="UDPSERVERPORT"){
         UDPPage->setUDPServerPort(value);
@@ -1196,6 +1205,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="QRZCOMPASS"){
         eLogPage->setQRZCOMPassword(value);
+    }
+    else if(tab =="QRZCOMLOGBOOKKEY"){
+        eLogPage->setQRZCOMLogBookKEY(value);
     }
 
     else if(tab =="LOTWACTIVE"){

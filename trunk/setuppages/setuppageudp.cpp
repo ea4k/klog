@@ -10,7 +10,9 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     UDPServerCheckBox = new QCheckBox(tr("Start UDP Server"), this);
     UDPServerPortSpinBox = new QSpinBox;
     miliSecsSpinBox = new QSpinBox;
-    
+    networkInterfacesComboBox = new QComboBox;
+    util = new Utilities;
+
     //wsjtxIPAddress = new QLineEdit(this);
     //wsjtxPortNumber = new QLineEdit(this);
     //logFromWSJTx = false;
@@ -22,6 +24,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 
     createUI();
     createActions();
+    fillNetworkInterfaceComboBox();
 }
 
 SetupPageUDP::~SetupPageUDP(){
@@ -30,6 +33,7 @@ SetupPageUDP::~SetupPageUDP(){
 
 void SetupPageUDP::createUI()
 {
+
     QString msgAuto = QString(tr("Automatically log QSOs from WSJT-X"));
     logFromWSJTXCheckbox->setText(tr("Allow WSJT-X to send logged QSOs to KLog"));
     logFromWSJTXCheckbox->setToolTip(tr("QSOs logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless \"%1\" is selected").arg(msgAuto));
@@ -62,15 +66,23 @@ void SetupPageUDP::createUI()
     UDPServerPortSpinBox->setMinimum(0);
     UDPServerPortSpinBox->setMaximum(65535);
     UDPServerPortSpinBox->setValue(defaultport);
+
     QLabel *udpPortLabel = new QLabel(tr("UDP Port"));
     udpPortLabel->setBuddy(UDPServerPortSpinBox);
     udpPortLabel->setToolTip(labelTip);
     udpPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     udpPortLabel->setEnabled(true);
 
-    QHBoxLayout *UDPLayout1 = new QHBoxLayout;
-    UDPLayout1->addWidget(udpPortLabel);
-    UDPLayout1->addWidget(UDPServerPortSpinBox);
+    QHBoxLayout *UDPPortLayout = new QHBoxLayout;
+    UDPPortLayout->addWidget(udpPortLabel);
+    UDPPortLayout->addWidget(UDPServerPortSpinBox);
+
+    networkInterfacesComboBox->setToolTip(tr("Select the interface to listen for UDP datagrams coming from WSJT-X."));
+    QLabel *networkInterfaceLabel = new QLabel(tr("Network interface"));
+    networkInterfaceLabel->setToolTip(tr("Select the interface to listen for UDP datagrams coming from WSJT-X."));
+    QHBoxLayout *networkIfacesLayout = new QHBoxLayout;
+    networkIfacesLayout->addWidget(networkInterfaceLabel);
+    networkIfacesLayout->addWidget(networkInterfacesComboBox);
 
     miliSecsSpinBox->setMinimum(0);
     miliSecsSpinBox->setMaximum(30000);
@@ -81,32 +93,22 @@ void SetupPageUDP::createUI()
     miliSecsSpinBoxLabel->setEnabled(true);
     miliSecsSpinBox->setEnabled(false);
 
+    QHBoxLayout *UDPTimeLayout = new QHBoxLayout;
+    UDPTimeLayout->addWidget(miliSecsSpinBoxLabel);
+    UDPTimeLayout->addWidget(miliSecsSpinBox);
 
-    QHBoxLayout *UDPLayout = new QHBoxLayout;
-    UDPLayout->addWidget(UDPServerCheckBox);
-    UDPLayout->addLayout(UDPLayout1);
-    UDPLayout->addWidget(miliSecsSpinBoxLabel);
-    UDPLayout->addWidget(miliSecsSpinBox);
+    //QHBoxLayout *UDPLayout = new QHBoxLayout;
+    //UDPLayout->addLayout(networkIfacesLayout);
+    //UDPLayout->addLayout(UDPPortLayout);
 
-
-
-    //QLabel *IPAddressLabel = new QLabel(tr("WSJT-x IP address"));
-    //QLabel *portLabel = new QLabel(tr("UDP port to listen"));
-
-    //IPAddressLabel->setBuddy(wsjtxIPAddress);
-    //portLabel->setBuddy(wsjtxPortNumber);
-    
-    //QHBoxLayout *IPALayout = new QHBoxLayout;
-    //IPALayout->addWidget(wsjtxIPAddress);
-    //IPALayout->addWidget(IPAddressLabel);
-
-    //QHBoxLayout *portLayout = new QHBoxLayout;
-    //portLayout->addWidget(wsjtxPortNumber);
-    //portLayout->addWidget(portLabel);
-
+    QGridLayout *gridLayout = new QGridLayout;
+    gridLayout->addLayout(networkIfacesLayout, 0, 0);
+    gridLayout->addLayout(UDPPortLayout, 0, 1);
+    gridLayout->addLayout(UDPTimeLayout, 1, 0);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addLayout(UDPLayout);
+    layout->addWidget(UDPServerCheckBox);
+    layout->addLayout(gridLayout);
     layout->addLayout(checkLayout);
 
     setLayout(layout);
@@ -145,6 +147,31 @@ void SetupPageUDP::slotUDPServerCheckBoxClicked()
     }
  }
 
+void SetupPageUDP::fillNetworkInterfaceComboBox()
+{
+    QNetworkInterface loopBack;
+    QStringList interfacesNames;
+    interfacesNames.clear();
+    networkInterfacesComboBox->clear();
+    QList<QNetworkInterface> ifaces;
+    ifaces.clear();
+    ifaces << QNetworkInterface::allInterfaces();
+    foreach (QNetworkInterface i, ifaces)
+    {
+        if ((i.flags().testFlag(QNetworkInterface::IsUp)) && (i.flags().testFlag(QNetworkInterface::IsLoopBack)))
+        {
+            loopBack = i;
+        }
+        else if ((i.flags().testFlag(QNetworkInterface::IsUp)) && (i.humanReadableName().length()>0) && (i.flags().testFlag(QNetworkInterface::CanMulticast)) )
+        {
+            interfacesNames.append(i.humanReadableName() + "-" + i.hardwareAddress() );
+        }
+    }
+    interfacesNames.insert(-1, loopBack.humanReadableName());
+    networkInterfacesComboBox->addItems(interfacesNames);
+
+}
+
 void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 {
        //qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked" << endl;
@@ -162,36 +189,21 @@ void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 
 QString SetupPageUDP::getUDPServer()
 {
-    if (UDPServerCheckBox->isChecked())
-    {
-        return "True";
-    }
-    else
-    {
-        return "False";
-    }
+    return util->boolToQString(UDPServerCheckBox->isChecked());
 }
 
-void SetupPageUDP::setUDPServer(const QString t)
+void SetupPageUDP::setUDPServer(const QString &_t)
 {
        //qDebug() << "SetupPageUDP::setUDPServer: "  << t << endl;
-    if ( (t.toUpper()) == "FALSE")
-    {
-        UDPServerCheckBox->setChecked(false);
-    }
-    else
-    {
-        UDPServerCheckBox->setChecked(true);
-    }
+    UDPServerCheckBox->setChecked(util->trueOrFalse(_t));
     slotUDPServerCheckBoxClicked();
-
 }
 
-void SetupPageUDP::setUDPServerPort(const QString t)
+void SetupPageUDP::setUDPServerPort(const QString &_t)
 {
-    if (  (t.toInt()>=0) && (t.toInt()<=65535))
+    if (  (_t.toInt()>=0) && (_t.toInt()<=65535))
     {
-        UDPServerPortSpinBox->setValue(t.toInt());
+        UDPServerPortSpinBox->setValue(_t.toInt());
     }
     else
     {
@@ -213,11 +225,11 @@ QString SetupPageUDP::getUDPServerPort()
     }
 }
 
-void SetupPageUDP::setTimeout(const QString t)
+void SetupPageUDP::setTimeout(const QString &_t)
 {
-    if (  (t.toInt()>=0) && (t.toInt()<=30000))
+    if (  (_t.toInt()>=0) && (_t.toInt()<=30000))
     {
-        miliSecsSpinBox->setValue(t.toInt());
+        miliSecsSpinBox->setValue(_t.toInt());
     }
     else
     {
@@ -242,75 +254,60 @@ QString SetupPageUDP::getTimeout()
 
 QString SetupPageUDP::getLogFromWSJTx()
 {
-    if (logFromWSJTXCheckbox->isChecked())
-    {
-        return "True";
-    }
-    else
-    {
-        return "False";
-    }
+    return util->boolToQString(logFromWSJTXCheckbox->isChecked());
 }
 
 QString SetupPageUDP::getAutoLogFromWSJTx()
 {
-
-    if (logAutomaticallyWSJTXCheckbox->isChecked())
-    {
-        return "True";
-    }
-    else
-    {
-        return "False";
-    }
+    return  util->boolToQString(logAutomaticallyWSJTXCheckbox->isChecked());
 }
 
 QString SetupPageUDP::getReaDataFromWSJTx()
 {
-    if (realDataFromWSJTXCheckbox->isChecked())
-    {
-        return "True";
-    }
-    else
-    {
-        return "False";
-    }
+    return util->boolToQString(realDataFromWSJTXCheckbox->isChecked());
 }
 
-void SetupPageUDP::setLogFromWSJTx(const QString t)
+void SetupPageUDP::setLogFromWSJTx(const QString &_t)
 {
-
-    if (t.toUpper() == "TRUE")
-    {
-        logFromWSJTXCheckbox->setChecked(true);
-    }
-    else
-    {
-        logFromWSJTXCheckbox->setChecked(false);
-    }
+    logFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
     slotLogFromWSJTCheckBoxClicked();
 }
 
-void SetupPageUDP::setAutoLogFromWSJTx(const QString t)
+void SetupPageUDP::setAutoLogFromWSJTx(const QString &_t)
 {
-    if (t.toUpper() == "TRUE")
+    logAutomaticallyWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+}
+
+void SetupPageUDP::setReaDataFromWSJTx(const QString &_t)
+{
+    realDataFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+}
+
+QString SetupPageUDP::getNetworkInterface()
+{
+    if (networkInterfacesComboBox->currentIndex() == 0)
     {
-        logAutomaticallyWSJTXCheckbox->setChecked(true);
+        return  networkInterfacesComboBox->currentText();
     }
     else
     {
-        logAutomaticallyWSJTXCheckbox->setChecked(false);
+        return networkInterfacesComboBox->currentText().split('-').at(1);
     }
 }
 
-void SetupPageUDP::setReaDataFromWSJTx(const QString t)
+void SetupPageUDP::setNetworkInterface(const QString &_t)
 {
-    if (t.toUpper() == "TRUE")
+    qDebug() << "SetupPageUDP::setNetworkInterface: " << _t << endl;
+    if (networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith) >= 0)
     {
-       realDataFromWSJTXCheckbox->setChecked(true);
+        qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t << endl;
+       networkInterfacesComboBox->setCurrentIndex(networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith));
     }
     else
     {
-        realDataFromWSJTXCheckbox->setChecked(false);
+        qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t << endl;
+        networkInterfacesComboBox->setCurrentIndex(0);
     }
 }
+
+

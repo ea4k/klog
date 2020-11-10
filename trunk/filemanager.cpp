@@ -426,18 +426,18 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 }
 bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 {
-    //qDebug() << "FileManager::adifQSOsExport: " << _fileName << endl;
+   //qDebug() << "FileManager::adifQSOsExport: " << _fileName << endl;
     int numberOfQSOs = _qsos.length();
     if (numberOfQSOs<1)
     {
         //TODO: Warn the user NO QSOS TO EXPORT
-        //qDebug() << "FileManager::adifQSOsExport: No QSOs received to be exported" << endl;
+       //qDebug() << "FileManager::adifQSOsExport: No QSOs received to be exported" << endl;
     }
-    //qDebug() << "FileManager::adifQSOsExport - 01" << endl;
+   //qDebug() << "FileManager::adifQSOsExport - 01" << endl;
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
-    //qDebug() << "FileManager::adifQSOsExport - 02" << endl;
+   //qDebug() << "FileManager::adifQSOsExport - 02" << endl;
     QTextStream out(&file);
 
     QSqlQuery query;
@@ -457,15 +457,15 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     queryString = queryString + numbers + ")";
     //qDebug() << "FileManager::adifQSOsExport: writing the header" << endl;
     writeADIFHeader(out, ModeADIF, _qsos.length());
-    //qDebug() << "FileManager::adifQSOsExport: writing the body" << endl;
+   //qDebug() << "FileManager::adifQSOsExport: writing the body" << endl;
 
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-     //qDebug() << "FileManager::adifQSOsExport: query error: " << query.lastQuery() << endl;
+    //qDebug() << "FileManager::adifQSOsExport: query error: " << query.lastQuery() << endl;
      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
-     //qDebug() << "FileManager::adifQSOsExport: query: " << query.lastQuery() << endl;
+   //qDebug() << "FileManager::adifQSOsExport: query: " << query.lastQuery() << endl;
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQSOs, this);
     progress.setMaximum(numberOfQSOs);
     progress.setWindowModality(Qt::ApplicationModal);
@@ -474,26 +474,27 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     int step = util->getProgresStepForDialog(numberOfQSOs);
     while ( (query.next()) && (!noMoreQso) )
     {
-        //qDebug() << "FileManager::adifLogExportToFile -  Just in the While" << endl;
-
-
+       //qDebug() << "FileManager::adifLogExportToFile -  Just in the While" << endl;
         if (query.isValid())
         {
+            //qDebug() << "FileManager::adifLogExportToFile -  Query is Valid" << endl;
              writeQuery(query, out, ModeADIF, false, false, -1);
-
         } // Closes the isValid
+        else {
+           //qDebug() << "FileManager::adifLogExportToFile -  Query is NOT Valid" << endl;
+        }
 
-        //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso) << endl;
+       //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso) << endl;
         currentQso++;
 
-        if (( (currentQso % step )== 0) )
+        if (( (currentQso % step ) == 0) )
         { // To update the speed I will only show the progress once each X QSOs
-            //qDebug() << "FileManager::adifLogExportToFile -  Showing progress: "  << endl;
+           //qDebug() << "FileManager::adifLogExportToFile -  Showing progress: "  << endl;
             QString aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQSOs);
             progress.setLabelText(aux1);
             progress.setValue(currentQso);
         }
-        //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step) << endl;
+       //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step) << endl;
 
         if ( progress.wasCanceled() )
         {
@@ -522,7 +523,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 
 
 
-    //qDebug() << "FileManager::adifQSOsExport - END" << endl;
+   //qDebug() << "FileManager::adifQSOsExport - END" << endl;
     return true;
 }
 
@@ -3570,7 +3571,7 @@ void FileManager::writeADIFHeader(QTextStream &out, const ExportMode _em, const 
 
 void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN )
 {
-    //qDebug() << "FileManager::writeQuery: " <<  query.lastQuery() << endl;
+   //qDebug() << "FileManager::writeQuery: " <<  query.lastQuery() << endl;
     int nameCol;
     QString aux;
     bool propsat = false;    // Reset the QSO in case it is a Satellite QSO
@@ -3600,7 +3601,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << "FileManager::writeQuery: " << QString::number(nameCol) << "/" << aux1 << endl;
+       //qDebug() << "FileManager::writeQuery: " << QString::number(nameCol) << "/" << aux << endl;
         if (util->isValidCall(aux))
         {
             out << "<CALL:" << QString::number(aux.length()) << ">" << aux << " ";

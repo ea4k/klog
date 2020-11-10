@@ -112,17 +112,27 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all QRZ as they are entered"));
     //qDebug() << "SetupPageELog::SetupPageELog - 00050" << endl;
 
+    QRZLogBookKeyLabel = new QLabel(tr("LogBook Key"));
+    QRZCOMLogBookKEYLineEdit = new QLineEdit;
+    QRZCOMLogBookKEYLineEdit->setToolTip(tr("LogBook Key for QSO uploading. You can get this key in your QRZ.com logbook webpage."));
+
+
     QGridLayout *q1layout = new QGridLayout;
     q1layout->addWidget(QRZCOMUserLabel, 0, 0);
     q1layout->addWidget(QRZCOMPasswordLabel, 1, 0);
     q1layout->addWidget(QRZCOMUserLineEdit, 0, 1);
     q1layout->addWidget(QRZCOMPasswordLineEdit, 1, 1);
 
+    QHBoxLayout *qrzcomKeyLayout = new QHBoxLayout;
+    qrzcomKeyLayout->addWidget(QRZLogBookKeyLabel);
+    qrzcomKeyLayout->addWidget(QRZCOMLogBookKEYLineEdit);
+
     //qDebug() << "SetupPageELog::SetupPageELog - 00070" << endl;
     QVBoxLayout *qrzLayout = new QVBoxLayout;
     qrzLayout->addWidget(QRZCOMActiveCheckBox);
     qrzLayout->addLayout(q1layout);
     qrzLayout->addWidget(QRZCOMAutoCheckCheckBox);
+    qrzLayout->addLayout(qrzcomKeyLayout);
 
     QRZCOMGroup->setLayout(qrzLayout);
 
@@ -226,7 +236,7 @@ SetupPageELog::~SetupPageELog()
 
 void SetupPageELog::slotClubLogEmailDefineColor()
 {
-    qDebug() << "SetupPageELog::slotCLubLogEmailDefineColor" << endl;
+   //qDebug() << "SetupPageELog::slotCLubLogEmailDefineColor" << endl;
     if(!clubLogEmailLineEdit->hasAcceptableInput())
         clubLogEmailLineEdit->setStyleSheet("QLineEdit { color: red;}");
     else
@@ -235,7 +245,7 @@ void SetupPageELog::slotClubLogEmailDefineColor()
 
 void SetupPageELog::slotLoTWEmailDefineColor()
 {
-    qDebug() << "SetupPageELog::slotLoTWEmailDefineColor" << endl;
+   //qDebug() << "SetupPageELog::slotLoTWEmailDefineColor" << endl;
     if(!lotwUserLineEdit->hasAcceptableInput())
         lotwUserLineEdit->setStyleSheet("QLineEdit { color: red;}");
     else
@@ -248,6 +258,7 @@ void SetupPageELog::setDefaults()
     qrzcomAutoFill = false;
     qrzComUser = QString();
     qrzcomPass = QString();
+    qrcomLogbookKey = QString();
 
     clubLogEmail = QString();
     clubLogPass = QString();
@@ -480,9 +491,10 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
 
 QString SetupPageELog::SetupPageELog::getQRZCOMActive()
 {
-    //qDebug() << "SetupPageELog::getQRZCOMActive " << endl;
+    qDebug() << "SetupPageELog::getQRZCOMActive :" << endl;
     qrzcomActive = QRZCOMActiveCheckBox->isChecked();
     return util->boolToQString(qrzcomActive);
+    qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << endl;
 }
 
 void SetupPageELog::slotQRZCOMActive(bool _s)
@@ -513,6 +525,14 @@ void SetupPageELog::setQRZCOMUser(const QString &_s)
     }
 }
 
+void SetupPageELog::setQRZCOMLogBookKEY(const QString &_s)
+{
+    if (_s.length()>0)
+    {
+        qrcomLogbookKey = _s;
+    }
+}
+
 void SetupPageELog::setQRZCOMPassword(const QString &_s)
 {
     if (_s.length()>0)
@@ -527,6 +547,11 @@ QString SetupPageELog::getQRZCOMUser()
     return qrzComUser;
 }
 
+QString SetupPageELog::getQRZCOMLogBookKEY()
+{
+    qrcomLogbookKey = QRZCOMLogBookKEYLineEdit->text();
+    return qrcomLogbookKey;
+}
 QString SetupPageELog::getQRZCOMPassword()
 {
     qrzcomPass = QRZCOMPasswordLineEdit->text();
@@ -555,6 +580,7 @@ void SetupPageELog::showEvent(QShowEvent *event)
     QRZCOMPasswordLineEdit->setText(qrzcomPass);
     QRZCOMActiveCheckBox->setChecked(qrzcomActive);
     QRZCOMAutoCheckCheckBox->setChecked(qrzcomAutoFill);
+    QRZCOMLogBookKEYLineEdit->setText(qrcomLogbookKey);
 
     eQSLUserLineEdit->setText(eqslUser);
     eQSLPasswordLineEdit->setText(eqslPass);

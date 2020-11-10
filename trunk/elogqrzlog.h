@@ -45,6 +45,7 @@ public:
     ~eLogQrzLog();
     void login();
     void setCredentials(const QString &_user, const QString &_pass);
+    void setLogBookKey(const QString &_key);
     int sendQSO(const int _qsoID);
     void checkQRZ(const QString &_qrz);
     void fetchData();
@@ -61,7 +62,7 @@ private:
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
     bool canConnect();
 
-    QString apikey;
+    QString sessionkey, logbookkey;
     QString user, pass;
     QString klogVersion;
     DataProxy_SQLite *dataProxy;

@@ -1,16 +1,16 @@
 TBD - 1.4
 
-
 TODO:- New feature: QRZ.com sync - https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
 TODO:- New feature: eQSL syncronization - QSL Download.
 TODO:- New feature: Regional Award support: #include "setuppages/setuppagesubdivisions.h"
 
+- Improvement: Prepared the WSJTX-2.4 UDP interface.
 - Improved the KG4xx (Guantanamo bay) DXCC detection from KG4 calls.
 - New feature: New feature: eQSL syncronization - QSO Upload.
 - New feature: ClubLog full log upload (adding or overwriting).
-- New feature: - It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
-- New feature: - It is possible to select multiple QSOs in the log and execute several actions with the selected QSOs.(TNX EA5WA)
-- New feature: - It is possible to check for the data of calls in QRZ.com (you need a subscription in QRZ.com)
+- New feature: It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
+- New feature: It is possible to select multiple QSOs in the log and execute several actions with the selected QSOs.(TNX EA5WA)
+- New feature: It is possible to check for the data of calls in QRZ.com (you need a subscription in QRZ.com)
 - UI: Consolidation of all the electronic logs configurations in one single setup page into the eLog tab.
 - Bugfix: It was not possible to select empty logs from the preferences. (TNX G4MKT)
 - Bugfix: QSOs comming from WSJTx were not being uploaded to ClubLog. (TNX PD9Q)

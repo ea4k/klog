@@ -9,8 +9,10 @@ UDPServer::UDPServer(QObject *parent) :
        //qDebug() << "UDPServer::UDPServer"  << endl;
        //address = QString("127.0.0.1");
        port = 2237;
+       haveNetworkInterface = false;
        socketServer = new QUdpSocket(this);
        groupAddress = QHostAddress::Any;
+       networkInterface = QNetworkInterface();
        /*
        //if (socketServer->bind(QHostAddress::AnyIPv4, port, QAbstractSocket::ShareAddress))
        if (socketServer->bind(port, QAbstractSocket::ShareAddress))
@@ -23,10 +25,10 @@ UDPServer::UDPServer(QObject *parent) :
        }
        */
         util = new Utilities;
-       logging = false;
-       realtime = false;
+        logging = false;
+        realtime = false;
 
-       connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
+        connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
 }
 
 void UDPServer::slotReadPendingDatagrams()
@@ -103,6 +105,11 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
 void UDPServer::joinMultiCastGroup()
 {
     //qDebug() << "UDPServer::joinMultiCastGroup: "<< endl;
+    if (!haveNetworkInterface)
+    {
+        return;
+    }
+
     if ((socketServer->state() == QAbstractSocket::BoundState) && (!groupAddress.isNull())  && groupAddress.isMulticast()   )
     {
         auto mcast_interface = socketServer->multicastInterface();
@@ -114,10 +121,11 @@ void UDPServer::joinMultiCastGroup()
             {
                //qDebug() << "UDPServer::joinMultiCastGroup socket valid"<< endl;
             }
+
         }
         bool joined {false};
 
-
+        /*
         QList<QNetworkInterface> interfaces;
         interfaces.clear();
         interfaces.append(QNetworkInterface::allInterfaces());
@@ -127,6 +135,11 @@ void UDPServer::joinMultiCastGroup()
             socketServer->setMulticastInterface(interfaces.at(i));
             joined |= socketServer->joinMulticastGroup(groupAddress, interfaces.at(i));
         }
+        */
+
+        socketServer->setMulticastInterface(networkInterface);
+        joined |= socketServer->joinMulticastGroup(groupAddress, networkInterface);
+
         if (!joined)
         {
             groupAddress.clear();
@@ -452,6 +465,30 @@ void UDPServer::setPort(const int _port)
     if ((_port >= 0) && (_port<=65535))
     {
         port = _port;
+    }
+}
+
+void UDPServer::setNetworkInterface(const QString &_t)
+{
+    qDebug() << "UDPServer::setNetworkInterface: " << _t << endl;
+    QString testInterface;
+    testInterface.clear();
+    QList<QNetworkInterface> ifaces;
+    ifaces.clear();
+    ifaces << QNetworkInterface::allInterfaces();
+    foreach (QNetworkInterface i, ifaces)
+    {
+        testInterface = i.humanReadableName() + "-" + i.hardwareAddress();
+        if (testInterface.contains(_t))
+        {
+            qDebug() << "UDPServer::setNetworkInterface: FOUND! " << testInterface  << endl;
+            if ((i.flags().testFlag(QNetworkInterface::IsUp)) )
+            {
+                networkInterface = i;
+                haveNetworkInterface = true;
+            }
+
+        }
     }
 }
 

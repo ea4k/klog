@@ -15,7 +15,8 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
     klogVersion = _klogVersion;
     dataProxy = dp;
     qsos.clear();
-    apikey = QString();
+    sessionkey = QString();
+    logbookkey = QString();
     currentQSO = -1;
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotManagerFinished(QNetworkReply*)));
@@ -33,8 +34,16 @@ eLogQrzLog::~eLogQrzLog()
 }
 
 
+void eLogQrzLog::setLogBookKey(const QString &_key)
+{
+    qDebug()<< "eLogQrzLog::setLogBookKey: " << _key  << endl;
+    if (_key.length()>0)
+    {
+        logbookkey = _key;
+    }
+}
 
- void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
+void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
 {
     qDebug()<< "eLogQrzLog::slotManagerFinished"  << endl;
 
@@ -75,7 +84,7 @@ eLogQrzLog::~eLogQrzLog()
                     //qDebug() << "eLogQrzLog::slotManagerFinished: API-Key: " << tdata << endl;
                      if (tdata.length()>0)
                      {
-                         apikey = tdata;
+                         sessionkey = tdata;
                          logged = true;
                      }
                      continue;
@@ -85,6 +94,12 @@ eLogQrzLog::~eLogQrzLog()
                     tdata = reader->readElementText();
                     //qDebug() << "eLogQrzLog::slotManagerFinished: Error: " << tdata << endl;
                     emit dataFoundSignal("error", tdata);
+                }
+                if (tname == "Message")
+                {
+                    tdata = reader->readElementText();
+                    qDebug() << "eLogQrzLog::slotManagerFinished: Message: " << tdata << endl;
+                    emit dataFoundSignal("message", tdata);
                 }
                  if (tname == "call")
                  {
@@ -153,6 +168,17 @@ eLogQrzLog::~eLogQrzLog()
                      }
                      continue;
                  }
+                 if (tname == "Session")
+                 {
+                     qDebug() << "eLogQrzLog::slotManagerFinished: Session: "  << endl;
+                     tdata = reader->readElementText();
+                     if (tdata.length()>0)
+                     {
+                         qDebug() << "eLogQrzLog::slotManagerFinished: Session: " << tdata << endl;
+                     }
+                     continue;
+                 }
+
                  qDebug() << "eLogQrzLog::slotManagerFinished: Unknown: " << tname << endl;
             }
         }
@@ -238,7 +264,7 @@ bool eLogQrzLog::canConnect()
            return false;
        }
    }
-   if (apikey.length()<1)
+   if (sessionkey.length()<1)
    {
       //qDebug()<< "eLogQrzLog::canConnect: API not valid"  << endl;
        return false;
@@ -255,8 +281,7 @@ void eLogQrzLog::fetchData()
    //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << endl;
     QUrlQuery params;
 
-    params.addQueryItem("s", apikey);
-    params.addQueryItem("key", "1D0F-6059-D202-94BF");
+    params.addQueryItem("s", sessionkey);
     params.addQueryItem("action", "fetch");
     params.addQueryItem("option", "all");
 
@@ -271,14 +296,16 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
         //qDebug()<< "eLogQrzLog::checkQRZ: CALL not valid"  << endl;
         return;
     }
+    serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
+
     if (!canConnect())
     {
         return;
     }
+
    //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << endl;
     QUrlQuery params;
-
-    params.addQueryItem("s", apikey);
+    params.addQueryItem("s", sessionkey);
     params.addQueryItem("callsign", _qrz);
     sendDataParams(params);
 }
@@ -291,14 +318,20 @@ int eLogQrzLog::sendQSO(const int _qsoID)
     {
         return -1;
     }
+    if (logbookkey.length()<1)
+    {
+        return -2;
+    }
     QString adifQSO = dataProxy->getADIFQSO(_qsoID);
 
 
     qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO << endl;
     QUrlQuery params;
-
-    params.addQueryItem("s", apikey);
-    params.addQueryItem("KEY", "1D0F-6059-D202-94BF");
+    //
+    serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
+    //serviceUrl = QUrl("https://logbook.qrz.com/logbook");
+    params.addQueryItem("s", sessionkey);
+    params.addQueryItem("KEY", logbookkey);
 
     params.addQueryItem("ACTION", "INSERT");
     params.addQueryItem("ADIF",adifQSO);
@@ -320,6 +353,7 @@ void eLogQrzLog::login()
         qDebug()<< "eLogQrzLog::login error 2"  << endl;
         return;
     }
+    serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
     QUrlQuery params;
 
     params.addQueryItem("username", user);
