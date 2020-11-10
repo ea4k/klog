@@ -9,9 +9,10 @@
 // https://www.qrz.com/page/xml_data.html
 
 
-eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction)
+eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)
 {
    //qDebug()<< QString("eLogQrzLog::eLogQrzLog (%1) ").arg(_parentFunction)  << endl;
+    klogVersion = _klogVersion;
     dataProxy = dp;
     qsos.clear();
     apikey = QString();
@@ -31,15 +32,17 @@ eLogQrzLog::~eLogQrzLog()
         //qDebug()<< "eLogQrzLog::~eLogQrzLog"  << endl;
 }
 
+
+
  void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
 {
-    //qDebug()<< "eLogQrzLog::slotManagerFinished"  << endl;
+    qDebug()<< "eLogQrzLog::slotManagerFinished"  << endl;
 
     result = data->error();
-    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result = " << QString::number(result) << endl;
+    qDebug()<< "eLogQrzLog::slotManagerFinished - Result = " << QString::number(result) << endl;
 
     const QByteArray sdata = data->readAll();
-   //qDebug() << "eLogQrzLog::slotManagerFinished: " << sdata;
+   qDebug() << "eLogQrzLog::slotManagerFinished: Received: " << sdata;
 
     QString text = QString();
 
@@ -55,7 +58,6 @@ eLogQrzLog::~eLogQrzLog()
         {
             //qDebug() << "eLogQrzLog::slotManagerFinished - 00012" << endl;
             QXmlStreamReader::TokenType token = reader->readNext();
-
 
             if (token == QXmlStreamReader::StartDocument)
             {
@@ -141,6 +143,17 @@ eLogQrzLog::~eLogQrzLog()
                      }
                      continue;
                  }
+                 if (tname == "Remark")
+                 {
+                     qDebug() << "eLogQrzLog::slotManagerFinished: Remark: "  << endl;
+                     tdata = reader->readElementText();
+                     if (tdata.length()>0)
+                     {
+                         qDebug() << "eLogQrzLog::slotManagerFinished: Remark: " << tdata << endl;
+                     }
+                     continue;
+                 }
+                 qDebug() << "eLogQrzLog::slotManagerFinished: Unknown: " << tname << endl;
             }
         }
         if (reader->hasError())
@@ -184,48 +197,6 @@ eLogQrzLog::~eLogQrzLog()
     //emit signalFileUploaded(result, qsos);
     emit showMessage(text);
 
-}
-
-void eLogQrzLog::slotFileUploadFinished(QNetworkReply *data)
-{
-       //qDebug()<< "eLogQrzLog::slotFileUploadFinished"  << endl;
-
-    result = data->error();
-        //qDebug()<< "eLogQrzLog::slotFileUploadFinished - Result = " << QString::number(result) << endl;
-
-    const QByteArray sdata = data->readAll();
-
-    QString text = QString();
-
-
-    if (result == QNetworkReply::NoError)
-    {
-
-        text = "QRZ.com: " + prepareToTranslate(sdata);
-           //qDebug()<< "eLogQrzLog::slotFileUploadFinished - Result = NoError = " << QString::number(result)  << endl;
-            //qDebug()<< sdata;
-
-
-    }
-    else if (result == QNetworkReply::HostNotFoundError)
-    {
-           //qDebug()<< "eLogQrzLog::slotFileUploadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
-        text = "QRZ.com: " + tr("Host not found!");
-    }
-    else if (result == QNetworkReply::TimeoutError)
-    {
-           //qDebug()<< "eLogQrzLog::slotFileUploadFinished - Result = Time out error! = " << QString::number(result)  << endl;
-        text = "QRZ.com: " + tr("Timeout error!");
-    }
-    else
-    {
-           //qDebug()<< "eLogQrzLog::slotFileUploadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
-        text = "QRZ.com: " + tr("Undefined error...");
-    }
-
-        //qDebug()<< "eLogQrzLog::slotFileUploadFinished - Result = " << QString::number(result) << endl;
-    //emit done();
-    emit  showMessage(text);
 }
 
 void eLogQrzLog::downloadProgress(qint64 received, qint64 total) {
@@ -274,6 +245,23 @@ bool eLogQrzLog::canConnect()
    }
    return true;
 }
+void eLogQrzLog::fetchData()
+{
+    qDebug()<< "eLogQrzLog::fetchData"  << endl;
+    if (!canConnect())
+    {
+        return;
+    }
+   //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << endl;
+    QUrlQuery params;
+
+    params.addQueryItem("s", apikey);
+    params.addQueryItem("key", "1D0F-6059-D202-94BF");
+    params.addQueryItem("action", "fetch");
+    params.addQueryItem("option", "all");
+
+    sendDataParams(params);
+}
 
 void eLogQrzLog::checkQRZ(const QString &_qrz)
 {
@@ -297,51 +285,55 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
 
 int eLogQrzLog::sendQSO(const int _qsoID)
 {
-   //qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID) << endl;
-    QString adifQSO = QString();
-    if (apikey.length()<1)
+    qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID) << endl;
+
+    if (!canConnect())
     {
         return -1;
     }
-    adifQSO = dataProxy->getADIFQSO(_qsoID);
+    QString adifQSO = dataProxy->getADIFQSO(_qsoID);
 
 
-   //qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO << endl;
+    qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO << endl;
     QUrlQuery params;
-    params.addQueryItem("KEY", apikey);
+
+    params.addQueryItem("s", apikey);
+    params.addQueryItem("KEY", "1D0F-6059-D202-94BF");
+
     params.addQueryItem("ACTION", "INSERT");
-    params.addQueryItem("adif",adifQSO);
-   //qDebug() << "eLogQrzLog::sendQSO: END" << endl;
+    params.addQueryItem("ADIF",adifQSO);
+    qDebug() << "eLogQrzLog::sendQSO: END" << endl;
     //uploadingFile = false;
     return sendDataParams(params);
 }
 
 void eLogQrzLog::login()
 {
-   //qDebug()<< "eLogQrzLog::login"  << endl;
+    qDebug()<< "eLogQrzLog::login"  << endl;
     if (logged)
     {
-       //qDebug()<< "eLogQrzLog::login Already logged!"  << endl;
+        qDebug()<< "eLogQrzLog::login Already logged!"  << endl;
         return;
     }
     if ((user.length()<1) || (pass.length()<1))
     {
-       //qDebug()<< "eLogQrzLog::login error 2"  << endl;
+        qDebug()<< "eLogQrzLog::login error 2"  << endl;
         return;
     }
     QUrlQuery params;
 
     params.addQueryItem("username", user);
     params.addQueryItem("password", pass);
+    params.addQueryItem("agent", util->getGlobalAgent(klogVersion));
     //params.addQueryItem("username", loginString);
     sendDataParams(params);
-   //qDebug()<< "eLogQrzLog::login - END"  << endl;
+    qDebug()<< "eLogQrzLog::login - END"  << endl;
 
 }
 
 int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
 {     
-     //qDebug()<< "eLogQrzLog::sendDataParams: Params: " << _params.query(QUrl::FullyEncoded).toUtf8() << endl;
+    qDebug()<< "eLogQrzLog::sendDataParams: Params: " << _params.query(QUrl::FullyEncoded).toUtf8() << endl;
 
     QByteArray postData;
 
@@ -367,7 +359,7 @@ int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
 
 void eLogQrzLog::setCredentials(const QString &_user, const QString &_pass)
 {
-    //qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass  << endl;
+    qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass  << endl;
     user = _user;
     pass = _pass;
 }

@@ -145,78 +145,85 @@ void Utilities::printQString(const QStringList &_qs)
         //qDebug() << _qs.at(_qs.length()-1) << endl;
 }
 
+QString Utilities::getGlobalAgent(const QString &_klogversion)
+{
+    return QString("KLog-%1").arg(_klogversion);
+}
 QString Utilities::getAgent(const QString &_klogversion)
 {
     QString version;
+    QString ops;
     version = _klogversion;
     
 #if defined(Q_OS_WIN32)
-    return "KLog-Win32-" + version;
+    ops = "KLog-Win32-";
 #elif defined(Q_OS_WIN64)
-    return "KLog-Win64-" + version;
+    ops = "KLog-Win64-";
 #elif defined(Q_OS_LINUX)
-    return "KLog-Linux-" + version;
+    ops = "KLog-Linux-";
 #elif defined(Q_OS_WIN)
-    return "KLog-Win-"+ version;
+    ops = "KLog-Win-"+ version;
 #elif defined(Q_OS_MACOS)
-    return "KLog-macOS-" + version;
+    ops = "KLog-macOS-";
 #elif defined(Q_OS_OSX)
-    return "KLog-OSX-" + version;
+    ops = "KLog-OSX-";
 #elif defined(Q_OS_MAC)
-    return "KLog-MAC-" + version;
+    ops = "KLog-MAC-";
 #elif defined(Q_OS_DARWIN)
-    return "KLog-DARWIN-" + version;
+    ops = "KLog-DARWIN-";
 #elif defined(Q_OS_AIX)
-    return "KLog-aix-" + version;    
+    ops = "KLog-aix-";
 #elif defined(Q_OS_ANDROID)
-    return "KLog-android-" + version;    
+    ops = "KLog-android-";
 //#elif defined(Q_OS_BSD4)
-//    return "KLog-bsd4-" + version;
+//    ops = "KLog-bsd4-";
 #elif defined(Q_OS_BSDI)
-    return "KLog-bsdi-" + version;    
+    ops = "KLog-bsdi-";
 #elif defined(Q_OS_CYGWIN)
-    return "KLog-cygwin-" + version;    
+    ops = "KLog-cygwin-";
 #elif defined(Q_OS_DARWIN)
-    return "KLog-darwin-" + version;    
+    ops = "KLog-darwin-";
 #elif defined(Q_OS_DGUX)
-    return "KLog-dgux-" + version;    
+    ops = "KLog-dgux-";
 #elif defined(Q_OS_DYNIX)
-    return "KLog-dynix-" + version;
+    ops = "KLog-dynix-";
 #elif defined(Q_OS_FREEBSD)
-    return "KLog-freebsd-" + version;    
+    ops = "KLog-freebsd-";
 #elif defined(Q_OS_HPUX)
-    return "KLog-hpux-" + version;    
+    ops = "KLog-hpux-";
 #elif defined(Q_OS_IOS)
-    return "KLog-ios-" + version;    
+    ops = "KLog-ios-";
 #elif defined(Q_OS_IRIX)
-    return "KLog-irix-" + version;    
+    ops = "KLog-irix-";
 #elif defined(Q_OS_LYNX)
-    return "KLog-lynx-" + version;    
+    ops = "KLog-lynx-";
 #elif defined(Q_OS_NETBSD)
-    return "KLog-netbsd-" + version;    
+    ops = "KLog-netbsd-";
 #elif defined(Q_OS_OPENBSD)
-    return "KLog-openbsd-" + version;    
+    ops = "KLog-openbsd-";
 #elif defined(Q_OS_OSF)
-    return "KLog-osf-" + version;
+    ops = "KLog-osf-";
 #elif defined(Q_OS_QNX)
-    return "KLog-qnx-" + version;    
+    ops = "KLog-qnx-";
 #elif defined(Q_OS_SCO)
-    return "KLog-sco-" + version;    
+    ops = "KLog-sco-";
 #elif defined(Q_OS_SOLARIS)
-    return "KLog-solaris-" + version;    
+    ops = "KLog-solaris-";
 #elif defined(Q_OS_TVOS)
-    return "KLog-tvos-" + version;    
+    ops = "KLog-tvos-";
 #elif defined(Q_OS_UNIX)
-    return "KLog-unix-" + version;    
+    ops = "KLog-unix-";
 #elif defined(Q_OS_UNIXWARE)
-    return "KLog-unixware-" + version;    
+    ops = "KLog-unixware-";
 #elif defined(Q_OS_WHATCHOS)
-    return "KLog-whatchos-" + version;    
+    ops = "KLog-whatchos-";
 #elif defined(Q_OS_WINRT)
-    return "KLog-winrt-" + version;    
+    ops = "KLog-winrt-";
 #else
-    return "KLog-Other-" + version;
+    ops = "KLog-Other-";
 #endif
+
+    return ops+version;
 
     //return "KLog-Unknown-" + version;
 }

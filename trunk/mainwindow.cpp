@@ -38,7 +38,7 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-    qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+   //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
 
     softwareVersion = tversion;
@@ -53,7 +53,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
-    qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
+   //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << endl;
     debugFile = new QFile(debugName);
 
 
@@ -76,15 +76,15 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //QTime start;
     //start = QTime::currentTime();
-    qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
+   //qDebug() << "MainWindow::MainWindow: "<<  (QTime::currentTime()).toString("hhmmsszzz")<< endl;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-    qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
+   //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << endl;
     hamlib = new HamLibClass();
     //pstRotator = new PSTRotatorSupport(this);
     //rotatorWidget = new RotatorWidget;
-    qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
+   //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << endl;
 
     dataProxy = new DataProxy_SQLite(softwareVersion, Q_FUNC_INFO);
 
@@ -92,39 +92,41 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
 
-    qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
+   //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << endl;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
-    qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
-    qDebug() << "MainWindow::MainWindow: 00081" << endl;
+   //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
+   //qDebug() << "MainWindow::MainWindow: 00081" << endl;
     elogClublog = new eLogClubLog();
-    qDebug() << "MainWindow::MainWindow: 00082" << endl;
-    elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO);
+   //qDebug() << "MainWindow::MainWindow: 00082" << endl;
 
 
-   qDebug() << "MainWindow::MainWindow: 00083" << endl;
+    elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
+
+
+  //qDebug() << "MainWindow::MainWindow: 00083" << endl;
     updateSatsData = new UpdateSatsData(dataProxy);
-    qDebug() << "MainWindow::MainWindow: 00084" << endl;
+   //qDebug() << "MainWindow::MainWindow: 00084" << endl;
     statsWidget = new StatisticsWidget(dataProxy);
 
-    qDebug() << "MainWindow::MainWindow: 00085" << endl;
+   //qDebug() << "MainWindow::MainWindow: 00085" << endl;
     //statsWidget->show();
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
-    qDebug() << "MainWindow::MainWindow: 00086" << endl;
+   //qDebug() << "MainWindow::MainWindow: 00086" << endl;
     logWindow = new LogWindow(dataProxy, this);
-    qDebug() << "MainWindow::MainWindow: 00087" << endl;
+   //qDebug() << "MainWindow::MainWindow: 00087" << endl;
 
     searchWidget = new SearchWidget (dataProxy, this);
-    qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
+   //qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
     infoWidget = new InfoWidget(dataProxy, this);
 
-    qDebug() << "MainWindow::MainWindow: 00088" << endl;
+   //qDebug() << "MainWindow::MainWindow: 00088" << endl;
     logEvent(Q_FUNC_INFO, "Creating AwardsWidget", 7);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
-    qDebug() << "MainWindow::MainWindow: 0009" << endl;
+   //qDebug() << "MainWindow::MainWindow: 0009" << endl;
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
@@ -144,13 +146,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         }
     }
 
-    qDebug() << "MainWindow::MainWindow: 4" << endl;
+   //qDebug() << "MainWindow::MainWindow: 4" << endl;
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
-    qDebug() << "MainWindow::MainWindow: xx" << endl;
+   //qDebug() << "MainWindow::MainWindow: xx" << endl;
 
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured);    
-    qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: satTabWidget to be created" << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
     myDataTabWidget = new MainWindowMyDataTab();
@@ -159,12 +161,12 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
-    qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: locator to be created" << endl;
     locator = new Locator();
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-    qDebug() << "MainWindow::MainWindow: 8" << endl;
+   //qDebug() << "MainWindow::MainWindow: 8" << endl;
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
@@ -186,11 +188,11 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     rxFreqSpinBox = new QDoubleSpinBox;
     rxPowerSpinBox = new QDoubleSpinBox;
 
-    qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created" << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: Awards to be created" << endl;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    qDebug() << "MainWindow::MainWindow: Awards created" << endl;
+   //qDebug() << "MainWindow::MainWindow: Awards created" << endl;
     // </UI>
 
 
@@ -199,21 +201,21 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
        exit(0);
     }
 
-    qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow:  UI to be created" << endl;
 
 
 
-    qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: Software update to be created" << endl;
     softUpdate = new SoftwareUpdate(softwareVersion);
-    qDebug() << "MainWindow::MainWindow: FileManager to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: FileManager to be created" << endl;
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-    qDebug() << "MainWindow::MainWindow: FileAwardManager to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: FileAwardManager to be created" << endl;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
     
     lotwCallTQSL = new QAction(tr("Upload to LoTW"), this);
-    qDebug() << "MainWindow::MainWindow: AdifLoTWExportWidget to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: AdifLoTWExportWidget to be created" << endl;
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
-    qDebug() << "MainWindow::MainWindow: ShowAdifImportWidget to be created" << endl;
+   //qDebug() << "MainWindow::MainWindow: ShowAdifImportWidget to be created" << endl;
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
 
 
@@ -221,7 +223,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 
-    qDebug() << "MainWindow::MainWindow: END" << endl;
+   //qDebug() << "MainWindow::MainWindow: END" << endl;
 }
 
 void MainWindow::saveWindowsSize()
@@ -516,6 +518,7 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
     connect(logWindow, SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
 
+    connect(logWindow, SIGNAL(uploadToQRZcomTheseQSOs ( QList<int> ) ), this, SLOT(slotQRZcomUpload(QList<int>) ) );
 
     connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
     connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
@@ -2565,6 +2568,18 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
     //qDebug() << "MainWindow::slotQSOsExportToADIF - END" << endl;
 }
 
+void MainWindow::slotQRZcomUpload(QList<int> _id)
+{
+
+   qDebug() << "MainWindow::slotQRZcomUpload " << QString::number(_id.length())  << endl;
+   elogQRZcom->fetchData();
+   foreach (int i, _id)
+   {
+       qDebug() << "MainWindow::slotQRZcomUpload - Sending: " << QString::number(i)  << endl;
+       elogQRZcom->sendQSO(i);
+   }
+   qDebug() << "MainWindow::slotQRZcomUpload - END" << endl;
+}
 void MainWindow::slotQSOsDelete(QList<int> _id)
 {
     //qDebug() << "MainWindow::slotQSOsDelete " << QString::number(_id.length())  << endl;
@@ -2577,7 +2592,7 @@ void MainWindow::slotQSOsDelete(QList<int> _id)
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setText(message);
-    msgBox.setDetailedText(tr("This operation shall remove definetly all the selected QSO and associated data and you will not be able to recover it again."));
+    msgBox.setDetailedText(tr("This operation shall remove definitely all the selected QSO and associated data and you will not be able to recover it again."));
     msgBox.setInformativeText(tr("Are you sure?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
@@ -4298,7 +4313,7 @@ void MainWindow::openSetup(const int _page)
       //qDebug() << "MainWindow::MainWindow: after db->reConnect" << endl;
     if (hamlibActive)
     {
-        qDebug() << "MainWindow::MainWindow: Hamlib is active, let's read the VFO Freq/Mode" << endl;
+       //qDebug() << "MainWindow::MainWindow: Hamlib is active, let's read the VFO Freq/Mode" << endl;
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -5047,9 +5062,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         hamlib->setPoll(value.toInt());
     }else if (field == "HAMLIB")
     {
-        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+       //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
         hamlibActive = util->trueOrFalse(value);
-        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+       //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
     }
     else if (field == "HAMLIBREADONLY")
     {

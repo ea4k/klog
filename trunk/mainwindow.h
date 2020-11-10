@@ -195,6 +195,7 @@ private slots:
     void slotQSODelete(const int _id);
     void slotQSOsDelete(QList<int> _id);
     void slotQSOsExportToADIF(QList<int> _id);
+    void slotQRZcomUpload(QList<int> _id);
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);

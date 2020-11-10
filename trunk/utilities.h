@@ -50,6 +50,7 @@ public:
     QString boolToQString(const bool _b);
     QString checkAndFixASCIIinADIF(const QString &_data);
     QString getAgent(const QString &_klogversion);
+    QString getGlobalAgent(const QString &_klogversion);
     //QOperatingSystemVersion getOS();
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList &_qs);
