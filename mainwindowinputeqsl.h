@@ -38,7 +38,7 @@ class MainWindowInputEQSL : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent = 0);
+    explicit MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     //~MainWindowInputEQSL();
 
     //void setData(const QString _comment);
@@ -46,24 +46,28 @@ public:
 
     void clear();
 
+    QString getQRZCOMStatus();
     QString getClubLogStatus();
     QString getEQSLRecStatus();
     QString getEQSLSenStatus();
     QString getLOTWRecStatus();
     QString getLOTWSenStatus();
 
+    void setQRZCOMStatus(const QString _qs);
     void setClubLogStatus(const QString _qs);
     void setEQSLRecStatus(const QString _qs);
     void setEQSLSenStatus(const QString _qs);
     void setLOTWRecStatus(const QString _qs);
     void setLOTWSenStatus(const QString _qs);
 
+    QDate getQRZCOMDate();
     QDate getClubLogDate();
     QDate getEQSLRecDate();
     QDate getEQSLSenDate();
     QDate getLOTWRecDate();
     QDate getLOTWSenDate();
 
+    void setQRZCOMDate(const QDate _qs);
     void setClubLogDate(const QDate _qs);
     void setEQSLRecDate(const QDate _qs);
     void setEQSLSenDate(const QDate _qs);
@@ -76,6 +80,7 @@ public:
 signals:
 
 private slots:
+    void slotQRZCOMComboBoxChanged();
     void slotClubLogComboBoxChanged();
     void sloteQSLRecvComboBoxChanged();
     void sloteQSLSentComboBoxChanged();
@@ -86,8 +91,8 @@ private:
     void createUI();
     void setDefaultData();
 
-    QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
-    QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
+    QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox, *qrzcomComboBox;
+    QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit,  *qrzcomQDateEdit;
 
 
     DataProxy_SQLite *dataProxy;

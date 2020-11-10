@@ -239,6 +239,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
+    menu.addAction(multipleQueueForQRZCOMFromLogAct);
     menu.addAction(multipleExportToADIFFromLogAct);
     menu.addAction(delQSOFromLogAct);
     delQSOFromLogAct->setData(trow);
@@ -361,9 +362,13 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
     connect(multipleDelQSOsFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsDeleteFromLog()));
 
     multipleExportToADIFFromLogAct = new QAction(tr("Export to ADIF"), this);
-    //multipleExportToADIFFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
     multipleExportToADIFFromLogAct->setStatusTip(tr("Export the selected QSOs to an ADIF file."));
     connect(multipleExportToADIFFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsExportFromLog()));
+
+    multipleQueueForQRZCOMFromLogAct = new QAction(tr("Upload to QRZ.com"), this);
+    multipleQueueForQRZCOMFromLogAct->setStatusTip(tr("Send the selected QSOs to QRZ.com."));
+    connect(multipleQueueForQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsQRZUploadFromLog()));
+
 
     multipleQueueForLoTWFromLogAct = new QAction(tr("Upload to LoTW"), this);
     multipleQueueForLoTWFromLogAct->setStatusTip(tr("Upload the selected QSOs to LoTW"));
@@ -580,6 +585,28 @@ void LogWindow::slotQSOsUploadToLoTWFromLog()
 void LogWindow::slotQSOsUploadToClubLogFromLog()
 {
     //qDebug() << "LogWindow::slotQSOsUploadToClubLogFromLog - TO BE IMPLEMENTED" << endl;
+}
+
+void LogWindow::slotQSOsQRZUploadFromLog()
+{
+    qDebug() << "LogWindow::slotQSOsQRZUploadFromLog - TO BE IMPLEMENTED" << endl;
+    QItemSelectionModel *select = logView->selectionModel();
+    QList<int> qsos;
+    qsos.clear();
+    if (select->hasSelection())
+    {
+        QModelIndexList list = select->selectedRows();
+        foreach (QModelIndex index, list)
+        {
+            qsos.append(index.data(0).toInt());
+            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.row())  << endl;
+            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.data(0).toInt())  << endl;
+        }
+    }
+    if (qsos.length()>0)
+    {
+        emit uploadToQRZcomTheseQSOs(qsos);
+    }
 }
 
 void LogWindow::slotQSOsUploadToEQSLFromLog()

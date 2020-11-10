@@ -78,6 +78,7 @@ signals:
     //void clearError();
     void deleteTheseQSOs(QList<int> _qsos);
     void exportToADIFTheseQSOs(QList<int> _qsos);
+    void uploadToQRZcomTheseQSOs(QList<int> _qsos);
 
 private slots:
 
@@ -105,8 +106,7 @@ private slots:
     void slotMultipleQSLSentViaDirectFromLog();
     void slotMultipleQSLRecViaBureauFromLog();
     void slotMultipleQSLRecViaDirectFromLog();
-
-
+    void slotQSOsQRZUploadFromLog();
 
 private:    
     void createUI();
@@ -149,6 +149,7 @@ private:
     QAction *multipleExportToADIFFromLogAct;
     QAction *multipleQueueForLoTWFromLogAct;
     QAction *multipleQueueForClubLogFromLogAct;
+    QAction *multipleQueueForQRZCOMFromLogAct;
     QAction *multipleQueueForEQSLFromLogAct;
     QAction *multipleQslSentViaBureauFromLogAct;
     QAction *multipleQslSentViaDirectFromLogAct;

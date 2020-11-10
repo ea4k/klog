@@ -7563,15 +7563,44 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     QString ADIFqso;
     ADIFqso.clear();
 
-    //qDebug() << "DataProxy_SQLite::getADIFQSO: " <<  query.lastQuery() << endl;
+    qDebug() << "DataProxy_SQLite::getADIFQSO: " <<  QString::number(_qsoId) << endl;
     int nameCol;
     QString aux;
     bool propsat = false;    // Reset the QSO in case it is a Satellite QSO
 
     QSqlQuery query;
     QString queryString = QString("SELECT * FROM log WHERE id='%1'").arg(_qsoId);
-    bool sqlOk =query.exec(queryString);
+    bool sqlOk = query.exec(queryString);
 
+    if (sqlOk)
+    {
+        if (query.next())
+        {
+            if (query.isValid())
+            {
+              qDebug() << "DataProxy_SQLite::getADIFQSO: Query OK: " << query.lastQuery() << endl;
+            }
+            else
+            {
+                qDebug() << "DataProxy_SQLite::getADIFQSO: Query isValid FAILED: " << query.lastQuery() << endl;
+                query.finish();
+                return QString();
+            }
+
+        }
+        else
+        {
+            qDebug() << "DataProxy_SQLite::getADIFQSO: Query NEXT FAILED: " << query.lastQuery() << endl;
+            query.finish();
+            return QString();
+        }
+    }
+    else
+    {
+        qDebug() << "DataProxy_SQLite::getADIFQSO: Query FAILED: " << query.lastQuery() << endl;
+        query.finish();
+        return QString();
+    }
     QSqlRecord rec = query.record();
 
 

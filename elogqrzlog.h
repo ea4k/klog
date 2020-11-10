@@ -41,12 +41,13 @@
 class eLogQrzLog : public QObject {
     Q_OBJECT
 public:
-    explicit eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction);
+    explicit eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion);
     ~eLogQrzLog();
     void login();
     void setCredentials(const QString &_user, const QString &_pass);
     int sendQSO(const int _qsoID);
     void checkQRZ(const QString &_qrz);
+    void fetchData();
     //int deleteQSOid(const int _qsoId);
     //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
 
@@ -62,6 +63,7 @@ private:
 
     QString apikey;
     QString user, pass;
+    QString klogVersion;
     DataProxy_SQLite *dataProxy;
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
@@ -78,7 +80,7 @@ private:
 
 private slots:
     void slotManagerFinished(QNetworkReply* data);
-    void slotFileUploadFinished(QNetworkReply* data);
+    //void slotFileUploadFinished(QNetworkReply* data);
     void downloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
 
