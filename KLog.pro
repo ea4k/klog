@@ -52,6 +52,7 @@ HEADERS += setupdialog.h \
     setuppages/setuppagesubdivisionnew.h \
     setuppages/setuppagesubdivisions.h \
     widgets/adiflotwexportwidget.h \
+    widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
     world.h \
     logwindow.h \
@@ -132,6 +133,7 @@ SOURCES += main.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
     setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \
+    widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     world.cpp \
     logwindow.cpp \
@@ -294,14 +296,21 @@ macx: {
     INCLUDEPATH +=../../../hamlib/include/
     LIBS += -L"../../../hamlib/lib" -lhamlib
 }
-
+#win32: {
+#    RC_ICONS = klog.ico
+#    TARGET = klog
+#    QMAKE_TARGET_COMPANY = EA4K
+#    QMAKE_TARGET_DESCRIPTION = Hamradio logging
+#    LIBS += -L"$$PWD/../../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
+#    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
+#}
 win32: {    
     RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L"$$PWD/../../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
-    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
+    LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
+    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 }
 
 else:

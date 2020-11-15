@@ -114,7 +114,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 
     QRZLogBookKeyLabel = new QLabel(tr("LogBook Key"));
     QRZCOMLogBookKEYLineEdit = new QLineEdit;
-    QRZCOMLogBookKEYLineEdit->setToolTip(tr("LogBook Key for QSO uploading. You can get this key in your QRZ.com logbook webpage."));
+    QRZCOMLogBookKEYLineEdit->setToolTip(tr("LogBook Key for QSO uploading. You can get this key in your QRZ.com logbook webpage. Remember that you need a QRZ.com subscription to use this feature."));
 
 
     QGridLayout *q1layout = new QGridLayout;
@@ -491,10 +491,10 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
 
 QString SetupPageELog::SetupPageELog::getQRZCOMActive()
 {
-    qDebug() << "SetupPageELog::getQRZCOMActive :" << endl;
+    //qDebug() << "SetupPageELog::getQRZCOMActive :" << endl;
     qrzcomActive = QRZCOMActiveCheckBox->isChecked();
     return util->boolToQString(qrzcomActive);
-    qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << endl;
+    //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << endl;
 }
 
 void SetupPageELog::slotQRZCOMActive(bool _s)

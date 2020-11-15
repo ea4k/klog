@@ -470,7 +470,7 @@ void UDPServer::setPort(const int _port)
 
 void UDPServer::setNetworkInterface(const QString &_t)
 {
-    qDebug() << "UDPServer::setNetworkInterface: " << _t << endl;
+    //qDebug() << "UDPServer::setNetworkInterface: " << _t << endl;
     QString testInterface;
     testInterface.clear();
     QList<QNetworkInterface> ifaces;
@@ -481,7 +481,7 @@ void UDPServer::setNetworkInterface(const QString &_t)
         testInterface = i.humanReadableName() + "-" + i.hardwareAddress();
         if (testInterface.contains(_t))
         {
-            qDebug() << "UDPServer::setNetworkInterface: FOUND! " << testInterface  << endl;
+            //qDebug() << "UDPServer::setNetworkInterface: FOUND! " << testInterface  << endl;
             if ((i.flags().testFlag(QNetworkInterface::IsUp)) )
             {
                 networkInterface = i;

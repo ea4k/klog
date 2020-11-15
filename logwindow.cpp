@@ -239,7 +239,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
-    menu.addAction(multipleQueueForQRZCOMFromLogAct);
+    //menu.addAction(multipleQueueForQRZCOMFromLogAct);
     menu.addAction(multipleExportToADIFFromLogAct);
     menu.addAction(delQSOFromLogAct);
     delQSOFromLogAct->setData(trow);
@@ -365,9 +365,9 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
     multipleExportToADIFFromLogAct->setStatusTip(tr("Export the selected QSOs to an ADIF file."));
     connect(multipleExportToADIFFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsExportFromLog()));
 
-    multipleQueueForQRZCOMFromLogAct = new QAction(tr("Upload to QRZ.com"), this);
-    multipleQueueForQRZCOMFromLogAct->setStatusTip(tr("Send the selected QSOs to QRZ.com."));
-    connect(multipleQueueForQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsQRZUploadFromLog()));
+    //multipleQueueForQRZCOMFromLogAct = new QAction(tr("Upload to QRZ.com"), this);
+    //multipleQueueForQRZCOMFromLogAct->setStatusTip(tr("Send the selected QSOs to QRZ.com."));
+    //connect(multipleQueueForQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsQRZUploadFromLog()));
 
 
     multipleQueueForLoTWFromLogAct = new QAction(tr("Upload to LoTW"), this);

@@ -196,6 +196,8 @@ private slots:
     void slotQSOsDelete(QList<int> _id);
     void slotQSOsExportToADIF(QList<int> _id);
     void slotQRZcomUpload(QList<int> _id);
+    void slotQRZCOMLogUpload();
+
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
@@ -294,7 +296,8 @@ private slots:
     void slotElogQRZCOMCheckThisCall();
     void slotElogQRZCOMAutoCheck();
     void slotElogQRZCOMAutoCheckFromSetup(const bool _s);
-
+    void slotElogQRZCOMModifyCurrentLog();
+    void slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // QRZCOM
     //SATELLITE
     //void slotSatBandTXComboBoxChanged(const QString _q);
@@ -342,6 +345,7 @@ private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
     //void setWidgetsOrder();
+    void cleanQRZCOMreceivedDataFromUI();
     void saveWindowsSize();
     void setWindowsSize(const int _width, const int _height);
     bool maybeSave();
@@ -555,6 +559,8 @@ private:
 
     QAction *QRZCOMCheckThisCallAct;
     QAction *QRZCOMAutoCheckAct;
+    QAction *QRZCOMLogUploadAct;
+    QAction *QRZCOMLogModifyCurrentLogAct;
 
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
@@ -762,8 +768,8 @@ signals:
 
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
-    void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 
 };
 

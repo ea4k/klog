@@ -37,7 +37,10 @@
 #include "locator.h"
 #include <QtDebug>
 
-enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL};
+enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
+enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
+enum OnlineErrorCode {Ok, Fail};
+enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
 
 class Utilities
 {
@@ -134,4 +137,5 @@ private:
 };
 
 #endif // UTILITIES_H
+
 
