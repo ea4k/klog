@@ -297,15 +297,15 @@ QString SetupPageUDP::getNetworkInterface()
 
 void SetupPageUDP::setNetworkInterface(const QString &_t)
 {
-    qDebug() << "SetupPageUDP::setNetworkInterface: " << _t << endl;
+    //qDebug() << "SetupPageUDP::setNetworkInterface: " << _t << endl;
     if (networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith) >= 0)
     {
-        qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t << endl;
+        //qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t << endl;
        networkInterfacesComboBox->setCurrentIndex(networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith));
     }
     else
     {
-        qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t << endl;
+        //qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t << endl;
         networkInterfacesComboBox->setCurrentIndex(0);
     }
 }

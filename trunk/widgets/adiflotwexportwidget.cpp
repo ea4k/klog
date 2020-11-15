@@ -125,7 +125,10 @@ void AdifLoTWExportWidget::fillTable()
        case ModeEQSL:
            //qDebug() << "AdifLoTWExportWidget::fillTable EQSL" << endl;
            justQueued = true;
-
+           break;
+       case ModeQRZ:
+           //qDebug() << "AdifLoTWExportWidget::fillTable QRZ" << endl;
+           justQueued = true;
            break;
        }
 
@@ -146,6 +149,10 @@ void AdifLoTWExportWidget::fillTable()
            else if (currentExportMode == ModeEQSL)
            {
               qsos.append(dataProxy->getQSOsListEQSLToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+           }
+           else if (currentExportMode == ModeQRZ)
+           {
+              qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else
            {
@@ -246,7 +253,7 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
     }
     else if (stationCallsignComboBox->currentIndex() == 1)
     {
-        if ((currentExportMode == ModeLotW) || (currentExportMode == ModeClubLog) || (currentExportMode == ModeEQSL))
+        if ((currentExportMode == ModeLotW) || (currentExportMode == ModeClubLog) || (currentExportMode == ModeQRZ)|| (currentExportMode == ModeEQSL))
         {
             emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
         }
@@ -305,6 +312,11 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
     {
         setWindowTitle(tr("KLog - QSOs to be uploaded to eQSL.cc."));
         topLabel->setText(tr("This table shows the QSOs that will be sent to eQSL.cc."));
+    }
+    else if (currentExportMode == ModeQRZ)
+    {
+        setWindowTitle(tr("KLog - QSOs to be uploaded to QRZ.com."));
+        topLabel->setText(tr("This table shows the QSOs that will be sent to QRZ.com."));
     }
     else
     {

@@ -42,28 +42,35 @@ void eQSLUtilities::setPass(const QString &_pass)
     pass = _pass;
      //qDebug() << "eQSLUtilities::setPass: END" << endl;
 }
- void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
+
+void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
 {
     //qDebug()<< "eQSLUtilities::slotQsoUploadFinished"  << endl;
-
+    QStringList parsedAnswer;
+    parsedAnswer.clear();
     result = data->error();
     //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = " << QString::number(result) << endl;
 
     const QByteArray sdata = data->readAll();
     QString text = QString();
 
-    if (currentQSO>0)
-    {
-        emit actionReturnDownload(result, currentQSO);
-        currentQSO = -1;
-    }
-
     if (result == QNetworkReply::NoError)
     {
 
-        text = "eQSL: " + prepareToTranslate(sdata);
+        parsedAnswer << prepareToTranslate(sdata);
+        if (parsedAnswer.at(0).contains("Error"))
+        {
+            //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - error detected" << endl;
+            QMessageBox::warning(nullptr, tr("KLog - eQSL"), tr("eQSL has sent the following message:\n%1").arg(parsedAnswer.at(1)), QMessageBox::Ok);
+            qsos.clear();
+            return;
+        }
+        else
+        {
+
+        }
         //qDebug()<< sdata;
-         //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - NO ERROR" << endl;
+        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - NO ERROR" << endl;
         if (uploadingFile)
         {
             uploadingFile = false;
@@ -98,47 +105,8 @@ void eQSLUtilities::setPass(const QString &_pass)
     //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = " << QString::number(result) << endl;
     //emit done();
     emit signalFileUploaded(result, qsos);
-    emit  showMessage(text);
+    emit showMessage(text);
 
-}
-
-void eQSLUtilities::slotFileUploadFinished(QNetworkReply *data)
-{
-       //qDebug()<< "eQSLUtilities::slotFileUploadFinished"  << endl;
-
-    result = data->error();
-        //qDebug()<< "eQSLUtilities::slotFileUploadFinished - Result = " << QString::number(result) << endl;
-
-    const QByteArray sdata = data->readAll();
-
-    QString text = QString();
-
-    if (result == QNetworkReply::NoError)
-    {
-
-        text = "eQSL: " + prepareToTranslate(sdata);
-           //qDebug()<< "eQSLUtilities::slotFileUploadFinished - Result = NoError = " << QString::number(result)  << endl;
-           //qDebug()<< sdata;
-    }
-    else if (result == QNetworkReply::HostNotFoundError)
-    {
-           //qDebug()<< "eQSLUtilities::slotFileUploadFinished - Result = Host Not found! = " << QString::number(result)  << endl;
-        text = "eQSL: " + tr("Host not found!");
-    }
-    else if (result == QNetworkReply::TimeoutError)
-    {
-           //qDebug()<< "eQSLUtilities::slotFileUploadFinished - Result = Time out error! = " << QString::number(result)  << endl;
-        text = "eQSL: " + tr("Timeout error!");
-    }
-    else
-    {
-        //qDebug()<< "eQSLUtilities::slotFileUploadFinished - Result = UNDEFINED = " << QString::number(result)  << endl;
-        text = "eQSL: " + tr("Undefined error...");
-    }
-
-        //qDebug()<< "eQSLUtilities::slotFileUploadFinished - Result = " << QString::number(result) << endl;
-    //emit done();
-    emit  showMessage(text);
 }
 
 void eQSLUtilities::downloadProgress(qint64 received, qint64 total) {
@@ -176,109 +144,36 @@ void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, c
     pass = _pass;
 }
 
-QString eQSLUtilities::prepareToTranslate(const QString &_m)
+QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
 {
-       //qDebug()<< "eQSLUtilities:: = prepareToTranslate" << _m << endl;
-    if (_m == "Callsign missing")
+    //qDebug()<< "eQSLUtilities:: = prepareToTranslate" << _m << endl;
+    QString msg = _m;
+    QStringList result;
+    result.clear();
+    if (_m.contains("Error: No match on eQSL_User/eQSL_Pswd"))
     {
-        return tr("Callsign missing");
+        result << QString("Error");
+        result << QString(tr("eQSL Error: User or password incorrect"));
+        pass = QString();
     }
-    else if (_m == "Invalid callsign")
+    else if ( (_m.contains("Warning:")) && (_m.contains("Bad record: Duplicate") ) )
     {
-        return tr("Invalid callsign");
+        result << QString("Warning");
+        result << QString(tr("eQSL Warning: At least one of the uplodaded QSOs is duplicated."));
     }
-    else if (_m == "Skipping SWL callsign")
+    else if ((_m.contains("Result:")) && (_m.contains("records added<BR>")) && (!_m.contains("Warning:")) )
     {
-        return tr("Skipping SWL callsign");
-    }
-    else if (_m == "Callsign is your own call")
-    {
-        return tr("Callsign is your own call");
-    }
-    else if (_m == "Invalid callsign with no DXCC mapping")
-    {
-        return tr("Invalid callsign with no DXCC mapping");
-    }
-    else if (_m == "Updated QSO")
-    {
-        return tr("Updated QSO");
-    }
-    else if (_m == "Invalid ADIF record")
-    {
-        return tr("Invalid ADIF record");
-    }
-    else if (_m == "Missing ADIF record")
-    {
-        return tr("Missing ADIF record");
-    }
-    else if (_m == "Test mode - parameters ok, no action taken")
-    {
-        return tr("Test mode - parameters ok, no action taken");
-    }
-    else if (_m == "Excessive API Usage")
-    {
-        return tr("Excessive API Usage");
-    }
-    else if (_m == "Internal Error")
-    {
-        return tr("Internal Error");
-    }
-    else if (_m == "Rejected")
-    {
-        return tr("Rejected");
-    }
-    else if (_m == "QSO Duplicate")
-    {
-        return tr("QSO Duplicate");
-    }
-    else if (_m == "QSO Modified")
-    {
-        return tr("QSO Modified");
-    }
-    else if (_m == "Missing Login")
-    {
-        return tr("Missing Login");
-    }
-    else if (_m == "QSO OK")
-    {
-        return tr("QSO OK");
-    }
-    else if (_m == "Upload denied")
-    {
-        return tr("Upload denied");
-    }
-    else if (_m == "No callsign selected")
-    {
-        return tr("No callsign selected");
-    }
-    else if (_m == "No match found")
-    {
-        return tr("No match found");
-    }
-    else if (_m == "Dropped QSO")
-    {
-        return tr("Dropped QSO");
-    }
-    else if (_m == "OK")
-    {
-        return tr("OK");
-    }
-    else if (_m == "Login rejected")
-    {
-        return tr("Login rejected");
-    }
-    else if (_m == "Upload denied")
-    {
-        return tr("Upload denied");
-    }
-    else if (_m == "Rejected: Callsign is your own call")
-    {
-        return tr("Rejected: Callsign is your own call");
+        result << QString("OK");
+        result << QString(tr("eQSL: All the QSOs were properly uploaded."));
     }
     else
     {
-        return _m;
+        result << "Unknown" << "Unknown";
     }
+    //qDebug()<< "eQSLUtilities:: = prepareToTranslate returning... "  << endl;
+
+
+    return result;
 }
 
 void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
@@ -320,6 +215,16 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
     userPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eqsl_user\""));
     userPart.setBody(user.toUtf8());
 
+    if (pass.length()<1)
+    {
+        bool ok;
+        pass = QInputDialog::getText(nullptr, tr("KLog - eQSL.cc password needed"), tr("Please enter your eQSL.cc password: "), QLineEdit::Password, "", &ok);
+        if (!ok)
+        {
+            return;
+        }
+    }
+
     QHttpPart passPart;
     passPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eqsl_pswd\""));
     passPart.setBody(pass.toUtf8());
@@ -336,10 +241,11 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
 
     uploadingFile = true;
     QNetworkRequest request(serviceUrl);
+    //qDebug()<< "eQSLUtilities::sendLogFile: Before sending" << endl;
     manager->post(request, multiPart);
+    //qDebug()<< "eQSLUtilities::sendLogFile: After sending" << endl;
     //multiPart->setParent(reply);
-
-     //qDebug()<< "eQSLUtilities::sendLogFile - END" << endl;
+    //qDebug()<< "eQSLUtilities::sendLogFile - END" << endl;
 
 }
 

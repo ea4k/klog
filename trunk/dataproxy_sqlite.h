@@ -144,16 +144,19 @@ public:
 
     bool updateAwardDXCC();
     bool updateAwardWAZ();
+    // QRZ.com
+    bool QRZCOMModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to QRZ.com
+     bool QRZCOMSentQSOs(const QList<int> &_qsos); // Mark as uploaded
+    // QRZ.com
     //EQSL
     bool eQSLModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to eQSL
     bool eQSLSentQSOs(const QList<int> &_qsos); // Mark as uploaded
-    //EQSL
 
+    //EQSL
 
     //CLUBLOG
     bool clublogSentQSOs(const QList<int> &_qsos); // Mark as uploaded
     bool clublogModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to CLubLog
-
     // CLUBLOG
 
     //LOTW
@@ -169,6 +172,7 @@ public:
 
     QList<int> getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
+    QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);

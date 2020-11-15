@@ -713,9 +713,9 @@ void SetupDialog::slotOkButtonClicked()
 
         // QRZ.com
 
-        if (( util->trueOrFalse(eLogPage->getQRZCOMActive()) ) && (eLogPage->getQRZCOMUser().length()>0) )
+        if ( util->trueOrFalse(eLogPage->getQRZCOMActive()) )
         {
-            qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << endl;
+            //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << endl;
             tmp = eLogPage->getQRZCOMActive();
             if (tmp.length()>0)
             {
@@ -744,7 +744,7 @@ void SetupDialog::slotOkButtonClicked()
         }
         else
         {
-            qDebug() << "SetupDialog::slotOkButtonClicked - NO storing QRZ.com data" << endl;
+            //qDebug() << "SetupDialog::slotOkButtonClicked - NO storing QRZ.com data" << endl;
         }
         // QRZ.com - END
 

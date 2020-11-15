@@ -329,24 +329,6 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
     writeADIFHeader(out, _em, numberOfQsos);
 
-    /*
-    QDateTime dateTime = (QDateTime::currentDateTime()).toUTC();
-    if (_em != ModeEQSL)
-    {
-
-        out << "ADIF v3.1.0 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:4>KLOG " << endl;
-        out << "<APP_KLOG_QSOS:" << QString::number((QString::number(numberOfQsos)).length()) << ">" << QString::number(numberOfQsos) << endl;
-        out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((dateTime.toString("yyyyMMdd-hhmm")).length()) << ">" << dateTime.toString("yyyyMMdd-hhmm") << endl;
-    }
-    else
-    {
-        //out << "ADIF v3.1.0 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:4>KLOG " << endl;
-        out << "ADIF v3.1.0 Export from KLog\n<PROGRAMID:4>KLog " << endl;
-    }
-    */
-
-    //out << "<EOH>" << endl;
-
     i = 0;
 
     sqlOK = query.exec(queryString);

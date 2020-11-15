@@ -37,6 +37,11 @@
 #include <QHttpPart>
 #include "utilities.h"
 #include "dataproxy_sqlite.h"
+#include "widgets/onlinemessagewidget.h"
+
+// https://www.qrz.com/XML/current_spec.html
+// https://www.qrz.com/page/xml_data.html
+// https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
 
 class eLogQrzLog : public QObject {
     Q_OBJECT
@@ -46,7 +51,7 @@ public:
     void login();
     void setCredentials(const QString &_user, const QString &_pass);
     void setLogBookKey(const QString &_key);
-    int sendQSO(const int _qsoID);
+    int sendQSOs(QList<int> _qsos);
     void checkQRZ(const QString &_qrz);
     void fetchData();
     //int deleteQSOid(const int _qsoId);
@@ -61,13 +66,20 @@ private:
     int sendDataParams(const QUrlQuery &_params);
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
     bool canConnect();
-
+    void parseAppAnswer (const int howManyQSOs, const QString &_m);
+    void parseNetworkError(QNetworkReply::NetworkError _error);
+    void parseXMLAnswer(QXmlStreamReader &xml);
+    int sendQSO(const int _qsoID);
+    void sendSignal(QNetworkReply::NetworkError _error, QList<int> _qsos);
+    bool errorWhileSendingLog;
+    bool sendingQSO;
+    bool lastQSO;
     QString sessionkey, logbookkey;
     QString user, pass;
     QString klogVersion;
     DataProxy_SQLite *dataProxy;
     QNetworkAccessManager *manager;
-    QNetworkReply* reply;
+    QNetworkAccessManager *managerLog;
     int currentQSO;
     QNetworkReply::NetworkError result;
     QString target;
@@ -76,11 +88,15 @@ private:
     Utilities *util;
     bool logged;
     QUrl serviceUrl;
+
     QXmlStreamReader *reader;
+
+    OnlineMessageWidget *onlineMessage;
     //bool useQSOStationCallsign;
 
 private slots:
     void slotManagerFinished(QNetworkReply* data);
+    void slotManagerLogFinished(QNetworkReply* data);
     //void slotFileUploadFinished(QNetworkReply* data);
     void downloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
@@ -92,8 +108,8 @@ signals:
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
     void showMessage(const QString _t);
-    void disableClubLogAction(const bool _b);
-    void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
+    void disableQRZAction(const bool _b);
+    void signalLogUploaded(QNetworkReply::NetworkError, QList<int>);
     void dataFoundSignal(const QString &_type, const QString _data);
 
 };

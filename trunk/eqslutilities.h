@@ -37,7 +37,7 @@
 #include <QHttpMultiPart>
 #include <QHttpPart>
 #include "utilities.h"
-
+// https://www.eqsl.cc/qslcard/Programming.cfm
 class eQSLUtilities : public QObject {
     Q_OBJECT
 public:
@@ -57,7 +57,7 @@ private:
     //QString geteQSLAdif(const QStringList _q);
     //int sendData(const QString &_eQSLUser, const QString &_q); //  Sends the data (http post) to eQSL
     //int sendDataParams(const QString &_eQSLUser, const QUrlQuery &_params);
-    QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
+    QStringList prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
 
     QString user, pass, stationCallsign;
@@ -74,7 +74,7 @@ private:
 
 private slots:
     void slotQsoUploadFinished(QNetworkReply* data);
-    void slotFileUploadFinished(QNetworkReply* data);
+    //void slotFileUploadFinished(QNetworkReply* data);
     void downloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
 
