@@ -1,17 +1,18 @@
  TBD - 1.4
 
-TODO:- New feature: QSO upload to the QRZ.com Logbook (including qso selection and qso mark that has been uploaded)
-TODO:- New feature: QSO upload to the eQSL.cc Logbook (including qso selection and qso mark that has been uploaded)
-
-
 - Improvement: Prepared the WSJTX-2.4 UDP interface.
 - Improved the KG4xx (Guantanamo bay) DXCC detection from KG4 calls.
-- New feature: New feature: eQSL syncronization - QSO Upload.
+- Updated how KLog counts the confirmed DXCC entities to include LoTW confirmations.
+- New feature: QSO upload to the QRZ.com Logbook (including qso selection and qso mark that has been uploaded)
+- New feature: QSO upload to the eQSL.cc Logbook (including qso selection and qso mark that has been uploaded)
 - New feature: ClubLog full log upload (adding or overwriting).
 - New feature: It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
 - New feature: It is possible to select multiple QSOs in the log and execute several actions with the selected QSOs.(TNX EA5WA)
 - New feature: It is possible to check for the data of calls in QRZ.com (you need a subscription in QRZ.com)
 - UI: Consolidation of all the electronic logs configurations in one single setup page into the eLog tab.
+- Bugfix: Save all QSOs to ADIF process continued even if the user clicked in cancel.(TNX G4MKT)
+- Bugfix: Backup file was not being created in the right path.(TNX G4MKT)
+- Bugfix: Some paths were converted to upper case causing some issues in some case sensitive situations. (TNX G4MKT)
 - Bugfix: In some cases, the RST format was not properly defined.(TNX G4MKT)
 - Bugfix: Default ADIF file was not being saved on exit. (TNX G4MKT)
 - Bugfix: It was not possible to select empty logs from the preferences. (TNX G4MKT)

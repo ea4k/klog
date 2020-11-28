@@ -7,8 +7,9 @@
 
 LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersion, const QString &_parentFunction, DataProxy_SQLite *dp)
 {
-     //qDebug() << "LoTWUtilities::LoTWUtilities(): " << _klogDir << endl;
+   //qDebug() << "LoTWUtilities::LoTWUtilities(): " << _klogDir << endl;
     dataProxy = dp;
+    calendar = new QCalendarWidget;
     util = new Utilities;    
     manager = new QNetworkAccessManager(this);
 
@@ -27,12 +28,25 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
 
     pDialog = new QProgressDialog(nullptr);
     pDialog->cancel();
-     //qDebug() << "LoTWUtilities::LoTWUtilities(): - END"  << endl;
+    firstDate = QDate::currentDate();
+    calendar->setToolTip(tr("Double click on the date that you want to use as the start date for downloading QSOs."));
+
+    connect(calendar, SIGNAL(activated(QDate)), this, SLOT(slotCalendarDateSelected(QDate)));
+
+   //qDebug() << "LoTWUtilities::LoTWUtilities(): - END"  << endl;
 }
 
 LoTWUtilities::~LoTWUtilities()
 {
       //qDebug() << "LoTWUtilities::~LoTWUtilities"  << endl;
+}
+
+void LoTWUtilities::slotCalendarDateSelected(const QDate _d)
+{
+   //qDebug() << "LoTWUtilities::slotCalendarDateSelected: " << _d.toString("yyyyMMdd")  << endl;
+    firstDate = _d;
+    startThefullDownload();
+
 }
 
 void LoTWUtilities::setFileName(const QString &_fn)
@@ -68,7 +82,20 @@ bool LoTWUtilities::selectQuery(const int _queryId)
             return false;
         }
     }
-    lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(startDate);
+    switch (_queryId)
+    {
+    case 1: // Normal query
+        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(startDate);
+        break;
+    case 2:
+        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(firstDate.toString("yyyyMMdd"));
+        break;
+    default:
+    {
+        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(startDate);
+    }
+    }
+
     if (!savePassword)
     {// We delete the password as soon as possible if the user is not willing to save it
         lotwPassword = QString();
@@ -80,7 +107,7 @@ bool LoTWUtilities::selectQuery(const int _queryId)
     return true;
 }
 
-bool LoTWUtilities::setStationCallSign (const QString &_call)
+bool LoTWUtilities::setStationCallSign(const QString &_call)
 {
     //qDebug() << "LoTWUtilities::setStationCallSign: " << _call << endl;
     if (!util->isValidCall(_call))
@@ -90,10 +117,10 @@ bool LoTWUtilities::setStationCallSign (const QString &_call)
     }
     if (((dataProxy->getStationCallSignsFromLog(-1)).contains(_call)))
     {
-        //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
+       //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
         stationCallsign = _call;
         QDate date = dataProxy->getFirstQSODateFromCall(stationCallsign);
-        //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;
+       //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;
         if (date.isValid())
         {
             startDate = date.toString("yyyyMMdd");
@@ -106,17 +133,39 @@ bool LoTWUtilities::setStationCallSign (const QString &_call)
             return false;
         }
 
-        //qDebug() << "LoTWUtilities::setStationCallSign: startDate: " << startDate  << endl;
+       //qDebug() << "LoTWUtilities::setStationCallSign: startDate: " << startDate  << endl;
         return true;
     }
     else if (dataProxy->getHowManyQSOInLog(-1) <1)
     {
-        //qDebug() << "LoTWUtilities::setStationCallSign:TRUE Empty log"  << endl;
+       //qDebug() << "LoTWUtilities::setStationCallSign:TRUE Empty log"  << endl;
         stationCallsign = _call;
         return true;
     }
-    //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 2"  << endl;
-    return false;
+    else
+    {
+       //qDebug() << "LoTWUtilities::setStationCallSign: Not a single QSO in the log with that StationCallsign: " << stationCallsign  << endl;
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog - LoTW Station callsign"));
+        QString aux = QString(tr("There is not a single QSO in the log with that station callsign.") );
+        msgBox.setText(tr("Are you sure that you want to use that station callsign (%1)?").arg(_call));
+        msgBox.setDetailedText(aux);
+        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
+        //qDebug() << "LoTWUtilities::download: - 13" << endl;
+        if (ret == QMessageBox::Yes)
+        {
+            stationCallsign = _call;
+            return true;
+        }
+        else
+        {
+           //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 2"  << endl;
+            return false;
+        }
+    }
 }
 
 void LoTWUtilities::startRequest(QUrl url)
@@ -174,11 +223,6 @@ int LoTWUtilities::download()
              //qDebug() << "LoTWUtilities::download - END- 2" << endl;
             return -2;
         }
-        //qDebug() << "LoTWUtilities::download: - 14" << endl;
-        //file->close();
-        //file->remove(fileName);
-        //QFile::remove(fileName);
-        //qDebug() << "LoTWUtilities::download: - 15" << endl;
       }
         //qDebug() << "LoTWUtilities::download: - 20 Filename: -" << fileName << "-" << endl;
         if (!file->isOpen())
@@ -237,8 +281,137 @@ int LoTWUtilities::download()
 
 }
 
+int LoTWUtilities::fullDownload()
+{
+   //qDebug() << "LoTWUtilities::fullDownload" << endl;
+    QDate date = dataProxy->getFirstQSODateFromCall(stationCallsign);
+   //qDebug() << "LoTWUtilities::fullDownload: Date: " << startDate  << endl;
+    if (date.isValid())
+    {
+        startDate = date.toString("yyyyMMdd");
+        //qDebug() << "LoTWUtilities::fullDownload: StartDate" << startDate  << endl;
+    }
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.setWindowTitle(tr("KLog - LoTW Start date selection"));
+    QString aux = QString(tr("This is the first date of a QSO with the call %1 in this log If you think that in LoTW you may have previous QSOs, answer No.").arg(stationCallsign) );
+    msgBox.setText(tr("Do you want to used this date (%1) as start date?").arg(startDate));
+    msgBox.setDetailedText(aux);
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    int ret = msgBox.exec();
+    if (ret == QMessageBox::Yes)
+    {
+         //qDebug() << "LoTWUtilities::fulldownload - Yes" << endl;
+          firstDate = date;
+          startThefullDownload();
+          return 1;
+    }
+
+    calendar->setSelectedDate(firstDate);
+    calendar->setGridVisible(true);
+    calendar->setMaximumDate(QDate::currentDate());
+    calendar->show();
+   //qDebug() << "LoTWUtilities::fullDownload - END" << endl;
+    return 2;
+}
+
+int LoTWUtilities::startThefullDownload()
+{
+
+   //qDebug() << "LoTWUtilities::startThefulldownload - Start" << endl;
+    if (calendar->isVisible())
+    {
+        calendar->close();
+    }
+
+    if (!selectQuery(2))
+    {
+       //qDebug() << "LoTWUtilities::startThefulldownload - END-1" << endl;
+        return -1;
+    }
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 10" << endl;
+    QFileInfo fileInfo(url.path());
+
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 11" << endl;
+   if (QFile::exists(fileName))
+   {
+       //qDebug() << "LoTWUtilities::startThefulldownload: - 12" << endl;
+       QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Question);
+       msgBox.setWindowTitle(tr("KLog - LoTW File already exists"));
+       QString aux = QString(tr("There is a file already existing with the name that will be used.") );
+       msgBox.setText(tr("The file %1 already exist. Do you want to overwrite?").arg(fileName));
+       msgBox.setDetailedText(aux);
+       msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+       msgBox.setDefaultButton(QMessageBox::Yes);
+       int ret = msgBox.exec();
+       //qDebug() << "LoTWUtilities::startThefulldownload: - 13" << endl;
+       if (ret == QMessageBox::No)
+       {
+            //qDebug() << "LoTWUtilities::startThefulldownload - END- 2" << endl;
+           return -2;
+       }
+     }
+       //qDebug() << "LoTWUtilities::startThefulldownload: - 20 Filename: -" << fileName << "-" << endl;
+       if (!file->isOpen())
+       {
+           //qDebug() << "LoTWUtilities::startThefulldownload: - 21 Filename: -" << endl;
+           file->setFileName(fileName);
+           //qDebug() << "LoTWUtilities::startThefulldownload: - 22 Filename: -" << endl;
+       }
+       //qDebug() << "LoTWUtilities::startThefulldownload: - 23 Filename: -" << endl;
+
+     if (!file->open(QIODevice::WriteOnly))
+     {
+         QMessageBox msgBox;
+         msgBox.setIcon(QMessageBox::Warning);
+         msgBox.setWindowTitle(tr("KLog - LoTW Can't write the file"));
+         QString aux = QString(tr("KLog was not able to save the file %1.\nError returned: %2") ).arg(fileName).arg(file->errorString());
+         msgBox.setText(tr("The file %1 already exists.").arg(fileName));
+         msgBox.setDetailedText(aux);
+         msgBox.setStandardButtons(QMessageBox::Ok);
+         msgBox.setDefaultButton(QMessageBox::Ok);
+         msgBox.exec();
+         //file->close();
+         //delete file;
+         //file = nullptr;
+          //qDebug() << "LoTWUtilities::startThefulldownload - END - 3" << endl;
+         return -3;
+     }
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 30" << endl;
+     // used for progressDialog
+     // This will be set true when canceled from progress dialog
+   downloadAborted = false;
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 31" << endl;
+   //progressDialog = new QProgressDialog(nullptr);
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 40" << endl;
+   pDialog->setLabelText(tr("Downloading data to file: %1.").arg(fileName));
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 41" << endl;
+   pDialog->setWindowTitle(tr("KLog - LoTW download"));
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 42" << endl;
+   pDialog->setWindowModality(Qt::WindowModal);
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 43" << endl;
+   pDialog->reset();
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 44" << endl;
+   pDialog->setRange(0, 0);
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 45" << endl;
+   pDialog->setMinimumDuration(0);
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 46" << endl;
+   pDialog->show();
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 47" << endl;
+
+   connect(pDialog, SIGNAL(canceled()), this, SLOT(slotCancelDownload()));
+   //qDebug() << "LoTWUtilities::startThefulldownload: - 50" << endl;
+
+   startRequest(url);
+    //qDebug() << "LoTWUtilities::startThefulldownload - END" << endl;
+
+    return 1;
+}
+
 void LoTWUtilities::slotDownloadProgress(qint64 bytesRead) {
-    //qDebug() << "LoTWUtilities::slotDownloadProgress: " << QString::number(bytesRead) << "/" << QString::number(totalBytes) << endl;
+    //qDebug() << "LoTWUtilities::slotDownloadProgress: " << QString::number(bytesRead) << endl;
     if (downloadAborted)
     {
          //qDebug() << "LoTWUtilities::slotDownloadProgress: CANCELLED" << endl;
@@ -251,7 +424,7 @@ void LoTWUtilities::slotDownloadProgress(qint64 bytesRead) {
 
 void LoTWUtilities::slotReadyRead()
 {
-    //qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
+   //qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
     if (file)
     {
         file->write(reply->readAll());
@@ -261,7 +434,7 @@ void LoTWUtilities::slotReadyRead()
 
 void LoTWUtilities::slotFinished()
 {
-     //qDebug() << "LoTWUtilities::slotFinished - Started" << endl;
+   //qDebug() << "LoTWUtilities::slotFinished - Started" << endl;
     // when canceled
      if (downloadAborted)
      {
@@ -381,7 +554,7 @@ bool LoTWUtilities::getIsReady()
 
 void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 {
-    //qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
+   //qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
     QString _fileName = _fn;
     QMessageBox msgBox;
     QString aux;

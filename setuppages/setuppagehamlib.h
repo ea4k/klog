@@ -43,7 +43,7 @@ public:
     explicit SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     QString getData();
     bool setRigType(const QString &_radio);
-    bool setPollingInterval(const int _msecs);
+    void setPollingInterval(const int _msecs);
     bool setSerialPort(const QString &_port);
     bool setSerialSpeed(const QString &_speed );
     void setActive(const QString &_active);

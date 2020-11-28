@@ -217,11 +217,11 @@ int Awards::getDXCCConfirmed(const int _logNumber)
     bool sqlOK;
     if (dataProxy->doesThisLogExist(_logNumber))
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND dxcc!='' AND dxcc >'0' AND lognumber='%1'").arg(_logNumber);
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0' AND lognumber='%1'").arg(_logNumber);
     }
     else
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where qsl_rcvd='Y' AND dxcc!='' AND dxcc >'0'");
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0'");
     }
 
     sqlOK = query.exec(stringQuery);

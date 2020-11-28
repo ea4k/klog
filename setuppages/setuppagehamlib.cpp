@@ -206,11 +206,17 @@ void SetupPageHamLib::createUI()
 
 void SetupPageHamLib::setRig()
 {
-      //qDebug() << "SetupPageHamLib::SetRig" << endl;
+   //qDebug()() << "SetupPageHamLib::SetRig" << endl;
   // Rutine to fill the rig combo boxes
   // Do not display debug codes when load the rig's
-
-    rigTypeComboBox->insertItems(0, hamlib->getRigList());
+    QStringList rigs;
+    rigs.clear();
+    rigs << hamlib->getRigList();
+   //qDebug()() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << endl;
+    rigTypeComboBox->clear();
+    rigTypeComboBox->addItems(rigs);
+    //qDebug() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << endl;
+    //rigTypeComboBox->insertItems(0, rigs);
 /*
     rig_set_debug (RIG_DEBUG_NONE);
 
@@ -221,7 +227,7 @@ void SetupPageHamLib::setRig()
   rigTypeComboBox->insertItems (0, strings);
   strings.clear ();
   */
-      //qDebug() << "SetupPageHamLib::SetRig - END" << endl;
+   //qDebug()() << "SetupPageHamLib::SetRig - END" << endl;
 }
 /*
 int SetupPageHamLib::addRigToList (const struct rig_caps *caps, void *data)
@@ -601,7 +607,7 @@ void SetupPageHamLib::setStopBits(const QString &_st)
         stopBitsComboBox->setCurrentIndex(0);
     }
 }
-bool SetupPageHamLib::setPollingInterval(const int _msecs)
+void SetupPageHamLib::setPollingInterval(const int _msecs)
 {
     if ((_msecs>=pollMin) && (_msecs<=pollMax))
     {

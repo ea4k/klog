@@ -51,6 +51,7 @@ public:
     void login();
     void setCredentials(const QString &_user, const QString &_pass);
     void setLogBookKey(const QString &_key);
+    bool hasLogBookKey();
     int sendQSOs(QList<int> _qsos);
     void checkQRZ(const QString &_qrz);
     void fetchData();

@@ -68,12 +68,11 @@ void HamLibClass::readRadioInternal(bool _forceRead)
 
         }
            //qDebug() << "HamLibClass::readRadioInternal read: " << QString::number(freq) << endl;
-
     }
     else
     {
-           //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << QString::number(retcode) << endl;
-           //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << rigerror(retcode) << endl;
+        //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << QString::number(retcode) << endl;
+        //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << rigerror(retcode) << endl;
         stop();
     }
 
@@ -295,14 +294,15 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
             return "AM"; //TODO: Check with ADIF
         case RIG_MODE_SAL:
             return "LSB";//TODO: Check with ADIF
-        case RIG_MODE_SAH:
-            return "USB";//TODO: Check with ADIF
-       // case RIG_MODE_DSB:
-       //     return "SSB";//TODO: Check with ADIF
-        case RIG_MODE_FMN:
-            return "FM";//TODO: Check with ADIF
-        default:
-            return QString();
+    case RIG_MODE_SAH:
+        return "USB";//TODO: Check with ADIF
+    #if defined(Q_OS_OPENBSD)
+    #else
+    case RIG_MODE_FMN:
+        return "FM"; //TODO: Check with ADIF
+    #endif
+    default:
+        return QString();
     }
 }
 
@@ -452,7 +452,7 @@ bool HamLibClass::isRunning()
 
 QStringList HamLibClass::getRigList ()
 {
-    //qDebug() << "HamLibClass::getRigList" << endl;
+   //qDebug()() << "HamLibClass::getRigList: StringsList before filling it: " << endl;
   // Rutine to fill the rig combo boxes
   // Do not display debug codes when load the rig's
   rig_set_debug (RIG_DEBUG_NONE);
@@ -460,32 +460,33 @@ QStringList HamLibClass::getRigList ()
   // and continue...
 
   strings.clear();
+ //qDebug()() << "HamLibClass::getRigList: StringsList after cleaning it: " << endl;
   //qDebug() << "HamLibClass::getRigList-02" << endl;
   rig_load_all_backends();
   //qDebug() << "HamLibClass::getRigList-10" << endl;
   rig_list_foreach (addRigToList, this);
-     //qDebug() << "HamLibClass::getRigList-11" << endl;
+    //qDebug() << "HamLibClass::getRigList-11" << endl;
 
   strings.sort();
-  //qDebug() << "HamLibClass::getRigList-12" << endl;
+ //qDebug()() << "HamLibClass::getRigList-12 - Strings length: " << QString::number(strings.length()) << endl;
   return strings;
  }
 
 int HamLibClass::addRigToList (const struct rig_caps *caps, void *data)
 {
-    //qDebug() << "HamLibClass::addRigToList" << caps->model_name << endl;
+   //qDebug()() << "HamLibClass::addRigToList" << caps->model_name << endl;
     QString name;
-    //qDebug() << "HamLibClass::addRigToList-10"  << endl;
+   //qDebug()() << "HamLibClass::addRigToList-10"  << endl;
     HamLibClass *r = (HamLibClass *) data;
-    //qDebug() << "HamLibClass::addRigToList-11"  << endl;
+   //qDebug()() << "HamLibClass::addRigToList-11"  << endl;
     name = caps->model_name;
-    //qDebug() << "HamLibClass::addRigToList-12"  << endl;
+   //qDebug()() << "HamLibClass::addRigToList-12"  << endl;
     r->rigName2RigId[name] = caps->rig_model; // We fill the equivalences between name & Id
-    //qDebug() << "HamLibClass::addRigToList-13"  << endl;
+   //qDebug()() << "HamLibClass::addRigToList-13"  << endl;
     r->rigId2RigName[caps->rig_model] = name;
-    //qDebug() << "HamLibClass::addRigToList-14"  << endl;
+   //qDebug()() << "HamLibClass::addRigToList-14"  << endl;
     r->strings << name;
-    //qDebug() << "HamLibClass::addRigToList-END"  << endl;
+   //qDebug()() << "HamLibClass::addRigToList-END"  << endl;
     return -1;                    // not 0 --> we want all rigs
 }
 

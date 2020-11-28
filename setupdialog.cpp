@@ -298,7 +298,6 @@ void SetupDialog::setData(const QString &_configFile, const QString &_softwareVe
     else
     {
           //qDebug() << "SetupDialog::setData NOT FIRST TIME! " << endl;
-
         miscPage->setUseDefaultDBPath(miscPage->getDefaultDBPath());
     }
 
@@ -498,15 +497,13 @@ void SetupDialog::slotOkButtonClicked()
     int contestCategory;
     int modes;*/
     //QRZ/CQ/ITU/CONTEST
-        stream << "version=" << version << ";" << endl;        
-        stream << "callsign="  << userDataPage->getStationQrz() << ";" << endl;
-        if ((userDataPage->getOperators()).length() >= 3){ // There are no valid calls with less than 3 Chars
-            stream << "operators="  << userDataPage->getOperators() << ";" << endl;
-        }
-        //stream << "contest="  << userDataPage->getContest()  <<   ";" << endl;
-        //stream << "contestcategory=" << userDataPage->getContestCategory() <<  ";" <<  endl;
-        stream << "cqz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  endl;
-        stream << "ituz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  endl;
+    stream << "version=" << version << ";" << endl;
+    stream << "callsign="  << userDataPage->getStationQrz() << ";" << endl;
+    if ((userDataPage->getOperators()).length() >= 3){ // There are no valid calls with less than 3 Chars
+        stream << "operators="  << userDataPage->getOperators() << ";" << endl;
+    }
+    stream << "cqz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  endl;
+    stream << "ituz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  endl;
 
         if ( locator->isValidLocator(userDataPage->getStationLocator()) )
         {
@@ -924,7 +921,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if (tab=="DBPATH"){
         miscPage->setUseDefaultDBPath(value);
     }else if (tab=="DEFAULTADIFFILE"){
-        miscPage->setDefaultFileName(value.toUpper());
+        miscPage->setDefaultFileName(value);
            //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << endl;
     }else if (tab=="IMPERIALSYSTEM"){
         miscPage->setImperial(value.toUpper());
@@ -937,7 +934,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if (tab=="MANAGEDXMARATHON"){
         miscPage->setDXMarathon(value.toUpper());
     }else if (tab=="DEBUGLOG"){
-        miscPage->setDebugLog(value.toUpper());
+        miscPage->setDebugLog(value);
     }
     else if (tab=="SHOWCALLSIGNINSEARCH"){
         miscPage->setShowStationCallSignInSearch(value.toUpper());
@@ -1159,7 +1156,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
            //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END" << endl;
 
     }else if(tab =="CLUBLOGACTIVE"){
-        eLogPage->setClubLogActive(value);
+        eLogPage->setClubLogActive(util->trueOrFalse(value));
         //clubLogPage->setClubLog(value);
     }
     else if(tab =="CLUBLOGREALTIME"){
@@ -1176,7 +1173,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="EQSLACTIVE"){
         //eQSLPage->setActive(value);
-        eLogPage->setEQSLActive(value);
+        eLogPage->setEQSLActive(util->trueOrFalse(value));
     }
     /*
     else if(tab =="EQSLREALTIME"){
@@ -1433,22 +1430,18 @@ bool SetupDialog::haveAtleastOneLog()
 void SetupDialog::setClubLogActive(const bool _b)
 {
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
-    if (_b == true)
-    {
-        eLogPage->setClubLogActive("True");
-        //clubLogPage->setClubLog("True");
-    }
-    else
-    {
-        eLogPage->setClubLogActive("False");
-        //clubLogPage->setClubLog("False");
-    }
+    eLogPage->setClubLogActive(_b);
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
 void SetupDialog::setQRZCOMAutoCheckActive(const bool _b)
 {
      eLogPage->setQRZCOMAutoCheck(util->boolToQString(_b));
+}
+
+void SetupDialog::setEQSLActive(const bool _b)
+{
+    eLogPage->setEQSLActive(_b);
 }
 
 void SetupDialog::checkIfNewBandOrMode()

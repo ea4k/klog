@@ -33,6 +33,8 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "SetupPageELog::SetupPageELog" << endl;
 
+    palRed.setColor(QPalette::Text, Qt::red);
+    palBlack.setColor(QPalette::Text, Qt::black);
 
     clubLogEmailLineEdit = new QLineEdit;
     clubLogPasswordLineEdit = new QLineEdit;
@@ -143,7 +145,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwDownGroup = new QGroupBox (tr("Download"));
 
     lotwUserLineEdit = new QLineEdit;
-    lotwUserLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
+    //lotwUserLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
 
     lotwPasswordLineEdit = new QLineEdit;
     lotwPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
@@ -151,7 +153,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwSearchTQSLPushButton = new QPushButton(tr("TQSL path"), this);
     lotwUseTQSLCheckBox = new QCheckBox(tr("Use TQSL"), this);
     lotwpasswordLabel = new QLabel(tr("LoTW password"));
-    lotwemailLabel = new QLabel(tr("LoTW email"));
+    lotwemailLabel = new QLabel(tr("LoTW user"));
 
     lotwUserLineEdit->setToolTip(tr("Enter your LoTW user."));
     lotwPasswordLineEdit->setToolTip(tr("Enter your password LoTW here. Warning: The password will be save on clear in the KLog config file!! (If you don't want to enter the password, KLog will ask you when it is needed.)"));
@@ -203,13 +205,17 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     connect(eQSLUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(eQSLPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(eQSLActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotEQSLActive(bool)));
+    connect(eQSLUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(sloteQSLCallTextChanged() ) );
     //qDebug() << "SetupPageELog::SetupPageELog - 00150" << endl;
     connect(QRZCOMActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotQRZCOMActive(bool)));
     connect(QRZCOMAutoCheckCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotQRZCOMAuto(bool)));
     connect(QRZCOMUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(QRZCOMUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZCallTextChanged() ) );
     connect(QRZCOMPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     //qDebug() << "SetupPageELog::SetupPageELog - 00160" << endl;
     connect(lotwUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+
+
     connect(lotwPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(lotwTQSLPathLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(lotwSearchTQSLPushButton, SIGNAL(clicked()), this, SLOT(slotSelectTQSLClicked()) );
@@ -234,9 +240,53 @@ SetupPageELog::~SetupPageELog()
 {
 }
 
+void SetupPageELog::slotQRZCallTextChanged()
+{
+   //qDebug() << "SetupPageELog::slotQRZCallTextChanged" << endl;
+    int cursor = QRZCOMUserLineEdit->cursorPosition();
+   //qDebug() << "SetupPageELog::slotQRZCallTextChanged-1" << endl;
+    QString aux = QRZCOMUserLineEdit->text();
+   //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2" << endl;
+
+    if (util->isValidCall(aux))
+    {
+       //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2.1" << endl;
+        QRZCOMUserLineEdit->setPalette(palBlack);
+    }
+    else
+    {
+       //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2.2" << endl;
+         QRZCOMUserLineEdit->setPalette(palRed);
+    }
+   //qDebug() << "SetupPageELog::slotQRZCallTextChanged-3" << endl;
+    QRZCOMUserLineEdit->setText(aux.toUpper());
+   //qDebug() << "SetupPageELog::slotQRZCallTextChanged-4" << endl;
+    QRZCOMUserLineEdit->setCursorPosition(cursor);
+
+   //qDebug() << "SetupPageELog::slotQRZCallTextChanged - END" << endl;
+}
+
+void SetupPageELog::sloteQSLCallTextChanged()
+{
+   //qDebug() << "SetupPageELog::sloteQSLCallTextChanged" << endl;
+    int cursor = eQSLUserLineEdit->cursorPosition();
+    QString aux = eQSLUserLineEdit->text();
+    if (util->isValidCall(aux))
+    {
+        eQSLUserLineEdit->setPalette(palBlack);
+    }
+    else
+    {
+         eQSLUserLineEdit->setPalette(palRed);
+    }
+    eQSLUserLineEdit->setText(aux.toUpper());
+    eQSLUserLineEdit->setCursorPosition(cursor);
+   //qDebug() << "SetupPageELog::sloteQSLCallTextChanged - END" << endl;
+}
+
 void SetupPageELog::slotClubLogEmailDefineColor()
 {
-   //qDebug() << "SetupPageELog::slotCLubLogEmailDefineColor" << endl;
+   //qDebug() << "SetupPageELog::slotClubLogEmailDefineColor" << endl;
     if(!clubLogEmailLineEdit->hasAcceptableInput())
         clubLogEmailLineEdit->setStyleSheet("QLineEdit { color: red;}");
     else
@@ -246,10 +296,20 @@ void SetupPageELog::slotClubLogEmailDefineColor()
 void SetupPageELog::slotLoTWEmailDefineColor()
 {
    //qDebug() << "SetupPageELog::slotLoTWEmailDefineColor" << endl;
-    if(!lotwUserLineEdit->hasAcceptableInput())
-        lotwUserLineEdit->setStyleSheet("QLineEdit { color: red;}");
+    int cursor = lotwUserLineEdit->cursorPosition();
+    QString aux = lotwUserLineEdit->text();
+
+    if (util->isValidCall(aux))
+    {
+        lotwUserLineEdit->setPalette(palBlack);
+    }
     else
-        lotwUserLineEdit->setStyleSheet("QLineEdit { color: black;}");
+    {
+         lotwUserLineEdit->setPalette(palRed);
+    }
+    lotwUserLineEdit->setText(aux.toUpper());
+    lotwUserLineEdit->setCursorPosition(cursor);
+
 }
 
 void SetupPageELog::setDefaults()
@@ -303,9 +363,9 @@ QString SetupPageELog::getClubLogActive()
     return util->boolToQString(clubLogActive);
 }
 
-void SetupPageELog::setClubLogActive(const QString &_s)
+void SetupPageELog::setClubLogActive(const bool _b)
 {
-    clubLogActive = util->trueOrFalse(_s);
+    clubLogActive = _b;
 }
 
 void SetupPageELog::slotClubLogActive(bool _s)
@@ -361,9 +421,9 @@ QString SetupPageELog::getEQSLActive()
     return util->boolToQString(eqslActive);
 }
 
-void SetupPageELog::setEQSLActive(const QString &_s)
+void SetupPageELog::setEQSLActive(const bool _b)
 {
-    eqslActive = util->trueOrFalse(_s);
+    eqslActive = _b;
 }
 
 void SetupPageELog::slotEQSLActive(bool _s)
@@ -436,10 +496,7 @@ void SetupPageELog::slotSelectTQSLClicked()
 
 void SetupPageELog::slotPathLineEditChanged(const QString _q)
 {
-    QPalette palRed;
-    palRed.setColor(QPalette::Text, Qt::red);
-    QPalette palBlack;
-    palBlack.setColor(QPalette::Text, Qt::black);
+
     if (QFile::exists(_q))
     {
         lotwTQSLPathLineEdit->setPalette(palBlack);
