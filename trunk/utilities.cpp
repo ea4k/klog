@@ -5,6 +5,9 @@ Utilities::Utilities()
        //qDebug() << "Utilities::Utilities"  << endl;
 
     softwareVersion = "0.0";
+
+    //palRed.setColor(QPalette::Text, Qt::red);
+    //palBlack.setColor(QPalette::Text, Qt::black);
        //qDebug() << "Utilities::Utilities - END"  << endl;
 }
 
@@ -421,7 +424,7 @@ QString Utilities::getSaveSpotsLogFile()
 
 QString Utilities::getBackupADIFile()
 {
-   return getHomeDir() + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
+   return getHomeDir() + "/" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
 }
 
 QString Utilities::getClubLogFile()
@@ -950,6 +953,28 @@ bool Utilities::isValidADIFField(const QString &_b)
     return true;
 }
 
+bool Utilities::isValidQSL_Rcvd(const QString &c)
+{
+    if ((c == "Y") | (c == "N") | (c == "R") | (c == "I") | (c == "V"))
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool Utilities::isValidQSL_Sent(const QString &c)
+{
+    if ((c == "Y") | (c == "N") | (c == "R") | (c == "Q") | (c == "I"))
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 {
    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;
@@ -971,11 +996,21 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
         result << "EOR" << "EOR";
         return result;
     }
-    //qDebug() << "Utilities::getValidADIFFieldAndData: -20" << endl;
-    QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
+    QString aux = _b;
     QStringList qs;
     qs.clear();
-    qs.append(_b.split('>'));
+
+    if ((aux.contains("APP_LOTW_")) && aux.contains("//"))
+    { // Trying to fix a LoTW ADIF bug
+        qs.append(aux.split("//"));
+        aux = qs.at(0);
+    }
+
+    //qDebug() << "Utilities::getValidADIFFieldAndData: -20" << endl;
+    QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
+
+    qs.clear();
+    qs.append(aux.split('>'));
 
     if (qs.size()!= 2)
     {
@@ -1137,7 +1172,7 @@ QDate Utilities::getDateFromSQliteString(const QString &_s)
 
 QDate Utilities::getDateFromADIFDateString(const QString &_s)
 {// Expects an ADIF DATE format string: "YYYYMMDD"
-
+   //qDebug() << "Utilities::getDateFromADIFDateString: " << _s << endl;
     return QDate::fromString(_s, "yyyyMMdd");
 
 }
@@ -1154,6 +1189,16 @@ QTime Utilities::getTimeFromADIFTimeString(const QString &_s)
     {
         return QTime::fromString(_s, "hhmmss");
     }
+}
+
+QDate Utilities::getDateFromLoTWQSLDateString(const QString &_s)
+{
+    //qDebug() << "Utilities::getDateFromLoTWQSLDateString: " << _s << endl;
+    QStringList datet;
+    datet.clear();
+    datet << _s.split(" ");
+    //qDebug() << "Utilities::getDateFromLoTWQSLDateString: date:" << datet.at(0) << endl;
+    return QDate::fromString(datet.at(0), "yyyy-MM-dd");
 }
 
 
@@ -1217,3 +1262,44 @@ QString Utilities::getCabrilloTimeFromQDateTime(const QDateTime &_d)
         return _d.time().toString("hhmm");
     }
 }
+
+QString Utilities::getOnlineServiceName(OnLineProvider _service)
+{//enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
+    switch (_service)
+    {
+        case LoTW:
+        {
+            return "LoTW";
+        }
+    case ClubLog:
+    {
+        return "ClubLog";
+    }
+    case QRZ:
+    {
+        return "QRZ.com";
+    }
+    case eQSL:
+    {
+        return "eQSL.cc";
+    }
+    }
+    return QString();
+}
+/*
+QPalette Utilities::getPalete(bool _ok)
+{
+   //qDebug() << "Utilities::getPalete"  << endl;
+    if (_ok)
+    {
+       //qDebug() << "Utilities::getPalete - true"  << endl;
+        return palRed;
+        //return QPalette::setColor(QPalette::Text, Qt::red);
+    }
+    else
+    {
+       //qDebug() << "Utilities::getPalete - false"  << endl;
+        return palBlack;
+    }
+}
+*/

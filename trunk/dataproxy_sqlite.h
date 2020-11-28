@@ -29,9 +29,12 @@
 #include <QString>
 #include <QStringList>
 #include <QObject>
-
 #include "database.h"
+#include "qso.h"
 //#include "regionalaward.h"
+
+//Class QSO;
+
 enum
 {
     CQZones = 40,
@@ -45,7 +48,7 @@ class DataProxy_SQLite : public QObject
 
 public:
 
-    DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction);
+    DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion = "0");
     ~DataProxy_SQLite();
 
 
@@ -104,11 +107,12 @@ public:
                           const int _dxcc, const int _logNumber);
 
     int addQSOFromLoTW(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate, const QString &_stationcallsign, const int _logn);
+    int addQSO(QSO &_qso);
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
     bool isThisQSODuplicated(const QString &_qrz, const QString &_date, const int _band, const int _mode);
-    int getDuplicatedQSOId(const QString &_qrz, const QString &_date, const int _band, const int _mode);
+    int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLSent(const int _qsoId);
@@ -122,6 +126,7 @@ public:
     bool qslSentAsRequested(const int _qsoId, const QDate &_updateDate);
     bool qslRecAsRequested(const int _qsoId, const QDate &_updateDate);
     bool setClubLogSent(const int _qsoId, const QString &_st, const QDate &_updateDate);
+    bool setLoTWQSLRec (const int _qsoId, const QString &_st, const QDate &_updateDate);
 
     bool isHF(const int _band);
     bool isWARC(const int _band);
@@ -303,7 +308,7 @@ private:
 
     int getPrefixId(const QString &_qrz);
     QString changeSlashAndFindPrefix(const QString &_qrz);
-
+    QSO *qso;
     bool searching;
     int executionN;
     Utilities *util;

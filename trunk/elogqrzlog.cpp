@@ -60,7 +60,7 @@ void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
         text = "QRZ.com: " + tr("Timeout error!");
     break;
     default:
-        text = "QRZ.com: " + tr("Undefined error number (#%1").arg(_error);
+        text = "QRZ.com: " + tr("Undefined error number (#%1)").arg(_error);
     }
 
     //return text;
@@ -74,13 +74,13 @@ void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
 
 void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
 {
-    //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << endl;
+   //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << endl;
     sendingQSO = false;
     result = data->error();
-    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << endl;
+   //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << endl;
 
     const QByteArray sdata = data->readAll();
-    //qDebug() << "eLogQrzLog::slotManagerLogFinished: Received: " << sdata;
+   //qDebug() << "eLogQrzLog::slotManagerLogFinished: Received: " << sdata;
 
     QString text = QString();
 
@@ -565,6 +565,18 @@ int eLogQrzLog::sendQSO(const int _qsoID)
     managerLog->post(requestLog, postData);
     return 1;
 }
+bool eLogQrzLog::hasLogBookKey()
+{
+    if (logbookkey.length()>0)
+    {
+        return true;
+    }
+    else
+    {
+     return false;
+    }
+}
+
 
 void eLogQrzLog::login()
 {

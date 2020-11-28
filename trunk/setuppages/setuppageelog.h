@@ -40,7 +40,7 @@ public:
     //Clublog
     void setClubLogEmail(const QString &c);
     void setClubLogPassword(const QString &c);
-    void setClubLogActive(const QString &_s);
+    void setClubLogActive(const bool _b);
     void setClubLogRealTime(const QString &_s);
 
     QString getClubLogEmail();
@@ -62,7 +62,7 @@ public:
     // eQSL
     void setEQSLEmail(const QString &c);
     void setEQSLPassword(const QString &c);
-    void setEQSLActive(const QString &_s);
+    void setEQSLActive(const bool _b);
     //void setEQSLRealTime(const QString &_s);
 
     QString getEQSLEmail();
@@ -93,12 +93,14 @@ private slots:
     void slotTQSLActive(bool _s);
     void slotQRZCOMActive(bool _s);
     void slotQRZCOMAuto(bool _s);
+    void slotQRZCallTextChanged();
 
     void slotSelectTQSLClicked();
     void slotPathLineEditChanged(const QString _q);
     void slotEnterKeyPressed();
     void slotClubLogEmailDefineColor();
     void slotLoTWEmailDefineColor();
+    void sloteQSLCallTextChanged();
 signals:
     void enterKey();
     void qrzcomAuto(bool _s);
@@ -143,6 +145,7 @@ private:
 
     Utilities *util;
 
+    QPalette palRed, palBlack;
 
 
 };

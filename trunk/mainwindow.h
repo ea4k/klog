@@ -148,6 +148,7 @@ public:
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    //void slotTest();        // Slot for testing purposes only
     void slotAWAImport();
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
@@ -212,6 +213,7 @@ private slots:
 
     void slotLoTWExport();
     void slotLoTWDownload();
+    void slotLoTWFullDownload();
     void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
     //void slotADIFExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
 
@@ -345,6 +347,7 @@ private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
     //void setWidgetsOrder();
+    void showMessageToEnableTheOnlineService(const OnLineProvider _service);
     void cleanQRZCOMreceivedDataFromUI();
     void saveWindowsSize();
     void setWindowsSize(const int _width, const int _height);
@@ -513,6 +516,7 @@ private:
     QMenu *setupMenu;
     QMenu *helpMenu;
 
+    //QAction *testAct;       // Action for testing purposes only
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;
@@ -551,6 +555,7 @@ private:
     QAction *lotwMarkSentYesAct;
     QAction *lotwCallTQSL;
     QAction *lotwUpdateFromLoTWAct;
+    QAction *lotwFullDownloadFromLoTWAct;
 
     QAction *clublogLogUploadAct;
     QAction *clublogLogModifyCurrentLogAct;
@@ -755,6 +760,7 @@ private:
     bool UDPServerStart;
     // LOTWUTILITIES
     LoTWUtilities *lotwUtilities;
+    bool lotwActive;
 
     //eQSLUtilities
     eQSLUtilities *eqslUtilities;

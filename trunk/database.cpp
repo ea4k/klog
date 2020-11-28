@@ -252,47 +252,41 @@ bool DataBase::reConnect(const QString &_DBName)
 
 bool DataBase::createConnection(const QString &function, bool newDB)
 {
-      //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << endl;
+   //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << endl;
     QString stringQuery;
     QSqlQuery query;
 
 
     if (!db.isOpen())
     {
-          //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
-        //db = QSqlDatabase::database();       
+       //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
+
         if (db.isValid())
         {
-             //qDebug() << "DataBase::createConnection: DB is Valid"  << endl;
+            //qDebug() << "DataBase::createConnection: DB is Valid"  << endl;
         }
         else
         {
-              //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
+           //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
             if (db.isOpen())
             {
-                  //qDebug() << "DataBase::createConnection: DB is already open"  << endl;
+             //qDebug() << "DataBase::createConnection: DB is already open"  << endl;
             }
             else
             {
-                  //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< endl;
+               //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< endl;
                 QSqlDatabase::removeDatabase("qt_sql_default_connection");
                 db = QSqlDatabase::addDatabase("QSQLITE");
-
-                //if (QSqlDatabase::contains("myConnection"))
-                //{
-                //    db = QSqlDatabase::addDatabase("QSQLITE", "myConnection");
-                //}
-
             }
 
-              //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
+           //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
             db.setDatabaseName(dbName);
-              //qDebug() << "DataBase::createConnection: end of not valid"  << endl;
+           //qDebug() << "DataBase::createConnection: end of not valid"  << endl;
         }
-          //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
+       //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
         if (!db.open())
         {
-              //qDebug() << "DataBase::createConnection:Not open "  << endl;
+        //qDebug() << "DataBase::createConnection:Not open "  << endl;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
               //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
            //// emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -300,16 +294,16 @@ bool DataBase::createConnection(const QString &function, bool newDB)
         }
         else
         {
-              //qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
+           //qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
             if (isTheDBCreated())
             {
-                   //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+           //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
             }
             else
             {
-                  //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+           //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
                 createDataBase();
-
+           //qDebug() << "DataBase::createConnection: After creation"  << endl;
                 stringQuery ="PRAGMA main.page_size = 4096;";
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
@@ -335,15 +329,15 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     else
     {
-          //qDebug() << "DataBase::createConnection: No Error, DB is open" << endl;
+      //qDebug() << "DataBase::createConnection: No Error, DB is open" << endl;
     }
 
 
-      //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
+     //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
 
     if (createBandModeMaps())
     {
-          //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
+         //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
     }
     else
     {
@@ -351,13 +345,13 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
 
     //created = true;
-      //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
+   //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-       //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << endl;
+    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << endl;
 
     QSqlQuery query;
     int _num = 0;
@@ -377,8 +371,8 @@ bool DataBase::isTheDBCreated()
             _num = (query.value(0)).toInt();
             if (_num > 0)
             {
-                    //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
-                    //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
+                //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
+                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
                  query.finish();
                 return true;
             }
@@ -688,15 +682,7 @@ bool DataBase::createTableLog(bool temp)
 
 bool DataBase::createDataBase()
 {
-         //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << endl;
-    //bool qres;
-       //http://www.sqlite.org/
-    //http://www.sqlite.org/datatype3.html
-         //qDebug() << "DataBase::createData"  << endl;
-    //int softDB = dbVersion;
-    //QString softV = _softVersion;
-    //QString dateString;
-
+    //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << endl;
     QSqlQuery query;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists log");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists band");
@@ -859,7 +845,7 @@ bool DataBase::createDataBase()
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
-         //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
+   //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
     return true;
 
 }

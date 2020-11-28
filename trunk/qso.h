@@ -29,38 +29,95 @@
 #include <QString>
 #include <QDate>
 #include <QTime>
+#include <QDebug>
+#include "utilities.h"
 
-class QSO
+class QSO : public QObject
 {
+    Q_OBJECT
+
 public:
     QSO();
+    ~QSO();
 
-    bool addAddress(const QString &_c);
-    QString getAddress();
-    bool addAddress_intl(const QString &_c);
-    QString getAddress_intl();
-    bool addAge(const int _c);
-    int getAge();
-    bool addA_index(const QString &_c);
-    int getA_Index();
-    bool addAnt_az(const int _c);
-    int getAnt_el();
-    bool addAnt_path(const QString &_c);
-    QString getAnt_path();
-    bool addARRL_Sect(const QString &_c);
-    QString getARRL_Sect();
-    bool addAward_submitted(const QString &_c);
-    QString getAward_submitted();
+    bool setData(const QString &_adifPair);
+    void clear();
+    bool isValid();
+    void setLoTWUpdating(bool _lotw);
 
-    bool addCall(const QString &_c);
+    bool setDate(const QDate &_c);
+    QDate getDate();
+
+    bool setTimeOn(const QTime &_c);
+    QTime getTimeOn();
+
+    QDateTime getDateTimeOn();
+
+    bool setQSOid(const int _i);
+    int getQSOid();
+
+    bool setLogId(const int _i);
+    int getLogId();
+
+    bool setBand(const QString &_c);
+    QString getBand();
+    bool setBandRX(const QString &_c);
+    QString getBandRX();
+
+    bool setMode(const QString &_c);
+    QString getMode();
+
+    bool setCall(const QString &_c);
     QString getCall();
-    bool addDate(const QDate &_d);
-    QString getDate();
-    bool addTime(const QTime &_d);
-    QString getTime();
+
+    bool setFreq(const float _f);
+    bool setFreqRX(const float _f);
+    float getFreq();
+    float getFreqRX();
+
+    bool setQSL_RCVD(const QString &_c);
+    QString getQSL_RCVD();
+
+    bool setQSLRDate(const QDate &_c);
+    QDate getQSLRDate();
+
+    bool setLoTWQSL_RCVD(const QString &_c);
+    QString getLoTWQSL_RCVD();
+    bool setLoTWQSL_SENT(const QString &_c);
+    QString getLoTWQSL_SENT();
+    bool setLoTWQSLRDate(const QDate &_c);
+    QDate getLoTWQSLRDate();
+    bool setLoTWQSLSDate(const QDate &_c);
+    QDate getLoTWQSLSDate();
+
+    bool setPropMode(const QString &_c);
+    QString getPropMode();
+
+    bool setSatName(const QString &_c);
+    QString getSatName();
+
+    bool setStationCallsign(const QString &_c);
+    QString getStationCallsign();
+
+    bool add();
+
 
 private:
 
+
+
+    QString satName, callsign, stationCallsign, propMode, band, mode ;
+    int qsoId, logId;
+    QString qsl_rcvd;
+    QDate QSLRDate, QSLLoTWRDate, QSLLoTWSDate;
+    QDateTime qso_dateTime;    
+    float freq, freq_rx;
+    QString lotw_qsl_sent, lotw_qsl_rcvd;
+
+    Utilities *util;
+
+    bool lotwUpdating;
+   // DataProxy_SQLite *dataProxy;
 
 
    /*

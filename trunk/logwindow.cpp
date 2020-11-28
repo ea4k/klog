@@ -398,7 +398,7 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
    multipleQslRecViaDirectFromLogAct->setStatusTip(tr("QSLs received via direc&t"));
    connect(multipleQslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotMultipleQSLRecViaDirectFromLog() ));
 
-   multipleDeselectAll = new QAction(tr("Deselect all"), this);
+   multipleDeselectAll = new QAction(tr("Select none"), this);
    multipleDeselectAll->setStatusTip(tr("Remove all selections"));
    connect(multipleDeselectAll, SIGNAL(triggered()), this, SLOT( slotQSOsDeselectAll() ));
 

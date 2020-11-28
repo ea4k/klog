@@ -45,6 +45,7 @@
 #include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "qso.h"
 
 
 /*
@@ -68,6 +69,7 @@ public:
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
+    QList<int> adifLoTWReadLog2(const QString& fileName, const int logN);
     QList<int> adifLoTWReadLog(const QString& tfileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
@@ -117,11 +119,13 @@ private:
 
     bool dbCreated;
     DataBase *db;
+
     //float softwareVersion;
     //DataProxy_SQLite *dataProxy;
     DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;
 
-    Utilities *util;    
+    Utilities *util;
+    //QSO *qso;
 
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 

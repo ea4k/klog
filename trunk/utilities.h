@@ -34,6 +34,7 @@
 #include <QtGlobal>
 #include <QString>
 #include <QtWidgets>
+#include <QPalette>
 #include "locator.h"
 #include <QtDebug>
 
@@ -97,6 +98,8 @@ public:
     bool isValidComment(const QString &_b);
     bool isValidName(const QString &_b);
     bool isValidADIFField(const QString &_b);
+    bool isValidQSL_Rcvd(const QString &c);
+    bool isValidQSL_Sent(const QString &c);
 
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
@@ -124,15 +127,21 @@ public:
     QDate getDateFromADIFDateString(const QString &_s);     // Expects an ADIF DATE format string: "YYYYMMDD"
     QTime getTimeFromADIFTimeString(const QString &_s);     // Expects and ADIF TIME format String "HHMMSS" or "HHMM"
 
+    // Parse date fromLoTW
+    QDate getDateFromLoTWQSLDateString(const QString &_s);
+
     // Creates the Cabrillo DATE & TIME (http://wwrof.org/cabrillo/)
     QString getCabrilloDateFromQDate(const QDate &_d);          // Will produce the Cabrillo DATE format: "YYYY-MM-DD"
     QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
+    QString getOnlineServiceName(OnLineProvider _service);
+    //QPalette getPalete(bool _ok);
 private:
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     QString dbPath;
     QString softwareVersion;
+    //QPalette palRed, palBlack;
 
 };
 

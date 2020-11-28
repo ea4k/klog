@@ -144,7 +144,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 */
  void SearchModel::setFilterString(const QString &_st)
  {
-     //qDebug() << "SearchModel::setFilterString: " << _st << endl;
+    //qDebug() << "SearchModel::setFilterString: " << _st << endl;
      setFilter(_st);
      select();
  }
