@@ -303,11 +303,11 @@ int Awards::getWAZConfirmed(const int _logNumber)
     //Usar la siguiente para el confirmed
     if (dataProxy->doesThisLogExist(_logNumber))
     {
-        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND qsl_rcvd='Y' AND lognumber='%1')").arg(_logNumber);
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND lognumber='%1')").arg(_logNumber);
     }
     else
     {
-        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND qsl_rcvd='Y')");
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y'))");
     }
 
 

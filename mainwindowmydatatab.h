@@ -72,7 +72,7 @@ public:
     //QString getLastMyLocator();
 
     void show(); //Shows the values into the widget
-    void clear(const bool _keepMyData);
+    void clear();
 signals:
     void myLocChangedSignal(const QString _q); // MyLocator once updated
     void returnPressed();

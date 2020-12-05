@@ -45,8 +45,8 @@ public:
 
     QString getClubLogEmail();
     QString getClubLogPassword();
-    QString getClubLogActive();
-    QString getClubLogRealTime();
+    bool getClubLogActive();
+    bool getClubLogRealTime();
 
 
     // LoTW
@@ -65,9 +65,9 @@ public:
     void setEQSLActive(const bool _b);
     //void setEQSLRealTime(const QString &_s);
 
-    QString getEQSLEmail();
+    QString getEQSLUser();
     QString getEQSLPassword();
-    QString getEQSLActive();
+    bool getEQSLActive();
     //QString getEQSLRealTime();
 
     //QRZ.COM
@@ -82,8 +82,8 @@ public:
     QString getQRZCOMPassword();
 
     QString getQRZCOMLogBookKEY();
-    QString getQRZCOMActive();    
-    QString getQRZCOMAutoCheck();
+    bool getQRZCOMActive();
+    bool getQRZCOMAutoCheck();
 
 
 private slots:

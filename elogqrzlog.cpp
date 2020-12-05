@@ -36,7 +36,6 @@ eLogQrzLog::~eLogQrzLog()
         //qDebug()<< "eLogQrzLog::~eLogQrzLog"  << endl;
 }
 
-
 void eLogQrzLog::setLogBookKey(const QString &_key)
 {
     //qDebug()<< "eLogQrzLog::setLogBookKey: " << _key  << endl;
@@ -74,13 +73,13 @@ void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
 
 void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
 {
-   //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << endl;
+    //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << endl;
     sendingQSO = false;
     result = data->error();
-   //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << endl;
+    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << endl;
 
     const QByteArray sdata = data->readAll();
-   //qDebug() << "eLogQrzLog::slotManagerLogFinished: Received: " << sdata;
+    //qDebug() << "eLogQrzLog::slotManagerLogFinished: Received: " << sdata;
 
     QString text = QString();
 
@@ -103,11 +102,8 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
         sendSignal(result, qsos);
     }
 
-
     //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << endl;
     //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result Text = " << text << endl;
-    //emit done();
-    //emit signalFileUploaded(result, qsos);
     emit showMessage(text);
 
 }
@@ -164,7 +160,6 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                     pass = QString();
                 }
                 emit dataFoundSignal("error", tdata);
-
                 continue;
             }
             else if (name == "Message")

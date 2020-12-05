@@ -111,7 +111,7 @@ public:
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
-    bool isThisQSODuplicated(const QString &_qrz, const QString &_date, const int _band, const int _mode);
+    QList<int> isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode);
     int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);

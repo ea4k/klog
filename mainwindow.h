@@ -162,6 +162,7 @@ private slots:
     //void slotMyLocatorTextChanged();
     void slotFreqTXChanged();
     void slotFreqRXChanged();
+    void slotSplitCLicked();
 
     void slotSearchBoxTextChanged();
     //void slotCloseStats(bool _vis);
@@ -234,6 +235,7 @@ private slots:
     void slotWorldReload(const bool _b);
 
     void slotExitFromSlotDialog(const int exitID);
+    void slotSetupDialogFinished (const int _s);
     void exitQuestion();
 
     //void slotDownloadFinished(QNetworkReply *reply);
@@ -516,7 +518,7 @@ private:
     QMenu *setupMenu;
     QMenu *helpMenu;
 
-    //QAction *testAct;       // Action for testing purposes only
+    //QAction *TestAct;       // Action for testing purposes only
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;
@@ -624,6 +626,7 @@ private:
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
+    QCheckBox *splitCheckBox;
     QLCDNumber *freqQLCDNumber;
 
     QString lotwTQSLpath;
@@ -700,7 +703,7 @@ private:
     QString stx;
     QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
-    bool  alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, keepMyData, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
+    bool  alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
     // bool realTime, UTCTime;
     bool cleaning;
     bool manageMode; // If true, the DXCC and awards will take the mode into consideration to decide if needed or worked. False implies only band is taken into account

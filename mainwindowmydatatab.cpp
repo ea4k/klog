@@ -80,7 +80,7 @@ void MainWindowMyDataTab::createUI()
     QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
     myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    QLabel *operatorLabelN = new QLabel(tr("Operator"));
+    QLabel *operatorLabelN = new QLabel(tr("Operator callsign"));
     operatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     QLabel *stationCallSignLabelN = new QLabel(tr("Station Callsign"));
@@ -115,18 +115,8 @@ void MainWindowMyDataTab::createUI()
     connect(stationCallSignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
 }
 
-void MainWindowMyDataTab::clear(const bool _keepMyData)
+void MainWindowMyDataTab::clear()
 {
-    // _keepMyData comes from the setup
-    if (_keepMyData)
-    {
-          //qDebug() << "MainWindowMyDataTab::clear:  TRUE"  << endl;
-    }
-    else
-    {
-          //qDebug() << "MainWindowMyDataTab::clear:  FALSE"  << endl;
-    }
-
     if (keepThisDataForNextQSORadiobutton->isChecked())
     {
         myPowerSpinBox->setValue(lastPower);
@@ -136,22 +126,33 @@ void MainWindowMyDataTab::clear(const bool _keepMyData)
         myLocatorLineEdit->setText(lastMyLocator);
     }
     else
-    {
-        if (_keepMyData)
+    {        
+        myPowerSpinBox->setValue(myPower);
+        if (util->isValidCall(operatorQRZ))
         {
-            myPowerSpinBox->setValue(myPower);
-            operatorLineEdit->setText(operatorQRZ.toUpper());
-            stationCallSignLineEdit->setText(stationQRZ.toUpper());
-            //qDebug() << "MainWindowMyDataTab::clear-2: setMyLocator: " << myLocator  << endl;
+            operatorLineEdit->setText(operatorQRZ);
+        }
+        else
+        {
+            operatorLineEdit->clear();
+        }
+        if (util->isValidCall(stationQRZ))
+        {
+            stationCallSignLineEdit->setText(stationQRZ);
+        }
+        else
+        {
+            stationCallSignLineEdit->clear();
+        }
+        if (util->isValidGrid(myLocator))
+        {
             myLocatorLineEdit->setText(myLocator);
         }
         else
         {
-            myPowerSpinBox->setValue(0);
-            operatorLineEdit->clear();
-            stationCallSignLineEdit->clear();
             myLocatorLineEdit->clear();
         }
+
     }
 }
 

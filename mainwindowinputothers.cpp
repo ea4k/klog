@@ -219,6 +219,18 @@ QString MainWindowInputOthers::getPropModeFromComboBox()
     return _pm;
 }
 
+bool MainWindowInputOthers::isSATPropagation()
+{
+    if (getPropModeFromComboBox() == "SAT")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void MainWindowInputOthers::clearIOTA()
 {
     iotaContinentComboBox->setCurrentIndex(0);
