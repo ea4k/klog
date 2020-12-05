@@ -57,13 +57,13 @@ public:
     void setSendQSLWhenRec(const QString &_t);
     QString getShowStationCallSignInSearch();
     void setShowStationCallSignInSearch(const QString &_t);
-    QString getKeepMyData();
-    void setKeepMyData(const QString &_t);
+    //QString getKeepMyData();
+    //void setKeepMyData(const QString &_t);
     QString getCompleteWithPrevious();
     void setCompleteWithPrevious(const QString &_t);
     QString getCheckNewVersions();
     void setCheckNewVersions(const QString &_t);
-    QString getReportInfo();
+    bool getReportInfo();
     void setReportInfo(const QString &_t);
     QString getDXMarathon();
     void setDXMarathon(const QString &_t);
@@ -94,7 +94,7 @@ private:
     Utilities *util;
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
-    QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox, *keepMyDataCheckBox;
+    QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
     //QCheckBox *logSortCheckBox;
     QCheckBox *sendEQSLByDefaultSearchCheckBox;

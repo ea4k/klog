@@ -1,6 +1,7 @@
  TBD - 1.4
 
 - Improvement: Prepared the WSJTX-2.4 UDP interface.
+- Improvement: User data stored in the setup is know used in the QSOs (default power, station callsign).
 - Improved the KG4xx (Guantanamo bay) DXCC detection from KG4 calls.
 - Updated how KLog counts the confirmed DXCC entities to include LoTW confirmations.
 - New feature: QSO upload to the QRZ.com Logbook (including qso selection and qso mark that has been uploaded)
@@ -9,6 +10,8 @@
 - New feature: It is possible to keep the comment field from one QSO to the following one. (TNX EA5WA)
 - New feature: It is possible to select multiple QSOs in the log and execute several actions with the selected QSOs.(TNX EA5WA)
 - New feature: It is possible to check for the data of calls in QRZ.com (you need a subscription in QRZ.com)
+- UI: Removed the Keep my data option from the Setup UI.
+- UI: The RX frequency follows the TX unless the split is checked.
 - UI: Consolidation of all the electronic logs configurations in one single setup page into the eLog tab.
 - Bugfix: Save all QSOs to ADIF process continued even if the user clicked in cancel.(TNX G4MKT)
 - Bugfix: Backup file was not being created in the right path.(TNX G4MKT)

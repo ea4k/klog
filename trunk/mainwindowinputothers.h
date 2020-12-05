@@ -37,7 +37,7 @@ class MainWindowInputOthers : public QWidget
     Q_OBJECT
 
 public:
-    MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent = 0);
+    MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputOthers();
 
     void setEntitiesList(const QStringList _qs);
@@ -46,6 +46,7 @@ public:
 
     void setPropMode(const QString _qs);
     QString getPropModeFromComboBox();
+    bool isSATPropagation();
 
     void setIOTA(const QString _qs, const bool _black=true);
     QString getIOTA();

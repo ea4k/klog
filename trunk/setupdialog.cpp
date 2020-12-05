@@ -347,7 +347,6 @@ void SetupDialog::slotCancelButtonClicked()
     {
         if (nolog)
         {
-
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -366,13 +365,8 @@ void SetupDialog::slotCancelButtonClicked()
                 emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
                 return;
             }
-
         }
-        //emit exitSignal(2);
     }
-
-    //
-
     close();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
@@ -459,7 +453,7 @@ void SetupDialog::slotOkButtonClicked()
         return;
     }
 
-    if ((userDataPage->getStationQrz()).length() < 3){ // There are no valid calls with less than 3 Chars
+    if (!util->isValidCall(userDataPage->getStationQrz())){ //
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid QRZ."));
@@ -497,13 +491,13 @@ void SetupDialog::slotOkButtonClicked()
     int contestCategory;
     int modes;*/
     //QRZ/CQ/ITU/CONTEST
-    stream << "version=" << version << ";" << endl;
-    stream << "callsign="  << userDataPage->getStationQrz() << ";" << endl;
+    stream << "Version=" << version << ";" << endl;
+    stream << "Callsign="  << userDataPage->getStationQrz() << ";" << endl;
     if ((userDataPage->getOperators()).length() >= 3){ // There are no valid calls with less than 3 Chars
-        stream << "operators="  << userDataPage->getOperators() << ";" << endl;
+        stream << "Operators="  << userDataPage->getOperators() << ";" << endl;
     }
-    stream << "cqz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  endl;
-    stream << "ituz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  endl;
+    stream << "CQz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  endl;
+    stream << "ITUz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  endl;
 
         if ( locator->isValidLocator(userDataPage->getStationLocator()) )
         {
@@ -593,7 +587,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  endl;
         stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  endl;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  endl;
-        stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
+        //stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  endl;
         stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  endl;
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  endl;
         stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  endl;
@@ -606,7 +600,7 @@ void SetupDialog::slotOkButtonClicked()
 
         //qDebug() << "SetupDialog::slotOkButtonClicked - 30" << endl;
 
-        if ( util->trueOrFalse((miscPage->getReportInfo()).toUpper()))
+        if ( miscPage->getReportInfo())
         {
             stream << "ProvideInfo=True;"  <<  endl;
         }
@@ -649,19 +643,14 @@ void SetupDialog::slotOkButtonClicked()
         // CLUBLOG
         //qDebug() << "SetupDialog::slotOkButtonClicked - 40" << endl;
 
-        if (    (util->trueOrFalse(eLogPage->getClubLogActive())) && (eLogPage->getClubLogEmail().length()>2)  )
-        //if (((  util->trueOrFalse((eLogPage->getClubLogActive()))) )  && (eLogPage->getClubLogEmail().length()>2) )
-        { //TODO: Add a isValidEmail funcion in the clubLogPage
-            tmp = eLogPage->getClubLogActive();
-            if (tmp.length()>0)
+            if (eLogPage->getClubLogActive())
             {
-                stream << "ClubLogActive=" << tmp << ";" <<  endl;
+                stream << "ClubLogActive=True;"<<  endl;
             }
 
-            tmp = eLogPage->getClubLogRealTime();
-            if (tmp.length()>0)
+            if (eLogPage->getClubLogRealTime())
             {
-                stream << "ClubLogRealTime=" << tmp << ";" <<  endl;
+                stream << "ClubLogRealTime=True;" <<  endl;
             }
 
             tmp = eLogPage->getClubLogEmail() ;
@@ -675,26 +664,18 @@ void SetupDialog::slotOkButtonClicked()
             {
                 stream << "ClubLogPass=" << tmp << ";" <<  endl;
             }
-        }
+
         //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << endl;
         // eQSL
 
-        if (( util->trueOrFalse((eLogPage->getEQSLActive()).toUpper())) && (eLogPage->getEQSLEmail().length()>0) )
-        {
-            tmp = eLogPage->getEQSLActive();
-            if (tmp.length()>0)
+
+            if (eLogPage->getEQSLActive())
             {
-                stream << "eQSLActive=" << tmp << ";" <<  endl;
+                stream << "eQSLActive=True;" <<  endl;
             }
 
-            /*
-            tmp = eLogPage->getEQSLRealTime();
-            if (tmp.length()>0)
-            {
-                stream << "eQSLRealTime=" << tmp << ";" <<  endl;
-            }
-            */
-            tmp = eLogPage->getEQSLEmail();
+
+            tmp = eLogPage->getEQSLUser();
             if (tmp.length()>0)
             {
                  stream << "eQSLCall=" << tmp << ";" <<  endl;
@@ -705,18 +686,16 @@ void SetupDialog::slotOkButtonClicked()
             {
                 stream << "eQSLPass=" << tmp << ";" <<  endl;
             }
-        }        
+
         // eQSL - END
 
         // QRZ.com
 
-        if ( util->trueOrFalse(eLogPage->getQRZCOMActive()) )
-        {
             //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << endl;
-            tmp = eLogPage->getQRZCOMActive();
-            if (tmp.length()>0)
+
+            if (eLogPage->getQRZCOMActive())
             {
-                stream << "QRZcomActive=" << tmp << ";" <<  endl;
+                stream << "QRZcomActive=True;" <<  endl;
             }
             tmp = eLogPage->getQRZCOMUser();
             if (tmp.length()>0)
@@ -728,21 +707,17 @@ void SetupDialog::slotOkButtonClicked()
             {
                  stream << "QRZcomPass=" << tmp << ";" <<  endl;
             }
-            tmp = eLogPage->getQRZCOMAutoCheck();
-            if (tmp.length()>0)
+
+            if (eLogPage->getQRZCOMAutoCheck())
             {
-                 stream << "QRZcomAuto=" << tmp << ";" <<  endl;
+                 stream << "QRZcomAuto=True;" << endl;
             }
             tmp = eLogPage->getQRZCOMLogBookKEY();
             if (tmp.length()>0)
             {
                  stream << "QRZcomLogBookKey=" << tmp << ";" <<  endl;
             }
-        }
-        else
-        {
-            //qDebug() << "SetupDialog::slotOkButtonClicked - NO storing QRZ.com data" << endl;
-        }
+
         // QRZ.com - END
 
         //qDebug() << "SetupDialog::slotOkButtonClicked - 60" << endl;
@@ -925,8 +900,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
            //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << endl;
     }else if (tab=="IMPERIALSYSTEM"){
         miscPage->setImperial(value.toUpper());
-    }else if (tab=="KEEPMYDATA"){
-        miscPage->setKeepMyData(value.toUpper());
     }else if (tab=="COMPLETEWITHPREVIOUS"){
         miscPage->setCompleteWithPrevious(value.toUpper());
     }else if (tab=="SENDQSLWHENREC"){
@@ -1101,7 +1074,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
           //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << endl;
     }else if(tab =="HAMLIBRIGTYPE"){
           //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << endl;
-
         hamlibPage->setRigType(value);
           //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << endl;
     }else if(tab =="HAMLIBSERIALPORT"){
@@ -1175,12 +1147,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         //eQSLPage->setActive(value);
         eLogPage->setEQSLActive(util->trueOrFalse(value));
     }
-    /*
-    else if(tab =="EQSLREALTIME"){
-        //eQSLPage->setRealTime(value);
-        eLogPage->setEQSLRealTime(value);
-    }
-    */
     else if(tab =="EQSLCALL"){
         //eQSLPage->setCallsign(value);
         eLogPage->setEQSLEmail(value);
@@ -1189,7 +1155,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         //eQSLPage->setPassword(value);
         eLogPage->setEQSLPassword(value);
     }    
-
     else if(tab =="QRZCOMACTIVE"){
         //eQSLPage->setActive(value);
         eLogPage->setQRZCOMActive(value);
@@ -1206,21 +1171,16 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if(tab =="QRZCOMLOGBOOKKEY"){
         eLogPage->setQRZCOMLogBookKEY(value);
     }
-
     else if(tab =="LOTWACTIVE"){
-        //lotwPage->setLoTW(value);
         eLogPage->setLoTWActive(value);
     }
     else if(tab =="LOTWPATH"){
-        //lotwPage->setPath(value);
         eLogPage->setTQSLPath(value);
     }
     else if(tab =="LOTWUSER"){
-        //lotwPage->setLoTWUser(value);
         eLogPage->setLoTWUser(value);
     }
     else if(tab =="LOTWPASS"){
-        //lotwPage->setLoTWPass(value);
         eLogPage->setLoTWPass(value);
     }
     else if(tab =="MAINWINDOWSIZE"){
@@ -1232,7 +1192,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
             windowSize = value;
         }
 
-    }else{
+    }
+    else
+    {
            //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;
     }
 
@@ -1347,8 +1309,7 @@ void SetupDialog::setDefaults()
     miscPage->setImperial("FALSE"); //Metric system is the default
     miscPage->setAlwaysADIF("FALSE");
     miscPage->setSendQSLWhenRec("TRUE");
-    miscPage->setShowStationCallSignInSearch("TRUE");
-    miscPage->setKeepMyData("TRUE");
+    miscPage->setShowStationCallSignInSearch("TRUE");    
     miscPage->setCheckNewVersions("TRUE");
     miscPage->setReportInfo("FALSE");
     miscPage->setDXMarathon("FALSE");

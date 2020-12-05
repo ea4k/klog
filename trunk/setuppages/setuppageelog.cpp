@@ -357,10 +357,10 @@ QString SetupPageELog::getClubLogPassword()
     return clubLogPass;
 }
 
-QString SetupPageELog::getClubLogActive()
+bool SetupPageELog::getClubLogActive()
 {
     clubLogActive = clubLogActiveCheckBox->isChecked();
-    return util->boolToQString(clubLogActive);
+    return clubLogActive;
 }
 
 void SetupPageELog::setClubLogActive(const bool _b)
@@ -383,10 +383,10 @@ void SetupPageELog::setClubLogRealTime(const QString &_s)
     clubLogRealTime = util->trueOrFalse(_s);
 }
 
-QString SetupPageELog::getClubLogRealTime()
+bool SetupPageELog::getClubLogRealTime()
 {
     clubLogRealTime = clubLogSendInRealTimeCheckBox->isChecked();
-    return util->boolToQString(clubLogRealTime);
+    return clubLogRealTime;
 }
 
  // END of CLubLog
@@ -403,7 +403,7 @@ void SetupPageELog::setEQSLPassword(const QString &c)
     eqslPass = c;
 }
 
-QString SetupPageELog::getEQSLEmail()
+QString SetupPageELog::getEQSLUser()
 {
     eqslUser = eQSLUserLineEdit->text();
     return eqslUser;
@@ -415,10 +415,10 @@ QString SetupPageELog::getEQSLPassword()
     return eqslPass;
 }
 
-QString SetupPageELog::getEQSLActive()
+bool SetupPageELog::getEQSLActive()
 {
     eqslActive = eQSLActiveCheckBox->isChecked();
-    return util->boolToQString(eqslActive);
+    return eqslActive;
 }
 
 void SetupPageELog::setEQSLActive(const bool _b)
@@ -546,11 +546,11 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
     qrzcomActive = util->trueOrFalse(_s);
 }
 
-QString SetupPageELog::SetupPageELog::getQRZCOMActive()
+bool SetupPageELog::SetupPageELog::getQRZCOMActive()
 {
     //qDebug() << "SetupPageELog::getQRZCOMActive :" << endl;
     qrzcomActive = QRZCOMActiveCheckBox->isChecked();
-    return util->boolToQString(qrzcomActive);
+    return qrzcomActive;
     //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << endl;
 }
 
@@ -615,10 +615,10 @@ QString SetupPageELog::getQRZCOMPassword()
     return qrzcomPass;
 }
 
-QString SetupPageELog::getQRZCOMAutoCheck()
+bool SetupPageELog::getQRZCOMAutoCheck()
 {
     qrzcomAutoFill = QRZCOMAutoCheckCheckBox->isChecked();
-    return util->boolToQString(qrzcomAutoFill);
+    return qrzcomAutoFill;
 }
 
 void SetupPageELog::setQRZCOMAutoCheck(const QString &_s)

@@ -4,6 +4,7 @@
 AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
     dataProxy = dp;
+    util = new Utilities;
     stationCallsignComboBox = new QComboBox;
     startDate = new QDateEdit;
     endDate = new QDateEdit;
@@ -13,8 +14,16 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     topLabel = new QLabel;
     numberLabel = new QLabel;
     selectedEMode = ModeLotW;   //By default this widget will be used for LoTW Export.
+    defaultStationCallsign = QString();
 
     createUI();
+}
+void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
+{
+    if (util->isValidCall(_st))
+    {
+        defaultStationCallsign = _st;
+    }
 }
 
 void AdifLoTWExportWidget::createUI()
@@ -74,6 +83,18 @@ void AdifLoTWExportWidget::createUI()
     connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
+}
+
+void AdifLoTWExportWidget::setDefaultStationComboBox()
+{
+    if (!util->isValidCall(defaultStationCallsign))
+    {
+        return;
+    }
+    if (stationCallsignComboBox->findText(defaultStationCallsign, Qt::MatchCaseSensitive) >= 0)
+    {
+       stationCallsignComboBox->setCurrentIndex(stationCallsignComboBox->findText(defaultStationCallsign, Qt::MatchCaseSensitive));
+    }
 }
 
 void AdifLoTWExportWidget::fillStationCallsignComboBox()
@@ -288,7 +309,7 @@ void AdifLoTWExportWidget::showEvent(QShowEvent *event)
 
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
-
+    setDefaultStationComboBox();
 
     event->accept();
     //qDebug() << "AdifLoTWExportWidget::showEvent - END" << endl;

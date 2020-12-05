@@ -814,7 +814,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
     progress.setWindowTitle(tr("LoTW reading"));
     progress.setAutoClose(true);
 
-
    //qDebug() << "FileManager::adifLoTWReadLog2 - After header while"  << endl;
     noMoreQso = false;
     QStringList fields;
@@ -847,28 +846,41 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                         QString aux = QString("<STATION_CALLSIGN:%1>%2").arg(QString::number(stationCallSign.length())).arg(stationCallSign);
                         qso.setData(aux);
                     }
-                    int previousQSO = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), dataProxy->getIdFromModeName(qso.getMode())) ;
-                    if (previousQSO>0)
+
+                    QList<int> dupeQsos;
+                    dupeQsos.clear();
+                    dupeQsos << dataProxy->isThisQSODuplicated(qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), dataProxy->getIdFromModeName(qso.getMode()));
+                    if (dupeQsos.length()>0)
                     {
-                       //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO Exixting, lets check if QSL is RX"   << endl;
-                        if (qso.getLoTWQSL_RCVD() == "Y")
-                        {
-                           //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO Exixting, Updating LoTW QSL status"   << endl;
-                            if (dataProxy->setLoTWQSLRec (previousQSO, "Y", qso.getLoTWQSLRDate()))
-                            {
-                                _qsos.append(previousQSO);
-                            }
-                        }                  
+                         //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO DUPE NOT, adding... just modifying"   << endl;
+                         //if (dupeQsos.length()>1)
+                         //{
+                         //    //qDebug() << "FileManager::adifLoTWReadLog2 -  More than one DUPE QSO: We will update just the first one"   << endl;
+                         //    foreach (i, dupeQsos)
+                         //    {
+                         //       //qDebug() << "FileManager::adifLoTWReadLog2 -  More than one DUPE QSO: #" << QString::number(i)   << endl;
+                         //    }
+                         //    //qDebug() << "FileManager::adifLoTWReadLog2 -  More than one DUPE QSO: END OF DUPE LIST #####"   << endl;
+                         //}
+                         if (qso.getLoTWQSL_RCVD() == "Y")
+                         {
+                            //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO Exixting, Updating LoTW QSL status"   << endl;
+                             if (dataProxy->setLoTWQSLRec (dupeQsos.at(0), "Y", qso.getLoTWQSLRDate()))
+                             {
+                                 _qsos.append(dupeQsos.at(0));
+                             }
+                         }
                     }
                     else
-                    { // Non existing QSO, we need to add!
-                       //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO NOT existing, Adding..."   << endl;
+                    {
+                        //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << endl;
                         int lastId = dataProxy->addQSO(qso);
                         if (lastId>0)
                         {
                             _qsos.append(lastId);
                         }
                     }
+
                     i++;
                     qso.clear();
                 }
@@ -3809,10 +3821,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
             }
             else
             {
-
                 out << "<TIME_ON:" << aux.length() << ">" << aux  << " ";
             }
-
         }
     }
 

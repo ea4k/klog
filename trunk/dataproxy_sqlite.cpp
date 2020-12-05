@@ -2289,12 +2289,9 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
              "modeid INTEGER NOT NULL, "
 */
 
-
     QString stringFields  = QString();
     QString stringData = QString();
     QString stringQuery = QString();
-
-    //getITUzFromEntity()
 
     QSqlQuery query;
 
@@ -2456,10 +2453,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
         {
             stringFields  = stringFields  + "ituz, ";
             stringData =  stringData + "'" + QString::number(_ituz) + "', ";
-
         }
-
-
     }
 
     stringFields  = stringFields  + "qsl_via, ";
@@ -2471,9 +2465,17 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     stringFields  = stringFields  + "lotw_qsl_sent, ";
     stringData =  stringData + "'Q', ";
 
+    stringFields  = stringFields  + "hrdlog_qso_upload_status, ";
+    stringData =  stringData + "'M', ";
+
+    stringFields  = stringFields  + "clublog_qso_upload_status, ";
+    stringData =  stringData + "'M', ";
+
+    stringFields  = stringFields  + "qrzcom_qso_upload_status, ";
+    stringData =  stringData + "'M', ";
+
     stringFields  = stringFields  + "lognumber";
     stringData =  stringData + "'" + QString::number(_logNumber) + "'";
-
 /*
     if ( stringFields.endsWith(", ") )
     {
@@ -2759,43 +2761,49 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 
 }
 
-bool DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QString &_date, const int _band, const int _mode)
+QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode)
 {
         //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << endl;
     QSqlQuery query;
     QString queryString;
+    QList<int> dupeQsos;
+    dupeQsos.clear();
+    int validityPeriod = 15 * 60;
+    QString initTime = util->getDateTimeSQLiteStringFromDateTime(_dateTime.addSecs(-validityPeriod));
+    QString endTime = util->getDateTimeSQLiteStringFromDateTime(_dateTime.addSecs(validityPeriod));
 
-    queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(_date).arg(_band).arg(_mode);
+    //yyyy-MM-dd hh:mm:ss
+    // We will match +-15min
+
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE call='%1' AND bandid='%2' AND modeid='%3' AND qso_date>'%4' AND qso_date<'%5'").arg(_qrz).arg(_band).arg(_mode).arg(initTime).arg(endTime);
 
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
     {
-        query.next();
-        if (query.isValid())
+        while (query.next())
         {
-            if ((query.value(0)).toInt()>0)
+            if (query.isValid())
             {
-                query.finish();
-                return true;
+                int dupeQSO = (query.value(0)).toInt();
+                if (dupeQSO>0)
+                {
+                    dupeQsos.append(dupeQSO);
+                }
             }
             else
             {
-                query.finish();
-                return false;
+                   //qDebug() << "DataProxy_SQLite::isThisQSODuplicated - not valid"  << endl;
             }
         }
-        else
-        {
-            query.finish();
-            return false;
-        }
+        return dupeQsos;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
-        return false;
+        return dupeQsos;
     }
 }
 

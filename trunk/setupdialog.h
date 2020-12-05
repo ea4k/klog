@@ -68,8 +68,6 @@ public:
     void checkIfNewBandOrMode();
     void setSeverity(const int _sev);
 
-
-
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution

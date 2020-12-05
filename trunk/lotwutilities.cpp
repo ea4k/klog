@@ -179,18 +179,17 @@ void LoTWUtilities::startRequest(QUrl url)
     //reply = manager->get(QNetworkRequest(url));
     reply = manager->get(request);
     //qDebug() << "LoTWUtilities::startRequest - 10"  << endl;
-      // Whenever more data is received from the network,
-      // this readyRead() signal is emitted
-      connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
+    // Whenever more data is received from the network,
+    // this readyRead() signal is emitted
+    connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
 
-      // Also, downloadProgress() signal is emitted when data is received
-      connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(slotDownloadProgress(qint64)));
-
-      // This signal is emitted when the reply has finished processing.
-      // After this signal is emitted,
-      // there will be no more updates to the reply's data or metadata.
-      connect(reply, SIGNAL(finished()), this, SLOT(slotFinished()));
-       //qDebug() << "LoTWUtilities::startRequest: - END" << endl;
+    // Also, downloadProgress() signal is emitted when data is received
+    connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(slotDownloadProgress(qint64)));
+    // This signal is emitted when the reply has finished processing.
+    // After this signal is emitted,
+    // there will be no more updates to the reply's data or metadata.
+    connect(reply, SIGNAL(finished()), this, SLOT(slotFinished()));
+    //qDebug() << "LoTWUtilities::startRequest: - END" << endl;
 }
 
 int LoTWUtilities::download()
@@ -424,7 +423,7 @@ void LoTWUtilities::slotDownloadProgress(qint64 bytesRead) {
 
 void LoTWUtilities::slotReadyRead()
 {
-   //qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
+    //qDebug() << "LoTWUtilities::slotReadyRead: " << reply->readLine() << endl;
     if (file)
     {
         file->write(reply->readAll());
@@ -434,7 +433,7 @@ void LoTWUtilities::slotReadyRead()
 
 void LoTWUtilities::slotFinished()
 {
-   //qDebug() << "LoTWUtilities::slotFinished - Started" << endl;
+    //qDebug() << "LoTWUtilities::slotFinished - Started" << endl;
     // when canceled
      if (downloadAborted)
      {
@@ -451,29 +450,35 @@ void LoTWUtilities::slotFinished()
          //qDebug() << "LoTWUtilities::slotFinished - END Canceled" << endl;
          return;
      }
-
+    //qDebug() << "LoTWUtilities::slotFinished - 10" << endl;
      // download finished normally
     pDialog->cancel();
+    //qDebug() << "LoTWUtilities::slotFinished - 11" << endl;
     file->flush();
+    //qDebug() << "LoTWUtilities::slotFinished - 12" << endl;
     file->close();
+    //qDebug() << "LoTWUtilities::slotFinished - 13" << endl;
 
      // get redirection url
      QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+     //qDebug() << "LoTWUtilities::slotFinished - 14" << endl;
      if (reply->error())
      {
-        file->remove();
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - LoTW Download error"));
-        QString aux = QString(tr("The downloading error is: %1") ).arg(reply->errorString());
-        msgBox.setText(tr("There was an error while downloading the file from LoTW."));
-        msgBox.setDetailedText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
+         file->remove();
+         QMessageBox msgBox;
+         msgBox.setIcon(QMessageBox::Warning);
+         msgBox.setWindowTitle(tr("KLog - LoTW Download error"));
+         QString aux;
+         msgBox.setText(tr("There was an error (%1) while downloading the file from LoTW.").arg(QString::number(reply->error())));
+         aux = QString(tr("The downloading error details are: %1") ).arg(reply->errorString());
+         msgBox.setDetailedText(aux);
+         msgBox.setStandardButtons(QMessageBox::Ok);
+         msgBox.setDefaultButton(QMessageBox::Ok);
+         msgBox.exec();
     }
     else if (!redirectionTarget.isNull())
     {
+         //qDebug() << "LoTWUtilities::slotFinished - Redirection" << endl;
         QUrl newUrl = url.resolved(redirectionTarget.toUrl());
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
@@ -497,21 +502,11 @@ void LoTWUtilities::slotFinished()
      }
     else
     {
-        //QString fileName = QFileInfo(QUrl(ui->urlEdit->text()).path()).fileName();
-         //ui->statusLabel->setText(tr("Downloaded %1 to %2.").arg(fileName).arg(QDir::currentPath()));
-         //ui->downloadButton->setEnabled(true);
-         //qDebug() << "LoTWUtilities::slotFinished:  "  << endl;
-     }
-
-    //reply->deleteLater();
-
-
+        //qDebug() << "LoTWUtilities::slotFinished:  "  << endl;
+    }
+    //qDebug() << "LoTWUtilities::slotReadyRead - Going to parse ..." << endl;
     parseDownloadedFile(file->fileName());
-    //delete file;
-    //file = nullptr;
-
-
-      //qDebug() << "LoTWUtilities::slotReadyRead - END" << endl;
+    //qDebug() << "LoTWUtilities::slotReadyRead - END" << endl;
 }
 
 void LoTWUtilities::slotCancelDownload()
@@ -554,7 +549,7 @@ bool LoTWUtilities::getIsReady()
 
 void LoTWUtilities::parseDownloadedFile(const QString &_fn)
 {
-   //qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
+    //qDebug() << "LoTWUtilities::parseDownloadedFile: " << _fn << endl;
     QString _fileName = _fn;
     QMessageBox msgBox;
     QString aux;
@@ -562,7 +557,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
     QFile file( _fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-         //qDebug() << "LoTWUtilities::parseDownloadedFile File not found" << _fileName << endl;
+        //qDebug() << "LoTWUtilities::parseDownloadedFile File not found" << _fileName << endl;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - LoTW File not found"));
         msgBox.setText(tr("KLog can't find the downloaded file."));
@@ -675,7 +670,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
    //Procesar los QSOs y meterlos en una tabla? o en un QStringList o alguna otra estructura
 
 
-     //qDebug() << "LoTWUtilities::parseDownloadedFile - END"  << endl;
+    //qDebug() << "LoTWUtilities::parseDownloadedFile - END"  << endl;
 }
 
 /*void LoTWUtilities::showMessage(const int _messageIcon, const QString &_msg, const QString &_msgExt)

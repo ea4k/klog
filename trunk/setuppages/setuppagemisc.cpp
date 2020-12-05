@@ -43,7 +43,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
-    keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
+    //keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
@@ -114,7 +114,7 @@ void SetupPageMisc::createUI()
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
     showStationCallWhenSearchCheckBox->setChecked(true);
-    keepMyDataCheckBox->setChecked(true);
+    //keepMyDataCheckBox->setChecked(true);
     completeWithPreviousCheckBox->setChecked(false);
     debugLogCheckBox->setChecked(false);
     UTCCheckbox->setChecked(true);
@@ -125,7 +125,7 @@ void SetupPageMisc::createUI()
 
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
-    keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
+    //keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
     checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
     provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog."));
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometers)."));
@@ -164,7 +164,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
     mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
     mainLayou1->addWidget(useDxMarathonCheckBox, 4, 1, 1, 1);
-    mainLayou1->addWidget(keepMyDataCheckBox, 5, 0, 1, 1);
+    //mainLayou1->addWidget(keepMyDataCheckBox, 5, 0, 1, 1);
     mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
     mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
     mainLayou1->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
@@ -315,7 +315,7 @@ void SetupPageMisc::setShowStationCallSignInSearch(const QString &_t)
     showStationCallWhenSearchCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
-
+/*
 QString SetupPageMisc::getKeepMyData()
 {
     return util->boolToQString(keepMyDataCheckBox->isChecked());
@@ -325,6 +325,7 @@ void SetupPageMisc::setKeepMyData(const QString &_t)
 {
     keepMyDataCheckBox->setChecked(util->trueOrFalse(_t));
 }
+*/
 
 QString SetupPageMisc::getCompleteWithPrevious()
 {
@@ -361,16 +362,9 @@ void SetupPageMisc::setCheckNewVersions(const QString &_t)
     checkNewVersionCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
-QString SetupPageMisc::getReportInfo()
+bool SetupPageMisc::getReportInfo()
 {
-    if (checkNewVersionCheckBox->isChecked())
-    {
-        return util->boolToQString(provideCallCheckBox->isChecked());
-    }
-    else
-    {
-        return "False";
-    }
+    return checkNewVersionCheckBox->isChecked();
 }
 
 void SetupPageMisc::setReportInfo(const QString &_t)

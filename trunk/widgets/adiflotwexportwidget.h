@@ -27,6 +27,7 @@
  *****************************************************************************/
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 
 
@@ -38,6 +39,7 @@ class AdifLoTWExportWidget : public QWidget
 public:
     explicit AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
     void setExportMode(const ExportMode _EMode);
+    void setDefaultStationCallsign(const QString &_st);
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -58,8 +60,10 @@ private:
     void setTopLabel(const QString &_t);
     void addQSO(const int _qsoID);
     void fillStationCallsignComboBox();
+    void setDefaultStationComboBox();
 
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
     QComboBox *stationCallsignComboBox;
     QDateEdit *startDate, *endDate;
     QLabel *topLabel, *numberLabel;
@@ -70,6 +74,8 @@ private:
     QTableWidget *tableWidget;
     QHeaderView *hv, *hh;
     ExportMode currentExportMode;
+
+    QString defaultStationCallsign;
 
 };
 
