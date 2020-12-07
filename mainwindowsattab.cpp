@@ -527,7 +527,7 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
 void MainWindowSatTab::slotSatFreqRXChanged()
 {
     //qDebug() << "MainWindowsatTab::slotSatFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
-    if (modifying)
+    if (modifying  )
     {
         return;
     }
@@ -561,7 +561,7 @@ void MainWindowSatTab::slotSatFreqRXChanged()
 
 void MainWindowSatTab::slotSatBandTXComboBoxChanged()
 {
-    //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged:"  << endl;
+   //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged:"  << endl;
     if (updatingBands || modifying)
     {
         return;
@@ -569,6 +569,8 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value()));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
+       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText()  << endl;
+       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()))  << endl;
         txFreqSpinBox->setValue(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
         //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
     }
@@ -578,7 +580,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
 
 void MainWindowSatTab::slotSatFreqTXChanged()
 {
-    //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: " << QString::number(txFreqSpinBox->value()) << endl;
+   //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: " << QString::number(txFreqSpinBox->value()) << endl;
     // user changes TX Freq
     // If band is real and band is configured, bandcombo is selected
     // If band is real and not configured, we launch the band config and select the band.
@@ -650,7 +652,7 @@ void MainWindowSatTab::setUpLink(const QString &_t)
 
 void MainWindowSatTab::setUpLinkFreq(const double _t)
 {
-    //qDebug() << "MainWindowsatTab::setUpLinkFreq: " << QString::number(_t) << endl;
+   //qDebug() << "MainWindowsatTab::setUpLinkFreq: " << QString::number(_t) << endl;
 
     txFreqBeingAutoChanged = true;
 
@@ -658,7 +660,7 @@ void MainWindowSatTab::setUpLinkFreq(const double _t)
     setUpLink(dataProxy->getBandNameFromFreq(_t));
 
     txFreqBeingAutoChanged = false;
-      //qDebug() << "MainWindowsatTab::setUpLinkFreq END" << endl;
+   //qDebug() << "MainWindowsatTab::setUpLinkFreq END" << endl;
 }
 double MainWindowSatTab::getRXFreq()
 {
@@ -715,7 +717,7 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
     }
     else
     {
-          //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: setting to ZERO (should be = RX) " <<  endl;
+       //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: setting to ZERO (should be = RX) " <<  endl;
         txFreqSpinBox->setValue(0);
         //satBandTXComboBox->setCurrentIndex(0);
     }

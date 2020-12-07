@@ -213,9 +213,8 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     connect(QRZCOMUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZCallTextChanged() ) );
     connect(QRZCOMPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     //qDebug() << "SetupPageELog::SetupPageELog - 00160" << endl;
+
     connect(lotwUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
-
-
     connect(lotwPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(lotwTQSLPathLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(lotwSearchTQSLPushButton, SIGNAL(clicked()), this, SLOT(slotSelectTQSLClicked()) );
@@ -231,7 +230,6 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     slotTQSLActive(false);
     slotEQSLActive(false);
     slotQRZCOMActive(false);
-
 
     //qDebug() << "SetupPageELog::SetupPageELog - END" << endl;
 }
@@ -314,6 +312,7 @@ void SetupPageELog::slotLoTWEmailDefineColor()
 
 void SetupPageELog::setDefaults()
 {
+    //qDebug() << "SetupPageELog::setDefaults()" << endl;
     qrzcomActive = false;
     qrzcomAutoFill = false;
     qrzComUser = QString();
@@ -333,16 +332,19 @@ void SetupPageELog::setDefaults()
     lotwPath = QString();
     lotwUser = QString();
     lotwPass = QString();
+    //qDebug() << "SetupPageELog::setDefaults() - END" << endl;
 }
 
 void SetupPageELog::setClubLogEmail(const QString &c)
 {
     clubLogEmail = c;
+    clubLogEmailLineEdit->setText(clubLogEmail);
 }
 
 void SetupPageELog::setClubLogPassword(const QString &c)
 {
     clubLogPass = c;
+    clubLogPasswordLineEdit->setText(clubLogPass);
 }
 
 QString SetupPageELog::getClubLogEmail()
@@ -363,24 +365,27 @@ bool SetupPageELog::getClubLogActive()
     return clubLogActive;
 }
 
-void SetupPageELog::setClubLogActive(const bool _b)
+void SetupPageELog::setClubLogActive(const bool &_b)
 {
     clubLogActive = _b;
+    clubLogActiveCheckBox->setEnabled(clubLogActive);
 }
 
-void SetupPageELog::slotClubLogActive(bool _s)
+void SetupPageELog::slotClubLogActive(const bool _s)
 {
-      //qDebug() << "SetupPageELog::slotClubLogActive" << endl;
+    //qDebug() << "SetupPageELog::slotClubLogActive: " << util->boolToQString(_s) << endl;
     clubLogEmailLabel->setEnabled(_s);
     clubLogPasswordLabel->setEnabled(_s);
     clubLogEmailLineEdit->setEnabled(_s);
     clubLogPasswordLineEdit->setEnabled(_s);
     clubLogSendInRealTimeCheckBox->setEnabled(_s);
+    //qDebug() << "SetupPageELog::slotClubLogActive" << endl;
 }
 
-void SetupPageELog::setClubLogRealTime(const QString &_s)
+void SetupPageELog::setClubLogRealTime(const bool &_s)
 {
-    clubLogRealTime = util->trueOrFalse(_s);
+    clubLogRealTime = _s;
+    clubLogSendInRealTimeCheckBox->setEnabled(clubLogRealTime);
 }
 
 bool SetupPageELog::getClubLogRealTime()
@@ -396,11 +401,13 @@ bool SetupPageELog::getClubLogRealTime()
 void SetupPageELog::setEQSLEmail(const QString &c)
 {
     eqslUser = c;
+    eQSLemailLabel->setText(eqslUser);
 }
 
 void SetupPageELog::setEQSLPassword(const QString &c)
 {
     eqslPass = c;
+    eQSLPasswordLineEdit->setText(eqslPass);
 }
 
 QString SetupPageELog::getEQSLUser()
@@ -424,20 +431,21 @@ bool SetupPageELog::getEQSLActive()
 void SetupPageELog::setEQSLActive(const bool _b)
 {
     eqslActive = _b;
+    eQSLActiveCheckBox->setEnabled(eqslActive);
 }
 
-void SetupPageELog::slotEQSLActive(bool _s)
-{
-    //qDebug() << "SetupPageELog::slotEQSLActive" << endl;
+void SetupPageELog::slotEQSLActive(const bool _s)
+{   
+    //qDebug() << "SetupPageELog::slotEQSLActive: "  << util->boolToQString(_s) << endl;
     eQSLemailLabel->setEnabled(_s);
     eQSLpasswordLabel->setEnabled(_s);
     eQSLUserLineEdit->setEnabled(_s);
     eQSLPasswordLineEdit->setEnabled(_s);
 }
 
-void SetupPageELog::slotTQSLActive(bool _s)
-{
-    //qDebug() << "SetupPageELog::slotTQSLActive" << endl;
+void SetupPageELog::slotTQSLActive(const bool _s)
+{    
+    //qDebug() << "SetupPageELog::slotTQSLActive: " << util->boolToQString(_s) << endl;
     lotwTQSLPathLineEdit->setEnabled(_s);
     lotwSearchTQSLPushButton->setEnabled(_s);
 }
@@ -450,6 +458,7 @@ void SetupPageELog::slotTQSLActive(bool _s)
 void SetupPageELog::setLoTWActive(const QString &_s)
 {
     lotwTQSL = util->trueOrFalse(_s);
+    lotwUseTQSLCheckBox->setEnabled(lotwTQSL);
 }
 
 QString SetupPageELog::getLoTWActive()
@@ -461,6 +470,7 @@ QString SetupPageELog::getLoTWActive()
 void SetupPageELog::setTQSLPath(const QString &c)
 {
     lotwPath = c;
+    lotwTQSLPathLineEdit->setText(lotwPath);
 }
 
 QString SetupPageELog::getTQSLPath()
@@ -510,6 +520,7 @@ void SetupPageELog::slotPathLineEditChanged(const QString _q)
 void SetupPageELog::setLoTWUser(const QString &_s)
 {
     lotwUser = _s;
+    lotwUserLineEdit->setText(lotwUser);
 }
 
 QString SetupPageELog::getLoTWUser()
@@ -521,6 +532,7 @@ QString SetupPageELog::getLoTWUser()
 void SetupPageELog::setLoTWPass(const QString &_s)
 {
     lotwPass = _s;
+    lotwPasswordLineEdit->setText(lotwPass);
 }
 
 QString SetupPageELog::getLoTWPass()
@@ -544,6 +556,7 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
 {
     //qDebug() << "SetupPageELog::setQRZCOMActive " << endl;
     qrzcomActive = util->trueOrFalse(_s);
+    QRZCOMActiveCheckBox->setEnabled(qrzcomActive);
 }
 
 bool SetupPageELog::SetupPageELog::getQRZCOMActive()
@@ -557,7 +570,7 @@ bool SetupPageELog::SetupPageELog::getQRZCOMActive()
 void SetupPageELog::slotQRZCOMActive(bool _s)
 {
 
-    //qDebug() << "SetupPageELog::slotQRZCOMActive" << endl;
+    //qDebug() << "SetupPageELog::slotQRZCOMActive: "  << util->boolToQString(_s) << endl;
     QRZCOMUserLabel->setEnabled(_s);
     //qDebug() << "SetupPageELog::slotQRZCOMActive - 1" << endl;
     QRZCOMUserLineEdit->setEnabled(_s);
@@ -569,7 +582,7 @@ void SetupPageELog::slotQRZCOMActive(bool _s)
     //qDebug() << "SetupPageELog::slotQRZCOMActive - END" << endl;
 }
 
-void SetupPageELog::slotQRZCOMAuto(bool _s)
+void SetupPageELog::slotQRZCOMAuto(const bool _s)
 {
     emit qrzcomAuto(_s);
 }
@@ -579,6 +592,7 @@ void SetupPageELog::setQRZCOMUser(const QString &_s)
     if (_s.length()>0)
     {
         qrzComUser = _s;
+        QRZCOMUserLineEdit->setText(qrzComUser);
     }
 }
 
@@ -587,6 +601,7 @@ void SetupPageELog::setQRZCOMLogBookKEY(const QString &_s)
     if (_s.length()>0)
     {
         qrcomLogbookKey = _s;
+        QRZCOMLogBookKEYLineEdit->setText( qrcomLogbookKey);
     }
 }
 
@@ -595,6 +610,7 @@ void SetupPageELog::setQRZCOMPassword(const QString &_s)
     if (_s.length()>0)
     {
         qrzcomPass = _s;
+        QRZCOMPasswordLineEdit->setText(qrzcomPass);
     }
 }
 
@@ -624,6 +640,7 @@ bool SetupPageELog::getQRZCOMAutoCheck()
 void SetupPageELog::setQRZCOMAutoCheck(const QString &_s)
 {
     qrzcomAutoFill = util->trueOrFalse(_s);
+    QRZCOMAutoCheckCheckBox->setEnabled(qrzcomAutoFill);
 }
 
 void SetupPageELog::showEvent(QShowEvent *event)

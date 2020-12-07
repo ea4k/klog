@@ -31,8 +31,8 @@
 This class calls all the othet "Setup..." to manage the configuration
 
 */
-
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
+/*
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime, QWidget *parent)
 {
     //qDebug() << "SetupDialog::SetupDialog 1" << endl;
     logSeverity = 7;  //7 Debug /0=emergency or no debug
@@ -149,23 +149,16 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime)
     //qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
 }
 
-
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
+*/
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
 {
-    //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) ;
-    if (_firstTime)
-    {
-          //qDebug() << "/True";
-    }
-    else
-    {
-          //qDebug() << "/False";
-    }
-      //qDebug() << endl;
+    //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
+
     logSeverity = 7;
     constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;
+    latestBackup = QString();
     dataProxy = dp;
     configFileName = _configFile;
     version = _softwareVersion;
@@ -764,6 +757,10 @@ void SetupDialog::slotOkButtonClicked()
         {
             stream << "MainWindowSize=" << windowSize << ";" <<  endl;
         }
+        if (latestBackup.length()>0)
+        {
+            stream << "LatestBackup=" << latestBackup << ";" << endl;
+        }
         file.close ();
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << endl;
@@ -779,6 +776,7 @@ void SetupDialog::slotReadConfigData()
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     if (firstTime)
     {
+        //qDebug() << "SetupDialog::slotReadConfigData - First time" << endl;
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
@@ -790,7 +788,7 @@ void SetupDialog::slotReadConfigData()
 
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-           //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
+        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
         //firstTime = true;
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
         return;
@@ -798,12 +796,10 @@ void SetupDialog::slotReadConfigData()
     //qDebug() << "SetupDialog::slotReadConfigData - 2" << endl;
     //dxClusterServers.clear();
 
-
-
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
         processConfigLine(line);        
-          //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
+        //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
     }
     //qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
 
@@ -831,7 +827,6 @@ void SetupDialog::slotReadConfigData()
 
 bool SetupDialog::processConfigLine(const QString &_line)
 {
-
     //qDebug() << "SetupDialog::processConfigLine: " << _line << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
 
@@ -1034,7 +1029,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         {
             userDataPage->setStationLocator(value);
         }
-
     }else if (tab =="DXCLUSTERSHOWHF"){
         dxClusterPage->setShowHFRadiobutton(value);
     }else if (tab =="DXCLUSTERSHOWVHF"){
@@ -1054,7 +1048,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if(tab =="DXCLUSTERSERVERPORT"){
         dxClusterServers << value;
            //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << endl;
-
     }else if (tab  =="DXCLUSTERSERVERTOUSE"){        
         dxClusterServerToUse=value;
     }
@@ -1133,7 +1126,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="CLUBLOGREALTIME"){
         //clubLogPage->setClubLogRealTime(value);
-        eLogPage->setClubLogRealTime(value);
+        eLogPage->setClubLogRealTime(util->trueOrFalse(value));
     }
     else if(tab =="CLUBLOGPASS"){
         //clubLogPage->setPassword(value);
@@ -1193,6 +1186,19 @@ bool SetupDialog::processConfigLine(const QString &_line)
         }
 
     }
+    else if (tab == "LATESTBACKUP")
+    {
+        if (value.length()>0)
+        {
+            latestBackup = value;
+        }
+        else
+        {
+            latestBackup = QString();
+        }
+    //s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
+    }
+
     else
     {
            //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;
