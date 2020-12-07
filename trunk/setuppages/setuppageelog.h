@@ -40,8 +40,8 @@ public:
     //Clublog
     void setClubLogEmail(const QString &c);
     void setClubLogPassword(const QString &c);
-    void setClubLogActive(const bool _b);
-    void setClubLogRealTime(const QString &_s);
+    void setClubLogActive(const bool &_b);
+    void setClubLogRealTime(const bool &_s);
 
     QString getClubLogEmail();
     QString getClubLogPassword();
@@ -88,11 +88,11 @@ public:
 
 private slots:
 
-    void slotClubLogActive(bool _s);
-    void slotEQSLActive(bool _s);
-    void slotTQSLActive(bool _s);
-    void slotQRZCOMActive(bool _s);
-    void slotQRZCOMAuto(bool _s);
+    void slotClubLogActive(const bool _s);
+    void slotEQSLActive(const bool _s);
+    void slotTQSLActive(const bool _s);
+    void slotQRZCOMActive(const bool _s);
+    void slotQRZCOMAuto(const bool _s);
     void slotQRZCallTextChanged();
 
     void slotSelectTQSLClicked();

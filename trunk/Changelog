@@ -1,5 +1,4 @@
- TBD - 1.4
-
+December 2020 - 1.4
 - Improvement: Prepared the WSJTX-2.4 UDP interface.
 - Improvement: User data stored in the setup is know used in the QSOs (default power, station callsign).
 - Improved the KG4xx (Guantanamo bay) DXCC detection from KG4 calls.

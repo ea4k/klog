@@ -57,8 +57,8 @@ class SetupDialog : public QDialog
     Q_OBJECT
 
 public:
-    SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true);
-    SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
+    //SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true, QWidget *parent = nullptr);
+    SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true, QWidget *parent = nullptr);
     ~SetupDialog();
 
     void setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime=true);
@@ -147,6 +147,7 @@ private:
 
     Utilities *util;
     QString windowSize;
+    QString latestBackup;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
     int logSeverity;    // Manages as syslog, the severity of the application debug log
