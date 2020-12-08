@@ -52,7 +52,7 @@ public:
     // LoTW
     void setTQSLPath(const QString &c);
     QString getTQSLPath();
-    void setLoTWActive(const QString &_s);
+    void setLoTWActive(const bool &_s);
     QString getLoTWActive();
     void setLoTWUser(const QString &_s);
     QString getLoTWUser();

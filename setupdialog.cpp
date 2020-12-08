@@ -1165,7 +1165,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         eLogPage->setQRZCOMLogBookKEY(value);
     }
     else if(tab =="LOTWACTIVE"){
-        eLogPage->setLoTWActive(value);
+        eLogPage->setLoTWActive(util->trueOrFalse(value));
     }
     else if(tab =="LOTWPATH"){
         eLogPage->setTQSLPath(value);
