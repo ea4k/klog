@@ -460,7 +460,7 @@ QString MainQSOEntryWidget::getBand(const int _b)
     if (_b<0)
     {
         emit debugLog(Q_FUNC_INFO, "END", logSeverity);
-        qDebug() << "MainQSOEntryWidget::getBand(1): " << bandComboBox->currentText()<< endl;
+        //qDebug() << "MainQSOEntryWidget::getBand(1): " << bandComboBox->currentText()<< endl;
         return bandComboBox->currentText();
     }
     else
@@ -468,13 +468,13 @@ QString MainQSOEntryWidget::getBand(const int _b)
         if (bandComboBox->count()>=_b)
         {
             emit debugLog(Q_FUNC_INFO, "END-1", logSeverity);
-            qDebug() << "MainQSOEntryWidget::getBand(2): " << bandComboBox->currentText()<< endl;
+            //qDebug() << "MainQSOEntryWidget::getBand(2): " << bandComboBox->currentText()<< endl;
             return bandComboBox->itemText(_b);
         }
         else
         {
             emit debugLog(Q_FUNC_INFO, "END-2", logSeverity);
-            qDebug() << "MainQSOEntryWidget::getBand(3): " << bandComboBox->currentText()<< endl;
+            //qDebug() << "MainQSOEntryWidget::getBand(3): " << bandComboBox->currentText()<< endl;
             return bandComboBox->currentText();
         }
     }
