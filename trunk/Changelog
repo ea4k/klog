@@ -1,3 +1,6 @@
+December - 1.4.3
+- Bugfix: PJ7 flag was not being shown in the DXCC widget.
+
 December - 1.4.2
 - Bugfix: ADIF export was failing in some circunstances
 
