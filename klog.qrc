@@ -216,6 +216,7 @@
         <file>flags/sl.png</file>
         <file>flags/sm.png</file>
         <file>flags/smh.png</file>
+        <file>flags/smh.png</file>
         <file>flags/sn.png</file>
         <file>flags/so.png</file>
         <file>flags/sr.png</file>
@@ -263,5 +264,6 @@
         <file>flags/za.png</file>
         <file>flags/zm.png</file>
         <file>flags/zw.png</file>
+        <file>flags/shm.png</file>
     </qresource>
 </RCC>
