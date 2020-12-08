@@ -53,7 +53,7 @@ void StatsWorkedSentPieChartWidget::prepareChart()
 
 
     chart->addSeries(series);
-    chart->setTitle("Worked / Sent status");
+    chart->setTitle(tr("Worked / Sent status"));
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);
