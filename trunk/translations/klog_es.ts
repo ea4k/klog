@@ -1303,7 +1303,7 @@ Introduzca el indicativo de estación que fue usado en este QSO en %1:</translat
         <location filename="../filemanager.cpp" line="3021"/>
         <location filename="../filemanager.cpp" line="3046"/>
         <source>Click on Yes to add a default %1 for mode %2 to all QSOs with a similar problem.</source>
-        <translation>Pulsar en Si para añadir un %1 de forma predeterminada para el modo %2 en todos los QSOs con un prpoblema similar.</translation>
+        <translation type="unfinished">Pulsar en Si para añadir un %1 de forma predeterminada para el modo %2 en todos los QSOs con un problema similar.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3046"/>

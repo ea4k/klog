@@ -76,7 +76,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
     world = new World(dataProxy, klogDir, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
-    noMoreQso = false;  
+    noMoreQso = false;
     hashLogs.clear();
        //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << endl;
 }
@@ -171,10 +171,10 @@ void FileManager::showError (const QString &_txt)
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
 //QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly)
 {
-   //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << endl;
+    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << endl;
     QList<int> qsos;
     qsos.clear();
-
+    noMoreQso = false;
     if (_logN != -1)
     { // We will export data from ALL logs.
         if (!dataProxy->doesThisLogExist(_logN))
@@ -271,7 +271,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     }
     else
     {
-       //qDebug() << "FileManager::adifLogExportReturnList: Exporting normal ADIF" << endl;
+        //qDebug() << "FileManager::adifLogExportReturnList: Exporting normal ADIF" << endl;
         if (_callsign == "ALL")
         {
             queryStringCount = QString("SELECT COUNT (id) FROM log");
@@ -403,7 +403,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
     } // END OF WHILE
 
-   //qDebug() << "FileManager::adifLogExportReturnList: End: " << QString::number(qsos.count()) << endl;
+    //qDebug() << "FileManager::adifLogExportReturnList: End: " << QString::number(qsos.count()) << endl;
     progress.setValue(numberOfQsos);
     return qsos;
 }
@@ -416,6 +416,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
         //TODO: Warn the user NO QSOS TO EXPORT
        //qDebug() << "FileManager::adifQSOsExport: No QSOs received to be exported" << endl;
     }
+    noMoreQso = false;
    //qDebug() << "FileManager::adifQSOsExport - 01" << endl;
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -533,7 +534,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     QSqlQuery query1;
     int numberOfQsos = 0;
     int currentQso = 0;
-    //bool noMoreQso = false;
+    noMoreQso = false;
     int step = 1;
     //bool propsat=false; // Just to check if we have added the prop_mode needed by LOTW when SAT QSO
     //bool bandOK = false; // Just to check if the band is properly defined
@@ -1084,6 +1085,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
     //START reading QSO data...
    //qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
     QDate _tdate;
+    noMoreQso = false;
     while (!noMoreQso )
     {
         if (!file.atEnd())
