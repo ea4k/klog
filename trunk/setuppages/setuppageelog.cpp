@@ -227,6 +227,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     //qDebug() << "SetupPageELog::SetupPageELog - 00150" << endl;
     setDefaults();
     slotClubLogActive(false);
+    setLoTWActive(false);
     slotTQSLActive(false);
     slotEQSLActive(false);
     slotQRZCOMActive(false);
@@ -446,8 +447,7 @@ void SetupPageELog::slotEQSLActive(const bool _s)
 void SetupPageELog::slotTQSLActive(const bool _s)
 {    
     //qDebug() << "SetupPageELog::slotTQSLActive: " << util->boolToQString(_s) << endl;
-    lotwTQSLPathLineEdit->setEnabled(_s);
-    lotwSearchTQSLPushButton->setEnabled(_s);
+    setLoTWActive(_s);
 }
 
  // END of eQSL.CC
@@ -455,10 +455,14 @@ void SetupPageELog::slotTQSLActive(const bool _s)
  // Start of LoTW
 
 
-void SetupPageELog::setLoTWActive(const QString &_s)
+void SetupPageELog::setLoTWActive(const bool &_s)
 {
-    lotwTQSL = util->trueOrFalse(_s);
-    lotwUseTQSLCheckBox->setEnabled(lotwTQSL);
+    lotwTQSL = _s;
+    lotwUseTQSLCheckBox->setChecked(lotwTQSL);
+    lotwTQSLPathLineEdit->setEnabled(lotwTQSL);
+    lotwSearchTQSLPushButton->setEnabled(_s);
+    lotwUserLineEdit->setEnabled(_s);
+    lotwPasswordLineEdit->setEnabled(_s);
 }
 
 QString SetupPageELog::getLoTWActive()

@@ -1,8 +1,9 @@
 December - 1.4.3
 - Bugfix: PJ7 flag was not being shown in the DXCC widget.
+- Bugfix: Disabling LoTW made impossible to enable it again via the setup. (TNX G6YRK)
 
 December - 1.4.2
-- Bugfix: ADIF export was failing in some circunstances
+- Bugfix: ADIF export was failing in some circunstances.
 
 December - 1.4.1
 - Bugfix: Stat 01-QSO per year was not properly shown when returning from other stat. (TNX EA5WA)
