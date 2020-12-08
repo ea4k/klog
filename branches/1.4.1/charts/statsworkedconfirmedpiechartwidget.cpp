@@ -52,7 +52,7 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart()
     slice1->setBrush(Qt::blue);
 
     chart->addSeries(series);
-    chart->setTitle("Worked / Confirmed status");
+    chart->setTitle(tr("Worked / Confirmed status"));
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);

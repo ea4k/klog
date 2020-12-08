@@ -52,7 +52,7 @@ void StatsSentConfirmedPieChartWidget::prepareChart()
     slice1->setBrush(Qt::blue);
 
     chart->addSeries(series);
-    chart->setTitle("Sent / Confirmed status");
+    chart->setTitle(tr("Sent / Confirmed status"));
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);
