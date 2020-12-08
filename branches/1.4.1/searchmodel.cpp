@@ -1,0 +1,198 @@
+#include "searchmodel.h"
+
+SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
+{
+    //qDebug() << "SearchModel::SearchModel "  << endl;    
+    dataProxy = dp;
+    stationCallsignInHeader = true;
+    setTable("log");
+    setEditStrategy(QSqlTableModel::OnFieldChange);
+    dxcc = -1;
+    bandid = -1;
+    modeid = -1;
+    logn = -1;
+
+    award = new Awards(dataProxy, Q_FUNC_INFO);
+
+    //qDebug() << "SearchModel::SearchModel: Rows obtained: " << QString::number(rowCount())  << endl;
+    //qDebug() << "SearchModel::SearchModel - END"  << endl;
+}
+
+void SearchModel::setDXCCColumn(const int _i)
+{
+   dxcc = _i;
+}
+
+void SearchModel::setBandIdColumn(const int _i)
+{
+   bandid = _i;
+}
+
+void SearchModel::setModeIdColumn(const int _i)
+{
+    modeid = _i;
+}
+
+void SearchModel::setLogNColumn(const int _i)
+{
+    logn = _i;
+}
+
+void SearchModel::createSearchModel(const int _i)
+{
+/*
+    Log_Id = 0,
+    Log_Name = 1,
+    Log_BandId = 2,
+    Log_ModeId = 3,
+    Log_DateId = 4,
+    Log_TimeId = 5
+
+setRelation ( int column, const QSqlRelation & relation )
+
+    model->setTable("employee");
+    model->setRelation(2, QSqlRelation("city", "id", "name"));
+
+The setRelation() call specifies that column 2 in table employee
+is a foreign key that maps with field id of table city, and that
+the view should present the city's name field to the user.
+
+*/
+
+/*
+This should be coherent with the treeview
+*/
+
+      //qDebug() << "SearchModel::createSearchModel: log: " << QString::number(_i) << endl;
+
+   //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
+
+
+    QString stringQuery = QString("lognumber='%1'").arg(_i);
+    QSqlQuery query(stringQuery);   
+    setFilter(stringQuery);
+    //setColumnsToDX();
+    select();
+
+
+}
+void SearchModel::setStationCallsignInHeader(const bool _s)
+{
+    stationCallsignInHeader = _s;
+
+}
+
+/*
+ void SearchModel::setColumnsToDX()
+ {
+        //qDebug() << "SearchModel::setColumnsToDX"  << endl;
+
+     QSqlQuery q;
+
+     //QString stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log LIMIT 1");
+     QString stringQuery = QString("SELECT * FROM log _dateLIMIT 1");
+
+     QSqlRecord rec; // = q.record();
+
+     int nameCol;
+
+     bool sqlOK = q.exec(stringQuery);
+     if (!sqlOK)
+     {
+         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number(), q.lastQuery());
+
+     }
+    q.next();
+    rec = q.record(); // Number of columns
+    //qDebug() << "SearchModel::createSearchModel - query: " << q.lastQuery() << endl;
+    //qDebug() << "SearchModel::createSearchModel - columns: " << QString::number(rec.count()) << endl;
+
+     nameCol = rec.indexOf("bandid");
+     setRelation(nameCol, QSqlRelation("band", "id", "name"));
+
+     nameCol = rec.indexOf("modeid");     
+     setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
+
+     nameCol = rec.indexOf("qso_date");
+     setHeaderData(nameCol, Qt::Horizontal, tr("Date/Time"));
+
+     nameCol = rec.indexOf("call");
+     setHeaderData(nameCol, Qt::Horizontal,tr("QRZ"));
+
+     nameCol = rec.indexOf("bandid");
+     setHeaderData(nameCol, Qt::Horizontal, tr("Band"));
+
+     nameCol = rec.indexOf("modeid");
+     setHeaderData(nameCol, Qt::Horizontal, tr("Mode"));
+
+     nameCol = rec.indexOf("qsl_sent");
+     setHeaderData(nameCol, Qt::Horizontal, tr("QSL Sent"));
+
+     nameCol = rec.indexOf("qsl_rcvd");
+     setHeaderData(nameCol, Qt::Horizontal, tr("QSL Rcvd"));
+    if (stationCallsignInHeader)
+    {
+        nameCol = rec.indexOf("station_callsign");
+        setHeaderData(nameCol, Qt::Horizontal, tr("Station Callsign"));
+    }
+
+     nameCol = rec.indexOf("id");
+     //setHeaderData(nameCol, Qt::Horizontal, tr("ID"));
+
+     setSort(nameCol, Qt::AscendingOrder);   
+ }
+*/
+ void SearchModel::setFilterString(const QString &_st)
+ {
+    //qDebug() << "SearchModel::setFilterString: " << _st << endl;
+     setFilter(_st);
+     select();
+ }
+
+ void SearchModel::update()
+ {
+     select();
+ }
+
+ void SearchModel::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
+ {
+        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
+     // Just to pass the colors to the awards class
+     award->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
+ }
+
+QVariant SearchModel::data( const QModelIndex &index, int role ) const
+ {
+     if ( index.isValid() && role == Qt::ForegroundRole )
+     {
+         if ( index.column() == 2 )
+         {
+             //QString _qrz = data(index, Qt::DisplayRole).toString();
+             //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
+
+
+             QString _dxcc = index.siblingAtColumn(dxcc).data().toString();
+             QString _bandid = index.siblingAtColumn(bandid).data().toString();
+             QString _modeid = index.siblingAtColumn(modeid).data().toString();
+             QString _log = index.siblingAtColumn(logn).data().toString();
+
+
+             QStringList qs;
+             qs.clear();
+             qs << _dxcc << QString::number(dataProxy->getIdFromBandName(_bandid)) << "-1" << _log ;
+
+             //spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
+             //qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
+
+
+
+            return QVariant( award->getQRZDXStatusColor(qs) );
+            // return QVariant( QColor( Qt::red ) );
+         }
+         return QVariant( QColor( Qt::black ) );
+     }
+
+     return QSqlRelationalTableModel::data( index, role );
+ }
+
+
