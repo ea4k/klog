@@ -43,7 +43,7 @@ BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
      mLayout = new QVBoxLayout;
      mainWidget->setLayout(mLayout);
 
-     qsoPerYearBarChartWidget = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
+     qsoPerYearBarChartWidget = new StatsQSOsPerYearBarChartWidget(dataProxy, nullptr);
 
      QVBoxLayout *mainLayout = new QVBoxLayout;
      mainLayout->addWidget(mainWidget);
@@ -89,8 +89,8 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
         case 1:
     {
         //qsoPerYearBarChartWidget->prepareChart()
-        //genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, 0);
-        genchart = qsoPerYearBarChartWidget;
+        genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, nullptr);
+        //genchart = qsoPerYearBarChartWidget;
         mLayout->addWidget(genchart);
     }
         break;

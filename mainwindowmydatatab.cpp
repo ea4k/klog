@@ -58,6 +58,7 @@ MainWindowMyDataTab::~MainWindowMyDataTab(){}
 
 void MainWindowMyDataTab::createUI()
 {
+    qDebug() << "MainWindowMyDataTab::createUI: "  << endl;
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
@@ -117,16 +118,19 @@ void MainWindowMyDataTab::createUI()
 
 void MainWindowMyDataTab::clear()
 {
+    qDebug() << "MainWindowMyDataTab::clear: "  << endl;
     if (keepThisDataForNextQSORadiobutton->isChecked())
     {
-        myPowerSpinBox->setValue(lastPower);
-        operatorLineEdit->setText(lastOperatorQRZ.toUpper());
-        stationCallSignLineEdit->setText(lastStationQRZ.toUpper());
+        qDebug() << "MainWindowMyDataTab::clear: checked"  << endl;
+        //myPowerSpinBox->setValue(lastPower);
+        //operatorLineEdit->setText(lastOperatorQRZ.toUpper());
+        //stationCallSignLineEdit->setText(lastStationQRZ.toUpper());
         //qDebug() << "MainWindowMyDataTab::clear-1: setMyLocator: " << myLocator  << endl;
-        myLocatorLineEdit->setText(lastMyLocator);
+        //myLocatorLineEdit->setText(lastMyLocator);
     }
     else
     {        
+        qDebug() << "MainWindowMyDataTab::clear: NOT checked"  << endl;
         myPowerSpinBox->setValue(myPower);
         if (util->isValidCall(operatorQRZ))
         {
@@ -152,13 +156,12 @@ void MainWindowMyDataTab::clear()
         {
             myLocatorLineEdit->clear();
         }
-
     }
 }
 
 void MainWindowMyDataTab::show()
 {
-       //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
+    qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationQRZ);
@@ -168,7 +171,7 @@ void MainWindowMyDataTab::show()
 
 void MainWindowMyDataTab::slotMyLocatorTextChanged()
 {
-          //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
+     qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int cursorP = myLocatorLineEdit->cursorPosition();
     myLocatorLineEdit->setText(myLocatorLineEdit->text().toUpper());
@@ -282,6 +285,7 @@ QString MainWindowMyDataTab::getMyLocator()
 
 void MainWindowMyDataTab::setData(const double _power, const QString _stationQRZ, const QString _operator, const QString _myLocator)
 {
+    qDebug() << "MainWindowMyDataTab::setData: "  << endl;
     if (_power > 0.0)
     {
         myPower = _power;

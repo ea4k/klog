@@ -1,3 +1,8 @@
+TBD - 1.4.1
+
+- Bugfix: Stat 01-QSO per year was not properly shown when returning from other stat. (TNX EA5WA)
+- Bugfix: UpLink sat freq was not properly defined when exiting the setup.
+
 December 2020 - 1.4
 - Improvement: Prepared the WSJTX-2.4 UDP interface.
 - Improvement: User data stored in the setup is know used in the QSOs (default power, station callsign).
