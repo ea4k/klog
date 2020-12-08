@@ -8477,17 +8477,17 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="88"/>
         <source>Worked / Confirmed status</source>
-        <translation>Estado Trabajado / Confirmado</translation>
+        <translation>Trabajados / Confirmados</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="89"/>
         <source>Worked / Sent status</source>
-        <translation>Estado Trabajado / Enviado</translation>
+        <translation>Trabajados / Enviados</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="90"/>
         <source>Sent / Confirmed status</source>
-        <translation>Estado Enviado / Confirmado</translation>
+        <translation>Enviados / Confirmados</translation>
     </message>
 </context>
 <context>

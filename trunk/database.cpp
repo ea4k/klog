@@ -968,7 +968,7 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
 
 int DataBase::getBandIdFromName(const QString &b)
 {
-       //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
+    //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
     QSqlQuery query;
     if (isValidBand(b))
     {
@@ -1006,6 +1006,7 @@ int DataBase::getBandIdFromName(const QString &b)
     {
            //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << b << endl;
     }
+    qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << b << endl;
     query.finish();
     return -3;
 }
@@ -1398,7 +1399,12 @@ int DataBase::getBandIdFromFreq(const QString &fr)
 
 bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
 {//Freq should be in MHz
-       //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
+    qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
+    if (b.length()<2)
+    {
+        qDebug() << "DataBase::isThisFreqInBand returning false" << endl;
+        return false;
+    }
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIDFromName2(b);
        //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << endl;
@@ -1927,7 +1933,7 @@ QString DataBase::getSubModeNameFromID2(const int _i)
 
 bool DataBase::createBandModeMaps()
 {
-       //qDebug() << "DataBase::createBandModeMaps" << endl;
+    qDebug() << "DataBase::createBandModeMaps" << endl;
     bool b = false;
     bool m = false;
 
@@ -1941,36 +1947,37 @@ bool DataBase::createBandModeMaps()
              //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << endl;
         if (!b)
         {
-           //// emit debugLog(Q_FUNC_INFO, "1", 7);
+           //emit debugLog(Q_FUNC_INFO, "1", 7);
         }
         if (!m)
         {
-           //// emit debugLog(Q_FUNC_INFO, "2", 7);
+           //emit debugLog(Q_FUNC_INFO, "2", 7);
         }
+        qDebug() << "DataBase::createBandModeMaps END 1" << endl;
         return (b && m);
     }
     else
     {
-             //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << endl;
-       //// emit debugLog(Q_FUNC_INFO, "3", 7);
+        qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << endl;
+       //emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //return false;
-        //qDebug() << "DataBase::createBandModeMaps END" << endl;
+    qDebug() << "DataBase::createBandModeMaps END" << endl;
 }
 
 QString DataBase::getFreqFromBandId(const int _i)
 {
-        //qDebug() << "DataBase::getFreqFromBandId" << endl;
+    qDebug() << "DataBase::getFreqFromBandId" << endl;
 
     if (freqBandIdHash.contains(_i))
     {
-            //qDebug() << "DataBase::getFreqFromBandId OK END" << endl;
+        qDebug() << "DataBase::getFreqFromBandId OK END" << endl;
         return freqBandIdHash.value(_i);
     }
     else
     {
-            //qDebug() << "DataBase::getFreqFromBandId END-1" << endl;
+        qDebug() << "DataBase::getFreqFromBandId END-1" << endl;
         return "-1.0";
     }
         //qDebug() << "DataBase::getFreqFromBandId END-2" << endl;

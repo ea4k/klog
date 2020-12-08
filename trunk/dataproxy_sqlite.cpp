@@ -273,10 +273,10 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
-//        //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
+    //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
     if (_bandName.length()<1)
     {
-           //qDebug() << "DataProxy_SQLite::getIdFromBandName:-4: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
+            qDebug() << "DataProxy_SQLite::getIdFromBandName:-4: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
         return -4;
     }
 
@@ -285,7 +285,7 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 {
-       //qDebug() << "DataProxy_SQLite::getNameFromBandId: " << QString::number(_id) << endl;
+    qDebug() << "DataProxy_SQLite::getNameFromBandId: " << QString::number(_id) << endl;
     return db->getBandNameFromID2(_id);
 }
 
@@ -401,6 +401,7 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
 
 QString DataProxy_SQLite::getFreqFromBandId(const int _id)
 {
+    qDebug() << "DataProxy_SQLite::getFreqFromBandId: " << QString::number(_id) << endl;
     return db->getFreqFromBandId(_id);
 }
 
