@@ -42,7 +42,7 @@ class StatsQSOsPerMonthBarChartWidget : public StatsGeneralChartWidget
 public:
     StatsQSOsPerMonthBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
     StatsQSOsPerMonthBarChartWidget();
-    void prepareChart();
+    void prepareChart(const int _log=-1);
 
 signals:
 
@@ -57,4 +57,4 @@ private:
 
 };
 
-#endif // QSOSPERBANDBARCHARTWIDGET_H
+#endif // QSOSPERMONTHBARCHARTWIDGET_H

@@ -47,6 +47,7 @@ public:
     void setPropMode(const QString _qs);
     QString getPropModeFromComboBox();
     bool isSATPropagation();
+    //void setKeepProp(const bool _keep);
 
     void setIOTA(const QString _qs, const bool _black=true);
     QString getIOTA();
@@ -70,8 +71,10 @@ private:
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QLineEdit *iotaNumberLineEdit;
+    QCheckBox *keepPropCheckBox;
 
     QPalette palRed, palBlack;
+    //bool keepProp;
 };
 
 #endif // MAINWINDOWINPUTOTHERS_H

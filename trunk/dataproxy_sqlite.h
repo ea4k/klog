@@ -295,6 +295,9 @@ public:
     QString getADIFQSO(const int _qsoId);
     bool showInvalidCallMessage(const QString &_call);
 
+    QList<QSO*> getSatGridStats(int _log=-1);
+    QList<QSO*> getSatDXCCStats(int _log=-1);
+
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
     //bool queryExec();

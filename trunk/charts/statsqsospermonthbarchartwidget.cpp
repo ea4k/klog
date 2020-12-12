@@ -12,7 +12,7 @@ StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(DataProxy_SQLit
     chartView = new QChartView(chart);
 
     createUI();
-    prepareChart();
+    //prepareChart();
 }
 
 void StatsQSOsPerMonthBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerMonthBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerMonthBarChartWidget::prepareChart()
+void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
 {
 
     QString categoriesTitle;
@@ -61,7 +61,7 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart()
      aux.clear();
      for (int i = 0; i < categories.count(); i++ )
      {
-         numberPerX = dataProxy->getQSOsOnMonth(i+1, -1);
+         numberPerX = dataProxy->getQSOsOnMonth(i+1, _log);
             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX) << endl;
          *set0 << numberPerX;
          numberPerX = 0;
