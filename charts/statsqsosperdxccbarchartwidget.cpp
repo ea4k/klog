@@ -12,7 +12,7 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite 
     chartView = new QChartView(chart);
 
     createUI();
-    prepareChart();
+   // prepareChart();
 }
 
 void StatsQSOsPerDXCCBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerDXCCBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerDXCCBarChartWidget::prepareChart()
+void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
 {
 
     QString categoriesTitle;
@@ -67,7 +67,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart()
 
      for (int i = 0; i < entities.size(); ++i)
      {
-         qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), -1);
+         qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), _log);
          if (qsos>0)
          {
                 //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;

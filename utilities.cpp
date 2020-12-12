@@ -1135,6 +1135,18 @@ bool Utilities::isValidDateTimeFromString(const QString &_s)
     return getDateTimeFromSQLiteString(_s).isValid();
 }
 
+bool Utilities::isValidDXCC(const int _d)
+{//TODO: Look for a better way to check, taking into account how KLog is identifiying the DXCC
+    if (((_d > 0) && (_d < 523))  || (_d == 1206) || (_d == 1279) || (_d == 1248) || (_d == 2248) || (_d == 1259) || (_d == 1390))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 QDateTime Utilities::getDateTimeFromSQLiteString(const QString &_s)
 {
     return QDateTime::fromString(_s, "yyyy-MM-dd hh:mm:ss");

@@ -1,3 +1,10 @@
+TBD - 1.5
+UI: Removed the QComboBox of the Setup Log tab to select the log. (TNX G4MKT)
+Statistics: Added the Grids on Satellites statistics.
+Statistics: Added the DXCC on Satellites statistics.
+UI: Added a checkbox to keep the Propagation mode, if needed. (TNX EA5WA)
+Bugfix: The Log combobox on the Statistics was not working. (TNX EA5WA)
+
 December - 1.4.3
 - Bugfix: PJ7 flag was not being shown in the DXCC widget.
 - Bugfix: Disabling LoTW made impossible to enable it again via the setup. (TNX G6YRK)

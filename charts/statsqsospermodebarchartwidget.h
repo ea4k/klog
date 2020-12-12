@@ -40,9 +40,9 @@ class StatsQSOsPerModeBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsQSOsPerModeBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
+    StatsQSOsPerModeBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsQSOsPerModeBarChartWidget();
-    void prepareChart();
+    void prepareChart(const int _log=-1);
 
 signals:
 
@@ -57,4 +57,4 @@ private:
 
 };
 
-#endif // QSOSPERBANDBARCHARTWIDGET_H
+#endif // QSOSPERMODEBARCHARTWIDGET_H
