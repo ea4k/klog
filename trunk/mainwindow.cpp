@@ -610,10 +610,12 @@ void MainWindow::createActionsCommon(){
    connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
    connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
-   connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
+   connect(satTabWidget, SIGNAL(setPropModeSat(QString, bool)), this, SLOT(slotSetPropModeFromSat(QString, bool)) ) ;
    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+
+   connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
 
    connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
 
@@ -7155,7 +7157,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 nameCol = rec.indexOf("prop_mode");
                 aux1  = (query.value(nameCol)).toString();
-                othersTabWidget->setPropMode(aux1);                
+                othersTabWidget->setPropMode(aux1, false);
                 //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
                 infoLabel2->setText(world->getEntityName(currentEntity));
                 infoWidget->showEntityInfo(currentEntity);
@@ -7907,15 +7909,13 @@ void MainWindow::defineStationCallsign()
 
 }
 
-void MainWindow::slotSetPropMode(const QString &_p)
+void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 {
-                //qDebug() << "MainWindow::slotSetPropMode: " << _p << endl;
-    //if(modify)
-    //{
-    //    return;
-    //}
+                //qDebug() << "MainWindow::slotSetPropModeFromSat: " << _p << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    othersTabWidget->setPropMode(_p);
+    qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) << endl;
+
+    othersTabWidget->setPropMode(_p, _keep);
     if (_p == "SAT")
     {
         splitCheckBox->setChecked(true);
@@ -7930,7 +7930,13 @@ void MainWindow::slotSetPropMode(const QString &_p)
     //propModeComboBox->setCurrentIndex(indexC);
 }
 
-
+void MainWindow::slotSetPropModeFromOther(const QString &_p)
+{
+    if (!othersTabWidget->isSATPropagation())
+    {
+        satTabWidget->setNoSat();
+    }
+}
 
 void MainWindow::completeWithPreviousQSO(const QString &_call)
 {

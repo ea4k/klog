@@ -33,7 +33,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
     entitiesList.clear();
     propModeList.clear();
-
+    autoUpdating = false;
     dataProxy = dp;
     propModeList = dataProxy->getPropModeList();
 
@@ -50,7 +50,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-
+    connect(propModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
 
     createUI();
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << endl;
@@ -207,17 +207,21 @@ QString MainWindowInputOthers::getEntityPrefix()
     //return world->getQRZARRLId(pref);
 }
 
-void MainWindowInputOthers::setPropMode(const QString _qs)
+void MainWindowInputOthers::setPropMode(const QString _qs, bool _keep)
 {
       //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs << endl;
+    autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
         propModeComboBox->setCurrentIndex( propModeComboBox->findText(_qs+" -", Qt::MatchContains));
+        keepPropCheckBox->setChecked(_keep);
     }
     else
     {
         propModeComboBox->setCurrentIndex(0);
+        keepPropCheckBox->setChecked(false);
     }
+    autoUpdating = false;
 }
 
 QString MainWindowInputOthers::getPropModeFromComboBox()
@@ -388,4 +392,14 @@ Returns a valid format IOTA if possible and "" in other cases.
     {
         return QString();
     }
+}
+
+void MainWindowInputOthers::slotPropModeComboBoxChanged()
+{
+    if (autoUpdating)
+    {
+        return;
+    }
+    emit setPropMode(getPropModeFromComboBox());
+
 }
