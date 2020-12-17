@@ -784,22 +784,22 @@ Haluatko yrittää uudelleen?</translation>
         <translation>Kaikki QSO:t on päivitetty DXCC:llä ja mantereella.</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9096"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9144"/>
         <source>KLog - Invalid call detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9102"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9150"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9107"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9155"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9111"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9159"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1694,186 +1694,186 @@ Error returned: %2</source>
 <context>
     <name>LogWindow</name>
     <message>
-        <location filename="../logwindow.cpp" line="259"/>
+        <location filename="../logwindow.cpp" line="258"/>
         <source>QSL Send</source>
         <translation>QSL Lähetys</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="271"/>
+        <location filename="../logwindow.cpp" line="270"/>
         <source>QSL Rcvd</source>
         <translation>QSL Vastaanotettu</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="319"/>
+        <location filename="../logwindow.cpp" line="318"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Poista</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="321"/>
+        <location filename="../logwindow.cpp" line="320"/>
         <source>Delete a QSO</source>
         <translation>Poista QSO</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="324"/>
+        <location filename="../logwindow.cpp" line="323"/>
         <source>&amp;Edit QSO</source>
         <translation type="unfinished">&amp;Muokkaa QSO:ta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="326"/>
+        <location filename="../logwindow.cpp" line="325"/>
         <source>Edit this QSO</source>
         <translation>Muokkaa tätä QSO:ta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="329"/>
+        <location filename="../logwindow.cpp" line="328"/>
         <source>Via &amp;bureau</source>
         <translation>&amp;Bureau:n kautta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="331"/>
+        <location filename="../logwindow.cpp" line="330"/>
         <source>Send this QSL via bureau</source>
         <translation>Lähetä tämä QSO bureau:n kautta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="334"/>
+        <location filename="../logwindow.cpp" line="333"/>
         <source>D&amp;irect</source>
         <translation>D&amp;irect</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="336"/>
+        <location filename="../logwindow.cpp" line="335"/>
         <source>Send this QSL via direct</source>
         <translation>Lähetä tämä QSO Direct:in kautta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="339"/>
-        <location filename="../logwindow.cpp" line="385"/>
-        <location filename="../logwindow.cpp" line="393"/>
+        <location filename="../logwindow.cpp" line="338"/>
+        <location filename="../logwindow.cpp" line="384"/>
+        <location filename="../logwindow.cpp" line="392"/>
         <source>Via bureau</source>
         <translation>Bureau:n kautta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="341"/>
+        <location filename="../logwindow.cpp" line="340"/>
         <source>QSL &amp;received via bureau</source>
         <translation type="unfinished">QSL &amp;vastaanotettu bureau:n kautta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="344"/>
-        <location filename="../logwindow.cpp" line="389"/>
-        <location filename="../logwindow.cpp" line="397"/>
+        <location filename="../logwindow.cpp" line="343"/>
+        <location filename="../logwindow.cpp" line="388"/>
+        <location filename="../logwindow.cpp" line="396"/>
         <source>Direct</source>
         <translation>Direct</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="346"/>
+        <location filename="../logwindow.cpp" line="345"/>
         <source>QSL received via direc&amp;t</source>
         <translation>QSL vastaanotettu Direc&amp;t:in kautta</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="349"/>
+        <location filename="../logwindow.cpp" line="348"/>
         <source>Check in QRZ.com</source>
         <translation>Tarkista QRZ.com:ssa</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="351"/>
+        <location filename="../logwindow.cpp" line="350"/>
         <source>Check this callsign in QRZ.com</source>
         <translation>Tarkista tämä kutsutunnus QRZ.com:ssa</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="354"/>
+        <location filename="../logwindow.cpp" line="353"/>
         <source>Check in DXHeat.com</source>
         <translation>Tarkista DXHeat.com:ssa</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="356"/>
+        <location filename="../logwindow.cpp" line="355"/>
         <source>Check this callsign in DXHeat.com</source>
         <translation>Tarkista kutsutunnus DXHeat.com:ssa</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="359"/>
+        <location filename="../logwindow.cpp" line="358"/>
         <source>Delete selected QSOs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="361"/>
+        <location filename="../logwindow.cpp" line="360"/>
         <source>Delete the selected QSOs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="364"/>
+        <location filename="../logwindow.cpp" line="363"/>
         <source>Export to ADIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="365"/>
+        <location filename="../logwindow.cpp" line="364"/>
         <source>Export the selected QSOs to an ADIF file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="373"/>
+        <location filename="../logwindow.cpp" line="372"/>
         <source>Upload to LoTW</source>
         <translation type="unfinished">Lataa LoTW:iin</translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="374"/>
+        <location filename="../logwindow.cpp" line="373"/>
         <source>Upload the selected QSOs to LoTW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="377"/>
+        <location filename="../logwindow.cpp" line="376"/>
         <source>Upload to ClubLog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="378"/>
+        <location filename="../logwindow.cpp" line="377"/>
         <source>Upload the selected QSOs to ClubLog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="381"/>
+        <location filename="../logwindow.cpp" line="380"/>
         <source>Upload to eQSL.cc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="382"/>
+        <location filename="../logwindow.cpp" line="381"/>
         <source>Upload the selected QSOs to eQSL.cc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="386"/>
+        <location filename="../logwindow.cpp" line="385"/>
         <source>Send these QSLs via bureau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="390"/>
+        <location filename="../logwindow.cpp" line="389"/>
         <source>Send these QSLs via direct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="394"/>
+        <location filename="../logwindow.cpp" line="393"/>
         <source>QSLs received via bureau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="398"/>
+        <location filename="../logwindow.cpp" line="397"/>
         <source>QSLs received via direc&amp;t</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="401"/>
+        <location filename="../logwindow.cpp" line="400"/>
         <source>Select none</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="402"/>
+        <location filename="../logwindow.cpp" line="401"/>
         <source>Remove all selections</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="405"/>
+        <location filename="../logwindow.cpp" line="404"/>
         <source>Select all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logwindow.cpp" line="406"/>
+        <location filename="../logwindow.cpp" line="405"/>
         <source>Select all the QSOs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3067,6 +3067,16 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="7225"/>
+        <source>DX QTH locator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="7234"/>
+        <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="7371"/>
         <source>Filling QSOs ...</source>
         <translation type="unfinished"></translation>
@@ -3181,11 +3191,6 @@ Haluatko että KLog poistaa tiedoston?</translation>
         <location filename="../mainwindow.cpp" line="6438"/>
         <source>KLog - LoTW</source>
         <translation>KLog - LoTW</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="7225"/>
-        <source>My QTH locator.</source>
-        <translation>Minun QTH lokaattori.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5775"/>
@@ -3367,11 +3372,6 @@ UDP-palvelin ei onnistunut %1.</translation>
         <location filename="../mainwindow.cpp" line="6606"/>
         <source>Open File</source>
         <translation>Avaa Tiedosto</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="7234"/>
-        <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation>Minun QTH lokaattori, Tulisi olla muotoa Maidenhead, kuten IN70AA, enintään 10 merkkiä.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7317"/>
@@ -5471,42 +5471,42 @@ Jos porttia ei määritetä, Käytetään oletusarvoa 41112:</translation>
         <translation>Lokia ei ole poistettu (#1)</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="336"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="335"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="339"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="338"/>
         <source>Date</source>
         <translation>Päivämäärä</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="342"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="341"/>
         <source>Station Callsign</source>
         <translation>Aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="345"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="344"/>
         <source>Operators</source>
         <translation>Operaattorit</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="348"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="347"/>
         <source>Comments</source>
         <translation>Kommentit</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="534"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="533"/>
         <source>The new log could not be created.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="655"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="654"/>
         <source>An error has occurred showing the following error code:</source>
         <translation>On tapahtunut virhe seuraavalla koodilla:</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagelogs.cpp" line="658"/>
+        <location filename="../setuppages/setuppagelogs.cpp" line="657"/>
         <source>KLog - SetupPageLogs</source>
         <translation>KLog - Lokisivujen asetus</translation>
     </message>
@@ -6802,53 +6802,58 @@ Lokia ei avata.</translation>
 <context>
     <name>StatsDXCCOnSatsWidget</name>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="27"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="29"/>
         <source>Show confirmed only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="29"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="31"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="64"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="42"/>
+        <source>Number</source>
+        <translation type="unfinished">Numero</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="79"/>
         <source>QRZ</source>
         <translation type="unfinished">QRZ</translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="65"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="80"/>
         <source>Date</source>
         <translation type="unfinished">Päivämäärä</translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="66"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="81"/>
         <source>Band</source>
         <translation type="unfinished">Taajuusalue</translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="67"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="82"/>
         <source>Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="68"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="83"/>
         <source>DXCC</source>
         <translation type="unfinished">DXCC</translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="69"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="84"/>
         <source>Satellite</source>
         <translation type="unfinished">Satelliitti</translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="70"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="85"/>
         <source>Confirmed</source>
         <translation type="unfinished">Vahvistettu</translation>
     </message>
     <message>
-        <location filename="../charts/statsdxcconsatswidget.cpp" line="95"/>
+        <location filename="../charts/statsdxcconsatswidget.cpp" line="112"/>
         <source>No</source>
         <translation type="unfinished">Ei</translation>
     </message>
@@ -6894,53 +6899,58 @@ Lokia ei avata.</translation>
 <context>
     <name>StatsGridsOnSatsWidget</name>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="27"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="28"/>
         <source>Show confirmed only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="29"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="30"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="64"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
+        <source>Number</source>
+        <translation type="unfinished">Numero</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>
         <source>QRZ</source>
         <translation type="unfinished">QRZ</translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="65"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="84"/>
         <source>Date</source>
         <translation type="unfinished">Päivämäärä</translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="66"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="85"/>
         <source>Band</source>
         <translation type="unfinished">Taajuusalue</translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="67"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="86"/>
         <source>Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="68"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="87"/>
         <source>Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="69"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="88"/>
         <source>Satellite</source>
         <translation type="unfinished">Satelliitti</translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="70"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="89"/>
         <source>Confirmed</source>
         <translation type="unfinished">Vahvistettu</translation>
     </message>
     <message>
-        <location filename="../charts/statsgridsonsatswidget.cpp" line="95"/>
+        <location filename="../charts/statsgridsonsatswidget.cpp" line="116"/>
         <source>No</source>
         <translation type="unfinished">Ei</translation>
     </message>
@@ -7036,22 +7046,16 @@ Lokia ei avata.</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="53"/>
-        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
         <source>Reading data...</source>
         <translation>Luetaan tietoja...</translation>
     </message>
     <message>
-        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="96"/>
-        <source>Entity: </source>
-        <translation>Yksikkö: </translation>
-    </message>
-    <message>
-        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="119"/>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="137"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="120"/>
+        <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="138"/>
         <source>Top ten DXCC per QSO</source>
         <translation>Kymmenen parasta DXCC:tä QSOittain</translation>
     </message>

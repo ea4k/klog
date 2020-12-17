@@ -58,5 +58,6 @@ private:
     Utilities *util;
     QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
     int log;
+    QLabel *numberLabel;
 };
 #endif // STATSGRIDSONSATSWIDGET_H

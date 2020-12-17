@@ -61,21 +61,23 @@ void BarChartStats::cleanLayout()
 {
     qDebug() << Q_FUNC_INFO << endl;
 
-   // qDeleteAll(mainLayout->children());
     QLayoutItem *child;
-    while ((child = mLayout->takeAt(0)) != nullptr)
-    {
 
-        delete child;
+    while (mLayout->count()!=0)
+    {
+        child = mLayout->takeAt(0);
+        delete child->widget();
     }
+
+
     qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 
 void BarChartStats::prepareChart(const int _selection, const int _log)
 {
+    qDebug() << Q_FUNC_INFO << endl;
     cleanLayout();
-
 
     switch (_selection)
     {
@@ -184,5 +186,6 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
 
     genchart->prepareChart(_log);
     mLayout->addWidget(genchart);
+    qDebug() << Q_FUNC_INFO << " - END" << endl;
     //delete genchart;
 }

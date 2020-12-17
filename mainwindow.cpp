@@ -7222,7 +7222,7 @@ void MainWindow::slotLocatorTextChanged()
         dxLocator = (locatorLineEdit->text());
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
         satTabWidget->setLocator(dxLocator);
-        locatorLineEdit->setToolTip(tr("My QTH locator."));
+        locatorLineEdit->setToolTip(tr("DX QTH locator."));
                 //qDebug() << "MainWindow::slotLocatorTextChanged: " << locator->getLat(locatorLineEdit->text()) << endl;
                 //qDebug() << "MainWindow::slotLocatorTextChanged: LON: " << locator->getLon(locatorLineEdit->text()) << endl;
         //showInfoFromLocators(myLocator, dxLocator);
@@ -7231,7 +7231,7 @@ void MainWindow::slotLocatorTextChanged()
     {
           //qDebug() << "MainWindow::slotLocatorTextChanged: NOT VALID: " << locatorLineEdit->text() << endl;
         locatorLineEdit->setPalette(palRed);
-        locatorLineEdit->setToolTip(tr("My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
+        locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
         locatorLineEdit->setCursorPosition(cursorP);
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;

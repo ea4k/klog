@@ -56,6 +56,9 @@ private:
     QTableWidget *tableWidget;
     Utilities *util;
     QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
+    QLabel *numberLabel;
+    //QLCDNumber *numberQLCDNumber;
     int log;
+
 };
 #endif // STATSGRIDSONSATSWIDGET_H
