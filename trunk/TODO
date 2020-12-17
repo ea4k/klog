@@ -1,6 +1,8 @@
 TODO: Integrate HAMQTH https://www.hamqth.com/developers.php
 TODO:- New feature: Regional Award support: #include "setuppages/setuppagesubdivisions.h"
 
+TODO: Stat More frequently worked calls: "select log.call, count(log.call) from log group by log.call ORDER BY count(log.call) DESC"
+
 RC-BUGS:
 
 

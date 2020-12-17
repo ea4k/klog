@@ -783,19 +783,19 @@ msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9096
+#: ../dataproxy_sqlite.cpp:9144
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9102
+#: ../dataproxy_sqlite.cpp:9150
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported ADIF record?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9107
+#: ../dataproxy_sqlite.cpp:9155
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -803,7 +803,7 @@ msgid ""
 "callsign anyway (click on Yes) or remove the call from the exported log?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9111
+#: ../dataproxy_sqlite.cpp:9159
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -1711,182 +1711,182 @@ msgctxt "LogModel|"
 msgid "Comment"
 msgstr ""
 
-#: ../logwindow.cpp:259
+#: ../logwindow.cpp:258
 msgctxt "LogWindow|"
 msgid "QSL Send"
 msgstr ""
 
-#: ../logwindow.cpp:271
+#: ../logwindow.cpp:270
 msgctxt "LogWindow|"
 msgid "QSL Rcvd"
 msgstr ""
 
-#: ../logwindow.cpp:319
+#: ../logwindow.cpp:318
 msgctxt "LogWindow|"
 msgid "&Delete"
 msgstr ""
 
-#: ../logwindow.cpp:321
+#: ../logwindow.cpp:320
 msgctxt "LogWindow|"
 msgid "Delete a QSO"
 msgstr ""
 
-#: ../logwindow.cpp:324
+#: ../logwindow.cpp:323
 msgctxt "LogWindow|"
 msgid "&Edit QSO"
 msgstr ""
 
-#: ../logwindow.cpp:326
+#: ../logwindow.cpp:325
 msgctxt "LogWindow|"
 msgid "Edit this QSO"
 msgstr ""
 
-#: ../logwindow.cpp:329
+#: ../logwindow.cpp:328
 msgctxt "LogWindow|"
 msgid "Via &bureau"
 msgstr ""
 
-#: ../logwindow.cpp:331
+#: ../logwindow.cpp:330
 msgctxt "LogWindow|"
 msgid "Send this QSL via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:334
+#: ../logwindow.cpp:333
 msgctxt "LogWindow|"
 msgid "D&irect"
 msgstr ""
 
-#: ../logwindow.cpp:336
+#: ../logwindow.cpp:335
 msgctxt "LogWindow|"
 msgid "Send this QSL via direct"
 msgstr ""
 
-#: ../logwindow.cpp:339 ../logwindow.cpp:385 ../logwindow.cpp:393
+#: ../logwindow.cpp:338 ../logwindow.cpp:384 ../logwindow.cpp:392
 msgctxt "LogWindow|"
 msgid "Via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:341
+#: ../logwindow.cpp:340
 msgctxt "LogWindow|"
 msgid "QSL &received via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:344 ../logwindow.cpp:389 ../logwindow.cpp:397
+#: ../logwindow.cpp:343 ../logwindow.cpp:388 ../logwindow.cpp:396
 msgctxt "LogWindow|"
 msgid "Direct"
 msgstr ""
 
-#: ../logwindow.cpp:346
+#: ../logwindow.cpp:345
 msgctxt "LogWindow|"
 msgid "QSL received via direc&t"
 msgstr ""
 
-#: ../logwindow.cpp:349
+#: ../logwindow.cpp:348
 msgctxt "LogWindow|"
 msgid "Check in QRZ.com"
 msgstr ""
 
-#: ../logwindow.cpp:351
+#: ../logwindow.cpp:350
 msgctxt "LogWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr ""
 
-#: ../logwindow.cpp:354
+#: ../logwindow.cpp:353
 msgctxt "LogWindow|"
 msgid "Check in DXHeat.com"
 msgstr ""
 
-#: ../logwindow.cpp:356
+#: ../logwindow.cpp:355
 msgctxt "LogWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr ""
 
-#: ../logwindow.cpp:359
+#: ../logwindow.cpp:358
 msgctxt "LogWindow|"
 msgid "Delete selected QSOs"
 msgstr ""
 
-#: ../logwindow.cpp:361
+#: ../logwindow.cpp:360
 msgctxt "LogWindow|"
 msgid "Delete the selected QSOs"
 msgstr ""
 
-#: ../logwindow.cpp:364
+#: ../logwindow.cpp:363
 msgctxt "LogWindow|"
 msgid "Export to ADIF"
 msgstr ""
 
-#: ../logwindow.cpp:365
+#: ../logwindow.cpp:364
 msgctxt "LogWindow|"
 msgid "Export the selected QSOs to an ADIF file."
 msgstr ""
 
-#: ../logwindow.cpp:373
+#: ../logwindow.cpp:372
 msgctxt "LogWindow|"
 msgid "Upload to LoTW"
 msgstr ""
 
-#: ../logwindow.cpp:374
+#: ../logwindow.cpp:373
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to LoTW"
 msgstr ""
 
-#: ../logwindow.cpp:377
+#: ../logwindow.cpp:376
 msgctxt "LogWindow|"
 msgid "Upload to ClubLog"
 msgstr ""
 
-#: ../logwindow.cpp:378
+#: ../logwindow.cpp:377
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to ClubLog"
 msgstr ""
 
-#: ../logwindow.cpp:381
+#: ../logwindow.cpp:380
 msgctxt "LogWindow|"
 msgid "Upload to eQSL.cc"
 msgstr ""
 
-#: ../logwindow.cpp:382
+#: ../logwindow.cpp:381
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to eQSL.cc"
 msgstr ""
 
-#: ../logwindow.cpp:386
+#: ../logwindow.cpp:385
 msgctxt "LogWindow|"
 msgid "Send these QSLs via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:390
+#: ../logwindow.cpp:389
 msgctxt "LogWindow|"
 msgid "Send these QSLs via direct"
 msgstr ""
 
-#: ../logwindow.cpp:394
+#: ../logwindow.cpp:393
 msgctxt "LogWindow|"
 msgid "QSLs received via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:398
+#: ../logwindow.cpp:397
 msgctxt "LogWindow|"
 msgid "QSLs received via direc&t"
 msgstr ""
 
-#: ../logwindow.cpp:401
+#: ../logwindow.cpp:400
 msgctxt "LogWindow|"
 msgid "Select none"
 msgstr ""
 
-#: ../logwindow.cpp:402
+#: ../logwindow.cpp:401
 msgctxt "LogWindow|"
 msgid "Remove all selections"
 msgstr ""
 
-#: ../logwindow.cpp:405
+#: ../logwindow.cpp:404
 msgctxt "LogWindow|"
 msgid "Select all"
 msgstr ""
 
-#: ../logwindow.cpp:406
+#: ../logwindow.cpp:405
 msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr ""
@@ -3322,13 +3322,13 @@ msgstr ""
 
 #: ../mainwindow.cpp:7225
 msgctxt "MainWindow|"
-msgid "My QTH locator."
+msgid "DX QTH locator."
 msgstr ""
 
 #: ../mainwindow.cpp:7234
 msgctxt "MainWindow|"
 msgid ""
-"My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
+"DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
 #: ../mainwindow.cpp:7317
@@ -5477,42 +5477,42 @@ msgctxt "SetupPageLogs|"
 msgid "Log has not been removed. (#1)"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:336
+#: ../setuppages/setuppagelogs.cpp:335
 msgctxt "SetupPageLogs|"
 msgid "ID"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:339
+#: ../setuppages/setuppagelogs.cpp:338
 msgctxt "SetupPageLogs|"
 msgid "Date"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:342
+#: ../setuppages/setuppagelogs.cpp:341
 msgctxt "SetupPageLogs|"
 msgid "Station Callsign"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:345
+#: ../setuppages/setuppagelogs.cpp:344
 msgctxt "SetupPageLogs|"
 msgid "Operators"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:348
+#: ../setuppages/setuppagelogs.cpp:347
 msgctxt "SetupPageLogs|"
 msgid "Comments"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:534
+#: ../setuppages/setuppagelogs.cpp:533
 msgctxt "SetupPageLogs|"
 msgid "The new log could not be created."
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:655
+#: ../setuppages/setuppagelogs.cpp:654
 msgctxt "SetupPageLogs|"
 msgid "An error has occurred showing the following error code:"
 msgstr ""
 
-#: ../setuppages/setuppagelogs.cpp:658
+#: ../setuppages/setuppagelogs.cpp:657
 msgctxt "SetupPageLogs|"
 msgid "KLog - SetupPageLogs"
 msgstr ""
@@ -6807,54 +6807,59 @@ msgctxt "StatsCQZPerYearBarChartWidget|"
 msgid "Years: %1/%2"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:27
+#: ../charts/statsdxcconsatswidget.cpp:29
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Show confirmed only"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:29
+#: ../charts/statsdxcconsatswidget.cpp:31
 msgctxt ""
 "StatsDXCCOnSatsWidget|LEO means Low Earth Orbiting and it is a well known "
 "word for hams. Do not translate if not sure."
 msgid "Only LEO sats"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:64
+#: ../charts/statsdxcconsatswidget.cpp:42
+msgctxt "StatsDXCCOnSatsWidget|"
+msgid "Number"
+msgstr ""
+
+#: ../charts/statsdxcconsatswidget.cpp:79
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "QRZ"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:65
+#: ../charts/statsdxcconsatswidget.cpp:80
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Date"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:66
+#: ../charts/statsdxcconsatswidget.cpp:81
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Band"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:67
+#: ../charts/statsdxcconsatswidget.cpp:82
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Mode"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:68
+#: ../charts/statsdxcconsatswidget.cpp:83
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "DXCC"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:69
+#: ../charts/statsdxcconsatswidget.cpp:84
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Satellite"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:70
+#: ../charts/statsdxcconsatswidget.cpp:85
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Confirmed"
 msgstr ""
 
-#: ../charts/statsdxcconsatswidget.cpp:95
+#: ../charts/statsdxcconsatswidget.cpp:112
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "No"
 msgstr ""
@@ -6894,54 +6899,59 @@ msgctxt "StatsEntitiesPerYearBarChartWidget|"
 msgid "Entities: "
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:27
+#: ../charts/statsgridsonsatswidget.cpp:28
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Show confirmed only"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:29
+#: ../charts/statsgridsonsatswidget.cpp:30
 msgctxt ""
 "StatsGridsOnSatsWidget|LEO means Low Earth Orbiting and it is a well known "
 "word for hams. Do not translate if not sure."
 msgid "Only LEO sats"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:64
+#: ../charts/statsgridsonsatswidget.cpp:46
+msgctxt "StatsGridsOnSatsWidget|"
+msgid "Number"
+msgstr ""
+
+#: ../charts/statsgridsonsatswidget.cpp:83
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "QRZ"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:65
+#: ../charts/statsgridsonsatswidget.cpp:84
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Date"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:66
+#: ../charts/statsgridsonsatswidget.cpp:85
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Band"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:67
+#: ../charts/statsgridsonsatswidget.cpp:86
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Mode"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:68
+#: ../charts/statsgridsonsatswidget.cpp:87
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Grid"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:69
+#: ../charts/statsgridsonsatswidget.cpp:88
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Satellite"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:70
+#: ../charts/statsgridsonsatswidget.cpp:89
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Confirmed"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:95
+#: ../charts/statsgridsonsatswidget.cpp:116
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "No"
 msgstr ""
@@ -7028,22 +7038,16 @@ msgid "Abort reading"
 msgstr ""
 
 #: ../charts/statsqsosperdxccbarchartwidget.cpp:53
-#: ../charts/statsqsosperdxccbarchartwidget.cpp:96
 msgctxt "StatsQSOsPerDXCCBarChartWidget|"
 msgid "Reading data..."
 msgstr ""
 
-#: ../charts/statsqsosperdxccbarchartwidget.cpp:96
-msgctxt "StatsQSOsPerDXCCBarChartWidget|"
-msgid "Entity: "
-msgstr ""
-
-#: ../charts/statsqsosperdxccbarchartwidget.cpp:119
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:137
 msgctxt "StatsQSOsPerDXCCBarChartWidget|"
 msgid "DXCC"
 msgstr ""
 
-#: ../charts/statsqsosperdxccbarchartwidget.cpp:120
+#: ../charts/statsqsosperdxccbarchartwidget.cpp:138
 msgctxt "StatsQSOsPerDXCCBarChartWidget|"
 msgid "Top ten DXCC per QSO"
 msgstr ""

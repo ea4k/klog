@@ -10,6 +10,8 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
     util = new Utilities;
     confirmedOnlyCheckBox = new QCheckBox;
     onlyLEOSatCheckBox = new QCheckBox;
+    numberLabel = new QLabel;
+
     log = -1;
 
     //chart = new QChart();
@@ -23,7 +25,6 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
 
 void StatsGridsOnSatsWidget::createUI()
 {
-
     confirmedOnlyCheckBox->setText(tr("Show confirmed only"));
     confirmedOnlyCheckBox->setChecked(false);
     onlyLEOSatCheckBox->setText(tr("Only LEO sats", "LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure."));
@@ -33,10 +34,28 @@ void StatsGridsOnSatsWidget::createUI()
     tableWidget->setRowCount(0);
     tableWidget->setColumnCount(7);
 
+    tableWidget->resizeRowsToContents();
+    tableWidget->sortByColumn(2);
+    tableWidget->horizontalHeader()->setStretchLastSection(true);
+    //logView->sortByColumn(1);
+
+
+
+
+    QLabel *textLabel = new QLabel;
+    textLabel->setText(tr("Number"));
+    textLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    numberLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    numberLabel->setText(QString::number(0));
+
+    QHBoxLayout *labelLayout = new QHBoxLayout;
+    labelLayout->addWidget(textLabel);
+    labelLayout->addWidget(numberLabel);
+
     QHBoxLayout *checksLayout = new QHBoxLayout;
     checksLayout->addWidget(confirmedOnlyCheckBox);
     checksLayout->addWidget(onlyLEOSatCheckBox);
-
+    checksLayout->addLayout(labelLayout);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(checksLayout);
@@ -71,8 +90,10 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
     qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
 
+    int number = 0;
     if (_qsos.length()>0)
     {
+
         for (int i = 0; i<_qsos.length(); i++)
         {
             bool confirmed = false;
@@ -107,6 +128,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
 
             if (printThisOne)
             {
+                number++;
                 tableWidget->insertRow(tableWidget->rowCount());
                 tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem((_qsos.at(i)->getCall())) );
                 tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem( util->getDateSQLiteStringFromDate(_qsos.at(i)->getDate()) ) );
@@ -117,6 +139,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
                 tableWidget->setItem(tableWidget->rowCount()-1, 6, new QTableWidgetItem(qslStatus) );
             }
         }
+        numberLabel->setText(QString::number(number));
     }
 }
 

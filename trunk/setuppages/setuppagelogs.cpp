@@ -328,7 +328,6 @@ void SetupPageLogs::createLogsModel()
 
         int nameCol;
 
-        //logsModel = new QSqlRelationalTableModel(this);
         logsModel->setTable("logs");
 
         nameCol = rec.indexOf("id");

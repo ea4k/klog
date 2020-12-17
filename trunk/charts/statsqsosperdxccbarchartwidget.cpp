@@ -37,7 +37,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX = 0;
     chart->removeAllSeries();
     categoriesTitle = QString();
     categoriesElem = QString();
@@ -61,10 +61,26 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
 
      QMap<int, int> map; // key,value = number of QSO, dxcc
-     int qsos = -1;
+     //int qsos = -1;
      map.clear();
      aux.clear();
 
+     QList<QList<int>> data;
+     data.clear();
+    data <<  dataProxy->getTop10QSOPerDXCC(_log);
+    qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length()) << endl;
+
+    foreach(QList<int> pair, data)
+    {
+        map.insert(pair.at(0), pair.at(1));
+        qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0)) << endl;
+        qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1)) << endl;
+        categories.append(dataProxy->getEntityMainPrefix(pair.at(0)) + " (" + QString::number(pair.at(1)) + ")");
+        set0->append(pair.at(1));
+        //*set0 << pair.at(1);
+    }
+
+    /*
      for (int i = 0; i < entities.size(); ++i)
      {
          qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), _log);
@@ -103,11 +119,13 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
          }
          //qDebug() << "End of for iteration" << endl;
      }
-
+    */
+    /*
      QMapIterator<int, int> it(map);
      while (it.hasNext()) {
          it.next();
          categories.append(dataProxy->getEntityMainPrefix(it.value()));
+         qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value()) << endl;
 
          numberPerX = it.key();
          *set0 << numberPerX;
@@ -115,7 +133,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
             //qDebug() << "End of while iteration" << endl;
      }
         //qDebug() << "Out of while" << endl;
-
+    */
      categoriesElem = tr("DXCC");
      categoriesTitle = tr("Top ten DXCC per QSO");
 

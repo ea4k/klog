@@ -6350,6 +6350,54 @@ int DataProxy_SQLite::getQSOsInMode(const QString &_mode, const int _log)
     }
 }
 
+QList<QList<int>> DataProxy_SQLite::getTop10QSOPerDXCC(const int _log)
+{
+    qDebug() << Q_FUNC_INFO << " : " << QString::number(_log) << endl;
+    QList<QList<int>> result;
+    result.clear();
+    QSqlQuery query;
+    QString queryString;
+    if (_log <0)
+    {
+        queryString = "SELECT log.dxcc, COUNT(log.dxcc) FROM log GROUP BY log.dxcc ORDER BY COUNT(log.dxcc) DESC LIMIT 10";
+    }
+    else
+    {
+        queryString = QString("select log.dxcc, count(log.dxcc) from log WHERE log.lognumber = '%1' group by log.dxcc ORDER BY count(log.dxcc) DESC limit 10").arg(_log);
+    }
+    bool sqlOK = query.exec(queryString);
+    if (sqlOK)
+    {
+        QList<int> temp;
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+
+                temp.clear();
+                temp.append(query.value(0).toInt());
+                temp.append(query.value(1).toInt());
+                result.append(temp);
+                //_id = (query.value(nameCol)).toString();
+            }
+        }
+        return result;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return result;
+    }
+
+
+    qDebug() << Q_FUNC_INFO << " - END"  << endl;
+    return result;
+
+
+
+}
+
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 {
         //qDebug() << "DataProxy_SQLite::addNewLog: " << _qs.at(2) << "/" << _qs.at(5) << "/" << _qs.at(6) << endl;
