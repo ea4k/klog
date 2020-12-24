@@ -148,7 +148,7 @@ public:
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
-    void slotTest();        // Slot for testing purposes only
+    //void slotTest();        // Slot for testing purposes only
     void slotAWAImport();
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
@@ -226,8 +226,7 @@ private slots:
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
-    void slotSetPropModeFromOther(const QString &_p);
-    void slotSetPropModeFromSat(const QString &_p, bool _keep);
+    void slotSetPropMode(const QString &_p);
     void slotFillEmptyDXCCInTheLog();
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
@@ -519,7 +518,7 @@ private:
     QMenu *setupMenu;
     QMenu *helpMenu;
 
-    QAction *TestAct;       // Action for testing purposes only
+    //QAction *TestAct;       // Action for testing purposes only
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;

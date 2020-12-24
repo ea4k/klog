@@ -28,7 +28,7 @@
 #include "utilities.h"
 //#include <QDebug>
 
-DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
+DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction)
 {
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << endl;
 
@@ -2460,9 +2460,6 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     stringFields  = stringFields  + "qsl_via, ";
     stringData =  stringData + "'B', ";
 
-    stringFields  = stringFields  + "qsl_via, ";
-    stringData =  stringData + "'B', ";
-
     stringFields  = stringFields  + "lotw_qsl_sent, ";
     stringData =  stringData + "'Q', ";
 
@@ -4103,7 +4100,7 @@ int DataProxy_SQLite::getQSOsOnMonth(const int _month, const int _log)
     }
     else
     {
-        queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND qso_date LIKE '%-%2-%'").arg(_log).arg(aux);
+        queryString = QString("SELECT COUNT(DISTINCT id) FROM log Wwhere lognumber='%1' AND qso_date LIKE '%-%2-%'").arg(_log).arg(aux);
     }
 
     sqlOK = query.exec(queryString);
@@ -6348,54 +6345,6 @@ int DataProxy_SQLite::getQSOsInMode(const QString &_mode, const int _log)
         query.finish();
         return 0;
     }
-}
-
-QList<QList<int>> DataProxy_SQLite::getTop10QSOPerDXCC(const int _log)
-{
-    qDebug() << Q_FUNC_INFO << " : " << QString::number(_log) << endl;
-    QList<QList<int>> result;
-    result.clear();
-    QSqlQuery query;
-    QString queryString;
-    if (_log <0)
-    {
-        queryString = "SELECT log.dxcc, COUNT(log.dxcc) FROM log GROUP BY log.dxcc ORDER BY COUNT(log.dxcc) DESC LIMIT 10";
-    }
-    else
-    {
-        queryString = QString("select log.dxcc, count(log.dxcc) from log WHERE log.lognumber = '%1' group by log.dxcc ORDER BY count(log.dxcc) DESC limit 10").arg(_log);
-    }
-    bool sqlOK = query.exec(queryString);
-    if (sqlOK)
-    {
-        QList<int> temp;
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-
-                temp.clear();
-                temp.append(query.value(0).toInt());
-                temp.append(query.value(1).toInt());
-                result.append(temp);
-                //_id = (query.value(nameCol)).toString();
-            }
-        }
-        return result;
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        query.finish();
-        return result;
-    }
-
-
-    qDebug() << Q_FUNC_INFO << " - END"  << endl;
-    return result;
-
-
-
 }
 
 bool DataProxy_SQLite::addNewLog (const QStringList _qs)
@@ -9135,6 +9084,8 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
 
     ADIFqso.append("<EOR>");
 
+
+
     return ADIFqso;
 }
 
@@ -9171,172 +9122,6 @@ bool DataProxy_SQLite::showInvalidCallMessage(const QString &_call){
             // should never be reached
         return false;
     }
-}
-
-QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
-{
-    qDebug() << Q_FUNC_INFO << ": log = " << QString::number(_log) << endl;
-
-    QList<QSO*> _qsos;
-    QString stringQuery;
-    if (doesThisLogExist(_log))
-    {
-        qDebug() << Q_FUNC_INFO << ": log exists "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1' group by dxcc").arg(_log);
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << ": log does not exist "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' group by dxcc");
-    }
-
-    QSqlQuery query;
-    bool sqlOK = query.exec(stringQuery);
-    if (!sqlOK)
-    {
-        //qDebug() << Q_FUNC_INFO << ":  Query NOK" << endl;
-        //qDebug() << Q_FUNC_INFO << ":  " << query.lastError().databaseText() << endl;
-        //qDebug() << Q_FUNC_INFO << ":  " << query.lastQuery() << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        query.finish();
-        return _qsos;
-    }
-    else
-    {
-        while(query.next())
-        {
-            if (query.isValid())
-            {
-                int nameCol;
-                QSO *_qso = new QSO;
-                _qso->clear();
-
-                QSqlRecord rec = query.record();
-                nameCol = rec.indexOf("call");
-                _qso->setCall((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("qso_date");
-                _qso->setDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
-
-                nameCol = rec.indexOf("bandid");
-                //qDebug() << "DataProxy_SQLite::getGridStats: bandid" << QString::number((query.value(nameCol)).toInt()) << endl;
-                _qso->setBand(getNameFromBandId((query.value(nameCol)).toInt()));
-
-                nameCol = rec.indexOf("modeid");
-                //qDebug() << Q_FUNC_INFO << ": modeid" << QString::number((query.value(nameCol)).toInt()) << endl;
-                _qso->setMode(getNameFromModeId((query.value(nameCol)).toInt()));
-
-                nameCol = rec.indexOf("sat_name");
-                _qso->setSatName((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("dxcc");
-                _qso->setDXCC((query.value(nameCol)).toInt());
-
-                nameCol = rec.indexOf("lotw_qsl_rcvd");
-                _qso->setLoTWQSL_RCVD((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("qsl_rcvd");
-                _qso->setQSL_RCVD((query.value(nameCol)).toString());
-
-                _qsos.append(_qso);
-            }
-            else
-            {
-                _qsos.clear();
-                query.finish();
-                return _qsos;
-            }
-        }
-    }
-
-    //qDebug() << Q_FUNC_INFO << "- END" << endl;
-    return _qsos;
-}
-
-QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
-{
-    qDebug() << "DataProxy_SQLite::getGridStats: log = " << QString::number(_log) << endl;
-
-    QList<QSO*> _qsos;
-    QString stringQuery;
-    if (doesThisLogExist(_log))
-    {
-        qDebug() << "DataProxy_SQLite::getGridStats: log exists "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, substr(gridsquare, 1, 4), lotw_qsl_rcvd, qsl_rcvd, sat_name from log where gridsquare <>''  AND sat_name <>'' AND lognumber='%1' group by substr(gridsquare, 1, 4)").arg(_log);
-    }
-    else
-    {
-        qDebug() << "DataProxy_SQLite::getGridStats: log does not exist "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, substr(gridsquare, 1, 4), lotw_qsl_rcvd, qsl_rcvd, sat_name from log where gridsquare <>''  AND sat_name <>'' group by substr(gridsquare, 1, 4)");
-    }
-
-
-    QSqlQuery query;
-    bool sqlOK = query.exec(stringQuery);
-    if (!sqlOK)
-    {
-        //qDebug() << "DataProxy_SQLite::getGridStats:  Query NOK" << endl;
-        //qDebug() << "DataProxy_SQLite::getGridStats:  " << query.lastError().databaseText() << endl;
-        //qDebug() << "DataProxy_SQLite::getGridStats:  " << query.lastQuery() << endl;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        query.finish();
-        return _qsos;
-    }
-    else
-    {
-        while(query.next())
-        {
-            if (query.isValid())
-            {
-                int nameCol;
-                QSO *_qso = new QSO;
-                _qso->clear();
-
-                QSqlRecord rec = query.record();
-                nameCol = rec.indexOf("call");
-                _qso->setCall((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("qso_date");
-                _qso->setDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
-
-                nameCol = rec.indexOf("bandid");
-                //qDebug() << "DataProxy_SQLite::getGridStats: bandid" << QString::number((query.value(nameCol)).toInt()) << endl;
-                _qso->setBand(getNameFromBandId((query.value(nameCol)).toInt()));
-
-                nameCol = rec.indexOf("modeid");
-                //qDebug() << "DataProxy_SQLite::getGridStats: modeid" << QString::number((query.value(nameCol)).toInt()) << endl;
-                _qso->setMode(getNameFromModeId((query.value(nameCol)).toInt()));
-
-                nameCol = rec.indexOf("sat_name");
-                _qso->setSatName((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("substr(gridsquare, 1, 4)");
-                _qso->setGridSquare((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("lotw_qsl_rcvd");
-                _qso->setLoTWQSL_RCVD((query.value(nameCol)).toString());
-
-                nameCol = rec.indexOf("qsl_rcvd");
-                _qso->setQSL_RCVD((query.value(nameCol)).toString());
-
-                _qsos.append(_qso);
-                //qDebug() << "DataProxy_SQLite::getGridStats: call: " << _call << endl;
-                //qDebug() << "DataProxy_SQLite::getGridStats: band: " << _band << endl;
-                //qDebug() << "DataProxy_SQLite::getGridStats: mode: " << _mode << endl;
-
-            }
-            else
-            {
-                _qsos.clear();
-                query.finish();
-                return _qsos;
-            }
-        }
-        //qDebug() << "DataProxy_SQLite::addQSO:  Query OK" << endl;
-    }
-
-    //qDebug() << "DataProxy_SQLite::getGridStats - END" << endl;
-    return _qsos;
 }
 
 int DataProxy_SQLite::addQSO(QSO &_qso)

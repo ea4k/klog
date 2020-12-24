@@ -12,7 +12,7 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy
     chartView = new QChartView(chart);
 
     createUI();
-    //prepareChart();
+    prepareChart();
 }
 
 void StatsEntitiesPerYearBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsEntitiesPerYearBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
+void StatsEntitiesPerYearBarChartWidget::prepareChart()
 {
 
     QString categoriesTitle;
@@ -53,13 +53,13 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
 
        //qDebug() << "StatsEntitiesPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
        //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC " << endl;
-        categories.append(dataProxy->getOperatingYears(_log));
+        categories.append(dataProxy->getOperatingYears(-1));
         categoriesElem = tr("DXCC Entities");
         categoriesTitle = tr("DXCC Entities per year");
         aux.clear();
         for (int i = 0; i < categories.count();i++ )
         {
-            numberPerX = dataProxy->getDXCConYear((categories.at(i)).toInt(), _log);
+            numberPerX = dataProxy->getDXCConYear((categories.at(i)).toInt(), -1);
             *set0 << numberPerX;
             numberPerX = 0;
 

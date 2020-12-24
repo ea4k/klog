@@ -230,8 +230,6 @@ public:
     int getQSOsInBand(const QString &_band, const int _log);
     int getQSOsInMode(const QString &_mode, const int _log);
 
-    QList<QList<int>> getTop10QSOPerDXCC(const int _log);
-
     // Stats - end
 
 
@@ -296,9 +294,6 @@ public:
     void getFoundInLog(const QString &_txt, const int _log=-1);
     QString getADIFQSO(const int _qsoId);
     bool showInvalidCallMessage(const QString &_call);
-
-    QList<QSO*> getSatGridStats(int _log=-1);
-    QList<QSO*> getSatDXCCStats(int _log=-1);
 
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);

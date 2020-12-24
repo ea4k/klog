@@ -4,7 +4,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.5
+VERSION = 1.4.4
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -40,7 +40,6 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \
-    charts/statsdxcconsatswidget.h \
     elogqrzlog.h \
     eqslutilities.h \
     lotwutilities.h \
@@ -51,7 +50,7 @@ HEADERS += setupdialog.h \
     searchwindow.h \
     setuppages/setuppageelog.h \
     setuppages/setuppagesubdivisionnew.h \
-    setuppages/setuppagesubdivisions.h \    
+    setuppages/setuppagesubdivisions.h \
     widgets/adiflotwexportwidget.h \
     widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
@@ -114,7 +113,6 @@ HEADERS += setupdialog.h \
     charts/statsqsospermonthbarchartwidget.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
-	charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h
 
 message(Sources)
@@ -122,7 +120,6 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
-    charts/statsdxcconsatswidget.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \
@@ -134,7 +131,7 @@ SOURCES += main.cpp \
     setupdialog.cpp \
     setuppages/setuppageelog.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
-    setuppages/setuppagesubdivisions.cpp \    
+    setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
@@ -195,7 +192,6 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
-	charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp

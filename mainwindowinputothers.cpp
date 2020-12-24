@@ -33,10 +33,9 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
     entitiesList.clear();
     propModeList.clear();
-    autoUpdating = false;
+
     dataProxy = dp;
     propModeList = dataProxy->getPropModeList();
-
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
@@ -45,12 +44,11 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     entityNameComboBox = new QComboBox();
     propModeComboBox = new QComboBox();
     iotaNumberLineEdit = new QLineEdit();
-    keepPropCheckBox = new QCheckBox();
 
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-    connect(propModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
+
 
     createUI();
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << endl;
@@ -77,25 +75,17 @@ void MainWindowInputOthers::createUI()
     entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-    keepPropCheckBox->setText(tr("Keep propagation mode"));
-
     entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO."));
     entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO."));
     entityNameComboBox->setToolTip(tr("Select the entity for this QSO."));
     propModeComboBox->setToolTip(tr("Select the propagation mode for this QSO."));
     iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this QSO."));
     iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this QSO."));
-    keepPropCheckBox->setToolTip(tr("Keeps the same propagation mode for next QSO."));
 
     entityPrimDivComboBox->setEnabled(false);
     entitySecDivComboBox->setEnabled(false);
     entityNameComboBox->setEnabled(true);
     propModeComboBox->setEnabled(true);
-    keepPropCheckBox->setEnabled(true);
-
-    QHBoxLayout *keepLayout = new QHBoxLayout;
-    keepLayout->addWidget(propModeComboBox);
-    keepLayout->addWidget(keepPropCheckBox);
 
     QGridLayout *tabLayout = new QGridLayout;
     tabLayout->addWidget(entityNameLabel, 0, 0);
@@ -109,9 +99,7 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(iotaContinentComboBox, 3, 1);
     tabLayout->addWidget(iotaNumberLineEdit, 3, 2);
     tabLayout->addWidget(propModeLabel, 4, 0);
-    //tabLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
-    tabLayout->addLayout(keepLayout, 4, 1, 1, 2);
-
+    tabLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
 
     setLayout(tabLayout);
 
@@ -147,13 +135,9 @@ void MainWindowInputOthers::clear()
 {
       //qDebug() << "MainWindowInputOthers::clear" << endl;
     entityNameComboBox->setCurrentIndex(0);
-
+    propModeComboBox->setCurrentIndex(0);
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
-    if (!keepPropCheckBox->isChecked())
-    {
-      propModeComboBox->setCurrentIndex(0);
-    }
 }
 
 void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
@@ -207,21 +191,17 @@ QString MainWindowInputOthers::getEntityPrefix()
     //return world->getQRZARRLId(pref);
 }
 
-void MainWindowInputOthers::setPropMode(const QString _qs, bool _keep)
+void MainWindowInputOthers::setPropMode(const QString _qs)
 {
       //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs << endl;
-    autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
         propModeComboBox->setCurrentIndex( propModeComboBox->findText(_qs+" -", Qt::MatchContains));
-        keepPropCheckBox->setChecked(_keep);
     }
     else
     {
         propModeComboBox->setCurrentIndex(0);
-        keepPropCheckBox->setChecked(false);
     }
-    autoUpdating = false;
 }
 
 QString MainWindowInputOthers::getPropModeFromComboBox()
@@ -251,7 +231,6 @@ bool MainWindowInputOthers::isSATPropagation()
     }
 }
 
-
 void MainWindowInputOthers::clearIOTA()
 {
     iotaContinentComboBox->setCurrentIndex(0);
@@ -269,7 +248,7 @@ bool MainWindowInputOthers::isIOTAModified()
     {
         return false;
     }
-
+    return false;
 }
 
 void MainWindowInputOthers::setIOTA(const QString _qs, const bool _black)
@@ -392,14 +371,5 @@ Returns a valid format IOTA if possible and "" in other cases.
     {
         return QString();
     }
-}
-
-void MainWindowInputOthers::slotPropModeComboBoxChanged()
-{
-    if (autoUpdating)
-    {
-        return;
-    }
-    emit setPropMode(getPropModeFromComboBox());
-
+    return QString();
 }
