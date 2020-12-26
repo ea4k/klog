@@ -68,13 +68,13 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
      QList<QList<int>> data;
      data.clear();
     data <<  dataProxy->getTop10QSOPerDXCC(_log);
-    qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length()) << endl;
+    //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length()) << endl;
 
     foreach(QList<int> pair, data)
     {
         map.insert(pair.at(0), pair.at(1));
-        qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0)) << endl;
-        qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1)) << endl;
+        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0)) << endl;
+        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1)) << endl;
         categories.append(dataProxy->getEntityMainPrefix(pair.at(0)) + " (" + QString::number(pair.at(1)) + ")");
         set0->append(pair.at(1));
         //*set0 << pair.at(1);
@@ -125,7 +125,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
      while (it.hasNext()) {
          it.next();
          categories.append(dataProxy->getEntityMainPrefix(it.value()));
-         qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value()) << endl;
+         //qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value()) << endl;
 
          numberPerX = it.key();
          *set0 << numberPerX;

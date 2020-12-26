@@ -176,14 +176,14 @@ void MainWindowSatTab::createUI()
 
 void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
-    qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << satNameComboBox->currentText() << endl;
+    //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << satNameComboBox->currentText() << endl;
     if (modifying || (satNameComboBox->currentText().length()<4))
     {
         return;
     }
 
     int i = satNameComboBox->currentIndex();
-   qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
+   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
     //QString _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
 
     satNameLineEdit->clear();
@@ -821,14 +821,14 @@ void MainWindowSatTab::slotReturnPressed()
 
 void MainWindowSatTab::slotSatKeepThisDataClicked()
 {
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
     if (keepThisDataForNextQSOQcheckbox->isChecked())
     {
-        qDebug() << Q_FUNC_INFO << ": True" << endl;
+        //qDebug() << Q_FUNC_INFO << ": True" << endl;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": False" << endl;
+        //qDebug() << Q_FUNC_INFO << ": False" << endl;
     }
     slotSatNameComboBoxChanged();
 }

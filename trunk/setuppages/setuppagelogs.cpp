@@ -307,8 +307,8 @@ void SetupPageLogs::createLogsPanel()
     logsView->setColumnHidden(columns, false);
     columns = rec.indexOf("comment");
     logsView->setColumnHidden(columns, false);
-    //columns = rec.indexOf("logtype");
-    //logsView->setColumnHidden(columns, false);
+    columns = rec.indexOf("logtypen");
+    logsView->setColumnHidden(columns, false);
 
     logsView->setItemDelegate(new QSqlRelationalDelegate(this));
     logsView->setSelectionMode( QAbstractItemView::SingleSelection);
@@ -346,8 +346,8 @@ void SetupPageLogs::createLogsModel()
         nameCol = rec.indexOf("comment");
         logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Comments"));
 
-        //nameCol = rec.indexOf("logtype");
-        //logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Type"));
+        nameCol = rec.indexOf("logtypen");
+        logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("QSOs"));
 
         logsModel->select();
 }
@@ -668,7 +668,16 @@ void SetupPageLogs::setDefaultStationCallsign(const QString _p)
 
 void SetupPageLogs::setDefaultOperators(const QString _p)
 {
-       //qDebug() << "SetupPageLogs::setDefaultOperators: " << _p << endl;
+       //SetupPageLogs
     defaultOperators = _p;
 
+}
+
+void SetupPageLogs::showEvent(QShowEvent *event)
+{
+    //qDebug() << Q_FUNC_INFO << endl;
+
+    QWidget::showEvent(event);
+    dataProxy->updateQSONumberPerLog();
+    logsModel->select();
 }

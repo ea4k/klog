@@ -587,6 +587,11 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
         //stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << endl;
+        if (miscPage->getDupeTime()>0)
+        {
+            stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";" << endl;
+        }
+
         //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << endl;
         //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << endl;
         //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << endl;
@@ -921,6 +926,13 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="SENDEQSLBYDEFAULT"){
         miscPage->setSetEQSLByDefault(value);
     }
+    else if (tab=="DUPLICATEDQSOSLOT"){
+        if (value.toInt()>=0)
+        {
+            miscPage->setDupeTime(value.toInt());
+        }
+    }
+
     /*
     else if (tab=="PSTROTATORACTIVE"){
         interfacesWindowsPage->setSendToPSTRotator(value);
@@ -1122,7 +1134,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
 
     }else if(tab =="CLUBLOGACTIVE"){
         eLogPage->setClubLogActive(util->trueOrFalse(value));
-        //clubLogPage->setClubLog(value);
+
     }
     else if(tab =="CLUBLOGREALTIME"){
         //clubLogPage->setClubLogRealTime(value);

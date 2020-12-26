@@ -969,10 +969,11 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
 int DataBase::getBandIdFromName(const QString &b)
 {
     //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
+    QString band = b.toUpper();
     QSqlQuery query;
-    if (isValidBand(b))
+    if (isValidBand(band))
     {
-        QString queryString = QString("SELECT id FROM band WHERE name='%1'").arg(b);
+        QString queryString = QString("SELECT id FROM band WHERE name='%1'").arg(band);
 
         bool sqlOK = query.exec(queryString);
 
@@ -981,7 +982,7 @@ int DataBase::getBandIdFromName(const QString &b)
             query.next();
             if ( query.isValid() )
             {
-                     //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+                //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
                 int v = (query.value(0)).toInt();
                 query.finish();
                 return v;
@@ -989,7 +990,7 @@ int DataBase::getBandIdFromName(const QString &b)
             }
             else
             {
-                     //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
+                //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
                 query.finish();
                 return -1;
             }
@@ -1000,13 +1001,13 @@ int DataBase::getBandIdFromName(const QString &b)
             query.finish();
             return -2;
         }
-             //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
+        //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << b << endl;
+           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << band << endl;
     }
-    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << b << endl;
+    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << band << endl;
     query.finish();
     return -3;
 }
@@ -1268,8 +1269,10 @@ bool DataBase::isValidBand (const QString &b)
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
+    QString _band = b.toUpper();
+
     QSqlQuery query;
-    QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(b);
+    QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(_band);
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
@@ -1292,7 +1295,7 @@ bool DataBase::isValidBand (const QString &b)
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
     }
-   //// emit debugLog(Q_FUNC_INFO, "3", 7);
+   //emit debugLog(Q_FUNC_INFO, "3", 7);
     return false;
 }
 

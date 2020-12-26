@@ -59,7 +59,7 @@ void BarChartStats::createUI()
 
 void BarChartStats::cleanLayout()
 {
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
 
     QLayoutItem *child;
 
@@ -70,13 +70,13 @@ void BarChartStats::cleanLayout()
     }
 
 
-    qDebug() << Q_FUNC_INFO << " - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 
 void BarChartStats::prepareChart(const int _selection, const int _log)
 {
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
     cleanLayout();
 
     switch (_selection)
@@ -186,6 +186,6 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
 
     genchart->prepareChart(_log);
     mLayout->addWidget(genchart);
-    qDebug() << Q_FUNC_INFO << " - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
     //delete genchart;
 }

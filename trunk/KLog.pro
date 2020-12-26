@@ -51,8 +51,11 @@ HEADERS += setupdialog.h \
     searchwindow.h \
     setuppages/setuppageelog.h \
     setuppages/setuppagesubdivisionnew.h \
-    setuppages/setuppagesubdivisions.h \    
+    setuppages/setuppagesubdivisions.h \
     widgets/adiflotwexportwidget.h \
+    #widgets/advancedsearch/advancedsearchmodel.h \
+    #widgets/advancedsearch/advancedsearchwidget.h \
+    #widgets/advancedsearch/advancedsearchwindow.h \
     widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -114,7 +117,7 @@ HEADERS += setupdialog.h \
     charts/statsqsospermonthbarchartwidget.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
-	charts/statsgridsonsatswidget.h \
+    charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h
 
 message(Sources)
@@ -134,8 +137,11 @@ SOURCES += main.cpp \
     setupdialog.cpp \
     setuppages/setuppageelog.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
-    setuppages/setuppagesubdivisions.cpp \    
+    setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \
+    #widgets/advancedsearch/advancedsearchmodel.cpp \
+    #widgets/advancedsearch/advancedsearchwidget.cpp \
+    #widgets/advancedsearch/advancedsearchwindow.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     world.cpp \
