@@ -111,7 +111,7 @@ public:
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
-    QList<int> isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode);
+    QList<int> isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs);
     int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
@@ -233,7 +233,7 @@ public:
     QList<QList<int>> getTop10QSOPerDXCC(const int _log);
 
     // Stats - end
-
+    bool updateQSONumberPerLog();
 
     bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 

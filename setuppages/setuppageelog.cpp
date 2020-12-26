@@ -369,6 +369,7 @@ bool SetupPageELog::getClubLogActive()
 void SetupPageELog::setClubLogActive(const bool &_b)
 {
     clubLogActive = _b;
+    clubLogActiveCheckBox->setChecked(clubLogActive);
     clubLogActiveCheckBox->setEnabled(clubLogActive);
 }
 
@@ -432,6 +433,7 @@ bool SetupPageELog::getEQSLActive()
 void SetupPageELog::setEQSLActive(const bool _b)
 {
     eqslActive = _b;
+    eQSLActiveCheckBox->setChecked(eqslActive);
     eQSLActiveCheckBox->setEnabled(eqslActive);
 }
 
@@ -461,8 +463,8 @@ void SetupPageELog::setLoTWActive(const bool &_s)
     lotwUseTQSLCheckBox->setChecked(lotwTQSL);
     lotwTQSLPathLineEdit->setEnabled(lotwTQSL);
     lotwSearchTQSLPushButton->setEnabled(_s);
-    lotwUserLineEdit->setEnabled(_s);
-    lotwPasswordLineEdit->setEnabled(_s);
+    //lotwUserLineEdit->setEnabled(_s);
+    //lotwPasswordLineEdit->setEnabled(_s);
 }
 
 QString SetupPageELog::getLoTWActive()
@@ -560,6 +562,7 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
 {
     //qDebug() << "SetupPageELog::setQRZCOMActive " << endl;
     qrzcomActive = util->trueOrFalse(_s);
+    QRZCOMActiveCheckBox->setChecked(qrzcomActive);
     QRZCOMActiveCheckBox->setEnabled(qrzcomActive);
 }
 

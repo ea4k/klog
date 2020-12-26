@@ -88,6 +88,7 @@ signals:
 
 private:
     //void createActions();
+    void showEvent(QShowEvent *event);
     QStringList readLogs();
 
     void createLogsPanel();

@@ -38,12 +38,13 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-     //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
-      //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
+    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << endl;
+    //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
 
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = 7;
+    dupeSlotInSeconds = 0;
 
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
@@ -97,7 +98,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
      //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << endl;
      //qDebug() << "MainWindow::MainWindow: 00081" << endl;
     elogClublog = new eLogClubLog();
-     //qDebug() << "MainWindow::MainWindow: 00082" << endl;
+    //qDebug() << "MainWindow::MainWindow: 00082" << endl;
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
 
@@ -114,10 +115,12 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
      //qDebug() << "MainWindow::MainWindow: 00086" << endl;
     logWindow = new LogWindow(dataProxy, this);
-     //qDebug() << "MainWindow::MainWindow: 00087" << endl;
+    //qDebug() << "MainWindow::MainWindow: 00087" << endl;
 
-    searchWidget = new SearchWidget (dataProxy, this);
-     //qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
+    searchWidget = new SearchWidget(dataProxy, this);
+    //qDebug() << "MainWindow::MainWindow: 00087.1" << endl;
+    //advancedSearchWidget = new AdvancedSearchWidget(dataProxy, this);
+    //qDebug() << "MainWindow::MainWindow: 00087.2" << endl;
     infoWidget = new InfoWidget(dataProxy, this);
 
      //qDebug() << "MainWindow::MainWindow: 00088" << endl;
@@ -3268,7 +3271,7 @@ bool MainWindow::validCharactersInCall(const QString &_qrz)
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
@@ -3278,26 +3281,26 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }   
-    qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << endl;
 
     if (cleaning)
     {
-        qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
+        //qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-        qDebug() << "MainWindow::slotQRZTextChanged: MODIFY or Lenght < 1" << endl;
+        //qDebug() << "MainWindow::slotQRZTextChanged: MODIFY or Lenght < 1" << endl;
         qrzSmallModDontCalculate=false;
         logEvent(Q_FUNC_INFO, "END-6", logSeverity);
         return;
     }
 
-    qDebug()<< "MainWindow::slotQRZTextChanged: running ..." << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: running ..." << endl;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -3305,10 +3308,10 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
-    qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
     currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
-    qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
 
     dxE_CQz = world->getEntityCqz(currentEntity);
@@ -3333,7 +3336,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
-    qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
     {
         dxLocator = (locatorLineEdit->text()).toUpper();
@@ -3343,36 +3346,36 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         dxLocator = world->getLocator(currentEntity);
     }
 
-    qDebug() << "MainWindow::slotQRZTextChanged: Going to check the DXCC" << endl;
-    qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: Going to check the DXCC" << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
-            qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
             previousEntity = currentEntity;
             InValidCharsInPrevCall = false;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-             qDebug() << "MainWindow:: - calling showStatusOfDXCC-03 " << endl;
+             //qDebug() << "MainWindow:: - calling showStatusOfDXCC-03 " << endl;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
-            qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
-           qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
+           //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
         }
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : "  << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : "  << endl;
 
     completeWithPreviousQSO(_qrz);
     searchWidget->setCallToSearch(_qrz);
@@ -3383,7 +3386,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
     //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
 /*
@@ -3543,7 +3546,7 @@ void MainWindow::slotClearButtonClicked()
 
 void MainWindow::clearUIDX(bool full)
 {
-    qDebug() << "MainWindow::clearUIDX: " << util->boolToQString(full) << endl;
+    //qDebug() << "MainWindow::clearUIDX: " << util->boolToQString(full) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //SRXLineEdit->setText("59");
     //STXLineEdit->setText("59");
@@ -3575,7 +3578,7 @@ void MainWindow::clearUIDX(bool full)
     //    rxFreqSpinBox->setValue(0);
     //}
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug() << "MainWindow::clearUIDX - END" << endl;
+    //qDebug() << "MainWindow::clearUIDX - END" << endl;
 
 }
 
@@ -3701,7 +3704,7 @@ void MainWindow::createMenusCommon()
     //connect(awardAddAct , SIGNAL(triggered()), this, SLOT(slotAWAImport()));
     //awardAddAct ->setToolTip(tr("Import an Award file."));
 
-    TestAct = new QAction(tr("TEST: Check duplicates ..."), this);
+    TestAct = new QAction(tr("TEST: Advanced search ..."), this);
     fileMenu->addAction(TestAct);
     connect(TestAct, SIGNAL(triggered()), this, SLOT(slotTest()));
 
@@ -3993,8 +3996,10 @@ void MainWindow::slotCloseStats(bool _vis)
 void MainWindow::slotTest()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //qDebug() << Q_FUNC_INFO << endl;
 
-
+    //advancedSearchWidget->show();
+    //qDebug() << Q_FUNC_INFO << " - END "<< endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -5069,6 +5074,15 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         eQSLTabWidget->setQueueSentByDefault(util->trueOrFalse(value));
     }
+    else if (field=="DUPLICATEDQSOSLOT"){
+        if (value.toInt()>=0)
+        {
+            dupeSlotInSeconds = value.toInt();
+            filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
+            mainQSOEntryWidget->setDuplicatedQSOSlot(dupeSlotInSeconds);
+        }
+    }
+
     else if (field=="COMPLETEWITHPREVIOUS")
     {
         completeWithPrevious  = util->trueOrFalse(value);
@@ -7262,7 +7276,7 @@ void MainWindow::slotMyLocatorTextChanged(const QString _loc)
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
 {
-    qDebug() << "MainWindow::showStatusOfDXC: Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
+    //qDebug() << "MainWindow::showStatusOfDXC: Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << ModeId << lognumber;
@@ -7284,7 +7298,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
         slotShowInfoLabel("--");
         //infoLabel1->setText("--");
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-        qDebug() << "MainWindow::showStatusOfDXCC -- END" << endl;
+        //qDebug() << "MainWindow::showStatusOfDXCC -- END" << endl;
         return;
     }
     // Set the status bar with the appropriate message
@@ -7298,7 +7312,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     //infoLabel1->setText(message);
     //infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
     infoWidget->showInfo((_qs.at(0)).toInt());
-    qDebug() << "MainWindow::showStatusOfDXC: -END" << endl;
+    //qDebug() << "MainWindow::showStatusOfDXC: -END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -7913,7 +7927,7 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 {
                 //qDebug() << "MainWindow::slotSetPropModeFromSat: " << _p << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) << endl;
+    //qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) << endl;
 
     othersTabWidget->setPropMode(_p, _keep);
     if (_p == "SAT")
@@ -8367,7 +8381,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             }
 
         }
-
+        bool saveThisQSO = true;
         if (logTheQso)
         {
               //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
@@ -8380,6 +8394,42 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             {
                 _myLoc = myDataTabWidget->getMyLocator();
             }
+            if ((_band>=1) && (_mode>=1))
+            {
+
+            }
+            if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, _dxcall, _datetime,  dataProxy->getBandIdFromFreq(_freq),  dataProxy->getIdFromModeName(_mode), dupeSlotInSeconds)).length()>1)
+            {
+
+                QMessageBox msgBox;
+                msgBox.setWindowTitle(tr("KLog - WSJTX Dupe QSO"));
+
+                msgBox.setIcon(QMessageBox::Warning);
+                QString aux = tr("This QSO seems to be duplicated. Do you want to save or discard it?");
+                msgBox.setText(aux);
+                msgBox.setDetailedText(tr("Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings."));
+                msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard );
+
+                msgBox.setDefaultButton(QMessageBox::Save);
+                int ret = msgBox.exec();
+                switch (ret)
+                {
+                    case QMessageBox::Save:
+                        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
+
+                    break;
+                    case QMessageBox::Discard:
+                        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
+                        return; //No more error shown
+                      //  break;
+                    default:
+                    // should never be reached
+                        logEvent(Q_FUNC_INFO, "END-3", logSeverity);
+                    return;   // The user wants to keepseeing errors
+                    //break;
+                }
+
+            }
 
 
             qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall, _mode, _band,  _freq,
@@ -8391,7 +8441,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
             if (qsoLogged)
             {
-                qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
+                //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
                 actionsJustAfterAddingOneQSO();
                 infoLabel1T = infoLabel1->text();
                 infoLabel2T = infoLabel2->text();

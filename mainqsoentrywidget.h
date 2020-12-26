@@ -65,6 +65,8 @@ public:
     void selectDefaultBand(const bool _init = false);
     void selectDefaultMode(const bool _init = false);
 
+    void setDuplicatedQSOSlot (const int _secs);
+
     void clear();
 
 protected:
@@ -96,7 +98,7 @@ private:
 
     bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
-
+    void checkIfDupe();
 
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
@@ -124,6 +126,8 @@ private:
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Utilities *util;
     QPalette::ColorRole enabledCR, disabledCR;
+
+    int duplicatedQSOSlotInSecs;
 };
 
 #endif // MAINQSOENTRYWIDGET_H

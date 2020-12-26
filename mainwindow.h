@@ -78,6 +78,7 @@
 #include "eqslutilities.h"
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
+//#include "widgets/advancedsearch/advancedsearchwidget.h"
 //#include "worldmapwidget.h"
 
 
@@ -140,11 +141,12 @@ class MainWindow : public  QMainWindow
 
 public:
     MainWindow(const QString &_klogDir, const QString &tversion);
+    ~MainWindow();
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
 
-     ~MainWindow();
+
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
@@ -672,6 +674,8 @@ private:
     SearchWidget *searchWidget;
     InfoWidget *infoWidget;
 
+    //AdvancedSearchWidget *advancedSearchWidget;
+
     bool keepSatPage;
 
     // UI DX
@@ -696,6 +700,7 @@ private:
     QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
     QString softwareVersion;
     bool itIsANewversion;
+    int dupeSlotInSeconds;
 
 
     //QString currentQrz;

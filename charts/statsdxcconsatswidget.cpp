@@ -4,7 +4,7 @@
 
 StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-     qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << endl;
+     //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << endl;
 
     dataProxy = dp;
     util = new Utilities;
@@ -65,7 +65,7 @@ void StatsDXCCOnSatsWidget::createUI()
 
 void StatsDXCCOnSatsWidget::prepareChart(const int _log)
 {
-    qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << endl;
+    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << endl;
 
     while(tableWidget->rowCount()>0)
     {
@@ -84,7 +84,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
     tableWidget->setHorizontalHeaderItem(5, new QTableWidgetItem(tr("Satellite")));
     tableWidget->setHorizontalHeaderItem(6, new QTableWidgetItem(tr("Confirmed")));
     tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
-    qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
+    //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
 
     int number = 0;
 
