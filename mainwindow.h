@@ -150,7 +150,7 @@ public:
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
-    void slotTest();        // Slot for testing purposes only
+    //void slotTest();        // Slot for testing purposes only
     void slotAWAImport();
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
@@ -177,7 +177,6 @@ private slots:
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
     void slotLoTWDownloadedFileProcess(const QString &_fn);
-    //void slotLoTWTest();
 
     void slotClubLogLogUpload();
     void sloteQSLLogUpload();
@@ -521,7 +520,7 @@ private:
     QMenu *setupMenu;
     QMenu *helpMenu;
 
-    QAction *TestAct;       // Action for testing purposes only
+    //QAction *TestAct;       // Action for testing purposes only
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;

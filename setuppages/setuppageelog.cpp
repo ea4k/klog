@@ -111,7 +111,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QRZCOMPasswordLabel = new QLabel(tr("Password"));
     QRZCOMActiveCheckBox = new QCheckBox(tr("Activate QRZ.com"), this);
     QRZCOMAutoCheckCheckBox = new QCheckBox(tr("Check automatically"), this);
-    QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all QRZ as they are entered"));
+    QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all Calls as they are entered"));
     //qDebug() << "SetupPageELog::SetupPageELog - 00050" << endl;
 
     QRZLogBookKeyLabel = new QLabel(tr("LogBook Key"));

@@ -167,6 +167,10 @@ bool World::create(const QString &_worldFile)
     }
     if (created)
     {
+        created = insertSpecialEntities();
+    }
+    if (created)
+    {
         //dataProxy->updateISONames();
         if (dataProxy->updateISONames())
         {
@@ -1238,6 +1242,8 @@ bool World::readCTYCSV(const QString &_worldFile)
     queryP.prepare("INSERT INTO prefixesofentity (id, prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?, ?)");
 
     QSqlDatabase::database().transaction();
+    QStringList T9StringList;
+    T9StringList.clear();
 
     QStringList stringList, stringListPrefixes, stringListProcessedPrefix;
 
@@ -1297,7 +1303,7 @@ bool World::readCTYCSV(const QString &_worldFile)
         if (stringList.size()>=8 )
         {
 
-//(id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)
+        //(id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)
 
             query.addBindValue(QVariant(QVariant::Int));
             query.addBindValue(stringList.at(1)); // name
@@ -1310,6 +1316,7 @@ bool World::readCTYCSV(const QString &_worldFile)
             //query.addBindValue(stringList.at(2)); // dxcc
             query.addBindValue(entityNumber); // dxcc
             query.addBindValue(stringList.at(0)); // Mainprefix
+
 
                //qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1) << endl;
                //qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4) << endl;
@@ -1328,12 +1335,12 @@ bool World::readCTYCSV(const QString &_worldFile)
             }
             else if (query.lastError().number() == 19)
             {
-                   //qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1)  << endl;
+               //qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1)  << endl;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             }
             else
             {
-                   //qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1)  << endl;
+                //qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1)  << endl;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 //errorCode = query.lastError().number();
 
@@ -1374,20 +1381,18 @@ bool World::readCTYCSV(const QString &_worldFile)
                         prefAux.remove(0,1);
                     }
 
-                    //queryP.addBindValue(prefAux);
                     queryP.addBindValue(stringListProcessedPrefix.at(0));
-                    //queryP.addBindValue(stringList.at(2));
-                    //queryP.addBindValue(stringList.at(4));
-                    //queryP.addBindValue(stringList.at(5));
-
-                    //queryP.addBindValue(stringList.at(2));
                     queryP.addBindValue(entityNumber);
                     queryP.addBindValue(stringListProcessedPrefix.at(1));
                     queryP.addBindValue(stringListProcessedPrefix.at(2));
 
                     if (queryP.exec())
-                    {
+                    {// T9 is the former prefix of Bosnia and Herzegovina; it moved to E7 on 7 August 2007.
+                     // YZ and 4N belonged to Yugoslavia, along with 4O (which went to successor state Montenegro)
+                     // YT and YU (which went to successor state Serbia)
                            //qDebug()  << "World::readCTYCSV(): Prefix added: " << stringListPrefixes.at(i) << endl;
+
+
                     }
                     else if (queryP.lastError().number() == 19)
                     {}
@@ -1413,6 +1418,7 @@ bool World::readCTYCSV(const QString &_worldFile)
         progress.setLabelText("Reading cty.csv ... \nNow reading " + currentPrefix + " data");
           //qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition) << endl;
     }
+
 
     QSqlDatabase::database().commit();
 
@@ -1577,4 +1583,82 @@ QStringList World::getEntitiesNames()
 int World::getHowManyEntities()
 {
     return dataProxy->getHowManyEntities();
+}
+
+bool World::insertSpecialEntities()
+{ //https://en.wikipedia.org/wiki/Non-ITU_prefix
+    //qDebug() << Q_FUNC_INFO << endl;
+    // T9 to E7
+    // 4N & YZ to 4O
+    int entityID = dataProxy->getEntityIdFromMainPrefix("E7");
+    int cqz = dataProxy->getCQZFromId(entityID);
+    int ituz = dataProxy->getITUzFromEntity(entityID);
+    QString queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("T9").arg(entityID).arg(cqz).arg(ituz);
+    QSqlQuery query;
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        query.finish();
+        //qDebug() << Q_FUNC_INFO << " : T9 not added " << endl;
+        return false;
+    }
+    entityID = dataProxy->getEntityIdFromMainPrefix("4O");
+    cqz = dataProxy->getCQzFromEntity(entityID);
+    ituz = dataProxy->getITUzFromEntity(entityID);
+    queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("4N").arg(entityID).arg(cqz).arg(ituz);
+
+    sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        query.finish();
+        //qDebug() << Q_FUNC_INFO << " : 4N not added " << endl;
+        return false;
+    }
+    queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("YZ").arg(entityID).arg(cqz).arg(ituz);
+
+    sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        query.finish();
+        //qDebug() << Q_FUNC_INFO << " : YZ not added " << endl;
+        return false;
+    }
+
+
+
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
+
+}
+
+bool World::hasSpecialEntities()
+{ // Checks if T9 is added to the list of prefixes to validate if special prefixes have been added.
+    //qDebug() << Q_FUNC_INFO << endl;
+    QString queryString = QString("SELECT dxcc from prefixesofentity WHERE prefix='T9'");
+    QSqlQuery query;
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            if ((query.value(0)).toInt()>1)
+            {
+                query.finish();
+                return true;
+            }
+        }
+
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+
+    }
+    query.finish();
+    return false;
+
 }

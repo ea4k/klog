@@ -80,7 +80,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     QList<QSO*> _qsos;
     _qsos.clear();
     _qsos << dataProxy->getSatGridStats(log);
-    tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("QRZ")));
+    tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Call")));
     tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Date")));
     tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Band")));
     tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem(tr("Mode")));
@@ -91,6 +91,8 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     //qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
 
     int number = 0;
+    QStringList grids;
+    grids.clear();
     if (_qsos.length()>0)
     {
 
@@ -125,9 +127,14 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
             {
                 printThisOne = false;
             }
+            if (grids.contains((_qsos.at(i)->getGridSquare()).left(4)))
+            {
+                printThisOne = false;
+            }
 
             if (printThisOne)
             {
+                grids.append((_qsos.at(i)->getGridSquare()).left(4));
                 number++;
                 tableWidget->insertRow(tableWidget->rowCount());
                 tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem((_qsos.at(i)->getCall())) );
