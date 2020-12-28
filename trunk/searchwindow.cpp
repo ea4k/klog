@@ -82,12 +82,12 @@ void SearchWindow::createUI()
     QStringList labels;
     if (showStationCallsignInHeader)
     {
-        labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
+        labels << tr("Call") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
         //treeView->setColumnCount(8);
     }
     else
     {
-       labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
+       labels << tr("Call") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
        //treeView->setColumnCount(7);
     }
 
@@ -126,8 +126,7 @@ void SearchWindow::setStationCallsignInHeader(const bool _h)
 {
     showStationCallsignInHeader = _h;
     setColumnsToDX();
-    //labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
-    //labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
+
 }
 
 void SearchWindow::createlogPanel(const int _currentLog)
@@ -165,7 +164,7 @@ void SearchWindow::createlogPanel(const int _currentLog)
 void SearchWindow::setColumnsToDX()
 {
       //qDebug() << "SearchWindow::setColumnsToDX"  << endl;
-    //labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
+
     QString stringQuery;
     //stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log LIMIT 1");
     stringQuery = QString("SELECT * FROM log LIMIT 1");
@@ -194,7 +193,7 @@ void SearchWindow::setColumnsToDX()
 
     columns = rec.indexOf("call");    
     treeView->setColumnHidden(columns, false);
-    searchModel->setHeaderData(columns, Qt::Horizontal,tr("QRZ"));
+    searchModel->setHeaderData(columns, Qt::Horizontal,tr("Call"));
 
     columns = rec.indexOf("bandid");    
     searchModel->setBandIdColumn(columns);

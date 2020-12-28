@@ -7717,7 +7717,7 @@ bool DataBase::updateAwardDXCCTable()
     //awardEntryCheck.status = QString();
 
 
-    QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lognumber FROM log ORDER BY dxcc");
+    QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY dxcc");
     QSqlQuery query;//, query2;
 
     bool sqlOK = query.exec(stringQuery);
@@ -7755,15 +7755,30 @@ bool DataBase::updateAwardDXCCTable()
 
                //qDebug() << "DataBase::updateAwardDXCCTable in the while" << endl;
             nameCol = rec.indexOf("qsl_rcvd");
+            bool qsl = false;
 
             if ((query.value(nameCol)).toString() == "Y")
             {
-              awardEntry.status = "1";
+                qsl = true;
+            }
+
+            nameCol = rec.indexOf("lotw_qsl_rcvd");
+            bool lotw = false;
+            if ((query.value(nameCol)).toString() == "Y")
+            {
+                lotw = true;
+            }
+
+            if (qsl || lotw )
+            {
+                awardEntry.status = "1";
             }
             else
             {
                 awardEntry.status = "0";
             }
+
+
                //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
@@ -7944,7 +7959,7 @@ bool DataBase::updateAwardWAZTable()
     awardEntry.logNumber = QString();
     awardEntry.qsoID = QString();
 
-    QString stringQuery = QString("SELECT id, bandid, modeid, cqz, qsl_rcvd, lognumber FROM log ORDER BY cqz");
+    QString stringQuery = QString("SELECT id, bandid, modeid, cqz, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY cqz");
     QSqlQuery query;//, query2;
 
     bool sqlOK = query.exec(stringQuery);
@@ -7981,10 +7996,23 @@ bool DataBase::updateAwardWAZTable()
 
                //qDebug() << "DataBase::updateAwardWAZTable in the while" << endl;
             nameCol = rec.indexOf("qsl_rcvd");
+            bool qsl = false;
 
             if ((query.value(nameCol)).toString() == "Y")
             {
-              awardEntry.status = "1";
+                qsl = true;
+            }
+
+            nameCol = rec.indexOf("lotw_qsl_rcvd");
+            bool lotw = false;
+            if ((query.value(nameCol)).toString() == "Y")
+            {
+                lotw = true;
+            }
+
+            if (qsl || lotw )
+            {
+                awardEntry.status = "1";
             }
             else
             {

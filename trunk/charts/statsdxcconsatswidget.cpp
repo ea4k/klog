@@ -76,7 +76,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
     QList<QSO*> _qsos;
     _qsos.clear();
     _qsos << dataProxy->getSatDXCCStats(log);
-    tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("QRZ")));
+    tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Call")));
     tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Date")));
     tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Band")));
     tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem(tr("Mode")));
@@ -87,6 +87,8 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
     //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
 
     int number = 0;
+    QList<int> entities;
+    entities.clear();
 
     if (_qsos.length()>0)
     {
@@ -121,9 +123,15 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
             {
                 printThisOne = false;
             }
+            if (entities.contains(_qsos.at(i)->getDXCC()))
+            {
+                printThisOne = false;
+            }
 
             if (printThisOne)
             {
+                //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: printThisOne: " << (_qsos.at(i)->getCall())  << endl;
+                entities.append(_qsos.at(i)->getDXCC());
                 number++;
                 tableWidget->insertRow(tableWidget->rowCount());
                 tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem((_qsos.at(i)->getCall())) );
@@ -134,6 +142,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
                 tableWidget->setItem(tableWidget->rowCount()-1, 5, new QTableWidgetItem(satName));
                 tableWidget->setItem(tableWidget->rowCount()-1, 6, new QTableWidgetItem(qslStatus) );
             }
+
         }
         numberLabel->setText(QString::number(number));
     }

@@ -50,7 +50,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
-    QRZCOMAutoCheckAct = new QAction(tr("Check always the current QRZ in QRZ.com"), this);
+    QRZCOMAutoCheckAct = new QAction(tr("Check always the current Call in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
@@ -409,6 +409,19 @@ void MainWindow::init()
     if (!existingData)
     {
         world->create(ctyDatFile);
+    }
+    else if (!world->hasSpecialEntities())
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+
+        msgBox.setWindowTitle(tr("KLog CTY.dat update"));
+        msgBox.setText(tr("KLog needs to update the Entities database."));
+        msgBox.setDetailedText(tr("You can update the entities datrabase in Tools->Update cty.csv"));
+
+        msgBox.addButton(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
     }
      //qDebug() << "MainWindow::init: 0013" << endl;
     readConfigData();
@@ -3704,9 +3717,9 @@ void MainWindow::createMenusCommon()
     //connect(awardAddAct , SIGNAL(triggered()), this, SLOT(slotAWAImport()));
     //awardAddAct ->setToolTip(tr("Import an Award file."));
 
-    TestAct = new QAction(tr("TEST: Advanced search ..."), this);
-    fileMenu->addAction(TestAct);
-    connect(TestAct, SIGNAL(triggered()), this, SLOT(slotTest()));
+    //TestAct = new QAction(tr("TEST: Advanced search ..."), this);
+    //fileMenu->addAction(TestAct);
+    //connect(TestAct, SIGNAL(triggered()), this, SLOT(slotTest()));
 
     ADIFImport = new QAction(tr("&Import from ADIF ..."), this);
     fileMenu->addAction(ADIFImport);
@@ -3886,16 +3899,16 @@ void MainWindow::createMenusCommon()
     QRZCOMToolMenu = toolMenu->addMenu(tr("QRZ.com tools ..."));
 
 
-    QRZCOMCheckThisCallAct = new QAction(tr("Check the current QRZ in QRZ.com"), this);
+    QRZCOMCheckThisCallAct = new QAction(tr("Check the current Call in QRZ.com"), this);
     QRZCOMLogModifyCurrentLogAct = new QAction(tr("Queue all the QSO to be uploaded"), this);
     QRZCOMLogUploadAct = new QAction(tr("Upload the queued QSOs to QRZ.com ..."), this);
 
         QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
         connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
-        QRZCOMCheckThisCallAct->setToolTip("Checks the current QRZ in QRZ.com.");
+        QRZCOMCheckThisCallAct->setToolTip("Checks the current Call in QRZ.com.");
 
 
-        QRZCOMAutoCheckAct->setText(tr("Check always the current QRZ in QRZ.com"));
+        QRZCOMAutoCheckAct->setText(tr("Check always the current Call in QRZ.com"));
         QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
         connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
         QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
@@ -3992,7 +4005,7 @@ void MainWindow::slotCloseStats(bool _vis)
 }
 */
 
-
+/*
 void MainWindow::slotTest()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -4002,7 +4015,7 @@ void MainWindow::slotTest()
     //qDebug() << Q_FUNC_INFO << " - END "<< endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
+*/
 
 void MainWindow::slotSearchToolNeededQSLToSend()
 {
@@ -4732,7 +4745,7 @@ void MainWindow::checkIfWorkedB4(const QString &_qrz)
         }
         else
         {
-            qrzgroupBox->setTitle(tr("QRZ"));
+            qrzgroupBox->setTitle(tr("Call"));
         }
     }
     else
@@ -7605,7 +7618,7 @@ void MainWindow::slotFilePrint()
     cursor = textTable->cellAt(row, 1).firstCursorPosition();
     cursor.insertText(tr("Date/Time"));
     cursor = textTable->cellAt(row, 2).firstCursorPosition();
-    cursor.insertText(tr("QRZ"));
+    cursor.insertText(tr("Call"));
     cursor = textTable->cellAt(row, 3).firstCursorPosition();
     cursor.insertText(tr("RSTtx"));
     cursor = textTable->cellAt(row, 4).firstCursorPosition();

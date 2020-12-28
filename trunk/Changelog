@@ -1,11 +1,15 @@
-TBD - 1.5-RC2
+TBD - 1.5-RC3
+
+- New feature: LoTW confirmation is also counted for DXCC & WAZ.
 - New feature: DUPES are now identified when coming from WSJTX, ADIF logs, LoTW logs or simply adding a QSO.
 - New feature: Added a time period to considerf a QSO as DUPE if call, band & mode are also the same.
 - Statistics: Added the Grids on Satellites statistics.
 - Statistics: Added the DXCC on Satellites statistics.
+- UI: Replaced QRZ by Call in all the UI.
 - UI: Removed the QComboBox of the Setup Log tab to select the log. (TNX G4MKT)
 - UI: Added the QSO per log in the logs setup.
 - UI: Added a checkbox to keep the Propagation mode, if needed. Propagation mode is also linked to the Satellite tab. (TNX EA5WA)
+- Bugfix: Satellite stats where not properly calculated. (TNX EA5WA)
 - Bugfix: Identifying some bands was not properly done due to the names being in lower case.
 - Bugfix: When importing an ADIF and asking for a default station callsign, it was only used for the first QSO, leaving the rest without a station callsign.
 - Bugfix: Stats widget where not being properly created.

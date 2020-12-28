@@ -449,8 +449,8 @@ void SetupDialog::slotOkButtonClicked()
     if (!util->isValidCall(userDataPage->getStationQrz())){ //
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You need to enter at least a valid QRZ."));
-        msgBox.setInformativeText(tr("Go to the User tab and enter valid QRZ."));
+        msgBox.setText(tr("You need to enter at least a valid call."));
+        msgBox.setInformativeText(tr("Go to the User tab and enter valid call."));
         msgBox.exec();
         emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
         return;

@@ -115,6 +115,8 @@ public:
     int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
+    bool isQSLLoTWReceived(const int _qsoId);
+    bool isQSOConfirmed(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
     bool qslSentViaDirect(const int _qsoId, const QDate &_updateDate);

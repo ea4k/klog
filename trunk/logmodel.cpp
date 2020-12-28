@@ -105,7 +105,7 @@ This should be coherent with the logview
      setHeaderData(nameCol, Qt::Horizontal, tr("Date"));
 
      nameCol = rec.indexOf("call");
-     setHeaderData(nameCol, Qt::Horizontal,tr("QRZ"));
+     setHeaderData(nameCol, Qt::Horizontal,tr("Call"));
 
      nameCol = rec.indexOf("bandid");
      setHeaderData(nameCol, Qt::Horizontal, tr("Band"));

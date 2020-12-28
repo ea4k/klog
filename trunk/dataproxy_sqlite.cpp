@@ -7,20 +7,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify         *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -1434,7 +1434,6 @@ bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
     queryString = QString("SELECT qsl_rcvd FROM log WHERE id = '%1'").arg(_qsoId);
     bool sqlOK = query.exec(queryString);
 
-
     if (sqlOK)
     {
         query.next();
@@ -1444,18 +1443,18 @@ bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
             query.finish();
             if (queryString == "Y")
             {
-                     //qDebug() << "DataProxy_SQLitew::isQSLReceived: " << QString::number(_qsoId) << "QSL Received" << endl;
+                //qDebug() << "DataProxy_SQLitew::isQSLReceived: " << QString::number(_qsoId) << "QSL Received" << endl;
                 return true;
             }
             else
             {
-                     //qDebug() << "DataProxy_SQLite::isQSLReceived: " << QString::number(_qsoId) << "QSL NOT Received-1" << endl;
+               //qDebug() << "DataProxy_SQLite::isQSLReceived: " << QString::number(_qsoId) << "QSL NOT Received-1" << endl;
                 return false;
             }
         }
         else
         {
-                 //qDebug() << "DataProxy_SQLite::isQSLReceived: " << QString::number(_qsoId) << "QSL NOT Received-2" << endl;
+            //qDebug() << "DataProxy_SQLite::isQSLReceived: " << QString::number(_qsoId) << "QSL NOT Received-2" << endl;
             query.finish();
             return false;
         }
@@ -1466,8 +1465,63 @@ bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
         query.finish();
     }
     return false;
-
 }
+
+bool DataProxy_SQLite::isQSLLoTWReceived(const int _qsoId)
+{
+
+    //qDebug() << Q_FUNC_INFO << QString::number(_qsoId) << endl;
+    QSqlQuery query;
+    QString queryString;
+    queryString = QString("SELECT lotw_qsl_rcvd FROM log WHERE id = '%1'").arg(_qsoId);
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            queryString = (query.value(0)).toString();
+            query.finish();
+            if (queryString == "Y")
+            {
+                //qDebug() << Q_FUNC_INFO << QString::number(_qsoId) << "QSL Received" << endl;
+                return true;
+            }
+            else
+            {
+               //qDebug() << Q_FUNC_INFO << QString::number(_qsoId) << "QSL NOT Received-1" << endl;
+                return false;
+            }
+        }
+        else
+        {
+            //qDebug() << Q_FUNC_INFO << QString::number(_qsoId) << "QSL NOT Received-2" << endl;
+            query.finish();
+            return false;
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+    }
+    return false;
+}
+
+bool DataProxy_SQLite::isQSOConfirmed(const int _qsoId)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_qsoId) << endl;
+    if ((isQSLReceived(_qsoId)) || isQSLLoTWReceived(_qsoId))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 bool DataProxy_SQLite::isQSLSent(const int _qsoId)
 {
@@ -5486,7 +5540,8 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             }
             else if (__confirmed == "0")
             {
-                if (!isQSLReceived((_qsoId)))
+                //if ((!isQSLReceived((_qsoId)))  && (!isQSLLoTWReceived(_qsoId))  )
+                if (!isQSOConfirmed((_qsoId)))
                 {// #2 - If the band/mode/log is already worked and status worked: Return true
                     query.finish();
                     return true;
@@ -5539,8 +5594,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                     return false;
 
                 }
-
-
             }
         }
 
@@ -5627,7 +5680,8 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
             }
             else if (__confirmed == "0")
             {
-                if (!isQSLReceived((_qsoId)))
+                if (!isQSOConfirmed((_qsoId)))
+                //if ((!isQSLReceived((_qsoId)))  && (!isQSLLoTWReceived(_qsoId))  )
                 {// #2 - If the band/mode/log is already worked and status worked: Return true
                     query.finish();
                     return true;
@@ -9269,12 +9323,13 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     if (doesThisLogExist(_log))
     {
         //qDebug() << Q_FUNC_INFO << ": log exists "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1' group by dxcc").arg(_log);
+        //stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1' group by dxcc").arg(_log);
+        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1'").arg(_log);
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << ": log does not exist "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' group by dxcc");
+        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>''");
     }
 
     QSqlQuery query;
@@ -9349,12 +9404,12 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
     if (doesThisLogExist(_log))
     {
         //qDebug() << "DataProxy_SQLite::getGridStats: log exists "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, substr(gridsquare, 1, 4), lotw_qsl_rcvd, qsl_rcvd, sat_name from log where gridsquare <>''  AND sat_name <>'' AND lognumber='%1' group by substr(gridsquare, 1, 4)").arg(_log);
+        stringQuery = QString("SELECT call, qso_date, bandid, modeid, substr(gridsquare, 1, 4), lotw_qsl_rcvd, qsl_rcvd, sat_name from log where gridsquare <>''  AND sat_name <>'' AND lognumber='%1'").arg(_log);
     }
     else
     {
         //qDebug() << "DataProxy_SQLite::getGridStats: log does not exist "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, substr(gridsquare, 1, 4), lotw_qsl_rcvd, qsl_rcvd, sat_name from log where gridsquare <>''  AND sat_name <>'' group by substr(gridsquare, 1, 4)");
+        stringQuery = QString("SELECT call, qso_date, bandid, modeid, substr(gridsquare, 1, 4), lotw_qsl_rcvd, qsl_rcvd, sat_name from log where gridsquare <>''  AND sat_name <>''");
     }
 
 

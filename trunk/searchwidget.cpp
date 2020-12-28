@@ -134,7 +134,7 @@ void SearchWidget::createUI()
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown."));
     searchBoxReSearchButton->setToolTip(tr("Search in the log."));
     searchAllRadioButton->setToolTip(tr("Search in all logs."));
-    searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
+    searchBoxLineEdit->setToolTip(tr("Enter the Call to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
 
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign used to do this QSO."));
 
