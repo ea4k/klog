@@ -3067,6 +3067,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-13', 'Radio Sputnik 13', '21.260-21.300', '145.860-145.900', 'SSB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-15', 'Radio Sputnik 15', '', '29.3525-29.3987', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-2',  'Radio Sputnik 2', '145', '29', '')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('RS-44', 'DOSAAF-85', '145.965', '435.640', 'LSB/USB')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-5', 'Radio Sputnik 5', 'CW')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-6', 'Radio Sputnik 6', '')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, satmode) VALUES ('RS-7', 'Radio Sputnik 7', 'CW')").arg(tableName));
@@ -7732,6 +7733,43 @@ bool DataBase::updateTo019()
     if (updateTheModeTableAndSyncLog())
     {
           //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+        if (recreateSatelliteData())
+                {
+                    if (updateTableEntity())
+                    {
+                          //qDebug() << Q_FUNC_INFO << " : - updateTableEntity OK" << endl;
+                       if (updateTheEntityTableISONames())
+                       {
+                             //qDebug() << "Q_FUNC_INFO << " : - isonames updated" << endl;
+                          // Now I need to update the logs table
+
+                          if (updateTableLogs())
+                          {
+                                 //qDebug() << "Q_FUNC_INFO << " : - logs updated and Function finished successfuly!!" << endl;
+                              return true;
+                          }
+                          else
+                          {
+                                 //qDebug() << "Q_FUNC_INFO << " : - logs NOT updated" << endl;
+                              return false;
+                          }
+                       }
+                       else
+                       {
+                             //qDebug() << "Q_FUNC_INFO << " : - isonames NOT updated" << endl;
+                          return false;
+                       }
+                    }
+                    else
+                    {
+                       return false;
+                    }
+                }
+                else
+                {
+                       //qDebug() << "Q_FUNC_INFO << " : - createTableSatellites FALSE" << endl;
+                    return false;
+                }
     }
     else
     {
