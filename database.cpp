@@ -2055,7 +2055,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    return updateTo018();
+    return updateTo019();
 
 }
 
@@ -2796,6 +2796,8 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT4', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FST4', 'MFSK', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FST4W', 'MFSK', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK31', 'PSK', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'NO', '0')").arg(tableName));
@@ -7337,7 +7339,7 @@ bool DataBase::updateTo015()
     // Updates the DB to 0.015:
     // Adds the FT4 mode
 
-      //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << endl;
+    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << endl;
     bool IAmIn014 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
@@ -7691,6 +7693,66 @@ bool DataBase::updateTo018()
     return true;
 }
 
+bool DataBase::updateTo019()
+{// Adds FTS4 and FST4W modes
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
+    bool IAmIn018 = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    if (latestReaded >= 0.019f)
+    {
+       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
+        return true;
+    }
+    else
+    {
+        while (!IAmIn018 && !ErrorUpdating)
+        {
+
+            IAmIn018 = updateTo018();
+            if (IAmIn018)
+            {
+            }
+            else
+            {
+                ErrorUpdating = false;
+            }
+        }
+        if (ErrorUpdating)
+        {
+             // emit debugLog(Q_FUNC_INFO, "1", 7);
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+
+    if (updateTheModeTableAndSyncLog())
+    {
+          //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+    }
+    else
+    {
+         //qDebug() << Q_FUNC_INFO << " : UPDATED NOK!(9)" << endl;
+    }
+
+
+    if (updateDBVersion(softVersion, "0.019"))
+    {
+          //qDebug() << Q_FUNC_INFO << " : - We are in 019! " << endl;
+    }
+    else
+    {
+       //qDebug() << Q_FUNC_INFO << " : - Failed to go to 018! " << endl;
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
+        return false;
+    }
+
+   //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
+    return true;
+}
 
 bool DataBase::updateAwardDXCCTable()
 {
