@@ -7695,6 +7695,7 @@ bool DataBase::updateTo018()
 
 bool DataBase::updateTo019()
 {// Adds FTS4 and FST4W modes
+ // Adds RS-44 sat
    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
     bool IAmIn018 = false;
     bool ErrorUpdating = false;
@@ -7729,13 +7730,14 @@ bool DataBase::updateTo019()
     // Now I am in the previous version and I can update the DB.
 
 
-    if (updateTheModeTableAndSyncLog())
+    if (updateTheModeTableAndSyncLog() && recreateSatelliteData())
     {
           //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
     }
     else
     {
          //qDebug() << Q_FUNC_INFO << " : UPDATED NOK!(9)" << endl;
+        return false;
     }
 
 
