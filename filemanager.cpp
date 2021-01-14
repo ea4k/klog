@@ -2103,6 +2103,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     bool haveFreqTX = false;
     bool haveFreqRX = false;
     bool hasStationCall = false;
+    bool isEmptyMyGridsquare = false;
+    bool hasLotwQslSent = false;
+    bool hasEqslQslSent = false;
+    bool hasQrzQslSent = false;
+    bool hasClublogQslSent = false;
+    QString freqTX = QString();  //This variable will be used to add freqRX when there is no "FREQ_RX" on the adif file 
 
     //bool ret;
     //int length = 0;
@@ -2509,7 +2515,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 {                    
                     if (bandRXDef)
                     {
-                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)                        
+                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)
                         {
                             preparedQuery.bindValue( ":freq_rx", data);
                             haveFreqRX =true;
@@ -2521,12 +2527,13 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     }
                     else
                     {                        
+                        preparedQuery.bindValue( ":freq_rx", data);
+                        haveFreqRX = true;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
                         {
                             preparedQuery.bindValue( ":band_rx", QString::number(i) );
-                            haveFreqRX =true;
                             bandRXDef = true;
                                //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                         }
@@ -2555,6 +2562,9 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "MY_GRIDSQUARE")
                 {
                     preparedQuery.bindValue( ":my_gridsquare", data );
+                    if (data.isEmpty()){
+                            isEmptyMyGridsquare = true;
+                    }
                 }
                 else if (field == "MY_ANTENNA")
                 {
@@ -2664,6 +2674,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "LOTW_QSL_SENT")
                 {
                     preparedQuery.bindValue( ":lotw_qsl_sent", data );
+                    hasLotwQslSent = true;
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
                 {
@@ -3010,7 +3021,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         preparedQuery.bindValue( ":qso_date_off", util->getDateTimeSQLiteStringFromDateTime(dateTimeOFF));
     }
 
-
     if ((haveBand) && (!haveFreqTX))
     {
         preparedQuery.bindValue( ":freq",  dataProxy->getFreqFromBandId(bandi));
@@ -3019,6 +3029,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     {
         preparedQuery.bindValue( ":freq_rx",  dataProxy->getFreqFromBandId(bandrxi));
     }
+    
+    if ((haveFreqTX) && (!haveFreqRX))
+    {
+        preparedQuery.bindValue( ":freq_rx",  freqTX);
+    }
+  
     if (!haveCall)
     {        
         QString text = util->getAValidCall(qrzCall);
@@ -3208,6 +3224,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         }
     }
 
+    if (!hasLotwQslSent)
+    {
+        preparedQuery.bindValue( ":lotw_qsl_sent","Q");
+    }
+  
+  
     preparedQuery.bindValue( ":lognumber", QString::number(logNumber));
 
     return isDupeQSO;
