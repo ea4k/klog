@@ -2491,7 +2491,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         {
                             preparedQuery.bindValue( ":freq", data);
                             haveFreqTX =true;
-							freqTX = data;
+                            freqTX = data;
                         }
                         else
                         {
@@ -2502,7 +2502,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     {
                         preparedQuery.bindValue( ":freq", data);
                         haveFreqTX =true;
-						freqTX = data;
+                        freqTX = data;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
