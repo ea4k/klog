@@ -2103,6 +2103,11 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     bool haveFreqTX = false;
     bool haveFreqRX = false;
     bool hasStationCall = false;
+	bool hasLotwQslSent = false;
+    bool hasEqslQslSent = false;
+    bool hasQrzQslSent = false;
+    bool hasClublogQslSent = false;
+    QString freqTX = QString();
 
     //bool ret;
     //int length = 0;
@@ -2461,6 +2466,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "EQSL_QSL_SENT")
                 {
                     preparedQuery.bindValue( ":eqsl_qsl_sent", data );
+                    hasEqslQslSent = true;
                 }
                 else if (field == "FISTS")
                 {
@@ -2485,6 +2491,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         {
                             preparedQuery.bindValue( ":freq", data);
                             haveFreqTX =true;
+                            freqTX = data;
                         }
                         else
                         {
@@ -2495,6 +2502,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     {
                         preparedQuery.bindValue( ":freq", data);
                         haveFreqTX =true;
+                        freqTX = data;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
@@ -2521,12 +2529,13 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     }
                     else
                     {                        
-                        i = dataProxy->getBandIdFromFreq(data.toDouble());
+                        preparedQuery.bindValue( ":freq_rx", data);
+                        haveFreqRX = true;
+						i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
                         {
                             preparedQuery.bindValue( ":band_rx", QString::number(i) );
-                            haveFreqRX =true;
                             bandRXDef = true;
                                //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                         }
@@ -2664,6 +2673,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "LOTW_QSL_SENT")
                 {
                     preparedQuery.bindValue( ":lotw_qsl_sent", data );
+					hasLotwQslSent = true;
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
                 {
@@ -2671,6 +2681,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     if (dateT.isValid())
                     {
                         preparedQuery.bindValue( ":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(dateT) );
+						hasClublogQslSent = true;
                     }
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_STATUS")
@@ -2801,6 +2812,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     if (dateT.isValid())
                     {
                         preparedQuery.bindValue( ":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(dateT));
+						hasQrzQslSent = true;
                     }
                 }
                 else if (field == "QRZCOM_QSO_UPLOAD_STATUS")
@@ -3019,7 +3031,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     {
         preparedQuery.bindValue( ":freq_rx",  dataProxy->getFreqFromBandId(bandrxi));
     }
-    if (!haveCall)
+    if ((haveFreqTX) && (!haveFreqRX))
+    {
+        preparedQuery.bindValue( ":freq_rx",  freqTX);
+    } 
+	
+	if (!haveCall)
     {        
         QString text = util->getAValidCall(qrzCall);
         if (!(util->isValidCall(text)))
@@ -3206,7 +3223,26 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         {
             preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
         }
-    }
+		if (!hasLotwQslSent)
+		{
+			preparedQuery.bindValue( ":lotw_qsl_sent","Q");
+		}
+
+		if (!hasEqslQslSent)
+		{
+			preparedQuery.bindValue( ":eqsl_qsl_sent","Q");
+		}
+
+		if (!hasClublogQslSent)
+		{
+			preparedQuery.bindValue( ":clublog_qso_upload_status","M");
+		}
+
+		if (!hasQrzQslSent)
+		{
+			preparedQuery.bindValue( ":qrzcom_qso_upload_status","M");
+		}
+	}	
 
     preparedQuery.bindValue( ":lognumber", QString::number(logNumber));
 
