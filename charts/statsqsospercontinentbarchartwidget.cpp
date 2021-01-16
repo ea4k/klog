@@ -12,7 +12,7 @@ StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataPro
     chartView = new QChartView(chart);
 
     createUI();
-    //prepareChart();
+    prepareChart();
 }
 
 void StatsQSOsPerContinentBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerContinentBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerContinentBarChartWidget::prepareChart(const int _log)
+void StatsQSOsPerContinentBarChartWidget::prepareChart()
 {
 
     QString categoriesTitle;
@@ -62,7 +62,7 @@ void StatsQSOsPerContinentBarChartWidget::prepareChart(const int _log)
      aux.clear();
      for (int i = 0; i < categories.count(); i++ )
      {
-         numberPerX = dataProxy->getQSOsWithContinent(categories.at(i), _log);
+         numberPerX = dataProxy->getQSOsWithContinent(categories.at(i), -1);
             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX) << endl;
          *set0 << numberPerX;
          numberPerX = 0;

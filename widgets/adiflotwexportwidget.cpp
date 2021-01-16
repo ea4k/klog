@@ -37,8 +37,8 @@ void AdifLoTWExportWidget::createUI()
     endDate->clear();
 
     //endDate->setDate(QDate::currentDate());
-    endDate->setToolTip(tr("Select the end date to export the QSOs. The default date is the date of the last QSO with this station callsign."));
-
+    startDate->setToolTip(tr("Select the end date to export the QSOs. The default date is the date of the last QSO with this station callsign."));
+    //endDate->setToolTip(tr("Select the last date to export the QSOs. The default date is today."));
 
     QLabel *stationLabel = new QLabel;
     stationLabel->setText(tr("Station callsign"));

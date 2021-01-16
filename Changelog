@@ -1,3 +1,4 @@
+
 TBD - 1.5-RC3
 
 - New feature: LoTW confirmation is also counted for DXCC & WAZ.
@@ -17,18 +18,23 @@ TBD - 1.5-RC3
 - Bugfix: End date tooltip updated on the export widget.(TNX G4MKT)
 - Bugfix: DX Locator tooltip was not OK. (TNX G4MKT)
 
-December - 1.4.4
+January 2021 - 1.4.5
+- Added the FST4 and FST4W modes.
+- Added the RS-44 satellite.
+- UI: Changed "Config Dialog" to "Settings". (TNX G4MKT)
+
+December 2020 - 1.4.4
 - Bugfix: QSOs received from WSJT-X may not be saved properly.
 - Bugfix: ClubLog, eQSL.cc and QRZ.com were losing one setting. (TNX EA5WA)
 
-December - 1.4.3
+December 2020 - 1.4.3
 - Bugfix: PJ7 flag was not being shown in the DXCC widget.
 - Bugfix: Disabling LoTW made impossible to enable it again via the setup. (TNX G6YRK)
 
-December - 1.4.2
+December 2020 - 1.4.2
 - Bugfix: ADIF export was failing in some circunstances.
 
-December - 1.4.1
+December 2020 - 1.4.1
 - Bugfix: Stat 01-QSO per year was not properly shown when returning from other stat. (TNX EA5WA)
 - Bugfix: UpLink sat freq was not properly defined when exiting the setup.
 - Translation: Spanish translation fix.

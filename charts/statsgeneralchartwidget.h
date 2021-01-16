@@ -11,8 +11,8 @@ class StatsGeneralChartWidget : public QWidget
         Q_OBJECT
 public:
     StatsGeneralChartWidget();
-    StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    virtual void prepareChart(const int _log=-1);
+    StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
+    virtual void prepareChart();
 
 private:
     virtual void createUI();

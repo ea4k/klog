@@ -371,6 +371,7 @@ void SetupPageELog::setClubLogActive(const bool &_b)
     clubLogActive = _b;
     clubLogActiveCheckBox->setChecked(clubLogActive);
     clubLogActiveCheckBox->setEnabled(clubLogActive);
+
 }
 
 void SetupPageELog::slotClubLogActive(const bool _s)
@@ -435,6 +436,7 @@ void SetupPageELog::setEQSLActive(const bool _b)
     eqslActive = _b;
     eQSLActiveCheckBox->setChecked(eqslActive);
     eQSLActiveCheckBox->setEnabled(eqslActive);
+
 }
 
 void SetupPageELog::slotEQSLActive(const bool _s)
@@ -462,7 +464,7 @@ void SetupPageELog::setLoTWActive(const bool &_s)
     lotwTQSL = _s;
     lotwUseTQSLCheckBox->setChecked(lotwTQSL);
     lotwTQSLPathLineEdit->setEnabled(lotwTQSL);
-    lotwSearchTQSLPushButton->setEnabled(_s);
+    lotwSearchTQSLPushButton->setEnabled(lotwTQSL);
     //lotwUserLineEdit->setEnabled(_s);
     //lotwPasswordLineEdit->setEnabled(_s);
 }

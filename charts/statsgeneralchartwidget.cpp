@@ -12,5 +12,5 @@ StatsGeneralChartWidget::StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *
 }
 
 
-void StatsGeneralChartWidget::prepareChart(const int _log) {}
+void StatsGeneralChartWidget::prepareChart() {}
 void StatsGeneralChartWidget::createUI(){}

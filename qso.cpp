@@ -20,10 +20,8 @@ void QSO::clear()
     mode = QString();
     lotw_qsl_sent = QString();
     lotw_qsl_rcvd = QString();
-    gridsquare = QString();
     freq = -1.0;
     freq_rx = -1.0;
-    dxcc = -1;
     propMode.clear();
     qsl_rcvd = QChar();
     QSLRDate = QDate();
@@ -102,21 +100,6 @@ bool QSO::setCall(const QString &_c)
 QString QSO::getCall()
 {
     return callsign;
-}
-
-bool QSO::setDXCC(const int _i)
-{
-    if (util->isValidDXCC(_i))
-    {
-        dxcc = _i;
-        return true;
-    }
-    return false;
-
-}
-int QSO::getDXCC()
-{
-    return dxcc;
 }
 
 bool QSO::setStationCallsign(const QString &_c)
@@ -243,19 +226,6 @@ QTime QSO::getTimeOn()
 QDateTime QSO::getDateTimeOn()
 {
     return qso_dateTime;
-}
-
-bool QSO::setDateTime(const QDateTime &_c)
-{
-    if (_c.isValid())
-    {
-        qso_dateTime = _c;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
 }
 
 bool QSO::setFreq(const float _f)
@@ -445,24 +415,6 @@ void QSO::setLoTWUpdating(bool _lotw)
     lotwUpdating = _lotw;
 }
 
-bool QSO::setGridSquare(const QString &_c)
-{
-    if (util->isValidGrid(_c))
-    {
-        gridsquare = _c;
-        return false;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-QString QSO::getGridSquare()
-{
-    return gridsquare;
-}
-
 bool QSO::setData(const QString &_adifPair)
 {
     //qDebug() << "QSO::setData: " << _adifPair << endl;
@@ -535,10 +487,6 @@ bool QSO::setData(const QString &_adifPair)
     else if (field == "STATION_CALLSIGN")
     {
        setStationCallsign(data);
-    }    
-    else if (field == "GRIDSQUARE")
-    {
-        setGridSquare(data);
     }
     else if (field == "APP_LOTW_RXQSL")
     {

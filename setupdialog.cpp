@@ -228,7 +228,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
 
     setLayout(mainLayout);
 
-    setWindowTitle(tr("Config Dialog"));
+    setWindowTitle(tr("Settings"));
 
     //qDebug() << "SetupDialog::SetupDialog 05" << endl;
 

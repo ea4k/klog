@@ -2115,7 +2115,8 @@ bool DataProxy_SQLite::updateAwardDXCC()
 {
        //qDebug() << "DataProxy_SQLite::updateAwardDXCC" << endl;
     fillEmptyDXCCInTheLog();
-    return db->updateAwardDXCCTable();
+    return true;
+    //return db->updateAwardDXCCTable();
        //qDebug() << "DataProxy_SQLite::updateAwardDXCC-END" << endl;
 }
 
@@ -2945,7 +2946,10 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_
 bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
 {
         //qDebug() << "DataProxy_SQLite::isDXCCConfirmed: " << QString::number(_dxcc) << "/" << QString::number(_currentLog) << endl;
-    QString queryString = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND lognumber='%2'").arg(_dxcc).arg(_currentLog);
+
+
+    QString queryString = QString("SELECT id FROM log WHERE dxcc='%1' AND lognumber='%2' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') LIMIT 1'").arg(_dxcc).arg(_currentLog);
+    //QString queryString = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND lognumber='%2'").arg(_dxcc).arg(_currentLog);
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
@@ -5466,6 +5470,7 @@ QStringList DataProxy_SQLite::getColumnNamesFromTable(const QString &_tableName)
 
 bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
 {
+    /*
     // If the band/mode/log is already confirmed: Return true
     // If the band/mode/log is already worked and status worked: Return true
     // If the band/mode/log is already worked and status confirmed: Update and Return true
@@ -5515,6 +5520,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
+    //QString queryString = QString(").arg(_band).arg(_mode).arg(_dxcc);
     QString queryString = QString("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band='%1' AND mode='%2' AND dxcc='%3'").arg(_band).arg(_mode).arg(_dxcc);
 
     bool sqlOK = query.exec(queryString);
@@ -5605,6 +5611,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
         return false;
     }
     query.finish();
+    */
     return true;
 
 }
@@ -5616,7 +5623,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status worked: Return true
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
-
+/*
        //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: " << QString::number(_qsoId) << endl;
     if (_qsoId <= 0)
     {
@@ -5743,6 +5750,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
         return false;
     }
     query.finish();
+    */
     return true;
 
 }
@@ -9324,12 +9332,13 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     {
         //qDebug() << Q_FUNC_INFO << ": log exists "  << endl;
         //stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1' group by dxcc").arg(_log);
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1'").arg(_log);
+       //stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1'").arg(_log);
+        stringQuery = QString("SELECT call, qso_date, band.name, mode.name, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id AND lognumber='%1' ORDER BY entity.name").arg(_log);
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << ": log does not exist "  << endl;
-        stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>''");
+        stringQuery = QString("SELECT call, qso_date, band.name, mode.name, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id ORDER BY entity.name");
     }
 
     QSqlQuery query;
@@ -9342,6 +9351,7 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
         return _qsos;
+
     }
     else
     {
@@ -9362,16 +9372,16 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
 
                 nameCol = rec.indexOf("bandid");
                 //qDebug() << "DataProxy_SQLite::getGridStats: bandid" << QString::number((query.value(nameCol)).toInt()) << endl;
-                _qso->setBand(getNameFromBandId((query.value(nameCol)).toInt()));
+                _qso->setBand(query.value(2).toString());
 
-                nameCol = rec.indexOf("modeid");
+                //nameCol = rec.indexOf("modeid");
                 //qDebug() << Q_FUNC_INFO << ": modeid" << QString::number((query.value(nameCol)).toInt()) << endl;
-                _qso->setMode(getNameFromModeId((query.value(nameCol)).toInt()));
+                _qso->setMode(query.value(3).toString());
 
                 nameCol = rec.indexOf("sat_name");
                 _qso->setSatName((query.value(nameCol)).toString());
 
-                nameCol = rec.indexOf("dxcc");
+                nameCol = rec.indexOf("log.dxcc");
                 _qso->setDXCC((query.value(nameCol)).toInt());
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");

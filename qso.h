@@ -52,7 +52,6 @@ public:
     QTime getTimeOn();
 
     QDateTime getDateTimeOn();
-    bool setDateTime(const QDateTime &_c);
 
     bool setQSOid(const int _i);
     int getQSOid();
@@ -70,9 +69,6 @@ public:
 
     bool setCall(const QString &_c);
     QString getCall();
-
-    bool setDXCC(const int _i);
-    int getDXCC();
 
     bool setFreq(const float _f);
     bool setFreqRX(const float _f);
@@ -94,7 +90,6 @@ public:
     bool setLoTWQSLSDate(const QDate &_c);
     QDate getLoTWQSLSDate();
 
-
     bool setPropMode(const QString &_c);
     QString getPropMode();
 
@@ -104,9 +99,6 @@ public:
     bool setStationCallsign(const QString &_c);
     QString getStationCallsign();
 
-    bool setGridSquare(const QString &_c);
-    QString getGridSquare();
-
     bool add();
 
 
@@ -114,8 +106,8 @@ private:
 
 
 
-    QString satName, callsign, stationCallsign, propMode, band, mode, gridsquare;
-    int qsoId, logId, dxcc;
+    QString satName, callsign, stationCallsign, propMode, band, mode ;
+    int qsoId, logId;
     QString qsl_rcvd;
     QDate QSLRDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;    

@@ -12,7 +12,7 @@ StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite 
     chartView = new QChartView(chart);
 
     createUI();
-    //prepareChart();
+    prepareChart();
 }
 
 void StatsQSOsPerYearBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerYearBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
+void StatsQSOsPerYearBarChartWidget::prepareChart()
 {
 
     QString categoriesTitle;
@@ -44,21 +44,22 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
     categories.clear();
     axis->clear();
     series->clear();
-    QBarSet *set0 = new QBarSet(tr("QSOs per year"));
+    QBarSet *set0 = new QBarSet(tr("Chart title"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-     categories.append(dataProxy->getOperatingYears(_log));
+       //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+     categories.append(dataProxy->getOperatingYears(-1));
      categoriesElem = tr("QSOs");
      categoriesTitle = tr("QSOs per year");
 
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), _log);
+        numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), -1);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;

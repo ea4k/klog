@@ -227,8 +227,7 @@ private slots:
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
-    void slotSetPropModeFromOther(const QString &_p);
-    void slotSetPropModeFromSat(const QString &_p, bool _keep);
+    void slotSetPropMode(const QString &_p);
     void slotFillEmptyDXCCInTheLog();
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
