@@ -11,7 +11,7 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
     chartView = new QChartView(chart);
 
     createUI();
-    prepareChart();
+    //prepareChart();
 }
 
 void StatsWorkedConfirmedPieChartWidget::createUI()
@@ -26,12 +26,12 @@ void StatsWorkedConfirmedPieChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsWorkedConfirmedPieChartWidget::prepareChart()
+void StatsWorkedConfirmedPieChartWidget::prepareChart(const int _log)
 {
     QPieSeries *series = new QPieSeries();
     //PieSlice append(string label, real value)
-    int qsos = dataProxy->getHowManyQSOInLog(-1);
-    int confirmed = dataProxy->getHowManyConfirmedQSLInLog(-1);
+    int qsos = dataProxy->getHowManyQSOInLog(_log);
+    int confirmed = dataProxy->getHowManyConfirmedQSLInLog(_log);
        //qDebug() << "QSOs: " << QString::number(qsos) << endl;
        //qDebug() << "Confirmed: " << QString::number(confirmed) << endl;
        //qDebug() << "Worked: " << QString::number(qsos - confirmed) << endl;

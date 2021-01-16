@@ -12,7 +12,7 @@ StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite 
     chartView = new QChartView(chart);
 
     createUI();
-    prepareChart();
+    //prepareChart();
 }
 
 void StatsQSOsPerHourBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerHourBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerHourBarChartWidget::prepareChart()
+void StatsQSOsPerHourBarChartWidget::prepareChart(const int _log)
 {
 
     QString categoriesTitle;
@@ -61,7 +61,7 @@ void StatsQSOsPerHourBarChartWidget::prepareChart()
      aux.clear();
      for (int i = 0; i < categories.count(); i++ )
      {
-         numberPerX = dataProxy->getQSOsAtHour((categories.at(i)).toInt(), -1);
+         numberPerX = dataProxy->getQSOsAtHour((categories.at(i)).toInt(), _log);
             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX) << endl;
          *set0 << numberPerX;
          numberPerX = 0;

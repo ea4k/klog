@@ -12,7 +12,7 @@ StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite 
     chartView = new QChartView(chart);
 
     createUI();
-    prepareChart();
+    //prepareChart();
 }
 
 void StatsQSOsPerModeBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerModeBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerModeBarChartWidget::prepareChart()
+void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
 {
 
     QString categoriesTitle;
@@ -52,14 +52,14 @@ void StatsQSOsPerModeBarChartWidget::prepareChart()
     progress.setWindowModality(Qt::WindowModal);
 
        //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES " << endl;
-     categories.append(dataProxy->getModesInLog(-1));
+     categories.append(dataProxy->getModesInLog(_log));
      categoriesElem = tr("Modes");
      categoriesTitle = tr("QSOs per mode distribution");
 
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOsInMode((categories.at(i)), -1);
+        numberPerX = dataProxy->getQSOsInMode((categories.at(i)), _log);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;
