@@ -74,7 +74,7 @@ private slots:
     void slotAnalyzeNewLogData(const QStringList _qs);
     void slotLogSelected(const QModelIndex & index);
     void slotLogDoubleClicked(const QModelIndex & index);
-    void slotCurrentLogsComboBoxChanged();
+    //void slotCurrentLogsComboBoxChanged();
     //void slotLogsCancelled(const bool _q);
 
     //void slotCreateLog();
@@ -123,7 +123,7 @@ private:
     int lastLog;
     QString currentLogComment;
     QString currentStationCallSign;
-    QComboBox *currentLogs;
+    //QComboBox *currentLogs;
     QStringList logsAvailable;
 
     SetupPageLogsNew *newLog;

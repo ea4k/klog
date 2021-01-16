@@ -82,7 +82,7 @@ SetupPageMisc::~SetupPageMisc(){
 void SetupPageMisc::createUI()
 {
     dupeTimeLineEdit->setInputMask("0000000");
-    dupeTimeLineEdit->setToolTip("In seconds, enter the period to consider a duplicate if same call, band and mode is entered.");
+    dupeTimeLineEdit->setToolTip("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.");
     palWrong.setColor(QPalette::Text, Qt::red);
     palRight.setColor(QPalette::Text, Qt::black);
 
@@ -156,6 +156,12 @@ void SetupPageMisc::createUI()
     dbLayout->addWidget(dbPushButton);
     dbLayout->addWidget(moveDBPushButton);
 
+    QLabel *timeRangeLabel = new QLabel;
+    timeRangeLabel->setText(tr("Dupe time range:"));
+    QHBoxLayout *timeRangeLayout = new QHBoxLayout;
+    timeRangeLayout->addWidget(timeRangeLabel);
+    timeRangeLayout->addWidget(dupeTimeLineEdit);
+
     QGridLayout *mainLayou1 = new QGridLayout;
     mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
     mainLayou1->addLayout(dbLayout, 1, 0, 1, -1);
@@ -165,7 +171,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
     mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
     mainLayou1->addWidget(useDxMarathonCheckBox, 4, 1, 1, 1);
-    mainLayou1->addWidget(dupeTimeLineEdit, 5, 0, 1, 1);
+    mainLayou1->addLayout(timeRangeLayout, 5, 0, 1, 1);
     mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
     mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
     mainLayou1->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);

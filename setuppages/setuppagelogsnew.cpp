@@ -579,7 +579,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You need to enter a valid Call in the Station Callsign box.\nThe log will not be opened."));
+        msgBox.setText(tr("You need to enter a valid callsign in the Station Callsign box.\nThe log will not be opened."));
         msgBox.exec();
         return;
     }

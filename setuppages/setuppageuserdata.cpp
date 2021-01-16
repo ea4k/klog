@@ -188,7 +188,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     myLocatorLineEdit->setToolTip(tr("Enter the locator of your station. Alternatively, KLog can use an approximate locator based on your callsign."));
 
 
-    QLabel *qrzLabel = new QLabel(tr("&Call"));
+    QLabel *qrzLabel = new QLabel(tr("&Callsign"));
     QLabel *operatorsLabel = new QLabel (tr("&Operators"));
     QLabel *cqzLabel = new QLabel(tr("&CQ Zone"));
     QLabel *ituzLabel = new QLabel(tr("&ITU Zone"));
