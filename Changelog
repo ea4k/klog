@@ -1,15 +1,16 @@
-
 TBD - 1.5-RC3
-
+TODO: Reviewing in the setup process.
 - New feature: LoTW confirmation is also counted for DXCC & WAZ.
 - New feature: DUPES are now identified when coming from WSJTX, ADIF logs, LoTW logs or simply adding a QSO.
 - New feature: Added a time period to considerf a QSO as DUPE if call, band & mode are also the same.
+- Improvement: Hamlib now supports network communication (TNX DG1VS)
+- Improvement: Optimized the way DXCC & WAZ are managed.
 - Statistics: Added the Grids on Satellites statistics.
 - Statistics: Added the DXCC on Satellites statistics.
-- UI: Replaced QRZ by Call in all the UI.
 - UI: Removed the QComboBox of the Setup Log tab to select the log. (TNX G4MKT)
 - UI: Added the QSO per log in the logs setup.
 - UI: Added a checkbox to keep the Propagation mode, if needed. Propagation mode is also linked to the Satellite tab. (TNX EA5WA)
+- Bugfix: Double clicking on a call, while searching made the search to be redefined to that call and the previous search was lost.
 - Bugfix: Satellite stats where not properly calculated. (TNX EA5WA)
 - Bugfix: Identifying some bands was not properly done due to the names being in lower case.
 - Bugfix: When importing an ADIF and asking for a default station callsign, it was only used for the first QSO, leaving the rest without a station callsign.
@@ -22,19 +23,20 @@ January 2021 - 1.4.5
 - Added the FST4 and FST4W modes.
 - Added the RS-44 satellite.
 - UI: Changed "Config Dialog" to "Settings". (TNX G4MKT)
+- UI: Changed QRZ to Callsign.
 
-December 2020 - 1.4.4
+December - 1.4.4
 - Bugfix: QSOs received from WSJT-X may not be saved properly.
 - Bugfix: ClubLog, eQSL.cc and QRZ.com were losing one setting. (TNX EA5WA)
 
-December 2020 - 1.4.3
+December - 1.4.3
 - Bugfix: PJ7 flag was not being shown in the DXCC widget.
 - Bugfix: Disabling LoTW made impossible to enable it again via the setup. (TNX G6YRK)
 
-December 2020 - 1.4.2
+December - 1.4.2
 - Bugfix: ADIF export was failing in some circunstances.
 
-December 2020 - 1.4.1
+December - 1.4.1
 - Bugfix: Stat 01-QSO per year was not properly shown when returning from other stat. (TNX EA5WA)
 - Bugfix: UpLink sat freq was not properly defined when exiting the setup.
 - Translation: Spanish translation fix.
