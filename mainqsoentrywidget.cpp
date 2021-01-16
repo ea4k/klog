@@ -29,7 +29,7 @@ void MainQSOEntryWidget::createUI()
 {
       //qDebug()<< "MainQSOEntryWidget::createUI" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-    qrzLineEdit->setToolTip(tr("Call of the QSO."));
+    qrzLineEdit->setToolTip(tr("Callsign of the QSO."));
     bandComboBox->setToolTip(tr("Band of the QSO."));
     modeComboBox->setToolTip(tr("Mode of the QSO."));
     dateEdit->setToolTip(tr("Date of the QSO."));
@@ -51,7 +51,7 @@ void MainQSOEntryWidget::createUI()
     QrzBandModeLayout->addWidget(qrzLineEdit);
     QrzBandModeLayout->addLayout(BandModeLayout);
 
-    qrzgroupBox = new QGroupBox(tr("Call"));
+    qrzgroupBox = new QGroupBox(tr("Callsign"));
     qrzgroupBox->setFlat(true);
     QVBoxLayout *qrzvbox = new QVBoxLayout;
     qrzvbox->addLayout(QrzBandModeLayout);
@@ -140,6 +140,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     qrzAutoChanging = true;
 
+   //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << endl;
 
     if ( (qrzLineEdit->text()).endsWith(' ') )
     {/*Remove the space and moves the focus to SRX to write the RX exchange*/
@@ -214,7 +215,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
         }
         else if ((currentQrz.at(cursorP-1)).isSpace())
         {
-			//qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
+            //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
             previousQRZ = currentQrz.remove(cursorP-1, 1);
             //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << endl;
             cursorP--;
@@ -230,7 +231,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
     //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP) << endl;
     qrzLineEdit->setCursorPosition(cursorP);
-    checkIfDupe();
+    checkIfDupe(Q_FUNC_INFO);
     qrzAutoChanging = false;
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
      //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: END" << endl;
@@ -248,7 +249,7 @@ void MainQSOEntryWidget::slotBandComboBoxChanged(){
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
 
     emit bandChanged(bandComboBox->currentText());
-    checkIfDupe();
+    checkIfDupe(Q_FUNC_INFO);
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
       //qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: END" << endl;
 }
@@ -258,7 +259,7 @@ void MainQSOEntryWidget::slotModeComboBoxChanged()
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
 
     emit modeChanged(modeComboBox->currentText());
-    checkIfDupe();
+    checkIfDupe(Q_FUNC_INFO);
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -278,7 +279,8 @@ void MainQSOEntryWidget::slotClearButtonClicked()
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     clear();
     emit clearForNextQSOSignal();
-    checkIfDupe();
+    setModify(false);
+    checkIfDupe(Q_FUNC_INFO);
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -701,20 +703,24 @@ void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
     }
 }
 
-void MainQSOEntryWidget::checkIfDupe()
+void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
-    //qDebug() << Q_FUNC_INFO << endl;
+    qDebug() << Q_FUNC_INFO << "(" << _func << ")" << endl;
+
     QDateTime _dateTime;
     _dateTime.setDate(dateEdit->date());
     _dateTime.setTime(timeEdit->time());
 
-    if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qrzLineEdit->text(), _dateTime, dataProxy->getIdFromBandName(bandComboBox->currentText()), dataProxy->getIdFromModeName(modeComboBox->currentText()), duplicatedQSOSlotInSecs).length()<2) && !modify)
-    {
-        qrzgroupBox->setTitle(tr("Call"));
+    if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qrzLineEdit->text(), _dateTime, dataProxy->getIdFromBandName(bandComboBox->currentText()), dataProxy->getIdFromModeName(modeComboBox->currentText()), duplicatedQSOSlotInSecs).length()<2) || modify)
+    {        
+        //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << endl;
+        //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify) << endl;
+
+        qrzgroupBox->setTitle(tr("Callsign"));
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << endl;
         qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common world for hams. Do not translate of not sure"));
-
     }
 }

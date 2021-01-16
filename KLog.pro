@@ -284,13 +284,8 @@ unix:!mac {
     PKGDATADIR = $$DATADIR/klog
     INSTALLS += target
     target.path = $$BINDIR
-#   DEFINES += DATADIR=\\\"$$DATADIR\\\" \
-#   PKGDATADIR=\\\"$$PKGDATADIR\\\"
-#    translations.path = /usr/share/klog/translations
     translations.path = $$PKGDATADIR/translations
-#    translations.files += build/target/translations/*
     translations.files += $$DESTDIR/translations/*
-    #INSTALLS += translations
     datafiles.path = $$PKGDATADIR
     datafiles.files = $$DISTFILES
     INSTALLS += translations
