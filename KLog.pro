@@ -39,8 +39,7 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 
 HEADERS += setupdialog.h \
     aboutdialog.h \
-    awardswidget.h \
-    charts/statsdxcconsatswidget.h \
+    awardswidget.h \    
     elogqrzlog.h \
     eqslutilities.h \
     lotwutilities.h \
@@ -106,6 +105,7 @@ HEADERS += setupdialog.h \
     setuppages/setupentitydialog.h \
     setuppages/setuppageudp.h \
     charts/statsgeneralchartwidget.h \
+    charts/statsdxccsonsatswidget.h \
     charts/statsqsosperyearbarchartwidget.h \
     charts/statsentitiesperyearbarchartwidget.h \
     charts/statscqzperyearbarchartwidget.h \
@@ -125,7 +125,6 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
-    charts/statsdxcconsatswidget.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \
@@ -189,6 +188,7 @@ SOURCES += main.cpp \
     charts/barchartstats.cpp \
     updatesatsdata.cpp \
     charts/statsgeneralchartwidget.cpp \
+    charts/statsdxccsonsatswidget.cpp \
     charts/statsqsosperyearbarchartwidget.cpp \
     charts/statsentitiesperyearbarchartwidget.cpp \
     charts/statscqzperyearbarchartwidget.cpp \

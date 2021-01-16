@@ -80,7 +80,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     QList<QSO*> _qsos;
     _qsos.clear();
     _qsos << dataProxy->getSatGridStats(log);
-    tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Call")));
+    tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Callsign")));
     tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Date")));
     tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Band")));
     tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem(tr("Mode")));

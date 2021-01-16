@@ -57,7 +57,6 @@ private:
     Utilities *util;
     QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
     QLabel *numberLabel;
-    //QLCDNumber *numberQLCDNumber;
     int log;
 
 };

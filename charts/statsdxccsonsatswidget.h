@@ -1,5 +1,5 @@
-#ifndef STATSDXCCONSATSWIDGET_H
-#define STATSDXCCONSATSWIDGET_H
+#ifndef STATDXCCSONSATSWIDGET_H
+#define STATSDXCCSONSATSWIDGET_H
 /***************************************************************************
                           statsdxccsonsatswidget.h  -  description
                              -------------------
@@ -40,9 +40,8 @@ class StatsDXCCOnSatsWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-
-    StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsDXCCOnSatsWidget();
+    StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     void prepareChart(const int _log=-1);
 
 
@@ -57,7 +56,8 @@ private:
     QTableWidget *tableWidget;
     Utilities *util;
     QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
-    int log;
     QLabel *numberLabel;
+    int log;
+
 };
 #endif // STATSGRIDSONSATSWIDGET_H
