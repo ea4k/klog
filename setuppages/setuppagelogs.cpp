@@ -50,7 +50,7 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
 
     //setupD = new SetupDialog();
 
-    currentLogs = new QComboBox();
+
     logsAvailable.clear();
 
     newLog = new SetupPageLogsNew(dataProxy);
@@ -79,7 +79,7 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     editPushButton->setToolTip(tr("Edit the selected log."));
     removePushButton->setToolTip(tr("Remove the selected log."));
 
-    currentLogs->setToolTip(tr("Select the log you want to open."));
+
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(newLogPushButton);
@@ -88,7 +88,7 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
 
     QVBoxLayout *widgetLayout = new QVBoxLayout;
     widgetLayout->addWidget(logsView);
-    widgetLayout->addWidget(currentLogs);
+
     widgetLayout->addLayout(buttonsLayout);
     //widgetLayout->addLayout(logDataLayout);
 
@@ -155,7 +155,7 @@ void SetupPageLogs::slotEditButtonClicked()
     //QSqlQuery query;
     //int nameCol = -1;
 
-    selectedLog = getSelectedLog();
+    //selectedLog = getSelectedLog();
 
     QString getStationCallSignFromLog(const int _log);
 
@@ -222,7 +222,7 @@ void SetupPageLogs::slotLogsCancelled(const bool _q)
 void SetupPageLogs::slotRemoveButtonClicked()
 {
        //qDebug() << "SetupPageLogs::slotRemoveButtonClicked" << endl;
-    int selectedLog = getSelectedLog();
+    //int selectedLog = getSelectedLog();
 
     QMessageBox::StandardButton ret;
     ret = QMessageBox::warning(this, tr("KLog"),
@@ -328,7 +328,6 @@ void SetupPageLogs::createLogsModel()
 
         int nameCol;
 
-        //logsModel = new QSqlRelationalTableModel(this);
         logsModel->setTable("logs");
 
         nameCol = rec.indexOf("id");
@@ -355,9 +354,11 @@ void SetupPageLogs::createLogsModel()
 
 void SetupPageLogs::slotLogSelected(const QModelIndex & index)
 {
-       //qDebug() << "SetupPageLogs::slotLogSelected"  << endl;
+
     int row = index.row();
-    setSelectedLog((logsModel->index(row, 0)).data(0).toInt());
+    selectedLog = (logsModel->index(row, 0)).data(0).toInt();
+    qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog)  << endl;
+    //setSelectedLog(selectedLog);
 
 }
 
@@ -366,7 +367,8 @@ void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
       //qDebug() << "SetupPageLogs::slotLogDoubleClicked"  << endl;
 
     int row = index.row();
-    setSelectedLog((logsModel->index(row, 0)).data(0).toInt());
+    selectedLog = (logsModel->index(row, 0)).data(0).toInt();
+    //setSelectedLog(selectedLog);
     slotEditButtonClicked();
 
 }
@@ -375,7 +377,7 @@ void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
 void SetupPageLogs::createActions()
 {
        //qDebug() << "SetupPageLogs::createActions" << endl;
-    connect(currentLogs, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
+    //connect(currentLogs, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
     connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
     connect(removePushButton, SIGNAL(clicked ( )), this, SLOT(slotRemoveButtonClicked() ) );
     connect(editPushButton, SIGNAL(clicked ( )), this, SLOT(slotEditButtonClicked() ) );
@@ -591,7 +593,8 @@ void SetupPageLogs::updateSelectedLogs()
        //qDebug() << "SetupPageLogs::updateSelectedLogs" << endl;
     logsAvailable = readLogs();
 
-    if (logsAvailable.length()>0)
+   /*
+     if (logsAvailable.length()>0)
     {
         currentLogs->clear();
         currentLogs->addItems(logsAvailable);
@@ -601,11 +604,14 @@ void SetupPageLogs::updateSelectedLogs()
            //qDebug() << "SetupPageLogs::updateSelectedLogs Not selected (less than 1)" << endl;
         currentLogs->clear();
     }
+    */
 }
 
 int SetupPageLogs::getSelectedLog()
 {
       //qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << endl;
+    return selectedLog;
+    /*
     QString selectedLog = currentLogs->currentText();
     int i = 0;
     QStringList qs;
@@ -621,64 +627,25 @@ int SetupPageLogs::getSelectedLog()
     {
         return 0;
     }
+    */
 }
 
-void SetupPageLogs::slotCurrentLogsComboBoxChanged()
-{
-      //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: " << currentLogs->currentText() << endl;
-    QString a = (currentLogs->currentText()).section('-', 0, 0);
-      //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: a: " << a << endl;
 
-    /*
-    int log = (logsModel->index(logsView->currentIndex().row(), 0)).data(0).toInt();
-      //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: log: " << log << endl;
-
-    if (a.toInt() == getSelectedLog())
-    {
-        return;
-    }
-    */
-    setSelectedLog(a.toInt());
-    /*
-    //logsView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    //logsView->setSelectionMode(QAbstractItemView::SingleSelection);
-    int num = a.toInt(); // Comes from the ComboBox
-      //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: num: " << QString::number(num) << endl;
-    int currentId; // Comes from the logView as we run though it
-    for (int i = 0; i< logsView->verticalHeader()->count(); i++)
-    {
-        //logsView->setCurrentIndex(logsModel->index(0, 0));
-        currentId = ((logsModel->index(i, 0)).data(0)).toInt();
-          //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: for i/num/currentId: " << QString::number(i) << "/" << QString::number(num) << "/" << QString::number(currentId) << endl;
-        if (currentId == num)
-        {
-              //qDebug() << "SetupPageLogs::slotCurrentLogsComboBoxChanged: currentId == num " << endl;
-            logsView->selectRow(num);
-        }
-    }
-    */
-
-
-    //logsView->selectRow(a.toInt());
-
-}
 
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-      //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
+    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
+    //ea4k
+    //QString n = QString::number(_i) + "-";
+    //selectedLog = (logsModel->index(row, 0)).data(0).toInt();
 
-    QString n = QString::number(_i) + "-";
-    int selected = currentLogs->findText(n, Qt::MatchStartsWith);
-    if (selected >= 0)
-    {
-           //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog selected>=0: " << QString::number(selected) << endl;
-        currentLogs->setCurrentIndex(selected);
-    }
-    else
-    {
-          //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog not selected" << endl;
-        return;
-    }
+    selectedLog = _i;
+    logsView->selectRow(1);
+
+    QModelIndex index = logsModel->index(selectedLog, 0);
+
+    logsView->setCurrentIndex(index);
+
 }
 
 /*
@@ -714,9 +681,19 @@ void SetupPageLogs::setDefaultOperators(const QString _p)
 
 void SetupPageLogs::showEvent(QShowEvent *event)
 {
-    //qDebug() << Q_FUNC_INFO << endl;
+    qDebug() << Q_FUNC_INFO << endl;
 
     QWidget::showEvent(event);
     dataProxy->updateQSONumberPerLog();
     logsModel->select();
+    //logsView->selectRow(1);
+
+
+    /*
+    int row = index.row();
+    selectedLog = (logsModel->index(row, 0)).data(0).toInt();
+    */
+
+
+    //setSelectedLog(selectedLog);
 }
