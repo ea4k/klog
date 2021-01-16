@@ -650,7 +650,10 @@ void SearchWindow::slotToolSearchQSL(const int actionQSL)
     {
         case 0://void searchToolNeededQSLToSend();
             //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 0" << endl;
-            stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
+
+
+            stringQuery = QString("SELECT call, qso_date,dxcc, bandid, modeid, qsl_sent, qsl_rcvd, lotw_qsl_rcvd, station_callsign, id FROM log WHERE (qsl_rcvd<>'Y' AND lotw_qsl_rcvd<>'Y') AND qsl_sent<>'Y' AND qsl_sent<>'Q' AND qsl_sent<>'R' AND lognumber='%1' AND (bandid, dxcc) NOT IN (SELECT distinct bandid, dxcc from log WHERE qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')").arg(currentLog);
+            //stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, log.id FROM log JOIN awarddxcc ON awarddxcc.qsoid=log.id WHERE awarddxcc.confirmed='0' AND log.qsl_sent!='Y' AND log.qsl_sent!='Q' AND log.qsl_sent!='R' AND log.lognumber='%1'").arg(currentLog);
             message = tr("Needed QSO to send the QSL");
             setNeedingQSL(true);
             //qslingNeeded = true;

@@ -55,6 +55,7 @@ void SearchWidget::clear()
 
 void SearchWidget::setCallToSearch (const QString _st)
 {
+    qDebug() << Q_FUNC_INFO << " : " << _st;
     searchBoxLineEdit->setText(_st);
 }
 
@@ -134,7 +135,7 @@ void SearchWidget::createUI()
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown."));
     searchBoxReSearchButton->setToolTip(tr("Search in the log."));
     searchAllRadioButton->setToolTip(tr("Search in all logs."));
-    searchBoxLineEdit->setToolTip(tr("Enter the Call to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
+    searchBoxLineEdit->setToolTip(tr("Enter the callsign to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
 
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign used to do this QSO."));
 
@@ -804,7 +805,7 @@ void SearchWidget::slotSearchExportButtonClicked()
                                    util->getHomeDir(),
                                    "ADIF (*.adi *.adif)");
         filemanager->adifLogExportMarked(fileName);
-           //qDebug() << "SearchWidget::slotSearchExportButtonClicked: to call save file" << endl;
+           //qDebug() << "SearchWidget::slotSearchExportButtonClicked: to callsign save file" << endl;
         dataProxy->unMarkAllQSO();
     }
     else

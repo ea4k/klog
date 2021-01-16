@@ -44,18 +44,18 @@ public:
     QString getSatName();
     void setSatName(const QString &_t);
     void setOtherSatName(const QString &_t);
+    void setNoSat();
+
     QString getOtherSatName();
     QString getSatMode();
     double getRXFreq();
     void setSatMode(const QString &_t);
-
 
     bool getRepeatThis();
     void setRepeatThis(const bool _t);
 
     void addBands(QStringList _bands);
     void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
-
 
     void setUpLinkFreq(const double _t);
     void setDownLinkFreq(const double _t);
@@ -67,7 +67,7 @@ public:
     void clear();
 
 signals:
-    void setPropModeSat(const QString &_p);
+    void setPropModeSat(const QString &_p, const bool _keep);
     //void satBandTXChanged(const QString &_p);
     //void satBandRXChanged(const QString &_p);
     void newBandsToBeAdded(const QStringList _p);
@@ -88,6 +88,7 @@ private slots:
     void slotSatFreqRXChanged();
     void slotSatFreqTXChanged();
     void slotReturnPressed();
+    void slotSatKeepThisDataClicked();
 
 private:
     void createUI();
@@ -103,7 +104,7 @@ private:
     QLineEdit *satModeLineEdit;
     QLineEdit *satDXLocatorLineEdit;
     QLabel *satOtherLabel;
-    QRadioButton *keepThisDataForNextQSORadiobutton;
+    QCheckBox *keepThisDataForNextQSOQcheckbox;
     //QComboBox *satNameComboBox;
     //QPushButton *satNamePushButon;
     //QComboBox *satNameComboBox, *satModeComboBox;

@@ -293,7 +293,7 @@ int LoTWUtilities::fullDownload()
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog - LoTW Start date selection"));
-    QString aux = QString(tr("This is the first date of a QSO with the call %1 in this log If you think that in LoTW you may have previous QSOs, answer No.").arg(stationCallsign) );
+    QString aux = QString(tr("This is the first date of a QSO with the callsign %1 in this log If you think that in LoTW you may have previous QSOs, answer No.").arg(stationCallsign) );
     msgBox.setText(tr("Do you want to used this date (%1) as start date?").arg(startDate));
     msgBox.setDetailedText(aux);
     msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);

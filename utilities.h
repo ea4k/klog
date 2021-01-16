@@ -104,7 +104,7 @@ public:
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
     bool isValidDateTimeFromString(const QString &_s);
-
+    bool isValidDXCC(const int _d);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
 

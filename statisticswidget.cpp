@@ -18,7 +18,7 @@ StatisticsWidget::StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent): QWidg
     connect(statisticToShowComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotChartComboBoxChanged() ) ) ;
     connect(logComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLogComboBoxChanged() ) ) ;
 
-    barChartStats->prepareChart(1);
+    //barChartStats->prepareChart(1);
 
 }
 
@@ -43,7 +43,7 @@ void StatisticsWidget::closeEvent(QCloseEvent *event)
 void StatisticsWidget::showEvent(QShowEvent *event)
 {
       //qDebug() << "StatisticsWidget::showEvent" << endl;
-    barChartStats->clear();
+    //barChartStats->clear();
     fillLogCombo();
     event->accept();
 }
@@ -51,27 +51,28 @@ void StatisticsWidget::showEvent(QShowEvent *event)
 void StatisticsWidget::slotChartComboBoxChanged()
 {    
        //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << endl;
-    //QString text = statisticToShowComboBox->currentText();
-    //text.truncate(2);
 
-
-    //barChartStats->prepareChart(text.toInt());
     updateChart();
     statisticToShowComboBox->setFocus();
 }
 
 void StatisticsWidget::slotLogComboBoxChanged()
 {
-
+    updateChart();
+    logComboBox->setFocus();
 }
 
 void StatisticsWidget::updateChart()
 {
     QString text = statisticToShowComboBox->currentText();
     text.truncate(2);
-    int log = ((logComboBox->currentText()).left((logComboBox->currentText()).indexOf('-')+1)).toInt();
-
+    //int log = ((logComboBox->currentText()).left((logComboBox->currentText()).indexOf('-')+1)).toInt();
+    int log = ((logComboBox->currentText()).section('-', 0, 0)).toInt();
+    //qDebug() << Q_FUNC_INFO << " Text : " << logComboBox->currentText() << endl;
+    //qDebug() << Q_FUNC_INFO << " Log : " << QString::number(log) << endl;
+    //barChartStats = new BarChartStats(dataProxy, this);
     barChartStats->prepareChart(text.toInt(), log);
+
 }
 
 void StatisticsWidget::createUI()
@@ -88,21 +89,22 @@ void StatisticsWidget::createUI()
      statisticsToShowList << "10-" + tr("Worked / Confirmed status");
      statisticsToShowList << "11-" + tr("Worked / Sent status");
      statisticsToShowList << "12-" + tr("Sent / Confirmed status");
+     statisticsToShowList << "13-" + tr("Satellite grid status");
+     statisticsToShowList << "14-" + tr("Satellite DXCC status");
 
      statisticToShowComboBox->addItems(statisticsToShowList);
 
     fillLogCombo();
 
-     QHBoxLayout *hLayout = new QHBoxLayout;
-     hLayout->addWidget(statisticToShowComboBox);
-     hLayout->addWidget(logComboBox);
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    hLayout->addWidget(statisticToShowComboBox);
+    hLayout->addWidget(logComboBox);
 
      QVBoxLayout *layout = new QVBoxLayout;
      layout->addLayout(hLayout);
-     //layout->addWidget(statisticToShowComboBox);
-     //layout->addWidget(graphWidget);
      layout->addWidget(barChartStats);
      setLayout(layout);
+
      resize(420,300);
 
  }
@@ -123,18 +125,4 @@ void StatisticsWidget::fillLogCombo()
     logComboBox->clear();
     logComboBox->addItems(logs);
 
-/*
-    QStringList getListOfManagedLogs();
-    int getMaxLogNumber();
-    QString getStationCallSignFromLog(const int _log);
-    QStringList getStationCallSignsFromLog(const int _log);
-    QString getOperatorsFromLog(const int _log);
-    QString getCommentsFromLog(const int _log);
-    QString getLogDateFromLog(const int _log);
-    QString getLogTypeNFromLog(const int _log);
-    bool addNewLog (const QStringList _qs);
-    bool doesThisLogExist(const int _log);
-
-
-*/
 }

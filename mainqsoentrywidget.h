@@ -98,7 +98,7 @@ private:
 
     bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
-    void checkIfDupe();
+    void checkIfDupe(const QString &_func);
 
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;

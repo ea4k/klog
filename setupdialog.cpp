@@ -449,8 +449,8 @@ void SetupDialog::slotOkButtonClicked()
     if (!util->isValidCall(userDataPage->getStationQrz())){ //
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You need to enter at least a valid call."));
-        msgBox.setInformativeText(tr("Go to the User tab and enter valid call."));
+        msgBox.setText(tr("You need to enter at least a valid callsign."));
+        msgBox.setInformativeText(tr("Go to the User tab and enter valid callsign."));
         msgBox.exec();
         emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
         return;
@@ -1501,6 +1501,9 @@ void SetupDialog::slotFocusOK()
 
 void SetupDialog::showEvent(QShowEvent *event)
 {
+    qDebug() << Q_FUNC_INFO << endl;
+    qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << endl;
     QWidget::showEvent(event);
+
     userDataPage->setStationFocus();
 }

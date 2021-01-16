@@ -42,7 +42,8 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     txFreqSpinBox = new QDoubleSpinBox;
     rxFreqSpinBox = new QDoubleSpinBox;    
 
-    keepThisDataForNextQSORadiobutton = new QRadioButton;
+    keepThisDataForNextQSOQcheckbox = new QCheckBox;
+
 
     dataProxy = dp;
     locator = new Locator;
@@ -83,14 +84,14 @@ void MainWindowSatTab::createUI()
 
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqTXChanged()) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqRXChanged()) ) ;
-
+    connect (keepThisDataForNextQSOQcheckbox, SIGNAL(clicked()), this, SLOT(slotSatKeepThisDataClicked()) );
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
+    keepThisDataForNextQSOQcheckbox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
     QString othersat = tr("Other - Sat not in the list");
     QString aux;
     aux.clear();
@@ -140,7 +141,7 @@ void MainWindowSatTab::createUI()
 
     QHBoxLayout *keepLayout = new QHBoxLayout;
     keepLayout->addWidget(keepLabel);
-    keepLayout->addWidget(keepThisDataForNextQSORadiobutton);
+    keepLayout->addWidget(keepThisDataForNextQSOQcheckbox);
 
     QHBoxLayout *lastlineLayout = new QHBoxLayout;
     //lastlineLayout->addWidget(satModeLabel);
@@ -182,29 +183,27 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     }
 
     int i = satNameComboBox->currentIndex();
-
    //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << endl;
-
     //QString _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
 
     satNameLineEdit->clear();
 
     if (i == 0)
     {
-        emit setPropModeSat("Not");
+        emit setPropModeSat("Not", false);
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
 
     }
     else if(i == 1)
     {
-        emit setPropModeSat("SAT");
+        emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(true);
         satOtherLabel->setEnabled(true);
     }
     else
     {
-        emit setPropModeSat("SAT");
+        emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
         setBandsOfSat(satNameComboBox->currentText());
@@ -225,11 +224,11 @@ void MainWindowSatTab::slotSatNameTextChanged()
 
     if ((satNameLineEdit->text()).length()>0)
     {
-        emit setPropModeSat("SAT");
+        emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
     }
     else if ((satModeLineEdit->text()).length()<1)
     {
-        emit setPropModeSat("Not");
+        emit setPropModeSat("Not", false);
     }
 
 }
@@ -328,6 +327,12 @@ QString MainWindowSatTab::getSatName()
 
 }
 
+void MainWindowSatTab::setNoSat()
+{
+   satNameComboBox->setCurrentIndex(0);
+   keepThisDataForNextQSOQcheckbox->setChecked(false);
+}
+
 void MainWindowSatTab::setSatName(const QString &_t)
 {
      //TODO: Check that the format is OK
@@ -366,20 +371,20 @@ void MainWindowSatTab::setSatMode(const QString &_t)
 bool MainWindowSatTab::getRepeatThis()
 {
     //qDebug() << "MainWindowSatTab::getRepeatThis: "  << endl;
-    return keepThisDataForNextQSORadiobutton->isChecked();
+    return keepThisDataForNextQSOQcheckbox->isChecked();
 }
 
 void MainWindowSatTab::setRepeatThis(const bool _t)
 {
     //qDebug() << "MainWindowSatTab::setRepeatThis: "  << endl;
-    keepThisDataForNextQSORadiobutton->setChecked(_t);
+    keepThisDataForNextQSOQcheckbox->setChecked(_t);
 }
 
 void MainWindowSatTab::clear()
 {
     //qDebug() << "MainWindowSatTab::clear"  << endl;
     modifying = false;
-    if (keepThisDataForNextQSORadiobutton->isChecked())
+    if (keepThisDataForNextQSOQcheckbox->isChecked())
     {
         satDXLocatorLineEdit->clear();
     }
@@ -813,7 +818,6 @@ void MainWindowSatTab::slotReturnPressed()
     //qDebug() << "MainWindowsatTab::slotReturnPressed" << endl;
     emit returnPressed();
 }
-
 
 void MainWindowSatTab::slotSatKeepThisDataClicked()
 {

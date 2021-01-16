@@ -42,7 +42,6 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     currentLog = -1;
     //proxyModel = new LogViewSortFilterProxyModel(this);
 
-
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     createUI();

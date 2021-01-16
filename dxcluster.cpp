@@ -728,7 +728,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
                 }
             }
             else
-            { // The call is not from a valid country
+            { // The callsign is not from a valid country
               // TODO: if it is from a new entity/prefix it would not work.
                    //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: Entity not valid"  << endl;
                 dxCallsign.clear();
