@@ -3755,7 +3755,7 @@ bool DataBase::updateModeIdFromSubModeId()
     // STEP-2: uses the modeid to get the name of the mode in the mode table (the old one)
     // STEP-3: uses the name of the mode in the modetemp table (the new one) to get the new ID
     // STEP-4: Updates the new ID in the QSO in the log
-
+    //TODO: Optimize this function
 
          //qDebug() << "DataBase::updateModeIdFromSubModeId: "  << endl;
     bool cancel = false;
@@ -3844,9 +3844,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
                             if (sqlOk3)
                             {
-
-                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << endl;
-
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << endl;
                             }
                             else
                             {
@@ -7762,6 +7760,7 @@ bool DataBase::updateTo019()
 
 bool DataBase::updateAwardDXCCTable()
 {
+    /*
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
 
     QList<AwarddxccEntry> dxccStatusList;
@@ -7884,7 +7883,7 @@ bool DataBase::updateAwardDXCCTable()
 
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
+    {return false;}
     else
     {
            //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << endl;
@@ -8006,11 +8005,13 @@ bool DataBase::updateAwardDXCCTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
+    */
     return true;
 }
 
 bool DataBase::updateAwardWAZTable()
 {    
+    /*
        //qDebug() << "DataBase::updateAwardWAZTable" << endl;
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
@@ -8123,7 +8124,7 @@ bool DataBase::updateAwardWAZTable()
 
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
+    {return false;}
     else
     {
            //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << endl;
@@ -8245,6 +8246,7 @@ bool DataBase::updateAwardWAZTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << endl;
+    */
     return true;
 
 
