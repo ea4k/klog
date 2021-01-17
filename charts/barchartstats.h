@@ -43,7 +43,7 @@
 #include "charts/statsworkedsentpiechartwidget.h"
 #include "charts/statssentconfirmedpiechartwidget.h"
 #include "charts/statsgridsonsatswidget.h"
-#include "charts/statsdxcconsatswidget.h"
+#include "charts/statsdxccsonsatswidget.h"
 //#include "charts/statspiechartwidget.h"
 
 
