@@ -2045,6 +2045,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     bool haveFreqTX = false;
     bool haveFreqRX = false;
     bool hasStationCall = false;
+    QString freqTX =QString();
 
     //bool ret;
     //int length = 0;
@@ -2426,6 +2427,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         {
                             preparedQuery.bindValue( ":freq", data);
                             haveFreqTX =true;
+                            freqTX=data;
                         }
                         else
                         {
@@ -2436,6 +2438,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     {
                         preparedQuery.bindValue( ":freq", data);
                         haveFreqTX =true;
+                        freqTX = data;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
@@ -2462,12 +2465,13 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     }
                     else
                     {                        
+                        preparedQuery.bindValue( ":freq_rx", data);
+                        haveFreqRX =true;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
                         {
-                            preparedQuery.bindValue( ":band_rx", QString::number(i) );
-                            haveFreqRX =true;
+                            preparedQuery.bindValue( ":band_rx", QString::number(i));
                             bandRXDef = true;
                                //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                         }
@@ -2948,6 +2952,12 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     {
         preparedQuery.bindValue( ":freq_rx",  dataProxy->getFreqFromBandId(bandrxi));
     }
+    
+    if ((haveFreqTX) && (!haveFreqRX))
+    {
+        preparedQuery.bindValue( ":freq_rx",  freqTX);
+    }
+    
     if (!haveCall)
     {
 
