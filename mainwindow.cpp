@@ -8489,7 +8489,11 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                 //slotShowInfoLabel(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode, 2);
                 //infoLabel1->setText(tr("QSO logged from WSJT-X:"));
                 infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
-                timerInfoBars->start(infoTimeout);
+                //timerInfoBars->start(infoTimeout);
+                actionsJustAfterAddingOneQSO();
+                slotClearButtonClicked();
+                UDPLogServer->start();
+
                 if (clublogActive && clublogRealTime)
                 {
                     elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(dataProxy->getLastQSOid()));
