@@ -5505,22 +5505,18 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 _lotwqsl = query.value(4).toString();
                 _log = query.value(5).toInt();
                 query.finish();
-
             }
             else
             {
                 query.finish();
                 return false;
             }
-
-
         }
         else
         {
             query.finish();
             return false;
         }
-
     }
     else
     {
@@ -5528,8 +5524,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
         query.finish();
         return false;
     }
-
-
 
     if (_dxcc <= 0)
     {

@@ -8493,7 +8493,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
                 actionsJustAfterAddingOneQSO();
                 slotClearButtonClicked();
-                UDPLogServer->start();
+                //UDPLogServer->start();
                 
                 if (clublogActive && clublogRealTime)
                 {
