@@ -10,6 +10,7 @@ TODO: Reviewing in the setup process.
 - UI: Removed the QComboBox of the Setup Log tab to select the log. (TNX G4MKT)
 - UI: Added the QSO per log in the logs setup.
 - UI: Added a checkbox to keep the Propagation mode, if needed. Propagation mode is also linked to the Satellite tab. (TNX EA5WA)
+- Bugfix: Improved the way the QSOs come from WSJT-X. (EA5WA)
 - Bugfix: Double clicking on a call, while searching made the search to be redefined to that call and the previous search was lost.
 - Bugfix: Satellite stats where not properly calculated. (TNX EA5WA)
 - Bugfix: Identifying some bands was not properly done due to the names being in lower case.
