@@ -976,6 +976,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
    //qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
     QString fileName = tfileName;
     QList<int> readed;
+    QTime time1 = QTime::currentTime();
+
     readed.clear();
     if (!dataProxy->doesThisLogExist(logN))
     {
@@ -1116,6 +1118,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
    //qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
     QDate _tdate;
     noMoreQso = false;
+    time1.start();
     while (!noMoreQso )
     {
         if (!file.atEnd())
@@ -1443,6 +1446,10 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
         { // To update the speed I will only show the progress once each X QSOs
             //qDebug() << "FileManager::adifLoTWReadLog: MOD 0 - i = " << QString::number(i)  << endl;
             aux = tr("Importing LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+            //aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: %3 QSOs/sec")).arg(i).arg(numberOfQsos).arg(step / (time1.elapsed()/1000));
+
+            time1.restart();
+
             progress.setLabelText(aux);
             progress.setValue(i);
         }
@@ -1487,6 +1494,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
 bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 {
     //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
+    QTime time1;
 
     //int n = 0;
     //QSqlDatabase db = QSqlDatabase::database();
@@ -1675,6 +1683,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //file.seek(pos);
     fields.clear();
    // while ( (!file.atEnd() ) && (!noMoreQso) && (sqlOK))
+    time1.start();
     while ((!noMoreQso) && (sqlOK))
     {
 
@@ -1820,7 +1829,25 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             if (( (i % step ) == 0) )
             { // To update the speed I will only show the progress once each X QSOs
                   //qDebug() << "FileManager::adifReadLog: MOD 0 - i = " << QString::number(i)  << endl;
+                //aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: 0 QSOs/sec")).arg(i).arg(numberOfQsos);
+                /*
+                 *qDebug() << "FileManager::adifReadLog: " << QString::number(step) << endl;
+                qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()) << endl;
+                qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()/1000) << endl;
+                qDebug() << "FileManager::adifReadLog: " << QString::number(step / (time1.elapsed()/1000)) << endl;
 
+                if (time1.elapsed()/1000 != 0)
+                {
+                    aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: %3 QSOs/sec")).arg(i).arg(numberOfQsos).arg(step / (time1.elapsed()/1000));
+                }
+                else
+                {
+                    aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: 0 QSOs/sec")).arg(i).arg(numberOfQsos);
+                }
+
+
+                time1.restart();
+                */
                 aux = tr("Importing ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
 
                progress.setLabelText(aux);

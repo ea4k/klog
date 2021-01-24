@@ -40,6 +40,7 @@
 
 #include "locator.h"
 #include "dataproxy_sqlite.h"
+//#include "klogdefinitions.h"
 //#include "awards.h"
 
 

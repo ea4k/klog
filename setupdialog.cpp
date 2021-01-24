@@ -154,7 +154,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
 {
     //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
 
-    logSeverity = 7;
+    logSeverity = Info;
     constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;
@@ -1482,7 +1482,7 @@ void SetupDialog::slotSetOperators(const QString &_p)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-void SetupDialog::setSeverity(const int _sev)
+void SetupDialog::setSeverity(const DebugLogLevel _sev)
 {
     logSeverity = _sev;
 }

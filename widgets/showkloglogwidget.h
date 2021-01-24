@@ -1,12 +1,10 @@
-#ifndef TIPSDIALOG_H
-#define TIPSDIALOG_H
-
-
+#ifndef SHOWKLOGLOGWIDGET_H
+#define SHOWKLOGLOGWIDGET_H
 /***************************************************************************
-                          tipsdialog.h  -  description
+                          showkloglogwidget.h  -  description
                              -------------------
-    begin                : sept 2019
-    copyright            : (C) 2019 by Jaime Robles
+    begin                : jan 2021
+    copyright            : (C) 2021 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -24,60 +22,36 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
+#include <QObject>
+#include <QWidget>
+#include <QtWidgets>
+#include <QListView>
+#include <QStringListModel>
+#include "utilities.h"
 
-#include <QDialog>
-#include <QLabel>
-#include <QTextEdit>
+// This widget will show the KLog log, the software log, to be able to debug
+// or see how it is executing. Mainly for debug & development.
 
-
-#include <QTabWidget>
-#include "klogdefinitions.h"
-
-
-
-class TipsDialog : public QDialog
+class ShowKLogLogWidget : public QWidget
 {
     Q_OBJECT
-
 public:
-    explicit TipsDialog(QWidget *parent = nullptr);
-    ~TipsDialog();
-    void setSeverity(const DebugLogLevel _sev);
-
+    explicit ShowKLogLogWidget(QWidget *parent = nullptr);
+    void addLog(QString const &_func, QString const &_log, const DebugLogLevel _l);
 signals:
-    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    void fillInQSOSignal();
-    void fillInDXCCSignal();
-    void findQSL2QSOSignal();
-    void fileExportToPrintSignal();
-    //void fileExportForLoTWSignal();
-    void fileOpenKLogFolderSignal();
-    void toolSendPendingQSLSignal();
-    void toolRecPendingQSLSignal();
-    void toolRecRecPendingQSLSignal();
-    void toolsUploadLoTWSignal();
 
-private slots:
-    void slotPrevButtonClicked();
-    void slotNextButtonClicked();
-    void slotLinkActivated(const QString &_link);
+public slots:
 
 private:
-    void setTip(const int _t);
-
-    QLabel *tipTextQLabel;
-    //QTextEdit *tipTextEdit;
-    QWidget *tip;
-    DebugLogLevel logSeverity;
-    int tipId, tipMax;
-    QString description;
-
+    void createUI();
+    QStringList list;
+    QListView *logsView;
+    QStringListModel *model;
+    QComboBox *levelComboBox;
 
 };
 
-
-
-#endif // TIPSDIALOG_H
+#endif // SHOWKLOGLOGWIDGET_H

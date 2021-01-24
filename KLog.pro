@@ -39,7 +39,9 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 
 HEADERS += setupdialog.h \
     aboutdialog.h \
-    awardswidget.h \    
+    awardswidget.h \     \
+    klogdefinitions.h \
+    widgets/showkloglogwidget.h \
     elogqrzlog.h \
     eqslutilities.h \
     lotwutilities.h \
@@ -143,6 +145,7 @@ SOURCES += main.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
+    widgets/showkloglogwidget.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \

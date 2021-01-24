@@ -73,7 +73,7 @@ protected:
    // void keyPressEvent(QKeyEvent *event);
 
 signals:
-    void debugLog (QString _func, QString _msg, int _level);
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void showInfoLabel(QString _msg);
     void currentQRZSignal(QString _msg);
     void clearForNextQSOSignal();
@@ -108,7 +108,7 @@ private:
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
     QCheckBox *realtimeCheckBox;
-    int logSeverity;
+    //DebugLogLevel logSeverity;
     bool cleaning;
     bool qrzAutoChanging;
     bool InValidCharsInPrevCall;
