@@ -31,6 +31,7 @@
 #include <QObject>
 #include "database.h"
 #include "qso.h"
+#include "klogdefinitions.h"
 //#include "regionalaward.h"
 
 //Class QSO;
@@ -322,12 +323,12 @@ private:
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
-    void debugLog(QString functionFailed, QString errorCode, int level); // emitted as the KLog application log
+    void debugLog(QString functionFailed, QString errorCode, DebugLogLevel level); // emitted as the KLog application log
 
 };
 

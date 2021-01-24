@@ -1662,3 +1662,5 @@ bool World::hasSpecialEntities()
     return false;
 
 }
+
+

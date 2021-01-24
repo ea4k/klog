@@ -80,6 +80,7 @@
 #include "widgets/showadifimportwidget.h"
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
 //#include "worldmapwidget.h"
+#include "widgets/showkloglogwidget.h"
 
 
 class QTimer;
@@ -258,6 +259,7 @@ private slots:
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
     void slotTipsAction();
+    void slotDebugAction();
 
     // MainQSOEntryWidget
     void slotShowInfoLabel(const QString _m);
@@ -348,7 +350,7 @@ private slots:
     //void slotTipsFillInDXCC();
     //void slotsTipsFillQSO();
 
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
 private:
     //void setWidgetsOrder();
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -358,8 +360,8 @@ private:
     bool maybeSave();
     void setCleaning(const bool _c);
 
-    void logEvent(const QString &_func, const QString &_msg, const int _level=7);
-    void setSeverity(const int _sev);
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void setSeverity(const DebugLogLevel _sev);
     void updateBandComboBox(const QString &_band);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
@@ -469,7 +471,8 @@ private:
     //HelpHelpDialog *helpHelpDialog;
     //HelpAboutDialog *helpAboutDialog;
     AboutDialog *aboutDialog;
-    TipsDialog *tipsDialog;
+    TipsDialog *tipsDialog;    
+    ShowKLogLogWidget * showKLogLogWidget;
     //DXCCSummaryDialog *dxccSummaryDialog;
 
 
@@ -535,6 +538,7 @@ private:
     QAction *helpAct;
     QAction *aboutAct;
     QAction *tipsAct;
+    QAction *debugAct;
     QAction *aboutQtAct;
     QAction *updateAct;
 
@@ -653,7 +657,7 @@ private:
     bool logEvents;                     // Should KLog log the events for debugging
     bool debugFileOpen;                 //Is the debugFile open?
     QFile *debugFile;
-    int logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
+    DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
 
     bool txFreqBeingChanged, rxFreqBeingChanged, updatingBands;            // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
@@ -776,6 +780,8 @@ private:
     //LOGVIEW
     //QString bandOld, modeOld;
     //LOGVIEW
+
+
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution

@@ -37,11 +37,7 @@
 #include <QPalette>
 #include "locator.h"
 #include <QtDebug>
-
-enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
-enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
-enum OnlineErrorCode {Ok, Fail};
-enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
+#include "klogdefinitions.h"
 
 class Utilities
 {
