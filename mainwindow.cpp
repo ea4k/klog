@@ -8490,6 +8490,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                 //infoLabel1->setText(tr("QSO logged from WSJT-X:"));
                 infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
                 //timerInfoBars->start(infoTimeout);
+
                 actionsJustAfterAddingOneQSO();
                 slotClearButtonClicked();
                 //UDPLogServer->start();
