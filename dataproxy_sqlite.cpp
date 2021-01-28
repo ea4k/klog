@@ -2394,6 +2394,9 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
 
             stringFields  = stringFields  + "freq, " ;
             stringData =  stringData + "'" + QString::number(_freq) + "', ";
+            // EA5WA Mod para incluir Frecuencia RX en el log
+            stringFields  = stringFields  + "freq_rx, " ;
+            stringData =  stringData + "'" + QString::number(_freq) + "', ";
     }
     else
     {

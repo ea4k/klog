@@ -8494,7 +8494,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                 actionsJustAfterAddingOneQSO();
                 slotClearButtonClicked();
                 //UDPLogServer->start();
-                
+
                 if (clublogActive && clublogRealTime)
                 {
                     elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(dataProxy->getLastQSOid()));
