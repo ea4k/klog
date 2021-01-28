@@ -3,7 +3,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
-#include <QtCharts>
+//#include <QtCharts>
 #include "charts/barchartstats.h"
 //#include "charts/donutchartstats.h"
 
@@ -35,7 +35,7 @@ private:
      DataProxy_SQLite *dataProxy;
      //QWidget *graphWidget;
 
-     QChartView *chartView;
+     //QChartView *chartView;
 
      BarChartStats *barChartStats;
      //DonutChartStats *donutChartStats;

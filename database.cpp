@@ -969,10 +969,11 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
 int DataBase::getBandIdFromName(const QString &b)
 {
     //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
+    QString band = b.toUpper();
     QSqlQuery query;
-    if (isValidBand(b))
+    if (isValidBand(band))
     {
-        QString queryString = QString("SELECT id FROM band WHERE name='%1'").arg(b);
+        QString queryString = QString("SELECT id FROM band WHERE name='%1'").arg(band);
 
         bool sqlOK = query.exec(queryString);
 
@@ -981,7 +982,7 @@ int DataBase::getBandIdFromName(const QString &b)
             query.next();
             if ( query.isValid() )
             {
-                     //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+                //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
                 int v = (query.value(0)).toInt();
                 query.finish();
                 return v;
@@ -989,7 +990,7 @@ int DataBase::getBandIdFromName(const QString &b)
             }
             else
             {
-                     //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
+                //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
                 query.finish();
                 return -1;
             }
@@ -1000,13 +1001,13 @@ int DataBase::getBandIdFromName(const QString &b)
             query.finish();
             return -2;
         }
-             //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
+        //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << b << endl;
+           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << band << endl;
     }
-    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << b << endl;
+    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << band << endl;
     query.finish();
     return -3;
 }
@@ -1268,8 +1269,10 @@ bool DataBase::isValidBand (const QString &b)
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
+    QString _band = b.toUpper();
+
     QSqlQuery query;
-    QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(b);
+    QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(_band);
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
@@ -1292,7 +1295,7 @@ bool DataBase::isValidBand (const QString &b)
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
     }
-   //// emit debugLog(Q_FUNC_INFO, "3", 7);
+   //emit debugLog(Q_FUNC_INFO, "3", 7);
     return false;
 }
 
@@ -3752,7 +3755,7 @@ bool DataBase::updateModeIdFromSubModeId()
     // STEP-2: uses the modeid to get the name of the mode in the mode table (the old one)
     // STEP-3: uses the name of the mode in the modetemp table (the new one) to get the new ID
     // STEP-4: Updates the new ID in the QSO in the log
-
+    //TODO: Optimize this function
 
          //qDebug() << "DataBase::updateModeIdFromSubModeId: "  << endl;
     bool cancel = false;
@@ -3841,9 +3844,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
                             if (sqlOk3)
                             {
-
-                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << endl;
-
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << endl;
                             }
                             else
                             {
@@ -7759,6 +7760,7 @@ bool DataBase::updateTo019()
 
 bool DataBase::updateAwardDXCCTable()
 {
+    /*
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
 
     QList<AwarddxccEntry> dxccStatusList;
@@ -7779,7 +7781,7 @@ bool DataBase::updateAwardDXCCTable()
     //awardEntryCheck.status = QString();
 
 
-    QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lognumber FROM log ORDER BY dxcc");
+    QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY dxcc");
     QSqlQuery query;//, query2;
 
     bool sqlOK = query.exec(stringQuery);
@@ -7817,15 +7819,30 @@ bool DataBase::updateAwardDXCCTable()
 
                //qDebug() << "DataBase::updateAwardDXCCTable in the while" << endl;
             nameCol = rec.indexOf("qsl_rcvd");
+            bool qsl = false;
 
             if ((query.value(nameCol)).toString() == "Y")
             {
-              awardEntry.status = "1";
+                qsl = true;
+            }
+
+            nameCol = rec.indexOf("lotw_qsl_rcvd");
+            bool lotw = false;
+            if ((query.value(nameCol)).toString() == "Y")
+            {
+                lotw = true;
+            }
+
+            if (qsl || lotw )
+            {
+                awardEntry.status = "1";
             }
             else
             {
                 awardEntry.status = "0";
             }
+
+
                //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
@@ -7866,7 +7883,7 @@ bool DataBase::updateAwardDXCCTable()
 
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
+    {return false;}
     else
     {
            //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << endl;
@@ -7988,11 +8005,13 @@ bool DataBase::updateAwardDXCCTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
+    */
     return true;
 }
 
 bool DataBase::updateAwardWAZTable()
 {    
+    /*
        //qDebug() << "DataBase::updateAwardWAZTable" << endl;
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
@@ -8006,7 +8025,7 @@ bool DataBase::updateAwardWAZTable()
     awardEntry.logNumber = QString();
     awardEntry.qsoID = QString();
 
-    QString stringQuery = QString("SELECT id, bandid, modeid, cqz, qsl_rcvd, lognumber FROM log ORDER BY cqz");
+    QString stringQuery = QString("SELECT id, bandid, modeid, cqz, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY cqz");
     QSqlQuery query;//, query2;
 
     bool sqlOK = query.exec(stringQuery);
@@ -8043,10 +8062,23 @@ bool DataBase::updateAwardWAZTable()
 
                //qDebug() << "DataBase::updateAwardWAZTable in the while" << endl;
             nameCol = rec.indexOf("qsl_rcvd");
+            bool qsl = false;
 
             if ((query.value(nameCol)).toString() == "Y")
             {
-              awardEntry.status = "1";
+                qsl = true;
+            }
+
+            nameCol = rec.indexOf("lotw_qsl_rcvd");
+            bool lotw = false;
+            if ((query.value(nameCol)).toString() == "Y")
+            {
+                lotw = true;
+            }
+
+            if (qsl || lotw )
+            {
+                awardEntry.status = "1";
             }
             else
             {
@@ -8092,7 +8124,7 @@ bool DataBase::updateAwardWAZTable()
 
     sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "2", 7);*/return false;}
+    {return false;}
     else
     {
            //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << endl;
@@ -8214,6 +8246,7 @@ bool DataBase::updateAwardWAZTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << endl;
+    */
     return true;
 
 

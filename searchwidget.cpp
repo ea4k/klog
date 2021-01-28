@@ -55,6 +55,7 @@ void SearchWidget::clear()
 
 void SearchWidget::setCallToSearch (const QString _st)
 {
+    qDebug() << Q_FUNC_INFO << " : " << _st;
     searchBoxLineEdit->setText(_st);
 }
 
@@ -134,7 +135,7 @@ void SearchWidget::createUI()
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown."));
     searchBoxReSearchButton->setToolTip(tr("Search in the log."));
     searchAllRadioButton->setToolTip(tr("Search in all logs."));
-    searchBoxLineEdit->setToolTip(tr("Enter the QRZ to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
+    searchBoxLineEdit->setToolTip(tr("Enter the callsign to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
 
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign used to do this QSO."));
 
@@ -197,12 +198,7 @@ void SearchWidget::slotRequestFocus()
     emit requestBeingShown();
 }
 
-void showMenuRightButtonSearchCreateActions()
-{
-    //qDebug() << "SearchWidget::showMenuRightButtonSearchCreateActions" << endl;
 
-
-}
 
 /*
 void SearchWidget::slotRightButtonSearch(const QPoint& pos)
@@ -216,18 +212,66 @@ void SearchWidget::slotRightButtonSearch(const QPoint& pos)
 void SearchWidget::slotQsoDeleteFromSearch(const int _qsoId)
 {
     //qDebug() << "SearchWidget::slotQsoDeleteFromSearch: " << QString::number(_qsoId) << endl;
-    actionQSODelete(_qsoId);
-    if(qslingNeeded)
+
+
+    int QSOid = _qsoId;
+    //int x = -1;
+
+    QString _qrz = dataProxy->getCallFromId(QSOid);
+    if (_qrz.length()>=3)
     {
-        searchWindow->slotToolSearchQSL(0);
+
+        QString message = QString(tr("You have requested to delete the QSO with: %1").arg(_qrz));
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setText(message);
+        msgBox.setInformativeText(tr("Are you sure?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        int ret = msgBox.exec();
+
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+
+            if(dataProxy->deleteQSO(QSOid))
+            {
+                emit actionQSODelete(QSOid);
+
+                emit logRefresh();
+                if(qslingNeeded)
+                {
+                    searchWindow->slotToolSearchQSL(0);
+                }
+                else
+                {
+                    slotSearchBoxTextChanged();
+                }
+                //dxccStatusWidget->refresh();
+                //awards->recalculateAwards();
+                emit updateAwards();
+
+            }
+            else
+            {
+                //TODO: The QSO could not be removed...
+            }
+
+            break;
+            case QMessageBox::No:
+              // No was clicked
+            break;
+            default:
+              // should never be reached
+            break;
+        }
+
     }
     else
     {
-        slotSearchBoxTextChanged();
+         // TODO: The QSO to be removed was not found in the log
     }
-    //dxccStatusWidget->refresh();
-    //awards->recalculateAwards();
-    //
 }
 
 void SearchWidget::slotQSLRecViaBureauFromSearch()
@@ -761,7 +805,7 @@ void SearchWidget::slotSearchExportButtonClicked()
                                    util->getHomeDir(),
                                    "ADIF (*.adi *.adif)");
         filemanager->adifLogExportMarked(fileName);
-           //qDebug() << "SearchWidget::slotSearchExportButtonClicked: to call save file" << endl;
+           //qDebug() << "SearchWidget::slotSearchExportButtonClicked: to callsign save file" << endl;
         dataProxy->unMarkAllQSO();
     }
     else

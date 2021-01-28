@@ -38,6 +38,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
     ignoreUnknownAlways = false;
     noMoreQso = false;
     defaultStationCallsign = QString();
+    duplicatedQSOSlotInSecs = 0;
 
     util = new Utilities;
     //qso = new QSO;
@@ -65,6 +66,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
     dbCreated = false;
     rstTXDefault  = false;
     rstRXDefault = false;
+    duplicatedQSOSlotInSecs = 0;
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
     klogVersion = _softVersion;
@@ -84,6 +86,14 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
 FileManager::~FileManager()
 {
 
+}
+
+void FileManager::setDuplicatedQSOSlot (const int _secs)
+{
+    if (_secs >= 0)
+    {
+        duplicatedQSOSlotInSecs = _secs;
+    }
 }
 
 bool FileManager::checkADIFValidFormat(const QStringList &_qs)
@@ -756,6 +766,8 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
    //QSO qso(Q_FUNC_INFO);
    QString stationCallSign;
    stationCallSign.clear();
+   bool addNewQSOs = false;
+   bool askedToAddNewQSOs = false;
    QList<int> _qsos;
    _qsos.clear();
    if (!dataProxy->doesThisLogExist(logN))
@@ -850,35 +862,54 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
 
                     QList<int> dupeQsos;
                     dupeQsos.clear();
-                    dupeQsos << dataProxy->isThisQSODuplicated(qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), dataProxy->getIdFromModeName(qso.getMode()));
-                    if (dupeQsos.length()>0)
+                    dupeQsos << dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), dataProxy->getIdFromModeName(qso.getMode()), duplicatedQSOSlotInSecs);
+
+                    if ((dupeQsos.length()<1) && (!askedToAddNewQSOs) )
                     {
-                         //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO DUPE NOT, adding... just modifying"   << endl;
-                         //if (dupeQsos.length()>1)
-                         //{
-                         //    //qDebug() << "FileManager::adifLoTWReadLog2 -  More than one DUPE QSO: We will update just the first one"   << endl;
-                         //    foreach (i, dupeQsos)
-                         //    {
-                         //       //qDebug() << "FileManager::adifLoTWReadLog2 -  More than one DUPE QSO: #" << QString::number(i)   << endl;
-                         //    }
-                         //    //qDebug() << "FileManager::adifLoTWReadLog2 -  More than one DUPE QSO: END OF DUPE LIST #####"   << endl;
-                         //}
-                         if (qso.getLoTWQSL_RCVD() == "Y")
-                         {
-                            //qDebug() << "FileManager::adifLoTWReadLog2 -  QSO Exixting, Updating LoTW QSL status"   << endl;
-                             if (dataProxy->setLoTWQSLRec (dupeQsos.at(0), "Y", qso.getLoTWQSLRDate()))
-                             {
-                                 _qsos.append(dupeQsos.at(0));
-                             }
-                         }
+                        askedToAddNewQSOs = true;
+                        QMessageBox msgBox;
+                        msgBox.setWindowTitle(tr("KLog - Add new QSOs?"));
+                        QString aux = QString(tr("Do you want to add non existing QSOs to your local log?"));
+                        msgBox.setText(aux);
+                        msgBox.setDetailedText(tr("There are some QSOs in the LoTW log that are not in your local log."));
+                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                        msgBox.setDefaultButton(QMessageBox::No);
+                        int ret = msgBox.exec();
+                        switch (ret)
+                        {
+                            case QMessageBox::Yes:
+                            addNewQSOs = true;
+                            break;
+                            case QMessageBox::No:
+                            addNewQSOs = false;
+                            break;
+                            default:
+                            // should never be reached
+                            break;
+                        }
                     }
-                    else
+
+                    if ((dupeQsos.length()<1) && (addNewQSOs))
                     {
                         //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << endl;
                         int lastId = dataProxy->addQSO(qso);
                         if (lastId>0)
                         {
                             _qsos.append(lastId);
+                            //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... added ..."   << endl;
+                        }
+                        else
+                        {
+                            //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ... FAILED TO ADD"   << endl;
+                        }
+                    }
+                    else
+                    {
+                        //qDebug() << "FileManager::adifLoTWReadLog2 -  EXisting QSO or not adding, Updating LoTW QSL status to: " <<  qso.getLoTWQSL_RCVD()  << endl;
+                        if (dataProxy->setLoTWQSLRec (dupeQsos.at(0), qso.getLoTWQSL_RCVD(), qso.getLoTWQSLRDate()))
+                        {
+                            _qsos.append(dupeQsos.at(0));
+                            //qDebug() << "FileManager::adifLoTWReadLog2: Modified QSO: " << QString::number(dupeQsos.at(0)) << endl;
                         }
                     }
 
@@ -894,7 +925,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
             {
                 qso.setData(fullField);
             }
-
         }
 
         if (( (i % step ) == 0) )
@@ -946,6 +976,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
    //qDebug() << "FileManager::adifLoTWReadLog: " << tfileName << endl;
     QString fileName = tfileName;
     QList<int> readed;
+    QTime time1 = QTime::currentTime();
+
     readed.clear();
     if (!dataProxy->doesThisLogExist(logN))
     {
@@ -1086,6 +1118,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
    //qDebug() << "FileManager::adifLoTWReadLog: QSO data reading started..."  << endl;
     QDate _tdate;
     noMoreQso = false;
+    time1.start();
     while (!noMoreQso )
     {
         if (!file.atEnd())
@@ -1413,6 +1446,10 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
         { // To update the speed I will only show the progress once each X QSOs
             //qDebug() << "FileManager::adifLoTWReadLog: MOD 0 - i = " << QString::number(i)  << endl;
             aux = tr("Importing LoTW ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
+            //aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: %3 QSOs/sec")).arg(i).arg(numberOfQsos).arg(step / (time1.elapsed()/1000));
+
+            time1.restart();
+
             progress.setLabelText(aux);
             progress.setValue(i);
         }
@@ -1457,6 +1494,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
 bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 {
     //qDebug() << "FileManager::adifReadLog:" << tfileName << endl;
+    QTime time1;
 
     //int n = 0;
     //QSqlDatabase db = QSqlDatabase::database();
@@ -1483,7 +1521,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     bool inHeader = true;
     bool EOR = false;
     noMoreQso = false;
-    bool preparedQBool = false;
+    bool isDupeQSO = false;
+    bool askedToAddDupeQSOs = false;
+    bool addDupeQSOs = false;
     qint64 pos; //Position in the file
     int i = 0; //Aunxiliar variable
     int numberOfQsos = 0;
@@ -1643,6 +1683,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //file.seek(pos);
     fields.clear();
    // while ( (!file.atEnd() ) && (!noMoreQso) && (sqlOK))
+    time1.start();
     while ((!noMoreQso) && (sqlOK))
     {
 
@@ -1722,17 +1763,35 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 {
                         //qDebug() << "FileManager::adifReadLog-W-2.1" << endl;
                     currentQSOfields << fieldToAnalyze;
-                    //preparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile, hashLogs);
-                    //XpreparedQBool = processQsoReadingADIF(currentQSOfields, logN, keepLogsInFile);
-                    preparedQBool = processQsoReadingADIF(currentQSOfields, logN);
-                    if (preparedQBool)
+                    isDupeQSO = processQsoReadingADIF(currentQSOfields, logN);
+                    if (isDupeQSO && (!askedToAddDupeQSOs))
                     {
-                           //qDebug() << "FileManager::adifReadLog: preparedQBool = true"  << endl;
+                        askedToAddDupeQSOs = true;
+                        QMessageBox msgBox;
+                        msgBox.setWindowTitle(tr("KLog - Add new QSOs?"));
+                        QString aux = QString(tr("Do you want to add dupe QSOs to your local log?"));
+                        msgBox.setText(aux);
+                        msgBox.setDetailedText(tr("There are some QSOs in this logfile that may be dupes as they have same call, band & mode and a very close date."));
+                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                        msgBox.setDefaultButton(QMessageBox::No);
+                        int ret = msgBox.exec();
+                        switch (ret)
+                        {
+                            case QMessageBox::Yes:
+                            addDupeQSOs = true;
+                            break;
+                            case QMessageBox::No:
+                            addDupeQSOs = false;
+                            break;
+                            default:
+                            // should never be reached
+                            break;
+                        }
 
-                    }
-                    else
-                    {
-                           //qDebug() << "FileManager::adifReadLog: preparedQBool = false"  << endl;
+
+
+                           //qDebug() << "FileManager::adifReadLog: isDupeQSO = true"  << endl;
+
                     }
 
                 }
@@ -1753,7 +1812,15 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                     EOR = false;
                 }
             }
-            sqlOK = preparedQuery.exec();
+            if ((!isDupeQSO) || (addDupeQSOs))
+            {
+                sqlOK = preparedQuery.exec();
+            }
+            else
+            {
+                //qDebug() << "FileManager::adifReadLog: DUPE QSO, not adding it" << endl;
+            }
+
             //qDebug() << "FileManager::adifReadLog: executedQuery1: " << preparedQuery.executedQuery()  << endl;
             //qDebug() << "FileManager::adifReadLog: executedQuery2: " << preparedQuery.executedQuery()  << endl;
             //qDebug() << "FileManager::adifReadLog: LastQuery2: " << preparedQuery.lastQuery()  << endl;
@@ -1762,7 +1829,25 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             if (( (i % step ) == 0) )
             { // To update the speed I will only show the progress once each X QSOs
                   //qDebug() << "FileManager::adifReadLog: MOD 0 - i = " << QString::number(i)  << endl;
+                //aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: 0 QSOs/sec")).arg(i).arg(numberOfQsos);
+                /*
+                 *qDebug() << "FileManager::adifReadLog: " << QString::number(step) << endl;
+                qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()) << endl;
+                qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()/1000) << endl;
+                qDebug() << "FileManager::adifReadLog: " << QString::number(step / (time1.elapsed()/1000)) << endl;
 
+                if (time1.elapsed()/1000 != 0)
+                {
+                    aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: %3 QSOs/sec")).arg(i).arg(numberOfQsos).arg(step / (time1.elapsed()/1000));
+                }
+                else
+                {
+                    aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: 0 QSOs/sec")).arg(i).arg(numberOfQsos);
+                }
+
+
+                time1.restart();
+                */
                 aux = tr("Importing ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
 
                progress.setLabelText(aux);
@@ -2023,8 +2108,8 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     QString defaultRSTTX = util->getDefaultRST(QString());
     QString defaultRSTRX = util->getDefaultRST(QString());
 
-
-
+    bool isDupeQSO = false;
+    int modei = -1;
     int bandi = -1;
     int bandrxi = -1;
     bool rstRXr = false;
@@ -2045,6 +2130,11 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     bool haveFreqTX = false;
     bool haveFreqRX = false;
     bool hasStationCall = false;
+	bool hasLotwQslSent = false;
+    bool hasEqslQslSent = false;
+    bool hasQrzQslSent = false;
+    bool hasClublogQslSent = false;
+    QString freqTX = QString();
 
     //bool ret;
     //int length = 0;
@@ -2160,27 +2250,28 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
                 else if (field == "MODE")
                 {
-                    i = dataProxy->getSubModeIdFromSubMode(data); // get modeid
-                    if (i>=0)
+                    modei = dataProxy->getSubModeIdFromSubMode(data); // get modeid
+                    if (modei>=0)
                     {
                         {
                             if (!haveSubMode)
                             {
-                                preparedQuery.bindValue( ":modeid", QString::number(i) );
+                                preparedQuery.bindValue( ":modeid", QString::number(modei) );
                                 haveMode = true;
                                 haveSubMode = true;
-                                submode = dataProxy->getSubModeFromId(i);
+                                submode = dataProxy->getSubModeFromId(modei);
                             }
                         }
                     }
                 }
                 else if (field == "SUBMODE")
                 {                    
-                    i = dataProxy->getSubModeIdFromSubMode(data);
-                    if (i>=0)
+                    modei = dataProxy->getSubModeIdFromSubMode(data);
+                    if (modei>=0)
                     {                        
-                        preparedQuery.bindValue( ":modeid", QString::number(i) );
-                        preparedQuery.bindValue( ":submode", QString::number(i) );
+
+                        preparedQuery.bindValue( ":modeid", QString::number(modei) );
+                        preparedQuery.bindValue( ":submode", QString::number(modei) );
                         haveSubMode = true;
                         haveMode=true;
                         submode = data;
@@ -2402,6 +2493,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "EQSL_QSL_SENT")
                 {
                     preparedQuery.bindValue( ":eqsl_qsl_sent", data );
+                    hasEqslQslSent = true;
                 }
                 else if (field == "FISTS")
                 {
@@ -2426,6 +2518,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         {
                             preparedQuery.bindValue( ":freq", data);
                             haveFreqTX =true;
+                            freqTX = data;
                         }
                         else
                         {
@@ -2436,6 +2529,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     {
                         preparedQuery.bindValue( ":freq", data);
                         haveFreqTX =true;
+                        freqTX = data;
                         i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
@@ -2462,12 +2556,13 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     }
                     else
                     {                        
-                        i = dataProxy->getBandIdFromFreq(data.toDouble());
+                        preparedQuery.bindValue( ":freq_rx", data);
+                        haveFreqRX = true;
+						i = dataProxy->getBandIdFromFreq(data.toDouble());
 
                         if (i>=0)
                         {
                             preparedQuery.bindValue( ":band_rx", QString::number(i) );
-                            haveFreqRX =true;
                             bandRXDef = true;
                                //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << endl;
                         }
@@ -2605,6 +2700,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "LOTW_QSL_SENT")
                 {
                     preparedQuery.bindValue( ":lotw_qsl_sent", data );
+					hasLotwQslSent = true;
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
                 {
@@ -2612,6 +2708,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     if (dateT.isValid())
                     {
                         preparedQuery.bindValue( ":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(dateT) );
+						hasClublogQslSent = true;
                     }
                 }
                 else if (field == "CLUBLOG_QSO_UPLOAD_STATUS")
@@ -2742,6 +2839,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     if (dateT.isValid())
                     {
                         preparedQuery.bindValue( ":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(dateT));
+						hasQrzQslSent = true;
                     }
                 }
                 else if (field == "QRZCOM_QSO_UPLOAD_STATUS")
@@ -2927,6 +3025,18 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         }
     }
 
+    if ( haveCall && haveDate && haveTime && haveBand && haveMode)
+    {
+        QList<int> _dupeQSOs;
+        _dupeQSOs.clear();
+        _dupeQSOs << dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qrzCall, dateTime, bandi, modei, duplicatedQSOSlotInSecs);
+        if (_dupeQSOs.length()>0)
+        {
+            isDupeQSO = true;
+        }
+        //QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs)
+    }
+
     if ( (haveDate) && (haveTime))
     {       
         preparedQuery.bindValue( ":qso_date", util->getDateTimeSQLiteStringFromDateTime(dateTime));
@@ -2948,10 +3058,13 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     {
         preparedQuery.bindValue( ":freq_rx",  dataProxy->getFreqFromBandId(bandrxi));
     }
-    if (!haveCall)
+    if ((haveFreqTX) && (!haveFreqRX))
     {
-
-        //QString text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"), calAux, QLineEdit::Normal, qrzCall, &ok);
+        preparedQuery.bindValue( ":freq_rx",  freqTX);
+    } 
+	
+	if (!haveCall)
+    {        
         QString text = util->getAValidCall(qrzCall);
         if (!(util->isValidCall(text)))
         {
@@ -3081,9 +3194,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         if (!usePreviousStationCallsignAnswerAlways)
         {
             QMessageBox msgBox;
-
-
-
             if(getStationCallsignFromUser(qrzCall, dateTime.date()))
             {
                 hasStationCall = true;
@@ -3133,19 +3243,37 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
             {
                 usePreviousStationCallsignAnswerAlways = false;
             }
-            }
-          //qDebug() << "FileManager::processQsoReadingADIF defaultStationCallsign: " << defaultStationCallsign << endl;
+        }
+           //qDebug() << "FileManager::processQsoReadingADIF defaultStationCallsign: " << defaultStationCallsign << endl;
 
-        if ((hasStationCall) && (util->isValidCall(defaultStationCallsign)))
+        if ((hasStationCall) || (util->isValidCall(defaultStationCallsign)))
         {
             preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
         }
+		if (!hasLotwQslSent)
+		{
+			preparedQuery.bindValue( ":lotw_qsl_sent","Q");
+		}
 
-    }
+		if (!hasEqslQslSent)
+		{
+			preparedQuery.bindValue( ":eqsl_qsl_sent","Q");
+		}
+
+		if (!hasClublogQslSent)
+		{
+			preparedQuery.bindValue( ":clublog_qso_upload_status","M");
+		}
+
+		if (!hasQrzQslSent)
+		{
+			preparedQuery.bindValue( ":qrzcom_qso_upload_status","M");
+		}
+	}	
 
     preparedQuery.bindValue( ":lognumber", QString::number(logNumber));
 
-    return true;
+    return isDupeQSO;
 
 }
 

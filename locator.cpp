@@ -36,7 +36,7 @@ Locator::~Locator(){
 
 bool Locator::isValidLocator(const QString& tlocator){
 /* -------------- Subroutine -----------------------
-      Check valid locator (VALID: AA00AA -> RR99XX
+      Check valid locator (VALID: AA00AA -> RR99XX)
       Input : char *locator = 4 - 8 characters word wide locator.
       returned value ==  -1 No error. (Valid locator).
       returned value ==  0 Error.   (Invalid locator).

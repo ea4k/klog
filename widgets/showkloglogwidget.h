@@ -1,10 +1,10 @@
-#ifndef STATSENTITIESPERYEARBARCHARTWIDGET_H
-#define STATSENTITIESPERYEARBARCHARTWIDGET_H
+#ifndef SHOWKLOGLOGWIDGET_H
+#define SHOWKLOGLOGWIDGET_H
 /***************************************************************************
-                          statsentitiesperyearbarchatwidget.h  -  description
+                          showkloglogwidget.h  -  description
                              -------------------
-    begin                : oct 2018
-    copyright            : (C) 2018 by Jaime Robles
+    begin                : jan 2021
+    copyright            : (C) 2021 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -22,38 +22,36 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-
 #include <QObject>
 #include <QWidget>
 #include <QtWidgets>
-#include <QtCharts>
-#include <QtDebug>
-#include "dataproxy_sqlite.h"
-#include "charts/statsgeneralchartwidget.h"
+#include <QListView>
+#include <QStringListModel>
+#include "utilities.h"
 
+// This widget will show the KLog log, the software log, to be able to debug
+// or see how it is executing. Mainly for debug & development.
 
-class StatsEntitiesPerYearBarChartWidget : public StatsGeneralChartWidget
+class ShowKLogLogWidget : public QWidget
 {
     Q_OBJECT
 public:
-    StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
-    StatsEntitiesPerYearBarChartWidget();
-    void prepareChart(const int _log=-1);
-
+    explicit ShowKLogLogWidget(QWidget *parent = nullptr);
+    void addLog(QString const &_func, QString const &_log, const DebugLogLevel _l);
 signals:
 
 public slots:
 
 private:
     void createUI();
-    DataProxy_SQLite *dataProxy;
-
-    QChart *chart;
-    QChartView *chartView;
+    QStringList list;
+    QListView *logsView;
+    QStringListModel *model;
+    QComboBox *levelComboBox;
 
 };
 
-#endif // QSOSPERYEARBARCHARTWIDGET_H
+#endif // SHOWKLOGLOGWIDGET_H

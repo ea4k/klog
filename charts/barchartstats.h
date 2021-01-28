@@ -42,6 +42,8 @@
 #include "charts/statsworkedconfirmedpiechartwidget.h"
 #include "charts/statsworkedsentpiechartwidget.h"
 #include "charts/statssentconfirmedpiechartwidget.h"
+#include "charts/statsgridsonsatswidget.h"
+#include "charts/statsdxccsonsatswidget.h"
 //#include "charts/statspiechartwidget.h"
 
 
@@ -64,14 +66,12 @@ private:
     DataProxy_SQLite *dataProxy;
 
 
-    QChart *chart;
-    QChartView *chartView;
+    //QChart *chart;
+    //QChartView *chartView;
 
     QWidget *mainWidget;
     StatsGeneralChartWidget *genchart;
     QVBoxLayout *mLayout;
-    StatsQSOsPerYearBarChartWidget *qsoPerYearBarChartWidget;
-
 
     //QBarCategoryAxis *axis;
 

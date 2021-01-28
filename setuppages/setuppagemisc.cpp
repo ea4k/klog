@@ -51,7 +51,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
     sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
 
-
+    dupeTimeLineEdit = new QLineEdit;
     defaultFileNameLineEdit = new QLineEdit;
     dbPathLineEdit = new QLineEdit;
 
@@ -81,7 +81,8 @@ SetupPageMisc::~SetupPageMisc(){
 
 void SetupPageMisc::createUI()
 {
-
+    dupeTimeLineEdit->setInputMask("0000000");
+    dupeTimeLineEdit->setToolTip("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.");
     palWrong.setColor(QPalette::Text, Qt::red);
     palRight.setColor(QPalette::Text, Qt::black);
 
@@ -122,7 +123,7 @@ void SetupPageMisc::createUI()
     //logSortCheckBox->setChecked(false);
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
-
+    dupeTimeLineEdit->setText("300");
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
     //keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
@@ -155,6 +156,12 @@ void SetupPageMisc::createUI()
     dbLayout->addWidget(dbPushButton);
     dbLayout->addWidget(moveDBPushButton);
 
+    QLabel *timeRangeLabel = new QLabel;
+    timeRangeLabel->setText(tr("Dupe time range:"));
+    QHBoxLayout *timeRangeLayout = new QHBoxLayout;
+    timeRangeLayout->addWidget(timeRangeLabel);
+    timeRangeLayout->addWidget(dupeTimeLineEdit);
+
     QGridLayout *mainLayou1 = new QGridLayout;
     mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
     mainLayou1->addLayout(dbLayout, 1, 0, 1, -1);
@@ -164,7 +171,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
     mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
     mainLayou1->addWidget(useDxMarathonCheckBox, 4, 1, 1, 1);
-    //mainLayou1->addWidget(keepMyDataCheckBox, 5, 0, 1, 1);
+    mainLayou1->addLayout(timeRangeLayout, 5, 0, 1, 1);
     mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
     mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
     mainLayou1->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
@@ -549,4 +556,14 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 bool SetupPageMisc::areDBPathChangesApplied()
 {
     return dbPathApplied;
+}
+
+void SetupPageMisc::setDupeTime(const int _t)
+{
+    dupeTimeLineEdit->setText(QString::number(_t));
+}
+
+int SetupPageMisc::getDupeTime()
+{
+    return dupeTimeLineEdit->text().toInt();
 }

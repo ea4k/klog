@@ -65,13 +65,15 @@ public:
     void selectDefaultBand(const bool _init = false);
     void selectDefaultMode(const bool _init = false);
 
+    void setDuplicatedQSOSlot (const int _secs);
+
     void clear();
 
 protected:
    // void keyPressEvent(QKeyEvent *event);
 
 signals:
-    void debugLog (QString _func, QString _msg, int _level);
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void showInfoLabel(QString _msg);
     void currentQRZSignal(QString _msg);
     void clearForNextQSOSignal();
@@ -96,7 +98,7 @@ private:
 
     bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
-
+    void checkIfDupe(const QString &_func);
 
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
@@ -106,7 +108,7 @@ private:
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
     QCheckBox *realtimeCheckBox;
-    int logSeverity;
+    //DebugLogLevel logSeverity;
     bool cleaning;
     bool qrzAutoChanging;
     bool InValidCharsInPrevCall;
@@ -124,6 +126,8 @@ private:
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Utilities *util;
     QPalette::ColorRole enabledCR, disabledCR;
+
+    int duplicatedQSOSlotInSecs;
 };
 
 #endif // MAINQSOENTRYWIDGET_H

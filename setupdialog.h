@@ -66,12 +66,12 @@ public:
     void setEQSLActive(const bool _b);
     void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
-    void setSeverity(const int _sev);
+    void setSeverity(const DebugLogLevel _sev);
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
-    void debugLog (QString _func, QString _msg, int _level);
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void qrzcomAuto(bool);
     //void newLogRequested(const bool _s); // true show new log
 
@@ -150,7 +150,7 @@ private:
     QString latestBackup;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
-    int logSeverity;    // Manages as syslog, the severity of the application debug log
+    DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log
 };
 
 

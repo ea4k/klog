@@ -37,11 +37,7 @@
 #include <QPalette>
 #include "locator.h"
 #include <QtDebug>
-
-enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
-enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
-enum OnlineErrorCode {Ok, Fail};
-enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
+#include "klogdefinitions.h"
 
 class Utilities
 {
@@ -104,7 +100,7 @@ public:
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
     bool isValidDateTimeFromString(const QString &_s);
-
+    bool isValidDXCC(const int _d);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
 

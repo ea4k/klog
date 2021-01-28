@@ -74,6 +74,9 @@ public:
     QString getSendEQSLByDefault();
     void setSetEQSLByDefault(const QString &_t);
 
+    void setDupeTime(const int _t);
+    int getDupeTime();
+
     bool areDBPathChangesApplied();
 
 private slots:
@@ -101,7 +104,7 @@ private:
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;
-
+    QLineEdit *dupeTimeLineEdit;
 
     QString klogDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
     QPalette palRight, palWrong; // To paint Text in red or black(normal)

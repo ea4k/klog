@@ -111,7 +111,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QRZCOMPasswordLabel = new QLabel(tr("Password"));
     QRZCOMActiveCheckBox = new QCheckBox(tr("Activate QRZ.com"), this);
     QRZCOMAutoCheckCheckBox = new QCheckBox(tr("Check automatically"), this);
-    QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all QRZ as they are entered"));
+    QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all Calls as they are entered"));
     //qDebug() << "SetupPageELog::SetupPageELog - 00050" << endl;
 
     QRZLogBookKeyLabel = new QLabel(tr("LogBook Key"));
@@ -370,7 +370,7 @@ void SetupPageELog::setClubLogActive(const bool &_b)
 {
     clubLogActive = _b;
     clubLogActiveCheckBox->setChecked(clubLogActive);
-    //clubLogActiveCheckBox->setEnabled(clubLogActive);
+    clubLogActiveCheckBox->setEnabled(clubLogActive);
 }
 
 void SetupPageELog::slotClubLogActive(const bool _s)
@@ -434,6 +434,7 @@ void SetupPageELog::setEQSLActive(const bool _b)
 {
     eqslActive = _b;
     eQSLActiveCheckBox->setChecked(eqslActive);
+    eQSLActiveCheckBox->setEnabled(eqslActive);
 }
 
 void SetupPageELog::slotEQSLActive(const bool _s)
@@ -461,7 +462,7 @@ void SetupPageELog::setLoTWActive(const bool &_s)
     lotwTQSL = _s;
     lotwUseTQSLCheckBox->setChecked(lotwTQSL);
     lotwTQSLPathLineEdit->setEnabled(lotwTQSL);
-    lotwSearchTQSLPushButton->setEnabled(lotwTQSL);
+    lotwSearchTQSLPushButton->setEnabled(_s);
     //lotwUserLineEdit->setEnabled(_s);
     //lotwPasswordLineEdit->setEnabled(_s);
 }
@@ -562,6 +563,7 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
     //qDebug() << "SetupPageELog::setQRZCOMActive " << endl;
     qrzcomActive = util->trueOrFalse(_s);
     QRZCOMActiveCheckBox->setChecked(qrzcomActive);
+    QRZCOMActiveCheckBox->setEnabled(qrzcomActive);
 }
 
 bool SetupPageELog::SetupPageELog::getQRZCOMActive()

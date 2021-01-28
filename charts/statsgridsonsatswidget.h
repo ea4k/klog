@@ -1,10 +1,10 @@
-#ifndef STATSENTITIESPERYEARBARCHARTWIDGET_H
-#define STATSENTITIESPERYEARBARCHARTWIDGET_H
+#ifndef STATSGRIDSONSATSWIDGET_H
+#define STATSGRIDSONSATSWIDGET_H
 /***************************************************************************
-                          statsentitiesperyearbarchatwidget.h  -  description
+                          statsgridsonsatswidget.h  -  description
                              -------------------
-    begin                : oct 2018
-    copyright            : (C) 2018 by Jaime Robles
+    begin                : dec 2020
+    copyright            : (C) 2020 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -25,35 +25,39 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
-
 #include <QObject>
 #include <QWidget>
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtDebug>
+#include <QTableWidget>
 #include "dataproxy_sqlite.h"
+#include "qso.h"
+#include "utilities.h"
 #include "charts/statsgeneralchartwidget.h"
 
-
-class StatsEntitiesPerYearBarChartWidget : public StatsGeneralChartWidget
+class StatsGridsOnSatsWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
-    StatsEntitiesPerYearBarChartWidget();
+    StatsGridsOnSatsWidget();
+    StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     void prepareChart(const int _log=-1);
+
 
 signals:
 
-public slots:
+private slots:
+    void slotConfirmedClicked();
 
 private:
     void createUI();
     DataProxy_SQLite *dataProxy;
-
-    QChart *chart;
-    QChartView *chartView;
+    QTableWidget *tableWidget;
+    Utilities *util;
+    QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
+    QLabel *numberLabel;
+    int log;
 
 };
-
-#endif // QSOSPERYEARBARCHARTWIDGET_H
+#endif // STATSGRIDSONSATSWIDGET_H

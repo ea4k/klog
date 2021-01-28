@@ -31,6 +31,7 @@
 #include <QObject>
 #include "database.h"
 #include "qso.h"
+#include "klogdefinitions.h"
 //#include "regionalaward.h"
 
 //Class QSO;
@@ -111,10 +112,12 @@ public:
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
-    QList<int> isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode);
+    QList<int> isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs);
     int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
+    bool isQSLLoTWReceived(const int _qsoId);
+    bool isQSOConfirmed(const int _qsoId);
     bool isQSLSent(const int _qsoId);
 
     bool qslSentViaDirect(const int _qsoId, const QDate &_updateDate);
@@ -230,8 +233,10 @@ public:
     int getQSOsInBand(const QString &_band, const int _log);
     int getQSOsInMode(const QString &_mode, const int _log);
 
-    // Stats - end
+    QList<QList<int>> getTop10QSOPerDXCC(const int _log);
 
+    // Stats - end
+    bool updateQSONumberPerLog();
 
     bool newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber);
 
@@ -295,6 +300,9 @@ public:
     QString getADIFQSO(const int _qsoId);
     bool showInvalidCallMessage(const QString &_call);
 
+    QList<QSO*> getSatGridStats(int _log=-1);
+    QList<QSO*> getSatDXCCStats(int _log=-1);
+
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
     //bool queryExec();
@@ -315,12 +323,12 @@ private:
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
-    void debugLog(QString functionFailed, QString errorCode, int level); // emitted as the KLog application log
+    void debugLog(QString functionFailed, QString errorCode, DebugLogLevel level); // emitted as the KLog application log
 
 };
 
