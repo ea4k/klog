@@ -49,7 +49,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
-    QRZCOMAutoCheckAct = new QAction(tr("Check always the current Call in QRZ.com"), this);
+    QRZCOMAutoCheckAct = new QAction(tr("Check always the current Callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
@@ -3131,7 +3131,7 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
         {
             cleanQRZCOMreceivedDataFromUI();
             //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << endl;
-            slotUpdateStatusBar(tr("Call not found in QRZ.com"));
+            slotUpdateStatusBar(tr("Callsign not found in QRZ.com"));
             return;
         }
        QMessageBox msgBox;
@@ -3881,16 +3881,16 @@ void MainWindow::createMenusCommon()
     QRZCOMToolMenu = toolMenu->addMenu(tr("QRZ.com tools ..."));
 
 
-    QRZCOMCheckThisCallAct = new QAction(tr("Check the current Call in QRZ.com"), this);
+    QRZCOMCheckThisCallAct = new QAction(tr("Check the current Callsign in QRZ.com"), this);
     QRZCOMLogModifyCurrentLogAct = new QAction(tr("Queue all the QSO to be uploaded"), this);
     QRZCOMLogUploadAct = new QAction(tr("Upload the queued QSOs to QRZ.com ..."), this);
 
         QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
         connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
-        QRZCOMCheckThisCallAct->setToolTip("Checks the current Call in QRZ.com.");
+        QRZCOMCheckThisCallAct->setToolTip("Checks the current Callsign in QRZ.com.");
 
 
-        QRZCOMAutoCheckAct->setText(tr("Check always the current Call in QRZ.com"));
+        QRZCOMAutoCheckAct->setText(tr("Check always the current Callsignin QRZ.com"));
         QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
         connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
         QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
@@ -4728,7 +4728,7 @@ void MainWindow::checkIfWorkedB4(const QString &_qrz)
         }
         else
         {
-            qrzgroupBox->setTitle(tr("QRZ"));
+            qrzgroupBox->setTitle(tr("Callsign"));
         }
     }
     else
@@ -5772,7 +5772,7 @@ void MainWindow::createUIDX()
     locatorLineEdit->setToolTip(tr("Locator of the contacted station."));
            //qDebug() << "MainWindow::createUIDX-10" << endl;
     //freqQLCDNumber->setToolTip(tr("Frequency of the QSO"));
-    //qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
+    //qrzLineEdit->setToolTip(tr("Callsign of the QSO."));
     rstTXLineEdit->setToolTip(tr("TX RST."));
            //qDebug() << "MainWindow::createUIDX-11" << endl;
     rstRXLineEdit->setToolTip(tr("RX RST."));
@@ -7590,7 +7590,7 @@ void MainWindow::slotFilePrint()
     cursor = textTable->cellAt(row, 1).firstCursorPosition();
     cursor.insertText(tr("Date/Time"));
     cursor = textTable->cellAt(row, 2).firstCursorPosition();
-    cursor.insertText(tr("QRZ"));
+    cursor.insertText(tr("Callsign"));
     cursor = textTable->cellAt(row, 3).firstCursorPosition();
     cursor.insertText(tr("RSTtx"));
     cursor = textTable->cellAt(row, 4).firstCursorPosition();

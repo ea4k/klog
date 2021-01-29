@@ -21,7 +21,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     logSeverity = 7;  //7 Debug /0=emergency or no debug
 
     createUI();
-    setInitialData();    
+    setInitialData();
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << endl;
 }
 
@@ -51,7 +51,7 @@ void MainQSOEntryWidget::createUI()
     QrzBandModeLayout->addWidget(qrzLineEdit);
     QrzBandModeLayout->addLayout(BandModeLayout);
 
-    qrzgroupBox = new QGroupBox(tr("CALL"));
+    qrzgroupBox = new QGroupBox(tr("Callsign"));
     qrzgroupBox->setFlat(true);
     QVBoxLayout *qrzvbox = new QVBoxLayout;
     qrzvbox->addLayout(QrzBandModeLayout);
@@ -77,7 +77,7 @@ void MainQSOEntryWidget::createUI()
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
     connect(bandComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
-    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;    
+    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
 
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
@@ -161,7 +161,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
-        //emit showInfoLabel(tr("QRZ not valid"));
+        //emit showInfoLabel(tr("Callsign not valid"));
         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - END" << endl;
         emit debugLog(Q_FUNC_INFO, "END-4", logSeverity);
         //return;
@@ -449,7 +449,7 @@ bool MainQSOEntryWidget::setTime(const QTime _time)
 
 QString MainQSOEntryWidget::getQrz()
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);    
+    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
     return (qrzLineEdit->text()).toUpper();
 }

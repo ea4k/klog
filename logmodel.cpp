@@ -95,7 +95,7 @@ This should be coherent with the logview
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
 
-     nameCol = rec.indexOf("modeid");     
+     nameCol = rec.indexOf("modeid");
      setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
 
      nameCol = rec.indexOf("id");
@@ -105,7 +105,7 @@ This should be coherent with the logview
      setHeaderData(nameCol, Qt::Horizontal, tr("Date"));
 
      nameCol = rec.indexOf("call");
-     setHeaderData(nameCol, Qt::Horizontal,tr("Call"));
+     setHeaderData(nameCol, Qt::Horizontal,tr("Callsign"));
 
      nameCol = rec.indexOf("bandid");
      setHeaderData(nameCol, Qt::Horizontal, tr("Band"));

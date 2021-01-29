@@ -82,12 +82,12 @@ void SearchWindow::createUI()
     QStringList labels;
     if (showStationCallsignInHeader)
     {
-        labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
+        labels << tr("Callsign") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
         //treeView->setColumnCount(8);
     }
     else
     {
-       labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
+       labels << tr("Callsign") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
        //treeView->setColumnCount(7);
     }
 
@@ -126,8 +126,8 @@ void SearchWindow::setStationCallsignInHeader(const bool _h)
 {
     showStationCallsignInHeader = _h;
     setColumnsToDX();
-    //labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
-    //labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
+    //labels << tr("Callsign") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
+    //labels << tr("Callsign") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("ID") ;
 }
 
 void SearchWindow::createlogPanel(const int _currentLog)
@@ -165,7 +165,7 @@ void SearchWindow::createlogPanel(const int _currentLog)
 void SearchWindow::setColumnsToDX()
 {
       //qDebug() << "SearchWindow::setColumnsToDX"  << endl;
-    //labels << tr("QRZ") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
+    //labels << tr("Callsign") << tr("Date/Time") << tr("Band") << tr("Mode") << tr("QSL Sent") << tr("QSL Rcvd") << tr("Station Callsign") << tr("ID") ;
     QString stringQuery;
     //stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log LIMIT 1");
     stringQuery = QString("SELECT * FROM log LIMIT 1");
@@ -185,18 +185,18 @@ void SearchWindow::setColumnsToDX()
     {
         //logView->setColumnHidden(i, true);
         treeView->setColumnHidden(i, true);
-    }    
+    }
 
-    columns = rec.indexOf("qso_date");    
+    columns = rec.indexOf("qso_date");
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("Date/time"));
     searchModel->setSort(columns, Qt::AscendingOrder);
 
-    columns = rec.indexOf("call");    
+    columns = rec.indexOf("call");
     treeView->setColumnHidden(columns, false);
-    searchModel->setHeaderData(columns, Qt::Horizontal,tr("QRZ"));
+    searchModel->setHeaderData(columns, Qt::Horizontal,tr("Callsign"));
 
-    columns = rec.indexOf("bandid");    
+    columns = rec.indexOf("bandid");
     searchModel->setBandIdColumn(columns);
     treeView->setColumnHidden(columns, false);
     searchModel->setRelation(columns, QSqlRelation("band", "id", "name"));
@@ -213,7 +213,7 @@ void SearchWindow::setColumnsToDX()
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("QSL Sent"));
 
-    columns = rec.indexOf("qsl_rcvd");    
+    columns = rec.indexOf("qsl_rcvd");
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("QSL Rcvd"));
 
@@ -490,7 +490,7 @@ void SearchWindow::deleteQSO(const int _qsoID)
     dataProxy->deleteQSO(_qsoID);
 
 
-    refresh();       
+    refresh();
 
     searchModel->select();
     emit updateAwards();
