@@ -29,7 +29,7 @@ void MainQSOEntryWidget::createUI()
 {
       //qDebug()<< "MainQSOEntryWidget::createUI" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
-    qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
+    qrzLineEdit->setToolTip(tr("Callsign of the QSO."));
     bandComboBox->setToolTip(tr("Band of the QSO."));
     modeComboBox->setToolTip(tr("Mode of the QSO."));
     dateEdit->setToolTip(tr("Date of the QSO."));
@@ -51,7 +51,7 @@ void MainQSOEntryWidget::createUI()
     QrzBandModeLayout->addWidget(qrzLineEdit);
     QrzBandModeLayout->addLayout(BandModeLayout);
 
-    qrzgroupBox = new QGroupBox(tr("QRZ"));
+    qrzgroupBox = new QGroupBox(tr("CALL"));
     qrzgroupBox->setFlat(true);
     QVBoxLayout *qrzvbox = new QVBoxLayout;
     qrzvbox->addLayout(QrzBandModeLayout);
