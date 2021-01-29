@@ -58,7 +58,7 @@ private slots:
 
 signals:
     //void actionQSODoubleClicked(const int _qsoid);
-    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
+    void debugLog (QString _func, QString _msg, int _level);
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
     //void recalculateAwardsSignal();
     void requireCurrentLogSignal();
@@ -86,7 +86,7 @@ private:
     bool manageDXMarathon;
     int selectedYear;
     int currentLog;
-    DebugLogLevel logSeverity;
+    int logSeverity;
 
     Awards *awards;
 

@@ -28,16 +28,28 @@
 BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
 
+     //chart = new QChart();
+     //chartView = new QChartView(chart);
+
+     //chart->setAnimationOptions(QChart::SeriesAnimations);
+     //chart->legend()->setVisible(true);
+     //chart->legend()->setAlignment(Qt::AlignBottom);
+     //chartView->setRenderHint(QPainter::Antialiasing);
+
+
+
      dataProxy = dp;
      mainWidget = new QWidget();
      mLayout = new QVBoxLayout;
      mainWidget->setLayout(mLayout);
 
+     qsoPerYearBarChartWidget = new StatsQSOsPerYearBarChartWidget(dataProxy, nullptr);
 
      QVBoxLayout *mainLayout = new QVBoxLayout;
      mainLayout->addWidget(mainWidget);
      setLayout(mainLayout);
-
+     //cleanLayout();
+     //createUI();
 }
 
 BarChartStats::~BarChartStats(){}
@@ -59,24 +71,17 @@ void BarChartStats::createUI()
 
 void BarChartStats::cleanLayout()
 {
-    //qDebug() << Q_FUNC_INFO << endl;
 
     QLayoutItem *child;
-
-    while (mLayout->count()!=0)
-    {
-        child = mLayout->takeAt(0);
-        delete child->widget();
+    while ((child = mLayout->takeAt(0)) != nullptr) {
+        delete child;
     }
 
-
-    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 
 void BarChartStats::prepareChart(const int _selection, const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << endl;
     cleanLayout();
 
     switch (_selection)
@@ -85,6 +90,8 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     {
         //qsoPerYearBarChartWidget->prepareChart()
         genchart = new StatsQSOsPerYearBarChartWidget(dataProxy, nullptr);
+        //genchart = qsoPerYearBarChartWidget;
+        mLayout->addWidget(genchart);
     }
         break;
         case 2:
@@ -92,7 +99,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
         //cleanLayout();
 
         genchart = new StatsEntitiesPerYearBarChartWidget(dataProxy, nullptr);
-
+        mLayout->addWidget(genchart);
     }
         break;
     case 3:
@@ -100,6 +107,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
         //cleanLayout();
 
         genchart = new StatsCQZPerYearBarChartWidget(dataProxy, nullptr);
+        mLayout->addWidget(genchart);
     }
     break;
     case 4:
@@ -107,6 +115,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
         //cleanLayout();
           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
         genchart = new StatsQSOsPerBandBarChartWidget(dataProxy, nullptr);
+        mLayout->addWidget(genchart);
     }
     break;
     case 5:
@@ -114,6 +123,8 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
         //cleanLayout();
           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
         genchart = new StatsQSOsPerModeBarChartWidget(dataProxy, nullptr);
+        mLayout->addWidget(genchart);
+
     }
     break;
     case 6:
@@ -121,6 +132,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
         //cleanLayout();
            //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
         genchart = new StatsQSOsPerDXCCBarChartWidget(dataProxy, nullptr);
+        mLayout->addWidget(genchart);
     }
     break;
     case 7:
@@ -128,7 +140,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
            //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << endl;
         //cleanLayout();
         genchart = new StatsQSOsPerContinentBarChartWidget(dataProxy, nullptr);
-
+        mLayout->addWidget(genchart);
     }
     break;
     case 8:
@@ -136,56 +148,41 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
            //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << endl;
         //cleanLayout();
         genchart = new StatsQSOsPerHourBarChartWidget(dataProxy, nullptr);
-
+        mLayout->addWidget(genchart);
     }
     break;
     case 9:
     {
         //cleanLayout();
         genchart = new StatsQSOsPerMonthBarChartWidget(dataProxy, nullptr);
-
+        mLayout->addWidget(genchart);
     }
     break;
     case 10:
     {
         //cleanLayout();
         genchart = new StatsWorkedConfirmedPieChartWidget(dataProxy, nullptr);
-
+        mLayout->addWidget(genchart);
     }
     break;
     case 11:
     {
         //cleanLayout();
         genchart = new StatsWorkedSentPieChartWidget(dataProxy, nullptr);
-
+        //genchart = new StatsPieChartWidget(dataProxy, Worked, Sent, nullptr);
+        mLayout->addWidget(genchart);
     }
     break;
     case 12:
     {
         //cleanLayout();
         genchart = new StatsSentConfirmedPieChartWidget(dataProxy, nullptr);
-
+        //genchart = new StatsPieChartWidget(dataProxy, Sent, Confirmed, nullptr);
+        //genchart = new StatsPieChartWidget(dataProxy, Worked, Confirmed, nullptr);
+        mLayout->addWidget(genchart);
     }
     break;
-    case 13:
-    {
-        //cleanLayout();
-        genchart = new StatsGridsOnSatsWidget(dataProxy, nullptr);
-
-    }
-    break;
-    case 14:
-    {
-        //cleanLayout();
-        genchart = new StatsDXCCOnSatsWidget(dataProxy, nullptr);
-
-    }
-    break;
-
     }
 
-    genchart->prepareChart(_log);
-    mLayout->addWidget(genchart);
-    //qDebug() << Q_FUNC_INFO << " - END" << endl;
-    //delete genchart;
+
 }

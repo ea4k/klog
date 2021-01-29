@@ -34,7 +34,6 @@
 
 
 #include <QTabWidget>
-#include "klogdefinitions.h"
 
 
 
@@ -45,10 +44,10 @@ class TipsDialog : public QDialog
 public:
     explicit TipsDialog(QWidget *parent = nullptr);
     ~TipsDialog();
-    void setSeverity(const DebugLogLevel _sev);
+    void setSeverity(const int _sev);
 
 signals:
-    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
+    void debugLog (QString _func, QString _msg, int _level);
     void fillInQSOSignal();
     void fillInDXCCSignal();
     void findQSL2QSOSignal();
@@ -71,7 +70,7 @@ private:
     QLabel *tipTextQLabel;
     //QTextEdit *tipTextEdit;
     QWidget *tip;
-    DebugLogLevel logSeverity;
+    int logSeverity;
     int tipId, tipMax;
     QString description;
 

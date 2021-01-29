@@ -741,8 +741,19 @@ bool Utilities::isValidCall(const QString &_c)
     }
 
 
+    //Amateur and experimental stations19.68
+    //1) –one  character
+    // (provided  that  it  is  the  letter  B,  F,  G,  I,  K,  M,  N,  R  or  W)
+    // and  a  single  digit,
+    // followed  by  a  group  of  not  more  than  four  characters,
+    // the last of which shall be a letter,
 
 
+    //2) or–two characters and a single digit,
+    // followed by a group of not more than four characters, the last of which shall be a letter.
+
+    // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
+    // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
 
 
     //qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
@@ -1073,7 +1084,7 @@ QString Utilities::getAValidCall (const QString &_wrongCall)
     {
 
         //qDebug() << "Utilities::getAValidCall (Don't have VALID CALL): " << _wrongCall << endl;
-        _confirmedCall = QString(QObject::tr("A wrong callsign has been found: %1. Please enter a new callsign or confirm that the current one is a good callsign.")).arg(_wrongCall);
+        _confirmedCall = QString(QObject::tr("A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.")).arg(_wrongCall);
     }
     else
     {
@@ -1122,18 +1133,6 @@ bool Utilities::isValidTimeFromString(const QString &_s)
 bool Utilities::isValidDateTimeFromString(const QString &_s)
 {
     return getDateTimeFromSQLiteString(_s).isValid();
-}
-
-bool Utilities::isValidDXCC(const int _d)
-{//TODO: Look for a better way to check, taking into account how KLog is identifiying the DXCC
-    if (((_d > 0) && (_d < 523))  || (_d == 1206) || (_d == 1279) || (_d == 1248) || (_d == 2248) || (_d == 1259) || (_d == 1390))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
 }
 
 QDateTime Utilities::getDateTimeFromSQLiteString(const QString &_s)

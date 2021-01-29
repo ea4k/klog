@@ -154,7 +154,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
 {
     //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
 
-    logSeverity = Info;
+    logSeverity = 7;
     constrid = 2;
     util = new Utilities;
     firstTime = _firstTime;
@@ -449,8 +449,8 @@ void SetupDialog::slotOkButtonClicked()
     if (!util->isValidCall(userDataPage->getStationQrz())){ //
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You need to enter at least a valid callsign."));
-        msgBox.setInformativeText(tr("Go to the User tab and enter valid callsign."));
+        msgBox.setText(tr("You need to enter at least a valid QRZ."));
+        msgBox.setInformativeText(tr("Go to the User tab and enter valid QRZ."));
         msgBox.exec();
         emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
         return;
@@ -587,11 +587,6 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
         //stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << endl;
-        if (miscPage->getDupeTime()>0)
-        {
-            stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";" << endl;
-        }
-
         //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << endl;
         //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << endl;
         //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << endl;
@@ -926,13 +921,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="SENDEQSLBYDEFAULT"){
         miscPage->setSetEQSLByDefault(value);
     }
-    else if (tab=="DUPLICATEDQSOSLOT"){
-        if (value.toInt()>=0)
-        {
-            miscPage->setDupeTime(value.toInt());
-        }
-    }
-
     /*
     else if (tab=="PSTROTATORACTIVE"){
         interfacesWindowsPage->setSendToPSTRotator(value);
@@ -1134,7 +1122,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
 
     }else if(tab =="CLUBLOGACTIVE"){
         eLogPage->setClubLogActive(util->trueOrFalse(value));
-
+        //clubLogPage->setClubLog(value);
     }
     else if(tab =="CLUBLOGREALTIME"){
         //clubLogPage->setClubLogRealTime(value);
@@ -1482,7 +1470,7 @@ void SetupDialog::slotSetOperators(const QString &_p)
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
-void SetupDialog::setSeverity(const DebugLogLevel _sev)
+void SetupDialog::setSeverity(const int _sev)
 {
     logSeverity = _sev;
 }
@@ -1501,9 +1489,6 @@ void SetupDialog::slotFocusOK()
 
 void SetupDialog::showEvent(QShowEvent *event)
 {
-    //qDebug() << Q_FUNC_INFO << endl;
-    //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << endl;
     QWidget::showEvent(event);
-
     userDataPage->setStationFocus();
 }

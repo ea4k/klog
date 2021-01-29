@@ -33,7 +33,6 @@
 #include "world.h"
 #include "dataproxy_sqlite.h"
 #include "locator.h"
-#include "klogdefinitions.h"
 
 
 //TODO: Creating the widget to show the DXCC status
@@ -56,7 +55,6 @@ public:
 signals:
     //void showQso(const int _qsoid); // identified QSO double clicking on DXCC
     void showQsos(QList<int> _qsos);
-    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     //void updateAwards();
 
 public slots:

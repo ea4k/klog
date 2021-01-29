@@ -67,7 +67,6 @@ private:
     QComboBox *stationCallsignComboBox;
     QDateEdit *startDate, *endDate;
     QLabel *topLabel, *numberLabel;
-    QLineEdit *searchLineEdit;
 
     QPushButton *okButton, *cancelButton;
     ExportMode selectedEMode;

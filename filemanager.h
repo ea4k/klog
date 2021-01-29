@@ -84,7 +84,6 @@ public:
     void setVersion(const QString &_version);
     QDateTime getDateTimeOfLastBackup();
     void setStationCallSign(const QString& _st);
-    void setDuplicatedQSOSlot (const int _secs);
 
 
 private:    
@@ -141,7 +140,6 @@ private:
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
     bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
     bool noMoreQso;
-    int duplicatedQSOSlotInSecs;
 
     World *world;
     Awards *awards;

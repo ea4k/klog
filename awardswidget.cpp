@@ -5,8 +5,8 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
 {
       //qDebug() << "AwardsWidget::AwardsWidget"   << endl;
     manageDXMarathon = false;
-    logSeverity = Info;  //7 Debug /0=emergency or no debug
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    logSeverity = 7;  //7 Debug /0=emergency or no debug
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     currentLog = -1;
 
     dxccConfirmedQLCDNumber = new QLCDNumber;
@@ -37,7 +37,7 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
     clear();
     createUI();
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
        //qDebug() << "AwardsWidget::AwardsWidget - END"   << endl;
 }
 
@@ -48,7 +48,7 @@ AwardsWidget::~AwardsWidget()
 
 void AwardsWidget::clear()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
       //qDebug() << "AwardsWidget::clear"   << endl;
     /*
     searchBoxLineEdit->clear();
@@ -57,7 +57,7 @@ void AwardsWidget::clear()
     searchSelectAllClicked = false;
     */
 
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
       //qDebug() << "AwardsWidget::clear-END"   << endl;
 }
 
@@ -66,7 +66,7 @@ void AwardsWidget::createUI()
 {
     //searchBoxClearButton->setToolTip(tr("Clear the searches."));
       //qDebug() << "AwardsWidget::createUI"   << endl;
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
     recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
@@ -226,7 +226,7 @@ void AwardsWidget::createUI()
     connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
 
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
       //qDebug() << "AwardsWidget::createUI-END"   << endl;
 }
 
@@ -251,7 +251,7 @@ void AwardsWidget::slotSearchClearButtonClicked()
 
 void AwardsWidget::setToolTips()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities."));
     dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities."));
     wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones."));
@@ -267,24 +267,24 @@ void AwardsWidget::setToolTips()
     yearlyScoreQLCDNumber->setToolTip(tr("Score for the DXMarathon in the selected year."));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check."));
 
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
 void AwardsWidget::slotRecalculateAwardsButtonClicked()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     awards->recalculateAwards();
     //emit recalculateAwardsSignal();
     showAwards();
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
 void AwardsWidget::slotOperatingYearComboBoxChanged()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     selectedYear = (operatingYearsComboBox->currentText()).toInt();
     showDXMarathon(selectedYear);
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
 void AwardsWidget::showAwards()

@@ -12,7 +12,7 @@ StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy_SQLite 
     chartView = new QChartView(chart);
 
     createUI();
-    //prepareChart();
+    prepareChart();
 }
 
 void StatsQSOsPerBandBarChartWidget::createUI()
@@ -27,7 +27,7 @@ void StatsQSOsPerBandBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
+void StatsQSOsPerBandBarChartWidget::prepareChart()
 {
 
     QString categoriesTitle;
@@ -52,14 +52,14 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
     progress.setWindowModality(Qt::WindowModal);
 
        //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
-     categories.append(dataProxy->getBandsInLog(_log));
+     categories.append(dataProxy->getBandsInLog(-1));
      categoriesElem = tr("Bands");
      categoriesTitle = tr("QSOs per band distribution");
 
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOsInBand((categories.at(i)), _log);
+        numberPerX = dataProxy->getQSOsInBand((categories.at(i)), -1);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
         numberPerX = 0;

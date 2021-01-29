@@ -42,9 +42,7 @@ int main(int argc, char *argv[])
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
-    QCoreApplication::setOrganizationName("EA4K");
-    QCoreApplication::setOrganizationDomain("klog.xyz");
-    QCoreApplication::setApplicationName("KLog");
+
     QApplication app(argc, argv);
 
     QString iconSt;

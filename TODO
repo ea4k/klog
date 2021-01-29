@@ -1,18 +1,5 @@
-KLog should update ALWAYS when receiving from LoTW the QSL_LOTW_rcvd or add the QSO if not in local log.
-
-Review the process after Setup
-
-
 TODO: Integrate HAMQTH https://www.hamqth.com/developers.php
 TODO:- New feature: Regional Award support: #include "setuppages/setuppagesubdivisions.h"
-
-TODO: Stat More frequently worked calls: "select log.call, count(log.call) from log group by log.call ORDER BY count(log.call) DESC"
-TODO: Stat Number of different callsigns
-TODO: Find "duplicated" QSOs QUERY=> SELECT call, bandid, modeid, substr(qso_date, 1, 15), COUNT(*) c FROM log GROUP BY call, bandid, modeid, substr(qso_date, 1, 15) HAVING c>1
-TODO: Find duplicate queries:
-select call, qso_date from log where datetime('2007-07-22 09:45:00', '-5 minutes')< datetime(qso_date) AND datetime('2007-07-22 09:49:00', '+5 minutes') > datetime(qso_date)
-select call, qso_date, bandid, modeid, COUNT(*) c from log  where datetime('2010-10-31 19:20:00', '-5 minutes')< datetime(qso_date) AND datetime('2010-10-31 19:20:00', '+5 minutes') > datetime(qso_date) group by call having c>1
-
 
 RC-BUGS:
 

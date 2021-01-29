@@ -78,9 +78,7 @@
 #include "eqslutilities.h"
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
-//#include "widgets/advancedsearch/advancedsearchwidget.h"
 //#include "worldmapwidget.h"
-#include "widgets/showkloglogwidget.h"
 
 
 class QTimer;
@@ -142,12 +140,11 @@ class MainWindow : public  QMainWindow
 
 public:
     MainWindow(const QString &_klogDir, const QString &tversion);
-    ~MainWindow();
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
 
-
+     ~MainWindow();
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
@@ -178,6 +175,7 @@ private slots:
     void slotToolLoTWMarkAllYesThisLog();
     void slotToolLoTWMarkAllYes();
     void slotLoTWDownloadedFileProcess(const QString &_fn);
+    //void slotLoTWTest();
 
     void slotClubLogLogUpload();
     void sloteQSLLogUpload();
@@ -228,8 +226,7 @@ private slots:
     //void slotQSLViaTextChanged();
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
-    void slotSetPropModeFromOther(const QString &_p);
-    void slotSetPropModeFromSat(const QString &_p, bool _keep);
+    void slotSetPropMode(const QString &_p);
     void slotFillEmptyDXCCInTheLog();
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
@@ -259,7 +256,6 @@ private slots:
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
     void slotTipsAction();
-    void slotDebugAction();
 
     // MainQSOEntryWidget
     void slotShowInfoLabel(const QString _m);
@@ -350,7 +346,7 @@ private slots:
     //void slotTipsFillInDXCC();
     //void slotsTipsFillQSO();
 
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level=7);
 private:
     //void setWidgetsOrder();
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -360,8 +356,8 @@ private:
     bool maybeSave();
     void setCleaning(const bool _c);
 
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
-    void setSeverity(const DebugLogLevel _sev);
+    void logEvent(const QString &_func, const QString &_msg, const int _level=7);
+    void setSeverity(const int _sev);
     void updateBandComboBox(const QString &_band);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
@@ -471,8 +467,7 @@ private:
     //HelpHelpDialog *helpHelpDialog;
     //HelpAboutDialog *helpAboutDialog;
     AboutDialog *aboutDialog;
-    TipsDialog *tipsDialog;    
-    ShowKLogLogWidget * showKLogLogWidget;
+    TipsDialog *tipsDialog;
     //DXCCSummaryDialog *dxccSummaryDialog;
 
 
@@ -538,7 +533,6 @@ private:
     QAction *helpAct;
     QAction *aboutAct;
     QAction *tipsAct;
-    QAction *debugAct;
     QAction *aboutQtAct;
     QAction *updateAct;
 
@@ -657,7 +651,7 @@ private:
     bool logEvents;                     // Should KLog log the events for debugging
     bool debugFileOpen;                 //Is the debugFile open?
     QFile *debugFile;
-    DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
+    int logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
 
     bool txFreqBeingChanged, rxFreqBeingChanged, updatingBands;            // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
@@ -676,8 +670,6 @@ private:
     AwardsWidget *awardsWidget;
     SearchWidget *searchWidget;
     InfoWidget *infoWidget;
-
-    //AdvancedSearchWidget *advancedSearchWidget;
 
     bool keepSatPage;
 
@@ -703,7 +695,6 @@ private:
     QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
     QString softwareVersion;
     bool itIsANewversion;
-    int dupeSlotInSeconds;
 
 
     //QString currentQrz;
@@ -780,8 +771,6 @@ private:
     //LOGVIEW
     //QString bandOld, modeOld;
     //LOGVIEW
-
-
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution

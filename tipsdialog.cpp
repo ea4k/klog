@@ -10,8 +10,8 @@
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
       //qDebug() << "TipsDialog::TipsDialog" << endl;
-    logSeverity = Info;  //7 Debug /0=emergency or no debug
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    logSeverity = 7;  //7 Debug /0=emergency or no debug
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     tipTextQLabel = new QLabel;
     //tipTextEdit = new QTextEdit;
     //tipTextEdit->setReadOnly(true);
@@ -69,8 +69,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 
 
        //qDebug() << "TipsDialog::TipsDialog - END" << endl;
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
 TipsDialog::~TipsDialog(){}
@@ -78,8 +77,7 @@ TipsDialog::~TipsDialog(){}
 
 void TipsDialog::slotPrevButtonClicked()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
 
     if (tipId>1)
     {
@@ -90,15 +88,13 @@ void TipsDialog::slotPrevButtonClicked()
         tipId = tipMax;
     }
     setTip(tipId);
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 
 }
 
 void TipsDialog::slotNextButtonClicked()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-
+    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     if (tipId<tipMax)
     {
         tipId++;
@@ -108,11 +104,10 @@ void TipsDialog::slotNextButtonClicked()
         tipId = 1;
     }
     setTip(tipId);
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    emit debugLog (Q_FUNC_INFO, "End", logSeverity);
 }
 
-void TipsDialog::setSeverity(const DebugLogLevel _sev)
+void TipsDialog::setSeverity(const int _sev)
 {
     logSeverity = _sev;
 }
@@ -121,8 +116,6 @@ void TipsDialog::setTip(const int _t)
 {
     //QSize _size = tipTextQLabel->sizeHint();
     //qDebug() << "TipsDialog::setTip: Height: " << QString::number(_t) <<endl;
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-
     switch (_t) {
 
     case 1:
@@ -207,14 +200,11 @@ void TipsDialog::setTip(const int _t)
 
     tipTextQLabel->setText(description);
 
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
       //qDebug() << "TipsDialog::setTip: END"  << endl;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-
       //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
@@ -257,7 +247,5 @@ void TipsDialog::slotLinkActivated(const QString &_link)
     {
         emit toolsUploadLoTWSignal();
     }
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
 

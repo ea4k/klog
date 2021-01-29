@@ -117,7 +117,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
      setHeaderData(nameCol, Qt::Horizontal, tr("Date/Time"));
 
      nameCol = rec.indexOf("call");
-     setHeaderData(nameCol, Qt::Horizontal,tr("Call"));
+     setHeaderData(nameCol, Qt::Horizontal,tr("QRZ"));
 
      nameCol = rec.indexOf("bandid");
      setHeaderData(nameCol, Qt::Horizontal, tr("Band"));

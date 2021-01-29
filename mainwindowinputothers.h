@@ -44,10 +44,9 @@ public:
     void setEntity(const int _n);
     QString getEntityPrefix();
 
-    void setPropMode(const QString _qs, bool _keep);
+    void setPropMode(const QString _qs);
     QString getPropModeFromComboBox();
     bool isSATPropagation();
-    //void setKeepProp(const bool _keep);
 
     void setIOTA(const QString _qs, const bool _black=true);
     QString getIOTA();
@@ -59,12 +58,8 @@ public:
     void createUI();
     void clear();
 
-signals:
-    void setPropMode(const QString &_p);
-
 private slots:
     //void slotSetPropMode(const QString _p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
-    void slotPropModeComboBoxChanged();
 
 private:
     QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
@@ -75,10 +70,8 @@ private:
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QLineEdit *iotaNumberLineEdit;
-    QCheckBox *keepPropCheckBox;
 
     QPalette palRed, palBlack;
-    bool autoUpdating;
 };
 
 #endif // MAINWINDOWINPUTOTHERS_H

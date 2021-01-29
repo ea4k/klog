@@ -4,7 +4,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.4.6
+VERSION = 1.4.5
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -39,9 +39,7 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 
 HEADERS += setupdialog.h \
     aboutdialog.h \
-    awardswidget.h \     \
-    klogdefinitions.h \
-    widgets/showkloglogwidget.h \
+    awardswidget.h \
     elogqrzlog.h \
     eqslutilities.h \
     lotwutilities.h \
@@ -54,9 +52,6 @@ HEADERS += setupdialog.h \
     setuppages/setuppagesubdivisionnew.h \
     setuppages/setuppagesubdivisions.h \
     widgets/adiflotwexportwidget.h \
-    #widgets/advancedsearch/advancedsearchmodel.h \
-    #widgets/advancedsearch/advancedsearchwidget.h \
-    #widgets/advancedsearch/advancedsearchwindow.h \
     widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
     world.h \
@@ -107,7 +102,6 @@ HEADERS += setupdialog.h \
     setuppages/setupentitydialog.h \
     setuppages/setuppageudp.h \
     charts/statsgeneralchartwidget.h \
-    charts/statsdxccsonsatswidget.h \
     charts/statsqsosperyearbarchartwidget.h \
     charts/statsentitiesperyearbarchartwidget.h \
     charts/statscqzperyearbarchartwidget.h \
@@ -119,7 +113,6 @@ HEADERS += setupdialog.h \
     charts/statsqsospermonthbarchartwidget.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
-    charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h
 
 message(Sources)
@@ -140,12 +133,8 @@ SOURCES += main.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
     setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \
-    #widgets/advancedsearch/advancedsearchmodel.cpp \
-    #widgets/advancedsearch/advancedsearchwidget.cpp \
-    #widgets/advancedsearch/advancedsearchwindow.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
-    widgets/showkloglogwidget.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \
@@ -191,7 +180,6 @@ SOURCES += main.cpp \
     charts/barchartstats.cpp \
     updatesatsdata.cpp \
     charts/statsgeneralchartwidget.cpp \
-    charts/statsdxccsonsatswidget.cpp \
     charts/statsqsosperyearbarchartwidget.cpp \
     charts/statsentitiesperyearbarchartwidget.cpp \
     charts/statscqzperyearbarchartwidget.cpp \
@@ -204,7 +192,6 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
-        charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp
@@ -287,8 +274,13 @@ unix:!mac {
     PKGDATADIR = $$DATADIR/klog
     INSTALLS += target
     target.path = $$BINDIR
+#   DEFINES += DATADIR=\\\"$$DATADIR\\\" \
+#   PKGDATADIR=\\\"$$PKGDATADIR\\\"
+#    translations.path = /usr/share/klog/translations
     translations.path = $$PKGDATADIR/translations
+#    translations.files += build/target/translations/*
     translations.files += $$DESTDIR/translations/*
+    #INSTALLS += translations
     datafiles.path = $$PKGDATADIR
     datafiles.files = $$DISTFILES
     INSTALLS += translations
@@ -309,8 +301,8 @@ win32: {
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L "C:/hamlib/lib/gcc" -lhamlib
-    INCLUDEPATH += "C:/hamlib/include/"
+    LIBS += -L"$$PWD/../../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
+    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 

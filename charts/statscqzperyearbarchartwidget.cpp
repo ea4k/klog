@@ -10,9 +10,11 @@ StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(DataProxy_SQLite *d
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);
+    //chart->setTheme(QChart::ChartThemeQt);
+    //chart->setTheme(QChart::ChartThemeBlueCerulean);
 
     createUI();
-    //prepareChart();
+    prepareChart();
 }
 
 void StatsCQZPerYearBarChartWidget::createUI()
@@ -27,7 +29,7 @@ void StatsCQZPerYearBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
-void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
+void StatsCQZPerYearBarChartWidget::prepareChart()
 {
 
     QString categoriesTitle;
@@ -51,14 +53,14 @@ void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
     progress.setWindowModality(Qt::WindowModal);
 
        //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
-     categories.append(dataProxy->getOperatingYears(_log));
+     categories.append(dataProxy->getOperatingYears(-1));
      categoriesElem = tr("CQ zones");
      categoriesTitle = tr("CQ zones per year");
 
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getCQzonYear((categories.at(i)).toInt(), _log);
+        numberPerX = dataProxy->getCQzonYear((categories.at(i)).toInt(), -1);
         //numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), -1);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;

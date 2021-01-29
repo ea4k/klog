@@ -40,7 +40,6 @@
 
 #include "locator.h"
 #include "dataproxy_sqlite.h"
-//#include "klogdefinitions.h"
 //#include "awards.h"
 
 
@@ -106,14 +105,12 @@ public:
 
     QStringList getEntitiesNames();
     int getHowManyEntities();
-    bool hasSpecialEntities();
 
 private slots:
 
 
 private:
     //void identifyOS();
-    bool insertSpecialEntities();
     int getPrefixId(const QString &_qrz);
     //bool readCTYDAT();
     bool readCTYCSV(const QString &_worldFile);
@@ -140,7 +137,6 @@ private:
     //QString line;
     //bool readingDataOfAnEntity;
     int nullValue;    
-
 
     QSqlRelationalTableModel *worldModel;
     //QProgressBar *progressBar;
