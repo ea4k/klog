@@ -49,7 +49,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
-    QRZCOMAutoCheckAct = new QAction(tr("Check always the current QRZ in QRZ.com"), this);
+    QRZCOMAutoCheckAct = new QAction(tr("Check always the current Call in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
@@ -627,10 +627,10 @@ void MainWindow::createActionsCommon(){
    connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
 
    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
-    connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-    connect(dataProxy, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
-    //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
+   connect(dataProxy, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+   connect(dataProxy, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+   //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
+   logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
 
@@ -3881,16 +3881,16 @@ void MainWindow::createMenusCommon()
     QRZCOMToolMenu = toolMenu->addMenu(tr("QRZ.com tools ..."));
 
 
-    QRZCOMCheckThisCallAct = new QAction(tr("Check the current QRZ in QRZ.com"), this);
+    QRZCOMCheckThisCallAct = new QAction(tr("Check the current Call in QRZ.com"), this);
     QRZCOMLogModifyCurrentLogAct = new QAction(tr("Queue all the QSO to be uploaded"), this);
     QRZCOMLogUploadAct = new QAction(tr("Upload the queued QSOs to QRZ.com ..."), this);
 
         QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
         connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
-        QRZCOMCheckThisCallAct->setToolTip("Checks the current QRZ in QRZ.com.");
+        QRZCOMCheckThisCallAct->setToolTip("Checks the current Call in QRZ.com.");
 
 
-        QRZCOMAutoCheckAct->setText(tr("Check always the current QRZ in QRZ.com"));
+        QRZCOMAutoCheckAct->setText(tr("Check always the current Call in QRZ.com"));
         QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
         connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
         QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
