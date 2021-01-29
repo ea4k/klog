@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
     QT_REQUIRE_VERSION(argc, argv, "5.11")
     QDir d1 = QDir();
-    QString version = "1.5-RC4";
+    QString version = "1.4.6";
     //qDebug() << "KLog Main STARTED: " << version << endl;
     Utilities util = Utilities();
     QStringList arguments;
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 
             msgBox.setText(msg);
             msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);            
+            msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
 
         }
@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
         if (inMemory == 1)
         {
             //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
-            MainWindow mw(klogDir, version);     
+            MainWindow mw(klogDir, version);
             mw.init();
             splash.finish(&mw);
             //mw.checkIfNewVersion();

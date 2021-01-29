@@ -357,7 +357,7 @@ void SetupPageLogs::slotLogSelected(const QModelIndex & index)
 
     int row = index.row();
     selectedLog = (logsModel->index(row, 0)).data(0).toInt();
-    qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog)  << endl;
+    //qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog)  << endl;
     //setSelectedLog(selectedLog);
 
 }
@@ -634,7 +634,7 @@ int SetupPageLogs::getSelectedLog()
 
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
+    //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
     //ea4k
     //QString n = QString::number(_i) + "-";
     //selectedLog = (logsModel->index(row, 0)).data(0).toInt();
@@ -681,7 +681,7 @@ void SetupPageLogs::setDefaultOperators(const QString _p)
 
 void SetupPageLogs::showEvent(QShowEvent *event)
 {
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
 
     QWidget::showEvent(event);
     dataProxy->updateQSONumberPerLog();

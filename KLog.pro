@@ -4,7 +4,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.5
+VERSION = 1.4.6
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -24,7 +24,7 @@ DEFINES *= QT_STRICT_ITERATORS
 TARGET = $${APP_UNIX_NAME}
 
 QT += core \
-    gui \   
+    gui \
     sql \
     network \
     serialport \
@@ -153,9 +153,9 @@ SOURCES += main.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \
-    dxcluster.cpp \      
+    dxcluster.cpp \
     locator.cpp \
-    awards.cpp \ 
+    awards.cpp \
     setuppages/setuppagemisc.cpp \
     setuppages/setuppageuserdata.cpp \
     setuppages/setuppagedxcluster.cpp \
@@ -171,15 +171,15 @@ SOURCES += main.cpp \
     setuppages/setupentitydialog.cpp \
     startwizard.cpp \
     mainwindowsattab.cpp \
-    awarddxmarathon.cpp \ 
+    awarddxmarathon.cpp \
     elogclublog.cpp \
     softwareupdate.cpp \
     softwareupdatedialog.cpp \
-    utilities.cpp \  
+    utilities.cpp \
     dxccstatuswidget.cpp \
     mainwindowmydatatab.cpp \
     mainwindowinputcomment.cpp \
-    mainwindowinputothers.cpp \   
+    mainwindowinputothers.cpp \
     mainwindowinputeqsl.cpp \
     mainwindowinputqsl.cpp \
     logmodel.cpp \
@@ -204,7 +204,7 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
-	charts/statsgridsonsatswidget.cpp \
+        charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp

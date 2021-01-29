@@ -37,7 +37,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     util->setVersion(_softVersion);
     qso = new QSO;
 
-    db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());    
+    db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
     dbCreated = db->createConnection(Q_FUNC_INFO);
     //dbCreated = db->createBandModeMaps();
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << endl;
@@ -651,7 +651,7 @@ QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
 
       //qDebug() << "DataProxy_SQLite::sortBandNamesBottonUp - END -lengh = " << QString::number(qs.length()) << endl;
     qs.removeDuplicates();
-    return qs;    
+    return qs;
 }
 
 
@@ -2339,7 +2339,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
 /*
     Mandatory data:
-             "qso_date VARCHAR(10) NOT NULL, "             
+             "qso_date VARCHAR(10) NOT NULL, "
              "call VARCHAR(40) NOT NULL, "
              "bandid INTEGER NOT NULL, "
              "modeid INTEGER NOT NULL, "
@@ -2394,7 +2394,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
 
             stringFields  = stringFields  + "freq, " ;
             stringData =  stringData + "'" + QString::number(_freq) + "', ";
-            // EA5WA Mod para incluir Frecuencia RX en el log
+            // EA5WA enhancement to add the RXFreq to the log
             stringFields  = stringFields  + "freq_rx, " ;
             stringData =  stringData + "'" + QString::number(_freq) + "', ";
     }
@@ -3066,7 +3066,7 @@ QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
 
     QString year = QString();
        //qDebug() << "DataProxy_SQLite::getYearsOperating: -1" << endl;
-    bool sqlOk = query.exec(queryString);    
+    bool sqlOk = query.exec(queryString);
 
     if (sqlOk)
     {
@@ -3854,7 +3854,7 @@ QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
                 QString modeid = query.value(3).toString();
                 query.finish();
                 //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - date: " << date << endl;
-                //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - time: " << time << endl;                
+                //qDebug() << "DataProxy_SQLite::getQSODetailsForLoTWDownload - time: " << time << endl;
 
                 //getDateTimeSQLiteStringFromDateTime
                 //QString dateTime = (QDateTime::fromString(date, "yyyy-MM-dd hh:mm:ss")).toString("yyyy-MM-dd hh:mm");
@@ -6683,7 +6683,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     //int nameCol = -1;
 
     QString _dateString = _qs.at(0);
-    QString _stationCallsign = _qs.at(1);    
+    QString _stationCallsign = _qs.at(1);
     QString _operators = _qs.at(2);
 
     //_operators.clear();
@@ -6737,7 +6737,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
         query.next();
         if (query.isValid())
         {
-            //qDebug() << "DataProxy_SQLite::addNewLog query error: " << queryString << endl;            
+            //qDebug() << "DataProxy_SQLite::addNewLog query error: " << queryString << endl;
             // It seems that the log is already existing!
             return false;
         }
@@ -6778,7 +6778,7 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
 
 bool DataProxy_SQLite::doesThisLogExist(const int _log)
-{    
+{
        //qDebug() << "DataProxy_SQLite::doesThisLogExist: " << QString::number(_log) << endl;
        //qDebug() << "DataProxy_SQLite::doesThisLogExist - Name:" << db->getDBName() << endl;
     QSqlQuery query;
@@ -6793,7 +6793,7 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
         if (query.next())
         {
             if (query.isValid())
-            {                
+            {
                 query.finish();
                    //qDebug() << "DataProxy_SQLite::doesThisLogExist: END TRUE"  << endl;
                 return true;
@@ -6924,7 +6924,7 @@ int DataProxy_SQLite::getContinentIdFromEntity(const int _n)
 QStringList DataProxy_SQLite::getContinentShortNames()
 {
 
-    QSqlQuery query;    
+    QSqlQuery query;
     QStringList continents;
     continents.clear();
     QString queryString = QString("SELECT shortname FROM continent");
@@ -7145,7 +7145,7 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 {
       //qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n) << endl;
 
-    QSqlQuery query;    
+    QSqlQuery query;
     QString queryString = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(_n);
     QString motherEntName = QString();
     bool sqlOK;
@@ -7779,7 +7779,7 @@ int DataProxy_SQLite::getMaxEntityID(bool limit)
 /*
 QList<EntityData> DataProxy_SQLite::getEntitiesData()
 {
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
     QList<EntityData> list;
     list.clear();
     EntityData entity;
@@ -7792,13 +7792,13 @@ QList<EntityData> DataProxy_SQLite::getEntitiesData()
 
     if (sqlOK)
     {
-        qDebug() << Q_FUNC_INFO << " - Query OK" << endl;
+        //qDebug() << Q_FUNC_INFO << " - Query OK" << endl;
         while(query.next())
         {
 
             if (query.isValid())
             {
-                qDebug() << Q_FUNC_INFO << " - Name: " << query.value(2).toString() << endl;
+                //qDebug() << Q_FUNC_INFO << " - Name: " << query.value(2).toString() << endl;
                entity.dxcc = query.value(0).toInt();
                entity.mainprefix = query.value(1).toString();
                entity.name = query.value(2).toString();
@@ -7809,7 +7809,7 @@ QList<EntityData> DataProxy_SQLite::getEntitiesData()
             {
                 query.finish();
                 list.clear();
-                qDebug() << Q_FUNC_INFO << " - END - 1" << endl;
+                //qDebug() << Q_FUNC_INFO << " - END - 1" << endl;
                 return list;
             }
         }
@@ -7818,11 +7818,11 @@ QList<EntityData> DataProxy_SQLite::getEntitiesData()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         list.clear();
-        qDebug() << Q_FUNC_INFO << " - END - 2" << endl;
+        //qDebug() << Q_FUNC_INFO << " - END - 2" << endl;
         return list;
     }
 
-    qDebug() << Q_FUNC_INFO << " - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
     return list;
 
 }
@@ -9166,7 +9166,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         date = util->getDateFromSQliteString(aux);
         if (date.isValid())
         {
-            aux = util->getADIFDateFromQDate(date);            
+            aux = util->getADIFDateFromQDate(date);
             ADIFqso.append("<QSLRDATE:" + QString::number(aux.length()) + ">" + aux + " ");
         }
     }
