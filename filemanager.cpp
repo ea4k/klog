@@ -1832,9 +1832,9 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                 //aux = QString(tr("Importing LoTW ADIF file...\n QSO: %1/%2\nImporting speed: 0 QSOs/sec")).arg(i).arg(numberOfQsos);
                 /*
                  *qDebug() << "FileManager::adifReadLog: " << QString::number(step) << endl;
-                qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()) << endl;
-                qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()/1000) << endl;
-                qDebug() << "FileManager::adifReadLog: " << QString::number(step / (time1.elapsed()/1000)) << endl;
+                //qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()) << endl;
+                //qDebug() << "FileManager::adifReadLog: " << QString::number(time1.elapsed()/1000) << endl;
+                //qDebug() << "FileManager::adifReadLog: " << QString::number(step / (time1.elapsed()/1000)) << endl;
 
                 if (time1.elapsed()/1000 != 0)
                 {

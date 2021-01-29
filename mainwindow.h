@@ -339,7 +339,7 @@ private slots:
                      const QString &_comment, const QString &_stationcallsign, const QString &_name,
                      const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
-
+    //void slotWSJTXClear();
     //void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &band, const double _freq,
     //                 const QString &mygrid, const QString &dxgrid, const QString &rstTX, const QString &rstRX, const QString &comment, const QString &stationcallsign,
     //                 const QDateTime &datetime, const QDateTime &datetime_off);

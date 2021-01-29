@@ -1501,8 +1501,8 @@ void SetupDialog::slotFocusOK()
 
 void SetupDialog::showEvent(QShowEvent *event)
 {
-    qDebug() << Q_FUNC_INFO << endl;
-    qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << endl;
     QWidget::showEvent(event);
 
     userDataPage->setStationFocus();

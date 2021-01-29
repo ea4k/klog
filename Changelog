@@ -5,6 +5,7 @@ TODO: Reviewing in the setup process.
 - New feature: Added a time period to considerf a QSO as DUPE if call, band & mode are also the same.
 - Improvement: Hamlib now supports network communication (TNX DG1VS)
 - Improvement: Optimized the way DXCC & WAZ are managed.
+- Improvement: KLog receives the clear messages from WSJTX and is able to clear the KLog UI.
 - Statistics: Added the Grids on Satellites statistics.
 - Statistics: Added the DXCC on Satellites statistics.
 - UI: Removed the QComboBox of the Setup Log tab to select the log. (TNX G4MKT)
@@ -19,6 +20,9 @@ TODO: Reviewing in the setup process.
 - Bugfix: The Log combobox on the Statistics was not working. (TNX EA5WA)
 - Bugfix: End date tooltip updated on the export widget.(TNX G4MKT)
 - Bugfix: DX Locator tooltip was not OK. (TNX G4MKT)
+
+January 2021 - 1.4.6
+- Bugfix: Improved the way the QSOs come from WSJT-X. (EA5WA)
 
 January 2021 - 1.4.5
 - Added the FST4 and FST4W modes.
@@ -554,7 +558,7 @@ July-2010 - 0.5.6
 - BUG fixed: Setting QSL from the log with right button was not working.
 
 May-2010 - 0.5.5
-- New feature: If cty.dat file is not found, KLog offers to download from the web. 
+- New feature: If cty.dat file is not found, KLog offers to download from the web.
 - New feature: New tool to update the update the cty.dat file from the web.
 - New feature: QRZ font color changes to red if has been worked previously. (Proposed by KE7TDY)
 
@@ -677,9 +681,9 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: It is now possible to sort the log by numbers from the main log.
 - New feature: The frequency box is now also used when no hamlib support is active (double clicking over a
   dx-cluster spot.
-- New feature: If file name does not end in .adi, add the .adi.  
+- New feature: If file name does not end in .adi, add the .adi.
 - Bug fixed: Reporting a bug does not crash KLog although the widget has been temporally/drastically simplified.
-- Bug fixed: It is possible to select the radio from the setup.  
+- Bug fixed: It is possible to select the radio from the setup.
 - Bug fixed: (introduced in 0.3.2) It was not possible to activate the progress dialog.
 - Bug fixed: When clicking over "New File", confirmed entities was not set to "zero".
 - Bug fixed: When reading from cty.dat file, the prefix was reading with some spaces at the begining.
@@ -704,25 +708,25 @@ The information comming from all the appearances of a call in the log is grouped
 
 - KLog has been optimized and now runs faster.
 - New feature: KLog saves the date/time of the last log file save.
-- New feature: KLog ask the user for a comment when Importing a TLF log (for example 
+- New feature: KLog ask the user for a comment when Importing a TLF log (for example
   to note that those QSO are from an specific contest or whatever).
 - Bug fixed: When selecting a DX-Spot from the DX-Cluster it did not overwrote the name.
 - Bug fixed: When writting the log, there was an space missing before the <EOR>.
   It is just a "cosmetic" fix, not a real bug.
 - Bug fixed: The same with the QSL card status.
-- Bug fixed: KLog now recognises all the prefix that appears in cty.dat file with 
+- Bug fixed: KLog now recognises all the prefix that appears in cty.dat file with
   special CQ/ITU zones.
 - Bug fixed: KLog recognises the special call "3XDQC/P" as "3X" although it does not
   follow the "prefix+number+suffix" pattern
-- Bug fixed: When starting it now looks the cty.dat file in: ~/.klog and in the current 
+- Bug fixed: When starting it now looks the cty.dat file in: ~/.klog and in the current
   directory before starting without Entities' data. (TNX oh7jjt)
-- Bug fixed: If we are modifying a QSO, the search box is not updated. Avoids some 
+- Bug fixed: If we are modifying a QSO, the search box is not updated. Avoids some
   crashes.
 
 07-Nov-2004 - 0.3.0
 
 - Fixed source code to allow compiling in more architectures.
-- New feature: It is possible to show a progress dialog when opening the log file. 
+- New feature: It is possible to show a progress dialog when opening the log file.
   This is configurable.
 - New feature: It is now possible to hide/show WARC spots or announces from cluster.
 - New feature: Printing the is now possible.
@@ -731,10 +735,10 @@ The information comming from all the appearances of a call in the log is grouped
 - New feature: If a CALL has been previously worked it shows data to the actual QSO.
 - Fixed bug: When modifying, the QTH was not modified.
 - Fixed bug: It did not make you save if you just modify a QSO.
-- Improved the gui: The "T" (from RST) does not disappears but is disabled when is 
-  not needed. (TNX Ferm�n H.). 
+- Improved the gui: The "T" (from RST) does not disappears but is disabled when is
+  not needed. (TNX Ferm�n H.).
 - Improved the gui: The QSL info text box is always active.
-- Improved the gui: When connecting to the DX-Cluster server, automatically sets 
+- Improved the gui: When connecting to the DX-Cluster server, automatically sets
   the DXCluster window as active.
 
 2-May-2004 - 0.2.9

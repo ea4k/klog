@@ -88,7 +88,7 @@ signals:
                      const QString &comment, const QString &stationcallsign, const QString &name,
                      const QString &_operator, const QDateTime datetime, const QDateTime datetime_off,
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_txpwr);
-    //void clearSignal();
+    void clearSignal();
 
 private slots:
     void slotReadPendingDatagrams();

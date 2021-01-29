@@ -55,7 +55,7 @@ void SearchWidget::clear()
 
 void SearchWidget::setCallToSearch (const QString _st)
 {
-    qDebug() << Q_FUNC_INFO << " : " << _st;
+    //qDebug() << Q_FUNC_INFO << " : " << _st;
     searchBoxLineEdit->setText(_st);
 }
 
@@ -282,7 +282,7 @@ void SearchWidget::slotQSLRecViaBureauFromSearch()
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate());
 
     if(qslingNeeded)
-    {  
+    {
         searchWindow->slotToolSearchQSL(0);
     }
     else

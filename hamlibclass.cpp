@@ -415,11 +415,11 @@ void HamLibClass::init(bool _active)
     }
     else
     {
-        // qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
+        // //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
         strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
-        // qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << endl;
+        // //qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << endl;
         my_rig->state.rigport.parm.serial.rate = bauds;
-        // qDebug() << "HamLibClass::init: serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) << endl;
+        // //qDebug() << "HamLibClass::init: serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) << endl;
         my_rig->state.rigport.parm.serial.data_bits = dataBits;
         //qDebug() << "HamLibClass::init: data bits: " << QString::number(my_rig->state.rigport.parm.serial.data_bits) << endl;
         my_rig->state.rigport.parm.serial.stop_bits = stopBits;
@@ -427,7 +427,7 @@ void HamLibClass::init(bool _active)
         my_rig->state.rigport.parm.serial.parity = sparity;
         //qDebug() << "HamLibClass::init: handshake before"  << endl;
         my_rig->state.rigport.parm.serial.handshake = shandshake;
-        // qDebug() << "HamLibClass::init: after handshake "  << endl;
+        // //qDebug() << "HamLibClass::init: after handshake "  << endl;
         // Config done
     }
 

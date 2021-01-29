@@ -280,12 +280,11 @@ void UDPServer::parse(const QByteArray &msg)
                    >> fast_mode >> specialOpMode >> freqTolerance >> TRPeriod >> confName;
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
-                if (!util->isValidCall(dx_call))
-                //if (dx_call.length()<2)
-                {
-                    //qDebug() << "UDPServer::parse: Status : Call not valid: -" << dx_call << "-" << endl;
-                    return;
-                }
+               //if (!util->isValidCall(dx_call))
+               // {
+               //     //qDebug() << "UDPServer::parse: Status : Call not valid: -" << dx_call << "-" << endl;
+               //     return;
+               //}
                //qDebug() << "UDPServer::parse: Status - Freq double = " << QString::number(frequencyDouble)  << endl;
                //qDebug() << "UDPServer::parse: Status - Mode = " << mode << endl;
                //qDebug() << "UDPServer::parse: Status - DXCall = " << dx_call << endl;
@@ -329,7 +328,7 @@ void UDPServer::parse(const QByteArray &msg)
         break;
         case Clear:
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Clear" << endl;
-            //emit clearSignal();
+            emit clearSignal();
         break;
         case Reply:
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay " << endl;
@@ -363,7 +362,7 @@ void UDPServer::parse(const QByteArray &msg)
 
 
                 //qDebug() << "UDPServer::parse: QSO to be logged: Time_on: " << time_on << endl;
-                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off << endl;                
+                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off << endl;
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
 

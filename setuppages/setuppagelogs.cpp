@@ -165,7 +165,7 @@ void SetupPageLogs::slotEditButtonClicked()
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
     newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
-    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());    
+    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
     int result = newLog->exec();
     if (result == QDialog::Accepted)
     {
@@ -357,7 +357,7 @@ void SetupPageLogs::slotLogSelected(const QModelIndex & index)
 
     int row = index.row();
     selectedLog = (logsModel->index(row, 0)).data(0).toInt();
-    qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog)  << endl;
+    //qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog)  << endl;
     //setSelectedLog(selectedLog);
 
 }
@@ -634,8 +634,7 @@ int SetupPageLogs::getSelectedLog()
 
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
-    //ea4k
+    //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << endl;
     //QString n = QString::number(_i) + "-";
     //selectedLog = (logsModel->index(row, 0)).data(0).toInt();
 
@@ -681,7 +680,7 @@ void SetupPageLogs::setDefaultOperators(const QString _p)
 
 void SetupPageLogs::showEvent(QShowEvent *event)
 {
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
 
     QWidget::showEvent(event);
     dataProxy->updateQSONumberPerLog();

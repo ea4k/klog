@@ -24,7 +24,7 @@ DEFINES *= QT_STRICT_ITERATORS
 TARGET = $${APP_UNIX_NAME}
 
 QT += core \
-    gui \   
+    gui \
     sql \
     network \
     serialport \
@@ -153,9 +153,9 @@ SOURCES += main.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
     downloadcty.cpp \
-    dxcluster.cpp \      
+    dxcluster.cpp \
     locator.cpp \
-    awards.cpp \ 
+    awards.cpp \
     setuppages/setuppagemisc.cpp \
     setuppages/setuppageuserdata.cpp \
     setuppages/setuppagedxcluster.cpp \
@@ -171,15 +171,15 @@ SOURCES += main.cpp \
     setuppages/setupentitydialog.cpp \
     startwizard.cpp \
     mainwindowsattab.cpp \
-    awarddxmarathon.cpp \ 
+    awarddxmarathon.cpp \
     elogclublog.cpp \
     softwareupdate.cpp \
     softwareupdatedialog.cpp \
-    utilities.cpp \  
+    utilities.cpp \
     dxccstatuswidget.cpp \
     mainwindowmydatatab.cpp \
     mainwindowinputcomment.cpp \
-    mainwindowinputothers.cpp \   
+    mainwindowinputothers.cpp \
     mainwindowinputeqsl.cpp \
     mainwindowinputqsl.cpp \
     logmodel.cpp \
@@ -204,7 +204,7 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
-	charts/statsgridsonsatswidget.cpp \
+        charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp
@@ -309,8 +309,8 @@ win32: {
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L "C:/hamlib/lib/gcc" -lhamlib
-    INCLUDEPATH += "C:/hamlib/include/"
+    LIBS += -L"$$PWD/../../libs/hamlib-w32-3.3/lib/gcc" -lhamlib
+    INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 
