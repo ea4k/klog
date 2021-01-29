@@ -1,5 +1,6 @@
 January 2021 - 1.4.6
 - Bugfix: Improved the way the QSOs come from WSJT-X. (EA5WA)
+- UI: Changed QRZ to Callsign.
 
 January 2021 - 1.4.5
 - Added the FST4 and FST4W modes.
