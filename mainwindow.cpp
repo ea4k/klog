@@ -181,7 +181,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     loggWinAct = new QAction(tr("&Log Window"), this);
 
     operatorLineEdit = new QLineEdit;
-    stationCallSignLineEdit = new QLineEdit;
+    stationignLineEdit = new QLineEdit;
     txFreqSpinBox = new QDoubleSpinBox;
     rxFreqSpinBox = new QDoubleSpinBox;
     splitCheckBox = new QCheckBox;
@@ -3890,7 +3890,7 @@ void MainWindow::createMenusCommon()
         QRZCOMCheckThisCallAct->setToolTip("Checks the current Callsign in QRZ.com.");
 
 
-        QRZCOMAutoCheckAct->setText(tr("Check always the current Callsignin QRZ.com"));
+        QRZCOMAutoCheckAct->setText(tr("Check always the current Callsign in QRZ.com"));
         QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
         connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
         QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
