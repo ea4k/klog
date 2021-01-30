@@ -2,7 +2,7 @@ TBD - 1.5-RC4
 TODO: Reviewing in the setup process.
 - New feature: LoTW confirmation is also counted for DXCC & WAZ.
 - New feature: DUPES are now identified when coming from WSJTX, ADIF logs, LoTW logs or simply adding a QSO.
-- New feature: Added a time period to considerf a QSO as DUPE if call, band & mode are also the same.
+- New feature: Added a time period to consider a QSO as DUPE if call, band & mode are also the same.
 - Improvement: Hamlib now supports network communication (TNX DG1VS)
 - Improvement: Optimized the way DXCC & WAZ are managed.
 - Improvement: KLog receives the clear messages from WSJTX and is able to clear the KLog UI.
