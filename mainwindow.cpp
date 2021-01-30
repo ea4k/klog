@@ -181,7 +181,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     loggWinAct = new QAction(tr("&Log Window"), this);
 
     operatorLineEdit = new QLineEdit;
-    stationignLineEdit = new QLineEdit;
+    stationCallSignLineEdit = new QLineEdit;
     txFreqSpinBox = new QDoubleSpinBox;
     rxFreqSpinBox = new QDoubleSpinBox;
     splitCheckBox = new QCheckBox;
