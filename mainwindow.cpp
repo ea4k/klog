@@ -3855,7 +3855,7 @@ void MainWindow::createMenusCommon()
 
     lotwToolMenu->addSeparator();
 
-    lotwMarkSentYesThisLogAct = new QAction(tr("Queue all the QSOs to be uploaded"), this);
+    lotwMarkSentYesThisLogAct = new QAction(tr("Mark all queued QSOs from this log as sent"), this);
     lotwToolMenu->addAction(lotwMarkSentYesThisLogAct);
     connect(lotwMarkSentYesThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYesThisLog()));
     lotwMarkSentYesThisLogAct->setToolTip(tr("Mark all queued QSOs in this log as sent to LoTW."));
@@ -3864,6 +3864,8 @@ void MainWindow::createMenusCommon()
     lotwToolMenu ->addAction(lotwMarkSentYesAct);
     connect(lotwMarkSentYesAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYes()));
     lotwMarkSentYesAct->setToolTip(tr("Mark all queued QSOs as sent to LoTW."));
+
+    lotwToolMenu->addSeparator();
 
     lotwToolMenu ->addAction(lotwCallTQSL);
     connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLoTWExport()));
@@ -3922,7 +3924,7 @@ void MainWindow::createMenusCommon()
         QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
         QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
         connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
-        QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
+        QRZCOMAutoCheckAct->setToolTip("Checks always the current callsign in QRZ.com");
 
         QRZCOMToolMenu->addSeparator();
 
