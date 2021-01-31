@@ -23,7 +23,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
 
 
     createUI();
-    setInitialData();    
+    setInitialData();
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << endl;
@@ -81,7 +81,7 @@ void MainQSOEntryWidget::createUI()
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
     connect(bandComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
-    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;    
+    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
 
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
@@ -114,7 +114,7 @@ void MainQSOEntryWidget::slotCheckBoxClicked()
 void MainQSOEntryWidget::setCleaning (const bool _c)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    cleaning = _c;    
+    cleaning = _c;
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -171,7 +171,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
-        //emit showInfoLabel(tr("QRZ not valid"));
+        //emit showInfoLabel(tr("Callsign not valid"));
         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - END" << endl;
         emit debugLog(Q_FUNC_INFO, "END-4", Debug);
         //return;
@@ -723,7 +723,7 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     _dateTime.setTime(timeEdit->time());
 
     if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qrzLineEdit->text(), _dateTime, dataProxy->getIdFromBandName(bandComboBox->currentText()), dataProxy->getIdFromModeName(modeComboBox->currentText()), duplicatedQSOSlotInSecs).length()<2) || modify)
-    {        
+    {
         //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << endl;
         //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify) << endl;
 
