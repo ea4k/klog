@@ -400,10 +400,10 @@ bool SetupPageELog::getClubLogRealTime()
 
  // Start of eQSL.CC
 
-void SetupPageELog::setEQSLEmail(const QString &c)
+void SetupPageELog::setEQSLUser(const QString &c)
 {
     eqslUser = c;
-    eQSLemailLabel->setText(eqslUser);
+    eQSLUserLineEdit->setText(eqslUser);
 }
 
 void SetupPageELog::setEQSLPassword(const QString &c)
@@ -434,7 +434,7 @@ void SetupPageELog::setEQSLActive(const bool _b)
 {
     eqslActive = _b;
     eQSLActiveCheckBox->setChecked(eqslActive);
-    eQSLActiveCheckBox->setEnabled(eqslActive);
+    //eQSLActiveCheckBox->setEnabled(eqslActive);
 }
 
 void SetupPageELog::slotEQSLActive(const bool _s)

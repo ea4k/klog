@@ -60,7 +60,7 @@ public:
     QString getLoTWPass();
 
     // eQSL
-    void setEQSLEmail(const QString &c);
+    void setEQSLUser(const QString &c);
     void setEQSLPassword(const QString &c);
     void setEQSLActive(const bool _b);
     //void setEQSLRealTime(const QString &_s);

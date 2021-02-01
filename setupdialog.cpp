@@ -1170,7 +1170,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="EQSLCALL"){
         //eQSLPage->setCallsign(value);
-        eLogPage->setEQSLEmail(value);
+        eLogPage->setEQSLUser(value);
     }
     else if(tab =="EQSLPASS"){
         //eQSLPage->setPassword(value);
