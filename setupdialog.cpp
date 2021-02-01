@@ -645,12 +645,18 @@ void SetupDialog::slotOkButtonClicked()
             {
                 stream << "ClubLogActive=True;"<<  endl;
             }
-
+            else
+            {
+                stream << "ClubLogActive=False;"<< endl;
+            }
             if (eLogPage->getClubLogRealTime())
             {
                 stream << "ClubLogRealTime=True;" <<  endl;
             }
-
+            else
+            {
+                stream << "ClubLogRealTime=False;" << endl;
+            }
             tmp = eLogPage->getClubLogEmail() ;
             if (tmp.length()>0)
             {
@@ -671,8 +677,10 @@ void SetupDialog::slotOkButtonClicked()
             {
                 stream << "eQSLActive=True;" <<  endl;
             }
-
-
+            else
+            {
+                stream << "eQSLActive=False;" << endl;
+            }
             tmp = eLogPage->getEQSLUser();
             if (tmp.length()>0)
             {
@@ -695,6 +703,10 @@ void SetupDialog::slotOkButtonClicked()
             {
                 stream << "QRZcomActive=True;" <<  endl;
             }
+            else
+            {
+                stream << "QRZcomActive=False;" << endl;
+            }
             tmp = eLogPage->getQRZCOMUser();
             if (tmp.length()>0)
             {
@@ -709,6 +721,10 @@ void SetupDialog::slotOkButtonClicked()
             if (eLogPage->getQRZCOMAutoCheck())
             {
                  stream << "QRZcomAuto=True;" << endl;
+            }
+            else
+            {
+                stream << "QRZcomAuto=False;" <<endl;
             }
             tmp = eLogPage->getQRZCOMLogBookKEY();
             if (tmp.length()>0)
@@ -1154,7 +1170,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="EQSLCALL"){
         //eQSLPage->setCallsign(value);
-        eLogPage->setEQSLEmail(value);
+        eLogPage->setEQSLUser(value);
     }
     else if(tab =="EQSLPASS"){
         //eQSLPage->setPassword(value);

@@ -3113,7 +3113,7 @@ bool DataProxy_SQLite::unMarkAllQSO()
 }
 
 bool DataProxy_SQLite::lotwSentQueue(const QDate &_updateDate, const int _currentLog)
-{// Mark LOTW QSL SENT as Q (Queued)
+{   // Mark LOTW QSL SENT as Q (Queued)
     // If currentLog <0 ALL the QSO of the log will be queued
 
        //qDebug() << "DataProxy_SQLite::lotwSentQueue: Date:" << _updateDate << " /" << QString::number(_currentLog) << endl;

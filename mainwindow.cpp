@@ -3855,7 +3855,7 @@ void MainWindow::createMenusCommon()
 
     lotwToolMenu->addSeparator();
 
-    lotwMarkSentYesThisLogAct = new QAction(tr("Queue all the QSOs to be uploaded"), this);
+    lotwMarkSentYesThisLogAct = new QAction(tr("Mark all queued QSOs from this log as sent"), this);
     lotwToolMenu->addAction(lotwMarkSentYesThisLogAct);
     connect(lotwMarkSentYesThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYesThisLog()));
     lotwMarkSentYesThisLogAct->setToolTip(tr("Mark all queued QSOs in this log as sent to LoTW."));
@@ -3864,6 +3864,8 @@ void MainWindow::createMenusCommon()
     lotwToolMenu ->addAction(lotwMarkSentYesAct);
     connect(lotwMarkSentYesAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllYes()));
     lotwMarkSentYesAct->setToolTip(tr("Mark all queued QSOs as sent to LoTW."));
+
+    lotwToolMenu->addSeparator();
 
     lotwToolMenu ->addAction(lotwCallTQSL);
     connect(lotwCallTQSL, SIGNAL(triggered()), this, SLOT(slotLoTWExport()));
@@ -3922,7 +3924,7 @@ void MainWindow::createMenusCommon()
         QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
         QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
         connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
-        QRZCOMAutoCheckAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to eQSL.");
+        QRZCOMAutoCheckAct->setToolTip("Checks always the current callsign in QRZ.com");
 
         QRZCOMToolMenu->addSeparator();
 
@@ -4336,26 +4338,36 @@ QString MainWindow::selectStationCallsign()
 void MainWindow::slotToolLoTWMarkAllYesThisLog()
 {
              //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
+    QMessageBox msgConfirm;
+    msgConfirm.setIcon(QMessageBox::Question);
+    msgConfirm.setWindowTitle(tr("KLog LoTW"));
+    msgConfirm.setText(tr("Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW"));
+    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgConfirm.setDefaultButton(QMessageBox::No);
+    int i = msgConfirm.exec();
 
-    if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
+    if (i == QMessageBox::Yes)
     {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("All queued QSOs of this log has been marked as sent for LoTW!")  );
-        msgBox.exec();
+        logEvent(Q_FUNC_INFO, "Start", logSeverity);
+        if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("KLog LoTW"));
+            msgBox.setText(tr("All queued QSOs of this log has been marked as sent for LoTW!")  );
+            msgBox.exec();
+        }
+        else
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setWindowTitle(tr("KLog LoTW"));
+            msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent for LoTW!") );
+            msgBox.exec();
+        }
+        logEvent(Q_FUNC_INFO, "END", logSeverity);
     }
-    else
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
-        msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent for LoTW!") );
-        msgBox.exec();
-    }
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 void MainWindow::slotToolLoTWMarkAllYes()
@@ -6508,69 +6520,95 @@ void MainWindow::slotLoTWFullDownload()
 
 void MainWindow::slotElogClubLogModifyCurrentLog()
 {
-    QMessageBox msgBox;
-
-    if (dataProxy->clublogModifyFullLog(currentLog))
+    QMessageBox msgConfirm;
+    msgConfirm.setIcon(QMessageBox::Question);
+    msgConfirm.setWindowTitle(tr("KLog ClubLog"));
+    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to ClubLog"));
+    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgConfirm.setDefaultButton(QMessageBox::No);
+    int i = msgConfirm.exec();
+    if (i == QMessageBox::Yes)
     {
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("The log is ready to be uploaded to ClubLog."));
-        msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the ClubLog status field"));
+        QMessageBox msgBox;
+        if (dataProxy->clublogModifyFullLog(currentLog))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("The log is ready to be uploaded to ClubLog."));
+            msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the ClubLog status field"));
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("KLog could not mark the full log to be sent to ClubLog"));
+            msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
+        }
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
     }
-    else
-    {
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("KLog could not mark the full log to be sent to ClubLog"));
-        msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
-    }
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
 }
 
 
 void MainWindow::slotElogEQSLModifyCurrentLog()
 {
-    QMessageBox msgBox;
-
-    if (dataProxy->eQSLModifyFullLog(currentLog))
+    QMessageBox msgConfirm;
+    msgConfirm.setIcon(QMessageBox::Question);
+    msgConfirm.setWindowTitle(tr("KLog eQSL"));
+    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to eQSL"));
+    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgConfirm.setDefaultButton(QMessageBox::No);
+    int i = msgConfirm.exec();
+    if (i == QMessageBox::Yes)
     {
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("The log is ready to be uploaded to eQSL.cc."));
-        msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the eQSL.cc status field"));
+        QMessageBox msgBox;
+        if (dataProxy->eQSLModifyFullLog(currentLog))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("The log is ready to be uploaded to eQSL.cc."));
+            msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the eQSL.cc status field"));
 
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("KLog could not mark the full log to be sent to eQSL"));
+            msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
+        }
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
     }
-    else
-    {
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("KLog could not mark the full log to be sent to eQSL"));
-        msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
-    }
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
 }
 
 void MainWindow::slotElogQRZCOMModifyCurrentLog()
 {
-
-    QMessageBox msgBox;
-
-    if (dataProxy->QRZCOMModifyFullLog(currentLog))
+    QMessageBox msgConfirm;
+    msgConfirm.setIcon(QMessageBox::Question);
+    msgConfirm.setWindowTitle(tr("KLog QRZ.COM"));
+    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to QRZ.COM"));
+    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgConfirm.setDefaultButton(QMessageBox::No);
+    int i = msgConfirm.exec();
+    if (i == QMessageBox::Yes)
     {
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("The log is ready to be uploaded to QRZ.com."));
-        msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the QRZ.com status field"));
+        QMessageBox msgBox;
+        if (dataProxy->QRZCOMModifyFullLog(currentLog))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("The log is ready to be uploaded to QRZ.com."));
+            msgBox.setDetailedText(tr("All the QSOs in this log has been marked as Modified in the QRZ.com status field"));
 
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("KLog could not mark the full log to be sent to QRZ.com"));
+            msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
+        }
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
     }
-    else
-    {
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("KLog could not mark the full log to be sent to QRZ.com"));
-        msgBox.setDetailedText(tr("Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers."));
-    }
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
 }
 
 void MainWindow::slotClubLogLogUpload()
