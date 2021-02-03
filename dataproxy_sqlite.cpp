@@ -2521,6 +2521,9 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     stringFields  = stringFields  + "lotw_qsl_sent, ";
     stringData =  stringData + "'Q', ";
 
+    stringFields  = stringFields  + "eqsl_qsl_sent, ";
+    stringData =  stringData + "'Q', ";
+
     stringFields  = stringFields  + "hrdlog_qso_upload_status, ";
     stringData =  stringData + "'M', ";
 
