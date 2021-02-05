@@ -1,5 +1,6 @@
 January 2021 - 1.4.7
 - Added the Q65 mode.
+- eQSL sent is added as Q when received from WSJT-X (github issue #45)
 
 January 2021 - 1.4.6
 - Bugfix: Improved the way the QSOs come from WSJT-X. (EA5WA)

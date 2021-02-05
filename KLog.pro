@@ -258,7 +258,6 @@ updateqm.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN} -qm $$DESTDIR/translations
 updateqm.CONFIG += no_link target_predeps
 QMAKE_EXTRA_COMPILERS += updateqm
 
-
 # deploy
 DISTFILES += Changelog COPYING
 
@@ -274,11 +273,7 @@ unix:!mac {
     PKGDATADIR = $$DATADIR/klog
     INSTALLS += target
     target.path = $$BINDIR
-#   DEFINES += DATADIR=\\\"$$DATADIR\\\" \
-#   PKGDATADIR=\\\"$$PKGDATADIR\\\"
-#    translations.path = /usr/share/klog/translations
     translations.path = $$PKGDATADIR/translations
-#    translations.files += build/target/translations/*
     translations.files += $$DESTDIR/translations/*
     #INSTALLS += translations
     datafiles.path = $$PKGDATADIR
@@ -293,8 +288,8 @@ macx: {
     ICON = klog.icns
     TARGET = KLog
     CONFIG += c++11
-    INCLUDEPATH +=../../../hamlib/include/
-    LIBS += -L"../../../hamlib/lib" -lhamlib
+    INCLUDEPATH +=../../hamlib/include/
+    LIBS += -L"../../hamlib/lib" -lhamlib
 }
 win32: {
     RC_ICONS = klog.ico
@@ -305,9 +300,7 @@ win32: {
     INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-3.3/include/"
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
-
 }
-
 
 else:
 {
