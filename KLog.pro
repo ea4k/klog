@@ -4,7 +4,8 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.4.7
+
+VERSION = 1.5
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -54,6 +55,7 @@ HEADERS += setupdialog.h \
     widgets/adiflotwexportwidget.h \
     widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
+    widgets/showkloglogwidget.h \
     world.h \
     logwindow.h \
     filemanager.h \
@@ -135,6 +137,7 @@ SOURCES += main.cpp \
     widgets/adiflotwexportwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
+    widgets/showkloglogwidget.cpp \
     world.cpp \
     logwindow.cpp \
     filemanager.cpp \
