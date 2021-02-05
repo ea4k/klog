@@ -104,7 +104,7 @@ public:
                           const QString &_comment,
                           const QString &_stationcallsign, const QString &_name, const QString &_operator,
                           const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
-                          const int _dxcc, const int _logNumber);
+                          const int _dxcc, const int _logNumber, bool _sendQSL = true);
 
     int addQSOFromLoTW(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate, const QString &_stationcallsign, const int _logn);
     int addQSO(QSO &_qso);

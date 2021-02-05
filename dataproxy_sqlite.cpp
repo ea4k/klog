@@ -2273,7 +2273,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
                       const QString &_comment,
                       const QString &_stationcallsign, const QString &_name, const QString &_operator,
                       const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
-                      const int _dxcc, const int _logNumber)
+                      const int _dxcc, const int _logNumber, bool _sendQSL)
 {
     //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall << endl;
 
@@ -2462,21 +2462,24 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
 
     stringFields  = stringFields  + "qsl_via, ";
     stringData =  stringData + "'B', ";
+    if (_sendQSL)
+    {
+        stringFields  = stringFields  + "lotw_qsl_sent, ";
+        stringData =  stringData + "'Q', ";
 
-    stringFields  = stringFields  + "lotw_qsl_sent, ";
-    stringData =  stringData + "'Q', ";
+        stringFields  = stringFields  + "eqsl_qsl_sent, ";
+        stringData =  stringData + "'Q', ";
 
-    stringFields  = stringFields  + "eqsl_qsl_sent, ";
-    stringData =  stringData + "'Q', ";
+        stringFields  = stringFields  + "hrdlog_qso_upload_status, ";
+        stringData =  stringData + "'M', ";
 
-    stringFields  = stringFields  + "hrdlog_qso_upload_status, ";
-    stringData =  stringData + "'M', ";
+        stringFields  = stringFields  + "clublog_qso_upload_status, ";
+        stringData =  stringData + "'M', ";
 
-    stringFields  = stringFields  + "clublog_qso_upload_status, ";
-    stringData =  stringData + "'M', ";
+        stringFields  = stringFields  + "qrzcom_qso_upload_status, ";
+        stringData =  stringData + "'M', ";
+    }
 
-    stringFields  = stringFields  + "qrzcom_qso_upload_status, ";
-    stringData =  stringData + "'M', ";
 
     stringFields  = stringFields  + "lognumber";
     stringData =  stringData + "'" + QString::number(_logNumber) + "'";

@@ -44,7 +44,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = 7;
-
+    sendQSLByDefault = true; // This must be before reading the config
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -5068,7 +5068,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     */
     else if (field=="SENDEQSLBYDEFAULT")
     {
-        eQSLTabWidget->setQueueSentByDefault(util->trueOrFalse(value));
+        sendQSLByDefault = util->trueOrFalse(value);
+        eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
     }
     else if (field=="COMPLETEWITHPREVIOUS")
     {
