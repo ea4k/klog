@@ -44,6 +44,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = Info;
+    sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
 
     needToEnd = false;
@@ -5124,7 +5125,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     */
     else if (field=="SENDEQSLBYDEFAULT")
     {
-        eQSLTabWidget->setQueueSentByDefault(util->trueOrFalse(value));
+        sendQSLByDefault=util->trueOrFalse(value);
+        eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
     }
     else if (field=="DUPLICATEDQSOSLOT"){
         if (value.toInt()>=0)
@@ -8514,7 +8516,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                                                 _myLoc, _dxgrid, _rstTX, _rstRX,
                                                 _exchangeRX, _exchangeTX, _comment,
                                                 _stationcallsign, _name, opCall,
-                                                _datetime, _datetime_off, pwr, dxcc, currentLog);
+                                                _datetime, _datetime_off, pwr, dxcc, currentLog, sendQSLByDefault);
 
 
             if (qsoLogged)

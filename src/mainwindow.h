@@ -378,6 +378,8 @@ private:
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;
 
+    bool sendQSLByDefault;
+
     // PST Rotator
     //PSTRotatorSupport *pstRotator;
     //bool usePSTRotator;
