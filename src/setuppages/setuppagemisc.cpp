@@ -50,7 +50,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
     //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
     sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
-    deleteAlwaysAdiFileCheckBox = new QCheckBox(tr("Delete always adif files after QSO upload"));
+    deleteAlwaysAdiFileCheckBox = new QCheckBox(tr("Delete always temp ADIF file after uploading QSOs"));
 
 
     dupeTimeLineEdit = new QLineEdit;
@@ -200,6 +200,17 @@ void SetupPageMisc::createActions(){
     connect(moveDBPushButton, SIGNAL(clicked () ), this, SLOT(slotMoveDBButtonClicked() ) );
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
+}
+
+void SetupPageMisc::setDeleteAlwaysAdiFile(const QString &_t){
+
+    deleteAlwaysAdiFileCheckBox->setChecked(util->trueOrFalse(_t));
+    qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << util->trueOrFalse(_t) << endl;
+}
+
+QString SetupPageMisc::getDeleteAlwaysAdiFile(){
+
+    return util->boolToQString(deleteAlwaysAdiFileCheckBox->isChecked());
 }
 
 QString SetupPageMisc::getSendEQSLByDefault(){

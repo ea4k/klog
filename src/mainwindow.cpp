@@ -92,6 +92,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
+    setupPageMisc = new SetupPageMisc();
+
 
      //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << endl;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -4828,6 +4830,8 @@ void MainWindow::readConfigData()
     eQSLActive = false;
     clublogActive = false;
     lotwActive = false;
+    deleteAlwaysAdiFile = false;
+
    //qDebug() << "MainWindow::readConfigData: Before processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << endl;
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
@@ -5550,6 +5554,11 @@ bool MainWindow::processConfigLine(const QString &_line){
         {
             setWindowsSize(values.at(0).toInt(), values.at(1).toInt());
         }
+    }
+    else if(field=="DELETEALWAYSADIFILE")
+    {
+        //deleteAlwaysAdiFile = util->trueOrFalse(value);
+        setupPageMisc->setDeleteAlwaysAdiFile(value);
     }
     else if(field=="LATESTBACKUP")
     {

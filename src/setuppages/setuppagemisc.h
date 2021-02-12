@@ -73,6 +73,8 @@ public:
     //void setLogSort(const QString &_t);
     QString getSendEQSLByDefault();
     void setSetEQSLByDefault(const QString &_t);
+    void setDeleteAlwaysAdiFile(const QString &_t);
+    QString getDeleteAlwaysAdiFile();
 
     void setDupeTime(const int _t);
     int getDupeTime();

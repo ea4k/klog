@@ -36,6 +36,7 @@
 
 //#include "database.h"
 #include "setupdialog.h"
+#include "setuppages/setuppagemisc.h"
 //#include "helpaboutdialog.h"
 #include "aboutdialog.h"
 //#include "dxccsummarydialog.h"
@@ -704,6 +705,9 @@ private:
     QString softwareVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;
+
+    bool deleteAlwaysAdiFile;
+    SetupPageMisc *setupPageMisc;
 
 
     //QString currentQrz;
