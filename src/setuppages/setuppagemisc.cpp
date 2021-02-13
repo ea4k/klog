@@ -202,10 +202,10 @@ void SetupPageMisc::createActions(){
 
 }
 
-void SetupPageMisc::setDeleteAlwaysAdiFile(const QString &_t){
+void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
 
-    deleteAlwaysAdiFileCheckBox->setChecked(util->trueOrFalse(_t));
-    qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << util->trueOrFalse(_t) << endl;
+    deleteAlwaysAdiFileCheckBox->setChecked(_t);
+    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << endl;
 }
 
 QString SetupPageMisc::getDeleteAlwaysAdiFile(){

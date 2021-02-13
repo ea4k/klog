@@ -7945,10 +7945,8 @@ Necesita una subscripción para usar esta funcionalidad.</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="64"/>
-        <source>eQSL has sent the following message:
-%1</source>
-        <translation>eQSL ha enviado el siguiente mensaje:
-%1</translation>
+        <source>eQSL has sent the following message: %1</source>
+        <translation>eQSL ha enviado el siguiente mensaje: %1</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="99"/>
@@ -7961,7 +7959,7 @@ Necesita una subscripción para usar esta funcionalidad.</translation>
         <translation>Revise su configuración y contacte con el equipo de desarrollo de KLog si no puede solucionarlo. Se deshabilitarán los envios a eQSL.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagemisc.cpp" line="53"/>
+        <location filename="../setuppagemisc.cpp" line="53"/>
         <source>Delete always temp ADIF file after uploading QSOs</source>
         <translation>Borrar siempre el archivo ADIF temporal tras subir los QSOs</translation>
     </message>

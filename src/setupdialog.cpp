@@ -1215,12 +1215,11 @@ bool SetupDialog::processConfigLine(const QString &_line)
         {
             windowSize = value;
         }
-    else if(tab =="DELETEALWAYSADIFILE"){
-            miscPage->setAlwaysADIF(value);
-        }
     }
-    else if (tab == "LATESTBACKUP")
-    {
+    else if(tab =="DELETEALWAYSADIFILE"){
+            miscPage->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
+        }
+    else if (tab == "LATESTBACKUP"){
         if (value.length()>0)
         {
             latestBackup = value;
@@ -1231,7 +1230,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         }
     //s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
     }
-
     else
     {
            //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;

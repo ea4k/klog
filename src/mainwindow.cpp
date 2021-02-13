@@ -5558,7 +5558,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if(field=="DELETEALWAYSADIFILE")
     {
         //deleteAlwaysAdiFile = util->trueOrFalse(value);
-        setupPageMisc->setDeleteAlwaysAdiFile(value);
+        setupPageMisc->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
     }
     else if(field=="LATESTBACKUP")
     {
