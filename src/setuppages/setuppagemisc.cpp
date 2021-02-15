@@ -50,6 +50,8 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
     //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
     sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
+    deleteAlwaysAdiFileCheckBox = new QCheckBox(tr("&Delete always temp ADIF file after uploading QSOs"));
+
 
     dupeTimeLineEdit = new QLineEdit;
     defaultFileNameLineEdit = new QLineEdit;
@@ -144,6 +146,7 @@ void SetupPageMisc::createUI()
     debugLogCheckBox->setToolTip(tr("Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory."));
     //logSortCheckBox->setToolTip(tr("Click to enable that log will be sorted based on date and time when clicking on the date column. It may be a little bit slower."));
     sendEQSLByDefaultSearchCheckBox->setToolTip(tr("Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the new QSO by default."));
+    deleteAlwaysAdiFileCheckBox->setToolTip(tr("Delete Always the adif file created after uploading QSOs"));
 
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
@@ -179,6 +182,7 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
     //mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
     mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
+    mainLayou1->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
 
     setLayout(mainLayou1);
 
@@ -196,6 +200,17 @@ void SetupPageMisc::createActions(){
     connect(moveDBPushButton, SIGNAL(clicked () ), this, SLOT(slotMoveDBButtonClicked() ) );
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
+}
+
+void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
+
+    deleteAlwaysAdiFileCheckBox->setChecked(_t);
+    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << endl;
+}
+
+QString SetupPageMisc::getDeleteAlwaysAdiFile(){
+
+    return util->boolToQString(deleteAlwaysAdiFileCheckBox->isChecked());
 }
 
 QString SetupPageMisc::getSendEQSLByDefault(){
