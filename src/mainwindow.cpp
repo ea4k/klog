@@ -52,8 +52,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     util = new Utilities;
     miscPage = new SetupPageMisc(this);
-    bool deleteAlwaysAdiFile = util->trueOrFalse(miscPage->getDeleteAlwaysAdiFile());
-
 
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
@@ -5486,6 +5484,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
+        slotElogQRZCOMAutoCheck();
     }
     else if(field =="QRZCOMAUTO")
     {

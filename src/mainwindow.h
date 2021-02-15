@@ -148,7 +148,7 @@ public:
     void recommendBackupIfNeeded();
     void init();
 
-    bool deleteAlwaysAdiFile;
+
 
 
 
@@ -382,6 +382,7 @@ private:
     bool hamlibModeNotADIFSupported;
 
     bool sendQSLByDefault;
+    bool deleteAlwaysAdiFile;
 
     // PST Rotator
     //PSTRotatorSupport *pstRotator;
