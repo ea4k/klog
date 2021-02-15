@@ -50,7 +50,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     debugLogCheckBox = new QCheckBox(tr("Activate the application debug log"));
     //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
     sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
-    deleteAlwaysAdiFileCheckBox = new QCheckBox(tr("Delete always temp ADIF file after uploading QSOs"));
+    deleteAlwaysAdiFileCheckBox = new QCheckBox(tr("&Delete always temp ADIF file after uploading QSOs"));
 
 
     dupeTimeLineEdit = new QLineEdit;

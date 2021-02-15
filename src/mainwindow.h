@@ -148,6 +148,8 @@ public:
     void recommendBackupIfNeeded();
     void init();
 
+    bool deleteAlwaysAdiFile;
+
 
 
 private slots:
@@ -467,6 +469,9 @@ private:
     Locator *locator;
     Awards *awards;
     Utilities *util;
+    SetupPageMisc *miscPage;
+
+
     //WorldEditorWidget *worldEditor;
 
     //HelpHelpDialog *helpHelpDialog;
@@ -706,8 +711,7 @@ private:
     bool itIsANewversion;
     int dupeSlotInSeconds;
 
-    bool deleteAlwaysAdiFile;
-    SetupPageMisc *setupPageMisc;
+
 
 
     //QString currentQrz;

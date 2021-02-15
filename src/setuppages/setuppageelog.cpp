@@ -370,7 +370,7 @@ void SetupPageELog::setClubLogActive(const bool &_b)
 {
     clubLogActive = _b;
     clubLogActiveCheckBox->setChecked(clubLogActive);
-    clubLogActiveCheckBox->setEnabled(clubLogActive);
+    //clubLogActiveCheckBox->setEnabled(clubLogActive);
 }
 
 void SetupPageELog::slotClubLogActive(const bool _s)

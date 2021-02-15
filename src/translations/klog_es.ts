@@ -5918,6 +5918,16 @@ The log will not be opened.</source>
         <source>Open File</source>
         <translation>Abrir fichero</translation>
     </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="53"/>
+        <source>&amp;Delete always temp ADIF file after uploading QSOs</source>
+        <translation>Borrar siempre el archivo ADIF &amp;temporal tras subir los QSOs</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="149"/>
+        <source>Delete Always the adif file created after uploading QSOs</source>
+        <translation>Borrar el archivo ADIF temporal tras subir los QSOs</translation>
+    </message>
 </context>
 <context>
     <name>SetupPageSats</name>
@@ -7958,10 +7968,9 @@ Necesita una subscripción para usar esta funcionalidad.</translation>
         <source>Please check your config in the setup and contact the KLog development team if you can&apos;t fix it. eQSL uploads will be disabled.</source>
         <translation>Revise su configuración y contacte con el equipo de desarrollo de KLog si no puede solucionarlo. Se deshabilitarán los envios a eQSL.</translation>
     </message>
-    <message>
-        <location filename="../setuppagemisc.cpp" line="53"/>
-        <source>Delete always temp ADIF file after uploading QSOs</source>
-        <translation>Borrar siempre el archivo ADIF temporal tras subir los QSOs</translation>
-    </message>
+
+
+
+
 </context>
 </TS>

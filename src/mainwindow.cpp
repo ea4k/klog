@@ -50,6 +50,10 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
+    miscPage = new SetupPageMisc(this);
+    bool deleteAlwaysAdiFile = util->trueOrFalse(miscPage->getDeleteAlwaysAdiFile());
+
+
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
@@ -92,7 +96,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
-    setupPageMisc = new SetupPageMisc();
+    miscPage = new SetupPageMisc;
 
 
      //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << endl;
@@ -2883,37 +2887,43 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
             msgBox.exec();
         }
      }
-
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog ClubLog"));
-    msgBox.setText(tr("The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    i = msgBox.exec();
-    if (i == QMessageBox::Yes)
+    if (!deleteAlwaysAdiFile)
     {
-        if (QFile::remove(fileName))
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog ClubLog"));
-            msgBox.setText(tr("The file has been removed."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE REMOVED: " << fileName << endl;
-        }
-        else
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog ClubLog"));
-            msgBox.setText(tr("The file has not been removed."));
-            msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE NOT REMOVED: " << fileName << endl;
-        }
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog ClubLog"));
+        msgBox.setText(tr("The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+        msgBox.setDefaultButton(QMessageBox::Yes);
         i = msgBox.exec();
+        if (i == QMessageBox::Yes)
+        {
+            if (QFile::remove(fileName))
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog ClubLog"));
+                msgBox.setText(tr("The file has been removed."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE REMOVED: " << fileName << endl;
+            }
+            else
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog ClubLog"));
+                msgBox.setText(tr("The file has not been removed."));
+                msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE NOT REMOVED: " << fileName << endl;
+            }
+            i = msgBox.exec();
+        }
+    }
+    else
+    {
+        QFile::remove(fileName);
     }
 }
 
@@ -2964,7 +2974,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
     QString fileName = util->getEQSLFile();
     if (QFile::exists(fileName))
     {
-            //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << endl;
+            //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << fileName <<endl;
     }
      else
      {
@@ -2996,36 +3006,43 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
         }
      }
 
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog eQSL"));
-    msgBox.setText(tr("The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    i = msgBox.exec();
-    if (i == QMessageBox::Yes)
-    {
-        if (QFile::remove(fileName))
+     if (!deleteAlwaysAdiFile)
         {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog eQSL"));
-            msgBox.setText(tr("The file has been removed."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE REMOVED: " << fileName << endl;
-        }
-        else
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog eQSL"));
-            msgBox.setText(tr("The file has not been removed."));
-            msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName << endl;
-        }
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog eQSL"));
+        msgBox.setText(tr("The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+        msgBox.setDefaultButton(QMessageBox::Yes);
         i = msgBox.exec();
+        if (i == QMessageBox::Yes)
+        {
+            if (QFile::remove(fileName))
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog eQSL"));
+                msgBox.setText(tr("The file has been removed."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE REMOVED: " << fileName << endl;
+            }
+            else
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog eQSL"));
+                msgBox.setText(tr("The file has not been removed."));
+                msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName << endl;
+            }
+            i = msgBox.exec();
+        }
+    }
+    else
+    {
+        QFile::remove(fileName);
     }
       //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << endl;
 }
@@ -5557,8 +5574,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if(field=="DELETEALWAYSADIFILE")
     {
-        //deleteAlwaysAdiFile = util->trueOrFalse(value);
-        setupPageMisc->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
+        deleteAlwaysAdiFile = util->trueOrFalse(value);
+        //qDebug() << "Delete Aways Adif File = " << deleteAlwaysAdiFile <<endl;
     }
     else if(field=="LATESTBACKUP")
     {
@@ -6262,7 +6279,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
            }
         }
     }
-
+    if (!deleteAlwaysAdiFile){
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog LoTW"));
     msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
@@ -6281,6 +6298,9 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
         }
     }
       //qDebug() << "MainWindow::fileExportLoTW -END " << endl;
+    }else{
+         QFile::remove(fileName);
+    }
 }
 
 void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate)
