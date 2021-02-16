@@ -3152,18 +3152,18 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    {
         //QSLTabWidget->setQSLVia(_d);
    }
-   else if (_t == "message")
-   {
-       QMessageBox msgBox;
-       msgBox.setIcon(QMessageBox::Information);
-       msgBox.setWindowTitle(tr("KLog - QRZ.com message"));
-       QString aux = QString(tr("KLog has received a message from QRZ.com.") );
-       msgBox.setText(aux);
-       msgBox.setDetailedText(_d);
-       msgBox.setStandardButtons(QMessageBox::Ok);
-       msgBox.setDefaultButton(QMessageBox::Ok);
-       msgBox.exec();
-   }
+//   else if (_t == "message")
+//   {
+//       QMessageBox msgBox;
+//       msgBox.setIcon(QMessageBox::Information);
+//       msgBox.setWindowTitle(tr("KLog - QRZ.com message"));
+//       QString aux = QString(tr("KLog has received a message from QRZ.com.") );
+//       msgBox.setText(aux);
+//       msgBox.setDetailedText(_d);
+//       msgBox.setStandardButtons(QMessageBox::Ok);
+//       msgBox.setDefaultButton(QMessageBox::Ok);
+//       msgBox.exec();
+//   }
    else if (_t == "error")
     {
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << endl;
@@ -3931,27 +3931,25 @@ void MainWindow::createMenusCommon()
     QRZCOMLogModifyCurrentLogAct = new QAction(tr("Queue all the QSO to be uploaded"), this);
     QRZCOMLogUploadAct = new QAction(tr("Upload the queued QSOs to QRZ.com ..."), this);
 
-        QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
-        connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
-        QRZCOMCheckThisCallAct->setToolTip("Checks the current callsign in QRZ.com.");
+    QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
+    connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
+    QRZCOMCheckThisCallAct->setToolTip("Checks the current callsign in QRZ.com.");
 
 
-        QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
-        QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
-        connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
-        QRZCOMAutoCheckAct->setToolTip("Checks always the current callsign in QRZ.com");
+    QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
+    QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
+    connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
+    QRZCOMAutoCheckAct->setToolTip("Checks always the current callsign in QRZ.com");
 
-        QRZCOMToolMenu->addSeparator();
+    QRZCOMToolMenu->addSeparator();
 
-        QRZCOMToolMenu->addAction(QRZCOMLogModifyCurrentLogAct);
-        connect(QRZCOMLogModifyCurrentLogAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMModifyCurrentLog()));
-        QRZCOMLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to QRZ.com.");
+    QRZCOMToolMenu->addAction(QRZCOMLogModifyCurrentLogAct);
+    connect(QRZCOMLogModifyCurrentLogAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMModifyCurrentLog()));
+    QRZCOMLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to QRZ.com.");
 
-        QRZCOMToolMenu->addAction(QRZCOMLogUploadAct);
-        connect(QRZCOMLogUploadAct, SIGNAL(triggered()), this, SLOT(slotQRZCOMLogUpload()));
-        QRZCOMLogUploadAct->setToolTip("Uploads your log to QRZ.com. Please ensure that you have created log and the API-KEY configured in the setup for that callsign before uploading.");
-
-
+    QRZCOMToolMenu->addAction(QRZCOMLogUploadAct);
+    connect(QRZCOMLogUploadAct, SIGNAL(triggered()), this, SLOT(slotQRZCOMLogUpload()));
+    QRZCOMLogUploadAct->setToolTip("Uploads your log to QRZ.com. Please ensure that you have created log and the API-KEY configured in the setup for that callsign before uploading.");
 
     toolMenu->addSeparator();
 
