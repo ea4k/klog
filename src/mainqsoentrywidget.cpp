@@ -179,6 +179,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     else
     {
         qrzLineEdit->setPalette(palBlack);
+        currentQrz = qrzLineEdit->text();
         //emit showInfoLabel(tr(""));
     }
     /*
