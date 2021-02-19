@@ -211,12 +211,15 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         //dataProxy->getSatelliteMode(satNameComboBox->currentText())
     }
 
+    autofillSatMode();
+
 }
 
 void MainWindowSatTab::slotSatNameTextChanged()
 {
     //qDebug() << "MainWindowSatTab::slotSatNameTextChanged: " << satNameLineEdit->text() << endl;
     satNameLineEdit->setText((satNameLineEdit->text()).toUpper());
+
     if (modifying )
     {
         return;
@@ -230,6 +233,8 @@ void MainWindowSatTab::slotSatNameTextChanged()
     {
         emit setPropModeSat("Not", false);
     }
+
+    autofillSatMode();
 
 }
 
@@ -402,6 +407,7 @@ void MainWindowSatTab::refreshData()
 {
     //qDebug() << "MainWindowSatTab::refreshData"  << endl;
     populateSatComboBox();
+    autofillSatMode();
 }
 
 void MainWindowSatTab::populateSatComboBox()
@@ -524,7 +530,7 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
         rxFreqSpinBox->setValue(dataProxy->getLowLimitBandFromBandName(satBandRXComboBox->currentText()));
     }
     //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END" << endl;
-
+    autofillSatMode();
 }
 
 void MainWindowSatTab::slotSatFreqRXChanged()
@@ -546,6 +552,7 @@ void MainWindowSatTab::slotSatFreqRXChanged()
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
         rxFreqSpinBox->setPalette(palBlack);
         bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(rxFreqSpinBox->value()));
+        autofillSatMode();
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
             satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(dataProxy->getBandNameFromFreq(rxFreqSpinBox->value()), Qt::MatchCaseSensitive));
@@ -578,7 +585,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
         //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
     }
    //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged-END" << endl;
-
+    autofillSatMode();
 }
 
 void MainWindowSatTab::slotSatFreqTXChanged()
@@ -612,14 +619,13 @@ void MainWindowSatTab::slotSatFreqTXChanged()
             satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
             //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
         }
-
+    autofillSatMode();
     }
 
     if (!txFreqBeingAutoChanged)
     {
         emit satTxFreqChanged(txFreqSpinBox->value());
     }
-
     //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged-END" << endl;
 }
 
@@ -687,7 +693,7 @@ void MainWindowSatTab::setDownLinkFreq(const double _t)
     }
     rxFreqBeingAutoChanged = false;
 
-      //qDebug() << "MainWindowsatTab::setDownLinkFreq END" << endl;
+    //qDebug() << "MainWindowsatTab::setDownLinkFreq END" << endl;
 }
 
 void MainWindowSatTab::setBandsOfSat(const QString &_p)
@@ -705,13 +711,11 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
 
     double upLink = 0.0;
     upLink = (dataProxy->getSatelliteUplink(_p.section(' ', 0, 0))).toDouble();
-
     double downLink = 0.0;
     downLink = (dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble();
 
       //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << QString::number(upLink)<< endl;
       //qDebug() << "MainWindowSatTab::setBandsOfSat downLink: " << QString::number(downLink)<< endl;
-
 
     if (upLink>0)
     {
@@ -831,4 +835,56 @@ void MainWindowSatTab::slotSatKeepThisDataClicked()
         //qDebug() << Q_FUNC_INFO << ": False" << endl;
     }
     slotSatNameComboBoxChanged();
+}
+
+void MainWindowSatTab::autofillSatMode()
+{
+    upLinkBandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    downLinkBandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
+    upLinkBand = bandToLetter(upLinkBandId);
+    downLinkBand = bandToLetter(downLinkBandId);
+    satModeLineEdit->setText(upLinkBand + "/" + downLinkBand);
+}
+
+QString MainWindowSatTab::bandToLetter(const int _id)
+{
+   QString letra = "";
+
+   if (_id == 21)
+   {
+       letra = "H";
+   }
+   else if (_id == 19)
+   {
+       letra = "A";
+   }
+   else if (_id == 16)
+   {
+       letra = "V";
+   }
+   else if (_id == 14)
+   {
+       letra = "U";
+   }
+   else if (_id == 12)
+   {
+       letra = "L";
+   }
+   else if (_id == 11)
+   {
+       letra = "S";
+   }
+   else if (_id == 8)
+   {
+       letra = "X";
+   }
+   else if (_id == 7)
+   {
+       letra = "K";
+   }
+   else
+   {
+        letra ="";
+   }
+   return letra;
 }
