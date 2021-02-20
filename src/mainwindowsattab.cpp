@@ -848,43 +848,19 @@ void MainWindowSatTab::autofillSatMode()
 
 QString MainWindowSatTab::bandToLetter(const int _id)
 {
-   QString letra = "";
+   QString letter = "";
 
-   if (_id == 21)
+   switch (_id)
    {
-       letra = "H";
+       case (21): letter="H"; break;
+       case (19): letter="A"; break;
+       case (16): letter="V"; break;
+       case (14): letter="U"; break;
+       case (12): letter="L"; break;
+       case (11): letter="S"; break;
+       case (8): letter="X"; break;
+       case (7): letter="K"; break;
+       default: break;
    }
-   else if (_id == 19)
-   {
-       letra = "A";
-   }
-   else if (_id == 16)
-   {
-       letra = "V";
-   }
-   else if (_id == 14)
-   {
-       letra = "U";
-   }
-   else if (_id == 12)
-   {
-       letra = "L";
-   }
-   else if (_id == 11)
-   {
-       letra = "S";
-   }
-   else if (_id == 8)
-   {
-       letra = "X";
-   }
-   else if (_id == 7)
-   {
-       letra = "K";
-   }
-   else
-   {
-        letra ="";
-   }
-   return letra;
+   return letter;
 }
