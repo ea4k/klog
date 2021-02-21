@@ -1,5 +1,6 @@
 February 2021 - 1.5 Devel
 - New feature: Added "Adif file deletion" checkbox. User can choose to show or not the message boxes after uploading QSOs.
+- New feature: New function added to fill automatically the satMode field in satellites Tab depending on upload/download frequencies.
 
 TBD - 1.5-RC4
 TODO: Reviewing in the setup process.
