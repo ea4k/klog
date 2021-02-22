@@ -839,52 +839,54 @@ void MainWindowSatTab::slotSatKeepThisDataClicked()
 
 void MainWindowSatTab::autofillSatMode()
 {
-    upLinkBandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
-    downLinkBandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
-    upLinkBand = bandToLetter(upLinkBandId);
-    downLinkBand = bandToLetter(downLinkBandId);
+    QString downLinkBand = bandToLetter(dataProxy->getBandNameFromFreq(rxFreqSpinBox->value()));
+    QString upLinkBand = bandToLetter(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()));
     satModeLineEdit->setText(upLinkBand + "/" + downLinkBand);
 }
 
-QString MainWindowSatTab::bandToLetter(const int _id)
+QString MainWindowSatTab::bandToLetter(const QString _band)
 {
-   QString letra = "";
+   QString letter = "";
 
-   if (_id == 21)
+   if (_band == "15M")
    {
-       letra = "H";
+       letter = "H";
    }
-   else if (_id == 19)
+   else if (_band == "10M")
    {
-       letra = "A";
+       letter =  "A";
    }
-   else if (_id == 16)
+   else if (_band == "2M")
    {
-       letra = "V";
+       letter =  "V";
    }
-   else if (_id == 14)
+   else if (_band == "70CM")
    {
-       letra = "U";
+       letter =  "U";
    }
-   else if (_id == 12)
+   else if (_band == "23CM")
    {
-       letra = "L";
+       letter =  "L";
    }
-   else if (_id == 11)
+   else if (_band == "13CM")
    {
-       letra = "S";
+       letter =  "S";
    }
-   else if (_id == 8)
+   else if (_band == "5CM")
    {
-       letra = "X";
+       letter =  "C";
    }
-   else if (_id == 7)
+   else if (_band == "3CM")
    {
-       letra = "K";
+       letter =  "X";
+   }
+   else if (_band == "1.2CM")
+   {
+       letter =  "K";
    }
    else
    {
-        letra ="";
+       letter = "-";
    }
-   return letra;
+   return letter;
 }

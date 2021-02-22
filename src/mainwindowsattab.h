@@ -102,7 +102,7 @@ private:
     void setBandsOfSat(const QString &_p);
     void addNewBand(const QString &_p);
     void setUpLink(const QString &_t);
-    QString bandToLetter(const int _id);
+    QString bandToLetter(const QString _band);
 
 
     QLineEdit *satNameLineEdit;
