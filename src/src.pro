@@ -301,8 +301,8 @@ macx: {
     ICON = klog.icns
     TARGET = KLog
     CONFIG += c++11
-    INCLUDEPATH +=../../../../hamlib/include/
-    LIBS += -L"../../../../hamlib/lib" -lhamlib
+    INCLUDEPATH +=../../../hamlib/include/
+    LIBS += -L"../../../hamlib/lib" -lhamlib
 }
 win32: {
     RC_ICONS = klog.ico
@@ -313,7 +313,6 @@ win32: {
     INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
-
 }
 
 

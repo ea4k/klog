@@ -1,4 +1,4 @@
-#ifndef STATDXCCSONSATSWIDGET_H
+#ifndef STATSDXCCSONSATSWIDGET_H
 #define STATSDXCCSONSATSWIDGET_H
 /***************************************************************************
                           statsdxccsonsatswidget.h  -  description

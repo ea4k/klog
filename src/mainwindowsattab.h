@@ -38,7 +38,7 @@ class MainWindowSatTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent = 0);
+    explicit MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowSatTab();
 
     QString getSatName();
@@ -66,9 +66,7 @@ public:
 
     void clear();
 
-    int downLinkBandId, upLinkBandId;
-    QString downLinkBand, upLinkBand;
-    void autofillSatMode();
+
 
 signals:
     void setPropModeSat(const QString &_p, const bool _keep);
@@ -104,6 +102,8 @@ private:
     void setUpLink(const QString &_t);
     QString bandToLetter(const QString _band);
 
+    void autofillSatMode();
+
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;
@@ -123,6 +123,10 @@ private:
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy_SQLite *dataProxy;
     Locator *locator;
+
+    int downLinkBandId, upLinkBandId;
+    QString downLinkBand, upLinkBand;
+
     bool modifying;
 };
 

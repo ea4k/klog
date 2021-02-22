@@ -44,7 +44,6 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
 
     keepThisDataForNextQSOQcheckbox = new QCheckBox;
 
-
     dataProxy = dp;
     locator = new Locator;
 
@@ -129,7 +128,6 @@ void MainWindowSatTab::createUI()
     satOtherLabel->setText(tr("Other"));
     satOtherLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-
     txFreqSpinBox->setDecimals(3);
     txFreqSpinBox->setMaximum(99999);
     txFreqSpinBox->setSuffix(" " + tr("MHz"));
@@ -148,7 +146,6 @@ void MainWindowSatTab::createUI()
     lastlineLayout->addWidget(satModeLineEdit);
     lastlineLayout->addWidget(satDXLocLabel);
     lastlineLayout->addWidget(satDXLocatorLineEdit);
-
 
     QGridLayout *tabLayout = new QGridLayout;
 
@@ -211,7 +208,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         //dataProxy->getSatelliteMode(satNameComboBox->currentText())
     }
 
-    autofillSatMode();
+    //autofillSatMode();
 
 }
 
@@ -234,7 +231,7 @@ void MainWindowSatTab::slotSatNameTextChanged()
         emit setPropModeSat("Not", false);
     }
 
-    autofillSatMode();
+    //autofillSatMode();
 
 }
 
@@ -407,7 +404,7 @@ void MainWindowSatTab::refreshData()
 {
     //qDebug() << "MainWindowSatTab::refreshData"  << endl;
     populateSatComboBox();
-    autofillSatMode();
+    //autofillSatMode();
 }
 
 void MainWindowSatTab::populateSatComboBox()
@@ -552,13 +549,12 @@ void MainWindowSatTab::slotSatFreqRXChanged()
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
         rxFreqSpinBox->setPalette(palBlack);
         bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(rxFreqSpinBox->value()));
-        autofillSatMode();
+        //autofillSatMode();
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
             satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(dataProxy->getBandNameFromFreq(rxFreqSpinBox->value()), Qt::MatchCaseSensitive));
 
         }
-
     }
 
     if (!rxFreqBeingAutoChanged)
@@ -619,7 +615,7 @@ void MainWindowSatTab::slotSatFreqTXChanged()
             satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
             //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
         }
-    autofillSatMode();
+    //autofillSatMode();
     }
 
     if (!txFreqBeingAutoChanged)
@@ -872,7 +868,7 @@ QString MainWindowSatTab::bandToLetter(const QString _band)
    {
        letter =  "S";
    }
-   else if (_band == "5CM")
+   else if (_band == "6CM")
    {
        letter =  "C";
    }
@@ -880,7 +876,7 @@ QString MainWindowSatTab::bandToLetter(const QString _band)
    {
        letter =  "X";
    }
-   else if (_band == "1.2CM")
+   else if (_band == "1.25CM")
    {
        letter =  "K";
    }
