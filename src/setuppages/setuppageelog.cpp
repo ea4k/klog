@@ -370,7 +370,7 @@ void SetupPageELog::setClubLogActive(const bool &_b)
 {
     clubLogActive = _b;
     clubLogActiveCheckBox->setChecked(clubLogActive);
-    clubLogActiveCheckBox->setEnabled(clubLogActive);
+    clubLogSendInRealTimeCheckBox->setEnabled(clubLogActive);
 }
 
 void SetupPageELog::slotClubLogActive(const bool _s)
@@ -563,7 +563,7 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
     //qDebug() << "SetupPageELog::setQRZCOMActive " << endl;
     qrzcomActive = util->trueOrFalse(_s);
     QRZCOMActiveCheckBox->setChecked(qrzcomActive);
-    QRZCOMActiveCheckBox->setEnabled(qrzcomActive);
+    QRZCOMAutoCheckCheckBox->setEnabled(qrzcomActive);
 }
 
 bool SetupPageELog::SetupPageELog::getQRZCOMActive()
@@ -647,7 +647,7 @@ bool SetupPageELog::getQRZCOMAutoCheck()
 void SetupPageELog::setQRZCOMAutoCheck(const QString &_s)
 {
     qrzcomAutoFill = util->trueOrFalse(_s);
-    QRZCOMAutoCheckCheckBox->setEnabled(qrzcomAutoFill);
+    QRZCOMAutoCheckCheckBox->setChecked(qrzcomAutoFill);
 }
 
 void SetupPageELog::showEvent(QShowEvent *event)

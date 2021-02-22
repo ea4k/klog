@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "setupdialog.h"
+#include "setuppages/setuppagemisc.h"
 //#include <QDebug>
 
 /*
@@ -587,6 +588,8 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << endl;
         //stream << "LogSort=" << miscPage->getLogSort() << ";" << endl;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << endl;
+        stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";" << endl;
+
         if (miscPage->getDupeTime()>0)
         {
             stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";" << endl;
@@ -1212,10 +1215,11 @@ bool SetupDialog::processConfigLine(const QString &_line)
         {
             windowSize = value;
         }
-
     }
-    else if (tab == "LATESTBACKUP")
-    {
+    else if(tab =="DELETEALWAYSADIFILE"){
+            miscPage->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
+        }
+    else if (tab == "LATESTBACKUP"){
         if (value.length()>0)
         {
             latestBackup = value;
@@ -1226,7 +1230,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         }
     //s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
     }
-
     else
     {
            //qDebug() << "SetupDialog::processConfigLine: NONE: " << endl;

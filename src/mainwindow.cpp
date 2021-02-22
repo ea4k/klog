@@ -44,12 +44,14 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = Info;
+    sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
 
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
+
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
@@ -2881,37 +2883,43 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
             msgBox.exec();
         }
      }
-
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog ClubLog"));
-    msgBox.setText(tr("The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    i = msgBox.exec();
-    if (i == QMessageBox::Yes)
+    if (!deleteAlwaysAdiFile)
     {
-        if (QFile::remove(fileName))
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog ClubLog"));
-            msgBox.setText(tr("The file has been removed."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE REMOVED: " << fileName << endl;
-        }
-        else
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog ClubLog"));
-            msgBox.setText(tr("The file has not been removed."));
-            msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE NOT REMOVED: " << fileName << endl;
-        }
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog ClubLog"));
+        msgBox.setText(tr("The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+        msgBox.setDefaultButton(QMessageBox::Yes);
         i = msgBox.exec();
+        if (i == QMessageBox::Yes)
+        {
+            if (QFile::remove(fileName))
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog ClubLog"));
+                msgBox.setText(tr("The file has been removed."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE REMOVED: " << fileName << endl;
+            }
+            else
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog ClubLog"));
+                msgBox.setText(tr("The file has not been removed."));
+                msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE NOT REMOVED: " << fileName << endl;
+            }
+            i = msgBox.exec();
+        }
+    }
+    else
+    {
+        QFile::remove(fileName);
     }
 }
 
@@ -2962,7 +2970,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
     QString fileName = util->getEQSLFile();
     if (QFile::exists(fileName))
     {
-            //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << endl;
+            //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << fileName <<endl;
     }
      else
      {
@@ -2994,36 +3002,43 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
         }
      }
 
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog eQSL"));
-    msgBox.setText(tr("The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    i = msgBox.exec();
-    if (i == QMessageBox::Yes)
-    {
-        if (QFile::remove(fileName))
+     if (!deleteAlwaysAdiFile)
         {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog eQSL"));
-            msgBox.setText(tr("The file has been removed."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE REMOVED: " << fileName << endl;
-        }
-        else
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog eQSL"));
-            msgBox.setText(tr("The file has not been removed."));
-            msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-
-              //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName << endl;
-        }
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog eQSL"));
+        msgBox.setText(tr("The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+        msgBox.setDefaultButton(QMessageBox::Yes);
         i = msgBox.exec();
+        if (i == QMessageBox::Yes)
+        {
+            if (QFile::remove(fileName))
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog eQSL"));
+                msgBox.setText(tr("The file has been removed."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE REMOVED: " << fileName << endl;
+            }
+            else
+            {
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("KLog eQSL"));
+                msgBox.setText(tr("The file has not been removed."));
+                msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+
+                  //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName << endl;
+            }
+            i = msgBox.exec();
+        }
+    }
+    else
+    {
+        QFile::remove(fileName);
     }
       //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << endl;
 }
@@ -3137,18 +3152,18 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    {
         //QSLTabWidget->setQSLVia(_d);
    }
-   else if (_t == "message")
-   {
-       QMessageBox msgBox;
-       msgBox.setIcon(QMessageBox::Information);
-       msgBox.setWindowTitle(tr("KLog - QRZ.com message"));
-       QString aux = QString(tr("KLog has received a message from QRZ.com.") );
-       msgBox.setText(aux);
-       msgBox.setDetailedText(_d);
-       msgBox.setStandardButtons(QMessageBox::Ok);
-       msgBox.setDefaultButton(QMessageBox::Ok);
-       msgBox.exec();
-   }
+//   else if (_t == "message")
+//   {
+//       QMessageBox msgBox;
+//       msgBox.setIcon(QMessageBox::Information);
+//       msgBox.setWindowTitle(tr("KLog - QRZ.com message"));
+//       QString aux = QString(tr("KLog has received a message from QRZ.com.") );
+//       msgBox.setText(aux);
+//       msgBox.setDetailedText(_d);
+//       msgBox.setStandardButtons(QMessageBox::Ok);
+//       msgBox.setDefaultButton(QMessageBox::Ok);
+//       msgBox.exec();
+//   }
    else if (_t == "error")
     {
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << endl;
@@ -3916,27 +3931,25 @@ void MainWindow::createMenusCommon()
     QRZCOMLogModifyCurrentLogAct = new QAction(tr("Queue all the QSO to be uploaded"), this);
     QRZCOMLogUploadAct = new QAction(tr("Upload the queued QSOs to QRZ.com ..."), this);
 
-        QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
-        connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
-        QRZCOMCheckThisCallAct->setToolTip("Checks the current callsign in QRZ.com.");
+    QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
+    connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
+    QRZCOMCheckThisCallAct->setToolTip("Checks the current callsign in QRZ.com.");
 
 
-        QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
-        QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
-        connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
-        QRZCOMAutoCheckAct->setToolTip("Checks always the current callsign in QRZ.com");
+    QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
+    QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
+    connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
+    QRZCOMAutoCheckAct->setToolTip("Checks always the current callsign in QRZ.com");
 
-        QRZCOMToolMenu->addSeparator();
+    QRZCOMToolMenu->addSeparator();
 
-        QRZCOMToolMenu->addAction(QRZCOMLogModifyCurrentLogAct);
-        connect(QRZCOMLogModifyCurrentLogAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMModifyCurrentLog()));
-        QRZCOMLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to QRZ.com.");
+    QRZCOMToolMenu->addAction(QRZCOMLogModifyCurrentLogAct);
+    connect(QRZCOMLogModifyCurrentLogAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMModifyCurrentLog()));
+    QRZCOMLogModifyCurrentLogAct->setToolTip("Mark as modified all the QSO so they can be uploaded again to QRZ.com.");
 
-        QRZCOMToolMenu->addAction(QRZCOMLogUploadAct);
-        connect(QRZCOMLogUploadAct, SIGNAL(triggered()), this, SLOT(slotQRZCOMLogUpload()));
-        QRZCOMLogUploadAct->setToolTip("Uploads your log to QRZ.com. Please ensure that you have created log and the API-KEY configured in the setup for that callsign before uploading.");
-
-
+    QRZCOMToolMenu->addAction(QRZCOMLogUploadAct);
+    connect(QRZCOMLogUploadAct, SIGNAL(triggered()), this, SLOT(slotQRZCOMLogUpload()));
+    QRZCOMLogUploadAct->setToolTip("Uploads your log to QRZ.com. Please ensure that you have created log and the API-KEY configured in the setup for that callsign before uploading.");
 
     toolMenu->addSeparator();
 
@@ -4828,6 +4841,8 @@ void MainWindow::readConfigData()
     eQSLActive = false;
     clublogActive = false;
     lotwActive = false;
+    deleteAlwaysAdiFile = false;
+
    //qDebug() << "MainWindow::readConfigData: Before processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << endl;
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
@@ -5124,7 +5139,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     */
     else if (field=="SENDEQSLBYDEFAULT")
     {
-        eQSLTabWidget->setQueueSentByDefault(util->trueOrFalse(value));
+        sendQSLByDefault=util->trueOrFalse(value);
+        eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
     }
     else if (field=="DUPLICATEDQSOSLOT"){
         if (value.toInt()>=0)
@@ -5463,6 +5479,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
+        slotElogQRZCOMAutoCheck();
     }
     else if(field =="QRZCOMAUTO")
     {
@@ -5550,6 +5567,11 @@ bool MainWindow::processConfigLine(const QString &_line){
         {
             setWindowsSize(values.at(0).toInt(), values.at(1).toInt());
         }
+    }
+    else if(field=="DELETEALWAYSADIFILE")
+    {
+        deleteAlwaysAdiFile = util->trueOrFalse(value);
+        //qDebug() << "Delete Aways Adif File = " << deleteAlwaysAdiFile <<endl;
     }
     else if(field=="LATESTBACKUP")
     {
@@ -6253,7 +6275,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
            }
         }
     }
-
+    if (!deleteAlwaysAdiFile){
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog LoTW"));
     msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
@@ -6272,6 +6294,9 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
         }
     }
       //qDebug() << "MainWindow::fileExportLoTW -END " << endl;
+    }else{
+         QFile::remove(fileName);
+    }
 }
 
 void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate)
@@ -8514,7 +8539,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                                                 _myLoc, _dxgrid, _rstTX, _rstRX,
                                                 _exchangeRX, _exchangeTX, _comment,
                                                 _stationcallsign, _name, opCall,
-                                                _datetime, _datetime_off, pwr, dxcc, currentLog);
+                                                _datetime, _datetime_off, pwr, dxcc, currentLog, sendQSLByDefault);
 
 
             if (qsoLogged)

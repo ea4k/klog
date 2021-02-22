@@ -73,6 +73,8 @@ public:
     //void setLogSort(const QString &_t);
     QString getSendEQSLByDefault();
     void setSetEQSLByDefault(const QString &_t);
+    void setDeleteAlwaysAdiFile(const bool &_t);
+    QString getDeleteAlwaysAdiFile();
 
     void setDupeTime(const int _t);
     int getDupeTime();
@@ -100,7 +102,7 @@ private:
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
     //QCheckBox *logSortCheckBox;
-    QCheckBox *sendEQSLByDefaultSearchCheckBox;
+    QCheckBox *sendEQSLByDefaultSearchCheckBox, *deleteAlwaysAdiFileCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;
     QPushButton *fileNameButton, *dbPushButton, *moveDBPushButton;

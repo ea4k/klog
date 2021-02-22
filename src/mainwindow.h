@@ -36,6 +36,7 @@
 
 //#include "database.h"
 #include "setupdialog.h"
+#include "setuppages/setuppagemisc.h"
 //#include "helpaboutdialog.h"
 #include "aboutdialog.h"
 //#include "dxccsummarydialog.h"
@@ -146,6 +147,8 @@ public:
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
+
+
 
 
 
@@ -378,6 +381,9 @@ private:
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;
 
+    bool sendQSLByDefault;
+    bool deleteAlwaysAdiFile;
+
     // PST Rotator
     //PSTRotatorSupport *pstRotator;
     //bool usePSTRotator;
@@ -466,6 +472,9 @@ private:
     Locator *locator;
     Awards *awards;
     Utilities *util;
+    SetupPageMisc *miscPage;
+
+
     //WorldEditorWidget *worldEditor;
 
     //HelpHelpDialog *helpHelpDialog;
@@ -704,6 +713,8 @@ private:
     QString softwareVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;
+
+
 
 
     //QString currentQrz;

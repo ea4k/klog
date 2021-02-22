@@ -66,6 +66,10 @@ public:
 
     void clear();
 
+    int downLinkBandId, upLinkBandId;
+    QString downLinkBand, upLinkBand;
+    void autofillSatMode();
+
 signals:
     void setPropModeSat(const QString &_p, const bool _keep);
     //void satBandTXChanged(const QString &_p);
@@ -98,6 +102,7 @@ private:
     void setBandsOfSat(const QString &_p);
     void addNewBand(const QString &_p);
     void setUpLink(const QString &_t);
+    QString bandToLetter(const int _id);
 
 
     QLineEdit *satNameLineEdit;
