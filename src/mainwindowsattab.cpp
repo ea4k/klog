@@ -868,7 +868,7 @@ QString MainWindowSatTab::bandToLetter(const QString _band)
    {
        letter =  "S";
    }
-   else if (_band == "6CM")
+   else if (_band == "5CM")
    {
        letter =  "C";
    }
