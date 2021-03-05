@@ -7739,7 +7739,7 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
     return aux;
 }
 
-void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, const int _level)
+void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, const DebugLogLevel _level)
 {
    emit debugLog(_func, _msg, _level);
 }
