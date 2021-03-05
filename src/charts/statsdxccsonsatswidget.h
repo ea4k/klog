@@ -42,7 +42,7 @@ class StatsDXCCOnSatsWidget : public StatsGeneralChartWidget
 public:
     StatsDXCCOnSatsWidget();
     StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    void prepareChart(const int _log=-1);
+    void prepareChart(const int _log=-1) override;
 
 
 signals:
@@ -51,7 +51,7 @@ private slots:
     void slotConfirmedClicked();
 
 private:
-    void createUI();
+    void createUI() override;
     DataProxy_SQLite *dataProxy;
     QTableWidget *tableWidget;
     Utilities *util;

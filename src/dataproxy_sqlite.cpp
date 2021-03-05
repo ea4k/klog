@@ -4142,6 +4142,58 @@ int DataProxy_SQLite::getQSOsOnMonth(const int _month, const int _log)
     }
 }
 
+bool DataProxy_SQLite::updateQSONumberPerLog()
+{
+    //qDebug() << Q_FUNC_INFO << endl;
+    QSqlQuery query;
+    QString queryString;
+    bool sqlOK;
+    QList<int> _logsInLogs;
+    _logsInLogs.clear();
+
+    queryString = QString("SELECT id FROM logs");
+
+    sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                if ( (query.value(0)).toInt() >= 1)
+                {
+                    _logsInLogs.append((query.value(0)).toInt());
+                }
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            //qDebug() << Q_FUNC_INFO << " - TRUE2" << endl;
+        query.finish();
+        return false;
+    }
+    query.finish();
+    foreach(int i, _logsInLogs)
+    {
+        int _qsos = getHowManyQSOInLog(i);
+        if (_qsos>0)
+        {
+            queryString = QString("UPDATE logs set logtypen = '%1' WHERE id = '%2'").arg(_qsos).arg(i);
+            sqlOK = query.exec(queryString);
+            if (!sqlOK)
+            {
+                query.finish();
+                return false;
+            }
+            query.finish();
+        }
+    }
+    return true;
+}
+
 bool DataProxy_SQLite::newDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
 {
         //qDebug() << "DataProxy_SQLite::newDXMarathon" << endl;
