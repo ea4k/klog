@@ -106,7 +106,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //qDebug() << "MainWindow::MainWindow: 00083" << QTime::currentTime().toString("hh:mm:ss") << endl;
     updateSatsData = new UpdateSatsData(dataProxy);
-     //qDebug() << "MainWindow::MainWindow: 00084" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::MainWindow: 00084" << QTime::currentTime().toString("hh:mm:ss") << endl;
     statsWidget = new StatisticsWidget(dataProxy);
 
      //qDebug() << "MainWindow::MainWindow: 00085" << QTime::currentTime().toString("hh:mm:ss") << endl;
@@ -169,7 +169,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-   //qDebug() << "MainWindow::MainWindow: 8 " << QTime::currentTime().toString("hh:mm:ss") << endl;
+   //qDebug() << "MainWindow::MainWindow: 8 " << QTime::currentTime().toString("hh:mm:ss") << Qt::endl;
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();

@@ -2,7 +2,7 @@
 
 SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 {
-    
+    //qDebug() << "SetupPageUDP::SetupPageUDP" << Qt::endl;
     logFromWSJTXCheckbox = new QCheckBox(this);
     realDataFromWSJTXCheckbox  = new QCheckBox(this);
     logAutomaticallyWSJTXCheckbox  = new QCheckBox(this);
@@ -11,6 +11,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     UDPServerPortSpinBox = new QSpinBox;
     miliSecsSpinBox = new QSpinBox;
     networkInterfacesComboBox = new QComboBox;
+    //qDebug() << "SetupPageUDP::SetupPageUDP: 1" << Qt::endl;
     util = new Utilities;
 
     //wsjtxIPAddress = new QLineEdit(this);
@@ -22,9 +23,13 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     defaultport = 2237;     // Default WSJTX port
     defaultTimer = 2000;  // 2 secs
 
+    //qDebug() << "SetupPageUDP::SetupPageUDP: 2" << Qt::endl;
     createUI();
+    //qDebug() << "SetupPageUDP::SetupPageUDP: 3" << Qt::endl;
     createActions();
+    //qDebug() << "SetupPageUDP::SetupPageUDP: 4" << Qt::endl;
     fillNetworkInterfaceComboBox();
+    //qDebug() << "SetupPageUDP::SetupPageUDP - END" << Qt::endl;
 }
 
 SetupPageUDP::~SetupPageUDP(){
@@ -167,7 +172,7 @@ void SetupPageUDP::fillNetworkInterfaceComboBox()
             interfacesNames.append(i.humanReadableName() + "-" + i.hardwareAddress() );
         }
     }
-    interfacesNames.insert(-1, loopBack.humanReadableName());
+    interfacesNames.insert(0, loopBack.humanReadableName());
     networkInterfacesComboBox->addItems(interfacesNames);
 
 }

@@ -145,7 +145,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwDownGroup = new QGroupBox (tr("Download"));
 
     lotwUserLineEdit = new QLineEdit;
-    //lotwUserLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
+    lotwUserLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
 
     lotwPasswordLineEdit = new QLineEdit;
     lotwPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);

@@ -60,7 +60,7 @@ class World : public QWidget
 public:
     World(DataProxy_SQLite *dp, const QString &_parentFunction);
     World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_parentFunction);
-    World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction);
+    World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_klogVer, const QString &_parentFunction);
 
     ~World();
     bool create(const QString &_worldFile);
@@ -126,7 +126,7 @@ private:
     int progressBarPosition;
 
     bool created;
-    QString klogDir, kontestVersion;
+    QString klogDir, klogVersion;
     int cqz, ituz, numberOfEntities;
     QString entityName;
     QString currentPrefix; // Used in the progressBar

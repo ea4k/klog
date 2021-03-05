@@ -37,7 +37,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
-      //qDebug() << "World::World(0)" << _parentFunction << endl;
+    //qDebug() << "World::World(0)" << _parentFunction << endl;
     constrid = 1;
 
     worldModel = new QSqlRelationalTableModel(this);
@@ -51,7 +51,7 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     lon = 0.0;
     utc = 0.0;
     klogDir = "";
-    kontestVersion = "";
+    klogVersion = "";
     locator = new Locator();
     created = false;
     dataProxy = dp;
@@ -64,7 +64,7 @@ World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_pare
       //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << endl;
     constrid = 2;
     klogDir = _klogDir;
-    kontestVersion = "";
+    klogVersion = "";
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
     progressBarPosition = 0;
@@ -83,14 +83,15 @@ World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_pare
 
 }
 
-World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_kontestVer, const QString &_parentFunction)
+World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_klogVer, const QString &_parentFunction)
 {
-      //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
+   //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << endl;
     constrid = 3;
     klogDir = _klogDir;
-    kontestVersion = _kontestVer;    
+    klogVersion = _klogVer;
+    //qDebug() << "World::World(2): 1" << endl;
     worldModel = new QSqlRelationalTableModel(this);
-      //qDebug() << "World::World(2): 1" << endl;
+    //qDebug() << "World::World(2): 2" << endl;
     numberOfEntities = 0;
     progressBarPosition = 0;
     created = false;
@@ -107,7 +108,7 @@ World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_kont
     locator = new Locator();
       //qDebug() << "World::World(2): 3" << endl;
     dataProxy = dp;
-      //qDebug() << "World::World(2): - END" << endl;
+    //qDebug() << "World::World(2): - END" << endl;
 
 }
 
