@@ -2,6 +2,9 @@ language: cpp
 sudo: required
 dist: focal
 compiler: gcc
+arch:
+  - amd64
+  - arm64
 os: linux
 branches:
   only:
