@@ -1,0 +1,13 @@
+language: cpp
+sudo: required
+dist: bionic
+compiler: gcc
+os: linux
+branches:
+  only:
+    - master
+    - devel
+matrix:
+ include:
+  apt:
+    packages: [ qtbase5-dev, libhamlib++-dev, libqt5serialport-dev libqt5charts5-dev ]
