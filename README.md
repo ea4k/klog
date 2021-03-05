@@ -1,5 +1,6 @@
 # KLog
-![Built Status] (https://api.travis-ci.com/ea4k/klog.png?branch=master)
+![Build Status](https://api.travis-ci.com/ea4k/klog.png?branch=master)
+
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
 
 The objective of KLog is to provide a free software that runs in Linux, macOS and Windows.
@@ -38,3 +39,4 @@ Please send all your suggestions & bug reports.
 I hope you enjoy KLog!
 
 73 de Jaime, EA4K
+text
