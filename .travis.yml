@@ -6,7 +6,9 @@ branches:
 matrix:
   include:
   - os: linux
-    arch: amd64
+    arch: 
+      - amd64
+      - arm64
     sudo: required
     dist: focal
     before_install:
