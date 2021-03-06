@@ -204,7 +204,7 @@ SOURCES += main.cpp \
     charts/statsworkedsentpiechartwidget.cpp \
     charts/statssentconfirmedpiechartwidget.cpp \
     charts/statsqsosperbandbarchartwidget.cpp \
-        charts/statsgridsonsatswidget.cpp \
+    charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
     worldmapwidget.cpp
@@ -301,8 +301,10 @@ macx: {
     ICON = klog.icns
     TARGET = KLog
     CONFIG += c++11
-    INCLUDEPATH +=../../../hamlib/include/
-    LIBS += -L"../../../hamlib/lib" -lhamlib
+    #INCLUDEPATH +=../../../hamlib/include/
+    #LIBS += -L"../../../hamlib/lib" -lhamlib
+    INCLUDEPATH +=/usr/local/include/
+    LIBS += -L"/usr/local/lib" -lhamlib
 }
 win32: {
     RC_ICONS = klog.ico
