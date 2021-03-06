@@ -6,9 +6,21 @@ branches:
 matrix:
   include:
   - os: linux
-    arch: 
-      - amd64
-      - arm64
+    arch: amd64
+    sudo: required
+    dist: focal
+    before_install:
+      - sudo apt-get update
+      - sudo apt-get -y install qtbase5-dev libsqlite3-dev
+      - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
+    compiler:
+      - gcc
+    script:
+      - qmake -project
+      - qmake KLog.pro
+      - make
+  - os: linux
+    arch: arm64
     sudo: required
     dist: focal
     before_install:
