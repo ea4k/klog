@@ -3,6 +3,7 @@
 #include "../../src/qso.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/database.h"
+#include "../../src/utilities.h"
 
 /***************************************************************************
                           tst_world.h  -  description
@@ -30,6 +31,7 @@
  *    If not, see <https://www.gnu.org/licenses/>.                           *
  *                                                                           *
  *****************************************************************************/
+
 class tst_World : public QObject
 {
     Q_OBJECT
@@ -42,16 +44,26 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_Constructor();
+    void test_WorldCreation();
 
 private:
     DataProxy_SQLite *dataProxy;
-
-
+    Utilities *util;
+    World *world;
+    QString version;
 };
 
 tst_World::tst_World()
 {
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    qDebug() << "Testing ... " << endl;
+    version = "1.5";
+
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
+    util = new Utilities;
+    //world = new World(dataProxy, util->getHomeDir(), version, Q_FUNC_INFO);
+
+    //ctyDatFile = util->getCTYFile();
+    //world->create(ctyDatFile);
 }
 
 tst_World::~tst_World()
@@ -72,9 +84,28 @@ void tst_World::cleanupTestCase()
 void tst_World::test_Constructor()
 {
     //QVERIFY(util->getVersion() == "0.0");
+    qDebug() << "Testing the constructor" << endl;
 }
 
+void tst_World::test_WorldCreation()
+{
+    /*
+      qDebug() << "Testing the world" << endl;
+    QVERIFY2 (1==1, "Not OK");
+    QString ctyFile = QFINDTESTDATA (util->getCTYFile());
+*/
+    /*
+    if (!world->create(version))
+    {
+        QFAIL( "World failed to be created");
+    }
+    */
+    /*
+    QFAIL( "World YES to be created");
+    QVERIFY2(1==2, "Failure in the qverify2");
+*/
 
+}
 
 QTEST_APPLESS_MAIN(tst_World)
 
