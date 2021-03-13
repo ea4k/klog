@@ -1628,7 +1628,7 @@ bool World::insertSpecialEntities()
         return false;
     }
 
-
+    return true;
 
     //qDebug() << Q_FUNC_INFO << " - END" << endl;
 
