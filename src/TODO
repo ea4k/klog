@@ -1,3 +1,5 @@
+BUG: KLog needs to update the Entity DB is shown on every start
+
 KLog should update ALWAYS when receiving from LoTW the QSL_LOTW_rcvd or add the QSO if not in local log.
 
 Review the process after Setup
@@ -359,7 +361,7 @@ TODO: When modifying a cell directly in the log, it is possible to select a mode
 TODO: Slot: If (only)eqsl/lotw is sent/rec, the QSL_RCVD_VIA should be E
 
 TODO: Code a Tool to get statistcs for the contests, some kind of post contest tool.
-	http://www.qsl.net/3v4-002/Contests/2011%20CQ-WW-SSB%203V8SS/index.htm
+    http://www.qsl.net/3v4-002/Contests/2011%20CQ-WW-SSB%203V8SS/index.htm
 
 TODO: Be able to send scores to: http://www.cqcontest.ru/help/developers.jsp
 

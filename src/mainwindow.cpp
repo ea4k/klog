@@ -3193,7 +3193,7 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
 
 void MainWindow::slotElogQRZCOMCheckThisCall()
 {
-     //qDebug() << "MainWindow::slotElogQRZCOMCheckThisCall: " << endl;
+     //qDebug() << Q_FUNC_INFO  << endl;
     if (qrzcomActive)
     {
         elogQRZcom->checkQRZ(mainQSOEntryWidget->getQrz());
@@ -3202,6 +3202,7 @@ void MainWindow::slotElogQRZCOMCheckThisCall()
     {
       showMessageToEnableTheOnlineService(QRZ)  ;
     }
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 void MainWindow::showMessageToEnableTheOnlineService(const OnLineProvider _service)
@@ -3216,16 +3217,20 @@ void MainWindow::showMessageToEnableTheOnlineService(const OnLineProvider _servi
 
 void MainWindow::slotElogQRZCOMAutoCheck()
 {
-     //qDebug() << "MainWindow::slotElogQRZCOMAutoCheck: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << endl;
+     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << endl;
     if (!qrzcomActive)
     {
         showMessageToEnableTheOnlineService(QRZ);
         return;
     }
     setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
+
 void MainWindow::slotElogQRZCOMAutoCheckFromSetup(const bool _s)
 {
+    //qDebug() << Q_FUNC_INFO << endl;
+
     if (qrzcomActive)
     {
         QRZCOMAutoCheckAct->setEnabled(_s);
@@ -3235,6 +3240,7 @@ void MainWindow::slotElogQRZCOMAutoCheckFromSetup(const bool _s)
       showMessageToEnableTheOnlineService(QRZ);
     }
 
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 void MainWindow::slotExitFromSlotDialog(const int exitID)
@@ -5479,7 +5485,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
-        slotElogQRZCOMAutoCheck();
+        //slotElogQRZCOMAutoCheck();
     }
     else if(field =="QRZCOMAUTO")
     {
@@ -6668,9 +6674,11 @@ void MainWindow::sloteQSLLogUpload()
 void MainWindow::slotQRZCOMLogUpload()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //qDebug() << Q_FUNC_INFO << endl;
     if (!qrzcomActive)
     {
         showMessageToEnableTheOnlineService(QRZ)  ;
+        //qDebug() << Q_FUNC_INFO << " - END" << endl;
         return;
     }
 
@@ -6681,11 +6689,12 @@ void MainWindow::slotQRZCOMLogUpload()
         msgBox.setWindowTitle(tr("KLog QRZ.com"));
         msgBox.setText(tr("You need to define a proper API Key for your QRZ.com logbook in the eLog preferences.") );
         msgBox.exec();
+        //qDebug() << Q_FUNC_INFO << " - END" << endl;
         return;
     }
     adifLoTWExportWidget->setExportMode(ModeQRZ);
     adifLoTWExportWidget->show();
-
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
