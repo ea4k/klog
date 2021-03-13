@@ -7790,7 +7790,7 @@ bool DataBase::updateTo020()
         return false;
     }
 
-    if (!updateDBVersion(softVersion, QString::number(dbVersion)))
+    if (!updateDBVersion(softVersion, QString::number(0.020)))
     {
         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
         return false;
@@ -7830,7 +7830,7 @@ bool DataBase::updateTo021()
          return false;
      }
 
-     if (!updateDBVersion(softVersion, QString::number(dbVersion)))
+     if (!updateDBVersion(softVersion, QString::number(0.021)))
      {
          //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
          return false;
