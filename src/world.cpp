@@ -129,7 +129,10 @@ bool World::recreate(const QString &_worldFile)
         if (query.exec("DELETE FROM prefixesofentity"))
         {
              //qDebug() << "World::recreate: EMPTY prefixesofentity"  << endl;
-             return create(_worldFile);
+             if (create(_worldFile))
+             {
+                 return insertSpecialEntities ();
+             }
         }
         else
         {//TODO: Manage the query error
@@ -145,7 +148,7 @@ bool World::recreate(const QString &_worldFile)
         return false;
     }
 
-    //return false;
+    return false;
 }
 
 bool World::create(const QString &_worldFile)
