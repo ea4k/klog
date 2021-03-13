@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 
             msgBox.setText(msg);
             msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);            
+            msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
 
         }
@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
         if (inMemory == 1)
         {
             //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
-            MainWindow mw(klogDir, version);     
+            MainWindow mw(klogDir, version);
             mw.init();
             splash.finish(&mw);
             //mw.checkIfNewVersion();

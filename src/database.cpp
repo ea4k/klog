@@ -1438,7 +1438,7 @@ bool DataBase::unMarkAllQSO()
 bool DataBase::updateIfNeeded()
 {
 
-       //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
 
 
     /**************************************************************************************
@@ -2058,7 +2058,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    return updateTo020();
+    return updateTo021();
 
 }
 
@@ -5078,7 +5078,7 @@ bool DataBase::recreateTableBand()
     if (execQuery(Q_FUNC_INFO, "DROP TABLE band"))
     {
        // emit debugLog(Q_FUNC_INFO, "1", 7);
-        return execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO mode");
+        return execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO band");
     }
     else
     {
@@ -7762,58 +7762,82 @@ bool DataBase::updateTo019()
 }
 
 bool DataBase::updateTo020()
-{// Adds 5M & 8M bands and the Q65 mode
+{// Adds Q65 mode
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
+    bool IamInPreviousVersion = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    if (latestReaded >= dbVersion)
+    {
+       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
+        return true;
+    }
+    while (!IamInPreviousVersion && !ErrorUpdating)
+    {
+        IamInPreviousVersion = updateTo019();
+        if (!IamInPreviousVersion)
+        {
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!updateTheModeTableAndSyncLog() )
+    {
+        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+        return false;
+    }
+
+    if (!updateDBVersion(softVersion, QString::number(dbVersion)))
+    {
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
+        return false;
+
+    }
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << endl;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
+    return true;
+}
+
+bool DataBase::updateTo021()
+{// Adds 5M & 8M bands
     //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
-     bool IAmIn019 = false;
+     bool IamInPreviousVersion = false;
      bool ErrorUpdating = false;
      latestReaded = getDBVersion().toFloat();
     //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
-     if (latestReaded >= 0.020f)
+     if (latestReaded >= dbVersion)
      {
-        //qDebug() << Q_FUNC_INFO << " : - I am in 020" << endl;
+        //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
          return true;
      }
-     else
+     while (!IamInPreviousVersion && !ErrorUpdating)
      {
-         while (!IAmIn019 && !ErrorUpdating)
+         IamInPreviousVersion = updateTo019();
+         if (!IamInPreviousVersion)
          {
-
-             IAmIn019 = updateTo019();
-             if (IAmIn019)
-             {
-             }
-             else
-             {
-                 ErrorUpdating = false;
-             }
-         }
-         if (ErrorUpdating)
-         {
-              // emit debugLog(Q_FUNC_INFO, "1", 7);
              return false;
          }
      }
 
      // Now I am in the previous version and I can update the DB.
 
-     if (!recreateTableBand () )
+     if (!recreateTableBand ())
      {
-        return false;
+         //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+         return false;
      }
 
-     if (!updateTheModeTableAndSyncLog() )
+     if (!updateDBVersion(softVersion, QString::number(dbVersion)))
      {
-           return false;//qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog NOK" << endl;
+         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
+         return false;
+
      }
-
-      if (!updateDBVersion(softVersion, "0.020"))
-     {
-           //qDebug() << Q_FUNC_INFO << " : - Failed to go to 018! " << endl;
-          return false;
-     }
-
-
-    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
+     //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << endl;
+     //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
      return true;
 }
 
