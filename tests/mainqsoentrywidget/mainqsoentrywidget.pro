@@ -1,9 +1,4 @@
 QT += testlib \
-    gui \
-    sql \
-    widgets
-
-QT += testlib \
     core \
     gui \
     sql \
