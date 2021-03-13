@@ -192,6 +192,7 @@ private:
     bool createTableBand(const bool NoTmp);
     bool populateTableBand(const bool NoTmp);
     bool recreateTableBand();
+    bool syncLogQSOsOnBandTableChange();
 
     bool recreateTableDXCC();
     bool createTableAwardDXCC();

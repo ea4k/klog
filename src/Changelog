@@ -1,10 +1,8 @@
-February 2021 - 1.5 Devel
+TBD - 1.5-RC4
+- Added the 8M & 5M bands.
 - New feature: Added "Adif file deletion" checkbox. User can choose to show or not the message boxes after uploading QSOs.
 - New feature: New function added to fill automatically the satMode field in satellites Tab depending on upload/download frequencies.
 - UI: Added EA5WA as Author. :-)
-
-TBD - 1.5-RC4
-TODO: Reviewing in the setup process.
 - New feature: LoTW confirmation is also counted for DXCC & WAZ.
 - New feature: DUPES are now identified when coming from WSJTX, ADIF logs, LoTW logs or simply adding a QSO.
 - New feature: Added a time period to consider a QSO as DUPE if call, band & mode are also the same.
@@ -25,6 +23,10 @@ TODO: Reviewing in the setup process.
 - Bugfix: The Log combobox on the Statistics was not working. (TNX EA5WA)
 - Bugfix: End date tooltip updated on the export widget.(TNX G4MKT)
 - Bugfix: DX Locator tooltip was not OK. (TNX G4MKT)
+
+January 2021 - 1.4.7
+- Added the Q65 mode.
+- eQSL sent is added as Q when received from WSJT-X (github issue #45)
 
 January 2021 - 1.4.6
 - Bugfix: Improved the way the QSOs come from WSJT-X. (EA5WA)

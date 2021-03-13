@@ -3169,7 +3169,58 @@ bool DataBase::createTableBand(const bool NoTmp)
 
 }
 
+bool DataBase::syncLogQSOsOnBandTableChange()
+{
+    //qDebug() << Q_FUNC_INFO << endl;
+    QString stringQuery;
+    QSqlQuery query;
 
+    stringQuery = "SELECT DISTINCT log.bandid FROM log ORDER BY bandid DESC";
+
+    if (!query.exec(stringQuery))
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+
+    QList<int> bandIDs;
+    bandIDs.clear();
+    int bandid = -1;
+    while(query.next())
+    {
+        if (!query.isValid())
+        {
+            query.finish();
+            return false;
+        }
+        bandid = (query.value(0)).toInt();
+        if (bandid>0)
+        {
+
+            bandIDs.append (bandid);
+            bandid = -1;
+        }
+    }
+
+    if (bandIDs.length ()>0)
+    {
+        foreach(int i, bandIDs)
+        {
+            stringQuery = QString("UPDATE log SET bandid = (SELECT DISTINCT bandtemp.id FROM bandtemp INNER JOIN band ON band.name = bandtemp.name WHERE band.id='%1') WHERE log.bandid='%1'").arg(i);
+            //qDebug() << Q_FUNC_INFO << ": " << stringQuery << endl;
+            if (!query.exec(stringQuery))
+            {
+                query.finish();
+                return false;
+            }
+        }
+    }
+    query.finish ();
+
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
+    return true;
+}
 
 bool DataBase::populateTableBand(const bool NoTmp)
 {
@@ -5074,6 +5125,7 @@ bool DataBase::recreateTableBand()
 
     createTableBand(false);         // Create modetemp
     populateTableBand(false);       // Populate modetemp
+    syncLogQSOsOnBandTableChange();
 
     if (execQuery(Q_FUNC_INFO, "DROP TABLE band"))
     {
@@ -5088,7 +5140,6 @@ bool DataBase::recreateTableBand()
         return false;
     }
         //qDebug() << "DataBase::recreateTableBand END" << endl;
-    //return true;
 }
 
 bool DataBase::updateTheEntityTableISONames()
