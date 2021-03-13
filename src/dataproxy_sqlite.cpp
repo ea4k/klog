@@ -28,7 +28,7 @@
 #include "utilities.h"
 //#include <QDebug>
 
-DataProxy_SQLite::DataProxy_SQLite(const QString &_softVersion, const QString &_parentFunction)
+DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
 {
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << endl;
 
