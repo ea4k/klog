@@ -2754,7 +2754,7 @@ KLog recordará hacer una copia de seguridad una vez al mes.
     <message>
         <location filename="../mainwindow.cpp" line="419"/>
         <source>You can update the entities database in Tools-&gt;Update cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puede actualizar la base de datos de entidades en Herramientas-&gt;Actualizar cty.csv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="420"/>
