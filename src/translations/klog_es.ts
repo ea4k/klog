@@ -2754,7 +2754,7 @@ KLog recordará hacer una copia de seguridad una vez al mes.
     <message>
         <location filename="../mainwindow.cpp" line="419"/>
         <source>You can update the entities database in Tools-&gt;Update cty.csv</source>
-        <translation type="unfinished">Puede actualizar la base de datos de entidades en Herramientas-&gt;Actualizar cty.csv</translation>
+        <translation>Puede actualizar la base de datos de entidades en Herramientas-&gt;Actualizar cty.csv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="420"/>
@@ -2774,7 +2774,7 @@ KLog recordará hacer una copia de seguridad una vez al mes.
     <message>
         <location filename="../mainwindow.cpp" line="1841"/>
         <source>The callsign %1 is not a valid callsign. Do you really want to add this callsign to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este indicativo al log?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2681"/>
@@ -3059,7 +3059,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3879"/>
         <source>Mark all queued QSOs from this log as sent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marcar todos los QSOs de este log para enviar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3884"/>
