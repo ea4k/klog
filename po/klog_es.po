@@ -2960,7 +2960,6 @@ msgid "Check always the current callsign in QRZ.com"
 msgstr "Comprobar siempre el indicativo actual en QRZ.com"
 
 #: ../mainwindow.cpp:419
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "You can update the entities database in Tools->Update cty.csv"
 msgstr ""
@@ -2970,7 +2969,7 @@ msgstr ""
 #: ../mainwindow.cpp:420
 msgctxt "MainWindow|"
 msgid "Do you want to do it now?"
-msgstr ""
+msgstr "¿Quiere hacerlo ahora?"
 
 #: ../mainwindow.cpp:1117
 #, qt-format
@@ -2979,11 +2978,13 @@ msgid ""
 "The callsign %1 is not a valid call. Do you really want to add this callsign "
 "to the log?"
 msgstr ""
+"El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este "
+"indicativo al log?"
 
 #: ../mainwindow.cpp:1840
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
-msgstr ""
+msgstr "KLog - Indicativo no válido"
 
 #: ../mainwindow.cpp:1841
 #, qt-format
@@ -2992,6 +2993,8 @@ msgid ""
 "The callsign %1 is not a valid callsign. Do you really want to add this "
 "callsign to the log?"
 msgstr ""
+"El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este "
+"indicativo al log?"
 
 #: ../mainwindow.cpp:2681
 msgctxt "MainWindow|"
@@ -3303,9 +3306,10 @@ msgid "Put all the non-sent QSOs in the queue to be uploaded."
 msgstr "Pone todos los QSOs mp enviados en la cola para ser enviados."
 
 #: ../mainwindow.cpp:3879
+#, fuzzy
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs from this log as sent"
-msgstr ""
+msgstr "Marcar todos los QSOs de este log para enviar"
 
 #: ../mainwindow.cpp:3884
 msgctxt "MainWindow|"
