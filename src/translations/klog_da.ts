@@ -1966,10 +1966,6 @@ Error returned: %2</source>
         <translation type="unfinished">Kaldesignal</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Call</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
@@ -2757,10 +2753,6 @@ Do you want KLog to remove that file?</source>
         <translation>Definer stationskaldesignal</translation>
     </message>
     <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">Du har ikke valgt et kaldesignal. KLog vil markere QSO&apos;er uden et stationskaldesignal defineret og dem med kaldet du indtaster her.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4319"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
         <translation>Indtast stationskaldesignalet at bruge for denne log eller efterlad den tom for QSO uden stationskaldesignal defineret:</translation>
@@ -3458,10 +3450,6 @@ Frekvens er ikke i et amatørradiobånd!</translation>
 Frequency is not in a hamradio band!</source>
         <translation>RX-frekvens i MHz.
 Frekvens er ikke i et amatørradiobånd!</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="vanished">Call</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>
@@ -4302,22 +4290,6 @@ KLog will finish when you click on OK.</source>
         <translation>Opdaterer tilstandsinformation i %1 status ...</translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">Opdaterer DXCC-præmieinformation ...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">Opdaterer DXCC-præmieinformation ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">Opdaterer WAZ-præmieinformation ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">Opdaterer WAZ Award-information ...</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="268"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>Installationsguide blev afbrudt før fuldførelse ...</translation>
@@ -4757,10 +4729,6 @@ KLog will finish when you click on OK.</source>
         <location filename="../setupdialog.cpp" line="224"/>
         <source>OK</source>
         <translation>O.k.</translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Konfigurationsdialog</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -6940,10 +6908,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Nummer</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Call</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Kaldesignal</translation>
@@ -7039,10 +7003,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Nummer</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Call</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>

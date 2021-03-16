@@ -1981,10 +1981,6 @@ Greška: %2</translation>
         <translation type="unfinished">Pozivni znak</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Znak</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
@@ -2105,10 +2101,6 @@ KLog će vas potsjetiti da napravite sigurnosnu kopiju svakog mjeseca.
         <location filename="../mainwindow.cpp" line="1116"/>
         <source>KLog - Not valid call</source>
         <translation>KLog - Nevaljali pozivni znak</translation>
-    </message>
-    <message>
-        <source>The call %1 is not a valid call. Do you really want to add this call to the log?</source>
-        <translation type="vanished">Pozivni znak %1 nije valjan. Želite li ga zaista dodati u dnevnik?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1119"/>
@@ -2828,10 +2820,6 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <location filename="../mainwindow.cpp" line="4318"/>
         <source>Define Station Callsign</source>
         <translation>Odrediti pozivni znak postaje</translation>
-    </message>
-    <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">Niste izabrali pozivni znak. Klog će označiti QSOe bez definiranog pozivnog znaka postaje i one s pozivnim znakom unešenim ovdje.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4319"/>
@@ -3567,10 +3555,6 @@ Do you want KLog to remove that file?</source>
         <translation>QSO sa slijedećim podacima je primljen iz WSJT-Xa kako bi bilo zapisan u dnevnik:</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="vanished">Znak</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8446"/>
         <source>Freq</source>
         <translation>Frekv</translation>
@@ -4250,22 +4234,6 @@ Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
         <translation>Napredak: </translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">Ažuriram podatke o DXCC nagradama...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">Ažuriram podatke o DXCC nagradama...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">Ažuriram podatke o WAZ nagradama...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">Ažuriram podatke o WAZ nagradama...</translation>
-    </message>
-    <message>
         <location filename="../database.cpp" line="3847"/>
         <location filename="../database.cpp" line="3868"/>
         <source>Updating mode information...</source>
@@ -4403,10 +4371,6 @@ KLog će izaći kad kliknete na OK.</translation>
         <location filename="../dataproxy_sqlite.cpp" line="6113"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Ažuriram podatke o DXCC i kontinentima...</translation>
-    </message>
-    <message>
-        <source>A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.</source>
-        <translation type="vanished">Krivi pozivni znak je pronađen: %1. Molim unesite novi pozivni znak ili potvrdite da je trenutni pozivni znak ispravan.</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1076"/>
@@ -4819,10 +4783,6 @@ KLog će izaći kad kliknete na OK.</translation>
         <location filename="../setupdialog.cpp" line="224"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Postavke</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="207"/>
@@ -7017,10 +6977,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Broj</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Znak</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Pozivni znak</translation>
@@ -7116,10 +7072,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Broj</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Znak</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>

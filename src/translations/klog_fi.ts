@@ -1966,10 +1966,6 @@ Error returned: %2</source>
         <translation type="unfinished">Kutsutunnus</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Kutsutunnus</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
@@ -2291,10 +2287,6 @@ Error returned: %2</source>
         <location filename="../mainwindow.cpp" line="4318"/>
         <source>Define Station Callsign</source>
         <translation>Määritä aseman kutsutunnus</translation>
-    </message>
-    <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">Et ole valinnut kutsutunnusta. KLog merkkaa QSO:t ilman asetettua aseman kutsutunnusta, kutsulla jonka syötät tähän.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4319"/>
@@ -3543,10 +3535,6 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation>Seuraavat QSO tiedot vastaanotettu WSJT-X:ltä kirjattaviksi:</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="vanished">Kutsutunnus</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8446"/>
         <source>Freq</source>
         <translation>Taajuus</translation>
@@ -4310,22 +4298,6 @@ KLog will finish when you click on OK.</source>
         <translation>Päivitetään tilatiedot %1 tila...</translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">Päivitetään DXCC palkinto tiedot...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">Päivitetään DXCC palkinto tiedot...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">Päivitetään WAZ palkintotiedot...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">Päivitetään WAZ palkintotiedot...</translation>
-    </message>
-    <message>
         <location filename="../dataproxy_sqlite.cpp" line="6068"/>
         <source>Updating information...</source>
         <translation>Tietoja päivitetään...</translation>
@@ -4775,10 +4747,6 @@ KLog will finish when you click on OK.</source>
         <location filename="../setupdialog.cpp" line="464"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Asetusikkuna</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -6949,10 +6917,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Numero</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Kutsutunnus</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Kutsutunnus</translation>
@@ -7048,10 +7012,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Numero</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Kutsutunnus</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>

@@ -1620,10 +1620,6 @@ Error: #2</translation>
         <translation>KLog - LoTW Fecha de inicio</translation>
     </message>
     <message>
-        <source>This is the first date of a QSO with the call %1 in this log If you think that in LoTW you may have previous QSOs, answer No.</source>
-        <translation type="vanished">Esta es la fecha del primer QSO con el indicativo %1 del log. Si piensa que LoTW puede tener QSOs anteriores, pulse No.</translation>
-    </message>
-    <message>
         <location filename="../lotwutilities.cpp" line="297"/>
         <source>Do you want to used this date (%1) as start date?</source>
         <translation>¿Quiere usar esta fecha (%1) como fecha de inicio?</translation>
@@ -1940,10 +1936,6 @@ Error: #2</translation>
         <translation>&amp;Limpiar</translation>
     </message>
     <message>
-        <source>Call of the QSO.</source>
-        <translation type="obsolete">Indicativo del QSO</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="36"/>
         <source>Callsign of the QSO.</source>
         <translation>Indicativo del QSO.</translation>
@@ -1988,10 +1980,6 @@ Error: #2</translation>
         <location filename="../mainqsoentrywidget.cpp" line="731"/>
         <source>Callsign</source>
         <translation>Indicativo</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Indicativo</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="736"/>
@@ -2315,10 +2303,6 @@ Error: #2</translation>
         <location filename="../mainwindow.cpp" line="4318"/>
         <source>Define Station Callsign</source>
         <translation>Definir indicativo de estación</translation>
-    </message>
-    <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">No ha seleccionado indicativo. KLog marcará los QSOs sin un indicativo de estación definido y aquellos con el indicativo que está seleccionando aquí.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4319"/>
@@ -2722,10 +2706,6 @@ KLog recordará hacer una copia de seguridad una vez al mes.
         <translation>KLog - Indicativo no válido</translation>
     </message>
     <message>
-        <source>The call %1 is not a valid call. Do you really want to add this call to the log?</source>
-        <translation type="vanished">El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este indicativo al log?</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="1119"/>
         <location filename="../mainwindow.cpp" line="1843"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
@@ -2945,14 +2925,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="3104"/>
         <source>The QRZ.com upload process has finished successfully</source>
         <translation>El proceso de envio a QRZ.com ha terminado satisfactoriamente.</translation>
-    </message>
-    <message>
-        <source>KLog - QRZ.com message</source>
-        <translation type="vanished">KLog - Mensaje de QRZ.com</translation>
-    </message>
-    <message>
-        <source>KLog has received a message from QRZ.com.</source>
-        <translation type="vanished">KLog ha recibido un mensaje de QRZ.com.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3174"/>
@@ -3585,10 +3557,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="8440"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>Se ha recibido el siguiente QSO desde WSJT-X para ser guardado:</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="vanished">Indicativo</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>
@@ -4270,22 +4238,6 @@ Frequency is not in a hamradio band!</source>
         <translation>Progreso: </translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">Actualizand la información del diploma DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">Actualizando la información del diploma DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">Actualizando la información del diploma WAZ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">Actualizando la información del diploma WAZ...</translation>
-    </message>
-    <message>
         <location filename="../database.cpp" line="3847"/>
         <location filename="../database.cpp" line="3868"/>
         <source>Updating mode information...</source>
@@ -4423,10 +4375,6 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <location filename="../dataproxy_sqlite.cpp" line="6113"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Actualizando la información de DXCC y continente...</translation>
-    </message>
-    <message>
-        <source>A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.</source>
-        <translation type="vanished">Se ha encontrado un indicativo de estación incorrecto: %1 Introduzca un nuevo indicativo o confirme que el actual es un indicativo correcto.</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1076"/>
@@ -4839,10 +4787,6 @@ o la base de datos no se moverá a la nueva ubicación.</translation>
         <location filename="../setupdialog.cpp" line="224"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Configuración</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="207"/>
@@ -7032,10 +6976,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Número</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Indicativo</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Indicativo</translation>
@@ -7131,10 +7071,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Número</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Indicativo</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>
@@ -8044,10 +7980,6 @@ Necesita una subscripción para usar esta funcionalidad.</translation>
         <location filename="../eqslutilities.cpp" line="98"/>
         <source>KLog - eQSL</source>
         <translation>KLog - eQSL</translation>
-    </message>
-    <message>
-        <source>eQSL has sent the following message: %1</source>
-        <translation type="vanished">eQSL ha enviado el siguiente mensaje: %1</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="99"/>

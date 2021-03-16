@@ -1966,10 +1966,6 @@ Error returned: %2</source>
         <translation type="unfinished">Rufzeichen</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Ruf</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
@@ -2708,10 +2704,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="4318"/>
         <source>Define Station Callsign</source>
         <translation>Stations-Rufzeichen eingeben</translation>
-    </message>
-    <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">Sie haben kein Rufzeichen ausgewählt. Es werden QSOs ohne definiertes Stations-Rufzeichen und QSOs mit dem hier eingegebenen Rufzeichen markiert.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4319"/>
@@ -3508,10 +3500,6 @@ Do you want KLog to remove that file?</source>
         <translation>Die folgenden QSO-Daten wurden von WSJT-X zum protokollieren empfangen:</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="vanished">Ruf</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8446"/>
         <source>Freq</source>
         <translation>Frequenz</translation>
@@ -4298,22 +4286,6 @@ KLog will finish when you click on OK.</source>
         <translation>Modus-Information im Status %1 wird aktualisiert ...</translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">DXCC-Diplom-Informationen werden aktualisiert ...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">DXCC-Diplom-Informationen werden aktualisiert ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">WAZ-Diplom-Informationen werden aktualisiert ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">WAZ-Diplom-Informationen werden aktualisiert ...</translation>
-    </message>
-    <message>
         <location filename="../dataproxy_sqlite.cpp" line="6068"/>
         <source>Updating information...</source>
         <translation type="unfinished"></translation>
@@ -4763,10 +4735,6 @@ KLog will finish when you click on OK.</source>
         <location filename="../setupdialog.cpp" line="464"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Einstellungsdialog</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -6934,10 +6902,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Anzahl</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Ruf</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Rufzeichen</translation>
@@ -7033,10 +6997,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Anzahl</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Ruf</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>

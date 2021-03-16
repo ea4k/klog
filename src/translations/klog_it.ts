@@ -1976,10 +1976,6 @@ Codice di errore restituito: %2</translation>
         <translation type="unfinished">Nominativo</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Chiamata</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="568"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modifica</translation>
@@ -2080,10 +2076,6 @@ KLog ti ricoderà la necessità di fare il backup almeno 1 volta al mese.
         <location filename="../mainwindow.cpp" line="1116"/>
         <source>KLog - Not valid call</source>
         <translation>KLog - Collegamento non valido</translation>
-    </message>
-    <message>
-        <source>The call %1 is not a valid call. Do you really want to add this call to the log?</source>
-        <translation type="vanished">La chiamata %1 non è valida. Vuoi comunque inserirla nel log?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1119"/>
@@ -2475,10 +2467,6 @@ Vuoi segnare come spediti tutti i QSO tramsessi a LoTW?</translation>
         <location filename="../mainwindow.cpp" line="4318"/>
         <source>Define Station Callsign</source>
         <translation>Imposta il nominativo di stazione</translation>
-    </message>
-    <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">Non hai scelto un nominativo di stazione. KLog segnerà i QSO senza nominativo impostato più quelli con il nominativo qua inserito.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4319"/>
@@ -3545,10 +3533,6 @@ Vuoi cancellare il file?</translation>
         <translation>I dati del seguente QSO sono stati ricevuti da WSJT-X per essere inseriti nel log:</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="vanished">Chiamata</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8446"/>
         <source>Freq</source>
         <translation>Frequenza</translation>
@@ -4245,22 +4229,6 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>Progresso: </translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">Aggiornamento dati riconoscimenti DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">Aggiornamento dati riconoscimenti DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">Aggiornamento dati riconoscimenti WAZ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">Aggiornamento dati riconoscimenti WAZ...</translation>
-    </message>
-    <message>
         <location filename="../database.cpp" line="3847"/>
         <location filename="../database.cpp" line="3868"/>
         <source>Updating mode information...</source>
@@ -4395,10 +4363,6 @@ KLog terminerà appena cliccherai su OK.</translation>
         <location filename="../dataproxy_sqlite.cpp" line="6113"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Aggiornamento dati DXCC e Continenti...</translation>
-    </message>
-    <message>
-        <source>A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.</source>
-        <translation type="vanished">Chiamata non corretta rilevata: %1. Per favore inserisci una nuova chiamata o conferma che la corrente è corretta.</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1076"/>
@@ -4804,10 +4768,6 @@ KLog terminerà appena cliccherai su OK.</translation>
         <location filename="../setupdialog.cpp" line="224"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Maschera di configurazione</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -6978,10 +6938,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Numero</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Chiamata</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Nominativo</translation>
@@ -7077,10 +7033,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Numero</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Chiamata</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>

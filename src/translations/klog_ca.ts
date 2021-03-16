@@ -1979,10 +1979,6 @@ Error retornat: %2</translation>
         <translation type="unfinished">Indicatiu</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Trucada</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="568"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modifica</translation>
@@ -2400,10 +2396,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <location filename="../mainwindow.cpp" line="4318"/>
         <source>Define Station Callsign</source>
         <translation>Defineix l&apos;indicatiu d&apos;estació</translation>
-    </message>
-    <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">No heu seleccionat cap indicatiu. El KLog marcarà els QSO sense cap indicatiu d&apos;estació definit i aquells amb l&apos;indicatiu que introduïu aquí.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4319"/>
@@ -2830,10 +2822,6 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../mainwindow.cpp" line="1116"/>
         <source>KLog - Not valid call</source>
         <translation>KLog - Indicatiu no vàlid</translation>
-    </message>
-    <message>
-        <source>The call %1 is not a valid call. Do you really want to add this call to the log?</source>
-        <translation type="vanished">L&apos;indicatiu %1 no és un indicatiu vàlid. Esteu segur que voleu afegir aquest indicatiu al registre?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1119"/>
@@ -3548,10 +3536,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>S&apos;han rebut les dades QSO següents des del WSJT-X per a enregistrar:</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="vanished">Trucada</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8446"/>
         <source>Freq</source>
         <translation>Freq.</translation>
@@ -4246,22 +4230,6 @@ La freqüència no es en una banda de radioafició!</translation>
         <translation>Progrés: </translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">S&apos;està actualitzant la informació dels diplomes DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">S&apos;està actualitzant la informació dels diplomes DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">S&apos;està actualitzant la informació dels diplomes WAZ...</translation>
-    </message>
-    <message>
         <location filename="../database.cpp" line="3847"/>
         <location filename="../database.cpp" line="3868"/>
         <source>Updating mode information...</source>
@@ -4399,10 +4367,6 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <location filename="../dataproxy_sqlite.cpp" line="6113"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>S&apos;està actualitzant la informació dels DXCC i del continent...</translation>
-    </message>
-    <message>
-        <source>A wrong call has been found: %1. Please enter a new call or confirm that the current one is a good call.</source>
-        <translation type="vanished">S&apos;ha trobat un indicatiu incorrecte: %1. Introduïu un indicatiu nou o confirmeu que l&apos;actual és un indicatiu correcte.</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1076"/>
@@ -4808,10 +4772,6 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <location filename="../setupdialog.cpp" line="224"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Diàleg de configuració</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="207"/>
@@ -7008,10 +6968,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Número</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Trucada</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Indicatiu</translation>
@@ -7107,10 +7063,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Número</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Trucada</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>

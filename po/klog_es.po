@@ -1057,17 +1057,17 @@ msgstr "Leyendo LoTW"
 #: ../filemanager.cpp:871 ../filemanager.cpp:1771
 msgctxt "FileManager|"
 msgid "KLog - Add new QSOs?"
-msgstr ""
+msgstr "KLog - ¿Añadir QSOs nuevos?"
 
 #: ../filemanager.cpp:872
 msgctxt "FileManager|"
 msgid "Do you want to add non existing QSOs to your local log?"
-msgstr ""
+msgstr "¿Quiere añadir QSOs que no existan en el log local?"
 
 #: ../filemanager.cpp:874
 msgctxt "FileManager|"
 msgid "There are some QSOs in the LoTW log that are not in your local log."
-msgstr ""
+msgstr "Hay algunos QSOs en el log de LoTW que no existen en el log local."
 
 #: ../filemanager.cpp:933
 #, qt-format
@@ -1106,7 +1106,7 @@ msgstr "KLog - Selección de log"
 #: ../filemanager.cpp:1772
 msgctxt "FileManager|"
 msgid "Do you want to add dupe QSOs to your local log?"
-msgstr ""
+msgstr "¿Quiere añadir QSOs duplicados al log local?"
 
 #: ../filemanager.cpp:1774
 msgctxt "FileManager|"
@@ -1114,6 +1114,8 @@ msgid ""
 "There are some QSOs in this logfile that may be dupes as they have same "
 "call, band & mode and a very close date."
 msgstr ""
+"Hay algunos QSOs en este fichero de log que pueden ser duplicados al tener "
+"el mismo indicativo, banda, modo y una fecha y hora muy próxima."
 
 #: ../filemanager.cpp:3294
 #, qt-format
@@ -1193,7 +1195,7 @@ msgid "If you select NO, maybe the QSO will not be imported."
 msgstr "Si selecciona No, el QSO puede no ser importado."
 
 #: ../filemanager.cpp:3136 ../filemanager.cpp:3161
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "FileManager|"
 msgid ""
 "Click on Yes to add a default %1 for mode %2 to all QSOs with a similar "
@@ -1833,7 +1835,6 @@ msgid "Date"
 msgstr "Fecha"
 
 #: ../logmodel.cpp:108
-#, fuzzy
 msgctxt "LogModel|"
 msgid "Call"
 msgstr "Indicativo"
@@ -2057,7 +2058,7 @@ msgstr "&Limpiar"
 #: ../mainqsoentrywidget.cpp:36
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign of the QSO."
-msgstr ""
+msgstr "Indicativo del QSO."
 
 #: ../mainqsoentrywidget.cpp:37
 msgctxt "MainQSOEntryWidget|"
@@ -2092,16 +2093,14 @@ msgstr "Limpia la entrada de QSO."
 #: ../mainqsoentrywidget.cpp:43
 msgctxt "MainQSOEntryWidget|"
 msgid "KLog will show real time if enabled."
-msgstr "Klog mostrará tiempo real si se habilita."
+msgstr "KLog mostrará tiempo real si se habilita."
 
 #: ../mainqsoentrywidget.cpp:58 ../mainqsoentrywidget.cpp:731
-#, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Indicativo"
 
 #: ../mainqsoentrywidget.cpp:736
-#, fuzzy
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
@@ -2795,12 +2794,12 @@ msgstr "Split"
 #: ../mainwindow.cpp:417
 msgctxt "MainWindow|"
 msgid "KLog CTY.dat update"
-msgstr ""
+msgstr "KLog - Actualización de cty.csv"
 
 #: ../mainwindow.cpp:418
 msgctxt "MainWindow|"
 msgid "KLog needs to update the Entities database."
-msgstr ""
+msgstr "KLog necesita actualizar la base de datos de entidades."
 
 #: ../mainwindow.cpp:682
 msgctxt "MainWindow|"
@@ -2958,7 +2957,7 @@ msgstr "¿Está seguro?"
 #: ../mainwindow.cpp:55 ../mainwindow.cpp:3945
 msgctxt "MainWindow|"
 msgid "Check always the current callsign in QRZ.com"
-msgstr ""
+msgstr "Comprobar siempre el indicativo actual en QRZ.com"
 
 #: ../mainwindow.cpp:419
 msgctxt "MainWindow|"

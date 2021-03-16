@@ -4743,10 +4743,6 @@ KLog will finish when you click on OK.</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Okno konfiguracji</translation>
-    </message>
-    <message>
         <location filename="../setupdialog.cpp" line="205"/>
         <location filename="../setupdialog.cpp" line="384"/>
         <source>User data</source>

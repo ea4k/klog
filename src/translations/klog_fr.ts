@@ -1966,10 +1966,6 @@ Error returned: %2</source>
         <translation type="unfinished">Indicatif</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Indicatif</translation>
-    </message>
-    <message>
         <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
@@ -2920,10 +2916,6 @@ Do you want KLog to remove that file?</source>
         <translation>Définir l&apos;indicatif de la Station</translation>
     </message>
     <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the call you are entering here.</source>
-        <translation type="vanished">Vous n&apos;avez pas sélectionné d&apos;indicatif. KLog marquera les QSOs sans un indicatif de station défini et ceux avec l&apos;indicatif que vous avez saisi ici.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4319"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
         <translation>Enter l&apos;indicatif de la station à utiliser pour ce log ou laisser vide pour un QSO sans un indicatif de station défini :</translation>
@@ -3484,10 +3476,6 @@ QSO : </translation>
         <location filename="../mainwindow.cpp" line="8440"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>Les données de QSO suivant ont été reçues de WSJT-X pour être logguées :</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="vanished">Indicatif</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>
@@ -4303,22 +4291,6 @@ KLog will finish when you click on OK.</source>
         <translation>Mise à jour des informations sur les modes en statut %1...</translation>
     </message>
     <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">Mise à jour des informations sur les diplômes DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">Mise à jour des informations sur les Diplômes DXCC...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">Mise à jour des informations sur les diplômes WAZ...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">Lise à jour des informations sur les Diplômes WAZ...</translation>
-    </message>
-    <message>
         <location filename="../dataproxy_sqlite.cpp" line="6068"/>
         <source>Updating information...</source>
         <translation type="unfinished"></translation>
@@ -4768,10 +4740,6 @@ KLog will finish when you click on OK.</source>
         <location filename="../setupdialog.cpp" line="464"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Config Dialog</source>
-        <translation type="vanished">Fenêtre de Configuration</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -6942,10 +6910,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Numéro</translation>
     </message>
     <message>
-        <source>Call</source>
-        <translation type="obsolete">Indicatif</translation>
-    </message>
-    <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="83"/>
         <source>Callsign</source>
         <translation type="unfinished">Indicatif</translation>
@@ -7041,10 +7005,6 @@ The log will not be opened.</source>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="46"/>
         <source>Number</source>
         <translation type="unfinished">Numéro</translation>
-    </message>
-    <message>
-        <source>Call</source>
-        <translation type="obsolete">Indicatif</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="83"/>
