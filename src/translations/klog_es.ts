@@ -2759,17 +2759,17 @@ KLog recordará hacer una copia de seguridad una vez al mes.
     <message>
         <location filename="../mainwindow.cpp" line="420"/>
         <source>Do you want to do it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quiere hacerlo ahora?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1117"/>
         <source>The callsign %1 is not a valid call. Do you really want to add this callsign to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este indicativo al log?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1840"/>
         <source>KLog - Not valid callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Indicativo no válido</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1841"/>
