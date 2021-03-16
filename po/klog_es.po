@@ -2960,9 +2960,12 @@ msgid "Check always the current callsign in QRZ.com"
 msgstr "Comprobar siempre el indicativo actual en QRZ.com"
 
 #: ../mainwindow.cpp:419
+#, fuzzy
 msgctxt "MainWindow|"
 msgid "You can update the entities database in Tools->Update cty.csv"
 msgstr ""
+"Puede actualizar la base de datos de entidades en Herramientas->Actualizar "
+"cty.csv"
 
 #: ../mainwindow.cpp:420
 msgctxt "MainWindow|"
