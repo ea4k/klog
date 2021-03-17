@@ -175,7 +175,7 @@ void SetupPageSubdivisionNew::createWidget()
     typeComboBox->setToolTip(tr("Select the kind of operation for this log."));
     QStringList _qs;
     _qs.clear();
-    _qs.append(dataProxy->getContestNames());    
+    _qs.append(dataProxy->getContestNames());
     typeComboBox->addItems(_qs);
        //qDebug() << "SetupPageSubdivisionNew::createWidget - contestNames: " << _qs.at(0) << endl;
 
@@ -579,14 +579,14 @@ void SetupPageSubdivisionNew::slotOKButtonClicked()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("You need to enter a valid Call in the Station Callsign box.\nThe log will not be opened."));
+        msgBox.setText(tr("You need to enter a valid callsign in the Station Callsign box.\nThe log will not be opened."));
         msgBox.exec();
         return;
     }
 
     operators = operatorsLineEdit->text();
     //TODO: Check if operators is really including a comma separated list of QRZ
-    comment = commentLineEdit->text();    
+    comment = commentLineEdit->text();
     dateString = dateEdit->date().toString("yyyy-MM-dd");
 
     logData.clear();

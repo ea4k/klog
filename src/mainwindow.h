@@ -33,6 +33,8 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QtAlgorithms>
+#include <QDesktopServices>
+#include <QUrl>
 
 //#include "database.h"
 #include "setupdialog.h"
@@ -148,13 +150,10 @@ public:
     void recommendBackupIfNeeded();
     void init();
 
-
-
-
-
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
+    void slotOpenWiki();
     void slotAWAImport();
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
@@ -280,7 +279,7 @@ private slots:
     void slotDoubleClickLog( const int _qsoID);
     //void slotDoubleClickLog( const QModelIndex & index);
 
-    //SEARCH    
+    //SEARCH
     void slotShowSearchWidget();                // The SearchWidget request being shown
     //SEARCH
 
@@ -391,7 +390,7 @@ private:
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
     void createStatusBar();
-    void createUI();    
+    void createUI();
     void createUIDX();
     void reconfigureDXMarathonUI(const bool _dxM);
     //void createDXClusterUI();
@@ -427,7 +426,7 @@ private:
     void createData();
     void openSetup(const int _page=0);
     bool processConfigLine(const QString &_line);
-    void readConfigData();    
+    void readConfigData();
     void defineStationCallsign();
     QString selectStationCallsign();
 
@@ -480,7 +479,7 @@ private:
     //HelpHelpDialog *helpHelpDialog;
     //HelpAboutDialog *helpAboutDialog;
     AboutDialog *aboutDialog;
-    TipsDialog *tipsDialog;    
+    TipsDialog *tipsDialog;
     ShowKLogLogWidget * showKLogLogWidget;
     //DXCCSummaryDialog *dxccSummaryDialog;
 
@@ -593,7 +592,7 @@ private:
     QAction *loggWinAct;
 /*
     QAction *delQSOFromLogAct;
-    QAction *qsoToEditFromLogAct; 
+    QAction *qsoToEditFromLogAct;
     QAction *qslSentViaBureauFromLogAct;
     QAction *qslSentViaDirectFromLogAct;
     QAction *qslRecViaBureauFromLogAct;
@@ -754,7 +753,7 @@ private:
 
     //<CLUBLOG>
     bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
-    QString clublogPass, clublogEmail; //clublogUser,   
+    QString clublogPass, clublogEmail; //clublogUser,
 
     eLogClubLog *elogClublog;
     int clublogAnswer;
@@ -779,7 +778,7 @@ private:
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;
-    
+
     bool UDPServerStart;
     // LOTWUTILITIES
     LoTWUtilities *lotwUtilities;

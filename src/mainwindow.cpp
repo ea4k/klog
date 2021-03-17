@@ -414,7 +414,7 @@ void MainWindow::init()
         QMessageBox msgBox;
          msgBox.setIcon(QMessageBox::Question);
 
-        msgBox.setWindowTitle(tr("KLog CTY.dat update"));
+        msgBox.setWindowTitle(tr("KLog - CTY.dat update"));
         msgBox.setText(tr("KLog needs to update the Entities database."));
         msgBox.setDetailedText(tr("You can update the entities database in Tools->Update cty.csv"));
         msgBox.setInformativeText(tr("Do you want to do it now?"));
@@ -714,7 +714,7 @@ void MainWindow::recommendBackupIfNeeded()
             QString filename = util->getBackupADIFile();
             //qDebug() << "MainWindow::recommendBackupIfNeeded: Backup to: " << filename  << endl;
             QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog backup"));
+            msgBox.setWindowTitle(tr("KLog - Backup"));
             if (filemanager->adifLogExport(filename, 0)) // 0 will save ALL the logs)
             {
                 msgBox.setIcon(QMessageBox::Information);
@@ -743,7 +743,7 @@ void MainWindow::checkIfNewVersion()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog new version detected!"));
+        msgBox.setWindowTitle(tr("KLog - New version detected!"));
         msgBox.setText(tr("It seems that you are running this version of KLog for the first time."));
         msgBox.setInformativeText(tr("The setup will be open to allow you to do any new setup you may need."));
         msgBox.exec();
@@ -2839,7 +2839,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
     if (_error != QNetworkReply::NoError)
     {
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog ClubLog error"));
+        msgBox.setWindowTitle(tr("KLog - ClubLog error"));
         msgBox.setText(tr("The ClubLog upload process has finished with an error and the log was possibly not uploaded."));
         msgBox.setDetailedText(tr("Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1").arg(_error));
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -2860,7 +2860,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
      }
 
      msgBox.setIcon(QMessageBox::Question);
-     msgBox.setWindowTitle(tr("KLog ClubLog"));
+     msgBox.setWindowTitle(tr("KLog - ClubLog"));
      msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?") );
 
      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -2886,7 +2886,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
     if (!deleteAlwaysAdiFile)
     {
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog ClubLog"));
+        msgBox.setWindowTitle(tr("KLog - ClubLog"));
         msgBox.setText(tr("The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
@@ -2896,7 +2896,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
             if (QFile::remove(fileName))
             {
                 msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("KLog ClubLog"));
+                msgBox.setWindowTitle(tr("KLog - ClubLog"));
                 msgBox.setText(tr("The file has been removed."));
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
@@ -2906,7 +2906,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
             else
             {
                 msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("KLog ClubLog"));
+                msgBox.setWindowTitle(tr("KLog - ClubLog"));
                 msgBox.setText(tr("The file has not been removed."));
                 msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
                 msgBox.setStandardButtons(QMessageBox::Ok);
@@ -2958,7 +2958,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
     if (_error != QNetworkReply::NoError)
     {
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog eQSL error"));
+        msgBox.setWindowTitle(tr("KLog - eQSL error"));
         msgBox.setText(tr("The eQSL upload process has finished with an error and the log was possibly not uploaded."));
         msgBox.setDetailedText(tr("Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1").arg(_error));
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -2978,7 +2978,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
      }
 
      msgBox.setIcon(QMessageBox::Question);
-     msgBox.setWindowTitle(tr("KLog eQSL"));
+     msgBox.setWindowTitle(tr("KLog - eQSL"));
      msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to eQSL?") );
 
      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -3005,7 +3005,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
      if (!deleteAlwaysAdiFile)
         {
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog eQSL"));
+        msgBox.setWindowTitle(tr("KLog - eQSL"));
         msgBox.setText(tr("The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
@@ -3015,7 +3015,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
             if (QFile::remove(fileName))
             {
                 msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("KLog eQSL"));
+                msgBox.setWindowTitle(tr("KLog - eQSL"));
                 msgBox.setText(tr("The file has been removed."));
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
@@ -3025,7 +3025,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
             else
             {
                 msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("KLog eQSL"));
+                msgBox.setWindowTitle(tr("KLog - eQSL"));
                 msgBox.setText(tr("The file has not been removed."));
                 msgBox.setDetailedText(tr("It seems that there was something that prevented KLog from removing the file\nYou can remove it manually."));
                 msgBox.setStandardButtons(QMessageBox::Ok);
@@ -3053,7 +3053,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
    if (_error != QNetworkReply::NoError)
    {
        msgBox.setIcon(QMessageBox::Warning);
-       msgBox.setWindowTitle(tr("KLog QRZ.com error"));
+       msgBox.setWindowTitle(tr("KLog - QRZ.com error"));
        msgBox.setText(tr("The QRZ.com upload process has finished with an error and the log was possibly not uploaded."));
        msgBox.setDetailedText(tr("Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1").arg(_error));
        msgBox.setStandardButtons(QMessageBox::Ok);
@@ -3073,7 +3073,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
     }
 
     msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog QRZ.com"));
+    msgBox.setWindowTitle(tr("KLog - QRZ.com"));
     msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to QRZ.com?") );
 
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -3100,7 +3100,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 
 
    msgBox.setIcon(QMessageBox::Information);
-   msgBox.setWindowTitle(tr("KLog QRZ.com"));
+   msgBox.setWindowTitle(tr("KLog - QRZ.com"));
    msgBox.setText(tr("The QRZ.com upload process has finished successfully"));
    msgBox.setStandardButtons(QMessageBox::Ok );
    msgBox.setDefaultButton(QMessageBox::Ok);
@@ -3210,7 +3210,7 @@ void MainWindow::showMessageToEnableTheOnlineService(const OnLineProvider _servi
     QString aux = util->getOnlineServiceName(_service);
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
-    msgBox.setWindowTitle(tr("KLog %1").arg(aux));
+    msgBox.setWindowTitle(tr("KLog - %1").arg(aux));
     msgBox.setText(tr("You need to activate the %1 service in the eLog preferences.").arg(aux) );
     msgBox.exec();
 }
@@ -3683,7 +3683,7 @@ bool MainWindow::maybeSave()
                    // return !(filemanager->adifLogExport(defaultADIFLogFile, currentLog));
 
                     QMessageBox msgBox;
-                    msgBox.setWindowTitle(tr("KLog ADIF export"));
+                    msgBox.setWindowTitle(tr("KLog - ADIF export"));
                     msgBox.setInformativeText(tr("It is important to export to ADIF and save a copy as a backup."));
                     if (filemanager->adifLogExport(defaultADIFLogFile, currentLog)) // 0 will save ALL the logs)
                     {
@@ -4002,6 +4002,12 @@ void MainWindow::createMenusCommon()
     //TODO: To be added once the help dialog has been implemented
     helpMenu = menuBar()->addMenu(tr("&Help"));
 
+    helpMenu->addSeparator();
+    helpAct= new QAction(tr("Online manual (F1) ..."), this);
+    helpMenu->addAction(helpAct);
+    helpAct->setMenuRole(QAction::ApplicationSpecificRole);
+    connect(helpAct, SIGNAL(triggered()), this, SLOT(slotOpenWiki()));
+
     tipsAct = new QAction(tr("&Tips ..."), this);
     helpMenu->addAction(tipsAct);
     tipsAct->setMenuRole(QAction::ApplicationSpecificRole);
@@ -4011,8 +4017,6 @@ void MainWindow::createMenusCommon()
     helpMenu->addAction(debugAct);
     debugAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(debugAct, SIGNAL(triggered()), this, SLOT(slotDebugAction()));
-
-    helpMenu->addSeparator();
 
     aboutAct = new QAction(tr("&About ..."), this);
     helpMenu->addAction(aboutAct);
@@ -4100,24 +4104,22 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - LoTW"));
     if(dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
     {
-        QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
         msgBox.setText(tr("All pending QSOs of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
-        msgBox.exec();
+
 
     }
     else
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
         msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
-        msgBox.exec();
     }
+    msgBox.exec();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4139,7 +4141,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
     a.append(filemanager->adifLoTWReadLog2(_fn, currentLog));
     QString aux;
     QMessageBox msgBox;
-    msgBox.setWindowTitle(tr("KLog LoTW"));
+    msgBox.setWindowTitle(tr("KLog - LoTW"));
 
     if (a.length()>0)
     {
@@ -4169,24 +4171,21 @@ void MainWindow::slotToolLoTWMarkAllQueued()
              //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - LoTW"));
 
     if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
     {
-        QMessageBox msgBox;
+
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
         msgBox.setText(tr("All pending QSOs has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
-        msgBox.exec();
     }
     else
     {
-        QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
         msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
-        msgBox.exec();
-
     }
+    msgBox.exec();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4316,7 +4315,7 @@ QString MainWindow::selectStationCallsign()
         else
         {
             stationCallToUse = (QInputDialog::getText(this, tr("Define Station Callsign"),
-                                                     tr("You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the callsign you are entering here.") + "\n\n" + tr("Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:"), QLineEdit::Normal,
+                                                     tr("You have selected no callsign. KLog will complete the QSOs without a station callsign defined and those with the callsign you are entering here.") + "\n\n" + tr("Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:"), QLineEdit::Normal,
                                                      "", &ok)).toUpper();
              if (ok)
              {
@@ -4360,7 +4359,7 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
     QMessageBox msgConfirm;
     msgConfirm.setIcon(QMessageBox::Question);
-    msgConfirm.setWindowTitle(tr("KLog LoTW"));
+    msgConfirm.setWindowTitle(tr("KLog - LoTW"));
     msgConfirm.setText(tr("Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW"));
     msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgConfirm.setDefaultButton(QMessageBox::No);
@@ -4368,23 +4367,22 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
 
     if (i == QMessageBox::Yes)
     {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - LoTW"));
         logEvent(Q_FUNC_INFO, "Start", logSeverity);
         if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
         {
-            QMessageBox msgBox;
+
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog LoTW"));
             msgBox.setText(tr("All queued QSOs of this log has been marked as sent for LoTW!")  );
-            msgBox.exec();
         }
         else
         {
-            QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setWindowTitle(tr("KLog LoTW"));
             msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent for LoTW!") );
-            msgBox.exec();
+
         }
+        msgBox.exec();
         logEvent(Q_FUNC_INFO, "END", logSeverity);
     }
 }
@@ -4397,21 +4395,18 @@ void MainWindow::slotToolLoTWMarkAllYes()
     QString stationCallToUse = selectStationCallsign();
 
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - LoTW"));
+    msgBox.exec();
     if (dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
     {
-        QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
         msgBox.setText(tr("All queued QSOs has been marked as sent to LoTW!") );
-        msgBox.exec();
     }
     else
     {
-        QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
         msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent to LoTW!") );
-        msgBox.exec();
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4521,7 +4516,7 @@ void MainWindow::slotShowSoftUpdateResults(const bool _b)
                        //qDebug() << "MainWindow::slotShowSoftUpdateResults: UPDATE NOT NEEDED" << endl;
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog update checking result"));
+            msgBox.setWindowTitle(tr("KLog - Update checking result"));
             msgBox.setText(tr("Congratulations!") + "\n\n" + tr("You already have the latest version."));
             msgBox.exec();
         }
@@ -4774,6 +4769,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 //qDebug() << "MainWindow::keyPressEvent: ENTER"  << endl;
         slotQRZReturnPressed();
         break;
+    case Qt::Key_F1:
+            slotOpenWiki();
+        break;
 
     default:
         //QFrame::keyPressEvent(event);
@@ -4781,6 +4779,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 
     }
 
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::slotOpenWiki()
+{
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    qDebug() << Q_FUNC_INFO << endl;
+    QDesktopServices::openUrl(QUrl("https://wiki.klog.xyz/"));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -6159,7 +6165,7 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
       //qDebug() << "MainWindow::showNumberOfSavedQSO: " << _fn << "/" << QString::number(_n) << endl;
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Information);
-    msgBox.setWindowTitle(tr("KLog ADIF export"));
+    msgBox.setWindowTitle(tr("KLog - ADIF export"));
     if (_n <= 0)
     { // TODO: Check if errors should be managed.
         msgBox.setText(tr("No QSOs have been exported to ADIF.") );
@@ -6260,7 +6266,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
     if (uploadedToLoTW)
     {
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog LoTW"));
+        msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setText(tr("If you uploaded any QSO to LoTW while you were using TQSL you can now mark them as sent in KLog.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
 
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
@@ -6283,7 +6289,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
     }
     if (!deleteAlwaysAdiFile){
     msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog LoTW"));
+    msgBox.setWindowTitle(tr("KLog - LoTW"));
     msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
     msgBox.setDefaultButton(QMessageBox::Yes);
@@ -6293,7 +6299,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
         if (QFile::remove(fileName))
         {
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog LoTW"));
+            msgBox.setWindowTitle(tr("KLog - LoTW"));
             msgBox.setText(tr("The file has been removed."));
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
@@ -6553,8 +6559,8 @@ void MainWindow::slotElogClubLogModifyCurrentLog()
 {
     QMessageBox msgConfirm;
     msgConfirm.setIcon(QMessageBox::Question);
-    msgConfirm.setWindowTitle(tr("KLog ClubLog"));
-    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to ClubLog"));
+    msgConfirm.setWindowTitle(tr("KLog - ClubLog"));
+    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1").arg(tr("ClubLog")));
     msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgConfirm.setDefaultButton(QMessageBox::No);
     int i = msgConfirm.exec();
@@ -6584,8 +6590,8 @@ void MainWindow::slotElogEQSLModifyCurrentLog()
 {
     QMessageBox msgConfirm;
     msgConfirm.setIcon(QMessageBox::Question);
-    msgConfirm.setWindowTitle(tr("KLog eQSL"));
-    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to eQSL"));
+    msgConfirm.setWindowTitle(tr("KLog - eQSL"));
+    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1").arg(tr("eQSL")));
     msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgConfirm.setDefaultButton(QMessageBox::No);
     int i = msgConfirm.exec();
@@ -6615,8 +6621,8 @@ void MainWindow::slotElogQRZCOMModifyCurrentLog()
 {
     QMessageBox msgConfirm;
     msgConfirm.setIcon(QMessageBox::Question);
-    msgConfirm.setWindowTitle(tr("KLog QRZ.COM"));
-    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to QRZ.COM"));
+    msgConfirm.setWindowTitle(tr("KLog - QRZ.COM"));
+    msgConfirm.setText(tr("Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1").arg(tr("QRZ.COM")));
     msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgConfirm.setDefaultButton(QMessageBox::No);
     int i = msgConfirm.exec();
@@ -6686,7 +6692,7 @@ void MainWindow::slotQRZCOMLogUpload()
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog QRZ.com"));
+        msgBox.setWindowTitle(tr("KLog - QRZ.com"));
         msgBox.setText(tr("You need to define a proper API Key for your QRZ.com logbook in the eLog preferences.") );
         msgBox.exec();
         //qDebug() << Q_FUNC_INFO << " - END" << endl;
@@ -8432,7 +8438,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
               //qDebug() << "MainWindow::slotWSJTX-loggedQSO: LogTheQSO = false - we ask for confirmation"  << endl;
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog QSO received"));
+            msgBox.setWindowTitle(tr("KLog - QSO received"));
             msgBox.setTextFormat(Qt::RichText);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
             msgBox.setDefaultButton(QMessageBox::Yes);
