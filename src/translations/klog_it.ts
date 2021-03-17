@@ -2198,10 +2198,6 @@ KLog ti ricoderà la necessità di fare il backup almeno 1 volta al mese.
         <translation>RX RST.</translation>
     </message>
     <message>
-        <source>KLog ADIF export</source>
-        <translation type="vanished">KLog export ADIF</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6171"/>
         <source>No QSOs have been exported to ADIF.</source>
         <translation>Nessun QSO è stato esportato su ADIF.</translation>
@@ -2379,10 +2375,6 @@ Vuoi segnare come spediti tutti i QSO tramsessi a LoTW?</translation>
         <translation>&amp;Aiuto</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2494,10 +2486,6 @@ Vuoi segnare come spediti tutti i QSO tramsessi a LoTW?</translation>
         <translation>Nessun nominativo di stazione scelto e qundi nessun log sarà segnato</translation>
     </message>
     <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Risultato controllo aggiornamento KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4520"/>
         <source>Congratulations!</source>
         <translation>congratulazioni!</translation>
@@ -2577,10 +2565,6 @@ La frquenza non è in una banda radioamatoriale!</translation>
         <location filename="../mainwindow.cpp" line="8566"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO loggato da  WSJT-X:</translation>
-    </message>
-    <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">Nuova versione di KLog trovata!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="747"/>
@@ -3526,10 +3510,6 @@ Vuoi cancellare il file?</translation>
  QSO: </source>
         <translation>In stampa il log...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">KLog QSO ricevuto</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>

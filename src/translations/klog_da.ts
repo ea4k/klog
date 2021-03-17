@@ -2537,10 +2537,6 @@ Do you want KLog to remove that file?</source>
         <translation>&amp;Hjælp</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog-LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4205"/>
         <source>KLog - TQSL</source>
         <translation type="unfinished"></translation>
@@ -3088,10 +3084,6 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Kontrolresultat for KLog-opdatering</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4520"/>
         <source>Congratulations!</source>
         <translation>Tillykke!</translation>
@@ -3547,10 +3539,6 @@ Frekvens er ikke i et amatørradiobånd!</translation>
  QSO: </source>
         <translation>Udskrivning af loggen ...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">KLog QSO modtog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>

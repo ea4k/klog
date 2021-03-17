@@ -2782,10 +2782,6 @@ Do you want KLog to remove that file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2902,10 +2898,6 @@ Do you want KLog to remove that file?</source>
         <translation>Aucun indicatif de station n&apos;a été sélectionné, par conséquent aucun log ne sera marqué</translation>
     </message>
     <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Résultat de vérification des mises à jour KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4520"/>
         <source>Congratulations!</source>
         <translation>Félicitations !</translation>
@@ -2996,10 +2988,6 @@ La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translati
         <location filename="../mainwindow.cpp" line="420"/>
         <source>Do you want to do it now?</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">Nouvelle version de KLog détectée !</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="747"/>
@@ -3457,10 +3445,6 @@ QSO :</translation>
  QSO: </source>
         <translation>Impression du log…
 QSO : </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">ASO KLog reçu</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>

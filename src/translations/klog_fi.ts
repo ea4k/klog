@@ -2166,10 +2166,6 @@ Error returned: %2</source>
         <translation type="unfinished">&amp;Ohjeet</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2289,10 +2285,6 @@ Error returned: %2</source>
         <location filename="../mainwindow.cpp" line="4336"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>Aseman kutsutunnusta ei ole valittu, joten lokia ei merkata</translation>
-    </message>
-    <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">KLog päivityksen tarkastuksen tulos</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4520"/>
@@ -2448,10 +2440,6 @@ Kun loki viedään ADIF tiedostoon, se tulisi kopioida turvalliseen paikkaan, US
 KLog muistuttaa sinua varmuuskopioimaan tiedot kuukausittain.
 
 </translation>
-    </message>
-    <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">KLog uusi versio havaittu!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="747"/>
@@ -3524,10 +3512,6 @@ UDP-palvelin ei onnistunut %1.</translation>
  QSO: </source>
         <translation>Tulostetaan lokia...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">KLoq QSO vastaanotettu</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>

@@ -2769,10 +2769,6 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <translation>&amp;Pomoć</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2884,10 +2880,6 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <translation>Niti jedan pozivni znak nije izabran i kao takav niti jedan dnevnik neće biti označen</translation>
     </message>
     <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Rezultat provjere nadopune KLoga</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4520"/>
         <source>Congratulations!</source>
         <translation>Čestitke!</translation>
@@ -2948,10 +2940,6 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <location filename="../mainwindow.cpp" line="5867"/>
         <source>Callsign used over the air.</source>
         <translation>Pozivni znak korišten u eteru.</translation>
-    </message>
-    <message>
-        <source>KLog ADIF export</source>
-        <translation type="vanished">KLog ADIF izvoz</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3896"/>
@@ -3314,10 +3302,6 @@ Frekvencija nije u radioamaterskom pojasu!</translation>
         <translation>QSO zabilježen iz WSJT-X:</translation>
     </message>
     <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">Nova inačica KLoga nađena!</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="747"/>
         <source>It seems that you are running this version of KLog for the first time.</source>
         <translation>Izgleda da izvršavate ovu inačicu KLoga po prvi put.</translation>
@@ -3548,10 +3532,6 @@ Do you want KLog to remove that file?</source>
  QSO: </source>
         <translation>Ispisujem dnevnik...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">KLog QSO primljen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>

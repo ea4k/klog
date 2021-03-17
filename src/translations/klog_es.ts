@@ -2227,10 +2227,6 @@ Error: #2</translation>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2342,10 +2338,6 @@ Error: #2</translation>
         <translation>No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
     </message>
     <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Resultado de la comprobación de actualizaciones de KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4520"/>
         <source>Congratulations!</source>
         <translation>¡Enhorabuena!</translation>
@@ -2441,10 +2433,6 @@ Error: #2</translation>
         <location filename="../mainwindow.cpp" line="5939"/>
         <source>DX Locator</source>
         <translation>Locator DX</translation>
-    </message>
-    <message>
-        <source>KLog ADIF export</source>
-        <translation type="vanished">Exporta ADIF de KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3896"/>
@@ -2630,10 +2618,6 @@ Frequency is not in a hamradio band!</source>
         <translation>Split</translation>
     </message>
     <message>
-        <source>KLog CTY.dat update</source>
-        <translation type="vanished">KLog - Actualización de cty.csv</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="418"/>
         <source>KLog needs to update the Entities database.</source>
         <translation>KLog necesita actualizar la base de datos de entidades.</translation>
@@ -2669,10 +2653,6 @@ KLog recordará hacer una copia de seguridad una vez al mes.
 </translation>
     </message>
     <message>
-        <source>KLog backup</source>
-        <translation type="vanished">KLog Copia de seguridad</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="721"/>
         <source>The backup was done successfully</source>
         <translation>La copia de seguridad se realizó correctamente.</translation>
@@ -2691,10 +2671,6 @@ KLog recordará hacer una copia de seguridad una vez al mes.
         <location filename="../mainwindow.cpp" line="729"/>
         <source>It is recommended to backup your data periodically to prevent lose or corruption of your log.</source>
         <translation>Se recomienda hacer una copia de seguridad de forma periódica para prevenir una potencial pérdida de datos.</translation>
-    </message>
-    <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">¡Se ha detectado una versión nueva de KLog!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="747"/>
@@ -2803,10 +2779,6 @@ KLog recordará hacer una copia de seguridad una vez al mes.
         <translation>Ha seleccionado eliminar varios QSOs </translation>
     </message>
     <message>
-        <source>KLog ClubLog error</source>
-        <translation type="vanished">KLog error de ClubLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="2843"/>
         <source>The ClubLog upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El proceso de subida de datos a ClubLog terminó con un error y es posible que no se haya subido el log.</translation>
@@ -2815,10 +2787,6 @@ KLog recordará hacer una copia de seguridad una vez al mes.
         <location filename="../mainwindow.cpp" line="2844"/>
         <source>Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1</source>
         <translation>Por favor, compruebe sus credenciales, su conexión a Internet y su cuenta de Clublog. El error recibido fue: %1</translation>
-    </message>
-    <message>
-        <source>KLog ClubLog</source>
-        <translation type="vanished">KLog - ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2864"/>
@@ -2866,10 +2834,6 @@ You can remove it manually.</source>
 Puede eliminarlo manualmente.</translation>
     </message>
     <message>
-        <source>KLog eQSL error</source>
-        <translation type="vanished">KLog error de eQSL</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="2962"/>
         <source>The eQSL upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El proceso de subida de datos a eQSL terminó con un error y es posible que no se haya subido el log.</translation>
@@ -2879,10 +2843,6 @@ Puede eliminarlo manualmente.</translation>
         <location filename="../mainwindow.cpp" line="3058"/>
         <source>Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1</source>
         <translation>Por favor, compruebe sus credenciales, su conexión a Internet y su cuenta de eQSL. El error recibido fue: %1</translation>
-    </message>
-    <message>
-        <source>KLog eQSL</source>
-        <translation type="vanished">KLog eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2982"/>
@@ -2904,17 +2864,9 @@ Do you want KLog to remove that file?</source>
 ¿Quiere eliminar ese fichero?</translation>
     </message>
     <message>
-        <source>KLog QRZ.com error</source>
-        <translation type="vanished">KLog error de QRZ.com</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3057"/>
         <source>The QRZ.com upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El proceso de subida de datos a QRZ.com terminó con un error y es posible que no se haya subido el log.</translation>
-    </message>
-    <message>
-        <source>KLog QRZ.com</source>
-        <translation type="vanished">KLog - QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3077"/>
@@ -2954,10 +2906,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="3180"/>
         <source>KLog has received an error from QRZ.com.</source>
         <translation>KLog ha recibido un error de QRZ.com.</translation>
-    </message>
-    <message>
-        <source>KLog %1</source>
-        <translation type="vanished">KLog %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3214"/>
@@ -3132,10 +3080,6 @@ Do you want KLog to remove that file?</source>
         <translation>Se han puesto en la cola de LoTW todos los QSOs pendientes.</translation>
     </message>
     <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the callsign you are entering here.</source>
-        <translation type="obsolete">No ha seleccionado indicativo. KLog completará los QSOs sin un indicativo definido con el indicativo que introduzca aquí.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4363"/>
         <source>Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW</source>
         <translation>¿Quiere marcar TODOS los QSOs para subir? Debería hacer esto SOLO SI ES LA PRIMERA VES que sube QSOs a LoTW.</translation>
@@ -3188,10 +3132,6 @@ El servidor de UDP falló al %1.</translation>
 Open the LoTW tab in the Setup and configure your LoTW connection.</source>
         <translation>No ha definido un usuario de LoTW o un indicativo de estación adecuado.
 Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</translation>
-    </message>
-    <message>
-        <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to ClubLog</source>
-        <translation type="obsolete">¿Quiere marcar TODOS los QSOs para subir? Debería hacer esto SOLO SI ES LA PRIMERA VES que sube QSOs a ClubLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6573"/>
@@ -3596,10 +3536,6 @@ Do you want KLog to remove that file?</source>
  QSO: </source>
         <translation>Imprimiendo el log ...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">KLog QSO recibido</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>
@@ -6282,12 +6218,6 @@ Puede haber sido causado que el fichero que está intentando importar no tiene e
         <source>You need to enter a valid callsign in the Station Callsign box.
 The log will not be opened.</source>
         <translation>Necesita introducir un indicativo válido en el cuadro de Indicativo de estación.
-El log no se abrirá.</translation>
-    </message>
-    <message>
-        <source>You need to enter a valid Call in the Station Callsign box.
-The log will not be opened.</source>
-        <translation type="obsolete">Necesita introducir un indicativo válido en el cuadro de Indicativo de estación.
 El log no se abrirá.</translation>
     </message>
 </context>

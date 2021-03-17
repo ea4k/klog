@@ -2322,10 +2322,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <translation>&amp;Ajuda</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2435,10 +2431,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <location filename="../mainwindow.cpp" line="4336"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>No s&apos;ha seleccionat cap indicatiu, i per tant no es marcarà cap registre</translation>
-    </message>
-    <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Resultat de la comprovació d&apos;actualitzacions del KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4520"/>
@@ -2594,10 +2586,6 @@ La freqüència no es en una banda de radioafició!</translation>
         <location filename="../mainwindow.cpp" line="8566"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO enregistrat des del WSJT-X:</translation>
-    </message>
-    <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">S&apos;ha detectat una versió nova del KLog!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="747"/>
@@ -3220,10 +3208,6 @@ Do you want KLog to remove that file?</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
-        <source>KLog ADIF export</source>
-        <translation type="vanished">Exportació ADIF del KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6171"/>
         <source>No QSOs have been exported to ADIF.</source>
         <translation>No s&apos;ha exportat cap QSO a ADIF.</translation>
@@ -3529,10 +3513,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
  QSO: </source>
         <translation>S&apos;està imprimint el registre...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">S&apos;ha rebut un QSO al KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>

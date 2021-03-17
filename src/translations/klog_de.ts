@@ -2541,10 +2541,6 @@ Do you want KLog to remove that file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog-LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2659,10 +2655,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="4336"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>Es wurde kein Stations-Rufzeichen ausgewählt, daher wird kein Protokoll markiert</translation>
-    </message>
-    <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Überprüfung der KLog-Version</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4520"/>
@@ -3485,10 +3477,6 @@ Do you want KLog to remove that file?</source>
  QSO: </source>
         <translation>Das Protokoll wird gedruckt ...
  QSO: </translation>
-    </message>
-    <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">QSO-Daten empfangen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8446"/>
