@@ -20,6 +20,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     util = new Utilities;
     realTime = true;
     duplicatedQSOSlotInSecs = 0;
+    delayInputTimer = new QTimer;
 
 
     createUI();
@@ -79,7 +80,10 @@ void MainQSOEntryWidget::createUI()
     palBlack.setColor(QPalette::Text, Qt::black);
 
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
-    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
+    //connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
+    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
+    connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut() ) );
+
     connect(bandComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
     connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
 
@@ -734,5 +738,21 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     {
         //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << endl;
         qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common world for hams. Do not translate of not sure"));
+    }
+}
+
+void MainQSOEntryWidget::slotStartDelayInputTimer()
+{
+    delayInputTimer->start(300);
+}
+
+void MainQSOEntryWidget::slotDelayInputTimedOut()
+{
+    delayInputTimer->stop();
+    QString text = (qrzLineEdit->text()).toUpper();
+    if( text != lastQrz)
+    {
+        text = lastQrz;
+        slotQRZTextChanged();
     }
 }
