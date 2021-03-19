@@ -4,6 +4,7 @@
 KLOG_VERSION=`grep "VERSION =" src/src.pro |awk '{print $3}'`
 echo "Packaging KLog-$KLOG_VERSION"
 export CXXFLAGS=-std=c++11
+rm src/README.md
 
 NEW_NAME=klog-$KLOG_VERSION
 mv src $NEW_NAME
