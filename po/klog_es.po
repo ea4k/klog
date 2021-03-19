@@ -1974,7 +1974,7 @@ msgstr "Exportar a ADIF"
 #: ../logwindow.cpp:364
 msgctxt "LogWindow|"
 msgid "Export the selected QSOs to an ADIF file."
-msgstr "Exportar los QSOs seleccionados a un fichero ADIF.\n"
+msgstr "Exportar los QSOs seleccionados a un fichero ADIF."
 
 #: ../logwindow.cpp:372
 msgctxt "LogWindow|"
