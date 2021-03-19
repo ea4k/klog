@@ -22,7 +22,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="24"/>
         <source>By</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="35"/>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="134"/>
         <source>KLog</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="137"/>
@@ -427,7 +427,7 @@
     <message>
         <location filename="../startwizard.cpp" line="1032"/>
         <source>KLog</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="1033"/>
@@ -920,7 +920,7 @@ Do you want to try again?</source>
         <location filename="../filemanager.cpp" line="1448"/>
         <location filename="../filemanager.cpp" line="1851"/>
         <source> QSO: </source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1597"/>
@@ -1284,62 +1284,62 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
     <message>
         <location filename="../infowidget.cpp" line="48"/>
         <source>10M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="49"/>
         <source>15M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="50"/>
         <source>20M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="51"/>
         <source>40M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="52"/>
         <source>80M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="53"/>
         <source>160M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="54"/>
         <source>2M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="55"/>
         <source>6M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="56"/>
         <source>12M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="57"/>
         <source>17M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="58"/>
         <source>30M</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="59"/>
         <source>70CM</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="74"/>
@@ -1354,12 +1354,12 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
     <message>
         <location filename="../infowidget.cpp" line="82"/>
         <source>CQ</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="86"/>
         <source>ITU</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="90"/>
@@ -1387,7 +1387,7 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <location filename="../infowidget.cpp" line="333"/>
         <location filename="../infowidget.cpp" line="334"/>
         <source>Km</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3716,7 +3716,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="62"/>
         <source>ClubLog</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowinputeqsl.cpp" line="68"/>
@@ -3744,7 +3744,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="70"/>
         <source>IOTA</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowinputothers.cpp" line="71"/>
@@ -3823,12 +3823,12 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="72"/>
         <source>QSL Via</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="75"/>
         <source>QSL Msg</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowinputqsl.cpp" line="78"/>
@@ -4008,7 +4008,7 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindowsattab.cpp" line="133"/>
         <location filename="../mainwindowsattab.cpp" line="137"/>
         <source>MHz</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindowsattab.cpp" line="283"/>
@@ -4167,7 +4167,7 @@ Frequency is not in a hamradio band!</source>
         <location filename="../database.cpp" line="4050"/>
         <location filename="../dataproxy_sqlite.cpp" line="6113"/>
         <source>QSO: </source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../database.cpp" line="3942"/>
@@ -4711,7 +4711,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../setupdialog.cpp" line="224"/>
         <source>OK</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
@@ -4794,12 +4794,12 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="73"/>
         <source>CQ</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="77"/>
         <source>ITU</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="85"/>
@@ -4814,7 +4814,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="93"/>
         <source>UTC</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="97"/>
@@ -4824,7 +4824,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="103"/>
         <source>ARRL ID</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="113"/>
@@ -4916,7 +4916,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="44"/>
         <source>New One</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
@@ -5486,7 +5486,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="228"/>
         <source>KLog</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="229"/>
@@ -5531,7 +5531,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="662"/>
         <source>KLog - SetupPageLogs</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="338"/>
@@ -5561,7 +5561,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="335"/>
         <source>ID</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="341"/>
@@ -5579,7 +5579,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogsnew.cpp" line="99"/>
         <source>&amp;Ok</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogsnew.cpp" line="100"/>
@@ -6622,7 +6622,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="187"/>
         <source>ARRL ID</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="189"/>
@@ -6642,7 +6642,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="195"/>
         <source>UTC</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="197"/>
@@ -6677,7 +6677,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="303"/>
         <source>BigCTY (*.csv)</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="312"/>
@@ -6736,7 +6736,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="17"/>
         <source>Ok</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="35"/>
@@ -7660,7 +7660,7 @@ The log will not be opened.</source>
         <location filename="../elogclublog.cpp" line="108"/>
         <location filename="../elogclublog.cpp" line="117"/>
         <source>KLog - ClubLog</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="107"/>
@@ -7761,7 +7761,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="625"/>
         <source>QSO OK</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="629"/>
@@ -7787,7 +7787,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="645"/>
         <source>OK</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="649"/>

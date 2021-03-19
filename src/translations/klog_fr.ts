@@ -7532,7 +7532,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../tipsdialog.cpp" line="203"/>
         <source>TIP-Default: Text</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

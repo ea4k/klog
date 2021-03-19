@@ -615,7 +615,7 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4422"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4426"/>
@@ -631,7 +631,7 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4434"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4438"/>
@@ -652,13 +652,13 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4458"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4462"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4466"/>
@@ -669,7 +669,7 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4470"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4474"/>
@@ -697,7 +697,7 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4446"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="121"/>
@@ -3224,7 +3224,7 @@ Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</t
     <message>
         <location filename="../mainwindow.cpp" line="8441"/>
         <source>KLog - QSO received</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8478"/>
@@ -7600,7 +7600,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="203"/>
         <source>TIP-Default: Text</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

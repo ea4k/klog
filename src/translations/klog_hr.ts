@@ -7608,7 +7608,7 @@ The log will not be opened.</source>
         <location filename="../updatesatsdata.cpp" line="59"/>
         <source>Reading Satellites data file...</source>
         <translatorcomment>Učitavam podatke o satelitima...</translatorcomment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../updatesatsdata.cpp" line="59"/>
