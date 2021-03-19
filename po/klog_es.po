@@ -666,7 +666,7 @@ msgstr "La versión de software de la BBDD es nulo"
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
-msgstr ""
+msgstr "Aircraft Scatter"
 
 #: ../dataproxy_sqlite.cpp:4426
 msgctxt "DataProxy_SQLite|"
@@ -682,7 +682,7 @@ msgstr "Aurora-E"
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
-msgstr ""
+msgstr "Back scatter"
 
 #: ../dataproxy_sqlite.cpp:4438
 msgctxt "DataProxy_SQLite|"
@@ -703,13 +703,13 @@ msgstr "Asistido por Internet"
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
-msgstr ""
+msgstr "Ionoscatter"
 
 #: ../dataproxy_sqlite.cpp:4462
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
-msgstr ""
+msgstr "Meteor scatter"
 
 #: ../dataproxy_sqlite.cpp:4466
 msgctxt "DataProxy_SQLite|"
@@ -720,7 +720,7 @@ msgstr "Terrestre, repetidor atmosférico o transpondedor"
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
-msgstr ""
+msgstr "Rain scatter"
 
 #: ../dataproxy_sqlite.cpp:4474
 msgctxt "DataProxy_SQLite|"
@@ -3518,7 +3518,7 @@ msgstr "Imprimiendo el log ..."
 #: ../mainwindow.cpp:8441
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
-msgstr ""
+msgstr "KLog - QSO recibido"
 
 #: ../mainwindow.cpp:8478
 msgctxt "MainWindow|"

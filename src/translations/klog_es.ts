@@ -697,7 +697,7 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4446"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="121"/>
@@ -7599,7 +7599,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="203"/>
         <source>TIP-Default: Text</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
