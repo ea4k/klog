@@ -1547,6 +1547,11 @@ Greška: %2</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../lotwutilities.cpp" line="297"/>
+        <source>Do you want to use this date (%1) as start date?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../lotwutilities.cpp" line="486"/>
         <source>The remote server redirected our connection to %1</source>
         <translation>Server je preusmjerio našu vezu na %1</translation>
@@ -1617,11 +1622,6 @@ Greška: %2</translation>
     <message>
         <location filename="../lotwutilities.cpp" line="295"/>
         <source>KLog - LoTW Start date selection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="297"/>
-        <source>Do you want to used this date (%1) as start date?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2668,11 +2668,6 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8528"/>
-        <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8609"/>
         <source>KLog - Non-supported mode</source>
         <translation>KLog - Način rada nije podržan</translation>
@@ -3572,6 +3567,11 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="8475"/>
         <source>Local-Grid</source>
         <translation>Lokalna koordinata</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="8528"/>
+        <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8612"/>

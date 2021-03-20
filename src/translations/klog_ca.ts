@@ -1546,6 +1546,11 @@ Error retornat: %2</translation>
         <translation>Aquesta és la primera data d&apos;un QSO amb l&apos;indicatiu %1 en aquest registre. Si penseu que podeu tenir QSO anteriors al LoTW, contesteu No.</translation>
     </message>
     <message>
+        <location filename="../lotwutilities.cpp" line="297"/>
+        <source>Do you want to use this date (%1) as start date?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../lotwutilities.cpp" line="486"/>
         <source>The remote server redirected our connection to %1</source>
         <translation>El el servidor remot ha redireccionat la connexió a %1</translation>
@@ -1619,9 +1624,8 @@ Error retornat: %2</translation>
         <translation>KLog - Selecció de la data d&apos;inici del LoTW</translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="297"/>
         <source>Do you want to used this date (%1) as start date?</source>
-        <translation>Voleu usar aquesta data (%1) com a data d&apos;inici?</translation>
+        <translation type="vanished">Voleu usar aquesta data (%1) com a data d&apos;inici?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="470"/>
@@ -3287,6 +3291,11 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>Indicatiu de l&apos;operador</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="8528"/>
+        <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="8609"/>
         <source>KLog - Non-supported mode</source>
         <translation>KLog - Mode no implementat</translation>
@@ -3571,9 +3580,8 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>Sembla que aquest QSO és duplicat. El voleu desar o descartar?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8528"/>
         <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation>Els QSO duplicats cal que coincideixin amb un altre QSO existent amb el mateix indicatiu, banda, mode, data i hora, atenint en compte que el període es pot definir a la configuració.</translation>
+        <translation type="vanished">Els QSO duplicats cal que coincideixin amb un altre QSO existent amb el mateix indicatiu, banda, mode, data i hora, atenint en compte que el període es pot definir a la configuració.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8612"/>

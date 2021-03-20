@@ -8525,7 +8525,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                 msgBox.setIcon(QMessageBox::Warning);
                 QString aux = tr("This QSO seems to be duplicated. Do you want to save or discard it?");
                 msgBox.setText(aux);
-                msgBox.setDetailedText(tr("Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings."));
+                msgBox.setDetailedText(tr("Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings."));
                 msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard );
 
                 msgBox.setDefaultButton(QMessageBox::Save);

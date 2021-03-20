@@ -1547,6 +1547,11 @@ Error: #2</translation>
         <translation>Esta es la primera fecha de un QSO con el indicativo %1 en este log. Si piensa que en LoTW debe haber QSOs anteriores, conteste No.</translation>
     </message>
     <message>
+        <location filename="../lotwutilities.cpp" line="297"/>
+        <source>Do you want to use this date (%1) as start date?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../lotwutilities.cpp" line="486"/>
         <source>The remote server redirected our connection to %1</source>
         <translation>El servidor remoto redirigió nuestra conexión a %1</translation>
@@ -1620,9 +1625,8 @@ Error: #2</translation>
         <translation>KLog - LoTW Fecha de inicio</translation>
     </message>
     <message>
-        <location filename="../lotwutilities.cpp" line="297"/>
         <source>Do you want to used this date (%1) as start date?</source>
-        <translation>¿Quiere usar esta fecha (%1) como fecha de inicio?</translation>
+        <translation type="vanished">¿Quiere usar esta fecha (%1) como fecha de inicio?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="470"/>
@@ -3246,9 +3250,8 @@ Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</t
         <translation>Este QSO parece duplicado. ¿Quiere guardarlo o descartarlo?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8528"/>
         <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation>Los QSOs duplicados tienen que coincidir con otro QSO en el mismo indicativo, banda, modo fecha y hora teniendo en cuenta el periodo de tiempo que puede definirse en las preferencias.</translation>
+        <translation type="vanished">Los QSOs duplicados tienen que coincidir con otro QSO en el mismo indicativo, banda, modo fecha y hora teniendo en cuenta el periodo de tiempo que puede definirse en las preferencias.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8609"/>
@@ -3575,6 +3578,11 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="8475"/>
         <source>Local-Grid</source>
         <translation>Locator local</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="8528"/>
+        <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8612"/>

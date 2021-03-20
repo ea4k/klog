@@ -1537,6 +1537,11 @@ Error returned: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../lotwutilities.cpp" line="297"/>
+        <source>Do you want to use this date (%1) as start date?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../lotwutilities.cpp" line="486"/>
         <source>The remote server redirected our connection to %1</source>
         <translation type="unfinished"></translation>
@@ -1602,11 +1607,6 @@ Error returned: %2</source>
     <message>
         <location filename="../lotwutilities.cpp" line="295"/>
         <source>KLog - LoTW Start date selection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lotwutilities.cpp" line="297"/>
-        <source>Do you want to used this date (%1) as start date?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2949,6 +2949,11 @@ Frequency is not in a hamradio band!</source>
 La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="8528"/>
+        <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="8566"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO loggué depuis WSJT-X :</translation>
@@ -3504,11 +3509,6 @@ QSO : </translation>
     <message>
         <location filename="../mainwindow.cpp" line="8526"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="8528"/>
-        <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
