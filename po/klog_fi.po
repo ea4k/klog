@@ -8023,11 +8023,6 @@ msgstr ""
 "href=\"#ToolsUploadLoTW\">Tools->Upload to LoTW...</a> ?<br><br>Sinun tulee "
 "asettaa TQSL käyttöön asetuksissa, käyttääksesi tätä ominaisuutta."
 
-#: ../tipsdialog.cpp:203
-msgctxt "TipsDialog|"
-msgid "TIP-Default: Text"
-msgstr "Vinkki-Oletus: Teksti"
-
 #: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
 msgid "Reading Satellites data file..."

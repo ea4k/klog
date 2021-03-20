@@ -1624,10 +1624,6 @@ Error retornat: %2</translation>
         <translation>KLog - Selecció de la data d&apos;inici del LoTW</translation>
     </message>
     <message>
-        <source>Do you want to used this date (%1) as start date?</source>
-        <translation type="vanished">Voleu usar aquesta data (%1) com a data d&apos;inici?</translation>
-    </message>
-    <message>
         <location filename="../lotwutilities.cpp" line="470"/>
         <source>KLog - LoTW Download error</source>
         <translation>KLog - Error de baixada del LoTW</translation>
@@ -2327,10 +2323,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <translation>&amp;Ajuda</translation>
     </message>
     <message>
-        <source>KLog LoTW</source>
-        <translation type="vanished">KLog LoTW</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4112"/>
         <location filename="../mainwindow.cpp" line="4181"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
@@ -2440,10 +2432,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <location filename="../mainwindow.cpp" line="4336"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>No s&apos;ha seleccionat cap indicatiu, i per tant no es marcarà cap registre</translation>
-    </message>
-    <message>
-        <source>KLog update checking result</source>
-        <translation type="vanished">Resultat de la comprovació d&apos;actualitzacions del KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4520"/>
@@ -2599,10 +2587,6 @@ La freqüència no es en una banda de radioafició!</translation>
         <location filename="../mainwindow.cpp" line="8566"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO enregistrat des del WSJT-X:</translation>
-    </message>
-    <message>
-        <source>KLog new version detected!</source>
-        <translation type="vanished">S&apos;ha detectat una versió nova del KLog!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="747"/>
@@ -2934,10 +2918,6 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>Split</translation>
     </message>
     <message>
-        <source>KLog CTY.dat update</source>
-        <translation type="vanished">Actualització de «CTY.dat» del KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="418"/>
         <source>KLog needs to update the Entities database.</source>
         <translation>Cal actualitzar la base de dades d&apos;entitats del KLog.</translation>
@@ -2948,10 +2928,6 @@ El servidor UDP ha fallat en %1.</translation>
         <translation>Heu sol·licitat suprimir diversos QSO </translation>
     </message>
     <message>
-        <source>KLog ClubLog error</source>
-        <translation type="vanished">Error del ClubLog al KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="2843"/>
         <source>The ClubLog upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El procés de pujada al ClubLog ha finalitzat amb un error i possiblement el registre no s&apos;ha pujat.</translation>
@@ -2960,10 +2936,6 @@ El servidor UDP ha fallat en %1.</translation>
         <location filename="../mainwindow.cpp" line="2844"/>
         <source>Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1</source>
         <translation>Comproveu les vostres credencials, la connexió a Internet i el vostre compte al ClubLog. El codi d&apos;error ha estat: %1</translation>
-    </message>
-    <message>
-        <source>KLog ClubLog</source>
-        <translation type="vanished">ClubLog del KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2864"/>
@@ -3011,10 +2983,6 @@ You can remove it manually.</source>
 El podeu eliminar manualment.</translation>
     </message>
     <message>
-        <source>KLog eQSL error</source>
-        <translation type="vanished">Error de l&apos;eQSL al KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="2962"/>
         <source>The eQSL upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El procés de pujada a l&apos;eQSL ha finalitzat amb un error i possiblement el registre no s&apos;ha pujat.</translation>
@@ -3024,10 +2992,6 @@ El podeu eliminar manualment.</translation>
         <location filename="../mainwindow.cpp" line="3058"/>
         <source>Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1</source>
         <translation>Comproveu les vostres credencials, la connexió a Internet i el vostre compte a l&apos;eQSL. El codi d&apos;error ha estat: %1</translation>
-    </message>
-    <message>
-        <source>KLog eQSL</source>
-        <translation type="vanished">eQSL del KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2982"/>
@@ -3180,10 +3144,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>El TQSL ha finalitzat sense cap error.</translation>
     </message>
     <message>
-        <source>You have selected no callsign. KLog will mark QSOs without a station callsign defined and those with the callsign you are entering here.</source>
-        <translation type="vanished">No heu seleccionat cap indicatiu. El KLog marcarà els QSO sense cap indicatiu d&apos;estació definit i aquells amb l&apos;indicatiu que introduïu aquí.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4363"/>
         <source>Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW</source>
         <translation>Segur que voleu marcar TOTS aquests QSO per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu QSO al LoTW</translation>
@@ -3257,10 +3217,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="6100"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
-    </message>
-    <message>
-        <source>KLog ADIF export</source>
-        <translation type="vanished">Exportació ADIF del KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6171"/>
@@ -3383,10 +3339,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>Puja els QSO en la cua a LoTW</translation>
     </message>
     <message>
-        <source>KLog backup</source>
-        <translation type="vanished">Còpia de seguretat del KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="721"/>
         <source>The backup was done successfully</source>
         <translation>La còpia de seguretat s&apos;ha efectuat correctament</translation>
@@ -3412,17 +3364,9 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>Aquesta operació eliminarà definitivament els QSO seleccionats i les dades associades i no les podreu tornar a recuperar.</translation>
     </message>
     <message>
-        <source>KLog QRZ.com error</source>
-        <translation type="vanished">Error de QRZ.com al KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3057"/>
         <source>The QRZ.com upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El procés de pujada a QRZ.com ha finalitzat amb un error i possiblement el registre no s&apos;ha pujat.</translation>
-    </message>
-    <message>
-        <source>KLog QRZ.com</source>
-        <translation type="vanished">QRZ.com al KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3077"/>
@@ -3464,10 +3408,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>El KLog ha rebut un error des de QRZ.com.</translation>
     </message>
     <message>
-        <source>KLog %1</source>
-        <translation type="vanished">KLog %1</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3214"/>
         <source>You need to activate the %1 service in the eLog preferences.</source>
         <translation>Cal activar el servei %1 a les preferències de l&apos;eLog.</translation>
@@ -3497,22 +3437,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="3937"/>
         <source>Queue all the QSO to be uploaded</source>
         <translation>Posa a la cua tots els QSO per a pujar</translation>
-    </message>
-    <message>
-        <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to ClubLog</source>
-        <translation type="vanished">Segur que voleu marcar TOTS els QSO per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu QSO al ClubLog</translation>
-    </message>
-    <message>
-        <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to eQSL</source>
-        <translation type="vanished">Segur que voleu marcar TOTS els QSO per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu QSO a l&apos;eQSL</translation>
-    </message>
-    <message>
-        <source>KLog QRZ.COM</source>
-        <translation type="vanished">QRZ.com al KLog</translation>
-    </message>
-    <message>
-        <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to QRZ.COM</source>
-        <translation type="vanished">Segur que voleu marcar TOTS els QSO per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu QSO a QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6635"/>
@@ -3602,10 +3526,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
  QSO: </translation>
     </message>
     <message>
-        <source>KLog QSO received</source>
-        <translation type="vanished">S&apos;ha rebut un QSO al KLog</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="8446"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>S&apos;han rebut les dades QSO següents des del WSJT-X per a enregistrar:</translation>
@@ -3654,10 +3574,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="8526"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
         <translation>Sembla que aquest QSO és duplicat. El voleu desar o descartar?</translation>
-    </message>
-    <message>
-        <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation type="vanished">Els QSO duplicats cal que coincideixin amb un altre QSO existent amb el mateix indicatiu, banda, mode, data i hora, atenint en compte que el període es pot definir a la configuració.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8612"/>
@@ -6302,12 +6218,6 @@ The log will not be opened.</source>
         <translation type="unfinished">Cal introduir un indicatiu vàlid a la casella d&apos;indicatiu d&apos;estació.
 El registre no s&apos;obrirà.</translation>
     </message>
-    <message>
-        <source>You need to enter a valid Call in the Station Callsign box.
-The log will not be opened.</source>
-        <translation type="vanished">Cal introduir un indicatiu vàlid a la casella d&apos;indicatiu d&apos;estació.
-El registre no s&apos;obrirà.</translation>
-    </message>
 </context>
 <context>
     <name>SetupPageSubdivisions</name>
@@ -7684,10 +7594,6 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../tipsdialog.cpp" line="187"/>
         <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt; page.</source>
         <translation>&lt;b&gt;Consell núm. 17:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu ajudar a traduir el KLog al vostre idioma? Si us plau, reviseu la pàgina de &lt;a href=https://www.klog.xyz/contrib/translations&gt;traduccions del KLog&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>TIP-Default: Text</source>
-        <translation type="vanished">Consell predeterminat: Text</translation>
     </message>
 </context>
 <context>

@@ -8081,11 +8081,6 @@ msgstr ""
 "LoTW...</a> ?<br><br>Morate podesiti TQSL u postavkama kako biste mogli "
 "koristiti ovu funkciju."
 
-#: ../tipsdialog.cpp:203
-msgctxt "TipsDialog|"
-msgid "TIP-Default: Text"
-msgstr "TIP-Default: Text"
-
 # Učitavam podatke o satelitima...
 #: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"

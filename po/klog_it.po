@@ -8058,11 +8058,6 @@ msgstr ""
 "prima configurare correttamente TQSL fra le impostazioni per poter usare "
 "questa funzione."
 
-#: ../tipsdialog.cpp:203
-msgctxt "TipsDialog|"
-msgid "TIP-Default: Text"
-msgstr "TIP-Default: Testo"
-
 #: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
 msgid "Reading Satellites data file..."

@@ -7873,11 +7873,6 @@ msgid ""
 "able to use this functionality."
 msgstr ""
 
-#: ../tipsdialog.cpp:203
-msgctxt "TipsDialog|"
-msgid "TIP-Default: Text"
-msgstr ""
-
 #: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
 msgid "Reading Satellites data file..."

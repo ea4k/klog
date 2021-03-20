@@ -7557,10 +7557,6 @@ The log will not be opened.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
         <translation>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi trasferire il QSO messo in coda per il trasferimento a LoTW tramite TQSL con &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Strumenti-&gt;Trasferisce a LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Devi prima configurare correttamente TQSL fra le impostazioni per poter usare questa funzione.</translation>
     </message>
-    <message>
-        <source>TIP-Default: Text</source>
-        <translation type="vanished">TIP-Default: Testo</translation>
-    </message>
 </context>
 <context>
     <name>UpdateSatsData</name>

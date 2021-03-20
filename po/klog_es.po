@@ -748,7 +748,7 @@ msgstr "Todos los QSO se han actualizado con un DXCC y un continente."
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
-msgstr ""
+msgstr "Irregularidades alineadas con el Campo (FAI)"
 
 #: ../dataproxy_sqlite.cpp:121
 msgctxt "DataProxy_SQLite|"
@@ -1661,7 +1661,7 @@ msgstr ""
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "Do you want to use this date (%1) as start date?"
-msgstr ""
+msgstr "¿Quiere usar esta fecha (%1) como fecha de inicio?"
 
 #: ../lotwutilities.cpp:486
 #, qt-format
@@ -8142,11 +8142,6 @@ msgstr ""
 "href=\"#ToolsUploadLoTW\">Herramientas->Herramientas de LoTW ...->Enviar a "
 "LoTW</a>?<br><br>Tiene que configurar TQSL en las preferencias para poder "
 "usar esta funcionalidad?"
-
-#: ../tipsdialog.cpp:203
-msgctxt "TipsDialog|"
-msgid "TIP-Default: Text"
-msgstr ""
 
 #: ../updatesatsdata.cpp:59
 msgctxt "UpdateSatsData|"
