@@ -1548,7 +1548,7 @@ Error retornat: %2</translation>
     <message>
         <location filename="../lotwutilities.cpp" line="297"/>
         <source>Do you want to use this date (%1) as start date?</source>
-        <translation>Voleu usar aquesta data (%1) com a data d&apos;inici?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="486"/>
@@ -2117,7 +2117,7 @@ El KLog us recordarà que feu una còpia de seguretat mensualment.
     <message>
         <location filename="../mainwindow.cpp" line="6624"/>
         <source>KLog - QRZ.COM</source>
-        <translation>KLog - QRZ.com</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6625"/>
@@ -2177,17 +2177,17 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="417"/>
         <source>KLog - CTY.dat update</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="717"/>
         <source>KLog - Backup</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="746"/>
         <source>KLog - New version detected!</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3745"/>
@@ -2617,12 +2617,12 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2842"/>
         <source>KLog - ClubLog error</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2961"/>
         <source>KLog - eQSL error</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3213"/>
@@ -2643,7 +2643,7 @@ La freqüència no es en una banda de radioafició!</translation>
         <location filename="../mainwindow.cpp" line="3686"/>
         <location filename="../mainwindow.cpp" line="6168"/>
         <source>KLog - ADIF export</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3896"/>
@@ -2708,7 +2708,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4006"/>
         <source>Online manual (F1) ...</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4011"/>
@@ -6299,7 +6299,7 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
         <location filename="../setuppages/setuppagesubdivisionnew.cpp" line="582"/>
         <source>You need to enter a valid callsign in the Station Callsign box.
 The log will not be opened.</source>
-        <translation>Cal introduir un indicatiu vàlid a la casella d&apos;indicatiu d&apos;estació.
+        <translation type="unfinished">Cal introduir un indicatiu vàlid a la casella d&apos;indicatiu d&apos;estació.
 El registre no s&apos;obrirà.</translation>
     </message>
     <message>

@@ -697,7 +697,7 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="4446"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translation>Irregularidades alineadas con el Campo (FAI)</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="121"/>
@@ -1549,7 +1549,7 @@ Error: #2</translation>
     <message>
         <location filename="../lotwutilities.cpp" line="297"/>
         <source>Do you want to use this date (%1) as start date?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quiere usar esta fecha (%1) como fecha de inicio?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="486"/>
