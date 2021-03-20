@@ -1657,6 +1657,12 @@ msgstr ""
 "Esta es la primera fecha de un QSO con el indicativo %1 en este log. Si "
 "piensa que en LoTW debe haber QSOs anteriores, conteste No."
 
+#: ../lotwutilities.cpp:297
+#, qt-format
+msgctxt "LoTWUtilities|"
+msgid "Do you want to use this date (%1) as start date?"
+msgstr ""
+
 #: ../lotwutilities.cpp:486
 #, qt-format
 msgctxt "LoTWUtilities|"
@@ -1748,12 +1754,6 @@ msgstr "El fichero %1 ya existe."
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Start date selection"
 msgstr "KLog - LoTW Fecha de inicio"
-
-#: ../lotwutilities.cpp:297
-#, qt-format
-msgctxt "LoTWUtilities|"
-msgid "Do you want to used this date (%1) as start date?"
-msgstr "¿Quiere usar esta fecha (%1) como fecha de inicio?"
 
 #: ../lotwutilities.cpp:470
 msgctxt "LoTWUtilities|"
@@ -3540,17 +3540,6 @@ msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr "Este QSO parece duplicado. ¿Quiere guardarlo o descartarlo?"
 
-#: ../mainwindow.cpp:8528
-msgctxt "MainWindow|"
-msgid ""
-"Duplicated QSOs have to match another exiting QSO with the same call, band, "
-"mode, date and time, taking into account the period that can be defined in "
-"the settings."
-msgstr ""
-"Los QSOs duplicados tienen que coincidir con otro QSO en el mismo "
-"indicativo, banda, modo fecha y hora teniendo en cuenta el periodo de tiempo "
-"que puede definirse en las preferencias."
-
 #: ../mainwindow.cpp:8609
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
@@ -3885,6 +3874,14 @@ msgstr "DX locator"
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Locator local"
+
+#: ../mainwindow.cpp:8528
+msgctxt "MainWindow|"
+msgid ""
+"Duplicated QSOs have to match another existing QSO with the same call, band, "
+"mode, date and time, taking into account the period that can be defined in "
+"the settings."
+msgstr ""
 
 #: ../mainwindow.cpp:8612
 msgctxt "MainWindow|"

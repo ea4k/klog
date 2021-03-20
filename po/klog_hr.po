@@ -1635,6 +1635,12 @@ msgid ""
 "think that in LoTW you may have previous QSOs, answer No."
 msgstr ""
 
+#: ../lotwutilities.cpp:297
+#, qt-format
+msgctxt "LoTWUtilities|"
+msgid "Do you want to use this date (%1) as start date?"
+msgstr ""
+
 #: ../lotwutilities.cpp:486
 #, qt-format
 msgctxt "LoTWUtilities|"
@@ -1722,12 +1728,6 @@ msgstr "Datoteka %1 već postoji."
 #: ../lotwutilities.cpp:295
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Start date selection"
-msgstr ""
-
-#: ../lotwutilities.cpp:297
-#, qt-format
-msgctxt "LoTWUtilities|"
-msgid "Do you want to used this date (%1) as start date?"
 msgstr ""
 
 #: ../lotwutilities.cpp:470
@@ -2818,14 +2818,6 @@ msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr ""
 
-#: ../mainwindow.cpp:8528
-msgctxt "MainWindow|"
-msgid ""
-"Duplicated QSOs have to match another exiting QSO with the same call, band, "
-"mode, date and time, taking into account the period that can be defined in "
-"the settings."
-msgstr ""
-
 #: ../mainwindow.cpp:8609
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
@@ -3811,6 +3803,14 @@ msgstr "DX koordinata"
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Lokalna koordinata"
+
+#: ../mainwindow.cpp:8528
+msgctxt "MainWindow|"
+msgid ""
+"Duplicated QSOs have to match another existing QSO with the same call, band, "
+"mode, date and time, taking into account the period that can be defined in "
+"the settings."
+msgstr ""
 
 #: ../mainwindow.cpp:8612
 msgctxt "MainWindow|"

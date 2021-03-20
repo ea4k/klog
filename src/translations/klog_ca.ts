@@ -1624,10 +1624,6 @@ Error retornat: %2</translation>
         <translation>KLog - Selecció de la data d&apos;inici del LoTW</translation>
     </message>
     <message>
-        <source>Do you want to used this date (%1) as start date?</source>
-        <translation type="vanished">Voleu usar aquesta data (%1) com a data d&apos;inici?</translation>
-    </message>
-    <message>
         <location filename="../lotwutilities.cpp" line="470"/>
         <source>KLog - LoTW Download error</source>
         <translation>KLog - Error de baixada del LoTW</translation>
@@ -3578,10 +3574,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="8526"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
         <translation>Sembla que aquest QSO és duplicat. El voleu desar o descartar?</translation>
-    </message>
-    <message>
-        <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation type="vanished">Els QSO duplicats cal que coincideixin amb un altre QSO existent amb el mateix indicatiu, banda, mode, data i hora, atenint en compte que el període es pot definir a la configuració.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8612"/>

@@ -1625,10 +1625,6 @@ Error: #2</translation>
         <translation>KLog - LoTW Fecha de inicio</translation>
     </message>
     <message>
-        <source>Do you want to used this date (%1) as start date?</source>
-        <translation type="vanished">¿Quiere usar esta fecha (%1) como fecha de inicio?</translation>
-    </message>
-    <message>
         <location filename="../lotwutilities.cpp" line="470"/>
         <source>KLog - LoTW Download error</source>
         <translation>KLog - Error de descarga de LoTW</translation>
@@ -3248,10 +3244,6 @@ Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</t
         <location filename="../mainwindow.cpp" line="8526"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
         <translation>Este QSO parece duplicado. ¿Quiere guardarlo o descartarlo?</translation>
-    </message>
-    <message>
-        <source>Duplicated QSOs have to match another exiting QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation type="vanished">Los QSOs duplicados tienen que coincidir con otro QSO en el mismo indicativo, banda, modo fecha y hora teniendo en cuenta el periodo de tiempo que puede definirse en las preferencias.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8609"/>

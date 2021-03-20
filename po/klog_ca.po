@@ -1672,6 +1672,12 @@ msgstr ""
 "Aquesta és la primera data d'un QSO amb l'indicatiu %1 en aquest registre. "
 "Si penseu que podeu tenir QSO anteriors al LoTW, contesteu No."
 
+#: ../lotwutilities.cpp:297
+#, qt-format
+msgctxt "LoTWUtilities|"
+msgid "Do you want to use this date (%1) as start date?"
+msgstr ""
+
 #: ../lotwutilities.cpp:486
 #, qt-format
 msgctxt "LoTWUtilities|"
@@ -1764,12 +1770,6 @@ msgstr "El fitxer %1 ja existeix."
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Start date selection"
 msgstr "KLog - Selecció de la data d'inici del LoTW"
-
-#: ../lotwutilities.cpp:297
-#, qt-format
-msgctxt "LoTWUtilities|"
-msgid "Do you want to used this date (%1) as start date?"
-msgstr "Voleu usar aquesta data (%1) com a data d'inici?"
 
 #: ../lotwutilities.cpp:470
 msgctxt "LoTWUtilities|"
@@ -3593,6 +3593,14 @@ msgctxt "MainWindow|"
 msgid "Operator Callsign"
 msgstr "Indicatiu de l'operador"
 
+#: ../mainwindow.cpp:8528
+msgctxt "MainWindow|"
+msgid ""
+"Duplicated QSOs have to match another existing QSO with the same call, band, "
+"mode, date and time, taking into account the period that can be defined in "
+"the settings."
+msgstr ""
+
 #: ../mainwindow.cpp:8609
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
@@ -3901,17 +3909,6 @@ msgstr "KLog - QSO duplicat del WSJTX"
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr "Sembla que aquest QSO és duplicat. El voleu desar o descartar?"
-
-#: ../mainwindow.cpp:8528
-msgctxt "MainWindow|"
-msgid ""
-"Duplicated QSOs have to match another exiting QSO with the same call, band, "
-"mode, date and time, taking into account the period that can be defined in "
-"the settings."
-msgstr ""
-"Els QSO duplicats cal que coincideixin amb un altre QSO existent amb el "
-"mateix indicatiu, banda, mode, data i hora, atenint en compte que el període "
-"es pot definir a la configuració."
 
 #: ../mainwindow.cpp:8612
 msgctxt "MainWindow|"
