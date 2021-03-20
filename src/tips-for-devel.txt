@@ -1,0 +1,12 @@
+SQLite
+http://www.w3schools.com/sql/default.asp
+
+Transfer or populate sqlite table to another table
+INSERT INTO TABLE2 (COL1, COL2, COL3) SELECT COL1, COL4, COL7 FROM TABLE1
+
+Select only different DXCC
+select count (distinct dxcc) from log
+
+DELETED ENTITIES:
+http://www.ng3k.com/Dxcc/dxccde.html
+
