@@ -7558,9 +7558,8 @@ The log will not be opened.</source>
         <translation>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi trasferire il QSO messo in coda per il trasferimento a LoTW tramite TQSL con &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Strumenti-&gt;Trasferisce a LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Devi prima configurare correttamente TQSL fra le impostazioni per poter usare questa funzione.</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="203"/>
         <source>TIP-Default: Text</source>
-        <translation>TIP-Default: Testo</translation>
+        <translation type="vanished">TIP-Default: Testo</translation>
     </message>
 </context>
 <context>

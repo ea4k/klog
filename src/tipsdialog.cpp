@@ -126,7 +126,7 @@ void TipsDialog::setTip(const int _t)
     switch (_t) {
 
     case 1:
-        //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data        
+        //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
         description = tr("<b>Tip #1:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");
     break;
     case 2:
@@ -200,7 +200,8 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->Upload to LoTW...</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
     break;
     default:
-        description = tr("TIP-Default: Text");
+        //description = tr("TIP-Default: Text");
+        description = "";
     break;
     }
     //tipTextEdit->setHtml(description);

@@ -7537,9 +7537,8 @@ The log will not be opened.</source>
         <translation type="unfinished">&lt;b&gt;Vinkki #21:&lt;/b&gt;&lt;br&gt;Tiesitkö...&lt;br&gt;Voit lähettää QSO:t merkittyinä lähetettäviksi LoTW:iin TQSL:n kautta menemällä &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;Upload to LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Sinun tulee asettaa TQSL käyttöön asetuksissa, käyttääksesi tätä ominaisuutta.</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="203"/>
         <source>TIP-Default: Text</source>
-        <translation>Vinkki-Oletus: Teksti</translation>
+        <translation type="vanished">Vinkki-Oletus: Teksti</translation>
     </message>
 </context>
 <context>

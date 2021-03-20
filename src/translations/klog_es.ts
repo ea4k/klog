@@ -7596,11 +7596,6 @@ El log no se abrirá.</translation>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
         <translation>&lt;b&gt;Consejo #21:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede subir los QSOs marcados como en cola a LoTW a través de la aplicación TQSL con &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Herramientas-&gt;Herramientas de LoTW ...-&gt;Enviar a LoTW&lt;/a&gt;?&lt;br&gt;&lt;br&gt;Tiene que configurar TQSL en las preferencias para poder usar esta funcionalidad?</translation>
     </message>
-    <message>
-        <location filename="../tipsdialog.cpp" line="203"/>
-        <source>TIP-Default: Text</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>UpdateSatsData</name>

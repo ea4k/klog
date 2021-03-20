@@ -7519,11 +7519,6 @@ The log will not be opened.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../tipsdialog.cpp" line="203"/>
-        <source>TIP-Default: Text</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>UpdateSatsData</name>
