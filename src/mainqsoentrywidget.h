@@ -90,6 +90,8 @@ private slots:
     void slotClearButtonClicked();
     void slotCheckBoxClicked();
     //void slotRealTimeCheckBoxChanged();
+    void slotStartDelayInputTimer();
+    void slotDelayInputTimedOut();
 
 
 private:
@@ -128,6 +130,9 @@ private:
     QPalette::ColorRole enabledCR, disabledCR;
 
     int duplicatedQSOSlotInSecs;
+    QTimer *delayInputTimer;
+    QString lastQrz;
+
 };
 
 #endif // MAINQSOENTRYWIDGET_H
