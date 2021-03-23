@@ -3422,12 +3422,14 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
+
+        if (qrzcomActive && QRZCOMAutoCheckAct->isChecked())
+        {
+            elogQRZcom->checkQRZ(_qrz);
+        }
     }
 
-    if (qrzcomActive && QRZCOMAutoCheckAct->isChecked())
-    {
-        elogQRZcom->checkQRZ(_qrz);
-    }
+
 
     //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
