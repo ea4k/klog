@@ -7,7 +7,7 @@ The objective of KLog is to provide a free software that runs in Linux, macOS an
 KLog provides general purpose DX logging support.
 
 ### IMPORTANT:
-All the mailing lists, code and releases have been removed from Savannah and they are no longer avaiable.
+All the mailing lists, code and releases have been removed from Savannah and they are no longer available.
 I will wait some days to see if they can be recovered before looking for another place to host all the needed services.
 
 
