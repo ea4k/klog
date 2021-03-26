@@ -13,6 +13,11 @@ Check https://jaime.robles.es for the author homepage.
 
 ## Mailing lists
 
+### Important
+
+All the mailing lists have been removed from Savannah and they are no longer avaiable.
+I will wait some days to see if they can be recovered before looking for another place to host the mailing lists.
+
 Please join the mailing list at:
 - Users: https://lists.nongnu.org/mailman/listinfo/klog-users
 - Developers: https://lists.nongnu.org/mailman/listinfo/klog-devel
