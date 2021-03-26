@@ -6,17 +6,17 @@
 The objective of KLog is to provide a free software that runs in Linux, macOS and Windows.
 KLog provides general purpose DX logging support.
 
+### IMPORTANT:
+All the mailing lists, code and releases have been removed from Savannah and they are no longer avaiable.
+I will wait some days to see if they can be recovered before looking for another place to host all the needed services.
+
+
 ## Website
 
 Check https://www.klog.xyz for news & updates.
 Check https://jaime.robles.es for the author homepage.
 
 ## Mailing lists
-
-### Important
-
-All the mailing lists have been removed from Savannah and they are no longer avaiable.
-I will wait some days to see if they can be recovered before looking for another place to host the mailing lists.
 
 Please join the mailing list at:
 - Users: https://lists.nongnu.org/mailman/listinfo/klog-users
