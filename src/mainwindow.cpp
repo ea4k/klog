@@ -4787,7 +4787,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 void MainWindow::slotOpenWiki()
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
     QDesktopServices::openUrl(QUrl("https://wiki.klog.xyz/"));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }

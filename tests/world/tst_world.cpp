@@ -55,7 +55,7 @@ private:
 
 tst_World::tst_World()
 {
-    qDebug() << "Testing ... " << endl;
+    //qDebug() << "Testing ... " << endl;
     version = "1.5";
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
@@ -84,13 +84,13 @@ void tst_World::cleanupTestCase()
 void tst_World::test_Constructor()
 {
     //QVERIFY(util->getVersion() == "0.0");
-    qDebug() << "Testing the constructor" << endl;
+    //qDebug() << "Testing the constructor" << endl;
 }
 
 void tst_World::test_WorldCreation()
 {
     /*
-      qDebug() << "Testing the world" << endl;
+    //qDebug() << "Testing the world" << endl;
     QVERIFY2 (1==1, "Not OK");
     QString ctyFile = QFINDTESTDATA (util->getCTYFile());
 */

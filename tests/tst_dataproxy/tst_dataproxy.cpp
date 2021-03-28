@@ -74,8 +74,8 @@ void tst_DataProxy::cleanupTestCase()
 void tst_DataProxy::test_Constructor()
 {
     QVERIFY2(util->getVersion() == "0.0", "Version failed");
-    qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
-    qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
+    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
+    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
 }
 
 void tst_DataProxy::test_modes()

@@ -2,3 +2,7 @@
 *.user
 KLog.pro.user.vCmLUg
 src/.qmake.stash
+src/build
+src/release
+src/Makefile*
+src/object_*
