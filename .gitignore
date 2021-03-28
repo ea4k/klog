@@ -6,3 +6,4 @@ src/build
 src/release
 src/Makefile*
 src/object_*
+.DS_Store
