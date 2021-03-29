@@ -7,3 +7,6 @@ src/release
 src/Makefile*
 src/object_*
 .DS_Store
+KLog.app
+*.qm
+
