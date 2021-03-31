@@ -1,4 +1,4 @@
-March - 1.5
+March 2021 - 1.5
 - Added the 8M & 5M bands.
 - New feature: Added "Adif file deletion" checkbox. User can choose to show or not the message boxes after uploading QSOs.
 - New feature: New function added to fill automatically the satMode field in satellites Tab depending on upload/download frequencies.
@@ -38,18 +38,18 @@ January 2021 - 1.4.5
 - UI: Changed "Config Dialog" to "Settings". (TNX G4MKT)
 - UI: Changed QRZ to Callsign.
 
-December - 1.4.4
+December 2020 - 1.4.4
 - Bugfix: QSOs received from WSJT-X may not be saved properly.
 - Bugfix: ClubLog, eQSL.cc and QRZ.com were losing one setting. (TNX EA5WA)
 
-December - 1.4.3
+December 2020 - 1.4.3
 - Bugfix: PJ7 flag was not being shown in the DXCC widget.
 - Bugfix: Disabling LoTW made impossible to enable it again via the setup. (TNX G6YRK)
 
-December - 1.4.2
+December 2020 - 1.4.2
 - Bugfix: ADIF export was failing in some circunstances.
 
-December - 1.4.1
+December 2020 - 1.4.1
 - Bugfix: Stat 01-QSO per year was not properly shown when returning from other stat. (TNX EA5WA)
 - Bugfix: UpLink sat freq was not properly defined when exiting the setup.
 - Translation: Spanish translation fix.
