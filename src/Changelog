@@ -24,6 +24,8 @@ March 2021 - 1.5
 - Bugfix: The Log combobox on the Statistics was not working. (TNX EA5WA)
 - Bugfix: End date tooltip updated on the export widget.(TNX G4MKT)
 - Bugfix: DX Locator tooltip was not OK. (TNX G4MKT)
+- Translations: Catalan (TNX Txema) & Spanish (EA4K).
+
 
 January 2021 - 1.4.7
 - Added the Q65 mode.
