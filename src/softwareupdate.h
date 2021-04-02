@@ -69,10 +69,11 @@ signals:
 private:
     void connectToURL(const QString &_url);
     bool checkUpdates(QIODevice *data);
-    void updateNeeded(QString &_newVer);
+    void updateNeeded(const QString &_newVer);
     //void setTheURL(QString _url);
     void setHeader();
     void findOS(const int _os);
+    QString findMatch(QRegularExpression rx, const QString & fileExtension, const QStringList &data);
 
     Utilities *util;
 
@@ -81,7 +82,7 @@ private:
     QString OSString;
     int OSVersion;
     QUrl *url;
-    
+
     //QNetworkAccessManager *manager;
     QNetworkRequest request;
 
