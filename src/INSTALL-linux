@@ -25,18 +25,18 @@ In your distribution, you should know how to install new packages :-)
 Make sure you have qt5 available. You can do it with the qtchooser command.
 The output should be something like:
 
-	user@debian:~$ qtchooser -l
-	4
-	5
-	default
-	qt4-i386-linux-gnu
-	qt4
-	qt5-i386-linux-gnu
-	qt5
-	user@debian:~$
+        user@debian:~$ qtchooser -l
+        4
+        5
+        default
+        qt4-i386-linux-gnu
+        qt4
+        qt5-i386-linux-gnu
+        qt5
+        user@debian:~$
 
 
-It should return the list of qt versions available, qt5 must be one of them. 
+It should return the list of qt versions available, qt5 must be one of them.
 If qt5 is still not there, check your instalallation as one of the previous packages may be missing.
 
 2.- Select the appropriate Qt version (Qt5)
@@ -53,12 +53,12 @@ If qt5 is still not there, check your instalallation as one of the previous pack
 
 
 4.- Generate the Makefile
- 
-    qmake PREFIX=/usr/local KLog.pro
+
+    qmake PREFIX=/usr/local src.pro
 
 5. Make everything.
 
-    make 
+    make
 
 If everything goes OK, you should have the klog executable in the folder.
 
