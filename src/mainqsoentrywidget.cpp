@@ -547,6 +547,17 @@ QTime MainQSOEntryWidget::getTime()
     return timeEdit->time();
 }
 
+void MainQSOEntryWidget::toggleRealTime()
+{
+    if ( realtimeCheckBox->isChecked ())
+    {
+        setRealTime (false);
+    }
+    else {
+        setRealTime (true);
+    }
+}
+
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);

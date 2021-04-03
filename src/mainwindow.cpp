@@ -4766,13 +4766,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 //qDebug() << "MainWindow::keyPressEvent: RETURN"  << endl;
         break;
     case Qt::Key_Enter:
-
         // ENTER PRESSED
                 //qDebug() << "MainWindow::keyPressEvent: ENTER"  << endl;
         slotQRZReturnPressed();
         break;
     case Qt::Key_F1:
             slotOpenWiki();
+        break;
+    case Qt::Key_F4:
+            //qDebug() << "MainWindow::keyPressEvent: F4"  << endl;
+            mainQSOEntryWidget->toggleRealTime ();
         break;
 
     default:
