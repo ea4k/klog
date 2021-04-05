@@ -6272,7 +6272,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
     {
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
-        msgBox.setText(tr("TQSL finished without error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
+        msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
 
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
