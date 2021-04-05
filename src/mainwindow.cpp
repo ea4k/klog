@@ -4222,8 +4222,8 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
         case 0: // success: all qsos submitted were signed and saved or signed and uploaded
                     //qDebug() << "MainWindow::callTQSL: 0"  << endl;
             //msg = tr("All the QSOs were signed and uploaded with no error.");
-            msg = tr("TQSL finished with no error.");
-            msgBox.setIcon(QMessageBox::Information);
+            //msg = tr("TQSL finished with no error.");
+            //msgBox.setIcon(QMessageBox::Information);
         break;
         case 1: // cancelled by user
                     //qDebug() << "MainWindow::callTQSL: 1"  << endl;
@@ -6272,7 +6272,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
     {
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
-        msgBox.setText(tr("If you uploaded any QSO to LoTW while you were using TQSL you can now mark them as sent in KLog.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
+        msgBox.setText(tr("TQSL finished without error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
 
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
