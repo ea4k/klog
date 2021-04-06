@@ -1,8 +1,34 @@
+/***************************************************************************
+                          searchmodel.cpp  -  description
+                             -------------------
+    begin                : sep 2020
+    copyright            : (C) 2020 by Jaime Robles
+    email                : jaime@robles.es
+ ***************************************************************************/
+
+/*****************************************************************************
+ * This file is part of KLog.                                                *
+ *                                                                           *
+ *    KLog is free software: you can redistribute it and/or modify           *
+ *    it under the terms of the GNU General Public License as published by   *
+ *    the Free Software Foundation, either version 3 of the License, or      *
+ *    (at your option) any later version.                                    *
+ *                                                                           *
+ *    KLog is distributed in the hope that it will be useful,                *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *    GNU General Public License for more details.                           *
+ *                                                                           *
+ *    You should have received a copy of the GNU General Public License      *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *                                                                           *
+ *****************************************************************************/
+
 #include "searchmodel.h"
 
 SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-    //qDebug() << "SearchModel::SearchModel "  << endl;    
+    //qDebug() << "SearchModel::SearchModel "  << endl;
     dataProxy = dp;
     stationCallsignInHeader = true;
     setTable("log");
@@ -69,7 +95,7 @@ This should be coherent with the treeview
 
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
-    QSqlQuery query(stringQuery);   
+    QSqlQuery query(stringQuery);
     setFilter(stringQuery);
     //setColumnsToDX();
     select();
@@ -110,7 +136,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
 
-     nameCol = rec.indexOf("modeid");     
+     nameCol = rec.indexOf("modeid");
      setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
 
      nameCol = rec.indexOf("qso_date");
@@ -139,7 +165,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
      nameCol = rec.indexOf("id");
      //setHeaderData(nameCol, Qt::Horizontal, tr("ID"));
 
-     setSort(nameCol, Qt::AscendingOrder);   
+     setSort(nameCol, Qt::AscendingOrder);
  }
 */
  void SearchModel::setFilterString(const QString &_st)

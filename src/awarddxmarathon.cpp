@@ -1,3 +1,4 @@
+#include "awarddxmarathon.h"
 /***************************************************************************
                           awarddxmarathon.cpp  -  description
                              -------------------
@@ -23,7 +24,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
  *                                                                           *
  *****************************************************************************/
-#include "awarddxmarathon.h"
+
 #include <QDebug>
 
 DXMarathon::DXMarathon(DataProxy_SQLite *dp)

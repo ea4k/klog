@@ -1,3 +1,28 @@
+/***************************************************************************
+                          adiflotwexportwidget.cpp  -  description
+                             -------------------
+    begin                : July 2020
+    copyright            : (C) 2020 by Jaime Robles
+    email                : jaime@robles.es
+ ***************************************************************************/
+
+/*****************************************************************************
+ * This file is part of KLog.                                                *
+ *                                                                           *
+ *    KLog is free software: you can redistribute it and/or modify           *
+ *    it under the terms of the GNU General Public License as published by   *
+ *    the Free Software Foundation, either version 3 of the License, or      *
+ *    (at your option) any later version.                                    *
+ *                                                                           *
+ *    KLog is distributed in the hope that it will be useful,                *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *    GNU General Public License for more details.                           *
+ *                                                                           *
+ *    You should have received a copy of the GNU General Public License      *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *                                                                           *
+ *****************************************************************************/
 #include "adiflotwexportwidget.h"
 
 
@@ -31,7 +56,7 @@ void AdifLoTWExportWidget::createUI()
     //fillStationCallsignComboBox();
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign that you want to use to upload the log."));
 
-    startDate->clear();    
+    startDate->clear();
     startDate->setToolTip(tr("Select the start date to export the QSOs. The default date is the date of the first QSO with this station callsign."));
 
     endDate->clear();
@@ -117,7 +142,7 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
 }
 
 void AdifLoTWExportWidget::setTopLabel(const QString &_t)
-{    
+{
     topLabel->setText(_t);
 }
 
@@ -252,7 +277,7 @@ void AdifLoTWExportWidget::slotStationCallsignChanged()
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-01"  << endl;
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-02"  << endl;
-    endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));    
+    endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-03"  << endl;
     fillTable();
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged - END" << endl;

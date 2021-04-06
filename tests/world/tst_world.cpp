@@ -1,10 +1,3 @@
-#include <QtTest>
-#include "../../src/world.h"
-#include "../../src/qso.h"
-#include "../../src/dataproxy_sqlite.h"
-#include "../../src/database.h"
-#include "../../src/utilities.h"
-
 /***************************************************************************
                           tst_world.h  -  description
                              -------------------
@@ -31,6 +24,13 @@
  *    If not, see <https://www.gnu.org/licenses/>.                           *
  *                                                                           *
  *****************************************************************************/
+
+#include <QtTest>
+#include "../../src/world.h"
+#include "../../src/qso.h"
+#include "../../src/dataproxy_sqlite.h"
+#include "../../src/database.h"
+#include "../../src/utilities.h"
 
 class tst_World : public QObject
 {

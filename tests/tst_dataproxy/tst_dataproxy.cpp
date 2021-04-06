@@ -1,6 +1,3 @@
-#include <QtTest>
-#include "../../src/dataproxy_sqlite.h"
-#include "../../src/utilities.h"
 /***************************************************************************
                           tst_dataproxy.h  -  description
                              -------------------
@@ -27,6 +24,11 @@
  *    If not, see <https://www.gnu.org/licenses/>.                           *
  *                                                                           *
  *****************************************************************************/
+
+#include <QtTest>
+#include "../../src/dataproxy_sqlite.h"
+#include "../../src/utilities.h"
+
 class tst_DataProxy : public QObject
 {
     Q_OBJECT

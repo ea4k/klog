@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -71,7 +71,7 @@ private:
     Utilities *util;
 
     //bool logFromWSJTx, autoLogFromWSJTx, realDataFromWSJTx;
-    
+
 signals:
 
 public slots:
@@ -79,8 +79,8 @@ public slots:
     //void slotAutoLogFromWSJTCheckBoxClicked();
     //void slotRealFromWSJTCheckBoxClicked();
     void slotUDPServerCheckBoxClicked();
-    
-    
+
+
 };
 
 #endif // SETUPPAGEUDP_H

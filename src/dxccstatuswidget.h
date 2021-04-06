@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 #include <QWidget>
@@ -44,8 +44,8 @@ class DXCCStatusWidget : public QWidget
 public:
     explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
     ~DXCCStatusWidget();
-    
-    void update();    
+
+    void update();
     //void awardsUpdated();
     void setBands(const QStringList &_ent, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);

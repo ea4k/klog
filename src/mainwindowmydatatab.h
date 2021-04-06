@@ -23,7 +23,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 //
@@ -54,7 +54,7 @@ public:
     void setSetupMyLocator(const QString _op);
 
     void setMyPower(const double _power);
-    double getMyPower();    
+    double getMyPower();
     //double getLastPower();
 
     void setOperator(const QString _op);
@@ -68,7 +68,7 @@ public:
     //QString getLastStationQRZ();
 
     void setMyLocator(const QString _op);
-    QString getMyLocator();    
+    QString getMyLocator();
     //QString getLastMyLocator();
 
     void show(); //Shows the values into the widget

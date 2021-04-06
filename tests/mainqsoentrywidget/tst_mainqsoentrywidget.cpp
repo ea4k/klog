@@ -1,11 +1,3 @@
-#include <QtTest>
-#include "../../src/mainqsoentrywidget.h"
-#include "../../src/dataproxy_sqlite.h"
-#include "../../src/database.h"
-#include "../../src/klogdefinitions.h"
-#include "../../src/utilities.h"
-#include "../../src/qso.h"
-
 /***************************************************************************
                           tst_mainqsoentrywidget.h  -  description
                              -------------------
@@ -32,6 +24,15 @@
  *    If not, see <https://www.gnu.org/licenses/>.                           *
  *                                                                           *
  *****************************************************************************/
+
+#include <QtTest>
+#include "../../src/mainqsoentrywidget.h"
+#include "../../src/dataproxy_sqlite.h"
+#include "../../src/database.h"
+#include "../../src/klogdefinitions.h"
+#include "../../src/utilities.h"
+#include "../../src/qso.h"
+
 class tst_MainQSOEntryWidget : public QObject
 {
     Q_OBJECT

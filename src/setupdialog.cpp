@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -85,7 +85,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime, QWidget *p
     //lotwPage = new SetupPageLoTW(this);
     //eQSLPage = new SetupPageEQSL(this);
        //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
-    UDPPage = new SetupPageUDP(this);    
+    UDPPage = new SetupPageUDP(this);
       //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
     satsPage = new SetupPageSats(dataProxy, this);
     subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
@@ -95,7 +95,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime, QWidget *p
 
       //qDebug() << "SetupDialog::SetupDialog 4" << endl;
     //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
-    tabWidget->addTab(userDataPage, tr("My Data"));    
+    tabWidget->addTab(userDataPage, tr("My Data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
     tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
@@ -117,8 +117,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime, QWidget *p
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));       
-    connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );    
+    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
+    connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
 
     connectActions();
 
@@ -832,7 +832,7 @@ void SetupDialog::slotReadConfigData()
 
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
-        processConfigLine(line);        
+        processConfigLine(line);
         //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;
     }
     //qDebug() << "SetupDialog::slotReadConfigData - 3" << endl;
@@ -1089,7 +1089,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if(tab =="DXCLUSTERSERVERPORT"){
         dxClusterServers << value;
            //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << endl;
-    }else if (tab  =="DXCLUSTERSERVERTOUSE"){        
+    }else if (tab  =="DXCLUSTERSERVERTOUSE"){
         dxClusterServerToUse=value;
     }
     else if (tab  =="DXCLUSTERSAVE"){
@@ -1188,7 +1188,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if(tab =="EQSLPASS"){
         //eQSLPage->setPassword(value);
         eLogPage->setEQSLPassword(value);
-    }    
+    }
     else if(tab =="QRZCOMACTIVE"){
         //eQSLPage->setActive(value);
         eLogPage->setQRZCOMActive(value);
@@ -1287,7 +1287,7 @@ void SetupDialog::readActiveBands (const QString &actives)
 
     bands << dataProxy->getBandsInLog(-1);
     bands << _abands;
-    bands.removeDuplicates();    
+    bands.removeDuplicates();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -1356,7 +1356,7 @@ void SetupDialog::setDefaults()
     miscPage->setImperial("FALSE"); //Metric system is the default
     miscPage->setAlwaysADIF("FALSE");
     miscPage->setSendQSLWhenRec("TRUE");
-    miscPage->setShowStationCallSignInSearch("TRUE");    
+    miscPage->setShowStationCallSignInSearch("TRUE");
     miscPage->setCheckNewVersions("TRUE");
     miscPage->setReportInfo("FALSE");
     miscPage->setDXMarathon("FALSE");

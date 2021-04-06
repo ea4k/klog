@@ -1,5 +1,3 @@
-#include <QtTest>
-#include "../../src/utilities.h"
 /***************************************************************************
                           tst_utilities.h  -  description
                              -------------------
@@ -26,6 +24,10 @@
  *    If not, see <https://www.gnu.org/licenses/>.                           *
  *                                                                           *
  *****************************************************************************/
+
+#include <QtTest>
+#include "../../src/utilities.h"
+
 class tst_Utilities : public QObject
 {
     Q_OBJECT

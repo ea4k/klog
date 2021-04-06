@@ -1,3 +1,28 @@
+/***************************************************************************
+                          dxccstatuswidget.cpp  -  description
+                             -------------------
+    begin                : feb 2016
+    copyright            : (C) 2016 by Jaime Robles
+    email                : jaime@robles.es
+ ***************************************************************************/
+
+/*****************************************************************************
+ * This file is part of KLog.                                                *
+ *                                                                           *
+ *    KLog is free software: you can redistribute it and/or modify           *
+ *    it under the terms of the GNU General Public License as published by   *
+ *    the Free Software Foundation, either version 3 of the License, or      *
+ *    (at your option) any later version.                                    *
+ *                                                                           *
+ *    KLog is distributed in the hope that it will be useful,                *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *    GNU General Public License for more details.                           *
+ *                                                                           *
+ *    You should have received a copy of the GNU General Public License      *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *                                                                           *
+ *****************************************************************************/
 #include "dxccstatuswidget.h"
 //#include <QDebug>
 
@@ -190,7 +215,7 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     {
         bandid = dataProxy->getIdFromBandName(_ent.at(i));
         QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, tempLog));
-        newItem->setTextAlignment(Qt::AlignCenter);        
+        newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::ItemIsEnabled);
 
         if (newItem->text()=="C")
@@ -311,7 +336,7 @@ void DXCCStatusWidget::setBands(QStringList const &_ent, const bool _creating)
     numberOfColumns = 2 + bandNames.length(); //Prefix, Entity Name
       //qDebug() << "DXCCStatusWidget::setBands - 7.1 - columnCount: " << QString::number(dxccView->columnCount()) << endl;
       //qDebug() << "DXCCStatusWidget::setBands - 7.1 - numberOfColumns: " << QString::number(numberOfColumns) << endl;
-    dxccView->setColumnCount(numberOfColumns);  
+    dxccView->setColumnCount(numberOfColumns);
       //qDebug() << "DXCCStatusWidget::setBands - 7.2 " << endl;
     dxccView->setRowCount(0);
       //qDebug() << "DXCCStatusWidget::setBands - 7.3 " << endl;

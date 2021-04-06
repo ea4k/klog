@@ -1,3 +1,29 @@
+/***************************************************************************
+                          hamlibclass.cpp  -  description
+                             -------------------
+    begin                : oct 2020
+    copyright            : (C) 2020 by Jaime Robles
+    user                : jaime@robles.es
+ ***************************************************************************/
+
+/*****************************************************************************
+ * This file is part of KLog.                                                *
+ *                                                                           *
+ *    KLog is free software: you can redistribute it and/or modify           *
+ *    it under the terms of the GNU General Public License as published by   *
+ *    the Free Software Foundation, either version 3 of the License, or      *
+ *    (at your option) any later version.                                    *
+ *                                                                           *
+ *    KLog is distributed in the hope that it will be useful,                *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *    GNU General Public License for more details.                           *
+ *                                                                           *
+ *    You should have received a copy of the GNU General Public License      *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *                                                                           *
+ *****************************************************************************/
+
 #include "hamlibclass.h"
 
 #include <stdio.h>
@@ -257,7 +283,7 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
     switch (_rmode)
     {
         case RIG_MODE_NONE:
-            return QString();        
+            return QString();
         case RIG_MODE_AM:
             return "AM";
         case RIG_MODE_CW:
@@ -347,7 +373,7 @@ void HamLibClass::stop()
 }
 
 void HamLibClass::clean()
-{            
+{
     //qDebug() << "HamLibClass::Clean" << endl;
     myrig_model = 1;        //Dummy equipment
     //qDebug() << "HamLibClass::Clean 0" << endl;
@@ -565,7 +591,7 @@ void HamLibClass::setFlow(const QString &_flow)
     flowControl = _flow.toUpper();
 
     if (flowControl == "HARDWARE")
-    {        
+    {
         shandshake = RIG_HANDSHAKE_HARDWARE;
     }
     else if (flowControl == "SOFTWARE")
@@ -579,7 +605,7 @@ void HamLibClass::setFlow(const QString &_flow)
 }
 
 void HamLibClass::setParity(const QString &_parity)
-{   
+{
     parity = _parity.toUpper();
     if (parity == "EVEN")
     {

@@ -1,4 +1,13 @@
- /* This file is part of KLog.                                               *
+/***************************************************************************
+                          main.cpp  -  description
+                             -------------------
+    begin                : sept 2011
+    copyright            : (C) 2011 by Jaime Robles
+    email                : jaime@robles.es
+ ***************************************************************************/
+
+/*****************************************************************************
+ * This file is part of KLog.                                                *
  *                                                                           *
  *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
@@ -11,9 +20,10 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
+
 
 #include <QtWidgets>
 //#include <QtSql>

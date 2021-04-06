@@ -1,3 +1,29 @@
+/***************************************************************************
+                          downloadcty.cpp  -  description
+                             -------------------
+    begin                : feb 2015
+    copyright            : (C) 2015 by Jaime Robles
+    email                : jaime@robles.es
+ ***************************************************************************/
+
+/*****************************************************************************
+ * This file is part of KLog.                                                *
+ *                                                                           *
+ *    KLog is free software: you can redistribute it and/or modify           *
+ *    it under the terms of the GNU General Public License as published by   *
+ *    the Free Software Foundation, either version 3 of the License, or      *
+ *    (at your option) any later version.                                    *
+ *                                                                           *
+ *    KLog is distributed in the hope that it will be useful,                *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *    GNU General Public License for more details.                           *
+ *                                                                           *
+ *    You should have received a copy of the GNU General Public License      *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *                                                                           *
+ *****************************************************************************/
+
 #include "downloadcty.h"
 #include <QCoreApplication>
 #include <QUrl>
@@ -6,7 +32,7 @@
 //#include <QDebug>
 
 DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : QObject(0)
-{    
+{
     //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << endl;
     util = new Utilities;
     url = new QUrl;

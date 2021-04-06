@@ -7,20 +7,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -184,18 +184,18 @@ void SearchWindow::setColumnsToDX()
     {
         //logView->setColumnHidden(i, true);
         treeView->setColumnHidden(i, true);
-    }    
+    }
 
-    columns = rec.indexOf("qso_date");    
+    columns = rec.indexOf("qso_date");
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("Date/time"));
     searchModel->setSort(columns, Qt::AscendingOrder);
 
-    columns = rec.indexOf("call");    
+    columns = rec.indexOf("call");
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("Call"));
 
-    columns = rec.indexOf("bandid");    
+    columns = rec.indexOf("bandid");
     searchModel->setBandIdColumn(columns);
     treeView->setColumnHidden(columns, false);
     searchModel->setRelation(columns, QSqlRelation("band", "id", "name"));
@@ -212,7 +212,7 @@ void SearchWindow::setColumnsToDX()
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("QSL Sent"));
 
-    columns = rec.indexOf("qsl_rcvd");    
+    columns = rec.indexOf("qsl_rcvd");
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("QSL Rcvd"));
 
@@ -489,7 +489,7 @@ void SearchWindow::deleteQSO(const int _qsoID)
     dataProxy->deleteQSO(_qsoID);
 
 
-    refresh();       
+    refresh();
 
     searchModel->select();
     emit updateAwards();

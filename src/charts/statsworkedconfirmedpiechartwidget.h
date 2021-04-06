@@ -22,7 +22,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -40,7 +40,7 @@ class StatsWorkedConfirmedPieChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsWorkedConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
+    StatsWorkedConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsWorkedConfirmedPieChartWidget();
     void prepareChart(const int _log=-1);
 
