@@ -3118,9 +3118,12 @@ void MainWindow::slotElogQRZCOMShowMessage(const QString &_s)
 }
 void MainWindow::cleanQRZCOMreceivedDataFromUI()
 {
-    qthLineEdit->clear();
-    nameLineEdit->clear();
-    locatorLineEdit->clear();
+    if (!modify)
+    {
+        qthLineEdit->clear();
+        nameLineEdit->clear();
+        locatorLineEdit->clear();
+    }
 }
 
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
@@ -8080,6 +8083,11 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
       //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
     //This function completes: Name, QTH, Locator, Entity, Iota
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (completeWithPrevious)
+    {
+        return;
+    }
+
     if ((!completeWithPrevious) || (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     {
