@@ -3334,6 +3334,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
 
+    if (modify)
+    {
+        return;
+    }
+
     //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
@@ -8083,10 +8088,6 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
       //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
     //This function completes: Name, QTH, Locator, Entity, Iota
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (completeWithPrevious)
-    {
-        return;
-    }
 
     if ((!completeWithPrevious) || (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
