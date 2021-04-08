@@ -8200,7 +8200,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         else if (completedWithPreviousIOTA && (aux != othersTabWidget->getIOTA()))
         {
             othersTabWidget->clearIOTA();
-            completedWithPreviousName = false;
+            completedWithPreviousIOTA = false;
         }
     }
     else if (completedWithPreviousIOTA )
