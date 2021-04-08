@@ -3426,8 +3426,12 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
     //qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : "  << endl;
 
+  if (completeWithPrevious)
+  {
     completeWithPreviousQSO(_qrz);
-    if (!modify)
+  }
+    
+  if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
 
@@ -3616,9 +3620,13 @@ void MainWindow::clearUIDX(bool full)
     QSLTabWidget->clear();
     othersTabWidget->clear();
     infoWidget->clear();
-
     satTabWidget->clear();
     myDataTabWidget->clear();
+  
+    completedWithPreviousName = false;
+    completedWithPreviousQTH = false;
+    completedWithPreviousLocator = false;
+  
      //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(txFreqSpinBox->value()) << endl;
     if (txFreqSpinBox->value()<=0)
     {
