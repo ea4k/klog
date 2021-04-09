@@ -3118,9 +3118,15 @@ void MainWindow::slotElogQRZCOMShowMessage(const QString &_s)
 }
 void MainWindow::cleanQRZCOMreceivedDataFromUI()
 {
-    qthLineEdit->clear();
-    nameLineEdit->clear();
-    locatorLineEdit->clear();
+    if (!modify)
+    {
+        qthLineEdit->clear();
+        nameLineEdit->clear();
+        locatorLineEdit->clear();
+        completedWithPreviousName = false;
+        completedWithPreviousName = false;
+        completedWithPreviousLocator = false;
+    }
 }
 
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
@@ -3331,6 +3337,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
 
+    if (modify)
+    {
+        return;
+    }
+
     //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << endl;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
@@ -3418,8 +3429,12 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
     //qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : "  << endl;
 
+  if (completeWithPrevious)
+  {
     completeWithPreviousQSO(_qrz);
-    if (!modify)
+  }
+    
+  if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
 
@@ -3608,9 +3623,13 @@ void MainWindow::clearUIDX(bool full)
     QSLTabWidget->clear();
     othersTabWidget->clear();
     infoWidget->clear();
-
     satTabWidget->clear();
     myDataTabWidget->clear();
+  
+    completedWithPreviousName = false;
+    completedWithPreviousQTH = false;
+    completedWithPreviousLocator = false;
+  
      //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(txFreqSpinBox->value()) << endl;
     if (txFreqSpinBox->value()<=0)
     {
@@ -8080,6 +8099,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
       //qDebug() << "MainWindow::completeWithPreviousQSO" << endl;
     //This function completes: Name, QTH, Locator, Entity, Iota
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
     if ((!completeWithPrevious) || (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     {
@@ -8134,16 +8154,16 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     if ((aux.length()>=0) && ((nameLineEdit->text()).length()<=0) )
     {
           //qDebug() << "MainWindow::completeWithPreviousQSO name: 1" << endl;
-        nameLineEdit->setPalette(palRed);
+        nameLineEdit->setPalette(palBlack);
         completedWithPreviousName = true;
         nameLineEdit->setText(aux);
     }
     else if (completedWithPreviousName && (aux != nameLineEdit->text()))
     {
           //qDebug() << "MainWindow::completeWithPreviousQSO name: 2" << endl;
-        nameLineEdit->clear();
+        //nameLineEdit->clear();
         completedWithPreviousName = false;
-        nameLineEdit->setPalette(palBlack);
+        nameLineEdit->setPalette(palRed);
     }
     else
     {
@@ -8153,30 +8173,30 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     aux = dataProxy->getQTHFromQRZ(_call);
     if ((aux.length()>=0) && ((qthLineEdit->text()).length()<=0) )
     {
-        qthLineEdit->setPalette(palRed);
+        qthLineEdit->setPalette(palBlack);
         completedWithPreviousQTH = true;
         qthLineEdit->setText(aux);
     }
     else if (completedWithPreviousQTH && (aux != qthLineEdit->text()))
     {
-        qthLineEdit->clear();
+        //qthLineEdit->clear();
         completedWithPreviousQTH = false;
-        qthLineEdit->setPalette(palBlack);
+        qthLineEdit->setPalette(palRed);
 
     }
 
     aux = dataProxy->getLocatorFromQRZ(_call);
     if ((aux.length()>=0) && ((locatorLineEdit->text()).length()<=0) )
     {
-        locatorLineEdit->setPalette(palRed);
+        locatorLineEdit->setPalette(palBlack);
         locatorLineEdit->setText(aux);
         completedWithPreviousLocator=true;
     }
     else if (completedWithPreviousLocator && (aux != locatorLineEdit->text()))
     {
-        locatorLineEdit->clear();
+        //locatorLineEdit->clear();
         completedWithPreviousLocator = false;
-        locatorLineEdit->setPalette(palBlack);
+        locatorLineEdit->setPalette(palRed);
     }
 
     aux = dataProxy->getIOTAFromQRZ(_call);
