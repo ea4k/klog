@@ -808,7 +808,6 @@ QString  Utilities::getPrefixFromCall(const QString &_c)
         pref = parts.at(0)+parts.at(1);
     }
 
-    QString prefix = QString();
 
     if (pref.count('/') == 1)
     {
@@ -820,12 +819,12 @@ QString  Utilities::getPrefixFromCall(const QString &_c)
         {
             if (isAPrefix (parts.at(0)))
             {
-                return parts.at(0);
+                pref = parts.at(0);
 
             }
             else if (isAPrefix (parts.at(1)))
             {
-                return parts.at(1);
+                pref = parts.at(1);
             }
             else
             {
@@ -833,22 +832,36 @@ QString  Utilities::getPrefixFromCall(const QString &_c)
             }
         }
     }
-
-    for (int = 0, i<pref.length ()-1,i++)
+    if (pref.at(2).isLetter ())
     {
-        REcorrer el call y copiar solo el pref
-
+        return QString();
     }
 
+    QString finalPref;
+    finalPref.append ((pref.left (3)));
 
+    if (pref.at(0).isDigit ())
+    { // 2E
+        if (pref.at(1).isDigit ())
+        {
+            return QString();
+        }
+        // Get the prefix
 
+    }
+    else if (pref.at(0).isLetter ())
+    {
+        // Get the prefix
 
+    }
+    int i = 2;
+    while (pref.at(i).isDigit ())
+    {
+        finalPref.append(pref.at(i));
+    }
 
-
-    return pref;
+    return finalPref;
 }
-
-
 
 bool Utilities::isValidBandId(const int _b)
 {
