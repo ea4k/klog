@@ -1,4 +1,4 @@
-/***************************************************************************
+/***************************************************************************tv
                           mainqsoentrywidget.cpp  -  description
                              -------------------
     begin                : january 2020
@@ -150,14 +150,15 @@ void MainQSOEntryWidget::setCleaning (const bool _c)
 
 void MainQSOEntryWidget::slotQRZTextChanged()
 {
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
 
     if ((qrzLineEdit->text()).length()<1)
     {
+        //emit clearForNextQSOSignal();
         slotClearButtonClicked();
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ <1 - END" << endl;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ <1 - END" << endl;
     return;
     }
     int cursorP = qrzLineEdit->cursorPosition();
@@ -165,14 +166,14 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Cleaning - END" << endl;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Cleaning - END" << endl;
         emit debugLog(Q_FUNC_INFO, "END-2", Debug);
         return;
     }
 
     if (qrzAutoChanging)
     {
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: qrzAutoChanging - END" << endl;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: qrzAutoChanging - END" << endl;
         qrzAutoChanging = false;
         emit debugLog(Q_FUNC_INFO, "END-3", Debug);
         return;
@@ -180,34 +181,35 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     qrzAutoChanging = true;
 
-   //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << endl;
+   qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << endl;
 
     if ( (qrzLineEdit->text()).endsWith(' ') )
     {/*Remove the space and moves the focus to SRX to write the RX exchange*/
         previousQRZ = (qrzLineEdit->text()).simplified();
         qrzLineEdit->setText(previousQRZ);
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Space detected" << endl;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Space detected" << endl;
     }
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Simplifiying & Capitalizing" << endl;
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
 
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars" << endl;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars" << endl;
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
-
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 " << endl;
     if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - END" << endl;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - Red" << endl;
         emit debugLog(Q_FUNC_INFO, "END-4", Debug);
         //return;
     }
     else
     {
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << endl;
         qrzLineEdit->setPalette(palBlack);
         currentQrz = qrzLineEdit->text();
         //emit showInfoLabel(tr(""));
@@ -222,31 +224,32 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     }
     */
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for modify or length<1" << endl;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for modify or length<1" << endl;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-        //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: qrzSmallModDontCalculate < 1" << endl;
+        qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: qrzSmallModDontCalculate < 1" << endl;
         qrzSmallModDontCalculate=false;
         emit debugLog(Q_FUNC_INFO, "END-6", Debug);
         return;
     }
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: running..." << endl;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: running..." << endl;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     currentQrz = qrzLineEdit->text();
 
     if ((currentQrz).count('\\'))
     { // Replaces \ by / to ease operation.
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Replacing \ by /" << endl;
         currentQrz.replace(QChar('\\'), QChar('/'));
         qrzLineEdit->setText(currentQrz);
     }
 
     currentQrz = qrzLineEdit->text();
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP) << endl;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP) << endl;
     if (cursorP>currentQrz.length())
     {// A Space that has been removed without updating the cursor
-         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
+         qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursorP > currentQRZ.length" << endl;
     }
     else
     {
@@ -256,27 +259,27 @@ void MainQSOEntryWidget::slotQRZTextChanged()
         }
         else if ((currentQrz.at(cursorP-1)).isSpace())
         {
-            //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
+            qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << endl;
             previousQRZ = currentQrz.remove(cursorP-1, 1);
-            //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << endl;
+            qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << endl;
             cursorP--;
-            //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP) << endl;
+            qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP) << endl;
             qrzLineEdit->setText(previousQRZ);
         }
     }
 
     currentQrz = qrzLineEdit->text();
-    //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: Emitting: " << currentQrz << endl;
+    qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: Emitting: " << currentQrz << endl;
     emit currentQRZSignal(currentQrz);
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP) << endl;
+    qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP) << endl;
     qrzLineEdit->setCursorPosition(cursorP);
     checkIfDupe(Q_FUNC_INFO);
     qrzAutoChanging = false;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
 
-     //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: END" << endl;
+    qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: END" << endl;
 }
 
 void MainQSOEntryWidget::setCurrentQRZ(const QString &_qrz)
@@ -318,6 +321,7 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
+    qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     clear();
     emit clearForNextQSOSignal();
@@ -643,8 +647,9 @@ void MainQSOEntryWidget::slotUpdateTime()
 
 bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
 {
+    qDebug()<< "MainQSOEntryWidget::validCharactersInCall: " << _qrz << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    for (int i = 0; i<_qrz.size();i++)
+    for (int i = 0; i<_qrz.size()-1;i++)
     {
         if (!( ((_qrz.at(i)).isLetterOrNumber()) || (_qrz.at(i)=='\\')  || (_qrz.at(i)=='/')  ))
         {
@@ -780,13 +785,19 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 
 void MainQSOEntryWidget::slotStartDelayInputTimer()
 {
+    if (qrzLineEdit->text ().length ()<1)
+    {
+        slotClearButtonClicked ();
+        return;
+    }
+    qrzLineEdit->setText (qrzLineEdit->text ().toUpper ());
     delayInputTimer->start(300);
 }
 
 void MainQSOEntryWidget::slotDelayInputTimedOut()
 {
     delayInputTimer->stop();
-    QString text = (qrzLineEdit->text()).toUpper();
+    QString text = qrzLineEdit->text();
     if( text != lastQrz)
     {
         text = lastQrz;

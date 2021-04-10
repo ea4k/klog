@@ -3322,6 +3322,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
+        qDebug()<< "MainWindow::slotQRZTextChanged: Empty... " << endl;
         infoLabel1->clear();
         infoLabel2->clear();
         slotClearButtonClicked();
@@ -3433,7 +3434,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
   {
     completeWithPreviousQSO(_qrz);
   }
-    
+
   if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
@@ -3625,11 +3626,11 @@ void MainWindow::clearUIDX(bool full)
     infoWidget->clear();
     satTabWidget->clear();
     myDataTabWidget->clear();
-  
+
     completedWithPreviousName = false;
     completedWithPreviousQTH = false;
     completedWithPreviousLocator = false;
-  
+
      //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(txFreqSpinBox->value()) << endl;
     if (txFreqSpinBox->value()<=0)
     {

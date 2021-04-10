@@ -557,79 +557,31 @@ bool Utilities::isValidDateTime(const QString &_d)
     return false;
 }
 
-bool Utilities::isValidCall(const QString &_c)
+bool Utilities::isValidSubCall(const QString &_c)
 {
-    //qDebug() << "Utilities::isValidCall: " << _c << endl;
+    qDebug() << "Utilities::isValidSubCall: " << _c << endl;
     //Rules: http://life.itu.int/radioclub/rr/art19.pdf
     if (_c.length()<3)
     {
-        //qDebug() << "Utilities::isValidCall: FALSE-1: " << _c << endl;
+        qDebug() << "Utilities::isValidSubCall: FALSE-1: " << _c << endl;
         return false;
     }
-
+    /*
     if ( !(_c.at(0).isLetterOrNumber()) )
     {
-        //qDebug() << "Utilities::isValidCall: FALSE-2: " << _c << endl;
+        qDebug() << "Utilities::isValidSubCall: FALSE-2: " << _c << endl;
         return false;
     }
-
-
+    */
     QString call = _c;
-    //qDebug() << "Utilities::isValidCall: -10 "  << endl;
-    if ((call.contains('/')) || (call.contains('\\')))
-    {
-        call.replace('\\', '/');
-        if (call.count('/')>2)
-        {
-            //qDebug() << "Utilities::isValidCall: FALSE-3: " << call << endl;
-            return false;
-        }
+    qDebug() << "Utilities::isValidSubCall: -10 "  << endl;
 
-        QStringList parts;
-        parts.clear();
-        parts << call.split('/');
-
-        if ((parts.at(0)).length()==(parts.at(1)).length())
-        {
-            if ((((parts.at(0)).back()).isLetter()) && !(((parts.at(1)).back()).isLetter()))
-            {
-                call = parts.at(0);
-            }
-            else
-            {
-                call = parts.at(1);
-            }
-        }
-        else if ((parts.at(0)).length()>(parts.at(1)).length())
-        {
-            call = parts.at(0);
-            if (parts.length()>2)
-            {
-                if( (parts.at(2)).length() > call.length() )
-                {
-                    call = parts.at(2);
-                }
-            }
-        }
-        else
-        {
-            call = parts.at(1);
-            if (parts.length()>2)
-            {
-                if( (parts.at(2)).length() > call.length() )
-                {
-                    call = parts.at(2);
-                }
-            }
-        }
-    }
-    //qDebug() << "Utilities::isValidCall: -20 "  << endl;
     for (int i=0; i<call.length(); i++)
     {
-        //qDebug() << "Utilities::isValidCall: FOR: " << call << "/" << call.at(i)  << endl;
-        if (( !(call.at(i).isLetterOrNumber()) ) && !(call.at(i) != "/"))
+        qDebug() << "Utilities::isValidSubCall: FOR (numbers or letters): " << call << "/" << call.at(i)  << endl;
+        if ( !(call.at(i).isLetterOrNumber()) )
         {
-            //qDebug() << "Utilities::isValidCall: FALSE-4 " << call << endl;
+            qDebug() << "Utilities::isValidSubCall: FALSE-4 " << call << endl;
             return false;
         }
     }
@@ -637,37 +589,41 @@ bool Utilities::isValidCall(const QString &_c)
    /*
     if ((call.back()).isDigit())
     {
-        //qDebug() << "Utilities::isValidCall: FALSE-3 " << call << endl;
+        //qDebug() << "Utilities::isValidSubCall: FALSE-3 " << call << endl;
         return false;
     }
  */
-    //qDebug() << "Utilities::isValidCall: -30 "  << endl;
+    qDebug() << "Utilities::isValidSubCall: call is: " << call << endl;
+    qDebug() << "Utilities::isValidSubCall: -30: " << call.at(0) << endl;
     QChar firstChar = call.at(0);
+    qDebug() << "Utilities::isValidSubCall: -31: " << call.at(1) << endl;
     QChar secondChar = call.at(1);
+    qDebug() << "Utilities::isValidSubCall: -32: " << call.at(2) << endl;
     QChar thirdChar = call.at(2);
 
+    qDebug() << "Utilities::isValidSubCall: -40 "  << endl;
     if ((call.length() == 3) && ( thirdChar.isDigit()))
     {
-        //qDebug() << "Utilities::isValidCall: FALSE-5: " << call << endl;
+        qDebug() << "Utilities::isValidSubCall: FALSE-5: " << call << endl;
         return false;
     }
-
+    qDebug() << "Utilities::isValidSubCall: -50 "  << endl;
     // The first two characters shall be two letters or a letter followed
     // by a digit or a digit followed by a letter. The first two characters or in certain cases
     // the first character of a call sign constitute the nationality identification4
 
     if (firstChar.isDigit() && secondChar.isDigit())
     {
-        //qDebug() << "Utilities::isValidCall: FALSE-6: " << call << endl;
+        qDebug() << "Utilities::isValidSubCall: FALSE-6: " << call << endl;
         return false;
     }
-
+    qDebug() << "Utilities::isValidSubCall: -60 "  << endl;
     if (firstChar.isLetter() && secondChar.isLetter() && thirdChar.isLetter())
     {
-          //qDebug() << "Utilities::isValidCall: FALSE-6: " << call << endl;
+        qDebug() << "Utilities::isValidSubCall: FALSE-6: " << call << endl;
         return false;
     }
-
+    qDebug() << "Utilities::isValidSubCall: -70 "  << endl;
     QList<QChar> validFirstLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T' ,'U', 'V', 'W', 'Z'};
 
     if ((firstChar.isLetter()) && (secondChar.isDigit()) && (!validFirstLetters.contains(firstChar)) )
@@ -678,7 +634,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if ((secondChar == '1') || (secondChar == '7'))
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.1: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.1: " << call << endl;
                     return false;
                 }
             }
@@ -686,7 +642,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if ((secondChar == '5') )
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.2: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.2: " << call << endl;
                     return false;
                 }
             }
@@ -694,7 +650,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if (!(secondChar == '2') && !(secondChar == '3') && !(secondChar == '4'))
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.3: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.3: " << call << endl;
                     return false;
                 }
             }
@@ -702,7 +658,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if ((secondChar == '1') )
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.4: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.4: " << call << endl;
                     return false;
                 }
             }
@@ -710,7 +666,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if ((secondChar == '1') || (secondChar == '9'))
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.5: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.5: " << call << endl;
                     return false;
                 }
             }
@@ -718,7 +674,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if (secondChar == '1')
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.6: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.6: " << call << endl;
                     return false;
                 }
             }
@@ -726,7 +682,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if ((secondChar == '1') || (secondChar == '6'))
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.7: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.7: " << call << endl;
                     return false;
                 }
             }
@@ -734,7 +690,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if (secondChar == '0')
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.8: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.8: " << call << endl;
                     return false;
                 }
             }
@@ -742,7 +698,7 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if ((secondChar == '1') || (secondChar == '9'))
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.9: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.9: " << call << endl;
                     return false;
                 }
             }
@@ -750,20 +706,138 @@ bool Utilities::isValidCall(const QString &_c)
             {
                 if (!(secondChar == '2') && !(secondChar == '3'))
                 {
-                      //qDebug() << "Utilities::isValidCall: FALSE-7.10: " << call << endl;
+                    qDebug() << "Utilities::isValidSubCall: FALSE-7.10: " << call << endl;
                     return false;
                 }
             }
-
         }
         else
         {
-              //qDebug() << "Utilities::isValidCall: FALSE-8: " << call << endl;
+            qDebug() << "Utilities::isValidSubCall: FALSE-8: " << call << endl;
             return false;
         }
 
-          //qDebug() << "Utilities::isValidCall: FALSE-9: " << call << endl;
+        qDebug() << "Utilities::isValidSubCall: FALSE-9: " << call << endl;
         return false;
+    }
+
+    qDebug() << "Utilities::isValidSubCall: TRUE: " << call << endl;
+    return true;
+}
+
+bool Utilities::isAPrefix (const QString &_c)
+{
+    if (_c.length ()>4)
+    {
+        return false;
+    }
+    return isValidSubCall (_c);
+}
+
+bool Utilities::isValidCall(const QString &_c)
+{
+    qDebug() << "Utilities::isValidCall: " << _c << endl;
+    QString call = _c;
+    //if (call.contains('\\'))
+    //{
+        call.replace('\\', '/');
+    //}
+    if (call.count('/')>2)
+    {
+        qDebug() << "Utilities::isValidCall: FALSE-3: " << call << endl;
+        return false;
+    }
+    if (call.count('/') == 2)
+    { //Things like F/EA4K/P will become F/EA4K
+        QStringList parts;
+        parts.clear();
+        parts << call.split('/');
+        call = parts.at(0)+parts.at(1);
+    }
+    QString prefix = QString();
+
+    if (call.count('/') == 1)
+    {
+        QStringList parts;
+        parts.clear();
+        parts << call.split('/');
+
+        if (parts.at(0).length ()<=parts.at(1).length ())
+        {
+            if (isAPrefix (parts.at(0)))
+            {
+                prefix = parts.at(0);
+                call = parts.at(1);
+            }
+            else if (isAPrefix (parts.at(1)))
+            {
+                prefix = parts.at(1);
+                call = parts.at(0);
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    if (prefix.length ()>0)
+    {
+        if (!isAPrefix (prefix))
+        {
+            return false;
+        }
+    }
+    return isValidSubCall(call);
+}
+
+QString  Utilities::getPrefixFromCall(const QString &_c)
+{
+    QString pref = _c;
+    pref.replace('\\', '/');
+
+    if (pref.count('/')>2)
+    {
+        qDebug() << "Utilities::getPrefixFromCall: FALSE-3: " << pref << endl;
+        return QString();
+    }
+    if (pref.count('/') == 2)
+    { //Things like F/EA4K/P will become F/EA4K
+        QStringList parts;
+        parts.clear();
+        parts << pref.split('/');
+        pref = parts.at(0)+parts.at(1);
+    }
+
+    QString prefix = QString();
+
+    if (pref.count('/') == 1)
+    {
+        QStringList parts;
+        parts.clear();
+        parts << pref.split('/');
+
+        if (parts.at(0).length ()<=parts.at(1).length ())
+        {
+            if (isAPrefix (parts.at(0)))
+            {
+                return parts.at(0);
+
+            }
+            else if (isAPrefix (parts.at(1)))
+            {
+                return parts.at(1);
+            }
+            else
+            {
+                return QString();
+            }
+        }
+    }
+
+    for (int = 0, i<pref.length ()-1,i++)
+    {
+        REcorrer el call y copiar solo el pref
+
     }
 
 
@@ -771,9 +845,10 @@ bool Utilities::isValidCall(const QString &_c)
 
 
 
-    //qDebug() << "Utilities::isValidCall: TRUE: " << call << endl;
-    return true;
+    return pref;
 }
+
+
 
 bool Utilities::isValidBandId(const int _b)
 {
@@ -1123,7 +1198,6 @@ QString Utilities::getAValidCall (const QString &_wrongCall)
     //qDebug() << "Utilities::getAValidCall: " << _confirmedCall << endl;
     return _confirmedCall;
 }
-
 
 QString Utilities::getDateTimeSQLiteStringFromDateTime(const QDateTime &_d)
 {
