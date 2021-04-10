@@ -727,6 +727,7 @@ bool Utilities::isValidSubCall(const QString &_c)
 
 bool Utilities::isAPrefix (const QString &_c)
 {
+    qDebug() << "Utilities::isAPrefix: " << _c << endl;
     if (_c.length ()>4)
     {
         return false;
@@ -761,27 +762,43 @@ bool Utilities::isValidCall(const QString &_c)
         QStringList parts;
         parts.clear();
         parts << call.split('/');
+        qDebug() << "Utilities::isValidCall: first: " << parts.at(0) << endl;
+        qDebug() << "Utilities::isValidCall: second: " << parts.at(1) << endl;
 
         if (parts.at(0).length ()<=parts.at(1).length ())
         {
             if (isAPrefix (parts.at(0)))
             {
+                qDebug() << "Utilities::isValidCall: first is shorter " << endl;
                 prefix = parts.at(0);
                 call = parts.at(1);
             }
-            else if (isAPrefix (parts.at(1)))
-            {
-                prefix = parts.at(1);
-                call = parts.at(0);
-            }
             else
             {
+                qDebug() << "Utilities::isValidCall: first is shorter but not a prefix" << endl;
                 return false;
             }
         }
+        else
+        {
+             qDebug() << "Utilities::isValidCall: second is shorter " << endl;
+             if (isAPrefix (parts.at(1)))
+             {
+                 prefix = parts.at(1);
+                 call = parts.at(0);
+             }
+             else
+             {
+                 qDebug() << "Utilities::isValidCall: second is shorter but not a prefix" << endl;
+                 return false;
+             }
+        }
     }
+    qDebug() << "Utilities::isValidCall: prefix: " << prefix << endl;
+    qDebug() << "Utilities::isValidCall: call: " << call << endl;
     if (prefix.length ()>0)
     {
+        qDebug() << "Utilities::isValidCall: prefix>0" << prefix << endl;
         if (!isAPrefix (prefix))
         {
             return false;
