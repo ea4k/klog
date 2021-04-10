@@ -4,7 +4,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.5
+VERSION = 1.5.1
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -228,7 +228,8 @@ OTHER_FILES += \
     README
 
 message (More...)
-RESOURCES += klog.qrc
+RESOURCES += klog.qrc \
+        qdarkstyle/dark/style.qrc
 DESTDIR = build/target/
 OBJECTS_DIR = build/obj/
 MOC_DIR = build/moc/

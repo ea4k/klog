@@ -62,6 +62,12 @@ int main(int argc, char *argv[])
     QIcon KLogIcon(iconSt);
     QApplication::setWindowIcon(KLogIcon);
 
+    QFile file(":/qdarkstyle/dark/style.qss");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QTextStream ts(&file);
+    qApp->setStyleSheet(ts.readAll());
+
+
     //QApplication app(argc, argv);
     app.setApplicationName(QString("KLog"));
     app.setApplicationVersion(QString(version));
