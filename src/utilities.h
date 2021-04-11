@@ -137,7 +137,7 @@ public:
 private:
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
-    bool isAPrefix (const QString &_c);
+    int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
 
     QString dbPath;

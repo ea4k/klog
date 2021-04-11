@@ -240,7 +240,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     if ((currentQrz).count('\\'))
     { // Replaces \ by / to ease operation.
-        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Replacing \ by /" << endl;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Replacing \\ by /" << endl;
         currentQrz.replace(QChar('\\'), QChar('/'));
         qrzLineEdit->setText(currentQrz);
     }
@@ -790,7 +790,9 @@ void MainQSOEntryWidget::slotStartDelayInputTimer()
         slotClearButtonClicked ();
         return;
     }
+    int cursor = qrzLineEdit->cursorPosition ();
     qrzLineEdit->setText (qrzLineEdit->text ().toUpper ());
+    qrzLineEdit->setCursorPosition (cursor);
     delayInputTimer->start(300);
 }
 
