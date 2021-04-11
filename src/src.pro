@@ -229,7 +229,8 @@ OTHER_FILES += \
 
 message (More...)
 RESOURCES += klog.qrc \
-        qdarkstyle/dark/style.qrc
+        qdarkstyle/dark/style.qrc \
+        qdarkstyle/light/style.qrc
 DESTDIR = build/target/
 OBJECTS_DIR = build/obj/
 MOC_DIR = build/moc/
