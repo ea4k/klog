@@ -153,7 +153,6 @@ public:
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
-    void slotSetDarkMode();
     void slotOpenWiki();
     void slotAWAImport();
     void slotClearNoMorErrorShown();

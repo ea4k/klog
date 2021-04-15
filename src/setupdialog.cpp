@@ -650,6 +650,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  endl;
         stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  endl;
         stream << "DarkMode=" << colorsPage->getDarkMode() << ";" <<  '\n';
+        qDebug() << "Dark Mode is: " << colorsPage->getDarkMode() << endl;
         stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  endl;
         //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << endl;
         // CLUBLOG

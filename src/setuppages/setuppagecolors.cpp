@@ -268,23 +268,53 @@ void SetupPageColors::slotKLogButtonClicked()
 
 void SetupPageColors::slotSetDarkMode()
 {
-    if (!darkMode)
+    if (darkMode)
     {
-    QApplication::setStyle(QStyleFactory::create("Fusion"));
-    QPalette p;
-    p = qApp->palette();
-    p.setColor(QPalette::Window, QColor(53,53,53));
-    p.setColor(QPalette::Button, QColor(53,53,53));
-    p.setColor(QPalette::Highlight, QColor(142,45,197));
-    p.setColor(QPalette::ButtonText, QColor(255,255,255));
-    p.setColor(QPalette::WindowText, QColor(255,255,255));
-    qApp->setPalette(p);
-    darkMode = true;
+        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        QPalette p;
+        p = qApp->palette();
+        p.setColor(QPalette::Window, QColor(53,53,53));
+        p.setColor(QPalette::Button, QColor(53,53,53));
+        p.setColor(QPalette::Highlight, QColor(142,45,197));
+        p.setColor(QPalette::ButtonText, QColor(255,255,255));
+        p.setColor(QPalette::WindowText, QColor(255,255,255));
+        p.setColor(QPalette::Text, Qt::white);
+        p.setColor(QPalette::Base, QColor(100,100,100));
+        qApp->setPalette(p);
+        darkModeButton->setText(tr("Light Mode"));
+        darkMode = false;
     }
     else
     {
-        darkMode = false;
+        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        QPalette p;
+        p = qApp->palette();
+        p.setColor(QPalette::Window, QColor(244,246,246));
+        //p.setColor(QPalette::Button, QColor(214,219,223));
+        p.setColor(QPalette::Button, QColor(234,237,237));
+        p.setColor(QPalette::Highlight, QColor(40,120,240));
+        p.setColor(QPalette::ButtonText, Qt::black);
+        p.setColor(QPalette::WindowText, QColor(33,47,60));
+        p.setColor(QPalette::Base, Qt::white);
+        p.setColor(QPalette::ToolTipBase, Qt::white);
+        p.setColor(QPalette::ToolTipText, Qt::black);
+        qApp->setPalette(p);
+        darkModeButton->setText(tr("Dark Mode"));
+        darkMode = true;
         //Falta codigo para devolver a los colores originales
+
+        //    qApp->setStyle(QStyleFactory::create("Fusion"));
+        //    QPalette lightPalette;
+        //    QColor disabledColor = QColor(45,45,45);
+        //    QColor darkColor = QColor(127,127,127);
+
+        //    lightPalette.setColor(QPalette::BrightText, Qt::red);
+        //    lightPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+        //    lightPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+        //    lightPalette.setColor(QPalette::HighlightedText, Qt::black);
+        //    lightPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
+
+        //    qApp->setPalette(lightPalette);
     }
 }
 
