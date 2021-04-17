@@ -53,7 +53,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
             tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
             tr("Please be aware that this is a development release and it may contain many bugs.<br>Backup your data before using this software!") +
             "</b><br><br>" +
-            tr("Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.") +
+            tr("Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (GNU/Linux, macOS and Windows) and to support new functionality.") +
             "<br><br>" +
             tr("Please provide your review in KLog's eHam review page:") +
             "<bR>" +

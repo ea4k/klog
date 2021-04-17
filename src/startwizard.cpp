@@ -176,7 +176,7 @@
 
     QString welcometxt = "<html><head><title>" + tr("Welcome to KLog") + "</title></head><body>" +
                             "<p>" + tr("This looks like it's the first time you've run KLog on this computer.") + "</p>" +
-                            "<p>" + tr("KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.") +
+                            "<p>" + tr("KLog is a free hamradio logging program that can run on GNU/Linux, macOS, and Windows.") +
                             tr("It is designed to provide general purpose DX, and contest logging.") + "</p>" +
                             "<p>" + tr("It supports QSL management, import and export of ADIF ") +
                             tr("and Cabrillo file formats and many other features...") + "</p><p>" +
