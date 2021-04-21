@@ -3318,7 +3318,9 @@ bool MainWindow::validCharactersInCall(const QString &_qrz)
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
+    qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << "/" << util->getPrefixFromCall(_qrz) << endl;
+
+
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
@@ -3362,7 +3364,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
     //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
-    currentEntity = world->getQRZARRLId(_qrz);
+
+    currentEntity = world->getQRZARRLId(util->getPrefixFromFullCall(_qrz));
+    //currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
     //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);

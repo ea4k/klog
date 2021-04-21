@@ -105,6 +105,7 @@ public:
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c);
+    QString getPrefixFromFullCall(const QString &_c);
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
@@ -139,6 +140,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
+
 
     QString dbPath;
     QString softwareVersion;

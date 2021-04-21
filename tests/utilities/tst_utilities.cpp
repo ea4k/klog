@@ -51,6 +51,7 @@ private slots:
     void test_isValidFreq();
     void test_isValidGrid();
     void test_isValidADIFField();
+    void test_getPrefixFromCall();
 
 
 
@@ -238,6 +239,16 @@ void tst_Utilities::test_isValidADIFField()
 {   //Test the full ADIF suite
     QVERIFY(util->isValidADIFField("<CALL:4>EA4K") == true);
     QVERIFY(util->isValidADIFField("<CALL:5>EA4K") == false);
+
+}
+
+void tst_Utilities::test_getPrefixFromCall()
+{
+    QVERIFY2(util->getPrefixFromCall ("K1AA") == QString("K"), "Wrong prefix 1" );
+    QVERIFY2(util->getPrefixFromCall ("EA4K") == QString("EA"), "Wrong prefix 2" );
+    QVERIFY2(util->getPrefixFromCall ("2E1AA") == QString("2E"), "Wrong prefix 2 Numb" );
+    QVERIFY2(util->getPrefixFromCall ("E73E") == QString("E7"), "Wrong prefix 2 Letter/Numb");
+    QVERIFY2(util->getPrefixFromCall ("AM200A") == QString("AM"), "Wrong prefix 2 Letter/Numb");
 
 }
 
