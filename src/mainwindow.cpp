@@ -3318,10 +3318,13 @@ bool MainWindow::validCharactersInCall(const QString &_qrz)
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << "/" << _qrz<< endl;
+
+
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
+        //qDebug()<< "MainWindow::slotQRZTextChanged: Empty... " << endl;
         infoLabel1->clear();
         infoLabel2->clear();
         slotClearButtonClicked();
@@ -3361,6 +3364,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
     //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
+
+    //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
     currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
     //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
@@ -3433,7 +3438,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
   {
     completeWithPreviousQSO(_qrz);
   }
-    
+
   if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
@@ -3625,11 +3630,11 @@ void MainWindow::clearUIDX(bool full)
     infoWidget->clear();
     satTabWidget->clear();
     myDataTabWidget->clear();
-  
+
     completedWithPreviousName = false;
     completedWithPreviousQTH = false;
     completedWithPreviousLocator = false;
-  
+
      //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(txFreqSpinBox->value()) << endl;
     if (txFreqSpinBox->value()<=0)
     {
@@ -8524,7 +8529,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             }
 
         }
-        bool saveThisQSO = true;
+        //bool saveThisQSO = true;
         if (logTheQso)
         {
               //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;

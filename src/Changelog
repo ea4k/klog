@@ -1,6 +1,9 @@
 TBD - 1.5.x
 - Added the GitHub repository to find new releases due to the issue with savannah.nongnu.org
-- New feature: F4 toggles the real time status (on/off)
+- New feature: F4 toggles the real time status (on/off).
+- Improvements on call identification  management on user input.
+- Bugfix: Editing removes QTH and name (Closes issue #113)
+- Bugfix: Some complex calls (i.e. F/EA4K) were causing a crash unders some conditions.
 
 March 2021 - 1.5
 - Added the 8M & 5M bands.
@@ -9,7 +12,7 @@ March 2021 - 1.5
 - UI: Added EA5WA as Author. :-)
 - New feature: LoTW confirmation is also counted for DXCC & WAZ.
 - New feature: DUPES are now identified when coming from WSJTX, ADIF logs, LoTW logs or simply adding a QSO.
-- New feature: Added a time period to consider a QSO as DUPE if call, band & mode are also the same. (Closes issue#41)
+- New feature: Added a time period to consider a QSO as DUPE if call, band & mode are also the same. (Closes issue #41)
 - Improvement: Hamlib now supports network communication (TNX DG1VS)
 - Improvement: Optimized the way DXCC & WAZ are managed.
 - Improvement: KLog receives the clear messages from WSJTX and is able to clear the KLog UI.
@@ -29,7 +32,6 @@ March 2021 - 1.5
 - Bugfix: End date tooltip updated on the export widget.(TNX G4MKT)
 - Bugfix: DX Locator tooltip was not OK. (TNX G4MKT)
 - Translations: Catalan (TNX Txema) & Spanish (EA4K).
-
 
 January 2021 - 1.4.7
 - Added the Q65 mode.

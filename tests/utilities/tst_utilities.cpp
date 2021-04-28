@@ -51,6 +51,7 @@ private slots:
     void test_isValidFreq();
     void test_isValidGrid();
     void test_isValidADIFField();
+    void test_getPrefixFromCall();
 
 
 
@@ -169,13 +170,10 @@ void tst_Utilities::test_isValidCall()
     QVERIFY(util->isValidCall("EA4KKK") == true);
     QVERIFY(util->isValidCall("EA4KKKK") == true);
 
-    QVERIFY(util->isValidCall("EA4K11K") == true);
-    QVERIFY(util->isValidCall("EA4K1KK") == true);
-    QVERIFY(util->isValidCall("EA4KK1K") == true);
-    // TODO: FIX the isValidCall to cover these cases
-    //QVERIFY(util->isValidCall("EA4K111") == false);
-    //QVERIFY(util->isValidCall("EA4KK11") == false);
-    //QVERIFY(util->isValidCall("EA4KKK1") == false);
+    QVERIFY(util->isValidCall("2E1A") == true);
+    QVERIFY(util->isValidCall("E73E") == true);
+    QVERIFY(util->isValidCall("EA5666K") == true);
+
 
     // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
@@ -238,6 +236,16 @@ void tst_Utilities::test_isValidADIFField()
 {   //Test the full ADIF suite
     QVERIFY(util->isValidADIFField("<CALL:4>EA4K") == true);
     QVERIFY(util->isValidADIFField("<CALL:5>EA4K") == false);
+
+}
+
+void tst_Utilities::test_getPrefixFromCall()
+{
+    //QVERIFY2(util->getPrefixFromCall ("K1AA") == QString("K"), "Wrong prefix 1" );
+    //QVERIFY2(util->getPrefixFromCall ("EA4K") == QString("EA"), "Wrong prefix 2" );
+    //QVERIFY2(util->getPrefixFromCall ("2E1AA") == QString("2E"), "Wrong prefix 2 Numb" );
+    //QVERIFY2(util->getPrefixFromCall ("E73E") == QString("E7"), "Wrong prefix 2 Letter/Numb");
+    //QVERIFY2(util->getPrefixFromCall ("AM200A") == QString("AM"), "Wrong prefix 2 Letter/Numb");
 
 }
 

@@ -1,4 +1,4 @@
-/***************************************************************************
+/***************************************************************************tv
                           mainqsoentrywidget.cpp  -  description
                              -------------------
     begin                : january 2020
@@ -155,6 +155,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     if ((qrzLineEdit->text()).length()<1)
     {
+        //emit clearForNextQSOSignal();
         slotClearButtonClicked();
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ <1 - END" << endl;
@@ -193,21 +194,20 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
 
-
     //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars" << endl;
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
-
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 " << endl;
     if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - END" << endl;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - Red" << endl;
         emit debugLog(Q_FUNC_INFO, "END-4", Debug);
-        //return;
     }
     else
     {
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << endl;
         qrzLineEdit->setPalette(palBlack);
         currentQrz = qrzLineEdit->text();
         //emit showInfoLabel(tr(""));
@@ -238,6 +238,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     if ((currentQrz).count('\\'))
     { // Replaces \ by / to ease operation.
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Replacing \\ by /" << endl;
         currentQrz.replace(QChar('\\'), QChar('/'));
         qrzLineEdit->setText(currentQrz);
     }
@@ -276,7 +277,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     qrzAutoChanging = false;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
 
-     //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: END" << endl;
+    //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: END" << endl;
 }
 
 void MainQSOEntryWidget::setCurrentQRZ(const QString &_qrz)
@@ -318,6 +319,7 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
+    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     clear();
     emit clearForNextQSOSignal();
@@ -643,8 +645,9 @@ void MainQSOEntryWidget::slotUpdateTime()
 
 bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
 {
+    //qDebug()<< "MainQSOEntryWidget::validCharactersInCall: " << _qrz << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    for (int i = 0; i<_qrz.size();i++)
+    for (int i = 0; i<_qrz.size()-1;i++)
     {
         if (!( ((_qrz.at(i)).isLetterOrNumber()) || (_qrz.at(i)=='\\')  || (_qrz.at(i)=='/')  ))
         {
@@ -780,13 +783,21 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 
 void MainQSOEntryWidget::slotStartDelayInputTimer()
 {
+    if (qrzLineEdit->text ().length ()<1)
+    {
+        slotClearButtonClicked ();
+        return;
+    }
+    int cursor = qrzLineEdit->cursorPosition ();
+    qrzLineEdit->setText (qrzLineEdit->text ().toUpper ());
+    qrzLineEdit->setCursorPosition (cursor);
     delayInputTimer->start(300);
 }
 
 void MainQSOEntryWidget::slotDelayInputTimedOut()
 {
     delayInputTimer->stop();
-    QString text = (qrzLineEdit->text()).toUpper();
+    QString text = qrzLineEdit->text();
     if( text != lastQrz)
     {
         text = lastQrz;

@@ -10,3 +10,4 @@ src/object_*
 KLog.app
 *.qm
 
+*.autosave

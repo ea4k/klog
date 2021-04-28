@@ -85,6 +85,7 @@ public:
     bool isValidDateTime(const QString &_d);
     bool isValidCall(const QString &_c);
 
+
     bool isValidBandId(const int _b);
     bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);
@@ -103,6 +104,8 @@ public:
     bool isValidDXCC(const int _d);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
+    //QString getPrefixFromCall(const QString &_c);
+    //QString getPrefixFromFullCall(const QString &_c);
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
@@ -135,6 +138,11 @@ public:
 private:
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
+    int isAPrefix(const QString &_c);
+    bool isValidSubCall(const QString &_c);
+    //QPair<QString, QString> getCallParts(const QString &_c);
+
+
     QString dbPath;
     QString softwareVersion;
     //QPalette palRed, palBlack;
