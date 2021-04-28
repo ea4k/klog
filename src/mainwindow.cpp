@@ -3318,13 +3318,13 @@ bool MainWindow::validCharactersInCall(const QString &_qrz)
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << "/" << util->getPrefixFromCall(_qrz) << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << "/" << _qrz<< endl;
 
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
-        qDebug()<< "MainWindow::slotQRZTextChanged: Empty... " << endl;
+        //qDebug()<< "MainWindow::slotQRZTextChanged: Empty... " << endl;
         infoLabel1->clear();
         infoLabel2->clear();
         slotClearButtonClicked();
@@ -3365,8 +3365,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
     //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: "  << endl;
 
-    currentEntity = world->getQRZARRLId(util->getPrefixFromFullCall(_qrz));
-    //currentEntity = world->getQRZARRLId(_qrz);
+    //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
+    currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
     //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
@@ -8529,7 +8529,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             }
 
         }
-        bool saveThisQSO = true;
+        //bool saveThisQSO = true;
         if (logTheQso)
         {
               //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;

@@ -104,8 +104,8 @@ public:
     bool isValidDXCC(const int _d);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
-    QString getPrefixFromCall(const QString &_c);
-    QString getPrefixFromFullCall(const QString &_c);
+    //QString getPrefixFromCall(const QString &_c);
+    //QString getPrefixFromFullCall(const QString &_c);
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
@@ -140,6 +140,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
+    //QPair<QString, QString> getCallParts(const QString &_c);
 
 
     QString dbPath;
