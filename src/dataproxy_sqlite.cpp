@@ -4110,7 +4110,7 @@ int DataProxy_SQLite::getQSOsOnMonth(const int _month, const int _log)
     }
     else
     {
-        queryString = QString("SELECT COUNT(DISTINCT id) FROM log Wwhere lognumber='%1' AND qso_date LIKE '%-%2-%'").arg(_log).arg(aux);
+        queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND qso_date LIKE '%-%2-%'").arg(_log).arg(aux);
     }
 
     sqlOK = query.exec(queryString);
