@@ -650,13 +650,16 @@ int Utilities::isAPrefix (const QString &_c)
     int pref = -1;
     if (call.count(QRegularExpression("\\d")) >0) // Does it has any digit?
     {
+        //qDebug() << "Utilities::isAPrefix: It has digits: " << call << endl;
         bool done = false;
         int i = -1;
-        while ((i < length) && !done)
+        while ((i < length-1) && !done)
         {
+            //qDebug() << "Utilities::isAPrefix: in the while: " << QString::number(i) << endl;
             i++;
             if (call.at(i).isLetter ())
             {
+                //qDebug() << "Utilities::isAPrefix: in the while: is a Letter: " << call.at(i) << endl;
                 if (pref>0)
                 {
                     pref = i;
@@ -665,12 +668,13 @@ int Utilities::isAPrefix (const QString &_c)
             }
             else
             {
+                //qDebug() << "Utilities::isAPrefix: in the while: is NOT a Letter: " << call.at(i) << endl;
                 if (i > 0)
                 {
                     pref = i;
                 }
             }
-        }
+        } // end of while
     }
 
     //qDebug() << "Utilities::isAPrefix: After the while: " << QString::number(pref) << endl;
@@ -678,11 +682,13 @@ int Utilities::isAPrefix (const QString &_c)
     QString prefix;
     if (pref>0)
     {
+         //qDebug() << "Utilities::isAPrefix: pref>0 =>: " << call.left (pref) << endl;
         prefix = call.left (pref);
     }
     else
     {
         prefix = call;
+        //qDebug() << "Utilities::isAPrefix: pref<=0 =>: " << call << endl;
     }
 
     length = prefix.length();
@@ -854,42 +860,115 @@ bool Utilities::isValidCall(const QString &_c)
         parts << call.split('/');
         call = parts.at(0)+parts.at(1);
     }
-    QString prefix = QString();
+    //QString prefix = QString();
 
+    if (call.count('/') == 1)
+    { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
+      // We are just checking the call format not if it belongs to a country or whatever.
+      // It may return true for wrong calls like "ABC/EA4K"
+      // TODO: Add a check just for prefixes to fix the previous
+
+        QStringList parts;
+        parts.clear();
+        parts << call.split ('/');
+
+        //return ( ((isAPrefix (parts.at (0)))>0) || ((isAPrefix (parts.at (1)))>0) || (isValidSubCall (parts.at(0)) ) || (isValidSubCall (parts.at(1)) ));
+
+
+        if (parts.at(0).length ()<parts.at(1).length ())
+        {
+            return ( ((isAPrefix (parts.at (0)))>0) && (isValidSubCall (parts.at(1)) ) );
+        }
+        else
+        { //Both lenght are just the same or the second is showter, we need to check both parts and return true if one is valid
+          // It may happen that we have a EA4K/QRP or EA4K/F or EA4K/TTT
+            return isValidSubCall (parts.at(0));
+        }
+    }
+    return isValidSubCall (call);
+}
+
+QString Utilities::getPrefixFromCall(const QString &_c)
+{
+    //qDebug() << "Utilities::getPrefixFromCall: " << _c << endl;
+
+    QString call = _c;
+    call.replace('\\', '/');
+
+    if (call.count('/') == 2)
+    { //Things like F/EA4K/P will become F/EA4K
+        QStringList parts;
+        parts.clear();
+        parts << call.split('/');
+        call = parts.at(0)+parts.at(1);
+    }
+
+    QString prefix = QString();
+    int pref = -1;
     if (call.count('/') == 1)
     { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
 
         QStringList parts;
         parts.clear();
         parts << call.split ('/');
-        if (parts.at(0).length ()>parts.at(1).length ())
-        {
-            return isValidSubCall (parts.at(0));
+        if (parts.at(0).length ()<parts.at(1).length ())
+        { // First one is shorter
+            //qDebug() << "Utilities::getPrefixFromCall: First one is shorter: " << endl;
+            int pref = isAPrefix (parts.at(0));
+            if (pref>0)
+            {
+                //qDebug() << "Utilities::getPrefixFromCall: R1=" << call.left (pref) << endl;
+                return parts.at(0);
+            }
+            else
+            {
+                //qDebug() << "Utilities::getPrefixFromCall: EMPTY-2"  << endl;
+                return QString();
+            }
         }
         else if(parts.at(0).length ()>parts.at(1).length ())
-        {
-            return isValidSubCall (parts.at(1));
+        { // Second one is shorter
+            //qDebug() << "Utilities::getPrefixFromCall: Second one is shorter: " << endl;
+            pref = isAPrefix (parts.at(1));
+            if (pref>0)
+            {
+                //qDebug() << "Utilities::getPrefixFromCall: R2=" << parts.at(1) << endl;
+
+                return parts.at(1);
+            }
+            else
+            {
+                pref = isAPrefix (parts.at(0));
+                if (pref>0)
+                {
+                    //qDebug() << "Utilities::getPrefixFromCall: R3=" << parts.at(0).left (pref) << endl;
+                    return parts.at(0).left (pref);
+                }
+                else
+                {
+                    //qDebug() << "Utilities::getPrefixFromCall: EMPTY-3"  << endl;
+                    return QString();
+                }
+            }
+
         }
         else
         { //Both lenght are just the same, we need to check both parts and return true if one is valid
-            return (isValidSubCall (parts.at(0)) ) | (isValidSubCall (parts.at(1)) );
+            //qDebug() << "Utilities::getPrefixFromCall: Same length, we shoudl consider the first one if valid, if not the second one " << endl;
         }
     }
-    return isValidSubCall (call);
+
+    pref = isAPrefix (call);
+    if (pref>0)
+    {
+        //qDebug() << "Utilities::getPrefixFromCall: R4=" << call.left (pref) << endl;
+        return call.left (pref);
+    }
+    //qDebug() << "Utilities::getPrefixFromCall: EMPTY-4"  << endl;
+    return QString();
 }
+
 /*
-QString Utilities::getPrefixFromCall(const QString &_c)
-{
-   QPair<QString, QString> pair;
-   pair = getCallParts (_c);
-   if (pair.second.isEmpty ())
-   {
-        return QString();
-   }
-
-fallar
-}
-
 QPair<QString, QString> Utilities::getCallParts(const QString &_c)
 { // DXCC prefix, if different from original, full call
 
