@@ -104,7 +104,7 @@ public:
     bool isValidDXCC(const int _d);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
-    //QString getPrefixFromCall(const QString &_c);
+    QString getPrefixFromCall(const QString &_c);
     //QString getPrefixFromFullCall(const QString &_c);
 
     // Write DATE/TIME to DB

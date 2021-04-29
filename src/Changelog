@@ -4,6 +4,7 @@ TBD - 1.5.x
 - Improvements on call identification  management on user input.
 - Bugfix: Editing removes QTH and name (Closes issue #113)
 - Bugfix: Some complex calls (i.e. F/EA4K) were causing a crash unders some conditions.
+- Bugfix: DX Entity of some complex calls where not properly identified. (Closes issue #8).
 
 March 2021 - 1.5
 - Added the 8M & 5M bands.
