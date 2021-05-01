@@ -171,6 +171,7 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("EA4KK") == true, "EA4KK");
     QVERIFY2(util->isValidCall("EA4KKK") == true, "EA4KKK");
     QVERIFY2(util->isValidCall("EA4KKKK") == true, "EA4KKKK");
+    QVERIFY2(util->isValidCall("AM500MMM") == true, "AM500MMM");
 
     QVERIFY2(util->isValidCall("2E1A") == true, "2E1A");
     QVERIFY2(util->isValidCall("E33E") == true, "E33E");
