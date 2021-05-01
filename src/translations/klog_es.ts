@@ -3283,7 +3283,7 @@ Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</t
     <message>
         <location filename="../mainwindow.cpp" line="8807"/>
         <source>Periodically export your data to ADIF to prevent a potential data loss.</source>
-        <translation>Exporte peódicamente los datos a ADIF para prevenir una potencial pérdida de datos.</translation>
+        <translation type="unfinished">Exporte periódicamente los datos a ADIF para prevenir una potencial pérdida de datos.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5920"/>
