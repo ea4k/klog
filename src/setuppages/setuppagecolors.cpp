@@ -268,7 +268,7 @@ void SetupPageColors::slotKLogButtonClicked()
 
 void SetupPageColors::slotSetDarkMode()
 {
-    if (darkMode)
+    if (!darkMode)
     {
         QApplication::setStyle(QStyleFactory::create("Fusion"));
         QPalette p;
@@ -282,7 +282,7 @@ void SetupPageColors::slotSetDarkMode()
         p.setColor(QPalette::Base, QColor(100,100,100));
         qApp->setPalette(p);
         darkModeButton->setText(tr("Light Mode"));
-        darkMode = false;
+        darkMode = true;
     }
     else
     {
@@ -291,6 +291,7 @@ void SetupPageColors::slotSetDarkMode()
         p = qApp->palette();
         p.setColor(QPalette::Window, QColor(244,246,246));
         //p.setColor(QPalette::Button, QColor(214,219,223));
+        p.setColor(QPalette::Text, Qt::black);
         p.setColor(QPalette::Button, QColor(234,237,237));
         p.setColor(QPalette::Highlight, QColor(40,120,240));
         p.setColor(QPalette::ButtonText, Qt::black);
@@ -300,21 +301,7 @@ void SetupPageColors::slotSetDarkMode()
         p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
         darkModeButton->setText(tr("Dark Mode"));
-        darkMode = true;
-        //Falta codigo para devolver a los colores originales
-
-        //    qApp->setStyle(QStyleFactory::create("Fusion"));
-        //    QPalette lightPalette;
-        //    QColor disabledColor = QColor(45,45,45);
-        //    QColor darkColor = QColor(127,127,127);
-
-        //    lightPalette.setColor(QPalette::BrightText, Qt::red);
-        //    lightPalette.setColor(QPalette::Link, QColor(42, 130, 218));
-        //    lightPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-        //    lightPalette.setColor(QPalette::HighlightedText, Qt::black);
-        //    lightPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
-
-        //    qApp->setPalette(lightPalette);
+        darkMode = false;
     }
 }
 
@@ -325,6 +312,6 @@ QString SetupPageColors::getDarkMode(){
 
 void SetupPageColors::setDarkMode(const QString &_c)
 {
-    darkMode = util->trueOrFalse(_c);
+    darkMode = !util->trueOrFalse(_c);
     slotSetDarkMode();
 }

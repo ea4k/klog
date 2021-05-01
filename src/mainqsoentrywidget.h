@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "setuppages/setuppagecolors.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -102,6 +103,7 @@ private:
     bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
     void checkIfDupe(const QString &_func);
+    void getDarkMode();
 
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
@@ -117,6 +119,7 @@ private:
     bool InValidCharsInPrevCall;
     bool qrzSmallModDontCalculate;
     bool upAndRunning;
+    bool darkMode;
 
     QString previousQRZ;
     QString currentQrz;
@@ -126,8 +129,9 @@ private:
 
     QTimer *timer;
     bool UTCTime, modify, realTime;
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Utilities *util;
+    SetupPageColors *colors;
     QPalette::ColorRole enabledCR, disabledCR;
 
     int duplicatedQSOSlotInSecs;

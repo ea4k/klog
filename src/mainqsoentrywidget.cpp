@@ -44,6 +44,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
     util = new Utilities;
+    colors = new SetupPageColors;
     realTime = true;
     duplicatedQSOSlotInSecs = 0;
     delayInputTimer = new QTimer;
@@ -104,6 +105,7 @@ void MainQSOEntryWidget::createUI()
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
 
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     //connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
@@ -208,7 +210,16 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     }
     else
     {
-        qrzLineEdit->setPalette(palBlack);
+        getDarkMode();
+        qDebug() << "DarkMode is: " << darkMode << '\n';
+        if (darkMode)
+        {
+            qrzLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            qrzLineEdit->setPalette(palBlack);
+        }
         currentQrz = qrzLineEdit->text();
         //emit showInfoLabel(tr(""));
     }
@@ -792,4 +803,9 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
         text = lastQrz;
         slotQRZTextChanged();
     }
+}
+
+void MainQSOEntryWidget::getDarkMode()
+{
+    darkMode = util->trueOrFalse(colors->getDarkMode());
 }
