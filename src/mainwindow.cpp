@@ -4311,10 +4311,10 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
         }
     }
 
-    msgBox.setText(msg);
-    msgBox.exec();
     if (ok>0)
     {
+        msgBox.setText(msg);
+        msgBox.exec();
         return false;
     }
     else
