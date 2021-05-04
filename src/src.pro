@@ -55,6 +55,7 @@ QT += core \
     serialport \
     printsupport \
     charts \
+    quickwidgets \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
@@ -66,6 +67,7 @@ HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \     \
     klogdefinitions.h \
+    widgets/mapwidget.h \
     widgets/showkloglogwidget.h \
     elogqrzlog.h \
     eqslutilities.h \
@@ -168,6 +170,7 @@ SOURCES += main.cpp \
     #widgets/advancedsearch/advancedsearchmodel.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
+    widgets/mapwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     widgets/showkloglogwidget.cpp \
@@ -298,7 +301,8 @@ QMAKE_EXTRA_COMPILERS += updateqm
 
 
 # deploy
-DISTFILES += Changelog COPYING
+DISTFILES += Changelog COPYING \
+    qml/mapqmlfile.qml
 
 unix:!mac {
     DEFINES += APP_LINUX

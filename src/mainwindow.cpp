@@ -40,6 +40,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << endl;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << endl;
+    mapWidget = new MapWidget();
     showKLogLogWidget = new ShowKLogLogWidget;
     softwareVersion = tversion;
     klogDir = _klogDir;
@@ -772,14 +773,14 @@ void MainWindow::createStatusBar()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-/*
-void MainWindow::slotWorldMapShow()
+
+void MainWindow::slotShowMap()
 {
     //worldMapWidget->resize(500,300);
     //worldMapWidget->loadMap();
-    worldMapWidget->show();
+    mapWidget->show();
 }
-*/
+
 void MainWindow::setMainWindowTitle(const QString _s)
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
@@ -3789,6 +3790,7 @@ void MainWindow::createMenusCommon()
     //fileMenu->addAction(TestAct);
     //connect(TestAct, SIGNAL(triggered()), this, SLOT(slotTest()));
 
+
     ADIFImport = new QAction(tr("&Import from ADIF ..."), this);
     fileMenu->addAction(ADIFImport);
     connect(ADIFImport, SIGNAL(triggered()), this, SLOT(slotADIFImport()));
@@ -4013,6 +4015,12 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
+    mapAct = new QAction(tr("Show map ..."), this);
+    toolMenu->addAction(mapAct);
+    connect(mapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
+    mapAct->setToolTip(tr("Show a map. You need to be online!"));
+
+
            //qDebug() << "MainWindow::createMenusCommon before" << endl;
     //toolMenu->addSeparator();
     //showRotatorAct = new QAction (tr("Rotator"), this);
@@ -4097,7 +4105,8 @@ void MainWindow::slotTest()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //qDebug() << Q_FUNC_INFO << endl;
     //showKLogLogWidget->setWindowModality(false);
-    showKLogLogWidget->show();
+    //showKLogLogWidget->show();
+    //mapWidget->show();
     //advancedSearchWidget->show();
     //qDebug() << Q_FUNC_INFO << " - END "<< endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);

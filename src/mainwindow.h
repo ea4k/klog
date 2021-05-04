@@ -83,6 +83,7 @@
 #include "widgets/showadifimportwidget.h"
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
 //#include "worldmapwidget.h"
+#include "widgets/mapwidget.h"
 #include "widgets/showkloglogwidget.h"
 
 
@@ -326,6 +327,8 @@ private slots:
     //void slotRotatorShow();
     // WORLD MAP
     //void slotWorldMapShow();
+    void slotShowMap();         // Shows a Map
+
 
     //DXCCWIDGET
     //void slotShowQSOFromDXCCWidget(const int _q);
@@ -389,6 +392,7 @@ private:
     //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
+    MapWidget *mapWidget;
     void createStatusBar();
     void createUI();
     void createUIDX();
@@ -532,6 +536,7 @@ private:
     QMenu *helpMenu;
 
     //QAction *TestAct;       // Action for testing purposes only
+    QAction *mapAct;            // Shows a Map
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;

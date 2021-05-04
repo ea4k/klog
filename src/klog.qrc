@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+	<file>qml/mapqmlfile.qml</file>
         <file>img/klog_512x512.png</file>
         <file>img/klog_256x256.png</file>
         <file>img/klog_logo.png</file>
