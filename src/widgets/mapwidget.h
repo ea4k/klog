@@ -1,7 +1,7 @@
 #ifndef MAPWIDGET_H
 #define MAPWIDGET_H
 /***************************************************************************
-                          amapwidget.h  -  description
+                          mapwidget.h  -  description
                              -------------------
     begin                : May 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -27,7 +27,10 @@
  *****************************************************************************/
 #include <QObject>
 #include <QtWidgets>
-#include <QQuickWidget>
+//#include <QQuickWidget>
+#include <QQuickView>
+#include <QQuickItem>
+//#include <QQmlProperty>
 
 class MapWidget : public QWidget
 {
@@ -35,9 +38,11 @@ class MapWidget : public QWidget
 
 public:
     MapWidget();
+    void setCenter(const double lat, const double lon);
+
 
 private:
-
+    QQuickView qmlView;
 
 };
 

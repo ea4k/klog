@@ -779,6 +779,8 @@ void MainWindow::slotShowMap()
     //worldMapWidget->resize(500,300);
     //worldMapWidget->loadMap();
     mapWidget->show();
+    QString myGrid = myDataTabWidget->getMyLocator();
+    mapWidget->setCenter (locator->getLat(myGrid), locator->getLon (myGrid));
 }
 
 void MainWindow::setMainWindowTitle(const QString _s)

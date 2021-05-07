@@ -1,5 +1,5 @@
 /***************************************************************************
-                          amapwidget.cpp  -  description
+                           mapwidget.cpp  -  description
                              -------------------
     begin                : May 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -29,13 +29,21 @@
 MapWidget::MapWidget()
 {
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
-      QQuickView *qmlView = new QQuickView();
-      qmlView->setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
+    qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
 
-      QWidget *container = QWidget::createWindowContainer(qmlView, this);
-      //ui->centralWidget->setLayout(layout);
-      layout->addWidget(container);
-      setLayout (layout);
+    QWidget *container = QWidget::createWindowContainer(&qmlView, this);
+
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->addWidget(container);
+    setLayout (layout);
+}
+
+void MapWidget::setCenter(const double lat, const double lon)
+{
+
+    QObject *object = qmlView.rootObject ();
+    //object->setProperty ("zoom", 1);
+    object->setProperty ("lat", lat);
+    object->setProperty ("lon", lon);
 
 }
