@@ -66,12 +66,13 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 void MapWidget::slotButtonClicked ()
 {
     qDebug() << "MapWidget::slotButtonClicked " << endl;
+
     double latitude = 43.2;
     double longitude = -4.816669;
 
     QVariant returnedValue;
     QObject *object = qmlView.rootObject ();
-    QMetaObject::invokeMethod(object, "addPoi",
+    QMetaObject::invokeMethod(object, "addLoc",
            Q_RETURN_ARG(QVariant, returnedValue),
            Q_ARG(QVariant, latitude), Q_ARG(QVariant, longitude));
        qDebug() << "QML function returned:" << returnedValue.toString();

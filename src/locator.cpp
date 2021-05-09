@@ -381,3 +381,69 @@ int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString
 
     }
 }
+
+QList<double> Locator::getTopLeftCoordinate(const QString& tlocator)
+{
+    QList<double> result;
+    result.clear();
+    result.append(-1.0);
+    result.append(-1.0);
+
+
+    if (!isValidLocator(tlocator))
+    {
+         return result;
+    }
+    QString loc = tlocator.toUpper();
+    int N = tlocator.length();
+
+    if ((N == 6) || (N ==4))
+    { // we use locators of 4 or 6 chars
+         return result;
+    }
+
+    QChar character = QChar('A');
+    ushort Oa = character.unicode();
+
+        double lon = -180.0;
+        double lat = -90.0;
+        // %% first pair
+        lon += (loc.at(0).unicode() - Oa) * 20;
+        lat += (loc.at(1).unicode() - Oa) * 10;
+        // %% second pair
+        if (N >= 4)
+        {
+            lon += int(loc.at(2).unicode()) * 2;
+            lat += int(loc.at(3).unicode()) * 1;
+        }
+        else if (N >= 6)
+        {
+            lon += (loc.at(4).unicode()- Oa) * 5.0 / 60;
+            lat += (loc.at(5).unicode() - Oa) * 2.5 / 60;
+        }
+        else if(N >= 8)
+        {
+            lon += int(loc.at(6).unicode()) * 5.0 / 600;
+            lat += int(loc.at(7).unicode()) * 2.5 / 600;
+        }
+        /*
+        // %% move lat lon to the center (if requested)
+        if center:
+            if N == 2:
+                lon += 20 / 2
+                lat += 10 / 2
+            elif N == 4:
+                lon += 2 / 2
+                lat += 1.0 / 2
+            elif N == 6:
+                lon += 5.0 / 60 / 2
+                lat += 2.5 / 60 / 2
+            elif N >= 8:
+                lon += 5.0 / 600 / 2
+                lat += 2.5 / 600 / 2
+               */
+        result.clear();
+        result.append(lat);
+        result.append(lon);
+        return result;
+}

@@ -62,7 +62,7 @@ public:
   //double dmsTodeg (int deg, int min, int sec);
 
   bool checkCoords(const double lon1, const double lat1);
-
+  QList<double> getTopLeftCoordinate(const QString& tlocator);  // Returns the top left coordinate of a Maidenhead locator
 
 private:
   //bool valid;

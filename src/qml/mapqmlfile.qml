@@ -61,6 +61,24 @@ Rectangle {
             }
         zoomLevel: 14
     }
+    MapRectangle
+    function addLoc(lat,longi) {
+
+            var locator = Qt.createQmlObject('import QtLocation 5.3; MapRectangle {   }', map, "dynamic");
+            if(grid=== null) {
+               console.log("error creating object" +  grid.errorString());
+               return false;
+            }
+            grid.center = QtPositioning.coordinate(lat, longi);
+            grid.radius = 50000.0;
+
+            grid.border.width = 1;
+            map.addMapItem(grid);
+            map.center = QtPositioning.coordinate(lat, longi);
+            console.log("success creating object");
+            return true;
+        }
+
     function addPoi(lat,longi) {
 
             var circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {   }', map, "dynamic");
