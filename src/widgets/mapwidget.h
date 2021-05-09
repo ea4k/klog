@@ -41,9 +41,12 @@ public:
     void setCenter(const double lat, const double lon);
     void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
 
+private slots:
+    void slotButtonClicked();
 
 private:
     QQuickView qmlView;
+    QPushButton *testButton;
 
 };
 

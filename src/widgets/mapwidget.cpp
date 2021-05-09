@@ -28,14 +28,19 @@
 
 MapWidget::MapWidget()
 {
+    testButton = new QPushButton;
+    testButton->setText ("Push");
+
 
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
 
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget (testButton);
     layout->addWidget(container);
     setLayout (layout);
+    connect(testButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
 }
 
 void MapWidget::setCenter(const double lat, const double lon)
@@ -56,4 +61,9 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     object->setProperty ("locLon1", lon1);
     object->setProperty ("locLat2", lat2);
     object->setProperty ("locLon2", lon2);
+}
+
+void MapWidget::slotButtonClicked ()
+{
+    qDebug() << "MapWidget::slotButtonClicked " << endl;
 }
