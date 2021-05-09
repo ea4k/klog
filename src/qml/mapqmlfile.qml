@@ -29,16 +29,16 @@ import QtLocation 5.6
 import QtPositioning 5.6
 
 Rectangle {
-    width: Qt.platform.os == "android" ? Screen.width : 512
-    height: Qt.platform.os == "android" ? Screen.height : 512
+    width: 512
+    height: 512
     visible: true
     property alias zoom: map.zoomLevel
     property alias lat: map.center.latitude
     property alias lon: map.center.longitude
-    property alias locLat1: locR.topLeft.latitude
-    property alias locLon1: locR.topLeft.longitude
-    property alias locLat2: locR.bottomRight.latitude
-    property alias locLon2: locR.bottomRight.longitude
+    //property alias locLat1: locR.topLeft.latitude
+    //property alias locLon1: locR.topLeft.longitude
+    //property alias locLat2: locR.bottomRight.latitude
+    //property alias locLon2: locR.bottomRight.longitude
 
     Plugin {
         id: mapPlugin
@@ -60,19 +60,21 @@ Rectangle {
                 longitude: -4.816669
             }
         zoomLevel: 14
-        MapRectangle {
-            id: locR
-            opacity: 0.5
-            color: 'green'
-                    border.width: 2
-                    topLeft {
-                        latitude: -27
-                        longitude: 153
-                    }
-                    bottomRight {
-                        latitude: -28
-                        longitude: 153.5
-                    }
-        }
     }
+    function addPoi(lat,longi) {
+
+            var circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {   }', map, "dynamic");
+            if(circle === null) {
+               console.log("error creating object" +  circle.errorString());
+               return false;
+            }
+            circle.center = QtPositioning.coordinate(lat, longi);
+            circle.radius = 50000.0;
+
+            circle.border.width = 1;
+            map.addMapItem(circle);
+            map.center = QtPositioning.coordinate(lat, longi);
+            console.log("success creating object");
+            return true;
+        }
 }
