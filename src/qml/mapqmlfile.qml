@@ -32,10 +32,13 @@ Rectangle {
     width: Qt.platform.os == "android" ? Screen.width : 512
     height: Qt.platform.os == "android" ? Screen.height : 512
     visible: true
-    property alias zoom: mapRect.zoomLevel
-    property alias lat: mapRect.center.latitude
-    property alias lon: mapRect.center.longitude
-
+    property alias zoom: map.zoomLevel
+    property alias lat: map.center.latitude
+    property alias lon: map.center.longitude
+    property alias locLat1: locR.topLeft.latitude
+    property alias locLon1: locR.topLeft.longitude
+    property alias locLat2: locR.bottomRight.latitude
+    property alias locLon2: locR.bottomRight.longitude
 
     Plugin {
         id: mapPlugin
@@ -48,7 +51,7 @@ Rectangle {
     }
 
     Map {
-        id: mapRect
+        id: map
         anchors.fill: parent
         plugin: mapPlugin
         center {
@@ -57,5 +60,19 @@ Rectangle {
                 longitude: -4.816669
             }
         zoomLevel: 14
+        MapRectangle {
+            id: locR
+            opacity: 0.5
+            color: 'green'
+                    border.width: 2
+                    topLeft {
+                        latitude: -27
+                        longitude: 153
+                    }
+                    bottomRight {
+                        latitude: -28
+                        longitude: 153.5
+                    }
+        }
     }
 }

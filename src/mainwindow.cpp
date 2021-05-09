@@ -781,6 +781,8 @@ void MainWindow::slotShowMap()
     mapWidget->show();
     QString myGrid = myDataTabWidget->getMyLocator();
     mapWidget->setCenter (locator->getLat(myGrid), locator->getLon (myGrid));
+
+    mapWidget->addLocator(locator->getLat ("IN80DE"), locator->getLon ("IN80DE"), locator->getLat ("JN10"), locator->getLon ("JN10"));
 }
 
 void MainWindow::setMainWindowTitle(const QString _s)
