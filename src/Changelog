@@ -1,3 +1,6 @@
+May 2021 - 1.5.2
+- Bugfix: Complex calls like K/EA4K/P were identified as wrong calls. (Closes issue #177) (TNX PA3FNT)
+
 April 2021 - 1.5.1
 - Added the GitHub repository to find new releases due to the issue with savannah.nongnu.org
 - New feature: F4 toggles the real time status (on/off).

@@ -855,19 +855,20 @@ bool Utilities::isValidCall(const QString &_c)
     }
     if (call.count('/') == 2)
     { //Things like F/EA4K/P will become F/EA4K
+        //qDebug() << "Utilities::isValidCall: Two /; Ignoring the last part: " << call << endl;
         QStringList parts;
         parts.clear();
         parts << call.split('/');
-        call = parts.at(0)+parts.at(1);
+        call = parts.at(0) + "/" + parts.at(1);
     }
-    //QString prefix = QString();
+    //qDebug() << "Utilities::isValidCall: Call: " << call << endl;
 
     if (call.count('/') == 1)
     { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
       // We are just checking the call format not if it belongs to a country or whatever.
       // It may return true for wrong calls like "ABC/EA4K"
       // TODO: Add a check just for prefixes to fix the previous
-
+        //qDebug() << "Utilities::isValidCall: Call with one /: " << call << endl;
         QStringList parts;
         parts.clear();
         parts << call.split ('/');
@@ -900,7 +901,7 @@ QString Utilities::getPrefixFromCall(const QString &_c)
         QStringList parts;
         parts.clear();
         parts << call.split('/');
-        call = parts.at(0)+parts.at(1);
+        call = parts.at(0) + "/" + parts.at(1);
     }
 
     QString prefix = QString();

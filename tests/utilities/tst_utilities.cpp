@@ -181,6 +181,7 @@ void tst_Utilities::test_isValidCall()
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
     //qDebug() << Q_FUNC_INFO << " Complex" << endl;
     QVERIFY2(util->isValidCall("EA4K/P") == true, "EA4K/P");
+    QVERIFY2(util->isValidCall("K/EA4K/P") == true, "EA4K/P");
     QVERIFY2(util->isValidCall("EA4K/F") == true, "EA4K/F");
     QVERIFY2(util->isValidCall("EA4K/1") == true, "EA4K/1");
     QVERIFY2(util->isValidCall("EA4K/K1") == true, "EA4K/K1");
