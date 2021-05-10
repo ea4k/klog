@@ -33,13 +33,17 @@ MapWidget::MapWidget()
 
 
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
-
+    qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
+
+    //setGeometry (container->geometry ());
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget (testButton);
     layout->addWidget(container);
     setLayout (layout);
+
+    setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
     connect(testButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
 }
 

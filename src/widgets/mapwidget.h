@@ -27,10 +27,8 @@
  *****************************************************************************/
 #include <QObject>
 #include <QtWidgets>
-//#include <QQuickWidget>
 #include <QQuickView>
 #include <QQuickItem>
-//#include <QQmlProperty>
 #include "locator.h"
 
 class MapWidget : public QWidget

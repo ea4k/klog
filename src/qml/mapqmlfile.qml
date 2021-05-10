@@ -39,15 +39,13 @@ Rectangle {
     //property alias locLon1: locR.topLeft.longitude
     //property alias locLat2: locR.bottomRight.latitude
     //property alias locLon2: locR.bottomRight.longitude
-
+    FocusScope
+    {
+         anchors.fill: parent
+    }
     Plugin {
         id: mapPlugin
-        name: "osm" // "mapboxgl", "esri", ...
-        // specify plugin parameters if necessary
-        // PluginParameter {
-        //     name:
-        //     value:
-        // }
+        name: "osm" // "osm", "mapboxgl", "esri", "googleMap...
     }
 
     Map {
@@ -61,7 +59,66 @@ Rectangle {
             }
         zoomLevel: 14
     }
-    MapRectangle
+
+
+
+/*    Canvas {
+            id: root
+            anchors.fill : parent
+
+            property double wgrid: 20.0
+            property double hgrid: 10.0
+            onPaint: {
+                var ctx = getContext("2d")
+                ctx.lineWidth = 1
+                ctx.strokeStyle = "black"
+                ctx.beginPath()
+                var nrows = height/hgrid;
+                var ncols = width/wgrid;
+
+                console.log("Zoom is: ", zoom)
+
+                if (zoom < 4)
+                {
+                    console.log("Zoom < 4")
+                    nrows = 36;
+                    ncols = 18;
+                }
+                else if ((zoom>=4) & (zoom<6))
+                {
+                    console.log("4 <= Zoom < 6")
+                    nrows = 360;
+                    ncols = 180;
+                }
+                else if ((zoom>=6) & (zoom<8))
+                {
+                    console.log("6 <= Zoom < 8")
+                    nrows = 8639;
+                    ncols = 4319;
+                }
+                else
+                {
+                    console.log("Zoom >= 8")
+                }
+                hgrid = height/nrows
+                wgrid = width/ncols
+
+                for(var i=0; i < nrows+1; i++){
+                    ctx.moveTo(0, hgrid*i);
+                    ctx.lineTo(width, hgrid*i);
+                }
+
+
+                for(var j=0; j < ncols+1; j++){
+                    ctx.moveTo(wgrid*j, 0);
+                    ctx.lineTo(wgrid*j, height);
+                }
+                ctx.closePath()
+                ctx.stroke()
+            }
+        }
+    */
+
     function addLoc(lat,longi) {
 
             var locator = Qt.createQmlObject('import QtLocation 5.3; MapRectangle {   }', map, "dynamic");
