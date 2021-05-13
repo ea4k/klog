@@ -4317,17 +4317,17 @@ KLog will finish when you click on OK.</source>
         <translation>Opdaterer DSCC- og kontinentinformation ...</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1377"/>
+        <location filename="../utilities.cpp" line="1378"/>
         <source>A wrong callsign has been found: %1. Please enter a new callsign or confirm that the current one is a good callsign.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1382"/>
+        <location filename="../utilities.cpp" line="1383"/>
         <source>An empty callsign has been detected. If it is possible, please enter the right call.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1385"/>
+        <location filename="../utilities.cpp" line="1386"/>
         <source>KLog - Not valid callsign found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6724,17 +6724,22 @@ The log will not be opened.</source>
         <translation>KLog-opdatering</translation>
     </message>
     <message>
-        <location filename="../softwareupdatedialog.cpp" line="79"/>
+        <location filename="../softwareupdatedialog.cpp" line="76"/>
+        <source>&lt;center&gt;&lt;h2&gt;KLog new version (%1) is available! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;There is a new version of KLog available.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can get the new version from:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://www.klog.xyz&gt;https://www.klog.xyz&lt;/a&gt;&lt;/center&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../softwareupdatedialog.cpp" line="81"/>
         <source>Congratulations!</source>
         <translation>Tillykke!</translation>
     </message>
     <message>
-        <location filename="../softwareupdatedialog.cpp" line="79"/>
+        <location filename="../softwareupdatedialog.cpp" line="81"/>
         <source>Your KLog has been updated.</source>
         <translation>Din KLog er blevet opdateret.</translation>
     </message>
     <message>
-        <location filename="../softwareupdatedialog.cpp" line="79"/>
+        <location filename="../softwareupdatedialog.cpp" line="81"/>
         <source>You already have the latest version.</source>
         <translation>Du har allerede den seneste version.</translation>
     </message>

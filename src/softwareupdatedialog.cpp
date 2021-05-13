@@ -101,15 +101,12 @@ void SoftwareUpdateDialog::slotAcceptButtonClicked()
 
 void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
 {
-     //qDebug() << "SoftwareUpdateDialog::keyPressEvent"  << endl;
-    switch (event->key()) {
+    //qDebug() << "SoftwareUpdateDialog::keyPressEvent"  << endl;
+    //switch (event->key()) {
+    // break;
+    //default:
+    slotAcceptButtonClicked();
 
-        break;
-
-    default:
-        //QFrame::keyPressEvent(event)
-        slotAcceptButtonClicked();
-
-    }
-     //qDebug() << "SoftwareUpdateDialog::keyPressEvent END"  << endl;
+    //}
+    //qDebug() << "SoftwareUpdateDialog::keyPressEvent END"  << endl;
 }
