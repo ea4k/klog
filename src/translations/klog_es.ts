@@ -3011,7 +3011,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3903"/>
         <source>Queue all QSLs from this log to be sent</source>
-        <translation>Encolar todas las QSLs del log para enviar</translation>
+        <translation>Encolar todas las QSLs de este log para enviar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3906"/>
@@ -3031,7 +3031,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3915"/>
         <source>Mark all queued QSOs from this log as sent</source>
-        <translation>Marcar todos los QSOs de este log pcomo enviados</translation>
+        <translation>Marcar todos los QSOs de este log como enviados</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3920"/>
@@ -3061,7 +3061,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4148"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
-        <translation>Todos los QSO pendientes del log se han añadido a la cola de LoTW.</translation>
+        <translation>Todos los QSO pendientes de este log se han añadido a la cola de LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4156"/>
