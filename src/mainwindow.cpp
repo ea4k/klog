@@ -6495,6 +6495,7 @@ void MainWindow::slotLoTWExport()
     if (!lotwActive)
     {
         showMessageToEnableTheOnlineService(LoTW);
+        return;
     }
     adifLoTWExportWidget->setExportMode(ModeLotW);
     adifLoTWExportWidget->show();

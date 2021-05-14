@@ -2,7 +2,10 @@ TBD - 1.5.3
 - Bugfix: Unexpected Setup dialog behavior. (Closes issue #178) (TNX foldynl)
 - Bugfix: Time is not in UTC when "Log in real time" is uncheck. (Closes issue #179) (TNX foldynl)
 - Bugfix: Missing translation in SoftwareUpdateDialog. (Closes issue #180) (TNX foldynl)
+- Bugfix: Inconsistency text in Tip#2. (Closes issue #182) (TNX foldynl)
 - Bugfix: Missing Translation string in SetupPageMisc::createUI. (Closes issue #185) (TNX foldynl)
+- Bugfix: When LoTW service was no enabled, KLog insisted to show the QSOs to be exported.
+- Added the tooltip 21 about uploading LoTW.
 
 May 2021 - 1.5.2
 - Bugfix: Complex calls like K/EA4K/P were identified as wrong calls. (Closes issue #177) (TNX PA3FNT)

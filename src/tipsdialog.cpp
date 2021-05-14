@@ -42,7 +42,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     //tipTextEdit->setReadOnly(true);
     //tipTextEdit->setWordWrapMode(QTextOption::WordWrap);
     tipId = 1;
-    tipMax = 20;
+    tipMax = 21;
 
     //QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -108,6 +108,8 @@ void TipsDialog::slotPrevButtonClicked()
 
     if (tipId>1)
     {
+        if ((tipId==3) || (tipId == 5))
+        {tipId--;}
         tipId--;
     }
     else
@@ -126,6 +128,8 @@ void TipsDialog::slotNextButtonClicked()
 
     if (tipId<tipMax)
     {
+        if ((tipId==1) || (tipId == 3))
+        {tipId++;}
         tipId++;
     }
     else
@@ -154,10 +158,10 @@ void TipsDialog::setTip(const int _t)
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
         description = tr("<b>Tip #1:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");
     break;
-    case 2:
+    //case 2:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
-        description = tr("<b>Tip #2:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInDXCC\">Tools->Fill in DXCC data</a> to automatically read the full log to fill the DXCC QSO data?");
-    break;
+      //  description = tr("<b>Tip #2:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInDXCC\">Tools->Fill in DXCC data</a> to automatically read the full log to fill the DXCC QSO data?");
+    //break;
     case 3:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->QSL tools...->Find QSO to QSL
         description = tr("<b>Tip #3:</b><br>Do you know...<br>You can use <a href=\"#ToolsFindQSO2QSL\">Tools->QSL tools...->Find QSO to QSL</a> to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?");
@@ -222,7 +226,7 @@ void TipsDialog::setTip(const int _t)
     break;
     case 21:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
-        description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->Upload to LoTW...</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
+        description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->LoTW tools ...->Sends the log to LoTW calling TQSL.</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
     break;
     default:
         //description = tr("TIP-Default: Text");
