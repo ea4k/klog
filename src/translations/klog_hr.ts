@@ -1933,7 +1933,7 @@ Greška: %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="43"/>
         <location filename="../mainqsoentrywidget.cpp" line="336"/>
-        <location filename="../mainqsoentrywidget.cpp" line="615"/>
+        <location filename="../mainqsoentrywidget.cpp" line="616"/>
         <source>&amp;Add</source>
         <translation>&amp;Dodaj</translation>
     </message>
@@ -1984,18 +1984,18 @@ Greška: %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="775"/>
+        <location filename="../mainqsoentrywidget.cpp" line="778"/>
         <source>Callsign</source>
         <translation type="unfinished">Pozivni znak</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="780"/>
+        <location filename="../mainqsoentrywidget.cpp" line="783"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished">DUPLI</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="611"/>
+        <location filename="../mainqsoentrywidget.cpp" line="612"/>
         <source>&amp;Modify</source>
         <translation>&amp;Promijeni</translation>
     </message>
@@ -4710,30 +4710,30 @@ KLog će izaći kad kliknete na OK.</translation>
     <name>SetupDialog</name>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
-        <location filename="../setupdialog.cpp" line="384"/>
+        <location filename="../setupdialog.cpp" line="385"/>
         <source>User data</source>
         <translation>Korisnički podaci</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="206"/>
-        <location filename="../setupdialog.cpp" line="396"/>
+        <location filename="../setupdialog.cpp" line="397"/>
         <source>Bands/Modes</source>
         <translation>Frekvencijski pojasevi/Načini rada</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="402"/>
+        <location filename="../setupdialog.cpp" line="403"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="208"/>
-        <location filename="../setupdialog.cpp" line="408"/>
+        <location filename="../setupdialog.cpp" line="409"/>
         <source>Colors</source>
         <translation>Boje</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="209"/>
-        <location filename="../setupdialog.cpp" line="414"/>
+        <location filename="../setupdialog.cpp" line="415"/>
         <source>Misc</source>
         <translation>Razno</translation>
     </message>
@@ -4753,19 +4753,19 @@ KLog će izaći kad kliknete na OK.</translation>
         <translation>HamLib</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="359"/>
+        <location filename="../setupdialog.cpp" line="360"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
         <translation>Želite li dodati jednu dnevničku datoteku u kartici Dnevnici ili izići iz KLoga?
 (Kliknite da za dodavanje datoteke ili Ne za izlaz iz KLoga)</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="453"/>
+        <location filename="../setupdialog.cpp" line="454"/>
         <source>DB has not been moved to new path.</source>
         <translation>Baza podataka nije bila pomaknuta u novu putanju.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="454"/>
+        <location filename="../setupdialog.cpp" line="455"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Idite u karticu Razno i kliknite na Makni bazu
@@ -4802,27 +4802,27 @@ KLog će izaći kad kliknete na OK.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="358"/>
+        <location filename="../setupdialog.cpp" line="359"/>
         <source>You need to enter at least one log in the Logs tab.</source>
         <translation>Trebate unijeti barem jedan dnevnik na kartici Dnevnici.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="463"/>
+        <location filename="../setupdialog.cpp" line="464"/>
         <source>You need to enter at least a valid callsign.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="464"/>
+        <location filename="../setupdialog.cpp" line="465"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="476"/>
+        <location filename="../setupdialog.cpp" line="477"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>Niste izabrali kakvu vrstu dnevnika želite.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="477"/>
+        <location filename="../setupdialog.cpp" line="478"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
         <translation>Bit ćete preusmjereni na karticu Dnevnici.
@@ -4830,12 +4830,12 @@ Izaberite vrstu dnevnika kakvu želite koristiti.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="211"/>
-        <location filename="../setupdialog.cpp" line="390"/>
+        <location filename="../setupdialog.cpp" line="391"/>
         <source>Logs</source>
         <translation>Dnevnici</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="420"/>
+        <location filename="../setupdialog.cpp" line="421"/>
         <source>World</source>
         <translation>Svijet</translation>
     </message>
@@ -5758,6 +5758,11 @@ The log will not be opened.</source>
         <location filename="../setuppages/setuppagemisc.cpp" line="62"/>
         <source>Move DB</source>
         <translation>Makni bazu podataka</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="87"/>
+        <source>In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="134"/>

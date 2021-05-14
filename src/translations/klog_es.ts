@@ -1933,7 +1933,7 @@ Error: #2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="43"/>
         <location filename="../mainqsoentrywidget.cpp" line="336"/>
-        <location filename="../mainqsoentrywidget.cpp" line="615"/>
+        <location filename="../mainqsoentrywidget.cpp" line="616"/>
         <source>&amp;Add</source>
         <translation>&amp;Añadir</translation>
     </message>
@@ -1984,18 +1984,18 @@ Error: #2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="775"/>
+        <location filename="../mainqsoentrywidget.cpp" line="778"/>
         <source>Callsign</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="780"/>
+        <location filename="../mainqsoentrywidget.cpp" line="783"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="611"/>
+        <location filename="../mainqsoentrywidget.cpp" line="612"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modificar</translation>
     </message>
@@ -4715,30 +4715,30 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <name>SetupDialog</name>
     <message>
         <location filename="../setupdialog.cpp" line="205"/>
-        <location filename="../setupdialog.cpp" line="384"/>
+        <location filename="../setupdialog.cpp" line="385"/>
         <source>User data</source>
         <translation>Datos de usuario</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="206"/>
-        <location filename="../setupdialog.cpp" line="396"/>
+        <location filename="../setupdialog.cpp" line="397"/>
         <source>Bands/Modes</source>
         <translation>Bandas/modos</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="402"/>
+        <location filename="../setupdialog.cpp" line="403"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="208"/>
-        <location filename="../setupdialog.cpp" line="408"/>
+        <location filename="../setupdialog.cpp" line="409"/>
         <source>Colors</source>
         <translation>Colores</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="209"/>
-        <location filename="../setupdialog.cpp" line="414"/>
+        <location filename="../setupdialog.cpp" line="415"/>
         <source>Misc</source>
         <translation>Varios</translation>
     </message>
@@ -4758,19 +4758,19 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <translation>HamLib</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="359"/>
+        <location filename="../setupdialog.cpp" line="360"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
         <translation>¿Quiere añadir un log en la pestaña de Logs o salir de KLog?
 (Pulse Si para añadir un log o No para salir de KLog)</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="453"/>
+        <location filename="../setupdialog.cpp" line="454"/>
         <source>DB has not been moved to new path.</source>
         <translation>La base de datos se ha movido a un nuevo destino.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="454"/>
+        <location filename="../setupdialog.cpp" line="455"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Vaya a la pestaña Varios y pulse sobre Mover BBDD
@@ -4807,27 +4807,27 @@ o la base de datos no se moverá a la nueva ubicación.</translation>
         <translation>Preferencias</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="358"/>
+        <location filename="../setupdialog.cpp" line="359"/>
         <source>You need to enter at least one log in the Logs tab.</source>
         <translation>Debe introducir al menos un log en la pestaña de Logs.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="463"/>
+        <location filename="../setupdialog.cpp" line="464"/>
         <source>You need to enter at least a valid callsign.</source>
         <translation>Debe introducir al menos un  indicativo válido.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="464"/>
+        <location filename="../setupdialog.cpp" line="465"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation>Vaya a la pestala Usuario e introduzca un indicativo válido.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="476"/>
+        <location filename="../setupdialog.cpp" line="477"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>No ha seleccionado el tipo de log que quiere.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="477"/>
+        <location filename="../setupdialog.cpp" line="478"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
         <translation>Será redirigido a la pestaña de Log.
@@ -4835,12 +4835,12 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="211"/>
-        <location filename="../setupdialog.cpp" line="390"/>
+        <location filename="../setupdialog.cpp" line="391"/>
         <source>Logs</source>
         <translation>Logs</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="420"/>
+        <location filename="../setupdialog.cpp" line="421"/>
         <source>World</source>
         <translation>Entidades</translation>
     </message>
@@ -5757,6 +5757,11 @@ El log no se abrirá.</translation>
         <location filename="../setuppages/setuppagemisc.cpp" line="62"/>
         <source>Move DB</source>
         <translation>Mover BBDD</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagemisc.cpp" line="87"/>
+        <source>In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.</source>
+        <translation type="unfinished">En segundos, introduzca el rango de tiempo a considerar como duplicado si coincide el mismo indicativo, banda y modo.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="134"/>
