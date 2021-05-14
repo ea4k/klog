@@ -42,7 +42,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     useDefaultName = new QCheckBox(tr("Use this &default filename"), this);
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
-    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
+    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);
     //keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
@@ -84,7 +84,7 @@ SetupPageMisc::~SetupPageMisc(){
 void SetupPageMisc::createUI()
 {
     dupeTimeLineEdit->setInputMask("0000000");
-    dupeTimeLineEdit->setToolTip("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.");
+    dupeTimeLineEdit->setToolTip(tr("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered."));
     palWrong.setColor(QPalette::Text, Qt::red);
     palRight.setColor(QPalette::Text, Qt::black);
 
@@ -108,7 +108,7 @@ void SetupPageMisc::createUI()
     dbPathLineEdit->setReadOnly(false);
     dbPathLineEdit->setText(dbDirCurrent);
     dbPathLineEdit->setEnabled(true);
-    
+
     //UDPServerCheckBox->setChecked(true);
     //UDPServerPortSpinBox->setEnabled(true);
     //UDPServerCheckBox->setEnabled(false);
@@ -134,7 +134,7 @@ void SetupPageMisc::createUI()
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometers)."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
-    alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));    
+    alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));
     useDefaultName->setToolTip(tr("Select to use the following name for the logfile without being asked for it again."));
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
     useDxMarathonCheckBox->setToolTip(tr("Select if you want to manage DX-Marathon."));
@@ -395,7 +395,7 @@ void SetupPageMisc::setReportInfo(const QString &_t)
 }
 
 QString SetupPageMisc::getDefaultDBPath()
-{    
+{
     return dbDirCurrent;
 }
 
