@@ -599,6 +599,7 @@ void MainQSOEntryWidget::setUTC(const bool _utc)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     UTCTime = _utc;
+    setDateAndTimeInternally();
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -625,22 +626,24 @@ void MainQSOEntryWidget::slotUpdateTime()
     if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
         //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << endl;
-
-        if (UTCTime)
-        {
-
-            dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
-            timeEdit->setTime(QDateTime::currentDateTime().toUTC().time());
-        }
-        else
-        {
-
-            dateEdit->setDate(QDateTime::currentDateTime().date());
-            timeEdit->setTime(QDateTime::currentDateTime().time());
-        }
+        setDateAndTimeInternally();
     }
 
     //emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainQSOEntryWidget::setDateAndTimeInternally()
+{
+    if (UTCTime)
+    {
+        dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
+        timeEdit->setTime(QDateTime::currentDateTime().toUTC().time());
+    }
+    else
+    {
+        dateEdit->setDate(QDateTime::currentDateTime().date());
+        timeEdit->setTime(QDateTime::currentDateTime().time());
+    }
 }
 
 bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)

@@ -102,6 +102,7 @@ private:
     bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
     void checkIfDupe(const QString &_func);
+    void setDateAndTimeInternally();
 
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
