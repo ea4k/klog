@@ -307,6 +307,7 @@ void SetupDialog::setData(const QString &_configFile, const QString &_softwareVe
 
     setConfigFile(_configFile);
     setSoftVersion(_softwareVersion);
+    slotReadConfigData ();
     setPage(_page);
     //removeBandModeDuplicates();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);

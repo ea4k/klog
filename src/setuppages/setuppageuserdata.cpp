@@ -379,7 +379,6 @@ void SetupPageUserDataPage::slotMyLocatorTextChanged()
         {
             myLocatorLabel->setText(tr("&Locator"));
         }
-
     }
 }
 
