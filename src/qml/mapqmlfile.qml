@@ -29,8 +29,8 @@ import QtLocation 5.6
 import QtPositioning 5.6
 
 Rectangle {
-    width: 512
-    height: 512
+    width: 640
+    height: 480
     visible: true
     property alias zoom: map.zoomLevel
     property alias lat: map.center.latitude
@@ -39,6 +39,18 @@ Rectangle {
     //property alias locLon1: locR.topLeft.longitude
     //property alias locLat2: locR.bottomRight.latitude
     //property alias locLon2: locR.bottomRight.longitude
+
+
+
+    Location {
+            // Define location that will be "center" of map
+            id: mapCenter
+            coordinate {
+                latitude: 43.2
+                longitude: -4.816669
+            }
+    }
+
     FocusScope
     {
          anchors.fill: parent
@@ -52,17 +64,52 @@ Rectangle {
         id: map
         anchors.fill: parent
         plugin: mapPlugin
-        center {
-                // One great place (Naranjo de Bulnes)
-                latitude: 43.2
-                longitude: -4.816669
-            }
+        center: mapCenter.coordinate
+
+        onCenterChanged:
+        {
+            console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
+        }
         zoomLevel: 14
+        MouseArea
+        {
+            hoverEnabled: true
+            anchors.fill: parent
+
+            onPositionChanged:
+            {
+                Qt.point(mouseX, mouseY)
+                var coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+                console.log("Mouse Position (", mouseX, ", ", mouseY, ")");
+                console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
+            }
+        }
     }
 
 
 
-/*    Canvas {
+    Canvas {
+             id: root
+             anchors.fill : parent
+
+             property double wgrid: 20.0
+             property double hgrid: 10.0
+
+             onPaint: {
+
+                 console.log("Latitude: ", lat, " - Longitude: ", lon);
+                 var ctx = getContext("2d")
+                 ctx.lineWidth = 1
+                 ctx.strokeStyle = "black"
+                 ctx.beginPath()
+
+                 ctx.moveTo(0, 0);
+                 ctx.lineTo(width, hgrid);
+             }
+    }
+
+    /*
+   Canvas {
             id: root
             anchors.fill : parent
 
@@ -73,37 +120,16 @@ Rectangle {
                 ctx.lineWidth = 1
                 ctx.strokeStyle = "black"
                 ctx.beginPath()
-                var nrows = height/hgrid;
-                var ncols = width/wgrid;
+                var nrows = 360/10; // 36
+                var ncols = 360/20; // 18
 
-                console.log("Zoom is: ", zoom)
+                //console.log("Zoom is: ", zoom)
 
-                if (zoom < 4)
-                {
-                    console.log("Zoom < 4")
-                    nrows = 36;
-                    ncols = 18;
-                }
-                else if ((zoom>=4) & (zoom<6))
-                {
-                    console.log("4 <= Zoom < 6")
-                    nrows = 360;
-                    ncols = 180;
-                }
-                else if ((zoom>=6) & (zoom<8))
-                {
-                    console.log("6 <= Zoom < 8")
-                    nrows = 8639;
-                    ncols = 4319;
-                }
-                else
-                {
-                    console.log("Zoom >= 8")
-                }
                 hgrid = height/nrows
                 wgrid = width/ncols
 
                 for(var i=0; i < nrows+1; i++){
+
                     ctx.moveTo(0, hgrid*i);
                     ctx.lineTo(width, hgrid*i);
                 }
@@ -117,7 +143,7 @@ Rectangle {
                 ctx.stroke()
             }
         }
-    */
+
 
     function addLoc(lat,longi) {
 
@@ -152,4 +178,5 @@ Rectangle {
             console.log("success creating object");
             return true;
         }
+    */
 }

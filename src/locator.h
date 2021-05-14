@@ -29,7 +29,8 @@
 #include <math.h>
 #include <QString>
 #include <QRegularExpression>
-
+// Description of the Locator system:
+// https://www.qrz.ru/vhf/qth_h.pdf
 
 
 const double PI = 3.141592654; //http://en.wikipedia.org/wiki/Pi
