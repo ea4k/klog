@@ -5761,7 +5761,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="87"/>
         <source>In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.</source>
-        <translation type="unfinished">En segundos, introduzca el rango de tiempo a considerar como duplicado si coincide el mismo indicativo, banda y modo.</translation>
+        <translation>En segundos, introduzca el rango de tiempo a considerar como duplicado si coincide el mismo indicativo, banda y modo.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="134"/>
