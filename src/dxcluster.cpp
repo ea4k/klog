@@ -23,6 +23,7 @@ email                : jaime@robles.es
 *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
 *                                                                           *
 *****************************************************************************/
+#include <QFont>
 #include "dxcluster.h"
 
 DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
@@ -447,6 +448,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
         QListWidgetItem *item = new QListWidgetItem();
         item->setForeground(QBrush(dxSpotColor));
+        item->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
         item->setText(dxClusterString);
 
 /*
