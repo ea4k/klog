@@ -348,6 +348,8 @@ void DXClusterWidget::slotClusterDataArrived()
     {
         dxClusterString =  tcpSocket->readLine();
         dxClusterString = dxClusterString.trimmed();
+        // Remove BELL-string if exists
+        dxClusterString = dxClusterString.remove("\a");
         saveSpot(dxClusterString);
 
         QStringList tokens = dxClusterString.split(" ", QString::SkipEmptyParts);
