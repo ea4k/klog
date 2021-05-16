@@ -6,6 +6,7 @@ TBD - 1.5.3
 - Bugfix: Missing Translation string in SetupPageMisc::createUI. (Closes issue #185) (TNX foldynl)
 - Bugfix: When LoTW service was no enabled, KLog insisted to show the QSOs to be exported.
 - Added the tooltip 21 about uploading LoTW.
+- Translation: Czech (TNX OK1MLG)
 
 May 2021 - 1.5.2
 - Bugfix: Complex calls like K/EA4K/P were identified as wrong calls. (Closes issue #177) (TNX PA3FNT)
