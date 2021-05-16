@@ -269,6 +269,7 @@ message (Translations)
 
 TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts \
+    translations/klog_cs.ts \
     translations/klog_da.ts \
     translations/klog_de.ts \
     translations/klog_fi.ts \
