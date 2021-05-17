@@ -319,7 +319,7 @@ void SetupPageSats::createSatsModel()
         satsModel->setSort(nameCol, Qt::AscendingOrder);
         satsModel->setHeaderData(nameCol, Qt::Horizontal, tr("ID"));
 
-        nameCol = rec.indexOf("satarrild");
+        nameCol = rec.indexOf("satarrlid");
         satsModel->setHeaderData(nameCol, Qt::Horizontal, tr("Short"));
 
         nameCol = rec.indexOf("satname");
