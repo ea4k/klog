@@ -558,8 +558,6 @@ void DXClusterWidget::slotClusterSendToServer()
     if ( inputCommand ->text().length() < 1 )
     {
            //qDebug() << "DXClusterWidget::slotClusterSendToServer() - Vacio..." << endl;
-        QTextStream os(tcpSocket);
-        os << "bye\n";
         return;
     }
     //  write to the server
