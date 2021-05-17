@@ -558,8 +558,6 @@ void DXClusterWidget::slotClusterSendToServer()
     if ( inputCommand ->text().length() < 1 )
     {
            //qDebug() << "DXClusterWidget::slotClusterSendToServer() - Vacio..." << endl;
-        QTextStream os(tcpSocket);
-        os << "bye\n";
         return;
     }
     //  write to the server
@@ -572,22 +570,7 @@ void DXClusterWidget::slotClusterClearLineInput()
 {
        //qDebug() << "DXClusterWidget::slotClusterClearLineInput" << endl;
 
-    if ( ((inputCommand->text()).length()) <= 0 )
-    {
-        if ( dxClusterConnected )
-        {
-            QTextStream os(tcpSocket);
-            os << "bye\n";
-        }
-        else
-        {
-        }
-    }
-    else
-    {
-        inputCommand->clear();
-    }
-
+    inputCommand->clear();
 }
 
 void DXClusterWidget::slotClusterInputTextChanged()
