@@ -5,7 +5,11 @@ TBD - 1.5.3
 - Bugfix: Inconsistency text in Tip#2. (Closes issue #182) (TNX foldynl)
 - Bugfix: Missing Translation string in SetupPageMisc::createUI. (Closes issue #185) (TNX foldynl)
 - Bugfix: When LoTW service was no enabled, KLog insisted to show the QSOs to be exported.
-- Added the tooltip 21 about uploading LoTW.
+- Bugfix: Setup->Satellites did not show a correct Short name. (Closes issue #192) (TNX foldynl)
+- Bugfix: Removal DX Cluster unexpected disconnection. (TNX foldynl)
+- Bugfix: Tip #21 was not shown. (Closes issue #184) (TNX foldynl)
+- Enhancement: Improved the readability of the DX Cluster window. (TNX foldynl)
+- Updated the KLog tips.
 - Translation: Czech (TNX OK1MLG)
 
 May 2021 - 1.5.2

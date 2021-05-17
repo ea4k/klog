@@ -42,7 +42,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     //tipTextEdit->setReadOnly(true);
     //tipTextEdit->setWordWrapMode(QTextOption::WordWrap);
     tipId = 1;
-    tipMax = 21;
+    tipMax = 19;
 
     //QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -108,8 +108,6 @@ void TipsDialog::slotPrevButtonClicked()
 
     if (tipId>1)
     {
-        if ((tipId==3) || (tipId == 5))
-        {tipId--;}
         tipId--;
     }
     else
@@ -128,8 +126,6 @@ void TipsDialog::slotNextButtonClicked()
 
     if (tipId<tipMax)
     {
-        if ((tipId==1) || (tipId == 3))
-        {tipId++;}
         tipId++;
     }
     else
@@ -158,30 +154,30 @@ void TipsDialog::setTip(const int _t)
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
         description = tr("<b>Tip #1:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");
     break;
-    //case 2:
+   case 2:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
-      //  description = tr("<b>Tip #2:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInDXCC\">Tools->Fill in DXCC data</a> to automatically read the full log to fill the DXCC QSO data?");
-    //break;
+      description = tr("<b>Tip #2:</b><br>Do you know...<br>You can find the QSLs that you still need to send with <a href=\"#ToolsSendPendingQSL\">Tools->QSL tools...->Find My-QSLs pending to send</a>.<bR>This tool will list you in the search box all the QSOs with the QSL-Sent marked as <i>Requested</i>.");
+    break;
     case 3:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->QSL tools...->Find QSO to QSL
         description = tr("<b>Tip #3:</b><br>Do you know...<br>You can use <a href=\"#ToolsFindQSO2QSL\">Tools->QSL tools...->Find QSO to QSL</a> to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?");
     break;
     case 4:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->Export Requested QSL to ADIF...
-        description = tr("<b>Tip #4:</b><br>Do you know...<br>You can export your QSO marked as QSL requested with <a href=\"#FileExportQSLADIFToPrint\">File->Export Requested QSL to ADIF...</a> to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?");
+        description = tr("<b>Tip #4:</b><br>Do you know...<br>You can enter a '*' in the search box, in the search window to search for all the QSOs done with one specific station callsign?");
     break;
     case 5:
-        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can enter a '*' in the search box, in the search window to search for all the QSOs done with one specific station callsign?");
-    break;
-    case 6:
-        //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
-        description = tr("<b>Tip #6:</b><br>Do you know...<br>You can find the file containing all your log and other information in the logbook.dat "
+        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can find the file containing all your log and other information in the logbook.dat "
                          "file and the klogrc file, containing the KLog config file in the KLog folder by opening the"
                          " <a href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu?");
     break;
+    case 6:
+        //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
+        description = tr("<b>Tip #6:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->LoTW tools ...->Sends the log to LoTW calling TQSL.</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
+    break;
     case 7:
         //: Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find My-QSLs pending to send
-        description = tr("<b>Tip #7:</b><br>Do you know...<br>You can find the QSLs that you still need to send with <a href=\"#ToolsSendPendingQSL\">Tools->QSL tools...->Find My-QSLs pending to send</a>.<bR>This tool will list you in the search box all the QSOs with the QSL-Sent marked as <i>Requested</i>.");
+        description = tr("<b>Tip #7:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
     break;
     case 8:
         //: Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find DX-QSLs pending to receive
@@ -220,13 +216,6 @@ void TipsDialog::setTip(const int _t)
     break;
     case 19:
         description = tr("<b>Tip #19:</b><br>Do you know...<br>You can right-click on a QSO and select <i>Check in QRZ.com</i> to check that callsign in QRZ.com?");
-    break;
-    case 20:
-        description = tr("<b>Tip #20:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
-    break;
-    case 21:
-        //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
-        description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->LoTW tools ...->Sends the log to LoTW calling TQSL.</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
     break;
     default:
         //description = tr("TIP-Default: Text");
