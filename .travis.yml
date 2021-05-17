@@ -19,8 +19,9 @@ matrix:
       - qmake KLog.pro
       - make  
   - os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11.3
     before_install:
+      - brew update
       - brew install qt5
       - brew link qt5 --force
       - brew install hamlib
