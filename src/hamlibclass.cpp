@@ -442,7 +442,7 @@ void HamLibClass::init(bool _active)
     else
     {
         // //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
-        strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), HAMLIB_FILPATHLEN);
+        strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
         // //qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << endl;
         my_rig->state.rigport.parm.serial.rate = bauds;
         // //qDebug() << "HamLibClass::init: serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) << endl;
@@ -460,7 +460,7 @@ void HamLibClass::init(bool _active)
     my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
 
     //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
-    strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), HAMLIB_FILPATHLEN);
+    strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
        //qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << endl;
     my_rig->state.rigport.parm.serial.rate = bauds;
     //qDebug() << "HamLibClass::init: serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) << endl;
@@ -566,7 +566,7 @@ void HamLibClass::setPort(const QString &_port)
 {
     //qDebug() << "HamLibClass::setPort: " << _port << endl;
     serialPort = _port;
-    //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), HAMLIB_FILPATHLEN);
+    //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
     //qstrncpy(myport.pathname, serialPort.toLocal8Bit().constData(), serialPort.length()+1);
 }
 
