@@ -44,7 +44,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
     util = new Utilities;
-    colors = new SetupPageColors;
+    //colorsPage = new SetupPageColors;
     realTime = true;
     duplicatedQSOSlotInSecs = 0;
     delayInputTimer = new QTimer;
@@ -210,7 +210,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     }
     else
     {
-        getDarkMode();
+        //getDarkMode();
         qDebug() << "DarkMode is: " << darkMode << '\n';
         if (darkMode)
         {
@@ -807,5 +807,5 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
 
 void MainQSOEntryWidget::getDarkMode()
 {
-    darkMode = util->trueOrFalse(colors->getDarkMode());
+    darkMode = util->trueOrFalse(colorsPage->getDarkMode());
 }

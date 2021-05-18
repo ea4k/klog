@@ -131,7 +131,7 @@ private:
     bool UTCTime, modify, realTime;
     QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Utilities *util;
-    SetupPageColors *colors;
+    SetupPageColors *colorsPage;
     QPalette::ColorRole enabledCR, disabledCR;
 
     int duplicatedQSOSlotInSecs;
