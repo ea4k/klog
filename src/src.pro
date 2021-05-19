@@ -56,6 +56,7 @@ QT += core \
     printsupport \
     charts \
     quickwidgets \
+    positioning \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)

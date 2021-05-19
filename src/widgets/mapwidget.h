@@ -46,9 +46,13 @@ private slots:
 private:
     QQuickView qmlView;
 
-    Locator locator;
+    QStandardItemModel model;
+    QHash<int, QByteArray> roles;
 
+    int CoordinateRole = Qt::UserRole + 1000;
+    Locator locator;
     QPushButton *testButton;
+    double lat, lon;
 
 };
 

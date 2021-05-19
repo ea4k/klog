@@ -35,6 +35,11 @@ Rectangle {
     property alias zoom: map.zoomLevel
     property alias lat: map.center.latitude
     property alias lon: map.center.longitude
+    //property alias locator: map.loca
+    /*topLeft {
+    latitude: -27
+    longitude: 153
+}*/
     //property alias locLat1: locR.topLeft.latitude
     //property alias locLon1: locR.topLeft.longitude
     //property alias locLat2: locR.bottomRight.latitude
@@ -84,99 +89,27 @@ Rectangle {
                 console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
             }
         }
+        MapItemView{
+                      model: rectangle_model
+                      delegate: MapRectangle{
+                           topLeft     : QtPositioning.coordinate(model.coordinate.latitude, model.coordinate.longitude)
+                           bottomRight : QtPositioning.coordinate(model.coordinate.latitude2, model.coordinate.longitude)
+                           color: 'blue'
+                           border.width: 100
+                      }
+        }
+        MapItemView{
+              model: circle_model
+              delegate: MapCircle{
+                    //topLeft     : QtPositioning.coordinate(model.lat+100, model.lon-100)
+                    //bottomRight : QtPositioning.coordinate(model.lat-100, model.lon+100)
+                    center: model.coordinate
+                    radius: 500000.0
+                    color: 'green'
+                    border.width: 100
+              }
+          }
+
     }
 
-
-
-    Canvas {
-             id: root
-             anchors.fill : parent
-
-             property double wgrid: 20.0
-             property double hgrid: 10.0
-
-             onPaint: {
-
-                 console.log("Latitude: ", lat, " - Longitude: ", lon);
-                 var ctx = getContext("2d")
-                 ctx.lineWidth = 1
-                 ctx.strokeStyle = "black"
-                 ctx.beginPath()
-
-                 ctx.moveTo(0, 0);
-                 ctx.lineTo(width, hgrid);
-             }
-    }
-
-    /*
-   Canvas {
-            id: root
-            anchors.fill : parent
-
-            property double wgrid: 20.0
-            property double hgrid: 10.0
-            onPaint: {
-                var ctx = getContext("2d")
-                ctx.lineWidth = 1
-                ctx.strokeStyle = "black"
-                ctx.beginPath()
-                var nrows = 360/10; // 36
-                var ncols = 360/20; // 18
-
-                //console.log("Zoom is: ", zoom)
-
-                hgrid = height/nrows
-                wgrid = width/ncols
-
-                for(var i=0; i < nrows+1; i++){
-
-                    ctx.moveTo(0, hgrid*i);
-                    ctx.lineTo(width, hgrid*i);
-                }
-
-
-                for(var j=0; j < ncols+1; j++){
-                    ctx.moveTo(wgrid*j, 0);
-                    ctx.lineTo(wgrid*j, height);
-                }
-                ctx.closePath()
-                ctx.stroke()
-            }
-        }
-
-
-    function addLoc(lat,longi) {
-
-            var locator = Qt.createQmlObject('import QtLocation 5.3; MapRectangle {   }', map, "dynamic");
-            if(grid=== null) {
-               console.log("error creating object" +  grid.errorString());
-               return false;
-            }
-            grid.center = QtPositioning.coordinate(lat, longi);
-            grid.radius = 50000.0;
-
-            grid.border.width = 1;
-            map.addMapItem(grid);
-            map.center = QtPositioning.coordinate(lat, longi);
-            console.log("success creating object");
-            return true;
-        }
-
-    function addPoi(lat,longi) {
-
-            var circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {   }', map, "dynamic");
-            if(circle === null) {
-               console.log("error creating object" +  circle.errorString());
-               return false;
-            }
-            circle.center = QtPositioning.coordinate(lat, longi);
-            circle.radius = 50000.0;
-
-            circle.border.width = 1;
-            map.addMapItem(circle);
-            map.center = QtPositioning.coordinate(lat, longi);
-            console.log("success creating object");
-            return true;
-        }
-    */
 }

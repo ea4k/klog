@@ -25,18 +25,26 @@
  *****************************************************************************/
 #include "mapwidget.h"
 #include <QQuickView>
+#include <QGeoCoordinate>
+#include <QGeoRectangle>
+#include <QQmlContext>
+#include <QStandardItemModel>
 
 MapWidget::MapWidget()
 {
     testButton = new QPushButton;
     testButton->setText ("Push");
-
+    lat = 0.0;
+    lon = 0.0;
 
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
-    //setGeometry (container->geometry ());
+    roles[CoordinateRole] = QByteArray("coordinate");
+    model.setItemRoleNames(roles);
+    //qmlView.rootContext()->setContextProperty("circle_model", &model);
+    qmlView.rootContext()->setContextProperty("rectangle_model", &model);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget (testButton);
@@ -70,7 +78,22 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 void MapWidget::slotButtonClicked ()
 {
     qDebug() << "MapWidget::slotButtonClicked " << endl;
+    lat = lat+10.0;
+    lon = lon+10.0;
 
+    double lat2 = lat-15.0;
+    double lon2 = lon+20.0;
+
+    QStandardItem *item = new QStandardItem;
+    //item->setData(QVariant::fromValue(QGeoCoordinate(lat, lon)), CoordinateRole);
+    //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
+    //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
+
+    item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(lat, lon), 10.0, 20.0)), CoordinateRole);
+    model.appendRow(item);
+    //Read:
+    //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model
+ /*
     double latitude = 43.2;
     double longitude = -4.816669;
 
@@ -81,5 +104,5 @@ void MapWidget::slotButtonClicked ()
            Q_ARG(QVariant, latitude), Q_ARG(QVariant, longitude));
        qDebug() << "QML function returned:" << returnedValue.toString();
 
-
+*/
 }
