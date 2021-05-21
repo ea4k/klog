@@ -4060,13 +4060,14 @@ void MainWindow::createMenusCommon()
     //aboutAct->setMenuRole(QAction::AboutRole);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotHelpAboutAction()));
     //connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotLoTWTest()) );
-
+    #if defined(Q_OS_MACOS)
+    #else
     aboutQtAct = new QAction(tr("About Qt ..."), this);
     helpMenu->addAction(aboutQtAct);
     //aboutQtAct->setMenuRole(QAction::AboutQtRole);
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(slotAboutQt()));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-
+    #endif
     helpMenu->addSeparator();
 
     updateAct = new QAction(tr("Check updates ..."), this);
