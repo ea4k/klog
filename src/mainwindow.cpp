@@ -4060,8 +4060,8 @@ void MainWindow::createMenusCommon()
     //aboutAct->setMenuRole(QAction::AboutRole);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotHelpAboutAction()));
     //connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotLoTWTest()) );
-    #if defined(Q_OS_MACOS)
-    #else
+    #if defined(Q_OS_MACOS) // It seems that on MAC if I try to show both, only the last one (or Qt) is shown
+    #else                   // I can define the setMenuRole but then no standard locations are used on macOS
     aboutQtAct = new QAction(tr("About Qt ..."), this);
     helpMenu->addAction(aboutQtAct);
     //aboutQtAct->setMenuRole(QAction::AboutQtRole);
