@@ -483,121 +483,122 @@ Chcete to zkusit znovu?</translation>
 <context>
     <name>DXClusterWidget</name>
     <message>
-        <location filename="../dxcluster.cpp" line="74"/>
+        <location filename="../dxcluster.cpp" line="75"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
         <translation>Kliknutím na Připojit se přípojíte do DX Clusteru</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="78"/>
-        <location filename="../dxcluster.cpp" line="542"/>
+        <location filename="../dxcluster.cpp" line="79"/>
+        <location filename="../dxcluster.cpp" line="546"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="79"/>
-        <location filename="../dxcluster.cpp" line="521"/>
-        <location filename="../dxcluster.cpp" line="600"/>
-        <location filename="../dxcluster.cpp" line="605"/>
+        <location filename="../dxcluster.cpp" line="80"/>
+        <location filename="../dxcluster.cpp" line="525"/>
+        <location filename="../dxcluster.cpp" line="597"/>
+        <location filename="../dxcluster.cpp" line="602"/>
         <source>Clear</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="156"/>
+        <location filename="../dxcluster.cpp" line="157"/>
         <source>Click on connect to connect to the DX-Cluster</source>
         <translation>Kliknutím na Připojit se přopojíte do DX Clusteru</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="216"/>
+        <location filename="../dxcluster.cpp" line="217"/>
         <source>Trying to connect to the server</source>
         <translation>Pokouším se připojit k serveru</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="228"/>
-        <location filename="../dxcluster.cpp" line="234"/>
-        <location filename="../dxcluster.cpp" line="241"/>
+        <location filename="../dxcluster.cpp" line="229"/>
+        <location filename="../dxcluster.cpp" line="235"/>
+        <location filename="../dxcluster.cpp" line="242"/>
         <source>KLog DXCluster</source>
         <translation>KLog DXCluster</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="229"/>
+        <location filename="../dxcluster.cpp" line="230"/>
         <source>The host was not found. Please check:</source>
         <translation>Server nebyl nalezen. Prosím, překontrolujte:</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="230"/>
+        <location filename="../dxcluster.cpp" line="231"/>
         <source>- your network connection;
 - the host name and port settings.</source>
         <translation>- sítové nastavení;
 - jméno serveru a nastavení port.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="235"/>
+        <location filename="../dxcluster.cpp" line="236"/>
         <source>The connection was refused by the peer. Make sure the DXCluster server is running, and check that the host name and port settings are correct.</source>
         <translation>Spojení bylo serverem odmítnuto. Zkontrolujte, zda je spuštěn DXCluster, a zkontrolujte, zda je název serveru a nastavení portu správné.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="242"/>
+        <location filename="../dxcluster.cpp" line="243"/>
         <source>The following error occurred: %1.</source>
         <translation>Nastala následující chyba: %1.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="494"/>
+        <location filename="../dxcluster.cpp" line="498"/>
         <source>Connected to server</source>
         <translation>Připojeno k serveru</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="507"/>
         <location filename="../dxcluster.cpp" line="511"/>
         <location filename="../dxcluster.cpp" line="515"/>
+        <location filename="../dxcluster.cpp" line="519"/>
         <source>KLog message</source>
         <translation>KLog zpráva</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="507"/>
         <location filename="../dxcluster.cpp" line="511"/>
+        <location filename="../dxcluster.cpp" line="515"/>
         <source>Enter your callsign to connect to the cluster:</source>
         <translation>Vložte svou volací značku pro připojení do clusteru:</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="515"/>
+        <location filename="../dxcluster.cpp" line="519"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
         <translation>Vložte heslo do DX clusteru:
 (Stiskněte Enter pro prázdné heslo)</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="520"/>
-        <location filename="../dxcluster.cpp" line="599"/>
+        <location filename="../dxcluster.cpp" line="524"/>
+        <location filename="../dxcluster.cpp" line="562"/>
+        <location filename="../dxcluster.cpp" line="596"/>
         <source>Disconnect</source>
         <translation>Odpojit</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="524"/>
+        <location filename="../dxcluster.cpp" line="528"/>
         <source>Not logged on, you may need to enter your callsign again.</source>
         <translation>Nejste přihlášeni, možná budete muset znovu zadat svou volací značku.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="528"/>
+        <location filename="../dxcluster.cpp" line="532"/>
         <source>Enter here the commands to be sent to the DX-Cluster server.</source>
         <translation>Zde zadejte příkazy, které se mají odeslat do DX-Clusteru.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="538"/>
+        <location filename="../dxcluster.cpp" line="542"/>
         <source>Connection closed by the server</source>
         <translation>Spojení ukončeno</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="544"/>
+        <location filename="../dxcluster.cpp" line="548"/>
         <source>Click on Connect to connect to the DX-Cluster server.</source>
         <translation>Kliknutím na Připojit se připojíte do DX Clusteru.</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="604"/>
+        <location filename="../dxcluster.cpp" line="601"/>
         <source>Send</source>
         <translation>Odeslat</translation>
     </message>
     <message>
-        <location filename="../dxcluster.cpp" line="791"/>
+        <location filename="../dxcluster.cpp" line="788"/>
         <source>It was not possible to open the file to save the DX-Spots for writing. DX-Cluster activity will not be saved!</source>
         <translation>Nebylo možné otevřít soubor s DX-Spoty pro zápis. Aktivita DX-Cluster nebude uložena!</translation>
     </message>
@@ -2156,7 +2157,7 @@ KLog vám připomene, abyste zálohovali každý měsíc.
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="805"/>
-        <location filename="../mainwindow.cpp" line="4744"/>
+        <location filename="../mainwindow.cpp" line="4745"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
@@ -2238,9 +2239,9 @@ KLog vám připomene, abyste zálohovali každý měsíc.
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2649"/>
-        <location filename="../mainwindow.cpp" line="6227"/>
-        <location filename="../mainwindow.cpp" line="6242"/>
-        <location filename="../mainwindow.cpp" line="6750"/>
+        <location filename="../mainwindow.cpp" line="6228"/>
+        <location filename="../mainwindow.cpp" line="6243"/>
+        <location filename="../mainwindow.cpp" line="6751"/>
         <source>Save ADIF File</source>
         <translation>Uložit ADIF</translation>
     </message>
@@ -2286,9 +2287,9 @@ KLog vám připomene, abyste zálohovali každý měsíc.
         <location filename="../mainwindow.cpp" line="2889"/>
         <location filename="../mainwindow.cpp" line="2899"/>
         <location filename="../mainwindow.cpp" line="2909"/>
-        <location filename="../mainwindow.cpp" line="6364"/>
-        <location filename="../mainwindow.cpp" line="6390"/>
-        <location filename="../mainwindow.cpp" line="6602"/>
+        <location filename="../mainwindow.cpp" line="6365"/>
+        <location filename="../mainwindow.cpp" line="6391"/>
+        <location filename="../mainwindow.cpp" line="6603"/>
         <source>KLog - ClubLog</source>
         <translation>KLog - ClubLog</translation>
     </message>
@@ -2314,7 +2315,7 @@ Přejete si smazat tento soubor?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2900"/>
         <location filename="../mainwindow.cpp" line="3019"/>
-        <location filename="../mainwindow.cpp" line="6342"/>
+        <location filename="../mainwindow.cpp" line="6343"/>
         <source>The file has been removed.</source>
         <translation>Soubor byl smazán.</translation>
     </message>
@@ -2354,8 +2355,8 @@ Můžete ho ručně smazat.</translation>
         <location filename="../mainwindow.cpp" line="3008"/>
         <location filename="../mainwindow.cpp" line="3018"/>
         <location filename="../mainwindow.cpp" line="3028"/>
-        <location filename="../mainwindow.cpp" line="6426"/>
-        <location filename="../mainwindow.cpp" line="6633"/>
+        <location filename="../mainwindow.cpp" line="6427"/>
+        <location filename="../mainwindow.cpp" line="6634"/>
         <source>KLog - eQSL</source>
         <translation>KLog - eQSL</translation>
     </message>
@@ -2393,7 +2394,7 @@ Přejete si smazat tento soubor?</translation>
         <location filename="../mainwindow.cpp" line="3076"/>
         <location filename="../mainwindow.cpp" line="3092"/>
         <location filename="../mainwindow.cpp" line="3103"/>
-        <location filename="../mainwindow.cpp" line="6735"/>
+        <location filename="../mainwindow.cpp" line="6736"/>
         <source>KLog - QRZ.com</source>
         <translation>KLog - QRZ.com</translation>
     </message>
@@ -2454,7 +2455,7 @@ Přejete si smazat tento soubor?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3722"/>
-        <location filename="../mainwindow.cpp" line="6207"/>
+        <location filename="../mainwindow.cpp" line="6208"/>
         <source>KLog - ADIF export</source>
         <translation>KLog - ADIF export</translation>
     </message>
@@ -2746,252 +2747,252 @@ Přejete si smazat tento soubor?</translation>
         <translation>&amp;Typy ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4052"/>
+        <location filename="../mainwindow.cpp" line="4053"/>
         <source>&amp;Debug ...</source>
         <translation>&amp;Ladění ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4057"/>
+        <location filename="../mainwindow.cpp" line="4058"/>
         <source>&amp;About ...</source>
         <translation>&amp;O aplikaci ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4063"/>
+        <location filename="../mainwindow.cpp" line="4064"/>
         <source>About Qt ...</source>
         <translation>O Qt ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4071"/>
+        <location filename="../mainwindow.cpp" line="4072"/>
         <source>Check updates ...</source>
         <translation>Aktualizace ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4144"/>
-        <location filename="../mainwindow.cpp" line="4180"/>
-        <location filename="../mainwindow.cpp" line="4211"/>
-        <location filename="../mainwindow.cpp" line="4398"/>
-        <location filename="../mainwindow.cpp" line="4407"/>
-        <location filename="../mainwindow.cpp" line="4435"/>
-        <location filename="../mainwindow.cpp" line="6273"/>
-        <location filename="../mainwindow.cpp" line="6308"/>
-        <location filename="../mainwindow.cpp" line="6320"/>
-        <location filename="../mainwindow.cpp" line="6331"/>
-        <location filename="../mainwindow.cpp" line="6341"/>
-        <location filename="../mainwindow.cpp" line="6539"/>
-        <location filename="../mainwindow.cpp" line="6582"/>
+        <location filename="../mainwindow.cpp" line="4145"/>
+        <location filename="../mainwindow.cpp" line="4181"/>
+        <location filename="../mainwindow.cpp" line="4212"/>
+        <location filename="../mainwindow.cpp" line="4399"/>
+        <location filename="../mainwindow.cpp" line="4408"/>
+        <location filename="../mainwindow.cpp" line="4436"/>
+        <location filename="../mainwindow.cpp" line="6274"/>
+        <location filename="../mainwindow.cpp" line="6309"/>
+        <location filename="../mainwindow.cpp" line="6321"/>
+        <location filename="../mainwindow.cpp" line="6332"/>
+        <location filename="../mainwindow.cpp" line="6342"/>
+        <location filename="../mainwindow.cpp" line="6540"/>
+        <location filename="../mainwindow.cpp" line="6583"/>
         <source>KLog - LoTW</source>
         <translation>KLog - LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4148"/>
+        <location filename="../mainwindow.cpp" line="4149"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
         <translation>Všechna čekající QSO z tohoto logu byla zafrontována do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4148"/>
-        <location filename="../mainwindow.cpp" line="4217"/>
+        <location filename="../mainwindow.cpp" line="4149"/>
+        <location filename="../mainwindow.cpp" line="4218"/>
         <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
         <translation>Nyní můžete jít do menu Soubor a exportovat a nahrát LoTW ADIF.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4156"/>
-        <location filename="../mainwindow.cpp" line="4222"/>
+        <location filename="../mainwindow.cpp" line="4157"/>
+        <location filename="../mainwindow.cpp" line="4223"/>
         <source>There was a problem to mark all pending QSOs of this log as queued for LoTW!</source>
         <translation>Vyskytla se chyba v označení všech QSO tohoto logu jako zafrontovaná do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4185"/>
+        <location filename="../mainwindow.cpp" line="4186"/>
         <source>Your log has been updated with the LoTW downloaded QSOs.</source>
         <translation>Log byl aktualizován na základě stažených dat z LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4186"/>
+        <location filename="../mainwindow.cpp" line="4187"/>
         <source>KLog has updated %1 QSOs from LoTW.</source>
         <translation>KLog aktualizoval %1 QSOs.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4196"/>
+        <location filename="../mainwindow.cpp" line="4197"/>
         <source>Your log has not been updated.</source>
         <translation>Log nebyl aktualizován.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4197"/>
+        <location filename="../mainwindow.cpp" line="4198"/>
         <source>No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated.</source>
         <translation>QSO nebyla aktualizována. Mohla to způsobit chyba v souboru nebo jednoduše nebylo co aktualizovat.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4217"/>
+        <location filename="../mainwindow.cpp" line="4218"/>
         <source>All pending QSOs has been marked as queued for LoTW!</source>
         <translation>Všechna čekající QSO byla označena jako zafrontovaná do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4241"/>
+        <location filename="../mainwindow.cpp" line="4242"/>
         <source>KLog - TQSL</source>
         <translation>KLog - TQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4245"/>
+        <location filename="../mainwindow.cpp" line="4246"/>
         <source>TQSL is not installed or KLog can&apos;t find it. Please check the configuration.</source>
         <translation>TQSL není nainstalovaný nebo KLog ho nemůže najít. Prosím, překontrolujte nastavení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4264"/>
+        <location filename="../mainwindow.cpp" line="4265"/>
         <source>Error #1: The process was cancelled by the user or TQSL was not configured. No QSOs were uploaded.</source>
         <translation>Chyba #1: Akce byla přerušena uživatelem nebo TQSL není nakonfigurovaný. Žádné QSO nebylo nahráno.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4268"/>
+        <location filename="../mainwindow.cpp" line="4269"/>
         <source>Error #2: Upload was rejected by LoTW, please check your data.</source>
         <translation>Chyba #2: Požadavek byl odmítnut LoTW. Prosím, překontrolujte data.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4272"/>
+        <location filename="../mainwindow.cpp" line="4273"/>
         <source>Error #3: The TQSL server returned an unexpected response.</source>
         <translation>Chyba #3: Neočekávaná odpověď ze server TQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4276"/>
+        <location filename="../mainwindow.cpp" line="4277"/>
         <source>Error #4: There was a TQSL error.</source>
         <translation>Chyba #4: Chyba TQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4280"/>
+        <location filename="../mainwindow.cpp" line="4281"/>
         <source>Error #5: There was a TQSLLib error.</source>
         <translation>Chyba #5: Chyba TQSLLib.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4284"/>
+        <location filename="../mainwindow.cpp" line="4285"/>
         <source>Error #6: It was not possible to open the input file.</source>
         <translation>Chyba #6: Nepodařilo se otevřít vstupní soubor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4288"/>
+        <location filename="../mainwindow.cpp" line="4289"/>
         <source>Error #7: It was not possible to open the ouput file.</source>
         <translation>Chyba #7: Nepodařilo se otevřít výstupní soubor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4292"/>
+        <location filename="../mainwindow.cpp" line="4293"/>
         <source>Error #8: No QSOs were processed since some QSOs were duplicates or out of date range.</source>
         <translation>Chyba #8: Nebyla zpracována žádná QSO, protože QSO byla duplicitní nebo mimo časový rozsah.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4296"/>
+        <location filename="../mainwindow.cpp" line="4297"/>
         <source>Error #9: Some QSOs were processed, and some QSOs were ignored because they were duplicates or out of date range.</source>
         <translation>Chyba #9: Zpracovala se pouze některá QSO, zbytek byl ignorován, protože byly duplicitní nebo mimo časovou dobu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4300"/>
+        <location filename="../mainwindow.cpp" line="4301"/>
         <source>Error #10: Command syntax error. KLog sent a bad syntax command.</source>
         <translation>Chyba #10: Chyba syntaxe. KLog zavolal chybný příkaz.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4304"/>
+        <location filename="../mainwindow.cpp" line="4305"/>
         <source>Error #11: LoTW Connection error (no network or LoTW is unreachable).</source>
         <translation>Chyba #11: Chyba připojení k LoTW (chyba síťového připojení nebo LoTW je nedostupný).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4307"/>
+        <location filename="../mainwindow.cpp" line="4308"/>
         <source>Error #00: Unexpected error. Please contact the development team.</source>
         <translation>Chyba #00: Neočekávaná chyba. Prosím, kontaktujte vývojový tým.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4339"/>
+        <location filename="../mainwindow.cpp" line="4340"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>Vybraný log obsahuje více jak jednu značku stanice.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4339"/>
+        <location filename="../mainwindow.cpp" line="4340"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
         <translation>Prosím, vyberte značku stanice, která má být odeslána do LoTW:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4342"/>
+        <location filename="../mainwindow.cpp" line="4343"/>
         <source>Station Callsign:</source>
         <translation>Stanice:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4353"/>
+        <location filename="../mainwindow.cpp" line="4354"/>
         <source>Define Station Callsign</source>
         <translation>Určete značku stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4354"/>
+        <location filename="../mainwindow.cpp" line="4355"/>
         <source>You have selected no callsign. KLog will complete the QSOs without a station callsign defined and those with the callsign you are entering here.</source>
         <translation>Nebyla vybrána žádná značka. KLog doplní QSO bez značky stanice definovanou značkou, kterou zde vyberete.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4354"/>
+        <location filename="../mainwindow.cpp" line="4355"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
         <translation>Zadejte značku stanice, kterou chcete použít pro tento log nebo ji nechte prázdnou pro QSO bez definované volací značky stanice:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4371"/>
+        <location filename="../mainwindow.cpp" line="4372"/>
         <source>KLog - No station selected</source>
         <translation>KLog - Nebyla vybrána žádná značka stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4372"/>
+        <location filename="../mainwindow.cpp" line="4373"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>Nebude označen žádný log, protože nebyla vybrána žádná značka stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4399"/>
+        <location filename="../mainwindow.cpp" line="4400"/>
         <source>Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW</source>
         <translation>Přejete si opravdu označit všechna QSO pro NAHRÁNÍ? Musí být uděláno POUZE, jestli jde o PRVNÍ NAHRÁNÍ QSO do LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4413"/>
+        <location filename="../mainwindow.cpp" line="4414"/>
         <source>All queued QSOs of this log has been marked as sent for LoTW!</source>
         <translation>Všechna zafrontovaná QSO tohoto logu byla označena jako odeslaná do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4418"/>
+        <location filename="../mainwindow.cpp" line="4419"/>
         <source>There was a problem to mark all queued QSOs of this log as sent for LoTW!</source>
         <translation>Nastal problém s označením zafrontovaných QSO jako odeslaných do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4440"/>
+        <location filename="../mainwindow.cpp" line="4441"/>
         <source>All queued QSOs has been marked as sent to LoTW!</source>
         <translation>Všechna zafrontovaná QSO byla označena jako odeslaná do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4445"/>
+        <location filename="../mainwindow.cpp" line="4446"/>
         <source>There was a problem to mark all queued QSOs of this log as sent to LoTW!</source>
         <translation>Nastal problém s označením zafrontovaných QSO jako odeslaných do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4497"/>
+        <location filename="../mainwindow.cpp" line="4498"/>
         <source>About ...</source>
         <translation>O aplikaci...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4555"/>
+        <location filename="../mainwindow.cpp" line="4556"/>
         <source>KLog - Update checking result</source>
         <translation>KLog - Výsledek Aktualizace</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4556"/>
+        <location filename="../mainwindow.cpp" line="4557"/>
         <source>Congratulations!</source>
         <translation>Gratulujeme!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4556"/>
+        <location filename="../mainwindow.cpp" line="4557"/>
         <source>You already have the latest version.</source>
         <translation>Nejnovější verzi již máte.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4737"/>
+        <location filename="../mainwindow.cpp" line="4738"/>
         <source>You can find the KLog data folder here: </source>
         <translation>KLog adresáře je možné najít: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4991"/>
+        <location filename="../mainwindow.cpp" line="4992"/>
         <source>start</source>
         <translation>nastartovat</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4992"/>
-        <location filename="../mainwindow.cpp" line="5014"/>
+        <location filename="../mainwindow.cpp" line="4993"/>
+        <location filename="../mainwindow.cpp" line="5015"/>
         <source>UDP Server error
 The UDP server failed to %1.</source>
         <comment>start or stop</comment>
@@ -2999,217 +3000,217 @@ The UDP server failed to %1.</source>
 Serveru UDP se nepovedlo %1.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5013"/>
+        <location filename="../mainwindow.cpp" line="5014"/>
         <source>stop</source>
         <translation>zastavit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5428"/>
+        <location filename="../mainwindow.cpp" line="5429"/>
         <source>It seems that there are no QSOs in the database.</source>
         <translation>V databázi nejsou žádná QSO.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5428"/>
+        <location filename="../mainwindow.cpp" line="5429"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
         <translation>Kontaktujte KLog vývojový tým, pokud databáze obsahuje nějaká QSO a KLog je nemůže najít (Nápověda-&gt;O aplikaci).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5583"/>
+        <location filename="../mainwindow.cpp" line="5584"/>
         <source>Sends the log to LoTW calling TQSL.</source>
         <translation>Odeslání logu to LoTW pomocí TQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5589"/>
+        <location filename="../mainwindow.cpp" line="5590"/>
         <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
         <translation>Tato funkce je deaktivována. Aktivace v Nastavení-&gt;Nastavení-&gt;LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5901"/>
-        <location filename="../mainwindow.cpp" line="8315"/>
+        <location filename="../mainwindow.cpp" line="5902"/>
+        <location filename="../mainwindow.cpp" line="8316"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Frekvence v MHz.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5902"/>
-        <location filename="../mainwindow.cpp" line="8369"/>
+        <location filename="../mainwindow.cpp" line="5903"/>
+        <location filename="../mainwindow.cpp" line="8370"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Frekvence v MHz.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5904"/>
+        <location filename="../mainwindow.cpp" line="5905"/>
         <source>Power used by the contacted station.</source>
         <translation>Výkon použitý protistanicí.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5905"/>
+        <location filename="../mainwindow.cpp" line="5906"/>
         <source>Logging operator&apos;s callsign.</source>
         <translation>Jméno operátora, který pořídil záznam.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5906"/>
+        <location filename="../mainwindow.cpp" line="5907"/>
         <source>Callsign used over the air.</source>
         <translation>Volací značka.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5909"/>
+        <location filename="../mainwindow.cpp" line="5910"/>
         <source>Name of the contacted operator.</source>
         <translation>Jméno operátora protistanice.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5910"/>
+        <location filename="../mainwindow.cpp" line="5911"/>
         <source>QTH of the contacted station.</source>
         <translation>QTH protistanice.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5911"/>
+        <location filename="../mainwindow.cpp" line="5912"/>
         <source>Locator of the contacted station.</source>
         <translation>Lokátor protistanice.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5915"/>
+        <location filename="../mainwindow.cpp" line="5916"/>
         <source>TX RST.</source>
         <translation>TX RST.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5917"/>
+        <location filename="../mainwindow.cpp" line="5918"/>
         <source>RX RST.</source>
         <translation>RX RST.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5920"/>
+        <location filename="../mainwindow.cpp" line="5921"/>
         <source>Status of the DX entity.</source>
         <translation>Status DX země.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5922"/>
+        <location filename="../mainwindow.cpp" line="5923"/>
         <source>Name of the DX entity.</source>
         <translation>Jméno DX země.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5971"/>
+        <location filename="../mainwindow.cpp" line="5972"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5975"/>
+        <location filename="../mainwindow.cpp" line="5976"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5978"/>
+        <location filename="../mainwindow.cpp" line="5979"/>
         <source>DX Locator</source>
         <translation>DX Lokátor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5981"/>
+        <location filename="../mainwindow.cpp" line="5982"/>
         <source>Power(rx)</source>
         <translation>Výkon(rx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5984"/>
+        <location filename="../mainwindow.cpp" line="5985"/>
         <source>RST(tx)</source>
         <translation>RST(tx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5987"/>
+        <location filename="../mainwindow.cpp" line="5988"/>
         <source>RST(rx)</source>
         <translation>RST(rx)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6009"/>
+        <location filename="../mainwindow.cpp" line="6010"/>
         <source>Freq TX</source>
         <translation>Frek TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6011"/>
+        <location filename="../mainwindow.cpp" line="6012"/>
         <source>Freq RX</source>
         <translation>Frek RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6091"/>
+        <location filename="../mainwindow.cpp" line="6092"/>
         <source>QSO</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6102"/>
+        <location filename="../mainwindow.cpp" line="6103"/>
         <source>QSL</source>
         <translation>QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6103"/>
-        <location filename="../mainwindow.cpp" line="6634"/>
+        <location filename="../mainwindow.cpp" line="6104"/>
+        <location filename="../mainwindow.cpp" line="6635"/>
         <source>eQSL</source>
         <translation>eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6104"/>
-        <location filename="../mainwindow.cpp" line="7776"/>
-        <location filename="../mainwindow.cpp" line="8510"/>
+        <location filename="../mainwindow.cpp" line="6105"/>
+        <location filename="../mainwindow.cpp" line="7777"/>
+        <location filename="../mainwindow.cpp" line="8511"/>
         <source>Comment</source>
         <translation>Poznámka</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6107"/>
+        <location filename="../mainwindow.cpp" line="6108"/>
         <source>Others</source>
         <translation>Jiné</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6109"/>
+        <location filename="../mainwindow.cpp" line="6110"/>
         <source>My Data</source>
         <translation>Mé údaje</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6110"/>
+        <location filename="../mainwindow.cpp" line="6111"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6128"/>
+        <location filename="../mainwindow.cpp" line="6129"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6134"/>
+        <location filename="../mainwindow.cpp" line="6135"/>
         <source>Awards</source>
         <translation>Diplomy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6135"/>
+        <location filename="../mainwindow.cpp" line="6136"/>
         <source>Search</source>
         <translation>Hledání</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6138"/>
+        <location filename="../mainwindow.cpp" line="6139"/>
         <source>Log</source>
         <translation>Log</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6139"/>
+        <location filename="../mainwindow.cpp" line="6140"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6140"/>
+        <location filename="../mainwindow.cpp" line="6141"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6210"/>
+        <location filename="../mainwindow.cpp" line="6211"/>
         <source>No QSOs have been exported to ADIF.</source>
         <translation>Nebylo exportováno žádné QSO do ADIF.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6214"/>
+        <location filename="../mainwindow.cpp" line="6215"/>
         <source>KLog has exported %1 QSOs to the ADIF file: %2</source>
         <translation>KLog exportoval %1 QSO do souboru ADIF: %2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6275"/>
+        <location filename="../mainwindow.cpp" line="6276"/>
         <source>You need to select one station callsign to be able to send your log to LoTW.</source>
         <translation>Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6309"/>
+        <location filename="../mainwindow.cpp" line="6310"/>
         <source>TQSL finished with no error.
 
 Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
@@ -3218,12 +3219,12 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
 Přejete si označit všechna nahraná QSO jako odeslaná do LoTW?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6322"/>
+        <location filename="../mainwindow.cpp" line="6323"/>
         <source>There was an error while updating to Yes the LoTW QSL sent information.</source>
         <translation>Při aktualizaci došlo k chybě.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6332"/>
+        <location filename="../mainwindow.cpp" line="6333"/>
         <source>The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
@@ -3232,408 +3233,408 @@ Do you want KLog to remove that file?</source>
 Přejete si ho smazat?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6366"/>
+        <location filename="../mainwindow.cpp" line="6367"/>
         <source>You need to select one station callsign to be able to send your log to ClubLog.</source>
         <translation>Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6392"/>
+        <location filename="../mainwindow.cpp" line="6393"/>
         <source>Do you want to add this QSOs to your ClubLog existing log?</source>
         <translation>Přejete si přidat toto QSO to existujícího ClubLog logu?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6394"/>
+        <location filename="../mainwindow.cpp" line="6395"/>
         <source>If you don&apos;t agree, this upload will overwrite your current ClubLog existing log.</source>
         <translation>Pokud nesouhlasíte, toto nahrání přepíše existující ClubLog log.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6428"/>
+        <location filename="../mainwindow.cpp" line="6429"/>
         <source>You need to select one station callsign to be able to send your log to eQSL.cc.</source>
         <translation>Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do eQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6522"/>
-        <location filename="../mainwindow.cpp" line="6565"/>
+        <location filename="../mainwindow.cpp" line="6523"/>
+        <location filename="../mainwindow.cpp" line="6566"/>
         <source>KLog - Select the Station Callsign.</source>
         <translation>KLog - Vyberte značku stanice.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6523"/>
-        <location filename="../mainwindow.cpp" line="6566"/>
+        <location filename="../mainwindow.cpp" line="6524"/>
+        <location filename="../mainwindow.cpp" line="6567"/>
         <source>Select the Station Callsign to use when quering LoTW:</source>
         <translation>Vyberte značku stanice, která se použije při dotazování do LoTW:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6541"/>
-        <location filename="../mainwindow.cpp" line="6584"/>
+        <location filename="../mainwindow.cpp" line="6542"/>
+        <location filename="../mainwindow.cpp" line="6585"/>
         <source>Please check the LoTW setup</source>
         <translation>Překontrolujte nastavení LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6542"/>
-        <location filename="../mainwindow.cpp" line="6585"/>
+        <location filename="../mainwindow.cpp" line="6543"/>
+        <location filename="../mainwindow.cpp" line="6586"/>
         <source>You have not defined a LoTW user or a proper Station Callsign.
 Open the LoTW tab in the Setup and configure your LoTW connection.</source>
         <translation>Nenastavili jste LoTW uživatele ani správnou značku stanice.
 V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6603"/>
-        <location filename="../mainwindow.cpp" line="6634"/>
-        <location filename="../mainwindow.cpp" line="6665"/>
+        <location filename="../mainwindow.cpp" line="6604"/>
+        <location filename="../mainwindow.cpp" line="6635"/>
+        <location filename="../mainwindow.cpp" line="6666"/>
         <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1</source>
         <translation>Přejete si opravdu označit všechna QSO pro NAHRÁNÍ? Musí být uděláno POUZE, jestli jde o PRVNÍ NAHRÁNÍ QSO do %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6603"/>
+        <location filename="../mainwindow.cpp" line="6604"/>
         <source>ClubLog</source>
         <translation>ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6613"/>
+        <location filename="../mainwindow.cpp" line="6614"/>
         <source>The log is ready to be uploaded to ClubLog.</source>
         <translation>Log je připraven na nahrání do ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6614"/>
+        <location filename="../mainwindow.cpp" line="6615"/>
         <source>All the QSOs in this log has been marked as Modified in the ClubLog status field</source>
         <translation>Všechna spojení v tomto logu byla označena jako Upravená ve stavovém poli ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6619"/>
+        <location filename="../mainwindow.cpp" line="6620"/>
         <source>KLog could not mark the full log to be sent to ClubLog</source>
         <translation>KLog nemohl označit celý log k odeslání do ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6620"/>
-        <location filename="../mainwindow.cpp" line="6652"/>
-        <location filename="../mainwindow.cpp" line="6683"/>
+        <location filename="../mainwindow.cpp" line="6621"/>
+        <location filename="../mainwindow.cpp" line="6653"/>
+        <location filename="../mainwindow.cpp" line="6684"/>
         <source>Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers.</source>
         <translation>Něco zabraňovalo KLogu, aby označil QSO jako upravená. Restartujte KLog a zkuste to znovu, než kontaktujete vývojáře KLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6644"/>
+        <location filename="../mainwindow.cpp" line="6645"/>
         <source>The log is ready to be uploaded to eQSL.cc.</source>
         <translation>Log je připraven na nahrání do eQSL.cc.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6645"/>
+        <location filename="../mainwindow.cpp" line="6646"/>
         <source>All the QSOs in this log has been marked as Modified in the eQSL.cc status field</source>
         <translation>Všechna spojení v tomto logu byla označena jako Upravená ve stavovém poli eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6651"/>
+        <location filename="../mainwindow.cpp" line="6652"/>
         <source>KLog could not mark the full log to be sent to eQSL</source>
         <translation>KLog nemohl označit celý log k odeslání do eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6664"/>
+        <location filename="../mainwindow.cpp" line="6665"/>
         <source>KLog - QRZ.COM</source>
         <translation>KLog - QRZ.COM</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6665"/>
+        <location filename="../mainwindow.cpp" line="6666"/>
         <source>QRZ.COM</source>
         <translation>QRZ.COM</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6675"/>
+        <location filename="../mainwindow.cpp" line="6676"/>
         <source>The log is ready to be uploaded to QRZ.com.</source>
         <translation>Log je připraven na nahrání do QRZ.com.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6676"/>
+        <location filename="../mainwindow.cpp" line="6677"/>
         <source>All the QSOs in this log has been marked as Modified in the QRZ.com status field</source>
         <translation>Všechna spojení v tomto logu byla označena jako Upravená ve stavovém poli QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6682"/>
+        <location filename="../mainwindow.cpp" line="6683"/>
         <source>KLog could not mark the full log to be sent to QRZ.com</source>
         <translation>KLog nemohl označit celý log k odeslání do QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6736"/>
+        <location filename="../mainwindow.cpp" line="6737"/>
         <source>You need to define a proper API Key for your QRZ.com logbook in the eLog preferences.</source>
         <translation>V Nastavení je potřeba definovat správné API Key pro QRZ.com.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6779"/>
+        <location filename="../mainwindow.cpp" line="6780"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7397"/>
+        <location filename="../mainwindow.cpp" line="7398"/>
         <source>DX QTH locator.</source>
         <translation>DX QTH lokátor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7406"/>
+        <location filename="../mainwindow.cpp" line="7407"/>
         <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>DX QTH lokátor. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7489"/>
+        <location filename="../mainwindow.cpp" line="7490"/>
         <source> - Needed for DXMarathon</source>
         <translation> - Potřebné pro DXMarathon</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7543"/>
+        <location filename="../mainwindow.cpp" line="7544"/>
         <source>Filling QSOs ...</source>
         <translation>Plnění QSO ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7543"/>
+        <location filename="../mainwindow.cpp" line="7544"/>
         <source>Abort filling</source>
         <translation>Přerušení plnění</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7673"/>
+        <location filename="../mainwindow.cpp" line="7674"/>
         <source>Filling DXCC, CQz, ITUz, Continent in QSOs...
  QSO: </source>
         <translation>Plnění DXCC, CQzone, ITU, Kontinentů v QSO...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7762"/>
+        <location filename="../mainwindow.cpp" line="7763"/>
         <source>Number</source>
         <translation>Počet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7764"/>
+        <location filename="../mainwindow.cpp" line="7765"/>
         <source>Date/Time</source>
         <translation>Datum/Čas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7766"/>
-        <location filename="../mainwindow.cpp" line="8490"/>
+        <location filename="../mainwindow.cpp" line="7767"/>
+        <location filename="../mainwindow.cpp" line="8491"/>
         <source>Callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7768"/>
+        <location filename="../mainwindow.cpp" line="7769"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7770"/>
+        <location filename="../mainwindow.cpp" line="7771"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7772"/>
+        <location filename="../mainwindow.cpp" line="7773"/>
         <source>Band</source>
         <translation>Pásmo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7774"/>
-        <location filename="../mainwindow.cpp" line="8496"/>
+        <location filename="../mainwindow.cpp" line="7775"/>
+        <location filename="../mainwindow.cpp" line="8497"/>
         <source>Mode</source>
         <translation>Druh provozu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7789"/>
+        <location filename="../mainwindow.cpp" line="7790"/>
         <source>Print Log</source>
         <translation>Tisk logu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7794"/>
+        <location filename="../mainwindow.cpp" line="7795"/>
         <source>Printing the log ...</source>
         <translation>Log se tiskne...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7794"/>
+        <location filename="../mainwindow.cpp" line="7795"/>
         <source>Abort printing</source>
         <translation>Přerušení tisku</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7810"/>
-        <location filename="../mainwindow.cpp" line="7825"/>
+        <location filename="../mainwindow.cpp" line="7811"/>
+        <location filename="../mainwindow.cpp" line="7826"/>
         <source>Printing the log...
  QSO: </source>
         <translation>Tisk logu...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8340"/>
+        <location filename="../mainwindow.cpp" line="8341"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8382"/>
+        <location filename="../mainwindow.cpp" line="8383"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8482"/>
+        <location filename="../mainwindow.cpp" line="8483"/>
         <source>KLog - QSO received</source>
         <translation>KLog - Přijato QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8487"/>
+        <location filename="../mainwindow.cpp" line="8488"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>Následující QSO bylo přijato z WSJT-X a bude zalogováno:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8493"/>
+        <location filename="../mainwindow.cpp" line="8494"/>
         <source>Freq</source>
         <translation>Frek</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8500"/>
+        <location filename="../mainwindow.cpp" line="8501"/>
         <source>Time On</source>
         <translation>Čas začátku</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8504"/>
+        <location filename="../mainwindow.cpp" line="8505"/>
         <source>Time Off</source>
         <translation>Čas konce</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8507"/>
+        <location filename="../mainwindow.cpp" line="8508"/>
         <source>RST TX</source>
         <translation>RST TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8507"/>
+        <location filename="../mainwindow.cpp" line="8508"/>
         <source>RST RX</source>
         <translation>RST RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8513"/>
+        <location filename="../mainwindow.cpp" line="8514"/>
         <source>DX-Grid</source>
         <translation>DX-Grid</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8516"/>
+        <location filename="../mainwindow.cpp" line="8517"/>
         <source>Local-Grid</source>
         <translation>Místní-Grid</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8519"/>
+        <location filename="../mainwindow.cpp" line="8520"/>
         <source>Station Callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8522"/>
+        <location filename="../mainwindow.cpp" line="8523"/>
         <source>Operator Callsign</source>
         <translation>Volací značka Operátora</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8564"/>
+        <location filename="../mainwindow.cpp" line="8565"/>
         <source>KLog - WSJTX Dupe QSO</source>
         <translation>KLog - WSJTX Dupe QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8567"/>
+        <location filename="../mainwindow.cpp" line="8568"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
         <translation>Jedná se o duplicitní QSO. Přejete si jej uložit nebo zamítnout?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8569"/>
+        <location filename="../mainwindow.cpp" line="8570"/>
         <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
         <translation>Duplicitní QSO se shoduje s existujícím QSO se stejnou značkou, pásmem, druhem provozu, datem/časem s přihlédnutím k období, které je definováno v nastavení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8607"/>
+        <location filename="../mainwindow.cpp" line="8608"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO přijato z WSJT-X:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8650"/>
+        <location filename="../mainwindow.cpp" line="8651"/>
         <source>KLog - Non-supported mode</source>
         <translation>KLog - Nepodporovaný mod</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8653"/>
+        <location filename="../mainwindow.cpp" line="8654"/>
         <source>A new mode not supported by KLog has been received from an external program or radio:</source>
         <translation>Z externího programu nebo rádia byl přijat nepodporovaný mód:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8653"/>
+        <location filename="../mainwindow.cpp" line="8654"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation>Pokud je přijatý mod správný, kontaktujte vývojový tým KLog a požádejte o podporu pro tento režim</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8653"/>
+        <location filename="../mainwindow.cpp" line="8654"/>
         <source>Do you want to keep receiving these alerts? (disabling these alerts will prevent non-valid modes being detected)</source>
         <translation>Přejete si nadále dostávat tato upozornění? (deaktivace těchto upozornění zabrání detekci neplatných režimů)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8791"/>
+        <location filename="../mainwindow.cpp" line="8792"/>
         <source>KLog - Duplicated satellite</source>
         <translation>KLog - Duplicitní satelitní</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8793"/>
+        <location filename="../mainwindow.cpp" line="8794"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
         <translation>Duplicitní satelit byl detekován v tomto souboru a nebude importován.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8794"/>
+        <location filename="../mainwindow.cpp" line="8795"/>
         <source>Please check the satellite information file and ensure it is properly populated.</source>
         <translation>Zkontrolujte soubor informací o satelitu a ujistěte se, že je správně vyplněn.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8794"/>
+        <location filename="../mainwindow.cpp" line="8795"/>
         <source>Now you will see a more detailed error that can be used for debugging...</source>
         <translation>Nyní uvidíte podrobnější chybu, kterou lze použít k ladění ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8801"/>
+        <location filename="../mainwindow.cpp" line="8802"/>
         <source>An unexpected error ocurred!!</source>
         <translation>Nastala neočekávaná chyba!!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8801"/>
+        <location filename="../mainwindow.cpp" line="8802"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Kontaktujte vývojáře, pokud problém přetrvává</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8801"/>
+        <location filename="../mainwindow.cpp" line="8802"/>
         <source>for analysis:</source>
         <translation>pro analýzu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8803"/>
+        <location filename="../mainwindow.cpp" line="8804"/>
         <source>Error in function</source>
         <translation>Chyba ve funkci</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8804"/>
+        <location filename="../mainwindow.cpp" line="8805"/>
         <source>Error code</source>
         <translation>Kód chyby</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8805"/>
+        <location filename="../mainwindow.cpp" line="8806"/>
         <source>Error text</source>
         <translation>Text chyby</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8806"/>
+        <location filename="../mainwindow.cpp" line="8807"/>
         <source>Failed query</source>
         <translation>Neúspěšný dotaz</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8808"/>
+        <location filename="../mainwindow.cpp" line="8809"/>
         <source>Recommendation:</source>
         <translation>Doporučení:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8808"/>
+        <location filename="../mainwindow.cpp" line="8809"/>
         <source>Periodically export your data to ADIF to prevent a potential data loss.</source>
         <translation>Pravidelně exportujte svá data do ADIF, abyste předešli možné ztrátě dat.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8815"/>
+        <location filename="../mainwindow.cpp" line="8816"/>
         <source>KLog - Show errors</source>
         <translation>KLog - Zobrazení chyb</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8817"/>
+        <location filename="../mainwindow.cpp" line="8818"/>
         <source>Do you want to keep showing errors?</source>
         <translation>Přejete si nadále zobrazovat chyby?</translation>
     </message>
@@ -5300,7 +5301,7 @@ Pokud nebude specifikován port, bude použit výchozí port 41112:</translation
         <translation>Povolit integraci LoTW s TQSL. Bude potřeba mít nainstalovaný TSQL</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppageelog.cpp" line="504"/>
+        <location filename="../setuppages/setuppageelog.cpp" line="506"/>
         <source>Select File</source>
         <translation>Vyberte soubor</translation>
     </message>
@@ -7455,112 +7456,135 @@ Log nebude otevřen.</translation>
         <translation>Předchozí</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="159"/>
+        <location filename="../tipsdialog.cpp" line="155"/>
         <source>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
         <translation>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete použít &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Nástroje-&gt;Přepoužít QSO data&lt;/a&gt; pro automatické vyplnění DXCC, CQ, ITU zones a kontinentu?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="167"/>
+        <location filename="../tipsdialog.cpp" line="159"/>
+        <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
+        <translation type="unfinished">&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít QSL, které je potřeba ještě odeslat v menu &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na odeslání&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako QSL k odeslaní &lt;i&gt;Vyžádané&lt;/i&gt;. {2:?}</translation>
+    </message>
+    <message>
+        <location filename="../tipsdialog.cpp" line="163"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
         <translation>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete použít &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSO &lt;/a&gt; pro nalezení všech QSO, pro která je potřeba ještě odeslat QSL?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="171"/>
         <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete exportovat QSO označená jako Vyžádané QSL &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Soubor-&gt;Exportovat Vyžádané QSL do ADIF...&lt;/a&gt; do ADIF, který pak můžete vložit to programu pro tisk QSL lístků?</translation>
+        <translation type="vanished">&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete exportovat QSO označená jako Vyžádané QSL &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Soubor-&gt;Exportovat Vyžádané QSL do ADIF...&lt;/a&gt; do ADIF, který pak můžete vložit to programu pro tisk QSL lístků?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="174"/>
         <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
-        <translation>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;při hledání můžete použít &apos;*&apos; k nalezení všech QSO?</translation>
+        <translation type="vanished">&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;při hledání můžete použít &apos;*&apos; k nalezení všech QSO?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="178"/>
         <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Víte, že......&lt;br&gt;všechny soubory KLogu, jako jsou Vaše logy, logbook.dat, konfigurační soubor klogrc jsou uloženy v adresáři zobrazeném pomocí menu &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Soubor-&gt;KLog adresář&lt;/a&gt;?</translation>
+        <translation type="vanished">&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Víte, že......&lt;br&gt;všechny soubory KLogu, jako jsou Vaše logy, logbook.dat, konfigurační soubor klogrc jsou uloženy v adresáři zobrazeném pomocí menu &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Soubor-&gt;KLog adresář&lt;/a&gt;?</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
+        <translation type="vanished">&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít QSL, které je potřeba ještě odeslat v menu &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na odeslání&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako QSL k odeslaní &lt;i&gt;Vyžádané&lt;/i&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../tipsdialog.cpp" line="167"/>
+        <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
+        <translation type="unfinished">&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;při hledání můžete použít &apos;*&apos; k nalezení všech QSO? {4:?}</translation>
+    </message>
+    <message>
+        <location filename="../tipsdialog.cpp" line="170"/>
+        <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
+        <translation type="unfinished">&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Víte, že......&lt;br&gt;všechny soubory KLogu, jako jsou Vaše logy, logbook.dat, konfigurační soubor klogrc jsou uloženy v adresáři zobrazeném pomocí menu &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Soubor-&gt;KLog adresář&lt;/a&gt;? {5:?}</translation>
+    </message>
+    <message>
+        <location filename="../tipsdialog.cpp" line="176"/>
+        <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;LoTW tools ...-&gt;Sends the log to LoTW calling TQSL.&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
+        <translation type="unfinished">&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete všechna zafrontovaná QSL nahrát do LoTW pomocí TQSL přes menu &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Nástroje-&gt;LoTW-&gt;Nahrát zafrontovaná QSO do LoTW&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Je potřeba mít nastaven TQSL, aby tato volba byla aktivní. {6:?}</translation>
+    </message>
+    <message>
+        <location filename="../tipsdialog.cpp" line="180"/>
+        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
+        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
+        <translation type="unfinished">&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete zobrazit QSO, které potvrzuje jednu konkrétní zemi DXCC na jednom konkrétním pásmu, když umístíte myš nad toto pásmo v okně DXCC? {7:?}</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
-        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít QSL, které je potřeba ještě odeslat v menu &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na odeslání&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako QSL k odeslaní &lt;i&gt;Vyžádané&lt;/i&gt;.</translation>
-    </message>
-    <message>
-        <location filename="../tipsdialog.cpp" line="188"/>
         <source>&lt;b&gt;Tip #8:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you are still waiting for with &lt;a href=&quot;#ToolsReceivePendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find DX-QSLs pending to receive&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Sent&lt;/i&gt; but you have still not received the QSL card from the DX.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find DX-QSLs pending to receive</extracomment>
         <translation>&lt;b&gt;Tip #8:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít všechna QSL, na které čekáte pomocí &lt;a href=&quot;#ToolsReceivePendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na potvrzení&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako &lt;i&gt;Odeslaná&lt;/i&gt;, s tím, že od protistanice nebylo přijato její QSL.</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="192"/>
+        <location filename="../tipsdialog.cpp" line="188"/>
         <source>&lt;b&gt;Tip #9:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you are still waiting for with &lt;a href=&quot;#ToolsReceiveRecPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find requested pending to receive&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Rec marked as &lt;i&gt;Requested&lt;/i&gt; but you have still not received the QSL card from the DX.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find requested pending to receive</extracomment>
         <translation>&lt;b&gt;Tip #9:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít všechna QSL, na které stále čekáte pomocí &lt;a href=&quot;#ToolsReceiveRecPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít požadavky čekající na potvrzení&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO ve stavu QSL přijetí &lt;i&gt;Vyžádáno&lt;/i&gt;, s tím, že od protistanice nebylo zatím přijato její QSL.</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="195"/>
+        <location filename="../tipsdialog.cpp" line="191"/>
         <source>&lt;b&gt;Tip #10:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/klogchat&gt;English KLog Telegram group&lt;/a&gt; to discuss about KLog in English?</source>
         <translation>&lt;b&gt;Tip #10:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete přihlásit k odběru &lt;a href=https://t.me/klogchat&gt;English KLog Telegram group&lt;/a&gt; - anglické diskuzní skupiny o KLogu?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="198"/>
+        <location filename="../tipsdialog.cpp" line="194"/>
         <source>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; to discuss about KLog in Spanish?</source>
         <translation>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete přihlásit k odběru &lt;a href=https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; - španělské diskuzní skupiny o KLogu?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="201"/>
+        <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
         <translation>&lt;b&gt;Tip #10:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete přihlásit k odběru &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users-mailing list&lt;/a&gt; - anglické diskuzní skupiny o Klogu přes email?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="204"/>
+        <location filename="../tipsdialog.cpp" line="200"/>
         <source>&lt;b&gt;Tip #13:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can &lt;a href=https://twitter.com/_ea4k&gt;follow EA4K on twitter&lt;/a&gt; to get updates about KLog?</source>
         <translation>&lt;b&gt;Tip #13:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete sledovat novinky o KLogu přes twitter na &lt;a href=https://twitter.com/_ea4k&gt;EA4K&lt;/a&gt;?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="207"/>
+        <location filename="../tipsdialog.cpp" line="203"/>
         <source>&lt;b&gt;Tip #14:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can write your own &lt;a href=https://www.eham.net/reviews/detail/3118&gt;review in eHam.net about KLog&lt;/a&gt; to help other users to decide to use KLog?</source>
         <translation>&lt;b&gt;Tip #14:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete napsat recenzi na KLog na &lt;a href=https://www.eham.net/reviews/detail/3118&gt;eHam.net&lt;/a&gt; a pomoci tím jiným uživatelům najít KLog?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="210"/>
+        <location filename="../tipsdialog.cpp" line="206"/>
         <source>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can join the development team by simply &lt;a href=https://www.klog.xyz/contact&gt;Contacting us&lt;/a&gt;?</source>
         <translation>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete jednoduše připojit k vývojovému týmu kontaktem uvedeným na stránkách &lt;a href=https://www.klog.xyz/contact&gt;KLogu Contact&lt;/a&gt;?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="213"/>
+        <location filename="../tipsdialog.cpp" line="209"/>
         <source>&lt;b&gt;Tip #16:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;That there are many ways to contribute to KLog and some of them are listed in the &lt;a href=https://www.klog.xyz/contrib&gt;KLog Contribute&lt;/a&gt; page?</source>
         <translation>&lt;b&gt;Tip #16:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;je mnoho cest, jak přispívat do KLog. Některé z nich jsou uvedeny na stránkách &lt;a href=https://www.klog.xyz/contrib&gt;KLog Contribute&lt;/a&gt;?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="216"/>
+        <location filename="../tipsdialog.cpp" line="212"/>
         <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt; page.</source>
         <translation>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete pomoci s překladem KLogu? Více na stránkách &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="219"/>
+        <location filename="../tipsdialog.cpp" line="215"/>
         <source>&lt;b&gt;Tip #18:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can double-click on an entity name in the DXCC table and all the QSOs with that DXCC Entity will be shown in the search box?</source>
         <translation>&lt;b&gt;Tip #18:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;dvojitým kliknutím v tabulce DXCC zemí budou zobrazena v okně Hledání všechna QSO s danou zemí?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="222"/>
+        <location filename="../tipsdialog.cpp" line="218"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
         <translation>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;kliknutím na QSO pravým tlačítkem myši a výběrem &lt;i&gt;Vyhledat v QRZ.com&lt;/i&gt; vyhledáte detaily o stanice na QRZ.com?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="225"/>
         <source>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
-        <translation>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete zobrazit QSO, které potvrzuje jednu konkrétní zemi DXCC na jednom konkrétním pásmu, když umístíte myš nad toto pásmo v okně DXCC?</translation>
+        <translation type="vanished">&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete zobrazit QSO, které potvrzuje jednu konkrétní zemi DXCC na jednom konkrétním pásmu, když umístíte myš nad toto pásmo v okně DXCC?</translation>
     </message>
     <message>
-        <location filename="../tipsdialog.cpp" line="229"/>
         <source>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;LoTW tools ...-&gt;Sends the log to LoTW calling TQSL.&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete všechna zafrontovaná QSL nahrát do LoTW pomocí TQSL přes menu &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Nástroje-&gt;LoTW-&gt;Nahrát zafrontovaná QSO do LoTW&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Je potřeba mít nastaven TQSL, aby tato volba byla aktivní.</translation>
+        <translation type="vanished">&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete všechna zafrontovaná QSL nahrát do LoTW pomocí TQSL přes menu &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Nástroje-&gt;LoTW-&gt;Nahrát zafrontovaná QSO do LoTW&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Je potřeba mít nastaven TQSL, aby tato volba byla aktivní.</translation>
     </message>
 </context>
 <context>

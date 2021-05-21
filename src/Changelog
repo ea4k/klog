@@ -1,4 +1,4 @@
-TBD - 1.5.3
+May 2021 - 1.5.3
 - Bugfix: Unexpected Setup dialog behavior. (Closes issue #178) (TNX foldynl)
 - Bugfix: Time is not in UTC when "Log in real time" is uncheck. (Closes issue #179) (TNX foldynl)
 - Bugfix: Missing translation in SoftwareUpdateDialog. (Closes issue #180) (TNX foldynl)
