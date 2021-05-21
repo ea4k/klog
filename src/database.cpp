@@ -2058,7 +2058,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    return updateTo021();
+    return updateTo022();
 
 }
 
@@ -7812,7 +7812,7 @@ bool DataBase::updateTo019()
     return true;
 }
 
-bool DataBase::updateTo020()
+bool DataBase::updateTo022()
 {// Adds Q65 mode
    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
     bool IamInPreviousVersion = false;
@@ -7821,12 +7821,12 @@ bool DataBase::updateTo020()
    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
     if (latestReaded >= dbVersion)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
+       //qDebug() << Q_FUNC_INFO << " : - I am in 022" << endl;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
     {
-        IamInPreviousVersion = updateTo019();
+        IamInPreviousVersion = updateTo021();
         if (!IamInPreviousVersion)
         {
             return false;
@@ -7841,7 +7841,7 @@ bool DataBase::updateTo020()
         return false;
     }
 
-    if (!updateDBVersion(softVersion, QString::number(0.020)))
+    if (!updateDBVersion(softVersion, QString::number(0.022)))
     {
         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
         return false;
