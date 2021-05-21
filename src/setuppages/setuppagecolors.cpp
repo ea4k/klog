@@ -205,44 +205,44 @@ QString SetupPageColors::getDefaultColor()
     return (defaultColorButton->palette().color(QPalette::Button)).name();
 }
 
-void SetupPageColors::setNewOneColor(const QString c)
+void SetupPageColors::setNewOneColor(const QString &_c)
 {
 
     QString style = "* { background-color: ";
-    style = style + c;
+    style = style + _c;
     style = style + "; }";
     newOneColorButton->setStyleSheet(style);
 
 }
 
-void SetupPageColors::setNeededColor(const QString c)
+void SetupPageColors::setNeededColor(const QString &_c)
 {
     QString style = "* { background-color: ";
-    style = style + c;
+    style = style + _c;
     style = style + "; }";
     neededColorButton->setStyleSheet(style);
 }
 
-void SetupPageColors::setWorkedColor(const QString c)
+void SetupPageColors::setWorkedColor(const QString &_c)
 {
     QString style = "* { background-color: ";
-    style = style + c;
+    style = style + _c;
     style = style + "; }";
     workedColorButton->setStyleSheet(style);
 }
 
-void SetupPageColors::setConfirmedColor(const QString c)
+void SetupPageColors::setConfirmedColor(const QString &_c)
 {
     QString style = "* { background-color: ";
-    style = style + c;
+    style = style + _c;
     style = style + "; }";
     confirmedColorButton->setStyleSheet(style);
 }
 
-void SetupPageColors::setDefaultColor(const QString c)
+void SetupPageColors::setDefaultColor(const QString &_c)
 {
     QString style = "* { background-color: ";
-    style = style + c;
+    style = style + _c;
     style = style + "; }";
     defaultColorButton->setStyleSheet(style);
 }

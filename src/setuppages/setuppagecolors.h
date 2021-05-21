@@ -43,11 +43,11 @@ public:
     QString getConfirmedColor();
     QString getDefaultColor();
 
-    void setNewOneColor(const QString c);
-    void setNeededColor(const QString c);
-    void setWorkedColor(const QString c);
-    void setConfirmedColor(const QString c);
-    void setDefaultColor(const QString c);
+    void setNewOneColor(const QString &_c);
+    void setNeededColor(const QString &_c);
+    void setWorkedColor(const QString &_c);
+    void setConfirmedColor(const QString &_c);
+    void setDefaultColor(const QString &_c);
 
 
 
