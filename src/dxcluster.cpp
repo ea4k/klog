@@ -122,7 +122,7 @@ void DXClusterWidget::initClass()
     showann = true;
     showwwv = true;
     showwcy = true;
-    saveSpots = false;    
+    saveSpots = false;
     myQrz = QString();
     currentLog = 0;
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
@@ -559,11 +559,21 @@ void DXClusterWidget::slotClusterSendToServer()
         connectToDXCluster();
         return; // If we try to connect...
     }
-    if ( inputCommand ->text().length() < 1 )
+    if (( inputCommand ->text().length() < 1 ) && ( sendButton->text() == tr("Disconnect") ) )
     {
-           //qDebug() << "DXClusterWidget::slotClusterSendToServer() - Vacio..." << endl;
+
+        //qDebug() << "DXClusterWidget::slotClusterSendToServer() - Disconnecting" << endl;
+        QTextStream os(tcpSocket);
+        os << "bye\n";
         return;
     }
+    else if ( inputCommand ->text().length() < 1 )
+    {
+        //qDebug() << "DXClusterWidget::slotClusterSendToServer() - Empty" << endl;
+        return;
+    }
+
+
     //  write to the server
     QTextStream os(tcpSocket);
     os << inputCommand ->text() << "\n";
@@ -685,7 +695,7 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
     if (item) {
 
         fields.clear();
-        dxClusterString = ((item->data(0)).toString()).simplified();        
+        dxClusterString = ((item->data(0)).toString()).simplified();
         fields << dxClusterString.split(" ");
 
         (fields.at(0)).toFloat(&FirstFrecOK); // Just to see if the first string is a frecuency
