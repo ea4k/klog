@@ -7474,25 +7474,6 @@ Log nebude otevřen.</translation>
         <translation>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete použít &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSO &lt;/a&gt; pro nalezení všech QSO, pro která je potřeba ještě odeslat QSL?</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete exportovat QSO označená jako Vyžádané QSL &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Soubor-&gt;Exportovat Vyžádané QSL do ADIF...&lt;/a&gt; do ADIF, který pak můžete vložit to programu pro tisk QSL lístků?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
-        <translation type="vanished">&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;při hledání můžete použít &apos;*&apos; k nalezení všech QSO?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Víte, že......&lt;br&gt;všechny soubory KLogu, jako jsou Vaše logy, logbook.dat, konfigurační soubor klogrc jsou uloženy v adresáři zobrazeném pomocí menu &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Soubor-&gt;KLog adresář&lt;/a&gt;?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít QSL, které je potřeba ještě odeslat v menu &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na odeslání&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako QSL k odeslaní &lt;i&gt;Vyžádané&lt;/i&gt;.</translation>
-    </message>
-    <message>
         <location filename="../tipsdialog.cpp" line="167"/>
         <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
@@ -7576,15 +7557,6 @@ Log nebude otevřen.</translation>
         <location filename="../tipsdialog.cpp" line="218"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
         <translation>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;kliknutím na QSO pravým tlačítkem myši a výběrem &lt;i&gt;Vyhledat v QRZ.com&lt;/i&gt; vyhledáte detaily o stanice na QRZ.com?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
-        <translation type="vanished">&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete zobrazit QSO, které potvrzuje jednu konkrétní zemi DXCC na jednom konkrétním pásmu, když umístíte myš nad toto pásmo v okně DXCC?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;LoTW tools ...-&gt;Sends the log to LoTW calling TQSL.&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete všechna zafrontovaná QSL nahrát do LoTW pomocí TQSL přes menu &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Nástroje-&gt;LoTW-&gt;Nahrát zafrontovaná QSO do LoTW&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Je potřeba mít nastaven TQSL, aby tato volba byla aktivní.</translation>
     </message>
 </context>
 <context>

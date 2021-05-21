@@ -40,10 +40,6 @@
         <translation>KLog è un logbook libero per operatori radio.</translation>
     </message>
     <message>
-        <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.</source>
-        <translation type="vanished">A partire dalla versione 0.6.2 KLog è stato riscritto completamente per poter funzionare su tutti i pricipali sistemi operativi (Linux, macOS e Windows) e per fornire sempre nuove funzionalità.</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="58"/>
         <source>Please provide your review in KLog&apos;s eHam review page:</source>
         <translation>Per favore inserisci il tuo commento di utlizzo sulla maschera KLog dedicata ai commenti:</translation>
@@ -1428,10 +1424,6 @@ Scegli il nominativo di stazione per questo QSO su %1:</translation>
         <translation>E&apos; la prima esecuzione di KLog su questo sistema.</translation>
     </message>
     <message>
-        <source>KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.</source>
-        <translation type="vanished">KLog è un programma di log radio di libero utilizzo che funziona su Linux, MacOS e Windows.</translation>
-    </message>
-    <message>
         <location filename="../startwizard.cpp" line="179"/>
         <source>KLog is a free hamradio logging program that can run on GNU/Linux, macOS, and Windows.</source>
         <translation type="unfinished"></translation>
@@ -2222,14 +2214,6 @@ KLog ti ricoderà la necessità di fare il backup almeno 1 volta al mese.
         <translation>Devi scegliere un nominativo di stazione per trasmettere il tuo log a LoTW.</translation>
     </message>
     <message>
-        <source>If you uploaded any QSO to LoTW while you were using TQSL you can now mark them as sent in KLog.
-
-Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
-        <translation type="vanished">Se hai inviato qualche QSO su LoTW mentre stavi usando TQSL puoi adesso marcarli come già spediti su KLog.
-
-Vuoi segnare come spediti tutti i QSO tramsessi a LoTW?</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6323"/>
         <source>There was an error while updating to Yes the LoTW QSL sent information.</source>
         <translation>Si è verificato un errore mentre marcavo come Spediti Sì verso LoTW.</translation>
@@ -2923,10 +2907,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="4218"/>
         <source>All pending QSOs has been marked as queued for LoTW!</source>
         <translation>Tutti i QSO in attesa sono stati marcati per LoTW!</translation>
-    </message>
-    <message>
-        <source>TQSL finished with no error.</source>
-        <translation type="vanished">TQSL ha terminato senza errori.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4400"/>
@@ -7474,34 +7454,10 @@ The log will not be opened.</source>
         <translation>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;E&apos; anche disponibile &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Strumenti-&gt;Completa dati QSO&lt;/a&gt; che acquisce il log QSO completo di DXCC e lo usa per compilare automaticamente i dati della tua registrazione QSL Locale con informazioni DXCC, CQ, zone ITU e continenti?</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Tools-&gt;Fill in DXCC data&lt;/a&gt; to automatically read the full log to fill the DXCC QSO data?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;E&apos; anche disponibile &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Strumenti-&gt;Completa dati DXCC&lt;/a&gt; che automaticamente cerca i dati dall&apos;intero log QSO di DXCC?</translation>
-    </message>
-    <message>
         <location filename="../tipsdialog.cpp" line="163"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
         <translation>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;E&apos; anche disponibile &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Strumenti-&gt;Strumenti QSL...-&gt;Cerca QSO su QSL&lt;/a&gt; per cercare tutti quei QSO per i quali dovresti spedire la QSL, non ancora spedita, perché stai ancora aspettando la conferma da DXCC?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi sempre esportare i tuoi QSO annotati come QSL richiesta con &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Esporta QSL richieste su ADIF...&lt;/a&gt; per creare un file ADIF da importare in un programma di creazione QSL per stampe di QSL più specifiche?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
-        <translation type="vanished">&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi sempre inserire il wild char * nella maschera di ricerca, per trovare tutti i QSO fatti con uno specifico nominativo?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Sono sempre disponibili tutti i tuoi log e altre informazioni nel file logbook.dat e nel file klogrc, nel file di configurazione di KLog config file nella cartella dati KLog aprendi direttamente  il menù &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;Cartella KLog&lt;/a&gt; ?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi scoprire quali QSL hai ancora da spedire con &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Strumenti-&gt;Strumenti QSL...-&gt; Trova le mie QSL In attesa di spedizione&lt;/a&gt;.&lt;bR&gt;Questo strumento elencherà all&apos;interno della maschera di ricerca tutte le QSL spedite segnate come &lt;i&gt;Richieste&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="159"/>
@@ -7593,15 +7549,6 @@ The log will not be opened.</source>
         <location filename="../tipsdialog.cpp" line="218"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
         <translation>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi sempre cloccare su un QSO e verificare su &lt;i&gt;Check in QRZ.com&lt;/i&gt; l&apos;esistenza del nominativo su QRZ.com?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
-        <translation type="vanished">&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi sempre vedere i QSO che confermano uno specifico collegamento DXCC all&apos;interno di una specifica banda puntando con il mouse sulla banda nel widget DXCC?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;Upload to LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation type="vanished">&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi trasferire il QSO messo in coda per il trasferimento a LoTW tramite TQSL con &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Strumenti-&gt;Trasferisce a LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Devi prima configurare correttamente TQSL fra le impostazioni per poter usare questa funzione.</translation>
     </message>
 </context>
 <context>
