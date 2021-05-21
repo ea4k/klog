@@ -3850,7 +3850,7 @@ void MainWindow::createMenusCommon()
 
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
-    exitAct->setMenuRole(QAction::QuitRole);
+    //exitAct->setMenuRole(QAction::QuitRole);
     exitAct->setShortcut(Qt::CTRL + Qt::Key_X);
     //connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(slotFileClose()));
@@ -4032,7 +4032,7 @@ void MainWindow::createMenusCommon()
 
     setupAct = new QAction(tr("Setup ..."), this);
     setupMenu->addAction(setupAct);
-    setupAct->setMenuRole(QAction::PreferencesRole);
+    //setupAct->setMenuRole(QAction::PreferencesRole);
     connect(setupAct, SIGNAL(triggered()), this, SLOT(slotSetup()));
 
     //TODO: To be added once the help dialog has been implemented
@@ -4041,28 +4041,29 @@ void MainWindow::createMenusCommon()
     helpMenu->addSeparator();
     helpAct= new QAction(tr("Online manual (F1) ..."), this);
     helpMenu->addAction(helpAct);
-    helpAct->setMenuRole(QAction::ApplicationSpecificRole);
+    //helpAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(helpAct, SIGNAL(triggered()), this, SLOT(slotOpenWiki()));
 
     tipsAct = new QAction(tr("&Tips ..."), this);
     helpMenu->addAction(tipsAct);
-    tipsAct->setMenuRole(QAction::ApplicationSpecificRole);
+    //tipsAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(tipsAct, SIGNAL(triggered()), this, SLOT(slotTipsAction()));
+    helpMenu->addSeparator();
 
     debugAct = new QAction(tr("&Debug ..."), this);
     helpMenu->addAction(debugAct);
-    debugAct->setMenuRole(QAction::ApplicationSpecificRole);
+    //debugAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(debugAct, SIGNAL(triggered()), this, SLOT(slotDebugAction()));
 
     aboutAct = new QAction(tr("&About ..."), this);
     helpMenu->addAction(aboutAct);
-    aboutAct->setMenuRole(QAction::AboutRole);
+    //aboutAct->setMenuRole(QAction::AboutRole);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotHelpAboutAction()));
     //connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotLoTWTest()) );
 
     aboutQtAct = new QAction(tr("About Qt ..."), this);
     helpMenu->addAction(aboutQtAct);
-    aboutQtAct->setMenuRole(QAction::AboutQtRole);
+    //aboutQtAct->setMenuRole(QAction::AboutQtRole);
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(slotAboutQt()));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
@@ -4070,7 +4071,7 @@ void MainWindow::createMenusCommon()
 
     updateAct = new QAction(tr("Check updates ..."), this);
     helpMenu->addAction(updateAct);
-    updateAct->setMenuRole(QAction::ApplicationSpecificRole);
+    //updateAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(updateAct, SIGNAL(triggered()), this, SLOT(slotHelpCheckUpdatesAction()));
  }
 /*

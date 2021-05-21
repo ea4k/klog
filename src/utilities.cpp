@@ -477,7 +477,7 @@ QString Utilities::getTQSLsFileName()
     return "tqsl.exe";
 #elif   defined(Q_OS_MACOS)
       //qDebug() << "macOS DETECTED!: "   << endl;
-    return "tqsl";
+    return "tqsl.app";
 #else
          //qDebug() << "NO WINDOWS/macOS DETECTED!: "   << endl;
     return "tqsl";
@@ -496,7 +496,7 @@ QString Utilities::getTQSLsPath()
     return "C:/Program Files (x86)/TrustedQSL/";
 #elif defined(Q_OS_MACOS)
       //qDebug() << "macOS DETECTED!: "   << endl;
-    return "/Applications/tqsl.app/Contents/MacOS/";
+    return "/Applications/TrustedQSL/";
 #else
          //qDebug() << "NO WINDOWS/macOS DETECTED!: "   << endl;
     return "/usr/bin/";
@@ -514,7 +514,7 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
 {
     if (_dxcc >1000)
     {
-        return ((QString::number(_dxcc)).right(3)).toInt();
+        return ((QString::number(_dxcc)).rightRef(3)).toInt();
     }
     else
     {

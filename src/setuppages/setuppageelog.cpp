@@ -488,16 +488,18 @@ QString SetupPageELog::getTQSLPath()
 void SetupPageELog::slotSelectTQSLClicked()
 {
       //qDebug() << "SetupPageELogr::slotSelectTQSLClicked: " << QStandardPaths::ApplicationsLocation << endl;
-    QString appsDir;
-    QString executableName, proposedName;
-    proposedName = util->getTQSLsFileName();
-    appsDir = util->getTQSLsPath();
+    QString appsDir= util->getTQSLsPath();
+    QString proposedName = util->getTQSLsFileName();
+
     QString filter;
     filter.clear();
     #if defined(Q_OS_WIN)
         filter = "TQSL (*.exe)";
+    #elif defined(Q_OS_MACOS)
+        filter = "TQSL (*.app)";
     #else
         filter = "TQSL (tqsl)";
+        //filter = "TQSL (tqsl*)";
     #endif
     QString tqslFile;
     tqslFile.clear();
