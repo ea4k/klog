@@ -75,10 +75,6 @@
         <translation>Voit auttaa meitä myös lähettämällä virheilmoituksia tai ohjelmointiapua, ideoita tai mitä vain, mikä mielestäsi voisi parantaa KLogia.</translation>
     </message>
     <message>
-        <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.</source>
-        <translation type="vanished">Versiosta 0.6.2 alkaen, KLog on kirjoitettu täysin uudestaan, tarjotakseen alustariippumattoman ohjelman, joka tukee kaikkia yleisimpiä käyttöjärjestelmiä (Linux, MacOS ja Windows) ja tukeakseen uusia ominaisuuksia.</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="90"/>
         <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
         <translation>Jos haluat antaa tukesi, olet tervetullut liittymään  &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog kehitystiimin postituslistaan&lt;/a&gt;!</translation>
@@ -1417,10 +1413,6 @@ Do you want KLog to add this QSO to the log?</source>
         <location filename="../startwizard.cpp" line="178"/>
         <source>This looks like it&apos;s the first time you&apos;ve run KLog on this computer.</source>
         <translation>Näyttää siltä, että käynnistit KLog:in ensimmäistä kertaa tällä tietokoneella.</translation>
-    </message>
-    <message>
-        <source>KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.</source>
-        <translation type="vanished">KLog on ilmainen radioamatööri lokikirjaohjelma joka toimii Linux:ssa, MacOS:ssa, sekä Windows:ssa.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="179"/>
@@ -7443,30 +7435,10 @@ The log will not be opened.</source>
         <translation type="unfinished">&lt;b&gt;Vinkki #1:&lt;/b&gt;&lt;br&gt;Tiesitkö....&lt;br&gt;Voit käyttää &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; lukeaksesi automaattisesti koko lokin ja täyttääksesi DXCC, CQ, ITU vyöhykkeet ja mantereen?</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Tools-&gt;Fill in DXCC data&lt;/a&gt; to automatically read the full log to fill the DXCC QSO data?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="obsolete">&lt;b&gt;Vinkki #2:&lt;/b&gt;&lt;br&gt;Tiesitkö....&lt;br&gt;Voit käyttää &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Tools-&gt;Fill in DXCC data&lt;/a&gt; lukeaksesi automaattisesti koko lokin ja täyttääksesi DXCC QSO tiedot?</translation>
-    </message>
-    <message>
         <location filename="../tipsdialog.cpp" line="163"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
         <translation type="unfinished">&lt;b&gt;Vinkki #3:&lt;/b&gt;&lt;br&gt;Tiesitkö....&lt;br&gt;Voit käyttää &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; etsiäksesi kaikkia QSO:ita joiden DXCC tulee vielä vahvistaa etkä vielä ole lähettänyt QSL korttia?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="obsolete">&lt;b&gt;Vinkki #4:&lt;/b&gt;&lt;br&gt;Tiesitkö....&lt;br&gt;Voit viedä QSO:t merkattuina &apos;QSL pyydetty&apos; menemällä &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; luodaksesi ADIF tiedoston jonka voit tuoda QSL tunniste ohjelmaan, jossa voit tulostaa tunnisteet QSL kortteihisi?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="obsolete">&lt;b&gt;Vinkki #6:&lt;/b&gt;&lt;br&gt;Tiesitkö....&lt;br&gt;Löydät tiedoston joka sisältää kaikki lokit ja muun tiedon logbook.dat tiedostosta ja .klogrc tiedoston, joka sisältää KLog asetustiedoston KLog kansiossa avaamalla &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; valikon?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="obsolete">&lt;b&gt;Vinkki #7:&lt;/b&gt;&lt;br&gt;Tiesitkö....&lt;br&gt;Löydät QSL:t jotka ovat vielä lähettämättä &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;Tämä työkalu listaa hakukenttään kaikki QSO:t merkittyinä QSL &lt;i&gt;Pyydetty&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="159"/>
@@ -7558,15 +7530,6 @@ The log will not be opened.</source>
         <location filename="../tipsdialog.cpp" line="218"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
         <translation type="unfinished">&lt;b&gt;Vinkki #19:&lt;/b&gt;&lt;br&gt;Tiesitkö...&lt;br&gt;Voit napauttaa QSO:ta oikealla hiiren napilla ja valita &lt;i&gt;Check in QRZ.com&lt;/i&gt; nähdäksesi kutsutunnuksen QRZ.com:ssa?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
-        <translation type="vanished">&lt;b&gt;Vinkki #20:&lt;/b&gt;&lt;br&gt;Tiesitkö...&lt;br&gt;Voit nähdä QSO:n joka sisältää tietyn DXCC yksikön tietyllä taajuusalueella osoittamalla taajuusaluetta DXCC työkalussa?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;Upload to LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation type="obsolete">&lt;b&gt;Vinkki #21:&lt;/b&gt;&lt;br&gt;Tiesitkö...&lt;br&gt;Voit lähettää QSO:t merkittyinä lähetettäviksi LoTW:iin TQSL:n kautta menemällä &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;Upload to LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Sinun tulee asettaa TQSL käyttöön asetuksissa, käyttääksesi tätä ominaisuutta.</translation>
     </message>
 </context>
 <context>

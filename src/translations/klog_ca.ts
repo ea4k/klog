@@ -40,10 +40,6 @@
         <translation>El KLog és un llibre de registre lliure per a operadors de radioafició.</translation>
     </message>
     <message>
-        <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.</source>
-        <translation type="vanished">A partir de la versió 0.6.2, el KLog s&apos;ha reescrit completament per a proporcionar una aplicació multiplataforma que s&apos;executa a tots els principals sistemes operatius (Linux, macOS i Windows) i per a implementar funcionalitats noves.</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="58"/>
         <source>Please provide your review in KLog&apos;s eHam review page:</source>
         <translation>Si us plau, proporcioneu comentaris a la pàgina de revisions del KLog a eHam:</translation>
@@ -1430,10 +1426,6 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
         <location filename="../startwizard.cpp" line="178"/>
         <source>This looks like it&apos;s the first time you&apos;ve run KLog on this computer.</source>
         <translation>Sembla que aquesta és la primera vegada que s&apos;executa el KLog en aquest ordinador.</translation>
-    </message>
-    <message>
-        <source>KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.</source>
-        <translation type="vanished">El KLog és un programa lliure d&apos;enregistrament de radioafició que es pot executar al Linux, macOS, i Windows.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="179"/>
@@ -3148,10 +3140,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <translation>Tots els QSO pendents s&apos;han marcat com a posats en cua per al LoTW!</translation>
     </message>
     <message>
-        <source>TQSL finished with no error.</source>
-        <translation type="vanished">El TQSL ha finalitzat sense cap error.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4400"/>
         <source>Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW</source>
         <translation>Segur que voleu marcar TOTS aquests QSO per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu QSO al LoTW</translation>
@@ -3243,14 +3231,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="6751"/>
         <source>Save ADIF File</source>
         <translation>Desa el fitxer ADIF</translation>
-    </message>
-    <message>
-        <source>If you uploaded any QSO to LoTW while you were using TQSL you can now mark them as sent in KLog.
-
-Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
-        <translation type="vanished">Si s&apos;ha pujat algun QSO al LoTW mentre estàveu usant el TQSL ara els podreu marcar com a enviats al KLog.
-
-Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6323"/>
@@ -7512,24 +7492,10 @@ El registre no s&apos;obrirà.</translation>
         <translation>&lt;b&gt;Consell núm. 1:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;poseu usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Eines -&gt; Omple les dades QSO&lt;/a&gt; per llegir automàticament el registre complet per a omplir les zones DXCC, CQ, ITU i el continent?</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Tools-&gt;Fill in DXCC data&lt;/a&gt; to automatically read the full log to fill the DXCC QSO data?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="vanished">&lt;b&gt;Consell núm. 2:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFillInDXCC&quot;&gt;Eines-&gt;Omple les dades DXCC&lt;/a&gt; per llegir automàticament el registre complet per omplir les dades QSO del DXCC?</translation>
-    </message>
-    <message>
         <location filename="../tipsdialog.cpp" line="163"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
         <translation>&lt;b&gt;Consell núm. 3:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca QSO a les QSL&lt;/a&gt; per cercar tots aquells QSO als que hauríeu d&apos;enviar la vostra QSL perquè encara cal confirmar que el DXCC i vós encara no heu enviat la targeta QSL?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can export your QSO marked as QSL requested with &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;File-&gt;Export Requested QSL to ADIF...&lt;/a&gt; to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="vanished">&lt;b&gt;Consell núm. 4:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu exportar el vostre QSO marcat com a QSL sol·licitada amb &lt;a href=&quot;#FileExportQSLADIFToPrint&quot;&gt;Fitxer-&gt;Exporta les QSL sol·licitades a ADIF...&lt;/a&gt; per a crear un fitxer ADIF que podreu importar a un programa de creació d&apos;etiquetes QSL per a imprimir les etiquetes de les vostres targetes QSL?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
-        <translation type="vanished">&lt;b&gt;Consell núm. 5:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu introduir un «*» al quadre de cerca de la finestra de cerca per a cercar tots els QSO efectuats amb un indicatiu d&apos;estació específic?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="197"/>
@@ -7550,25 +7516,6 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../tipsdialog.cpp" line="218"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
         <translation>&lt;b&gt;Consell núm. 19:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu fer clic amb el botó dret a un QSO i seleccionar &lt;i&gt;Comprova a QRZ.com&lt;/i&gt; per comprovar aquest identificador a QRZ.com?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
-        <translation type="vanished">&lt;b&gt;Consell núm. 20:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu veure el QSO que confirma una entitat DXCC específica a una banda específica apuntant el ratolí sobre aquesta banda al giny del DXCC?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;Upload to LoTW...&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export ADIF for LoTW...</extracomment>
-        <translation type="vanished">&lt;b&gt;Consell núm. 21:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu pujar els vostres QSO marcats com a en cua al LoTW via el TQSL amb &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Eines -&gt; Puja al LoTW...&lt;/a&gt;?&lt;br&gt;&lt;br&gt;Cal configurar el TQSL a les preferències per a poder usar aquesta funcionalitat.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="vanished">&lt;b&gt;Consell núm. 6:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar el fitxer que conté tot el vostre registre i altra informació al fitxer «logbook.dat», i al «klogrc» que conté el fitxer de configuració del KLog, a la carpeta del KLog obrint el menú &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Fitxer-&gt;Carpeta del KLog&lt;/a&gt;?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
-        <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="vanished">&lt;b&gt;Consell núm. 7:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu trobar les QSL que encara cal enviar amb &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca les meves QSL pendents d&apos;enviar&lt;/a&gt;.&lt;bR&gt;Aquesta eina llistarà al quadre de cerca tots els QSO amb la QSL-Sent marcada com a &lt;i&gt;Sol·licitada&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="159"/>
