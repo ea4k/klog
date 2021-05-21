@@ -8,6 +8,7 @@ TBD - 1.5.3
 - Bugfix: Setup->Satellites did not show a correct Short name. (Closes issue #192) (TNX foldynl)
 - Bugfix: Removal DX Cluster unexpected disconnection. (TNX foldynl)
 - Bugfix: Tip #21 was not shown. (Closes issue #184) (TNX foldynl)
+- Bugfix: TQSL was not properly found on macOS. (Closes issue #195) (TNX K0JM)
 - Enhancement: Improved the readability of the DX Cluster window. (TNX foldynl)
 - Updated the KLog tips.
 - Translation: Czech (TNX OK1MLG)
