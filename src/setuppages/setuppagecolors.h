@@ -60,11 +60,12 @@ private slots:
 
     void slotWSJTXButtonClicked();
     void slotKLogButtonClicked();
-
+    void slotSetDarkMode();
 
 private:
     void setDefaultColors();
     void setWSJTXColors();
+    bool darkMode;
     QColor giveColor (QColor c);
 
     QPalette palette;
@@ -76,6 +77,7 @@ private:
     QPushButton *defaultColorButton;  // In this band
     QPushButton *wsjtxColorButton;  // In this band
     QPushButton *klogColorButton;  // In this band
+    QPushButton *darkModeButton;  // Application dark mode
 
     QColor color;
 /*

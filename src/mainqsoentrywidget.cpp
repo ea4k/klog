@@ -104,6 +104,7 @@ void MainQSOEntryWidget::createUI()
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palBlack.setColor(QPalette::Text, Qt::white);
 
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     //connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
@@ -209,6 +210,16 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     {
         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << endl;
         qrzLineEdit->setPalette(palBlack);
+
+        //qDebug() << Q_FUNC_INFO << " Style: " << QApplication::style()->objectName ()<< '\n';
+        if (getDarkMode())
+        {
+            qrzLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            qrzLineEdit->setPalette(palBlack);
+        }
         currentQrz = qrzLineEdit->text();
         //emit showInfoLabel(tr(""));
     }
@@ -346,6 +357,7 @@ void MainQSOEntryWidget::setInitialData()
       //qDebug()<< "MainQSOEntryWidget::setInitialData" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     //Default band/modes
+    //darkMode = false;
     modify = false;
     qrzAutoChanging = false;
     InValidCharsInPrevCall = false;
@@ -807,3 +819,19 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
         slotQRZTextChanged();
     }
 }
+
+bool MainQSOEntryWidget::getDarkMode()
+{
+    //qDebug() << Q_FUNC_INFO << " - DarkMode Color " << (OKButton->palette().color (QPalette::Base)).name() << endl;
+    if ( OKButton->palette().color (QPalette::Base) == "#646464")
+    {
+        //qDebug() << Q_FUNC_INFO << " - DarkMode = TRUE" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << " - DarkMode = FALSE" << endl;
+        return false;
+    }
+}
+

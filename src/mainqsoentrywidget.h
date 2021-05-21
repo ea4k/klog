@@ -65,10 +65,10 @@ public:
     void setUpAndRunning(const bool _u);
     void selectDefaultBand(const bool _init = false);
     void selectDefaultMode(const bool _init = false);
-
     void setDuplicatedQSOSlot (const int _secs);
 
     void clear();
+    bool getDarkMode();
 
 protected:
    // void keyPressEvent(QKeyEvent *event);
@@ -122,14 +122,13 @@ private:
     QString previousQRZ;
     QString currentQrz;
 
-
     QStringList bands, modes;
 
     QTimer *timer;
     bool UTCTime, modify, realTime;
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Utilities *util;
-    QPalette::ColorRole enabledCR, disabledCR;
+    QPalette::ColorRole enabledCR;//, disabledCR;
 
     int duplicatedQSOSlotInSecs;
     QTimer *delayInputTimer;
