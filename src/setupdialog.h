@@ -147,6 +147,8 @@ private:
 
     Utilities *util;
     QString windowSize;
+    QWidget *parent_widget;
+
     QString latestBackup;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time

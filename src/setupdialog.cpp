@@ -165,6 +165,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     version = _softwareVersion;
     pageRequested = _page;
     int logsPageTabN=-1;
+    parent_widget = parent;
+
     //qDebug() << "SetupDialog::SetupDialog 01" << endl;
 
     locator = new Locator();
@@ -788,10 +790,14 @@ void SetupDialog::slotOkButtonClicked()
         //WSJTX
 
         //Windows Size
-        if (windowSize.length()>0)
+        if ( parent_widget != nullptr )
         {
-            stream << "MainWindowSize=" << windowSize << ";" <<  endl;
+           stream << "MainWindowSize=" << QString::number(parent_widget->size().width())
+                                       << "x"
+                                       << QString::number(parent_widget->size().height())
+                                       << ";" << endl;
         }
+
         if (latestBackup.length()>0)
         {
             stream << "LatestBackup=" << latestBackup << ";" << endl;
