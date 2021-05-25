@@ -72,6 +72,7 @@ HEADERS += setupdialog.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
+    inputwidgets/mainwindowinputqso.h \
     qso.h \
     searchmodel.h \
     searchwindow.h \
@@ -157,6 +158,7 @@ SOURCES += main.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
+    inputwidgets/mainwindowinputqso.cpp \
     qso.cpp \
     searchmodel.cpp \
     searchwindow.cpp \

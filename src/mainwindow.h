@@ -59,6 +59,7 @@
 #include "mainwindowinputothers.h"
 #include "mainwindowinputeqsl.h"
 #include "mainwindowinputqsl.h"
+#include "inputwidgets/mainwindowinputqso.h"
 #include "mainqsoentrywidget.h"
 #include "elogclublog.h"
 #include "utilities.h"
@@ -163,7 +164,7 @@ private slots:
     //void slotSRXTextChanged();
     //void slotSTXTextChanged();
     void slotUpdateLocator(QString _loc);
-    void slotLocatorTextChanged();
+    void slotLocatorTextChanged(const QString &_loc);
     //void slotMyLocatorTextChanged();
     void slotFreqTXChanged();
     void slotFreqRXChanged();
@@ -641,7 +642,7 @@ private:
     QTextEdit *notesTextEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
     QCheckBox *splitCheckBox;
-    QLCDNumber *freqQLCDNumber;
+    //QLCDNumber *freqQLCDNumber;
 
     QString lotwTQSLpath;
 
@@ -679,6 +680,7 @@ private:
     MainWindowInputOthers *othersTabWidget;
     MainWindowInputEQSL *eQSLTabWidget;
     MainWindowInputQSL *QSLTabWidget;
+    MainWindowInputQSO *QSOTabWidget;
     MainQSOEntryWidget *mainQSOEntryWidget;
 
     AwardsWidget *awardsWidget;

@@ -158,12 +158,14 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created " << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
+    QSOTabWidget = new MainWindowInputQSO(dataProxy);
     myDataTabWidget = new MainWindowMyDataTab();
     commentTabWidget = new MainWindowInputComment();
     othersTabWidget = new MainWindowInputOthers(dataProxy);
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
+
    //qDebug() << "MainWindow::MainWindow: locator to be created " << QTime::currentTime().toString("hh:mm:ss") << endl;
     locator = new Locator();
 
@@ -505,8 +507,8 @@ void MainWindow::createActionsCommon(){
     connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-
-    connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
+    connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)) this, SLOT(slotLocatorTextChanged(QString) ) );
+    //connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
@@ -3634,6 +3636,7 @@ void MainWindow::clearUIDX(bool full)
     infoLabel1->clear();
     infoLabel2->clear();
     rxPowerSpinBox->setValue(0);
+    QSOTabWidget->clear();
     eQSLTabWidget->clear();
     QSLTabWidget->clear();
     othersTabWidget->clear();
@@ -5966,9 +5969,8 @@ void MainWindow::createUIDX()
 
     dxUpLeftTab->setTabPosition(QTabWidget::North);
     dxUpRightTab->setTabPosition(QTabWidget::South);
-            //qDebug() << "MainWindow::createUIDX-30" << endl;
+    //qDebug() << "MainWindow::createUIDX-30" << endl;
     QWidget *qsoInputTabWidget = new QWidget;
-    //QFormLayout *qsoInputTabWidgetLayout = new QFormLayout;
     QLabel *nameLabel = new QLabel(qsoInputTabWidget);
     nameLabel->setText(tr("Name"));
     nameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -6090,7 +6092,7 @@ void MainWindow::createUIDX()
     qsoInputTabWidgetMainLayout->addLayout(namePwrLayout);
     qsoInputTabWidget->setLayout(qsoInputTabWidgetMainLayout);
 
-    dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO"));
+    dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO-viejo"));
             //qDebug() << "MainWindow::createUIDX-80" << endl;
 
 /*
@@ -6101,6 +6103,7 @@ void MainWindow::createUIDX()
     i = dxUpLeftTab->addTab(notesInputTabWidget, tr("Notes"));
 */
     //dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
+    dxUpLeftTab->addTab (QSOTabWidget, tr("QSO"));
     dxUpLeftTab->addTab(QSLTabWidget, tr("QSL"));
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
     dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
@@ -7381,36 +7384,16 @@ void MainWindow::setModifying(const bool _m)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotLocatorTextChanged()
+void MainWindow::slotLocatorTextChanged(const QString &_loc)
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
       //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    int cursorP = locatorLineEdit->cursorPosition();
 
-    locatorLineEdit->setText((locatorLineEdit->text()).toUpper());
-
-    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
+    if ( locator->isValidLocator(_loc) )
     {
-          //qDebug() << "MainWindow::slotLocatorTextChanged: VALID: " << locatorLineEdit->text() << endl;
-        locatorLineEdit->setPalette(palBlack);
-        dxLocator = (locatorLineEdit->text());
-        infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-        satTabWidget->setLocator(dxLocator);
-        locatorLineEdit->setToolTip(tr("DX QTH locator."));
-                //qDebug() << "MainWindow::slotLocatorTextChanged: " << locator->getLat(locatorLineEdit->text()) << endl;
-                //qDebug() << "MainWindow::slotLocatorTextChanged: LON: " << locator->getLon(locatorLineEdit->text()) << endl;
-        //showInfoFromLocators(myLocator, dxLocator);
+        infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), _loc);
+        satTabWidget->setLocator(_loc);
     }
-    else
-    {
-          //qDebug() << "MainWindow::slotLocatorTextChanged: NOT VALID: " << locatorLineEdit->text() << endl;
-        locatorLineEdit->setPalette(palRed);
-        locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
-        locatorLineEdit->setCursorPosition(cursorP);
-        logEvent(Q_FUNC_INFO, "END-2", logSeverity);
-        return;
-    }
-    locatorLineEdit->setCursorPosition(cursorP);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -7423,8 +7406,7 @@ void MainWindow::slotMyLocatorTextChanged(const QString _loc)
     {
         dxccStatusWidget->setMyLocator(_loc);
 
-        slotLocatorTextChanged();
-
+        slotLocatorTextChanged(QSOTabWidget->getDXLocator ());
     }
     else
     {
