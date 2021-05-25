@@ -34,7 +34,7 @@ class SetupPageColors : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageColors(QWidget *parent=0);
+    SetupPageColors(QWidget *parent=nullptr);
     ~SetupPageColors();
 
     QString getNewOneColor();
@@ -42,12 +42,15 @@ public:
     QString getWorkedColor();
     QString getConfirmedColor();
     QString getDefaultColor();
+    bool getDarkMode();
 
     void setNewOneColor(const QString c);
     void setNeededColor(const QString c);
     void setWorkedColor(const QString c);
     void setConfirmedColor(const QString c);
     void setDefaultColor(const QString c);
+
+    void setDarkMode(const bool _dm);
 
 
 

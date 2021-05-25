@@ -305,3 +305,13 @@ void SetupPageColors::slotSetDarkMode()
     qApp->setPalette(p);
 }
 
+bool SetupPageColors::getDarkMode()
+{
+    return darkMode;
+}
+
+void SetupPageColors::setDarkMode(const bool _dm)
+{
+    darkMode = _dm;
+    slotSetDarkMode();
+}
