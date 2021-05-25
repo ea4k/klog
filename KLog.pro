@@ -27,6 +27,7 @@ TEMPLATE = subdirs
 # --coverage option is synonym for: -fprofile-arcs -ftest-coverage -lgcov
 QMAKE_CXXFLAGS += --coverage
 QMAKE_LFLAGS += --coverage
+QMAKE_LFLAGS += -g -fprofile-arcs -ftest-coverage  -O0
 
 SUBDIRS += src
 
