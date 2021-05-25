@@ -7,6 +7,9 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
+QMAKE_CXXFLAGS += -Wall -Wextra -Werror
+QMAKE_CFLAGS += -Wall -Wextra -Werror
+
 HEADERS += \
     ../../src/utilities.h \
     ../../src/locator.h
