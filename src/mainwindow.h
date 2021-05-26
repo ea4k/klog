@@ -168,7 +168,7 @@ private slots:
     //void slotMyLocatorTextChanged();
     void slotFreqTXChanged();
     void slotFreqRXChanged();
-    void slotSplitCLicked();
+    //void slotSplitCLicked();
 
     void slotSearchBoxTextChanged();
     //void slotCloseStats(bool _vis);
@@ -317,7 +317,12 @@ private slots:
     void slotSatRXFreqNeeded(const double _f);
     void slotSatChangeRXFreq(const double _f);
     void slotSatChangeTXFreq(const double _f);
-
+    // QSO Tab ( QSOTabWidget)
+    void slotQSOTabRXFreqChanged(const double _f);
+    void slotQSOTabRXFreqChangedForSat(const double _f);
+    void slotQSOTabTXFreqChangedForSat(const double _f);
+    void slotQSOTabTXFreqBeingChanged(const bool _f);
+    void slotQSOTabTXFreqChanged(const double _f);
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
     void slotHamlibModeChanged(const QString &_m);
@@ -448,8 +453,8 @@ private:
     //void showAwards();
     //void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
-    double checkFreqRanges(double _f);
-    void setRSTToMode(const QString &_m);
+    //double checkFreqRanges(double _f);
+    //void setRSTToMode(const QString &_m);
 
 
     // CLUSTER
@@ -668,7 +673,7 @@ private:
     QFile *debugFile;
     DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
 
-    bool txFreqBeingChanged, rxFreqBeingChanged, updatingBands;            // When the freqs is being modified it is defined to true to prevent other automated to change.
+    bool txFreqBeingChanged,  updatingBands; //rxFreqBeingChanged  // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution

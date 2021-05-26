@@ -1,7 +1,7 @@
 #ifndef MAINWINDOWINPUTQSO_H
-#define MAINWINDOWINPUTQS=_H
+#define MAINWINDOWINPUTQSO_H
 /***************************************************************************
-                          mainwindowinputqs0.h  -  description
+                          mainwindowinputqso.h  -  description
                              -------------------
     begin                : may 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -31,7 +31,6 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include <QWidget>
 #include "dataproxy_sqlite.h"
 #include "locator.h"
 //#include "utilities.h"
@@ -44,23 +43,63 @@ public:
     ~MainWindowInputQSO();
     QString getDXLocator();
     void setDXLocator(const QString &_loc);
+    void setPaletteRigthDXLocator(const bool _ok);
+
+    QString getName();
+    void setName(const QString &_st);
+    void setPaletteRigthName(const bool _ok);
+
+    QString getQTH();
+    void setQTH(const QString &_st);
+    void setPaletteRigthQTH(const bool _ok);
+    void setRSTToMode(const QString &_m, const bool _reading);
+    void setFreqFromSat(const QString &_p);
+    QString getRSTTX();
+    void setRSTTX(const QString &_st);
+    QString getRSTRX();
+    void setRSTRX(const QString &_st);
+
+    double getTXFreq();
+    void setTXFreq(const double _ft);
+    void setTXFreqFromSat(const double _ft);
+
+    double getRXFreq();
+    void setRXFreq(const double _ft);
+    void setRXFreqFromSat(const double _ft);
+
+
+
+    double getRXPwr();
+    void setRXPwr(const double _pw);
 
     void clear();
+    void cleanQRZCOM();
+    void clearName();
+    void clearQTH();
+    void clearDXLocator();
 
 
 signals:
     void returnPressed();
     void dxLocatorChanged(QString _loc);
+    void rxFreqChanged(double _f);
+    void rxFreqChangedForSat(double _f);
+    void txFreqBeingChanged(bool _f);
+    void txFreqChanged(double _f);
+    void txFreqChangedForSat(double _f);
 
 private slots:
-
     void slotReturnPressed();
     void slotLocatorTextChanged();
+    void slotFreqTXChanged (double _f);
+    void slotFreqRXChanged (double _f);
+    void slotSplitClicked();
 
 private:
 
     void createUI();
     void setDefaultData();
+    bool getDarkMode();
 
     QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
@@ -72,6 +111,8 @@ private:
     Utilities *util;
 
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
+
+    bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
 
 };
 

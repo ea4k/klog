@@ -300,7 +300,7 @@ void MainWindow::init()
     manageMode = false;
     txFreqBeingChanged = false;
     txFreqBeingAutoChanged = false;
-    rxFreqBeingChanged = false;
+    //rxFreqBeingChanged = false;
     updatingBands = false;
     selectedYear = 0;
     defaultMode = 1;
@@ -498,23 +498,30 @@ void MainWindow::createActionsCommon(){
     //connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     //connect(SRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     //connect(STXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-    connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-    connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)) this, SLOT(slotLocatorTextChanged(QString) ) );
+    connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
+
+    //connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)) this, SLOT(slotLocatorTextChanged(QString) ) );
     //connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
-    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged()) ) ;
-    connect(splitCheckBox, SIGNAL(clicked()), this, SLOT(slotSplitCLicked()) ) ;
+    //connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
+    connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabTXFreqChanged(double)) ) ;
+    connect(QSOTabWidget, SIGNAL(txFreqBeingChanged(bool)), this, SLOT(slotQSOTabTXFreqBeingChanged(bool)) ) ;
+    connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabRXFreqChanged(double)) ) ;
+    connect(QSOTabWidget, SIGNAL(rxFreqChangedForSat(double)), this, SLOT(slotQSOTabRXFreqChangedForSat(double)) ) ;
+    connect(QSOTabWidget, SIGNAL(txFreqChangedForSat(double)), this, SLOT(slotQSOTabTXFreqChangedForSat(double)) ) ;
+
 
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
     //connect(bandComboBox, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
@@ -830,7 +837,7 @@ void MainWindow::setModeFromFreq()
     //TODO: define frequency ranges for the different modes
     if (hamlibActive)
     {
-        if (txFreqSpinBox->value() >= dataProxy->getLowLimitBandFromBandName("20M"))
+        if (QSOTabWidget->getTXFreq () >= dataProxy->getLowLimitBandFromBandName("20M"))
         {
             hamlib->setMode("USB");
         }
@@ -845,6 +852,7 @@ void MainWindow::setModeFromFreq()
         }
     }
 }
+
 void MainWindow::slotBandChanged (const QString &_b)
 {
      //qDebug() << "MainWindow::slotBandChanged: " << _b << endl;
@@ -861,8 +869,8 @@ void MainWindow::slotBandChanged (const QString &_b)
         return;
     }
 
-    bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(txFreqSpinBox->value()));
-    if ((isFRinBand) && (txFreqSpinBox->value() >0 ))
+    bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(QSOTabWidget->getTXFreq ()));
+    if ((isFRinBand) && (QSOTabWidget->getTXFreq () >0 ))
     { // No change in txFreq
          //qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
@@ -874,7 +882,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     currentBand = currentBandShown;
     currentMode = currentModeShown;
      //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq: (isFRinBand/Freq): " << util->boolToQString(isFRinBand) << "/" << QString::number(txFreqSpinBox->value())  << endl;
-    if ((!isFRinBand) || (txFreqSpinBox->value()<=0))
+    if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
     {
         //qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
         //qDebug() << "MainWindow::slotBandChanged: Band: " << mainQSOEntryWidget->getBand()  << endl;
@@ -882,11 +890,11 @@ void MainWindow::slotBandChanged (const QString &_b)
         double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
          //qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFr) << endl;
         txFreqBeingChanged = true;
-        txFreqSpinBox->setValue(txFr);
+        QSOTabWidget->setTXFreq (txFr);
         //qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFreqSpinBox->value())  << endl;
         if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value())))
         {
-            rxFreqSpinBox->setValue(txFreqSpinBox->value());
+            rxFreqSpinBox->setValue(QSOTabWidget->getTXFreq());
         }
     }
      //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  << endl;
@@ -923,7 +931,7 @@ void MainWindow::slotModeChanged (const QString &_m)
             //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " << endl;
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
-    setRSTToMode(mainQSOEntryWidget->getMode());
+    QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
 
     QString _modeSeen = mainQSOEntryWidget->getMode();
     if (_modeSeen == "SSB")
@@ -1146,9 +1154,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     QString tdate = util->getDateTimeSQLiteStringFromDateTime(mainQSOEntryWidget->getDateTime());
     QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
 
-    QString trsttx = rstTXLineEdit->text();
+    QString trsttx = QSOTabWidget->getRSTTX ();
      //qDebug() << "MainWindow::readDataFromUIDX - RSTtx: " << trsttx << endl;
-    QString trstrx = rstRXLineEdit->text();
+    QString trstrx = QSOTabWidget->getRSTRX ();
 
     int dxcc = world->getQRZARRLId(tqrz);
     //int dxcc2 = getDXCCFromComboBox();
@@ -1209,14 +1217,14 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     int cqz = world->getEntityCqz(dxcc);
     int ituz = world->getEntityItuz(dxcc);
 
-    aux1 = nameLineEdit->text();
+    aux1 = QSOTabWidget->getName();
     if (aux1.length()>1)
     {
         stringFields = stringFields + ", name";
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = (locatorLineEdit->text()).toUpper();
+    aux1 = QSOTabWidget->getDXLocator();
 
     if ( locator->isValidLocator(aux1)  )
     {
@@ -1225,9 +1233,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
              //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(txFreqSpinBox->value()) << endl;
-    if ( (txFreqSpinBox->value()) > 0  )
+    if ( QSOTabWidget->getTXFreq() > 0  )
     {
-        aux1 = QString::number(txFreqSpinBox->value());
+        aux1 = QString::number(QSOTabWidget->getTXFreq());
                 //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband << endl;
 
         if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
@@ -1242,16 +1250,16 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         }
     }
 
-    if ( (rxFreqSpinBox->value()) > 0  )
+    if ( QSOTabWidget->getRXFreq() > 0  )
     {
             //qDebug() << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" << endl;
-        aux1 = QString::number(rxFreqSpinBox->value());
+        aux1 = QString::number(QSOTabWidget->getRXFreq());
         stringFields = stringFields + ", freq_rx, band_rx";
-        stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
+        stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(QSOTabWidget->getRXFreq())) + "'";
         //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
     }
 
-    aux1 = qthLineEdit->text();
+    aux1 = QSOTabWidget->getQTH();
     if (aux1.length()>2)
     {
         stringFields = stringFields + ", qth";
@@ -1881,8 +1889,8 @@ QString MainWindow::readDataFromUIDXModifying()
 
     //    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
 
-    QString trsttx = rstTXLineEdit->text();
-    QString trstrx = rstRXLineEdit->text();
+    QString trsttx = QSOTabWidget->getRSTTX();
+    QString trstrx = QSOTabWidget->getRSTRX();
 
     int dxcc = world->getQRZARRLId(tqrz);
     int cqz = world->getEntityCqz(dxcc);
@@ -1982,7 +1990,7 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "cont = '', ";
     }
 
-    aux1 = nameLineEdit->text();
+    aux1 = QSOTabWidget->getName();
     if (aux1.length()>1)
     {
         updateString = updateString + "name = '";
@@ -1993,7 +2001,7 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "name = '', ";
     }
 
-    aux1 = (locatorLineEdit->text()).toUpper();
+    aux1 = QSOTabWidget->getDXLocator ();
     if ( locator->isValidLocator(aux1)  )
     {
         updateString = updateString + "gridsquare = '";
@@ -2004,9 +2012,9 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "gridsquare = '', ";
     }
 
-    if ( (txFreqSpinBox->value()) > 0  )
+    if ( QSOTabWidget->getTXFreq() > 0  )
     {
-        aux1 = QString::number(txFreqSpinBox->value());
+        aux1 = QString::number(QSOTabWidget->getTXFreq());
 
         if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
         //if (db->isThisFreqInBand(db->getBandNameFromID2(tband), aux1) )
@@ -2024,14 +2032,14 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "freq = '0', ";
     }
 
-    if ( (rxFreqSpinBox->value()) > 0  )
+    if ( (QSOTabWidget->getRXFreq()) > 0  )
     {
-        aux1 = QString::number(rxFreqSpinBox->value());
+        aux1 = QString::number(QSOTabWidget->getRXFreq());
         updateString = updateString + "freq_rx = '";
         updateString = updateString + aux1 + "', ";
 
         updateString = updateString + "band_rx = '";
-        updateString = updateString + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "', ";
+        updateString = updateString + QString::number(dataProxy->getBandIdFromFreq(QSOTabWidget->getRXFreq())) + "', ";
     }
     else
     {
@@ -2039,7 +2047,7 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "band_rx = '', ";
     }
 
-    aux1 = qthLineEdit->text();
+    aux1 = QSOTabWidget->getQTH();
     if (aux1.length()>2)
     {
         updateString = updateString + "qth = '";
@@ -3122,9 +3130,7 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
 {
     if (!modify)
     {
-        qthLineEdit->clear();
-        nameLineEdit->clear();
-        locatorLineEdit->clear();
+        QSOTabWidget->cleanQRZCOM();
         completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
@@ -3136,24 +3142,24 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
     //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << endl;
    if (_t == "name")
    {
-       if (nameLineEdit->text().length()<1)
+       if (QSOTabWidget->getName().length()<1)
        {
-           nameLineEdit->setText(_d);
+           QSOTabWidget->setName(_d);
        }
    }
    else if (_t == "grid")
    {
-       if (locatorLineEdit->text().length()<1)
+       if (QSOTabWidget->getDXLocator().length()<1)
        {
-           locatorLineEdit->setText(_d);
+           QSOTabWidget->setDXLocator(_d);
        }
 
    }
    else if (_t == "qth")
    {
-       if (qthLineEdit->text().length()<1)
+       if (QSOTabWidget->getQTH().length()<1)
        {
-           qthLineEdit->setText(_d);
+           QSOTabWidget->setQTH(_d);
        }
    }
    else if (_t == "qslmgr")
@@ -3406,9 +3412,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
     //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
-    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) )
+    if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
-        dxLocator = (locatorLineEdit->text()).toUpper();
+        dxLocator = QSOTabWidget->getDXLocator();
     }
     else
     {
@@ -3476,75 +3482,6 @@ void MainWindow::slotQRZSpacePressed()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 */
-void MainWindow::setRSTToMode(const QString &_m)
-{
-
-     //qDebug() << "MainWindow::setRSTToMode: " << _m << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (readingTheUI)
-    {
-         //qDebug() << "MainWindow::setRSTToMode: reading the UI" << endl;
-        logEvent(Q_FUNC_INFO, "END", logSeverity);
-        //return;
-    }
-    if ((_m == "SSB") || (_m== "LSB") || (_m=="USB") || (_m == "FM") || (_m == "AM") )
-    {
-         //qDebug() << "MainWindow::setRSTToMode: Detected SSB/LSB/USB"  << endl;
-        rstTXLineEdit->setInputMask("#DD");
-        rstRXLineEdit->setInputMask("#DD");
-
-        //rstTXLineEdit->setText("59");
-        //rstRXLineEdit->setText("59");
-        rstTXLineEdit->setMaxLength(2);
-        rstRXLineEdit->setMaxLength(2);
-    }
-    else if ((_m == "CW") || (_m == "RTTY"))
-    {
-        rstTXLineEdit->setInputMask("DDD");
-        rstRXLineEdit->setInputMask("DDD");
-        //rstTXLineEdit->setText("599");
-        //rstRXLineEdit->setText("599");
-        rstTXLineEdit->setMaxLength(3);
-        rstRXLineEdit->setMaxLength(3);
-    }
-    else if (_m == "PSK31")
-    {
-        rstTXLineEdit->setInputMask("#DD0");
-        rstRXLineEdit->setInputMask("#DD0");
-        //rstTXLineEdit->setText("599");
-        //rstRXLineEdit->setText("599");
-        rstTXLineEdit->setMaxLength(4);
-        rstRXLineEdit->setMaxLength(4);
-    }
-    else if ( (_m.contains("FT", Qt::CaseInsensitive)) || (_m.contains("JT", Qt::CaseInsensitive)) || (_m.contains("QRA64", Qt::CaseInsensitive)) || (_m.contains("JS", Qt::CaseInsensitive)))
-    {
-        rstTXLineEdit->setInputMask("#99");
-        rstRXLineEdit->setInputMask("#99");
-        //rstTXLineEdit->setText("0");
-        //rstRXLineEdit->setText("0");
-        rstTXLineEdit->setMaxLength(3);
-        rstRXLineEdit->setMaxLength(3);
-    }
-    else
-    { // By default SSB RST is configured but anything could be added
-        rstTXLineEdit->setInputMask("#xxx");
-        rstRXLineEdit->setInputMask("#xxx");
-        //rstTXLineEdit->setText("59");
-        //rstRXLineEdit->setText("59");
-        rstTXLineEdit->setMaxLength(4);
-        rstRXLineEdit->setMaxLength(4);
-    }
-    if (!readingTheUI)
-    {
-         //qDebug() << "MainWindow::setRSTToMode: reading the UI" << endl;
-        logEvent(Q_FUNC_INFO, "Not reading the UI, defining a default value", logSeverity);
-        rstTXLineEdit->setText(util->getDefaultRST(_m));
-        rstRXLineEdit->setText(util->getDefaultRST(_m));
-
-    }
-
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
 
 /*
 void MainWindow::slotrstTXTextChanged()
@@ -3592,7 +3529,7 @@ void MainWindow::slotClearButtonClicked()
     dateTimeTemp = dateTime;
     modifyingQSO = -1;
 
-    setRSTToMode(mainQSOEntryWidget->getMode());
+    QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
 
     if (currentBand < 0)
     {
@@ -3629,13 +3566,14 @@ void MainWindow::clearUIDX(bool full)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //SRXLineEdit->setText("59");
     //STXLineEdit->setText("59");
-    qthLineEdit->clear();
-    nameLineEdit->clear();
-    locatorLineEdit->clear();
+    //qthLineEdit->clear();
+    //nameLineEdit->clear();
+    //locatorLineEdit->clear();
+    QSOTabWidget->clear();
     commentTabWidget->clear();
     infoLabel1->clear();
     infoLabel2->clear();
-    rxPowerSpinBox->setValue(0);
+    //rxPowerSpinBox->setValue(0);
     QSOTabWidget->clear();
     eQSLTabWidget->clear();
     QSLTabWidget->clear();
@@ -3649,12 +3587,12 @@ void MainWindow::clearUIDX(bool full)
     completedWithPreviousLocator = false;
 
      //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(txFreqSpinBox->value()) << endl;
-    if (txFreqSpinBox->value()<=0)
+    if (QSOTabWidget->getTXFreq()<=0)
     {
         //qDebug() << "MainWindow::clearUIDX Setting TX Freq from: " << QString::number(txFreqSpinBox->value()) << endl;
-        txFreqSpinBox->setValue((dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
+        QSOTabWidget->setTXFreq((dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
         //qDebug() << "MainWindow::clearUIDX Setting TX Freq to: " << QString::number(txFreqSpinBox->value()) << endl;
-        rxFreqSpinBox->setValue(txFreqSpinBox->value());
+        QSOTabWidget->setRXFreq(QSOTabWidget->getTXFreq());
     }
     //if (full)
     //{
@@ -5903,23 +5841,22 @@ void MainWindow::createUIDX()
     //modeComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
 
-    txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-    rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
+    //txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
+    //rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
     //myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
-    rxPowerSpinBox->setToolTip(tr("Power used by the contacted station."));
+    //rxPowerSpinBox->setToolTip(tr("Power used by the contacted station."));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
     stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
 
-
-    nameLineEdit->setToolTip(tr("Name of the contacted operator."));
-    qthLineEdit->setToolTip(tr("QTH of the contacted station."));
-    locatorLineEdit->setToolTip(tr("Locator of the contacted station."));
-            //qDebug() << "MainWindow::createUIDX-10" << endl;
+    //nameLineEdit->setToolTip(tr("Name of the contacted operator."));
+    //qthLineEdit->setToolTip(tr("QTH of the contacted station."));
+    //locatorLineEdit->setToolTip(tr("Locator of the contacted station."));
+    //qDebug() << "MainWindow::createUIDX-10" << endl;
     //freqQLCDNumber->setToolTip(tr("Frequency of the QSO"));
     //qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
-    rstTXLineEdit->setToolTip(tr("TX RST."));
+    //rstTXLineEdit->setToolTip(tr("TX RST."));
             //qDebug() << "MainWindow::createUIDX-11" << endl;
-    rstRXLineEdit->setToolTip(tr("RX RST."));
+    //rstRXLineEdit->setToolTip(tr("RX RST."));
             //qDebug() << "MainWindow::createUIDX-12" << endl;
 
     infoLabel1->setToolTip(tr("Status of the DX entity."));
@@ -6949,7 +6886,8 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
     aux1 = dataProxy->getNameFromSubModeId(aux1.toInt());
-    setRSTToMode(aux1);
+    QSOTabWidget->setRSTToMode(aux1, readingTheUI);
+
     if (mainQSOEntryWidget->isModeExisting(aux1))
     {
 
@@ -7000,12 +6938,12 @@ void MainWindow::qsoToEdit (const int _qso)
 
     nameCol = rec.indexOf("rst_sent");
     aux1 = (query.value(nameCol)).toString();
-    rstTXLineEdit->setText(aux1);
+    QSOTabWidget->setRSTTX (aux1);
       //qDebug() << "MainWindow::qsoToEdit: - RST_SENT: " << aux1  << endl;
 
     nameCol = rec.indexOf("rst_rcvd");
     aux1 = (query.value(nameCol)).toString();
-    rstRXLineEdit->setText(aux1);
+    QSOTabWidget->setRSTRX (aux1);
 
                 //qDebug() << "MainWindow::qsoToEdit: - before switch"  << endl;
 
@@ -7042,21 +6980,21 @@ void MainWindow::qsoToEdit (const int _qso)
 
         if (aux1.length()>0)
         {
-            nameLineEdit->setText(aux1);
+            QSOTabWidget->setName (aux1);
         }
         else
         {
-            nameLineEdit->clear();
+            QSOTabWidget->clearName ();
         }
 
         nameCol = rec.indexOf("qth");
         aux1 = (query.value(nameCol)).toString();
-        qthLineEdit->setText(aux1);
+        QSOTabWidget->setQTH (aux1);
 
         nameCol = rec.indexOf("gridsquare");
         aux1 = (query.value(nameCol)).toString();
           //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << endl;
-        locatorLineEdit->setText(aux1);
+        QSOTabWidget->setDXLocator(aux1);
         satTabWidget->setLocator(aux1);
 
         nameCol = rec.indexOf("operator");
@@ -7081,11 +7019,11 @@ void MainWindow::qsoToEdit (const int _qso)
         testValueDouble = aux1.toDouble();
         if (testValueDouble >=0)
         {
-            rxPowerSpinBox->setValue(testValueDouble);
+            QSOTabWidget->setRXPwr(testValueDouble);
         }
         else
         {
-            rxPowerSpinBox->setValue(0.0);
+            QSOTabWidget->setRXPwr(0.0);
         }
 
         nameCol = rec.indexOf("freq");
@@ -7097,9 +7035,9 @@ void MainWindow::qsoToEdit (const int _qso)
         if ((testValueDouble >0) && (testValueDouble <= txFreqSpinBox->maximum()) )
         {
             //qDebug() << "MainWindow::qsoToEdit Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-            txFreqSpinBox->setValue(testValueDouble);
+            QSOTabWidget->setTXFreq (testValueDouble);
             //qDebug() << "MainWindow::qsoToEdit new Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-                        //qDebug() << "MainWindow::qsoToEdit: Freq - OverFlow "  << endl;
+            //qDebug() << "MainWindow::qsoToEdit: Freq - OverFlow "  << endl;
         }
         else
         {
@@ -7107,11 +7045,11 @@ void MainWindow::qsoToEdit (const int _qso)
             testValueDouble = (dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble();
             if (testValueDouble>0)
             {
-                txFreqSpinBox->setValue(testValueDouble);
+                QSOTabWidget->setTXFreq (testValueDouble);
             }
             else
             {
-                txFreqSpinBox->setValue(0);
+                QSOTabWidget->setTXFreq (0);
             }
         }
 
@@ -7124,13 +7062,13 @@ void MainWindow::qsoToEdit (const int _qso)
 
         if ((testValueDouble >0) && (testValueDouble <= rxFreqSpinBox->maximum()) )
         {
-            rxFreqSpinBox->setValue(testValueDouble);
+            QSOTabWidget->setRXFreq(testValueDouble);
                         //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OverFlow "  << endl;
         }
         else
         {
                         //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OK "  << endl;
-            rxFreqSpinBox->setValue(0);
+            QSOTabWidget->setRXFreq(0);
         }
 
         //QSL SENT
@@ -7940,21 +7878,6 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-double MainWindow::checkFreqRanges(double _f)
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if ( (_f > double(0)) && (_f <= txFreqSpinBox->maximum()))
-    {
-        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-        return _f;
-    }
-    else
-    {
-        logEvent(Q_FUNC_INFO, "END-2", logSeverity);
-        return 0;
-    }
-}
-
 //void MainWindow::clusterSpotToLog(const QStringList _qs)
 void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
 {
@@ -7964,9 +7887,8 @@ void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
     QString _aux;
     double _freqN = (_freq.toDouble()) / 1000;
     mainQSOEntryWidget->setQRZ(_call);
+    QSOTabWidget->setTXFreq (_freqN);
 
-
-    txFreqSpinBox->setValue(checkFreqRanges(_freqN));
     //freqQLCDNumber->display(_freqN);
 
     _aux = QString::number(_freqN);
@@ -8072,15 +7994,7 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
     //qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) << endl;
 
     othersTabWidget->setPropMode(_p, _keep);
-    if (_p == "SAT")
-    {
-        splitCheckBox->setChecked(true);
-    }
-    else
-    {
-        splitCheckBox->setChecked(false);
-        rxFreqSpinBox->setValue(txFreqSpinBox->value());
-    }
+    QSOTabWidget->setFreqFromSat(_p);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
     //propModeComboBox->setCurrentIndex(indexC);
@@ -8106,37 +8020,28 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
           //qDebug() << "MainWindow::completeWithPreviousQSO NOT completing..." << endl;
         if (completedWithPreviousName)
         {
-            nameLineEdit->clear();
+            QSOTabWidget->clearName();
             completedWithPreviousName = false;
-            nameLineEdit->setPalette(palBlack);
         }
         if (completedWithPreviousQTH)
         {
-            qthLineEdit->clear();
+            QSOTabWidget->clearQTH();
             completedWithPreviousQTH = false;
-            qthLineEdit->setPalette(palBlack);
          }
         if (completedWithPreviousLocator)
         {
-            locatorLineEdit->clear();
+            QSOTabWidget->clearDXLocator();
             completedWithPreviousLocator = false;
-            locatorLineEdit->setPalette(palBlack);
         }
         if (completedWithPreviousIOTA)
         {
             othersTabWidget->clearIOTA();
-            //iotaContinentComboBox->setCurrentIndex(0);
-            //iotaNumberLineEdit->setText("000");
             completedWithPreviousIOTA = false;
-            //iotaNumberLineEdit->setPalette(palBlack);
         }
         if (completedWithPreviousQSLVia)
         {
             QSLTabWidget->setQSLVia("");
-
-            //qslViaLineEdit->clear();
             completedWithPreviousQSLVia = false;
-            //qslViaLineEdit->setPalette(palBlack);
         }
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
@@ -8151,19 +8056,18 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
       //qDebug() << "MainWindow::completeWithPreviousQSO aux length: " << QString::number(aux.length()) << endl;
       //qDebug() << "MainWindow::completeWithPreviousQSO nameL length: " << QString::number((nameLineEdit->text()).length()) << endl;
 
-    if ((aux.length()>=0) && ((nameLineEdit->text()).length()<=0) )
+    if ((aux.length()>=0) && (QSOTabWidget->getName().length()<=0) )
     {
           //qDebug() << "MainWindow::completeWithPreviousQSO name: 1" << endl;
-        nameLineEdit->setPalette(palBlack);
+        QSOTabWidget->setName(aux);
+        QSOTabWidget->setPaletteRigthName (true);
         completedWithPreviousName = true;
-        nameLineEdit->setText(aux);
     }
-    else if (completedWithPreviousName && (aux != nameLineEdit->text()))
+    else if (completedWithPreviousName && (aux != QSOTabWidget->getName()))
     {
           //qDebug() << "MainWindow::completeWithPreviousQSO name: 2" << endl;
-        //nameLineEdit->clear();
         completedWithPreviousName = false;
-        nameLineEdit->setPalette(palRed);
+        QSOTabWidget->setPaletteRigthName (false);
     }
     else
     {
@@ -8171,32 +8075,31 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     }
 
     aux = dataProxy->getQTHFromQRZ(_call);
-    if ((aux.length()>=0) && ((qthLineEdit->text()).length()<=0) )
+    if ((aux.length()>=0) && (QSOTabWidget->getQTH().length()<=0) )
     {
-        qthLineEdit->setPalette(palBlack);
+        QSOTabWidget->setPaletteRigthQTH (true);
         completedWithPreviousQTH = true;
-        qthLineEdit->setText(aux);
+        QSOTabWidget->setQTH(aux);
     }
-    else if (completedWithPreviousQTH && (aux != qthLineEdit->text()))
+    else if (completedWithPreviousQTH && (aux != QSOTabWidget->getQTH()))
     {
         //qthLineEdit->clear();
         completedWithPreviousQTH = false;
-        qthLineEdit->setPalette(palRed);
-
+        QSOTabWidget->setPaletteRigthQTH (false);
     }
 
     aux = dataProxy->getLocatorFromQRZ(_call);
-    if ((aux.length()>=0) && ((locatorLineEdit->text()).length()<=0) )
+    if ((aux.length()>=0) && ((QSOTabWidget->getDXLocator()).length()<=0) )
     {
-        locatorLineEdit->setPalette(palBlack);
-        locatorLineEdit->setText(aux);
+        QSOTabWidget->setPaletteRigthDXLocator (true);
+        QSOTabWidget->setDXLocator(aux);
         completedWithPreviousLocator=true;
     }
-    else if (completedWithPreviousLocator && (aux != locatorLineEdit->text()))
+    else if (completedWithPreviousLocator && (aux != QSOTabWidget->getDXLocator()))
     {
         //locatorLineEdit->clear();
         completedWithPreviousLocator = false;
-        locatorLineEdit->setPalette(palRed);
+        QSOTabWidget->setPaletteRigthDXLocator(false);
     }
 
     aux = dataProxy->getIOTAFromQRZ(_call);
@@ -8285,13 +8188,37 @@ void MainWindow::updateBandComboBox(const QString &_band)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
             //qDebug() << "MainWindow::updateBandComboBox- END"  << endl;
 }
+void MainWindow::slotQSOTabTXFreqBeingChanged(const bool _f)
+{
+    txFreqBeingChanged =_f;
+}
+
+void MainWindow::slotQSOTabTXFreqChanged(const double _f)
+{
+    if ((!modify) && (upAndRunning))
+    {
+        if (hamlibActive)
+        {
+         hamlib->setFreq(_f);
+        }
+    }
+    bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(_f));
+
+    if(!freqInBand)
+    { // If the freq does not belong to the current band, we need to update the band
+                //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
+        QString _newBand = dataProxy->getBandNameFromFreq(_f);
+        updateBandComboBox(_newBand);
+        mainQSOEntryWidget->setBand(_newBand);
+    }
+}
 
 void MainWindow::slotFreqTXChanged()
 {
 
      //qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    txFreqBeingChanged = true;
+
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId > 1)
     { // If the freq belongs to one ham band
@@ -8335,57 +8262,31 @@ void MainWindow::slotFreqTXChanged()
     {
         rxFreqSpinBox->setValue(txFreqSpinBox->value());
     }
-    txFreqBeingChanged = false;
+
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
 
-void MainWindow::slotFreqRXChanged()
+void MainWindow::slotQSOTabRXFreqChanged(const double _f)
 {
-    //qDebug() << "MainWindow::slotFreqRXChanged: " << QString::number(rxFreqSpinBox->value()) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    rxFreqBeingChanged = true;
-    int bandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
-    if (bandId > 1)
-    { // If the freq belongs to one ham band
-       rxFreqSpinBox->setPalette(palBlack);
-       rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
-
-        bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(rxFreqSpinBox->value()));
-        if(!freqInBand)
-        { // If the freq does not belong to the current band, we need to update the band
-                    //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
-            QString _newBand = dataProxy->getBandNameFromFreq(rxFreqSpinBox->value());
-            updateBandComboBox(_newBand);
-            //bandComboBox->setCurrentIndex(bandComboBox->findText(_newBand, Qt::MatchCaseSensitive));
-        }
+    bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(_f));
+    if(!freqInBand)
+    { // If the freq does not belong to the current band, we need to update the band
+        //qDebug() << "MainWindow::slotQSOTabRXFreqChanged Freq is not in the current band" << endl;
+        QString _newBand = dataProxy->getBandNameFromFreq(_f);
+        updateBandComboBox(_newBand);
     }
-    else
-    {
-        rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz.\nFrequency is not in a hamradio band!"));
-        rxFreqSpinBox->setPalette(palRed);
-                //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << endl;
-    }
-    if (!rxFreqBeingAutoChanged)
-    {
-                //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Downlink" << endl;
-        satTabWidget->setDownLinkFreq(rxFreqSpinBox->value());
-    }
-
-    rxFreqBeingChanged = false;
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
 }
 
-void MainWindow::slotSplitCLicked()
+void MainWindow::slotQSOTabRXFreqChangedForSat(const double _f)
 {
-     //qDebug() << "MainWindow::slotSplitCLicked: tx" << QString::number(txFreqSpinBox->value())<< endl;
-     //qDebug() << "MainWindow::slotSplitCLicked: Rx" << QString::number(rxFreqSpinBox->value())<< endl;
-    if ((!splitCheckBox->isChecked()) && (abs(txFreqSpinBox->value()) - abs(rxFreqSpinBox->value())>0.001 ) )
-    {
-        rxFreqSpinBox->setValue(txFreqSpinBox->value());
-    }
+    satTabWidget->setDownLinkFreq (_f);
+}
+
+void MainWindow::slotQSOTabTXFreqChangedForSat(const double _f)
+{
+
 }
 
 /*
@@ -8713,8 +8614,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
              {
                 slotUpdateLocator(_dx_grid);
              }
-
-             rstTXLineEdit->setText(_report);
+            QSOTabWidget->setRSTTX (_report);
              myDataTabWidget->setMyLocator(_de_grid);
              myDataTabWidget->setStationQRZ(_de_call.toUpper());
 
@@ -8844,10 +8744,8 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 void MainWindow::slotSatChangeRXFreq(const double _f)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-        //qDebug() << "MainWindow::slotSatChangeRXFreq updating rxFreqSpinBox" << QString::number(_f) << endl;
-    rxFreqBeingAutoChanged = true;
-    rxFreqSpinBox->setValue(_f);
-    rxFreqBeingAutoChanged = false;
+    //qDebug() << "MainWindow::slotSatChangeRXFreq updating rxFreqSpinBox" << QString::number(_f) << endl;
+    QSOTabWidget->setRXFreqFromSat(_f);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -8971,7 +8869,7 @@ void MainWindow::slotUpdateLocator(QString _loc)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
       //qDebug() << "MainWindow::slotUpdateLocator: " << _loc<< endl;
-    locatorLineEdit->setText(_loc.toUpper());
+    QSOTabWidget->setDXLocator (_loc);
       //qDebug() << "MainWindow::slotUpdateLocator - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
