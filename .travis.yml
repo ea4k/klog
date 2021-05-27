@@ -21,4 +21,5 @@ matrix:
       - make
       - ./tests/utilities/utilities
     after_success:
-      - coveralls 
+      - ls -la 
+
