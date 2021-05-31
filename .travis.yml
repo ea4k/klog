@@ -19,6 +19,7 @@ matrix:
     script:
       - qmake -project
       - qmake KLog.pro
+      - make check
       - make
     after_success
       - lcov --compat-libtool --directory . --capture --output-file coverage.info
