@@ -21,7 +21,7 @@ matrix:
       - qmake KLog.pro
       - make check
       - make
-    after_success
+    after_success:
       - lcov --compat-libtool --directory . --capture --output-file coverage.info
       - coveralls-lcov coverage.info
 
