@@ -1,5 +1,5 @@
 # KLog
-[![Build Status](https://travis-ci.org/ea4k/klog.svg?branch=master)](https://travis-ci.org/ea4k/klog)
+[![Build Status](https://travis-ci.com/ea4k/klog.svg?branch=master)](https://travis-ci.com/ea4k/klog)
 [![Coverage Status](https://coveralls.io/repos/github/ea4k/klog/badge.svg?branch=master)](https://coveralls.io/github/ea4k/klog?branch=master)
 
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
