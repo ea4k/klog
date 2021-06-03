@@ -73,6 +73,8 @@ public:
     double getRXPwr();
     void setRXPwr(const double _pw);
 
+    void setModifying(const bool _m);
+
     void clear();
     void cleanQRZCOM();
     void clearName();
@@ -116,6 +118,7 @@ private:
     bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
     QString propMode;
     double freqTX, freqRX;
+    bool modify;
 };
 
 #endif // MAINWINDOWINPUTQSO_H

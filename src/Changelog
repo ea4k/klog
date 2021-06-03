@@ -1,3 +1,6 @@
+TBD
+ - Optimization: Isolated the QSO tab to an independent widget.
+
 May 2021 - 1.5.3
 - Bugfix: Fixes the DataBase update process to add the Q65 mode.
 - Bugfix: Unexpected Setup dialog behavior. (Closes issue #178) (TNX foldynl)

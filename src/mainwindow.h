@@ -515,7 +515,6 @@ private:
     QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
 
-    QLineEdit *nameLineEdit, *qthLineEdit, *locatorLineEdit;
     //QComboBox *bandComboBox, *modeComboBox;
     //QDateEdit *dateEdit;
     //QTimeEdit *timeEdit;
@@ -619,9 +618,6 @@ private:
     //QAction *qslRecViaDirectFromSearchAct;
     //QAction *qslRecViaBureauMarkReqFromSearchAct;
     //QAction *qslRecViaDirectMarkReqFromSearchAct;
-
-    QLineEdit *rstTXLineEdit;
-    QLineEdit *rstRXLineEdit;
     //QLineEdit *STXLineEdit;
     //QLineEdit *SRXLineEdit;
     //QPushButton *OKButton, *spotItButton, *clearButton;
@@ -645,9 +641,7 @@ private:
 
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
     QTextEdit *notesTextEdit;
-    QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
-    QCheckBox *splitCheckBox;
-    //QLCDNumber *freqQLCDNumber;
+    QDoubleSpinBox *rxPowerSpinBox;//  *txFreqSpinBox, *rxFreqSpinBox, *myPowerSpinBox,
 
     QString lotwTQSLpath;
 

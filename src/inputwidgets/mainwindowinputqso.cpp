@@ -47,12 +47,7 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     rxPowerSpinBox = new QDoubleSpinBox;
 
     dataProxy = dp;
-    rxFreqBeingAutoChanged = false;
-    txFreqBeingAutoChanged = false;
-    isSATPropagation = false;
-    propMode = QString();
-    freqTX = 0.0;
-    freqRX = 0.0;
+
     createUI();
     setDefaultData();
     clear();
@@ -61,6 +56,11 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 }
 
 MainWindowInputQSO::~MainWindowInputQSO(){}
+
+void MainWindowInputQSO::setModifying(const bool _m)
+{
+    modify = _m;
+}
 
 void MainWindowInputQSO::createUI()
 {
@@ -192,7 +192,6 @@ void MainWindowInputQSO::createUI()
     connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
-
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)) ) ;
     connect(splitCheckBox, SIGNAL(clicked()), this, SLOT(slotSplitClicked()) ) ;
@@ -201,7 +200,15 @@ void MainWindowInputQSO::createUI()
 
 void MainWindowInputQSO::setDefaultData()
 {
-
+    palRed.setColor(QPalette::Text, Qt::red);
+    palBlack.setColor(QPalette::Text, Qt::black);
+    rxFreqBeingAutoChanged = false;
+    txFreqBeingAutoChanged = false;
+    isSATPropagation = false;
+    propMode = QString();
+    freqTX = 0.0;
+    freqRX = 0.0;
+    modify = false;
 }
 
 void MainWindowInputQSO::clear()
@@ -209,6 +216,7 @@ void MainWindowInputQSO::clear()
     qthLineEdit->clear();
     nameLineEdit->clear();
     locatorLineEdit->clear();
+    modify = false;
 }
 
 void MainWindowInputQSO::cleanQRZCOM()
@@ -217,6 +225,7 @@ void MainWindowInputQSO::cleanQRZCOM()
     nameLineEdit->clear();
     locatorLineEdit->clear();
     rxPowerSpinBox->setValue(0);
+
 }
 
 void MainWindowInputQSO::clearName()
@@ -281,7 +290,6 @@ void MainWindowInputQSO::slotLocatorTextChanged()
         locatorLineEdit->setPalette(palRed);
         locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
         locatorLineEdit->setCursorPosition(cursorP);
-
         return;
     }
     locatorLineEdit->setCursorPosition(cursorP);

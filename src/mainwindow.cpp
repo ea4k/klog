@@ -175,13 +175,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
-
-    nameLineEdit = new QLineEdit;
-    qthLineEdit = new QLineEdit;
-    locatorLineEdit = new QLineEdit;
-    rstTXLineEdit = new QLineEdit;
-    rstRXLineEdit = new QLineEdit;
-
     // UI DX
     //previousQRZ = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
@@ -189,10 +182,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
-    txFreqSpinBox = new QDoubleSpinBox;
-    rxFreqSpinBox = new QDoubleSpinBox;
-    splitCheckBox = new QCheckBox;
-    rxPowerSpinBox = new QDoubleSpinBox;
+    //txFreqSpinBox = new QDoubleSpinBox;
+    //rxFreqSpinBox = new QDoubleSpinBox;
+
 
     //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << endl;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
@@ -381,20 +373,7 @@ void MainWindow::init()
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
-    rxPowerSpinBox->setDecimals(2);
-    rxPowerSpinBox->setMaximum(9999);
-    rxPowerSpinBox->setSuffix(" " + tr("Watts"));
 
-    txFreqSpinBox->setDecimals(3);
-    txFreqSpinBox->setMaximum(99999);
-    txFreqSpinBox->setSuffix(" " + tr("MHz"));
-
-    rxFreqSpinBox->setDecimals(3);
-    rxFreqSpinBox->setMaximum(99999);
-    rxFreqSpinBox->setSuffix(" " + tr("MHz"));
-
-    splitCheckBox->setText(tr("Split", "Translator: Split is a common hamradio term. Do not translate unless you are sure."));
-    splitCheckBox->setChecked(false);
     // Check date & time and set them in the UI at the begining
     //dateTime->currentDateTime();
 
@@ -887,7 +866,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-    qDebug() << "MainWindow::slotBandChanged: Checking to update Freq: (isFRinBand/Freq): " << util->boolToQString(isFRinBand) << "/" << QString::number(txFreqSpinBox->value())  << endl;
+
     if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
     {
         qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
@@ -1345,7 +1324,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = QString::number(rxPowerSpinBox->value());
+    aux1 = QString::number(QSOTabWidget->getRXPwr ());
     if ((aux1.toFloat())>0.0f)
     {
         stringFields = stringFields + ", rx_pwr";
@@ -2183,9 +2162,9 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
 
-    if (rxPowerSpinBox->value()>0.0)
+    if (QSOTabWidget->getRXPwr ()>0.0)
     {
-        aux1 = QString::number(rxPowerSpinBox->value());
+        aux1 = QString::number(QSOTabWidget->getRXPwr ());
         updateString = updateString + "rx_pwr = '";
         updateString = updateString + aux1 + "', ";
     }
@@ -5824,88 +5803,15 @@ void MainWindow::createUIDX()
     //        //qDebug() << "MainWindow::createUIDX << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
-    //bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
-    //modes << "SSB" << "CW" << "RTTY";
-    //
-    //bandComboBox->clear();
-    //bandComboBox->addItems(dataProxy->sortBandNamesBottonUp(bands));
-               //qDebug() << "MainWindow::createUIDX - 1-" << QString::number(modes.count()) << endl;
-    //modeComboBox->clear();
-    //modeComboBox->addItems(modes);
-    /*
-    int mi = 0;
-    for (int i = 0; i < modes.size(); ++i)
-    {
-        if (mi > (modes.at(i)).size())
-        {
-            mi = (modes.at(i)).size();
-        }
-    }
-    //modeComboBox->setMinimumContentsLength(mi);
-    modeComboBox->setMinimumWidth(mi);
-    */
-    //modeComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-
-
-    //txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-    //rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
-    //myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts"));
-    //rxPowerSpinBox->setToolTip(tr("Power used by the contacted station."));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
     stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
-
-    //nameLineEdit->setToolTip(tr("Name of the contacted operator."));
-    //qthLineEdit->setToolTip(tr("QTH of the contacted station."));
-    //locatorLineEdit->setToolTip(tr("Locator of the contacted station."));
-    //qDebug() << "MainWindow::createUIDX-10" << endl;
-    //freqQLCDNumber->setToolTip(tr("Frequency of the QSO"));
-    //qrzLineEdit->setToolTip(tr("QRZ of the QSO."));
-    //rstTXLineEdit->setToolTip(tr("TX RST."));
-            //qDebug() << "MainWindow::createUIDX-11" << endl;
-    //rstRXLineEdit->setToolTip(tr("RX RST."));
-            //qDebug() << "MainWindow::createUIDX-12" << endl;
 
     infoLabel1->setToolTip(tr("Status of the DX entity."));
             //qDebug() << "MainWindow::createUIDX-13" << endl;
     infoLabel2->setToolTip(tr("Name of the DX entity."));
             //qDebug() << "MainWindow::createUIDX-14" << endl;
 
-    //STXLineEdit->setToolTip(tr("TX Exchange."));
-    //SRXLineEdit->setToolTip(tr("RX Exchange."));
-    //bandComboBox->setToolTip(tr("Band of the QSO."));
-    //modeComboBox->setToolTip(tr("Mode of the QSO."));
-    //dateEdit->setToolTip(tr("Date of the QSO."));
-    //timeEdit->setToolTip(tr("Time of the QSO."));
-    //statusBar->setToolTip(tr("Misc information"));
-    //qsoStatusBar->setToolTip(tr("QSO information"));
-    //OKButton->setToolTip(tr("Add the QSO to the log."));
-    //spotItButton->setToolTip(tr("Spots this QSO to the DX Cluster - This function is still not implemented"));
-    //clearButton->setToolTip(tr("Clears the QSO entry."));
-    //        //qDebug() << "MainWindow::createUIDX-25" << endl;
-    /*
-    dxccConfirmedQLCDNumber->setToolTip(tr("Number of confirmed DXCC entities."));
-    dxccWorkedQLCDNumber->setToolTip(tr("Number of worked DXCC entities."));
-    wazConfirmedQLCDNumber->setToolTip(tr("Number of confirmed WAZ zones."));
-    wazWorkedQLCDNumber->setToolTip(tr("Number of worked WAZ zones."));
-    localConfirmedQLCDNumber->setToolTip(tr("Number of confirmed local references."));
-    localWorkedQLCDNumber->setToolTip(tr("Number of worked local references."));
-    qsoConfirmedQLCDNumber->setToolTip(tr("Number of confirmed QSOs."));
-    qsoWorkedQLCDNumber->setToolTip(tr("Number of worked QSOs."));
-    dxMarathonQSOLCDNumber->setToolTip(tr("Number of QSOs worked on the selected year."));
-    dxMarathonDXCCQLCDNumber->setToolTip(tr("Number of DXCC worked on the selected year."));
-    dxMarathonCQQLCDNumber->setToolTip(tr("Number of CQ Zones worked on the selected year."));
-    dxMarathonPointsQLCDNumber->setToolTip(tr("Score for the DXMarathon on the selected year."));
-    operatingYearsComboBox->setToolTip(tr("Select the year you want to check."));
-    */
-            //qDebug() << "MainWindow::createUIDX-20" << endl;
-
-
-
     dxUpLeftInputFrame = new QFrame;
-    //dxUpRightOutputFrame = new QFrame;
-    //dxUpRightOutputFrame->setFrameShadow(QFrame::Raised);
-    //dxUpRightOutputFrame->setFrameStyle(QFrame::StyledPanel);
-
     dxUpLeftTab = new QTabWidget;
     dxUpRightTab = new QTabWidget;
     dxBottonTab = new QTabWidget;
@@ -5913,139 +5819,7 @@ void MainWindow::createUIDX()
     dxUpLeftTab->setTabPosition(QTabWidget::North);
     dxUpRightTab->setTabPosition(QTabWidget::South);
     //qDebug() << "MainWindow::createUIDX-30" << endl;
-    QWidget *qsoInputTabWidget = new QWidget;
-    QLabel *nameLabel = new QLabel(qsoInputTabWidget);
-    nameLabel->setText(tr("Name"));
-    nameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    QLabel *qthLabel = new QLabel(qsoInputTabWidget);
-    qthLabel->setText(tr("QTH"));
-    qthLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    QLabel *locLabel = new QLabel(qsoInputTabWidget);
-    locLabel->setText(tr("DX Locator"));
-    locLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-        //qDebug() << "MainWindow::createUIDX-40" << endl;
-    QLabel *rxPowerSpinBoxLabelN = new QLabel(tr("Power(rx)"));
-    rxPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *rstTxLabelN = new QLabel(tr("RST(tx)"));
-    rstTxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-
-    QLabel *rstRxLabelN = new QLabel(tr("RST(rx)"));
-    rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    //(mainQSOEntryWidget->getMode());
-
-    QGridLayout *RSTLayout = new QGridLayout;
-    RSTLayout->addWidget(rstTxLabelN, 0, 0);
-    RSTLayout->addWidget(rstTXLineEdit, 1, 0);
-    RSTLayout->addWidget(rstRxLabelN, 0, 1);
-    RSTLayout->addWidget(rstRXLineEdit, 1, 1);
-
-      //qDebug() << "MainWindow::createUIDX-50" << endl;
-    //QHBoxLayout *qthHLayout = new QHBoxLayout;
-    //qthHLayout->addWidget(qthLabel);
-
-    QVBoxLayout *qthLayout = new QVBoxLayout;
-    qthLayout->addWidget(qthLabel);
-    qthLayout->addWidget(qthLineEdit);
-
-    QVBoxLayout *rstQTHLayout = new QVBoxLayout;
-    rstQTHLayout->addLayout(RSTLayout);
-    rstQTHLayout->addLayout(qthLayout);
-
-    QLabel *txfreqLabelN = new QLabel(tr("Freq TX"));
-    txfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    QLabel *rxfreqLabelN = new QLabel(tr("Freq RX"));
-    rxfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    txfreqLabelN->setAlignment(Qt::AlignLeft);
-    rxfreqLabelN->setAlignment(Qt::AlignRight);
-
-
-    QHBoxLayout *freqTitleLayout = new QHBoxLayout;
-    freqTitleLayout->addWidget(txfreqLabelN);
-    freqTitleLayout->addWidget(splitCheckBox);
-    freqTitleLayout->addWidget(rxfreqLabelN);
-
-    QHBoxLayout *freqDataLayout = new QHBoxLayout;
-    freqDataLayout->addWidget(txFreqSpinBox);
-    freqDataLayout->addWidget(rxFreqSpinBox);
-
-    QVBoxLayout *freqLayout = new QVBoxLayout;
-    freqLayout->addLayout(freqTitleLayout);
-    freqLayout->addLayout(freqDataLayout);
-    /*
-    QGridLayout *freqLayout = new QGridLayout;
-    freqLayout->addWidget(txfreqLabelN, 0, 0);
-    freqLayout->addWidget(rxfreqLabelN, 0, 1);
-    freqLayout->addWidget(txFreqSpinBox, 1, 0);
-    freqLayout->addWidget(rxFreqSpinBox, 1, 1);
-    */
-    QVBoxLayout *locVLayout = new QVBoxLayout;
-    locVLayout->addWidget(locLabel);
-    locVLayout->addWidget(locatorLineEdit);
-            //qDebug() << "MainWindow::createUIDX-60" << endl;
-    //QLabel *spacerLocLabel = new QLabel(tr("SPACERLoc"));
-    //QHBoxLayout *locLayout = new QHBoxLayout;
-    //locLayout->addSpacerItem(new QSpacerItem(50,1));
-    //locLayout->addWidget(spacerLocLabel);
-    //locLayout->addLayout(locVLayout);
-
-    QVBoxLayout *freqLocLayout = new QVBoxLayout;
-    freqLocLayout->addLayout(freqLayout);
-    freqLocLayout->addLayout(locVLayout);
-
-    QHBoxLayout *rstfreqLayout = new QHBoxLayout;
-    rstfreqLayout->addLayout(rstQTHLayout);
-    rstfreqLayout->addLayout(freqLocLayout);
-
-    QVBoxLayout *rxPowerLayout = new QVBoxLayout;
-    rxPowerLayout->addWidget(rxPowerSpinBoxLabelN);
-    rxPowerLayout->addWidget(rxPowerSpinBox);
-
-    //QLabel *spacerNameLabel = new QLabel(tr("SPACERName"));
-    //QHBoxLayout *nameHLayout = new QHBoxLayout;
-    //nameHLayout->addWidget(nameLabel);
-    //nameHLayout->addSpacerItem(new QSpacerItem(50,1));
-    //nameHLayout->addWidget(spacerNameLabel );
-            //qDebug() << "MainWindow::createUIDX-70" << endl;
-    QVBoxLayout *nameLayout = new QVBoxLayout;
-    nameLayout->addWidget(nameLabel);
-    nameLayout->addWidget(nameLineEdit);
-
-    QVBoxLayout *rxPwrLayout = new QVBoxLayout;
-    rxPwrLayout->addWidget(rxPowerSpinBoxLabelN);
-    rxPwrLayout->addWidget(rxPowerSpinBox);
-
-    //QLabel *spacerHBottomLabel = new QLabel(tr("SPACERHBottom"));
-    QHBoxLayout *namePwrHLayout = new QHBoxLayout;
-    namePwrHLayout->addLayout(nameLayout);
-    //namePwrHLayout->addSpacerItem(new QSpacerItem(50,1));
-    //namePwrHLayout->addWidget(spacerHBottomLabel);
-    namePwrHLayout->addLayout(rxPwrLayout);
-
-
-    //QLabel *spacerBottomLabel = new QLabel(tr("SPACERBottom"));
-    QVBoxLayout *namePwrLayout = new QVBoxLayout;
-    //namePwrLayout->addSpacerItem(new QSpacerItem(1,50));
-    //namePwrLayout->addWidget(spacerBottomLabel);
-    namePwrLayout->addLayout(namePwrHLayout);
-
-    QVBoxLayout *qsoInputTabWidgetMainLayout = new QVBoxLayout;
-    qsoInputTabWidgetMainLayout->addLayout(rstfreqLayout);
-    qsoInputTabWidgetMainLayout->addLayout(namePwrLayout);
-    qsoInputTabWidget->setLayout(qsoInputTabWidgetMainLayout);
-
-    dxUpLeftTab->addTab(qsoInputTabWidget, tr("QSO-viejo"));
-            //qDebug() << "MainWindow::createUIDX-80" << endl;
-
-/*
-    // NOTES tab starts here
-    QGridLayout *notesInputTabWidgetLayout = new QGridLayout;
-    notesInputTabWidgetLayout->addWidget(notesTextEdit, 0, 0);
-    notesInputTabWidget->setLayout(notesInputTabWidgetLayout);
-    i = dxUpLeftTab->addTab(notesInputTabWidget, tr("Notes"));
-*/
-    //dxUpLeftTab->addTab(qslInputTabWidget, tr("QSL"));
     dxUpLeftTab->addTab (QSOTabWidget, tr("QSO"));
     dxUpLeftTab->addTab(QSLTabWidget, tr("QSL"));
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
@@ -6058,13 +5832,12 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(satTabWidget, tr("Satellite"));
 
 
-            //qDebug() << "MainWindow::createUIDX-90" << endl;
+    //qDebug() << "MainWindow::createUIDX-90" << endl;
     QSplitter *upLeftSplitter = new QSplitter (this);
     //upLeftSplitter->addWidget(dxUpLeftInputFrame);
     upLeftSplitter->addWidget(mainQSOEntryWidget);
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
-
 
     QVBoxLayout *dxUpRightFixLayout = new QVBoxLayout;
     dxUpRightFixLayout->addWidget(infoLabel1);
@@ -6074,14 +5847,13 @@ void MainWindow::createUIDX()
     infoLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     dxUpRightTab->addTab(infoWidget, tr("Info"));
-            //qDebug() << "MainWindow::createUIDX-100" << endl;
+    //qDebug() << "MainWindow::createUIDX-100" << endl;
 
     reconfigureDXMarathonUI(manageDxMarathon);
 
-      //qDebug() << "MainWindow::createUIDX-122" << endl;
+    //qDebug() << "MainWindow::createUIDX-122" << endl;
     dxUpRightTab->addTab(awardsWidget, tr("Awards"));
     dxUpRightTab->addTab(searchWidget, tr("Search"));
-
 
     dxBottonTab->addTab(logWindow, tr("Log"));
     dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
@@ -6108,25 +5880,20 @@ void MainWindow::createUIDX()
 
     mainWidget->setLayout(mLayout);
 
-
-            //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
+    //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
 
 #ifdef Q_OS_WIN
-                //qDebug() << "MainWindow::createUIDX - WINDOWS DETECTED!"  << endl;
+    //qDebug() << "MainWindow::createUIDX - WINDOWS DETECTED!"  << endl;
 
     dxUpLeftInputFrame->setFrameShadow(QFrame::Raised);
     dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel);
 
 #else
-            //qDebug() << "MainWindow::createUIDX - NO WINDOWS DETECTED!"  << endl;
+   //qDebug() << "MainWindow::createUIDX - NO WINDOWS DETECTED!"  << endl;
 
     dxUpLeftInputFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
-
     infoLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     infoLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-
-
 #endif
     logEvent(Q_FUNC_INFO, "END", logSeverity);
             //qDebug() << "MainWindow::createUIDX-END" << endl;
@@ -6139,7 +5906,6 @@ void MainWindow::slotADIFExport()
       //qDebug() << "MainWindow::slotADIFExport - Start" << endl;
 
    // QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-
     adifLoTWExportWidget->setExportMode(ModeADIF);
     adifLoTWExportWidget->show();
 
@@ -7032,50 +6798,25 @@ void MainWindow::qsoToEdit (const int _qso)
             QSOTabWidget->setRXPwr(0.0);
         }
 
+        QSOTabWidget->setModifying (true);
         nameCol = rec.indexOf("freq");
         aux1 = (query.value(nameCol)).toString();
-                    //qDebug() << "MainWindow::qsoToEdit (freq STRING):"  << aux1 << endl;
-        testValueDouble = aux1.toDouble();
-        //qDebug() << "MainWindow::qsoToEdit (freq):"  << QString::number(testValueDouble) << endl;
-
-        if ((testValueDouble >0) && (testValueDouble <= txFreqSpinBox->maximum()) )
-        {
-            //qDebug() << "MainWindow::qsoToEdit Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-            QSOTabWidget->setTXFreq (testValueDouble);
-            //qDebug() << "MainWindow::qsoToEdit new Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-            //qDebug() << "MainWindow::qsoToEdit: Freq - OverFlow "  << endl;
-        }
-        else
-        {
-            //qDebug() << "MainWindow::qsoToEdit: Freq - OK "  << endl;
-            testValueDouble = (dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble();
-            if (testValueDouble>0)
-            {
-                QSOTabWidget->setTXFreq (testValueDouble);
-            }
-            else
-            {
-                QSOTabWidget->setTXFreq (0);
-            }
-        }
-
+        QSOTabWidget->setTXFreq (aux1.toDouble ());
 
         nameCol = rec.indexOf("freq_rx");
         aux1 = (query.value(nameCol)).toString();
-                    //qDebug() << "MainWindow::qsoToEdit (freq_rx STRING):"  << aux1 << endl;
-        testValueDouble = aux1.toDouble();
-                    //qDebug() << "MainWindow::qsoToEdit (freq_rx):"  << QString::number(testValueDouble) << endl;
+        QSOTabWidget->setRXFreq (aux1.toDouble ());
 
-        if ((testValueDouble >0) && (testValueDouble <= rxFreqSpinBox->maximum()) )
-        {
-            QSOTabWidget->setRXFreq(testValueDouble);
+        //if ((testValueDouble >0) && (testValueDouble <= rxFreqSpinBox->maximum()) )
+        //{
+        //    QSOTabWidget->setRXFreq(testValueDouble);
                         //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OverFlow "  << endl;
-        }
-        else
-        {
-                        //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OK "  << endl;
-            QSOTabWidget->setRXFreq(0);
-        }
+        //}
+        //else
+        //{
+        //                //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OK "  << endl;
+        //    QSOTabWidget->setRXFreq(0);
+        //}
 
         //QSL SENT
 
@@ -8089,7 +7830,6 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     }
     else if (completedWithPreviousQTH && (aux != QSOTabWidget->getQTH()))
     {
-        //qthLineEdit->clear();
         completedWithPreviousQTH = false;
         QSOTabWidget->setPaletteRigthQTH (false);
     }
@@ -8241,7 +7981,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
 
 void MainWindow::slotFreqTXChanged(const double _fr)
 {
-    qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
+
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (txFreqBeingChanged)
     {
@@ -8604,8 +8344,8 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
                 //modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
              }
              //qDebug() << "MainWindow::slotWSJXstatusFromUDPServer updating txFreqSpinBox" << QString::number(_freq) << endl;
-             txFreqSpinBox->setValue(_freq);
-             rxFreqSpinBox->setValue(_freq);
+             QSOTabWidget->setTXFreq (_freq);
+             QSOTabWidget->setRXFreq (_freq);
              if (_dx_grid.length()>0)
              {
                 slotUpdateLocator(_dx_grid);
@@ -8804,9 +8544,10 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (upAndRunning)
     {
-        //qDebug() << "MainWindow::slotHamlibTXFreqChanged Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-        txFreqSpinBox->setValue(_f);
-        //qDebug() << "MainWindow::slotHamlibTXFreqChanged New Freq: " << QString::number(txFreqSpinBox->value())  << endl;
+        if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
+        {
+            QSOTabWidget->setTXFreq (_f);
+        }
     }
     //qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " << endl;
 
