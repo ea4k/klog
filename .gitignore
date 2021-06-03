@@ -1,6 +1,6 @@
 
 *.user
-KLog.pro.user.vCmLUg
+KLog.pro.user*
 src/.qmake.stash
 src/build
 src/release
