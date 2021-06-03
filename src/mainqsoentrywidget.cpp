@@ -288,13 +288,13 @@ void MainQSOEntryWidget::setCurrentQRZ(const QString &_qrz)
 }
 
 void MainQSOEntryWidget::slotBandComboBoxChanged(){
-      //qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: " << endl;
+    qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: " << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
 
     emit bandChanged(bandComboBox->currentText());
     checkIfDupe(Q_FUNC_INFO);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: END" << endl;
+    qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: END" << endl;
 }
 
 void MainQSOEntryWidget::slotModeComboBoxChanged()

@@ -50,7 +50,9 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     rxFreqBeingAutoChanged = false;
     txFreqBeingAutoChanged = false;
     isSATPropagation = false;
-
+    propMode = QString();
+    freqTX = 0.0;
+    freqRX = 0.0;
     createUI();
     setDefaultData();
     clear();
@@ -315,15 +317,18 @@ double MainWindowInputQSO::getTXFreq()
 
 void MainWindowInputQSO::setTXFreq(const double _ft)
 {
-
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_ft) << endl;
     if ( (_ft >= double(0)) && (_ft <= txFreqSpinBox->maximum()))
     {
+         qDebug() << Q_FUNC_INFO << ": defining FR: " << QString::number(_ft) << endl;
         txFreqSpinBox->setValue(_ft);
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << ": defining FR: 0"  << endl;
         txFreqSpinBox->setValue(0);
     }
+    qDebug() << Q_FUNC_INFO << endl;
 }
 
 double MainWindowInputQSO::getRXFreq()
@@ -528,27 +533,47 @@ void MainWindowInputQSO::setPaletteRigthDXLocator(const bool _ok)
     }
 }
 
-void MainWindowInputQSO::setFreqFromSat(const QString &_p)
+void MainWindowInputQSO::setPropModeFromSat(const QString &_p)
 {
-    //qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) << endl;
-    if (_p == "SAT")
-    {
-        splitCheckBox->setChecked(true);
-    }
-    else
-    {
-        splitCheckBox->setChecked(false);
-        rxFreqSpinBox->setValue(txFreqSpinBox->value());
-    }
+    propMode = _p;
+
 }
 
 void MainWindowInputQSO::slotFreqTXChanged (double _f)
 {
-    emit txFreqBeingChanged(true);
-    int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << endl;
+    if (util->isSameFreq (_f, freqTX))
+    {
+        qDebug() << Q_FUNC_INFO << ": Same Freq return"  << endl;
+        return;
+    }
+    freqTX = _f;
+    int bandId = dataProxy->getBandIdFromFreq(_f);
     if (bandId > 1)
     { // If the freq belongs to one ham band
-        emit txFreqChanged (txFreqSpinBox->value());
+        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
+        txFreqSpinBox->setPalette(palBlack);
+        qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f) << endl;
+        emit txFreqChanged (_f);
+    }
+    else
+    {
+        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
+        txFreqSpinBox->setPalette(palRed);
+         qDebug() << Q_FUNC_INFO << ":RED - Not in band "  << endl;
+    }
+    if ((!splitCheckBox->isChecked()) )
+    {
+        rxFreqSpinBox->setValue (_f);
+        qDebug() << Q_FUNC_INFO << ": copyimg to RX Freq "  << endl;
+    }
+    qDebug() << Q_FUNC_INFO << " - END"  << endl;
+    /*
+    emit txFreqBeingChanged(true);
+    int bandId = dataProxy->getBandIdFromFreq(_f);
+    if (bandId > 1)
+    { // If the freq belongs to one ham band
+        emit txFreqChanged (_f);
     }
     else
     {
@@ -558,15 +583,17 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
     }
     if (!txFreqBeingAutoChanged)
     {
-        emit txFreqChangedForSat(txFreqSpinBox->value());
+        emit txFreqChangedForSat(_f);
     }
     //if ((!splitCheckBox->isChecked()) & (!othersTabWidget->isSATPropagation()) )
-    TENGO QUE VER COMO CONTROLO EL ESTADO DE ISSATPOROPAGATION
-    if ((!splitCheckBox->isChecked()) & (!isSATPropagation) )
+
+
+    if ((!splitCheckBox->isChecked()) & (propMode!="SAT") )
     {
-        emit txFreqChangedForSat(txFreqSpinBox->value());
+        emit txFreqChangedForSat(_f);
     }
     emit txFreqBeingChanged(true);
+    */
 }
 
 
@@ -580,6 +607,29 @@ void MainWindowInputQSO::slotSplitClicked()
 
 void MainWindowInputQSO::slotFreqRXChanged(double _f)
 {
+    if (util->isSameFreq (_f, freqRX))
+    {
+        return;
+    }
+    freqRX = _f;
+    int bandId = dataProxy->getBandIdFromFreq(_f);
+    if (bandId > 1)
+    { // If the freq belongs to one ham band
+        rxFreqSpinBox->setPalette(palBlack);
+        rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
+        emit rxFreqChanged(rxFreqSpinBox->value());
+    }
+    else
+    {
+        rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz.\nFrequency is not in a hamradio band!"));
+        rxFreqSpinBox->setPalette(palRed);
+         //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << endl;
+    }
+    if ((!splitCheckBox->isChecked()) )
+    {
+        txFreqSpinBox->setValue (_f);
+    }
+    /*
     int bandId = dataProxy->getBandIdFromFreq(_f);
     if (bandId > 1)
     { // If the freq belongs to one ham band
@@ -598,6 +648,7 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
                 //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Downlink" << endl;
         emit rxFreqChangedForSat(rxFreqSpinBox->value());
     }
+    */
     //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
 }
 

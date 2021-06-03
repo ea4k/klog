@@ -515,12 +515,14 @@ void MainWindow::createActionsCommon(){
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
+    connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
+    connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
     //connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
-    connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabTXFreqChanged(double)) ) ;
-    connect(QSOTabWidget, SIGNAL(txFreqBeingChanged(bool)), this, SLOT(slotQSOTabTXFreqBeingChanged(bool)) ) ;
-    connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabRXFreqChanged(double)) ) ;
-    connect(QSOTabWidget, SIGNAL(rxFreqChangedForSat(double)), this, SLOT(slotQSOTabRXFreqChangedForSat(double)) ) ;
-    connect(QSOTabWidget, SIGNAL(txFreqChangedForSat(double)), this, SLOT(slotQSOTabTXFreqChangedForSat(double)) ) ;
+    //connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabTXFreqChanged(double)) ) ;
+    //connect(QSOTabWidget, SIGNAL(txFreqBeingChanged(bool)), this, SLOT(slotQSOTabTXFreqBeingChanged(bool)) ) ;
+    //connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabRXFreqChanged(double)) ) ;
+    //connect(QSOTabWidget, SIGNAL(rxFreqChangedForSat(double)), this, SLOT(slotQSOTabRXFreqChangedForSat(double)) ) ;
+    //connect(QSOTabWidget, SIGNAL(txFreqChangedForSat(double)), this, SLOT(slotQSOTabTXFreqChangedForSat(double)) ) ;
 
 
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
@@ -641,13 +643,16 @@ void MainWindow::createActionsCommon(){
    connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 
    connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
-   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
-   connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
+   //connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
+   connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT( slotFreqTXChanged(double)  ) );
+   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT( slotFreqRXChanged(double)  ) );
+   //connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
    connect(satTabWidget, SIGNAL(setPropModeSat(QString, bool)), this, SLOT(slotSetPropModeFromSat(QString, bool)) ) ;
    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
 
    connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
 
@@ -855,16 +860,17 @@ void MainWindow::setModeFromFreq()
 
 void MainWindow::slotBandChanged (const QString &_b)
 {
-     //qDebug() << "MainWindow::slotBandChanged: " << _b << endl;
+    qDebug() << "MainWindow::slotBandChanged: " << _b << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if ((!upAndRunning) || (_b.length()<2))
     {
+        qDebug() << "MainWindow::slotBandChanged: !upAndRunning or band short"  << endl;
         return;
     }
 
     if (txFreqBeingChanged || updatingBands)
     {
-        //qDebug() << "MainWindow::slotBandChanged: txFreqBeingChanged"  << endl;
+        qDebug() << "MainWindow::slotBandChanged: txFreqBeingChanged"  << endl;
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
@@ -872,7 +878,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(QSOTabWidget->getTXFreq ()));
     if ((isFRinBand) && (QSOTabWidget->getTXFreq () >0 ))
     { // No change in txFreq
-         //qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  << endl;
+        qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
@@ -881,23 +887,23 @@ void MainWindow::slotBandChanged (const QString &_b)
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
-     //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq: (isFRinBand/Freq): " << util->boolToQString(isFRinBand) << "/" << QString::number(txFreqSpinBox->value())  << endl;
+    qDebug() << "MainWindow::slotBandChanged: Checking to update Freq: (isFRinBand/Freq): " << util->boolToQString(isFRinBand) << "/" << QString::number(txFreqSpinBox->value())  << endl;
     if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
     {
-        //qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
+        qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
         //qDebug() << "MainWindow::slotBandChanged: Band: " << mainQSOEntryWidget->getBand()  << endl;
         //qDebug() << "MainWindow::slotBandChanged: Freq: " << QString::number(txFreqSpinBox->value())  << endl;
         double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
          //qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFr) << endl;
-        txFreqBeingChanged = true;
-        QSOTabWidget->setTXFreq (txFr);
-        //qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-        if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value())))
-        {
-            rxFreqSpinBox->setValue(QSOTabWidget->getTXFreq());
-        }
+//        txFreqBeingChanged = true;
+        slotFreqTXChanged (txFr);
+
+        //if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value())))
+        //{
+        //    rxFreqSpinBox->setValue(QSOTabWidget->getTXFreq());
+        //}
     }
-     //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  << endl;
+    qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  << endl;
 
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
@@ -906,9 +912,9 @@ void MainWindow::slotBandChanged (const QString &_b)
 
      //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " << endl;
     showStatusOfDXCC(_qs);
-    txFreqBeingChanged = false;
+    //txFreqBeingChanged = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-     //qDebug() << "MainWindow::slotBandChanged: END" << endl;
+    qDebug() << "MainWindow::slotBandChanged: END" << endl;
 }
 
 void MainWindow::slotModeChanged (const QString &_m)
@@ -7994,7 +8000,7 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
     //qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) << endl;
 
     othersTabWidget->setPropMode(_p, _keep);
-    QSOTabWidget->setFreqFromSat(_p);
+    QSOTabWidget->setPropModeFromSat(_p);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
     //propModeComboBox->setCurrentIndex(indexC);
@@ -8188,11 +8194,7 @@ void MainWindow::updateBandComboBox(const QString &_band)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
             //qDebug() << "MainWindow::updateBandComboBox- END"  << endl;
 }
-void MainWindow::slotQSOTabTXFreqBeingChanged(const bool _f)
-{
-    txFreqBeingChanged =_f;
-}
-
+/*
 void MainWindow::slotQSOTabTXFreqChanged(const double _f)
 {
     if ((!modify) && (upAndRunning))
@@ -8212,81 +8214,75 @@ void MainWindow::slotQSOTabTXFreqChanged(const double _f)
         mainQSOEntryWidget->setBand(_newBand);
     }
 }
+*/
 
-void MainWindow::slotFreqTXChanged()
+void MainWindow::slotFreqRXChanged(const double _fr)
 {
+   logEvent(Q_FUNC_INFO, "Start", logSeverity);
+   if (modify)
+   {
+       return;
+   }
+   if (!upAndRunning)
+   {
+       return;
+   }
+   int bandId = dataProxy->getBandIdFromFreq(_fr);
+   if (bandId < 1)
+   {
+       return;
+   }
 
-     //qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+   satTabWidget->setDownLinkFreq(_fr);
 
-    int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
-    if (bandId > 1)
-    { // If the freq belongs to one ham band
-       txFreqSpinBox->setPalette(palBlack);
-       txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-       if ((!modify) && (upAndRunning))
-       {
-           if (hamlibActive)
-           {
-            hamlib->setFreq(txFreqSpinBox->value());
-           }
-           //if (usePSTRotator)
-           //{
-           //    pstRotator->sendFreq(txFreqSpinBox->value(), 1); // KLog is only able to manage one radio
-           //}
-       }
-
-        bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(txFreqSpinBox->value()));
-        if(!freqInBand)
-        { // If the freq does not belong to the current band, we need to update the band
-                    //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
-            QString _newBand = dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
-            updateBandComboBox(_newBand);
-            mainQSOEntryWidget->setBand(_newBand);
-            //bandComboBox->setCurrentIndex(bandComboBox->findText(_newBand, Qt::MatchCaseSensitive));
-        }
-    }
-    else
-    {
-        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
-        txFreqSpinBox->setPalette(palRed);
-                //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in ANY ham band" << endl;
-    }
-    if (!txFreqBeingAutoChanged)
-    {
-         //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Uplink to: " << QString::number(txFreqSpinBox->value()) << endl;
-        satTabWidget->setUpLinkFreq(txFreqSpinBox->value());
-
-    }
-    if ((!splitCheckBox->isChecked()) & (!othersTabWidget->isSATPropagation()) )
-    {
-        rxFreqSpinBox->setValue(txFreqSpinBox->value());
-    }
-
-
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
+   logEvent(Q_FUNC_INFO, "END", logSeverity);
+   //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
 
-void MainWindow::slotQSOTabRXFreqChanged(const double _f)
+void MainWindow::slotFreqTXChanged(const double _fr)
 {
-    bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(_f));
+    qDebug() << "MainWindow::slotFreqTXChanged" << QString::number(txFreqSpinBox->value()) << endl;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (txFreqBeingChanged)
+    {
+         qDebug() << "MainWindow::slotFreqTXChanged txFreqBeingChanged" << endl;
+        return;
+    }
+    if (modify)
+    {
+        qDebug() << "MainWindow::slotFreqTXChanged modify" << endl;
+        return;
+    }
+    if (!upAndRunning)
+    {
+        qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" << endl;
+        return;
+    }
+    txFreqBeingChanged = true;
+    int bandId = dataProxy->getBandIdFromFreq(_fr);
+    if (bandId < 1)
+    {
+        qDebug() << "MainWindow::slotFreqTXChanged band <1" << endl;
+        return;
+    }
+
+    bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(_fr));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
-        //qDebug() << "MainWindow::slotQSOTabRXFreqChanged Freq is not in the current band" << endl;
-        QString _newBand = dataProxy->getBandNameFromFreq(_f);
+        //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
+        QString _newBand = dataProxy->getBandNameFromFreq(_fr);
         updateBandComboBox(_newBand);
+        mainQSOEntryWidget->setBand(_newBand);
     }
-}
-
-void MainWindow::slotQSOTabRXFreqChangedForSat(const double _f)
-{
-    satTabWidget->setDownLinkFreq (_f);
-}
-
-void MainWindow::slotQSOTabTXFreqChangedForSat(const double _f)
-{
-
+    QSOTabWidget->setTXFreq (_fr);
+    satTabWidget->setUpLinkFreq(_fr);
+    if (hamlibActive)
+    {
+        hamlib->setFreq(_fr);
+    }
+    txFreqBeingChanged = false;
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+    qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
 
 /*
@@ -8740,15 +8736,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
         //qDebug() << "MainWindow::defineNewBands - END"  << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
-void MainWindow::slotSatChangeRXFreq(const double _f)
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    //qDebug() << "MainWindow::slotSatChangeRXFreq updating rxFreqSpinBox" << QString::number(_f) << endl;
-    QSOTabWidget->setRXFreqFromSat(_f);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-
+/*
 void MainWindow::slotSatChangeTXFreq(const double _f)
 {
      //qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox" << QString::number(_f) << endl;
@@ -8771,7 +8759,7 @@ void MainWindow::slotSatChangeTXFreq(const double _f)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox - END"  << endl;
 }
-
+*/
 void MainWindow::slotSatTXFreqNeeded(const double _f)
 {
      //qDebug() << "MainWindow::slotSatTXFreqNeeded: " << QString::number(_f) << endl;
@@ -8784,10 +8772,11 @@ void MainWindow::slotSatTXFreqNeeded(const double _f)
     }
     //qDebug() << "MainWindow::slotSatTXFreqNeeded: UPDATING FR from: " << QString::number(txFreqSpinBox->value()) << endl;
      //qDebug() << "MainWindow::slotSatTXFreqNeeded: UPDATING FR to: " << QString::number(_f) << endl;
-    slotSatChangeTXFreq(_f);
+    //slotSatChangeTXFreq(_f);
+    slotFreqTXChanged (_f);
     //qDebug() << "MainWindow::slotSatTXFreqNeeded: UPDATING FR Updated: " << QString::number(txFreqSpinBox->value()) << endl;
 
-    satTabWidget->setUpLinkFreq(_f);
+    //satTabWidget->setUpLinkFreq(_f);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotSatTXFreqNeeded - END " << endl;
 }
@@ -8802,8 +8791,9 @@ void MainWindow::slotSatRXFreqNeeded(const double _f)
     {
         updateBandComboBox(_band);
     }
-    slotSatChangeRXFreq(_f);
-    satTabWidget->setDownLinkFreq(_f);
+    slotFreqRXChanged (_f);
+    //slotSatChangeRXFreq(_f);
+    //satTabWidget->setDownLinkFreq(_f);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotSatRXFreqNeeded - END " << endl;
 }

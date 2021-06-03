@@ -166,8 +166,8 @@ private slots:
     void slotUpdateLocator(QString _loc);
     void slotLocatorTextChanged(const QString &_loc);
     //void slotMyLocatorTextChanged();
-    void slotFreqTXChanged();
-    void slotFreqRXChanged();
+    void slotFreqTXChanged(const double _fr);
+    void slotFreqRXChanged(const double _fr);
     //void slotSplitCLicked();
 
     void slotSearchBoxTextChanged();
@@ -315,14 +315,14 @@ private slots:
     void slotDefineNewBands (const QStringList _bands);
     void slotSatTXFreqNeeded(const double _f);
     void slotSatRXFreqNeeded(const double _f);
-    void slotSatChangeRXFreq(const double _f);
-    void slotSatChangeTXFreq(const double _f);
+    //void slotSatChangeRXFreq(const double _f);
+    //void slotSatChangeTXFreq(const double _f);
     // QSO Tab ( QSOTabWidget)
-    void slotQSOTabRXFreqChanged(const double _f);
-    void slotQSOTabRXFreqChangedForSat(const double _f);
-    void slotQSOTabTXFreqChangedForSat(const double _f);
-    void slotQSOTabTXFreqBeingChanged(const bool _f);
-    void slotQSOTabTXFreqChanged(const double _f);
+    //void slotQSOTabRXFreqChanged(const double _f);
+    //void slotQSOTabRXFreqChangedForSat(const double _f);
+    //void slotQSOTabTXFreqChangedForSat(const double _f);
+    //void slotQSOTabTXFreqBeingChanged(const bool _f);
+    //void slotQSOTabTXFreqChanged(const double _f);
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
     void slotHamlibModeChanged(const QString &_m);

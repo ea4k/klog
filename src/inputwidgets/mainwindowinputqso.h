@@ -53,7 +53,7 @@ public:
     void setQTH(const QString &_st);
     void setPaletteRigthQTH(const bool _ok);
     void setRSTToMode(const QString &_m, const bool _reading);
-    void setFreqFromSat(const QString &_p);
+
     QString getRSTTX();
     void setRSTTX(const QString &_st);
     QString getRSTRX();
@@ -61,13 +61,14 @@ public:
 
     double getTXFreq();
     void setTXFreq(const double _ft);
-    void setTXFreqFromSat(const double _ft);
+
 
     double getRXFreq();
     void setRXFreq(const double _ft);
+
+    void setTXFreqFromSat(const double _ft);
     void setRXFreqFromSat(const double _ft);
-
-
+    void setPropModeFromSat(const QString &_p);
 
     double getRXPwr();
     void setRXPwr(const double _pw);
@@ -83,10 +84,10 @@ signals:
     void returnPressed();
     void dxLocatorChanged(QString _loc);
     void rxFreqChanged(double _f);
-    void rxFreqChangedForSat(double _f);
-    void txFreqBeingChanged(bool _f);
+    //void rxFreqChangedForSat(double _f);
+    //void txFreqBeingChanged(bool _f);
     void txFreqChanged(double _f);
-    void txFreqChangedForSat(double _f);
+    //void txFreqChangedForSat(double _f);
 
 private slots:
     void slotReturnPressed();
@@ -113,7 +114,8 @@ private:
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
 
     bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
-
+    QString propMode;
+    double freqTX, freqRX;
 };
 
 #endif // MAINWINDOWINPUTQSO_H
