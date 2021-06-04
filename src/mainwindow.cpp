@@ -7847,11 +7847,6 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
 void MainWindow::slotFreqRXChanged(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (modify)
-    {
-        //qDebug() << Q_FUNC_INFO << " - modifying" << endl;
-        //return;
-    }
     if (!upAndRunning)
     {
         //qDebug() << Q_FUNC_INFO << " - not running" << endl;
