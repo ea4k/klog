@@ -645,7 +645,7 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
 
 void MainWindowInputQSO::setSplitCheckBox()
 {
-    if (txFreqSpinBox->value() == rxFreqSpinBox->value())
+   if (util->isSameFreq(txFreqSpinBox->value(), rxFreqSpinBox->value()))
     {
         splitCheckBox->setChecked(false);
     }
