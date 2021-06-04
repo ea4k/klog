@@ -7850,7 +7850,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
     if (modify)
     {
         //qDebug() << Q_FUNC_INFO << " - modifying" << endl;
-        return;
+        //return;
     }
     if (!upAndRunning)
     {
