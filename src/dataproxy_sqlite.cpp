@@ -453,6 +453,10 @@ QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 {
          //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << _sm << endl;
+    if (_sm.length ()<2)
+    {
+        return -1.0;
+    }
     QSqlQuery query;
     QString queryString = QString("SELECT lower FROM band WHERE name='%1' OR name='%2'").arg(_sm).arg(_sm.toUpper());
     bool sqlOK = query.exec(queryString);
@@ -500,6 +504,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 double DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
 {
          //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandId" << endl;
+
     QSqlQuery query;
     QString queryString = QString("SELECT lower FROM band WHERE id='%1'").arg(_sm);
     bool sqlOK = query.exec(queryString);
@@ -542,6 +547,56 @@ double DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
     }
     //return -1.0;
 
+}
+
+double DataProxy_SQLite::getUpperLimitBandFromBandName(const QString &_sm)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _sm << endl;
+    if (_sm.length ()<2)
+    {
+        return -1.0;
+    }
+    QSqlQuery query;
+    QString queryString = QString("SELECT upper FROM band WHERE name='%1' OR name='%2'").arg(_sm).arg(_sm.toUpper());
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            if ( (query.value(0)).toDouble()<0 )
+            {
+                //qDebug() << Q_FUNC_INFO << ": -1.0-1" << endl;
+                query.finish();
+                return -1.0;
+            }
+            else
+            {
+                //qDebug() << Q_FUNC_INFO << ": (else): " << QString::number((query.value(0)).toDouble()) << endl;
+                double v = (query.value(0)).toDouble();
+                query.finish();
+                return v;
+            }
+        }
+        else
+        {
+            //qDebug() << Q_FUNC_INFO << ": -1.0-2" << endl;
+            query.finish();
+            return -1.0;
+        }
+
+        //qDebug() << Q_FUNC_INFO << ": -1.0-3" << endl;
+        //query.finish();
+        //return -1.0;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return -1.0;
+    }
+    //return -1.0;
 }
 
 bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const QString &_fr)

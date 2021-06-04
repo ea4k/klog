@@ -4,4 +4,5 @@ SUBDIRS=\
    mainqsoentrywidget \
    mainwindowsattab \
    tst_dataproxy \
+   tst_mainwindowinputqso \
    world

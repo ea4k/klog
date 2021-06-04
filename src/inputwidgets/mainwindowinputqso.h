@@ -31,9 +31,9 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy_sqlite.h"
-#include "locator.h"
-//#include "utilities.h"
+#include "../dataproxy_sqlite.h"
+#include "../locator.h"
+#include "../utilities.h"
 
 class MainWindowInputQSO : public QWidget
 {
@@ -41,18 +41,21 @@ class MainWindowInputQSO : public QWidget
 public:
     explicit MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSO();
+
+    void setPaletteRigthName(const bool _ok);
+    void setPaletteRigthQTH(const bool _ok);
+    void setPaletteRigthDXLocator(const bool _ok);
+
     QString getDXLocator();
     void setDXLocator(const QString &_loc);
-    void setPaletteRigthDXLocator(const bool _ok);
 
     QString getName();
     void setName(const QString &_st);
-    void setPaletteRigthName(const bool _ok);
 
     QString getQTH();
     void setQTH(const QString &_st);
-    void setPaletteRigthQTH(const bool _ok);
-    void setRSTToMode(const QString &_m, const bool _reading);
+
+    void setRSTToMode(const QString &_m, const bool _reading = true);
 
     QString getRSTTX();
     void setRSTTX(const QString &_st);
@@ -62,12 +65,9 @@ public:
     double getTXFreq();
     void setTXFreq(const double _ft);
 
-
     double getRXFreq();
     void setRXFreq(const double _ft);
 
-    void setTXFreqFromSat(const double _ft);
-    void setRXFreqFromSat(const double _ft);
     void setPropModeFromSat(const QString &_p);
 
     double getRXPwr();

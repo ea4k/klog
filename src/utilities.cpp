@@ -1053,8 +1053,19 @@ QPair<QString, QString> Utilities::getCallParts(const QString &_c)
 
 bool Utilities::isSameFreq(const double fr1, const double fr2)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(fr1) << "/" << QString::number(fr2);
-    return fabs(fr1 - fr2) < 0.01;
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(fr1) << "/" << QString::number(fr2) << " = " << QString::number(fabs(fr1 - fr2)) << endl;
+
+    if (fabs(fr1 - fr2) < 0.001)
+    {
+        //qDebug() << Q_FUNC_INFO << " - true" << endl;
+        return true;
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << " - false" << endl;
+        return false;
+    }
+    //return fabs(fr1 - fr2) < 0.001;
 }
 
 bool Utilities::isValidBandId(const int _b)

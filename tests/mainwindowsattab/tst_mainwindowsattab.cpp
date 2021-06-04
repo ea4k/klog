@@ -83,6 +83,7 @@ void tst_MainQSOEntryWidget::test_SatMode()
 {
     //void setUpLinkFreq(const double _t);
     //void setDownLinkFreq(const double _t);
+    mainWindowSattab->setSatName ("Other");
     double freq;
     freq = dataProxy->getLowLimitBandFromBandName("10M");
     mainWindowSattab->setUpLinkFreq(freq);

@@ -185,50 +185,42 @@ private slots:
     void slotClubLogLogUpload();
     void sloteQSLLogUpload();
     void slotElogEQSLModifyCurrentLog();
-    //void slotModeComboBoxChanged();
-    //void slotBandComboBoxChanged();
-    //void slotIOTAComboBoxChanged();
-    //void slotOperatingYearComboBoxChanged();
+
     void slotOKButtonClicked();
-    //void slotSpotItButtonClicked();
+
     void slotClearButtonClicked();
     void slotBandChanged (const QString &_b);
     void slotModeChanged (const QString &_m);
+    void slotValidBandsReceived(const QStringList &_b);
+
     void slotRefreshDXCCWidget();
-    //void slotUpdateTime();
+
     void slotLogWinShow();
     void slotLogRefresh();
-    //void slotScoreWinShow();
+
     void slotQSODelete(const int _id);
     void slotQSOsDelete(QList<int> _id);
     void slotQSOsExportToADIF(QList<int> _id);
     void slotQRZcomUpload(QList<int> _id);
     void slotQRZCOMLogUpload();
 
-
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
     void setMainWindowTitle(const QString _s);
     void slotSetup(const int _page=0);
 
-    //void slotrstTXTextChanged();
-    //void slotrstRXTextChanged();
     void slotADIFExport();
-    //void slotLoTWImport();
-    //void slotLoTWExport();
 
     void slotLoTWExport();
     void slotLoTWDownload();
     void slotLoTWFullDownload();
     void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
-    //void slotADIFExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
 
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
     void slotReceiveQSOListToShowFromFile(QStringList _qs);
-    //void slotCabrilloExport();
-    //void slotQSLViaTextChanged();
+
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
     void slotSetPropModeFromOther(const QString &_p);
@@ -237,27 +229,21 @@ private slots:
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
     void slotShowStats();
-    //void slotShowDXCCSummary();
+
     void slotWorldReload(const bool _b);
 
     void slotExitFromSlotDialog(const int exitID);
     void slotSetupDialogFinished (const int _s);
     void exitQuestion();
 
-    //void slotDownloadFinished(QNetworkReply *reply);
 
     void fillQSOData();
 
-    //void newFile();
-    //void openFile();
-    //bool saveFile(const QString &_fileName);
-    //bool saveFileAs();
     bool slotOpenKLogFolder();
 
     void slotFilePrint();
     void slotFileClose();
 
-    //void slotHelpHelpAction();
     void slotHelpAboutAction();
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
@@ -266,9 +252,6 @@ private slots:
 
     // MainQSOEntryWidget
     void slotShowInfoLabel(const QString _m);
-    //void slotClearForNextQSO();
-    // To support AwardsWidget
-    //void slotRecalculateAwardsButtonClicked();
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
 
@@ -313,16 +296,7 @@ private slots:
     //SATELLITE
     //void slotSatBandTXComboBoxChanged(const QString _q);
     void slotDefineNewBands (const QStringList _bands);
-    void slotSatTXFreqNeeded(const double _f);
-    void slotSatRXFreqNeeded(const double _f);
-    //void slotSatChangeRXFreq(const double _f);
-    //void slotSatChangeTXFreq(const double _f);
-    // QSO Tab ( QSOTabWidget)
-    //void slotQSOTabRXFreqChanged(const double _f);
-    //void slotQSOTabRXFreqChangedForSat(const double _f);
-    //void slotQSOTabTXFreqChangedForSat(const double _f);
-    //void slotQSOTabTXFreqBeingChanged(const bool _f);
-    //void slotQSOTabTXFreqChanged(const double _f);
+
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
     void slotHamlibModeChanged(const QString &_m);
@@ -347,16 +321,6 @@ private slots:
                      const QString &_comment, const QString &_stationcallsign, const QString &_name,
                      const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
-    //void slotWSJTXClear();
-    //void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &band, const double _freq,
-    //                 const QString &mygrid, const QString &dxgrid, const QString &rstTX, const QString &rstRX, const QString &comment, const QString &stationcallsign,
-    //                 const QDateTime &datetime, const QDateTime &datetime_off);
-
-
-
-    //void slotTipsFindQSL2QSO();
-    //void slotTipsFillInDXCC();
-    //void slotsTipsFillQSO();
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
 private:
@@ -370,7 +334,6 @@ private:
 
     void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
     void setSeverity(const DebugLogLevel _sev);
-    void updateBandComboBox(const QString &_band);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);

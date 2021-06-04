@@ -33,6 +33,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "locator.h"
+#include "utilities.h"
 
 class MainWindowSatTab : public QWidget
 {
@@ -87,8 +88,8 @@ private slots:
     void slotSatNameComboBoxChanged();
     void slotSatBandRXComboBoxChanged();
     void slotSatBandTXComboBoxChanged();
-    void slotSatFreqRXChanged();
-    void slotSatFreqTXChanged();
+    void slotSatFreqRXChanged(const double _f);
+    void slotSatFreqTXChanged(const double _f);
     void slotReturnPressed();
     void slotSatKeepThisDataClicked();
 
@@ -117,12 +118,15 @@ private:
     QComboBox *satBandTXComboBox, *satBandRXComboBox;
     QStringList satNames, satModes;
     QStringList satellitesList;
-    bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged, updatingBands;
+    //bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged, updatingBands;
+    bool updatingBands;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
 
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy_SQLite *dataProxy;
     Locator *locator;
+    Utilities *util;
+    double freqTX, freqRX;
 
     int downLinkBandId, upLinkBandId;
     QString downLinkBand, upLinkBand;

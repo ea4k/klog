@@ -1,5 +1,6 @@
 TBD
  - Optimization: Isolated the QSO tab to an independent widget.
+ - Bugfix: When starting KLog for the first time, it crashed.
 
 May 2021 - 1.5.3
 - Bugfix: Fixes the DataBase update process to add the Q65 mode.

@@ -93,6 +93,7 @@ public:
 
     double getLowLimitBandFromBandName(const QString &_sm);
     double getLowLimitBandFromBandId(const int _sm);
+    double getUpperLimitBandFromBandName(const QString &_sm);
     bool isThisFreqInBand(const QString &_band, const QString &_fr);
 
     int getLastQSOid();

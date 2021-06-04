@@ -261,18 +261,17 @@ void MainWindow::init()
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW" << "RTTY";
+    //qDebug() << "MainWindow::init - 00" << endl;
     hamlibActive = false;
     hamlibModeNotADIFSupported = false;
     hamlibChangingMode = false;
     yearChangedDuringModification = false;
 
-    //usePSTRotator = false;
-
     readingTheUI = false;
     itIsANewversion = false;
 
     setCleaning(false);
-
+    //qDebug() << "MainWindow::init - 10" << endl;
     dxclusterServerToConnect = "dxfun.com";
     dxclusterServerPort = 8000;
     contestMode = "DX";
@@ -290,24 +289,20 @@ void MainWindow::init()
     noMoreModeErrorShown = false;
     qslingNeeded = false; // When clicking on Find QSO to QSL
     manageMode = false;
-    txFreqBeingChanged = false;
+
     txFreqBeingAutoChanged = false;
     //rxFreqBeingChanged = false;
     updatingBands = false;
     selectedYear = 0;
     defaultMode = 1;
     defaultBand = 1;
-            //qDebug() << "MainWindow::init: 1 - currentMode: " << QString::number(currentMode) << endl;
+    //qDebug() << "MainWindow::init - 20" << endl;
     currentMode = 1;
-            //qDebug() << "MainWindow::init: 2 - currentMode: " << QString::number(currentMode) << endl;
     currentModeShown = currentMode;
     currentBand = 1;
     currentBandShown = currentBand;
     currentLog = 1;
-    //points = 0;
-    //multipliers = 0;
-    //qsoPoints = 0;
-    //qsoMultiplier = 0;
+
     operatorQRZ = "";
     stationQRZ = "";
     mainQRZ = "";
@@ -316,7 +311,7 @@ void MainWindow::init()
     myPower = 0.0;
     UDPServerStart = false;   // By default the UDP server is started
 
-            //qDebug() << "MainWindow::init: 0007" << endl;
+    //qDebug() << "MainWindow::init - 30" << endl;
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
     //realTime=true;
@@ -347,7 +342,7 @@ void MainWindow::init()
     dxClusterShowWCY=true;
 
     keepSatPage = false;
-            //qDebug() << "MainWindow::init: 0008" << endl;
+    //qDebug() << "MainWindow::init - 40" << endl;
     //clublogUser = QString();
     clublogPass = QString();
     clublogEmail = QString();
@@ -367,6 +362,7 @@ void MainWindow::init()
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     //previousQrz = "";
     setModifying(false);
+    //qDebug() << "MainWindow::init - 50" << endl;
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
 
@@ -384,14 +380,17 @@ void MainWindow::init()
     workedColor.setNamedColor("blue");
     confirmedColor.setNamedColor("red");
     newOneColor.setNamedColor("green");
-
+    //qDebug() << "MainWindow::init - 60" << endl;
     bool existingData = QFile::exists(util->getKLogDBFile());
     if (!existingData)
     {
+        //qDebug() << "MainWindow::init - 61" << endl;
         world->create(ctyDatFile);
+        //qDebug() << "MainWindow::init - 62" << endl;
     }
     else if (!world->hasSpecialEntities())
     {
+        //qDebug() << "MainWindow::init - 63" << endl;
         QMessageBox msgBox;
          msgBox.setIcon(QMessageBox::Question);
 
@@ -411,30 +410,31 @@ void MainWindow::init()
         default:
             break;
         }
+        //qDebug() << "MainWindow::init - 69" << endl;
     }
-     //qDebug() << "MainWindow::init: 0013" << endl;
+    //qDebug() << "MainWindow::init - 70" << endl;
     readConfigData();
-     //qDebug() << "MainWindow::init: 0014" << endl;
+    //qDebug() << "MainWindow::init - 71" << endl;
     logWindow->createlogPanel(currentLog);
-            //qDebug() << "MainWindow::init: 0015" << endl;
+    //qDebug() << "MainWindow::init - 72" << endl;
     awards->setManageModes(manageMode);
-            //qDebug() << "MainWindow::init: 0016" << endl;
+    //qDebug() << "MainWindow::init - 73" << endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-                //qDebug() << "MainWindow::init: 16.1" << endl;
+        //qDebug() << "MainWindow::init - 73.1" << endl;
         openSetup(6);
-                //qDebug() << "MainWindow::init: 16.2" << endl;
+        //qDebug() << "MainWindow::init - 73.2" << endl;
     }
-            //qDebug() << "MainWindow::init: 17" << endl;
+    //qDebug() << "MainWindow::init - 74" << endl;
     checkIfNewBandOrMode();
-
+    //qDebug() << "MainWindow::init - 75" << endl;
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
-
-            //qDebug() << "MainWindow::Init: calling Software update ..." << endl;
+    //qDebug() << "MainWindow::init - 80" << endl;
+    //qDebug() << "MainWindow::Init: calling Software update ..." << endl;
     if (checkNewVersions)
     {//reportInfo
         if (reportInfo)
@@ -443,7 +443,7 @@ void MainWindow::init()
         }
         softUpdate->needToUpdate();
     }
-
+    //qDebug() << "MainWindow::init - 90" << endl;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
@@ -452,10 +452,10 @@ void MainWindow::init()
 //    timer->start(1000);
     timerInfoBars = new QTimer(this);
 
-
-            //qDebug() << "MainWindow::init: Calling createUI" << endl;
+    //qDebug() << "MainWindow::init - 90" << endl;
+    //qDebug() << "MainWindow::init: Calling createUI" << endl;
     createUI();
-            //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << endl;
+    //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << endl;
     slotClearButtonClicked();
 
     infoWidget->showInfo(-1);
@@ -464,7 +464,7 @@ void MainWindow::init()
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
 
-     //qDebug() << "MainWindow::init: END" << endl;
+    //qDebug() << "MainWindow::init: END" << endl;
 }
 
 
@@ -474,17 +474,9 @@ void MainWindow::createActionsCommon(){
     //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 // Return pressed = QSO ENTRY
-    //connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(SRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(STXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(rstRXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-    //connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
     connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
@@ -496,25 +488,8 @@ void MainWindow::createActionsCommon(){
 
     connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
-    //connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged()) ) ;
-    //connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabTXFreqChanged(double)) ) ;
-    //connect(QSOTabWidget, SIGNAL(txFreqBeingChanged(bool)), this, SLOT(slotQSOTabTXFreqBeingChanged(bool)) ) ;
-    //connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotQSOTabRXFreqChanged(double)) ) ;
-    //connect(QSOTabWidget, SIGNAL(rxFreqChangedForSat(double)), this, SLOT(slotQSOTabRXFreqChangedForSat(double)) ) ;
-    //connect(QSOTabWidget, SIGNAL(txFreqChangedForSat(double)), this, SLOT(slotQSOTabTXFreqChangedForSat(double)) ) ;
-
 
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
-    //connect(bandComboBox, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(dateEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(timeEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
-    //Actions to pass the focus between QRZ / SRX
-
-    //connect(rstTXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstTXTextChanged() ) );
-    //connect(rstRXLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotrstRXTextChanged() ) );
-
-    //connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) );
 
     //Buttons Actions
 
@@ -525,7 +500,7 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(OKClicked()), this, SLOT(slotQRZReturnPressed() ) );
     connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
-
+    connect(mainQSOEntryWidget, SIGNAL(validBands(QStringList)), this, SLOT(slotValidBandsReceived(QStringList) ) );
 
     // LOGVIEW
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
@@ -622,16 +597,14 @@ void MainWindow::createActionsCommon(){
    connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 
    connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
-   //connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotSatChangeRXFreq(double)) );
-   connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT( slotFreqTXChanged(double)  ) );
-   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT( slotFreqRXChanged(double)  ) );
-   //connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotSatChangeTXFreq(double)) );
+   connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotFreqTXChanged(double)  ) );
+   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double)  ) );
    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
    connect(satTabWidget, SIGNAL(setPropModeSat(QString, bool)), this, SLOT(slotSetPropModeFromSat(QString, bool)) ) ;
-   connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotSatTXFreqNeeded(double)));
-   connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotSatRXFreqNeeded(double)));
+   connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotFreqTXChanged(double)));
+   connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotFreqRXChanged(double)));
    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
-   connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
+
 
    connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
 
@@ -839,17 +812,17 @@ void MainWindow::setModeFromFreq()
 
 void MainWindow::slotBandChanged (const QString &_b)
 {
-    qDebug() << "MainWindow::slotBandChanged: " << _b << endl;
+    //qDebug() << "MainWindow::slotBandChanged: " << _b << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if ((!upAndRunning) || (_b.length()<2))
     {
-        qDebug() << "MainWindow::slotBandChanged: !upAndRunning or band short"  << endl;
+        //qDebug() << "MainWindow::slotBandChanged: !upAndRunning or band short"  << endl;
         return;
     }
 
-    if (txFreqBeingChanged || updatingBands)
+    if (updatingBands)
     {
-        qDebug() << "MainWindow::slotBandChanged: txFreqBeingChanged"  << endl;
+        //qDebug() << "MainWindow::slotBandChanged: updating Bands"  << endl;
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
@@ -857,7 +830,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(QSOTabWidget->getTXFreq ()));
     if ((isFRinBand) && (QSOTabWidget->getTXFreq () >0 ))
     { // No change in txFreq
-        qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  << endl;
+        //qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
@@ -869,12 +842,12 @@ void MainWindow::slotBandChanged (const QString &_b)
 
     if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
     {
-        qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
+        //qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  << endl;
         //qDebug() << "MainWindow::slotBandChanged: Band: " << mainQSOEntryWidget->getBand()  << endl;
-        //qDebug() << "MainWindow::slotBandChanged: Freq: " << QString::number(txFreqSpinBox->value())  << endl;
+        //qDebug() << "MainWindow::slotBandChanged: Freq: " << QString::number(QSOTabWidget->getTXFreq())  << endl;
         double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
          //qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFr) << endl;
-//        txFreqBeingChanged = true;
+
         slotFreqTXChanged (txFr);
 
         //if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value())))
@@ -882,7 +855,7 @@ void MainWindow::slotBandChanged (const QString &_b)
         //    rxFreqSpinBox->setValue(QSOTabWidget->getTXFreq());
         //}
     }
-    qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  << endl;
+    //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  << endl;
 
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
@@ -891,9 +864,9 @@ void MainWindow::slotBandChanged (const QString &_b)
 
      //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " << endl;
     showStatusOfDXCC(_qs);
-    //txFreqBeingChanged = false;
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug() << "MainWindow::slotBandChanged: END" << endl;
+    //qDebug() << "MainWindow::slotBandChanged: END" << endl;
 }
 
 void MainWindow::slotModeChanged (const QString &_m)
@@ -2042,7 +2015,6 @@ QString MainWindow::readDataFromUIDXModifying()
     {
         updateString = updateString + "qth = '', ";
     }
-
 
     aux1 = myDataTabWidget->getOperator();
     //aux1 = operatorLineEdit->text();
@@ -4792,7 +4764,7 @@ void MainWindow::checkIfWorkedB4(const QString &_qrz)
 
 void MainWindow::readConfigData()
 {
-   //qDebug() << "MainWindow::readConfigData - 01" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::readConfigData - 01" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (needToEnd)
     {
@@ -4805,7 +4777,7 @@ void MainWindow::readConfigData()
        //qDebug() << "MainWindow::readConfigData: File not found" << configFileName << QTime::currentTime().toString("hh:mm:ss") << endl;
         if (configured)
         {
-            //qDebug() << "MainWindow::readConfigData: configured = true" << QTime::currentTime().toString("hh:mm:ss") << endl;
+           //qDebug() << "MainWindow::readConfigData: configured = true" << QTime::currentTime().toString("hh:mm:ss") << endl;
         }
         else
         {
@@ -4823,10 +4795,27 @@ void MainWindow::readConfigData()
     deleteAlwaysAdiFile = false;
 
    //qDebug() << "MainWindow::readConfigData: Before processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << endl;
-    while (!file.atEnd()) {
-        QByteArray line = file.readLine();
+
+    QTextStream in(&file);
+    while (!in.atEnd())
+    {
+        QString line;
+        line.clear ();
+        line = in.readLine();
         processConfigLine(line);
     }
+    file.close ();
+   /*
+    while (!file.atEnd()) {
+        QByteArray line;
+        line.clear ();
+        line = file.readLine();
+        processConfigLine(line);
+    }
+    */
+
+
+
    //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << endl;
     defineStationCallsign();
 
@@ -4869,9 +4858,6 @@ void MainWindow::readConfigData()
     // I need to init the CLUBLOG
     if (clublogActive)
     {
-        //           setCredentials(const QString &_call, const QString &_email, const QString &_pass, const bool _useQSOStationCall)
-       //qDebug() << "MainWindow::readConfigData: Setting ClublogCredentials" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        //elogClublog->setCredentials(clublogUser, clublogEmail, clublogPass, clublogUseStationCallSign);
         elogClublog->setCredentials(clublogEmail, clublogPass, stationQRZ);
     }
     else
@@ -4889,7 +4875,7 @@ void MainWindow::readConfigData()
     }
     //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << QTime::currentTime().toString("hh:mm:ss") << endl;
 
-            //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << endl;
+   //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << endl;
     util->setVersion(softwareVersion);
             //qDebug() << "MainWindow::readConfigData: 101" << QTime::currentTime().toString("hh:mm:ss") << endl;
     searchWidget->setVersion(softwareVersion);
@@ -4909,10 +4895,10 @@ void MainWindow::readConfigData()
 
     if (UDPServerStart)
     {
-                //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart TRUE" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart TRUE" << QTime::currentTime().toString("hh:mm:ss") << endl;
         if (!UDPLogServer->isStarted())
         {
-                    //qDebug() << "MainWindow::readConfigData: 104: Server off" << QTime::currentTime().toString("hh:mm:ss") << endl;
+            //qDebug() << "MainWindow::readConfigData: 104: Server off" << QTime::currentTime().toString("hh:mm:ss") << endl;
         //start(quint16 _port, QHostAddress const& _multicast_group_address)
             if (!UDPLogServer->start())
             {
@@ -4933,7 +4919,7 @@ void MainWindow::readConfigData()
     }
     else
     {
-                //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") << endl;
+        //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") << endl;
         if (UDPLogServer->isStarted())
         {
             if (!UDPLogServer->stop())
@@ -4954,7 +4940,7 @@ void MainWindow::readConfigData()
         }
     }
 
-           //qDebug() << "MainWindow::readConfigData: hamlib" << endl;
+    //qDebug() << "MainWindow::readConfigData: hamlib" << endl;
     if (hamlibActive)
     {
                //qDebug() << "MainWindow::readConfigData: STARTING HAMLIB" << QTime::currentTime().toString("hh:mm:ss") << endl;
@@ -4974,42 +4960,60 @@ void MainWindow::readConfigData()
 }
 
 bool MainWindow::processConfigLine(const QString &_line){
-    //qDebug() << "MainWindow::processConfigLine: " << _line << endl;
-    logEvent(Q_FUNC_INFO, "Start: ", logSeverity);
+    //qDebug() << Q_FUNC_INFO << ": " << _line << endl;
+
+    logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_line), logSeverity);
     int _logWithMoreQSOs = 0; // At the end, if the this variable is >0 the Selectedlog will have to be changed in the file.
     QString line = _line.simplified();
-    //line.simplified();
-    QString aux;
-
-    QStringList values = line.split("=", QString::SkipEmptyParts);
-
-
-    if (line.startsWith('#')){
-                    //qDebug() << "MainWindow::processConfigLine: notes Line!" << endl;
-        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-        return true;
-    }
+    //qDebug() << Q_FUNC_INFO << " - 2"  << endl;
     if (!( (line.contains('=')) && (line.contains(';')))){
-                    //qDebug() << "MainWindow::processConfigLine: Wrong Line!" << endl;
+        //qDebug() << "MainWindow::processConfigLine: Wrong Line!" << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return false;
     }
-    QString field = (values.at(0)).toUpper();
-    QString value = values.at(1);
+    //qDebug() << Q_FUNC_INFO << " - 5"  << endl;
+    if (line.startsWith('#'))
+    {
+        //qDebug() << "MainWindow::processConfigLine: notes Line!" << endl;
+        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
+        return true;
+    }
 
+    //qDebug() << Q_FUNC_INFO << " - 10 "  << endl;
+    QStringList values;
+    values.clear();
+    values << line.split("=", QString::SkipEmptyParts);
+    //qDebug() << Q_FUNC_INFO << ": value length: " << QString::number(values.length ()) << endl;
+    if (values.length ()!=2)
+    {
+        //qDebug() << Q_FUNC_INFO << ": Returning false, wrong lenght!" << endl;
+        return false;
+    }
+
+    //qDebug() << Q_FUNC_INFO << ": value.at(0): " << values.at(0) << endl;
+    //qDebug() << Q_FUNC_INFO << ": value.at(1): " << values.at(1) << endl;
+    //qDebug() << Q_FUNC_INFO << " - 11 "  << endl;
+
+    //qDebug() << Q_FUNC_INFO << " - 20 "  << endl;
+
+    //qDebug() << Q_FUNC_INFO << " - 25"  << endl;
+    QString field = (values.at(0)).toUpper();
+    //qDebug() << Q_FUNC_INFO << " - 26"  << endl;
+    QString value = values.at(1);
+    //qDebug() << Q_FUNC_INFO << " - 28"  << endl;
     int endValue = value.indexOf(';');
     if (endValue>-1){
 
         value = value.left(value.length() - (value.length() - endValue));
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 30 "  << endl;
+    QString aux;
     if (field == "CALLSIGN"){
         if (util->isValidCall(value))
         {
             mainQRZ = value;
             //myDataTabWidget->setStationQRZ(mainQRZ);
         }
-
     }else if (field=="CQZ"){
         my_CQz = value.toInt();
     }else if (field=="ITUZ"){
@@ -5021,7 +5025,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     }else if (field=="MODES"){
         readActiveModes(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="BANDS"){
-                   //qDebug() << "MainWindow::processConfigLine: BANDS: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: BANDS: " << value << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
                     //qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
@@ -5262,9 +5266,9 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if(field == "HAMLIBSERIALPORT")
     {
-                //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
         hamlib->setPort(value);
-                //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALPORT: " << value << endl;
     }
     else if (field == "HAMLIBSERIALBAUDS")
     {
@@ -5367,67 +5371,7 @@ bool MainWindow::processConfigLine(const QString &_line){
                     break;
                 }
             }
-/*
-                      //qDebug() << "MainWindow::processConfigLine: currentLog - Log without QSO - SelectedLog: " << QString::number(currentLog) << endl;
-            QMessageBox msgBox;
 
-            msgBox.setIcon(QMessageBox::Warning);
-            QString aux = tr("The selected log is not existing or it is still empty.") + "\n\n" + tr("Click Yes and KLog will open an empty log.") + "\n" +
-                    tr("Click No and KLog will select another log with data.") + "\n\n" +
-                    tr("You can modify the config file accordingly, if needed.");
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int ret = msgBox.exec();
-            switch (ret)
-            {
-                case QMessageBox::Yes:
-                break;
-
-                    case QMessageBox::No:
-
-                    logs << dataProxy->getListOfManagedLogs();
-                             //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << endl;
-                    for (int i = 0;i<logs.length();i++)
-                {
-                    _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
-                              //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << endl;
-                    if (_howManyQSOMax < _howManyQSOMaxT)
-                    {
-                                  //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << endl;
-                        _howManyQSOMax = _howManyQSOMaxT;
-                        _logWithMoreQSOs = (logs.at(i)).toInt();
-                    }
-                }
-                    if (_logWithMoreQSOs>0)
-                {
-                    currentLog = _logWithMoreQSOs;
-                    filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
-                }
-                    else
-                {
-                    msgBox.setIcon(QMessageBox::Critical);
-                    QString aux = tr("It seems that there are no QSOs in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
-                    msgBox.setText(aux);
-                    msgBox.setStandardButtons(QMessageBox::Ok);
-                    msgBox.setDefaultButton(QMessageBox::Ok);
-                    int ret = msgBox.exec();
-                    switch (ret)
-                    {
-                        case QMessageBox::Ok:
-                        break;
-                        default:
-                        // should never be reached
-                        break;
-                    }
-                }
-                break;
-
-            default:
-                // should never be reached
-            break;
-            }
-*/
         }
         dxClusterWidget->setCurrentLog(currentLog);
         dxccStatusWidget->setCurrentLog(currentLog);
@@ -5562,7 +5506,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
 
     // Lines are: Option = value;
-      //qDebug() << "MainWindow::processConfigLine: END" << endl;
+    //qDebug() << "MainWindow::processConfigLine: END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     return true;
 }
@@ -5571,14 +5515,14 @@ bool MainWindow::processConfigLine(const QString &_line){
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QString currentBand = mainQSOEntryWidget->getBand();
     QString currentMode = mainQSOEntryWidget->getMode();
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 1 " << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 1 " << QTime::currentTime().toString("hh:mm:ss") << endl;
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 2 " << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 2 " << QTime::currentTime().toString("hh:mm:ss") << endl;
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
    //qDebug() << "MainWindow::checkIfNewBandOrMode - 3 " << QTime::currentTime().toString("hh:mm:ss") << endl;
     QStringList qsTemp;
@@ -5696,7 +5640,7 @@ void MainWindow::selectDefaultMode()
 
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
-             //qDebug() << "MainWindow::readActiveBands: " << actives << endl;
+    //qDebug() << "MainWindow::readActiveBands: " << actives << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     for (int i=0;i<actives.length();i++)
@@ -5713,9 +5657,6 @@ void MainWindow::readActiveBands (const QStringList actives)
     __bands.removeDuplicates();
 
     bands = __bands;
-
-
-    //QStringList values = actives.split(", ", QString::SkipEmptyParts);
 
     for (int i = 0; i < __bands.size() ; i++)
     {
@@ -5741,7 +5682,7 @@ void MainWindow::readActiveBands (const QStringList actives)
                  //qDebug() << "MainWindow::readActiveBands: bands: " << bands.at(i) << endl;
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-             //qDebug() << "MainWindow::readActiveBands - END" << endl;
+    //qDebug() << "MainWindow::readActiveBands - END" << endl;
 }
 
 void MainWindow::readActiveModes (const QStringList actives)
@@ -6538,7 +6479,7 @@ void MainWindow::slotADIFImport(){
 
 void MainWindow::qsoToEdit (const int _qso)
 {
-              //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
+    //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     readingTheUI = true;
@@ -6798,7 +6739,7 @@ void MainWindow::qsoToEdit (const int _qso)
             QSOTabWidget->setRXPwr(0.0);
         }
 
-        QSOTabWidget->setModifying (true);
+
         nameCol = rec.indexOf("freq");
         aux1 = (query.value(nameCol)).toString();
         QSOTabWidget->setTXFreq (aux1.toDouble ());
@@ -7064,6 +7005,7 @@ void MainWindow::setModifying(const bool _m)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     modify = _m;
+    QSOTabWidget->setModifying (_m);
     mainQSOEntryWidget->setModify(_m);
     satTabWidget->setModifying(_m);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -7892,137 +7834,63 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::updateBandComboBox(const QString &_band)
+void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
-            //qDebug() << "MainWindow::updateBandComboBox: " << _band << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    updatingBands = true;
-    QString _currentBand = mainQSOEntryWidget->getBand();
-    if (!mainQSOEntryWidget->isBandExisting(_currentBand))
-    {// The selected frequency is of a band that is not currently selected
-                //qDebug() << "MainWindow::updateBandComboBox - New band found: " << _band << endl;
-        if (dataProxy->getIdFromBandName(_band) > 1)
-        {// Not affected if 0 (light) is the frequency
-         // In this case the user should select the band in the setup
-                    //qDebug() << "MainWindow::updateBandComboBox- Band is valid: " << _band << endl;
-            QStringList qsTemp;
-            qsTemp.clear();
-            qsTemp << bands;
-            qsTemp << _band;
-            qsTemp.removeDuplicates();
-            bands.clear();
-            bands = dataProxy->sortBandNamesBottonUp(qsTemp);
-            mainQSOEntryWidget->setBands(bands);
-            dxccStatusWidget->setBands(bands);
-                    //qDebug() << "MainWindow::updateBandComboBox - Before adding bands!" << endl;
-            satTabWidget->addBands(bands);
-                    //qDebug() << "MainWindow::updateBandComboBox - Band has been added!" << endl;
-
-        }
-        else
-        {
-                    //qDebug() << "MainWindow::updateBandComboBox- (END) Band is NOT  valid: " <<_band<< endl;
-            updatingBands = false;
-            logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-            return;
-        }
-    }
-    mainQSOEntryWidget->setBand(_currentBand);
-    //bandComboBox->setCurrentIndex(bandComboBox->findText(_currentBand, Qt::MatchCaseSensitive));
-    updatingBands = false;
-    //bandComboBox->setCurrentIndex(bandComboBox->findText(_band, Qt::MatchCaseSensitive));
+    //qDebug() << Q_FUNC_INFO << endl;
+    dxccStatusWidget->setBands(_b);
+    satTabWidget->addBands(_b);
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-            //qDebug() << "MainWindow::updateBandComboBox- END"  << endl;
 }
-/*
-void MainWindow::slotQSOTabTXFreqChanged(const double _f)
-{
-    if ((!modify) && (upAndRunning))
-    {
-        if (hamlibActive)
-        {
-         hamlib->setFreq(_f);
-        }
-    }
-    bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(_f));
-
-    if(!freqInBand)
-    { // If the freq does not belong to the current band, we need to update the band
-                //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
-        QString _newBand = dataProxy->getBandNameFromFreq(_f);
-        updateBandComboBox(_newBand);
-        mainQSOEntryWidget->setBand(_newBand);
-    }
-}
-*/
 
 void MainWindow::slotFreqRXChanged(const double _fr)
 {
-   logEvent(Q_FUNC_INFO, "Start", logSeverity);
-   if (modify)
-   {
-       return;
-   }
-   if (!upAndRunning)
-   {
-       return;
-   }
-   int bandId = dataProxy->getBandIdFromFreq(_fr);
-   if (bandId < 1)
-   {
-       return;
-   }
-
-   satTabWidget->setDownLinkFreq(_fr);
-
-   logEvent(Q_FUNC_INFO, "END", logSeverity);
-   //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
-}
-
-void MainWindow::slotFreqTXChanged(const double _fr)
-{
-
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (txFreqBeingChanged)
-    {
-         qDebug() << "MainWindow::slotFreqTXChanged txFreqBeingChanged" << endl;
-        return;
-    }
     if (modify)
     {
-        qDebug() << "MainWindow::slotFreqTXChanged modify" << endl;
+        //qDebug() << Q_FUNC_INFO << " - modifying" << endl;
         return;
     }
     if (!upAndRunning)
     {
-        qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" << endl;
+        //qDebug() << Q_FUNC_INFO << " - not running" << endl;
         return;
     }
-    txFreqBeingChanged = true;
     int bandId = dataProxy->getBandIdFromFreq(_fr);
     if (bandId < 1)
     {
-        qDebug() << "MainWindow::slotFreqTXChanged band <1" << endl;
+        //qDebug() << Q_FUNC_INFO << " - wrong band" << endl;
         return;
     }
 
-    bool freqInBand = dataProxy->isThisFreqInBand(mainQSOEntryWidget->getBand(), QString::number(_fr));
-    if(!freqInBand)
-    { // If the freq does not belong to the current band, we need to update the band
-        //qDebug() << "MainWindow::slotFreqTXChanged Freq is not in the current band" << endl;
-        QString _newBand = dataProxy->getBandNameFromFreq(_fr);
-        updateBandComboBox(_newBand);
-        mainQSOEntryWidget->setBand(_newBand);
+    mainQSOEntryWidget->setFreq (_fr, true);
+    QSOTabWidget->setRXFreq (_fr);
+    satTabWidget->setDownLinkFreq(_fr);
+
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+   //qDebug() << "MainWindow::slotFreqRXChanged - END"  << endl;
+}
+
+void MainWindow::slotFreqTXChanged(const double _fr)
+{
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
+    if (!upAndRunning)
+    {
+        //qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" << endl;
+        return;
     }
     QSOTabWidget->setTXFreq (_fr);
+    mainQSOEntryWidget->setFreq (_fr);
     satTabWidget->setUpLinkFreq(_fr);
     if (hamlibActive)
     {
         hamlib->setFreq(_fr);
     }
-    txFreqBeingChanged = false;
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
+    //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
 
 /*
@@ -8470,72 +8338,10 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     bands.clear();
     bands = qsTemp;
     mainQSOEntryWidget->setBands(bands);
-    //bandComboBox->clear();
-    //bandComboBox->addItems(bands);
+
     satTabWidget->addBands(bands);
         //qDebug() << "MainWindow::defineNewBands - END"  << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-/*
-void MainWindow::slotSatChangeTXFreq(const double _f)
-{
-     //qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox" << QString::number(_f) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (_f > 0.001)
-    {
-        txFreqBeingAutoChanged = true;
-        //qDebug() << "MainWindow::slotSatChangeTXFreq Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-        txFreqSpinBox->setValue(_f);
-        //qDebug() << "MainWindow::slotSatChangeTXFreq New Freq: " << QString::number(txFreqSpinBox->value())  << endl;
-        txFreqBeingAutoChanged = false;
-    }
-    else
-    {
-        //qDebug() << "MainWindow::slotSatChangeTXFreq: FREQ NOT UPDATED Defined to band: " << mainQSOEntryWidget->getBand(-1) << endl;
-        slotBandChanged(mainQSOEntryWidget->getBand(-1));
-        //TODO: Freq should be set to the default band freq
-    }
-
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotSatChangeTXFreq updating txFreqSpinBox - END"  << endl;
-}
-*/
-void MainWindow::slotSatTXFreqNeeded(const double _f)
-{
-     //qDebug() << "MainWindow::slotSatTXFreqNeeded: " << QString::number(_f) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-    QString _band = dataProxy->getBandNameFromFreq(_f);
-    if (!mainQSOEntryWidget->isBandExisting(_band))
-    {
-        updateBandComboBox(_band);
-    }
-    //qDebug() << "MainWindow::slotSatTXFreqNeeded: UPDATING FR from: " << QString::number(txFreqSpinBox->value()) << endl;
-     //qDebug() << "MainWindow::slotSatTXFreqNeeded: UPDATING FR to: " << QString::number(_f) << endl;
-    //slotSatChangeTXFreq(_f);
-    slotFreqTXChanged (_f);
-    //qDebug() << "MainWindow::slotSatTXFreqNeeded: UPDATING FR Updated: " << QString::number(txFreqSpinBox->value()) << endl;
-
-    //satTabWidget->setUpLinkFreq(_f);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotSatTXFreqNeeded - END " << endl;
-}
-
-void MainWindow::slotSatRXFreqNeeded(const double _f)
-{
-    //qDebug() << "MainWindow::slotSatRXFreqNeeded: " << QString::number(_f) << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-    QString _band = dataProxy->getBandNameFromFreq(_f);
-    if (!mainQSOEntryWidget->isBandExisting(_band))
-    {
-        updateBandComboBox(_band);
-    }
-    slotFreqRXChanged (_f);
-    //slotSatChangeRXFreq(_f);
-    //satTabWidget->setDownLinkFreq(_f);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotSatRXFreqNeeded - END " << endl;
 }
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
@@ -8562,7 +8368,6 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-
 
     if ((mainQSOEntryWidget->getMode()).toUpper() == _m.toUpper())
     {
