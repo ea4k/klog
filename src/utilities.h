@@ -85,7 +85,7 @@ public:
     bool isValidDateTime(const QString &_d);
     bool isValidCall(const QString &_c);
 
-
+    bool isSameFreq(const double fr1, const double fr2);
     bool isValidBandId(const int _b);
     bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);

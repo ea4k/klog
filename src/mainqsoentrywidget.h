@@ -40,6 +40,7 @@ public:
     void setModes(const QStringList _modes);
 
     bool setBand(const QString &_band);
+    bool setFreq(const double _f, bool isRX = false);
 
     bool setMode(const QString &_mode);
     bool setQRZ(const QString &_qrz);
@@ -81,12 +82,13 @@ signals:
     void bandChanged(QString _band);
     void modeChanged(QString _mode);
     void OKClicked();
+    void validBands(QStringList _bands);
 
 private slots:
     void slotUpdateTime();
     void slotQRZTextChanged();
-    void slotBandComboBoxChanged();
-    void slotModeComboBoxChanged();
+    void slotBandComboBoxChanged(const QString _b);
+    void slotModeComboBoxChanged(const QString _m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
     void slotCheckBoxClicked();
@@ -103,7 +105,8 @@ private:
     void clearForNextQSO();
     void checkIfDupe(const QString &_func);
     void setDateAndTimeInternally();
-
+    bool updateBandComboBox(const QString &_band); // If a new band arrives, we add it if possible to KLog
+    bool newBandNeededForFreq(const double _f);
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
     QLineEdit *qrzLineEdit;
@@ -134,6 +137,7 @@ private:
     int duplicatedQSOSlotInSecs;
     QTimer *delayInputTimer;
     QString lastQrz;
+    double freqTX, freqRX, bottomBandLimit, upperBandLimit;
 
 };
 

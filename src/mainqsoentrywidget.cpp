@@ -110,8 +110,8 @@ void MainQSOEntryWidget::createUI()
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
     connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut() ) );
 
-    connect(bandComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotBandComboBoxChanged() ) ) ;
-    connect(modeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotModeComboBoxChanged() ) ) ;
+    connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandComboBoxChanged(QString) ) ) ;
+    connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModeComboBoxChanged(QString) ) ) ;
 
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
@@ -287,21 +287,23 @@ void MainQSOEntryWidget::setCurrentQRZ(const QString &_qrz)
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainQSOEntryWidget::slotBandComboBoxChanged(){
-      //qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: " << endl;
-    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+void MainQSOEntryWidget::slotBandComboBoxChanged(const QString _b){
+    //qDebug() << Q_FUNC_INFO << ": " << _b;
 
-    emit bandChanged(bandComboBox->currentText());
+    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    bottomBandLimit = dataProxy->getLowLimitBandFromBandName (_b);
+    upperBandLimit = dataProxy->getUpperLimitBandFromBandName (_b);
+    emit bandChanged(_b);
     checkIfDupe(Q_FUNC_INFO);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "MainQSOEntryWidgetslotBandComboBoxChanged: END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainQSOEntryWidget::slotModeComboBoxChanged()
+void MainQSOEntryWidget::slotModeComboBoxChanged(const QString _m)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
 
-    emit modeChanged(modeComboBox->currentText());
+    emit modeChanged(_m);
     checkIfDupe(Q_FUNC_INFO);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
@@ -376,19 +378,66 @@ void MainQSOEntryWidget::setInitialData()
 
 }
 
+bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _band << endl;
+
+    //QString _currentBand = getBand();
+    if (!isBandExisting(_band))
+    {// The selected frequency is of a band that is not currently selected
+        QString _currentBand = bandComboBox->currentText ();
+        //qDebug() << Q_FUNC_INFO << ":  New band found: " << _band << endl;
+        if (dataProxy->getIdFromBandName(_band) > 1)
+        {// Not affected if 0 (light) is the frequency
+         // In this case the user should select the band in the setup
+            //qDebug() << Q_FUNC_INFO << ":  Band is valid: " << _band << endl;
+            QStringList qsTemp;
+            qsTemp.clear();
+            qsTemp << bands;
+            qsTemp << _band;
+            qsTemp.removeDuplicates();
+            bands.clear();
+            bands = dataProxy->sortBandNamesBottonUp(qsTemp);
+            //qDebug() << Q_FUNC_INFO << ": Before setBands" << endl;
+            setBands(bands);
+            bandComboBox->setCurrentIndex(bandComboBox->findText(_currentBand, Qt::MatchCaseSensitive));
+            //qDebug() << Q_FUNC_INFO << ": Band has been added : " << _band << endl;
+        }
+        else
+        {
+            //qDebug() << Q_FUNC_INFO << ": (END) Band is NOT  valid: " <<_band<< endl;
+            return false;
+        }
+    }
+
+
+    //qDebug() << Q_FUNC_INFO << ": Band already existing, no need to add"  << endl;
+    return true;
+
+
+
+
+}
+
 void MainQSOEntryWidget::setBands(const QStringList _bands)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-      //qDebug()<< "MainQSOEntryWidget::setBands" << endl;
+    //qDebug()<< "MainQSOEntryWidget::setBands" << endl;
+    foreach(QString i, _bands)
+    {
+        //qDebug()<< "MainQSOEntryWidget::setBands - received: " << i << endl;
+    }
+
     bands.clear();
     bands = _bands;
     bands.removeDuplicates();
     bands = dataProxy->sortBandNamesBottonUp(bands);
     bandComboBox->clear();
     bandComboBox->addItems(bands);
-    selectDefaultBand(true);
+    emit validBands(_bands);
+    //selectDefaultBand(true);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
-      //qDebug()<< "MainQSOEntryWidget::setBands-END" << endl;
+    //qDebug()<< "MainQSOEntryWidget::setBands-END" << endl;
 }
 
 void MainQSOEntryWidget::setModes(const QStringList _modes)
@@ -410,25 +459,78 @@ QStringList MainQSOEntryWidget::getModes()
     return modes;
 }
 
+bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+
+    if (isRX)
+    {
+        if (util->isSameFreq (freqRX, _f))
+        {
+            return true;
+        }
+        freqRX = _f;
+    }
+
+    if (util->isSameFreq (freqTX, _f))
+    {
+        return true;
+    }
+    freqTX = _f;
+
+    if (newBandNeededForFreq (_f))
+    {
+        if ((bottomBandLimit<=freqTX) && (freqTX<= upperBandLimit))
+        {
+            return true;
+        }
+        //qDebug() << Q_FUNC_INFO << ": Freq is not in the current band" << endl;
+        QString _newBand = dataProxy->getBandNameFromFreq(_f);
+        //qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand  << endl;
+        if (isRX)
+        {
+            //qDebug() << Q_FUNC_INFO << ": RX Freq no more actions "  << endl;
+            return true;
+        }
+        return setBand(_newBand);
+
+    }
+}
+
+bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+    QString _newBand = dataProxy->getBandNameFromFreq(_f);
+    if (!updateBandComboBox (_newBand))
+    {
+        emit debugLog(Q_FUNC_INFO, "END-1", Debug);
+        //qDebug() << Q_FUNC_INFO << " - END false";
+        return false;
+    }
+    //qDebug() << Q_FUNC_INFO << " - END true ";
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
 bool MainQSOEntryWidget::setBand(const QString &_band)
 {
-      //qDebug() << "MainQSOEntryWidget::setBand: " << _band << endl;
+    //qDebug() << Q_FUNC_INFO << ": " << _band << endl;
+
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-     if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
-     {
-           //qDebug() << "MainQSOEntryWidget::setBand-1: Band not found " << _band << endl;
-         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
-        return false;
-     }
-     else
-     {
-        bandComboBox->setCurrentIndex(bandComboBox->findText(_band, Qt::MatchCaseSensitive));
-        emit debugLog(Q_FUNC_INFO, "END-2", Debug);
-
-          //qDebug() << "MainQSOEntryWidget::setBand-2: " << _band << endl;
-        return true;
-     }
-
+    if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
+    {
+        //qDebug() << "MainQSOEntryWidget::setBand-1: Band not found " << _band << endl;
+        if (!updateBandComboBox(_band))
+        {
+            emit debugLog(Q_FUNC_INFO, "END-1", Debug);
+            return false;
+        }
+    }
+    //qDebug() << "MainQSOEntryWidget::setBand-1: Band found " << _band << endl;
+    bandComboBox->setCurrentIndex(bandComboBox->findText(_band, Qt::MatchCaseSensitive));
+    emit debugLog(Q_FUNC_INFO, "END-2", Debug);
+    //qDebug() << Q_FUNC_INFO << " - END"  << endl;
+    return true;
 }
 
 bool MainQSOEntryWidget::setMode(const QString &_mode)
@@ -682,14 +784,17 @@ bool MainQSOEntryWidget::isModeExisting(const QString &_m)
 bool MainQSOEntryWidget::isBandExisting(const QString &_b)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    //qDebug() << Q_FUNC_INFO << ": " << _b << endl;
     if (bandComboBox->findText(_b, Qt::MatchCaseSensitive) >= 0)
     {
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
+        //qDebug() << Q_FUNC_INFO << " - END true" << endl;
         return true;
     }
     else
     {
         emit debugLog(Q_FUNC_INFO, "END-2", Debug);
+        //qDebug() << Q_FUNC_INFO << " - END false" << endl;
         return false;
     }
 }
@@ -723,7 +828,7 @@ void MainQSOEntryWidget::selectDefaultBand(const bool _init)
     }
 
     aux = dataProxy->getNameFromBandId(defaultBand);
-
+    //qDebug() << Q_FUNC_INFO << ": before setting band: " << aux << endl;
     setBand(aux);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 
