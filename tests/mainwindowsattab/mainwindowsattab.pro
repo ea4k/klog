@@ -27,7 +27,7 @@ HEADERS += \
     ../../src/database.h
 
 SOURCES +=  tst_mainwindowsattab.cpp \
-    ../../src/mainwindowsattab.cpp \
+    ../../src/inputwidgets/mainwindowsattab.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/qso.cpp \
     ../../src/utilities.cpp \

@@ -30,7 +30,7 @@
 //
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy_sqlite.h"
+#include "../dataproxy_sqlite.h"
 
 class MainWindowInputOthers : public QWidget
 {

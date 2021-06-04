@@ -31,9 +31,9 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy_sqlite.h"
-#include "locator.h"
-#include "utilities.h"
+#include "../dataproxy_sqlite.h"
+#include "../locator.h"
+#include "../utilities.h"
 
 class MainWindowSatTab : public QWidget
 {
