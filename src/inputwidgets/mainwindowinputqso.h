@@ -103,6 +103,8 @@ private:
     void createUI();
     void setDefaultData();
     bool getDarkMode();
+    void setSplitCheckBox();
+
 
     QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;

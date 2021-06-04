@@ -584,6 +584,7 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
         //qDebug() << Q_FUNC_INFO << ": copying to RX Freq "  << endl;
     }
     //qDebug() << Q_FUNC_INFO << " - END"  << endl;
+    setSplitCheckBox();
 }
 
 void MainWindowInputQSO::slotSplitClicked()
@@ -639,6 +640,18 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
     }
     */
     //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
+    setSplitCheckBox();
 }
 
+void MainWindowInputQSO::setSplitCheckBox()
+{
+    if (txFreqSpinBox->value() == rxFreqSpinBox->value())
+    {
+        splitCheckBox->setChecked(false);
+    }
+    else
+    {
+        splitCheckBox->setChecked(true);
+    }
+}
 
