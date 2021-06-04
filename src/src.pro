@@ -73,6 +73,12 @@ HEADERS += setupdialog.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     inputwidgets/mainwindowinputqso.h \
+    inputwidgets/mainwindowinputcomment.h \
+    inputwidgets/mainwindowmydatatab.h \
+    inputwidgets/mainwindowinputothers.h \
+    inputwidgets/mainwindowinputeqsl.h \
+    inputwidgets/mainwindowinputqsl.h \
+    inputwidgets/mainwindowsattab.h\
     qso.h \
     searchmodel.h \
     searchwindow.h \
@@ -96,18 +102,12 @@ HEADERS += setupdialog.h \
     startwizard.h \
     downloadcty.h \
     dataproxy_sqlite.h \
-    mainwindowsattab.h \
     awarddxmarathon.h \
     elogclublog.h \
     softwareupdate.h \
     softwareupdatedialog.h \
     utilities.h \
     dxccstatuswidget.h \
-    mainwindowmydatatab.h \
-    mainwindowinputcomment.h \
-    mainwindowinputothers.h \
-    mainwindowinputeqsl.h \
-    mainwindowinputqsl.h \
     logmodel.h \
     searchwidget.h \
     infowidget.h \
@@ -159,6 +159,12 @@ SOURCES += main.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
     inputwidgets/mainwindowinputqso.cpp \
+    inputwidgets/mainwindowinputcomment.cpp \
+    inputwidgets/mainwindowmydatatab.cpp \
+    inputwidgets/mainwindowinputothers.cpp \
+    inputwidgets/mainwindowinputeqsl.cpp \
+    inputwidgets/mainwindowinputqsl.cpp \
+    inputwidgets/mainwindowsattab.cpp\
     qso.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
@@ -197,18 +203,12 @@ SOURCES += main.cpp \
     setuppages/setuppagehamlib.cpp \
     setuppages/setupentitydialog.cpp \
     startwizard.cpp \
-    mainwindowsattab.cpp \
     awarddxmarathon.cpp \
     elogclublog.cpp \
     softwareupdate.cpp \
     softwareupdatedialog.cpp \
     utilities.cpp \
     dxccstatuswidget.cpp \
-    mainwindowmydatatab.cpp \
-    mainwindowinputcomment.cpp \
-    mainwindowinputothers.cpp \
-    mainwindowinputeqsl.cpp \
-    mainwindowinputqsl.cpp \
     logmodel.cpp \
     searchwidget.cpp \
     infowidget.cpp \

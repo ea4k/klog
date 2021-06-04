@@ -18,7 +18,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/mainwindowsattab.h \
+    ../../src/inputwidgets/mainwindowsattab.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/qso.h \
     ../../src/utilities.h \
