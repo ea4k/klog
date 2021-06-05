@@ -328,10 +328,11 @@ private:
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
     void cleanQRZCOMreceivedDataFromUI();
     void saveWindowsSize();
-    void setWindowsSize(const int _width, const int _height);
+    void setWindowSize(const QSize &_size);
     bool maybeSave();
     void setCleaning(const bool _c);
-
+    bool setHamlib(const bool _b);
+    bool setUDPServer(const bool _b);
     void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
     void setSeverity(const DebugLogLevel _sev);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
@@ -715,6 +716,8 @@ private:
     QColor confirmedColor;
     QColor newOneColor;
 
+    QSize windowSize;
+
     //<CLUBLOG>
     bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
     QString clublogPass, clublogEmail; //clublogUser,
@@ -764,6 +767,7 @@ signals:
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event);
 
 };
 

@@ -328,7 +328,7 @@ void MainWindowInputQSO::setTXFreq(const double _ft)
 
     if ( (_ft >= double(0)) && (_ft <= txFreqSpinBox->maximum()))
     {
-         //qDebug() << Q_FUNC_INFO << ": defining FR: " << QString::number(_ft) << endl;
+        //qDebug() << Q_FUNC_INFO << ": defining FR: " << QString::number(_ft) << endl;
         txFreqSpinBox->setValue(_ft);
     }
     else

@@ -225,10 +225,10 @@ void MainWindow::saveWindowsSize()
 {
       //qDebug() << "MainWindow::saveWindows" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QSize size = this->size();
+    windowSize = this->size();
 
-    int height = size.height();
-    int width = size.width();
+    int height = windowSize.height();
+    int width = windowSize.width();
       //qDebug() << "MainWindow::windowsSizeAndPosition: Heigth: " << QString::number(height)  << endl;
       //qDebug() << "MainWindow::windowsSizeAndPosition: Width: " << QString::number(width)  << endl;
     //(const QString& _filename, const QString &_field, const QString &_value)
@@ -240,12 +240,17 @@ void MainWindow::saveWindowsSize()
 
 }
 
-void MainWindow::setWindowsSize(const int _width, const int _height)
+void MainWindow::setWindowSize(const QSize &_size)
 {
-    QSize size;
-    size.setHeight(_height);
-    size.setWidth(_width);
-    this->resize(size);
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //QSize size;
+    //size.setHeight(_height);
+    //size.setWidth(_width);
+    if (_size.isValid ())
+    {
+        this->resize(_size);
+    }
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 }
 
@@ -3501,7 +3506,8 @@ void MainWindow::slotClearButtonClicked()
     clublogAnswer = -1;
     clublogPrevQSO.clear();
             //qDebug() << "MainWindow::slotClearButtonClicked: - 11"  << endl;
-    mainQSOEntryWidget->clear();
+
+
 
     clearUIDX(true);
     //completedWithPreviousName = false;
@@ -3526,6 +3532,7 @@ void MainWindow::clearUIDX(bool full)
     //qthLineEdit->clear();
     //nameLineEdit->clear();
     //locatorLineEdit->clear();
+    mainQSOEntryWidget->clear();
     QSOTabWidget->clear();
     commentTabWidget->clear();
     infoLabel1->clear();
@@ -4682,6 +4689,92 @@ void MainWindow::slotDoubleClickLog(const int _qsoID)
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 }
 
+bool MainWindow::setUDPServer(const bool _b)
+{
+    qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
+    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
+    QString errorMSG, aux;
+    if (UDPServerStart)
+    {
+        if (!UDPLogServer->isStarted())
+        {
+            if (!UDPLogServer->start())
+            {
+                errorMSG =  tr("start");
+                aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
+                showErrorDialog->setText(aux);
+                showErrorDialog->exec();
+                return false;
+            }
+            else
+            {
+                //qDebug() << Q_FUNC_INFO << ": UDP Log server started!" << QTime::currentTime().toString("hh:mm:ss") << endl;
+            }
+            return true;
+        }
+        else
+        {
+            return true;
+            //qDebug() << Q_FUNC_INFO << ": UDP Log server already started no need to restart!" << QTime::currentTime().toString("hh:mm:ss") << endl;
+        }
+    }
+    else
+    {
+        //qDebug() << "qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") << endl;
+        if (UDPLogServer->isStarted())
+        {
+            if (!UDPLogServer->stop())
+            {
+                errorMSG =  tr("stop");
+                aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
+                showErrorDialog->setText(aux);
+                showErrorDialog->exec();
+                return UDPLogServer->isStarted ();
+            }
+            else
+            {
+                return false;
+                //qDebug() << Q_FUNC_INFO << ": UDP Log server stopped!" << QTime::currentTime().toString("hh:mm:ss") << endl;
+            }
+        }
+        else
+        {
+            return false;
+                   //qDebug() << Q_FUNC_INFO << ": UDP Log server already stopped no need to restop!" << endl;
+        }
+    }
+}
+
+bool MainWindow::setHamlib(const bool _b)
+{
+    qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
+    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
+    if (!upAndRunning)
+    {
+        qDebug() << Q_FUNC_INFO << ": Hamlib upAndRunning FALSE";
+        return false;
+    }
+    if (_b)
+    {
+        qDebug() << Q_FUNC_INFO << ": Hamlib active";
+        hamlib->init(true);
+        return hamlib->readRadio(true); // Forcing the radio update
+
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << ": Hamlib NOT active";
+        hamlib->stop();
+        return false;
+    }
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    //qDebug() << Q_FUNC_INFO << endl;
+    setWindowSize(windowSize);
+    setHamlib (hamlibActive);
+}
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
 
@@ -4789,6 +4882,7 @@ void MainWindow::readConfigData()
         return;
     }
     hamlibActive = false;
+    //setHamlib(hamlibActive);
     eQSLActive = false;
     clublogActive = false;
     lotwActive = false;
@@ -4805,16 +4899,6 @@ void MainWindow::readConfigData()
         processConfigLine(line);
     }
     file.close ();
-   /*
-    while (!file.atEnd()) {
-        QByteArray line;
-        line.clear ();
-        line = file.readLine();
-        processConfigLine(line);
-    }
-    */
-
-
 
    //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << endl;
     defineStationCallsign();
@@ -4890,69 +4974,12 @@ void MainWindow::readConfigData()
     satTabWidget->refreshData();
 
     QString aux;
-
     QString errorMSG;
-
-    if (UDPServerStart)
+    if (upAndRunning)
     {
-    //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart TRUE" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        if (!UDPLogServer->isStarted())
-        {
-            //qDebug() << "MainWindow::readConfigData: 104: Server off" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        //start(quint16 _port, QHostAddress const& _multicast_group_address)
-            if (!UDPLogServer->start())
-            {
-                errorMSG =  tr("start");
-                aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
-                showErrorDialog->setText(aux);
-                showErrorDialog->exec();
-            }
-            else
-            {
-                      //qDebug() << "MainWindow::readConfigData: UDP Log server started!" << QTime::currentTime().toString("hh:mm:ss") << endl;
-            }
-        }
-        else
-        {
-                   //qDebug() << "MainWindow::readConfigData: UDP Log server already started no need to restart!" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        }
-    }
-    else
-    {
-        //qDebug() << "MainWindow::readConfigData: 104: UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        if (UDPLogServer->isStarted())
-        {
-            if (!UDPLogServer->stop())
-            {
-                errorMSG =  tr("stop");
-                aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
-                showErrorDialog->setText(aux);
-                showErrorDialog->exec();
-            }
-            else
-            {
-                       //qDebug() << "MainWindow::readConfigData: UDP Log server stopped!" << QTime::currentTime().toString("hh:mm:ss") << endl;
-            }
-        }
-        else
-        {
-                   //qDebug() << "MainWindow::readConfigData: UDP Log server already stopped no need to restop!" << endl;
-        }
-    }
-
-    //qDebug() << "MainWindow::readConfigData: hamlib" << endl;
-    if (hamlibActive)
-    {
-               //qDebug() << "MainWindow::readConfigData: STARTING HAMLIB" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        hamlib->init(true);
-        hamlib->readRadio(true); // Forcing the radio update
-               //qDebug() << "MainWindow::readConfigData: HAMLIB STARTED"<< QTime::currentTime().toString("hh:mm:ss") << endl;
-    }
-    else
-    {
-               //qDebug() << "MainWindow::readConfigData: STOPPING HAMLIB" << QTime::currentTime().toString("hh:mm:ss")  << endl;
-        hamlib->stop();
-               //qDebug() << "MainWindow::readConfigData: NOT STARTING HAMLIB"<< QTime::currentTime().toString("hh:mm:ss") << endl;
+        setWindowSize (windowSize);
+        setHamlib(hamlibActive);
+        setUDPServer(UDPServerStart);
     }
 
     //qDebug() << "MainWindow::readConfigData - END" << QTime::currentTime().toString("hh:mm:ss") << endl;
@@ -5303,9 +5330,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         hamlib->setPoll(value.toInt());
     }else if (field == "HAMLIB")
     {
-         //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
         hamlibActive = util->trueOrFalse(value);
-         //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
     }
     else if (field == "HAMLIBREADONLY")
     {
@@ -5488,7 +5515,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         values << value.split("x");
         if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
         {
-            setWindowsSize(values.at(0).toInt(), values.at(1).toInt());
+            windowSize.setWidth(values.at(0).toInt());
+            windowSize.setHeight(values.at(1).toInt());
+            //setWindowSize(values.at(0).toInt(), values.at(1).toInt());
         }
     }
     else if(field=="DELETEALWAYSADIFILE")
@@ -6482,6 +6511,7 @@ void MainWindow::qsoToEdit (const int _qso)
     //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << endl;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    slotClearButtonClicked ();
     readingTheUI = true;
     int nameCol;
     QString aux1;
@@ -8341,12 +8371,13 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
-     //qDebug() << "MainWindow::slotHamlibTXFreqChanged: " << QString::number(_f) << endl;
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (upAndRunning)
     {
         if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
         {
+            //qDebug() << Q_FUNC_INFO << ": Updating the freq... " << endl;
             QSOTabWidget->setTXFreq (_f);
         }
     }
