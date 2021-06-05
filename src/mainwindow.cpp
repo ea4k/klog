@@ -4691,8 +4691,8 @@ void MainWindow::slotDoubleClickLog(const int _qsoID)
 
 bool MainWindow::setUDPServer(const bool _b)
 {
-    qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
-    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
+    //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
     QString errorMSG, aux;
     if (UDPServerStart)
     {
@@ -4747,23 +4747,23 @@ bool MainWindow::setUDPServer(const bool _b)
 
 bool MainWindow::setHamlib(const bool _b)
 {
-    qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
-    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
+    //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
     if (!upAndRunning)
     {
-        qDebug() << Q_FUNC_INFO << ": Hamlib upAndRunning FALSE";
+        //qDebug() << Q_FUNC_INFO << ": Hamlib upAndRunning FALSE";
         return false;
     }
     if (_b)
     {
-        qDebug() << Q_FUNC_INFO << ": Hamlib active";
+        //qDebug() << Q_FUNC_INFO << ": Hamlib active";
         hamlib->init(true);
         return hamlib->readRadio(true); // Forcing the radio update
 
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": Hamlib NOT active";
+        //qDebug() << Q_FUNC_INFO << ": Hamlib NOT active";
         hamlib->stop();
         return false;
     }
@@ -5330,9 +5330,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         hamlib->setPoll(value.toInt());
     }else if (field == "HAMLIB")
     {
-        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
         hamlibActive = util->trueOrFalse(value);
-        qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIB: " << value << endl;
     }
     else if (field == "HAMLIBREADONLY")
     {

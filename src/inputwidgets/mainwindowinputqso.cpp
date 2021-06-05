@@ -268,7 +268,7 @@ void MainWindowInputQSO::slotLocatorTextChanged()
     //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << endl;
     int cursorP = locatorLineEdit->cursorPosition();
 
-    locatorLineEdit->setText((locatorLineEdit->text()).toUpper());
+    locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
 
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
     {

@@ -71,7 +71,7 @@ public:
     QString getClubLogFile();
     QString getEQSLFile();
     QString getLoTWAdifFile();
-
+    QString getClearSQLi(QString _s);
     void setVersion(const QString &_v);
     QString getVersion();
     double getVersionDouble();

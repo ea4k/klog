@@ -34,6 +34,7 @@ SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
        //qDebug() << "SetupPageSatsNew::SetupPageSatsNew"   << endl;
     dataProxy = dp;
+    util = new Utilities;
     editing = false;
     //checking = false;
 
@@ -147,6 +148,7 @@ void SetupPageSatsNew::createUI()
 void SetupPageSatsNew::slotShortNameTextChanged()
 {
     int cursorP = shortNameLineEdit->cursorPosition();
+
     shortNameLineEdit->setText((shortNameLineEdit->text()).toUpper());
     if ((shortNameLineEdit->text()).length()>2)
     {

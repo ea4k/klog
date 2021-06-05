@@ -29,6 +29,7 @@
 // This class implements the Dialog to add a new log
 //
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 #include <QDialog>
 #include <QtWidgets>
@@ -98,6 +99,7 @@ private:
 
 
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
 
     QDateEdit *dateEdit;
 

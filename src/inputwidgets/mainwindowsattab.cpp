@@ -215,10 +215,14 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
 void MainWindowSatTab::slotSatNameTextChanged()
 {
     //qDebug() << "MainWindowSatTab::slotSatNameTextChanged: " << satNameLineEdit->text() << endl;
-    satNameLineEdit->setText((satNameLineEdit->text()).toUpper());
+    int cursor = satNameLineEdit->cursorPosition ();
+
+
+    satNameLineEdit->setText((util->getClearSQLi (satNameLineEdit->text())).toUpper());
 
     if (modifying )
     {
+        satNameLineEdit->setCursorPosition (cursor);
         return;
     }
 
@@ -230,8 +234,8 @@ void MainWindowSatTab::slotSatNameTextChanged()
     {
         emit setPropModeSat("Not", false);
     }
+    satNameLineEdit->setCursorPosition (cursor);
 
-    //autofillSatMode();
 
 }
 
@@ -265,7 +269,7 @@ void MainWindowSatTab::slotSatDXLocTextChanged()
     //qDebug() << "MainWindowSatTab::slotSatDXLocTextChanged: " << satDXLocatorLineEdit->text() << endl;
     int cursorP = satDXLocatorLineEdit->cursorPosition();
 
-    satDXLocatorLineEdit->setText((satDXLocatorLineEdit->text()).toUpper());
+    satDXLocatorLineEdit->setText((util->getClearSQLi(satDXLocatorLineEdit->text())).toUpper());
 
     if ( locator->isValidLocator(satDXLocatorLineEdit->text()) )
     {

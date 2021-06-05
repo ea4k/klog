@@ -897,7 +897,8 @@ void MainQSOEntryWidget::slotStartDelayInputTimer()
         return;
     }
     int cursor = qrzLineEdit->cursorPosition ();
-    qrzLineEdit->setText (qrzLineEdit->text ().toUpper ());
+    QString aux = util->getClearSQLi (qrzLineEdit->text ());
+    qrzLineEdit->setText (aux.toUpper());
     qrzLineEdit->setCursorPosition (cursor);
     delayInputTimer->start(300);
 }

@@ -244,7 +244,8 @@ void SetupPageELog::slotQRZCallTextChanged()
    //qDebug() << "SetupPageELog::slotQRZCallTextChanged" << endl;
     int cursor = QRZCOMUserLineEdit->cursorPosition();
    //qDebug() << "SetupPageELog::slotQRZCallTextChanged-1" << endl;
-    QString aux = QRZCOMUserLineEdit->text();
+
+    QString aux = util->getClearSQLi (QRZCOMUserLineEdit->text());
    //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2" << endl;
 
     if (util->isValidCall(aux))
@@ -269,7 +270,8 @@ void SetupPageELog::sloteQSLCallTextChanged()
 {
    //qDebug() << "SetupPageELog::sloteQSLCallTextChanged" << endl;
     int cursor = eQSLUserLineEdit->cursorPosition();
-    QString aux = eQSLUserLineEdit->text();
+
+    QString aux = util->getClearSQLi (eQSLUserLineEdit->text());
     if (util->isValidCall(aux))
     {
         eQSLUserLineEdit->setPalette(palBlack);
@@ -438,7 +440,7 @@ void SetupPageELog::setEQSLActive(const bool _b)
 }
 
 void SetupPageELog::slotEQSLActive(const bool _s)
-{   
+{
     //qDebug() << "SetupPageELog::slotEQSLActive: "  << util->boolToQString(_s) << endl;
     eQSLemailLabel->setEnabled(_s);
     eQSLpasswordLabel->setEnabled(_s);
@@ -447,7 +449,7 @@ void SetupPageELog::slotEQSLActive(const bool _s)
 }
 
 void SetupPageELog::slotTQSLActive(const bool _s)
-{    
+{
     //qDebug() << "SetupPageELog::slotTQSLActive: " << util->boolToQString(_s) << endl;
     setLoTWActive(_s);
 }

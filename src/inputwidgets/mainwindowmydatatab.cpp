@@ -112,7 +112,7 @@ void MainWindowMyDataTab::createUI()
     connect(myLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(operatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorTextChanged()) );
-    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );    
+    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
 }
 
@@ -129,7 +129,7 @@ void MainWindowMyDataTab::clear()
         //myLocatorLineEdit->setText(lastMyLocator);
     }
     else
-    {        
+    {
         //qDebug() << "MainWindowMyDataTab::clear: NOT checked"  << endl;
         myPowerSpinBox->setValue(myPower);
         if (util->isValidCall(operatorQRZ))
@@ -174,9 +174,12 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
      //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int cursorP = myLocatorLineEdit->cursorPosition();
-    myLocatorLineEdit->setText(myLocatorLineEdit->text().toUpper());
+
+
+
+    myLocatorLineEdit->setText(util->getClearSQLi(myLocatorLineEdit->text()).toUpper());
     //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text()  << endl;
-    if ( locator->isValidLocator((myLocatorLineEdit->text()).toUpper()) )
+    if ( locator->isValidLocator(myLocatorLineEdit->text()))
     {
         myLocator = (myLocatorLineEdit->text()).toUpper();
         myLocatorLineEdit->setPalette(palBlack);
@@ -326,11 +329,14 @@ void MainWindowMyDataTab::setData(const double _power, const QString _stationQRZ
 void MainWindowMyDataTab::slotOperatorTextChanged()
 {
     int cursorP = operatorLineEdit->cursorPosition();
-    operatorLineEdit->setText(operatorLineEdit->text().toUpper());
+
+
+
+    operatorLineEdit->setText(util->getClearSQLi(operatorLineEdit->text()).toUpper());
     if (util->isValidCall(operatorLineEdit->text()))
     {
         operatorLineEdit->setPalette(palBlack);
-        operatorQRZ = (operatorLineEdit->text()).toUpper();
+        operatorQRZ = (operatorLineEdit->text());
     }
     else
     {
@@ -342,11 +348,13 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
 void MainWindowMyDataTab::slotStationCallSignTextChanged()
 {
     int cursorP = stationCallSignLineEdit->cursorPosition();
-    stationCallSignLineEdit->setText(stationCallSignLineEdit->text().toUpper());
+
+
+    stationCallSignLineEdit->setText(util->getClearSQLi(stationCallSignLineEdit->text()).toUpper());
     if (util->isValidCall(stationCallSignLineEdit->text()))
     {
         stationCallSignLineEdit->setPalette(palBlack);
-        stationQRZ = (stationCallSignLineEdit->text()).toUpper();
+        stationQRZ = (stationCallSignLineEdit->text());
     }
     else
     {

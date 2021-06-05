@@ -340,7 +340,9 @@ void SearchWidget::slotStartDelayInputTimer()
 {
     //qDebug() << "SearchWidget::slotStartDelayInputTimer"  << endl;
     int cursorP = searchBoxLineEdit->cursorPosition();
-    searchBoxLineEdit->setText((searchBoxLineEdit->text()).toUpper());
+
+
+    searchBoxLineEdit->setText((util->getClearSQLi(searchBoxLineEdit->text())).toUpper());
     searchBoxLineEdit->setCursorPosition(cursorP);
 
     delayInputTimer->start(800); //TODO: Define the delay in the Settings
@@ -350,13 +352,13 @@ void SearchWidget::slotDelayInputTimedOut()
 {
     //qDebug() << "SearchWidget::slotDelayInputTimedOut"  << endl;
     delayInputTimer->stop();
-    QString _text = (searchBoxLineEdit->text()).toUpper();
+
+    QString _text = searchBoxLineEdit->text();
     if( _text != lastSearch)
     {
         //DO WHATEVER
         lastSearch = _text;
         slotSearchBoxTextChanged();
-
     }
 }
 

@@ -1605,6 +1605,12 @@ QString Utilities::getOnlineServiceName(OnLineProvider _service)
     }
     return QString();
 }
+
+QString Utilities::getClearSQLi(QString _s)
+{
+    return _s.remove ('\'');
+}
+
 /*
 QPalette Utilities::getPalete(bool _ok)
 {

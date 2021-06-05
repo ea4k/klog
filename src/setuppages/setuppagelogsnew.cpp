@@ -34,6 +34,7 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "SetupPageLogsNew::SetupPageLogsNew"   << endl;
     dataProxy = dp;
+    util = new Utilities;
     editing = false;
     checking = false;
 
@@ -175,7 +176,7 @@ void SetupPageLogsNew::createWidget()
     typeComboBox->setToolTip(tr("Select the kind of operation for this log."));
     QStringList _qs;
     _qs.clear();
-    _qs.append(dataProxy->getContestNames());    
+    _qs.append(dataProxy->getContestNames());
     typeComboBox->addItems(_qs);
        //qDebug() << "SetupPageLogsNew::createWidget - contestNames: " << _qs.at(0) << endl;
 
@@ -311,7 +312,7 @@ void SetupPageLogsNew::slotOperatorsTextChanged()
 
     int cursorP = operatorsLineEdit->cursorPosition();
 
-    QString currentQrz = operatorsLineEdit->text();
+    QString currentQrz = util->getClearSQLi (operatorsLineEdit->text());
     if ((currentQrz.at(cursorP-1)).isSpace())
     {
         currentQrz = currentQrz.remove(cursorP-1, 1);
@@ -341,9 +342,10 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
         return;
     }
 
+
     int cursorP = stationCallsignLineEdit->cursorPosition();
 
-    QString currentQrz = stationCallsignLineEdit->text();
+    QString currentQrz = util->getClearSQLi (stationCallsignLineEdit->text());
     if ((currentQrz.at(cursorP-1)).isSpace())
     {
         currentQrz = currentQrz.remove(cursorP-1, 1);
@@ -586,7 +588,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
 
     operators = operatorsLineEdit->text();
     //TODO: Check if operators is really including a comma separated list of QRZ
-    comment = commentLineEdit->text();    
+    comment = commentLineEdit->text();
     dateString = dateEdit->date().toString("yyyy-MM-dd");
 
     logData.clear();

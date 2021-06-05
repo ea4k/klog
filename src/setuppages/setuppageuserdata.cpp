@@ -29,6 +29,7 @@
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << endl;
    locator = new Locator();
+   util = new Utilities;
    dataProxy = dp;
    world = new World(dataProxy, Q_FUNC_INFO);
    operatorOK = false;
@@ -306,7 +307,8 @@ void SetupPageUserDataPage::slotQRZTextChanged()
       //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << endl;
 
     int i = qrzLineEdit->cursorPosition();
-    QString _a = qrzLineEdit->text();
+
+    QString _a = util->getClearSQLi (qrzLineEdit->text());
     if (i<1)
     {
         return;
@@ -366,7 +368,8 @@ void SetupPageUserDataPage::slotMyLocatorTextChanged()
        //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
 
     //int i;
-    myLocatorLineEdit->setText(((myLocatorLineEdit->text())).simplified());
+
+    myLocatorLineEdit->setText(((util->getClearSQLi(myLocatorLineEdit->text()))).simplified());
     myLocatorLineEdit->setText((myLocatorLineEdit->text()).toUpper());
 
     if ( ((myLocatorLineEdit->text()).length())   >3   )
@@ -629,14 +632,12 @@ void SetupPageUserDataPage::slotOperatorsChanged()
 {
        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged" << endl;
     //QString _operators = operatorsLineEdit->text();
+
+
     if (operatorsLineEdit->text().length() < 1)
         return;
     int i = operatorsLineEdit->cursorPosition();
-    //QColor defaultColor = (operatorsLineEdit->palette()).color(QPalette::WindowText);
 
-    //int ent = -1;
-
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-00" << endl;
     QString _a = operatorsLineEdit->text();
 
     if ((_a.at(i-1)).isSpace())
@@ -644,11 +645,7 @@ void SetupPageUserDataPage::slotOperatorsChanged()
         operatorsLineEdit->setText(_a.remove(i-1, 1));
     }
 
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-01" << endl;
-
-    //operatorsLineEdit->setText(((operatorsLineEdit->text())).simplified());
-    //operatorsLineEdit->setText((operatorsLineEdit->text()).toUpper());
-    operatorsLineEdit->setText(_a.simplified().toUpper());
+    operatorsLineEdit->setText(util->getClearSQLi (_a).simplified().toUpper());
     _a = operatorsLineEdit->text();
 
     QStringList operators = _a.split(",", QString::SkipEmptyParts);

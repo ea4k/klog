@@ -112,7 +112,7 @@ void MainWindowInputQSL::createUI()
 
 
 void MainWindowInputQSL::setDefaultData()
-{    
+{
 
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
@@ -310,7 +310,7 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
 void MainWindowInputQSL::slotQSLViaTextChanged()
 {
        //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << endl;
-    qslViaLineEdit->setText((qslViaLineEdit->text()).toUpper());
+    qslViaLineEdit->setText((util->getClearSQLi(qslViaLineEdit->text())).toUpper());
 }
 
 

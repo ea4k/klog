@@ -32,6 +32,7 @@
 #include "world.h"
 #include "locator.h"
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 
 class SetupPageUserDataPage : public QWidget {
@@ -158,7 +159,7 @@ private:
 
     bool operatorsOK;
     bool operatorOK;
-
+    Utilities *util;
 
 };
 
