@@ -36,9 +36,10 @@ QSO::~QSO()
 }
 void QSO::clear()
 {
+    qDebug() << Q_FUNC_INFO;
     qsoId = -1;
     logId = -1;
-
+    backup = false;
     callsign = QString();
     stationCallsign = QString();
     operatorCall = QString();
@@ -93,6 +94,16 @@ void QSO::clear()
     keepSat = false;
 
 
+}
+
+void QSO::setBackup(const bool _rt)
+{
+    backup    = _rt;
+}
+
+bool QSO::getBackup()
+{
+    return backup;
 }
 
 bool QSO::setQSOid(const int _i)

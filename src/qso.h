@@ -40,6 +40,9 @@ public:
     QSO();
     ~QSO();
 
+    void setBackup(const bool _rt);
+    bool getBackup();
+
     bool setData(const QString &_adifPair);
     void clear();
     bool isValid();
@@ -208,6 +211,7 @@ private:
     Utilities *util;
 
     bool lotwUpdating, realTime;
+    bool backup;
    // DataProxy_SQLite *dataProxy;
 
 

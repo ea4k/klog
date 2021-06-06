@@ -587,7 +587,7 @@ void MainWindow::createActionsCommon(){
    connect(setupDialog, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
    connect(setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
    connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
-    connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
+   connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
 
 
    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -3528,17 +3528,13 @@ void MainWindow::clearUIDX(bool full)
 {
     //qDebug() << "MainWindow::clearUIDX: " << util->boolToQString(full) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    //SRXLineEdit->setText("59");
-    //STXLineEdit->setText("59");
-    //qthLineEdit->clear();
-    //nameLineEdit->clear();
-    //locatorLineEdit->clear();
+
     mainQSOEntryWidget->clear();
     QSOTabWidget->clear();
     commentTabWidget->clear();
     infoLabel1->clear();
     infoLabel2->clear();
-    //rxPowerSpinBox->setValue(0);
+
     QSOTabWidget->clear();
     eQSLTabWidget->clear();
     QSLTabWidget->clear();
@@ -3559,11 +3555,7 @@ void MainWindow::clearUIDX(bool full)
         //qDebug() << "MainWindow::clearUIDX Setting TX Freq to: " << QString::number(txFreqSpinBox->value()) << endl;
         QSOTabWidget->setRXFreq(QSOTabWidget->getTXFreq());
     }
-    //if (full)
-    //{
-    //    txFreqSpinBox->setValue((dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
-    //    rxFreqSpinBox->setValue(0);
-    //}
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::clearUIDX - END" << endl;
 
@@ -3586,9 +3578,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
          //qDebug() << "MainWindow::closeEvent saving needed" << endl;
         dataProxy->unMarkAllQSO();
-        //slotFileClose();
         dataProxy->compressDB();
-        //db->compress();
         saveWindowsSize();
         event->accept();
     }
@@ -3622,7 +3612,6 @@ bool MainWindow::maybeSave()
                 {
                     logEvent(Q_FUNC_INFO, "END-1", logSeverity);
                     //qDebug() << "MainWindow::maybeSave - Use default file name" << endl;
-                   // return !(filemanager->adifLogExport(defaultADIFLogFile, currentLog));
 
                     QMessageBox msgBox;
                     msgBox.setWindowTitle(tr("KLog - ADIF export"));
@@ -3981,16 +3970,6 @@ void MainWindow::createMenusCommon()
     //updateAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(updateAct, SIGNAL(triggered()), this, SLOT(slotHelpCheckUpdatesAction()));
  }
-/*
-void MainWindow::slotCloseStats(bool _vis)
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    statsWidget->clear();
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-*/
-
-
 
 void MainWindow::slotDebugAction()
 {
@@ -4517,6 +4496,7 @@ void MainWindow::slotSetup(const int _page)
      //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     configured = false;
+    backupCurrentQSO ();
     openSetup(_page);
      //qDebug() << "MainWindow::slotSetup - END"  << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -4590,13 +4570,17 @@ void MainWindow::openSetup(const int _page)
         //qDebug() << "MainWindow::openSetup: Hamlib is active, let's read the VFO Freq/Mode" << endl;
     }
 
+    if (qso->getBackup ())
+    {
+        restoreCurrentQSO ();
+    }
     //qDebug() << "MainWindow::openSetup: - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-     //qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
+    qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
@@ -4604,7 +4588,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     if (_s == QDialog::Accepted)
     {
-         //qDebug() << "MainWindow::slotSetupDialogFinished: OK" << endl;
+        qDebug() << "MainWindow::slotSetupDialogFinished: OK" << endl;
         logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
         readConfigData();
         reconfigureDXMarathonUI(manageDxMarathon);
@@ -4618,26 +4602,34 @@ void MainWindow::slotSetupDialogFinished (const int _s)
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << endl;
         dataProxy->reconnectDB();
         logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
-         //qDebug() << "MainWindow::openSetup: after db->reConnect" << endl;
+        qDebug() << "MainWindow::openSetup: after db->reConnect" << endl;
         if (hamlibActive)
         {
              //qDebug() << "MainWindow::slotSetupDialogFinished: Hamlib is active, let's read the VFO Freq/Mode" << endl;
         }
-
-
-
     }
     else
     {
-         //qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
+         qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
     }
-     //qDebug() << "MainWindow::slotSetupDialogFinished: - END" << endl;
+
+    if (qso->getBackup ())
+    {
+        qDebug() << "MainWindow::slotSetupDialogFinished: Restoring..." << endl;
+        restoreCurrentQSO ();
+    }
+    else
+    {
+        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
+    }
+
+    qDebug() << "MainWindow::slotSetupDialogFinished: - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 bool MainWindow::slotOpenKLogFolder()
 {
-             //qDebug() << "MainWindow::slotOpenKLogFolder: " << configFileName << endl;
+    //qDebug() << "MainWindow::slotOpenKLogFolder: " << configFileName << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //configFileName = klogDir+"/klogrc.cfg";
     QString _aux = "<ul><li><a href=file://" + util->getHomeDir() + ">file://" + util->getHomeDir() + "</a></li>" +
@@ -5571,15 +5563,12 @@ void MainWindow::checkIfNewBandOrMode()
     modes.sort();
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << endl;
-    //bandComboBox->clear();
     mainQSOEntryWidget->setBands(bands);
-    //bandComboBox->addItems(bands);
     satTabWidget->addBands(bands);
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << endl;
     mainQSOEntryWidget->setModes(modes);
-    //modeComboBox->clear();
-    //modeComboBox->addItems(modes);
+
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
@@ -7816,7 +7805,6 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     }
     else if (completedWithPreviousLocator && (aux != QSOTabWidget->getDXLocator()))
     {
-        //locatorLineEdit->clear();
         completedWithPreviousLocator = false;
         QSOTabWidget->setPaletteRigthDXLocator(false);
     }
@@ -8465,6 +8453,7 @@ void MainWindow::slotAwardsWidgetSetYear()
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
     qso->clear ();
+    qso->setBackup (true);
     // MainQSOEntryWidget
     qso->setCall (mainQSOEntryWidget->getQrz ());
     qso->setBand (mainQSOEntryWidget->getBand ());
@@ -8530,7 +8519,9 @@ void MainWindow::backupCurrentQSO()
 void MainWindow::restoreCurrentQSO()
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
-    slotClearButtonClicked ();
+    qDebug() << Q_FUNC_INFO;
+    clearUIDX ();
+    qDebug() << Q_FUNC_INFO << ": " << qso->getCall ();
     mainQSOEntryWidget->setQRZ (qso->getCall ());
     mainQSOEntryWidget->setBand (qso->getBand ());
     mainQSOEntryWidget->setMode (qso->getMode ());
@@ -8570,27 +8561,28 @@ void MainWindow::restoreCurrentQSO()
     eQSLTabWidget->setQRZCOMStatus (qso->getQRZCOMStatus ());
     eQSLTabWidget->setQRZCOMDate (qso->getQRZCOMDate ());
 
-
     // MainWindowInputComment
-    qso->setComment (commentTabWidget->getComment ());
-    qso->setKeepComment (commentTabWidget->getKeep ());
+    commentTabWidget->setData (qso->getComment ());
+    commentTabWidget->setKeep (qso->getKeepComment ());
+
     // MainWindowInputOthers
-    qso->setDXCC (othersTabWidget->getEntity ());
-    qso->setIOTA (othersTabWidget->getIOTA ());
-    qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
-    qso->setKeepOthers (othersTabWidget->getKeep ());
+    othersTabWidget->setEntity (qso->getDXCC ());
+    othersTabWidget->setIOTA (qso->getIOTA ());
+    othersTabWidget->setPropMode (qso->getPropMode ());
+    othersTabWidget->setKeep (qso->getKeepOthers ());
 
     // MainWindowMyDataTab
-    qso->setTXPwr (myDataTabWidget->getMyPower ());
-    qso->setOperatorCallsign (myDataTabWidget->getOperator ());
-    qso->setStationCallsign (myDataTabWidget->getStationQRZ ());
-    qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
-    qso->setKeepMyData (myDataTabWidget->getKeep ());
+    myDataTabWidget->setMyPower (qso->getTXPwr ());
+    myDataTabWidget->setOperator (qso->getOperatorCallsign ());
+    myDataTabWidget->setStationQRZ (qso->getStationCallsign ());
+    myDataTabWidget->setMyLocator (qso->getMyGridSquare ());
+    myDataTabWidget->setKeep (qso->getKeepMyData ());
 
     //MainWindowSatTab
-    qso->setSatName (satTabWidget->getSatName ());
-    qso->setSatMode (satTabWidget->getSatMode ());
-    qso->setKeepSatTab (satTabWidget->getKeep ());
+    satTabWidget->setSatName (qso->getSatName ());
+    satTabWidget->setSatMode (qso->getSatMode ());
+    satTabWidget->setKeep (qso->getKeepSatTab ());
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::setSeverity(const DebugLogLevel _sev)
