@@ -97,6 +97,7 @@ public:
     bool isValidADIFField(const QString &_b);
     bool isValidQSL_Rcvd(const QString &c);
     bool isValidQSL_Sent(const QString &c);
+    bool isValidUpload_Status(const QString &c);
 
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);

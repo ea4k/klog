@@ -321,7 +321,7 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
-    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << endl;
+    qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     clear();
     emit clearForNextQSOSignal();
@@ -333,6 +333,7 @@ void MainQSOEntryWidget::slotClearButtonClicked()
 void MainQSOEntryWidget::clear()
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    qDebug() << Q_FUNC_INFO << endl;
     cleaning = true;
 
     OKButton->setText(tr("&Add"));
@@ -553,14 +554,14 @@ bool MainQSOEntryWidget::setMode(const QString &_mode)
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "MainQSOEntryWidget::setQRZ: " << _qrz << endl;
+    qDebug() << "MainQSOEntryWidget::setQRZ: " << _qrz << endl;
     //TODO: Add validations to prevent that non valid qrz are sent from the outside of this function or at least manage this appropriately.
     qrzLineEdit->setText(_qrz.toUpper());
     emit debugLog(Q_FUNC_INFO, "END", Debug);
     return false;
 }
 
-bool MainQSOEntryWidget::setDate(const QDateTime _date)
+bool MainQSOEntryWidget::setDateTime(const QDateTime _date)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     if (_date.isValid())
@@ -686,6 +687,11 @@ void MainQSOEntryWidget::toggleRealTime()
     else {
         setRealTime (true);
     }
+}
+
+bool MainQSOEntryWidget::getRealTime()
+{
+    return realtimeCheckBox->isChecked ();
 }
 
 void MainQSOEntryWidget::setRealTime(const bool _realTime)

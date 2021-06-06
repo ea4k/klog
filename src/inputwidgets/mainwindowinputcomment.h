@@ -42,6 +42,8 @@ public:
     void setData(const QString &_comment);
     QString getComment();
     void clear();
+    void setKeep(const bool _b);
+    bool getKeep();
 
 private:
     QString comment;

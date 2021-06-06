@@ -362,3 +362,13 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
     }
     stationCallSignLineEdit->setCursorPosition(cursorP);
 }
+
+void MainWindowMyDataTab::setKeep(const bool _b)
+{
+    keepThisDataForNextQSORadiobutton->setChecked (_b);
+}
+
+bool MainWindowMyDataTab::getKeep()
+{
+    return keepThisDataForNextQSORadiobutton->isChecked ();
+}

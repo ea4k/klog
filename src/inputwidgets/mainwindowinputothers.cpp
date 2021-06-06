@@ -183,21 +183,21 @@ void MainWindowInputOthers::setEntity(const int _ent)
     {
         aux = (QString::number(_ent)).right(3);
     }
-    QString pref = QString();
 
-    //pref = world->getEntityMainPrefix(_ent);
-    //pref = world->getEntityName(_ent);
-    pref = dataProxy->getEntityNameFromId(_ent);
+    QString pref = dataProxy->getEntityNameFromId(_ent);
 
-    //int indexC = entityNameComboBox->findText(pref, Qt::MatchContains);
-       //qDebug() << "MainWindow::selectCorrectEntity: aux to the findText: " << aux << endl;
-    //int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchContains);
+    //int indexC = entityNameComboBox->f
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
 
        //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
 
+}
+
+int MainWindowInputOthers::getEntity()
+{
+    return ((entityNameComboBox->currentText()).split('(').at(1).chopped (1)).toInt ();
 }
 
 QString MainWindowInputOthers::getEntityPrefix()
@@ -402,4 +402,15 @@ void MainWindowInputOthers::slotPropModeComboBoxChanged()
     }
     emit setPropMode(getPropModeFromComboBox());
 
+}
+
+
+void MainWindowInputOthers::setKeep(const bool _b)
+{
+    keepPropCheckBox->setChecked (_b);
+}
+
+bool MainWindowInputOthers::getKeep()
+{
+    return keepPropCheckBox->isChecked ();
 }

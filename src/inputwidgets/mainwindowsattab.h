@@ -64,7 +64,8 @@ public:
     void setLocator(const QString &_t);
     void refreshData();
     void setModifying (const bool _m);
-
+    void setKeep(const bool _b);
+    bool getKeep();
     void clear();
 
 
