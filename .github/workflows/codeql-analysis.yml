@@ -68,7 +68,7 @@ jobs:
     #   make release
 
     - run:
-        make KLog.pro
+        qmake KLog.pro
         make
         
     - name: Perform CodeQL Analysis
