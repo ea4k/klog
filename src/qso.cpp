@@ -73,7 +73,8 @@ void QSO::clear()
     RST_rx = QString();
     RST_tx = QString();
     dxcc = -1;
-    propMode.clear();
+    propMode = QString();
+    iota = QString();
 
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
@@ -157,21 +158,6 @@ QString QSO::getCall()
     return callsign;
 }
 
-bool QSO::setDXCC(const int _i)
-{
-    if (util->isValidDXCC(_i))
-    {
-        dxcc = _i;
-        return true;
-    }
-    return false;
-
-}
-
-int QSO::getDXCC()
-{
-    return dxcc;
-}
 
 bool QSO::setStationCallsign(const QString &_c)
 {
@@ -760,24 +746,6 @@ QString QSO::getSatName()
     return satName;
 }
 
-bool QSO::setPropMode(const QString &_c)
-{
-    if (_c.length()>0)
-    {
-        propMode = _c;
-        return true;
-    }
-    else
-    {
-        propMode = QString();
-        return false;
-    }
-}
-
-QString QSO::getPropMode()
-{
-    return propMode;
-}
 void QSO::setLoTWUpdating(bool _lotw)
 {
     lotwUpdating = _lotw;
@@ -913,6 +881,7 @@ QString QSO::getComment()
 bool QSO::setKeepComment(bool _k)
 {
     keepComment = _k;
+    return true;
 }
 
 bool QSO::getKeepComment()
@@ -920,6 +889,75 @@ bool QSO::getKeepComment()
     return keepComment;
 }
 
+// Other Tab
+bool QSO::setDXCC(const int _i)
+{
+    if (util->isValidDXCC(_i))
+    {
+        dxcc = _i;
+        return true;
+    }
+    return false;
+
+}
+
+int QSO::getDXCC()
+{
+    return dxcc;
+}
+
+bool QSO::setPropMode(const QString &_c)
+{
+    if (_c.length()>0)
+    {
+        propMode = _c;
+        return true;
+    }
+    else
+    {
+        propMode = QString();
+        return false;
+    }
+}
+
+QString QSO::getPropMode()
+{
+    return propMode;
+}
+
+bool QSO::setIOTA(const QString &_c)
+{
+    if (_c.length()>0)
+    {
+        iota = _c;
+        return true;
+    }
+    else
+    {
+        iota = QString();
+        return false;
+    }
+}
+
+QString QSO::getIOTA()
+{
+    return iota;
+}
+
+bool QSO::setKeepOthers(bool _k)
+{
+    keepOther = _k;
+    return true;
+}
+
+bool QSO::getKeepOthers()
+{
+    return keepOther;
+}
+
+// My Data
+
+// SatTab
 
 bool QSO::setData(const QString &_adifPair)
 {

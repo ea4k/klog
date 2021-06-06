@@ -8507,6 +8507,17 @@ void MainWindow::backupCurrentQSO()
     // MainWindowInputComment
     qso->setComment (commentTabWidget->getComment ());
     qso->setKeepComment (commentTabWidget->getKeep ());
+    // MainWindowInputOthers
+    qso->setDXCC (othersTabWidget->getEntity ());
+    qso->setIOTA (othersTabWidget->getIOTA ());
+    qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
+    qso->setKeepOthers (othersTabWidget->getKeep ());
+
+
+
+    // MainWindowMYDataTab
+    //MainWindowSatTab
+
 
 }
 

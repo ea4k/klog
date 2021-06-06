@@ -151,15 +151,23 @@ public:
     int getDXCC();
     bool setPropMode(const QString &_c);
     QString getPropMode();
+    bool setIOTA(const QString &_c);
+    QString getIOTA();
+    bool setKeepOthers(bool _k);
+    bool getKeepOthers();
 
     // My data Tab
+    bool setKeepMyData(bool _k);
+    bool getKeepMyData();
+
 
     // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
     bool setStationCallsign(const QString &_c);
     QString getStationCallsign();
-
+    bool setKeepSatTab(bool _k);
+    bool getKeepSatTab();
 
 
 
@@ -186,7 +194,9 @@ private:
     QString QRZCom_status;
     QDate QRZComDate;
     QString comment;
-    bool keepComment;
+    bool keepComment, keepOther;
+
+    QString iota;
 
     Utilities *util;
 

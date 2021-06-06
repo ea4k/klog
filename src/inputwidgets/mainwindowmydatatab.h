@@ -73,6 +73,9 @@ public:
 
     void show(); //Shows the values into the widget
     void clear();
+    void setKeep(const bool _b);
+    bool getKeep();
+
 signals:
     void myLocChangedSignal(const QString _q); // MyLocator once updated
     void returnPressed();
