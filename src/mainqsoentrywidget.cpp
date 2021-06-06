@@ -560,7 +560,7 @@ bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
     return false;
 }
 
-bool MainQSOEntryWidget::setDate(const QDateTime _date)
+bool MainQSOEntryWidget::setDateTime(const QDateTime _date)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     if (_date.isValid())

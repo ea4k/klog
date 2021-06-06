@@ -1118,6 +1118,10 @@ bool QSO::setData(const QString &_adifPair)
     {
         setQSL_RCVD(data);
     }
+    else if (field == "SAT_MODE")
+    {
+        setSatMode(data);
+    }
     else if (field == "SAT_NAME")
     {
         setSatName(data);
@@ -1138,9 +1142,17 @@ bool QSO::setData(const QString &_adifPair)
     {
        setStationCallsign(data);
     }
+    else if (field == "OPERATOR")
+    {
+       setOperatorCallsign (data);
+    }
     else if (field == "GRIDSQUARE")
     {
         setGridSquare(data);
+    }
+    else if (field == "MYGRIDSQUARE")
+    {
+        setMyGridSquare(data);
     }
     else if (field == "APP_LOTW_RXQSL")
     {

@@ -6590,7 +6590,7 @@ void MainWindow::qsoToEdit (const int _qso)
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
       //qDebug() << "MainWindow::qsoToEdit - date: " << aux1 << endl;
-    mainQSOEntryWidget->setDate(util->getDateTimeFromSQLiteString(aux1));
+    mainQSOEntryWidget->setDateTime(util->getDateTimeFromSQLiteString(aux1));
     //mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
     dateTimeTemp->setDate(util->getDateFromSQliteString(aux1));
 
@@ -8529,7 +8529,68 @@ void MainWindow::backupCurrentQSO()
 
 void MainWindow::restoreCurrentQSO()
 { // This function restores a QSO that was backed up to the UI.
+    // MainQSOEntryWidget
+    slotClearButtonClicked ();
+    mainQSOEntryWidget->setQRZ (qso->getCall ());
+    mainQSOEntryWidget->setBand (qso->getBand ());
+    mainQSOEntryWidget->setMode (qso->getMode ());
+    mainQSOEntryWidget->setDateTime (qso->getDateTimeOn ());
+    mainQSOEntryWidget->setRealTime (qso->getRealTime ());
 
+    //  MainWindowInputQSO
+    QSOTabWidget->setRSTRX (qso->getRSTRX ());
+    QSOTabWidget->setRSTTX (qso->getRSTTX ());
+    QSOTabWidget->setTXFreq (qso->getFreqTX ());
+    QSOTabWidget->setRXFreq (qso->getFreqRX ());
+    QSOTabWidget->setDXLocator (qso->getGridSquare ());
+    QSOTabWidget->setName (qso->getName ());
+    QSOTabWidget->setQTH (qso->getQTH ());
+    QSOTabWidget->setRXPwr (qso->getRXPwr ());
+    // MainWindowInputQSL
+    QSLTabWidget->setQSLSenStatus (qso->getQSL_SENT ());
+    QSLTabWidget->setQSLRecStatus (qso->getQSL_RCVD ());
+    QSLTabWidget->setQSLRecDate (qso->getQSLRDate ());
+    QSLTabWidget->setQSLSenDate (qso->getQSLSDate ());
+    QSLTabWidget->setQSLSenVia (qso->getSentVia ());
+    QSLTabWidget->setQSLRecVia (qso->getRecVia ());
+    QSLTabWidget->setQSLVia (qso->getQSLVia ());
+    QSLTabWidget->setQSLMsg (qso->getQSLMsg ());
+
+    // MainWindowInputEQSL
+    eQSLTabWidget->setClubLogStatus (qso->getClubLogStatus ());
+    eQSLTabWidget->setClubLogDate (qso->getClubLogDate ());
+    eQSLTabWidget->setEQSLSenStatus (qso->getEQSLQSL_SENT ());
+    eQSLTabWidget->setEQSLSenDate (qso->getEQSLQSLSDate ());
+    eQSLTabWidget->setEQSLRecStatus (qso->getEQSLQSL_RCVD ());
+    eQSLTabWidget->setEQSLRecDate (qso->getEQSLQSLRDate ());
+    eQSLTabWidget->setLOTWSenStatus (qso->getLoTWQSL_SENT ());
+    eQSLTabWidget->setLOTWSenDate (qso->getLoTWQSLSDate ());
+    eQSLTabWidget->setLOTWRecStatus (qso->getLoTWQSL_RCVD ());
+    eQSLTabWidget->setLOTWRecDate (qso->getLoTWQSLRDate ());
+    eQSLTabWidget->setQRZCOMStatus (qso->getQRZCOMStatus ());
+    eQSLTabWidget->setQRZCOMDate (qso->getQRZCOMDate ());
+
+
+    // MainWindowInputComment
+    qso->setComment (commentTabWidget->getComment ());
+    qso->setKeepComment (commentTabWidget->getKeep ());
+    // MainWindowInputOthers
+    qso->setDXCC (othersTabWidget->getEntity ());
+    qso->setIOTA (othersTabWidget->getIOTA ());
+    qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
+    qso->setKeepOthers (othersTabWidget->getKeep ());
+
+    // MainWindowMyDataTab
+    qso->setTXPwr (myDataTabWidget->getMyPower ());
+    qso->setOperatorCallsign (myDataTabWidget->getOperator ());
+    qso->setStationCallsign (myDataTabWidget->getStationQRZ ());
+    qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
+    qso->setKeepMyData (myDataTabWidget->getKeep ());
+
+    //MainWindowSatTab
+    qso->setSatName (satTabWidget->getSatName ());
+    qso->setSatMode (satTabWidget->getSatMode ());
+    qso->setKeepSatTab (satTabWidget->getKeep ());
 }
 
 void MainWindow::setSeverity(const DebugLogLevel _sev)
