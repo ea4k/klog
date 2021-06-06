@@ -171,7 +171,8 @@ public:
     // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
-
+    bool setSatMode(const QString &_c);
+    QString getSatMode();
     bool setKeepSatTab(bool _k);
     bool getKeepSatTab();
 
@@ -185,7 +186,7 @@ private:
 
 
 
-    QString satName, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
+    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
     int qsoId, logId, dxcc;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
@@ -200,7 +201,7 @@ private:
     QString QRZCom_status;
     QDate QRZComDate;
     QString comment;
-    bool keepComment, keepOther, keepMyData;
+    bool keepComment, keepOther, keepMyData, keepSat;
 
     QString iota;
 

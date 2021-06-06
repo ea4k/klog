@@ -8521,7 +8521,9 @@ void MainWindow::backupCurrentQSO()
     qso->setKeepMyData (myDataTabWidget->getKeep ());
 
     //MainWindowSatTab
-
+    qso->setSatName (satTabWidget->getSatName ());
+    qso->setSatMode (satTabWidget->getSatMode ());
+    qso->setKeepSatTab (satTabWidget->getKeep ());
 
 }
 

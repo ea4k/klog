@@ -38,7 +38,7 @@ void QSO::clear()
 {
     qsoId = -1;
     logId = -1;
-    satName = QString();
+
     callsign = QString();
     stationCallsign = QString();
     operatorCall = QString();
@@ -85,9 +85,12 @@ void QSO::clear()
     realTime = false;
 
     comment = QString();
+    satName = QString();
+    satMode = QString();
     keepComment = false;
     keepMyData = false;
     keepOther = false;
+    keepSat = false;
 
 
 }
@@ -711,28 +714,6 @@ QString QSO::getQSLMsg()
 }
 
 
-
-
-
-bool QSO::setSatName(const QString &_c)
-{
-    if (_c.length()>0)
-    {
-        satName = _c;
-        return true;
-    }
-    else
-    {
-        satName = QString();
-        return false;
-    }
-}
-
-QString QSO::getSatName()
-{
-    return satName;
-}
-
 void QSO::setLoTWUpdating(bool _lotw)
 {
     lotwUpdating = _lotw;
@@ -1024,7 +1005,65 @@ bool QSO::getKeepMyData()
 }
 
 
-// SatTab
+
+// Satellite Tab
+
+
+bool setKeepSatTab(bool _k);
+bool getKeepSatTab();
+
+
+bool QSO::setSatName(const QString &_c)
+{
+    if (_c.length()>0)
+    {
+        satName = _c;
+        return true;
+    }
+    else
+    {
+        satName = QString();
+        return false;
+    }
+}
+
+QString QSO::getSatName()
+{
+    return satName;
+}
+
+bool QSO::setSatMode(const QString &_c)
+{
+    if (_c.length()>0)
+    {
+        satMode = _c;
+        return true;
+    }
+    else
+    {
+        satMode = QString();
+        return false;
+    }
+}
+
+QString QSO::getSatMode()
+{
+    return satMode;
+}
+
+bool QSO::setKeepSatTab(bool _k)
+{
+    keepSat = _k;
+    return true;
+}
+
+bool QSO::getKeepSatTab()
+{
+    return keepSat;
+}
+
+
+// SET DATA
 
 bool QSO::setData(const QString &_adifPair)
 {
