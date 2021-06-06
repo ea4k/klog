@@ -34,9 +34,11 @@ QSO::~QSO()
 {
     clear();
 }
+
 void QSO::clear()
 {
     //qDebug() << Q_FUNC_INFO;
+
     qsoId = -1;
     logId = -1;
     backup = false;
@@ -92,8 +94,6 @@ void QSO::clear()
     keepMyData = false;
     keepOther = false;
     keepSat = false;
-
-
 }
 
 void QSO::setBackup(const bool _rt)
@@ -118,6 +118,7 @@ bool QSO::setQSOid(const int _i)
         return false;
     }
 }
+
 int QSO::getQSOid()
 {
     return qsoId;
@@ -344,8 +345,6 @@ double QSO::getFreqRX()
     return freq_rx;
 }
 
-
-
 // eQSL Tab
 
 bool QSO::setClubLogStatus(const QString &_c)
@@ -436,6 +435,7 @@ bool QSO::setEQSLQSL_RCVD(const QString &_c)
         return false;
     }
 }
+
 QString QSO::getEQSLQSL_RCVD()
 {
     return eqsl_qsl_rcvd;
@@ -507,9 +507,8 @@ bool QSO::setLoTWQSL_SENT(const QString &_c)
         return false;
     }
 }
-QString QSO::getLoTWQSL_SENT()
 
-{
+QString QSO::getLoTWQSL_SENT() {
     return lotw_qsl_sent;
 }
 
@@ -569,7 +568,6 @@ bool QSO::setLoTWQSLRDate(const QDate &_c)
         return false;
     }
 }
-
 
 QDate QSO::getLoTWQSLRDate()
 {
@@ -704,8 +702,6 @@ QDate QSO::getQSLRDate()
     return QSLRDate;
 }
 
-
-
 bool QSO::setQSLMsg(const QString _qs)
 {
     if (!_qs.isEmpty ())
@@ -723,7 +719,6 @@ QString QSO::getQSLMsg()
 {
     return qslMsg;
 }
-
 
 void QSO::setLoTWUpdating(bool _lotw)
 {
@@ -747,7 +742,6 @@ QString QSO::getGridSquare()
 {
     return gridsquare;
 }
-
 
 bool QSO::setQTH(const QString &_c)
 {
@@ -1015,14 +1009,10 @@ bool QSO::getKeepMyData()
     return keepMyData;
 }
 
-
-
 // Satellite Tab
-
-
 bool setKeepSatTab(bool _k);
-bool getKeepSatTab();
 
+bool getKeepSatTab();
 
 bool QSO::setSatName(const QString &_c)
 {
@@ -1073,9 +1063,7 @@ bool QSO::getKeepSatTab()
     return keepSat;
 }
 
-
 // SET DATA
-
 bool QSO::setData(const QString &_adifPair)
 {
     //qDebug() << "QSO::setData: " << _adifPair << endl;

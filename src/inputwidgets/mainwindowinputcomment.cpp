@@ -84,3 +84,13 @@ void MainWindowInputComment::clear()
         commentLineEdit->clear();
     }
 }
+
+void MainWindowInputComment::setKeep(const bool _b)
+{
+    keepThisDataForNextQSORadiobutton->setChecked (_b);
+}
+
+bool MainWindowInputComment::getKeep()
+{
+    return keepThisDataForNextQSORadiobutton->isChecked ();
+}

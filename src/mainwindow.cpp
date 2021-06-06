@@ -1936,11 +1936,6 @@ QString MainWindow::readDataFromUIDXModifying()
         {}
     }
 
-
-
-    /**/
-
-
     QString updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', rst_sent = '" + trsttx + "', rst_rcvd = '" + trstrx + "', lognumber = '" + QString::number(currentLog) + "', ";
 
     aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
@@ -2612,13 +2607,7 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
     {
         return; // NO QSO TO EXPORT
     }
-   /*
-     int i=0;
-    foreach(i, _id)
-    {
-          //qDebug() << "MainWindow::slotQSOsExportToADIFF " << QString::number(i)  << endl;
-    }
-    */
+
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
       //qDebug() << "MainWindow::slotQSOsExportToADIF: " << fileName << endl;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
@@ -3269,24 +3258,6 @@ void MainWindow::exitQuestion()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-/*
-bool MainWindow::validCharactersInCall(const QString &_qrz)
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    for (int i = 0; i<_qrz.size();i++)
-    {
-        if (!( ((_qrz.at(i)).isLetterOrNumber()) || (_qrz.at(i)=='\\')  || (_qrz.at(i)=='/')  ))
-        {
-            logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-            return false;
-        }
-
-    }
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    return true;
-}
-*/
-
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
     //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
@@ -3437,41 +3408,6 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //qDebug() << "MainWindow::slotQRZTextChanged: END" << endl;
 }
 
-/*
-void MainWindow::slotQRZSpacePressed()
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-                 //qDebug() << "MainWindow::slotQRZSpacePressed: "  << endl;
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-*/
-
-/*
-void MainWindow::slotrstTXTextChanged()
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-
-void MainWindow::slotrstRXTextChanged()
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-*/
-/*
-
-void MainWindow::slotSpotItButtonClicked()
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (!dxClusterWidget->isConnected())
-    {
-        logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-        return;
-    }
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-*/
 void MainWindow::setCleaning(const bool _c)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -3695,13 +3631,6 @@ void MainWindow::createMenusCommon()
     //LoTWImport->setToolTip(tr("Import an LoTW file into the current log"));
 
     fileMenu->addSeparator();
-    /*
-    saveAct = new QAction(tr("&Save As ..."), this);
-    fileMenu->addAction(saveAct);
-    saveAct->setShortcut(Qt::CTRL + Qt::Key_S);
-    connect(saveAct, SIGNAL(triggered()), this, SLOT(saveFileAs()));
-    */
-
     fileMenu->addSeparator();
 
     ADIFExport = new QAction(tr("Export to ADIF ..."), this);
@@ -4580,7 +4509,9 @@ void MainWindow::openSetup(const int _page)
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-    //qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
+
+    qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
+
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
@@ -4602,22 +4533,30 @@ void MainWindow::slotSetupDialogFinished (const int _s)
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << endl;
         dataProxy->reconnectDB();
         logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
+
         //qDebug() << "MainWindow::openSetup: after db->reConnect" << endl;
+
+
         if (hamlibActive)
         {
              //qDebug() << "MainWindow::slotSetupDialogFinished: Hamlib is active, let's read the VFO Freq/Mode" << endl;
         }
+
     }
     else
     {
-         //qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
+         qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
     }
 
+    if (qso->getBackup ())
+    {
+        qDebug() << "MainWindow::slotSetupDialogFinished: Restoring..." << endl;
+        restoreCurrentQSO ();
+    }
     else
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
+        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
     }
-
     //qDebug() << "MainWindow::slotSetupDialogFinished: - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -8514,9 +8453,9 @@ void MainWindow::backupCurrentQSO()
 void MainWindow::restoreCurrentQSO()
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
-    //qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     clearUIDX ();
-    //qDebug() << Q_FUNC_INFO << ": " << qso->getCall ();
+
     mainQSOEntryWidget->setQRZ (qso->getCall ());
     mainQSOEntryWidget->setBand (qso->getBand ());
     mainQSOEntryWidget->setMode (qso->getMode ());
@@ -8577,7 +8516,9 @@ void MainWindow::restoreCurrentQSO()
     satTabWidget->setSatName (qso->getSatName ());
     satTabWidget->setSatMode (qso->getSatMode ());
     satTabWidget->setKeep (qso->getKeepSatTab ());
-    //qDebug() << Q_FUNC_INFO << " - END";
+
+    qDebug() << Q_FUNC_INFO << " - END";
+
 }
 
 void MainWindow::setSeverity(const DebugLogLevel _sev)

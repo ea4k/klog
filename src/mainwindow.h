@@ -85,6 +85,7 @@
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
 //#include "worldmapwidget.h"
 #include "widgets/showkloglogwidget.h"
+#include "qso.h"
 
 
 class QTimer;
@@ -325,6 +326,8 @@ private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
 private:
     //void setWidgetsOrder();
+    void backupCurrentQSO();
+    void restoreCurrentQSO();
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
     void cleanQRZCOMreceivedDataFromUI();
     void saveWindowsSize();
@@ -346,6 +349,8 @@ private:
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
+    QSO *qso;
+
     bool hamlibActive;
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;

@@ -878,3 +878,13 @@ QString MainWindowSatTab::bandToLetter(const QString _band)
    }
    return letter;
 }
+
+void MainWindowSatTab::setKeep(const bool _b)
+{
+    keepThisDataForNextQSOQcheckbox->setChecked (_b);
+}
+
+bool MainWindowSatTab::getKeep()
+{
+    return keepThisDataForNextQSOQcheckbox->isChecked ();
+}
