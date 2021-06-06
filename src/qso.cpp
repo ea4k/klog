@@ -43,19 +43,47 @@ void QSO::clear()
     stationCallsign.clear();
     band = QString();
     mode = QString();
+
+    qsl_rcvd = QString();
+    qsl_sent = QString();
+    QSLRDate = QDate();
+    QSLSDate = QDate();
+    qslSenVia = QString();
+    qslRecVia = QString();
+    qslVia = QString();
+    qslMsg = QString();
+
+    clublog_status = QString();
+    clublogDate = QDate();
+    eqsl_qsl_sent = QString();
+    eqsl_qsl_rcvd = QString();
+    eQSLRDate = QDate();
+    eQSLSDate = QDate();
+    QRZCom_status = QString();
+    QRZComDate = QDate();
+
     lotw_qsl_sent = QString();
     lotw_qsl_rcvd = QString();
     gridsquare = QString();
-    freq = -1.0;
+    qth = QString();
+    name = QString();
+    freq_tx = -1.0;
     freq_rx = -1.0;
+    pwr_rx = 0.0;
+    RST_rx = QString();
+    RST_tx = QString();
     dxcc = -1;
     propMode.clear();
-    qsl_rcvd = QChar();
-    QSLRDate = QDate();
+
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
     qso_dateTime = QDateTime();
     lotwUpdating = false;
+    realTime = false;
+
+    comment = QString();
+    keepComment = false;
+
 }
 
 bool QSO::setQSOid(const int _i)
@@ -139,6 +167,7 @@ bool QSO::setDXCC(const int _i)
     return false;
 
 }
+
 int QSO::getDXCC()
 {
     return dxcc;
@@ -270,7 +299,7 @@ QDateTime QSO::getDateTimeOn()
     return qso_dateTime;
 }
 
-bool QSO::setDateTime(const QDateTime &_c)
+bool QSO::setDateTimeOn(const QDateTime &_c)
 {
     if (_c.isValid())
     {
@@ -283,11 +312,22 @@ bool QSO::setDateTime(const QDateTime &_c)
     }
 }
 
-bool QSO::setFreq(const float _f)
+void QSO::setRealTime(const bool _rt)
+{
+    realTime = _rt;
+}
+
+bool QSO::getRealTime()
+{
+    return realTime;
+}
+
+
+double QSO::setFreqTX(const double _f)
 {
     if (_f>0)
     {
-        freq = _f;
+        freq_tx = _f;
         return true;
     }
     else {
@@ -295,7 +335,7 @@ bool QSO::setFreq(const float _f)
     }
 }
 
-bool QSO::setFreqRX(const float _f)
+bool QSO::setFreqRX(const double _f)
 {
     if (_f>0)
     {
@@ -306,20 +346,119 @@ bool QSO::setFreqRX(const float _f)
         return false;
     }
 }
-float QSO::getFreq()
+
+double QSO::getFreqTX()
 {
-    return freq;
+    return freq_tx;
 }
-float QSO::getFreqRX()
+
+double QSO::getFreqRX()
 {
     return freq_rx;
 }
 
-bool QSO::setQSL_RCVD(const QString &_c)
+
+
+// eQSL Tab
+
+bool QSO::setClubLogStatus(const QString &_c)
+{
+    if (util->isValidUpload_Status (_c))
+    {
+        clublog_status = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getClubLogStatus()
+{
+    return clublog_status;
+}
+
+bool QSO::setClubLogDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        clublogDate = _c;
+        return true;
+    }
+    else
+    {
+        clublogDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getClubLogDate()
+{
+    return clublogDate;
+}
+
+bool QSO::setQRZCOMStatus(const QString &_c)
+{
+    {
+        if (util->isValidUpload_Status (_c))
+        {
+            QRZCom_status = _c;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+QString QSO::getQRZCOMStatus()
+{
+    return QRZCom_status;
+}
+
+bool QSO::setQRZCOMDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        clublogDate = _c;
+        return true;
+    }
+    else
+    {
+        clublogDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getQRZCOMDate()
+{
+    return QRZComDate;
+}
+
+bool QSO::setEQSLQSL_RCVD(const QString &_c)
 {
     if (util->isValidQSL_Rcvd(_c))
     {
-        qsl_rcvd = _c;
+        eqsl_qsl_rcvd = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+QString QSO::getEQSLQSL_RCVD()
+{
+    return eqsl_qsl_rcvd;
+}
+
+bool QSO::setEQSLQSL_SENT(const QString &_c)
+{
+    if (util->isValidQSL_Sent(_c))
+    {
+        eqsl_qsl_sent = _c;
         return true;
     }
     else {
@@ -327,9 +466,83 @@ bool QSO::setQSL_RCVD(const QString &_c)
     }
 }
 
-QString QSO::getQSL_RCVD()
+QString QSO::getEQSLQSL_SENT()
 {
-    return qsl_rcvd;
+    return eqsl_qsl_sent;
+}
+
+bool QSO::setEQSLQSLRDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        eQSLRDate = _c;
+        return true;
+    }
+    else
+    {
+        eQSLRDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getEQSLQSLRDate()
+{
+    return eQSLRDate;
+}
+
+bool QSO::setEQSLQSLSDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        eQSLSDate = _c;
+        return true;
+    }
+    else
+    {
+        eQSLSDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getEQSLQSLSDate()
+{
+    return eQSLSDate;
+}
+
+bool QSO::setLoTWQSL_SENT(const QString &_c)
+{
+    if (util->isValidQSL_Sent(_c))
+    {
+        lotw_qsl_sent = _c;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+QString QSO::getLoTWQSL_SENT()
+
+{
+    return lotw_qsl_sent;
+}
+
+bool QSO::setLoTWQSLSDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        QSLLoTWSDate = _c;
+        return true;
+    }
+    else
+    {
+        QSLLoTWSDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getLoTWQSLSDate()
+{
+    return QSLLoTWSDate;
 }
 
 bool QSO::setLoTWQSL_RCVD(const QString &_c)
@@ -347,25 +560,10 @@ bool QSO::setLoTWQSL_RCVD(const QString &_c)
         return false;
     }
 }
+
 QString QSO::getLoTWQSL_RCVD()
 {
     return lotw_qsl_rcvd;
-}
-bool QSO::setLoTWQSL_SENT(const QString &_c)
-{
-    if (util->isValidQSL_Sent(_c))
-    {
-        lotw_qsl_sent = _c;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-QString QSO::getLoTWQSL_SENT()
-
-{
-    return lotw_qsl_sent;
 }
 
 bool QSO::setLoTWQSLRDate(const QDate &_c)
@@ -385,28 +583,119 @@ bool QSO::setLoTWQSLRDate(const QDate &_c)
     }
 }
 
+
 QDate QSO::getLoTWQSLRDate()
 {
     return QSLLoTWRDate;
 }
 
-bool QSO::setLoTWQSLSDate(const QDate &_c)
+// QSL TAB
+bool QSO::setQSL_SENT(const QString &_c)
 {
-    if (_c.isValid())
+    if (util->isValidQSL_Sent (_c))
     {
-        QSLLoTWSDate = _c;
+        qsl_sent = _c;
         return true;
     }
     else
     {
-        QSLLoTWSDate = QDate();
         return false;
     }
 }
 
-QDate QSO::getLoTWQSLSDate()
+QString QSO::getQSL_SENT()
 {
-    return QSLRDate;
+    return qsl_sent;
+}
+
+bool QSO::setQSLSDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        QSLSDate = _c;
+        return true;
+    }
+    else
+    {
+        QSLSDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getQSLSDate()
+{
+    return QSLSDate;
+}
+
+bool QSO::setQSL_RCVD(const QString &_c)
+{
+    if (util->isValidQSL_Rcvd(_c))
+    {
+        qsl_rcvd = _c;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+QString QSO::getQSL_RCVD()
+{
+    return qsl_rcvd;
+}
+
+bool QSO::setQSLSenVia(const QString _qs)
+{
+    if (!_qs.isEmpty ())
+    {
+        qslSenVia = _qs;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getSentVia()
+{
+    return qslSenVia;
+}
+
+bool QSO::setQSLRecVia(const QString _qs)
+{
+    if (!_qs.isEmpty ())
+    {
+        qslRecVia = _qs;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getRecVia()
+{
+    return qslRecVia;
+}
+
+bool QSO::setQSLVia(const QString _qs)
+{
+    if (!_qs.isEmpty ())
+    {
+        qslVia = _qs;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getQSLVia()
+{
+    return qslVia;
 }
 
 bool QSO::setQSLRDate(const QDate &_c)
@@ -427,6 +716,30 @@ QDate QSO::getQSLRDate()
 {
     return QSLRDate;
 }
+
+
+
+bool QSO::setQSLMsg(const QString _qs)
+{
+    if (!_qs.isEmpty ())
+    {
+        qslMsg = _qs;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getQSLMsg()
+{
+    return qslMsg;
+}
+
+
+
+
 
 bool QSO::setSatName(const QString &_c)
 {
@@ -475,7 +788,7 @@ bool QSO::setGridSquare(const QString &_c)
     if (util->isValidGrid(_c))
     {
         gridsquare = _c;
-        return false;
+        return true;
     }
     else
     {
@@ -487,6 +800,126 @@ QString QSO::getGridSquare()
 {
     return gridsquare;
 }
+
+
+bool QSO::setQTH(const QString &_c)
+{
+    if (!_c.isEmpty ())
+    {
+        qth = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getQTH()
+{
+    return qth;
+}
+
+bool QSO::setName(const QString &_c)
+{
+    if (!_c.isEmpty ())
+    {
+        name = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getName()
+{
+    return name;
+}
+
+bool QSO::setRSTRX(const QString &_c)
+{
+    if (!_c.isEmpty ())
+    {
+        RST_rx = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getRSTRX()
+{
+    return RST_rx;
+}
+
+bool QSO::setRSTTX(const QString &_c)
+{
+    if (!_c.isEmpty ())
+    {
+        RST_tx = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getRSTTX()
+{
+    return RST_tx;
+}
+
+bool QSO::setRXPwr(const double _f)
+{
+    if (_f>0)
+    {
+        pwr_rx = _f;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+double QSO::getRXPwr()
+{
+    return pwr_rx;
+}
+
+// Comment Tab
+bool QSO::setComment(const QString &_c)
+{
+    if (!_c.isNull ())
+    {
+        comment = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getComment()
+{
+    return comment;
+}
+
+bool QSO::setKeepComment(bool _k)
+{
+    keepComment = _k;
+}
+
+bool QSO::getKeepComment()
+{
+    return keepComment;
+}
+
 
 bool QSO::setData(const QString &_adifPair)
 {
@@ -527,11 +960,11 @@ bool QSO::setData(const QString &_adifPair)
     }
     else if (field == "FREQ")
     {
-        setFreq(data.toFloat());
+        setFreqTX (data.toDouble());
     }
     else if (field == "FREQ_RX")
     {
-        setFreqRX(data.toFloat());
+        setFreqRX(data.toDouble());
     }
     else if (field == "QSLRDATE")
     {

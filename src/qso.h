@@ -45,14 +45,22 @@ public:
     bool isValid();
     void setLoTWUpdating(bool _lotw);
 
+    bool setCall(const QString &_c);
+    QString getCall();
+    bool setBand(const QString &_c);
+    QString getBand();
+    bool setMode(const QString &_c);
+    QString getMode();
     bool setDate(const QDate &_c);
     QDate getDate();
 
     bool setTimeOn(const QTime &_c);
     QTime getTimeOn();
-
     QDateTime getDateTimeOn();
-    bool setDateTime(const QDateTime &_c);
+    bool setDateTimeOn(const QDateTime &_c);
+
+    void setRealTime(const bool _rt);
+    bool getRealTime();
 
     bool setQSOid(const int _i);
     int getQSOid();
@@ -60,30 +68,63 @@ public:
     bool setLogId(const int _i);
     int getLogId();
 
-    bool setBand(const QString &_c);
-    QString getBand();
+
     bool setBandRX(const QString &_c);
     QString getBandRX();
 
-    bool setMode(const QString &_c);
-    QString getMode();
 
-    bool setCall(const QString &_c);
-    QString getCall();
+    bool setRSTTX(const QString &_c);
+    QString getRSTTX();
+    bool setRSTRX(const QString &_c);
+    QString getRSTRX();
+    double setFreqTX(const double _f);
+    bool setFreqRX(const double _f);
+    double getFreqTX();
+    double getFreqRX();
+    bool setQTH(const QString &_c);
+    QString getQTH();
+    bool setGridSquare(const QString &_c);
+    QString getGridSquare();
+    bool setName(const QString &_c);
+    QString getName();
+    bool setRXPwr(const double _f);
+    double getRXPwr();
 
-    bool setDXCC(const int _i);
-    int getDXCC();
-
-    bool setFreq(const float _f);
-    bool setFreqRX(const float _f);
-    float getFreq();
-    float getFreqRX();
+    // QSL TAB
+    bool setQSL_SENT(const QString &_c);
+    QString getQSL_SENT();
+    bool setQSLSDate(const QDate &_c);
+    QDate getQSLSDate();
+    bool setQSLSenVia(const QString _qs);
+    QString getSentVia();
 
     bool setQSL_RCVD(const QString &_c);
     QString getQSL_RCVD();
-
     bool setQSLRDate(const QDate &_c);
     QDate getQSLRDate();
+    bool setQSLRecVia(const QString _qs);
+    QString getRecVia();
+
+    bool setQSLVia(const QString _qs);
+    QString getQSLVia();
+    bool setQSLMsg(const QString _qs);
+    QString getQSLMsg();
+
+
+    // eQSL tab
+    bool setClubLogStatus(const QString &_c);
+    QString getClubLogStatus();
+    bool setClubLogDate(const QDate &_c);
+    QDate getClubLogDate();
+
+    bool setEQSLQSL_RCVD(const QString &_c);
+    QString getEQSLQSL_RCVD();
+    bool setEQSLQSL_SENT(const QString &_c);
+    QString getEQSLQSL_SENT();
+    bool setEQSLQSLRDate(const QDate &_c);
+    QDate getEQSLQSLRDate();
+    bool setEQSLQSLSDate(const QDate &_c);
+    QDate getEQSLQSLSDate();
 
     bool setLoTWQSL_RCVD(const QString &_c);
     QString getLoTWQSL_RCVD();
@@ -94,18 +135,34 @@ public:
     bool setLoTWQSLSDate(const QDate &_c);
     QDate getLoTWQSLSDate();
 
+    bool setQRZCOMStatus(const QString &_c);
+    QString getQRZCOMStatus();
+    bool setQRZCOMDate(const QDate &_c);
+    QDate getQRZCOMDate();
 
+    // Comment Tab
+    bool setComment(const QString &_c);
+    QString getComment();
+    bool setKeepComment(bool _k);
+    bool getKeepComment();
+
+    // Others Tab
+    bool setDXCC(const int _i);
+    int getDXCC();
     bool setPropMode(const QString &_c);
     QString getPropMode();
 
+    // My data Tab
+
+    // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
-
     bool setStationCallsign(const QString &_c);
     QString getStationCallsign();
 
-    bool setGridSquare(const QString &_c);
-    QString getGridSquare();
+
+
+
 
     bool add();
 
@@ -114,17 +171,26 @@ private:
 
 
 
-    QString satName, callsign, stationCallsign, propMode, band, mode, gridsquare;
+    QString satName, callsign, stationCallsign, propMode, band, mode, gridsquare, qth, name, RST_tx, RST_rx;
     int qsoId, logId, dxcc;
-    QString qsl_rcvd;
-    QDate QSLRDate, QSLLoTWRDate, QSLLoTWSDate;
-    QDateTime qso_dateTime;    
-    float freq, freq_rx;
+    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
+    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
+    QDateTime qso_dateTime;
+    double freq_tx, freq_rx, pwr_rx;
     QString lotw_qsl_sent, lotw_qsl_rcvd;
+
+    QString clublog_status;
+    QDate clublogDate;
+    QString eqsl_qsl_sent, eqsl_qsl_rcvd;
+    QDate eQSLRDate, eQSLSDate;
+    QString QRZCom_status;
+    QDate QRZComDate;
+    QString comment;
+    bool keepComment;
 
     Utilities *util;
 
-    bool lotwUpdating;
+    bool lotwUpdating, realTime;
    // DataProxy_SQLite *dataProxy;
 
 

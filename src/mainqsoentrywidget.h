@@ -60,6 +60,7 @@ public:
     QDateTime getDateTime();
 
     void setRealTime(const bool _realTime);
+    bool getRealTime();
     void toggleRealTime();
     void setUTC(const bool _utc);
     void setModify(const bool _modify);

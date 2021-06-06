@@ -1283,6 +1283,17 @@ bool Utilities::isValidQSL_Sent(const QString &c)
     }
 }
 
+bool Utilities::isValidUpload_Status(const QString &c)
+{
+    if ((c == "Y") | (c == "N") | (c == "M"))
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 {
    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b << endl;

@@ -51,7 +51,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
     util = new Utilities;
-
+    qso = new QSO;
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
@@ -262,6 +262,7 @@ void MainWindow::init()
 
     infoLabel1T = QString();
     infoLabel2T = QString();
+    qso->clear();
 
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
@@ -8459,6 +8460,59 @@ void MainWindow::slotAwardsWidgetSetLog()
 void MainWindow::slotAwardsWidgetSetYear()
 {
     awardsWidget->setYear(selectedYear);
+}
+
+void MainWindow::backupCurrentQSO()
+{ // This function reads the full UI and stores it in a QSO
+    qso->clear ();
+    // MainQSOEntryWidget
+    qso->setCall (mainQSOEntryWidget->getQrz ());
+    qso->setBand (mainQSOEntryWidget->getBand ());
+    qso->setMode (mainQSOEntryWidget->getMode ());
+    qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
+    qso->setRealTime (mainQSOEntryWidget->getRealTime ());
+    //  MainWindowInputQSO
+    qso->setRSTTX (QSOTabWidget->getRSTTX ());
+    qso->setRSTRX (QSOTabWidget->getRSTRX ());
+    qso->setFreqTX (QSOTabWidget->getTXFreq ());
+    qso->setFreqRX (QSOTabWidget->getRXFreq ());
+    qso->setGridSquare (QSOTabWidget->getDXLocator ());
+    qso->setName (QSOTabWidget->getName ());
+    qso->setQTH (QSOTabWidget->getQTH ());
+    qso->setRXPwr (QSOTabWidget->getRXPwr ());
+    // MainWindowInputQSL
+    qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus ());
+    qso->setQSL_RCVD (QSLTabWidget->getQSLRecStatus ());
+    qso->setQSLRDate (QSLTabWidget->getQSLRecDate ());
+    qso->setQSLSDate (QSLTabWidget->getQSLSenDate ());
+    qso->setQSLSenVia (QSLTabWidget->getSentVia ());
+    qso->setQSLRecVia (QSLTabWidget->getRecVia ());
+    qso->setQSLVia (QSLTabWidget->getQSLVia ());
+    qso->setQSLMsg (QSLTabWidget->getQSLMsg ());
+
+    // MainWindowInputEQSL
+    qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
+    qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
+    qso->setEQSLQSL_SENT (eQSLTabWidget->getEQSLSenStatus ());
+    qso->setEQSLQSLSDate (eQSLTabWidget->getEQSLSenDate ());
+    qso->setEQSLQSL_RCVD (eQSLTabWidget->getEQSLRecStatus ());
+    qso->setEQSLQSLRDate (eQSLTabWidget->getEQSLRecDate ());
+    qso->setLoTWQSL_SENT (eQSLTabWidget->getLOTWSenStatus ());
+    qso->setLoTWQSLSDate (eQSLTabWidget->getLOTWSenDate ());
+    qso->setLoTWQSL_RCVD (eQSLTabWidget->getLOTWRecStatus ());
+    qso->setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate ());
+    qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
+    qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
+
+    // MainWindowInputComment
+    qso->setComment (commentTabWidget->getComment ());
+    qso->setKeepComment (commentTabWidget->getKeep ());
+
+}
+
+void MainWindow::restoreCurrentQSO()
+{ // This function restores a QSO that was backed up to the UI.
+
 }
 
 void MainWindow::setSeverity(const DebugLogLevel _sev)

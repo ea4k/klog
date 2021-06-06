@@ -9522,15 +9522,15 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
         stringFields.append("band_rx, ");
         stringData = stringData + "'" + QString::number(getIdFromBandName(qso->getBandRX())) + "', ";
     }
-    if (qso->getFreq() > 0)
+    if (qso->getFreqTX () > 0)
     {
         stringFields.append("freq, ");
-        stringData = stringData + "'" + QString::number(qso->getFreq()) + "', ";
+        stringData = stringData + "'" + QString::number(qso->getFreqTX()) + "', ";
     }
     if (qso->getFreqRX() > 0)
     {
         stringFields.append("freq_rx, ");
-        stringData = stringData + "'" + QString::number(qso->getFreq()) + "', ";
+        stringData = stringData + "'" + QString::number(qso->getFreqRX()) + "', ";
     }
     if (util->isValidCall(qso->getStationCallsign()))
     {

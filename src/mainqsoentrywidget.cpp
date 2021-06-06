@@ -688,6 +688,11 @@ void MainQSOEntryWidget::toggleRealTime()
     }
 }
 
+bool MainQSOEntryWidget::getRealTime()
+{
+    return realtimeCheckBox->isChecked ();
+}
+
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
