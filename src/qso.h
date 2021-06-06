@@ -157,15 +157,21 @@ public:
     bool getKeepOthers();
 
     // My data Tab
+    bool setTXPwr(const double _f);
+    double getTXPwr();
+    bool setOperatorCallsign(const QString &_c);
+    QString getOperatorCallsign();
+    bool setStationCallsign(const QString &_c);
+    QString getStationCallsign();
+    bool setMyGridSquare(const QString &_c);
+    QString getMyGridSquare();
     bool setKeepMyData(bool _k);
     bool getKeepMyData();
-
 
     // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
-    bool setStationCallsign(const QString &_c);
-    QString getStationCallsign();
+
     bool setKeepSatTab(bool _k);
     bool getKeepSatTab();
 
@@ -179,12 +185,12 @@ private:
 
 
 
-    QString satName, callsign, stationCallsign, propMode, band, mode, gridsquare, qth, name, RST_tx, RST_rx;
+    QString satName, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
     int qsoId, logId, dxcc;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
-    double freq_tx, freq_rx, pwr_rx;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx;
     QString lotw_qsl_sent, lotw_qsl_rcvd;
 
     QString clublog_status;
@@ -194,7 +200,7 @@ private:
     QString QRZCom_status;
     QDate QRZComDate;
     QString comment;
-    bool keepComment, keepOther;
+    bool keepComment, keepOther, keepMyData;
 
     QString iota;
 

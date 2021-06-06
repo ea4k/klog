@@ -38,9 +38,10 @@ void QSO::clear()
 {
     qsoId = -1;
     logId = -1;
-    satName.clear();
-    callsign.clear();
-    stationCallsign.clear();
+    satName = QString();
+    callsign = QString();
+    stationCallsign = QString();
+    operatorCall = QString();
     band = QString();
     mode = QString();
 
@@ -65,6 +66,7 @@ void QSO::clear()
     lotw_qsl_sent = QString();
     lotw_qsl_rcvd = QString();
     gridsquare = QString();
+    myGridsquare = QString();
     qth = QString();
     name = QString();
     freq_tx = -1.0;
@@ -84,6 +86,9 @@ void QSO::clear()
 
     comment = QString();
     keepComment = false;
+    keepMyData = false;
+    keepOther = false;
+
 
 }
 
@@ -156,24 +161,6 @@ bool QSO::setCall(const QString &_c)
 QString QSO::getCall()
 {
     return callsign;
-}
-
-
-bool QSO::setStationCallsign(const QString &_c)
-{
-    if (util->isValidCall(_c))
-    {
-       stationCallsign = _c;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-QString QSO::getStationCallsign()
-{
-    return stationCallsign;
 }
 
 bool QSO::setBand(const QString &_c)
@@ -956,6 +943,86 @@ bool QSO::getKeepOthers()
 }
 
 // My Data
+bool QSO::setTXPwr(const double _f)
+{
+    if (_f>0)
+    {
+        pwr_tx = _f;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+double QSO::getTXPwr()
+{
+    return pwr_tx;
+}
+
+bool QSO::setOperatorCallsign(const QString &_c)
+{
+    if (util->isValidCall(_c))
+    {
+       operatorCall = _c;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+QString QSO::getOperatorCallsign()
+{
+    return operatorCall;
+}
+
+bool QSO::setStationCallsign(const QString &_c)
+{
+    if (util->isValidCall(_c))
+    {
+       stationCallsign = _c;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+QString QSO::getStationCallsign()
+{
+    return stationCallsign;
+}
+
+bool QSO::setMyGridSquare(const QString &_c)
+{
+    if (util->isValidGrid(_c))
+    {
+        myGridsquare = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getMyGridSquare()
+{
+    return myGridsquare;
+}
+
+bool QSO::setKeepMyData(bool _k)
+{
+    keepMyData = _k;
+    return true;
+}
+
+bool QSO::getKeepMyData()
+{
+    return keepMyData;
+}
+
 
 // SatTab
 

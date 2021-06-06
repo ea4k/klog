@@ -9335,7 +9335,8 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
                 _qso->setCall((query.value(nameCol)).toString());
 
                 nameCol = rec.indexOf("qso_date");
-                _qso->setDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
+
+                _qso->setDateTimeOn (util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
 
                 nameCol = rec.indexOf("bandid");
                 //qDebug() << "DataProxy_SQLite::getGridStats: bandid" << QString::number((query.value(nameCol)).toInt()) << endl;
@@ -9416,7 +9417,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
                 _qso->setCall((query.value(nameCol)).toString());
 
                 nameCol = rec.indexOf("qso_date");
-                _qso->setDateTime(util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
+                _qso->setDateTimeOn (util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
 
                 nameCol = rec.indexOf("bandid");
                 //qDebug() << "DataProxy_SQLite::getGridStats: bandid" << QString::number((query.value(nameCol)).toInt()) << endl;

@@ -8513,9 +8513,13 @@ void MainWindow::backupCurrentQSO()
     qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
     qso->setKeepOthers (othersTabWidget->getKeep ());
 
+    // MainWindowMyDataTab
+    qso->setTXPwr (myDataTabWidget->getMyPower ());
+    qso->setOperatorCallsign (myDataTabWidget->getOperator ());
+    qso->setStationCallsign (myDataTabWidget->getStationQRZ ());
+    qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
+    qso->setKeepMyData (myDataTabWidget->getKeep ());
 
-
-    // MainWindowMYDataTab
     //MainWindowSatTab
 
 
