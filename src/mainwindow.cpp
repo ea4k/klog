@@ -3645,16 +3645,6 @@ void MainWindow::createMenusCommon()
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
     ADIFExportAll->setToolTip(tr("Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."));
 
-    //ReqQSLExport = new QAction(tr("Export Requested QSL to ADIF ..."), this);
-    //fileMenu->addAction(ReqQSLExport);
-    //connect(ReqQSLExport, SIGNAL(triggered()), this, SLOT(slotRQSLExport()));
-    //ReqQSLExport->setToolTip(tr("Export all QSOs requesting QSLs to an ADIF file (e.g. to import it into a QSL tag printing program)."));
-
-    //LoTWExport = new QAction(tr("Export ADIF for LoTW ..."), this);
-    //fileMenu->addAction(LoTWExport);
-    //connect(LoTWExport, SIGNAL(triggered()), this, SLOT(slotLoTWExport()));
-    //LoTWExport->setToolTip(tr("Export an ADIF file to be sent to LoTW. Remember to sign it with TQSL before uploading to LoTW!"));
-
     fileMenu->addSeparator();
 
     printLogAct = new QAction(tr("&Print Log ..."), this);
@@ -3687,18 +3677,8 @@ void MainWindow::createMenusCommon()
     connect(fillQsoAct, SIGNAL(triggered()), this, SLOT(fillQSOData()));
     fillQsoAct->setToolTip(tr("Go through the log reusing previous QSOs to fill missing information in other QSOs."));
 
-    //fillDXCCAct = new QAction(tr("Fill in DXCC data"), this);
-    //toolMenu->addAction(fillDXCCAct);
-    //connect(fillDXCCAct, SIGNAL(triggered()), this, SLOT(slotFillEmptyDXCCInTheLog()));
-    //fillDXCCAct->setToolTip(tr("Go through the log filling QSOs without a DXCC defined."));
-
     toolMenu->addSeparator();
     qslToolMenu = toolMenu->addMenu(tr("QSL tools ..."));
-
-    //findQSO2QSLAct = new QAction(tr("&Find QSO to QSL"), this);
-    //toolMenu->addAction(findQSO2QSLAct);
-    //connect(findQSO2QSLAct, SIGNAL(triggered()), this, SLOT(slotSearchToolNeededQSLToSend()));
-    //findQSO2QSLAct->setToolTip(tr("Shows QSOs for which you should send your QSL and request the DX QSL"));
 
     findQSO2QSLAct = new QAction(tr("Find QSO to QSL"), this);
     qslToolMenu->addAction(findQSO2QSLAct);
@@ -3762,7 +3742,6 @@ void MainWindow::createMenusCommon()
     lotwToolMenu ->addAction(lotwFullDownloadFromLoTWAct);
     connect(lotwFullDownloadFromLoTWAct, SIGNAL(triggered()), this, SLOT(slotLoTWFullDownload()));
 
-
     toolMenu->addSeparator();
     clublogToolMenu = toolMenu->addMenu(tr("ClubLog tools ..."));
 
@@ -3792,7 +3771,6 @@ void MainWindow::createMenusCommon()
     toolMenu->addSeparator();
     QRZCOMToolMenu = toolMenu->addMenu(tr("QRZ.com tools ..."));
 
-
     QRZCOMCheckThisCallAct = new QAction(tr("Check the current callsign in QRZ.com"), this);
     QRZCOMLogModifyCurrentLogAct = new QAction(tr("Queue all the QSO to be uploaded"), this);
     QRZCOMLogUploadAct = new QAction(tr("Upload the queued QSOs to QRZ.com ..."), this);
@@ -3800,7 +3778,6 @@ void MainWindow::createMenusCommon()
     QRZCOMToolMenu->addAction(QRZCOMCheckThisCallAct);
     connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
     QRZCOMCheckThisCallAct->setToolTip("Checks the current callsign in QRZ.com.");
-
 
     QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
     QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
@@ -3837,13 +3814,13 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-           //qDebug() << "MainWindow::createMenusCommon before" << endl;
+    //qDebug() << "MainWindow::createMenusCommon before" << endl;
     //toolMenu->addSeparator();
     //showRotatorAct = new QAction (tr("Rotator"), this);
     //toolMenu->addAction(showRotatorAct);
     //connect(showRotatorAct, SIGNAL(triggered()), this, SLOT(slotRotatorShow()));
     //showRotatorAct->setToolTip(tr("Show the rotator controller."));
-           //qDebug() << "MainWindow::createMenusCommon after" << endl;
+    //qDebug() << "MainWindow::createMenusCommon after" << endl;
 
     //showWorldMapAct = new QAction(tr("CQ zones world map"), this);
     //toolMenu->addAction(showWorldMapAct);
@@ -3952,7 +3929,7 @@ void MainWindow::slotToolSearchNeededQSLRequested()
 
 void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
 {
-             //qDebug() << "MainWindow::slotToolLoTWMarkAllQueuedThisLog"  << endl;
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllQueuedThisLog"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
@@ -4400,26 +4377,6 @@ void MainWindow::slotLogWinShow()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-/*
-void MainWindow::slotScoreWinShow()
-{
-            //qDebug() << "MainWindow::slotScoreWinShow: "  << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-    if (!(scoreWindow->isVisible()) )
-    {
-        scoreWinAct->setChecked ( true );
-        scoreWindow->show();
-
-    }else
-    {
-        scoreWinAct->setChecked ( false );
-        scoreWindow->hide();
-    }
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-*/
-
 void MainWindow::slotSetup(const int _page)
 {
      //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << endl;
@@ -4569,12 +4526,7 @@ bool MainWindow::slotOpenKLogFolder()
     QString _aux = "<ul><li><a href=file://" + util->getHomeDir() + ">file://" + util->getHomeDir() + "</a></li>" +
                     "<li><a href=file://" + util->getKLogDBFile() + ">file://" + util->getKLogDBFile() + "</a></i></ul>" ;
     QString _text = tr("You can find the KLog data folder here: ") + _aux;
-/*
-    int ret = QMessageBox::information(this, tr("KLog"),
-                                   _text,
-                                   QMessageBox::Ok,
-                                   QMessageBox::Ok);
-*/
+
     QMessageBox::information(this, tr("KLog"),
                                    _text,
                                    QMessageBox::Ok,
@@ -4705,13 +4657,7 @@ void MainWindow::showEvent(QShowEvent *event)
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
 
-    /*
-    if (!isStarted || isPaused || curPiece.shape() == NoShape) {
-        QFrame::keyPressEvent(event);
-        return;
-    }
-    */
-            //qDebug() << "MainWindow::keyPressEvent: "  << endl;
+    //qDebug() << "MainWindow::keyPressEvent: "  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     switch (event->key()) {
     case Qt::Key_Return:
@@ -4748,39 +4694,6 @@ void MainWindow::slotOpenWiki()
     QDesktopServices::openUrl(QUrl("https://wiki.klog.xyz/"));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-
-/*
-void MainWindow::checkIfWorkedB4(const QString &_qrz)
-{
-                //qDebug() << "MainWindow::checkIfWorkedB4: " << _qrz << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-    int i = dataProxy->isWorkedB4(_qrz, currentLog); // Gets the QSO id if worked before
-
-
-
-    if (contestMode == "DX")
-    {}
-    else if (contestMode == "CQ-WW-SSB")
-    {
-        if (i>=0)
-        {
-            qrzgroupBox->setTitle(tr("DUPE"));
-        }
-        else
-        {
-            qrzgroupBox->setTitle(tr("Call"));
-        }
-    }
-    else
-    {}
-
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-
-}
-*/
-
-
 
 void MainWindow::readConfigData()
 {
@@ -5068,12 +4981,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         //UTCTime = util->trueOrFalse(value);
         mainQSOEntryWidget->setUTC(util->trueOrFalse(value));
     }
-    /*
-    else if (field=="LOGSORT")
-    {
-        logWindow->setProxyModel(util->trueOrFalse(value));
-    }
-    */
+
     else if (field=="SENDEQSLBYDEFAULT")
     {
         sendQSLByDefault=util->trueOrFalse(value);
@@ -6114,13 +6022,6 @@ void MainWindow::slotLoTWDownload()
 {
       //qDebug() << "MainWindow::slotDownUpload - Start" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    /*
-    if (!lotwActive)
-    {
-        showMessageToEnableTheOnlineService(LoTW);
-        return;
-    }
-    */
 
     QStringList calls;
     calls << dataProxy->getStationCallSignsFromLog(-1);
@@ -6365,21 +6266,6 @@ void MainWindow::slotRQSLExport()
 }
 
 
-/*
- * void MainWindow::slotCabrilloExport()
-{
-                //qDebug() << "MainWindow::slotCabrilloExport " << endl;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Cabrillo File"),
-                               util->getHomeDir(),
-                               "Cabrillo (*.log)");
-
-
-    //contest->saveFileToSend(fileName);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-*/
-
 void MainWindow::slotADIFImport(){
                //qDebug() << "MainWindow::slotADIFImport " << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -6567,40 +6453,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     stringQuery = QString("SELECT submode FROM mode WHERE id ='%1'").arg(aux1);
     sqlOK = queryAux.exec(stringQuery);
-    /*
-    if (!sqlOK)
-    {
-        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number(), queryAux.lastQuery());
-    }
 
-    queryAux.next();
-    if (queryAux.isValid())
-    {
-        aux1 = (queryAux.value(0)).toString();
-          //qDebug() << "MainWindow::qsoToEdit: Mode query valid: -" << aux1 << "-Length: " << QString::number(aux1.length()) << endl;
-        if (mainQSOEntryWidget->isModeExisting(aux1))
-        //if (modeComboBox->findText(aux1, Qt::MatchCaseSensitive)>=0)
-        {
-              //qDebug() << "MainWindow::qsoToEdit: Mode in the Combobox: "<< endl;
-            mainQSOEntryWidget->setMode(aux1);
-            //modeComboBox->setCurrentIndex(modeComboBox->findText(aux1, Qt::MatchCaseSensitive));
-        }
-        else
-        {
-            //TODO: Add this mode to the list modes in use
-              //qDebug() << "MainWindow::qsoToEdit: Mode query valid but not in comboBox: " << aux1 << endl;
-
-        }
-                    //qDebug() << "MainWindow::qsoToEdit: After Mode IF" << endl;
-        }
-        else
-    {
-                    //qDebug() << "MainWindow::qsoToEdit: Mode query not valid" << endl;
-        mainQSOEntryWidget->setMode(dataProxy->getNameFromSubModeId(defaultMode));
-        //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode), Qt::MatchCaseSensitive));
-        //modeComboBox->setCurrentIndex(defaultMode);
-    }
-    */
      //qDebug() << "MainWindow::qsoToEdit: After ALL Mode actions" << endl;
 
     nameCol = rec.indexOf("rst_sent");
@@ -7840,15 +7693,6 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotFreqTXChanged - END"  << endl;
 }
-
-/*
-void MainWindow::slotShowQSOFromDXCCWidget(const int _q)
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-             //qDebug() << "MainWindow::slotShowQSOFromDXCCWidget: " << QString::number(_q)<< endl;
-}
-*/
 
 void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 {
