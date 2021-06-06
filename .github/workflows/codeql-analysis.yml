@@ -71,7 +71,7 @@ jobs:
     #   make bootstrap
     #   make release
 
-    - run:
+    - run: |
         qmake KLog.pro
         make
         
