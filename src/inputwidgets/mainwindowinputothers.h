@@ -42,6 +42,7 @@ public:
 
     void setEntitiesList(const QStringList _qs);
     void setEntity(const int _n);
+    int getEntity();
     QString getEntityPrefix();
 
     void setPropMode(const QString _qs, bool _keep);
@@ -55,6 +56,8 @@ public:
     void setIOTAContinent(const QString _qs);
     bool isIOTAModified();
     void clearIOTA();
+    void setKeep(const bool _b);
+    bool getKeep();
 
     void createUI();
     void clear();

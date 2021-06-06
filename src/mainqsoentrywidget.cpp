@@ -333,6 +333,7 @@ void MainQSOEntryWidget::slotClearButtonClicked()
 void MainQSOEntryWidget::clear()
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    //qDebug() << Q_FUNC_INFO << endl;
     cleaning = true;
 
     OKButton->setText(tr("&Add"));
@@ -560,7 +561,7 @@ bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
     return false;
 }
 
-bool MainQSOEntryWidget::setDate(const QDateTime _date)
+bool MainQSOEntryWidget::setDateTime(const QDateTime _date)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     if (_date.isValid())
@@ -686,6 +687,11 @@ void MainQSOEntryWidget::toggleRealTime()
     else {
         setRealTime (true);
     }
+}
+
+bool MainQSOEntryWidget::getRealTime()
+{
+    return realtimeCheckBox->isChecked ();
 }
 
 void MainQSOEntryWidget::setRealTime(const bool _realTime)

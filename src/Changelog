@@ -4,6 +4,7 @@ TBD
  - Bugfix: Hamlib was not properly started on KLog start (closes issue #126) (TNX G4MKT)
  - Improvement: Enhanced how the UDP server is started on KLog start.
  - Improvement: Added some basic SQL Injection protection to the UI. (closes issue #95)
+ - Improvement: UI data is saved before entering the Setup and restored after setup is done. (closes #188)
 
 May 2021 - 1.5.3
 - Bugfix: Fixes the DataBase update process to add the Q65 mode.
