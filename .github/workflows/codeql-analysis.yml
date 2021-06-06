@@ -41,8 +41,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Install KLog dependencies
-      run: sudp apt-get update
-      run: sudo apt-get install g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
+      run:
+         sudo apt-get update
+         sudo apt-get install g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
 
 
     # Initializes the CodeQL tools for scanning.
