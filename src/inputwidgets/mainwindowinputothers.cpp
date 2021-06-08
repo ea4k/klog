@@ -33,6 +33,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
     entitiesList.clear();
     propModeList.clear();
+    adifValidTypes.clear();
     autoUpdating = false;
     dataProxy = dp;
     propModeList = dataProxy->getPropModeList();
@@ -46,13 +47,17 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     propModeComboBox = new QComboBox();
     iotaNumberLineEdit = new QLineEdit();
     keepPropCheckBox = new QCheckBox();
+    userDefinedADIFComboBox = new QComboBox();
+    userDefinedADIFValueLineEdit = new QLineEdit();
 
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-    connect(propModeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
+    connect(propModeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
+    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged(int) ) ) ;
 
     createUI();
+    setInitialADIFValues ();
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << endl;
 }
 
@@ -70,12 +75,14 @@ void MainWindowInputOthers::createUI()
     QLabel *iotaAwardLabel = new QLabel(tr("IOTA"));
     QLabel *entityNameLabel = new QLabel(tr("Entity"));
     QLabel *propModeLabel = new QLabel(tr("Propagation mode"));
+    QLabel *userSelectLabel = new QLabel(tr("Select ADIF"));
 
     entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     iotaAwardLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entityNameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     propModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    userSelectLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     keepPropCheckBox->setText(tr("Keep propagation mode"));
 
@@ -86,6 +93,9 @@ void MainWindowInputOthers::createUI()
     iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this QSO."));
     iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this QSO."));
     keepPropCheckBox->setToolTip(tr("Keeps the same propagation mode for next QSO."));
+
+    userDefinedADIFComboBox->setToolTip(tr("Select the appropriate ADIF field for this QSO."));
+    userDefinedADIFValueLineEdit->setToolTip (tr("Value for the selected ADIF field."));
 
     entityPrimDivComboBox->setEnabled(false);
     entitySecDivComboBox->setEnabled(false);
@@ -109,8 +119,12 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(iotaContinentComboBox, 3, 1);
     tabLayout->addWidget(iotaNumberLineEdit, 3, 2);
     tabLayout->addWidget(propModeLabel, 4, 0);
-    //tabLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
     tabLayout->addLayout(keepLayout, 4, 1, 1, 2);
+    tabLayout->addWidget(entityPrimLabel, 1, 0);
+    tabLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
+    tabLayout->addWidget(userSelectLabel, 5, 0);
+    tabLayout->addWidget(userDefinedADIFComboBox, 5, 1);
+    tabLayout->addWidget(userDefinedADIFValueLineEdit, 5, 2);
 
 
     setLayout(tabLayout);
@@ -126,18 +140,7 @@ void MainWindowInputOthers::createUI()
         propModeList.prepend("00 - " + tr("Not - Not Identified"));
         propModeComboBox->addItems(propModeList);
     }
-/*
 
-    QStringList continents;
-
-    QSqlQuery query2("SELECT shortname FROM continent");
-    while (query2.next()) {
-        if (query2.isValid())
-        {
-            continents << query2.value(0).toString();
-        }
-    }
-*/
     iotaContinentComboBox->addItems(dataProxy->getContinentShortNames());
     iotaNumberLineEdit->setInputMask("000");
     iotaNumberLineEdit->setText("000");
@@ -147,6 +150,8 @@ void MainWindowInputOthers::clear()
 {
       //qDebug() << "MainWindowInputOthers::clear" << endl;
     entityNameComboBox->setCurrentIndex(0);
+    userDefinedADIFComboBox->setCurrentIndex (0);
+    userDefinedADIFValueLineEdit->clear ();
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
@@ -413,4 +418,49 @@ void MainWindowInputOthers::setKeep(const bool _b)
 bool MainWindowInputOthers::getKeep()
 {
     return keepPropCheckBox->isChecked ();
+}
+
+bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
+{
+    return true;
+}
+
+QString MainWindowInputOthers::getUserADIFTypeComboBox()
+{
+    int value = (((userDefinedADIFValueLineEdit->text()).split('-')).at(0)).toInt ();
+    switch (value)
+    {
+    case 1:
+        return "SOTAREF";
+    case 2:
+        return "AGE";
+    default:
+        return QString();
+    }
+}
+
+bool MainWindowInputOthers::setUserADIFValue(const QString &_adifValue)
+{
+    return true;
+}
+
+QString MainWindowInputOthers::getUserADIFValue()
+{
+    return userDefinedADIFValueLineEdit->text();
+
+}
+
+bool MainWindowInputOthers::setInitialADIFValues()
+{
+    adifValidTypes << tr("01-SOTA ref") << tr ("02-Age");
+    userDefinedADIFComboBox->clear ();
+    userDefinedADIFComboBox->addItems (adifValidTypes);
+    return true;
+}
+
+void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged(int _v)
+{
+
+
+
 }
