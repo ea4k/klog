@@ -1,4 +1,4 @@
-TBD
+TBD - 1.6
  - Optimization: Isolated the QSO tab to an independent widget.
  - Bugfix: When starting KLog for the first time, it crashed.
  - Bugfix: Hamlib was not properly started on KLog start (closes issue #126) (TNX G4MKT)

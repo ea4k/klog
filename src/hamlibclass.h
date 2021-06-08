@@ -37,6 +37,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+// Potential fix of hamlib 4.2 migration
+//#ifndef HAMLIB_FILPATHLEN
+//#define HAMLIB_FILPATHLEN FILEPATHLEN
+//#endif
+
 class HamLibClass : public QObject
 {
     Q_OBJECT

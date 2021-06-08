@@ -4467,7 +4467,7 @@ void MainWindow::openSetup(const int _page)
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
 
-    qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
+    //qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
 
     if (needToEnd)
     {
@@ -4502,17 +4502,17 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     else
     {
-         qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
+         //qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
     }
 
     if (qso->getBackup ())
     {
-        qDebug() << "MainWindow::slotSetupDialogFinished: Restoring..." << endl;
+        //qDebug() << "MainWindow::slotSetupDialogFinished: Restoring..." << endl;
         restoreCurrentQSO ();
     }
     else
     {
-        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
+        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
     }
     //qDebug() << "MainWindow::slotSetupDialogFinished: - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -8361,7 +8361,7 @@ void MainWindow::restoreCurrentQSO()
     satTabWidget->setSatMode (qso->getSatMode ());
     satTabWidget->setKeep (qso->getKeepSatTab ());
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 
 }
 
