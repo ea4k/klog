@@ -34,7 +34,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
     myLocatorLineEdit = new QLineEdit;
-    keepThisDataForNextQSORadiobutton = new QRadioButton;
+    keepThisDataForNextQSOQCheckbox = new QCheckBox;
     locator = new Locator();
 
     lastOperatorQRZ = QString();    // Last QRZ used by the user, will remain if the button is checked and removed if not
@@ -71,7 +71,7 @@ void MainWindowMyDataTab::createUI()
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
+    keepThisDataForNextQSOQCheckbox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
     myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts."));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
@@ -101,7 +101,7 @@ void MainWindowMyDataTab::createUI()
     myDataInputTabWidgetLayout->addWidget(stationCallSignLineEdit, 2, 1);
     myDataInputTabWidgetLayout->addWidget(myLocatorLineEdit, 3, 1);
     myDataInputTabWidgetLayout->addWidget(keepLabel, 4, 1);
-    myDataInputTabWidgetLayout->addWidget(keepThisDataForNextQSORadiobutton, 4, 2);
+    myDataInputTabWidgetLayout->addWidget(keepThisDataForNextQSOQCheckbox, 4, 2);
 
     setLayout(myDataInputTabWidgetLayout);
 
@@ -119,7 +119,7 @@ void MainWindowMyDataTab::createUI()
 void MainWindowMyDataTab::clear()
 {
     //qDebug() << "MainWindowMyDataTab::clear: "  << endl;
-    if (keepThisDataForNextQSORadiobutton->isChecked())
+    if (keepThisDataForNextQSOQCheckbox->isChecked())
     {
         //qDebug() << "MainWindowMyDataTab::clear: checked"  << endl;
         //myPowerSpinBox->setValue(lastPower);
@@ -365,10 +365,10 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
 
 void MainWindowMyDataTab::setKeep(const bool _b)
 {
-    keepThisDataForNextQSORadiobutton->setChecked (_b);
+    keepThisDataForNextQSOQCheckbox->setChecked (_b);
 }
 
 bool MainWindowMyDataTab::getKeep()
 {
-    return keepThisDataForNextQSORadiobutton->isChecked ();
+    return keepThisDataForNextQSOQCheckbox->isChecked ();
 }

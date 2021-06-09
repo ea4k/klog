@@ -51,7 +51,7 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
     searchBoxExportButton  = new QPushButton(tr("&Export Highlighted"), this);
     searchBoxSelectAllButton  = new QPushButton(tr("&Select All"), this);
     searchBoxReSearchButton = new QPushButton(tr("&Search"), this);
-    searchAllRadioButton = new QRadioButton (tr("All logs"), this);
+    searchAllQCheckbox = new QCheckBox (tr("All logs"), this);
 
     stationCallSignShownInSearch = true;
 
@@ -160,7 +160,7 @@ void SearchWidget::createUI()
     searchBoxExportButton->setToolTip(tr("Export the search result to an ADIF file."));
     searchBoxSelectAllButton->setToolTip(tr("Select/Unselect all the QSOs shown."));
     searchBoxReSearchButton->setToolTip(tr("Search in the log."));
-    searchAllRadioButton->setToolTip(tr("Search in all logs."));
+    searchAllQCheckbox->setToolTip(tr("Search in all logs."));
     searchBoxLineEdit->setToolTip(tr("Enter the callsign to search for. Enter '*' to show all the QSOs... it may be slow in big logs!"));
 
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign used to do this QSO."));
@@ -180,7 +180,7 @@ void SearchWidget::createUI()
     QHBoxLayout *dxUpRightSearchTopLayout = new QHBoxLayout;
     dxUpRightSearchTopLayout->addWidget(searchBoxLineEdit);
     dxUpRightSearchTopLayout->addWidget(stationCallsignComboBox);
-    dxUpRightSearchTopLayout->addWidget(searchAllRadioButton);
+    dxUpRightSearchTopLayout->addWidget(searchAllQCheckbox);
 
     QHBoxLayout *dxUpRightButtonsLayout = new QHBoxLayout;
     dxUpRightButtonsLayout->addWidget(searchBoxReSearchButton);
@@ -209,7 +209,7 @@ void SearchWidget::createUI()
     //connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
     //connect(searchResultsTreeWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRightButtonSearch( const QPoint& ) ) );
     connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
-    connect(searchAllRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotRadioButtonToggled() ) ) ;
+    connect(searchAllQCheckbox, SIGNAL(toggled(bool)), this, SLOT(slotQCheckboxToggled() ) ) ;
 
     connect(searchWindow, SIGNAL( actionQSODoubleClicked(int)), this, SLOT(slotQSOToEditFromSearch(int)));
     connect(searchWindow, SIGNAL( actionDeleteQSO(int)), this, SLOT( slotQsoDeleteFromSearch(int) ));
@@ -367,7 +367,7 @@ void SearchWidget::fillStationCallsignComboBox()
     stationCallsignComboBox->clear();
     stationCallsignComboBox->addItem(tr("All in log"));
     stationCallsignComboBox->addItem(tr("Not defined"));
-    if (searchAllRadioButton->isChecked())
+    if (searchAllQCheckbox->isChecked())
     {
         stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(-1));
     }
@@ -377,9 +377,9 @@ void SearchWidget::fillStationCallsignComboBox()
     }
 }
 
-void SearchWidget::slotRadioButtonToggled()
+void SearchWidget::slotQCheckboxToggled()
 {
-    //qDebug() << "SearchWidget::slotRadioButtonToggled"  << endl;
+    //qDebug() << "SearchWidget::slotQCheckboxToggled"  << endl;
     fillStationCallsignComboBox();
     slotSearchBoxTextChanged();
 }
@@ -602,7 +602,7 @@ void SearchWidget::slotSearchBoxTextChanged()
     //QString _id, _call, _dateTime, _band, _bandid, _mode, _qsltx, _qslrx, _stationcallsign, _dxcc;
     //QStringList q;
     //_stationcallsign = QString();
-    bool searchAll = searchAllRadioButton->isChecked();
+    bool searchAll = searchAllQCheckbox->isChecked();
     //int i = -1;
     int cursorP = searchBoxLineEdit->cursorPosition();
     /*

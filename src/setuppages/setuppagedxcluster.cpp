@@ -41,77 +41,77 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     addClusterButton = new QPushButton;
     deleteClusterButton = new QPushButton;
 
-    showHFRadiobutton = new QRadioButton;
-    showVHFRadiobutton = new QRadioButton;
-    showWARCRadiobutton = new QRadioButton;
-    showWorkedRadiobutton = new QRadioButton;
-    showConfirmedRadiobutton = new QRadioButton;
-    showANNRadiobutton = new QRadioButton;
-    showWWVRadiobutton = new QRadioButton;
-    showWCYRadiobutton = new QRadioButton;
+    showHFQCheckbox = new QCheckBox;
+    showVHFQCheckbox = new QCheckBox;
+    showWARCQCheckbox = new QCheckBox;
+    showWorkedQCheckbox = new QCheckBox;
+    showConfirmedQCheckbox = new QCheckBox;
+    showANNQCheckbox = new QCheckBox;
+    showWWVQCheckbox = new QCheckBox;
+    showWCYQCheckbox = new QCheckBox;
 
-    saveAllDXClusterDataRadiobutton = new QRadioButton;
+    saveAllDXClusterDataQCheckbox = new QCheckBox;
 
-    saveAllDXClusterDataRadiobutton->setAutoExclusive(false);
-    showHFRadiobutton->setAutoExclusive(false);
-    showVHFRadiobutton->setAutoExclusive(false);
-    showWARCRadiobutton->setAutoExclusive(false);
-    showWorkedRadiobutton->setAutoExclusive(false);
-    showConfirmedRadiobutton->setAutoExclusive(false);
-    showANNRadiobutton->setAutoExclusive(false);
-    showWWVRadiobutton->setAutoExclusive(false);
-    showWCYRadiobutton->setAutoExclusive(false);
+    saveAllDXClusterDataQCheckbox->setAutoExclusive(false);
+    showHFQCheckbox->setAutoExclusive(false);
+    showVHFQCheckbox->setAutoExclusive(false);
+    showWARCQCheckbox->setAutoExclusive(false);
+    showWorkedQCheckbox->setAutoExclusive(false);
+    showConfirmedQCheckbox->setAutoExclusive(false);
+    showANNQCheckbox->setAutoExclusive(false);
+    showWWVQCheckbox->setAutoExclusive(false);
+    showWCYQCheckbox->setAutoExclusive(false);
 
-    showHFRadiobutton->setChecked(true);
-    showVHFRadiobutton->setChecked(true);
-    showWARCRadiobutton->setChecked(true);
-    showWorkedRadiobutton->setChecked(true);
-    showConfirmedRadiobutton->setChecked(true);
-    showANNRadiobutton->setChecked(true);
-    showWWVRadiobutton->setChecked(true);
-    showWCYRadiobutton->setChecked(true);
-    saveAllDXClusterDataRadiobutton->setChecked(false);
+    showHFQCheckbox->setChecked(true);
+    showVHFQCheckbox->setChecked(true);
+    showWARCQCheckbox->setChecked(true);
+    showWorkedQCheckbox->setChecked(true);
+    showConfirmedQCheckbox->setChecked(true);
+    showANNQCheckbox->setChecked(true);
+    showWWVQCheckbox->setChecked(true);
+    showWCYQCheckbox->setChecked(true);
+    saveAllDXClusterDataQCheckbox->setChecked(false);
 
 
     addClusterButton->setText(tr("Add"));
     deleteClusterButton->setText(tr("Delete"));
 
-    showHFRadiobutton->setText(tr("Show &HF spots"));
-    showVHFRadiobutton->setText(tr("Show V/&UHF spots"));
-    showWARCRadiobutton->setText(tr("Show W&ARC spots"));
-    showWorkedRadiobutton->setText(tr("Show &worked spots"));
-    showConfirmedRadiobutton->setText(tr("Show &confirmed spots"));
-    showANNRadiobutton->setText(tr("Show ANN/&FULL messages"));
-    showWWVRadiobutton->setText(tr("Show WW&V messages"));
-    showWCYRadiobutton->setText(tr("Show WC&Y messages"));
-    saveAllDXClusterDataRadiobutton->setText(tr("Save DX Cluster activity"));
-    saveAllDXClusterDataRadiobutton->setToolTip(tr("Saves all the DX-Cluster activity to a file in the KLog folder"));
+    showHFQCheckbox->setText(tr("Show &HF spots"));
+    showVHFQCheckbox->setText(tr("Show V/&UHF spots"));
+    showWARCQCheckbox->setText(tr("Show W&ARC spots"));
+    showWorkedQCheckbox->setText(tr("Show &worked spots"));
+    showConfirmedQCheckbox->setText(tr("Show &confirmed spots"));
+    showANNQCheckbox->setText(tr("Show ANN/&FULL messages"));
+    showWWVQCheckbox->setText(tr("Show WW&V messages"));
+    showWCYQCheckbox->setText(tr("Show WC&Y messages"));
+    saveAllDXClusterDataQCheckbox->setText(tr("Save DX Cluster activity"));
+    saveAllDXClusterDataQCheckbox->setToolTip(tr("Saves all the DX-Cluster activity to a file in the KLog folder"));
 
 
     QGroupBox *spotsGroupBox = new QGroupBox(tr("DX Spots"));
 
     QVBoxLayout *spotsVBoxLayout = new QVBoxLayout;
-    spotsVBoxLayout->addWidget(showHFRadiobutton);
-    spotsVBoxLayout->addWidget(showVHFRadiobutton);
-    spotsVBoxLayout->addWidget(showWARCRadiobutton);
-    spotsVBoxLayout->addWidget(showWorkedRadiobutton);
-    spotsVBoxLayout->addWidget(showConfirmedRadiobutton);
+    spotsVBoxLayout->addWidget(showHFQCheckbox);
+    spotsVBoxLayout->addWidget(showVHFQCheckbox);
+    spotsVBoxLayout->addWidget(showWARCQCheckbox);
+    spotsVBoxLayout->addWidget(showWorkedQCheckbox);
+    spotsVBoxLayout->addWidget(showConfirmedQCheckbox);
     spotsVBoxLayout->addStretch(1);
     spotsGroupBox->setLayout(spotsVBoxLayout);
 
     QGroupBox *miscGroupBox = new QGroupBox(tr("Others"));
 
     QVBoxLayout *miscVBoxLayout = new QVBoxLayout;
-    miscVBoxLayout->addWidget(saveAllDXClusterDataRadiobutton);
+    miscVBoxLayout->addWidget(saveAllDXClusterDataQCheckbox);
     miscVBoxLayout->addStretch(1);
     miscGroupBox->setLayout(miscVBoxLayout);
 
     QGroupBox *messagesGroupBox = new QGroupBox(tr("Messages"));
 
     QVBoxLayout *messagesVBoxLayout = new QVBoxLayout;
-    messagesVBoxLayout->addWidget(showANNRadiobutton);
-    messagesVBoxLayout->addWidget(showWWVRadiobutton);
-    messagesVBoxLayout->addWidget(showWCYRadiobutton);
+    messagesVBoxLayout->addWidget(showANNQCheckbox);
+    messagesVBoxLayout->addWidget(showWWVQCheckbox);
+    messagesVBoxLayout->addWidget(showWCYQCheckbox);
     messagesVBoxLayout->addStretch(1);
     messagesGroupBox->setLayout(messagesVBoxLayout);
 // ( QWidget * widget, int fromRow, int fromColumn, int rowSpan,
@@ -312,9 +312,9 @@ void SetupPageDxCluster::setDxclusterServersComboBox(const QStringList t)
     }
 }
 
-QString SetupPageDxCluster::getSaveActivityRadiobutton()
+QString SetupPageDxCluster::getSaveActivityQCheckbox()
 {
-    if (saveAllDXClusterDataRadiobutton->isChecked())
+    if (saveAllDXClusterDataQCheckbox->isChecked())
     {
         return "True";
     }
@@ -325,10 +325,10 @@ QString SetupPageDxCluster::getSaveActivityRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowHFRadiobutton()
+QString SetupPageDxCluster::getShowHFQCheckbox()
 {
 
-    if (showHFRadiobutton->isChecked())
+    if (showHFQCheckbox->isChecked())
     {
         return "True";
     }
@@ -339,10 +339,10 @@ QString SetupPageDxCluster::getShowHFRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowVHFRadiobutton()
+QString SetupPageDxCluster::getShowVHFQCheckbox()
 {
 
-    if (showVHFRadiobutton->isChecked())
+    if (showVHFQCheckbox->isChecked())
     {
         return "True";
     }
@@ -353,10 +353,10 @@ QString SetupPageDxCluster::getShowVHFRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowWARCRadiobutton()
+QString SetupPageDxCluster::getShowWARCQCheckbox()
 {
 
-    if (showWARCRadiobutton->isChecked())
+    if (showWARCQCheckbox->isChecked())
     {
         return "True";
     }
@@ -367,10 +367,10 @@ QString SetupPageDxCluster::getShowWARCRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowWorkedRadiobutton()
+QString SetupPageDxCluster::getShowWorkedQCheckbox()
 {
 
-    if (showWorkedRadiobutton->isChecked())
+    if (showWorkedQCheckbox->isChecked())
     {
         return "True";
     }
@@ -381,10 +381,10 @@ QString SetupPageDxCluster::getShowWorkedRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowConfirmedRadiobutton()
+QString SetupPageDxCluster::getShowConfirmedQCheckbox()
 {
 
-    if (showConfirmedRadiobutton->isChecked())
+    if (showConfirmedQCheckbox->isChecked())
     {
         return "True";
     }
@@ -395,10 +395,10 @@ QString SetupPageDxCluster::getShowConfirmedRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowANNRadiobutton()
+QString SetupPageDxCluster::getShowANNQCheckbox()
 {
 
-    if (showANNRadiobutton->isChecked())
+    if (showANNQCheckbox->isChecked())
     {
         return "True";
     }
@@ -409,10 +409,10 @@ QString SetupPageDxCluster::getShowANNRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowWWVRadiobutton()
+QString SetupPageDxCluster::getShowWWVQCheckbox()
 {
 
-    if (showWWVRadiobutton->isChecked())
+    if (showWWVQCheckbox->isChecked())
     {
         return "True";
     }
@@ -423,10 +423,10 @@ QString SetupPageDxCluster::getShowWWVRadiobutton()
 
 }
 
-QString SetupPageDxCluster::getShowWCYRadiobutton()
+QString SetupPageDxCluster::getShowWCYQCheckbox()
 {
 
-    if (showWCYRadiobutton->isChecked())
+    if (showWCYQCheckbox->isChecked())
     {
         return "True";
     }
@@ -437,113 +437,113 @@ QString SetupPageDxCluster::getShowWCYRadiobutton()
 
 }
 
-void SetupPageDxCluster::setShowHFRadiobutton(const QString t)
+void SetupPageDxCluster::setShowHFQCheckbox(const QString t)
 {
     if ( (t.toUpper()) == "FALSE")
     {
-        showHFRadiobutton->setChecked(false);
+        showHFQCheckbox->setChecked(false);
     }
     else
     {
-        showHFRadiobutton->setChecked(true);
+        showHFQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setShowVHFRadiobutton(const QString t)
+void SetupPageDxCluster::setShowVHFQCheckbox(const QString t)
 {
     if ( (t.toUpper()) == "FALSE")
     {
-        showVHFRadiobutton->setChecked(false);
+        showVHFQCheckbox->setChecked(false);
     }
     else
     {
-       showVHFRadiobutton->setChecked(true);
+       showVHFQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setShowWARCRadiobutton(const QString t)
+void SetupPageDxCluster::setShowWARCQCheckbox(const QString t)
 {    
     if ( (t.toUpper()) == "FALSE")
     {
-        showWARCRadiobutton->setChecked(false);
+        showWARCQCheckbox->setChecked(false);
     }
     else
     {
-        showWARCRadiobutton->setChecked(true);
+        showWARCQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setSaveActivityRadiobutton(const QString t)
+void SetupPageDxCluster::setSaveActivityQCheckbox(const QString t)
 {
     if ( (t.toUpper()) == "FALSE")
     {
-        saveAllDXClusterDataRadiobutton->setChecked(false);
+        saveAllDXClusterDataQCheckbox->setChecked(false);
     }
     else
     {
-        saveAllDXClusterDataRadiobutton->setChecked(true);
+        saveAllDXClusterDataQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setShowWorkedRadiobutton(const QString t)
+void SetupPageDxCluster::setShowWorkedQCheckbox(const QString t)
 {
     if ( (t.toUpper()) == "FALSE")
     {
-        showWorkedRadiobutton->setChecked(false);
+        showWorkedQCheckbox->setChecked(false);
     }
     else
     {
-        showWorkedRadiobutton->setChecked(true);
+        showWorkedQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setShowConfirmedRadiobutton(const QString t)
-{
-
-    if ( (t.toUpper()) == "FALSE")
-    {
-        showConfirmedRadiobutton->setChecked(false);
-    }
-    else
-    {
-        showConfirmedRadiobutton->setChecked(true);
-    }
-}
-
-void SetupPageDxCluster::setShowANNRadiobutton(const QString t)
+void SetupPageDxCluster::setShowConfirmedQCheckbox(const QString t)
 {
 
     if ( (t.toUpper()) == "FALSE")
     {
-        showANNRadiobutton->setChecked(false);
+        showConfirmedQCheckbox->setChecked(false);
     }
     else
     {
-        showANNRadiobutton->setChecked(true);
+        showConfirmedQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setShowWWVRadiobutton(const QString t)
+void SetupPageDxCluster::setShowANNQCheckbox(const QString t)
+{
+
+    if ( (t.toUpper()) == "FALSE")
+    {
+        showANNQCheckbox->setChecked(false);
+    }
+    else
+    {
+        showANNQCheckbox->setChecked(true);
+    }
+}
+
+void SetupPageDxCluster::setShowWWVQCheckbox(const QString t)
 {
     if ( (t.toUpper()) == "FALSE")
     {
-        showWWVRadiobutton->setChecked(false);
+        showWWVQCheckbox->setChecked(false);
     }
     else
     {
-        showWWVRadiobutton->setChecked(true);
+        showWWVQCheckbox->setChecked(true);
     }
 }
 
-void SetupPageDxCluster::setShowWCYRadiobutton(const QString t)
+void SetupPageDxCluster::setShowWCYQCheckbox(const QString t)
 {    
     if ( (t.toUpper()) == "FALSE")
     {
-        showWCYRadiobutton->setChecked(false);
+        showWCYQCheckbox->setChecked(false);
     }
     else
     {
-        showWCYRadiobutton->setChecked(true);
+        showWCYQCheckbox->setChecked(true);
     }
 }
 

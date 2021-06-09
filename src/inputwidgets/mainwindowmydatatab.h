@@ -97,7 +97,7 @@ private:
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator; // Change dinamically during execution
     double myPower, lastPower;
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;
-    QRadioButton *keepThisDataForNextQSORadiobutton;
+    QCheckBox *keepThisDataForNextQSOQCheckbox;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Locator *locator;
     Utilities *util;

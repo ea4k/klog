@@ -87,7 +87,7 @@ private:
     QHeaderView *hv, *hh;
     //QLineEdit *searchLineEdit;
     QPushButton *refreshButton;
-    //QRadioButton *showAllLogsButton;
+    //QCheckBox *showAllLogsButton;
 
 
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)

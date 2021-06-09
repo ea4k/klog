@@ -889,21 +889,21 @@ FileOrMemoryPage::FileOrMemoryPage(QWidget *parent)
 
       topLabel->setWordWrap(true);
 
-      memoryRadioButton = new QRadioButton(tr("Run KLog DB in &memory"));
-      fileRadioButton = new QRadioButton(tr("Run KLog DB in a &file"));
-      //memoryRadioButton->setChecked(true);
-      memoryRadioButton->setChecked(false);
-      fileRadioButton->setChecked(true);
-      memoryRadioButton->setToolTip(tr("Recommended for day-to-day logging"));
-      fileRadioButton->setToolTip(tr("Recommended for contest logging"));
+      memoryQCheckbox = new QCheckBox(tr("Run KLog DB in &memory"));
+      fileQCheckbox = new QCheckBox(tr("Run KLog DB in a &file"));
+      //memoryQCheckbox->setChecked(true);
+      memoryQCheckbox->setChecked(false);
+      fileQCheckbox->setChecked(true);
+      memoryQCheckbox->setToolTip(tr("Recommended for day-to-day logging"));
+      fileQCheckbox->setToolTip(tr("Recommended for contest logging"));
 
-      connect( memoryRadioButton, SIGNAL(toggled(bool) ), this, SLOT(slotRunningModeSelectedMemory(bool)));
-      connect( fileRadioButton, SIGNAL(toggled(bool) ), this, SLOT(slotRunningModeSelectedFile(bool)));
+      connect( memoryQCheckbox, SIGNAL(toggled(bool) ), this, SLOT(slotRunningModeSelectedMemory(bool)));
+      connect( fileQCheckbox, SIGNAL(toggled(bool) ), this, SLOT(slotRunningModeSelectedFile(bool)));
 
       QVBoxLayout *layout = new QVBoxLayout;
       layout->addWidget(topLabel);
-      layout->addWidget(memoryRadioButton);
-      layout->addWidget(fileRadioButton);
+      layout->addWidget(memoryQCheckbox);
+      layout->addWidget(fileQCheckbox);
       setLayout(layout);
 }
 

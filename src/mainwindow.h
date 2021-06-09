@@ -626,7 +626,7 @@ private:
 
     //QLineEdit *searchBoxLineEdit;
     //QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
-    //QRadioButton *searchAllRadioButton;
+    //QCheckBox *searchAllQCheckbox;
     //QPushButton *recalculateAwardsButton;
     //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
