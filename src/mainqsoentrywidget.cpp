@@ -321,7 +321,7 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
-    qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << endl;
+    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << endl;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     clear();
     emit clearForNextQSOSignal();
@@ -556,7 +556,7 @@ bool MainQSOEntryWidget::setMode(const QString &_mode)
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << "MainQSOEntryWidget::setQRZ: " << _qrz << endl;
+    //qDebug() << "MainQSOEntryWidget::setQRZ: " << _qrz << endl;
     //TODO: Add validations to prevent that non valid qrz are sent from the outside of this function or at least manage this appropriately.
     qrzLineEdit->setText(_qrz.toUpper());
     emit debugLog(Q_FUNC_INFO, "END", Debug);

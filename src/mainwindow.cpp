@@ -7665,7 +7665,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
         return;
     }
 
-    mainQSOEntryWidget->setFreq (_fr, true);
+    //mainQSOEntryWidget->setFreq (_fr, true);
     QSOTabWidget->setRXFreq (_fr);
     satTabWidget->setDownLinkFreq(_fr);
 
