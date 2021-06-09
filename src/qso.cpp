@@ -74,6 +74,8 @@ void QSO::clear()
     name = QString();
     freq_tx = -1.0;
     freq_rx = -1.0;
+    age = -1.0;
+    sota_ref = QString();
     pwr_rx = 0.0;
     RST_rx = QString();
     RST_tx = QString();
@@ -896,6 +898,36 @@ bool QSO::setPropMode(const QString &_c)
 QString QSO::getPropMode()
 {
     return propMode;
+}
+
+
+bool QSO::setSOTA_REF(const QString &_c)
+{
+    if (_c.length ()>1)
+    {
+        sota_ref = _c;
+        return true;
+    }
+    return false;
+}
+
+QString QSO::getSOTA_REF()
+{
+    return sota_ref;
+}
+double QSO::setAge(const double _c)
+{
+    if ((0 <= _c) && (_c <= 120))
+    {
+        age = _c;
+        return true;
+    }
+    return false;
+}
+
+double QSO::getAge()
+{
+    return age;
 }
 
 bool QSO::setIOTA(const QString &_c)

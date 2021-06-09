@@ -431,7 +431,7 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
     switch (value)
     {
     case 1:
-        return "SOTAREF";
+        return "SOTA_REF";
     case 2:
         return "AGE";
     default:
@@ -441,6 +441,7 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
 
 bool MainWindowInputOthers::setUserADIFValue(const QString &_adifValue)
 {
+    userDefinedADIFValueLineEdit->setText (_adifValue);
     return true;
 }
 
@@ -452,7 +453,7 @@ QString MainWindowInputOthers::getUserADIFValue()
 
 bool MainWindowInputOthers::setInitialADIFValues()
 {
-    adifValidTypes << tr("01-SOTA ref") << tr ("02-Age");
+    adifValidTypes << tr("01-SOTA_Ref") << tr ("02-Age");
     userDefinedADIFComboBox->clear ();
     userDefinedADIFComboBox->addItems (adifValidTypes);
     return true;

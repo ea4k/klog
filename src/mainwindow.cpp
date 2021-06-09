@@ -1310,6 +1310,25 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+    // OTHERS TAB
+    // User Selectable field
+    aux1 = othersTabWidget->getUserADIFValue ();
+    if (!aux1.isEmpty ())
+    {
+        QString data = aux1;
+        aux1 = othersTabWidget->getUserADIFTypeComboBox ();
+        if (aux1 == "SOTA_REF")
+        {
+            stringFields = stringFields + ", sota_ref";
+            stringData = stringData + ", '" + data + "'";
+        }
+        else if (aux1 == "AGE")
+        {
+            stringFields = stringFields + ", age";
+            stringData = stringData + ", '" + data + "'";
+        }
+    }
+
     aux1 = othersTabWidget->getIOTA();
       //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << endl;
     if (aux1.length() == 6) // EU-001
@@ -2144,6 +2163,24 @@ QString MainWindow::readDataFromUIDXModifying()
     else
     {
         updateString = updateString + "rx_pwr = '', ";
+    }
+    // OTHERS TAB
+    // User Selectable field
+    aux1 = othersTabWidget->getUserADIFValue ();
+    if (!aux1.isEmpty ())
+    {
+        QString data = aux1;
+        aux1 = othersTabWidget->getUserADIFTypeComboBox ();
+        if (aux1 == "SOTA_REF")
+        {
+            updateString = updateString + "sota_ref = '";
+            updateString = updateString + data + "', ";
+        }
+        else if (aux1 == "AGE")
+        {
+            updateString = updateString + "age = '";
+            updateString = updateString + data + "', ";
+        }
     }
 
     aux1 = othersTabWidget->getIOTA();
@@ -6726,9 +6763,30 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 //QRZCOM
 
+                // OTHERS TAB
 
 
-                  //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
+                nameCol = rec.indexOf("sota_ref");
+                aux1 = (query.value(nameCol)).toString();
+                if (!aux1.isEmpty ())
+                {
+                    if (othersTabWidget->getUserADIFValue ().isEmpty ())
+                    {
+                        othersTabWidget->setUserADIFTypeComboBox ("SOTA_REF");
+                        othersTabWidget->setUserADIFValue (aux1);
+                    }
+                }
+                nameCol = rec.indexOf("age");
+                aux1 = (query.value(nameCol)).toString();
+                if (!aux1.isEmpty ())
+                {
+                    if (othersTabWidget->getUserADIFValue ().isEmpty ())
+                    {
+                        othersTabWidget->setUserADIFTypeComboBox ("AGE");
+                        othersTabWidget->setUserADIFValue (aux1);
+                    }
+                }
+             //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
 
                 nameCol = rec.indexOf("iota");
                 aux1 = (query.value(nameCol)).toString();
@@ -8344,6 +8402,19 @@ void MainWindow::restoreCurrentQSO()
     commentTabWidget->setKeep (qso->getKeepComment ());
 
     // MainWindowInputOthers
+
+    QString aux = othersTabWidget->getUserADIFTypeComboBox ();
+    if (aux == "SOTA_REF")
+    {
+        othersTabWidget->setUserADIFTypeComboBox ("SOTA_REF");
+        othersTabWidget->setUserADIFValue (QString::number(qso->getAge ()));
+    }
+    if (aux == "AGE")
+    {
+        othersTabWidget->setUserADIFTypeComboBox ("AGE");
+        othersTabWidget->setUserADIFValue (qso->getSOTA_REF ())
+    }
+
     othersTabWidget->setEntity (qso->getDXCC ());
     othersTabWidget->setIOTA (qso->getIOTA ());
     othersTabWidget->setPropMode (qso->getPropMode ());

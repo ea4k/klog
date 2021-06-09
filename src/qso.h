@@ -154,6 +154,10 @@ public:
     int getDXCC();
     bool setPropMode(const QString &_c);
     QString getPropMode();
+    bool setSOTA_REF(const QString &_c);
+    QString getSOTA_REF();
+    double setAge(const double _c);
+    double getAge();
     bool setIOTA(const QString &_c);
     QString getIOTA();
     bool setKeepOthers(bool _k);
@@ -194,8 +198,8 @@ private:
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx;
-    QString lotw_qsl_sent, lotw_qsl_rcvd;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref;
 
     QString clublog_status;
     QDate clublogDate;
