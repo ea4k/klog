@@ -70,6 +70,9 @@ void QSO::clear()
     lotw_qsl_rcvd = QString();
     gridsquare = QString();
     myGridsquare = QString();
+    my_sota_ref = QString();
+    my_rig = QString();
+    my_antenna = QString();
     qth = QString();
     name = QString();
     freq_tx = -1.0;
@@ -915,6 +918,52 @@ QString QSO::getSOTA_REF()
 {
     return sota_ref;
 }
+
+bool QSO::setMySOTA_REF(const QString &_c)
+{
+    if (_c.length ()>1)
+    {
+        my_sota_ref = _c;
+        return true;
+    }
+    return false;
+}
+
+QString QSO::getMySOTA_REF()
+{
+    return my_sota_ref;
+}
+
+bool QSO::setMyRig(const QString &_c)
+{
+    if (_c.length ()>1)
+    {
+        my_rig = _c;
+        return true;
+    }
+    return false;
+}
+
+QString QSO::getMyRig()
+{
+    return my_rig;
+}
+
+bool QSO::setMyAntenna(const QString &_c)
+{
+    if (_c.length ()>1)
+    {
+        my_antenna = _c;
+        return true;
+    }
+    return false;
+}
+
+QString QSO::getMyAntenna()
+{
+    return my_antenna;
+}
+
 double QSO::setAge(const double _c)
 {
     if ((0 <= _c) && (_c <= 120))

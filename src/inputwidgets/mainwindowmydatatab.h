@@ -69,7 +69,17 @@ public:
 
     void setMyLocator(const QString _op);
     QString getMyLocator();
-    //QString getLastMyLocator();
+    bool setMyRig(const QString _op);
+    QString getMyRig();
+    bool setMyAntenna(const QString _op);
+    QString getMyAntenna();
+    bool setMySOTA(const QString _op);
+    QString getMySOTA();
+
+    bool setUserADIFTypeComboBox(const QString &_value);
+    QString getUserADIFTypeComboBox();
+    bool setUserADIFValue(const QString &_adifValue);
+    QString getUserADIFValue();
 
     void show(); //Shows the values into the widget
     void clear();
@@ -85,23 +95,31 @@ private slots:
     void slotOperatorTextChanged();
     void slotStationCallSignTextChanged();
     void slotReturnPressed();
+    void slotMyUserADIFComboBoxChanged();
+    void slotSetCurrentMyUSerData();
+
 
 private:
     //void setLastOperator(const QString _op);
     //void setLastStationQRZ(const QString _op);
     //void setLastMyLocator(const QString _op);
     //void setLastPower(const double _power);
+    bool setInitialADIFValues();
+    QStringList adifValidTypes;
+    //bool setCurrentAdifValue();
 
     QDoubleSpinBox *myPowerSpinBox;
     QString stationQRZ, operatorQRZ, myLocator; //Not changed during normal operations. They come from the configuration
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator; // Change dinamically during execution
     double myPower, lastPower;
-    QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit;
+    QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *myUserADIFLineEdit;
+    QComboBox *myUserADIFComboBox;
     QRadioButton *keepThisDataForNextQSORadiobutton;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Locator *locator;
     Utilities *util;
 
+    QString my_rig, my_sota, my_antenna;
 };
 
 #endif // MAINWINDOWMYDATATAB_H

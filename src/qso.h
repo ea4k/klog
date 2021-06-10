@@ -156,6 +156,12 @@ public:
     QString getPropMode();
     bool setSOTA_REF(const QString &_c);
     QString getSOTA_REF();
+    bool setMySOTA_REF(const QString &_c);
+    QString getMySOTA_REF();
+    bool setMyRig(const QString &_c);
+    QString getMyRig();
+    bool setMyAntenna(const QString &_c);
+    QString getMyAntenna();
     double setAge(const double _c);
     double getAge();
     bool setIOTA(const QString &_c);
@@ -199,7 +205,7 @@ private:
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age;
-    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna;
 
     QString clublog_status;
     QDate clublogDate;

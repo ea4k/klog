@@ -37,7 +37,8 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     autoUpdating = false;
     dataProxy = dp;
     propModeList = dataProxy->getPropModeList();
-
+    sota_ref = QString();
+    age = -1;
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
@@ -54,7 +55,8 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
     connect(propModeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
-    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged(int) ) ) ;
+    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
+    connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUSerData() ) );
 
     createUI();
     setInitialADIFValues ();
@@ -152,6 +154,8 @@ void MainWindowInputOthers::clear()
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
     userDefinedADIFValueLineEdit->clear ();
+    sota_ref = QString();
+    age = -1;
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
@@ -422,12 +426,26 @@ bool MainWindowInputOthers::getKeep()
 
 bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
 {
+    if (_value == "SOTA_REF")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (0);
+    }
+    else if (_value == "AGE")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (1);
+    }
+    else
+    {
+        return false;
+    }
     return true;
 }
 
 QString MainWindowInputOthers::getUserADIFTypeComboBox()
 {
-    int value = (((userDefinedADIFValueLineEdit->text()).split('-')).at(0)).toInt ();
+    int value = (((userDefinedADIFComboBox->currentText ()).split('-')).at(0)).toInt ();
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
     switch (value)
     {
     case 1:
@@ -453,15 +471,65 @@ QString MainWindowInputOthers::getUserADIFValue()
 
 bool MainWindowInputOthers::setInitialADIFValues()
 {
-    adifValidTypes << tr("01-SOTA_Ref") << tr ("02-Age");
+    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age");
     userDefinedADIFComboBox->clear ();
     userDefinedADIFComboBox->addItems (adifValidTypes);
     return true;
 }
 
-void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged(int _v)
+void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 {
 
 
+    qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+    QString currentTag = getUserADIFTypeComboBox ();
 
+    if (currentTag == "SOTA_REF")
+    {
+        userDefinedADIFValueLineEdit->setText (sota_ref);
+    }
+    else if (currentTag == "AGE")
+    {
+        userDefinedADIFValueLineEdit->setText (QString::number(age));
+    }
+
+}
+
+bool MainWindowInputOthers::setSOTA(const QString _op)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _op;
+    sota_ref = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    return true;
+}
+QString MainWindowInputOthers::getSOTA()
+{
+    qDebug() << Q_FUNC_INFO;
+    return sota_ref;
+}
+bool MainWindowInputOthers::setAge(const double _op)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _op;
+    age = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    return true;
+}
+
+double MainWindowInputOthers::getAge()
+{
+    return age;
+}
+
+void MainWindowInputOthers::slotSetCurrentUSerData()
+{
+    QString currentTag = getUserADIFTypeComboBox ();
+
+    if (currentTag == "SOTA_REF")
+    {
+       sota_ref = userDefinedADIFValueLineEdit->text();
+    }
+    else if (currentTag == "AGE")
+    {
+        age = userDefinedADIFValueLineEdit->text().toDouble();
+    }
 }
