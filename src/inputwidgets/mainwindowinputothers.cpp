@@ -38,7 +38,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     dataProxy = dp;
     propModeList = dataProxy->getPropModeList();
     sota_ref = QString();
-    age = -1;
+    age = 0;
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
@@ -481,7 +481,7 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 {
 
 
-    qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+    //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
 
     if (currentTag == "SOTA_REF")
@@ -497,19 +497,19 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 
 bool MainWindowInputOthers::setSOTA(const QString _op)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _op;
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
     sota_ref = _op;
     slotUSerDefinedADIFComboBoxChanged();
     return true;
 }
 QString MainWindowInputOthers::getSOTA()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     return sota_ref;
 }
 bool MainWindowInputOthers::setAge(const double _op)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _op;
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
     age = _op;
     slotUSerDefinedADIFComboBoxChanged();
     return true;

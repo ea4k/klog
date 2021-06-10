@@ -2235,7 +2235,6 @@ QString MainWindow::readDataFromUIDXModifying()
     }
     // OTHERS TAB
     // User Selectable field
-    aux1 = othersTabWidget->getUserADIFValue ();
 
     aux1 = (othersTabWidget->getSOTA ());
     if (aux1.length ()>0)
@@ -2259,22 +2258,6 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "age = '', ";
     }
 
-
-    if (!aux1.isEmpty ())
-    {
-        QString data = aux1;
-        aux1 = othersTabWidget->getUserADIFTypeComboBox ();
-        if (aux1 == "SOTA_REF")
-        {
-            updateString = updateString + "sota_ref = '";
-            updateString = updateString + data + "', ";
-        }
-        else if (aux1 == "AGE")
-        {
-            updateString = updateString + "age = '";
-            updateString = updateString + data + "', ";
-        }
-    }
 
     aux1 = othersTabWidget->getIOTA();
                //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 << endl;
