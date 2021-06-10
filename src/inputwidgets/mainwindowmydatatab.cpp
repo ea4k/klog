@@ -34,10 +34,11 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
     myLocatorLineEdit = new QLineEdit;
+
     myUserADIFLineEdit = new QLineEdit;
     myUserADIFComboBox = new QComboBox;
+    keepThisDataForNextQSOQCheckbox = new QCheckBox;
 
-    keepThisDataForNextQSORadiobutton = new QRadioButton;
     locator = new Locator();
 
     lastOperatorQRZ = QString();    // Last QRZ used by the user, will remain if the button is checked and removed if not
@@ -75,8 +76,8 @@ void MainWindowMyDataTab::createUI()
     keepLabel->setText(tr("Keep this data"));
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
-*/
-    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
+
+    keepThisDataForNextQSOQCheckbox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
     myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts."));
     operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
@@ -118,16 +119,16 @@ void MainWindowMyDataTab::createUI()
     myDataInputTabWidgetLayout->addWidget(myPowerSpinBox, 0, 3);
     myDataInputTabWidgetLayout->addWidget(operatorLabelN, 1, 0);
     myDataInputTabWidgetLayout->addWidget(operatorLineEdit, 1, 1);
+
     myDataInputTabWidgetLayout->addWidget(stationCallSignLabelN, 1, 2);
     myDataInputTabWidgetLayout->addWidget(stationCallSignLineEdit, 1, 3);
     myDataInputTabWidgetLayout->addWidget(myUserADIFComboBox, 2, 0);
     myDataInputTabWidgetLayout->addWidget(myUserADIFLineEdit, 2, 1);
     myDataInputTabWidgetLayout->addWidget(myLocatorLabelN, 2, 2);
     myDataInputTabWidgetLayout->addWidget(myLocatorLineEdit, 2, 3);
-
-
     //myDataInputTabWidgetLayout->addWidget(keepLabel, 4, 2);
-    myDataInputTabWidgetLayout->addWidget(keepThisDataForNextQSORadiobutton, 4, 3);
+    myDataInputTabWidgetLayout->addWidget(keepThisDataForNextQSOQCheckbox, 4, 3);
+
 
     setLayout(myDataInputTabWidgetLayout);
 
@@ -148,7 +149,7 @@ void MainWindowMyDataTab::createUI()
 void MainWindowMyDataTab::clear()
 {
     //qDebug() << Q_FUNC_INFO;
-    if (keepThisDataForNextQSORadiobutton->isChecked())
+    if (keepThisDataForNextQSOQCheckbox->isChecked())
     {
         //qDebug() << "MainWindowMyDataTab::clear: checked"  << endl;
         //myPowerSpinBox->setValue(lastPower);
@@ -409,13 +410,13 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
 void MainWindowMyDataTab::setKeep(const bool _b)
 {
     //qDebug() << Q_FUNC_INFO;
-    keepThisDataForNextQSORadiobutton->setChecked (_b);
+    keepThisDataForNextQSOQCheckbox->setChecked (_b);
 }
 
 bool MainWindowMyDataTab::getKeep()
 {
     //qDebug() << Q_FUNC_INFO;
-    return keepThisDataForNextQSORadiobutton->isChecked ();
+    return keepThisDataForNextQSOQCheckbox->isChecked ();
 }
 
 bool MainWindowMyDataTab::setInitialADIFValues()

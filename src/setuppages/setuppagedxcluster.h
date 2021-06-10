@@ -45,26 +45,26 @@ public:
     QString getSelectedDxClusterServer();
     void setSelectedDxClusterServer(const QString t);
 
-    QString getShowHFRadiobutton();
-    QString getShowVHFRadiobutton();
-    QString getShowWARCRadiobutton();
-    QString getShowWorkedRadiobutton();
-    QString getShowConfirmedRadiobutton();
-    QString getShowANNRadiobutton();
-    QString getShowWWVRadiobutton();
-    QString getShowWCYRadiobutton();
-    QString getSaveActivityRadiobutton();
+    QString getShowHFQCheckbox();
+    QString getShowVHFQCheckbox();
+    QString getShowWARCQCheckbox();
+    QString getShowWorkedQCheckbox();
+    QString getShowConfirmedQCheckbox();
+    QString getShowANNQCheckbox();
+    QString getShowWWVQCheckbox();
+    QString getShowWCYQCheckbox();
+    QString getSaveActivityQCheckbox();
 
 
-    void setShowHFRadiobutton(const QString t);
-    void setShowVHFRadiobutton(const QString t);
-    void setShowWARCRadiobutton(const QString t);
-    void setShowWorkedRadiobutton(const QString t);
-    void setShowConfirmedRadiobutton(const QString t);
-    void setShowANNRadiobutton(const QString t);
-    void setShowWWVRadiobutton(const QString t);
-    void setShowWCYRadiobutton(const QString t);
-    void setSaveActivityRadiobutton(const QString t);
+    void setShowHFQCheckbox(const QString t);
+    void setShowVHFQCheckbox(const QString t);
+    void setShowWARCQCheckbox(const QString t);
+    void setShowWorkedQCheckbox(const QString t);
+    void setShowConfirmedQCheckbox(const QString t);
+    void setShowANNQCheckbox(const QString t);
+    void setShowWWVQCheckbox(const QString t);
+    void setShowWCYQCheckbox(const QString t);
+    void setSaveActivityQCheckbox(const QString t);
 
 private slots:
     void slotAddButtonClicked();
@@ -81,16 +81,16 @@ private:
     QPushButton *addClusterButton;
     QPushButton *deleteClusterButton;
 
-    QRadioButton *showHFRadiobutton;
-    QRadioButton *showVHFRadiobutton;
-    QRadioButton *showWARCRadiobutton;
-    QRadioButton *showWorkedRadiobutton;
-    QRadioButton *showConfirmedRadiobutton;
-    QRadioButton *showANNRadiobutton;
-    QRadioButton *showWWVRadiobutton;
-    QRadioButton *showWCYRadiobutton;
+    QCheckBox *showHFQCheckbox;
+    QCheckBox *showVHFQCheckbox;
+    QCheckBox *showWARCQCheckbox;
+    QCheckBox *showWorkedQCheckbox;
+    QCheckBox *showConfirmedQCheckbox;
+    QCheckBox *showANNQCheckbox;
+    QCheckBox *showWWVQCheckbox;
+    QCheckBox *showWCYQCheckbox;
 
-    QRadioButton *saveAllDXClusterDataRadiobutton;
+    QCheckBox *saveAllDXClusterDataQCheckbox;
 
     //QStringList dxClusterServers;
 

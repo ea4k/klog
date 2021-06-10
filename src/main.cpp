@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()).left(2) << ".qm" << endl;
     // Translations begin
     QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)); /* Flawfinder: ignore */
     app.installTranslator(&qtTranslator);
     QTranslator myappTranslator;
 
@@ -118,9 +118,9 @@ int main(int argc, char *argv[])
     #if defined(Q_OS_WIN)
         //qDebug() << "KLog WIN " << endl;
         //qDebug() << "KLog Main: -20 - WIN" << endl;
-        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") )
+        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
+            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
         }
         else if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") )
         {

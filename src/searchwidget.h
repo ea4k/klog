@@ -92,7 +92,7 @@ private slots:
     //void qslRecViaBureauMarkReq(const int _qsoId);
 //    void qslRecViaDirectMarkReq(const int _qsoId);
     void slotStationCallsignChanged();
-    void slotRadioButtonToggled();
+    void slotQCheckboxToggled();
 
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
@@ -124,7 +124,7 @@ private:
     QString callFilter, stationCallsignFilter, currentLogFilter;
     QLineEdit *searchBoxLineEdit;
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
-    QRadioButton *searchAllRadioButton;
+    QCheckBox *searchAllQCheckbox;
     //QTreeWidget *searchResultsTreeWidget;
     QComboBox *stationCallsignComboBox;
 

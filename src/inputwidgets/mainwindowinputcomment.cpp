@@ -32,7 +32,7 @@ MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
 {
        //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << endl;
     commentLineEdit = new QLineEdit();
-    keepThisDataForNextQSORadiobutton = new QRadioButton;
+    keepThisDataForNextQSOQCheckbox = new QCheckBox;
     comment.clear();
     createUI();
        //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << endl;
@@ -53,7 +53,7 @@ void MainWindowInputComment::createUI()
     keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    keepThisDataForNextQSORadiobutton->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
+    keepThisDataForNextQSOQCheckbox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
     QGridLayout *tabLayout = new QGridLayout;
     //QVBoxLayout *tabLayout = new QVBoxLayout;
@@ -61,7 +61,7 @@ void MainWindowInputComment::createUI()
     tabLayout->addWidget(commentLabel, 0, 0);
     tabLayout->addWidget(commentLineEdit, 0, 1);
     tabLayout->addWidget(keepLabel, 2, 1);
-    tabLayout->addWidget(keepThisDataForNextQSORadiobutton, 2, 2);
+    tabLayout->addWidget(keepThisDataForNextQSOQCheckbox, 2, 2);
     setLayout(tabLayout);
 }
 
@@ -78,7 +78,7 @@ QString MainWindowInputComment::getComment()
 
 void MainWindowInputComment::clear()
 {
-    if (!keepThisDataForNextQSORadiobutton->isChecked())
+    if (!keepThisDataForNextQSOQCheckbox->isChecked())
     {
         comment.clear();
         commentLineEdit->clear();
@@ -87,10 +87,10 @@ void MainWindowInputComment::clear()
 
 void MainWindowInputComment::setKeep(const bool _b)
 {
-    keepThisDataForNextQSORadiobutton->setChecked (_b);
+    keepThisDataForNextQSOQCheckbox->setChecked (_b);
 }
 
 bool MainWindowInputComment::getKeep()
 {
-    return keepThisDataForNextQSORadiobutton->isChecked ();
+    return keepThisDataForNextQSOQCheckbox->isChecked ();
 }

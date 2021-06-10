@@ -112,9 +112,11 @@ private:
     QString stationQRZ, operatorQRZ, myLocator; //Not changed during normal operations. They come from the configuration
     QString lastOperatorQRZ, lastStationQRZ, lastMyLocator; // Change dinamically during execution
     double myPower, lastPower;
+
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *myUserADIFLineEdit;
     QComboBox *myUserADIFComboBox;
-    QRadioButton *keepThisDataForNextQSORadiobutton;
+    QCheckBox *keepThisDataForNextQSOQCheckbox;
+
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Locator *locator;
     Utilities *util;

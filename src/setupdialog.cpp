@@ -635,15 +635,15 @@ void SetupDialog::slotOkButtonClicked()
             }
         }
 
-        stream << "DXClusterShowHF=" << dxClusterPage->getShowHFRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowWorked=" << dxClusterPage->getShowWorkedRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowConfirmed=" << dxClusterPage->getShowConfirmedRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVRadiobutton() << ";" <<  endl;
-        stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYRadiobutton() << ";" <<  endl;
-        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityRadiobutton() << ";" <<  endl;
+        stream << "DXClusterShowHF=" << dxClusterPage->getShowHFQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowWorked=" << dxClusterPage->getShowWorkedQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowConfirmed=" << dxClusterPage->getShowConfirmedQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  endl;
+        stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  endl;
+        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  endl;
 
         stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  endl;
         stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  endl;
@@ -1072,21 +1072,21 @@ bool SetupDialog::processConfigLine(const QString &_line)
             userDataPage->setStationLocator(value);
         }
     }else if (tab =="DXCLUSTERSHOWHF"){
-        dxClusterPage->setShowHFRadiobutton(value);
+        dxClusterPage->setShowHFQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWVHF"){
-        dxClusterPage->setShowVHFRadiobutton(value);
+        dxClusterPage->setShowVHFQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWWARC"){
-        dxClusterPage->setShowWARCRadiobutton(value);
+        dxClusterPage->setShowWARCQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWWORKED"){
-        dxClusterPage->setShowWorkedRadiobutton(value);
+        dxClusterPage->setShowWorkedQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWCONFIRMED"){
-        dxClusterPage->setShowConfirmedRadiobutton(value);
+        dxClusterPage->setShowConfirmedQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWANN"){
-        dxClusterPage->setShowANNRadiobutton(value);
+        dxClusterPage->setShowANNQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWWWV"){
-        dxClusterPage->setShowWWVRadiobutton(value);
+        dxClusterPage->setShowWWVQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWWCY"){
-        dxClusterPage->setShowWCYRadiobutton(value);
+        dxClusterPage->setShowWCYQCheckbox(value);
     }else if(tab =="DXCLUSTERSERVERPORT"){
         dxClusterServers << value;
            //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << endl;
@@ -1094,7 +1094,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         dxClusterServerToUse=value;
     }
     else if (tab  =="DXCLUSTERSAVE"){
-        dxClusterPage->setSaveActivityRadiobutton(value);
+        dxClusterPage->setSaveActivityQCheckbox(value);
     }
     else if(tab =="NEWONECOLOR"){
         colorsPage->setNewOneColor(value);
@@ -1375,14 +1375,14 @@ void SetupDialog::setDefaults()
     //interfacesWindowsPage->setPSTRotatorUDPServer("locahost");
     //interfacesWindowsPage->setPSTRotatorUDPServerPort("12040");
 
-    dxClusterPage->setShowHFRadiobutton("TRUE");
-    dxClusterPage->setShowVHFRadiobutton("TRUE");
-    dxClusterPage->setShowWARCRadiobutton("TRUE");
-    dxClusterPage->setShowWorkedRadiobutton("TRUE");
-    dxClusterPage->setShowConfirmedRadiobutton("TRUE");
-    dxClusterPage->setShowANNRadiobutton("TRUE");
-    dxClusterPage->setShowWWVRadiobutton("TRUE");
-    dxClusterPage->setShowWCYRadiobutton("TRUE");
+    dxClusterPage->setShowHFQCheckbox("TRUE");
+    dxClusterPage->setShowVHFQCheckbox("TRUE");
+    dxClusterPage->setShowWARCQCheckbox("TRUE");
+    dxClusterPage->setShowWorkedQCheckbox("TRUE");
+    dxClusterPage->setShowConfirmedQCheckbox("TRUE");
+    dxClusterPage->setShowANNQCheckbox("TRUE");
+    dxClusterPage->setShowWWVQCheckbox("TRUE");
+    dxClusterPage->setShowWCYQCheckbox("TRUE");
     dxClusterServers.clear();
     dxClusterServers.append("dxfun.com:8000");
     dxClusterServerToUse = "dxfun.com:8000";

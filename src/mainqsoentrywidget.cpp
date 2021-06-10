@@ -68,7 +68,7 @@ void MainQSOEntryWidget::createUI()
     OKButton->setToolTip(tr("Add the QSO to the log."));
     clearButton->setToolTip(tr("Clears the QSO entry."));
     realtimeCheckBox->setToolTip(tr("KLog will show real time if enabled."));
-
+    realtimeCheckBox->setText (tr("Real time"));
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);

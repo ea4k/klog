@@ -86,7 +86,7 @@ private:
     QLineEdit *utcLineEdit, *mprefLineEdit, *arrlidLineEdit;
     QLineEdit *deletedLineEdit, *prefLineEdit;
     QDateEdit *delQDateEdit;
-    QRadioButton *delRbutton;
+    QCheckBox *delRbutton;
 
     QStringList entityData;
     //QPalette *paletteOrig, *paletteWrong;

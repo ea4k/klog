@@ -48,7 +48,7 @@ public:
 private:
     QString comment;
     QLineEdit *commentLineEdit;
-    QRadioButton *keepThisDataForNextQSORadiobutton;
+    QCheckBox *keepThisDataForNextQSOQCheckbox;
 
 };
 

@@ -723,20 +723,17 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
         return;
     }
 
-    double upLink = 0.0;
-    upLink = (dataProxy->getSatelliteUplink(_p.section(' ', 0, 0))).toDouble();
-    double downLink = 0.0;
-    downLink = (dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble();
+    double upLink = (dataProxy->getSatelliteUplink(_p.section(' ', 0, 0))).toDouble();
+    double downLink = (dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble();
 
-      //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << QString::number(upLink)<< endl;
-      //qDebug() << "MainWindowSatTab::setBandsOfSat downLink: " << QString::number(downLink)<< endl;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: " << QString::number(upLink)<< endl;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat downLink: " << QString::number(downLink)<< endl;
 
     if (upLink>0)
     {
         //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: emitting: " << QString::number(upLink)<< endl;
         emit satTXFreqNeeded(upLink);
           //qDebug() << "MainWindowSatTab::setBandsOfSat upLink: emitted: " << QString::number(upLink)<< endl;
-
     }
     else
     {

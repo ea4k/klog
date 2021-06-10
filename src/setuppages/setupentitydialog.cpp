@@ -115,7 +115,7 @@ SetupEntityDialog::SetupEntityDialog(){
     delQDateEdit = new QDateEdit;
     delQDateEdit->setToolTip(tr("Date of the deletion."));
 
-    delRbutton = new QRadioButton(tr("Deleted"), this);
+    delRbutton = new QCheckBox(tr("Deleted"), this);
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     QPushButton *okButton = new QPushButton(tr("Ok"));
