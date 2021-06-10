@@ -70,7 +70,7 @@ void MainWindowMyDataTab::createUI()
     myPowerSpinBox->setMaximum(9999);
     myPowerSpinBox->setSuffix(" " + tr("Watts"));
 
-    keepThisDataForNextQSORadiobutton->setText(tr("Keep this data"));
+    keepThisDataForNextQSOQCheckbox->setText(tr("Keep this data"));
     /*
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
@@ -107,13 +107,24 @@ void MainWindowMyDataTab::createUI()
     opCallSignLayout->addWidget (operatorLineEdit);
 
     QHBoxLayout *stCallSignLayout = new QHBoxLayout;
-    stCallSignLayout->addWidget (stationCallSignLabelN);
+    stCallSignLayout->addWidget ();
     stCallSignLayout->addWidget (stationCallSignLineEdit);
 
     QHBoxLayout *locLayout = new QHBoxLayout;
     locLayout->addWidget (myLocatorLabelN);
     locLayout->addWidget (myLocatorLineEdit);
 */
+    QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
+    myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    QLabel *operatorLabelN = new QLabel(tr("Operator callsign"));
+    operatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+    QLabel *stationCallSignLabelN = new QLabel(tr("Station Callsign"));
+    stationCallSignLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+    QLabel *myLocatorLabelN = new QLabel(tr("My Locator"));
+    myLocatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
+
+
     QGridLayout *myDataInputTabWidgetLayout = new QGridLayout;
     myDataInputTabWidgetLayout->addWidget(myPowerSpinBoxLabelN, 0, 2);
     myDataInputTabWidgetLayout->addWidget(myPowerSpinBox, 0, 3);
