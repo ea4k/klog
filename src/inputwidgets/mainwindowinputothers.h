@@ -48,7 +48,16 @@ public:
     void setPropMode(const QString _qs, bool _keep);
     QString getPropModeFromComboBox();
     bool isSATPropagation();
-    //void setKeepProp(const bool _keep);
+
+    bool setUserADIFTypeComboBox(const QString &_value);
+    QString getUserADIFTypeComboBox();
+    bool setUserADIFValue(const QString &_adifValue);
+    QString getUserADIFValue();
+
+    bool setSOTA(const QString _op);
+    QString getSOTA();
+    bool setAge(const double _op);
+    double getAge();
 
     void setIOTA(const QString _qs, const bool _black=true);
     QString getIOTA();
@@ -68,9 +77,13 @@ signals:
 private slots:
     //void slotSetPropMode(const QString _p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
     void slotPropModeComboBoxChanged();
+    void slotUSerDefinedADIFComboBoxChanged();
+    void slotSetCurrentUSerData();
 
 private:
     QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
+    bool setInitialADIFValues();
+
 
     DataProxy_SQLite *dataProxy;
 
@@ -82,6 +95,13 @@ private:
 
     QPalette palRed, palBlack;
     bool autoUpdating;
+
+    QComboBox *userDefinedADIFComboBox;
+    QLineEdit *userDefinedADIFValueLineEdit;
+    QStringList adifValidTypes;
+
+    QString sota_ref;
+    double age;
 };
 
 #endif // MAINWINDOWINPUTOTHERS_H

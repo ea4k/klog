@@ -31,7 +31,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include "database.h"
-
 #include "mainwindow.h"
 
 //#include <qDebug>
@@ -1253,6 +1252,27 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+    aux1 = myDataTabWidget->getMyRig();
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", my_rig";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
+    aux1 = myDataTabWidget->getMyAntenna();
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", my_antenna";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
+    aux1 = myDataTabWidget->getMySOTA();
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", my_sota_ref";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
     aux1 = commentTabWidget->getComment();
     if (aux1.length()>0)
     {
@@ -1308,6 +1328,40 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     {
         stringFields = stringFields + ", rx_pwr";
         stringData = stringData + ", '" + aux1 + "'";
+    }
+
+    // OTHERS TAB
+    // User Selectable field
+    aux1 = othersTabWidget->getSOTA();
+    if (aux1.length()>0)
+    {
+        stringFields = stringFields + ", sota_ref";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+    aux1 = QString::number(othersTabWidget->getAge());
+    if (othersTabWidget->getAge()>0)
+    {
+        stringFields = stringFields + ", age";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
+
+
+    aux1 = othersTabWidget->getUserADIFValue ();
+    if (!aux1.isEmpty ())
+    {
+        QString data = aux1;
+        aux1 = othersTabWidget->getUserADIFTypeComboBox ();
+        if (aux1 == "SOTA_REF")
+        {
+            stringFields = stringFields + ", sota_ref";
+            stringData = stringData + ", '" + data + "'";
+        }
+        else if (aux1 == "AGE")
+        {
+            stringFields = stringFields + ", age";
+            stringData = stringData + ", '" + data + "'";
+        }
     }
 
     aux1 = othersTabWidget->getIOTA();
@@ -2053,6 +2107,40 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "my_gridsquare = '', ";
     }
 
+    aux1 = (myDataTabWidget->getMyRig());
+    if (aux1.length ()>0)
+    {
+        updateString = updateString + "my_rig = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "my_rig = '', ";
+    }
+
+    aux1 = (myDataTabWidget->getMyAntenna());
+    if (aux1.length ()>0)
+    {
+        updateString = updateString + "my_antenna = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "my_antenna = '', ";
+    }
+
+    aux1 = (myDataTabWidget->getMySOTA());
+    if (aux1.length ()>0)
+    {
+        updateString = updateString + "my_sota_ref = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "my_sota_ref = '', ";
+    }
+
+
     aux1 = commentTabWidget->getComment();
     updateString = updateString + "comment = '";
     updateString = updateString + aux1 + "', ";
@@ -2145,6 +2233,31 @@ QString MainWindow::readDataFromUIDXModifying()
     {
         updateString = updateString + "rx_pwr = '', ";
     }
+    // OTHERS TAB
+    // User Selectable field
+
+    aux1 = (othersTabWidget->getSOTA ());
+    if (aux1.length ()>0)
+    {
+        updateString = updateString + "sota_ref = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "sota_ref = '', ";
+    }
+
+    aux1 = QString::number(othersTabWidget->getAge());
+    if (othersTabWidget->getAge()>0)
+    {
+        updateString = updateString + "age = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "age = '', ";
+    }
+
 
     aux1 = othersTabWidget->getIOTA();
                //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 << endl;
@@ -6531,6 +6644,27 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         myDataTabWidget->setMyLocator(aux1);
 
+        nameCol = rec.indexOf("my_rig");
+        aux1 = (query.value(nameCol)).toString();
+        if (!aux1.isEmpty ())
+        {
+            myDataTabWidget->setMyRig (aux1);
+        }
+
+        nameCol = rec.indexOf("my_antenna");
+        aux1 = (query.value(nameCol)).toString();
+        if (!aux1.isEmpty ())
+        {
+            myDataTabWidget->setMyAntenna (aux1);
+        }
+
+        nameCol = rec.indexOf("my_sota_ref");
+        aux1 = (query.value(nameCol)).toString();
+        if (!aux1.isEmpty ())
+        {
+           myDataTabWidget->setMySOTA (aux1);
+        }
+
         nameCol = rec.indexOf("tx_pwr");
         myDataTabWidget->setMyPower((query.value(nameCol)).toDouble());
 
@@ -6721,14 +6855,27 @@ void MainWindow::qsoToEdit (const int _qso)
                 aux1 = (query.value(nameCol)).toString();
                 if (util->getDateFromSQliteString(aux1).isValid()  )
                 {
+
                     eQSLTabWidget->setQRZCOMDate(util->getDateFromSQliteString(aux1));
                 }
 
                 //QRZCOM
 
+                // OTHERS TAB
 
-
-                  //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
+                nameCol = rec.indexOf("sota_ref");
+                aux1 = (query.value(nameCol)).toString();
+                if (!aux1.isEmpty ())
+                {
+                    othersTabWidget->setSOTA (aux1);
+                }
+                nameCol = rec.indexOf("age");
+                aux1 = (query.value(nameCol)).toString();
+                if (aux1.toDouble ()>0)
+                {
+                    othersTabWidget->setAge (aux1.toDouble ());
+                }
+             //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << endl;
 
                 nameCol = rec.indexOf("iota");
                 aux1 = (query.value(nameCol)).toString();
@@ -8284,6 +8431,10 @@ void MainWindow::backupCurrentQSO()
     qso->setTXPwr (myDataTabWidget->getMyPower ());
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
     qso->setStationCallsign (myDataTabWidget->getStationQRZ ());
+    qso->setMySOTA_REF (myDataTabWidget->getMySOTA ());
+    qso->setMyRig (myDataTabWidget->getMyRig());
+    qso->setMyAntenna (myDataTabWidget->getMyAntenna ());
+
     qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
     qso->setKeepMyData (myDataTabWidget->getKeep ());
 
@@ -8344,6 +8495,19 @@ void MainWindow::restoreCurrentQSO()
     commentTabWidget->setKeep (qso->getKeepComment ());
 
     // MainWindowInputOthers
+
+    QString aux = othersTabWidget->getUserADIFTypeComboBox ();
+    if (aux == "SOTA_REF")
+    {
+        othersTabWidget->setUserADIFTypeComboBox ("SOTA_REF");
+        othersTabWidget->setUserADIFValue (qso->getSOTA_REF());
+    }
+    else if (aux == "AGE")
+    {
+        othersTabWidget->setUserADIFTypeComboBox ("AGE");
+        othersTabWidget->setUserADIFValue (QString::number(qso->getAge()));
+    }
+
     othersTabWidget->setEntity (qso->getDXCC ());
     othersTabWidget->setIOTA (qso->getIOTA ());
     othersTabWidget->setPropMode (qso->getPropMode ());
@@ -8355,8 +8519,10 @@ void MainWindow::restoreCurrentQSO()
     myDataTabWidget->setStationQRZ (qso->getStationCallsign ());
     myDataTabWidget->setMyLocator (qso->getMyGridSquare ());
     myDataTabWidget->setKeep (qso->getKeepMyData ());
-
-    //MainWindowSatTab
+    myDataTabWidget->setMyRig (qso->getMyRig ());
+    myDataTabWidget->setMyAntenna (qso->getMyAntenna ());
+    myDataTabWidget->setMySOTA (qso->getMySOTA_REF ());
+        //MainWindowSatTab
     satTabWidget->setSatName (qso->getSatName ());
     satTabWidget->setSatMode (qso->getSatMode ());
     satTabWidget->setKeep (qso->getKeepSatTab ());
