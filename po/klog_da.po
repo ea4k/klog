@@ -3682,9 +3682,11 @@ msgstr "Behold disse data"
 
 #: ../inputwidgets/mainwindowinputcomment.cpp:54
 #: ../inputwidgets/mainwindowinputcomment.cpp:56
+#, fuzzy
 msgctxt "MainWindowInputComment|"
 msgid "Data entered in this tab will be copied into the next QSO."
 msgstr ""
+"Data indtastet i dette faneblad vil blive kopieret ind i den næste QSO."
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:72
 msgctxt "MainWindowInputEQSL|"

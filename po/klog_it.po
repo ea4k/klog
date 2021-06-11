@@ -3765,9 +3765,12 @@ msgstr ""
 
 #: ../inputwidgets/mainwindowinputcomment.cpp:54
 #: ../inputwidgets/mainwindowinputcomment.cpp:56
+#, fuzzy
 msgctxt "MainWindowInputComment|"
 msgid "Data entered in this tab will be copied into the next QSO."
 msgstr ""
+"Tutti i dati caricati su questa maschera saranno precaricati nella maschera "
+"di inserimento del prossimo QSO."
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:72
 msgctxt "MainWindowInputEQSL|"
@@ -4034,9 +4037,10 @@ msgstr "RX RST."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:69
 #: ../inputwidgets/mainwindowinputqso.cpp:570
+#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX Frequency in MHz."
-msgstr ""
+msgstr "Frequenza TX in MHz."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:70
 #: ../inputwidgets/mainwindowinputqso.cpp:609
@@ -4145,18 +4149,24 @@ msgid ""
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputqso.cpp:577
+#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
+"Frequenza TX in MHz.\n"
+"Questa frequenza non appartiene a bande radioamatoriali!"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:614
+#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
+"Frequenza RX in MHz.\n"
+"Questa frequenza non appartiene a bande radioamatoriali!"
 
 #: ../inputwidgets/mainwindowmydatatab.cpp:71
 msgctxt "MainWindowMyDataTab|"

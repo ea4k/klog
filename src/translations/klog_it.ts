@@ -3534,7 +3534,7 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="54"/>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="56"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tutti i dati caricati su questa maschera saranno precaricati nella maschera di inserimento del prossimo QSO.</translation>
     </message>
 </context>
 <context>
@@ -3813,7 +3813,7 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="69"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="570"/>
         <source>TX Frequency in MHz.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Frequenza TX in MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="70"/>
@@ -3912,13 +3912,15 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Frequenza TX in MHz.
+Questa frequenza non appartiene a bande radioamatoriali!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Frequenza RX in MHz.
+Questa frequenza non appartiene a bande radioamatoriali!</translation>
     </message>
 </context>
 <context>

@@ -4160,18 +4160,24 @@ msgid ""
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputqso.cpp:577
+#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
+"TX frekvencija u MHz.\n"
+"Frekvencija nije u radioamaterskom frekvencijskom pojasu!"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:614
+#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
+"RX frekvencija u MHz.\n"
+"Frekvencija nije u radioamaterskom frekvencijskom pojasu!"
 
 #: ../inputwidgets/mainwindowmydatatab.cpp:71
 msgctxt "MainWindowMyDataTab|"

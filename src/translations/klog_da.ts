@@ -3515,7 +3515,7 @@ Do you want KLog to remove that file?</source>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="54"/>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="56"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Data indtastet i dette faneblad vil blive kopieret ind i den næste QSO.</translation>
     </message>
 </context>
 <context>

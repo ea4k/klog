@@ -3919,13 +3919,15 @@ Do you want KLog to remove that file?</source>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">TX frekvencija u MHz.
+Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RX frekvencija u MHz.
+Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
     </message>
 </context>
 <context>
