@@ -61,9 +61,10 @@ signals:
 
 public slots:
     void slotScanPorts();
+    void slotRadioComboBoxChanged(QString _r);
 
 private:
-    void createUI();
+    void createUI(bool _network=false);
     void setRig();
     void setDefaults();
     void fillSerialPortsComboBox();
@@ -89,7 +90,7 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
                 *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
-    QLineEdit *serialPort;
+    QLineEdit *serialPort, *hostAddressLineEdit;
     QSpinBox *pollIntervalQSpinBox;
     int pollMin, pollMax;
 
@@ -101,7 +102,9 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 
     QStringList strings, serialPorts;
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
+    bool networkRadio, ready;
 
+     QGroupBox *serialGroup, *networkGroup;
 
     //int defaultPortSpeed;
 };
