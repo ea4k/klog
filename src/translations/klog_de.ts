@@ -1911,7 +1911,7 @@ Error returned: %2</source>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="43"/>
         <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="726"/>
+        <location filename="../mainqsoentrywidget.cpp" line="727"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Hinzufügen</translation>
     </message>
@@ -1967,18 +1967,18 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="891"/>
+        <location filename="../mainqsoentrywidget.cpp" line="892"/>
         <source>Callsign</source>
         <translation type="unfinished">Rufzeichen</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="896"/>
+        <location filename="../mainqsoentrywidget.cpp" line="897"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished">Duplikat</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="722"/>
+        <location filename="../mainqsoentrywidget.cpp" line="723"/>
         <source>&amp;Modify</source>
         <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>
@@ -3640,8 +3640,8 @@ Do you want KLog to remove that file?</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
-        <source>Select ADIF</source>
-        <translation type="unfinished"></translation>
+        <source>Others</source>
+        <translation type="unfinished">Sonstige</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>

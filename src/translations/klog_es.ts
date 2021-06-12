@@ -1926,7 +1926,7 @@ Error: #2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="43"/>
         <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="726"/>
+        <location filename="../mainqsoentrywidget.cpp" line="727"/>
         <source>&amp;Add</source>
         <translation>&amp;Añadir</translation>
     </message>
@@ -1978,22 +1978,22 @@ Error: #2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="71"/>
         <source>Real time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo real</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="891"/>
+        <location filename="../mainqsoentrywidget.cpp" line="892"/>
         <source>Callsign</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="896"/>
+        <location filename="../mainqsoentrywidget.cpp" line="897"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="722"/>
+        <location filename="../mainqsoentrywidget.cpp" line="723"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modificar</translation>
     </message>
@@ -3670,9 +3670,13 @@ Do you want KLog to remove that file?</source>
         <translation>Modo de propagación</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
         <source>Select ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Campo ADIF</translation>
+    </message>
+    <message>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
+        <source>Others</source>
+        <translation>Otros</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
@@ -3717,12 +3721,12 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="99"/>
         <source>Select the appropriate ADIF field for this QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione el tipo ADIF adecuado para este QSO.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
         <source>Value for the selected ADIF field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor del tipo ADIF seleccionado.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="136"/>
@@ -3738,12 +3742,12 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
         <source>SOTA Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Ref SOTA</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
         <source>Age</source>
-        <translation type="unfinished"></translation>
+        <translation>Edad</translation>
     </message>
 </context>
 <context>
@@ -3814,124 +3818,124 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="67"/>
         <source>TX RST.</source>
-        <translation type="unfinished">RST enviado.</translation>
+        <translation>RST enviado.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="68"/>
         <source>RX RST.</source>
-        <translation type="unfinished">RST recibido.</translation>
+        <translation>RST recibido.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="69"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="570"/>
         <source>TX Frequency in MHz.</source>
-        <translation type="unfinished">Frecuencia de TX en MHz.</translation>
+        <translation>Frecuencia de TX en MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="70"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="609"/>
         <source>RX Frequency in MHz.</source>
-        <translation type="unfinished">Frecuencia de RX en MHz.</translation>
+        <translation>Frecuencia de RX en MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="71"/>
         <source>Power used by the contacted station.</source>
-        <translation type="unfinished">Potencia usada por la estación contactada.</translation>
+        <translation>Potencia usada por la estación contactada.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="72"/>
         <source>Name of the contacted operator.</source>
-        <translation type="unfinished">Nombre del operador contactado.</translation>
+        <translation>Nombre del operador contactado.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="73"/>
         <source>QTH of the contacted station.</source>
-        <translation type="unfinished">QTH de la estación contactada.</translation>
+        <translation>QTH de la estación contactada.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="74"/>
         <source>Locator of the contacted station.</source>
-        <translation type="unfinished">Locator de la estación contactada.</translation>
+        <translation>Locator de la estación contactada.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="78"/>
         <source>Watts</source>
-        <translation type="unfinished">Vatios</translation>
+        <translation>Vatios</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="82"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="86"/>
         <source>MHz</source>
-        <translation type="unfinished">MHz</translation>
+        <translation>MHz</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="88"/>
         <source>Split</source>
         <comment>Translator: Split is a common hamradio term. Do not translate unless you are sure.</comment>
-        <translation type="unfinished">Split</translation>
+        <translation>Split</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="92"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="96"/>
         <source>QTH</source>
-        <translation type="unfinished">QTH</translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="100"/>
         <source>DX Locator</source>
-        <translation type="unfinished">Locator DX</translation>
+        <translation>Locator DX</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="104"/>
         <source>Power(rx)</source>
-        <translation type="unfinished">Potencia(rx)</translation>
+        <translation>Potencia(rx)</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="108"/>
         <source>RST(tx)</source>
-        <translation type="unfinished">RST(tx)</translation>
+        <translation>RST(tx)</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="112"/>
         <source>RST(rx)</source>
-        <translation type="unfinished">RST(rx)</translation>
+        <translation>RST(rx)</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="130"/>
         <source>Freq TX</source>
-        <translation type="unfinished">Frec TX</translation>
+        <translation>Frec TX</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="135"/>
         <source>Freq RX</source>
-        <translation type="unfinished">Frec RX</translation>
+        <translation>Frec RX</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="282"/>
         <source>DX QTH locator.</source>
-        <translation type="unfinished">QTH locator de DX.</translation>
+        <translation>QTH locator de DX.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="290"/>
         <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation type="unfinished">QTH locator de DX. ELformato debe ser Maidenhead como en IN70AA hasta 10 caracteres.</translation>
+        <translation>QTH locator de DX. ELformato debe ser Maidenhead como en IN70AA hasta 10 caracteres.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">Frecuencia de TX en MHz.
+        <translation>Frecuencia de TX en MHz.
 ¡La frecuencia no está en una banda de radioaficionados!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">Frecuencia de RX en MHz.
+        <translation>Frecuencia de RX en MHz.
 ¡La frecuencia no está en una banda de radioaficionados!</translation>
     </message>
 </context>
@@ -3980,17 +3984,17 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
         <source>My Rig</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi equipo</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
         <source>My Antenna</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi antena</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
         <source>My SOTA_Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi ref SOTA</translation>
     </message>
 </context>
 <context>

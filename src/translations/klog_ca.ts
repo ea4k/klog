@@ -1925,7 +1925,7 @@ Error retornat: %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="43"/>
         <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="726"/>
+        <location filename="../mainqsoentrywidget.cpp" line="727"/>
         <source>&amp;Add</source>
         <translation>&amp;Afegeix</translation>
     </message>
@@ -1981,17 +1981,17 @@ Error retornat: %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="891"/>
+        <location filename="../mainqsoentrywidget.cpp" line="892"/>
         <source>Callsign</source>
         <translation>Indicatiu</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="722"/>
+        <location filename="../mainqsoentrywidget.cpp" line="723"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modifica</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="896"/>
+        <location filename="../mainqsoentrywidget.cpp" line="897"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3669,9 +3669,13 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
         <translation>Mode de propagació</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
         <source>Select ADIF</source>
-        <translation>Selecciona l&apos;ADIF</translation>
+        <translation type="vanished">Selecciona l&apos;ADIF</translation>
+    </message>
+    <message>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
+        <source>Others</source>
+        <translation>Altres</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>

@@ -77,7 +77,7 @@ void MainWindowInputOthers::createUI()
     QLabel *iotaAwardLabel = new QLabel(tr("IOTA"));
     QLabel *entityNameLabel = new QLabel(tr("Entity"));
     QLabel *propModeLabel = new QLabel(tr("Propagation mode"));
-    QLabel *userSelectLabel = new QLabel(tr("Select ADIF"));
+    QLabel *userSelectLabel = new QLabel(tr("Others"));
 
     entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     entitySecLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);

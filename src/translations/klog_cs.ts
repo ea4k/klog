@@ -1922,7 +1922,7 @@ Chyba : %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="43"/>
         <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="726"/>
+        <location filename="../mainqsoentrywidget.cpp" line="727"/>
         <source>&amp;Add</source>
         <translation>&amp;Vložit</translation>
     </message>
@@ -1978,17 +1978,17 @@ Chyba : %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="891"/>
+        <location filename="../mainqsoentrywidget.cpp" line="892"/>
         <source>Callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="722"/>
+        <location filename="../mainqsoentrywidget.cpp" line="723"/>
         <source>&amp;Modify</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="896"/>
+        <location filename="../mainqsoentrywidget.cpp" line="897"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3667,8 +3667,8 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
-        <source>Select ADIF</source>
-        <translation type="unfinished"></translation>
+        <source>Others</source>
+        <translation type="unfinished">Jiné</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
