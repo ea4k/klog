@@ -92,7 +92,7 @@ private slots:
     void slotModeComboBoxChanged(const QString _m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
-    void slotCheckBoxClicked();
+    void slotRealtimeButtonClicked();
     //void slotRealTimeCheckBoxChanged();
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
@@ -115,7 +115,7 @@ private:
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
-    QCheckBox *realtimeCheckBox;
+    QPushButton *realtimeButton;
     //DebugLogLevel logSeverity;
     bool cleaning;
     bool qrzAutoChanging;
