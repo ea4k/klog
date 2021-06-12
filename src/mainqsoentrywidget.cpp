@@ -498,6 +498,7 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
         return setBand(_newBand);
 
     }
+	return false;
 }
 
 bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)

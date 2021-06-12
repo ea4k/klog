@@ -155,7 +155,7 @@ void MainWindowInputOthers::clear()
     userDefinedADIFComboBox->setCurrentIndex (0);
     userDefinedADIFValueLineEdit->clear ();
     sota_ref = QString();
-    age = -1;
+    age = 0;
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
