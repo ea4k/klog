@@ -718,7 +718,7 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
 
     //QFile *file = new QFile("_file");
     QFile *file = new QFile(util->getClubLogFile());
-    if (file->open(QIODevice::ReadOnly))
+    if (file->open(QIODevice::ReadOnly))        /* Flawfinder: ignore */
     {
          blob = file->readAll();
 

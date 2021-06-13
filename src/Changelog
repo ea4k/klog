@@ -4,8 +4,9 @@ TBD - 1.6
 - Bugfix: Hamlib was not properly started on KLog start (closes #126) (TNX G4MKT)
 - Improvement: Added user selectable ADIF fields in the Other and My Data tabs. (Closes #4)
 - Improvement: Enhanced how the UDP server is started on KLog start.
-- Improvement: Added some basic SQL Injection protection to the UI. (closes #95)
-- Improvement: UI data is saved before entering the Setup and restored after setup is done. (closes #188)
+- Improvement: Added some basic SQL Injection protection to the UI. (Closes #95)
+- Improvement: UI data is saved before entering the Setup and restored after setup is done. (Closes #188)
+- Improvement: Only one instance of KLog is allowed to run simultaneously. (Closes #250) (TNX foldynl)
 - Commented some Flawfinder false positives.
 - Translations: Catalan (TNX Txema), Czech (TNX OK1MLG) & Spanish (EA4K).
 

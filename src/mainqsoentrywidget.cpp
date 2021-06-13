@@ -117,7 +117,7 @@ void MainQSOEntryWidget::createUI()
     palBlack.setColor(QPalette::Text, Qt::black);
 
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
-    connect(qrzLineEdit, SIGNAL(res), this, SLOT(slotOKButtonClicked() ) );
+    //connect(qrzLineEdit, SIGNAL(res), this, SLOT(slotOKButtonClicked() ) );
     //connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
     connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut() ) );
