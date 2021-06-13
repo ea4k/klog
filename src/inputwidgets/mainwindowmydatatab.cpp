@@ -71,49 +71,7 @@ void MainWindowMyDataTab::createUI()
     myPowerSpinBox->setSuffix(" " + tr("Watts"));
 
     keepThisDataForNextQSOQCheckbox->setText(tr("Keep this data"));
-    /*
-    QLabel *keepLabel = new QLabel();
-    keepLabel->setText(tr("Keep this data"));
-    keepLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-    keepLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
-    keepThisDataForNextQSOQCheckbox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
-
-    myPowerSpinBox->setToolTip(tr("Power used for the QSO in watts."));
-    operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
-    stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
-    myLocatorLineEdit->setToolTip(tr("My QTH locator."));
-    myUserADIFComboBox->setToolTip (tr("Select the ADIF field you want to use."));
-    myUserADIFLineEdit->setToolTip (tr("Data relate to the data type selected."));
-
-    QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
-    myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-    QLabel *operatorLabelN = new QLabel(tr("Operator callsign"));
-    operatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-    QLabel *stationCallSignLabelN = new QLabel(tr("Station Callsign"));
-    stationCallSignLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-    QLabel *myLocatorLabelN = new QLabel(tr("My Locator"));
-    myLocatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-/*
-    QHBoxLayout *pwrLayout = new QHBoxLayout;
-    pwrLayout->addWidget (myPowerSpinBoxLabelN);
-    pwrLayout->addWidget (myPowerSpinBox);
-
-    QHBoxLayout *opCallSignLayout = new QHBoxLayout;
-    opCallSignLayout->addWidget (operatorLabelN);
-    opCallSignLayout->addWidget (operatorLineEdit);
-
-    QHBoxLayout *stCallSignLayout = new QHBoxLayout;
-    stCallSignLayout->addWidget ();
-    stCallSignLayout->addWidget (stationCallSignLineEdit);
-
-    QHBoxLayout *locLayout = new QHBoxLayout;
-    locLayout->addWidget (myLocatorLabelN);
-    locLayout->addWidget (myLocatorLineEdit);
-*/
     QLabel *myPowerSpinBoxLabelN = new QLabel(tr("Power"));
     myPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     QLabel *operatorLabelN = new QLabel(tr("Operator callsign"));
