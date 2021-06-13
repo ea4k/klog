@@ -32,6 +32,10 @@
 #include <QTextStream>
 #include <QCoreApplication>
 #include <QCommandLineParser>
+#include <QApplication>
+#include <QSystemSemaphore>
+#include <QSharedMemory>
+#include <QMessageBox>
 
 //#include <QDebug>
 
@@ -209,6 +213,58 @@ int main(int argc, char *argv[])
     app.installTranslator(&myappTranslator);
     //qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
     // Traslations end
+
+    /* Application Singleton
+     *
+     * We want to run only one instance of KLog application
+     */
+    QSystemSemaphore semaphore("klogapp", 1);  // create semaphore with unique ID klogapp
+    semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
+
+#ifndef Q_OS_WIN32
+    // in linux / unix shared memory is not freed when the application terminates abnormally,
+    // so you need to get rid of the garbage
+    QSharedMemory nix_fix_shared_memory("klogshm");
+
+    if (nix_fix_shared_memory.attach())
+    {
+        nix_fix_shared_memory.detach(); // if there is no running instance then it remove the orphaned shared memory
+    }
+#endif
+
+    QSharedMemory sharedMemory("klogshm");  // Create a copy of the shared memory - Unique ID klogshm
+    bool is_running;
+
+    /*
+     * trying to attach a copy of the shared memory to an existing segment
+     *
+     * if successful, it determines that there is already a running instance
+     * otherwise allocate 1 byte of memory and no instance is running
+     */
+    if (sharedMemory.attach())
+    {
+        is_running = true;
+    }
+    else
+    {
+        sharedMemory.create(1);
+        is_running = false;
+    }
+
+    semaphore.release();
+
+    // If you already run one instance of the application, then we inform the user about it
+    // and complete the current instance of the application
+    if (is_running)
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(QObject::tr("KLog is already running.") + "\n" + QObject::tr("It is allowed to run only one instance."));
+        msgBox.exec();
+        return 1;
+    }
+
+    // END OF Application Singleton
 
     QString configFileName, klogDir;
 
