@@ -20,8 +20,7 @@ Check https://jaime.robles.es for the author homepage.
 ## Mailing lists
 
 Please join the mailing list at:
-- Users: https://lists.nongnu.org/mailman/listinfo/klog-users
-- Developers: https://lists.nongnu.org/mailman/listinfo/klog-devel
+    - https://groups.io/g/klog
 
 ## Telegram groups
 

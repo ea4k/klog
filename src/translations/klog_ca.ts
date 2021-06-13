@@ -1923,75 +1923,70 @@ Error retornat: %2</translation>
 <context>
     <name>MainQSOEntryWidget</name>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="43"/>
-        <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="727"/>
+        <location filename="../mainqsoentrywidget.cpp" line="46"/>
+        <location filename="../mainqsoentrywidget.cpp" line="346"/>
+        <location filename="../mainqsoentrywidget.cpp" line="740"/>
         <source>&amp;Add</source>
         <translation>&amp;Afegeix</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="44"/>
+        <location filename="../mainqsoentrywidget.cpp" line="47"/>
         <source>&amp;Clear</source>
         <translation>&amp;Neteja</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="63"/>
+        <location filename="../mainqsoentrywidget.cpp" line="66"/>
         <source>Callsign of the QSO.</source>
         <translation>Indicatiu del QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="64"/>
+        <location filename="../mainqsoentrywidget.cpp" line="67"/>
         <source>Band of the QSO.</source>
         <translation>Banda del QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="65"/>
+        <location filename="../mainqsoentrywidget.cpp" line="68"/>
         <source>Mode of the QSO.</source>
         <translation>Mode del QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="66"/>
+        <location filename="../mainqsoentrywidget.cpp" line="69"/>
         <source>Date of the QSO.</source>
         <translation>Data del QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="67"/>
+        <location filename="../mainqsoentrywidget.cpp" line="70"/>
         <source>Time of the QSO.</source>
         <translation>Hora del QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="68"/>
+        <location filename="../mainqsoentrywidget.cpp" line="71"/>
         <source>Add the QSO to the log.</source>
         <translation>Afegeix el QSO al registre.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="69"/>
+        <location filename="../mainqsoentrywidget.cpp" line="72"/>
         <source>Clears the QSO entry.</source>
         <translation>Neteja l&apos;entrada QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="70"/>
+        <location filename="../mainqsoentrywidget.cpp" line="73"/>
         <source>KLog will show real time if enabled.</source>
         <translation>El KLog mostrarà l&apos;hora real si està activada.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="71"/>
-        <source>Real time</source>
-        <translation>Temps real</translation>
-    </message>
-    <message>
-        <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="892"/>
+        <location filename="../mainqsoentrywidget.cpp" line="88"/>
+        <location filename="../mainqsoentrywidget.cpp" line="905"/>
         <source>Callsign</source>
         <translation>Indicatiu</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="723"/>
+        <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modifica</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="897"/>
+        <location filename="../mainqsoentrywidget.cpp" line="910"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3667,10 +3662,6 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
         <source>Propagation mode</source>
         <translation>Mode de propagació</translation>
-    </message>
-    <message>
-        <source>Select ADIF</source>
-        <translation type="vanished">Selecciona l&apos;ADIF</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>

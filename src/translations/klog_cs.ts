@@ -1920,75 +1920,70 @@ Chyba : %2</translation>
 <context>
     <name>MainQSOEntryWidget</name>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="43"/>
-        <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="727"/>
+        <location filename="../mainqsoentrywidget.cpp" line="46"/>
+        <location filename="../mainqsoentrywidget.cpp" line="346"/>
+        <location filename="../mainqsoentrywidget.cpp" line="740"/>
         <source>&amp;Add</source>
         <translation>&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="44"/>
+        <location filename="../mainqsoentrywidget.cpp" line="47"/>
         <source>&amp;Clear</source>
         <translation>S&amp;mazat</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="63"/>
+        <location filename="../mainqsoentrywidget.cpp" line="66"/>
         <source>Callsign of the QSO.</source>
         <translation>Volací značka.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="64"/>
+        <location filename="../mainqsoentrywidget.cpp" line="67"/>
         <source>Band of the QSO.</source>
         <translation>Pásmo.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="65"/>
+        <location filename="../mainqsoentrywidget.cpp" line="68"/>
         <source>Mode of the QSO.</source>
         <translation>Druh provozu.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="66"/>
+        <location filename="../mainqsoentrywidget.cpp" line="69"/>
         <source>Date of the QSO.</source>
         <translation>Datum.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="67"/>
+        <location filename="../mainqsoentrywidget.cpp" line="70"/>
         <source>Time of the QSO.</source>
         <translation>Čas.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="68"/>
+        <location filename="../mainqsoentrywidget.cpp" line="71"/>
         <source>Add the QSO to the log.</source>
         <translation>Vložit QSO do logu.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="69"/>
+        <location filename="../mainqsoentrywidget.cpp" line="72"/>
         <source>Clears the QSO entry.</source>
         <translation>Smazat QSO.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="70"/>
+        <location filename="../mainqsoentrywidget.cpp" line="73"/>
         <source>KLog will show real time if enabled.</source>
         <translation>Pokud zaškrtnuto, KLog zobrazuje skutečný čas.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="71"/>
-        <source>Real time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="892"/>
+        <location filename="../mainqsoentrywidget.cpp" line="88"/>
+        <location filename="../mainqsoentrywidget.cpp" line="905"/>
         <source>Callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="723"/>
+        <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>&amp;Modify</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="897"/>
+        <location filename="../mainqsoentrywidget.cpp" line="910"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3668,7 +3663,7 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
         <source>Others</source>
-        <translation type="unfinished">Jiné</translation>
+        <translation>Jiné</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
@@ -3713,12 +3708,12 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="99"/>
         <source>Select the appropriate ADIF field for this QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte příslušné pole ADIF pro toto QSO.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
         <source>Value for the selected ADIF field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hodnota pro vybrané pole ADIF.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="136"/>
@@ -3734,12 +3729,12 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
         <source>SOTA Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>SOTA Ref</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
         <source>Age</source>
-        <translation type="unfinished"></translation>
+        <translation>Věk</translation>
     </message>
 </context>
 <context>
@@ -3810,124 +3805,124 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="67"/>
         <source>TX RST.</source>
-        <translation type="unfinished">TX RST.</translation>
+        <translation>TX RST.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="68"/>
         <source>RX RST.</source>
-        <translation type="unfinished">RX RST.</translation>
+        <translation>RX RST.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="69"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="570"/>
         <source>TX Frequency in MHz.</source>
-        <translation type="unfinished">TX Frekvence v MHz.</translation>
+        <translation>TX Frekvence v MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="70"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="609"/>
         <source>RX Frequency in MHz.</source>
-        <translation type="unfinished">RX Frekvence v MHz.</translation>
+        <translation>RX Frekvence v MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="71"/>
         <source>Power used by the contacted station.</source>
-        <translation type="unfinished">Výkon použitý protistanicí.</translation>
+        <translation>Výkon použitý protistanicí.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="72"/>
         <source>Name of the contacted operator.</source>
-        <translation type="unfinished">Jméno operátora protistanice.</translation>
+        <translation>Jméno operátora protistanice.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="73"/>
         <source>QTH of the contacted station.</source>
-        <translation type="unfinished">QTH protistanice.</translation>
+        <translation>QTH protistanice.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="74"/>
         <source>Locator of the contacted station.</source>
-        <translation type="unfinished">Lokátor protistanice.</translation>
+        <translation>Lokátor protistanice.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="78"/>
         <source>Watts</source>
-        <translation type="unfinished">W</translation>
+        <translation>W</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="82"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="86"/>
         <source>MHz</source>
-        <translation type="unfinished">MHz</translation>
+        <translation>MHz</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="88"/>
         <source>Split</source>
         <comment>Translator: Split is a common hamradio term. Do not translate unless you are sure.</comment>
-        <translation type="unfinished">Split</translation>
+        <translation>Split</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="92"/>
         <source>Name</source>
-        <translation type="unfinished">Jméno</translation>
+        <translation>Jméno</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="96"/>
         <source>QTH</source>
-        <translation type="unfinished">QTH</translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="100"/>
         <source>DX Locator</source>
-        <translation type="unfinished">DX Lokátor</translation>
+        <translation>DX Lokátor</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="104"/>
         <source>Power(rx)</source>
-        <translation type="unfinished">Výkon(rx)</translation>
+        <translation>Výkon(rx)</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="108"/>
         <source>RST(tx)</source>
-        <translation type="unfinished">RST(tx)</translation>
+        <translation>RST(tx)</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="112"/>
         <source>RST(rx)</source>
-        <translation type="unfinished">RST(rx)</translation>
+        <translation>RST(rx)</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="130"/>
         <source>Freq TX</source>
-        <translation type="unfinished">Frek TX</translation>
+        <translation>Frek TX</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="135"/>
         <source>Freq RX</source>
-        <translation type="unfinished">Frek RX</translation>
+        <translation>Frek RX</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="282"/>
         <source>DX QTH locator.</source>
-        <translation type="unfinished">DX QTH lokátor.</translation>
+        <translation>DX QTH lokátor.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="290"/>
         <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
-        <translation type="unfinished">DX QTH lokátor. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
+        <translation>DX QTH lokátor. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">TX Frekvence v MHz.
+        <translation>TX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
-        <translation type="unfinished">RX Frekvence v MHz.
+        <translation>RX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
 </context>
@@ -3976,17 +3971,17 @@ Frekvence je mimo radioamatérké pásmo!</translation>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
         <source>My Rig</source>
-        <translation type="unfinished"></translation>
+        <translation>Můj Rig</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
         <source>My Antenna</source>
-        <translation type="unfinished"></translation>
+        <translation>Moje anténa</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
         <source>My SOTA_Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Moje SOTA_Ref</translation>
     </message>
 </context>
 <context>
@@ -7491,7 +7486,7 @@ Log nebude otevřen.</translation>
         <location filename="../tipsdialog.cpp" line="159"/>
         <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="unfinished">&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít QSL, které je potřeba ještě odeslat v menu &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na odeslání&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako QSL k odeslaní &lt;i&gt;Vyžádané&lt;/i&gt;. {2:?}</translation>
+        <translation>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete najít QSL, které je potřeba ještě odeslat v menu &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Nástroje-&gt;QSL...-&gt;Najít QSL čekající na odeslání&lt;/a&gt;.&lt;bR&gt;Tato volba zobrazí v okně Hledání všechna QSO označená jako QSL k odeslaní &lt;i&gt;Vyžádané&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="163"/>
@@ -7503,24 +7498,24 @@ Log nebude otevřen.</translation>
         <location filename="../tipsdialog.cpp" line="167"/>
         <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="unfinished">&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;při hledání můžete použít &apos;*&apos; k nalezení všech QSO? {4:?}</translation>
+        <translation>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;při hledání můžete použít &apos;*&apos; k nalezení všech QSO?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="170"/>
         <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
-        <translation type="unfinished">&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Víte, že......&lt;br&gt;všechny soubory KLogu, jako jsou Vaše logy, logbook.dat, konfigurační soubor klogrc jsou uloženy v adresáři zobrazeném pomocí menu &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Soubor-&gt;KLog adresář&lt;/a&gt;? {5:?}</translation>
+        <translation>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Víte, že......&lt;br&gt;všechny soubory KLogu, jako jsou Vaše logy, logbook.dat, konfigurační soubor klogrc jsou uloženy v adresáři zobrazeném pomocí menu &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Soubor-&gt;KLog adresář&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="176"/>
         <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;LoTW tools ...-&gt;Sends the log to LoTW calling TQSL.&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="unfinished">&lt;b&gt;Tip #21:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete všechna zafrontovaná QSL nahrát do LoTW pomocí TQSL přes menu &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Nástroje-&gt;LoTW-&gt;Nahrát zafrontovaná QSO do LoTW&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Je potřeba mít nastaven TQSL, aby tato volba byla aktivní. {6:?}</translation>
+        <translation>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete všechna zafrontovaná QSL nahrát do LoTW pomocí TQSL přes menu &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Nástroje-&gt;LoTW-&gt;Nahrát zafrontovaná QSO do LoTW&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Je potřeba mít nastaven TQSL, aby tato volba byla aktivní.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="180"/>
         <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="unfinished">&lt;b&gt;Tip #20:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete zobrazit QSO, které potvrzuje jednu konkrétní zemi DXCC na jednom konkrétním pásmu, když umístíte myš nad toto pásmo v okně DXCC? {7:?}</translation>
+        <translation>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;můžete zobrazit QSO, které potvrzuje jednu konkrétní zemi DXCC na jednom konkrétním pásmu, když umístíte myš nad toto pásmo v okně DXCC?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
@@ -7547,7 +7542,7 @@ Log nebude otevřen.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation>&lt;b&gt;Tip #10:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete přihlásit k odběru &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users-mailing list&lt;/a&gt; - anglické diskuzní skupiny o Klogu přes email?</translation>
+        <translation>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete přihlásit k odběru &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users-mailing list&lt;/a&gt; - anglické diskuzní skupiny o Klogu přes email?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="200"/>
