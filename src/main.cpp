@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
         {
             myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()));
         }
-        else if (((QLocale::system().name()).left(2)) == "en")
+        else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
         { // If language is English, it will execute without showing message
         }
         else
@@ -142,14 +142,13 @@ int main(int argc, char *argv[])
         {
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm");
         }
-        else if (((QLocale::system().name()).left(2)) == "en")
+        else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
         { // If language is English, it will execute without showing message
 
         }
         else
         {
             missingTranslation = true;
-            //msgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
         }
     #else
            //qDebug() << "KLog OTHER OS: " << (QLocale::system()).name() << endl;

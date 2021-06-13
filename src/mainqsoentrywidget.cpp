@@ -59,6 +59,14 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << endl;
 }
 
+void MainQSOEntryWidget::slotRealTimeButtonResize()
+{
+    int heigh = qrzLineEdit->sizeHint ().height ();
+    realtimeButton->setFixedSize(QSize(heigh, heigh));
+    //realtimeButton->setSizePolicy (QSizePolicy::Fixed);
+
+}
+
 void MainQSOEntryWidget::createUI()
 {
       //qDebug()<< "MainQSOEntryWidget::createUI" << endl;
@@ -109,6 +117,7 @@ void MainQSOEntryWidget::createUI()
     palBlack.setColor(QPalette::Text, Qt::black);
 
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
+    connect(qrzLineEdit, SIGNAL(res), this, SLOT(slotOKButtonClicked() ) );
     //connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
     connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut() ) );
@@ -117,12 +126,20 @@ void MainQSOEntryWidget::createUI()
     connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModeComboBoxChanged(QString) ) ) ;
 
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
+
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
       //qDebug()<< "MainQSOEntryWidget::createUI-END" << endl;
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
+
+}
+
+void MainQSOEntryWidget::resizeEvent(QResizeEvent *event)
+{
+    qDebug() << Q_FUNC_INFO;
+    slotRealTimeButtonResize();
 
 }
 
@@ -133,13 +150,13 @@ void MainQSOEntryWidget::slotRealtimeButtonClicked()
     if (realtimeButton->isChecked())
     {
         realTime = true;
-        realtimeButton->setIcon(QIcon(":/img/play.svg"));
+        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
         timeEdit->setBackgroundRole(enabledCR);
     }
     else
     {
         realTime = false;
-        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
+        realtimeButton->setIcon(QIcon(":/img/play.svg"));
         timeEdit->setBackgroundRole(QPalette::BrightText);
     }
 
@@ -503,7 +520,7 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
         return setBand(_newBand);
 
     }
-	return false;
+    return false;
 }
 
 bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)

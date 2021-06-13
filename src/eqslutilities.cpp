@@ -221,7 +221,7 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
 
 
     QFile *file = new QFile(_file);
-    if (file->open(QIODevice::ReadOnly))
+    if (file->open(QIODevice::ReadOnly)) /* Flawfinder: ignore */
     {
          blob = file->readAll();
         //qDebug()<< "eQSLUtilities::sendLogFile: FILE OPEN: " << blob << endl;

@@ -222,7 +222,7 @@ void DataBase::compress()
          //qDebug() << "DataBase::compress " << endl;
 
     //QSqlDatabase db = QSqlDatabase::database();
-    if (!db.open()) {
+    if (!db.open()) { /* Flawfinder: ignore */
         QMessageBox::warning(nullptr, QObject::tr("Database Error"),
                              db.lastError().text());
     }
@@ -284,7 +284,7 @@ bool DataBase::createConnection(const QString &function, bool newDB)
            //qDebug() << "DataBase::createConnection: end of not valid"  << endl;
         }
        //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
-        if (!db.open())
+        if (!db.open()) /* Flawfinder: ignore */
         {
         //qDebug() << "DataBase::createConnection:Not open "  << endl;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());

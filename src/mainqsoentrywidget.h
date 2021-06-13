@@ -74,6 +74,7 @@ public:
 
 protected:
    // void keyPressEvent(QKeyEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -96,6 +97,7 @@ private slots:
     //void slotRealTimeCheckBoxChanged();
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
+    void slotRealTimeButtonResize();
 
 
 private:
