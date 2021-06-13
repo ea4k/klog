@@ -2046,75 +2046,70 @@ msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr "Selecciona todos los QSOs"
 
-#: ../mainqsoentrywidget.cpp:43 ../mainqsoentrywidget.cpp:341
-#: ../mainqsoentrywidget.cpp:726
+#: ../mainqsoentrywidget.cpp:46 ../mainqsoentrywidget.cpp:346
+#: ../mainqsoentrywidget.cpp:740
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
 msgstr "&Añadir"
 
-#: ../mainqsoentrywidget.cpp:44
+#: ../mainqsoentrywidget.cpp:47
 msgctxt "MainQSOEntryWidget|"
 msgid "&Clear"
 msgstr "&Limpiar"
 
-#: ../mainqsoentrywidget.cpp:63
+#: ../mainqsoentrywidget.cpp:66
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign of the QSO."
 msgstr "Indicativo del QSO."
 
-#: ../mainqsoentrywidget.cpp:64
+#: ../mainqsoentrywidget.cpp:67
 msgctxt "MainQSOEntryWidget|"
 msgid "Band of the QSO."
 msgstr "Banda del QSO."
 
-#: ../mainqsoentrywidget.cpp:65
+#: ../mainqsoentrywidget.cpp:68
 msgctxt "MainQSOEntryWidget|"
 msgid "Mode of the QSO."
 msgstr "Modo del QSO."
 
-#: ../mainqsoentrywidget.cpp:66
+#: ../mainqsoentrywidget.cpp:69
 msgctxt "MainQSOEntryWidget|"
 msgid "Date of the QSO."
 msgstr "Fecha del QSO."
 
-#: ../mainqsoentrywidget.cpp:67
+#: ../mainqsoentrywidget.cpp:70
 msgctxt "MainQSOEntryWidget|"
 msgid "Time of the QSO."
 msgstr "Hora del QSO."
 
-#: ../mainqsoentrywidget.cpp:68
+#: ../mainqsoentrywidget.cpp:71
 msgctxt "MainQSOEntryWidget|"
 msgid "Add the QSO to the log."
 msgstr "Añadir QSO al log."
 
-#: ../mainqsoentrywidget.cpp:69
+#: ../mainqsoentrywidget.cpp:72
 msgctxt "MainQSOEntryWidget|"
 msgid "Clears the QSO entry."
 msgstr "Limpia la entrada de QSO."
 
-#: ../mainqsoentrywidget.cpp:70
+#: ../mainqsoentrywidget.cpp:73
 msgctxt "MainQSOEntryWidget|"
 msgid "KLog will show real time if enabled."
 msgstr "KLog mostrará tiempo real si se habilita."
 
-#: ../mainqsoentrywidget.cpp:71
-msgctxt "MainQSOEntryWidget|"
-msgid "Real time"
-msgstr ""
-
-#: ../mainqsoentrywidget.cpp:85 ../mainqsoentrywidget.cpp:891
+#: ../mainqsoentrywidget.cpp:88 ../mainqsoentrywidget.cpp:905
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Indicativo"
 
-#: ../mainqsoentrywidget.cpp:896
+#: ../mainqsoentrywidget.cpp:910
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
 msgid "DUPE"
 msgstr "DUPE"
 
-#: ../mainqsoentrywidget.cpp:722
+#: ../mainqsoentrywidget.cpp:736
 msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"
 msgstr "&Modificar"
@@ -3976,8 +3971,8 @@ msgstr "Modo de propagación"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:80
 msgctxt "MainWindowInputOthers|"
-msgid "Select ADIF"
-msgstr ""
+msgid "Others"
+msgstr "Otros"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:89
 msgctxt "MainWindowInputOthers|"
@@ -4022,12 +4017,12 @@ msgstr "Mantiene el mismo modo de propagación para el siguiente QSO."
 #: ../inputwidgets/mainwindowinputothers.cpp:99
 msgctxt "MainWindowInputOthers|"
 msgid "Select the appropriate ADIF field for this QSO."
-msgstr ""
+msgstr "Seleccione el tipo ADIF adecuado para este QSO."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:100
 msgctxt "MainWindowInputOthers|"
 msgid "Value for the selected ADIF field."
-msgstr ""
+msgstr "Valor del tipo ADIF seleccionado."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:136
 #: ../inputwidgets/mainwindowinputothers.cpp:175
@@ -4043,12 +4038,12 @@ msgstr "No - Sin identificar"
 #: ../inputwidgets/mainwindowinputothers.cpp:474
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
-msgstr ""
+msgstr "Ref SOTA"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:474
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
-msgstr ""
+msgstr "Edad"
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
 msgctxt "MainWindowInputQSL|"
@@ -4111,70 +4106,59 @@ msgid "QSL via information."
 msgstr "Información de QSL via."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:67
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX RST."
 msgstr "RST enviado."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:68
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RX RST."
 msgstr "RST recibido."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:69
 #: ../inputwidgets/mainwindowinputqso.cpp:570
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX Frequency in MHz."
 msgstr "Frecuencia de TX en MHz."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:70
 #: ../inputwidgets/mainwindowinputqso.cpp:609
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RX Frequency in MHz."
 msgstr "Frecuencia de RX en MHz."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:71
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Power used by the contacted station."
 msgstr "Potencia usada por la estación contactada."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:72
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Name of the contacted operator."
 msgstr "Nombre del operador contactado."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:73
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "QTH of the contacted station."
 msgstr "QTH de la estación contactada."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:74
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Locator of the contacted station."
 msgstr "Locator de la estación contactada."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:78
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Watts"
 msgstr "Vatios"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:82
 #: ../inputwidgets/mainwindowinputqso.cpp:86
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "MHz"
 msgstr "MHz"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:88
-#, fuzzy
 msgctxt ""
 "MainWindowInputQSO|Translator: Split is a common hamradio term. Do not "
 "translate unless you are sure."
@@ -4182,61 +4166,51 @@ msgid "Split"
 msgstr "Split"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:92
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Name"
 msgstr "Nombre"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:96
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "QTH"
 msgstr "QTH"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:100
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "DX Locator"
 msgstr "Locator DX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:104
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Power(rx)"
 msgstr "Potencia(rx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:108
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RST(tx)"
 msgstr "RST(tx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:112
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RST(rx)"
 msgstr "RST(rx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:130
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Freq TX"
 msgstr "Frec TX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:135
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Freq RX"
 msgstr "Frec RX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:282
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "DX QTH locator."
 msgstr "QTH locator de DX."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:290
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
@@ -4245,7 +4219,6 @@ msgstr ""
 "caracteres."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:577
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
@@ -4255,7 +4228,6 @@ msgstr ""
 "¡La frecuencia no está en una banda de radioaficionados!"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:614
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
@@ -4310,17 +4282,17 @@ msgstr ""
 #: ../inputwidgets/mainwindowmydatatab.cpp:437
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
-msgstr ""
+msgstr "Mi equipo"
 
 #: ../inputwidgets/mainwindowmydatatab.cpp:437
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
-msgstr ""
+msgstr "Mi antena"
 
 #: ../inputwidgets/mainwindowmydatatab.cpp:437
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
-msgstr ""
+msgstr "Mi ref SOTA"
 
 #: ../inputwidgets/mainwindowsattab.cpp:89
 msgctxt "MainWindowSatTab|"

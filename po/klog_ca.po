@@ -139,6 +139,10 @@ msgid ""
 "application that runs on all major operating systems (GNU/Linux, macOS and "
 "Windows) and to support new functionality."
 msgstr ""
+"Des de la versió 0.6.2, el KLog s'ha reescrit completament per a "
+"proporcionar una aplicació multiplataforma que s'executa a tots els sistemes "
+"operatius principals (GNU/Linux, macOS i Windows) i per a implementar "
+"funcionalitats noves."
 
 #: ../aboutdialog.cpp:108 ../aboutdialog.cpp:167
 msgctxt "AboutDialog|"
@@ -1526,7 +1530,7 @@ msgstr "Us donem la benvinguda al KLog!"
 msgctxt "IntroPage|"
 msgid "Welcome to KLog! - brought to you under the terms of the GPL!"
 msgstr ""
-"Us donem la benvinguda al KLog! - Distribuït sota els termes de la GPL!"
+"Us donem la benvinguda al KLog! - Distribuït segons els termes de la GPL!"
 
 #: ../startwizard.cpp:177
 msgctxt "IntroPage|"
@@ -1546,6 +1550,8 @@ msgid ""
 "KLog is a free hamradio logging program that can run on GNU/Linux, macOS, "
 "and Windows."
 msgstr ""
+"El KLog és un programa lliure d'enregistrament de radioafició que es pot "
+"executar en el GNU/Linux, macOS, i Windows."
 
 #: ../startwizard.cpp:180
 msgctxt "IntroPage|"
@@ -1602,7 +1608,7 @@ msgstr "Informació de la llicència del KLog"
 msgctxt "LicPage|"
 msgid "Welcome to KLog!- brought to you under the terms of the GPL!"
 msgstr ""
-"Us donem la benvinguda al KLog! - Distribuït sota els termes de la GPL!"
+"Us donem la benvinguda al KLog! - Distribuït segons els termes de la GPL!"
 
 #: ../startwizard.cpp:852
 msgctxt "LicPage|"
@@ -2057,73 +2063,68 @@ msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr "Selecciona tots els QSO"
 
-#: ../mainqsoentrywidget.cpp:43 ../mainqsoentrywidget.cpp:341
-#: ../mainqsoentrywidget.cpp:726
+#: ../mainqsoentrywidget.cpp:46 ../mainqsoentrywidget.cpp:346
+#: ../mainqsoentrywidget.cpp:740
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
 msgstr "&Afegeix"
 
-#: ../mainqsoentrywidget.cpp:44
+#: ../mainqsoentrywidget.cpp:47
 msgctxt "MainQSOEntryWidget|"
 msgid "&Clear"
 msgstr "&Neteja"
 
-#: ../mainqsoentrywidget.cpp:63
+#: ../mainqsoentrywidget.cpp:66
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign of the QSO."
 msgstr "Indicatiu del QSO."
 
-#: ../mainqsoentrywidget.cpp:64
+#: ../mainqsoentrywidget.cpp:67
 msgctxt "MainQSOEntryWidget|"
 msgid "Band of the QSO."
 msgstr "Banda del QSO."
 
-#: ../mainqsoentrywidget.cpp:65
+#: ../mainqsoentrywidget.cpp:68
 msgctxt "MainQSOEntryWidget|"
 msgid "Mode of the QSO."
 msgstr "Mode del QSO."
 
-#: ../mainqsoentrywidget.cpp:66
+#: ../mainqsoentrywidget.cpp:69
 msgctxt "MainQSOEntryWidget|"
 msgid "Date of the QSO."
 msgstr "Data del QSO."
 
-#: ../mainqsoentrywidget.cpp:67
+#: ../mainqsoentrywidget.cpp:70
 msgctxt "MainQSOEntryWidget|"
 msgid "Time of the QSO."
 msgstr "Hora del QSO."
 
-#: ../mainqsoentrywidget.cpp:68
+#: ../mainqsoentrywidget.cpp:71
 msgctxt "MainQSOEntryWidget|"
 msgid "Add the QSO to the log."
 msgstr "Afegeix el QSO al registre."
 
-#: ../mainqsoentrywidget.cpp:69
+#: ../mainqsoentrywidget.cpp:72
 msgctxt "MainQSOEntryWidget|"
 msgid "Clears the QSO entry."
 msgstr "Neteja l'entrada QSO."
 
-#: ../mainqsoentrywidget.cpp:70
+#: ../mainqsoentrywidget.cpp:73
 msgctxt "MainQSOEntryWidget|"
 msgid "KLog will show real time if enabled."
 msgstr "El KLog mostrarà l'hora real si està activada."
 
-#: ../mainqsoentrywidget.cpp:71
-msgctxt "MainQSOEntryWidget|"
-msgid "Real time"
-msgstr ""
-
-#: ../mainqsoentrywidget.cpp:85 ../mainqsoentrywidget.cpp:891
+#: ../mainqsoentrywidget.cpp:88 ../mainqsoentrywidget.cpp:905
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Indicatiu"
 
-#: ../mainqsoentrywidget.cpp:722
+#: ../mainqsoentrywidget.cpp:736
 msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"
 msgstr "&Modifica"
 
-#: ../mainqsoentrywidget.cpp:896
+#: ../mainqsoentrywidget.cpp:910
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
@@ -3630,6 +3631,9 @@ msgid ""
 "\n"
 "Do you want to mark as Sent all the QSOs uploaded to LoTW?"
 msgstr ""
+"El TQSL ha finalitzat sense cap error.\n"
+"\n"
+"Voleu marcar com a enviats tots els QSO pujats al LoTW?"
 
 #: ../mainwindow.cpp:6297
 msgctxt "MainWindow|"
@@ -3997,8 +4001,8 @@ msgstr "Mode de propagació"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:80
 msgctxt "MainWindowInputOthers|"
-msgid "Select ADIF"
-msgstr ""
+msgid "Others"
+msgstr "Altres"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:89
 msgctxt "MainWindowInputOthers|"
@@ -4043,12 +4047,12 @@ msgstr "Mantén el mateix mode de propagació per al QSO següent."
 #: ../inputwidgets/mainwindowinputothers.cpp:99
 msgctxt "MainWindowInputOthers|"
 msgid "Select the appropriate ADIF field for this QSO."
-msgstr ""
+msgstr "Selecciona el camp apropiat de l'ADIF per a aquest QSO."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:100
 msgctxt "MainWindowInputOthers|"
 msgid "Value for the selected ADIF field."
-msgstr ""
+msgstr "Valor per al camp ADIF seleccionat."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:136
 #: ../inputwidgets/mainwindowinputothers.cpp:175
@@ -4064,12 +4068,12 @@ msgstr "Not - No identificat"
 #: ../inputwidgets/mainwindowinputothers.cpp:474
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
-msgstr ""
+msgstr "Referència SOTA"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:474
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
-msgstr ""
+msgstr "Antiguitat"
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
 msgctxt "MainWindowInputQSL|"
@@ -4132,70 +4136,59 @@ msgid "QSL via information."
 msgstr "QSL via informació."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:67
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX RST."
 msgstr "TX RST."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:68
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RX RST."
 msgstr "RX RST."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:69
 #: ../inputwidgets/mainwindowinputqso.cpp:570
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX Frequency in MHz."
 msgstr "Freqüència de TX en MHz."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:70
 #: ../inputwidgets/mainwindowinputqso.cpp:609
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RX Frequency in MHz."
 msgstr "Freqüència de RX en MHz."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:71
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Power used by the contacted station."
 msgstr "Potència usada per l'estació contactada."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:72
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Name of the contacted operator."
 msgstr "Nom de l'operador contactat."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:73
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "QTH of the contacted station."
 msgstr "QTH de l'estació contactada."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:74
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Locator of the contacted station."
 msgstr "Localitzador de l'estació contactada."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:78
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Watts"
 msgstr "Watts"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:82
 #: ../inputwidgets/mainwindowinputqso.cpp:86
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "MHz"
 msgstr "MHz"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:88
-#, fuzzy
 msgctxt ""
 "MainWindowInputQSO|Translator: Split is a common hamradio term. Do not "
 "translate unless you are sure."
@@ -4203,61 +4196,51 @@ msgid "Split"
 msgstr "Split"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:92
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Name"
 msgstr "Nom"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:96
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "QTH"
 msgstr "QTH"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:100
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "DX Locator"
 msgstr "Localitzador DX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:104
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Power(rx)"
 msgstr "Potència (rx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:108
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RST(tx)"
 msgstr "RST (tx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:112
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RST(rx)"
 msgstr "RST(rx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:130
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Freq TX"
 msgstr "Freq TX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:135
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Freq RX"
 msgstr "Freq RX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:282
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "DX QTH locator."
 msgstr "Localitzador QTH de DX."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:290
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
@@ -4266,7 +4249,6 @@ msgstr ""
 "de fins a 10 caràcters."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:577
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
@@ -4276,7 +4258,6 @@ msgstr ""
 "La freqüència no es en una banda de radioafició!"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:614
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
@@ -4331,17 +4312,17 @@ msgstr ""
 #: ../inputwidgets/mainwindowmydatatab.cpp:437
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
-msgstr ""
+msgstr "El meu equip"
 
 #: ../inputwidgets/mainwindowmydatatab.cpp:437
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
-msgstr ""
+msgstr "La meva antena"
 
 #: ../inputwidgets/mainwindowmydatatab.cpp:437
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
-msgstr ""
+msgstr "La meva referència SOTA"
 
 #: ../inputwidgets/mainwindowsattab.cpp:89
 msgctxt "MainWindowSatTab|"
@@ -6182,6 +6163,8 @@ msgid ""
 "In seconds, enter the time range to consider a duplicate if same call, band "
 "and mode is entered."
 msgstr ""
+"Introduïu l'interval horari, en segons, per a considerar un duplicat si "
+"s'introdueix els mateixos indicatius, bandes i modes."
 
 #: ../setuppages/setuppagemisc.cpp:134
 msgctxt "SetupPageMisc|"
@@ -7310,6 +7293,10 @@ msgid ""
 "from:<br><br><center><a "
 "href=https://www.klog.xyz>https://www.klog.xyz</a></center>"
 msgstr ""
+"<center><h2>Hi ha una versió (%1) nova disponible del KLog! "
+"</h2></center><br>Hi ha una versió nova disponible del KLog.<br><br><b>Podeu "
+"aconseguir la versió nova a:<br><br><center><a "
+"href=https://www.klog.xyz>https://www.klog.xyz</a></center>"
 
 #: ../softwareupdatedialog.cpp:81
 msgctxt "SoftwareUpdateDialog|"
@@ -8029,7 +8016,6 @@ msgstr ""
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
 #: ../tipsdialog.cpp:159
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #2:</b><br>Do you know...<br>You can find the QSLs that you still "
@@ -8037,26 +8023,24 @@ msgid ""
 "My-QSLs pending to send</a>.<bR>This tool will list you in the search box "
 "all the QSOs with the QSL-Sent marked as <i>Requested</i>."
 msgstr ""
-"<b>Consell núm. 7:</b><br>Sabíeu que...<br>podeu trobar les QSL que encara "
+"<b>Consell núm. 2:</b><br>Sabíeu que...<br>podeu trobar les QSL que encara "
 "cal enviar amb <a href=\"#ToolsSendPendingQSL\">Eines->Eines QSL...->Cerca "
 "les meves QSL pendents d'enviar</a>.<bR>Aquesta eina llistarà al quadre de "
-"cerca tots els QSO amb la QSL-Sent marcada com a <i>Sol·licitada</i>. {2:?}"
+"cerca tots els QSO amb la QSL-Sent marcada com a <i>Sol·licitada</i>."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->Export Requested QSL to ADIF...
 #: ../tipsdialog.cpp:167
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #4:</b><br>Do you know...<br>You can enter a '*' in the search box, "
 "in the search window to search for all the QSOs done with one specific "
 "station callsign?"
 msgstr ""
-"<b>Consell núm. 5:</b><br>Sabíeu que...<br>podeu introduir un «*» al quadre "
+"<b>Consell núm. 4:</b><br>Sabíeu que...<br>podeu introduir un «*» al quadre "
 "de cerca de la finestra de cerca per a cercar tots els QSO efectuats amb un "
-"indicatiu d'estació específic? {4:?}"
+"indicatiu d'estació específic?"
 
 #: ../tipsdialog.cpp:170
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #5:</b><br>Do you know...<br>You can find the file containing all "
@@ -8064,11 +8048,10 @@ msgid ""
 "containing the KLog config file in the KLog folder by opening the <a "
 "href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu?"
 msgstr ""
-"<b>Consell núm. 6:</b><br>Sabíeu que...<br>podeu trobar el fitxer que conté "
+"<b>Consell núm. 5:</b><br>Sabíeu que...<br>podeu trobar el fitxer que conté "
 "tot el vostre registre i altra informació al fitxer «logbook.dat», i al "
 "«klogrc» que conté el fitxer de configuració del KLog, a la carpeta del KLog "
-"obrint el menú <a href=\"#FileOpenKLogFolder\">Fitxer->Carpeta del KLog</a>? "
-"{5:?}"
+"obrint el menú <a href=\"#FileOpenKLogFolder\">Fitxer->Carpeta del KLog</a>?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
 #: ../tipsdialog.cpp:176
@@ -8079,19 +8062,23 @@ msgid ""
 "...->Sends the log to LoTW calling TQSL.</a> ?<br><br>You have to configure "
 "TQSL in the preferences to be able to use this functionality."
 msgstr ""
+"<b>Consell núm. 6:</b><br>Sabíeu que...<br>podeu pujar els QSO marcats com a "
+"posats en cua del LoTW via el TQSL amb <a "
+"href=\"#ToolsUploadLoTW\">Eines->Eines LoTW...->Envia el registre al LoTW "
+"cridant el TQSL.</a> ?<br><br>Cal configurar el TQSL a les preferències per "
+"a poder usar aquesta característica."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find My-QSLs pending to send
 #: ../tipsdialog.cpp:180
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #7:</b><br>Do you know...<br>You can see the QSO that confirms one "
 "specific DXCC entity in one specific band by poiting your mouse over that "
 "band in the DXCC widget?"
 msgstr ""
-"<b>Consell núm. 20:</b><br>Sabíeu que...<br>podeu veure el QSO que confirma "
+"<b>Consell núm. 7:</b><br>Sabíeu que...<br>podeu veure el QSO que confirma "
 "una entitat DXCC específica a una banda específica apuntant el ratolí sobre "
-"aquesta banda al giny del DXCC? {7:?}"
+"aquesta banda al giny del DXCC?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find DX-QSLs pending to receive
 #: ../tipsdialog.cpp:184

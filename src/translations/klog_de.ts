@@ -1909,76 +1909,71 @@ Error returned: %2</source>
 <context>
     <name>MainQSOEntryWidget</name>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="43"/>
-        <location filename="../mainqsoentrywidget.cpp" line="341"/>
-        <location filename="../mainqsoentrywidget.cpp" line="727"/>
+        <location filename="../mainqsoentrywidget.cpp" line="46"/>
+        <location filename="../mainqsoentrywidget.cpp" line="346"/>
+        <location filename="../mainqsoentrywidget.cpp" line="740"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="44"/>
+        <location filename="../mainqsoentrywidget.cpp" line="47"/>
         <source>&amp;Clear</source>
         <translation type="unfinished">&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="63"/>
+        <location filename="../mainqsoentrywidget.cpp" line="66"/>
         <source>Callsign of the QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="64"/>
+        <location filename="../mainqsoentrywidget.cpp" line="67"/>
         <source>Band of the QSO.</source>
         <translation type="unfinished">Band des QSO-Eintrags.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="65"/>
+        <location filename="../mainqsoentrywidget.cpp" line="68"/>
         <source>Mode of the QSO.</source>
         <translation type="unfinished">Modus des QSO-Eintrags.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="66"/>
+        <location filename="../mainqsoentrywidget.cpp" line="69"/>
         <source>Date of the QSO.</source>
         <translation type="unfinished">Datum des QSO-Eintrags.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="67"/>
+        <location filename="../mainqsoentrywidget.cpp" line="70"/>
         <source>Time of the QSO.</source>
         <translation type="unfinished">Zeit des QSO-Eintrags.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="68"/>
+        <location filename="../mainqsoentrywidget.cpp" line="71"/>
         <source>Add the QSO to the log.</source>
         <translation type="unfinished">QSO zum Protokoll hinzufügen</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="69"/>
+        <location filename="../mainqsoentrywidget.cpp" line="72"/>
         <source>Clears the QSO entry.</source>
         <translation type="unfinished">Löscht den QSO-Eintrag.</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="70"/>
+        <location filename="../mainqsoentrywidget.cpp" line="73"/>
         <source>KLog will show real time if enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="71"/>
-        <source>Real time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainqsoentrywidget.cpp" line="85"/>
-        <location filename="../mainqsoentrywidget.cpp" line="892"/>
+        <location filename="../mainqsoentrywidget.cpp" line="88"/>
+        <location filename="../mainqsoentrywidget.cpp" line="905"/>
         <source>Callsign</source>
         <translation type="unfinished">Rufzeichen</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="897"/>
+        <location filename="../mainqsoentrywidget.cpp" line="910"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished">Duplikat</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="723"/>
+        <location filename="../mainqsoentrywidget.cpp" line="736"/>
         <source>&amp;Modify</source>
         <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>

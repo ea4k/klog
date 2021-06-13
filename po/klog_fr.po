@@ -1967,77 +1967,72 @@ msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:43 ../mainqsoentrywidget.cpp:341
-#: ../mainqsoentrywidget.cpp:726
+#: ../mainqsoentrywidget.cpp:46 ../mainqsoentrywidget.cpp:346
+#: ../mainqsoentrywidget.cpp:740
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
 msgstr "&Ajouter"
 
-#: ../mainqsoentrywidget.cpp:44
+#: ../mainqsoentrywidget.cpp:47
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "&Clear"
 msgstr "Effa&cer"
 
-#: ../mainqsoentrywidget.cpp:63
+#: ../mainqsoentrywidget.cpp:66
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign of the QSO."
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:64
+#: ../mainqsoentrywidget.cpp:67
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Band of the QSO."
 msgstr "Bande"
 
-#: ../mainqsoentrywidget.cpp:65
+#: ../mainqsoentrywidget.cpp:68
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Mode of the QSO."
 msgstr "Mode"
 
-#: ../mainqsoentrywidget.cpp:66
+#: ../mainqsoentrywidget.cpp:69
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Date of the QSO."
 msgstr "Date"
 
-#: ../mainqsoentrywidget.cpp:67
+#: ../mainqsoentrywidget.cpp:70
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Time of the QSO."
 msgstr "Heure"
 
-#: ../mainqsoentrywidget.cpp:68
+#: ../mainqsoentrywidget.cpp:71
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Add the QSO to the log."
 msgstr "Ajouter le contact"
 
-#: ../mainqsoentrywidget.cpp:69
+#: ../mainqsoentrywidget.cpp:72
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Clears the QSO entry."
 msgstr "Efface la saisie"
 
-#: ../mainqsoentrywidget.cpp:70
+#: ../mainqsoentrywidget.cpp:73
 msgctxt "MainQSOEntryWidget|"
 msgid "KLog will show real time if enabled."
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:71
-msgctxt "MainQSOEntryWidget|"
-msgid "Real time"
-msgstr ""
-
-#: ../mainqsoentrywidget.cpp:85 ../mainqsoentrywidget.cpp:891
+#: ../mainqsoentrywidget.cpp:88 ../mainqsoentrywidget.cpp:905
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Indicatif"
 
-#: ../mainqsoentrywidget.cpp:896
+#: ../mainqsoentrywidget.cpp:910
 #, fuzzy
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
@@ -2045,7 +2040,7 @@ msgctxt ""
 msgid "DUPE"
 msgstr "DOUBLON"
 
-#: ../mainqsoentrywidget.cpp:722
+#: ../mainqsoentrywidget.cpp:736
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"
@@ -3812,9 +3807,10 @@ msgid "Propagation mode"
 msgstr "Mode de propagation"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:80
+#, fuzzy
 msgctxt "MainWindowInputOthers|"
-msgid "Select ADIF"
-msgstr ""
+msgid "Others"
+msgstr "Autres"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:89
 msgctxt "MainWindowInputOthers|"
