@@ -4686,7 +4686,7 @@ bool MainWindow::setUDPServer(const bool _b)
     //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
     QString errorMSG, aux;
-    if (UDPServerStart)
+    if (_b)
     {
         if (!UDPLogServer->isStarted())
         {
