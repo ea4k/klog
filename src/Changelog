@@ -6,6 +6,7 @@ TBD - 1.6
 - Improvement: Enhanced how the UDP server is started on KLog start.
 - Improvement: Added some basic SQL Injection protection to the UI. (closes #95)
 - Improvement: UI data is saved before entering the Setup and restored after setup is done. (closes #188)
+- Commented some Flawfinder false positives.
 - Translations: Catalan (TNX Txema), Czech (TNX OK1MLG) & Spanish (EA4K).
 
 May 2021 - 1.5.3

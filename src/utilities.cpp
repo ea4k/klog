@@ -340,7 +340,8 @@ QString Utilities::getKLogDBBackupFile()
     dbPath = getKLogDefaultDatabaseFile();
     QFile file(getCfgFile());
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
 
         //return dbPath;
         //return getKLogDatabaseFile(dbPath);

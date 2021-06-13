@@ -39,7 +39,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     bool errorFound = true;
 
     QFile file( fileName );
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
            //qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName << endl;
         return false;

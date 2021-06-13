@@ -1206,7 +1206,7 @@ bool World::readCTYCSV(const QString &_worldFile)
     //int errorCode = -1;
 
     QFile file( _worldFile );
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
     {
           //qDebug() << "World::readCTYCSV() File not found: END FALSE" << fileName << endl;
         return false;

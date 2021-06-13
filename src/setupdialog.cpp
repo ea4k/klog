@@ -489,7 +489,8 @@ void SetupDialog::slotOkButtonClicked()
     QFile file (configFileName);
     QString tmp;
     tmp = "true";
-    if (file.open (QIODevice::WriteOnly)){
+    if (file.open (QIODevice::WriteOnly))   /* Flawfinder: ignore */
+    {
         QTextStream stream (&file);
     /*QString stationCall;
     int contest;
@@ -822,7 +823,8 @@ void SetupDialog::slotReadConfigData()
     //qDebug() << "SetupDialog::slotReadConfigData - 1" << endl;
 
     QFile file(configFileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+    {
         //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << endl;
         //firstTime = true;
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
@@ -831,7 +833,7 @@ void SetupDialog::slotReadConfigData()
     //qDebug() << "SetupDialog::slotReadConfigData - 2" << endl;
     //dxClusterServers.clear();
 
-    while (!file.atEnd()) {
+    while (!file.atEnd()){
         QByteArray line = file.readLine();
         processConfigLine(line);
         //qDebug() << "SetupDialog::slotReadConfigData - in the while" << endl;

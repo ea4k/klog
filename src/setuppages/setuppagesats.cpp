@@ -653,7 +653,7 @@ void SetupPageSats::slotExportButtonClicked()
 
     }
     QDateTime *dateTime = new QDateTime;
-    dateTime->currentDateTime();
+    //dateTime->currentDateTime();
 
     queryString = "SELECT id, satarrlid, satname, uplink, downlink, satmode FROM satellites";
     sqlOk = query.exec(queryString);
@@ -666,13 +666,13 @@ void SetupPageSats::slotExportButtonClicked()
                                    "SATS (*.dat)");
 
         QFile file(fileName);
-        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
             return ;
         QTextStream out(&file);
 
         out << "<app_klog_data:4>SATS" << endl;
         out << "<app_klog_sats_references:" << QString::number((QString::number(satsN)).length()) << ">" << QString::number(satsN) << endl;
-        out << "<app_klog_sats_version:8>" << (dateTime->date()).toString("yyyyMMdd");
+        out << "<app_klog_sats_version:8>" << (dateTime->currentDateTime().date()).toString("yyyyMMdd");
         out << "<EOH>" << endl;
         QSqlRecord rec = query.record();
 

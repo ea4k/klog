@@ -258,7 +258,7 @@ int LoTWUtilities::download()
         }
         //qDebug() << "LoTWUtilities::download: - 23 Filename: -" << endl;
 
-      if (!file->open(QIODevice::WriteOnly))
+      if (!file->open(QIODevice::WriteOnly)) /* Flawfinder: ignore */
       {
           QMessageBox msgBox;
           msgBox.setIcon(QMessageBox::Warning);
@@ -387,7 +387,7 @@ int LoTWUtilities::startThefullDownload()
        }
        //qDebug() << "LoTWUtilities::startThefulldownload: - 23 Filename: -" << endl;
 
-     if (!file->open(QIODevice::WriteOnly))
+     if (!file->open(QIODevice::WriteOnly)) /* Flawfinder: ignore */
      {
          QMessageBox msgBox;
          msgBox.setIcon(QMessageBox::Warning);
@@ -519,7 +519,7 @@ void LoTWUtilities::slotFinished()
         {
             url = newUrl;
             //reply->deleteLater();
-            file->open(QIODevice::WriteOnly);
+            file->open(QIODevice::WriteOnly); /* Flawfinder: ignore */
             file->resize(0);
             startRequest(url);
              //qDebug() << "LoTWUtilities::slotFinished - END-1" << endl;
@@ -581,7 +581,7 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
     QString aux;
 
     QFile file( _fileName );
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
         //qDebug() << "LoTWUtilities::parseDownloadedFile File not found" << _fileName << endl;
         msgBox.setIcon(QMessageBox::Warning);

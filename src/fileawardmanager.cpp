@@ -39,7 +39,7 @@ bool FileAwardManager::importNewAwardFile()
     QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open Award file"), util->getHomeDir(), tr("Award files (*.awa)"));
     //qDebug() << "FileAwardManager::importNewAwardFile - file: " << fileName  << endl;
     QFile file( fileName );
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
         //qDebug() << "FileAwardManager::importNewAwardFile File not found" << fileName << endl;
         showError(tr("Award file not opened"), tr("KLog was not able to read the award file"), QString(tr("It was not possible to open the file %1 for reading.") ).arg(fileName));

@@ -59,7 +59,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     debugFile = new QFile(debugName);
 
 
-    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
@@ -4819,7 +4819,8 @@ void MainWindow::readConfigData()
         return;
     }
     QFile file(configFileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
        //qDebug() << "MainWindow::readConfigData: File not found" << configFileName << QTime::currentTime().toString("hh:mm:ss") << endl;
         if (configured)
         {
