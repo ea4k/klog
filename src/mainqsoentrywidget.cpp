@@ -41,7 +41,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     realtimeButton = new QPushButton;
     realtimeButton->setCheckable(true);
     realtimeButton->setFixedSize(QSize(28,28));
-    realtimeButton->setIcon(QIcon(":/img/play.svg"));
+    realtimeButton->setIcon(QIcon(":/img/stop.svg"));
     enabledCR = realtimeButton->backgroundRole();
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
@@ -133,13 +133,13 @@ void MainQSOEntryWidget::slotRealtimeButtonClicked()
     if (realtimeButton->isChecked())
     {
         realTime = true;
-        realtimeButton->setIcon(QIcon(":/img/play.svg"));
+        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
         timeEdit->setBackgroundRole(enabledCR);
     }
     else
     {
         realTime = false;
-        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
+        realtimeButton->setIcon(QIcon(":/img/play.svg"));
         timeEdit->setBackgroundRole(QPalette::BrightText);
     }
 
@@ -707,11 +707,11 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
     realtimeButton->setChecked(_realTime);
     if (_realTime)
     {
-        realtimeButton->setIcon(QIcon(":/img/play.svg"));
+        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
     }
     else
     {
-        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
+        realtimeButton->setIcon(QIcon(":/img/play.svg"));
     }
     //realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", Debug);
