@@ -42,6 +42,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     parityComboBox = new QComboBox();
     stopBitsComboBox = new QComboBox();
     hostAddressLineEdit = new QLineEdit();
+    portQSpinBox = new QSpinBox;
 
     serialGroup = new QGroupBox;
     networkGroup = new QGroupBox;
@@ -59,14 +60,15 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
    //strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
     pollMax = 5000;
     pollMin = 10;
+    rigctlport = 4532;
     networkRadio = false;
     connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
     connect(rigTypeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
 
-    createUI(false);
+    createUI();
     setDefaults();
     ready = true;
-    qDebug() << "SetupPageHamLib::SetupPageHamLib END" << endl;
+    //qDebug() << "SetupPageHamLib::SetupPageHamLib END" << endl;
 }
 
 void SetupPageHamLib::fillSerialPortsComboBox()
@@ -79,13 +81,13 @@ void SetupPageHamLib::fillSerialPortsComboBox()
 
 void SetupPageHamLib::slotRadioComboBoxChanged(QString _r)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _r;
+    //qDebug() << Q_FUNC_INFO << ": " << _r;
 
     if (_r == "NET rigctl")
     {
         serialGroup->setEnabled (false);
         networkGroup->setEnabled (true);
-        qDebug() << Q_FUNC_INFO << ": Network radio found!" ;
+        //qDebug() << Q_FUNC_INFO << ": Network radio found!" ;
         networkRadio = true;
     }
     else
@@ -97,34 +99,42 @@ void SetupPageHamLib::slotRadioComboBoxChanged(QString _r)
 
 }
 
-void SetupPageHamLib::createUI(bool _network)
+void SetupPageHamLib::createUI()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     activateHamlibCheckBox->setText(tr("Activate HamLib"));
     activateHamlibCheckBox->setToolTip(tr("Activates the hamlib support that will enable the connection to a radio."));
     readOnlyModeCheckBox->setText(tr("Read-Only mode"));
     readOnlyModeCheckBox->setToolTip(tr("If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio."));
+    hostAddressLineEdit->setToolTip (tr("Enter the hostname or address of the radio."));
+    portQSpinBox->setToolTip (tr("Set de network port of the radio."));
     serialGroup->setTitle (tr("Serial radio"));
     networkGroup->setTitle (tr("Network radio"));
+
+    //hostAddressLineEdit->setInputMask("000.000.000.000");
+    portQSpinBox->setMaximum (65535);
+    portQSpinBox->setMinimum (0);
+    portQSpinBox->setValue (rigctlport);
+
 
     rigTypeComboBox->clear();
     strings.clear();
     setRig();
-    qDebug() << Q_FUNC_INFO << " - 10";
+    //qDebug() << Q_FUNC_INFO << " - 10";
 
     fillSerialPortsComboBox();
-    qDebug() << Q_FUNC_INFO << " - 11";
+    //qDebug() << Q_FUNC_INFO << " - 11";
 
     rigTypeComboBox->setCurrentIndex(0);
-    qDebug() << Q_FUNC_INFO << " - 12";
+    //qDebug() << Q_FUNC_INFO << " - 12";
 
     QLabel *rigTypeLabel = new QLabel(tr("Radio"));
     rigTypeLabel->setBuddy(rigTypeComboBox);
     rigTypeLabel->setToolTip(tr("Select your rig."));
     rigTypeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     rigTypeLabel->setEnabled(true);
-    qDebug() << Q_FUNC_INFO << " - 30";
+    //qDebug() << Q_FUNC_INFO << " - 30";
 
     QString pollTip = QString(tr("Defines the interval to poll the radio in msecs."));
     pollIntervalQSpinBox->setToolTip(pollTip);
@@ -142,7 +152,7 @@ void SetupPageHamLib::createUI(bool _network)
     pollIntervalLayout->addWidget(pollIntervalQSpinBox);
 
     QLabel *serialPortLabel = new QLabel();
-    qDebug() << Q_FUNC_INFO << " - 40";
+    //qDebug() << Q_FUNC_INFO << " - 40";
     serialPortComboBox->addItems(serialPorts);
     serialPortLabel->setBuddy(serialPortComboBox);
     serialPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -150,20 +160,20 @@ void SetupPageHamLib::createUI(bool _network)
     serialBaudsLabel->setBuddy(serialBaudsComboBox);
     serialBaudsLabel->setToolTip(tr("Select the serial port speed."));
     serialBaudsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    qDebug() << Q_FUNC_INFO << " - 50";
+    //qDebug() << Q_FUNC_INFO << " - 50";
 
     serialPortLabel->setText (tr("Port"));
     serialPortLabel->setToolTip(tr("Select the serial port. Only the serial ports that are detected are shown."));
     serialPortLabel->setEnabled(true);
     scanSerialPortButton->setText(tr("Scan"));
     scanSerialPortButton->setToolTip(tr("Click to identify the serial ports available in your computer."));
-    qDebug() << Q_FUNC_INFO << " - 56";
+    //qDebug() << Q_FUNC_INFO << " - 56";
     strings.clear();
     strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
     serialBaudsComboBox->addItems(strings);
     serialBaudsLabel->setEnabled(true);
 
-    qDebug() << Q_FUNC_INFO << " - 60";
+    //qDebug() << Q_FUNC_INFO << " - 60";
 
     strings.clear();
     strings << tr("5 bits") << tr("6 bits") << tr("7 bits") << tr("8 bits");
@@ -174,7 +184,7 @@ void SetupPageHamLib::createUI(bool _network)
     dataBitsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     dataBitsLabel->setEnabled(true);
 
-    qDebug() << Q_FUNC_INFO << " - 70";
+    //qDebug() << Q_FUNC_INFO << " - 70";
     strings.clear();
     strings << tr("None") << tr("Hardware") << tr("Software XON/XOFF");
     flowControlComboBox->addItems(strings);
@@ -184,7 +194,7 @@ void SetupPageHamLib::createUI(bool _network)
     flowControlLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     flowControlLabel->setEnabled(true);
 
-    qDebug() << Q_FUNC_INFO << " - 80";
+    //qDebug() << Q_FUNC_INFO << " - 80";
     strings.clear();
     strings << tr("No parity") << tr("Even") << tr("Odd") << tr("Space") << tr("Mark") ;
     parityComboBox->addItems(strings);
@@ -194,7 +204,7 @@ void SetupPageHamLib::createUI(bool _network)
     parityLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     parityLabel->setEnabled(true);
 
-    qDebug() << Q_FUNC_INFO << " - 90";
+    //qDebug() << Q_FUNC_INFO << " - 90";
     strings.clear();
     strings << tr("1 bit") << tr("1.5 bits") << tr("2 bits");
     stopBitsComboBox->addItems(strings);
@@ -203,7 +213,7 @@ void SetupPageHamLib::createUI(bool _network)
     stopBitsLabel->setToolTip(tr("Select the serial stop bits."));
     stopBitsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     stopBitsLabel->setEnabled(true);
-    qDebug() << Q_FUNC_INFO << " - 100";
+    //qDebug() << Q_FUNC_INFO << " - 100";
 
     QHBoxLayout *radioLayout = new QHBoxLayout;
     radioLayout->addWidget (rigTypeLabel);
@@ -226,14 +236,26 @@ void SetupPageHamLib::createUI(bool _network)
     serialLayout->addWidget(parityComboBox, 6, 1);
     serialGroup->setLayout (serialLayout);
 
-    QGridLayout *networkLayout = new QGridLayout;
-    qDebug() << Q_FUNC_INFO << " - 120";
-    networkLayout->addWidget (hostAddressLineEdit);
-    networkGroup->setLayout (networkLayout);
 
-    //QHBoxLayout *groupsBoxLayout = new QHBoxLayout;
-    //groupsBoxLayout->addWidget (serialGroup);
-    //groupsBoxLayout->addWidget (networkGroup);
+    QLabel *hostAddLabel = new QLabel(tr("Host/Address"));
+    hostAddLabel->setBuddy(hostAddressLineEdit);
+    hostAddLabel->setToolTip(tr("Enter the hostname or address of the radio."));
+    hostAddLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    hostAddLabel->setEnabled(true);
+
+    QLabel *portNetLabel = new QLabel(tr("Port"));
+    portNetLabel->setBuddy(portQSpinBox);
+    portNetLabel->setToolTip(tr("Enter the port of the radio."));
+    portNetLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    portNetLabel->setEnabled(true);
+
+    QGridLayout *networkLayout = new QGridLayout;
+    //qDebug() << Q_FUNC_INFO << " - 120";
+    networkLayout->addWidget (hostAddLabel, 0, 0);
+    networkLayout->addWidget (hostAddressLineEdit, 0, 1);
+    networkLayout->addWidget (portNetLabel, 1, 0);
+    networkLayout->addWidget (portQSpinBox, 1, 1);
+    networkGroup->setLayout (networkLayout);
 
     QHBoxLayout *checkBoxLayout = new QHBoxLayout;
     checkBoxLayout->addWidget(activateHamlibCheckBox);
@@ -246,9 +268,9 @@ void SetupPageHamLib::createUI(bool _network)
     mLayout->addWidget (serialGroup, 2, 0);
     mLayout->addWidget (networkGroup, 2, 1);
 
-    qDebug() << Q_FUNC_INFO << " - 199";
+    //qDebug() << Q_FUNC_INFO << " - 199";
     setLayout(mLayout);
-      qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageHamLib::setRig()
@@ -309,7 +331,7 @@ QStringList SetupPageHamLib::getAvailableSerialPorts()
 
 void SetupPageHamLib::setDefaults()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     rigTypeComboBox->setCurrentIndex(0);
     serialPortComboBox->setCurrentIndex(0);
     serialBaudsComboBox->setCurrentIndex(0);
@@ -321,7 +343,7 @@ void SetupPageHamLib::setDefaults()
 
     //RTSCheckBox->setChecked(false);
     //DTRCheckBox->setChecked(false);
-    qDebug()  << Q_FUNC_INFO << " - END";
+    //qDebug()  << Q_FUNC_INFO << " - END";
 }
 
 QString SetupPageHamLib::getData()
@@ -378,6 +400,11 @@ QString SetupPageHamLib::getData()
     _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
     _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value()) + ";\n";
 
+    if (hostAddressLineEdit->text ().length()>1)
+    {
+        _output = _output + "HamlibNetAddress=" + hostAddressLineEdit->text() + ";\n";
+        _output = _output + "HamlibNetPort=" + QString::number(portQSpinBox->value()) + ";\n";
+    }
 
       //qDebug() << "SetupPageHamLib::getData: " << _output << endl;
     return _output;
@@ -660,6 +687,24 @@ void SetupPageHamLib::setPollingInterval(const int _msecs)
         pollIntervalQSpinBox->setValue(_msecs);
     }
 }
+
+void SetupPageHamLib::setRadioNetworkAddress(const QString &_m)
+{
+    if (_m.length ()>0)
+    {
+        hostAddressLineEdit->setText (_m);
+    }
+
+}
+
+void SetupPageHamLib::setRadioNetworkPort(const int _p)
+{
+    if ((_p>0) && (_p<65535))
+    {
+        portQSpinBox->setValue (_p);
+    }
+}
+
 
 /*
 void SetupPageHamLib::setRTS(const QString &_state)

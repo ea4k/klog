@@ -54,6 +54,8 @@ public:
     void setStopBits(const QString &_st);
     //void setPollInterval(const QString &_st);
     void setReadOnly(const QString &_m);
+    void setRadioNetworkAddress(const QString &_m);
+    void setRadioNetworkPort(const int _p);
 
 
 
@@ -64,7 +66,7 @@ public slots:
     void slotRadioComboBoxChanged(QString _r);
 
 private:
-    void createUI(bool _network=false);
+    void createUI();
     void setRig();
     void setDefaults();
     void fillSerialPortsComboBox();
@@ -91,8 +93,8 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
                 *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
     QLineEdit *serialPort, *hostAddressLineEdit;
-    QSpinBox *pollIntervalQSpinBox;
-    int pollMin, pollMax;
+    QSpinBox *pollIntervalQSpinBox, *portQSpinBox;
+    int pollMin, pollMax, rigctlport;
 
     HamLibClass *hamlib;
 
