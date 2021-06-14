@@ -42,6 +42,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     parityComboBox = new QComboBox();
     stopBitsComboBox = new QComboBox();
     hostAddressLineEdit = new QLineEdit();
+
     portQSpinBox = new QSpinBox;
 
     serialGroup = new QGroupBox;
@@ -96,7 +97,6 @@ void SetupPageHamLib::slotRadioComboBoxChanged(QString _r)
         networkGroup->setEnabled (false);
         networkRadio = false;
     }
-
 }
 
 void SetupPageHamLib::createUI()
@@ -107,12 +107,13 @@ void SetupPageHamLib::createUI()
     activateHamlibCheckBox->setToolTip(tr("Activates the hamlib support that will enable the connection to a radio."));
     readOnlyModeCheckBox->setText(tr("Read-Only mode"));
     readOnlyModeCheckBox->setToolTip(tr("If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio."));
+
     hostAddressLineEdit->setToolTip (tr("Enter the hostname or address of the radio."));
     portQSpinBox->setToolTip (tr("Set de network port of the radio."));
+
     serialGroup->setTitle (tr("Serial radio"));
     networkGroup->setTitle (tr("Network radio"));
 
-    //hostAddressLineEdit->setInputMask("000.000.000.000");
     portQSpinBox->setMaximum (65535);
     portQSpinBox->setMinimum (0);
     portQSpinBox->setValue (rigctlport);
@@ -236,7 +237,6 @@ void SetupPageHamLib::createUI()
     serialLayout->addWidget(parityComboBox, 6, 1);
     serialGroup->setLayout (serialLayout);
 
-
     QLabel *hostAddLabel = new QLabel(tr("Host/Address"));
     hostAddLabel->setBuddy(hostAddressLineEdit);
     hostAddLabel->setToolTip(tr("Enter the hostname or address of the radio."));
@@ -255,6 +255,7 @@ void SetupPageHamLib::createUI()
     networkLayout->addWidget (hostAddressLineEdit, 0, 1);
     networkLayout->addWidget (portNetLabel, 1, 0);
     networkLayout->addWidget (portQSpinBox, 1, 1);
+
     networkGroup->setLayout (networkLayout);
 
     QHBoxLayout *checkBoxLayout = new QHBoxLayout;
@@ -353,14 +354,6 @@ QString SetupPageHamLib::getData()
     _output.clear();
     QString _rigType, _serialPort, _baudsSpeed;//, dataBits, stopBits, handshake, flowControlLine;
 
-
-    _rigType = rigTypeComboBox->currentText();
-    _serialPort = serialPortComboBox->currentText();
-    _baudsSpeed = serialBaudsComboBox->currentText();
-
-       //qDebug() << "SetupPageHamLib::getData: " << _rigType << endl;
-
-
     _output.clear();
     if (activateHamlibCheckBox->isChecked())
     {
@@ -370,6 +363,7 @@ QString SetupPageHamLib::getData()
     {
 
     }
+
     if (readOnlyModeCheckBox->isChecked())
     {
         _output = _output + "HamlibReadOnly=True;\n";
@@ -378,26 +372,8 @@ QString SetupPageHamLib::getData()
     {
         _output = _output + "HamlibReadOnly=False;\n";
     }
-    //if (RTSCheckBox->isChecked())
-    //{
-    //    _output = _output + "HamLibSerialRTS=True;\n";
-    //}
-    //if (DTRCheckBox->isChecked())
-    //{
-    //    _output = _output + "HamLibSerialDTR=True;\n";
-    //}
-    _output = _output + getDataBits() + ";\n";
-      //qDebug() << "SetupPageHamLib::getData: dataBits: " << getDataBits() << endl;
-    _output = _output + getStopBits() + ";\n";
-    _output = _output + getFlowControl() + ";\n";
-    _output = _output + getParity() + ";\n";
 
-
-      //qDebug() << "SetupPageHamLib::getData: " << QString::number(hamlib->getModelIdFromName(_rigType)) << endl;
     _output = _output + "HamLibRigType=" + QString::number(hamlib->getModelIdFromName(_rigType)) + ";\n";
-    //_output = _output + "HamLibRigType=" + _rigType + "\n";
-    _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
-    _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
     _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value()) + ";\n";
 
     if (hostAddressLineEdit->text ().length()>1)
@@ -405,8 +381,6 @@ QString SetupPageHamLib::getData()
         _output = _output + "HamlibNetAddress=" + hostAddressLineEdit->text() + ";\n";
         _output = _output + "HamlibNetPort=" + QString::number(portQSpinBox->value()) + ";\n";
     }
-
-      //qDebug() << "SetupPageHamLib::getData: " << _output << endl;
     return _output;
 }
 
@@ -706,28 +680,3 @@ void SetupPageHamLib::setRadioNetworkPort(const int _p)
 }
 
 
-/*
-void SetupPageHamLib::setRTS(const QString &_state)
-{
-    //if (_state.toUpper() == "TRUE")
-    //{
-    //    RTSCheckBox->setChecked(true);
-    //}
-    //else
-    //{
-    //    RTSCheckBox->setChecked(false);
-    //}
-}
-
-void SetupPageHamLib::setDTR(const QString &_state)
-{
-    //if (_state.toUpper() == "TRUE")
-    //{
-    //    DTRCheckBox->setChecked(true);
-    //}
-    //else
-    //{
-    //    DTRCheckBox->setChecked(false);
-    //}
-}
-*/

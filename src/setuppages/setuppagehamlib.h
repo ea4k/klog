@@ -78,6 +78,7 @@ private:
     QString getParity();
     QString getStopBits();
     QString getPollInterval();
+    QString getNetworkSettings();
 
 /*
 
@@ -92,9 +93,11 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
                 *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
+
     QLineEdit *serialPort, *hostAddressLineEdit;
     QSpinBox *pollIntervalQSpinBox, *portQSpinBox;
     int pollMin, pollMax, rigctlport;
+
 
     HamLibClass *hamlib;
 
