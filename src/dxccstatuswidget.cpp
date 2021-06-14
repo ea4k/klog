@@ -121,7 +121,7 @@ void DXCCStatusWidget::update()
     //int entities = world->getHowManyEntities();
     int entities = dataProxy->getMaxEntityID(false);
 
-     //qDebug() << "DXCCStatusWidget::update: " << QString::number(entities) << " entities to update" << endl;
+    qDebug() << "DXCCStatusWidget::update: " << QString::number(entities) << " entities to update" << endl;
     QStringList list;
      //qDebug() << "DXCCStatusWidget::update: -1"  << endl;
     list.clear();
@@ -138,20 +138,16 @@ void DXCCStatusWidget::update()
         for (int i=1; i<=entities; i++)
         {
              //qDebug() << "DXCCStatusWidget::update in FOR " << QString::number(i) << endl;
-            aux = world->getEntityName(i);
-            prefix = world->getEntityMainPrefix(i);
-            if (prefix.startsWith("*"))
-            {
-                QString a = prefix.right(prefix.length()-1);
-                prefix = a;
-            }
+            //aux = world->getEntityName(i);
+            //prefix = world->getEntityMainPrefix(i);
+
              //qDebug() << "DXCCStatusWidget::update in FOR aux: " << aux << endl;
             list.clear();
-            if (aux.length()>2)  // Not all integers refers to an entity.
-            {
-                list << prefix << aux  << bandNames;
+            //if (aux.length()>2)  // Not all integers refers to an entity.
+            //{
+                list << QString::number(i)  << bandNames;
                 addEntity(list);
-            }
+            //}
         }
     }
     emit debugLog (Q_FUNC_INFO, "END", Debug);
@@ -161,33 +157,49 @@ void DXCCStatusWidget::update()
 void DXCCStatusWidget::addEntity(const QStringList &_ent)
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-      //qDebug() << "DXCCStatusWidget::addEntity: " << _ent.at(1) << " / " << QString::number(_ent.length()) << endl;
+    // _ent.at(0) = dxcc column of Entity Table (considering big numbers, like 2248 for IT9!)
+    // _ent.at(1) until number of Columns are just the bandnames
+    qDebug() << "DXCCStatusWidget::addEntity: " << _ent.at(0) << "/" <<_ent.at(1) << " / " << QString::number(_ent.length()) << endl;
     // DXCC id, Entity Name, bandName1, bandName2, ...
-    if (_ent.length() != numberOfColumns)
+    //foreach (QString a, _ent)
+    //{
+    //    qDebug() << Q_FUNC_INFO << ": " << a;
+    //}
+    if (_ent.length() != numberOfColumns-1)
     {
-          //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
+        qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << endl;
         return;
     }
 
     int status = -1;
-    int ent = dataProxy->getEntityIdFromMainPrefix(_ent.at(0));
-            //(_ent.at(0)).toInt();
+    //int ent = dataProxy->getEntityIdFromMainPrefix(_ent.at(0));
+
     int bandid = 0;
-      //qDebug() << "DXCCStatusWidget::addEntity: ent = " << QString::number(ent) << endl;
+    //qDebug() << "DXCCStatusWidget::addEntity: ent = " << QString::number(ent) << endl;
+    int _dxcc = _ent.at(0).toInt();
+    QStringList data;
+    data.clear();
+    data << dataProxy->getEntiNameAndPrefixFromId(_dxcc);
 
-    QString entName = _ent.at(1);
-
-    if (entName.length()<2)
+    if (data.length ()!=2)
     {
-          //qDebug() << "DXCCStatusWidget::addEntity: ERROR: entname too short!" << endl;
+        return;
+    }
+
+    QString prefix = data.at(0);
+    QString entName = data.at(1);
+
+
+    if ((entName.length()<2) || (prefix.length ()<1))
+    {
+        qDebug() << "DXCCStatusWidget::addEntity: ERROR: entname too short!" << endl;
         return;
     }
 
     QString flagSt;
     flagSt.clear();
     QString aux;
-
-    aux = dataProxy->getISOName(ent);
+    aux = dataProxy->getISOName(_dxcc);
     if (aux.length()>1)
     {
         flagSt = ":/" + aux + ".png";
@@ -200,21 +212,23 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     flagSt = ":/flags/" + aux + ".png";
     QIcon flagIcon(flagSt);
 
-       //qDebug() << "DXCCStatusWidget::addEntity: Flag: " << flagSt << endl;
+    qDebug() << "DXCCStatusWidget::addEntity: Name: " << entName << endl;
+    qDebug() << "DXCCStatusWidget::addEntity: Prefix: " << prefix << endl;
+    qDebug() << "DXCCStatusWidget::addEntity: Flag: " << flagSt << endl;
 
     dxccView->insertRow(dxccView->rowCount());
-       //qDebug() << "DXCCStatusWidget::addEntity: rowCount:  " << QString::number(dxccView->rowCount()) << endl;
+    //qDebug() << "DXCCStatusWidget::addEntity: rowCount:  " << QString::number(dxccView->rowCount()) << endl;
 
-    QTableWidgetItem *newItemID = new QTableWidgetItem(_ent.at(0));
-
+    QTableWidgetItem *newItemID = new QTableWidgetItem(prefix);
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
 
-    for (int i=2; i < _ent.length(); i++)
+    for (int i=1; i < _ent.length(); i++)
     {
+        qDebug() << ": " << prefix << " - " << _ent.at(i);
         bandid = dataProxy->getIdFromBandName(_ent.at(i));
-        QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(ent, bandid, tempLog));
+        QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(_dxcc, bandid, tempLog));
         newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::ItemIsEnabled);
 
@@ -237,11 +251,11 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
         {
         }
 
-        dxccView->setItem(dxccView->rowCount()-1, i, newItem);
+        dxccView->setItem(dxccView->rowCount()-1, i-1, newItem);
            //qDebug() << "DXCCStatusWidget::addEntity: rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << endl;
     }
 
-    QTableWidgetItem *newItemPref = new QTableWidgetItem(_ent.at(0));
+    QTableWidgetItem *newItemPref = new QTableWidgetItem(prefix);
     newItemPref->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
     newItemPref->setFlags(Qt::ItemIsEnabled);
 
@@ -251,7 +265,7 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     newItemName->setFlags(Qt::ItemIsEnabled);
     //newItemName->setFlags(Qt::ItemIsUserCheckable);
     newItemName->setIcon(flagIcon);
-
+no salen bien los colores
     if (status == 1)
     {
         newItemName->setTextColor(Qt::blue);
@@ -437,7 +451,7 @@ void DXCCStatusWidget::refresh()
 
     QString tip;
     tip.clear();
-    int row = -1;
+    //int row = -1;
     int column = -1;
     int bandi = -1;
     QString band = QString();
