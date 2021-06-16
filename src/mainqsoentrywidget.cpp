@@ -138,7 +138,7 @@ void MainQSOEntryWidget::createUI()
 
 void MainQSOEntryWidget::resizeEvent(QResizeEvent *event)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     slotRealTimeButtonResize();
 
 }

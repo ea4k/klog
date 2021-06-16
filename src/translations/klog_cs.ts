@@ -3939,47 +3939,47 @@ Frekvence je mimo radioamatérké pásmo!</translation>
         <translation>Ponechat pro další</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="231"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="189"/>
         <source>My QTH locator.</source>
         <translation>Můj QTH lokátor.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="117"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
         <source>Power</source>
         <translation>Výkon</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
         <source>Operator callsign</source>
         <translation>Značka operátora</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="121"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
         <source>Station Callsign</source>
         <translation>Značka stanice</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="124"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
         <source>My Locator</source>
         <translation>Můj lokátor</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="243"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="201"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Můj QTH lokátor. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Rig</source>
         <translation>Můj Rig</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Antenna</source>
         <translation>Moje anténa</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My SOTA_Ref</source>
         <translation>Moje SOTA_Ref</translation>
     </message>

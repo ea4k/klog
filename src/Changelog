@@ -1,4 +1,4 @@
-TBD - 1.6
+June - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.
 - Bugfix: When starting KLog for the first time, it crashed.
 - Bugfix: Hamlib was not properly started on KLog start (closes #126) (TNX G4MKT)
@@ -8,7 +8,7 @@ TBD - 1.6
 - Improvement: UI data is saved before entering the Setup and restored after setup is done. (Closes #188)
 - Improvement: Only one instance of KLog is allowed to run simultaneously. (Closes #250) (TNX foldynl)
 - Commented some Flawfinder false positives.
-- Translations: Catalan (TNX Txema), Czech (TNX OK1MLG) & Spanish (EA4K).
+- Translations: Catalan (TNX Txema), Czech (TNX OK1MLG), Italian (TNX IU5HIU) & Spanish (EA4K).
 
 May 2021 - 1.5.3
 - Bugfix: Fixes the DataBase update process to add the Q65 mode.

@@ -16,7 +16,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="90"/>
         <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Si quiere proporcionar soporte, puede unirse a la &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;Lista de KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="91"/>
@@ -93,7 +93,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="107"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Si KLog no está aun en su idioma y quiere ayudarnos, puede contactarnos en la &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;Lista de KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="108"/>
@@ -3943,47 +3943,47 @@ Frequency is not in a hamradio band!</source>
         <translation>Mantener estos datos</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="231"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="189"/>
         <source>My QTH locator.</source>
         <translation>Mi QTH locator.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="117"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
         <source>Power</source>
         <translation>Potencia</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
         <source>Operator callsign</source>
         <translation>Indicativo del operador</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="121"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
         <source>Station Callsign</source>
         <translation>Indicativo de la estación</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="124"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
         <source>My Locator</source>
         <translation>Mi locator</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="243"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="201"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Mi QTH Locator. El formato debe ser Maidenhead como en IN70AA y hasta 10 caracteres.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Rig</source>
         <translation>Mi equipo</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Antenna</source>
         <translation>Mi antena</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My SOTA_Ref</source>
         <translation>Mi ref SOTA</translation>
     </message>
@@ -4331,12 +4331,12 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../main.cpp" line="262"/>
         <source>KLog is already running.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ya se está ejecutando.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="262"/>
         <source>It is allowed to run only one instance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo puede ejecutarse una instancia a la vez.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="333"/>
@@ -7590,7 +7590,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://groups.io/g/klog&gt;KLog mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #12:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede subscribirse a la &lt;a href=https://groups.io/g/klog&gt;Lista de KLog&lt;/a&gt; para discutir sobre KLog en inglés?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="203"/>

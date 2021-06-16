@@ -3920,47 +3920,47 @@ Taajuus ei ole oikealla taajuusalueella!</translation>
         <translation>Säilytä nämä tiedot</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="231"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="189"/>
         <source>My QTH locator.</source>
         <translation>Minun QTH lokaattori.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="117"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
         <source>Power</source>
         <translation>Teho</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
         <source>Operator callsign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="121"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
         <source>Station Callsign</source>
         <translation>Aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="124"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
         <source>My Locator</source>
         <translation>Minun lokaattori</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="243"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="201"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Minun QTH lokaattori. Tulisi olla muotoa Maidenhead, kuten IN70AA, enintään 10 merkkiä.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Antenna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My SOTA_Ref</source>
         <translation type="unfinished"></translation>
     </message>

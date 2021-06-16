@@ -3908,47 +3908,47 @@ Frequency is not in a hamradio band!</source>
         <translation>このデータを保持</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="231"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="189"/>
         <source>My QTH locator.</source>
         <translation type="unfinished">自局QTHのグリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="117"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
         <source>Power</source>
         <translation>送信出力</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
         <source>Operator callsign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="121"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
         <source>Station Callsign</source>
         <translation>無線局のコールサイン</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="124"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
         <source>My Locator</source>
         <translation>自局のグリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="243"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="201"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My Antenna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="437"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="395"/>
         <source>My SOTA_Ref</source>
         <translation type="unfinished"></translation>
     </message>
