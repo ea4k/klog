@@ -2,7 +2,6 @@
 [![Build Status](https://travis-ci.com/ea4k/klog.svg?branch=master)](https://travis-ci.com/ea4k/klog)
 [![Coverage Status](https://coveralls.io/repos/github/ea4k/klog/badge.svg?branch=master)](https://coveralls.io/github/ea4k/klog?branch=master)
 <img src="https://img.shields.io/github/v/release/ea4k/klog?logo=github&logoColor=white" alt="GitHub release"/>
-<img src="https://img.shields.io/github/workflow/status/ea4k/klog/Build" alt="Build status"/>
 <a href="https://twitter.com/_ea4k"><img src="https://img.shields.io/twitter/follow/_ea4k.svg?style=social&label=Follow" alt="Twitter Follow"/></a>
 
 
