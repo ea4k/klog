@@ -363,13 +363,13 @@ void InfoWidget::setImperialSystem (const  bool _imp)
 
 QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString _q)
 { // Receives band name, Entity number (as a String)
-   qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << endl;
+   //qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << endl;
    QStringList _qs;
     _qs.clear();
 
     _qs << _q << QString::number(dataProxy->getIdFromBandName(_b)) << QString::number(-1) << QString::number(currentLog);
     //TODO: Check if we can know the mode and replace the -1
-    qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << endl;
+    //qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << endl;
     return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name() + "; }";
 }
 
@@ -377,7 +377,7 @@ QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString
 //void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
 void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
-    qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << endl;
+    //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << endl;
     //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
 
     bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));

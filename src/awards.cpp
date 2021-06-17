@@ -352,7 +352,7 @@ bool Awards::isThisSpotConfirmed(const QStringList &_qs)
 int Awards::getDXStatus (const QStringList &_qs)
 {
 
-    qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
+    //qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  endl;
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << << ModeId << lognumber;
 
@@ -405,10 +405,10 @@ int Awards::getDXStatus (const QStringList &_qs)
     int _logNumber = _qs.at(3).toInt();
     int dxccEntity = (_qs.at(0)).toInt();
 
-    qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
+    //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity) << endl;
     if (dxccEntity<=0)
     {
-        qDebug() << "Awards::getDXStatus: dxccEntity <= 0, return -1" << endl;
+        //qDebug() << "Awards::getDXStatus: dxccEntity <= 0, return -1" << endl;
         return -1;
     }
 
@@ -419,7 +419,7 @@ int Awards::getDXStatus (const QStringList &_qs)
     if ( (_mode==-1) || (manageModes==false))
     {
         checkingMode = false;
-        qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
+        //qDebug() << "Awards::getDXStatus: checkingMode = FALSE" << endl;
     }
 
     int wb = dxccStatusBand(dxccEntity, _band, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
@@ -435,13 +435,13 @@ int Awards::getDXStatus (const QStringList &_qs)
         checkingMode = false;
     }
 
-    qDebug() << "Awards::getDXStatus: wb=" << QString::number(wb) << " - wm=" << QString::number(wm) << endl;
-    qDebug() << "Awards::getDXStatus: dxccStatus: " << QString::number(dxccStatus(dxccEntity, _logNumber)) << endl;
+    //qDebug() << "Awards::getDXStatus: wb=" << QString::number(wb) << " - wm=" << QString::number(wm) << endl;
+    //qDebug() << "Awards::getDXStatus: dxccStatus: " << QString::number(dxccStatus(dxccEntity, _logNumber)) << endl;
 
     switch(dxccStatus(dxccEntity, _logNumber))
     {
     case 0:
-        qDebug() << "Awards::getDXStatus: return 0" << endl;
+        //qDebug() << "Awards::getDXStatus: return 0" << endl;
         return 0;                   // ATNO
         //break;
     case 1:                         // Worked, not confirmed
@@ -452,18 +452,18 @@ int Awards::getDXStatus (const QStringList &_qs)
             {
                 if (wm==1)
                 {
-                    qDebug() << "Awards::getDXStatus: return 4" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 4" << endl;
                     return 4;
                 }
                 else
                 {
-                    qDebug() << "Awards::getDXStatus: return 1" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 1" << endl;
                     return 1;
                 }
             }
             else
             {
-                qDebug() << "Awards::getDXStatus: return 4 nc" << endl;
+                //qDebug() << "Awards::getDXStatus: return 4 nc" << endl;
                 return 4;
             }
         case 1:                     // Worked in this band
@@ -471,7 +471,7 @@ int Awards::getDXStatus (const QStringList &_qs)
             {
                 if (wm==1)
                 {
-                    qDebug() << "Awards::getDXStatus: return 3" << endl;
+                    //qDebug() << "Awards::getDXStatus: return 3" << endl;
                     return 3;
                 }
                 else
@@ -566,11 +566,11 @@ int Awards::getDXStatus (const QStringList &_qs)
         }
         else
         {
-            qDebug() << "Awards::getDXStatus: return -1 - 2" << endl;
+            //qDebug() << "Awards::getDXStatus: return -1 - 2" << endl;
             return -1;
         }
     default:
-        qDebug() << "Awards::getDXStatus: return -1 default2" << endl;
+        //qDebug() << "Awards::getDXStatus: return -1 default2" << endl;
         return -1;
     }   // END OF SWITCH
     //qDebug() << "Awards::getDXStatus: END, return -1" << endl;
@@ -692,10 +692,10 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 {
     //qs << Entity << spotBand << "-1" << QString::number(currentLog) ;
-    qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length()) << endl;
 
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
-    qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3) << endl;
     // Receives:  QStringList _qs;
     //_qs << Entity << BandID << ModeId << lognumber;
 
@@ -710,8 +710,8 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 
     int status = getDXStatus(_qs);
 
-    qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
-    qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status) << endl;
+    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << endl;
 
     switch (status) {
         case 0:
@@ -1071,7 +1071,7 @@ void Awards::recalculateAwards()
     Should go in a transaction
 */
 
-    qDebug() << "Awards::recalculateAwards" << endl;
+    //qDebug() << "Awards::recalculateAwards" << endl;
     dataProxy->updateAwardDXCC();
     emit awardDXCCUpdated();
     dataProxy->updateAwardWAZ();
@@ -1487,7 +1487,7 @@ bool Awards::isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, c
 int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 {
     //-1 error / 0 Not worked / 1 worked / 2 confirmed
-    qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band) << endl;
+    //qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band) << endl;
 
         QSqlQuery query = QSqlQuery();
         QString queryString = QString();

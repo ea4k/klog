@@ -3375,7 +3375,7 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
+    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
@@ -3421,7 +3421,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
     //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: " <<_qrz << endl;
     QString pref = util->getPrefixFromCall(_qrz);
-    qDebug() << "MainWindow::slotQRZTextChanged: pref: " << pref << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: pref: " << pref << endl;
 
     if (pref.length ()>0)
     {
@@ -3435,7 +3435,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
     //currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
-    qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
+    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
 
     dxE_CQz = world->getEntityCqz(currentEntity);
@@ -3474,7 +3474,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
-            qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
             previousEntity = currentEntity;
             InValidCharsInPrevCall = false;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
@@ -3488,14 +3488,14 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
-            qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
+            //qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
-           qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
+           //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
         }
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method

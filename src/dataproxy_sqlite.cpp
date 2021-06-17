@@ -2114,10 +2114,10 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
 
 bool DataProxy_SQLite::updateAwardDXCC()
 {
-    qDebug() << "DataProxy_SQLite::updateAwardDXCC" << endl;
+    //qDebug() << "DataProxy_SQLite::updateAwardDXCC" << endl;
     fillEmptyDXCCInTheLog();
     return db->updateAwardDXCCTable();
-    qDebug() << "DataProxy_SQLite::updateAwardDXCC-END" << endl;
+    //qDebug() << "DataProxy_SQLite::updateAwardDXCC-END" << endl;
 }
 
 bool DataProxy_SQLite::updateAwardWAZ()

@@ -7892,6 +7892,7 @@ bool DataBase::updateTo021()
      return true;
 }
 
+
 bool DataBase::updateAwardDXCCTable()
 {
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
@@ -8385,7 +8386,6 @@ bool DataBase::updateAwardWAZTable()
 
 
 }
-
 
 int DataBase::getNumberOfQsos(const int _logNumber)
 {
