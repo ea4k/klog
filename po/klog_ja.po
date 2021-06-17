@@ -4012,49 +4012,49 @@ msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "このデータを保持"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:231
+#: ../inputwidgets/mainwindowmydatatab.cpp:189
 #, fuzzy
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
 msgstr "自局QTHのグリッドロケーター"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:117
+#: ../inputwidgets/mainwindowmydatatab.cpp:75
 msgctxt "MainWindowMyDataTab|"
 msgid "Power"
 msgstr "送信出力"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:119
+#: ../inputwidgets/mainwindowmydatatab.cpp:77
 msgctxt "MainWindowMyDataTab|"
 msgid "Operator callsign"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:121
+#: ../inputwidgets/mainwindowmydatatab.cpp:79
 msgctxt "MainWindowMyDataTab|"
 msgid "Station Callsign"
 msgstr "無線局のコールサイン"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:124
+#: ../inputwidgets/mainwindowmydatatab.cpp:82
 msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "自局のグリッドロケーター"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:243
+#: ../inputwidgets/mainwindowmydatatab.cpp:201
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
 msgstr ""

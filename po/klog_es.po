@@ -28,6 +28,8 @@ msgid ""
 "If you want to provide support you are welcome to join the <a "
 "href=\"https://groups.io/g/klog\">KLog mailing list</a>!"
 msgstr ""
+"Si quiere proporcionar soporte, puede unirse a la <a "
+"href=\"https://groups.io/g/klog\">Lista de KLog</a>."
 
 #: ../aboutdialog.cpp:91 ../aboutdialog.cpp:166
 msgctxt "AboutDialog|"
@@ -130,6 +132,8 @@ msgid ""
 "welcome to contact us through the <a href=\"https://groups.io/g/klog\">KLog "
 "mailing list</a>!"
 msgstr ""
+"Si KLog no está aun en su idioma y quiere ayudarnos, puede contactarnos en "
+"la <a href=\"https://groups.io/g/klog\">Lista de KLog</a>."
 
 #: ../aboutdialog.cpp:108 ../aboutdialog.cpp:167
 msgctxt "AboutDialog|"
@@ -4237,32 +4241,32 @@ msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "Mantener estos datos"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:231
+#: ../inputwidgets/mainwindowmydatatab.cpp:189
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
 msgstr "Mi QTH locator."
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:117
+#: ../inputwidgets/mainwindowmydatatab.cpp:75
 msgctxt "MainWindowMyDataTab|"
 msgid "Power"
 msgstr "Potencia"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:119
+#: ../inputwidgets/mainwindowmydatatab.cpp:77
 msgctxt "MainWindowMyDataTab|"
 msgid "Operator callsign"
 msgstr "Indicativo del operador"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:121
+#: ../inputwidgets/mainwindowmydatatab.cpp:79
 msgctxt "MainWindowMyDataTab|"
 msgid "Station Callsign"
 msgstr "Indicativo de la estación"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:124
+#: ../inputwidgets/mainwindowmydatatab.cpp:82
 msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "Mi locator"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:243
+#: ../inputwidgets/mainwindowmydatatab.cpp:201
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
@@ -4270,17 +4274,17 @@ msgstr ""
 "Mi QTH Locator. El formato debe ser Maidenhead como en IN70AA y hasta 10 "
 "caracteres."
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
 msgstr "Mi equipo"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
 msgstr "Mi antena"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
 msgstr "Mi ref SOTA"
@@ -4656,12 +4660,12 @@ msgstr "No identificado"
 #: ../main.cpp:262
 msgctxt "QObject|"
 msgid "KLog is already running."
-msgstr ""
+msgstr "KLog ya se está ejecutando."
 
 #: ../main.cpp:262
 msgctxt "QObject|"
 msgid "It is allowed to run only one instance."
-msgstr ""
+msgstr "Solo puede ejecutarse una instancia a la vez."
 
 #: ../main.cpp:333
 msgctxt "QObject|"
@@ -8098,6 +8102,9 @@ msgid ""
 "href=https://groups.io/g/klog>KLog mailing list</a> to discuss via email "
 "about KLog in English?"
 msgstr ""
+"<b>Consejo #12:</b><br>¿Sabía que...<br>Puede subscribirse a la <a "
+"href=https://groups.io/g/klog>Lista de KLog</a> para discutir sobre KLog en "
+"inglés?"
 
 #: ../tipsdialog.cpp:203
 msgctxt "TipsDialog|"
