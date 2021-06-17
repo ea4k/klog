@@ -5293,6 +5293,15 @@ bool MainWindow::processConfigLine(const QString &_line){
                 //qDebug() << "MainWindow::processConfigLine: HAMLIBREADONLY: " << value << endl;
         hamlib->setReadOnly(util->trueOrFalse(value));
     }
+    else if (field == "HAMLIBNETADDRESS"){
+        //hamlibPage->setRadioNetworkAddress (value);
+        hamlib->setNetworkAddress (value);
+    }
+    else if (field == "HAMLIBNETPORT"){
+        hamlib->setNetworkPort (value.toInt ());
+        //hamlibPage->setRadioNetworkPort (value.toInt ());
+
+    }
     else if (field=="REALTIMEFROMWSJTX")
     {
                  //qDebug() << "MainWindow::processConfigLine: REALTIMEFROMWSJTX: " << value << endl;
