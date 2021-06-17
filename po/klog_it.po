@@ -114,6 +114,9 @@ msgid ""
 "application that runs on all major operating systems (GNU/Linux, macOS and "
 "Windows) and to support new functionality."
 msgstr ""
+"A partire dalla versione 0.6.2, KLog è stato completamente riscritto per "
+"formire un'applicazione disponibile su tutti i magigori sistemi operativi "
+"(Gnu/Linux, macOS e Windows) e per inserire nuove funzionalità."
 
 #: ../aboutdialog.cpp:90
 msgctxt "AboutDialog|"
@@ -121,6 +124,8 @@ msgid ""
 "If you want to provide support you are welcome to join the <a "
 "href=\"https://groups.io/g/klog\">KLog mailing list</a>!"
 msgstr ""
+"Se vuoi aiutare puoi iscriverti  a <a "
+"href=\"https://groups.io/g/klog\">mailing listi di KLog</a>!"
 
 #: ../aboutdialog.cpp:107
 msgctxt "AboutDialog|"
@@ -129,6 +134,9 @@ msgid ""
 "welcome to contact us through the <a href=\"https://groups.io/g/klog\">KLog "
 "mailing list</a>!"
 msgstr ""
+"Se KLog non è disponibile nella tua lingua e vuoi essere di aiuto sarebbe il "
+"massimo tu ci scrivessi sulla <a href=\"https://groups.io/g/klog\">mailing "
+"list di KLog</a>!"
 
 #: ../aboutdialog.cpp:108 ../aboutdialog.cpp:167
 msgctxt "AboutDialog|"
@@ -262,7 +270,7 @@ msgstr "Elenco QSO: "
 #: ../widgets/adiflotwexportwidget.cpp:349
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to LoTW."
-msgstr ""
+msgstr "KLog - QSO da trasferire su LoTW."
 
 #: ../widgets/adiflotwexportwidget.cpp:350
 msgctxt "AdifLoTWExportWidget|"
@@ -272,32 +280,32 @@ msgstr "Questo elenco contiene i QSO trasferiti a LOTW."
 #: ../widgets/adiflotwexportwidget.cpp:354
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to ClubLog."
-msgstr ""
+msgstr "KLog. QSO da trasferire su ClubLog."
 
 #: ../widgets/adiflotwexportwidget.cpp:355
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to ClubLog."
-msgstr ""
+msgstr "Questo elenco contiene i QSO che saranno trasferiti a ClubLog."
 
 #: ../widgets/adiflotwexportwidget.cpp:359
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to eQSL.cc."
-msgstr ""
+msgstr "KLog. QSO da trasferire su eQSL.cc."
 
 #: ../widgets/adiflotwexportwidget.cpp:360
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to eQSL.cc."
-msgstr ""
+msgstr "Questo elenco contiene i QSO che saranno trasferiti su eQSL.cc."
 
 #: ../widgets/adiflotwexportwidget.cpp:364
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to QRZ.com."
-msgstr ""
+msgstr "KLog. QSO da trasferire su QRZ.com."
 
 #: ../widgets/adiflotwexportwidget.cpp:365
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to QRZ.com."
-msgstr ""
+msgstr "Questo elenco contiene i QSO che saranno trasferiti a QRZ.com."
 
 #: ../widgets/adiflotwexportwidget.cpp:370
 msgctxt "AdifLoTWExportWidget|"
@@ -822,10 +830,9 @@ msgid "KLog DXCC"
 msgstr "KLog-DXCC"
 
 #: ../dataproxy_sqlite.cpp:9260
-#, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
-msgstr "KLog - Chiamata invalida trovata"
+msgstr "KLog - Chiamata non valida rilevata"
 
 #: ../dataproxy_sqlite.cpp:9266
 msgctxt "DataProxy_SQLite|"
@@ -833,6 +840,8 @@ msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported ADIF record?"
 msgstr ""
+"Nominativo bianco rilevato. Vuoi esportare comunque questo QSO (clicca su "
+"Sì) oppure vuoi cancellare l'elemento per non esportarlo su ADIF?"
 
 #: ../dataproxy_sqlite.cpp:9271
 #, qt-format
@@ -841,6 +850,9 @@ msgid ""
 "An invalid callsign has been detected %1. Do you want to export this "
 "callsign anyway (click on Yes) or remove the call from the exported log?"
 msgstr ""
+"Un nominatico con formato non valido è stato rilevato %1, Vuoi esportare "
+"questo nominativo comunque (clocca su Sì) oppure vuoi evitare che sia "
+"esportato sul log?"
 
 #: ../dataproxy_sqlite.cpp:9275
 msgctxt "DataProxy_SQLite|"
@@ -849,6 +861,9 @@ msgid ""
 "potentially importing this logfile to. It may, however, be a good callsign "
 "that is wrongly identified by KLog as not valid."
 msgstr ""
+"Esportare un nominativo sbagliato può causare concreti problemi "
+"nell'applicazione che importa questo log, sebbene sia sempre possibile che "
+"questo sia un nominativo valido erroneamente identificato da KLog."
 
 #: ../downloadcty.cpp:88
 msgctxt "DownLoadCTY|"
@@ -878,49 +893,49 @@ msgstr "Impossibile aprire %1 per scrittura"
 #: ../fileawardmanager.cpp:39
 msgctxt "FileAwardManager|"
 msgid "Open Award file"
-msgstr ""
+msgstr "Apre file Award"
 
 #: ../fileawardmanager.cpp:39
 msgctxt "FileAwardManager|"
 msgid "Award files (*.awa)"
-msgstr ""
+msgstr "Files Award (*.awa)"
 
 #: ../fileawardmanager.cpp:45
 msgctxt "FileAwardManager|"
 msgid "Award file not opened"
-msgstr ""
+msgstr "File Award non aperto"
 
 #: ../fileawardmanager.cpp:45
 msgctxt "FileAwardManager|"
 msgid "KLog was not able to read the award file"
-msgstr ""
+msgstr "KLog non è riuscito a leggere il file award"
 
 #: ../fileawardmanager.cpp:45
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "FileAwardManager|"
 msgid "It was not possible to open the file %1 for reading."
-msgstr "Impossibile aprire il file %1 in lettura."
+msgstr "Non è stato possibile aprire il file %1 in lettura."
 
 #: ../fileawardmanager.cpp:88
 msgctxt "FileAwardManager|"
 msgid "AWA wrong format"
-msgstr ""
+msgstr "AWA formato sbagliato"
 
 #: ../fileawardmanager.cpp:88
 msgctxt "FileAwardManager|"
 msgid "The AWA file does not have the right format"
-msgstr ""
+msgstr "Il file AWA non è composto nel corretto formato"
 
 #: ../fileawardmanager.cpp:88
 msgctxt "FileAwardManager|"
 msgid "AWA file does not have an <EOH> field"
-msgstr ""
+msgstr "Il file AWA non ha un campo <EOH>"
 
 #: ../fileawardmanager.cpp:232
 #, qt-format
 msgctxt "FileAwardManager|"
 msgid "KLog - %1"
-msgstr ""
+msgstr "KLog - %1"
 
 #: ../filemanager.cpp:333 ../filemanager.cpp:463 ../filemanager.cpp:670
 msgctxt "FileManager|"
@@ -1095,32 +1110,32 @@ msgstr "Progresso export"
 #: ../filemanager.cpp:823
 msgctxt "FileManager|"
 msgid "Processing LoTW ADIF file..."
-msgstr ""
+msgstr "Lavorazione file LoTW ADIF..."
 
 #: ../filemanager.cpp:823
 msgctxt "FileManager|"
 msgid "Abort processing"
-msgstr ""
+msgstr "Interruzione lavorazione"
 
 #: ../filemanager.cpp:827
 msgctxt "FileManager|"
 msgid "LoTW reading"
-msgstr ""
+msgstr "Lettura LoTW"
 
 #: ../filemanager.cpp:871 ../filemanager.cpp:1771
 msgctxt "FileManager|"
 msgid "KLog - Add new QSOs?"
-msgstr ""
+msgstr "KLog - Aggiunge nuovi QSO?"
 
 #: ../filemanager.cpp:872
 msgctxt "FileManager|"
 msgid "Do you want to add non existing QSOs to your local log?"
-msgstr ""
+msgstr "Vuoi aggiungere i QSO non ancora presenti nel tuo log locale?"
 
 #: ../filemanager.cpp:874
 msgctxt "FileManager|"
 msgid "There are some QSOs in the LoTW log that are not in your local log."
-msgstr ""
+msgstr "Esistono QSO nel log LoTW assenti dal tuo log locale."
 
 #: ../filemanager.cpp:933
 #, qt-format
@@ -1129,6 +1144,8 @@ msgid ""
 "Processing LoTW ADIF file......\n"
 " QSO: %1 / %2 "
 msgstr ""
+"Lavorazione LoTW ADIF file....\n"
+" QSO: %1 / %2 "
 
 #: ../filemanager.cpp:943
 msgctxt "FileManager|"
@@ -1136,11 +1153,13 @@ msgid ""
 "You have canceled the LoTW processing. The process will be stopped and your "
 "log may not be completely updated."
 msgstr ""
+"Hai annullato l'operazione LoTW. L'operazione sarà arestata e il tuo log "
+"potrebbe non essere completamente aggiornato."
 
 #: ../filemanager.cpp:1772
 msgctxt "FileManager|"
 msgid "Do you want to add dupe QSOs to your local log?"
-msgstr ""
+msgstr "Vuoi aggiungere QSO duplicati al tuo log locale?"
 
 #: ../filemanager.cpp:1774
 msgctxt "FileManager|"
@@ -1148,6 +1167,8 @@ msgid ""
 "There are some QSOs in this logfile that may be dupes as they have same "
 "call, band & mode and a very close date."
 msgstr ""
+"Questo log file contiene QSO che possono essere duplicati in quanto con "
+"identico nominativbo, banda & modalità e una data molto ravvicinata."
 
 #: ../filemanager.cpp:3136 ../filemanager.cpp:3161
 #, qt-format
@@ -1156,6 +1177,8 @@ msgid ""
 "Click on Yes to add a default %1 for mode %2 to all QSOs with a similar "
 "problem."
 msgstr ""
+"Clicca su Sì per aggiungere una voce default %1 per il modo %2 a tutti i QSO "
+"con identico problema."
 
 #: ../filemanager.cpp:3789
 msgctxt "FileManager|"
@@ -1503,6 +1526,8 @@ msgid ""
 "KLog is a free hamradio logging program that can run on GNU/Linux, macOS, "
 "and Windows."
 msgstr ""
+"KLog è un programma libero di log per uso radio che può funzionare su "
+"GNU/Linux, macOS, e Windows."
 
 #: ../startwizard.cpp:180
 msgctxt "IntroPage|"
@@ -1617,12 +1642,14 @@ msgid ""
 "This is the first date of a QSO with the callsign %1 in this log If you "
 "think that in LoTW you may have previous QSOs, answer No."
 msgstr ""
+"Questa è la prima data di un QSO con il nominativo %1 nel log, se pensi che "
+"su LoTW possano esserci precedenti QSO, rispondi No."
 
 #: ../lotwutilities.cpp:323
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "Do you want to use this date (%1) as start date?"
-msgstr ""
+msgstr "Vuoi utilizzare questa data (%1) come data di partenza?"
 
 #: ../lotwutilities.cpp:512
 #, qt-format
@@ -1673,32 +1700,33 @@ msgid ""
 "Double click on the date that you want to use as the start date for "
 "downloading QSOs."
 msgstr ""
+"Doppio click sulla data che vuoi usare come prima data nello scarico dei QSO."
 
 #: ../lotwutilities.cpp:176
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Station callsign"
-msgstr ""
+msgstr "KLog - Nominativo di stazione LoTW"
 
 #: ../lotwutilities.cpp:177
 msgctxt "LoTWUtilities|"
 msgid "There is not a single QSO in the log with that station callsign."
-msgstr ""
+msgstr "Non c'è un solo QSO sul log con questo nominativo di stazione."
 
 #: ../lotwutilities.cpp:178
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "Are you sure that you want to use that station callsign (%1)?"
-msgstr ""
+msgstr "Sei sicuro di voler usare questo nominativo di stazione (%1)?"
 
 #: ../lotwutilities.cpp:238 ../lotwutilities.cpp:367
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW File already exists"
-msgstr ""
+msgstr "KLog - File LoTW già presente"
 
 #: ../lotwutilities.cpp:265 ../lotwutilities.cpp:394
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Can't write the file"
-msgstr ""
+msgstr "KLog . LoTW non riesce a scrivere il file"
 
 #: ../lotwutilities.cpp:267 ../lotwutilities.cpp:396
 #, qt-format
@@ -1709,34 +1737,34 @@ msgstr "Il file %1 è già presente."
 #: ../lotwutilities.cpp:321
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Start date selection"
-msgstr ""
+msgstr "KLog - Selezione data iniziale LoTW"
 
 #: ../lotwutilities.cpp:496
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Download error"
-msgstr ""
+msgstr "KLog - Errore durante lo scaricamento LoTW"
 
 #: ../lotwutilities.cpp:498
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "There was an error (%1) while downloading the file from LoTW."
-msgstr ""
+msgstr "Si è verificato un errore (%1) durante lo scarico del file da LoTW."
 
 #: ../lotwutilities.cpp:499
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "The downloading error details are: %1"
-msgstr ""
+msgstr "I dettagli dell'errore durante lo scarico sono: %1"
 
 #: ../lotwutilities.cpp:511
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Redirection found"
-msgstr ""
+msgstr "KLog - Rilevata redirezione LoTW"
 
 #: ../lotwutilities.cpp:588
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW File not found"
-msgstr ""
+msgstr "KLog - File LoTW non trovato"
 
 #: ../lotwutilities.cpp:589
 msgctxt "LoTWUtilities|"
@@ -1794,10 +1822,9 @@ msgid "Date"
 msgstr "Data"
 
 #: ../logmodel.cpp:134
-#, fuzzy
 msgctxt "LogModel|"
 msgid "Call"
-msgstr "Chiamata"
+msgstr "Nominativo"
 
 #: ../logmodel.cpp:137
 msgctxt "LogModel|"
@@ -1917,93 +1944,92 @@ msgstr "Controlla questo nominativo su DXHeat.com"
 #: ../logwindow.cpp:358
 msgctxt "LogWindow|"
 msgid "Delete selected QSOs"
-msgstr ""
+msgstr "Cancella i QSO selezionati"
 
 #: ../logwindow.cpp:360
 msgctxt "LogWindow|"
 msgid "Delete the selected QSOs"
-msgstr ""
+msgstr "Cancella i QSO selezionati"
 
 #: ../logwindow.cpp:363
 msgctxt "LogWindow|"
 msgid "Export to ADIF"
-msgstr ""
+msgstr "Esporta su ADIF"
 
 #: ../logwindow.cpp:364
 msgctxt "LogWindow|"
 msgid "Export the selected QSOs to an ADIF file."
-msgstr ""
+msgstr "Esporta i QSO selezionati su un file ADIF."
 
 #: ../logwindow.cpp:372
-#, fuzzy
 msgctxt "LogWindow|"
 msgid "Upload to LoTW"
-msgstr "Invia a LoTW"
+msgstr "Trasferisce a LoTW"
 
 #: ../logwindow.cpp:373
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to LoTW"
-msgstr ""
+msgstr "Scarica i QSO selezionati su LoTW"
 
 #: ../logwindow.cpp:376
 msgctxt "LogWindow|"
 msgid "Upload to ClubLog"
-msgstr ""
+msgstr "Trasferisce a ClubLog"
 
 #: ../logwindow.cpp:377
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to ClubLog"
-msgstr ""
+msgstr "Trasferisce i QSO selezionati su ClubLog"
 
 #: ../logwindow.cpp:380
 msgctxt "LogWindow|"
 msgid "Upload to eQSL.cc"
-msgstr ""
+msgstr "Trasferisce su eSQL.cc"
 
 #: ../logwindow.cpp:381
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to eQSL.cc"
-msgstr ""
+msgstr "Trasferisce i QSO selezionati su eQSO.cc"
 
 #: ../logwindow.cpp:385
 msgctxt "LogWindow|"
 msgid "Send these QSLs via bureau"
-msgstr ""
+msgstr "Trasferisce questi QSO via bureau"
 
 #: ../logwindow.cpp:389
 msgctxt "LogWindow|"
 msgid "Send these QSLs via direct"
-msgstr ""
+msgstr "Trasferisce questi QSO via direct"
 
 #: ../logwindow.cpp:393
 msgctxt "LogWindow|"
 msgid "QSLs received via bureau"
-msgstr ""
+msgstr "QSL ricevute via bureau"
 
 #: ../logwindow.cpp:397
 msgctxt "LogWindow|"
 msgid "QSLs received via direc&t"
-msgstr ""
+msgstr "QSL ricevute via direc&t"
 
 #: ../logwindow.cpp:400
 msgctxt "LogWindow|"
 msgid "Select none"
-msgstr ""
+msgstr "Nessuna scelta"
 
 #: ../logwindow.cpp:401
 msgctxt "LogWindow|"
 msgid "Remove all selections"
-msgstr ""
+msgstr "Cancella tutte le scelte"
 
 #: ../logwindow.cpp:404
 msgctxt "LogWindow|"
 msgid "Select all"
-msgstr ""
+msgstr "Scegli Tutto"
 
 #: ../logwindow.cpp:405
 msgctxt "LogWindow|"
 msgid "Select all the QSOs"
-msgstr ""
+msgstr "Scegli tutti i QSO"
 
 #: ../mainqsoentrywidget.cpp:46 ../mainqsoentrywidget.cpp:363
 #: ../mainqsoentrywidget.cpp:757
@@ -2019,7 +2045,7 @@ msgstr "&Pulisce"
 #: ../mainqsoentrywidget.cpp:74
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign of the QSO."
-msgstr ""
+msgstr "Nominativo del QSO."
 
 #: ../mainqsoentrywidget.cpp:75
 msgctxt "MainQSOEntryWidget|"
@@ -2057,7 +2083,6 @@ msgid "KLog will show real time if enabled."
 msgstr "KLog lavorerà in tempo reale se abilitato."
 
 #: ../mainqsoentrywidget.cpp:96 ../mainqsoentrywidget.cpp:922
-#, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Nominativo"
@@ -2072,7 +2097,7 @@ msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
 msgid "DUPE"
-msgstr ""
+msgstr "DUPE"
 
 #: ../mainwindow.cpp:141
 msgctxt "MainWindow|"
@@ -2116,7 +2141,7 @@ msgstr "Barra di stato ..."
 #: ../mainwindow.cpp:402
 msgctxt "MainWindow|"
 msgid "KLog - CTY.dat update"
-msgstr ""
+msgstr "KLog - Aggiornamento CTY.dat"
 
 #: ../mainwindow.cpp:659
 msgctxt "MainWindow|"
@@ -2151,12 +2176,12 @@ msgstr ""
 #: ../mainwindow.cpp:688
 msgctxt "MainWindow|"
 msgid "KLog - Backup"
-msgstr ""
+msgstr "klOG - Backup"
 
 #: ../mainwindow.cpp:717
 msgctxt "MainWindow|"
 msgid "KLog - New version detected!"
-msgstr ""
+msgstr "KLog . Rilevata nuova versione!"
 
 #: ../mainwindow.cpp:742
 msgctxt "MainWindow|"
@@ -2223,47 +2248,47 @@ msgstr ""
 #: ../mainwindow.cpp:2917
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog error"
-msgstr ""
+msgstr "KLog - errore ClubLog"
 
 #: ../mainwindow.cpp:3036
 msgctxt "MainWindow|"
 msgid "KLog - eQSL error"
-msgstr ""
+msgstr "KLog - errore eQL"
 
 #: ../mainwindow.cpp:3849
 msgctxt "MainWindow|"
 msgid "Download from LoTW ..."
-msgstr ""
+msgstr "Scarico da LoTW ..."
 
 #: ../mainwindow.cpp:3854
 msgctxt "MainWindow|"
 msgid "Download the full log from LoTW ..."
-msgstr ""
+msgstr "Scarico del log completo da LoTW ..."
 
 #: ../mainwindow.cpp:3859
 msgctxt "MainWindow|"
 msgid "ClubLog tools ..."
-msgstr ""
+msgstr "Strumenti ClubLog ..."
 
 #: ../mainwindow.cpp:3866
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to ClubLog ..."
-msgstr ""
+msgstr "Trasferimento QSO in coda a ClubLog ..."
 
 #: ../mainwindow.cpp:3872
 msgctxt "MainWindow|"
 msgid "eQSL tools ..."
-msgstr ""
+msgstr "Strumenti eQSL ..."
 
 #: ../mainwindow.cpp:3879
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to eQSL.cc ..."
-msgstr ""
+msgstr "Trasferimento QSO in coda a eQSL.cc ..."
 
 #: ../mainwindow.cpp:3885
 msgctxt "MainWindow|"
 msgid "QRZ.com tools ..."
-msgstr ""
+msgstr "Strumenti QRZ.com ..."
 
 #: ../mainwindow.cpp:4091
 msgctxt "MainWindow|"
@@ -2645,7 +2670,7 @@ msgstr "Nominativo usato on air."
 #: ../mainwindow.cpp:7911
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
-msgstr ""
+msgstr "Klog - QSO ricevuto"
 
 #: ../mainwindow.cpp:7998
 msgctxt "MainWindow|"
@@ -2654,6 +2679,9 @@ msgid ""
 "mode, date and time, taking into account the period that can be defined in "
 "the settings."
 msgstr ""
+"I QSO duplicati hanno corrispondenza di nominativo, banda, modo, data ed ora "
+"con un QSO già esistente, relativamente al periodo definito "
+"nell'impostazione dell'account."
 
 #: ../mainwindow.cpp:8036
 msgctxt "MainWindow|"
@@ -2685,13 +2713,12 @@ msgid "KLog - %1 - QSOs: %2"
 msgstr "KLog - %1 - QSOs: %2"
 
 #: ../mainwindow.cpp:2811
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "MainWindow|"
 msgid "You have requested to delete the QSO with: %1"
 msgstr "Hai chiesto di cancellare il QSO con: %1"
 
 #: ../mainwindow.cpp:2761 ../mainwindow.cpp:2816
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "Are you sure?"
 msgstr "Sei sicuro?"
@@ -2699,17 +2726,17 @@ msgstr "Sei sicuro?"
 #: ../mainwindow.cpp:54 ../mainwindow.cpp:3895
 msgctxt "MainWindow|"
 msgid "Check always the current callsign in QRZ.com"
-msgstr ""
+msgstr "Controlla sempre il nominativo su QRZ.com"
 
 #: ../mainwindow.cpp:404
 msgctxt "MainWindow|"
 msgid "You can update the entities database in Tools->Update cty.csv"
-msgstr ""
+msgstr "Puoi aggiornare l'elenco delle località su Strumenti->Scarirco cty.cvs"
 
 #: ../mainwindow.cpp:405
 msgctxt "MainWindow|"
 msgid "Do you want to do it now?"
-msgstr ""
+msgstr "Vuoi farlo adesso?"
 
 #: ../mainwindow.cpp:1090
 #, qt-format
@@ -2718,11 +2745,13 @@ msgid ""
 "The callsign %1 is not a valid call. Do you really want to add this callsign "
 "to the log?"
 msgstr ""
+"Il nominativo %1 non è un nominativo valido.  Davvero vuoi aggiungerlo al "
+"log?"
 
 #: ../mainwindow.cpp:1868
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
-msgstr ""
+msgstr "KLog - Nominativo non valido"
 
 #: ../mainwindow.cpp:1869
 #, qt-format
@@ -2731,11 +2760,12 @@ msgid ""
 "The callsign %1 is not a valid callsign. Do you really want to add this "
 "callsign to the log?"
 msgstr ""
+"Il nominativo %1 non è un nomiantivo valido. Favvero vuoi aggiungerlo al log?"
 
 #: ../mainwindow.cpp:2756
 msgctxt "MainWindow|"
 msgid "You have requested to delete several QSOs "
-msgstr ""
+msgstr "Hai chiesto la cancellazione di parecchi QSO "
 
 #: ../mainwindow.cpp:2918
 msgctxt "MainWindow|"
@@ -2743,6 +2773,8 @@ msgid ""
 "The ClubLog upload process has finished with an error and the log was "
 "possibly not uploaded."
 msgstr ""
+"L'perazione di scarico di ClubLog è terminata con errori e probabilmente il "
+"log non è stato scaricato."
 
 #: ../mainwindow.cpp:2919
 #, qt-format
@@ -2751,16 +2783,17 @@ msgid ""
 "Please check your credentials, your Internet connection and your Clublog "
 "account. The received error code was: %1"
 msgstr ""
+"Per favore controlla i tuoid ati di collegamento, della tua connessione e "
+"dell'account ClubLog. Il codice di errore riportato era: %1"
 
 #: ../mainwindow.cpp:2939
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?"
-msgstr ""
+msgstr "Vuoi segnare come trasferiti tutti i QSO trasferiti a ClubLog?"
 
 #: ../mainwindow.cpp:2938 ../mainwindow.cpp:2953 ../mainwindow.cpp:2964
 #: ../mainwindow.cpp:2974 ../mainwindow.cpp:2984 ../mainwindow.cpp:5994
 #: ../mainwindow.cpp:6020 ../mainwindow.cpp:6225
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog"
 msgstr "KLog - ClubLog"
@@ -2770,6 +2803,8 @@ msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the ClubLog QSO upload information."
 msgstr ""
+"Si è verificato un errore durante l'aggiornamento a Sì delle informazioni "
+"QSO ClubLog."
 
 #: ../mainwindow.cpp:2965
 #, qt-format
@@ -2780,11 +2815,15 @@ msgid ""
 "\n"
 "Do you want KLog to remove that file?"
 msgstr ""
+"Il trasferimento è terminato e KLog ha creato un file (%1) nella cartella di "
+"KLog.\n"
+"\n"
+"Vuoi cancellare questo file?"
 
 #: ../mainwindow.cpp:2985 ../mainwindow.cpp:3104
 msgctxt "MainWindow|"
 msgid "The file has not been removed."
-msgstr ""
+msgstr "Il file non è stato cancellato."
 
 #: ../mainwindow.cpp:2986 ../mainwindow.cpp:3105
 msgctxt "MainWindow|"
@@ -2793,6 +2832,8 @@ msgid ""
 "file\n"
 "You can remove it manually."
 msgstr ""
+"Qualcosa ha impedito a Klog di cancellare il file\n"
+"Ma lo puoi comunque cancellare manualmente."
 
 #: ../mainwindow.cpp:3037
 msgctxt "MainWindow|"
@@ -2800,6 +2841,8 @@ msgid ""
 "The eQSL upload process has finished with an error and the log was possibly "
 "not uploaded."
 msgstr ""
+"Il trasferimento eQSL è terminato ma con errori e qundi probabilmente non ha "
+"avuto termine."
 
 #: ../mainwindow.cpp:3038 ../mainwindow.cpp:3133
 #, qt-format
@@ -2808,17 +2851,21 @@ msgid ""
 "Please check your credentials, your Internet connection and your eQSL "
 "account. The received error code was: %1"
 msgstr ""
+"Per favore controlla i tuoi dati account, la tuaa conenssione internet e le "
+"tue credenziali eQSL. Il codice di errore riportato era: %1"
 
 #: ../mainwindow.cpp:3057
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to eQSL?"
-msgstr ""
+msgstr "Vuoi marcare come trasferiti tutti i QSL mandati a eQSL?"
 
 #: ../mainwindow.cpp:3073
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the eQSL QSO upload information."
 msgstr ""
+"Si è verificato un errore durante l'aggiornamento a Sì di eQSL delle "
+"informaizoni dei QSO."
 
 #: ../mainwindow.cpp:3084
 #, qt-format
@@ -2829,12 +2876,16 @@ msgid ""
 "\n"
 "Do you want KLog to remove that file?"
 msgstr ""
+"Il trasferimento a eQSL è terminato e KLog a creato un file (%1) nella tua "
+"carrtella KLog.\n"
+"\n"
+"Vuoi cancellare quresto file?"
 
 #: ../mainwindow.cpp:3292
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1"
-msgstr ""
+msgstr "KLog %1"
 
 #: ../mainwindow.cpp:3647
 msgctxt "MainWindow|"
@@ -2849,42 +2900,42 @@ msgstr "Vuoi salvare i cambiamenti?"
 #: ../mainwindow.cpp:3666 ../mainwindow.cpp:5837
 msgctxt "MainWindow|"
 msgid "KLog - ADIF export"
-msgstr ""
+msgstr "KLog - exsporta ADIF"
 
 #: ../mainwindow.cpp:3736
 msgctxt "MainWindow|"
 msgid "&Import from ADIF ..."
-msgstr ""
+msgstr "&Importazione da Adif ..."
 
 #: ../mainwindow.cpp:3749
 msgctxt "MainWindow|"
 msgid "Export to ADIF ..."
-msgstr ""
+msgstr "Esportazione su ADIF ..."
 
 #: ../mainwindow.cpp:3755
 msgctxt "MainWindow|"
 msgid "Export all logs to ADIF ..."
-msgstr ""
+msgstr "Esporta tutti i log su ADIF ..."
 
 #: ../mainwindow.cpp:3763
 msgctxt "MainWindow|"
 msgid "&Print Log ..."
-msgstr ""
+msgstr "&Stampa Log ..."
 
 #: ../mainwindow.cpp:3794
 msgctxt "MainWindow|"
 msgid "QSL tools ..."
-msgstr ""
+msgstr "Strumenti QSL ..."
 
 #: ../mainwindow.cpp:3796
 msgctxt "MainWindow|"
 msgid "Find QSO to QSL"
-msgstr ""
+msgstr "Cerca QSO sulle QSL"
 
 #: ../mainwindow.cpp:3807
 msgctxt "MainWindow|"
 msgid "Find DX-QSLs pending to receive"
-msgstr ""
+msgstr "Cera le QSL su DX in attesa di ricezione"
 
 #: ../mainwindow.cpp:3810
 msgctxt "MainWindow|"
@@ -2896,7 +2947,7 @@ msgstr ""
 #: ../mainwindow.cpp:3812
 msgctxt "MainWindow|"
 msgid "Find requested pending to receive"
-msgstr ""
+msgstr "Cerca richieste in attesa di ricezione"
 
 #: ../mainwindow.cpp:3815
 msgctxt "MainWindow|"
@@ -2906,7 +2957,7 @@ msgstr "Elenca le QSL DX richieste."
 #: ../mainwindow.cpp:3818
 msgctxt "MainWindow|"
 msgid "LoTW tools ..."
-msgstr ""
+msgstr "Strumenti LoTW ..."
 
 #: ../mainwindow.cpp:3820
 msgctxt "MainWindow|"
@@ -2933,7 +2984,7 @@ msgstr "Mette incoda tutti i QSO per essere inviati."
 #: ../mainwindow.cpp:3832
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs from this log as sent"
-msgstr ""
+msgstr "Marca tutti i QSO In coda sul log come trasmessi"
 
 #: ../mainwindow.cpp:3837
 msgctxt "MainWindow|"
@@ -2943,62 +2994,62 @@ msgstr "Marca tutti i QSO in coda come spediti"
 #: ../mainwindow.cpp:3887
 msgctxt "MainWindow|"
 msgid "Check the current callsign in QRZ.com"
-msgstr ""
+msgstr "Verifica il nominativo corrente su QRZ.com"
 
 #: ../mainwindow.cpp:3889
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to QRZ.com ..."
-msgstr ""
+msgstr "Trasferisce i QSO In coda su QRZ.com ..."
 
 #: ../mainwindow.cpp:3912
 msgctxt "MainWindow|"
 msgid "Update cty.csv"
-msgstr ""
+msgstr "Aggiorna cty.csv"
 
 #: ../mainwindow.cpp:3918
 msgctxt "MainWindow|"
 msgid "Update Satellite Data"
-msgstr ""
+msgstr "Agggiorna dati satelliti"
 
 #: ../mainwindow.cpp:3945
 msgctxt "MainWindow|"
 msgid "Setup"
-msgstr ""
+msgstr "Impostazione"
 
 #: ../mainwindow.cpp:3947
 msgctxt "MainWindow|"
 msgid "Setup ..."
-msgstr ""
+msgstr "Impostazione ..."
 
 #: ../mainwindow.cpp:3956
 msgctxt "MainWindow|"
 msgid "Online manual (F1) ..."
-msgstr ""
+msgstr "Manuale online (F1) ..."
 
 #: ../mainwindow.cpp:3961
 msgctxt "MainWindow|"
 msgid "&Tips ..."
-msgstr ""
+msgstr "&Suggerimenti ..."
 
 #: ../mainwindow.cpp:3967
 msgctxt "MainWindow|"
 msgid "&Debug ..."
-msgstr ""
+msgstr "&Debug ..."
 
 #: ../mainwindow.cpp:3972
 msgctxt "MainWindow|"
 msgid "&About ..."
-msgstr ""
+msgstr "&About ..."
 
 #: ../mainwindow.cpp:3979
 msgctxt "MainWindow|"
 msgid "About Qt ..."
-msgstr ""
+msgstr "About Qt ..."
 
 #: ../mainwindow.cpp:3987
 msgctxt "MainWindow|"
 msgid "Check updates ..."
-msgstr ""
+msgstr "Controlla presenza aggiornamenti ..."
 
 #: ../mainwindow.cpp:4054
 msgctxt "MainWindow|"
@@ -3037,6 +3088,8 @@ msgid ""
 "Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY "
 "IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW"
 msgstr ""
+"Davvero vuoi marcare TUTTI questo QSO come DA trasferire? La procedura è "
+"necessaria SOLO SE questoè il PRIMO trasferimento did QSO su LoTW"
 
 #: ../mainwindow.cpp:4319
 msgctxt "MainWindow|"
@@ -3066,12 +3119,12 @@ msgstr ""
 #: ../mainwindow.cpp:4403
 msgctxt "MainWindow|"
 msgid "About ..."
-msgstr ""
+msgstr "About ..."
 
 #: ../mainwindow.cpp:4461
 msgctxt "MainWindow|"
 msgid "KLog - Update checking result"
-msgstr ""
+msgstr "KLog . risultato controllo aggiornamento"
 
 #: ../mainwindow.cpp:4696 ../mainwindow.cpp:4721
 #, qt-format
@@ -3146,11 +3199,13 @@ msgid ""
 "You need to select one station callsign to be able to send your log to "
 "ClubLog."
 msgstr ""
+"E' necessario selezionare almeno un nominativo di stazione per poter "
+"trasferire il tuo log su ClubLog."
 
 #: ../mainwindow.cpp:6022
 msgctxt "MainWindow|"
 msgid "Do you want to add this QSOs to your ClubLog existing log?"
-msgstr ""
+msgstr "Vuoi aggiungere questo QSO al tuo attuale log su ClubLog?"
 
 #: ../mainwindow.cpp:6024
 msgctxt "MainWindow|"
@@ -3158,13 +3213,15 @@ msgid ""
 "If you don't agree, this upload will overwrite your current ClubLog existing "
 "log."
 msgstr ""
+"Se non sei d'accordo, questo trasferimento sopvrascriverà il tuo corrente "
+"log su ClubLog."
 
 #: ../mainwindow.cpp:3056 ../mainwindow.cpp:3071 ../mainwindow.cpp:3083
 #: ../mainwindow.cpp:3093 ../mainwindow.cpp:3103 ../mainwindow.cpp:6056
 #: ../mainwindow.cpp:6256
 msgctxt "MainWindow|"
 msgid "KLog - eQSL"
-msgstr ""
+msgstr "KLog - eQSL"
 
 #: ../mainwindow.cpp:6058
 msgctxt "MainWindow|"
@@ -3172,6 +3229,8 @@ msgid ""
 "You need to select one station callsign to be able to send your log to "
 "eQSL.cc."
 msgstr ""
+"E' necessario selezionare almeno un nominativo di stazione per poter "
+"trasferire il tuo log a eQSO.cc."
 
 #: ../mainwindow.cpp:6146 ../mainwindow.cpp:6189
 msgctxt "MainWindow|"
@@ -3195,7 +3254,7 @@ msgstr ""
 #: ../mainwindow.cpp:6236
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to ClubLog."
-msgstr ""
+msgstr "Il log è già stato trasferito su ClubLog."
 
 #: ../mainwindow.cpp:6237
 msgctxt "MainWindow|"
@@ -3203,11 +3262,13 @@ msgid ""
 "All the QSOs in this log has been marked as Modified in the ClubLog status "
 "field"
 msgstr ""
+"Tutti i QSO di questo log sono stati marcati come Modificati nel campo di "
+"stato di ClubLog"
 
 #: ../mainwindow.cpp:6242
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to ClubLog"
-msgstr ""
+msgstr "KLog non hjapotuto marcare l'intero log per il trasferimento a ClubLog"
 
 #: ../mainwindow.cpp:6243 ../mainwindow.cpp:6275 ../mainwindow.cpp:6306
 msgctxt "MainWindow|"
@@ -3215,11 +3276,13 @@ msgid ""
 "Something prevented KLog from marking the QSOs as modified. Restart KLog and "
 "try again before contacting the KLog developers."
 msgstr ""
+"Qualcosa ha impedito a KLog di marcare i QSO come modificati. Riavvia KLog e "
+"riprova prima di contattare gli sviluppatori di KLog."
 
 #: ../mainwindow.cpp:6267
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to eQSL.cc."
-msgstr ""
+msgstr "Il log è già stato trasferito a eQSL.cc."
 
 #: ../mainwindow.cpp:6268
 msgctxt "MainWindow|"
@@ -3227,16 +3290,18 @@ msgid ""
 "All the QSOs in this log has been marked as Modified in the eQSL.cc status "
 "field"
 msgstr ""
+"Tutti i QSO di questo log sono stati marcati come Modificati nel campo stato "
+"di eQSL.cc"
 
 #: ../mainwindow.cpp:6274
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to eQSL"
-msgstr ""
+msgstr "KLog non ha potuto marcare l'intero log pe ril trasferimento su eQSL"
 
 #: ../mainwindow.cpp:7109
 msgctxt "MainWindow|"
 msgid "Filling QSOs ..."
-msgstr ""
+msgstr "Completamento QSO ..."
 
 #: ../mainwindow.cpp:7330
 msgctxt "MainWindow|"
@@ -3244,7 +3309,6 @@ msgid "Date/Time"
 msgstr "Data/Ora"
 
 #: ../mainwindow.cpp:7332 ../mainwindow.cpp:7919
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "Callsign"
 msgstr "Nominativo"
@@ -3351,25 +3415,25 @@ msgstr "Il file è stato cancellato."
 #: ../mainwindow.cpp:209
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to LoTW"
-msgstr ""
+msgstr "Trasferisce i QSO in coda a LoTW"
 
 #: ../mainwindow.cpp:403
 msgctxt "MainWindow|"
 msgid "KLog needs to update the Entities database."
-msgstr ""
+msgstr "KLog deve aggiornare il database località."
 
 #: ../mainwindow.cpp:692
 msgctxt "MainWindow|"
 msgid "The backup was done successfully"
-msgstr ""
+msgstr "Il Backup è stato completato con successo"
 
 #: ../mainwindow.cpp:693
 msgctxt "MainWindow|"
 msgid "KLog will remind you to backup your data again in aprox one month."
 msgstr ""
+"KLog ti ricoderà di fare il backup dei tuoi dati ancora fra circa un mese."
 
 #: ../mainwindow.cpp:699
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "The backup was not properly done."
 msgstr "Il backup NON è stato completato con successo."
@@ -3380,6 +3444,8 @@ msgid ""
 "It is recommended to backup your data periodically to prevent lose or "
 "corruption of your log."
 msgstr ""
+"E' fortemente raccomandabile fare il backup dei tuoi dati periodicamente per "
+"prevenire perdite o corruzioni del tuo log."
 
 #: ../mainwindow.cpp:2760
 msgctxt "MainWindow|"
@@ -3387,6 +3453,8 @@ msgid ""
 "This operation shall remove definitely all the selected QSO and associated "
 "data and you will not be able to recover it again."
 msgstr ""
+"Questa operazione cancellerà definitivamente tutti i QSO selezionati e dati "
+"correlati e non potranno essere recuperati successivamente."
 
 #: ../mainwindow.cpp:3132
 msgctxt "MainWindow|"
@@ -3394,74 +3462,80 @@ msgid ""
 "The QRZ.com upload process has finished with an error and the log was "
 "possibly not uploaded."
 msgstr ""
+"Il processo di trasferimento a QRZ.com è terminato con errori pertanto il "
+"log non è stato probabilmente trasferito."
 
 #: ../mainwindow.cpp:3152
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to QRZ.com?"
-msgstr ""
+msgstr "Vuoi marcare come già trasferiti tutti i QSO trasferiti a QRZ.com?"
 
 #: ../mainwindow.cpp:3151 ../mainwindow.cpp:3167 ../mainwindow.cpp:3178
 #: ../mainwindow.cpp:6358
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com"
-msgstr ""
+msgstr "KLog - QRZ.com"
 
 #: ../mainwindow.cpp:3169
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the QRZ.com QSO upload information."
 msgstr ""
+"Si è verificato un errore durante il trasferimento a Sì su QRZ.com nelle "
+"informazioni di trasferimento."
 
 #: ../mainwindow.cpp:3179
 msgctxt "MainWindow|"
 msgid "The QRZ.com upload process has finished successfully"
-msgstr ""
+msgstr "Il trasferimento si QRZ.com è stato completato con successo"
 
 #: ../mainwindow.cpp:3253
 msgctxt "MainWindow|"
 msgid "Call not found in QRZ.com"
-msgstr ""
+msgstr "Nominativo non trovato su QRZ.com"
 
 #: ../mainwindow.cpp:3131 ../mainwindow.cpp:3258
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com error"
-msgstr ""
+msgstr "KLog errore QRZ.com"
 
 #: ../mainwindow.cpp:3259
 msgctxt "MainWindow|"
 msgid "KLog has received an error from QRZ.com."
-msgstr ""
+msgstr "KLog ha ricevuto una segnalazione di errore da QRZ.com."
 
 #: ../mainwindow.cpp:3293
 #, qt-format
 msgctxt "MainWindow|"
 msgid "You need to activate the %1 service in the eLog preferences."
-msgstr ""
+msgstr "E' necessario attivare il servizio %1 fra le impostazioni di eLog."
 
 #: ../mainwindow.cpp:3667
 msgctxt "MainWindow|"
 msgid "It is important to export to ADIF and save a copy as a backup."
 msgstr ""
+"E' importante esportare su ADIF e salvare una copia cone backup per "
+"sicurezza."
 
 #: ../mainwindow.cpp:3671
 msgctxt "MainWindow|"
 msgid "Saving the log was done successfully."
-msgstr ""
+msgstr "Salvataggio del log fatto con successo."
 
 #: ../mainwindow.cpp:3679
 msgctxt "MainWindow|"
 msgid "The ADIF export was not properly done."
-msgstr ""
+msgstr "L'esportazione ADIF non è stata correttamente effettuata."
 
 #: ../mainwindow.cpp:3861 ../mainwindow.cpp:3874
 msgctxt "MainWindow|"
 msgid "Queue all the QSOs to be uploaded"
-msgstr ""
+msgstr "Mette in coda tutti i QSO per il trasferimento"
 
 #: ../mainwindow.cpp:3888
 msgctxt "MainWindow|"
 msgid "Queue all the QSO to be uploaded"
-msgstr ""
+msgstr "Mette in coda tutti i QSO per il trasferimento"
 
 #: ../mainwindow.cpp:4260
 msgctxt "MainWindow|"
@@ -3469,6 +3543,8 @@ msgid ""
 "You have selected no callsign. KLog will complete the QSOs without a station "
 "callsign defined and those with the callsign you are entering here."
 msgstr ""
+"Non ha selezionato un nominativo, KLog completerò il QSO senza annotare un "
+"nominativo di stazione e nessuno dei nominativi che inserisci qua."
 
 #: ../mainwindow.cpp:4050 ../mainwindow.cpp:4086 ../mainwindow.cpp:4117
 #: ../mainwindow.cpp:4304 ../mainwindow.cpp:4313 ../mainwindow.cpp:4341
@@ -3486,6 +3562,9 @@ msgid ""
 "\n"
 "Do you want to mark as Sent all the QSOs uploaded to LoTW?"
 msgstr ""
+"TQSL terminato senza errori.\n"
+"\n"
+"Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?"
 
 #: ../mainwindow.cpp:6226 ../mainwindow.cpp:6257 ../mainwindow.cpp:6288
 #, qt-format
@@ -3494,9 +3573,10 @@ msgid ""
 "Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY "
 "IF THIS IS YOUR FIRST TIME uploading QSOs to %1"
 msgstr ""
+"Davvero vuoi marcare tutti i tuoi QSO come da trasmettere? Questo deve "
+"essere fatto solo la prima volta hce trasferisci QSO su %1"
 
 #: ../mainwindow.cpp:6226
-#, fuzzy
 msgctxt "MainWindow|"
 msgid "ClubLog"
 msgstr "ClubLog"
@@ -3504,17 +3584,17 @@ msgstr "ClubLog"
 #: ../mainwindow.cpp:6287
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.COM"
-msgstr ""
+msgstr "KLog-QRZ.COM"
 
 #: ../mainwindow.cpp:6288
 msgctxt "MainWindow|"
 msgid "QRZ.COM"
-msgstr ""
+msgstr "QRZ.COM"
 
 #: ../mainwindow.cpp:6298
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to QRZ.com."
-msgstr ""
+msgstr "Il log è pronto per il trasaferimento a QRZ.com."
 
 #: ../mainwindow.cpp:6299
 msgctxt "MainWindow|"
@@ -3522,11 +3602,14 @@ msgid ""
 "All the QSOs in this log has been marked as Modified in the QRZ.com status "
 "field"
 msgstr ""
+"Tutti i QSO di questo log sono stati marcati come Modificati nel campo di "
+"stato su QRZ.com"
 
 #: ../mainwindow.cpp:6305
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to QRZ.com"
 msgstr ""
+"KLog non ha potuto marcare TUTTO il log per il trasfeirmento su QRZ.com"
 
 #: ../mainwindow.cpp:6359
 msgctxt "MainWindow|"
@@ -3534,6 +3617,8 @@ msgid ""
 "You need to define a proper API Key for your QRZ.com logbook in the eLog "
 "preferences."
 msgstr ""
+"E' necessario impostare una valida key API per il tuo logbook QRZ.com fra le "
+"impostazioni di eLog."
 
 #: ../mainwindow.cpp:6387
 msgctxt "MainWindow|"
@@ -3587,7 +3672,7 @@ msgstr "Annulla stampa"
 #: ../mainwindow.cpp:7360
 msgctxt "MainWindow|"
 msgid "Printing the log ..."
-msgstr ""
+msgstr "Stampa il log ..."
 
 #: ../mainwindow.cpp:7376 ../mainwindow.cpp:7391
 msgctxt "MainWindow|"
@@ -3643,12 +3728,12 @@ msgstr "Local-Grid"
 #: ../mainwindow.cpp:7993
 msgctxt "MainWindow|"
 msgid "KLog - WSJTX Dupe QSO"
-msgstr ""
+msgstr "KLog - WSJTX Duplica QSO"
 
 #: ../mainwindow.cpp:7996
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
-msgstr ""
+msgstr "Questo QSO sembra un duplicato. Vuoi salvarlo o scaricarlo?"
 
 #: ../mainwindow.cpp:8082
 msgctxt "MainWindow|"
@@ -3734,7 +3819,6 @@ msgid "Do you want to keep showing errors?"
 msgstr "Vuoi mantenere gli errori mostrati?"
 
 #: ../inputwidgets/mainwindowinputcomment.cpp:47
-#, fuzzy
 msgctxt "MainWindowInputComment|"
 msgid "Comment"
 msgstr "Commento"
@@ -3747,26 +3831,25 @@ msgstr "Aggiungi un commento per questo QSO."
 #: ../inputwidgets/mainwindowinputcomment.cpp:52
 msgctxt "MainWindowInputComment|"
 msgid "Keep this data"
-msgstr ""
+msgstr "Tieni questi dati"
 
 #: ../inputwidgets/mainwindowinputcomment.cpp:54
 #: ../inputwidgets/mainwindowinputcomment.cpp:56
-#, fuzzy
 msgctxt "MainWindowInputComment|"
 msgid "Data entered in this tab will be copied into the next QSO."
 msgstr ""
-"Tutti i dati caricati su questa maschera saranno precaricati nella maschera "
-"di inserimento del prossimo QSO."
+"Tutti i dati di questa maschera saranno precaricati di default durante "
+"l'inserimento del prossimo QSO."
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:72
 msgctxt "MainWindowInputEQSL|"
 msgid "Date of the ClubLog upload."
-msgstr "Data di scarico del log Clublog."
+msgstr "Data del trasferimento su Clublog."
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:73
 msgctxt "MainWindowInputEQSL|"
 msgid "Date of the QRZ.com upload."
-msgstr ""
+msgstr "Data di scarico del trasferimento su QRZ.com."
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:74
 msgctxt "MainWindowInputEQSL|"
@@ -3791,7 +3874,7 @@ msgstr "Data della ricezione da LoTW."
 #: ../inputwidgets/mainwindowinputeqsl.cpp:80
 msgctxt "MainWindowInputEQSL|"
 msgid "Status on QRZ.com."
-msgstr ""
+msgstr "Stato su QRZ.com."
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:83
 msgctxt "MainWindowInputEQSL|"
@@ -3806,7 +3889,7 @@ msgstr "Stato della ricezione da LoTW."
 #: ../inputwidgets/mainwindowinputeqsl.cpp:91
 msgctxt "MainWindowInputEQSL|"
 msgid "QRZ.com"
-msgstr ""
+msgstr "QRZ.com"
 
 #: ../inputwidgets/mainwindowinputeqsl.cpp:100
 msgctxt "MainWindowInputEQSL|"
@@ -3876,12 +3959,12 @@ msgstr "Modalità di propagazione"
 #: ../inputwidgets/mainwindowinputothers.cpp:80
 msgctxt "MainWindowInputOthers|"
 msgid "Others"
-msgstr ""
+msgstr "Altri"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:89
 msgctxt "MainWindowInputOthers|"
 msgid "Keep propagation mode"
-msgstr ""
+msgstr "Mantieni la modalità propagazione"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:91
 msgctxt "MainWindowInputOthers|"
@@ -3916,17 +3999,17 @@ msgstr "Scegli il numero ri riferimento IOTA di questo QSO."
 #: ../inputwidgets/mainwindowinputothers.cpp:97
 msgctxt "MainWindowInputOthers|"
 msgid "Keeps the same propagation mode for next QSO."
-msgstr ""
+msgstr "Mantiene la stessa modalità propagazione nel prossimo QSO."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:99
 msgctxt "MainWindowInputOthers|"
 msgid "Select the appropriate ADIF field for this QSO."
-msgstr ""
+msgstr "Scegli il corretto campo ADIF per questo QSO."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:100
 msgctxt "MainWindowInputOthers|"
 msgid "Value for the selected ADIF field."
-msgstr ""
+msgstr "Valore del campo ADIF scelto."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:136
 #: ../inputwidgets/mainwindowinputothers.cpp:175
@@ -3942,12 +4025,12 @@ msgstr "No - Non identificato"
 #: ../inputwidgets/mainwindowinputothers.cpp:474
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
-msgstr ""
+msgstr "SOTA Ref"
 
 #: ../inputwidgets/mainwindowinputothers.cpp:474
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
-msgstr ""
+msgstr "Età"
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
 msgctxt "MainWindowInputQSL|"
@@ -4010,27 +4093,23 @@ msgid "QSL via information."
 msgstr "Informazioni su Via QSL (modalità invio QSL)."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:67
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX RST."
 msgstr "TX RST."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:68
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RX RST."
 msgstr "RX RST."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:69
 #: ../inputwidgets/mainwindowinputqso.cpp:570
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "TX Frequency in MHz."
 msgstr "Frequenza TX in MHz."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:70
 #: ../inputwidgets/mainwindowinputqso.cpp:609
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RX Frequency in MHz."
 msgstr "Frequenza RX in MHz."
@@ -4038,32 +4117,30 @@ msgstr "Frequenza RX in MHz."
 #: ../inputwidgets/mainwindowinputqso.cpp:71
 msgctxt "MainWindowInputQSO|"
 msgid "Power used by the contacted station."
-msgstr ""
+msgstr "Potenza usata dalla stazione contattata."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:72
 msgctxt "MainWindowInputQSO|"
 msgid "Name of the contacted operator."
-msgstr ""
+msgstr "Nome operatore della stazione contattata."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:73
 msgctxt "MainWindowInputQSO|"
 msgid "QTH of the contacted station."
-msgstr ""
+msgstr "QTH della stazione contattata."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:74
 msgctxt "MainWindowInputQSO|"
 msgid "Locator of the contacted station."
-msgstr ""
+msgstr "Locatori della stazione contattata."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:78
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Watts"
 msgstr "Watts"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:82
 #: ../inputwidgets/mainwindowinputqso.cpp:86
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "MHz"
 msgstr "MHz"
@@ -4073,52 +4150,44 @@ msgctxt ""
 "MainWindowInputQSO|Translator: Split is a common hamradio term. Do not "
 "translate unless you are sure."
 msgid "Split"
-msgstr ""
+msgstr "Split"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:92
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Name"
 msgstr "Nome"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:96
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "QTH"
 msgstr "QTH"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:100
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "DX Locator"
-msgstr "Locatore DX"
+msgstr "DX Locator"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:104
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Power(rx)"
 msgstr "Potenza(rx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:108
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RST(tx)"
 msgstr "RST(tx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:112
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "RST(rx)"
 msgstr "RST(rx)"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:130
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Freq TX"
 msgstr "Frequenza TX"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:135
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "Freq RX"
 msgstr "Frequenza RX"
@@ -4126,16 +4195,17 @@ msgstr "Frequenza RX"
 #: ../inputwidgets/mainwindowinputqso.cpp:282
 msgctxt "MainWindowInputQSO|"
 msgid "DX QTH locator."
-msgstr ""
+msgstr "DX QTH locator."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:290
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
+"DX QTH locator. Il formato dovtrebbe seguire la regola come IN70AA fino a 10 "
+"caratteri."
 
 #: ../inputwidgets/mainwindowinputqso.cpp:577
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
@@ -4145,7 +4215,6 @@ msgstr ""
 "Questa frequenza non appartiene a bande radioamatoriali!"
 
 #: ../inputwidgets/mainwindowinputqso.cpp:614
-#, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
@@ -4164,32 +4233,32 @@ msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "Mantieni questa data"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:231
+#: ../inputwidgets/mainwindowmydatatab.cpp:189
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
 msgstr "Mio Locator QTH."
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:117
+#: ../inputwidgets/mainwindowmydatatab.cpp:75
 msgctxt "MainWindowMyDataTab|"
 msgid "Power"
 msgstr "Potenza"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:119
+#: ../inputwidgets/mainwindowmydatatab.cpp:77
 msgctxt "MainWindowMyDataTab|"
 msgid "Operator callsign"
-msgstr ""
+msgstr "Operatore di stazione"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:121
+#: ../inputwidgets/mainwindowmydatatab.cpp:79
 msgctxt "MainWindowMyDataTab|"
 msgid "Station Callsign"
 msgstr "Nominativo di stazione"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:124
+#: ../inputwidgets/mainwindowmydatatab.cpp:82
 msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "Il mio Locator"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:243
+#: ../inputwidgets/mainwindowmydatatab.cpp:201
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
@@ -4197,20 +4266,20 @@ msgstr ""
 "Il formato del QTH locator dovrebbe essere conformato (esempio IN70AA) fino "
 "ad un massimo di 10 caratteri."
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
-msgstr ""
+msgstr "My Rig"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
-msgstr ""
+msgstr "La mia antenna"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:437
+#: ../inputwidgets/mainwindowmydatatab.cpp:395
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
-msgstr ""
+msgstr "Il mio SOTA_Ref"
 
 #: ../inputwidgets/mainwindowsattab.cpp:89
 msgctxt "MainWindowSatTab|"
@@ -4650,6 +4719,8 @@ msgid ""
 "A wrong callsign has been found: %1. Please enter a new callsign or confirm "
 "that the current one is a good callsign."
 msgstr ""
+"Trovato nominativo di stazione errato: %1. Per favore scegli un nuovo "
+"nominativo o forza la correttezza del corrente."
 
 #: ../utilities.cpp:1413
 msgctxt "QObject|"
@@ -4721,6 +4792,8 @@ msgid ""
 "Enter the callsign to search for. Enter '*' to show all the QSOs... it may "
 "be slow in big logs!"
 msgstr ""
+"Scegli il nominativo da cercare per Enter '*' per mostrare tutti i QSO.. "
+"potrebbe essere lento sui log molto luunghi!"
 
 #: ../searchwidget.cpp:166
 msgctxt "SearchWidget|"
@@ -4795,10 +4868,9 @@ msgid "ID"
 msgstr "ID"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:196
-#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Call"
-msgstr "Chiamata"
+msgstr "Nominativo"
 
 #: ../searchwindow.cpp:191
 msgctxt "SearchWindow|"
@@ -5027,7 +5099,7 @@ msgstr "HamLib"
 #: ../setupdialog.cpp:212
 msgctxt "SetupDialog|"
 msgid "eLog"
-msgstr ""
+msgstr "eLog"
 
 #: ../setupdialog.cpp:224
 msgctxt "SetupDialog|"
@@ -5052,7 +5124,7 @@ msgstr "WSJT-X"
 #: ../setupdialog.cpp:242
 msgctxt "SetupDialog|"
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #: ../setupdialog.cpp:359
 msgctxt "SetupDialog|"
@@ -5082,12 +5154,12 @@ msgstr "Il DB non è stato spostato nel nuovo percorso."
 #: ../setupdialog.cpp:464
 msgctxt "SetupDialog|"
 msgid "You need to enter at least a valid callsign."
-msgstr ""
+msgstr "Devi inserire almeno un nominativo valido."
 
 #: ../setupdialog.cpp:465
 msgctxt "SetupDialog|"
 msgid "Go to the User tab and enter valid callsign."
-msgstr ""
+msgstr "Vai alla tab Utente e inserisci il nominatio valido."
 
 #: ../setupdialog.cpp:478
 msgctxt "SetupDialog|"
@@ -5397,15 +5469,14 @@ msgstr ""
 #: ../setuppages/setuppageelog.cpp:44
 msgctxt "SetupPageELog|"
 msgid "ClubLog password"
-msgstr ""
+msgstr "Password ClubLog"
 
 #: ../setuppages/setuppageelog.cpp:45
 msgctxt "SetupPageELog|"
 msgid "ClubLog email"
-msgstr ""
+msgstr "Email ClubLog"
 
 #: ../setuppages/setuppageelog.cpp:49
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "Enter the email you used to register in ClubLog."
 msgstr "Inserisci l'email scelta durante la registrazione a ClubLog."
@@ -5417,29 +5488,30 @@ msgid ""
 "clear in the KLog config file!! (If you don't want to enter the password, "
 "KLog will ask you when it is needed.)"
 msgstr ""
+"Inserisci qua la tua password ClubLog. Attenzione: La password sarà salvata "
+"in chiaro all'interno del file di configurazione di KLog!! (Se non vuoi "
+"inserire la password, Kalog te la chiederà ogni volta quando necesaria.)"
 
 #: ../setuppages/setuppageelog.cpp:56
 msgctxt "SetupPageELog|"
 msgid "Send QSOs in real time"
-msgstr ""
+msgstr "Trasferisci QSO in tempo reale"
 
 #: ../setuppages/setuppageelog.cpp:57
 msgctxt "SetupPageELog|"
 msgid "Activate ClubLog"
-msgstr ""
+msgstr "Attiva ClubLog"
 
 #: ../setuppages/setuppageelog.cpp:58
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid ""
 "Send each QSO to ClubLog in real time, as they are added (or modified) in "
 "KLog."
 msgstr ""
-"Spedisci ogni QSO a ClubLog in tempo reale, appena aggiunti (o modificati) "
-"su KLog."
+"Trasferisci ogni QSO a ClubLog in tempo reale, appena aggiunti (o "
+"modificati) su KLog."
 
 #: ../setuppages/setuppageelog.cpp:59
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "Starts the ClubLog support in KLog."
 msgstr "Avvia il supporto ClubLog su KLog."
@@ -5447,12 +5519,12 @@ msgstr "Avvia il supporto ClubLog su KLog."
 #: ../setuppages/setuppageelog.cpp:64
 msgctxt "SetupPageELog|"
 msgid "Activate eQSL.cc"
-msgstr ""
+msgstr "Attiva eQSL.cc"
 
 #: ../setuppages/setuppageelog.cpp:65
 msgctxt "SetupPageELog|"
 msgid "Enter your username of eQSL.cc."
-msgstr ""
+msgstr "Inserisci il tuo nome utente di eQSL.cc."
 
 #: ../setuppages/setuppageelog.cpp:66
 msgctxt "SetupPageELog|"
@@ -5461,19 +5533,21 @@ msgid ""
 "clear in the KLog config file!! (If you don't want to enter the password, "
 "KLog will ask you when it is needed.)"
 msgstr ""
+"Inserisci qua la password per eQSL.cc, Attenzione: la password sarà salvata "
+"in chiaro ill'interno del file di configurazione di KLog!! (Se non vuoi "
+"tenere qua la password, Klog te la chiderà ogno volta che sarà necessaria)"
 
 #: ../setuppages/setuppageelog.cpp:69
 msgctxt "SetupPageELog|"
 msgid "eQSL.cc password"
-msgstr ""
+msgstr "Password eQSL.cc"
 
 #: ../setuppages/setuppageelog.cpp:70
 msgctxt "SetupPageELog|"
 msgid "eQSL.cc user"
-msgstr ""
+msgstr "Nome utente eQSL.cc"
 
 #: ../setuppages/setuppageelog.cpp:72
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "ClubLog"
 msgstr "ClubLog"
@@ -5481,12 +5555,12 @@ msgstr "ClubLog"
 #: ../setuppages/setuppageelog.cpp:73
 msgctxt "SetupPageELog|"
 msgid "eQSL.cc"
-msgstr ""
+msgstr "eQSL.CC"
 
 #: ../setuppages/setuppageelog.cpp:100
 msgctxt "SetupPageELog|"
 msgid "QRZ.com"
-msgstr ""
+msgstr "QRZ.com"
 
 #: ../setuppages/setuppageelog.cpp:103
 msgctxt "SetupPageELog|"
@@ -5494,11 +5568,13 @@ msgid ""
 "Enter the user of your QRZ.com account. You need to be subscribed to QRZ.com "
 "to use this service."
 msgstr ""
+"Inserisci l'utente del tuo aaccount qrz.COM. Devi essere registrato aa "
+"QRZ.com per usare questo servizio."
 
 #: ../setuppages/setuppageelog.cpp:105
 msgctxt "SetupPageELog|"
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
 #: ../setuppages/setuppageelog.cpp:108
 msgctxt "SetupPageELog|"
@@ -5507,31 +5583,34 @@ msgid ""
 "clear in the KLog config file!! (If you don't want to enter the password, "
 "KLog will ask you when it is needed.)"
 msgstr ""
+"Inserisci qua la tua password QRZ.com. Warning: La password sarà salvata in "
+"chiaro all'interno del file di configurazione di KLog!! (Se non vuoi "
+"inserirla qua Klog te la chiederà ogno colta che sarà necessaria.)"
 
 #: ../setuppages/setuppageelog.cpp:111
 msgctxt "SetupPageELog|"
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: ../setuppages/setuppageelog.cpp:112
 msgctxt "SetupPageELog|"
 msgid "Activate QRZ.com"
-msgstr ""
+msgstr "Attiva QRZ.com"
 
 #: ../setuppages/setuppageelog.cpp:113
 msgctxt "SetupPageELog|"
 msgid "Check automatically"
-msgstr ""
+msgstr "Controllo automatico"
 
 #: ../setuppages/setuppageelog.cpp:114
 msgctxt "SetupPageELog|"
 msgid "Check in Qrz.com all Calls as they are entered"
-msgstr ""
+msgstr "Verifica su QRZ.com tutti i nominativi ma mano che sono inseriti"
 
 #: ../setuppages/setuppageelog.cpp:117
 msgctxt "SetupPageELog|"
 msgid "LogBook Key"
-msgstr ""
+msgstr "Key LogBook"
 
 #: ../setuppages/setuppageelog.cpp:119
 msgctxt "SetupPageELog|"
@@ -5539,30 +5618,31 @@ msgid ""
 "LogBook Key for QSO uploading. You can get this key in your QRZ.com logbook "
 "webpage. Remember that you need a QRZ.com subscription to use this feature."
 msgstr ""
+"Key LogBook per il trasferimento di QSO. Ottieni questa key nella tua pagina "
+"web su QRZ.com. Ricorda che occorre che tu sia utente registrato su QRZ.com "
+"per pyoter usare questa funzionalità."
 
 #: ../setuppages/setuppageelog.cpp:143
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "LoTW"
-msgstr "LoTQ"
+msgstr "LoTW"
 
 #: ../setuppages/setuppageelog.cpp:144
 msgctxt "SetupPageELog|"
 msgid "Upload"
-msgstr ""
+msgstr "upload"
 
 #: ../setuppages/setuppageelog.cpp:145
 msgctxt "SetupPageELog|"
 msgid "Download"
-msgstr ""
+msgstr "Dowload"
 
 #: ../setuppages/setuppageelog.cpp:153
 msgctxt "SetupPageELog|"
 msgid "TQSL path"
-msgstr ""
+msgstr "path TQSL"
 
 #: ../setuppages/setuppageelog.cpp:154
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "Use TQSL"
 msgstr "Usa TQSL"
@@ -5570,20 +5650,19 @@ msgstr "Usa TQSL"
 #: ../setuppages/setuppageelog.cpp:155
 msgctxt "SetupPageELog|"
 msgid "LoTW password"
-msgstr ""
+msgstr "password LoTW"
 
 #: ../setuppages/setuppageelog.cpp:156
 msgctxt "SetupPageELog|"
 msgid "LoTW user"
-msgstr ""
+msgstr "user LoTW"
 
 #: ../setuppages/setuppageelog.cpp:158
 msgctxt "SetupPageELog|"
 msgid "Enter your LoTW user."
-msgstr ""
+msgstr "Inserisci il tuo utente LoTW."
 
 #: ../setuppages/setuppageelog.cpp:159
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid ""
 "Enter your password LoTW here. Warning: The password will be save on clear "
@@ -5596,13 +5675,11 @@ msgstr ""
 "necessario, senza memorizzarla"
 
 #: ../setuppages/setuppageelog.cpp:160
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "Path to the TQSL software."
-msgstr "Percorso al software TQSL."
+msgstr "Path del software TQSL."
 
 #: ../setuppages/setuppageelog.cpp:161
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid ""
 "Enable the LoTW integration with TQSL. You will need to have TQSL installed"
@@ -5610,10 +5687,9 @@ msgstr ""
 "Abilita l'integrazione fra LoTW e TQSL. E' necessario aver installato TQSL"
 
 #: ../setuppages/setuppageelog.cpp:508
-#, fuzzy
 msgctxt "SetupPageELog|"
 msgid "Select File"
-msgstr "Seleziona il file"
+msgstr "Seleziona file"
 
 #: ../setuppages/setuppagehamlib.cpp:79
 msgctxt "SetupPageHamLib|"
@@ -5898,7 +5974,7 @@ msgstr "Commenti"
 #: ../setuppages/setuppagelogs.cpp:350
 msgctxt "SetupPageLogs|"
 msgid "QSOs"
-msgstr ""
+msgstr "QSO"
 
 #: ../setuppages/setuppagelogs.cpp:534
 msgctxt "SetupPageLogs|"
@@ -5960,6 +6036,9 @@ msgid ""
 "You need to enter a valid callsign in the Station Callsign box.\n"
 "The log will not be opened."
 msgstr ""
+"E' necessario che tu inserisca un valido nominativo nel box Nominativo di "
+"stazione.\n"
+"Il log non sarà aperto."
 
 #: ../setuppages/setuppagelogsnew.cpp:163
 msgctxt "SetupPageLogsNew|"
@@ -6177,7 +6256,7 @@ msgstr "Attiva il log debug dell'applicazione"
 #: ../setuppages/setuppagemisc.cpp:53
 msgctxt "SetupPageMisc|"
 msgid "&Delete always temp ADIF file after uploading QSOs"
-msgstr ""
+msgstr "&Cancella sempre il file temporaneo ADIF dopo il trasferimento dei QSO"
 
 #: ../setuppages/setuppagemisc.cpp:87
 msgctxt "SetupPageMisc|"
@@ -6185,6 +6264,8 @@ msgid ""
 "In seconds, enter the time range to consider a duplicate if same call, band "
 "and mode is entered."
 msgstr ""
+"In secondi, scegli il tempo limite per considerare una chiamata come "
+"duplicata, se anche banda e modo sono presenti."
 
 #: ../setuppages/setuppagemisc.cpp:129
 msgctxt "SetupPageMisc|"
@@ -6242,12 +6323,12 @@ msgstr ""
 #: ../setuppages/setuppagemisc.cpp:149
 msgctxt "SetupPageMisc|"
 msgid "Delete Always the adif file created after uploading QSOs"
-msgstr ""
+msgstr "Cancella sempre il file ADIF creato dopo in trasferimento dei QSO"
 
 #: ../setuppages/setuppagemisc.cpp:163
 msgctxt "SetupPageMisc|"
 msgid "Dupe time range:"
-msgstr ""
+msgstr "Tempo limite duplicato:"
 
 #: ../setuppages/setuppagemisc.cpp:270
 msgctxt "SetupPageMisc|"
@@ -6504,68 +6585,58 @@ msgstr ""
 "corretto."
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:94
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "&Date"
 msgstr "&Data"
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:95
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "&Station Callsign"
 msgstr "&Nominativo di stazione"
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:96
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "&Operators"
 msgstr "&Operatori"
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:97
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "Comm&ent"
-msgstr "Comm&enta"
+msgstr "Comm&ento"
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:99
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "&Ok"
 msgstr "&Ok"
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:100
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "&Cancel"
 msgstr "&Annulla"
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:162
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "Callsign used for this log."
 msgstr "Nominativo usato per questo log."
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:163
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "Comma separated list of operators: callsign1, callsign2."
-msgstr "Elenco operatori separati da virgola: operatore, operatore2."
+msgstr "Elenco operatori separati da virgola: operatore1, operatore2."
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:165
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid "Start date of this log."
 msgstr "Data di inizio di questo log."
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:166
-#, fuzzy
 msgctxt "SetupPageSubdivisionNew|"
 msgid ""
 "Add a comment about this log. If filled, it will be shown in the main KLog "
 "title to identify the log."
 msgstr ""
 "Inserisci una breve descrizione per questo log. Se lo inserisci, sarà "
-"mostrato sul titolo principale di KLog per distinguerlo."
+"mostrato sul titolo principale di KLog per maggior chiarezza."
 
 #: ../setuppages/setuppagesubdivisionnew.cpp:582
 msgctxt "SetupPageSubdivisionNew|"
@@ -6573,9 +6644,11 @@ msgid ""
 "You need to enter a valid callsign in the Station Callsign box.\n"
 "The log will not be opened."
 msgstr ""
+"E' necessario che tu inserisca un nominativo valido nel box del nominativo "
+"di stazione.\n"
+"Il log non sarà aperto."
 
 #: ../setuppages/setuppagesubdivisions.cpp:56
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "&Remove"
 msgstr "&Elimina"
@@ -6583,25 +6656,24 @@ msgstr "&Elimina"
 #: ../setuppages/setuppagesubdivisions.cpp:57
 msgctxt "SetupPageSubdivisions|"
 msgid "Import new"
-msgstr ""
+msgstr "Importa nuovo"
 
 #: ../setuppages/setuppagesubdivisions.cpp:58
 msgctxt "SetupPageSubdivisions|"
 msgid "Import an AWA file with the subdivision details."
-msgstr ""
+msgstr "Importa file AWA con tutti i dettagli."
 
 #: ../setuppages/setuppagesubdivisions.cpp:61
 msgctxt "SetupPageSubdivisions|"
 msgid "Remove the selected references."
-msgstr ""
+msgstr "Cancella i riferimenti selezionati."
 
 #: ../setuppages/setuppagesubdivisions.cpp:63
 msgctxt "SetupPageSubdivisions|"
 msgid "Select the references you want to open."
-msgstr ""
+msgstr "Scegli i riferimenti che vuoi aprire."
 
 #: ../setuppages/setuppagesubdivisions.cpp:123
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "KLog"
 msgstr "KLog"
@@ -6609,39 +6681,34 @@ msgstr "KLog"
 #: ../setuppages/setuppagesubdivisions.cpp:124
 msgctxt "SetupPageSubdivisions|"
 msgid "Do you really want to remove the data of this entity?"
-msgstr ""
+msgstr "Davvero vuoi cancellare la data di questo elemento?"
 
 #: ../setuppages/setuppagesubdivisions.cpp:125
 msgctxt "SetupPageSubdivisions|"
 msgid "All the subdivision information for this entity will be deleted..."
-msgstr ""
+msgstr "Tutte le informazioni per questo elemento saranno cancellati..."
 
 #: ../setuppages/setuppagesubdivisions.cpp:157
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "Log has not been removed. (#3)"
-msgstr "Impossibile cancellare l'intero log. (#3)"
+msgstr "Log non cancellato. (#3)"
 
 #: ../setuppages/setuppagesubdivisions.cpp:164
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "Log has not been removed. (#2)"
-msgstr "Impossibile cancellare l'intero log. (#2)"
+msgstr "Log non cancellato. (#2)"
 
 #: ../setuppages/setuppagesubdivisions.cpp:171
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "Log has not been removed. (#1)"
-msgstr "Impossibile cancellare l'intero log. (#1)"
+msgstr "Log non cancellato. (#1)"
 
 #: ../setuppages/setuppagesubdivisions.cpp:221
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "ID"
 msgstr "ID"
 
 #: ../setuppages/setuppagesubdivisions.cpp:224
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "Name"
 msgstr "Nome"
@@ -6649,16 +6716,14 @@ msgstr "Nome"
 #: ../setuppages/setuppagesubdivisions.cpp:227
 msgctxt "SetupPageSubdivisions|"
 msgid "Short Name"
-msgstr ""
+msgstr "Nome abbreviato"
 
 #: ../setuppages/setuppagesubdivisions.cpp:230
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "CQ Zone"
 msgstr "Zona CQ"
 
 #: ../setuppages/setuppagesubdivisions.cpp:233
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "ITU Zone"
 msgstr "Zona ITU"
@@ -6666,34 +6731,32 @@ msgstr "Zona ITU"
 #: ../setuppages/setuppagesubdivisions.cpp:236
 msgctxt "SetupPageSubdivisions|"
 msgid "Deleted"
-msgstr ""
+msgstr "Cancellato"
 
 #: ../setuppages/setuppagesubdivisions.cpp:239
 msgctxt "SetupPageSubdivisions|"
 msgid "Start Date"
-msgstr ""
+msgstr "Data di inizio"
 
 #: ../setuppages/setuppagesubdivisions.cpp:242
 msgctxt "SetupPageSubdivisions|"
 msgid "End Date"
-msgstr ""
+msgstr "Data di fine"
 
 #: ../setuppages/setuppagesubdivisions.cpp:245
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "DXCC"
 msgstr "DXCC"
 
 #: ../setuppages/setuppagesubdivisions.cpp:385
-#, fuzzy
 msgctxt "SetupPageSubdivisions|"
 msgid "An error has occurred showing the following error code:"
-msgstr "Si è verificato un errore con il codice:"
+msgstr "Si è verificato un errore con il seguente codice:"
 
 #: ../setuppages/setuppagesubdivisions.cpp:388
 msgctxt "SetupPageSubdivisions|"
 msgid "KLog - SetupPageSubdivisions"
-msgstr ""
+msgstr "KLog - SetuoPageSubdivisions"
 
 #: ../setuppages/setuppageudp.cpp:36
 msgctxt "SetupPageUDP|"
@@ -6775,11 +6838,12 @@ msgstr "Porta UDP"
 msgctxt "SetupPageUDP|"
 msgid "Select the interface to listen for UDP datagrams coming from WSJT-X."
 msgstr ""
+"Seleziona l'interfaccia per ascoltare UDP datagrammi provenienti da SWJT-X."
 
 #: ../setuppages/setuppageudp.cpp:112
 msgctxt "SetupPageUDP|"
 msgid "Network interface"
-msgstr ""
+msgstr "Interfaccia di rete"
 
 #: ../setuppages/setuppageudp.cpp:121
 msgctxt "SetupPageUDP|"
@@ -6954,7 +7018,7 @@ msgstr "Inserisci gli operatori (separati da virgola se più di uno)."
 #: ../setuppages/setuppageuserdata.cpp:192
 msgctxt "SetupPageUserDataPage|"
 msgid "&Callsign"
-msgstr ""
+msgstr "&Nominativo"
 
 #: ../setuppages/setuppageuserdata.cpp:193
 msgctxt "SetupPageUserDataPage|"
@@ -7177,6 +7241,10 @@ msgid ""
 "from:<br><br><center><a "
 "href=https://www.klog.xyz>https://www.klog.xyz</a></center>"
 msgstr ""
+"<center><h2>KLog nuova versione (%1) è disponibile! </h2></center><br>E' "
+"disponibile una nuova versione di KLog.<br><br><b>Puoi scaricare la nuova "
+"versione da:<br><br><center><a "
+"href=https://www.klog.xyz>https://www.klog.xyz</a></center>"
 
 #: ../softwareupdatedialog.cpp:81
 msgctxt "SoftwareUpdateDialog|"
@@ -7270,10 +7338,11 @@ msgctxt "StatisticsWidget|"
 msgid "Sent / Confirmed status"
 msgstr "Stato Spediti / Confermati"
 
+# Stato DXCC satellite
 #: ../statisticswidget.cpp:118
 msgctxt "StatisticsWidget|"
 msgid "Satellite grid status"
-msgstr ""
+msgstr "Stato griglia satellite"
 
 #: ../statisticswidget.cpp:119
 msgctxt "StatisticsWidget|"
@@ -7321,7 +7390,7 @@ msgstr "Anni:%1/%2"
 #: ../charts/statsdxccsonsatswidget.cpp:54
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Show confirmed only"
-msgstr ""
+msgstr "Mostra solo i confermati"
 
 #: ../charts/statsdxccsonsatswidget.cpp:56
 msgctxt ""
@@ -7331,25 +7400,21 @@ msgid "Only LEO sats"
 msgstr ""
 
 #: ../charts/statsdxccsonsatswidget.cpp:72
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Number"
 msgstr "Numero"
 
 #: ../charts/statsdxccsonsatswidget.cpp:109
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Callsign"
 msgstr "Nominativo"
 
 #: ../charts/statsdxccsonsatswidget.cpp:110
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Date"
 msgstr "Data"
 
 #: ../charts/statsdxccsonsatswidget.cpp:111
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Band"
 msgstr "Banda"
@@ -7357,28 +7422,24 @@ msgstr "Banda"
 #: ../charts/statsdxccsonsatswidget.cpp:112
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Mode"
-msgstr ""
+msgstr "Modo"
 
 #: ../charts/statsdxccsonsatswidget.cpp:113
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "DXCC"
 msgstr "DXCC"
 
 #: ../charts/statsdxccsonsatswidget.cpp:114
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Satellite"
 msgstr "Satellite"
 
 #: ../charts/statsdxccsonsatswidget.cpp:115
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Confirmed"
 msgstr "Confermato"
 
 #: ../charts/statsdxccsonsatswidget.cpp:144
-#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "No"
 msgstr "No"
@@ -7416,7 +7477,7 @@ msgstr "Lettura dati ..."
 #: ../charts/statsentitiesperyearbarchartwidget.cpp:91
 msgctxt "StatsEntitiesPerYearBarChartWidget|"
 msgid "Entities: "
-msgstr "Collegamenti:"
+msgstr "Collegamenti: "
 
 #: ../charts/statsgridsonsatswidget.cpp:51
 msgctxt "StatsGridsOnSatsWidget|"
@@ -7431,25 +7492,21 @@ msgid "Only LEO sats"
 msgstr ""
 
 #: ../charts/statsgridsonsatswidget.cpp:69
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Number"
 msgstr "Numero"
 
 #: ../charts/statsgridsonsatswidget.cpp:106
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Callsign"
 msgstr "Nominativo"
 
 #: ../charts/statsgridsonsatswidget.cpp:107
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Date"
 msgstr "Data"
 
 #: ../charts/statsgridsonsatswidget.cpp:108
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Band"
 msgstr "Banda"
@@ -7457,27 +7514,24 @@ msgstr "Banda"
 #: ../charts/statsgridsonsatswidget.cpp:109
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Mode"
-msgstr ""
+msgstr "Modo"
 
 #: ../charts/statsgridsonsatswidget.cpp:110
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Grid"
-msgstr ""
+msgstr "Griglia"
 
 #: ../charts/statsgridsonsatswidget.cpp:111
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Satellite"
 msgstr "Satellite"
 
 #: ../charts/statsgridsonsatswidget.cpp:112
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Confirmed"
 msgstr "Confermato"
 
 #: ../charts/statsgridsonsatswidget.cpp:141
-#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "No"
 msgstr "No"
@@ -7515,7 +7569,7 @@ msgstr "lettura dati ..."
 #: ../charts/statsqsosperbandbarchartwidget.cpp:93
 msgctxt "StatsQSOsPerBandBarChartWidget|"
 msgid "Bands: "
-msgstr "Bande:"
+msgstr "Bande: "
 
 #: ../charts/statsqsospercontinentbarchartwidget.cpp:72
 #: ../charts/statsqsospercontinentbarchartwidget.cpp:86
@@ -7546,7 +7600,7 @@ msgstr "Lettura dati ..."
 #: ../charts/statsqsospercontinentbarchartwidget.cpp:95
 msgctxt "StatsQSOsPerContinentBarChartWidget|"
 msgid "Hours: "
-msgstr "Ore:"
+msgstr "Ore: "
 
 #: ../charts/statsqsosperdxccbarchartwidget.cpp:73
 msgctxt "StatsQSOsPerDXCCBarChartWidget|"
@@ -7611,7 +7665,7 @@ msgstr "lettura dati ..."
 #: ../charts/statsqsosperhourbarchartwidget.cpp:96
 msgctxt "StatsQSOsPerHourBarChartWidget|"
 msgid "Hours: "
-msgstr "Ore:"
+msgstr "Ore: "
 
 #: ../charts/statsqsospermodebarchartwidget.cpp:73
 msgctxt "StatsQSOsPerModeBarChartWidget|"
@@ -7646,7 +7700,7 @@ msgstr "lettura dati ..."
 #: ../charts/statsqsospermodebarchartwidget.cpp:93
 msgctxt "StatsQSOsPerModeBarChartWidget|"
 msgid "Modes: "
-msgstr "Modi:"
+msgstr "Modi: "
 
 #: ../charts/statsqsospermonthbarchartwidget.cpp:73
 msgctxt "StatsQSOsPerMonthBarChartWidget|"
@@ -7656,7 +7710,7 @@ msgstr "QSO per mese"
 #: ../charts/statsqsospermonthbarchartwidget.cpp:77
 msgctxt "StatsQSOsPerMonthBarChartWidget|"
 msgid "Reading data ... "
-msgstr "lettura dati ..."
+msgstr "Lettura dati ... "
 
 #: ../charts/statsqsospermonthbarchartwidget.cpp:77
 msgctxt "StatsQSOsPerMonthBarChartWidget|"
@@ -7741,12 +7795,12 @@ msgstr "Lettura dati ..."
 #: ../charts/statsqsospermonthbarchartwidget.cpp:96
 msgctxt "StatsQSOsPerMonthBarChartWidget|"
 msgid "Months: "
-msgstr "Mesi:"
+msgstr "Mesi: "
 
 #: ../charts/statsqsosperyearbarchartwidget.cpp:77
 msgctxt "StatsQSOsPerYearBarChartWidget|"
 msgid "Reading data ... "
-msgstr "lettura dati ..."
+msgstr "Lettura dati ... "
 
 #: ../charts/statsqsosperyearbarchartwidget.cpp:77
 msgctxt "StatsQSOsPerYearBarChartWidget|"
@@ -7788,10 +7842,9 @@ msgid "Confirmed - %2"
 msgstr "Confermato - %2"
 
 #: ../charts/statssentconfirmedpiechartwidget.cpp:81
-#, fuzzy
 msgctxt "StatsSentConfirmedPieChartWidget|"
 msgid "Sent / Confirmed status"
-msgstr "Stato Spediti / Confermati"
+msgstr "Stato Trasferiti / Confermati"
 
 #: ../charts/statsworkedconfirmedpiechartwidget.cpp:65
 #, qt-format
@@ -7806,7 +7859,6 @@ msgid "Confirmed - %2"
 msgstr "Confermato - %2"
 
 #: ../charts/statsworkedconfirmedpiechartwidget.cpp:81
-#, fuzzy
 msgctxt "StatsWorkedConfirmedPieChartWidget|"
 msgid "Worked / Confirmed status"
 msgstr "Stato Processati / Confermati"
@@ -7824,7 +7876,6 @@ msgid "Sent - %2"
 msgstr "Spedito - %2"
 
 #: ../charts/statsworkedsentpiechartwidget.cpp:82
-#, fuzzy
 msgctxt "StatsWorkedSentPieChartWidget|"
 msgid "Worked / Sent status"
 msgstr "Stato Processati / Spediti"
@@ -7874,7 +7925,6 @@ msgstr ""
 
 #. Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
 #: ../tipsdialog.cpp:159
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #2:</b><br>Do you know...<br>You can find the QSLs that you still "
@@ -7882,27 +7932,25 @@ msgid ""
 "My-QSLs pending to send</a>.<bR>This tool will list you in the search box "
 "all the QSOs with the QSL-Sent marked as <i>Requested</i>."
 msgstr ""
-"<b>Tip #7:</b><br>Dovresti sapere che...<br>Puoi scoprire quali QSL hai "
+"<b>Tip #2:</b><br>Dovresti sapere che...<br>Puoi scoprire quali QSL hai "
 "ancora da spedire con <a href=\"#ToolsSendPendingQSL\">Strumenti->Strumenti "
 "QSL...-> Trova le mie QSL In attesa di spedizione</a>.<bR>Questo strumento "
 "elencherà all'interno della maschera di ricerca tutte le QSL spedite segnate "
-"come <i>Richieste</i>. {2:?}"
+"come <i>Richieste</i>. {2:?}."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->Export Requested QSL to ADIF...
 #: ../tipsdialog.cpp:167
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #4:</b><br>Do you know...<br>You can enter a '*' in the search box, "
 "in the search window to search for all the QSOs done with one specific "
 "station callsign?"
 msgstr ""
-"<b>Tip #5:</b><br>Dovresti sapere che...<br>Puoi sempre inserire il wild "
+"<b>Tip #4:</b><br>Dovresti sapere che...<br>Puoi sempre inserire il wild "
 "char * nella maschera di ricerca, per trovare tutti i QSO fatti con uno "
-"specifico nominativo? {4:?}"
+"specifico nominativo?"
 
 #: ../tipsdialog.cpp:170
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #5:</b><br>Do you know...<br>You can find the file containing all "
@@ -7910,11 +7958,11 @@ msgid ""
 "containing the KLog config file in the KLog folder by opening the <a "
 "href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu?"
 msgstr ""
-"<b>Tip #6:</b><br>Dovresti sapere che...<br>Sono sempre disponibili tutti i "
+"<b>Tip #5:</b><br>Dovresti sapere che...<br>Sono sempre disponibili tutti i "
 "tuoi log e altre informazioni nel file logbook.dat e nel file klogrc, nel "
 "file di configurazione di KLog config file nella cartella dati KLog aprendi "
 "direttamente  il menù <a href=\"#FileOpenKLogFolder\">File->Cartella "
-"KLog</a> ? {5:?}"
+"KLog</a> ?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
 #: ../tipsdialog.cpp:176
@@ -7925,19 +7973,23 @@ msgid ""
 "...->Sends the log to LoTW calling TQSL.</a> ?<br><br>You have to configure "
 "TQSL in the preferences to be able to use this functionality."
 msgstr ""
+"<b>Tip #6:</b><br>Dovresti sapere che...<br>E' possibile trasferire i tuoi "
+"QSO marcati e messi in coda per LoTW via TQSL con <a "
+"href=\"#ToolsUploadLoTW\">Strumenti->Strumenti LoTW ...->Trasferisce il log "
+"delle chiamate a LoTW delle TQSL.</a> ?<br><br>E' necessario che TQSL nelle "
+"impostazioni per pytoer usare questa funzionalità."
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find My-QSLs pending to send
 #: ../tipsdialog.cpp:180
-#, fuzzy
 msgctxt "TipsDialog|"
 msgid ""
 "<b>Tip #7:</b><br>Do you know...<br>You can see the QSO that confirms one "
 "specific DXCC entity in one specific band by poiting your mouse over that "
 "band in the DXCC widget?"
 msgstr ""
-"<b>Tip #20:</b><br>Dovresti sapere che...<br>Puoi sempre vedere i QSO che "
+"<b>Tip #7:</b><br>Dovresti sapere che...<br>Puoi sempre vedere i QSO che "
 "confermano uno specifico collegamento DXCC all'interno di una specifica "
-"banda puntando con il mouse sulla banda nel widget DXCC? {7:?}"
+"banda puntando con il mouse sulla banda nel widget DXCC?"
 
 #. Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find DX-QSLs pending to receive
 #: ../tipsdialog.cpp:184
@@ -8003,6 +8055,9 @@ msgid ""
 "href=https://groups.io/g/klog>KLog mailing list</a> to discuss via email "
 "about KLog in English?"
 msgstr ""
+"<b>Tip #12:</b><br>Dovresti sapere che...<br>Puoi sempre iscriverti a <a "
+"href=https://groups.io/g/klog>Mailing list utenti KLog</a> per parlare via "
+"email su KLog in Inglese?"
 
 #: ../tipsdialog.cpp:200
 msgctxt "TipsDialog|"
@@ -8175,6 +8230,8 @@ msgid ""
 "This error may be caused for the QSO being duplicated or, if removing, "
 "trying to remove a non existing QSO."
 msgstr ""
+"Questo errore può essere cusato dalla presenza di QSO duplicati o,quando "
+"rimossi, per QSO macanti."
 
 #: ../elogclublog.cpp:193
 msgctxt "eLogClubLog|"
@@ -8230,19 +8287,19 @@ msgstr "Modalità test parametri ok, nessuna azione intrapresa"
 #, qt-format
 msgctxt "eLogClubLog|"
 msgid "Undefined error number (#%1)... "
-msgstr ""
+msgstr "Numero di errore idnefinito (#%1)... "
 
 #: ../elogclublog.cpp:135 ../elogclublog.cpp:144
 #, qt-format
 msgctxt "eLogClubLog|"
 msgid "We have received an undefined error from Clublog (%1)"
-msgstr ""
+msgstr "Ricevuto erorre idnefinito da ClubLog (%1)"
 
 #: ../elogclublog.cpp:133
 #, qt-format
 msgctxt "eLogClubLog|"
 msgid "QSO dupe or not existing (#%1)... "
-msgstr ""
+msgstr "QSO duplicato o mancante (#%1)... "
 
 #: ../elogclublog.cpp:145
 msgctxt "eLogClubLog|"
@@ -8250,6 +8307,9 @@ msgid ""
 "Please check your config in the setup and contact the KLog development team "
 "if you can't fix it. ClubLog uploads will be disabled."
 msgstr ""
+"Per favore verifica nella tua configurazione e contatta il team di sviluppo "
+"di KLog se non riesci a farlo funzionare.Trasferimenti a ClubLog "
+"disabilitati."
 
 #: ../elogclublog.cpp:627
 msgctxt "eLogClubLog|"
@@ -8322,13 +8382,11 @@ msgid "Rejected: Callsign is your own call"
 msgstr "Rifiutato: Nominativo is your own call"
 
 #: ../elogqrzlog.cpp:82
-#, fuzzy
 msgctxt "eLogQrzLog|"
 msgid "Host not found!"
 msgstr "Host non trovato!"
 
 #: ../elogqrzlog.cpp:85
-#, fuzzy
 msgctxt "eLogQrzLog|"
 msgid "Timeout error!"
 msgstr "Errore di Timeout!"
@@ -8337,18 +8395,18 @@ msgstr "Errore di Timeout!"
 #, qt-format
 msgctxt "eLogQrzLog|"
 msgid "Undefined error number (#%1)"
-msgstr ""
+msgstr "Numero di errore undefinito (#%1)"
 
 #: ../elogqrzlog.cpp:94
 #, qt-format
 msgctxt "eLogQrzLog|"
 msgid "We have received the following error from QRZ.com (%1)"
-msgstr ""
+msgstr "Ricevuto il seguente errore da QRZ.com (%1)"
 
 #: ../elogqrzlog.cpp:538
 msgctxt "eLogQrzLog|"
 msgid "Not valid KEY found"
-msgstr ""
+msgstr "Nessuna KEY valida trovata"
 
 #: ../elogqrzlog.cpp:539
 msgctxt "eLogQrzLog|"
@@ -8357,36 +8415,37 @@ msgid ""
 "Logbook settings webpage.\n"
 "You need a QRZ.com subscription to use this feature."
 msgstr ""
+"Per favore configura la chiave API del tuo QRZ.com. La trovi nella pagina "
+"web del tuo logbok su QRZ.com.\n"
+"E' necessaria la registrazione sul sito QRZ.com poter ptoer usare questa "
+"funzione."
 
 #: ../elogqrzlog.cpp:617
 msgctxt "eLogQrzLog|"
 msgid "KLog - QRZ.com password needed"
-msgstr ""
+msgstr "KLog. - Password QRZ.com richiesta"
 
 #: ../elogqrzlog.cpp:617
 msgctxt "eLogQrzLog|"
 msgid "Please enter your QRZ.com password: "
-msgstr ""
+msgstr "Per fsavore isnerisci la tua password QRZ.com: "
 
 #: ../elogqrzlog.cpp:93 ../elogqrzlog.cpp:537
 msgctxt "eLogQrzLog|"
 msgid "KLog - QRZ.com"
-msgstr ""
+msgstr "KLog QRZ.com"
 
 #: ../elogqrzlog.cpp:686
-#, fuzzy
 msgctxt "eLogQrzLog|"
 msgid "Callsign missing"
-msgstr "Nominativo di chiamata assente"
+msgstr "Nominativo di stazione assente"
 
 #: ../eqslutilities.cpp:111
-#, fuzzy
 msgctxt "eQSLUtilities|"
 msgid "Host not found!"
 msgstr "Host non trovato!"
 
 #: ../eqslutilities.cpp:117
-#, fuzzy
 msgctxt "eQSLUtilities|"
 msgid "Timeout error!"
 msgstr "Errore di Timeout!"
@@ -8395,37 +8454,37 @@ msgstr "Errore di Timeout!"
 #, qt-format
 msgctxt "eQSLUtilities|"
 msgid "Undefined error number (#%1)... "
-msgstr ""
+msgstr "Numero errore idnefinito (#%1)... "
 
 #: ../eqslutilities.cpp:182
 msgctxt "eQSLUtilities|"
 msgid "eQSL Error: User or password incorrect"
-msgstr ""
+msgstr "Errore eQSL: utente o password sbagliate"
 
 #: ../eqslutilities.cpp:188
 msgctxt "eQSLUtilities|"
 msgid "eQSL Warning: At least one of the uplodaded QSOs is duplicated."
-msgstr ""
+msgstr "Warning eQSSL: Almeno uno del QSO trasaferiti è duplicato."
 
 #: ../eqslutilities.cpp:193
 msgctxt "eQSLUtilities|"
 msgid "eQSL: All the QSOs were properly uploaded."
-msgstr ""
+msgstr "eQSL: Tutti i QSO correttamente trasferiti."
 
 #: ../eqslutilities.cpp:247
 msgctxt "eQSLUtilities|"
 msgid "KLog - eQSL.cc password needed"
-msgstr ""
+msgstr "KLog - Password eQSL.cc richiesto"
 
 #: ../eqslutilities.cpp:247
 msgctxt "eQSLUtilities|"
 msgid "Please enter your eQSL.cc password: "
-msgstr ""
+msgstr "Pler favore isnerirsci la tua password per wQSO.cc: "
 
 #: ../eqslutilities.cpp:90 ../eqslutilities.cpp:124
 msgctxt "eQSLUtilities|"
 msgid "KLog - eQSL"
-msgstr ""
+msgstr "KLog - eQSL"
 
 #: ../eqslutilities.cpp:90
 #, qt-format
@@ -8434,12 +8493,14 @@ msgid ""
 "eQSL has sent the following message:\n"
 "%1"
 msgstr ""
+"eQSL ha mandato il seguente messaggio:\n"
+"%1"
 
 #: ../eqslutilities.cpp:125
 #, qt-format
 msgctxt "eQSLUtilities|"
 msgid "We have received an undefined error from eQSL (%1)"
-msgstr ""
+msgstr "Ricevuto erorre idnefinito da eQSL (%1)"
 
 #: ../eqslutilities.cpp:126
 msgctxt "eQSLUtilities|"
@@ -8447,3 +8508,5 @@ msgid ""
 "Please check your config in the setup and contact the KLog development team "
 "if you can't fix it. eQSL uploads will be disabled."
 msgstr ""
+"Per favore controlla la tua configurazione e contatta il team di sviluppo di "
+"KLog se non riesci a rrisolvere i problema. Trasaferimento eQSL disabilitato."

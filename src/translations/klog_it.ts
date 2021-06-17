@@ -14,10 +14,6 @@
         <translation>Puoi essere di aiuto inviando bug report, contribuendo alla programmazione del software, o con idee o suggerimenti, o ogni altra cosa pensi possa essere utile per migliorare KLog.</translation>
     </message>
     <message>
-        <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation type="vanished">Se vuoi aiutare puoi iscriverti  a &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;mailing listi di sviluppo di KLog&lt;/a&gt;!</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="91"/>
         <location filename="../aboutdialog.cpp" line="166"/>
         <source>Authors</source>
@@ -58,10 +54,6 @@
         <location filename="../aboutdialog.cpp" line="90"/>
         <source>KLog is developed by a very small team and you are invited to join!</source>
         <translation>Klog è sviluppato da un esiguo numero di programmatori e tu sei invitato a partecipare!</translation>
-    </message>
-    <message>
-        <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation type="vanished">Se KLog non è disponibile nella tua lingua e vuoi essere di aiuto sarebbe il massimo tu ci scrivessi sulla &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;mailing list di sviluppo di KLog&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="124"/>
@@ -1978,10 +1970,6 @@ Codice di errore restituito: %2</translation>
         <location filename="../mainqsoentrywidget.cpp" line="81"/>
         <source>KLog will show real time if enabled.</source>
         <translation>KLog lavorerà in tempo reale se abilitato.</translation>
-    </message>
-    <message>
-        <source>Real time</source>
-        <translation type="vanished">Tempo-reale</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="96"/>
@@ -7568,10 +7556,6 @@ Il log non sarà aperto.</translation>
         <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://groups.io/g/klog&gt;KLog mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
         <translation>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi sempre iscriverti a &lt;a href=https://groups.io/g/klog&gt;Mailing list utenti KLog&lt;/a&gt; per parlare via email su KLog in Inglese?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;KLog-users mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation type="vanished">&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Dovresti sapere che...&lt;br&gt;Puoi sempre iscriverti a &lt;a href=https://lists.nongnu.org/mailman/listinfo/klog-users&gt;Mailing list utenti KLog&lt;/a&gt; per parlare via email su KLog in Inglese?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="200"/>
