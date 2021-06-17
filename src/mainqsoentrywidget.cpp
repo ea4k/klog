@@ -23,7 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-
+//https://github.com/ea4k/klog/commit/1ac02c7b779922a8e5907ebee088fa64654cbdf5
 #include "mainqsoentrywidget.h"
 
 MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
@@ -38,11 +38,13 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     modeComboBox = new QComboBox;
     dateEdit = new QDateEdit;
     timeEdit = new QTimeEdit;
-    realtimeButton = new QPushButton;
-    realtimeButton->setCheckable(true);
-    realtimeButton->setFixedSize(QSize(28,28));
-    realtimeButton->setIcon(QIcon(":/img/play.svg"));
-    enabledCR = realtimeButton->backgroundRole();
+    realtimeCheckBox = new QCheckBox;
+    enabledCR = realtimeCheckBox->backgroundRole();
+    //realtimeButton = new QPushButton;
+    //realtimeButton->setCheckable(true);
+    //realtimeButton->setFixedSize(QSize(28,28));
+    //realtimeButton->setIcon(QIcon(":/img/play.svg"));
+    //enabledCR = realtimeButton->backgroundRole();
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
@@ -59,6 +61,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << endl;
 }
 
+/*
 void MainQSOEntryWidget::slotRealTimeButtonResize()
 {
     int heigh = qrzLineEdit->sizeHint ().height ();
@@ -66,7 +69,7 @@ void MainQSOEntryWidget::slotRealTimeButtonResize()
     //realtimeButton->setSizePolicy (QSizePolicy::Fixed);
 
 }
-
+*/
 void MainQSOEntryWidget::createUI()
 {
       //qDebug()<< "MainQSOEntryWidget::createUI" << endl;
@@ -78,11 +81,14 @@ void MainQSOEntryWidget::createUI()
     timeEdit->setToolTip(tr("Time of the QSO."));
     OKButton->setToolTip(tr("Add the QSO to the log."));
     clearButton->setToolTip(tr("Clears the QSO entry."));
-    realtimeButton->setToolTip(tr("KLog will show real time if enabled."));
+    realtimeCheckBox->setToolTip(tr("KLog will show real time if enabled."));
+    realtimeCheckBox->setText (tr("Real time"));
+    //realtimeButton->setToolTip(tr("KLog will show real time if enabled."));
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);
-    TimeLayout->addWidget(realtimeButton);
+    //TimeLayout->addWidget(realtimeButton);
+    TimeLayout->addWidget(realtimeCheckBox);
     TimeLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
     QHBoxLayout *BandModeLayout = new QHBoxLayout;
@@ -129,20 +135,42 @@ void MainQSOEntryWidget::createUI()
 
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
-    connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
+    //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
+    connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
       //qDebug()<< "MainQSOEntryWidget::createUI-END" << endl;
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 
 }
 
+/*
 void MainQSOEntryWidget::resizeEvent(QResizeEvent *event)
 {
     //qDebug() << Q_FUNC_INFO;
     slotRealTimeButtonResize();
 
 }
+*/
 
+
+void MainQSOEntryWidget::slotCheckBoxClicked()
+{
+   //qDebug() << Q_FUNC_INFO;
+    if (realtimeCheckBox->isChecked())
+    {
+        realTime = true;
+        //realtimeButton->setIcon(QIcon(":/img/play.svg"));
+        timeEdit->setBackgroundRole(enabledCR);
+    }
+    else
+    {
+        realTime = false;
+        //realtimeButton->setIcon(QIcon(":/img/stop.svg"));
+        timeEdit->setBackgroundRole(QPalette::BrightText);
+    }
+}
+
+/*
 void MainQSOEntryWidget::slotRealtimeButtonClicked()
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
@@ -162,7 +190,7 @@ void MainQSOEntryWidget::slotRealtimeButtonClicked()
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
-
+*/
 void MainQSOEntryWidget::setCleaning (const bool _c)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
@@ -705,7 +733,8 @@ QTime MainQSOEntryWidget::getTime()
 
 void MainQSOEntryWidget::toggleRealTime()
 {
-    if ( realtimeButton->isChecked ())
+    //if ( realtimeButton->isChecked ())
+    if ( realtimeCheckBox->isChecked ())
     {
         setRealTime (false);
     }
@@ -716,14 +745,18 @@ void MainQSOEntryWidget::toggleRealTime()
 
 bool MainQSOEntryWidget::getRealTime()
 {
-    return realtimeButton->isChecked ();
+    //return realtimeButton->isChecked ();
+    return realtimeCheckBox->isChecked ();
+
 }
 
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    realtimeButton->setChecked(_realTime);
-    if (_realTime)
+    //realtimeButton->setChecked(_realTime);
+    realtimeCheckBox->setChecked(_realTime);
+    /*
+     * if (_realTime)
     {
         realtimeButton->setIcon(QIcon(":/img/play.svg"));
     }
@@ -731,6 +764,7 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
     {
         realtimeButton->setIcon(QIcon(":/img/stop.svg"));
     }
+    */
     //realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
@@ -764,7 +798,8 @@ void MainQSOEntryWidget::slotUpdateTime()
     //qDebug()<< "MainQSOEntryWidget::slotUpdateTime" << endl;
     //emit debugLog(Q_FUNC_INFO, "Start", Debug);
 
-    if ( (!modify) && (realtimeButton->isChecked())  )
+    //if ( (!modify) && (realtimeButton->isChecked())  )
+    if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
         //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << endl;
         setDateAndTimeInternally();

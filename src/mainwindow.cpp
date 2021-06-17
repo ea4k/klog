@@ -1374,20 +1374,22 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     // SATS
+
     aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
-      //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
+        aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
+        if (aux1.length()>0)
+        {
+            stringFields = stringFields + ", sat_mode";
+            stringData = stringData + ", '" + aux1 + "'";
+        }
     }
 
-    aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", sat_mode";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+
 
     keepSatPage = satTabWidget->getRepeatThis();
 
@@ -2272,13 +2274,14 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "iota = '', ";
                   //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
     }
-
-   aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
+    bool satQSO = false;
+    aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
                //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 << endl;
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
         updateString = updateString + aux1 + "', ";
+        satQSO = true;
     }
     else
     {
@@ -2286,7 +2289,7 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-    if (aux1.length()>0)
+    if ((aux1.length()>0) && satQSO)
     {
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
@@ -3373,7 +3376,7 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
+    qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << endl;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
@@ -3419,7 +3422,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
     //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: " <<_qrz << endl;
     QString pref = util->getPrefixFromCall(_qrz);
-    //qDebug() << "MainWindow::slotQRZTextChanged: pref: " << pref << endl;
+    qDebug() << "MainWindow::slotQRZTextChanged: pref: " << pref << endl;
 
     if (pref.length ()>0)
     {
@@ -3433,7 +3436,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
     //currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
-    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
+    qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << endl;
     othersTabWidget->setEntity(currentEntity);
 
     dxE_CQz = world->getEntityCqz(currentEntity);
@@ -3472,7 +3475,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << endl;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
-            //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
+            qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << endl;
             previousEntity = currentEntity;
             InValidCharsInPrevCall = false;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
@@ -3486,14 +3489,14 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
-            //qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
+            qDebug() << "MainWindow::slotQRZTextChanged: 000" << endl;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
-           //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
+           qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << endl;
         }
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
@@ -4569,10 +4572,13 @@ void MainWindow::openSetup(const int _page)
         //qDebug() << "MainWindow::openSetup: Hamlib is active, let's read the VFO Freq/Mode" << endl;
     }
 
-    if (qso->getBackup ())
-    {
-        restoreCurrentQSO ();
-    }
+    //qDebug() << Q_FUNC_INFO << ": We are going to restore";
+    //if (qso->getBackup ())
+    //{
+    //        //qDebug() << Q_FUNC_INFO << ": Restoring... ";
+    //restoreCurrentQSO (true);
+    //}
+    //qDebug() << Q_FUNC_INFO << ": Restored! ";
     //qDebug() << "MainWindow::openSetup: - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4620,8 +4626,8 @@ void MainWindow::slotSetupDialogFinished (const int _s)
 
     if (qso->getBackup ())
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: Restoring..." << endl;
-        restoreCurrentQSO ();
+        //qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
+        restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
@@ -6963,6 +6969,7 @@ void MainWindow::setModifying(const bool _m)
     QSOTabWidget->setModifying (_m);
     mainQSOEntryWidget->setModify(_m);
     satTabWidget->setModifying(_m);
+    myDataTabWidget->setModify (_m);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -8446,17 +8453,21 @@ void MainWindow::backupCurrentQSO()
 
 }
 
-void MainWindow::restoreCurrentQSO()
+void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
-   //qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
     clearUIDX ();
 
     mainQSOEntryWidget->setQRZ (qso->getCall ());
     mainQSOEntryWidget->setBand (qso->getBand ());
     mainQSOEntryWidget->setMode (qso->getMode ());
     mainQSOEntryWidget->setDateTime (qso->getDateTimeOn ());
-    mainQSOEntryWidget->setRealTime (qso->getRealTime ());
+
+    if (restoreConfig)
+    {
+        mainQSOEntryWidget->setRealTime (qso->getRealTime ());
+    }
 
     //  MainWindowInputQSO
     QSOTabWidget->setRSTRX (qso->getRSTRX ());
@@ -8516,8 +8527,8 @@ void MainWindow::restoreCurrentQSO()
 
     // MainWindowMyDataTab
     myDataTabWidget->setMyPower (qso->getTXPwr ());
-    myDataTabWidget->setOperator (qso->getOperatorCallsign ());
-    myDataTabWidget->setStationQRZ (qso->getStationCallsign ());
+    myDataTabWidget->setOperator (qso->getOperatorCallsign());
+    myDataTabWidget->setStationQRZ (qso->getStationCallsign());
     myDataTabWidget->setMyLocator (qso->getMyGridSquare ());
     myDataTabWidget->setKeep (qso->getKeepMyData ());
     myDataTabWidget->setMyRig (qso->getMyRig ());

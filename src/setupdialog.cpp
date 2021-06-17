@@ -372,6 +372,7 @@ void SetupDialog::slotCancelButtonClicked()
             }
         }
     }
+    QDialog::reject ();
     close();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }

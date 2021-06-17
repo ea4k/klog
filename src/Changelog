@@ -2,6 +2,7 @@ June - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.
 - Bugfix: When starting KLog for the first time, it crashed.
 - Bugfix: Hamlib was not properly started on KLog start (closes #126) (TNX G4MKT)
+- Bugfix: SAT_MODE was being added to non SAT QSOs.
 - Improvement: Added user selectable ADIF fields in the Other and My Data tabs. (Closes #4)
 - Improvement: Enhanced how the UDP server is started on KLog start.
 - Improvement: Added some basic SQL Injection protection to the UI. (Closes #95)
