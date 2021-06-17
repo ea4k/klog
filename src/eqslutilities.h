@@ -37,15 +37,14 @@
 #include <QHttpMultiPart>
 #include <QHttpPart>
 #include "utilities.h"
+#include "securelogin.h"
+
 // https://www.eqsl.cc/qslcard/Programming.cfm
-class eQSLUtilities : public QObject {
+class eQSLUtilities : public QObject, public SecureLogin {
     Q_OBJECT
 public:
     explicit eQSLUtilities(const QString &_parentFunction);
     ~eQSLUtilities();
-    void setUser(const QString &_call);
-    void setPass(const QString &_pass);
-    void setCredentials(const QString &_user, const QString &_pass, const QString _defaultStationCallsign);
     //int sendQSO(QStringList _qso);
     //int deleteQSO(QStringList _qso);
     //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
@@ -59,8 +58,6 @@ private:
     //int sendDataParams(const QString &_eQSLUser, const QUrlQuery &_params);
     QStringList prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
-
-    QString user, pass, stationCallsign;
 
     QNetworkAccessManager *manager;
     QNetworkReply* reply;

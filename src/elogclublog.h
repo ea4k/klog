@@ -36,16 +36,15 @@
 #include <QHttpMultiPart>
 #include <QHttpPart>
 #include "utilities.h"
+#include "securelogin.h"
 
-class eLogClubLog : public QObject {
+class eLogClubLog : public QObject, public SecureLogin {
     Q_OBJECT
 public:
     explicit eLogClubLog();
     ~eLogClubLog();
-
-    void setCredentials(const QString &_email, const QString &_pass, const QString _defaultStationCallsign);
+    void setDefaultStation(const QString _defaultStationCallsign);
     int sendQSO(QStringList _qso);
-
     int deleteQSO(QStringList _qso);
     //int deleteQSOid(const int _qsoId);
     int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
@@ -60,7 +59,7 @@ private:
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
 
-    QString email, pass, api, stationCallsign;
+    QString api, stationCallsign;
 
     QNetworkAccessManager *manager;
     QNetworkReply* reply;

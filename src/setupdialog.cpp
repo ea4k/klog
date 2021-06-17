@@ -151,7 +151,16 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime, QWidget *p
 }
 
 */
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp,
+                         const QString &_configFile,
+                         const QString &_softwareVersion,
+                         eLogQrzLog *_qrz,
+                         eLogClubLog *_clublog,
+                         eQSLUtilities *_eqsl,
+                         LoTWUtilities *_lotw,
+                         const int _page,
+                         const bool _firstTime,
+                         QWidget *parent)
 {
     //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
 
@@ -164,6 +173,11 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     configFileName = _configFile;
     version = _softwareVersion;
     pageRequested = _page;
+    qrz = _qrz;
+    clublog = _clublog;
+    eqsl = _eqsl;
+    lotw = _lotw;
+
     int logsPageTabN=-1;
     //qDebug() << "SetupDialog::SetupDialog 01" << endl;
 
@@ -675,16 +689,12 @@ void SetupDialog::slotOkButtonClicked()
             tmp = eLogPage->getClubLogEmail() ;
             if (tmp.length()>0)
             {
+                 clublog->setUser(tmp); // username remains in config file
                  stream << "ClubLogEmail=" << tmp << ";" <<  endl;
             }
 
             tmp = eLogPage->getClubLogPassword() ;
-            if (tmp.length()>0)
-            {
-                stream << "ClubLogPass=" << tmp << ";" <<  endl;
-            }
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << endl;
+            clublog->setPass(tmp); // we can store also an empty password - the empty password means insert it manually
         // eQSL
 
 
@@ -699,14 +709,12 @@ void SetupDialog::slotOkButtonClicked()
             tmp = eLogPage->getEQSLUser();
             if (tmp.length()>0)
             {
+                 eqsl->setUser(tmp);
                  stream << "eQSLCall=" << tmp << ";" <<  endl;
             }
 
             tmp = eLogPage->getEQSLPassword() ;
-            if (tmp.length()>0)
-            {
-                stream << "eQSLPass=" << tmp << ";" <<  endl;
-            }
+            eqsl->setPass(tmp);
 
         // eQSL - END
 
@@ -725,13 +733,12 @@ void SetupDialog::slotOkButtonClicked()
             tmp = eLogPage->getQRZCOMUser();
             if (tmp.length()>0)
             {
+                 qrz->setUser(tmp); // username remains in config file
                  stream << "QRZcomUser=" << tmp << ";" <<  endl;
             }
+
             tmp = eLogPage->getQRZCOMPassword();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomPass=" << tmp << ";" <<  endl;
-            }
+            qrz->setPass(tmp); // we can store also an empty password - the empty password means insert it manually
 
             if (eLogPage->getQRZCOMAutoCheck())
             {
@@ -761,13 +768,11 @@ void SetupDialog::slotOkButtonClicked()
         tmp = eLogPage->getLoTWUser();
         if (tmp.length()>0)
         {
+            lotw->setUser(tmp);
             stream << "LoTWUSer=" << tmp << ";" <<  endl;
         }
         tmp = eLogPage->getLoTWPass();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWPass=" << tmp << ";" <<  endl;
-        }
+        lotw->setPass(tmp);
 
         // LOTW
         //qDebug() << "SetupDialog::slotOkButtonClicked - 70" << endl;
@@ -1172,13 +1177,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
         //clubLogPage->setClubLogRealTime(value);
         eLogPage->setClubLogRealTime(util->trueOrFalse(value));
     }
-    else if(tab =="CLUBLOGPASS"){
-        //clubLogPage->setPassword(value);
-        eLogPage->setClubLogPassword(value);
-    }
     else if(tab =="CLUBLOGEMAIL"){
-        //clubLogPage->setEmail(value);
-        eLogPage->setClubLogEmail(value);
+        eLogPage->setClubLogEmail(clublog->getUser());
+        eLogPage->setClubLogPassword(clublog->getPass(false));
     }
     else if(tab =="EQSLACTIVE"){
         //eQSLPage->setActive(value);
@@ -1186,24 +1187,19 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="EQSLCALL"){
         //eQSLPage->setCallsign(value);
-        eLogPage->setEQSLUser(value);
-    }
-    else if(tab =="EQSLPASS"){
-        //eQSLPage->setPassword(value);
-        eLogPage->setEQSLPassword(value);
+        eLogPage->setEQSLUser(eqsl->getUser());
+        eLogPage->setQRZCOMPassword(eqsl->getPass(false));
     }
     else if(tab =="QRZCOMACTIVE"){
         //eQSLPage->setActive(value);
         eLogPage->setQRZCOMActive(value);
     }
     else if(tab =="QRZCOMUSER"){
-        eLogPage->setQRZCOMUser(value);
+        eLogPage->setQRZCOMUser(qrz->getUser());
+        eLogPage->setQRZCOMPassword(qrz->getPass(false));
     }
     else if(tab =="QRZCOMAUTO"){
         eLogPage->setQRZCOMAutoCheck(value);
-    }
-    else if(tab =="QRZCOMPASS"){
-        eLogPage->setQRZCOMPassword(value);
     }
     else if(tab =="QRZCOMLOGBOOKKEY"){
         eLogPage->setQRZCOMLogBookKEY(value);
@@ -1215,10 +1211,10 @@ bool SetupDialog::processConfigLine(const QString &_line)
         eLogPage->setTQSLPath(value);
     }
     else if(tab =="LOTWUSER"){
-        eLogPage->setLoTWUser(value);
+        eLogPage->setLoTWUser(lotw->getUser());
     }
     else if(tab =="LOTWPASS"){
-        eLogPage->setLoTWPass(value);
+        eLogPage->setLoTWPass(lotw->getPass(false));
     }
     else if(tab =="MAINWINDOWSIZE"){
         QStringList values;

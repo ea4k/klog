@@ -40,10 +40,12 @@
 #include <QInputDialog>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "securelogin.h"
+
 // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/?lang=en
 class QSslError;
 
-class LoTWUtilities : public QObject
+class LoTWUtilities : public QObject, public SecureLogin
 {
     Q_OBJECT
 
@@ -53,8 +55,6 @@ public:
     bool setStationCallSign(const QString &_call);
     int download();
     int fullDownload();
-    void setUser(const QString &_call);
-    void setPass(const QString &_pass);
     bool getIsReady();
     void setFileName(const QString &_fn);
     QString getFileName();
@@ -87,7 +87,6 @@ private:
     QString stationCallsign;
     QString startDate;
     QString lotwQuery;    
-    QString lotwUser, lotwPassword;
 
     DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;
     QCalendarWidget *calendar;

@@ -153,7 +153,16 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
    //qDebug() << "MainWindow::MainWindow: xx " << QTime::currentTime().toString("hh:mm:ss") << endl;
 
-    setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
+    setupDialog = new SetupDialog(dataProxy,
+                                  configFileName,
+                                  softwareVersion,
+                                  elogQRZcom,
+                                  elogClublog,
+                                  eqslUtilities,
+                                  lotwUtilities,
+                                  0,
+                                  !configured,
+                                  this);
    //qDebug() << "MainWindow::MainWindow: satTabWidget to be created " << endl;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
@@ -348,9 +357,6 @@ void MainWindow::init()
 
     keepSatPage = false;
     //qDebug() << "MainWindow::init - 40" << endl;
-    //clublogUser = QString();
-    clublogPass = QString();
-    clublogEmail = QString();
     clublogActive = false;
     clublogRealTime = false;
 
@@ -360,9 +366,6 @@ void MainWindow::init()
     eQSLUseQSOStationCallSign = false;
     qrzcomActive = false;
     lotwActive = false;
-
-    qrzcomUser = QString();
-    qrzcomPass = QString();
 
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     //previousQrz = "";
@@ -4896,22 +4899,8 @@ void MainWindow::readConfigData()
     // I need to init the CLUBLOG
     if (clublogActive)
     {
-        elogClublog->setCredentials(clublogEmail, clublogPass, stationQRZ);
+        elogClublog->setDefaultStation(stationQRZ);
     }
-    else
-    {
-       //qDebug() << "MainWindow::readConfigData: NOT Setting ClublogCredentials" << endl;
-    }
-    //qDebug() << "MainWindow::readConfigData: QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << endl;
-    if (qrzcomActive)
-    {
-        //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << endl;
-        elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
-        //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        //elogQRZcom->login();
-        //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << endl;
-    }
-    //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << QTime::currentTime().toString("hh:mm:ss") << endl;
 
    //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << endl;
     util->setVersion(softwareVersion);
@@ -5367,12 +5356,17 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if(field=="CLUBLOGPASS")
     {
          //qDebug() << "MainWindow::processConfigLine: clublogPass: " << value << endl;
-        clublogPass = value;
+
+        /* Password is stored in a secure storage. Due to migration phase when old versions have^M
+         * stored passwords in config file, the option remains here.^M
+         */
+
+         elogClublog->setPass(value);
     }
     else if(field=="CLUBLOGEMAIL")
     {
          //qDebug() << "MainWindow::processConfigLine: clublogEmail: " << value << endl;
-        clublogEmail = value;
+        elogClublog->setUser(value);
     }
     else if(field=="QRZCOMACTIVE")
     {
@@ -5391,11 +5385,14 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if(field=="QRZCOMPASS")
     {
-        qrzcomPass = value;
+        /* Password is stored in a secure storage. Due to migration phase when old versions have
+         * stored passwords in config file, the option remains here.
+         */
+        elogQRZcom->setPass(value);
     }
     else if(field=="QRZCOMUSER")
     {
-        qrzcomUser = value;
+        elogQRZcom->setUser(value);
     }
     else if (field =="QRZCOMLOGBOOKKEY"){
         elogQRZcom->setLogBookKey(value);
@@ -5416,6 +5413,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if(field =="EQSLPASS"){
          //qDebug() << "MainWindow::processConfigLine - EQSLPASS" << endl;
+         /* Password is stored in a secure storage. Due to migration phase when old versions have
+          * stored passwords in config file, the option remains here.*/
         eqslUtilities->setPass(value);
     }
     else if(field =="EQSLUSESTATIONCALLSIGN"){
@@ -5448,6 +5447,9 @@ bool MainWindow::processConfigLine(const QString &_line){
           //qDebug() << "MainWindow::processConfigLine - AFTER LOTWUSER" << endl;
     }
     else if(field =="LOTWPASS"){
+        /* Password is stored in a secure storage. Due to migration phase when old versions have
+         * stored passwords in config file, the option remains here.
+         */
         lotwUtilities->setPass(value);
     }
     else if(field=="VERSION")

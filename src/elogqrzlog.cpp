@@ -29,9 +29,11 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
+
 //#include <QDebug>
 
 eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)
+   : SecureLogin("KLog-QRZ", tr("Please, Enter QRZ.COM password"))
 {
    //qDebug()<< QString("eLogQrzLog::eLogQrzLog (%1) ").arg(_parentFunction)  << endl;
     klogVersion = _klogVersion;
@@ -183,7 +185,8 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 //qDebug() << "eLogQrzLog::parseXMLAnswer: Error: " << tdata << endl;
                 if (tdata == "Username/password incorrect ")
                 {
-                    pass = QString();
+                    // do not erase a password when login is incorrect
+                    //setPass(QString());
                 }
                 emit dataFoundSignal("error", tdata);
                 continue;
@@ -608,42 +611,13 @@ void eLogQrzLog::login()
         return;
     }
 
-    //bool savePassword = true;
-    if (pass.length()<1)
-    {
-        //savePassword = false;
-
-        bool ok;
-        pass = QInputDialog::getText(nullptr, tr("KLog - QRZ.com password needed"),                                                   tr("Please enter your QRZ.com password: "), QLineEdit::Password, "", &ok);
-        if (!ok)
-        {
-             //qDebug() << "eLogQrzLog::login - END 1" <<  endl;
-            return;
-        }
-    }
-
-
-    if ((user.length()<1) || (pass.length()<1))
-    {
-        //qDebug()<< "eLogQrzLog::login error 2"  << endl;
-        //if (!savePassword)
-        //{// We delete the password as soon as possible if the user is not willing to save it
-        //    pass = QString();
-        //}
-        return;
-    }
-
     QUrlQuery params;
 
-    params.addQueryItem("username", user);
-    params.addQueryItem("password", pass);
+    params.addQueryItem("username", getUser());
+    params.addQueryItem("password", getPass());
     params.addQueryItem("agent", util->getGlobalAgent(klogVersion));
     sendDataParams(params);
 
-    //if (!savePassword)
-    //{// We delete the password as soon as possible if the user is not willing to save it
-    //        pass = QString();
-    //}
     //qDebug()<< "eLogQrzLog::login - END"  << endl;
 
 }
@@ -664,18 +638,10 @@ int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
 
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-
     //qDebug()<< "eLogQrzLog::sendDataParams: postData: " << postData << endl;
     manager->post(request, postData);
      //qDebug()<< "eLogQrzLog::sendDataParams - END" << endl;
     return -1;
-}
-
-void eLogQrzLog::setCredentials(const QString &_user, const QString &_pass)
-{
-    //qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass  << endl;
-    user = _user;
-    pass = _pass;
 }
 
 QString eLogQrzLog::prepareToTranslate(const QString &_m)

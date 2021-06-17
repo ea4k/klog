@@ -38,18 +38,19 @@
 #include "utilities.h"
 #include "dataproxy_sqlite.h"
 #include "widgets/onlinemessagewidget.h"
+#include "securelogin.h"
 
 // https://www.qrz.com/XML/current_spec.html
 // https://www.qrz.com/page/xml_data.html
 // https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
 
-class eLogQrzLog : public QObject {
+class eLogQrzLog : public QObject, public SecureLogin {
     Q_OBJECT
 public:
     explicit eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion);
     ~eLogQrzLog();
     void login();
-    void setCredentials(const QString &_user, const QString &_pass);
+
     void setLogBookKey(const QString &_key);
     bool hasLogBookKey();
     int sendQSOs(QList<int> _qsos);
@@ -76,7 +77,6 @@ private:
     bool sendingQSO;
     bool lastQSO;
     QString sessionkey, logbookkey;
-    QString user, pass;
     QString klogVersion;
     DataProxy_SQLite *dataProxy;
     QNetworkAccessManager *manager;

@@ -119,6 +119,7 @@ HEADERS += setupdialog.h \
     hamlibclass.h \
     tipsdialog.h \
     worldmapwidget.h \
+    securelogin.h \
     setuppages/setuppagemisc.h \
     setuppages/setuppageuserdata.h \
     setuppages/setuppagedxcluster.h \
@@ -189,6 +190,7 @@ SOURCES += main.cpp \
     dxcluster.cpp \
     locator.cpp \
     awards.cpp \
+    securelogin.cpp \
     setuppages/setuppagemisc.cpp \
     setuppages/setuppageuserdata.cpp \
     setuppages/setuppagedxcluster.cpp \
@@ -307,7 +309,7 @@ unix:!mac {
     DEFINES += APP_LINUX
     CONFIG  += c++11
     QMAKE_CXXFLAGS += --coverage
-    LIBS += -lgcov
+    LIBS += -lgcov -lqt5keychain -lhamlib
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
@@ -323,7 +325,6 @@ unix:!mac {
     datafiles.files = $$DISTFILES
     INSTALLS += translations
     INSTALLS += datafiles
-    LIBS += -lhamlib
 
 }
 
@@ -334,14 +335,14 @@ macx: {
     #INCLUDEPATH +=../../../hamlib/include/
     #LIBS += -L"../../../hamlib/lib" -lhamlib
     INCLUDEPATH +=/usr/local/include/
-    LIBS += -L"/usr/local/lib" -lhamlib
+    LIBS += -L"/usr/local/lib" -lhamlib -lqt5keychain
 }
 win32: {
     RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
+    LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib -lqt5keychain
     INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"

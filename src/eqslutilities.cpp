@@ -34,17 +34,15 @@
 
 
 eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
+  : SecureLogin("KLog-eQSL", tr("Please, Enter eQSL password"))
 {
     //qDebug()<< "eQSLUtilities::eQSLUtilities"  << endl;
 
-    user = QString();
-    pass = QString();
     qsos.clear();
 
     currentQSO = -1;
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotQsoUploadFinished(QNetworkReply*)));
-    stationCallsign = QString();
     uploadingFile = false;
     util = new Utilities;
     //qDebug()<< "eQSLUtilities::eQSLUtilities - END"  << endl;
@@ -53,20 +51,6 @@ eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 eQSLUtilities::~eQSLUtilities()
 {
         //qDebug()<< "eQSLUtilities::~eQSLUtilities"  << endl;
-}
-
-void eQSLUtilities::setUser(const QString &_call)
-{
-     //qDebug() << "eQSLUtilities::setUser: " << _call << endl;
-    user = _call;
-     //qDebug() << "eQSLUtilities::setUser: END" << endl;
-}
-
-void eQSLUtilities::setPass(const QString &_pass)
-{
-     //qDebug() << "eQSLUtilities::setPass: " << _pass << endl;
-    pass = _pass;
-     //qDebug() << "eQSLUtilities::setPass: END" << endl;
 }
 
 void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
@@ -162,14 +146,6 @@ void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError
     //actionError(result);
 }
 
-void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, const QString _defaultStationCallsign)
-{
-    //qDebug()<< "eQSLUtilities::setCredentials: user: " << _user << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign << endl;
-    stationCallsign = _defaultStationCallsign;
-    user = _user;
-    pass = _pass;
-}
-
 QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
 {
     //qDebug()<< "eQSLUtilities:: = prepareToTranslate" << _m << endl;
@@ -180,7 +156,6 @@ QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
     {
         result << QString("Error");
         result << QString(tr("eQSL Error: User or password incorrect"));
-        pass = QString();
     }
     else if ( (_m.contains("Warning:")) && (_m.contains("Bad record: Duplicate") ) )
     {
@@ -233,27 +208,15 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
     }
     file->close();
     // The rest of the form goes as usual
-     //qDebug()<< "eQSLUtilities::sendLogFile: e: " << user << endl;
-     //qDebug()<< "eQSLUtilities::sendLogFile: pass: " << pass << endl;
      //qDebug()<< "eQSLUtilities::sendLogFile: stationcall: " << stationCallsign << endl;
 
     QHttpPart userPart;
     userPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eqsl_user\""));
-    userPart.setBody(user.toUtf8());
-
-    if (pass.length()<1)
-    {
-        bool ok;
-        pass = QInputDialog::getText(nullptr, tr("KLog - eQSL.cc password needed"), tr("Please enter your eQSL.cc password: "), QLineEdit::Password, "", &ok);
-        if (!ok)
-        {
-            return;
-        }
-    }
+    userPart.setBody(getUser().toUtf8());
 
     QHttpPart passPart;
     passPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eqsl_pswd\""));
-    passPart.setBody(pass.toUtf8());
+    passPart.setBody(getPass().toUtf8());
 
     QHttpPart filePart;
     QString aux = QString("form-data; name=\"Filename\"; filename=\"%1\"").arg(_file);
