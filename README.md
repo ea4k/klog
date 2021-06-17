@@ -4,6 +4,7 @@
 <img src="https://img.shields.io/github/v/release/ea4k/klog?logo=github&logoColor=white" alt="GitHub release"/>
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <a href="https://twitter.com/_ea4k"><img src="https://img.shields.io/twitter/follow/_ea4k.svg?style=social&label=Follow" alt="Twitter Follow"/></a>
+[![](https://tokei.rs/b1/github/ea4k/klog)](https://github.com/ea4k/klog).
 
 
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
