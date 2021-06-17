@@ -1071,7 +1071,7 @@ void Awards::recalculateAwards()
     Should go in a transaction
 */
 
-       //qDebug() << "Awards::recalculateAwards" << endl;
+    qDebug() << "Awards::recalculateAwards" << endl;
     dataProxy->updateAwardDXCC();
     emit awardDXCCUpdated();
     dataProxy->updateAwardWAZ();

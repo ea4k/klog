@@ -7894,7 +7894,6 @@ bool DataBase::updateTo021()
 
 bool DataBase::updateAwardDXCCTable()
 {
-    /*
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
 
     QList<AwarddxccEntry> dxccStatusList;
@@ -8139,7 +8138,7 @@ bool DataBase::updateAwardDXCCTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
-    */
+
     return true;
 }
 
