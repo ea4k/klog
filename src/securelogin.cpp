@@ -38,8 +38,10 @@
  */
 SecureLogin::SecureLogin(const QString &_secureStorageKey, const QString &_enterPasswordLabel)
 {
+    emit debugLog (Q_FUNC_INFO, "Start", Info);
     secureStorageKey = _secureStorageKey;
     enterPasswordLabel = _enterPasswordLabel;
+    emit debugLog (Q_FUNC_INFO, "STOP", Info);
 }
 
 SecureLogin::~SecureLogin()
@@ -50,6 +52,7 @@ void SecureLogin::setUser(const QString _user)
 {
     //qDebug() << "SecureLogin::setUser: " << _user << " - START" << endl;
 
+    emit debugLog (Q_FUNC_INFO, QString("Start (%1)").arg(_user), Info);
     // If a username is changed then it is necessary to delete an old record in secure storage.
     // we do not want to store old records in the secure storage.
     if ( _user != user)
@@ -58,16 +61,19 @@ void SecureLogin::setUser(const QString _user)
     }
     user = _user;
     //qDebug() << "SecureLogin::setUser: - END" << endl;
+    emit debugLog (Q_FUNC_INFO, "Stop", Info);
 }
 
 void SecureLogin::setPass(const QString _pass)
 {
     //qDebug() << "SecureLogin::setPass: " << _pass << " - START" << endl;
+    emit debugLog (Q_FUNC_INFO, QString("Start (%1)").arg(_pass.length()), Info);
     pass = _pass;
 
     // Save the password immediately after the change
     savePass();
 
+    emit debugLog (Q_FUNC_INFO, "Stop", Info);
     //qDebug() << "SecureLogin::setPass - END" << endl;
 }
 
@@ -78,12 +84,14 @@ QString SecureLogin::getUser()
 
 int SecureLogin::savePass()
 {
+    emit debugLog (Q_FUNC_INFO, QString("Start (%1: %2)").arg(user).arg(pass.length()), Info);
     //qDebug() << "SecureLogin::savePass " << user << ";" << pass << " - START" << endl;
     using namespace QKeychain;
 
     if (!savePassword)
     {
         //qDebug() << "SecureLogin::savePass - does not save a password - END" << endl;
+        emit debugLog (Q_FUNC_INFO, "Stop - do no save a password", Info);
         return 0;
     }
 
@@ -92,6 +100,7 @@ int SecureLogin::savePass()
        //qDebug() << "SecureLogin::savePass - Empty Username - END" << endl;
 
        // it is not interesting to save password without username.
+       emit debugLog (Q_FUNC_INFO, "Stop - doe not save a passowrd - empty user", Info);
        return 1;
     }
 
@@ -108,9 +117,11 @@ int SecureLogin::savePass()
     if (job.error())
     {
         //qDebug() << "SecureLogin::savePass - password storage error " << job.errorString() << " - END" << endl;
+        emit debugLog (Q_FUNC_INFO, QString("Stop - job error (%1)").arg(job.errorString()), Info);
         return 1;
     }
 
+    emit debugLog (Q_FUNC_INFO, "Stop", Info);
     //qDebug() << "SecureLogin::savePass - END" << endl;
     return 0;
 }
@@ -120,11 +131,13 @@ QString SecureLogin::getPass(bool askEmptyPass)
     using namespace QKeychain;
     QString manual_pass;
 
+    emit debugLog (Q_FUNC_INFO, QString("Start (%1; ask %2)").arg(user).arg(askEmptyPass), Info);
     //qDebug() << "SecureLogin::getPass : " << askEmptyPass << " - START" << endl;
 
     // if password already loaded then return it immediately
     if (!pass.isEmpty())
     {
+       emit debugLog (Q_FUNC_INFO, "Stop - password in cache", Info);
        //qDebug() << "SecureLogin::getPass - password in cache: " << pass << " - END" << endl;
        return pass;
     }
@@ -161,6 +174,7 @@ QString SecureLogin::getPass(bool askEmptyPass)
             {
                // do not save a password when the password is manually entered
                savePassword = false;
+               emit debugLog (Q_FUNC_INFO, "Stop - manually entered", Info);
                return manual_pass;
             }
         }
@@ -171,6 +185,7 @@ QString SecureLogin::getPass(bool askEmptyPass)
         }
     }
     savePassword = true;
+    emit debugLog (Q_FUNC_INFO, "Stop", Info);
     //qDebug() << "SecureLogin::getPass :" << pass << " - END" << endl;
     return pass;
 }
@@ -179,10 +194,12 @@ void SecureLogin::delPass()
 {
     using namespace QKeychain;
 
+    emit debugLog (Q_FUNC_INFO, QString("Start (%1)").arg(user), Info);
     //qDebug() << "SecureLogin::delPass " << user << ";" << pass << " - START" << endl;
 
     if (user.isEmpty())
     {
+       emit debugLog (Q_FUNC_INFO, "Stop - empty user", Info);
        //qDebug() << "SecureLogin::delPass - User empty - END" << endl;
        return;
     }
@@ -199,11 +216,17 @@ void SecureLogin::delPass()
     if (job.error())
     {
         //nothing to do when an error.
-        qDebug() << "SecureLogin::delPass - password storage error " << job.errorString() << endl;
+        emit debugLog (Q_FUNC_INFO, QString("Stop - job error (%1)").arg(job.errorString()), Info);
+        //qDebug() << "SecureLogin::delPass - password storage error " << job.errorString() << endl;
     }
 
     pass = QString();
     //qDebug() << "SecureLogin::delPass - END" << endl;
+    emit debugLog (Q_FUNC_INFO, "Stop", Info);
     return;
 }
 
+void SecureLogin::setSeverity(const DebugLogLevel _sev)
+{
+    logSeverity = _sev;
+}

@@ -38,7 +38,7 @@
 #include "utilities.h"
 #include "securelogin.h"
 
-class eLogClubLog : public QObject, public SecureLogin {
+class eLogClubLog : public SecureLogin {
     Q_OBJECT
 public:
     explicit eLogClubLog();

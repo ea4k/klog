@@ -44,7 +44,7 @@
 // https://www.qrz.com/page/xml_data.html
 // https://www.qrz.com/docs/logbook/QRZLogbookAPI.html
 
-class eLogQrzLog : public QObject, public SecureLogin {
+class eLogQrzLog : public SecureLogin {
     Q_OBJECT
 public:
     explicit eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion);

@@ -40,7 +40,7 @@
 #include "securelogin.h"
 
 // https://www.eqsl.cc/qslcard/Programming.cfm
-class eQSLUtilities : public QObject, public SecureLogin {
+class eQSLUtilities : public SecureLogin {
     Q_OBJECT
 public:
     explicit eQSLUtilities(const QString &_parentFunction);

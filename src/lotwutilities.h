@@ -45,7 +45,7 @@
 // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/?lang=en
 class QSslError;
 
-class LoTWUtilities : public QObject, public SecureLogin
+class LoTWUtilities : public SecureLogin
 {
     Q_OBJECT
 

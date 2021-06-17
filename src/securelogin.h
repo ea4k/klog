@@ -24,8 +24,13 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-class SecureLogin
+#include <QString>
+#include <QObject>
+#include "klogdefinitions.h"
+
+class SecureLogin : public QObject
 {
+    Q_OBJECT
 
 public:
     SecureLogin(const QString &_secureStorageKey, const QString &_enterPasswordLabel);
@@ -34,6 +39,10 @@ public:
     void setPass(const QString _pass);
     QString getUser();
     QString getPass(bool askEmptyPass=true);
+    void setSeverity(const DebugLogLevel _sev);
+
+signals:
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 private:
     QString user, pass, secureStorageKey, enterPasswordLabel;
@@ -41,6 +50,8 @@ private:
 
     int  savePass();
     void delPass();
+
+    DebugLogLevel logSeverity;
 };
 
 #endif // SECURELOGIN_H

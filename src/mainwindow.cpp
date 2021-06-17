@@ -91,17 +91,25 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
 
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
-    eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
+    //connect debugLog as soon as possible
+    connect(lotwUtilities, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
+    eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
+    //connect debugLog as soon as possible
+    connect(eqslUtilities, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
      //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << endl;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
      //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << endl;
      //qDebug() << "MainWindow::MainWindow: 00081" << QTime::currentTime().toString("hh:mm:ss") << endl;
     elogClublog = new eLogClubLog();
+    //connect debugLog as soon as possible
+    connect(elogClublog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     //qDebug() << "MainWindow::MainWindow: 00082" << QTime::currentTime().toString("hh:mm:ss") << endl;
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
+    //connect debugLog as soon as possible
+    connect(elogQRZcom, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
     //qDebug() << "MainWindow::MainWindow: 00083" << QTime::currentTime().toString("hh:mm:ss") << endl;
     updateSatsData = new UpdateSatsData(dataProxy);
@@ -8538,6 +8546,10 @@ void MainWindow::setSeverity(const DebugLogLevel _sev)
 {
     logSeverity = _sev;
     setupDialog->setSeverity(logSeverity);
+    lotwUtilities->setSeverity(logSeverity);
+    eqslUtilities->setSeverity(logSeverity);
+    elogClublog->setSeverity(logSeverity);
+    elogQRZcom->setSeverity(logSeverity);
 }
 
 void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
