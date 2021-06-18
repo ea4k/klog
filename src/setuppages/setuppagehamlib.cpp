@@ -354,6 +354,10 @@ QString SetupPageHamLib::getData()
     _output.clear();
     QString _rigType, _serialPort, _baudsSpeed;//, dataBits, stopBits, handshake, flowControlLine;
 
+    _rigType = rigTypeComboBox->currentText();
+    _serialPort = serialPortComboBox->currentText();
+    _baudsSpeed = serialBaudsComboBox->currentText();
+
     _output.clear();
     if (activateHamlibCheckBox->isChecked())
     {
