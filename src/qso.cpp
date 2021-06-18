@@ -732,6 +732,7 @@ void QSO::setLoTWUpdating(bool _lotw)
 
 bool QSO::setGridSquare(const QString &_c)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (util->isValidGrid(_c))
     {
         gridsquare = _c;
@@ -745,6 +746,7 @@ bool QSO::setGridSquare(const QString &_c)
 
 QString QSO::getGridSquare()
 {
+    //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
     return gridsquare;
 }
 
