@@ -375,6 +375,12 @@ QString SetupPageHamLib::getData()
 
     _output = _output + "HamLibRigType=" + QString::number(hamlib->getModelIdFromName(_rigType)) + ";\n";
     _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value()) + ";\n";
+    _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
+    _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
+    _output = _output + getDataBits() + ";\n";
+    _output = _output + getStopBits() + ";\n";
+    _output = _output + getFlowControl() + ";\n";
+    _output = _output + getParity() + ";\n";
 
     if (hostAddressLineEdit->text ().length()>1)
     {
