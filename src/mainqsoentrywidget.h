@@ -73,8 +73,8 @@ public:
     void clear();
 
 protected:
-   // void keyPressEvent(QKeyEvent *event);
-    void resizeEvent(QResizeEvent *event) override;
+    // void keyPressEvent(QKeyEvent *event);
+    //void resizeEvent(QResizeEvent *event) override;
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -93,11 +93,12 @@ private slots:
     void slotModeComboBoxChanged(const QString _m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
-    void slotRealtimeButtonClicked();
+    //void slotRealtimeButtonClicked();
+    void slotCheckBoxClicked();
     //void slotRealTimeCheckBoxChanged();
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
-    void slotRealTimeButtonResize();
+    //void slotRealTimeButtonResize();
 
 
 private:
@@ -117,7 +118,8 @@ private:
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
-    QPushButton *realtimeButton;
+    QCheckBox *realtimeCheckBox;
+    //QPushButton *realtimeButton;
     //DebugLogLevel logSeverity;
     bool cleaning;
     bool qrzAutoChanging;

@@ -276,7 +276,7 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
     //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
     if (_bandName.length()<1)
     {
-            //qDebug() << "DataProxy_SQLite::getIdFromBandName:-4: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
+        //qDebug() << "DataProxy_SQLite::getIdFromBandName:-4: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< endl;
         return -4;
     }
 
@@ -2114,10 +2114,10 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
 
 bool DataProxy_SQLite::updateAwardDXCC()
 {
-       //qDebug() << "DataProxy_SQLite::updateAwardDXCC" << endl;
+    //qDebug() << "DataProxy_SQLite::updateAwardDXCC" << endl;
     fillEmptyDXCCInTheLog();
     return db->updateAwardDXCCTable();
-       //qDebug() << "DataProxy_SQLite::updateAwardDXCC-END" << endl;
+    //qDebug() << "DataProxy_SQLite::updateAwardDXCC-END" << endl;
 }
 
 bool DataProxy_SQLite::updateAwardWAZ()

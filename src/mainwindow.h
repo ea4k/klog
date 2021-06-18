@@ -327,7 +327,7 @@ private slots:
 private:
     //void setWidgetsOrder();
     void backupCurrentQSO();
-    void restoreCurrentQSO();
+    void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
     void cleanQRZCOMreceivedDataFromUI();
     void saveWindowsSize();

@@ -85,6 +85,7 @@ public:
     void clear();
     void setKeep(const bool _b);
     bool getKeep();
+    void setModify(const bool _modify);
 
 signals:
     void myLocChangedSignal(const QString _q); // MyLocator once updated
@@ -120,7 +121,7 @@ private:
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     Locator *locator;
     Utilities *util;
-
+    bool modify;
     QString my_rig, my_sota, my_antenna;
 };
 

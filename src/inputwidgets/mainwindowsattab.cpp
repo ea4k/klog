@@ -190,6 +190,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         emit setPropModeSat("Not", false);
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
+        satModeLineEdit->clear();
 
     }
     else if(i == 1)

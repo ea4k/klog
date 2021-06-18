@@ -179,7 +179,6 @@ void FileManager::showError (const QString &_txt)
 }
 
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
-//QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly)
 {
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << endl;
     QList<int> qsos;
@@ -260,7 +259,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
     if (_em == ModeLotW)
     {
-       //qDebug() << "FileManager::adifLogExportReturnList: Exporting for LoTW" << endl;
+       //qDebug() << Q_FUNC_INFO << ": Exporting for LoTW" << endl;
         // LoTW Required fields: call sign, UTC Date, UTC time, Mode, Band
         // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
@@ -269,19 +268,19 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     }
     else if (_em == ModeClubLog)
     {
-        //qDebug() << "FileManager::adifLogExportReturnList: Exporting for ClubLog" << endl;
+        //qDebug() << Q_FUNC_INFO << ": Exporting for ClubLog" << endl;
         queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND clublog_qso_upload_status='M'") + _queryDateFrom + _queryDateTo;
         queryString = QString("SELECT id, call, rst_sent, rst_rcvd, freq, bandid, band_rx, modeid, qso_date, qsl_rcvd, qslrdate, qslsdate, prop_mode, operator, station_callsign, dxcc, qsl_sent, lotw_qsl_rcvd, credit_granted, notes, qso_date_off FROM log WHERE") + _queryStation + QString(" AND clublog_qso_upload_status='M'") + _queryDateFrom + _queryDateTo;
     }
     else if (_em == ModeEQSL)
     {
-        //qDebug() << "FileManager::adifLogExportReturnList: Exporting for eQSL" << endl;
+        //qDebug() << Q_FUNC_INFO << ": Exporting for eQSL" << endl;
         queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND eqsl_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
         queryString = QString("SELECT id, call, rst_sent, freq, bandid, modeid, qso_date, prop_mode, operator, station_callsign, sat_name, my_cnty, my_gridsquare, my_lat, my_lon FROM log WHERE") + _queryStation + QString(" AND eqsl_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
     }
     else
     {
-        //qDebug() << "FileManager::adifLogExportReturnList: Exporting normal ADIF" << endl;
+        //qDebug() << Q_FUNC_INFO << ": Exporting normal ADIF" << endl;
         if (_callsign == "ALL")
         {
             queryStringCount = QString("SELECT COUNT (id) FROM log");
@@ -293,16 +292,16 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             queryString = QString("SELECT * FROM log WHERE") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
         }
     }
-    //qDebug() << "FileManager::adifLogExportReturnList: Query Count: " << queryStringCount << endl;
-    //qDebug() << "FileManager::adifLogExportReturnList: Query data: " << queryString << endl;
+    //qDebug() << Q_FUNC_INFO << ": Query Count: " << queryStringCount << endl;
+    //qDebug() << Q_FUNC_INFO << ": Query data: " << queryString << endl;
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
     int i = 0;
 
     bool sqlOK = query.exec(queryStringCount);
-   //qDebug() << "FileManager::adifLogExportReturnList: " << query.lastQuery() << endl;
+   //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery() << endl;
     if (!sqlOK)
     {
-        //qDebug() << "FileManager::adifLogExportReturnList: Query Error"  << endl;
+        //qDebug() << Q_FUNC_INFO << ": Query Error"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return qsos;
     }
@@ -328,7 +327,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     QTextStream out(&file);
 
     int step = util->getProgresStepForDialog(numberOfQsos);
-   //qDebug() << "FileManager::adifLogExportReturnList: " << QString::number(step) << endl;
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(step) << endl;
 
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
@@ -343,10 +342,10 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     i = 0;
 
     sqlOK = query.exec(queryString);
-    //qDebug() << "FileManager::adifLogExportReturnList: " << query.lastQuery() << endl;
+    //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery() << endl;
     if (!sqlOK)
     {
-        //qDebug() << "FileManager::adifLogExportReturnList: Query Error"  << endl;
+        //qDebug() << Q_FUNC_INFO << ": Query Error"  << endl;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         return qsos;
     }
@@ -354,11 +353,11 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     QSqlRecord rec = query.record();
     int nameCol;
 
-   //qDebug() << "FileManager::adifLogExportReturnList: Entering the While..."  << endl;
+   //qDebug() << Q_FUNC_INFO << ": Entering the While..."  << endl;
 
     while ( (query.next()) && (!noMoreQso) )
     {
-        //qDebug() << "FileManager::adifLogExportReturnList: Start of While"  << endl;
+        //qDebug() << Q_FUNC_INFO << ": Start of While"  << endl;
         if (query.isValid())
         {
             nameCol = rec.indexOf("id");
@@ -366,23 +365,23 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
 
             i++;
-            //qDebug() << "FileManager::adifLogExportReturnList: Start of isValid"  << endl;
+            //qDebug() << Q_FUNC_INFO << ": Start of isValid"  << endl;
 
         } // END of if (query.isValid())
         else
         {
-            //qDebug() << "FileManager::adifLogExportReturnList: Querty NOT isValid"  << endl;
+            //qDebug() << Q_FUNC_INFO << ": Querty NOT isValid"  << endl;
         }
 
-        //qDebug() << "FileManager::adifLogExportReturnList: Checking if cancelled"  << endl;
+        //qDebug() << Q_FUNC_INFO << ": Checking if cancelled"  << endl;
 
         if (( (i % step ) == 0) )
         { // To update the speed I will only show the progress once each X QSOs
-            //qDebug() << "FileManager::adifLogExportReturnList: ********************************   UPDATING THE MESSAGE! " << QString::number(i)  << endl;
+            //qDebug() << Q_FUNC_INFO << ": ********************************   UPDATING THE MESSAGE! " << QString::number(i)  << endl;
             QString aux = tr("Exporting ADIF file...\n QSO: %1 / %2 ").arg(i).arg(numberOfQsos);
             progress.setLabelText(aux);
             progress.setValue(i);
-            //qDebug() << "FileManager::adifLogExportReturnList: ********************************   UPDATING THE MESSAGE: " << aux  << endl;
+            //qDebug() << Q_FUNC_INFO << ": ********************************   UPDATING THE MESSAGE: " << aux  << endl;
         }
 
         if ( progress.wasCanceled() )
@@ -413,7 +412,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
     } // END OF WHILE
 
-    //qDebug() << "FileManager::adifLogExportReturnList: End: " << QString::number(qsos.count()) << endl;
+    //qDebug() << Q_FUNC_INFO << ": End: " << QString::number(qsos.count()) << endl;
     progress.setValue(numberOfQsos);
     return qsos;
 }
@@ -4065,6 +4064,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
         }
         //qDebug() << "FileManager::writeQuery: PROP_MODE"  << endl;
     }
+
     nameCol = rec.indexOf("sat_name");
     if (nameCol>=0)
     {
@@ -4072,6 +4072,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
         if ((aux.length())>0)
         {
             out << "<SAT_NAME:" << QString::number(aux.length()) << ">" << aux  << " ";
+
             if (!propsat && (_em == ModeLotW))
             {
                 out << "<PROP_MODE:3>SAT ";
@@ -4080,6 +4081,20 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
         }
     //qDebug() << "FileManager::writeQuery: SAT_NAME"  << endl;
     }
+
+    if (propsat)
+    {
+        nameCol = rec.indexOf("sat_mode");
+        if (nameCol>=0)
+        {
+            aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+            if ((aux.length())>0)
+            {
+                out << "<SAT_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
+            }
+        }
+    }
+
     nameCol = rec.indexOf("gridsquare");
     if (nameCol>=0)
     {
@@ -5068,15 +5083,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
             out << "<TX_PWR:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
     }
-    nameCol = rec.indexOf("sat_mode");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            out << "<SAT_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
-        }
-    }
+
     nameCol = rec.indexOf("sfi");
     if (nameCol>=0)
     {

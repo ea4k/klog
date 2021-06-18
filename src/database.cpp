@@ -7892,9 +7892,9 @@ bool DataBase::updateTo021()
      return true;
 }
 
+
 bool DataBase::updateAwardDXCCTable()
 {
-    /*
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
 
     QList<AwarddxccEntry> dxccStatusList;
@@ -8139,7 +8139,7 @@ bool DataBase::updateAwardDXCCTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
-    */
+
     return true;
 }
 
@@ -8386,7 +8386,6 @@ bool DataBase::updateAwardWAZTable()
 
 
 }
-
 
 int DataBase::getNumberOfQsos(const int _logNumber)
 {

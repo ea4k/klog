@@ -68,6 +68,7 @@ void HamLibClass::setPoll(const int _milsecs)
     }
 
 }
+
 bool HamLibClass::readRadio(bool _forceRead)
 {
     return readRadioInternal(_forceRead);
@@ -96,13 +97,22 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
             //qDebug() << "HamLibClass::readRadioInternal EMITING; " << QString::number(freq) << endl;
 
         }
-           //qDebug() << "HamLibClass::readRadioInternal read: " << QString::number(freq) << endl;
+        //qDebug() << "HamLibClass::readRadioInternal read: " << QString::number(freq) << endl;
+    }
+    else if (errorCount<10)
+    {
+        errorCount++;
+        //qDebug() << Q_FUNC_INFO << ": RIG NOK for Freq - ERROR COUNT: " << QString::number(errorCount) << endl;
+        //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << QString::number(retcode) << endl;
+        //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << rigerror(retcode) << endl;
+        return false;
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << ": RIG NOK for Freq" << endl;
         //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << QString::number(retcode) << endl;
         //qDebug() << "HamLibClass::readRadioInternal Unable to read FREQ - Error: " << rigerror(retcode) << endl;
+        //qDebug() << Q_FUNC_INFO << ": Calling stop";
         stop();
         return false;
     }
@@ -125,9 +135,15 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
             justEmitted = true;
         }
     }
+    else if (errorCount<10)
+    {
+        errorCount++;
+        //qDebug() << Q_FUNC_INFO << ": RIG NOK for Mode: - " << QString::number(errorCount) << endl;
+    }
     else
     {
         //qDebug() << Q_FUNC_INFO << ": RIG NOK for Mode" << endl;
+        //qDebug() << Q_FUNC_INFO << ": Calling stop";
         stop();
         return false;
     }
@@ -344,7 +360,7 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
 
 void HamLibClass::stop()
 {
-       //qDebug() << "HamLibClass::stop" << endl;
+    //qDebug() << "HamLibClass::stop" << endl;
     timer->stop();
     if (!isRunning())
     {
@@ -418,6 +434,7 @@ void HamLibClass::init(bool _active)
     if (!_active)
     {
         //qDebug()<< "HamLibClass::init: Stopping..."  << endl;
+        //qDebug() << Q_FUNC_INFO << ": Calling stop";
         stop();
         //qDebug() << "HamLibClass::init: Stopped!"  << endl;
         return;
@@ -447,11 +464,13 @@ void HamLibClass::init(bool _active)
     {
         // network based communication
         my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
+       strncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
         // the other stuff is hardcoded in hamlib!
     }
     else
     {
         //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
+        my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
         strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
         //qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << endl;
         my_rig->state.rigport.parm.serial.rate = bauds;
@@ -466,7 +485,7 @@ void HamLibClass::init(bool _active)
         //qDebug() << "HamLibClass::init: after handshake "  << endl;
         // Config done
     }
-
+    /*
     my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
 
     //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << endl;
@@ -482,6 +501,7 @@ void HamLibClass::init(bool _active)
 
     //qDebug() << "HamLibClass::init: handshake before"  << endl;
     my_rig->state.rigport.parm.serial.handshake = shandshake;
+    */
     //qDebug() << "HamLibClass::init: after handshake "  << endl;
     // Config done
     retcode = rig_open(my_rig);
@@ -504,8 +524,6 @@ void HamLibClass::init(bool _active)
     //qDebug() << "HamLibClass::init: END TRUE" << endl;
     return;
 }
-
-
 
 bool HamLibClass::isRunning()
 {
@@ -653,9 +671,17 @@ void HamLibClass::setFreq(const double _fr)
     if (retcode != RIG_OK)
     {
         //qDebug() << "HamLibClass::setFreq NOK: "  << endl;
-        stop();
-        errorCount++;
-
+        if (errorCount<10)
+        {
+            //qDebug() << Q_FUNC_INFO << ": Problems setting Freq - " << QString::number(errorCount);
+            errorCount++;
+            return;
+        }
+        else
+        {
+            //qDebug() << Q_FUNC_INFO << ": Calling stop";
+            stop();
+        }
         return;
     }
     else
@@ -668,10 +694,15 @@ void HamLibClass::setFreq(const double _fr)
             errorCount = 0;
             //qDebug() << "HamLibClass::setFreq read: " << QString::number(freq) << endl;
         }
+        else if (errorCount <10)
+        {
+            errorCount++;
+            //qDebug() << "HamLibClass::setFreq Unable to read FREQ - " << QString::number (errorCount) << endl;
+        }
         else
         {
+            //qDebug() << Q_FUNC_INFO << ": Calling stop";
             stop();
-            errorCount++;
             //qDebug() << "HamLibClass::setFreq Unable to read FREQ" << endl;
         }
         return;
@@ -712,8 +743,10 @@ void HamLibClass::setDTR(const QString &_state)
 
 void HamLibClass::checkErrorCountAndStop()
 {
+    //qDebug() << Q_FUNC_INFO;
     if (errorCount > 10)
     {
+        //qDebug() << Q_FUNC_INFO << ": Error>10 - calling stop";
         stop();
     }
 }
@@ -721,4 +754,17 @@ void HamLibClass::checkErrorCountAndStop()
 void HamLibClass::setReadOnly(const bool _r)
 {
     readOnlyMode = _r;
+}
+
+void HamLibClass::setNetworkAddress(const QString &_address)
+{
+    networkAddress = _address;
+}
+
+void HamLibClass::setNetworkPort(const int _port)
+{
+    if ((_port>0) && (_port<65535))
+    {
+        networkPort = _port;
+    }
 }
