@@ -32,125 +32,7 @@
 This class calls all the othet "Setup..." to manage the configuration
 
 */
-/*
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const bool _firstTime, QWidget *parent)
-{
-    //qDebug() << "SetupDialog::SetupDialog 1" << endl;
-    logSeverity = 7;  //7 Debug /0=emergency or no debug
-    util = new Utilities;
-    constrid = 1;
-    nolog = true;
-    configFileName = "klogrc";
-    version = ".";
-    pageRequested = 0;
-     //qDebug() << "SetupDialog::SetupDialog 2" << endl;
-    dataProxy = dp;
-      //qDebug() << "SetupDialog::SetupDialog 3" << endl;
 
-    firstTime = _firstTime;
-    if (firstTime)
-    {
-          //qDebug() << "SetupDialog::SetupDialog FIRST TIME = TRUE" << endl;
-    }
-    else
-    {
-          //qDebug() << "SetupDialog::SetupDialog FIRST TIME = FALSE" << endl;
-    }
-      //qDebug() << "SetupDialog::SetupDialog 3.1" << endl;
-
-    logsPageTabN=-1;
-      //qDebug() << "SetupDialog::SetupDialog 3.2" << endl;
-    locator = new Locator();
-      //qDebug() << "SetupDialog::SetupDialog 3.3" << endl;
-    tabWidget = new QTabWidget;
-      //qDebug() << "SetupDialog::SetupDialog 3.4" << endl;
-    hamlibPage = new SetupPageHamLib(dataProxy, this);
-      //qDebug() << "SetupDialog::SetupDialog 3.4.1" << endl;
-    userDataPage = new SetupPageUserDataPage(dataProxy);
-      //qDebug() << "SetupDialog::SetupDialog 3.5" << endl;
-    bandModePage = new SetupPageBandMode(dataProxy, this);
-      //qDebug() << "SetupDialog::SetupDialog 3.6" << endl;
-    dxClusterPage = new SetupPageDxCluster(this);
-      //qDebug() << "SetupDialog::SetupDialog 3.7" << endl;
-    colorsPage = new SetupPageColors(this);
-      //qDebug() << "SetupDialog::SetupDialog 3.8" << endl;
-    miscPage = new SetupPageMisc(this);
-      //qDebug() << "SetupDialog::SetupDialog 3.9" << endl;
-    worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
-      //qDebug() << "SetupDialog::SetupDialog 3.10" << endl;
-    logsPage = new SetupPageLogs(dataProxy, this);
-      //qDebug() << "SetupDialog::SetupDialog 3.11" << endl;
-    eLogPage = new SetupPageELog(this);
-    //clubLogPage = new SetupPageClubLog(this);
-    //lotwPage = new SetupPageLoTW(this);
-    //eQSLPage = new SetupPageEQSL(this);
-       //qDebug() << "SetupDialog::SetupDialog 3.12" << endl;
-    UDPPage = new SetupPageUDP(this);
-      //qDebug() << "SetupDialog::SetupDialog 3.13" << endl;
-    satsPage = new SetupPageSats(dataProxy, this);
-    subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
-    //regionalAwardsPage = new SetupPageRegionalAwards(dataProxy, this);
-    //hamlibPage = new SetupPageHamLib(dataProxy, this);
-    //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
-
-      //qDebug() << "SetupDialog::SetupDialog 4" << endl;
-    //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
-    tabWidget->addTab(userDataPage, tr("My Data"));
-    tabWidget->addTab(bandModePage, tr("Bands/Modes"));
-    tabWidget->addTab(dxClusterPage, tr("DX-Cluster"));
-    tabWidget->addTab(colorsPage, tr("Colors"));
-    tabWidget->addTab(miscPage, tr("Misc"));
-    tabWidget->addTab(worldEditorPage, tr("World Editor"));
-    logsPageTabN = tabWidget->addTab(logsPage, tr("Logs"));
-    tabWidget->addTab(eLogPage, "eLog");
-    //tabWidget->addTab(clubLogPage, "ClubLog");
-    //tabWidget->addTab(lotwPage, "LoTW");
-    //tabWidget->addTab(eQSLPage, "eQSL");
-    tabWidget->addTab(UDPPage, "WSJT-X");
-    tabWidget->addTab(satsPage , tr("Satellites"));
-    tabWidget->addTab(hamlibPage, tr ("HamLib"));
-    //tabWidget->addTab(interfacesWindowsPage, tr ("Interfaces"));
-
-
-    QPushButton *closeButton = new QPushButton(tr("Cancel"));
-    okButton = new QPushButton(tr("Ok"));
-
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
-
-    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
-    connect(logsPage, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
-
-    connectActions();
-
-
-    QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    horizontalLayout->addWidget(tabWidget);
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(okButton);
-    buttonsLayout->addWidget(closeButton);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(horizontalLayout);
-    mainLayout->addLayout(buttonsLayout);
-    userDataPage->setFocus();
-    setLayout(mainLayout);
-
-    setWindowTitle(tr("Config Dialog"));
-    windowSize.clear();
-    slotReadConfigData();
-
-
-    if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
-    {
-        tabWidget->setCurrentIndex(logsPageTabN);
-    }
-    nolog = !(haveAtleastOneLog());
-    //qDebug() << "SetupDialog::SetupDialog 1 END" << endl;
-}
-
-*/
 SetupDialog::SetupDialog(DataProxy_SQLite *dp,
                          const QString &_configFile,
                          const QString &_softwareVersion,
@@ -201,9 +83,6 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp,
     //qDebug() << "SetupDialog::SetupDialog 01.70" << endl;
     eLogPage = new SetupPageELog(this);
     //qDebug() << "SetupDialog::SetupDialog 01.80" << endl;
-    //clubLogPage = new SetupPageClubLog(this);
-    //lotwPage = new SetupPageLoTW(this);
-    //eQSLPage = new SetupPageEQSL(this);
     UDPPage = new SetupPageUDP(this);
     //qDebug() << "SetupDialog::SetupDialog 01.90" << endl;
     satsPage = new SetupPageSats(dataProxy, this);
@@ -212,7 +91,6 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp,
     //subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
     //regionalAwardsPage = new SetupPageRegionalAwards(dataProxy, this);
     //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
-
 
     //qDebug() << "SetupDialog::SetupDialog 02" << endl;
     //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
@@ -252,7 +130,6 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp,
     //qDebug() << "SetupDialog::SetupDialog 04" << endl;
 
     setLayout(mainLayout);
-
     setWindowTitle(tr("Settings"));
 
     //qDebug() << "SetupDialog::SetupDialog 05" << endl;
@@ -386,6 +263,7 @@ void SetupDialog::slotCancelButtonClicked()
             }
         }
     }
+    QDialog::reject ();
     close();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
@@ -1149,6 +1027,10 @@ bool SetupDialog::processConfigLine(const QString &_line)
         //hamlibPage->setDTR(value);
     }else if (tab == "HAMLIBRIGPOLLRATE"){
         hamlibPage->setPollingInterval(value.toInt());
+    }else if (tab == "HAMLIBNETADDRESS"){
+        hamlibPage->setRadioNetworkAddress (value);
+    }else if (tab == "HAMLIBNETPORT"){
+        hamlibPage->setRadioNetworkPort (value.toInt ());
     }else if(tab =="SELECTEDLOG"){
            //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << endl;
         i = value.toInt();

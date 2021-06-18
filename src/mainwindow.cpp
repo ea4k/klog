@@ -549,7 +549,6 @@ void MainWindow::createActionsCommon(){
     // QRZCOM
     connect (elogQRZcom, SIGNAL (showMessage(QString)), this, SLOT (slotElogQRZCOMShowMessage(QString)));
     connect (elogQRZcom, SIGNAL (dataFoundSignal(QString, QString)), this, SLOT (slotElogQRZCOMFoundData(QString, QString)));
-
     connect (elogQRZcom, SIGNAL (signalLogUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogQRZCOMLogUploaded(QNetworkReply::NetworkError, QList<int>)));
 
     // SATELLITE TAB
@@ -1385,20 +1384,22 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     // SATS
+
     aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
-      //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << endl;
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
+        aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
+        if (aux1.length()>0)
+        {
+            stringFields = stringFields + ", sat_mode";
+            stringData = stringData + ", '" + aux1 + "'";
+        }
     }
 
-    aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", sat_mode";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+
 
     keepSatPage = satTabWidget->getRepeatThis();
 
@@ -2283,13 +2284,14 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "iota = '', ";
                   //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) << endl;
     }
-
-   aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
+    bool satQSO = false;
+    aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
                //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 << endl;
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
         updateString = updateString + aux1 + "', ";
+        satQSO = true;
     }
     else
     {
@@ -2297,7 +2299,7 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-    if (aux1.length()>0)
+    if ((aux1.length()>0) && satQSO)
     {
         updateString = updateString + "sat_mode = '";
         updateString = updateString + aux1 + "', ";
@@ -4580,10 +4582,13 @@ void MainWindow::openSetup(const int _page)
         //qDebug() << "MainWindow::openSetup: Hamlib is active, let's read the VFO Freq/Mode" << endl;
     }
 
-    if (qso->getBackup ())
-    {
-        restoreCurrentQSO ();
-    }
+    //qDebug() << Q_FUNC_INFO << ": We are going to restore";
+    //if (qso->getBackup ())
+    //{
+    //        //qDebug() << Q_FUNC_INFO << ": Restoring... ";
+    //restoreCurrentQSO (true);
+    //}
+    //qDebug() << Q_FUNC_INFO << ": Restored! ";
     //qDebug() << "MainWindow::openSetup: - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4631,8 +4636,8 @@ void MainWindow::slotSetupDialogFinished (const int _s)
 
     if (qso->getBackup ())
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: Restoring..." << endl;
-        restoreCurrentQSO ();
+        //qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
+        restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
@@ -4697,7 +4702,7 @@ bool MainWindow::setUDPServer(const bool _b)
     //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << endl;
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << endl;
     QString errorMSG, aux;
-    if (UDPServerStart)
+    if (_b)
     {
         if (!UDPLogServer->isStarted())
         {
@@ -5284,6 +5289,15 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
                 //qDebug() << "MainWindow::processConfigLine: HAMLIBREADONLY: " << value << endl;
         hamlib->setReadOnly(util->trueOrFalse(value));
+    }
+    else if (field == "HAMLIBNETADDRESS"){
+        //hamlibPage->setRadioNetworkAddress (value);
+        hamlib->setNetworkAddress (value);
+    }
+    else if (field == "HAMLIBNETPORT"){
+        hamlib->setNetworkPort (value.toInt ());
+        //hamlibPage->setRadioNetworkPort (value.toInt ());
+
     }
     else if (field=="REALTIMEFROMWSJTX")
     {
@@ -6973,6 +6987,7 @@ void MainWindow::setModifying(const bool _m)
     QSOTabWidget->setModifying (_m);
     mainQSOEntryWidget->setModify(_m);
     satTabWidget->setModifying(_m);
+    myDataTabWidget->setModify (_m);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -8456,17 +8471,21 @@ void MainWindow::backupCurrentQSO()
 
 }
 
-void MainWindow::restoreCurrentQSO()
+void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
-   //qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
     clearUIDX ();
 
     mainQSOEntryWidget->setQRZ (qso->getCall ());
     mainQSOEntryWidget->setBand (qso->getBand ());
     mainQSOEntryWidget->setMode (qso->getMode ());
     mainQSOEntryWidget->setDateTime (qso->getDateTimeOn ());
-    mainQSOEntryWidget->setRealTime (qso->getRealTime ());
+
+    if (restoreConfig)
+    {
+        mainQSOEntryWidget->setRealTime (qso->getRealTime ());
+    }
 
     //  MainWindowInputQSO
     QSOTabWidget->setRSTRX (qso->getRSTRX ());
@@ -8526,8 +8545,8 @@ void MainWindow::restoreCurrentQSO()
 
     // MainWindowMyDataTab
     myDataTabWidget->setMyPower (qso->getTXPwr ());
-    myDataTabWidget->setOperator (qso->getOperatorCallsign ());
-    myDataTabWidget->setStationQRZ (qso->getStationCallsign ());
+    myDataTabWidget->setOperator (qso->getOperatorCallsign());
+    myDataTabWidget->setStationQRZ (qso->getStationCallsign());
     myDataTabWidget->setMyLocator (qso->getMyGridSquare ());
     myDataTabWidget->setKeep (qso->getKeepMyData ());
     myDataTabWidget->setMyRig (qso->getMyRig ());

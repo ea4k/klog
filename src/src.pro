@@ -308,8 +308,8 @@ DISTFILES += Changelog COPYING
 unix:!mac {
     DEFINES += APP_LINUX
     CONFIG  += c++11
-    QMAKE_CXXFLAGS += --coverage
-    LIBS += -lgcov -lqt5keychain -lhamlib
+    #QMAKE_CXXFLAGS += --coverage
+   #LIBS += -lgcov
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
@@ -325,6 +325,7 @@ unix:!mac {
     datafiles.files = $$DISTFILES
     INSTALLS += translations
     INSTALLS += datafiles
+    LIBS += -lhamlib -lqt5keychain 
 
 }
 

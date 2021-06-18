@@ -67,7 +67,8 @@ public:
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
     bool isModeADIFMode(const QString &_m);
-
+    void setNetworkAddress(const QString &_address);
+    void setNetworkPort(const int _port);
    // bool isModeExisting(const QString &_m);
 
 
@@ -125,6 +126,8 @@ private:
     QString flowControl;            // default QSerialPort::NoFLowControl
     QString parity;                 // default QSerialPort::NoParity
     QString serialPort;
+    QString networkAddress;
+    int networkPort;
     int pollInterval;           // Poll interval in mSecs
     int errorCount;            // Number of times that the rig has returned an error since last time OK.
     bool rigLaunched;

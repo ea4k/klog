@@ -1,6 +1,10 @@
 # KLog
 [![Build Status](https://travis-ci.com/ea4k/klog.svg?branch=master)](https://travis-ci.com/ea4k/klog)
 [![Coverage Status](https://coveralls.io/repos/github/ea4k/klog/badge.svg?branch=master)](https://coveralls.io/github/ea4k/klog?branch=master)
+<img src="https://img.shields.io/github/v/release/ea4k/klog?logo=github&logoColor=white" alt="GitHub release"/>
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<a href="https://twitter.com/_ea4k"><img src="https://img.shields.io/twitter/follow/_ea4k.svg?style=social&label=Follow" alt="Twitter Follow"/></a>
+[![](https://tokei.rs/b1/github/ea4k/klog)](https://github.com/ea4k/klog).
 
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
 
