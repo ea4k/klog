@@ -206,6 +206,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     if ((qrzLineEdit->text()).length()<1)
     {
         //emit clearForNextQSOSignal();
+        //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked();
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ <1 - END" << endl;
@@ -782,6 +783,7 @@ void MainQSOEntryWidget::setModify(const bool _modify)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     modify = _modify;
+    realtimeCheckBox->setChecked (false);
     if (modify)
     {
         OKButton->setText(tr("&Modify"));
@@ -965,11 +967,17 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 
 void MainQSOEntryWidget::slotStartDelayInputTimer()
 {
+    if (cleaning)
+    {
+        return;
+    }
     if (qrzLineEdit->text ().length ()<1)
     {
+        //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked ();
         return;
     }
+
     int cursor = qrzLineEdit->cursorPosition ();
     QString aux = util->getClearSQLi (qrzLineEdit->text ());
     qrzLineEdit->setText (aux.toUpper());

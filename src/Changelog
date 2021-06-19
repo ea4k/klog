@@ -1,3 +1,7 @@
+TBD - 1.6.1
+- Bugfix: RealTime remained checked when editing.
+- Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
+
 June - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.
 - Bugfix: When starting KLog for the first time, it crashed.
