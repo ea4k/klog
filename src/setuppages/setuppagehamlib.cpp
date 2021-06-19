@@ -29,6 +29,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 {
       //qDebug() << "SetupPageHamLib::SetupPageHamLib" << endl;
     ready = false;
+    hamlibTestOK = false;
     hamlib = new HamLibClass();
     activateHamlibCheckBox = new QCheckBox();
     readOnlyModeCheckBox = new QCheckBox();
@@ -52,6 +53,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     //DTRCheckBox = new QCheckBox();
 
     scanSerialPortButton = new QPushButton();
+    testHamlibPushButton = new QPushButton();
 
     //serialBaudsSpinBox = new QSpinBox;
 
@@ -64,12 +66,60 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     rigctlport = 4532;
     networkRadio = false;
     connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
+    connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
+
+
     connect(rigTypeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
 
     createUI();
     setDefaults();
     ready = true;
+    slotTestHamlib();
     //qDebug() << "SetupPageHamLib::SetupPageHamLib END" << endl;
+}
+
+void SetupPageHamLib::slotTestHamlib()
+{
+    QPalette pal = testHamlibPushButton->palette();
+    //qDebug() << Q_FUNC_INFO;
+    hamlib->stop ();
+    if (rigTypeComboBox->currentText ().contains ("NET rigctl"))
+    {
+        hamlib->setNetworkPort (portQSpinBox->value ());
+        hamlib->setNetworkAddress (hostAddressLineEdit->text ());
+    }
+    else
+    {
+        hamlib->setPort (serialPortComboBox->currentText());
+        hamlib->setSpeed (serialBaudsComboBox->currentText ());
+        hamlib->setParity(getParity ());
+        hamlib->setFlow(getFlowControl ());
+        hamlib->setStop(getStopBits ());
+        hamlib->setData(getDataBits ());
+    }
+
+    hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
+    hamlib->setPoll (2000);
+
+
+   if (hamlib->init (true))
+   {
+       //qDebug() << Q_FUNC_INFO << " - Tested OK";
+       testHamlibPushButton->setText (tr("Test: OK"));
+        pal.setColor(QPalette::Button, QColor(Qt::green));
+
+   }
+   else
+   {
+       //qDebug() << Q_FUNC_INFO << " - Tested NOK";
+       testHamlibPushButton->setText (tr("Test: NOK"));
+       pal.setColor(QPalette::Button, QColor(Qt::red));
+
+   }
+   //hamlib->stop ();
+   //testHamlibPushButton->setAutoFillBackground(true);
+   testHamlibPushButton->setPalette(pal);
+   testHamlibPushButton->update();
 }
 
 void SetupPageHamLib::fillSerialPortsComboBox()
@@ -107,6 +157,8 @@ void SetupPageHamLib::createUI()
     activateHamlibCheckBox->setToolTip(tr("Activates the hamlib support that will enable the connection to a radio."));
     readOnlyModeCheckBox->setText(tr("Read-Only mode"));
     readOnlyModeCheckBox->setToolTip(tr("If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio."));
+    testHamlibPushButton->setText (tr("Test"));
+    testHamlibPushButton->setToolTip (tr("Click to test the connection to the radio"));
 
     hostAddressLineEdit->setToolTip (tr("Enter the hostname or address of the radio."));
     portQSpinBox->setToolTip (tr("Set de network port of the radio."));
@@ -220,6 +272,7 @@ void SetupPageHamLib::createUI()
     radioLayout->addWidget (rigTypeLabel);
     radioLayout->addWidget (rigTypeComboBox);
     radioLayout->addLayout (pollIntervalLayout);
+    radioLayout->addWidget (testHamlibPushButton);
 
     QGridLayout *serialLayout = new QGridLayout;
     serialLayout->addWidget(serialPortLabel, 1, 0);

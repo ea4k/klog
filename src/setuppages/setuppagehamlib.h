@@ -34,7 +34,6 @@
 #include "dataproxy_sqlite.h"
 #include <hamlib/rig.h>
 
-
 class SetupPageHamLib : public QWidget
 {
     Q_OBJECT
@@ -58,12 +57,12 @@ public:
     void setRadioNetworkPort(const int _p);
 
 
-
 signals:
 
 public slots:
     void slotScanPorts();
     void slotRadioComboBoxChanged(QString _r);
+    void slotTestHamlib();
 
 private:
     void createUI();
@@ -88,8 +87,7 @@ Parity { NoParity, EvenParity, OddParity, SpaceParity, MarkParity, UnknownParity
 StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 
 */
-
-    QPushButton *scanSerialPortButton;
+    QPushButton *scanSerialPortButton, *testHamlibPushButton;
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
                 *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
@@ -107,9 +105,9 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 
     QStringList strings, serialPorts;
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
-    bool networkRadio, ready;
+    bool networkRadio, ready, hamlibTestOK;
 
-     QGroupBox *serialGroup, *networkGroup;
+    QGroupBox *serialGroup, *networkGroup;
 
     //int defaultPortSpeed;
 };

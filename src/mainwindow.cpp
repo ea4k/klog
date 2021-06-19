@@ -4518,6 +4518,7 @@ void MainWindow::openSetup(const int _page)
    //qDebug() << "MainWindow::openSetup: " << QString::number(_page)  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int result = -1;
+    hamlib->stop();
     if (!needToEnd)
     {
         logEvent(Q_FUNC_INFO, "Just before setData", logSeverity);

@@ -72,8 +72,8 @@ public:
    // bool isModeExisting(const QString &_m);
 
 
-    void init(bool _active);
-    void stop();
+    bool init(bool _active);
+    bool stop();
     bool readRadio(bool _forceRead);
     bool isRunning();
     void clean();
