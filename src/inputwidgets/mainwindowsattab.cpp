@@ -557,6 +557,14 @@ void MainWindowSatTab::slotSatFreqRXChanged(const double _f)
     {
         return;
     }
+    if (getDarkMode())
+    {
+        rxFreqSpinBox->setPalette(palWhite);
+    }
+    else
+    {
+        rxFreqSpinBox->setPalette(palBlack);
+    }
 
     int bandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
     if (bandId<1)
@@ -568,14 +576,6 @@ void MainWindowSatTab::slotSatFreqRXChanged(const double _f)
     else
     {
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
-        if (getDarkMode())
-        {
-            rxFreqSpinBox->setPalette(palWhite);
-        }
-        else
-        {
-            rxFreqSpinBox->setPalette(palBlack);
-        }
         bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(rxFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
@@ -624,6 +624,14 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
     {
         return;
     }
+    if (getDarkMode())
+    {
+        txFreqSpinBox->setPalette(palWhite);
+    }
+    else
+    {
+        txFreqSpinBox->setPalette(palBlack);
+    }
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId<1)
     { //This prevent that a non-hamradio frequency is used on TX
@@ -634,14 +642,6 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
     else
     {
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-        if (getDarkMode())
-        {
-            txFreqSpinBox->setPalette(palWhite);
-        }
-        else
-        {
-            txFreqSpinBox->setPalette(palBlack);
-        }
         bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
