@@ -529,7 +529,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "WorkedColor=" << colorsPage->getWorkedColor() << ";" <<  endl;
         stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  endl;
         stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  endl;
-        stream << "DarkMode=" << util->isDarkMode() << ";" << endl;
+        stream << "DarkMode=" << colorsPage->getDarkMode() << ";" << endl;
         stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  endl;
         //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << endl;
         // CLUBLOG
@@ -989,7 +989,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         colorsPage->setDefaultColor(value);
           //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << endl;
     }else if(tab =="DARKMODE"){
-            util->setDarkMode(value);
+        colorsPage->setDarkMode(value);
     }else if(tab =="HAMLIBRIGTYPE"){
           //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << endl;
         hamlibPage->setRigType(value);
