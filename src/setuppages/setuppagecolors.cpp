@@ -40,6 +40,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     defaultColorButton = new QPushButton;
     wsjtxColorButton = new QPushButton;
     klogColorButton = new QPushButton;
+    darkModeButton = new QPushButton;
 
     newOneColorButton->setText(tr("New One"));
     neededColorButton->setText(tr("Needed in this band"));
@@ -48,6 +49,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     defaultColorButton->setText(tr("Default"));
     wsjtxColorButton->setText(tr("WSJT-X palette"));
     klogColorButton->setText(tr("Default palette"));
+    darkModeButton->setText(tr("Dark Mode"));
 
     newOneColorButton->setToolTip(tr("Color when the DXCC is an ATNO (All Time New One)."));
     neededColorButton->setToolTip(tr("This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ..."));
@@ -56,6 +58,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     defaultColorButton->setToolTip(tr("Default color."));
     wsjtxColorButton->setToolTip(tr("Sets a palette of colors similar to the one used in WSJT-X."));
     klogColorButton->setToolTip(tr("Sets the default palette."));
+    darkModeButton->setToolTip(tr("Sets the Dark Mode"));
 
     newOneColorButton->setAutoFillBackground ( true );
 
@@ -70,6 +73,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     QHBoxLayout *schemasLayout = new QHBoxLayout;
     schemasLayout->addWidget(wsjtxColorButton);
     schemasLayout->addWidget(klogColorButton);
+    schemasLayout->addWidget(darkModeButton);
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addLayout(buttonsLayout, 0, 0);
@@ -84,6 +88,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     connect(defaultColorButton, SIGNAL(clicked()), this, SLOT(slotDefaultColorButtonClicked()) );
     connect(wsjtxColorButton, SIGNAL(clicked()), this, SLOT(slotWSJTXButtonClicked()) );
     connect(klogColorButton, SIGNAL(clicked()), this, SLOT(slotKLogButtonClicked()) );
+    connect(darkModeButton, SIGNAL(clicked()), this, SLOT(slotSetDarkMode()) );
 
     setDefaultColors();
 
@@ -255,4 +260,54 @@ void SetupPageColors::slotWSJTXButtonClicked()
 void SetupPageColors::slotKLogButtonClicked()
 {
     setDefaultColors();
+}
+
+void SetupPageColors::slotSetDarkMode()
+{
+    if (!darkMode)
+    {
+        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        QPalette p;
+        p = qApp->palette();
+        p.setColor(QPalette::Window, QColor(53,53,53));
+        p.setColor(QPalette::Button, QColor(53,53,53));
+        p.setColor(QPalette::Highlight, QColor(142,45,197));
+        p.setColor(QPalette::ButtonText, QColor(255,255,255));
+        p.setColor(QPalette::WindowText, QColor(255,255,255));
+        p.setColor(QPalette::Text, Qt::white);
+        p.setColor(QPalette::Base, QColor(100,100,100));
+        qApp->setPalette(p);
+        darkModeButton->setText(tr("Light Mode"));
+        darkMode = true;
+    }
+    else
+    {
+        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        QPalette p;
+        p = qApp->palette();
+        p.setColor(QPalette::Window, QColor(244,246,246));
+        //p.setColor(QPalette::Button, QColor(214,219,223));
+        p.setColor(QPalette::Text, Qt::black);
+        p.setColor(QPalette::Button, QColor(234,237,237));
+        p.setColor(QPalette::Highlight, QColor(40,120,240));
+        p.setColor(QPalette::ButtonText, Qt::black);
+        p.setColor(QPalette::WindowText, QColor(33,47,60));
+        p.setColor(QPalette::Base, Qt::white);
+        p.setColor(QPalette::ToolTipBase, Qt::white);
+        p.setColor(QPalette::ToolTipText, Qt::black);
+        qApp->setPalette(p);
+        darkModeButton->setText(tr("Dark Mode"));
+        darkMode = false;
+    }
+}
+
+QString SetupPageColors::getDarkMode(){
+
+    return util->boolToQString(darkMode);
+}
+
+void SetupPageColors::setDarkMode(const QString _dm)
+{
+    darkMode = !util->trueOrFalse(_dm);
+    slotSetDarkMode();
 }
