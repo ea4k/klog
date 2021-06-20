@@ -143,6 +143,7 @@ void MainWindowInputQSO::createUI()
 
     QHBoxLayout *freqDataLayout = new QHBoxLayout;
     freqDataLayout->addWidget(txFreqSpinBox);
+    freqDataLayout->addStretch(1);
     freqDataLayout->addWidget(rxFreqSpinBox);
 
     QVBoxLayout *freqLayout = new QVBoxLayout;
@@ -178,7 +179,9 @@ void MainWindowInputQSO::createUI()
     namePwrHLayout->addLayout(rxPwrLayout);
 
     QVBoxLayout *namePwrLayout = new QVBoxLayout;
+    namePwrLayout->addStretch(1);
     namePwrLayout->addLayout(namePwrHLayout);
+    namePwrLayout->addStretch(5);
 
     QVBoxLayout *qsoInputTabWidgetMainLayout = new QVBoxLayout;
     qsoInputTabWidgetMainLayout->addLayout(rstfreqLayout);

@@ -71,6 +71,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
     buttonsLayout->addWidget(defaultColorButton);
 
     QHBoxLayout *schemasLayout = new QHBoxLayout;
+    schemasLayout->setSpacing(40);
     schemasLayout->addWidget(wsjtxColorButton);
     schemasLayout->addWidget(klogColorButton);
     schemasLayout->addWidget(darkModeButton);
