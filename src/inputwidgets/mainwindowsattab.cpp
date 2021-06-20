@@ -553,10 +553,7 @@ void MainWindowSatTab::slotSatFreqRXChanged(const double _f)
         return;
     }
     freqRX = _f;
-    if (modifying)
-    {
-        return;
-    }
+
     if (getDarkMode())
     {
         rxFreqSpinBox->setPalette(palWhite);
@@ -564,6 +561,11 @@ void MainWindowSatTab::slotSatFreqRXChanged(const double _f)
     else
     {
         rxFreqSpinBox->setPalette(palBlack);
+    }
+
+    if (modifying)
+    {
+        return;
     }
 
     int bandId = dataProxy->getBandIdFromFreq(rxFreqSpinBox->value());
@@ -620,10 +622,7 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
         return;
     }
     freqTX = _f;
-    if (modifying)
-    {
-        return;
-    }
+
     if (getDarkMode())
     {
         txFreqSpinBox->setPalette(palWhite);
@@ -632,6 +631,12 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
     {
         txFreqSpinBox->setPalette(palBlack);
     }
+
+    if (modifying)
+    {
+        return;
+    }
+
     int bandId = dataProxy->getBandIdFromFreq(txFreqSpinBox->value());
     if (bandId<1)
     { //This prevent that a non-hamradio frequency is used on TX
