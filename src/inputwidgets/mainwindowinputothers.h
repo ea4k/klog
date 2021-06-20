@@ -59,7 +59,7 @@ public:
     bool setAge(const double _op);
     double getAge();
 
-    void setIOTA(const QString _qs, const bool _black=true);
+    void setIOTA(const QString _qs);
     QString getIOTA();
     void setIOTAContinentFromEntity(const int _n);
     void setIOTAContinent(const QString _qs);
@@ -83,6 +83,7 @@ private slots:
 private:
     QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
     bool setInitialADIFValues();
+    bool getDarkMode();
 
 
     DataProxy_SQLite *dataProxy;
@@ -93,7 +94,7 @@ private:
     QLineEdit *iotaNumberLineEdit;
     QCheckBox *keepPropCheckBox;
 
-    QPalette palRed, palBlack;
+    QPalette palRed, palBlack, palWhite;
     bool autoUpdating;
 
     QComboBox *userDefinedADIFComboBox;

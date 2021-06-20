@@ -121,6 +121,7 @@ void MainQSOEntryWidget::createUI()
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
 
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     //connect(qrzLineEdit, SIGNAL(res), this, SLOT(slotOKButtonClicked() ) );
@@ -259,7 +260,15 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     else
     {
         //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << endl;
-        qrzLineEdit->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            qrzLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            qrzLineEdit->setPalette(palBlack);
+        }
+
         currentQrz = qrzLineEdit->text();
         //emit showInfoLabel(tr(""));
     }
@@ -993,5 +1002,17 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
     {
         text = lastQrz;
         slotQRZTextChanged();
+    }
+}
+
+bool MainQSOEntryWidget::getDarkMode()
+{
+    if (OKButton->palette().color (QPalette::Base) == "#646464")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

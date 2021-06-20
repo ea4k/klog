@@ -143,6 +143,7 @@ void MainWindowInputQSO::createUI()
 
     QHBoxLayout *freqDataLayout = new QHBoxLayout;
     freqDataLayout->addWidget(txFreqSpinBox);
+    freqDataLayout->addStretch(1);
     freqDataLayout->addWidget(rxFreqSpinBox);
 
     QVBoxLayout *freqLayout = new QVBoxLayout;
@@ -178,7 +179,9 @@ void MainWindowInputQSO::createUI()
     namePwrHLayout->addLayout(rxPwrLayout);
 
     QVBoxLayout *namePwrLayout = new QVBoxLayout;
+    namePwrLayout->addStretch(1);
     namePwrLayout->addLayout(namePwrHLayout);
+    namePwrLayout->addStretch(5);
 
     QVBoxLayout *qsoInputTabWidgetMainLayout = new QVBoxLayout;
     qsoInputTabWidgetMainLayout->addLayout(rstfreqLayout);
@@ -202,6 +205,8 @@ void MainWindowInputQSO::setDefaultData()
 {
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
+
     rxFreqBeingAutoChanged = false;
     txFreqBeingAutoChanged = false;
     isSATPropagation = false;
@@ -230,14 +235,6 @@ void MainWindowInputQSO::cleanQRZCOM()
 void MainWindowInputQSO::clearName()
 {
     nameLineEdit->clear();
-    if (getDarkMode ())
-    {
-        nameLineEdit->setPalette(palBlack);
-    }
-    else
-    {
-        nameLineEdit->setPalette(palBlack);
-    }
 }
 
 void MainWindowInputQSO::clearQTH()
@@ -248,14 +245,6 @@ void MainWindowInputQSO::clearQTH()
 void MainWindowInputQSO::clearDXLocator()
 {
     locatorLineEdit->clear ();
-    if (getDarkMode ())
-    {
-        locatorLineEdit->setPalette(palBlack);
-    }
-    else
-    {
-        locatorLineEdit->setPalette(palBlack);
-    }
 }
 
 void MainWindowInputQSO::slotReturnPressed()
@@ -273,7 +262,7 @@ void MainWindowInputQSO::slotLocatorTextChanged()
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
     {
         //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text() << endl;
-        locatorLineEdit->setPalette(palBlack);
+        setPaletteRightDXLocator(true);
         emit dxLocatorChanged (locatorLineEdit->text());
 
         //dxLocator = (locatorLineEdit->text());
@@ -286,7 +275,7 @@ void MainWindowInputQSO::slotLocatorTextChanged()
     else
     {
         //qDebug() << Q_FUNC_INFO << ": NOT VALID: " << locatorLineEdit->text() << endl;
-        locatorLineEdit->setPalette(palRed);
+        setPaletteRightDXLocator(false);
         locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
         locatorLineEdit->setCursorPosition(cursorP);
         return;
@@ -461,83 +450,70 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 
 bool MainWindowInputQSO::getDarkMode()
 {
-    return false;
-}
-void MainWindowInputQSO::setPaletteRigthName(const bool _ok)
-{
-    if (getDarkMode())
+    if (nameLineEdit->palette().color(QPalette::Base) == "#646464")
     {
-        if (_ok)
-        {
-            nameLineEdit->setPalette (palBlack);
-        }
-        else
-        {
-            nameLineEdit->setPalette (palRed);
-        }
+        return true;
     }
     else
     {
-        if (_ok)
-        {
-            nameLineEdit->setPalette (palBlack);
-        }
-        else
-        {
-            nameLineEdit->setPalette (palRed);
-        }
+        return false;
     }
 }
 
-void MainWindowInputQSO::setPaletteRigthQTH(const bool _ok)
+void MainWindowInputQSO::setPaletteRightName(const bool _ok)
 {
-    if (getDarkMode())
+    if (_ok)
     {
-        if (_ok)
+        if (getDarkMode())
         {
-            qthLineEdit->setPalette (palBlack);
+            nameLineEdit->setPalette (palWhite);
         }
         else
         {
-            qthLineEdit->setPalette (palRed);
+            nameLineEdit->setPalette (palBlack);
         }
     }
     else
     {
-        if (_ok)
-        {
-            qthLineEdit->setPalette (palBlack);
-        }
-        else
-        {
-            qthLineEdit->setPalette (palRed);
-        }
+        nameLineEdit->setPalette (palRed);
     }
 }
 
-void MainWindowInputQSO::setPaletteRigthDXLocator(const bool _ok)
+void MainWindowInputQSO::setPaletteRightQTH(const bool _ok)
 {
-    if (getDarkMode())
+    if (_ok)
     {
-        if (_ok)
+        if (getDarkMode())
         {
-            locatorLineEdit->setPalette (palBlack);
+            qthLineEdit->setPalette (palWhite);
         }
         else
         {
-            locatorLineEdit->setPalette (palRed);
+            qthLineEdit->setPalette (palBlack);
         }
     }
     else
     {
-        if (_ok)
+        qthLineEdit->setPalette (palRed);
+    }
+}
+
+void MainWindowInputQSO::setPaletteRightDXLocator(const bool _ok)
+{
+    if (_ok)
+    {
+        if (getDarkMode())
         {
-            locatorLineEdit->setPalette (palBlack);
+            locatorLineEdit->setPalette (palWhite);
         }
         else
         {
-            locatorLineEdit->setPalette (palRed);
+            locatorLineEdit->setPalette (palBlack);
         }
+    }
+    else
+    {
+        locatorLineEdit->setPalette (palRed);
     }
 }
 
@@ -568,7 +544,14 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
     if (bandId > 1)
     { // If the freq belongs to one ham band
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-        txFreqSpinBox->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            txFreqSpinBox->setPalette(palWhite);
+        }
+        else
+        {
+            txFreqSpinBox->setPalette(palBlack);
+        }
         //qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f) << endl;
         emit txFreqChanged (_f);
     }
@@ -605,7 +588,14 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
     int bandId = dataProxy->getBandIdFromFreq(_f);
     if (bandId > 1)
     { // If the freq belongs to one ham band
-        rxFreqSpinBox->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            rxFreqSpinBox->setPalette(palWhite);
+        }
+        else
+        {
+            rxFreqSpinBox->setPalette(palBlack);
+        }
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
         emit rxFreqChanged(rxFreqSpinBox->value());
     }

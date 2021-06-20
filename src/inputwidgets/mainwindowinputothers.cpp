@@ -71,6 +71,7 @@ void MainWindowInputOthers::createUI()
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
 
     QLabel *entityPrimLabel = new QLabel(tr("Primary Div"));
     QLabel *entitySecLabel = new QLabel(tr("Secondary Div"));
@@ -265,7 +266,7 @@ void MainWindowInputOthers::clearIOTA()
 {
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
-    iotaNumberLineEdit->setPalette(palBlack);
+    //iotaNumberLineEdit->setPalette(palBlack);
 }
 
 bool MainWindowInputOthers::isIOTAModified()
@@ -281,13 +282,14 @@ bool MainWindowInputOthers::isIOTAModified()
 
 }
 
-void MainWindowInputOthers::setIOTA(const QString _qs, const bool _black)
+void MainWindowInputOthers::setIOTA(const QString _qs)
 {//TODO: Seems to be better to send the color info like in: (it is much more flexible as I can send any color!)
 
     //void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
       //qDebug() << "MainWindow::setIOTA: " << _qs << endl;
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {
+        iotaNumberLineEdit->setPalette(palRed);
         return;
     }
     else
@@ -296,14 +298,14 @@ void MainWindowInputOthers::setIOTA(const QString _qs, const bool _black)
           //qDebug() << "MainWindowInputOthers::setIOTA: IOTA " << _qs << endl;
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
         iotaNumberLineEdit->setText(values.at(1));
-    }
-    if (_black)
-    {
-        iotaNumberLineEdit->setPalette(palBlack);
-    }
-    else
-    {
-        iotaNumberLineEdit->setPalette(palRed);
+        if (getDarkMode())
+        {
+            iotaNumberLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            iotaNumberLineEdit->setPalette(palBlack);
+        }
     }
 }
 
@@ -531,5 +533,17 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     else if (currentTag == "AGE")
     {
         age = userDefinedADIFValueLineEdit->text().toDouble();
+    }
+}
+
+bool MainWindowInputOthers::getDarkMode()
+{
+    if ( iotaNumberLineEdit->palette().color (QPalette::Base) == "#646464")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

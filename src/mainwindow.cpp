@@ -7737,14 +7737,14 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     {
           //qDebug() << "MainWindow::completeWithPreviousQSO name: 1" << endl;
         QSOTabWidget->setName(aux);
-        QSOTabWidget->setPaletteRigthName (true);
+        QSOTabWidget->setPaletteRightName (true);
         completedWithPreviousName = true;
     }
     else if (completedWithPreviousName && (aux != QSOTabWidget->getName()))
     {
           //qDebug() << "MainWindow::completeWithPreviousQSO name: 2" << endl;
         completedWithPreviousName = false;
-        QSOTabWidget->setPaletteRigthName (false);
+        QSOTabWidget->setPaletteRightName (false);
     }
     else
     {
@@ -7754,27 +7754,27 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     aux = dataProxy->getQTHFromQRZ(_call);
     if ((aux.length()>=0) && (QSOTabWidget->getQTH().length()<=0) )
     {
-        QSOTabWidget->setPaletteRigthQTH (true);
+        QSOTabWidget->setPaletteRightQTH (true);
         completedWithPreviousQTH = true;
         QSOTabWidget->setQTH(aux);
     }
     else if (completedWithPreviousQTH && (aux != QSOTabWidget->getQTH()))
     {
         completedWithPreviousQTH = false;
-        QSOTabWidget->setPaletteRigthQTH (false);
+        QSOTabWidget->setPaletteRightQTH (false);
     }
 
     aux = dataProxy->getLocatorFromQRZ(_call);
     if ((aux.length()>=0) && ((QSOTabWidget->getDXLocator()).length()<=0) )
     {
-        QSOTabWidget->setPaletteRigthDXLocator (true);
+        QSOTabWidget->setPaletteRightDXLocator (true);
         QSOTabWidget->setDXLocator(aux);
         completedWithPreviousLocator=true;
     }
     else if (completedWithPreviousLocator && (aux != QSOTabWidget->getDXLocator()))
     {
         completedWithPreviousLocator = false;
-        QSOTabWidget->setPaletteRigthDXLocator(false);
+        QSOTabWidget->setPaletteRightDXLocator(false);
     }
 
     aux = dataProxy->getIOTAFromQRZ(_call);
@@ -7787,7 +7787,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 
         if ((aux.length())==6)
         {
-            othersTabWidget->setIOTA(aux, false);
+            othersTabWidget->setIOTA(aux);
             //TODO: Decide if it is better this way or like in : void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
             //QStringList values = aux.split("-", QString::SkipEmptyParts);
             //iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );

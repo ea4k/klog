@@ -118,11 +118,12 @@ private:
     QComboBox *myUserADIFComboBox;
     QCheckBox *keepThisDataForNextQSOQCheckbox;
 
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Locator *locator;
     Utilities *util;
     bool modify;
     QString my_rig, my_sota, my_antenna;
+    bool getDarkMode();
 };
 
 #endif // MAINWINDOWMYDATATAB_H

@@ -65,6 +65,7 @@ void MainWindowMyDataTab::createUI()
     //qDebug() << Q_FUNC_INFO;
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
 
     myPowerSpinBox->setDecimals(2);
     myPowerSpinBox->setMaximum(9999);
@@ -184,7 +185,14 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
             myLocator = (myLocatorLineEdit->text()).toUpper();
         }
 
-        myLocatorLineEdit->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            myLocatorLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            myLocatorLineEdit->setPalette(palBlack);
+        }
         myLocatorLineEdit->setToolTip(tr("My QTH locator."));
         myLocatorLineEdit->setCursorPosition(cursorP);
         emit myLocChangedSignal(myLocatorLineEdit->text());
@@ -347,7 +355,15 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
     operatorLineEdit->setText(util->getClearSQLi(operatorLineEdit->text()).toUpper());
     if (util->isValidCall(operatorLineEdit->text()))
     {
-        operatorLineEdit->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            operatorLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            operatorLineEdit->setPalette(palBlack);
+        }
+
         if (!modify)
         {
             operatorQRZ = (operatorLineEdit->text());
@@ -375,7 +391,15 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
     stationCallSignLineEdit->setText(util->getClearSQLi(stationCallSignLineEdit->text()).toUpper());
     if (util->isValidCall(stationCallSignLineEdit->text()))
     {
-        stationCallSignLineEdit->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            stationCallSignLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            stationCallSignLineEdit->setPalette(palBlack);
+        }
+
         if (!modify)
         {
             stationQRZ = (stationCallSignLineEdit->text());
@@ -549,4 +573,16 @@ void MainWindowMyDataTab::setModify(const bool _modify)
     //emit debugLog(Q_FUNC_INFO, "Start", Debug);
     modify = _modify;
     //emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
+
+bool MainWindowMyDataTab::getDarkMode()
+{
+    if (operatorLineEdit->palette().color (QPalette::Base) == "#646464")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
