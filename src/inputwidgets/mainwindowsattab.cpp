@@ -60,6 +60,7 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     satOtherLabel->setEnabled(false);
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
 
     setDefaultBands(); //TODO: Check how the bands are included not to create an inconsistence with the selected (in the setup) bands
        //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"   << endl;
@@ -274,7 +275,15 @@ void MainWindowSatTab::slotSatDXLocTextChanged()
 
     if ( locator->isValidLocator(satDXLocatorLineEdit->text()) )
     {
-        satDXLocatorLineEdit->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            satDXLocatorLineEdit->setPalette(palWhite);
+        }
+        else
+        {
+            satDXLocatorLineEdit->setPalette(palBlack);
+        }
+
         satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is synchronized with the Locator box in the QSO tab."));
 
         //if (!modifying)
@@ -559,7 +568,14 @@ void MainWindowSatTab::slotSatFreqRXChanged(const double _f)
     else
     {
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
-        rxFreqSpinBox->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            rxFreqSpinBox->setPalette(palWhite);
+        }
+        else
+        {
+            rxFreqSpinBox->setPalette(palBlack);
+        }
         bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(rxFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
@@ -618,7 +634,14 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
     else
     {
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-        txFreqSpinBox->setPalette(palBlack);
+        if (getDarkMode())
+        {
+            txFreqSpinBox->setPalette(palWhite);
+        }
+        else
+        {
+            txFreqSpinBox->setPalette(palBlack);
+        }
         bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
@@ -885,4 +908,16 @@ void MainWindowSatTab::setKeep(const bool _b)
 bool MainWindowSatTab::getKeep()
 {
     return keepThisDataForNextQSOQcheckbox->isChecked ();
+}
+
+bool MainWindowSatTab::getDarkMode()
+{
+    if (satNameLineEdit->palette().color (QPalette::Base) == "#646464")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

@@ -42,9 +42,9 @@ public:
     explicit MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSO();
 
-    void setPaletteRigthName(const bool _ok);
-    void setPaletteRigthQTH(const bool _ok);
-    void setPaletteRigthDXLocator(const bool _ok);
+    void setPaletteRightName(const bool _ok);
+    void setPaletteRightQTH(const bool _ok);
+    void setPaletteRightDXLocator(const bool _ok);
 
     QString getDXLocator();
     void setDXLocator(const QString &_loc);

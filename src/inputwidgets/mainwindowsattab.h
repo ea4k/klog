@@ -121,7 +121,7 @@ private:
     QStringList satellitesList;
     //bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged, updatingBands;
     bool updatingBands;
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
 
     QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy_SQLite *dataProxy;
@@ -133,6 +133,7 @@ private:
     QString downLinkBand, upLinkBand;
 
     bool modifying;
+    bool getDarkMode();
 };
 
 #endif // MAINWINDOWSATTAB_H
