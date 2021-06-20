@@ -126,6 +126,7 @@ private:
     bool InValidCharsInPrevCall;
     bool qrzSmallModDontCalculate;
     bool upAndRunning;
+    bool getDarkMode();
 
     QString previousQRZ;
     QString currentQrz;
@@ -135,7 +136,7 @@ private:
 
     QTimer *timer;
     bool UTCTime, modify, realTime;
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Utilities *util;
     QPalette::ColorRole enabledCR, disabledCR;
 

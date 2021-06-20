@@ -115,7 +115,7 @@ private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
 
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
 
     bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
     QString propMode;

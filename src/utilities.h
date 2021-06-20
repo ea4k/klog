@@ -44,6 +44,9 @@ class Utilities
 public:
     Utilities();
     ~Utilities();
+    void setDarkMode(const QString _dm);
+    bool isDarkMode();
+    bool darkMode;
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
     QChar boolToCharToSQLite(const bool _b);

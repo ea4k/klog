@@ -264,7 +264,7 @@ void SetupPageColors::slotKLogButtonClicked()
 
 void SetupPageColors::slotSetDarkMode()
 {
-    if (!darkMode)
+    if (!util->isDarkMode())
     {
         QApplication::setStyle(QStyleFactory::create("Fusion"));
         QPalette p;
@@ -278,7 +278,8 @@ void SetupPageColors::slotSetDarkMode()
         p.setColor(QPalette::Base, QColor(100,100,100));
         qApp->setPalette(p);
         darkModeButton->setText(tr("Light Mode"));
-        darkMode = true;
+        //darkMode = true;
+        util->setDarkMode("true");
     }
     else
     {
@@ -297,17 +298,18 @@ void SetupPageColors::slotSetDarkMode()
         p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
         darkModeButton->setText(tr("Dark Mode"));
-        darkMode = false;
+        //darkMode = false;
+        util->setDarkMode("false");
     }
 }
 
-QString SetupPageColors::getDarkMode(){
+//QString SetupPageColors::getDarkMode(){
 
-    return util->boolToQString(darkMode);
-}
+//    return util->boolToQString(darkMode);
+//}
 
-void SetupPageColors::setDarkMode(const QString _dm)
-{
-    darkMode = !util->trueOrFalse(_dm);
-    slotSetDarkMode();
-}
+//void SetupPageColors::setDarkMode(const QString _dm)
+//{
+//    darkMode = !util->trueOrFalse(_dm);
+//    slotSetDarkMode();
+//}

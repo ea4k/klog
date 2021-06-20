@@ -202,6 +202,8 @@ void MainWindowInputQSO::setDefaultData()
 {
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
+    palWhite.setColor(QPalette::Text, Qt::white);
+
     rxFreqBeingAutoChanged = false;
     txFreqBeingAutoChanged = false;
     isSATPropagation = false;
