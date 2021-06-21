@@ -396,7 +396,7 @@ void MainQSOEntryWidget::clear()
 
     //qDebug() << Q_FUNC_INFO << endl;
 
-    cleaning = true;
+    //cleaning = true;
 
     OKButton->setText(tr("&Add"));
     qrzLineEdit->clear();
