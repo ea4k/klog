@@ -725,7 +725,6 @@ private:
 
     //<CLUBLOG>
     bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
-    QString clublogPass, clublogEmail; //clublogUser,
 
     eLogClubLog *elogClublog;
     int clublogAnswer;
@@ -735,7 +734,6 @@ private:
     // QRZ.com
     bool qrzcomActive;
     eLogQrzLog *elogQRZcom;
-    QString qrzcomUser, qrzcomPass;
     // QRz.com - END
 
     // Contest

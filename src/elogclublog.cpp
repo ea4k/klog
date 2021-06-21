@@ -34,11 +34,10 @@
 //https://clublog.freshdesk.com/support/solutions/59800
 
 eLogClubLog::eLogClubLog()
+   : SecureLogin("KLog-Clublog", tr("Please, Enter Clublog password"))
 {
      //qDebug()<< "eLogClubLog::eLogClubLog"  << endl;
 
-    email = QString();
-    pass = QString();
     qsos.clear();
     api = "9467beee93377e82a276b0a777d388b5c933d044";
     currentQSO = -1;
@@ -228,7 +227,6 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 
 int eLogClubLog::sendQSO(QStringList _qso)
 {
-     //qDebug() << "eLogClubLog::sendQSO: " << email << "/" << pass << "/" << api  << endl;
       //qDebug()<< "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length()) << endl;
     // First Data in the QStringList is the QSO id, not to be sent to clublog but used in the signal actionReturnDownload(const int _i, const int _qsoId);
    for(int i = 0; i<_qso.length(); i++)
@@ -282,8 +280,6 @@ int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_p
 {
      //qDebug()<< "eLogClubLog::sendDataParams: Call: " << _clublogCall << endl;
      //qDebug()<< "eLogClubLog::sendDataParams: Params: " << _params.query(QUrl::FullyEncoded).toUtf8() << endl;
-     //qDebug()<< "eLogClubLog::sendDataParams: email = " << email << endl;
-     //qDebug()<< "eLogClubLog::sendDataParams: Pass = " << pass << endl;
 
     QUrl serviceUrl;
     if (_adding)
@@ -298,8 +294,8 @@ int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_p
     QByteArray postData;
 
     QUrlQuery params;
-    params.addQueryItem("email",email);
-    params.addQueryItem("password",pass);
+    params.addQueryItem("email",getUser());
+    params.addQueryItem("password",getPass());
 
     if  (_clublogCall.length()>2)
     {
@@ -508,22 +504,15 @@ NOTES
     return qso;
 }
 
-void eLogClubLog::setCredentials(const QString &_email, const QString &_pass, const QString _defaultStationCallsign)
+void eLogClubLog::setDefaultStation(const QString _defaultStationCallsign)
 {
-     //qDebug()<< "eLogClubLog::setCredentials: email: " << _email << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign << endl;
+     //qDebug()<< "eLogClubLog::setDefaultStation: << _defaultStationCallsign << endl;
     stationCallsign = _defaultStationCallsign;
-    email = _email;
-    pass = _pass;
 }
-
-
 
 int eLogClubLog::deleteQSO(QStringList _qso)
 {
      //qDebug()<< "eLogClubLog::deleteQSO: length = " << QString::number(_qso.length()) << endl;
-     //qDebug()<< "eLogClubLog::deleteQSO: " << email << "/" << pass << "/" << api  << endl;
-     //qDebug()<< "eLogClubLog::deleteQSO: email = " << email << endl;
-     //qDebug()<< "eLogClubLog::deleteQSO: Pass = " << pass << endl;
 
     // email, password, callsign, dxcall, datetime (sqlite format, not ADIF), bandid (only the number, not ADIF), api
     if (_qso.length()!=18)
@@ -730,18 +719,16 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     }
     file->close();
     // The rest of the form goes as usual
-      //qDebug()<< "eLogClubLog::sendLogFile: email: " << email << endl;
-      //qDebug()<< "eLogClubLog::sendLogFile: pass: " << pass << endl;
       //qDebug()<< "eLogClubLog::sendLogFile: stationcall: " << stationCallsign << endl;
       //qDebug()<< "eLogClubLog::sendLogFile: api: " << api << endl;
 
     QHttpPart emailPart;
     emailPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"email\""));
-    emailPart.setBody(email.toUtf8());
+    emailPart.setBody(getUser().toUtf8());
 
     QHttpPart passPart;
     passPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"password\""));
-    passPart.setBody(pass.toUtf8());
+    passPart.setBody(getPass().toUtf8());
 
     QHttpPart callPart;
     callPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"callsign\""));

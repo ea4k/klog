@@ -32,6 +32,7 @@
 //#include <QDebug>
 
 LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersion, const QString &_parentFunction, DataProxy_SQLite *dp)
+   : SecureLogin("KLog-LoTW", tr("Please, Enter LoTW password"))
 {
    //qDebug() << "LoTWUtilities::LoTWUtilities(): " << _klogDir << endl;
     dataProxy = dp;
@@ -48,8 +49,6 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
     stationCallsign.clear();
     startDate.clear();
     lotwQuery.clear();
-    lotwUser.clear();
-    lotwPassword.clear();
     fileName = "lotwDownload.adi";
 
     pDialog = new QProgressDialog(nullptr);
@@ -94,38 +93,21 @@ QString LoTWUtilities::getFileName()
 bool LoTWUtilities::selectQuery(const int _queryId)
 {
      //qDebug() << "LoTWUtilities::selectQuery: - Start: " << QString::number(_queryId) << endl;
-    bool savePassword = true;
-    if (lotwPassword.length()<1)
-    {
-        savePassword = false;
 
-        bool ok;
-        lotwPassword = QInputDialog::getText(nullptr, tr("KLog - LoTW password needed"),
-                                                   tr("Please enter your LoTW password: "), QLineEdit::Password, "", &ok);
-        if (!ok)
-        {
-             //qDebug() << "LoTWUtilities::selectQuery: - END 1" <<  endl;
-            return false;
-        }
-    }
     switch (_queryId)
     {
     case 1: // Normal query
-        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(startDate);
+        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(getUser()).arg(getPass()).arg(stationCallsign).arg(startDate);
         break;
     case 2:
-        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(firstDate.toString("yyyyMMdd"));
+        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(getUser()).arg(getPass()).arg(stationCallsign).arg(firstDate.toString("yyyyMMdd"));
         break;
     default:
     {
-        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(lotwUser).arg(lotwPassword).arg(stationCallsign).arg(startDate);
+        lotwQuery = QString("https://lotw.arrl.org/lotwuser/lotwreport.adi?login=%1&password=%2&qso_query=1&qso_qsl=no&qso_owncall=%3&qso_startdate=%4").arg(getUser()).arg(getPass()).arg(stationCallsign).arg(startDate);
     }
     }
 
-    if (!savePassword)
-    {// We delete the password as soon as possible if the user is not willing to save it
-        lotwPassword = QString();
-    }
     url = QUrl(lotwQuery);
 
      //qDebug() << "LoTWUtilities::selectQuery: - END" <<  endl;
@@ -543,24 +525,10 @@ void LoTWUtilities::slotCancelDownload()
      //qDebug() << "LoTWUtilities::slotCancelDownload - END" << endl;
 }
 
-void LoTWUtilities::setUser(const QString &_call)
-{
-     //qDebug() << "LoTWUtilities::setUser: " << _call << endl;
-    lotwUser = _call;
-     //qDebug() << "LoTWUtilities::setUser: END" << endl;
-}
-
-void LoTWUtilities::setPass(const QString &_pass)
-{
-     //qDebug() << "LoTWUtilities::setPass: " << _pass << endl;
-    lotwPassword = _pass;
-     //qDebug() << "LoTWUtilities::setPass: END" << endl;
-}
-
 bool LoTWUtilities::getIsReady()
 {
-     //qDebug() << "LoTWUtilities::getIsReady: user/station: -" << lotwUser <<"/" << stationCallsign << "-" << endl;
-    if ((lotwUser.length()>1) && (stationCallsign.length()>1))
+     //qDebug() << "LoTWUtilities::getIsReady: user/station: -" << getUser() <<"/" << stationCallsign << "-" << endl;
+    if ((getUser().length()>1) && (stationCallsign.length()>1))
     {
          //qDebug() << "LoTWUtilities::getIsReady: true" << endl;
         return true;
