@@ -433,7 +433,7 @@ void MainQSOEntryWidget::setInitialData()
     timeEdit->setTime(QTime::currentTime());
 
     UTCTime = true;
-    //realTime = true;
+    // //qDebug()ime = true;
 
     timer->start(1000);
    emit debugLog(Q_FUNC_INFO, "END", Debug);
@@ -763,8 +763,10 @@ bool MainQSOEntryWidget::getRealTime()
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    //realtimeButton->setChecked(_realTime);
-    realtimeCheckBox->setChecked(_realTime);
+    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_realTime);
+
+    realTime = _realTime;
+    realtimeCheckBox->setChecked(realTime);
     /*
      * if (_realTime)
     {

@@ -1,7 +1,8 @@
-June 2021 - 1.6.1
+TBD 2021 - 1.7
 - Bugfix: RealTime remained checked when editing.
 - Bigfix: Some Hamlib parameters were not properly stored.
 - Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
+- Improvement: DarkMode added. (TNX EA5WA)
 
 June 2021 - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.

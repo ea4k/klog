@@ -94,7 +94,7 @@ private:
     bool readRadioInternal(bool _forceRead);
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
-    rmode_t mode2HamlibMode(const QString &_m);
+    //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;
     QMap<QString, rig_model_t> rigName2RigId;
