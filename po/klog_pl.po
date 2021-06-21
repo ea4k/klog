@@ -1956,8 +1956,8 @@ msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:48 ../mainqsoentrywidget.cpp:392
-#: ../mainqsoentrywidget.cpp:793
+#: ../mainqsoentrywidget.cpp:48 ../mainqsoentrywidget.cpp:401
+#: ../mainqsoentrywidget.cpp:802
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
 msgstr ""
@@ -2013,18 +2013,18 @@ msgctxt "MainQSOEntryWidget|"
 msgid "Real time"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:102 ../mainqsoentrywidget.cpp:959
+#: ../mainqsoentrywidget.cpp:102 ../mainqsoentrywidget.cpp:968
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Znak wywoławczy"
 
-#: ../mainqsoentrywidget.cpp:789
+#: ../mainqsoentrywidget.cpp:798
 msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:964
+#: ../mainqsoentrywidget.cpp:973
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
@@ -3740,103 +3740,103 @@ msgctxt "MainWindowInputEQSL|"
 msgid "eQSL Rec"
 msgstr "eQSL Otrzymane"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:75
+#: ../inputwidgets/mainwindowinputothers.cpp:76
 msgctxt "MainWindowInputOthers|"
 msgid "Primary Div"
 msgstr "Primary Div"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:76
+#: ../inputwidgets/mainwindowinputothers.cpp:77
 msgctxt "MainWindowInputOthers|"
 msgid "Secondary Div"
 msgstr "Secondary Div"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:77
+#: ../inputwidgets/mainwindowinputothers.cpp:78
 msgctxt "MainWindowInputOthers|"
 msgid "IOTA"
 msgstr "IOTA"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:78
+#: ../inputwidgets/mainwindowinputothers.cpp:79
 msgctxt "MainWindowInputOthers|"
 msgid "Entity"
 msgstr "Jednostka"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:79
+#: ../inputwidgets/mainwindowinputothers.cpp:80
 msgctxt "MainWindowInputOthers|"
 msgid "Propagation mode"
 msgstr "Typ propagacji"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:80
+#: ../inputwidgets/mainwindowinputothers.cpp:81
 msgctxt "MainWindowInputOthers|"
 msgid "Others"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:89
+#: ../inputwidgets/mainwindowinputothers.cpp:90
 msgctxt "MainWindowInputOthers|"
 msgid "Keep propagation mode"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:91
+#: ../inputwidgets/mainwindowinputothers.cpp:92
 msgctxt "MainWindowInputOthers|"
 msgid "Select the primary division for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:92
+#: ../inputwidgets/mainwindowinputothers.cpp:93
 msgctxt "MainWindowInputOthers|"
 msgid "Select the secondary division for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:93
+#: ../inputwidgets/mainwindowinputothers.cpp:94
 msgctxt "MainWindowInputOthers|"
 msgid "Select the entity for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:94
+#: ../inputwidgets/mainwindowinputothers.cpp:95
 msgctxt "MainWindowInputOthers|"
 msgid "Select the propagation mode for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:95
+#: ../inputwidgets/mainwindowinputothers.cpp:96
 msgctxt "MainWindowInputOthers|"
 msgid "Select the IOTA continent for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:96
+#: ../inputwidgets/mainwindowinputothers.cpp:97
 msgctxt "MainWindowInputOthers|"
 msgid "Select the IOTA reference number for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:97
+#: ../inputwidgets/mainwindowinputothers.cpp:98
 msgctxt "MainWindowInputOthers|"
 msgid "Keeps the same propagation mode for next QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:99
+#: ../inputwidgets/mainwindowinputothers.cpp:100
 msgctxt "MainWindowInputOthers|"
 msgid "Select the appropriate ADIF field for this QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:100
+#: ../inputwidgets/mainwindowinputothers.cpp:101
 msgctxt "MainWindowInputOthers|"
 msgid "Value for the selected ADIF field."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:136
-#: ../inputwidgets/mainwindowinputothers.cpp:175
+#: ../inputwidgets/mainwindowinputothers.cpp:137
+#: ../inputwidgets/mainwindowinputothers.cpp:176
 msgctxt "MainWindowInputOthers|"
 msgid "Not Identified"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:142
+#: ../inputwidgets/mainwindowinputothers.cpp:143
 msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:474
+#: ../inputwidgets/mainwindowinputothers.cpp:476
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:474
+#: ../inputwidgets/mainwindowinputothers.cpp:476
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr ""
@@ -3912,13 +3912,13 @@ msgid "RX RST."
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputqso.cpp:69
-#: ../inputwidgets/mainwindowinputqso.cpp:570
+#: ../inputwidgets/mainwindowinputqso.cpp:546
 msgctxt "MainWindowInputQSO|"
 msgid "TX Frequency in MHz."
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputqso.cpp:70
-#: ../inputwidgets/mainwindowinputqso.cpp:609
+#: ../inputwidgets/mainwindowinputqso.cpp:599
 msgctxt "MainWindowInputQSO|"
 msgid "RX Frequency in MHz."
 msgstr ""
@@ -4002,106 +4002,106 @@ msgctxt "MainWindowInputQSO|"
 msgid "Freq RX"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:282
+#: ../inputwidgets/mainwindowinputqso.cpp:271
 msgctxt "MainWindowInputQSO|"
 msgid "DX QTH locator."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:290
+#: ../inputwidgets/mainwindowinputqso.cpp:279
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:577
+#: ../inputwidgets/mainwindowinputqso.cpp:560
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:614
+#: ../inputwidgets/mainwindowinputqso.cpp:604
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:71
+#: ../inputwidgets/mainwindowmydatatab.cpp:72
 msgctxt "MainWindowMyDataTab|"
 msgid "Watts"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:73
+#: ../inputwidgets/mainwindowmydatatab.cpp:74
 msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "Zachowaj te dane"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:188
+#: ../inputwidgets/mainwindowmydatatab.cpp:196
 #, fuzzy
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
 msgstr "Mój QTH Lokator."
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:75
+#: ../inputwidgets/mainwindowmydatatab.cpp:76
 msgctxt "MainWindowMyDataTab|"
 msgid "Power"
 msgstr "Moc"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:77
+#: ../inputwidgets/mainwindowmydatatab.cpp:78
 msgctxt "MainWindowMyDataTab|"
 msgid "Operator callsign"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:79
+#: ../inputwidgets/mainwindowmydatatab.cpp:80
 msgctxt "MainWindowMyDataTab|"
 msgid "Station Callsign"
 msgstr "Znak stacji"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:82
+#: ../inputwidgets/mainwindowmydatatab.cpp:83
 msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "Mój lokator"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:200
+#: ../inputwidgets/mainwindowmydatatab.cpp:208
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:407
+#: ../inputwidgets/mainwindowmydatatab.cpp:431
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:407
+#: ../inputwidgets/mainwindowmydatatab.cpp:431
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:407
+#: ../inputwidgets/mainwindowmydatatab.cpp:431
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:89
+#: ../inputwidgets/mainwindowsattab.cpp:90
 msgctxt "MainWindowSatTab|"
 msgid "Keep this data"
 msgstr "Zachowaj te dane"
 
-#: ../inputwidgets/mainwindowsattab.cpp:94
-#: ../inputwidgets/mainwindowsattab.cpp:420
+#: ../inputwidgets/mainwindowsattab.cpp:95
+#: ../inputwidgets/mainwindowsattab.cpp:429
 msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Inne - Satelita nie jest na liście"
 
-#: ../inputwidgets/mainwindowsattab.cpp:91
-#: ../inputwidgets/mainwindowsattab.cpp:93
+#: ../inputwidgets/mainwindowsattab.cpp:92
+#: ../inputwidgets/mainwindowsattab.cpp:94
 msgctxt "MainWindowSatTab|"
 msgid "Data entered in this tab will be copied into the next QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:97
+#: ../inputwidgets/mainwindowsattab.cpp:98
 #, qt-format
 msgctxt "MainWindowSatTab|"
 msgid ""
@@ -4109,83 +4109,83 @@ msgid ""
 "(format like AO-51)."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:100
+#: ../inputwidgets/mainwindowsattab.cpp:101
 msgctxt "MainWindowSatTab|"
 msgid "Satellite mode used."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:101
+#: ../inputwidgets/mainwindowsattab.cpp:102
 msgctxt "MainWindowSatTab|"
 msgid "Select the satellite you are using."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:102
+#: ../inputwidgets/mainwindowsattab.cpp:103
 msgctxt "MainWindowSatTab|"
 msgid "UpLink band."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:103
+#: ../inputwidgets/mainwindowsattab.cpp:104
 msgctxt "MainWindowSatTab|"
 msgid "DownLink band."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:104
-#: ../inputwidgets/mainwindowsattab.cpp:278
+#: ../inputwidgets/mainwindowsattab.cpp:105
+#: ../inputwidgets/mainwindowsattab.cpp:287
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Locator of the DX station. This box is synchronized with the Locator box in "
 "the QSO tab."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:107
+#: ../inputwidgets/mainwindowsattab.cpp:108
 msgctxt "MainWindowSatTab|"
 msgid "UpLink"
 msgstr "UpLink"
 
-#: ../inputwidgets/mainwindowsattab.cpp:111
+#: ../inputwidgets/mainwindowsattab.cpp:112
 msgctxt "MainWindowSatTab|"
 msgid "DownLink"
 msgstr "DownLink"
 
-#: ../inputwidgets/mainwindowsattab.cpp:115
+#: ../inputwidgets/mainwindowsattab.cpp:116
 msgctxt "MainWindowSatTab|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../inputwidgets/mainwindowsattab.cpp:119
+#: ../inputwidgets/mainwindowsattab.cpp:120
 msgctxt "MainWindowSatTab|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../inputwidgets/mainwindowsattab.cpp:123
+#: ../inputwidgets/mainwindowsattab.cpp:124
 msgctxt "MainWindowSatTab|"
 msgid "DX Locator"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:128
+#: ../inputwidgets/mainwindowsattab.cpp:129
 msgctxt "MainWindowSatTab|"
 msgid "Other"
 msgstr "Inne"
 
-#: ../inputwidgets/mainwindowsattab.cpp:133
-#: ../inputwidgets/mainwindowsattab.cpp:137
+#: ../inputwidgets/mainwindowsattab.cpp:134
+#: ../inputwidgets/mainwindowsattab.cpp:138
 msgctxt "MainWindowSatTab|"
 msgid "MHz"
 msgstr "MHz"
 
-#: ../inputwidgets/mainwindowsattab.cpp:288
+#: ../inputwidgets/mainwindowsattab.cpp:297
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 "
 "characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:419
+#: ../inputwidgets/mainwindowsattab.cpp:428
 msgctxt "MainWindowSatTab|"
 msgid "Not Sat QSO"
 msgstr "QSO nie przez SAT"
 
-#: ../inputwidgets/mainwindowsattab.cpp:456
+#: ../inputwidgets/mainwindowsattab.cpp:465
 msgctxt "MainWindowSatTab|"
 msgid ""
 "KLog has detected a satellite name that it does not recognise. If it should "
@@ -4198,38 +4198,38 @@ msgstr ""
 "Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać do "
 "listy w kolejnych wydaniach."
 
-#: ../inputwidgets/mainwindowsattab.cpp:457
+#: ../inputwidgets/mainwindowsattab.cpp:466
 msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "Satelita w Twoim QSO to: "
 
-#: ../inputwidgets/mainwindowsattab.cpp:457
+#: ../inputwidgets/mainwindowsattab.cpp:466
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Please be aware that the satellite name will not be saved if it is not in "
 "the list, so that information may be lost!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:556
+#: ../inputwidgets/mainwindowsattab.cpp:575
 msgctxt "MainWindowSatTab|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:561
+#: ../inputwidgets/mainwindowsattab.cpp:580
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:615
+#: ../inputwidgets/mainwindowsattab.cpp:644
 msgctxt "MainWindowSatTab|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:620
+#: ../inputwidgets/mainwindowsattab.cpp:649
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr ""
@@ -5086,79 +5086,94 @@ msgctxt "SetupPageBandMode|"
 msgid "Modes"
 msgstr "Emisje"
 
-#: ../setuppages/setuppagecolors.cpp:44
+#: ../setuppages/setuppagecolors.cpp:45
 msgctxt "SetupPageColors|"
 msgid "New One"
 msgstr "Nowy kraj"
 
-#: ../setuppages/setuppagecolors.cpp:45
+#: ../setuppages/setuppagecolors.cpp:46
 msgctxt "SetupPageColors|"
 msgid "Needed in this band"
 msgstr "Potrzebny na tym paśmie"
 
-#: ../setuppages/setuppagecolors.cpp:46
+#: ../setuppages/setuppagecolors.cpp:47
 msgctxt "SetupPageColors|"
 msgid "Worked in this band"
 msgstr "Zrobiony na tym paśmie"
 
-#: ../setuppages/setuppagecolors.cpp:47
+#: ../setuppages/setuppagecolors.cpp:48
 msgctxt "SetupPageColors|"
 msgid "Confirmed in this band"
 msgstr "Potwierdzony na tym paśmie"
 
-#: ../setuppages/setuppagecolors.cpp:48
+#: ../setuppages/setuppagecolors.cpp:49
 msgctxt "SetupPageColors|"
 msgid "Default"
 msgstr "Domyślny"
 
-#: ../setuppages/setuppagecolors.cpp:49
+#: ../setuppages/setuppagecolors.cpp:50
 msgctxt "SetupPageColors|"
 msgid "WSJT-X palette"
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:50
+#: ../setuppages/setuppagecolors.cpp:51
 msgctxt "SetupPageColors|"
 msgid "Default palette"
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:52
+#: ../setuppages/setuppagecolors.cpp:52 ../setuppages/setuppagecolors.cpp:300
+msgctxt "SetupPageColors|"
+msgid "Dark Mode"
+msgstr ""
+
+#: ../setuppages/setuppagecolors.cpp:54
 msgctxt "SetupPageColors|"
 msgid "Color when the DXCC is an ATNO (All Time New One)."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:55
+#: ../setuppages/setuppagecolors.cpp:57
 msgctxt "SetupPageColors|"
 msgid "DXCC is confirmed in this band."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:56
+#: ../setuppages/setuppagecolors.cpp:58
 msgctxt "SetupPageColors|"
 msgid "Default color."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:57
+#: ../setuppages/setuppagecolors.cpp:59
 msgctxt "SetupPageColors|"
 msgid "Sets a palette of colors similar to the one used in WSJT-X."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:58
+#: ../setuppages/setuppagecolors.cpp:60
 msgctxt "SetupPageColors|"
 msgid "Sets the default palette."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:53
+#: ../setuppages/setuppagecolors.cpp:281
+msgctxt "SetupPageColors|"
+msgid "Light Mode"
+msgstr ""
+
+#: ../setuppages/setuppagecolors.cpp:55
 msgctxt "SetupPageColors|"
 msgid ""
 "This DXCC was worked before in another band but not in the selected band. It "
 "may be needed due to the CQ, ITU, Grid, ..."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:54
+#: ../setuppages/setuppagecolors.cpp:56
 msgctxt "SetupPageColors|"
 msgid "Worked DXCC, but not confirmed in this band."
 msgstr ""
 
-#: ../setuppages/setuppagecolors.cpp:168
+#: ../setuppages/setuppagecolors.cpp:61
+msgctxt "SetupPageColors|"
+msgid "Sets the Dark Mode"
+msgstr ""
+
+#: ../setuppages/setuppagecolors.cpp:174
 msgctxt "SetupPageColors|"
 msgid "Choose a color"
 msgstr "Wybierz kolor"

@@ -1921,8 +1921,8 @@ Chyba : %2</translation>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="48"/>
-        <location filename="../mainqsoentrywidget.cpp" line="392"/>
-        <location filename="../mainqsoentrywidget.cpp" line="793"/>
+        <location filename="../mainqsoentrywidget.cpp" line="401"/>
+        <location filename="../mainqsoentrywidget.cpp" line="802"/>
         <source>&amp;Add</source>
         <translation>&amp;Vložit</translation>
     </message>
@@ -1978,17 +1978,17 @@ Chyba : %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="102"/>
-        <location filename="../mainqsoentrywidget.cpp" line="959"/>
+        <location filename="../mainqsoentrywidget.cpp" line="968"/>
         <source>Callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="789"/>
+        <location filename="../mainqsoentrywidget.cpp" line="798"/>
         <source>&amp;Modify</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="964"/>
+        <location filename="../mainqsoentrywidget.cpp" line="973"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3641,103 +3641,103 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
 <context>
     <name>MainWindowInputOthers</name>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="75"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="76"/>
         <source>Primary Div</source>
         <translation>Primární Div</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="76"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="77"/>
         <source>Secondary Div</source>
         <translation>Sekundární Div</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="77"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="78"/>
         <source>IOTA</source>
         <translation>IOTA</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="78"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
         <source>Entity</source>
         <translation>Země</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
         <source>Propagation mode</source>
         <translation>Druh šíření</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="81"/>
         <source>Others</source>
         <translation>Jiné</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="90"/>
         <source>Keep propagation mode</source>
         <translation>Ponechat způsob šíření</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="91"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="92"/>
         <source>Select the primary division for this QSO.</source>
         <translation>Vyberte primární divizi pro QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="93"/>
         <source>Select the secondary division for this QSO.</source>
         <translation>Vyberte sekundární divizi pro QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="94"/>
         <source>Select the entity for this QSO.</source>
         <translation>Vyberte zemi pro QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="94"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="95"/>
         <source>Select the propagation mode for this QSO.</source>
         <translation>Vyberte způsob šíření pro QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="96"/>
         <source>Select the IOTA continent for this QSO.</source>
         <translation>Vyberte IOTA kontinent pro QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="96"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="97"/>
         <source>Select the IOTA reference number for this QSO.</source>
         <translation>Vyberte IOTA referenční číslo pro QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="97"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="98"/>
         <source>Keeps the same propagation mode for next QSO.</source>
         <translation>Zachovat způsob šíření pro další QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="99"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
         <source>Select the appropriate ADIF field for this QSO.</source>
         <translation>Vyberte příslušné pole ADIF pro toto QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="101"/>
         <source>Value for the selected ADIF field.</source>
         <translation>Hodnota pro vybrané pole ADIF.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="136"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="175"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="137"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="176"/>
         <source>Not Identified</source>
         <translation>Neidentifikován</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="142"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="143"/>
         <source>Not - Not Identified</source>
         <translation>Ne - Neidentifikován</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="476"/>
         <source>SOTA Ref</source>
         <translation>SOTA Ref</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="476"/>
         <source>Age</source>
         <translation>Věk</translation>
     </message>
@@ -3819,13 +3819,13 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="69"/>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="570"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="546"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Frekvence v MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="70"/>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="609"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="599"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Frekvence v MHz.</translation>
     </message>
@@ -3907,24 +3907,24 @@ V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW.</translation>
         <translation>Frek RX</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="282"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="271"/>
         <source>DX QTH locator.</source>
         <translation>DX QTH lokátor.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="290"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="279"/>
         <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>DX QTH lokátor. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="560"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="604"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RX Frekvence v MHz.
@@ -3934,57 +3934,57 @@ Frekvence je mimo radioamatérké pásmo!</translation>
 <context>
     <name>MainWindowMyDataTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="71"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="72"/>
         <source>Watts</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="73"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="74"/>
         <source>Keep this data</source>
         <translation>Ponechat pro další</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="188"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="196"/>
         <source>My QTH locator.</source>
         <translation>Můj QTH lokátor.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="76"/>
         <source>Power</source>
         <translation>Výkon</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="78"/>
         <source>Operator callsign</source>
         <translation>Značka operátora</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="80"/>
         <source>Station Callsign</source>
         <translation>Značka stanice</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="83"/>
         <source>My Locator</source>
         <translation>Můj lokátor</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="200"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="208"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Můj QTH lokátor. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My Rig</source>
         <translation>Můj Rig</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My Antenna</source>
         <translation>Moje anténa</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My SOTA_Ref</source>
         <translation>Moje SOTA_Ref</translation>
     </message>
@@ -3992,135 +3992,135 @@ Frekvence je mimo radioamatérké pásmo!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="89"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
         <source>Keep this data</source>
         <translation>Ponechat pro další</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="91"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Data zadaná na této kartě budou zkopírována do dalšího spojení.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="420"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="429"/>
         <source>Other - Sat not in the list</source>
         <translation>Jiný - Sat není v seznamu</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="97"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Jméno satelitu pokud není v seznamu. Vyberte: &quot;%1&quot; aktivovat toto pole. (např. AO-51).</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
         <source>Satellite mode used.</source>
         <translation>Použit satelitní režim.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Select the satellite you are using.</source>
         <translation>Vyberte satelit, který používáte.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>UpLink band.</source>
         <translation>Pásmo UpLink.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>DownLink band.</source>
         <translation>Pásmo DownLink.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="278"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="287"/>
         <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
         <translation>Lokátor DX stanice. Toto pole je synchronizováno s polem Lokátoru v záložce QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>UpLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="111"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>DownLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="115"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Druh provozu</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="123"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>DX Locator</source>
         <translation>DX Lokátor</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="128"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="129"/>
         <source>Other</source>
         <translation>Jiné</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="133"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="137"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="134"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="138"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="288"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="297"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Lokátor DX stanice. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="428"/>
         <source>Not Sat QSO</source>
         <translation>Není Sat QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="465"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>Jméno satelity nebylo rozpoznáno. Pokud má být použito jedno ze jmen známých satelitů, vyberte jej ze seznamu. Případně kontaktujte vývojový tým a přidejte nový název satelitu.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="457"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satelit použit pro: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="457"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Pamatujte, že název satelitu nebude uložen, pokud není v seznamu, takže může dojít ke ztrátě informací!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="556"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="575"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="580"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Frekvence v MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="615"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="644"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="620"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="649"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Frekvence v MHz.</translation>
     </message>
@@ -4987,79 +4987,95 @@ Přidejte a vyberte druh logu, který chcete použít.</translation>
 <context>
     <name>SetupPageColors</name>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="44"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
         <source>New One</source>
         <translation>Nové</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="46"/>
         <source>Needed in this band</source>
         <translation>Potřeba na tomto pásmu</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="46"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="47"/>
         <source>Worked in this band</source>
         <translation>Navázáno na tomto pásmu</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="47"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="48"/>
         <source>Confirmed in this band</source>
         <translation>Potvrzeno na tomto pásmu</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="48"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="49"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="49"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="50"/>
         <source>WSJT-X palette</source>
         <translation>Paleta WSJT-X</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="50"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="51"/>
         <source>Default palette</source>
         <translation>Výchozí paleta</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
+        <source>Dark Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
         <source>Color when the DXCC is an ATNO (All Time New One).</source>
         <translation>Barva pro ATNO (All Time New One) DXCC.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="53"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
         <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
         <translation>S DXCC bylo navázané spojení na jiném pásmu, ale ne na vybraném pásmu.Může to být nutné pro CQ, ITU, Čtverce, ...</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
         <source>Worked DXCC, but not confirmed in this band.</source>
         <translation>Navázáno s DXCC, ale není potvrzené na tomto pásmu.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
         <source>DXCC is confirmed in this band.</source>
         <translation>DXCC potvrzeno na tomto pásmu.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
         <source>Default color.</source>
         <translation>Výchozí barva.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="59"/>
         <source>Sets a palette of colors similar to the one used in WSJT-X.</source>
         <translation>Barevná paleta podobná barvám, používaných v WSJT-X.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="60"/>
         <source>Sets the default palette.</source>
         <translation>Nastav výchozí paletu.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="168"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
+        <source>Sets the Dark Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
         <source>Choose a color</source>
         <translation>Vyberte barvu</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
+        <source>Light Mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

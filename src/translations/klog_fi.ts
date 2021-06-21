@@ -1910,8 +1910,8 @@ Error returned: %2</source>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="48"/>
-        <location filename="../mainqsoentrywidget.cpp" line="392"/>
-        <location filename="../mainqsoentrywidget.cpp" line="793"/>
+        <location filename="../mainqsoentrywidget.cpp" line="401"/>
+        <location filename="../mainqsoentrywidget.cpp" line="802"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Lisää</translation>
     </message>
@@ -1967,18 +1967,18 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="102"/>
-        <location filename="../mainqsoentrywidget.cpp" line="959"/>
+        <location filename="../mainqsoentrywidget.cpp" line="968"/>
         <source>Callsign</source>
         <translation type="unfinished">Kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="964"/>
+        <location filename="../mainqsoentrywidget.cpp" line="973"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="789"/>
+        <location filename="../mainqsoentrywidget.cpp" line="798"/>
         <source>&amp;Modify</source>
         <translation>&amp;Muokkaa</translation>
     </message>
@@ -3622,103 +3622,103 @@ UDP-palvelin ei onnistunut %1.</translation>
 <context>
     <name>MainWindowInputOthers</name>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="75"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="76"/>
         <source>Primary Div</source>
         <translation>Ensisijainen hallinnollinen alue</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="76"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="77"/>
         <source>Secondary Div</source>
         <translation>Toissijainen hallinnollinen alue</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="77"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="78"/>
         <source>IOTA</source>
         <translation>IOTA</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="78"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
         <source>Entity</source>
         <translation>Yksikkö</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
         <source>Propagation mode</source>
         <translation>Etenemistapa</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="81"/>
         <source>Others</source>
         <translation type="unfinished">Muut</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="90"/>
         <source>Keep propagation mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="91"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="92"/>
         <source>Select the primary division for this QSO.</source>
         <translation>Valitse tämän QSO:n päädivisioona.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="93"/>
         <source>Select the secondary division for this QSO.</source>
         <translation>Valitse tämän QSO:n toissijainen divisioona.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="94"/>
         <source>Select the entity for this QSO.</source>
         <translation>Valitse tämän QSO:n yksikkö.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="94"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="95"/>
         <source>Select the propagation mode for this QSO.</source>
         <translation>Valitse tämän QSO:n etenemistapa.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="96"/>
         <source>Select the IOTA continent for this QSO.</source>
         <translation>Valitse tämän QSO:n IOTA-manner.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="96"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="97"/>
         <source>Select the IOTA reference number for this QSO.</source>
         <translation>Valitse tämän QSO:n IOTA-referenssinumero.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="97"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="98"/>
         <source>Keeps the same propagation mode for next QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="99"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
         <source>Select the appropriate ADIF field for this QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="101"/>
         <source>Value for the selected ADIF field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="136"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="175"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="137"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="176"/>
         <source>Not Identified</source>
         <translation>Ei tunnistettu</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="142"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="143"/>
         <source>Not - Not Identified</source>
         <translation>Ei - Ei tunnistettu</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="476"/>
         <source>SOTA Ref</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="476"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3800,13 +3800,13 @@ UDP-palvelin ei onnistunut %1.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="69"/>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="570"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="546"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished">TX Taajuus MHz:inä.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="70"/>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="609"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="599"/>
         <source>RX Frequency in MHz.</source>
         <translation type="unfinished">RX Taajuus MHz:inä.</translation>
     </message>
@@ -3888,24 +3888,24 @@ UDP-palvelin ei onnistunut %1.</translation>
         <translation type="unfinished">RX Taajuus</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="282"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="271"/>
         <source>DX QTH locator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="290"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="279"/>
         <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="560"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished">TX Taajuus MHz.
 Taajuus ei ole oikealla taajuusalueella!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="604"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished">RX Taajuus MHz.
@@ -3915,57 +3915,57 @@ Taajuus ei ole oikealla taajuusalueella!</translation>
 <context>
     <name>MainWindowMyDataTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="71"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="72"/>
         <source>Watts</source>
         <translation>Wattia</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="73"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="74"/>
         <source>Keep this data</source>
         <translation>Säilytä nämä tiedot</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="188"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="196"/>
         <source>My QTH locator.</source>
         <translation>Minun QTH lokaattori.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="76"/>
         <source>Power</source>
         <translation>Teho</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="78"/>
         <source>Operator callsign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="80"/>
         <source>Station Callsign</source>
         <translation>Aseman kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="83"/>
         <source>My Locator</source>
         <translation>Minun lokaattori</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="200"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="208"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Minun QTH lokaattori. Tulisi olla muotoa Maidenhead, kuten IN70AA, enintään 10 merkkiä.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My Antenna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My SOTA_Ref</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3973,135 +3973,135 @@ Taajuus ei ole oikealla taajuusalueella!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="89"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
         <source>Keep this data</source>
         <translation>Säilytä nämä tiedot</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="420"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="429"/>
         <source>Other - Sat not in the list</source>
         <translation>Muut - Satelliitti ei ole listalla</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="91"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Tähän välilehteen syötetyt tiedot kopioidaan seuraavaan QSO:n.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="97"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Satelliitin nimi, jos ei löydy listalta. Aktivoi tämä ruutu valitsemalla: &quot;1%&quot; (nimi on muodossa: A0-51). </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
         <source>Satellite mode used.</source>
         <translation>Satelliitti tilaa käytetty.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Select the satellite you are using.</source>
         <translation>Valitse satelliitti jota käytät.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>UpLink band.</source>
         <translation>Lähetyslinkin taajuusalue.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>DownLink band.</source>
         <translation>Vastaanottolinkin taajuusalue.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="278"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="287"/>
         <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
         <translation>DX aseman lokaattori. Tämä ruutu on sykronisoitu QSO välilehden, lokaattori ruudun kanssa.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>Lähetyslinkki</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="111"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>Vastaanottolinkki</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="115"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satelliitti</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="123"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>DX Locator</source>
         <translation>DX lokaattori</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="128"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="129"/>
         <source>Other</source>
         <translation>Muuta</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="133"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="137"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="134"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="138"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="288"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="297"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>DX aseman lokaattori. Tulisi olla muotoa Maidenhead, kuten IN70AA, enintään 10 merkkiä.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="428"/>
         <source>Not Sat QSO</source>
         <translation>Ei Satelliitti QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="465"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog on havainnut satelliitin nimen, jota se ei tunnista. Jos sen tulisi sen sijaan käyttää jotain tunnettujen satelliittien nimistä sen sijaan, valitse se luettelosta. Vaihtoehtoisesti, voit ottaa yhteyttä kehitystiimiin lisätäksesi uuden satelliitin nimen.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="457"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>QSO:ssa oleva satelliitti on: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="457"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Huomaathat että satelliitin nimeä ei tallenneta, ellei sitä löydy listasta, joten tämä tieto saattaa hävitä!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="556"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="575"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RX Taajuus MHz.
 Taajuus ei ole oikealla taajuusalueella!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="580"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Taajuus MHz:inä.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="615"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="644"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TX Taajuus MHz.
 Taajuus ei ole oikealla taajuusalueella!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="620"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="649"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Taajuus MHz:inä.</translation>
     </message>
@@ -4962,77 +4962,93 @@ Lisää, ja valitse millaista lokia haluat käyttää.</translation>
 <context>
     <name>SetupPageColors</name>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="44"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
         <source>New One</source>
         <translation>Uusi</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="46"/>
         <source>Needed in this band</source>
         <translation>Tarvittu tällä taajuussalueella</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="46"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="47"/>
         <source>Worked in this band</source>
         <translation>Työstetty tällä taajuusalueella</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="47"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="48"/>
         <source>Confirmed in this band</source>
         <translation>Vahvistettu tällä taajuusalueella</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="48"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="49"/>
         <source>Default</source>
         <translation>Oletus</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="49"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="50"/>
         <source>WSJT-X palette</source>
         <translation>WSJT-X väripaletti</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="50"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="51"/>
         <source>Default palette</source>
         <translation>Oletusväripaletti</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
+        <source>Dark Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
         <source>Color when the DXCC is an ATNO (All Time New One).</source>
         <translation>Väri kun DXCC on tyyppiä ATNO (All Time New One).</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
         <source>DXCC is confirmed in this band.</source>
         <translation>DXCC on vahvistettu tällä taajuusalueella.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
         <source>Default color.</source>
         <translation>Oletusväri.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="59"/>
         <source>Sets a palette of colors similar to the one used in WSJT-X.</source>
         <translation>Asettaa väripaletin samankaltaiseksi kuin on käytetty WSJT-X:ssä</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="60"/>
         <source>Sets the default palette.</source>
         <translation>Asettaa oletusväripaletin.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="53"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
+        <source>Light Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
         <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
         <translation>Tämä DXCC on työstetty aiemmin eri taajuusalueella mutta ei valitulla taajuusalueella. Tämä saattaa olla tarpeellista CQ, ITU, Verkko, ...</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
         <source>Worked DXCC, but not confirmed in this band.</source>
         <translation>Työstetty DXCC, mutta ei vahvistettu tällä taajuusalueella.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="168"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
+        <source>Sets the Dark Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
         <source>Choose a color</source>
         <translation>Valitse väri</translation>
     </message>

@@ -1910,8 +1910,8 @@ Error returned: %2</source>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="48"/>
-        <location filename="../mainqsoentrywidget.cpp" line="392"/>
-        <location filename="../mainqsoentrywidget.cpp" line="793"/>
+        <location filename="../mainqsoentrywidget.cpp" line="401"/>
+        <location filename="../mainqsoentrywidget.cpp" line="802"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Tilføj</translation>
     </message>
@@ -1967,18 +1967,18 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="102"/>
-        <location filename="../mainqsoentrywidget.cpp" line="959"/>
+        <location filename="../mainqsoentrywidget.cpp" line="968"/>
         <source>Callsign</source>
         <translation type="unfinished">Kaldesignal</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="964"/>
+        <location filename="../mainqsoentrywidget.cpp" line="973"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished">DUPE</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="789"/>
+        <location filename="../mainqsoentrywidget.cpp" line="798"/>
         <source>&amp;Modify</source>
         <translation type="unfinished">&amp;Ændr</translation>
     </message>
@@ -3614,103 +3614,103 @@ Do you want KLog to remove that file?</source>
 <context>
     <name>MainWindowInputOthers</name>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="75"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="76"/>
         <source>Primary Div</source>
         <translation>Primær div</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="76"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="77"/>
         <source>Secondary Div</source>
         <translation>Sekundær div</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="77"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="78"/>
         <source>IOTA</source>
         <translation>IOTA</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="78"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
         <source>Entity</source>
         <translation>Entitet</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="79"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
         <source>Propagation mode</source>
         <translation>Propagationtilstand</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="80"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="81"/>
         <source>Others</source>
         <translation type="unfinished">Andre</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="90"/>
         <source>Keep propagation mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="91"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="92"/>
         <source>Select the primary division for this QSO.</source>
         <translation>ælg den primære division for denne QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="93"/>
         <source>Select the secondary division for this QSO.</source>
         <translation>Vælg den sekundære division for denne QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="94"/>
         <source>Select the entity for this QSO.</source>
         <translation>Vælg identiteten for denne QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="94"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="95"/>
         <source>Select the propagation mode for this QSO.</source>
         <translation>Vælg propagatonstilstand for denne QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="96"/>
         <source>Select the IOTA continent for this QSO.</source>
         <translation>Vælg IOTA-kontinentet for denne QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="96"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="97"/>
         <source>Select the IOTA reference number for this QSO.</source>
         <translation>Vælg IOTA-referencenummeret for denne QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="97"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="98"/>
         <source>Keeps the same propagation mode for next QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="99"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
         <source>Select the appropriate ADIF field for this QSO.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="101"/>
         <source>Value for the selected ADIF field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="136"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="175"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="137"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="176"/>
         <source>Not Identified</source>
         <translation>Ikke Identificeret</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="142"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="143"/>
         <source>Not - Not Identified</source>
         <translation>Ikke - ikke identificeret</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="476"/>
         <source>SOTA Ref</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="474"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="476"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3792,13 +3792,13 @@ Do you want KLog to remove that file?</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="69"/>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="570"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="546"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished">TX-frekvens i MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="70"/>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="609"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="599"/>
         <source>RX Frequency in MHz.</source>
         <translation type="unfinished">RX-frekvens i MHz.</translation>
     </message>
@@ -3880,24 +3880,24 @@ Do you want KLog to remove that file?</source>
         <translation type="unfinished">Freq RX</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="282"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="271"/>
         <source>DX QTH locator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="290"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="279"/>
         <source>DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="577"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="560"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished">TX-frekvens i MHz.
 Frekvens er ikke i et amatørradiobånd!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="614"/>
+        <location filename="../inputwidgets/mainwindowinputqso.cpp" line="604"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished">RX-frekvens i MHz.
@@ -3907,57 +3907,57 @@ Frekvens er ikke i et amatørradiobånd!</translation>
 <context>
     <name>MainWindowMyDataTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="71"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="72"/>
         <source>Watts</source>
         <translation type="unfinished">Watt</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="73"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="74"/>
         <source>Keep this data</source>
         <translation>Behold disse data</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="188"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="196"/>
         <source>My QTH locator.</source>
         <translation>Min QTH-locator.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="75"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="76"/>
         <source>Power</source>
         <translation>Strøm</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="77"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="78"/>
         <source>Operator callsign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="79"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="80"/>
         <source>Station Callsign</source>
         <translation>Stationkaldesignal</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="83"/>
         <source>My Locator</source>
         <translation>Min locator</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="200"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="208"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My Antenna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="407"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="431"/>
         <source>My SOTA_Ref</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3965,135 +3965,135 @@ Frekvens er ikke i et amatørradiobånd!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="89"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
         <source>Keep this data</source>
         <translation>Behold disse data</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="420"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="429"/>
         <source>Other - Sat not in the list</source>
         <translation>Andre - sat er ikke i listen</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="91"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Data indtastet i dette faneblad vil blive kopieret ind i den næste QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="97"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Navn på satellitten hvis ikke i listen. Vælg: »%1« for at aktivere denne boks.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
         <source>Satellite mode used.</source>
         <translation>Satellittilstand anvendt.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Select the satellite you are using.</source>
         <translation>Vælg satelitten du bruger.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>UpLink band.</source>
         <translation>UpLink-bånd.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>DownLink band.</source>
         <translation>DownLink-bånd.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="278"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="287"/>
         <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
         <translation>Lokalisering af DX-stationen. Denne boks er synkroniseret med lokaliseringsboksen i QSO-fanebladet.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>UpLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="111"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>DownLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="115"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satellit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Tilstand</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="123"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>DX Locator</source>
         <translation>DX-lokalisering</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="128"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="129"/>
         <source>Other</source>
         <translation>Andet</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="133"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="137"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="134"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="138"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="288"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="297"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="428"/>
         <source>Not Sat QSO</source>
         <translation>Ikke sat QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="465"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog har registreret et satellitnavn, som det ikke genkender. Hvis det skal bruge et af navnene på kendte satellitter i stedet for, vælg det fra listen. Alternativt så kontakt udviklingsholdet for at tilføje det nye satellitnavn.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="457"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satellitten du har i din QSO er: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="457"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="556"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="575"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished">RX-frekvens i MHz.
 Frekvens er ikke i et amatørradiobånd!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="580"/>
         <source>RX Frequency in MHz.</source>
         <translation type="unfinished">RX-frekvens i MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="615"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="644"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished">TX-frekvens i MHz.
 Frekvens er ikke i et amatørradiobånd!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="620"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="649"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished">TX-frekvens i MHz.</translation>
     </message>
@@ -4953,77 +4953,93 @@ Tilføj og vælg den slags log du ønsker at bruge.</translation>
 <context>
     <name>SetupPageColors</name>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="44"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
         <source>New One</source>
         <translation>Ny</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="45"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="46"/>
         <source>Needed in this band</source>
         <translation>Krævet i dette bånd</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="46"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="47"/>
         <source>Worked in this band</source>
         <translation>Bearbejdet i dette bånd</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="47"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="48"/>
         <source>Confirmed in this band</source>
         <translation>Bekræftet i dette bånd</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="48"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="49"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="49"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="50"/>
         <source>WSJT-X palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="50"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="51"/>
         <source>Default palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
-        <source>Color when the DXCC is an ATNO (All Time New One).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
-        <source>DXCC is confirmed in this band.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
-        <source>Default color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
-        <source>Sets a palette of colors similar to the one used in WSJT-X.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
-        <source>Sets the default palette.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="53"/>
-        <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
+        <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
+        <source>Dark Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
+        <source>Color when the DXCC is an ATNO (All Time New One).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="57"/>
+        <source>DXCC is confirmed in this band.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="58"/>
+        <source>Default color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="59"/>
+        <source>Sets a palette of colors similar to the one used in WSJT-X.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="60"/>
+        <source>Sets the default palette.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
+        <source>Light Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
+        <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
         <source>Worked DXCC, but not confirmed in this band.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagecolors.cpp" line="168"/>
+        <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
+        <source>Sets the Dark Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
         <source>Choose a color</source>
         <translation>Vælg en farve</translation>
     </message>
