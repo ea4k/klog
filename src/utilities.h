@@ -44,13 +44,11 @@ class Utilities
 public:
     Utilities();
     ~Utilities();
-    void setDarkMode(const QString _dm);
+    void setDarkMode(const bool _dm);
     bool isDarkMode();
     bool darkMode;
     int getProgresStepForDialog(int totalSteps);
-    bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
     QChar boolToCharToSQLite(const bool _b);
-    QString boolToQString(const bool _b);
     QString checkAndFixASCIIinADIF(const QString &_data);
     QString getAgent(const QString &_klogversion);
     QString getGlobalAgent(const QString &_klogversion);
@@ -65,8 +63,7 @@ public:
     bool isDBFileExisting(const QString &_file);
     QString getTQSLsFileName();
     QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
-    QString getHomeDir();
-    QString getCfgFile();
+    static QString getHomeDir();
     QString getCTYFile();
     QString getDebugLogFile();
     QString getSaveSpotsLogFile();
@@ -140,7 +137,6 @@ public:
     QString getOnlineServiceName(OnLineProvider _service);
     //QPalette getPalete(bool _ok);
 private:
-    bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
