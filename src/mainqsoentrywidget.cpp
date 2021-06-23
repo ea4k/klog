@@ -795,10 +795,11 @@ void MainQSOEntryWidget::setModify(const bool _modify)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     modify = _modify;
-    realtimeCheckBox->setChecked (false);
+
     if (modify)
     {
         OKButton->setText(tr("&Modify"));
+        realtimeCheckBox->setChecked (false);
     }
     else
     {
