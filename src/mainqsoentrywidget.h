@@ -64,6 +64,7 @@ public:
     void toggleRealTime();
     void setUTC(const bool _utc);
     void setModify(const bool _modify);
+    bool getModifying();
     void setUpAndRunning(const bool _u);
     void selectDefaultBand(const bool _init = false);
     void selectDefaultMode(const bool _init = false);

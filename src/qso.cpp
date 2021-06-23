@@ -99,6 +99,8 @@ void QSO::clear()
     keepMyData = false;
     keepOther = false;
     keepSat = false;
+    modifying = false;
+
 }
 
 void QSO::setBackup(const bool _rt)
@@ -109,6 +111,16 @@ void QSO::setBackup(const bool _rt)
 bool QSO::getBackup()
 {
     return backup;
+}
+
+void QSO::setModifying(const bool _mod)
+{
+    modifying = _mod;
+}
+
+bool QSO::getModifying()
+{
+    return modifying;
 }
 
 bool QSO::setQSOid(const int _i)

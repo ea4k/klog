@@ -8366,6 +8366,8 @@ void MainWindow::backupCurrentQSO()
     qDebug() << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
+    qso->setModifying (mainQSOEntryWidget->getModifying());
+
     // MainQSOEntryWidget
     qso->setCall (mainQSOEntryWidget->getQrz ());
     qso->setBand (mainQSOEntryWidget->getBand ());
@@ -8438,7 +8440,10 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     // MainQSOEntryWidget
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
     clearUIDX ();
-
+    if (qso->getModifying())
+    {
+        mainQSOEntryWidget->setModify(true);
+    }
     mainQSOEntryWidget->setQRZ (qso->getCall ());
     mainQSOEntryWidget->setBand (qso->getBand ());
     mainQSOEntryWidget->setMode (qso->getMode ());
