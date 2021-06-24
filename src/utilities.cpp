@@ -94,8 +94,6 @@ int Utilities::getProgresStepForDialog(int totalSteps)
         return 250;
 }
 
-#if 0
-//not needed anymore
 bool Utilities::trueOrFalse(const QString &_s)
 {// reads a String and return true if s.upper()== TRUE :-)
          //qDebug() << "Utilities::trueOrFalse: " << _s << endl;
@@ -110,7 +108,6 @@ bool Utilities::trueOrFalse(const QString &_s)
     }
     //return false;
 }
-#endif
 
 QChar Utilities::boolToCharToSQLite(const bool _b)
 {
