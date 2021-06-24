@@ -3529,7 +3529,6 @@ void MainWindow::setCleaning(const bool _c)
 void MainWindow::slotClearButtonClicked()
 {
     //qDebug() << "MainWindow::slotClearButtonClicked - START" << endl;
-    //qDebug() << "MainWindow::slotClearButtonClicked: " << mainQSOEntryWidget->getMode() << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     bool needToRecover = modify;
     setCleaning(true);
@@ -3555,19 +3554,21 @@ void MainWindow::slotClearButtonClicked()
     clublogPrevQSO.clear();
     //qDebug() << "MainWindow::slotClearButtonClicked: - 11"  << endl;
 
-    clearUIDX(true);
-    //completedWithPreviousName = false;
-    statusBar()->clearMessage();
     setCleaning(false);
 
-      //qDebug() << "MainWindow::slotClearButtonClicked: Log: " << QString::number(currentLog) << endl;
+    //qDebug() << "MainWindow::slotClearButtonClicked: Log: " << QString::number(currentLog) << endl;
     setMainWindowTitle(QString::number(dataProxy->getHowManyQSOInLog(currentLog)));
     if (needToRecover)
     {
         //qDebug() << Q_FUNC_INFO << ": Recovening the previous status...";
         restoreCurrentQSO(true);
     }
-    else {
+    else
+    {
+        //qDebug() << Q_FUNC_INFO;
+        clearUIDX();
+        statusBar()->clearMessage();
+
         //qDebug() << Q_FUNC_INFO << ": NOT recovening the previous status...";
     }
 
@@ -3577,9 +3578,9 @@ void MainWindow::slotClearButtonClicked()
             //qDebug() << "MainWindow::slotClearButtonClicked - END" << endl;
 }
 
-void MainWindow::clearUIDX(bool full)
+void MainWindow::clearUIDX()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(full) << endl;
+    //qDebug() << Q_FUNC_INFO << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     mainQSOEntryWidget->clear();
@@ -3610,7 +3611,7 @@ void MainWindow::clearUIDX(bool full)
     }
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::clearUIDX - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 
 }
 
@@ -4496,21 +4497,21 @@ void MainWindow::slotLogWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-     //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << endl;
+    //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     configured = false;
     backupCurrentQSO ();
     openSetup(_page);
-     //qDebug() << "MainWindow::slotSetup - END"  << endl;
+    //qDebug() << "MainWindow::slotSetup - END"  << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 
 void MainWindow::openSetup(const int _page)
 {
-   //qDebug() << "MainWindow::openSetup: " << QString::number(_page)  << endl;
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    int result = -1;
+    //int result = -1;
     hamlib->stop();
     if (!needToEnd)
     {
@@ -4522,11 +4523,9 @@ void MainWindow::openSetup(const int _page)
         {
             logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", logSeverity);
             itIsANewversion = false;
-            result = setupDialog->exec();
-            //setupDialog->setModal(true);
-            //setupDialog->setWindowFlag(Qt::Dialog);
-            //setupDialog->setWindowFlag(Qt::WindowStaysOnTopHint);
-            //setupDialog->open(); // Opens does not block so this function should be rewriten and
+            //result = setupDialog->exec();
+            setupDialog->setModal(true);
+            setupDialog->show();
             // move part of this code to slotSetupDialogFinished
             logEvent(Q_FUNC_INFO, "Just after setupDialog->exec", logSeverity);
             //qDebug() << "MainWindow::openSetup - Just after setupDialog->exec : " << QString::number(result)  << endl;
@@ -4536,59 +4535,14 @@ void MainWindow::openSetup(const int _page)
             logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", logSeverity);
             //qDebug() << "MainWindow::openSetup - No setupDialog->exec needed"  << endl;
         }
-
-        if (needToEnd || result <1)
-        {
-
-           //qDebug() << "MainWindow::openSetup - Need to end o result <1"  << endl;
-            logEvent(Q_FUNC_INFO, "END-1", logSeverity);
-            return;
-        }
-        else
-        {
-           //qDebug() << "MainWindow::openSetup - Just before readConfigData"  << endl;
-            logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
-            readConfigData();
-            reconfigureDXMarathonUI(manageDxMarathon);
-            logEvent(Q_FUNC_INFO, "Just after readConfigData", logSeverity);
-           //qDebug() << "MainWindow::openSetup - Just after readConfigData"  << endl;
-        }
-
-
-       //qDebug() << "MainWindow::openSetup: logmodel to be created-2" << endl;
-        logEvent(Q_FUNC_INFO, "logmodel to be created-2", logSeverity);
-        logWindow->createlogPanel(currentLog);
-        logEvent(Q_FUNC_INFO, "logmodel has been created-2", logSeverity);
-       //qDebug() << "MainWindow::openSetup: logmodel has been created-2" << endl;
-
     }
-
-    defineStationCallsign();
-    logEvent(Q_FUNC_INFO, "before db->reConnect", logSeverity);
-   //qDebug() << "MainWindow::openSetup: before db->reConnect" << endl;
-    dataProxy->reconnectDB();
-    logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
-   //qDebug() << "MainWindow::openSetup: after db->reConnect" << endl;
-    if (hamlibActive)
-    {
-        //qDebug() << "MainWindow::openSetup: Hamlib is active, let's read the VFO Freq/Mode" << endl;
-    }
-
-    //qDebug() << Q_FUNC_INFO << ": We are going to restore";
-    //if (qso->getBackup ())
-    //{
-    //        //qDebug() << Q_FUNC_INFO << ": Restoring... ";
-    //restoreCurrentQSO (true);
-    //}
-    //qDebug() << Q_FUNC_INFO << ": Restored! ";
-    //qDebug() << "MainWindow::openSetup: - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-
-    //qDebug() << "MainWindow::slotSetupDialogFinished: " << QString::number(_s) << endl;
+    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
 
     if (needToEnd)
     {
@@ -4597,7 +4551,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     if (_s == QDialog::Accepted)
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: OK" << endl;
+        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
         logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
         readConfigData();
         reconfigureDXMarathonUI(manageDxMarathon);
@@ -4611,19 +4565,16 @@ void MainWindow::slotSetupDialogFinished (const int _s)
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << endl;
         dataProxy->reconnectDB();
         logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
-
         //qDebug() << "MainWindow::openSetup: after db->reConnect" << endl;
-
 
         if (hamlibActive)
         {
              //qDebug() << "MainWindow::slotSetupDialogFinished: Hamlib is active, let's read the VFO Freq/Mode" << endl;
         }
-
     }
     else
     {
-         //qDebug() << "MainWindow::slotSetupDialogFinished: NOK" << endl;
+         //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
     }
 
     if (qso->getBackup ())
@@ -4635,7 +4586,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     {
         //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
     }
-    //qDebug() << "MainWindow::slotSetupDialogFinished: - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4794,7 +4745,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             slotOpenWiki();
         break;
     case Qt::Key_F4:
-            //qDebug() << "MainWindow::keyPressEvent: F4"  << endl;
+            qDebug() << "MainWindow::keyPressEvent: F4"  << endl;
             mainQSOEntryWidget->toggleRealTime ();
         break;
 
@@ -4817,7 +4768,7 @@ void MainWindow::slotOpenWiki()
 
 void MainWindow::readConfigData()
 {
-    //qDebug() << "MainWindow::readConfigData - 01" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (needToEnd)
     {
@@ -4827,7 +4778,6 @@ void MainWindow::readConfigData()
     }
 
     hamlibActive = false;
-    setHamlib(hamlibActive);
     eQSLActive = false;
     clublogActive = false;
     lotwActive = false;
@@ -4839,10 +4789,10 @@ void MainWindow::readConfigData()
         return;
     }
 
-   //qDebug() << "MainWindow::readConfigData: After processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << endl;
     defineStationCallsign();
 
-     //qDebug() << "MainWindow::readConfigData: " << defaultADIFLogFile << QTime::currentTime().toString("hh:mm:ss") << endl;
+     //qDebug() << Q_FUNC_INFO << ":  " << defaultADIFLogFile << QTime::currentTime().toString("hh:mm:ss") << endl;
 
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
@@ -4852,33 +4802,31 @@ void MainWindow::readConfigData()
     {
         useDefaultLogFileName = false;
     }
-   //qDebug() << "MainWindow::readConfigData-01"  << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << ": 01"  << QTime::currentTime().toString("hh:mm:ss") << endl;
     infoWidget->setImperialSystem(imperialSystem);
 
     infoLabel2->setText(world->getEntityName(currentEntity));
-   //qDebug() << "MainWindow::readConfigData-89"  << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::readConfigData-89"  << QTime::currentTime().toString("hh:mm:ss") << endl;
     infoWidget->showEntityInfo(currentEntity);
-   //qDebug() << "MainWindow::readConfigData-90"  << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << ": 90"  << QTime::currentTime().toString("hh:mm:ss") << endl;
     configured = true;
     searchWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
     dxClusterWidget->setMyQRZ(stationQRZ);
-   //qDebug() << "MainWindow::readConfigData-97"  << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << ": 97"  << QTime::currentTime().toString("hh:mm:ss") << endl;
     checkIfNewBandOrMode();
-   //qDebug() << "MainWindow::readConfigData-98"  << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << ": 98"  << QTime::currentTime().toString("hh:mm:ss") << endl;
     //initialContestModeConfiguration();
-  //qDebug() << "MainWindow::readConfigData: 99" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << "MainWindow::readConfigData: 99" << QTime::currentTime().toString("hh:mm:ss") << endl;
 
+    /*
     if (upAndRunning)
     { // Next actions will not be executed in the first run
-       //qDebug() << "MainWindow::readConfigData: 99.1" << QTime::currentTime().toString("hh:mm:ss") << endl;
-        //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked();
-       //qDebug() << "MainWindow::readConfigData: 99.2" << QTime::currentTime().toString("hh:mm:ss") << endl;
     }
-
+    */
     // I need to init the CLUBLOG
     if (clublogActive)
     {
@@ -4888,7 +4836,7 @@ void MainWindow::readConfigData()
     {
        //qDebug() << "MainWindow::readConfigData: NOT Setting ClublogCredentials" << endl;
     }
-    //qDebug() << "MainWindow::readConfigData: QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << ": QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << endl;
     if (qrzcomActive)
     {
         //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << endl;
@@ -4922,7 +4870,7 @@ void MainWindow::readConfigData()
         setUDPServer(UDPServerStart);
     }
 
-    //qDebug() << "MainWindow::readConfigData - END" << QTime::currentTime().toString("hh:mm:ss") << endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4936,7 +4884,7 @@ bool MainWindow::processConfigData()
     KlogConfig config;
 
     if ( !config.contains("version"))
-    {
+   {
         //qDebug() << "MainWindow::processConfigData - config does not exists" << endl;
         return false;
     }
@@ -6105,8 +6053,7 @@ void MainWindow::qsoToEdit (const int _qso)
     }
 
     //qDebug() << Q_FUNC_INFO;
-    //slotClearButtonClicked ();
-    clearUIDX (true);
+    clearUIDX();
     readingTheUI = true;
     int nameCol;
     QString aux1;
@@ -7318,8 +7265,10 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 
 void MainWindow::slotSetPropModeFromOther(const QString &_p)
 {
-    if (!othersTabWidget->isSATPropagation())
+    //Debug() << Q_FUNC_INFO << ": " << _p;
+    if (_p!="SAT")
     {
+        //qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
         satTabWidget->setNoSat();
     }
 }
@@ -8051,7 +8000,7 @@ void MainWindow::slotAwardsWidgetSetYear()
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     // MainQSOEntryWidget
@@ -8117,13 +8066,14 @@ void MainWindow::backupCurrentQSO()
     qso->setSatName (satTabWidget->getSatName ());
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
+    qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
 
 }
 
 void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
-   //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
     clearUIDX ();
 
     mainQSOEntryWidget->setQRZ (qso->getCall ());
@@ -8133,7 +8083,12 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
     if (restoreConfig)
     {
+        qDebug() << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
         mainQSOEntryWidget->setRealTime (qso->getRealTime ());
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << ": NO restoring config";
     }
 
     //  MainWindowInputQSO
