@@ -49,6 +49,7 @@ public:
     bool darkMode;
     int getProgresStepForDialog(int totalSteps);
     QChar boolToCharToSQLite(const bool _b);
+    QString boolToQString(const bool _b);
     QString checkAndFixASCIIinADIF(const QString &_data);
     QString getAgent(const QString &_klogversion);
     QString getGlobalAgent(const QString &_klogversion);

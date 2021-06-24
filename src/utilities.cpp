@@ -125,8 +125,6 @@ QChar Utilities::boolToCharToSQLite(const bool _b)
 
 }
 
-#if 0
-//not neede anymore
 QString Utilities::boolToQString(const bool _b)
 {
     if (_b)
@@ -138,7 +136,7 @@ QString Utilities::boolToQString(const bool _b)
         return "False";
     }
 }
-#endif
+
 
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
