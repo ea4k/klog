@@ -2513,7 +2513,7 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <location filename="../mainwindow.cpp" line="6282"/>
         <location filename="../mainwindow.cpp" line="6313"/>
         <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li stvarno označiti SVE vaše QSOe za UČITAVANJE? Ovo mora biti napravljeno SAMO AKO JE OVO PRVI PUTA da učitavate QSOe u %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6251"/>
@@ -2523,39 +2523,39 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="6261"/>
         <source>The log is ready to be uploaded to ClubLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dnevnik je spreman za učitavanje u ClubLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6262"/>
         <source>All the QSOs in this log has been marked as Modified in the ClubLog status field</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi QSOi u ovom dnevniku označeni su kao preinačeni u status polju ClubLoga</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6267"/>
         <source>KLog could not mark the full log to be sent to ClubLog</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog nije mogao označiti cijeli dnevnik za slanje u ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6268"/>
         <location filename="../mainwindow.cpp" line="6300"/>
         <location filename="../mainwindow.cpp" line="6331"/>
         <source>Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nešto je spriječilo KLog da označi sve QSOe kao preinačene. Ponovno pokrenite KLog i pokušajte opet prije kontaktiranja razvijatelja KLoga.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6292"/>
         <source>The log is ready to be uploaded to eQSL.cc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dnevnik je spreman za učitavanje u eQSL.cc.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6293"/>
         <source>All the QSOs in this log has been marked as Modified in the eQSL.cc status field</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi QSOi u ovom dnevniku označeni su kao preinačeni u status polju eQSL.cc</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6299"/>
         <source>KLog could not mark the full log to be sent to eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog nije mogao označiti cijeli dnevnik za slanje u eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6312"/>
@@ -2570,27 +2570,27 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="6323"/>
         <source>The log is ready to be uploaded to QRZ.com.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dnevnik je spreman za učitavanje u QRZ.com.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6324"/>
         <source>All the QSOs in this log has been marked as Modified in the QRZ.com status field</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi QSOi u ovom dnevniku označeni su kao preinačeni u status polju QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6330"/>
         <source>KLog could not mark the full log to be sent to QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog nije mogao označiti cijeli dnevnik za slanje u QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6384"/>
         <source>You need to define a proper API Key for your QRZ.com logbook in the eLog preferences.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trebate podesiti valjani API Key za vaš QRZ.com dnevnik u eLog postavkama.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7142"/>
         <source>Filling QSOs ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Popunjavam QSOe ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7363"/>
@@ -2620,12 +2620,12 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="8026"/>
         <source>KLog - WSJTX Dupe QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - WSJTX duplikat QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8029"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ovaj QSO izgleda kao duplikat. Želite li ga spremiti ili odbaciti?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8113"/>
@@ -2887,87 +2887,87 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3860"/>
         <source>Download from LoTW ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Preuzmi s LoTW ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3865"/>
         <source>Download the full log from LoTW ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Preuzmi cjelokupni dnevnik iz LoTW ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3870"/>
         <source>ClubLog tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLog alati ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3877"/>
         <source>Upload the queued QSOs to ClubLog ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Učitaj poredane za obradu QSOe u ClubLog ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3883"/>
         <source>eQSL tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL alati ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3890"/>
         <source>Upload the queued QSOs to eQSL.cc ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Učitaj poredane za obradu QSOe u eQSL.cc ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3896"/>
         <source>QRZ.com tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ.com alati ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3900"/>
         <source>Upload the queued QSOs to QRZ.com ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Učitaj poredane za obradu QSOe u QRZ.com ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3923"/>
         <source>Update cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>Ažuriraj cty.csv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3929"/>
         <source>Update Satellite Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Ažuriraj podatke o satelitima</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3956"/>
         <source>Setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Postavljanje</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3958"/>
         <source>Setup ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Postavljanje ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3972"/>
         <source>&amp;Tips ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Savje&amp;ti ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3983"/>
         <source>&amp;About ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;O ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3990"/>
         <source>About Qt ...</source>
-        <translation type="unfinished"></translation>
+        <translation>O Qt ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3998"/>
         <source>Check updates ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Provjeri ažuriranje programa...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4414"/>
         <source>About ...</source>
-        <translation type="unfinished"></translation>
+        <translation>O ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5865"/>
@@ -2993,64 +2993,64 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2814"/>
         <source>You have requested to delete the QSO with: %1</source>
-        <translation type="unfinished">Zatražili ste da izbrišete QSO sa: %1</translation>
+        <translation>Zatražili ste da izbrišete QSO sa: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2764"/>
         <location filename="../mainwindow.cpp" line="2819"/>
         <source>Are you sure?</source>
-        <translation type="unfinished">Jeste li sigurni?</translation>
+        <translation>Jeste li sigurni?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2759"/>
         <source>You have requested to delete several QSOs </source>
-        <translation type="unfinished"></translation>
+        <translation>Zatražili ste brisanje više QSOa </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="54"/>
         <location filename="../mainwindow.cpp" line="3906"/>
         <source>Check always the current callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvijek provjeri trenutni pozivni znak u QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="404"/>
         <source>You can update the entities database in Tools-&gt;Update cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazu podataka entiteta možete ažurirati iz Alati-&gt;Ažuriraj cty.csv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="405"/>
         <source>Do you want to do it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li to učiniti sad?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1090"/>
         <source>The callsign %1 is not a valid call. Do you really want to add this callsign to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozivni znak %1 nije valjan. Želite li zaista dodati ovaj pozivni znak u dnevnik?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1870"/>
         <source>KLog - Not valid callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Nevaljali pozivni znak</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1871"/>
         <source>The callsign %1 is not a valid callsign. Do you really want to add this callsign to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozivni znak %1 nije valjan. Želite li zaista dodati ovaj pozivni znak u dnevnik?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2921"/>
         <source>The ClubLog upload process has finished with an error and the log was possibly not uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Proces ClubLog učitavanja završen je s greškom i vaš dnevnik možda nije bio uspješno učitan.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2922"/>
         <source>Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Molim provjerite vaše korisničke podatke, Internet vezu i vaš Clublog korisnički račun. Primljen kod greške bio je: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2942"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li označiti kao Učitane sve QSOe učitane u ClubLog?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2941"/>
@@ -3062,60 +3062,65 @@ Otvorite LoTW sekciju u Postavke i konfigurirajte podatke za LoTW.</translation>
         <location filename="../mainwindow.cpp" line="6045"/>
         <location filename="../mainwindow.cpp" line="6250"/>
         <source>KLog - ClubLog</source>
-        <translation type="unfinished">KLog - ClubLog</translation>
+        <translation>KLog - ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2958"/>
         <source>There was an error while updating to Yes the ClubLog QSO upload information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dogodila se greška prilikom postavljanja ClubLog QSL poslana podatka na Da.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2968"/>
         <source>The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLog učitavanje je završeno i KLog je napravio datoteku (%1) u vašoj KLog mapi.
+
+Želite li da KLog izbriše tu datoteku?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2988"/>
         <location filename="../mainwindow.cpp" line="3107"/>
         <source>The file has not been removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka nije izbrisana.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2989"/>
         <location filename="../mainwindow.cpp" line="3108"/>
         <source>It seems that there was something that prevented KLog from removing the file
 You can remove it manually.</source>
-        <translation type="unfinished"></translation>
+        <translation>INešto je spriječilo KLog da izbriše datoteku
+Možete je izbrisati ručno.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3040"/>
         <source>The eQSL upload process has finished with an error and the log was possibly not uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Proces eQSL učitavanja završen je s greškom i vaš dnevnik možda nije bio uspješno učitan.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3041"/>
         <location filename="../mainwindow.cpp" line="3136"/>
         <source>Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Molim provjerite vaše korisničke podatke, Internet vezu i vaš eQSL korisnički račun. Primljen kod greške bio je: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3060"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to eQSL?</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li označiti kao Učitane sve QSOe učitane u eQSL?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3076"/>
         <source>There was an error while updating to Yes the eQSL QSO upload information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dogodila se greška prilikom postavljanja eQSL QSL poslana podatka na Da.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3087"/>
         <source>The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL učitavanje je završeno i KLog je napravio datoteku (%1) u vašoj KLog mapi.
+
+Želite li da KLog izbriše tu datoteku?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3355"/>
@@ -3125,17 +3130,17 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3843"/>
         <source>Mark all queued QSOs from this log as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Označi sve poredane QSOe u ovom dnevniku kao poslane</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3898"/>
         <source>Check the current callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Provjeri trenutni pozivni znak u QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3978"/>
         <source>&amp;Debug ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Otklanjanje pogrešaka ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4065"/>
@@ -3166,7 +3171,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="4316"/>
         <source>Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite li stvarno označiti SVE vaše QSOe za UČITAVANJE? Ovo mora biti napravljeno SAMO AKO JE OVO PRVI PUTA da učitavate QSOe u LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4330"/>
@@ -3204,7 +3209,7 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="7365"/>
         <location filename="../mainwindow.cpp" line="7952"/>
         <source>Callsign</source>
-        <translation type="unfinished">Pozivni znak</translation>
+        <translation>Pozivni znak</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8069"/>
@@ -3451,7 +3456,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="8031"/>
         <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplikati QSOa moraju imati isti pozivni znak, frekventni pojas, datum i vrijeme kao i neki postojeći QSO, uzevši u obzir vremenski interval koji se može podesiti u postavkama.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8116"/>
@@ -7596,30 +7601,30 @@ Dnevnik neće biti otvoren.</translation>
         <location filename="../tipsdialog.cpp" line="159"/>
         <source>&lt;b&gt;Tip #2:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the QSLs that you still need to send with &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find My-QSLs pending to send&lt;/a&gt;.&lt;bR&gt;This tool will list you in the search box all the QSOs with the QSL-Sent marked as &lt;i&gt;Requested&lt;/i&gt;.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in DXCC data</extracomment>
-        <translation type="unfinished">&lt;b&gt;Savjet #7:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete naći QSLe koje još uvijek trebate poslati korištenjem &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Alati-&gt;QSL alati...-&gt;Nađi Moje-QSL za koje je slanje neodlučeno&lt;/a&gt;.&lt;bR&gt;Ovaj će vam alat pokazati u kućici za pretraživanje sve QSOe sa QSL-Poslana označenim kao &lt;i&gt;Zatražena&lt;/i&gt;. {2:?}</translation>
+        <translation>&lt;b&gt;Savjet #7:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete naći QSLe koje još uvijek trebate poslati korištenjem &lt;a href=&quot;#ToolsSendPendingQSL&quot;&gt;Alati-&gt;QSL alati...-&gt;Nađi Moje-QSL za koje je slanje neodlučeno&lt;/a&gt;.&lt;bR&gt;Ovaj će vam alat pokazati u kućici za pretraživanje sve QSOe sa QSL-Poslana označenim kao &lt;i&gt;Zatražena&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="167"/>
         <source>&lt;b&gt;Tip #4:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can enter a &apos;*&apos; in the search box, in the search window to search for all the QSOs done with one specific station callsign?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;Export Requested QSL to ADIF...</extracomment>
-        <translation type="unfinished">&lt;b&gt;Savjet #5:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete unijeti &apos;*&apos; u polje za pretragu, u prozoru za pretragu kako biste našli sve QSOe sa određenom postajom? {4:?}</translation>
+        <translation>&lt;b&gt;Savjet #5:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete unijeti &apos;*&apos; u polje za pretragu, u prozoru za pretragu kako biste našli sve QSOe sa određenom postajom?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="170"/>
         <source>&lt;b&gt;Tip #5:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can find the file containing all your log and other information in the logbook.dat file and the klogrc file, containing the KLog config file in the KLog folder by opening the &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;File-&gt;KLog folder&lt;/a&gt; menu?</source>
-        <translation type="unfinished">&lt;b&gt;Savjet #6:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete naći datoteku koja sadrži vaš dnevnik i ostale podatke u datoteci logbook.dat i klogrc datoteku, koja sadrži KLog konfiguraciju u KLog mapi otvarajući izbornik &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Datoteka-&gt;KLog mapa&lt;/a&gt;? {5:?}</translation>
+        <translation>&lt;b&gt;Savjet #6:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete naći datoteku koja sadrži vaš dnevnik i ostale podatke u datoteci logbook.dat i klogrc datoteku, koja sadrži KLog konfiguraciju u KLog mapi otvarajući izbornik &lt;a href=&quot;#FileOpenKLogFolder&quot;&gt;Datoteka-&gt;KLog mapa&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="176"/>
         <source>&lt;b&gt;Tip #6:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can upload your QSO marked as queued to LoTW via TQSL with &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Tools-&gt;LoTW tools ...-&gt;Sends the log to LoTW calling TQSL.&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;You have to configure TQSL in the preferences to be able to use this functionality.</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu File-&gt;KLog folder</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Savjet #6:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete učitati sve QSOe označene za red čekanja u LoTW preko TQSLa sa  &lt;a href=&quot;#ToolsUploadLoTW&quot;&gt;Alati-&gt;LoTW alati ...-&gt;Šalji dnevnik u LoTW zvanjem TQSL.&lt;/a&gt; ?&lt;br&gt;&lt;br&gt;Trebate podesiti TQSL u postavkama kako biste mogli koristiti ovu mogućnost.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="180"/>
         <source>&lt;b&gt;Tip #7:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu QSL tools...-&gt;Find My-QSLs pending to send</extracomment>
-        <translation type="unfinished">&lt;b&gt;Savjet #20:&lt;/b&gt;&lt;br&gt;Jeste li znali...&lt;br&gt;Možete vidjeti QSO koji potvrđuje određeni DXCC entitet na određenom frekvencijskom pojasu držeći miša iznad tog frekvencijskog pojasa u DXCC alatki? {7:?}</translation>
+        <translation>&lt;b&gt;Savjet #20:&lt;/b&gt;&lt;br&gt;Jeste li znali...&lt;br&gt;Možete vidjeti QSO koji potvrđuje određeni DXCC entitet na određenom frekvencijskom pojasu držeći miša iznad tog frekvencijskog pojasa u DXCC alatki?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
@@ -7646,7 +7651,7 @@ Dnevnik neće biti otvoren.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://groups.io/g/klog&gt;KLog mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Savjet #12:&lt;/b&gt;&lt;br&gt;Znate li...&lt;br&gt;Možete se pretplatiti na &lt;a href=https://groups.io/g/klog&gt;KLog mailing listu&lt;/a&gt; za diskusiju o KLogu preko e-maila na engleskom jeziku?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="200"/>
@@ -8016,27 +8021,27 @@ Morate imati QRZ.com pretplatu da biste koristili ovu mogućnost.</translation>
     <message>
         <location filename="../eqslutilities.cpp" line="182"/>
         <source>eQSL Error: User or password incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL Greška: Korisničko ime ili zaporka nije valjana</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="188"/>
         <source>eQSL Warning: At least one of the uplodaded QSOs is duplicated.</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL  Upozorenje: Barem jedan od učitanih QSOa je duplikat.</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="193"/>
         <source>eQSL: All the QSOs were properly uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL: Svi QSOi su uspješno učitani.</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="247"/>
         <source>KLog - eQSL.cc password needed</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - potrebna je eQSL.cc zaporka</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="247"/>
         <source>Please enter your eQSL.cc password: </source>
-        <translation type="unfinished"></translation>
+        <translation>Molim unesite vašu eQSL.cc zaporku: </translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="90"/>
@@ -8048,17 +8053,18 @@ Morate imati QRZ.com pretplatu da biste koristili ovu mogućnost.</translation>
         <location filename="../eqslutilities.cpp" line="90"/>
         <source>eQSL has sent the following message:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL je poslao sljedeću poruku:
+%1</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="125"/>
         <source>We have received an undefined error from eQSL (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Primili smo neidentificiranu grešku iz eQSLa (%1)</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="126"/>
         <source>Please check your config in the setup and contact the KLog development team if you can&apos;t fix it. eQSL uploads will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Molim provjerite vaše podatke u postavkama i kontaktirajte razvojni tim KLoga ako je ne možete popraviti. eQSL učitavanje će biti onemogućeno.</translation>
     </message>
 </context>
 </TS>
