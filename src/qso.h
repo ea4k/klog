@@ -43,6 +43,9 @@ public:
     void setBackup(const bool _rt);
     bool getBackup();
 
+    void setModifying(const bool _mod);
+    bool getModifying();
+
     bool setData(const QString &_adifPair);
     void clear();
     bool isValid();
@@ -214,7 +217,7 @@ private:
     QString QRZCom_status;
     QDate QRZComDate;
     QString comment;
-    bool keepComment, keepOther, keepMyData, keepSat;
+    bool keepComment, keepOther, keepMyData, keepSat, modifying;
 
     QString iota;
 

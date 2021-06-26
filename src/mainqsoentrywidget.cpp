@@ -396,13 +396,13 @@ void MainQSOEntryWidget::clear()
 
     //qDebug() << Q_FUNC_INFO << endl;
 
-    cleaning = true;
+    //cleaning = true;
 
     OKButton->setText(tr("&Add"));
     qrzLineEdit->clear();
     qrzLineEdit->setFocus(Qt::OtherFocusReason);
 
-    cleaning = false;
+    //cleaning = false;
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -436,7 +436,8 @@ void MainQSOEntryWidget::setInitialData()
     // //qDebug()ime = true;
 
     timer->start(1000);
-   emit debugLog(Q_FUNC_INFO, "END", Debug);
+
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
      //qDebug()<< "MainQSOEntryWidget::setInitialData-END" << endl;
 
 }
@@ -794,16 +795,22 @@ void MainQSOEntryWidget::setModify(const bool _modify)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     modify = _modify;
-    realtimeCheckBox->setChecked (false);
+
     if (modify)
     {
         OKButton->setText(tr("&Modify"));
+        realtimeCheckBox->setChecked (false);
     }
     else
     {
         OKButton->setText(tr("&Add"));
     }
     emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
+
+bool MainQSOEntryWidget::getModifying()
+{
+    return modify;
 }
 
 void MainQSOEntryWidget::slotUpdateTime()
