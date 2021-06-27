@@ -302,13 +302,13 @@ void SetupPageColors::slotSetDarkMode()
     }
 }
 
-QString SetupPageColors::getDarkMode(){
+bool SetupPageColors::getDarkMode(){
 
-    return util->boolToQString(darkMode);
+    return darkMode;
 }
 
-void SetupPageColors::setDarkMode(const QString _dm)
+void SetupPageColors::setDarkMode(const bool _dm)
 {
-    darkMode = !util->trueOrFalse(_dm);
+    darkMode = !_dm;
     slotSetDarkMode();
 }

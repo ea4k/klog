@@ -218,15 +218,15 @@ void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 }
 
 
-QString SetupPageUDP::getUDPServer()
+bool SetupPageUDP::getUDPServer()
 {
-    return util->boolToQString(UDPServerCheckBox->isChecked());
+    return UDPServerCheckBox->isChecked();
 }
 
-void SetupPageUDP::setUDPServer(const QString &_t)
+void SetupPageUDP::setUDPServer(const bool &_t)
 {
        //qDebug() << "SetupPageUDP::setUDPServer: "  << t << endl;
-    UDPServerCheckBox->setChecked(util->trueOrFalse(_t));
+    UDPServerCheckBox->setChecked(_t);
     slotUDPServerCheckBoxClicked();
 }
 
@@ -283,35 +283,35 @@ QString SetupPageUDP::getTimeout()
     }
 }
 
-QString SetupPageUDP::getLogFromWSJTx()
+bool SetupPageUDP::getLogFromWSJTx()
 {
-    return util->boolToQString(logFromWSJTXCheckbox->isChecked());
+    return logFromWSJTXCheckbox->isChecked();
 }
 
-QString SetupPageUDP::getAutoLogFromWSJTx()
+bool SetupPageUDP::getAutoLogFromWSJTx()
 {
-    return  util->boolToQString(logAutomaticallyWSJTXCheckbox->isChecked());
+    return  logAutomaticallyWSJTXCheckbox->isChecked();
 }
 
-QString SetupPageUDP::getReaDataFromWSJTx()
+bool SetupPageUDP::getReaDataFromWSJTx()
 {
-    return util->boolToQString(realDataFromWSJTXCheckbox->isChecked());
+    return realDataFromWSJTXCheckbox->isChecked();
 }
 
-void SetupPageUDP::setLogFromWSJTx(const QString &_t)
+void SetupPageUDP::setLogFromWSJTx(const bool &_t)
 {
-    logFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    logFromWSJTXCheckbox->setChecked(_t);
     slotLogFromWSJTCheckBoxClicked();
 }
 
-void SetupPageUDP::setAutoLogFromWSJTx(const QString &_t)
+void SetupPageUDP::setAutoLogFromWSJTx(const bool &_t)
 {
-    logAutomaticallyWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    logAutomaticallyWSJTXCheckbox->setChecked(_t);
 }
 
-void SetupPageUDP::setReaDataFromWSJTx(const QString &_t)
+void SetupPageUDP::setReaDataFromWSJTx(const bool &_t)
 {
-    realDataFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    realDataFromWSJTXCheckbox->setChecked(_t);
 }
 
 QString SetupPageUDP::getNetworkInterface()

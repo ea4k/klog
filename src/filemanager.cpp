@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "filemanager.h"
+#include "klogconfig.h"
 //#include <QDebug>
 
 
@@ -3357,57 +3358,6 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
     return adifLogExportToFile(_fileName, 0, false, true, false);
 }
 
-bool FileManager::modifySetupFile(const QString& _filename, const QString &_field, const QString &_value)
-{
-      //qDebug() << "FileManager::modifySetupFile" << endl;
-
-
-    QFile file(_filename);
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)){ /* Flawfinder: ignore */
-          //qDebug() << "FileManager::modifySetupFile File not found" << _filename << endl;
-        return false;
-    }
-
-    QTemporaryFile tmp;
-    if (!tmp.open()) { /* Flawfinder: ignore */
-             //qDebug() << "FileManager::modifySetupFile- Temp file not opened" << endl;
-           return false;
-    }
-
-    QString line = QString();
-    QTextStream in(&file);
-    QTextStream out(&tmp);
-    qint64 pos1 = in.pos();
-    qint64 pos2 = out.pos();
-    bool modified = false;
-
-    out << in.readAll();
-
-    in.seek(pos1);
-    out.seek(pos2);
-
-
-    while (!out.atEnd())
-    {
-        line = out.readLine();
-           //qDebug() << "FileManager::modifySetupFile- Temp file: " << line << endl;
-        if (line.startsWith(_field))
-        {
-            in << _field << "=" << _value << ";" << endl;
-            modified = true;
-        }
-        else
-        {
-            in << line << endl;
-        }
-    }
-    if (!modified)
-    {// If the data is not found, we will add it to the end.
-        in << _field << "=" << _value << ";" << endl;
-    }
-
-    return true;
-}
 
 int FileManager::howManyLogsInFile(QFile& _f)
 {
@@ -3699,30 +3649,12 @@ QString FileManager::prepareStringLog()
 
 QDateTime FileManager::getDateTimeOfLastBackup()
 {
-      //qDebug() << "FileManager::getDateTimeOfLastBackup: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss")<< endl;
-      //qDebug() << "FileManager::getDateTimeOfLastBackup: " << util->getCfgFile() << endl;
-    QFile file (util->getCfgFile());
-    QString line;
-    QStringList fields;
-    fields.clear();
-    QDateTime _dataTime = QDateTime();
+    KlogConfig config;
+    QDateTime _dateTime = QDateTime();
 
-    if (file.open (QIODevice::ReadOnly)) /* Flawfinder: ignore */
-    {
-        while ( !file.atEnd()   )
-        {
-            line.clear();
-            line.append(file.readLine().trimmed().toUpper());
-            if (line.contains("LATESTBACKUP"))
-            {
-                fields << line.split("=", QString::SkipEmptyParts);
-                line = fields.at(1);
-                line.truncate(15);
-                return _dataTime.fromString(line, "yyyyMMdd-hhmmss");
-            }
-        }
-    }
-    return QDateTime();
+    //qDebug() << "FileManager::getDateTimeOfLastBackup: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss")<< endl;
+
+    return _dateTime.fromString(config.value("latestbackup").toString(), "yyyyMMdd-hhmmss");
 }
 
 bool FileManager::writeBackupDate()
@@ -3730,32 +3662,9 @@ bool FileManager::writeBackupDate()
       //qDebug() << "FileManager::writeBackupDate: current: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << endl;
       //qDebug() << "FileManager::writeBackupDate: current: " << (getDateTimeOfLastBackup()).toString("yyyyMMdd-hhmmss") << endl;
 
-    QFile file (util->getCfgFile());
-    QString line, lineTemp;
-    //QStringList fields;
-    //fields.clear();
-    QDateTime _dataTime = QDateTime();
+    KlogConfig config;
 
-    QStringList completeFile;
-    completeFile.clear();
-
-    if(file.open(QIODevice::ReadWrite | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        QString s;
-        QTextStream t(&file);
-        while(!t.atEnd())
-        {
-            QString line = t.readLine();
-            if ( !(line.toUpper()).contains("LATESTBACKUP")  )
-            {
-                s.append(line + "\n");
-            }
-        }
-        s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
-        file.resize(0);
-        t << s;
-        file.close();
-    }
+    config.setValue("latestbackup", (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss"));
 
     return true;
 }
