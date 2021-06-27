@@ -1911,7 +1911,7 @@ Error returned: %2</source>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="48"/>
         <location filename="../mainqsoentrywidget.cpp" line="401"/>
-        <location filename="../mainqsoentrywidget.cpp" line="804"/>
+        <location filename="../mainqsoentrywidget.cpp" line="806"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Lisää</translation>
     </message>
@@ -1967,18 +1967,18 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="102"/>
-        <location filename="../mainqsoentrywidget.cpp" line="970"/>
+        <location filename="../mainqsoentrywidget.cpp" line="977"/>
         <source>Callsign</source>
         <translation type="unfinished">Kutsutunnus</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="975"/>
+        <location filename="../mainqsoentrywidget.cpp" line="982"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="800"/>
+        <location filename="../mainqsoentrywidget.cpp" line="801"/>
         <source>&amp;Modify</source>
         <translation>&amp;Muokkaa</translation>
     </message>

@@ -1967,7 +1967,7 @@ msgid "Select all the QSOs"
 msgstr ""
 
 #: ../mainqsoentrywidget.cpp:48 ../mainqsoentrywidget.cpp:401
-#: ../mainqsoentrywidget.cpp:804
+#: ../mainqsoentrywidget.cpp:806
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
@@ -2030,13 +2030,13 @@ msgctxt "MainQSOEntryWidget|"
 msgid "Real time"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:102 ../mainqsoentrywidget.cpp:970
+#: ../mainqsoentrywidget.cpp:102 ../mainqsoentrywidget.cpp:977
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Kaldesignal"
 
-#: ../mainqsoentrywidget.cpp:975
+#: ../mainqsoentrywidget.cpp:982
 #, fuzzy
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
@@ -2044,7 +2044,7 @@ msgctxt ""
 msgid "DUPE"
 msgstr "DUPE"
 
-#: ../mainqsoentrywidget.cpp:800
+#: ../mainqsoentrywidget.cpp:801
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"

@@ -1926,7 +1926,7 @@ Greška: %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="48"/>
         <location filename="../mainqsoentrywidget.cpp" line="401"/>
-        <location filename="../mainqsoentrywidget.cpp" line="804"/>
+        <location filename="../mainqsoentrywidget.cpp" line="806"/>
         <source>&amp;Add</source>
         <translation>&amp;Dodaj</translation>
     </message>
@@ -1982,18 +1982,18 @@ Greška: %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="102"/>
-        <location filename="../mainqsoentrywidget.cpp" line="970"/>
+        <location filename="../mainqsoentrywidget.cpp" line="977"/>
         <source>Callsign</source>
         <translation type="unfinished">Pozivni znak</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="975"/>
+        <location filename="../mainqsoentrywidget.cpp" line="982"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation type="unfinished">DUPLI</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="800"/>
+        <location filename="../mainqsoentrywidget.cpp" line="801"/>
         <source>&amp;Modify</source>
         <translation>&amp;Promijeni</translation>
     </message>
