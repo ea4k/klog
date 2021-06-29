@@ -4122,7 +4122,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 
 void MainWindow::slotToolLoTWMarkAllQueued()
 {
-             //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
     QMessageBox msgBox;
@@ -4130,7 +4130,6 @@ void MainWindow::slotToolLoTWMarkAllQueued()
 
     if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
     {
-
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("All pending QSOs has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
     }
@@ -4351,7 +4350,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - LoTW"));
-    msgBox.exec();
+
     if (dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
     {
         msgBox.setIcon(QMessageBox::Information);
@@ -4362,6 +4361,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent to LoTW!") );
     }
+    msgBox.exec();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
