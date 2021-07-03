@@ -265,7 +265,6 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     newItemName->setFlags(Qt::ItemIsEnabled);
     //newItemName->setFlags(Qt::ItemIsUserCheckable);
     newItemName->setIcon(flagIcon);
-no salen bien los colores
     if (status == 1)
     {
         newItemName->setTextColor(Qt::blue);
