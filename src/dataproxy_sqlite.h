@@ -197,6 +197,7 @@ public:
     QString getEntityNameFromId(const int _n);
     int getEntityIdFromName(const QString &_e);
     QString getEntityMainPrefix(const int _entityN);
+    QStringList getEntiNameAndPrefixFromId(const int _dxcc);
     int getEntityIdFromMainPrefix(const QString &_e);
     bool isNewCQz(int _c);
     bool isNewEntity(int _e);
