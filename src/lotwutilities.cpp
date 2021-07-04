@@ -135,42 +135,45 @@ bool LoTWUtilities::selectQuery(const int _queryId)
 
 bool LoTWUtilities::setStationCallSign(const QString &_call)
 {
-    //qDebug() << "LoTWUtilities::setStationCallSign: " << _call << endl;
+    qDebug() << "LoTWUtilities::setStationCallSign: " << _call << endl;
     if (!util->isValidCall(_call))
     {
-        //qDebug() << "LoTWUtilities::setStationCallSign: FALSE "  << endl;
+        qDebug() << "LoTWUtilities::setStationCallSign: FALSE 1"  << endl;
         return false;
     }
     if (((dataProxy->getStationCallSignsFromLog(-1)).contains(_call)))
     {
-       //qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
+        qDebug() << "LoTWUtilities::setStationCallSign: TRUE"  << endl;
         stationCallsign = _call;
         QDate date = dataProxy->getFirstQSODateFromCall(stationCallsign);
-       //qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;
+        qDebug() << "LoTWUtilities::setStationCallSign: Date: " << startDate  << endl;
         if (date.isValid())
         {
             startDate = date.toString("yyyyMMdd");
-            //qDebug() << "LoTWUtilities::setStationCallSign: StartDate" << startDate  << endl;
+             qDebug() << "LoTWUtilities::setStationCallSign: StartDate" << startDate  << endl;
         }
         else
         {
             startDate.clear();
-            //qDebug() << "LoTWUtilities::setStationCallSign: StartDate not valid Date" << endl;
+             qDebug() << "LoTWUtilities::setStationCallSign: StartDate not valid Date" << endl;
+             qDebug() << Q_FUNC_INFO << "False 2 - END";
             return false;
         }
 
-       //qDebug() << "LoTWUtilities::setStationCallSign: startDate: " << startDate  << endl;
+        qDebug() << "LoTWUtilities::setStationCallSign: startDate: " << startDate  << endl;
+        qDebug() << Q_FUNC_INFO << "True 1 - END";
         return true;
     }
     else if (dataProxy->getHowManyQSOInLog(-1) <1)
     {
-       //qDebug() << "LoTWUtilities::setStationCallSign:TRUE Empty log"  << endl;
+        qDebug() << "LoTWUtilities::setStationCallSign:TRUE Empty log"  << endl;
         stationCallsign = _call;
+        qDebug() << Q_FUNC_INFO << "True 2 - END";
         return true;
     }
     else
     {
-       //qDebug() << "LoTWUtilities::setStationCallSign: Not a single QSO in the log with that StationCallsign: " << stationCallsign  << endl;
+        qDebug() << "LoTWUtilities::setStationCallSign: Not a single QSO in the log with that StationCallsign: " << stationCallsign  << endl;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW Station callsign"));
@@ -180,15 +183,17 @@ bool LoTWUtilities::setStationCallSign(const QString &_call)
         msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
         int ret = msgBox.exec();
-        //qDebug() << "LoTWUtilities::download: - 13" << endl;
+
         if (ret == QMessageBox::Yes)
         {
             stationCallsign = _call;
+            qDebug() << Q_FUNC_INFO << "True 3 - END";
             return true;
         }
         else
         {
-           //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 2"  << endl;
+            qDebug() << "LoTWUtilities::setStationCallSign: FALSE 2"  << endl;
+            qDebug() << Q_FUNC_INFO << "FALSE 3 - END";
             return false;
         }
     }

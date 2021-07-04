@@ -1238,6 +1238,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = myDataTabWidget->getStationQRZ();
+    qDebug() << Q_FUNC_INFO << "StationCallSign: " << aux1;
     if (aux1.length()>2)
     {
         //lastStationQRZ = aux1.toUpper();
@@ -4561,7 +4562,7 @@ void MainWindow::openSetup(const int _page)
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
+    qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
 
     if (needToEnd)
     {
@@ -4570,7 +4571,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     if (_s == QDialog::Accepted)
     {
-        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
+        qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
         logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
         readConfigData();
         reconfigureDXMarathonUI(manageDxMarathon);
@@ -4579,7 +4580,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", logSeverity);
         logWindow->createlogPanel(currentLog);
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", logSeverity);
-        defineStationCallsign();
+        defineStationCallsign(mainQRZ);
         logEvent(Q_FUNC_INFO, "before db->reConnect", logSeverity);
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << endl;
         dataProxy->reconnectDB();
@@ -4593,19 +4594,19 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+         qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
     }
 
     if (qso->getBackup ())
     {
-        //qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
+        qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
         restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
+        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4809,7 +4810,7 @@ void MainWindow::readConfigData()
             //qDebug() << Q_FUNC_INFO << ": configured = false" << QTime::currentTime().toString("hh:mm:ss") << endl;
         }
         //qDebug() << Q_FUNC_INFO << ": Calling openSetup" << endl;
-        openSetup();
+        openSetup(0);
         //qDebug() << Q_FUNC_INFO << ": After calling openSetup" << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         //qDebug() << Q_FUNC_INFO << ": - END - 2" << QTime::currentTime().toString("hh:mm:ss") << endl;
@@ -4834,7 +4835,7 @@ void MainWindow::readConfigData()
     file.close ();
 
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << endl;
-    defineStationCallsign();
+    //defineStationCallsign(mainQRZ);
 
      //qDebug() << Q_FUNC_INFO << ":  " << defaultADIFLogFile << QTime::currentTime().toString("hh:mm:ss") << endl;
 
@@ -7592,28 +7593,30 @@ void MainWindow::updateQSLRecAndSent()
 
 
 
-void MainWindow::defineStationCallsign()
+void MainWindow::defineStationCallsign(const QString &_call)
 {
             //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString logQRZ;
-    logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
-            //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
-
-    if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
+    if (util->isValidCall (_call))
     {
-                //qDebug() << "MainWindow::defineStationCallsign TRUE "  << endl;
-        stationQRZ = logQRZ;
+        stationQRZ = _call;
     }
     else
-    {
-                //qDebug() << "MainWindow::defineStationCallsign FALSE "  << endl;
-        stationQRZ = mainQRZ;
+    { // If no call is detected, qwe try to find it from the log
+        QString logQRZ;
+        logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
+        //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
+
+        if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
+        {
+            //qDebug() << "MainWindow::defineStationCallsign TRUE "  << endl;
+            stationQRZ = logQRZ;
+        }
     }
 
-            //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ  << endl;
+     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ  << endl;
     filemanager->setStationCallSign(stationQRZ);
-            //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << endl;
+    //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << endl;
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     searchWidget->setStationCallsign(stationQRZ);
