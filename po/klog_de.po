@@ -488,38 +488,38 @@ msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: ../dxccstatuswidget.cpp:348
+#: ../dxccstatuswidget.cpp:361
 msgctxt "DXCCStatusWidget|"
 msgid "Entity"
 msgstr "Eintrag"
 
-#: ../dxccstatuswidget.cpp:348
+#: ../dxccstatuswidget.cpp:361
 #, fuzzy
 msgctxt "DXCCStatusWidget|"
 msgid "Prefix"
 msgstr "Präfix"
 
-#: ../dxccstatuswidget.cpp:466
+#: ../dxccstatuswidget.cpp:479
 msgctxt "DXCCStatusWidget|"
 msgid "Pref: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:467
+#: ../dxccstatuswidget.cpp:480
 msgctxt "DXCCStatusWidget|"
 msgid "CQ: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:468
+#: ../dxccstatuswidget.cpp:481
 msgctxt "DXCCStatusWidget|"
 msgid "ITU: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:470
+#: ../dxccstatuswidget.cpp:483
 msgctxt "DXCCStatusWidget|"
 msgid "Beam: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:477
+#: ../dxccstatuswidget.cpp:490
 msgctxt "DXCCStatusWidget|"
 msgid "Entity not worked in this band."
 msgstr "Eintrag in diesem Band nicht bearbeitet."
@@ -829,19 +829,19 @@ msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog-DXCC"
 
-#: ../dataproxy_sqlite.cpp:9260
+#: ../dataproxy_sqlite.cpp:9357
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9266
+#: ../dataproxy_sqlite.cpp:9363
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported ADIF record?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9271
+#: ../dataproxy_sqlite.cpp:9368
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -849,7 +849,7 @@ msgid ""
 "callsign anyway (click on Yes) or remove the call from the exported log?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9275
+#: ../dataproxy_sqlite.cpp:9372
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -8017,12 +8017,12 @@ msgctxt "World|"
 msgid "Continent"
 msgstr "Kontinent"
 
-#: ../world.cpp:1237
+#: ../world.cpp:1187
 msgctxt "World|"
 msgid "Reading cty.csv..."
 msgstr "Die Datei „“cty.csv wird gelesen ..."
 
-#: ../world.cpp:1237
+#: ../world.cpp:1187
 msgctxt "World|"
 msgid "Abort reading"
 msgstr "Lesen abbrechen"

@@ -445,37 +445,37 @@ Do you want to try again?</source>
         <translation>Actualizar</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="348"/>
+        <location filename="../dxccstatuswidget.cpp" line="361"/>
         <source>Entity</source>
         <translation>Entidad</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="348"/>
+        <location filename="../dxccstatuswidget.cpp" line="361"/>
         <source>Prefix</source>
         <translation>Prefijo</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="466"/>
+        <location filename="../dxccstatuswidget.cpp" line="479"/>
         <source>Pref: </source>
         <translation>Pref: </translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="467"/>
+        <location filename="../dxccstatuswidget.cpp" line="480"/>
         <source>CQ: </source>
         <translation>CQ: </translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="468"/>
+        <location filename="../dxccstatuswidget.cpp" line="481"/>
         <source>ITU: </source>
         <translation>ITU: </translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="470"/>
+        <location filename="../dxccstatuswidget.cpp" line="483"/>
         <source>Beam: </source>
         <translation>Azimuth: </translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="477"/>
+        <location filename="../dxccstatuswidget.cpp" line="490"/>
         <source>Entity not worked in this band.</source>
         <translation>Entidad no trabajada en esta banda.</translation>
     </message>
@@ -788,22 +788,22 @@ Do you want to try again?</source>
         <translation>KLog DXCC</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9260"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9357"/>
         <source>KLog - Invalid call detected</source>
         <translation>KLog - Indicativo no válido detectado</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9266"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9363"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?</source>
         <translation>Se ha detectado un indicativo vacío. ¿Quiere exportar este QSO de todas formas (Pulsar en Si) o eliminar este campo del log exportado?</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9271"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9368"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?</source>
         <translation>Se ha detectado un indicativo no válido (%1). ¿Quiere exportar este indicativo de todas formas (Pulsar en Si) o eliminar este indicativo del log exportado?</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9275"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9372"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid.</source>
         <translation>Exportar indicativos erróneos puede traer problemas en las aplicaciones en las que potencialmente importará el log. Puede ser de todas formas un buen indicativo que KLog haya detectado como erróneo.</translation>
     </message>
@@ -7747,12 +7747,12 @@ El log no se abrirá.</translation>
         <translation>Continente</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1237"/>
+        <location filename="../world.cpp" line="1187"/>
         <source>Abort reading</source>
         <translation>Cancelar lectura</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1237"/>
+        <location filename="../world.cpp" line="1187"/>
         <source>Reading cty.csv...</source>
         <translation>Leyendo cty.csv...</translation>
     </message>

@@ -480,37 +480,37 @@ msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: ../dxccstatuswidget.cpp:348
+#: ../dxccstatuswidget.cpp:361
 msgctxt "DXCCStatusWidget|"
 msgid "Prefix"
 msgstr "Prefix"
 
-#: ../dxccstatuswidget.cpp:348
+#: ../dxccstatuswidget.cpp:361
 msgctxt "DXCCStatusWidget|"
 msgid "Entity"
 msgstr "Stanice"
 
-#: ../dxccstatuswidget.cpp:466
+#: ../dxccstatuswidget.cpp:479
 msgctxt "DXCCStatusWidget|"
 msgid "Pref: "
 msgstr "Pref: "
 
-#: ../dxccstatuswidget.cpp:467
+#: ../dxccstatuswidget.cpp:480
 msgctxt "DXCCStatusWidget|"
 msgid "CQ: "
 msgstr "CQ: "
 
-#: ../dxccstatuswidget.cpp:468
+#: ../dxccstatuswidget.cpp:481
 msgctxt "DXCCStatusWidget|"
 msgid "ITU: "
 msgstr "ITU: "
 
-#: ../dxccstatuswidget.cpp:470
+#: ../dxccstatuswidget.cpp:483
 msgctxt "DXCCStatusWidget|"
 msgid "Beam: "
 msgstr "Beam: "
 
-#: ../dxccstatuswidget.cpp:477
+#: ../dxccstatuswidget.cpp:490
 msgctxt "DXCCStatusWidget|"
 msgid "Entity not worked in this band."
 msgstr "Se stanicí nepracováno na tomto pásmu."
@@ -814,12 +814,12 @@ msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr "Všechna QSO byla aktualizována na DXCC a Kontinent."
 
-#: ../dataproxy_sqlite.cpp:9260
+#: ../dataproxy_sqlite.cpp:9357
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr "KLog - Byla zjištěna chybná značka"
 
-#: ../dataproxy_sqlite.cpp:9266
+#: ../dataproxy_sqlite.cpp:9363
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
@@ -828,7 +828,7 @@ msgstr ""
 "Byla zjištěna prázdná volací značka. Přejete si přesto toto QSO exportovat "
 "(klikněte na Ano) nebo ho odstranit z exportu ADIF?"
 
-#: ../dataproxy_sqlite.cpp:9271
+#: ../dataproxy_sqlite.cpp:9368
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -838,7 +838,7 @@ msgstr ""
 "Byla zjištěna neplatná volací značka %1. Přejete si přesto toto QSO "
 "exportovat (klikněte na Ano) nebo ho odstranit z exportu?"
 
-#: ../dataproxy_sqlite.cpp:9275
+#: ../dataproxy_sqlite.cpp:9372
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -8113,12 +8113,12 @@ msgctxt "World|"
 msgid "Continent"
 msgstr "Kontinent"
 
-#: ../world.cpp:1237
+#: ../world.cpp:1187
 msgctxt "World|"
 msgid "Reading cty.csv..."
 msgstr "Čtení cty.csv..."
 
-#: ../world.cpp:1237
+#: ../world.cpp:1187
 msgctxt "World|"
 msgid "Abort reading"
 msgstr "Přerušit čtení"

@@ -492,37 +492,37 @@ msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Actualitza"
 
-#: ../dxccstatuswidget.cpp:348
+#: ../dxccstatuswidget.cpp:361
 msgctxt "DXCCStatusWidget|"
 msgid "Entity"
 msgstr "Entitat"
 
-#: ../dxccstatuswidget.cpp:348
+#: ../dxccstatuswidget.cpp:361
 msgctxt "DXCCStatusWidget|"
 msgid "Prefix"
 msgstr "Prefix"
 
-#: ../dxccstatuswidget.cpp:466
+#: ../dxccstatuswidget.cpp:479
 msgctxt "DXCCStatusWidget|"
 msgid "Pref: "
 msgstr "Pref: "
 
-#: ../dxccstatuswidget.cpp:467
+#: ../dxccstatuswidget.cpp:480
 msgctxt "DXCCStatusWidget|"
 msgid "CQ: "
 msgstr "CQ: "
 
-#: ../dxccstatuswidget.cpp:468
+#: ../dxccstatuswidget.cpp:481
 msgctxt "DXCCStatusWidget|"
 msgid "ITU: "
 msgstr "ITU: "
 
-#: ../dxccstatuswidget.cpp:470
+#: ../dxccstatuswidget.cpp:483
 msgctxt "DXCCStatusWidget|"
 msgid "Beam: "
 msgstr "Raig: "
 
-#: ../dxccstatuswidget.cpp:477
+#: ../dxccstatuswidget.cpp:490
 msgctxt "DXCCStatusWidget|"
 msgid "Entity not worked in this band."
 msgstr "L'entitat no ha treballat en aquesta banda."
@@ -830,12 +830,12 @@ msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "DXCC del KLog"
 
-#: ../dataproxy_sqlite.cpp:9260
+#: ../dataproxy_sqlite.cpp:9357
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr "KLog - S'ha detectat un indicatiu no vàlid"
 
-#: ../dataproxy_sqlite.cpp:9266
+#: ../dataproxy_sqlite.cpp:9363
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
@@ -844,7 +844,7 @@ msgstr ""
 "S'ha detectat un indicatiu buit. Voleu exportar igualment aquest QSO (clic a "
 "Sí) o eliminar el camp del registre ADIF exportat?"
 
-#: ../dataproxy_sqlite.cpp:9271
+#: ../dataproxy_sqlite.cpp:9368
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -854,7 +854,7 @@ msgstr ""
 "S'ha detectat un indicatiu no vàlid %1. Voleu exportar igualment aquest "
 "indicatiu (clic a Sí) o eliminar l'indicatiu del fitxer de registre exportat?"
 
-#: ../dataproxy_sqlite.cpp:9275
+#: ../dataproxy_sqlite.cpp:9372
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -8281,12 +8281,12 @@ msgctxt "World|"
 msgid "Continent"
 msgstr "Continent"
 
-#: ../world.cpp:1237
+#: ../world.cpp:1187
 msgctxt "World|"
 msgid "Abort reading"
 msgstr "Interromp la lectura"
 
-#: ../world.cpp:1237
+#: ../world.cpp:1187
 msgctxt "World|"
 msgid "Reading cty.csv..."
 msgstr "S'està llegint el «cty.csv»..."

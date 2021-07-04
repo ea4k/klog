@@ -445,37 +445,37 @@ Möchten Sie es erneut versuchen?</translation>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="348"/>
+        <location filename="../dxccstatuswidget.cpp" line="361"/>
         <source>Entity</source>
         <translation>Eintrag</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="348"/>
+        <location filename="../dxccstatuswidget.cpp" line="361"/>
         <source>Prefix</source>
         <translation type="unfinished">Präfix</translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="466"/>
+        <location filename="../dxccstatuswidget.cpp" line="479"/>
         <source>Pref: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="467"/>
+        <location filename="../dxccstatuswidget.cpp" line="480"/>
         <source>CQ: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="468"/>
+        <location filename="../dxccstatuswidget.cpp" line="481"/>
         <source>ITU: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="470"/>
+        <location filename="../dxccstatuswidget.cpp" line="483"/>
         <source>Beam: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dxccstatuswidget.cpp" line="477"/>
+        <location filename="../dxccstatuswidget.cpp" line="490"/>
         <source>Entity not worked in this band.</source>
         <translation>Eintrag in diesem Band nicht bearbeitet.</translation>
     </message>
@@ -786,22 +786,22 @@ Oder drücken Sie die Eingabetaste für ein leeres Passwort</translation>
         <translation>KLog-DXCC</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9260"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9357"/>
         <source>KLog - Invalid call detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9266"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9363"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9271"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9368"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9275"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9372"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7672,12 +7672,12 @@ The log will not be opened.</source>
         <translation>Kontinent</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1237"/>
+        <location filename="../world.cpp" line="1187"/>
         <source>Reading cty.csv...</source>
         <translation>Die Datei „“cty.csv wird gelesen ...</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1237"/>
+        <location filename="../world.cpp" line="1187"/>
         <source>Abort reading</source>
         <translation>Lesen abbrechen</translation>
     </message>
