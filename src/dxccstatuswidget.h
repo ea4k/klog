@@ -47,7 +47,7 @@ public:
 
     void update();
     //void awardsUpdated();
-    void setBands(const QStringList &_ent, const bool _creating = false); // Receives the list of bandIDs
+    void setBands(const QString &_callingFunc, const QStringList &_ent, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);
     void setMyLocator(const QString &_loc);
 

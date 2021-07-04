@@ -4761,7 +4761,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             slotOpenWiki();
         break;
     case Qt::Key_F4:
-            qDebug() << "MainWindow::keyPressEvent: F4"  << endl;
+            //qDebug << "MainWindow::keyPressEvent: F4"  << endl;
             mainQSOEntryWidget->toggleRealTime ();
         break;
 
@@ -4983,7 +4983,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         //qDebug() << "MainWindow::processConfigLine: BANDS: " << value << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
-        qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
+        //qDebug << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
         mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
         //realTime = util->trueOrFalse(value);
     }
@@ -5471,7 +5471,6 @@ bool MainWindow::processConfigLine(const QString &_line){
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     return true;
 }
-//ESTOY AQUI COMPROBANDO LO QUE TARDA EN ARRANCAR CADA PARTE
 
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
@@ -5511,7 +5510,7 @@ void MainWindow::checkIfNewBandOrMode()
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
-    dxccStatusWidget->setBands(bands);
+    dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") << endl;
     if (bands.contains(currentBand))
@@ -7784,7 +7783,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //qDebug() << Q_FUNC_INFO << endl;
-    dxccStatusWidget->setBands(_b);
+    dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
     //qDebug() << Q_FUNC_INFO << " - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -8371,7 +8370,7 @@ void MainWindow::slotAwardsWidgetSetYear()
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    qDebug() << Q_FUNC_INFO;
+    //qDebug << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
@@ -8439,7 +8438,7 @@ void MainWindow::backupCurrentQSO()
     qso->setSatName (satTabWidget->getSatName ());
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
-    qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
+    //qDebug << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
 
 }
 
@@ -8459,12 +8458,12 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
     if (restoreConfig)
     {
-        qDebug() << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
+        //qDebug << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
         mainQSOEntryWidget->setRealTime (qso->getRealTime ());
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": NO restoring config";
+        //qDebug << Q_FUNC_INFO << ": NO restoring config";
     }
 
     //  MainWindowInputQSO

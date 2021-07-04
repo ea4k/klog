@@ -6989,7 +6989,7 @@ int DataProxy_SQLite::getITUzFromEntity(const int _n)
 
 QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 {
-    qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n) << endl;
+    //qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n) << endl;
 
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(_n);
@@ -7097,7 +7097,7 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
 }
 QStringList DataProxy_SQLite::getEntiNameAndPrefixFromId(const int _dxcc)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
 
     if (_dxcc <= 0 )
     {
@@ -7718,7 +7718,7 @@ bool DataProxy_SQLite::updateISONames()
 
 QString DataProxy_SQLite::getISOName(const int _n)
 {
-    qDebug()  << "DataProxy_SQLite::getISONames: " << QString::number(_n)  << endl;
+    //qDebug()  << "DataProxy_SQLite::getISONames: " << QString::number(_n)  << endl;
     if (_n <= 0 )
     {
              //qDebug()  << "DataProxy_SQLite::getISONames: NOT KNOWN - UN" << endl;
@@ -7756,7 +7756,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
         query.next();
 
         if (query.isValid()){
-            qDebug()  << "DataProxy_SQLite::getISOName: " << "N: " << QString::number(_n) << "- ISO Name: " << (query.value(0)).toString() << endl;
+            //qDebug()  << "DataProxy_SQLite::getISOName: " << "N: " << QString::number(_n) << "- ISO Name: " << (query.value(0)).toString() << endl;
             aux = (query.value(0)).toString();
             query.finish();
             if (aux.length()>1)

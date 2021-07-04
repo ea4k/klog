@@ -764,7 +764,7 @@ bool MainQSOEntryWidget::getRealTime()
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_realTime);
+    //qDebug << Q_FUNC_INFO << ": " << util->boolToQString (_realTime);
 
     realTime = _realTime;
     realtimeCheckBox->setChecked(realTime);
