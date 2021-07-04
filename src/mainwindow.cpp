@@ -3787,6 +3787,13 @@ void MainWindow::createMenusCommon()
 
     fileMenu->addSeparator();
 
+    setupAct = new QAction(tr("Settings ..."), this);
+    fileMenu->addAction(setupAct);
+    //setupAct->setMenuRole(QAction::PreferencesRole);
+    connect(setupAct, SIGNAL(triggered()), this, SLOT(slotSetup()));
+
+    fileMenu->addSeparator();
+
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     //exitAct->setMenuRole(QAction::QuitRole);
@@ -3952,14 +3959,11 @@ void MainWindow::createMenusCommon()
     //connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
     //showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
 
-    toolMenu->addSeparator();
+    //toolMenu->addSeparator();
 
-    setupMenu = menuBar()->addMenu(tr("Setup"));
+    //setupMenu = menuBar()->addMenu(tr("Setup"));
 
-    setupAct = new QAction(tr("Setup ..."), this);
-    setupMenu->addAction(setupAct);
-    //setupAct->setMenuRole(QAction::PreferencesRole);
-    connect(setupAct, SIGNAL(triggered()), this, SLOT(slotSetup()));
+
 
     //TODO: To be added once the help dialog has been implemented
     helpMenu = menuBar()->addMenu(tr("&Help"));

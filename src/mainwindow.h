@@ -502,7 +502,7 @@ private:
     //QMenu *lotwMarkAllAsQueuedMenu;
     //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
-    QMenu *setupMenu;
+    //QMenu *setupMenu;
     QMenu *helpMenu;
 
     //QAction *TestAct;       // Action for testing purposes only
