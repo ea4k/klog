@@ -3,6 +3,7 @@ TBD 2021 - 1.7
 - Bigfix: Some Hamlib parameters were not properly stored.
 - Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
 - Improvement: DarkMode added. (TNX EA5WA)
+- UI: The Setup menu has been moved to Settings into the File menu.
 
 June 2021 - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.
