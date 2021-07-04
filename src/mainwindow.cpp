@@ -4065,7 +4065,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     QMessageBox msgConfirm;
     msgConfirm.setIcon(QMessageBox::Question);
     msgConfirm.setWindowTitle(tr("KLog - LoTW"));
-    msgConfirm.setText(tr("Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW"));
+    msgConfirm.setText(tr("Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
     msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgConfirm.setDefaultButton(QMessageBox::No);
     int i = msgConfirm.exec();
@@ -4142,7 +4142,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
     QMessageBox msgConfirm;
     msgConfirm.setIcon(QMessageBox::Question);
     msgConfirm.setWindowTitle(tr("KLog - LoTW"));
-    msgConfirm.setText(tr("Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW"));
+    msgConfirm.setText(tr("Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
     msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgConfirm.setDefaultButton(QMessageBox::No);
     int i = msgConfirm.exec();

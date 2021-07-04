@@ -2776,11 +2776,6 @@ Přejete si smazat tento soubor?</translation>
         <translation>KLog - LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4068"/>
-        <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4080"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
         <translation>Všechna čekající QSO z tohoto logu byla zafrontována do LoTW!</translation>
@@ -2809,6 +2804,11 @@ Přejete si smazat tento soubor?</translation>
         <location filename="../mainwindow.cpp" line="4128"/>
         <source>No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated.</source>
         <translation>QSO nebyla aktualizována. Mohla to způsobit chyba v souboru nebo jednoduše nebylo co aktualizovat.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4145"/>
+        <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4158"/>
@@ -2936,14 +2936,14 @@ Přejete si smazat tento soubor?</translation>
         <translation>Nastal problém s označením zafrontovaných QSO jako odeslaných do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4080"/>
-        <location filename="../mainwindow.cpp" line="4158"/>
-        <source>Now you can upload them to LoTW.</source>
+        <location filename="../mainwindow.cpp" line="4068"/>
+        <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4145"/>
-        <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW</source>
+        <location filename="../mainwindow.cpp" line="4080"/>
+        <location filename="../mainwindow.cpp" line="4158"/>
+        <source>Now you can upload them to LoTW.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

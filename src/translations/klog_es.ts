@@ -2979,6 +2979,11 @@ Do you want KLog to remove that file?</source>
         <translation>&amp;Debug ...</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="4068"/>
+        <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
+        <translation>¿Quiere marcar TODOS los QSOs de este log para subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a LoTW.</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="4080"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
         <translation>Todos los QSO pendientes de este log se han añadido a la cola de LoTW.</translation>
@@ -2997,6 +3002,11 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="4128"/>
         <source>No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated.</source>
         <translation>No se actualizó ningún QSO con los datos llegados de LoTW. Puede ser por errores en el fichero de log o simplemente porque el log ya estaba actualizado.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4145"/>
+        <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
+        <translation>¿Quiere marcar TODOS los QSOs pendientes por subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4158"/>
@@ -3318,38 +3328,36 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3790"/>
         <source>Settings ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4068"/>
         <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">¿Quiere marcar TODOS los QSOs de este log para subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4080"/>
         <location filename="../mainwindow.cpp" line="4158"/>
         <source>Now you can upload them to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puede enviarlos ahora a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4145"/>
         <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">¿Quiere marcar TODOS los QSOs pendientes por subir de este log? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4163"/>
         <source>There was a problem to mark all pending QSOs as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Hubo un problema al poner en la cola de LoTW los QSOs pendientes!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4344"/>
         <source>All queued QSOs of this log has been marked as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Se han marcado como enviados a LoTW todos los QSOs en cola!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4374"/>
         <source>There was a problem to mark all queued QSOs as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Hubo un problema al marcar todos los QSO en cola como enviados a LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6212"/>
@@ -4849,7 +4857,7 @@ o la base de datos no se moverá a la nueva ubicación.</translation>
     <message>
         <location filename="../setupdialog.cpp" line="343"/>
         <source>Go to the User tab and enter valid callsign.</source>
-        <translation type="unfinished">Vaya a la pestaña Usuario e introduzca un indicativo válido.</translation>
+        <translation>Vaya a la pestaña Usuario e introduzca un indicativo válido.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="355"/>
@@ -5044,7 +5052,7 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
         <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
         <source>Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo oscuro</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
@@ -5074,7 +5082,7 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
         <source>Light Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo claro</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
@@ -5089,7 +5097,7 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
         <source>Sets the Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura el Modo oscuro</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
@@ -5460,43 +5468,43 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="108"/>
         <source>Test: OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Test: OK</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="115"/>
         <source>Test: NOK</source>
-        <translation type="unfinished"></translation>
+        <translation>Test: NOK</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="160"/>
         <source>Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Test</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="161"/>
         <source>Click to test the connection to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulse para probar la conexión a la radio</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="163"/>
         <location filename="../setuppages/setuppagehamlib.cpp" line="295"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca el nombre de máquina o dirección de la radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="164"/>
         <source>Set de network port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Define el puerto de red de la radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="166"/>
         <source>Serial radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio serie</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="167"/>
         <source>Network radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio en red</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="214"/>
@@ -5621,12 +5629,12 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="293"/>
         <source>Host/Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor/Dirección</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="301"/>
         <source>Enter the port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca el puerto de la radio.</translation>
     </message>
 </context>
 <context>
