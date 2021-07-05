@@ -480,37 +480,37 @@ msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: ../dxccstatuswidget.cpp:361
+#: ../dxccstatuswidget.cpp:371
 msgctxt "DXCCStatusWidget|"
 msgid "Prefix"
 msgstr "Prefix"
 
-#: ../dxccstatuswidget.cpp:361
+#: ../dxccstatuswidget.cpp:371
 msgctxt "DXCCStatusWidget|"
 msgid "Entity"
 msgstr "Stanice"
 
-#: ../dxccstatuswidget.cpp:479
+#: ../dxccstatuswidget.cpp:491
 msgctxt "DXCCStatusWidget|"
 msgid "Pref: "
 msgstr "Pref: "
 
-#: ../dxccstatuswidget.cpp:480
+#: ../dxccstatuswidget.cpp:492
 msgctxt "DXCCStatusWidget|"
 msgid "CQ: "
 msgstr "CQ: "
 
-#: ../dxccstatuswidget.cpp:481
+#: ../dxccstatuswidget.cpp:493
 msgctxt "DXCCStatusWidget|"
 msgid "ITU: "
 msgstr "ITU: "
 
-#: ../dxccstatuswidget.cpp:483
+#: ../dxccstatuswidget.cpp:495
 msgctxt "DXCCStatusWidget|"
 msgid "Beam: "
 msgstr "Beam: "
 
-#: ../dxccstatuswidget.cpp:490
+#: ../dxccstatuswidget.cpp:502
 msgctxt "DXCCStatusWidget|"
 msgid "Entity not worked in this band."
 msgstr "Se stanicí nepracováno na tomto pásmu."
@@ -1591,44 +1591,44 @@ msgctxt "LoTWUtilities|"
 msgid "Please enter your LoTW password: "
 msgstr "Vložte heslo do LoTW: "
 
-#: ../lotwutilities.cpp:176
+#: ../lotwutilities.cpp:179
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Station callsign"
 msgstr "KLog - LoTW stanice"
 
-#: ../lotwutilities.cpp:177
+#: ../lotwutilities.cpp:180
 msgctxt "LoTWUtilities|"
 msgid "There is not a single QSO in the log with that station callsign."
 msgstr "V logu pro tuto stanici není žádné QSO."
 
-#: ../lotwutilities.cpp:178
+#: ../lotwutilities.cpp:181
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "Are you sure that you want to use that station callsign (%1)?"
 msgstr "Opravdu si přejete použít stanici (%1)?"
 
-#: ../lotwutilities.cpp:238 ../lotwutilities.cpp:367
+#: ../lotwutilities.cpp:243 ../lotwutilities.cpp:372
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW File already exists"
 msgstr "KLog - Soubor LoTW již existuje"
 
-#: ../lotwutilities.cpp:239 ../lotwutilities.cpp:368
+#: ../lotwutilities.cpp:244 ../lotwutilities.cpp:373
 msgctxt "LoTWUtilities|"
 msgid "There is a file already existing with the name that will be used."
 msgstr "Soubor s takovým jménem již existuje."
 
-#: ../lotwutilities.cpp:240 ../lotwutilities.cpp:369
+#: ../lotwutilities.cpp:245 ../lotwutilities.cpp:374
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "The file %1 already exist. Do you want to overwrite?"
 msgstr "Soubor %1 již existuje. Přejete si jej přepsat?"
 
-#: ../lotwutilities.cpp:265 ../lotwutilities.cpp:394
+#: ../lotwutilities.cpp:270 ../lotwutilities.cpp:399
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Can't write the file"
 msgstr "KLog - LoTW Nelze zapsat do souboru"
 
-#: ../lotwutilities.cpp:266 ../lotwutilities.cpp:395
+#: ../lotwutilities.cpp:271 ../lotwutilities.cpp:400
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid ""
@@ -1638,29 +1638,29 @@ msgstr ""
 "KLog nebyl schopen zapsat do souboru %1.\n"
 "Chyba : %2"
 
-#: ../lotwutilities.cpp:267 ../lotwutilities.cpp:396
+#: ../lotwutilities.cpp:272 ../lotwutilities.cpp:401
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "The file %1 already exists."
 msgstr "Soubor %1 již existuje."
 
-#: ../lotwutilities.cpp:285 ../lotwutilities.cpp:414
+#: ../lotwutilities.cpp:290 ../lotwutilities.cpp:419
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "Downloading data to file: %1."
 msgstr "Stahuji data to souboru: %1."
 
-#: ../lotwutilities.cpp:287 ../lotwutilities.cpp:416 ../lotwutilities.cpp:678
+#: ../lotwutilities.cpp:292 ../lotwutilities.cpp:421 ../lotwutilities.cpp:683
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW download"
 msgstr "KLog - Stažení LoTW"
 
-#: ../lotwutilities.cpp:321
+#: ../lotwutilities.cpp:326
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Start date selection"
 msgstr "KLog - LoTW Výběr počátečního data"
 
-#: ../lotwutilities.cpp:322
+#: ../lotwutilities.cpp:327
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid ""
@@ -1670,106 +1670,106 @@ msgstr ""
 "Toto je první datum spojení s volací značkou %1 v tomto logu Pokud si "
 "myslíte, že v LoTW můžete mít předchozí spojení, odpovězte Ne."
 
-#: ../lotwutilities.cpp:323
+#: ../lotwutilities.cpp:328
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "Do you want to use this date (%1) as start date?"
 msgstr "Přejete si použít datum (%1) jako počáteční datum?"
 
-#: ../lotwutilities.cpp:496
+#: ../lotwutilities.cpp:501
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Download error"
 msgstr "KLog - LoTW Chyba při stahování"
 
-#: ../lotwutilities.cpp:498
+#: ../lotwutilities.cpp:503
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "There was an error (%1) while downloading the file from LoTW."
 msgstr "Při stahování souboru z LoTW došlo k chybě (%1)."
 
-#: ../lotwutilities.cpp:499
+#: ../lotwutilities.cpp:504
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "The downloading error details are: %1"
 msgstr "Detaily chyby: %1"
 
-#: ../lotwutilities.cpp:511
+#: ../lotwutilities.cpp:516
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Redirection found"
 msgstr "KLog - LoTW Nalezeno přesměrování"
 
-#: ../lotwutilities.cpp:512
+#: ../lotwutilities.cpp:517
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "The remote server redirected our connection to %1"
 msgstr "Vzdálený server přesměroval spojení na %1"
 
-#: ../lotwutilities.cpp:513
+#: ../lotwutilities.cpp:518
 msgctxt "LoTWUtilities|"
 msgid "Do you want to follow the redirection?"
 msgstr "Akceptujete toto přesměrování?"
 
-#: ../lotwutilities.cpp:588
+#: ../lotwutilities.cpp:593
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW File not found"
 msgstr "KLog - LoTW Soubor nenalezen"
 
-#: ../lotwutilities.cpp:589
+#: ../lotwutilities.cpp:594
 msgctxt "LoTWUtilities|"
 msgid "KLog can't find the downloaded file."
 msgstr "KLog nemůže nalézt stažený soubor."
 
-#: ../lotwutilities.cpp:590
+#: ../lotwutilities.cpp:595
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid "It was not possible for find the file %1 that has been just downloaded."
 msgstr "Nebylo možné najít soubor %1, který byl právě stažen."
 
-#: ../lotwutilities.cpp:649
+#: ../lotwutilities.cpp:654
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW user/password error"
 msgstr "KLog - LoTW Chyba uživatele/hesla"
 
-#: ../lotwutilities.cpp:650
+#: ../lotwutilities.cpp:655
 msgctxt "LoTWUtilities|"
 msgid "LoTW server did not recognized your user/password"
 msgstr "LoTW odmítl vaše přihlašovací údaje (uživatel/heslo)"
 
-#: ../lotwutilities.cpp:651
+#: ../lotwutilities.cpp:656
 msgctxt "LoTWUtilities|"
 msgid ""
 "Check your user and password and ensure your are using the right one before "
 "trying again."
 msgstr "Než to zkusíte znovu, zkontrolujte své uživatelské jméno a heslo."
 
-#: ../lotwutilities.cpp:655
+#: ../lotwutilities.cpp:660
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW No QSOs "
 msgstr "KLog - LoTW Žádné QSO "
 
-#: ../lotwutilities.cpp:656
+#: ../lotwutilities.cpp:661
 msgctxt "LoTWUtilities|"
 msgid "LoTW sent no QSOs"
 msgstr "LoTW Nebylo odesláno žádné QSO"
 
-#: ../lotwutilities.cpp:657
+#: ../lotwutilities.cpp:662
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid ""
 "It seems that LoTW has no QSO with the Station Callsign you are using (%1)."
 msgstr "LoTW neobsahuje QSO se značkou stanice, kterou právě používáte (%1)."
 
-#: ../lotwutilities.cpp:661
+#: ../lotwutilities.cpp:666
 msgctxt "LoTWUtilities|"
 msgid "KLog - LoTW Unknown error"
 msgstr "KLog - LoTW Neznámá chyba"
 
-#: ../lotwutilities.cpp:662
+#: ../lotwutilities.cpp:667
 msgctxt "LoTWUtilities|"
 msgid "KLog can't recognize the file that has been downloaded from LoTW."
 msgstr "KLog nemůže rozpoznat soubor, který byl stažen z LoTW."
 
-#: ../lotwutilities.cpp:663
+#: ../lotwutilities.cpp:668
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid ""
@@ -1777,7 +1777,7 @@ msgid ""
 "analysis."
 msgstr "Zkuste to znovu a pošlete stažený soubor (%1) vývojáři KLog k analýze."
 
-#: ../lotwutilities.cpp:679
+#: ../lotwutilities.cpp:684
 #, qt-format
 msgctxt "LoTWUtilities|"
 msgid ""
@@ -1786,7 +1786,7 @@ msgid ""
 msgstr ""
 "KLog úspěšně stáhl %1 QSO. Chcete aktualizovat svůj log o stažená data?"
 
-#: ../lotwutilities.cpp:680
+#: ../lotwutilities.cpp:685
 msgctxt "LoTWUtilities|"
 msgid "Now KLog will process the downloaded QSO and update your local log."
 msgstr "KLog zpracuje stažená spojení a aktualizuje lokální log."
@@ -2079,7 +2079,7 @@ msgctxt ""
 msgid "DUPE"
 msgstr "DUPE"
 
-#: ../mainwindow.cpp:54 ../mainwindow.cpp:3907
+#: ../mainwindow.cpp:54 ../mainwindow.cpp:3915
 msgctxt "MainWindow|"
 msgid "Check always the current callsign in QRZ.com"
 msgstr "Vždy vyhledej stanici v QRZ.com"
@@ -2239,7 +2239,7 @@ msgctxt "MainWindow|"
 msgid "KLog - %1 - QSOs: %2"
 msgstr "KLog - %1 - QSOs: %2"
 
-#: ../mainwindow.cpp:776 ../mainwindow.cpp:4617
+#: ../mainwindow.cpp:776 ../mainwindow.cpp:4622
 msgctxt "MainWindow|"
 msgid "KLog"
 msgstr "KLog"
@@ -2272,7 +2272,7 @@ msgid ""
 msgstr ""
 "Volací značka %1 není platná. Opravdu si přejete vložit tuto značku do logu?"
 
-#: ../mainwindow.cpp:1092 ../mainwindow.cpp:1873
+#: ../mainwindow.cpp:1092 ../mainwindow.cpp:1874
 msgctxt "MainWindow|"
 msgid ""
 "Adding non-valid calls to the log may create problems when applying for "
@@ -2281,17 +2281,17 @@ msgstr ""
 "Vložení neplatné značky do logu může způsobit problémy při žádosti o "
 "diplomy, exportu do ADIF."
 
-#: ../mainwindow.cpp:1151 ../mainwindow.cpp:1967
+#: ../mainwindow.cpp:1151 ../mainwindow.cpp:1968
 msgctxt "MainWindow|"
 msgid "KLog - Select correct entity"
 msgstr "KLog - Vyberte správnou zemi"
 
-#: ../mainwindow.cpp:1152 ../mainwindow.cpp:1968
+#: ../mainwindow.cpp:1152 ../mainwindow.cpp:1969
 msgctxt "MainWindow|"
 msgid "You have selected an entity:"
 msgstr "Vybrali jste zemi:"
 
-#: ../mainwindow.cpp:1152 ../mainwindow.cpp:1968
+#: ../mainwindow.cpp:1152 ../mainwindow.cpp:1969
 msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr "která se liší od země navrhované KLog:"
@@ -2302,12 +2302,12 @@ msgid ""
 "Click on the prefix of the correct entity or Cancel to edit the QSO again."
 msgstr "Klikněte na prefix správné země nebo Zrušit upravte spojení."
 
-#: ../mainwindow.cpp:1870
+#: ../mainwindow.cpp:1871
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
 msgstr "KLog - Neplatná značka"
 
-#: ../mainwindow.cpp:1871
+#: ../mainwindow.cpp:1872
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2316,33 +2316,33 @@ msgid ""
 msgstr ""
 "Volací značka %1 není platná. Opravdu si přejete vložit tuto stanici do logu?"
 
-#: ../mainwindow.cpp:1938 ../mainwindow.cpp:1951
+#: ../mainwindow.cpp:1939 ../mainwindow.cpp:1952
 msgctxt "MainWindow|"
 msgid "No DXCC"
 msgstr "Není DXCC"
 
-#: ../mainwindow.cpp:1939 ../mainwindow.cpp:1952
+#: ../mainwindow.cpp:1940 ../mainwindow.cpp:1953
 msgctxt "MainWindow|"
 msgid "None"
 msgstr "Žádný"
 
-#: ../mainwindow.cpp:1969
+#: ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Klikněte na prefix správné země nebo Zrušit pro upravení."
 
-#: ../mainwindow.cpp:2727 ../mainwindow.cpp:5840 ../mainwindow.cpp:5855
-#: ../mainwindow.cpp:6356
+#: ../mainwindow.cpp:2728 ../mainwindow.cpp:5844 ../mainwindow.cpp:5859
+#: ../mainwindow.cpp:6360
 msgctxt "MainWindow|"
 msgid "Save ADIF File"
 msgstr "Uložit ADIF"
 
-#: ../mainwindow.cpp:2759
+#: ../mainwindow.cpp:2760
 msgctxt "MainWindow|"
 msgid "You have requested to delete several QSOs "
 msgstr "Bylo požadováno smazat několik QSO "
 
-#: ../mainwindow.cpp:2763
+#: ../mainwindow.cpp:2764
 msgctxt "MainWindow|"
 msgid ""
 "This operation shall remove definitely all the selected QSO and associated "
@@ -2351,23 +2351,23 @@ msgstr ""
 "Tato operace definitivně odstraní všechna vybraná QSO a související data a "
 "nebudete jej moci znovu obnovit."
 
-#: ../mainwindow.cpp:2764 ../mainwindow.cpp:2819
+#: ../mainwindow.cpp:2765 ../mainwindow.cpp:2820
 msgctxt "MainWindow|"
 msgid "Are you sure?"
 msgstr "Opravdu chcete odstranit QSO?"
 
-#: ../mainwindow.cpp:2814
+#: ../mainwindow.cpp:2815
 #, qt-format
 msgctxt "MainWindow|"
 msgid "You have requested to delete the QSO with: %1"
 msgstr "Bylo požadováno smazat QSO s: %1"
 
-#: ../mainwindow.cpp:2920
+#: ../mainwindow.cpp:2921
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog error"
 msgstr "KLog - Chyba ClubLog"
 
-#: ../mainwindow.cpp:2921
+#: ../mainwindow.cpp:2922
 msgctxt "MainWindow|"
 msgid ""
 "The ClubLog upload process has finished with an error and the log was "
@@ -2376,7 +2376,7 @@ msgstr ""
 "Proces nahrávání do ClubLog byl dokončen s chybou. Log pravděpodobně nebyl "
 "nahrán."
 
-#: ../mainwindow.cpp:2922
+#: ../mainwindow.cpp:2923
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2386,25 +2386,25 @@ msgstr ""
 "Zkontrolujte prosím své přihlašovací údaje, připojení k internetu a účet "
 "Clublog. Chybový kód:%1"
 
-#: ../mainwindow.cpp:2941 ../mainwindow.cpp:2956 ../mainwindow.cpp:2967
-#: ../mainwindow.cpp:2977 ../mainwindow.cpp:2987 ../mainwindow.cpp:5977
-#: ../mainwindow.cpp:6003 ../mainwindow.cpp:6208
+#: ../mainwindow.cpp:2942 ../mainwindow.cpp:2957 ../mainwindow.cpp:2968
+#: ../mainwindow.cpp:2978 ../mainwindow.cpp:2988 ../mainwindow.cpp:5981
+#: ../mainwindow.cpp:6007 ../mainwindow.cpp:6212
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog"
 msgstr "KLog - ClubLog"
 
-#: ../mainwindow.cpp:2942
+#: ../mainwindow.cpp:2943
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?"
 msgstr "Přejete si označit jako Nahraná všechna QSO nahraná na ClubLog?"
 
-#: ../mainwindow.cpp:2958
+#: ../mainwindow.cpp:2959
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the ClubLog QSO upload information."
 msgstr "Došlo k chybě při nahrávání informací ClubLog QSO."
 
-#: ../mainwindow.cpp:2968
+#: ../mainwindow.cpp:2969
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2418,17 +2418,17 @@ msgstr ""
 "\n"
 "Přejete si smazat tento soubor?"
 
-#: ../mainwindow.cpp:2978 ../mainwindow.cpp:3097 ../mainwindow.cpp:5955
+#: ../mainwindow.cpp:2979 ../mainwindow.cpp:3098 ../mainwindow.cpp:5959
 msgctxt "MainWindow|"
 msgid "The file has been removed."
 msgstr "Soubor byl smazán."
 
-#: ../mainwindow.cpp:2988 ../mainwindow.cpp:3107
+#: ../mainwindow.cpp:2989 ../mainwindow.cpp:3108
 msgctxt "MainWindow|"
 msgid "The file has not been removed."
 msgstr "Soubor nebyl smazán."
 
-#: ../mainwindow.cpp:2989 ../mainwindow.cpp:3108
+#: ../mainwindow.cpp:2990 ../mainwindow.cpp:3109
 msgctxt "MainWindow|"
 msgid ""
 "It seems that there was something that prevented KLog from removing the "
@@ -2438,12 +2438,12 @@ msgstr ""
 "Něco brání KLogu soubor smazat\n"
 "Můžete ho ručně smazat."
 
-#: ../mainwindow.cpp:3039
+#: ../mainwindow.cpp:3040
 msgctxt "MainWindow|"
 msgid "KLog - eQSL error"
 msgstr "KLog - Chyba eQSL"
 
-#: ../mainwindow.cpp:3040
+#: ../mainwindow.cpp:3041
 msgctxt "MainWindow|"
 msgid ""
 "The eQSL upload process has finished with an error and the log was possibly "
@@ -2452,7 +2452,7 @@ msgstr ""
 "Proces nahrávání do eQSL byl dokončen s chybou. Log pravděpodobně nebyl "
 "nahrán."
 
-#: ../mainwindow.cpp:3041 ../mainwindow.cpp:3136
+#: ../mainwindow.cpp:3042 ../mainwindow.cpp:3137
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2462,25 +2462,25 @@ msgstr ""
 "Zkontrolujte prosím své přihlašovací údaje, připojení k internetu a účet "
 "eQSL. Chybový kód:%1"
 
-#: ../mainwindow.cpp:3059 ../mainwindow.cpp:3074 ../mainwindow.cpp:3086
-#: ../mainwindow.cpp:3096 ../mainwindow.cpp:3106 ../mainwindow.cpp:6039
-#: ../mainwindow.cpp:6239
+#: ../mainwindow.cpp:3060 ../mainwindow.cpp:3075 ../mainwindow.cpp:3087
+#: ../mainwindow.cpp:3097 ../mainwindow.cpp:3107 ../mainwindow.cpp:6043
+#: ../mainwindow.cpp:6243
 msgctxt "MainWindow|"
 msgid "KLog - eQSL"
 msgstr "KLog - eQSL"
 
-#: ../mainwindow.cpp:3060
+#: ../mainwindow.cpp:3061
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to eQSL?"
 msgstr "Přejete si označit jako Nahraná všechna QSO nahraná na eQSL?"
 
-#: ../mainwindow.cpp:3076
+#: ../mainwindow.cpp:3077
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the eQSL QSO upload information."
 msgstr "Došlo k chybě při nahrávání informací eQSL QSO."
 
-#: ../mainwindow.cpp:3087
+#: ../mainwindow.cpp:3088
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2494,12 +2494,12 @@ msgstr ""
 "\n"
 "Přejete si smazat tento soubor?"
 
-#: ../mainwindow.cpp:3134 ../mainwindow.cpp:3261
+#: ../mainwindow.cpp:3135 ../mainwindow.cpp:3262
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com error"
 msgstr "KLog - Chyba QRZ.com"
 
-#: ../mainwindow.cpp:3135
+#: ../mainwindow.cpp:3136
 msgctxt "MainWindow|"
 msgid ""
 "The QRZ.com upload process has finished with an error and the log was "
@@ -2508,161 +2508,166 @@ msgstr ""
 "Proces nahrávání do QRZ.com byl dokončen s chybou. Log pravděpodobně nebyl "
 "nahrán."
 
-#: ../mainwindow.cpp:3154 ../mainwindow.cpp:3170 ../mainwindow.cpp:3181
-#: ../mainwindow.cpp:6341
+#: ../mainwindow.cpp:3155 ../mainwindow.cpp:3171 ../mainwindow.cpp:3182
+#: ../mainwindow.cpp:6345
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com"
 msgstr "KLog - QRZ.com"
 
-#: ../mainwindow.cpp:3155
+#: ../mainwindow.cpp:3156
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to QRZ.com?"
 msgstr "Přejete si označit jako Nahraná všechna QSO nahraná na QRZ.com?"
 
-#: ../mainwindow.cpp:3172
+#: ../mainwindow.cpp:3173
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the QRZ.com QSO upload information."
 msgstr "Došlo k chybě při nahrávání informací QRZ.com QSO."
 
-#: ../mainwindow.cpp:3182
+#: ../mainwindow.cpp:3183
 msgctxt "MainWindow|"
 msgid "The QRZ.com upload process has finished successfully"
 msgstr "Nahrání QRZ.com bylo úspěšně dokončeno"
 
-#: ../mainwindow.cpp:3256
+#: ../mainwindow.cpp:3257
 msgctxt "MainWindow|"
 msgid "Call not found in QRZ.com"
 msgstr "Stanice nenalezena v QRZ.com"
 
-#: ../mainwindow.cpp:3262
+#: ../mainwindow.cpp:3263
 msgctxt "MainWindow|"
 msgid "KLog has received an error from QRZ.com."
 msgstr "Byla přijata chyba z QRZ.com."
 
-#: ../mainwindow.cpp:3295
+#: ../mainwindow.cpp:3296
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1"
 msgstr "KLog - %1"
 
-#: ../mainwindow.cpp:3296
+#: ../mainwindow.cpp:3297
 #, qt-format
 msgctxt "MainWindow|"
 msgid "You need to activate the %1 service in the eLog preferences."
 msgstr "Je potřeba aktivovat službu %1 v Nastavení->Nastavení->eLog."
 
-#: ../mainwindow.cpp:3355
+#: ../mainwindow.cpp:3356
 msgctxt "MainWindow|"
 msgid "KLog - Exit"
 msgstr "KLog - Ukončení"
 
-#: ../mainwindow.cpp:3356
+#: ../mainwindow.cpp:3357
 msgctxt "MainWindow|"
 msgid "Do you really want to exit KLog?"
 msgstr "Opravdu si přejete ukončit Klog?"
 
-#: ../mainwindow.cpp:3659
+#: ../mainwindow.cpp:3660
 msgctxt "MainWindow|"
 msgid "The logfile has been modified."
 msgstr "Log byl modifikován."
 
-#: ../mainwindow.cpp:3659
+#: ../mainwindow.cpp:3660
 msgctxt "MainWindow|"
 msgid "Do you want to save your changes?"
 msgstr "Přejete si uložit změny?"
 
-#: ../mainwindow.cpp:3678 ../mainwindow.cpp:5820
+#: ../mainwindow.cpp:3679 ../mainwindow.cpp:5824
 msgctxt "MainWindow|"
 msgid "KLog - ADIF export"
 msgstr "KLog - ADIF export"
 
-#: ../mainwindow.cpp:3679
+#: ../mainwindow.cpp:3680
 msgctxt "MainWindow|"
 msgid "It is important to export to ADIF and save a copy as a backup."
 msgstr "Je důležité provést export ADIF a kopii exportu použít jako zálohu."
 
-#: ../mainwindow.cpp:3683
+#: ../mainwindow.cpp:3684
 msgctxt "MainWindow|"
 msgid "Saving the log was done successfully."
 msgstr "Log byl úspěšně uložen."
 
-#: ../mainwindow.cpp:3691
+#: ../mainwindow.cpp:3692
 msgctxt "MainWindow|"
 msgid "The ADIF export was not properly done."
 msgstr "Export ADIF nebyl proveden správně."
 
-#: ../mainwindow.cpp:3737
+#: ../mainwindow.cpp:3738
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr "&Soubor"
 
-#: ../mainwindow.cpp:3748
+#: ../mainwindow.cpp:3749
 msgctxt "MainWindow|"
 msgid "&Import from ADIF ..."
 msgstr "&Import z ADIF ..."
 
-#: ../mainwindow.cpp:3751
+#: ../mainwindow.cpp:3752
 msgctxt "MainWindow|"
 msgid "Import an ADIF file into the current log."
 msgstr "Importovat ADIF do současného logu."
 
-#: ../mainwindow.cpp:3761
+#: ../mainwindow.cpp:3762
 msgctxt "MainWindow|"
 msgid "Export to ADIF ..."
 msgstr "Export do ADIF ..."
 
-#: ../mainwindow.cpp:3765
+#: ../mainwindow.cpp:3766
 msgctxt "MainWindow|"
 msgid "Export the current log to an ADIF logfile."
 msgstr "Exportovat současný log do ADIF."
 
-#: ../mainwindow.cpp:3767
+#: ../mainwindow.cpp:3768
 msgctxt "MainWindow|"
 msgid "Export all logs to ADIF ..."
 msgstr "Exportovat všechny logy do ADIF ..."
 
-#: ../mainwindow.cpp:3771
+#: ../mainwindow.cpp:3772
 msgctxt "MainWindow|"
 msgid "Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."
 msgstr "Exportovat všechny QSO do jednoho ADIF, sloučit QSO ze všech logů."
 
-#: ../mainwindow.cpp:3775
+#: ../mainwindow.cpp:3776
 msgctxt "MainWindow|"
 msgid "&Print Log ..."
 msgstr "&Tisk logu ..."
 
-#: ../mainwindow.cpp:3778
+#: ../mainwindow.cpp:3779
 msgctxt "MainWindow|"
 msgid "Print your log."
 msgstr "Tisk logu."
 
-#: ../mainwindow.cpp:3783
+#: ../mainwindow.cpp:3784
 msgctxt "MainWindow|"
 msgid "KLog folder"
 msgstr "KLog adresář"
 
-#: ../mainwindow.cpp:3785
+#: ../mainwindow.cpp:3786
 msgctxt "MainWindow|"
 msgid "Opens the data folder of KLog."
 msgstr "Otevřít KLog adresář."
 
-#: ../mainwindow.cpp:3790
+#: ../mainwindow.cpp:3791
+msgctxt "MainWindow|"
+msgid "Settings ..."
+msgstr ""
+
+#: ../mainwindow.cpp:3798
 msgctxt "MainWindow|"
 msgid "E&xit"
 msgstr "&Ukončit"
 
-#: ../mainwindow.cpp:3797
+#: ../mainwindow.cpp:3805
 msgctxt "MainWindow|"
 msgid "&Tools"
 msgstr "Nás&troje"
 
-#: ../mainwindow.cpp:3799
+#: ../mainwindow.cpp:3807
 msgctxt "MainWindow|"
 msgid "Fill in QSO data"
 msgstr "Přepoužít QSO data"
 
-#: ../mainwindow.cpp:3803
+#: ../mainwindow.cpp:3811
 msgctxt "MainWindow|"
 msgid ""
 "Go through the log reusing previous QSOs to fill missing information in "
@@ -2670,29 +2675,29 @@ msgid ""
 msgstr ""
 "Použít data z předešlých QSO pro vyplnění chybějících informací v QSO.."
 
-#: ../mainwindow.cpp:3806
+#: ../mainwindow.cpp:3814
 msgctxt "MainWindow|"
 msgid "QSL tools ..."
 msgstr "QSL ..."
 
-#: ../mainwindow.cpp:3808
+#: ../mainwindow.cpp:3816
 msgctxt "MainWindow|"
 msgid "Find QSO to QSL"
 msgstr "Najít QSO pro QSL"
 
-#: ../mainwindow.cpp:3811
+#: ../mainwindow.cpp:3819
 msgctxt "MainWindow|"
 msgid "Shows QSOs for which you should send your QSL and request the DX QSL."
 msgstr ""
 "Zobrazit QSO, pro která by měla být poslána QSL a požádáno o QSL "
 "protistanice."
 
-#: ../mainwindow.cpp:3813
+#: ../mainwindow.cpp:3821
 msgctxt "MainWindow|"
 msgid "Find My-QSLs pending to send"
 msgstr "Najít QSL čekající na odeslání"
 
-#: ../mainwindow.cpp:3817
+#: ../mainwindow.cpp:3825
 msgctxt "MainWindow|"
 msgid ""
 "Shows the QSOs with pending requests to send QSLs. You should keep this "
@@ -2701,243 +2706,226 @@ msgstr ""
 "Zobrazit QSO s nevyřízenými požadavky na odeslání QSL. Tato fronta by měla "
 "být ideálně prázdná!"
 
-#: ../mainwindow.cpp:3819
+#: ../mainwindow.cpp:3827
 msgctxt "MainWindow|"
 msgid "Find DX-QSLs pending to receive"
 msgstr "Najít QSL čekající na potvrzení"
 
-#: ../mainwindow.cpp:3822
+#: ../mainwindow.cpp:3830
 msgctxt "MainWindow|"
 msgid "Shows DX-QSLs for which requests or QSLs have been sent with no answer."
 msgstr ""
 "Zobrazit QSL, pro která bylo vyžádáno nebo odesláno QSL, ale není odpověď."
 
-#: ../mainwindow.cpp:3824
+#: ../mainwindow.cpp:3832
 msgctxt "MainWindow|"
 msgid "Find requested pending to receive"
 msgstr "Najít nepřijaté vyžádané QSL"
 
-#: ../mainwindow.cpp:3827
+#: ../mainwindow.cpp:3835
 msgctxt "MainWindow|"
 msgid "Shows the DX-QSLs that have been requested."
 msgstr "Zobrazí QSL, která byla vyžádána."
 
-#: ../mainwindow.cpp:3830
+#: ../mainwindow.cpp:3838
 msgctxt "MainWindow|"
 msgid "LoTW tools ..."
 msgstr "LoTW ..."
 
-#: ../mainwindow.cpp:3832
+#: ../mainwindow.cpp:3840
 msgctxt "MainWindow|"
 msgid "Queue all QSLs from this log to be sent"
 msgstr "Všechna QSO z tohoto logu do fronty k odeslání"
 
-#: ../mainwindow.cpp:3835
+#: ../mainwindow.cpp:3843
 msgctxt "MainWindow|"
 msgid "Mark all non-sent QSOs in this log as queued to be uploaded."
 msgstr ""
 "Do fronty pro odeslání budou vložena všechna neodeslaná QSO z tohoto logu."
 
-#: ../mainwindow.cpp:3837
+#: ../mainwindow.cpp:3845
 msgctxt "MainWindow|"
 msgid "Queue all QSLs to be sent"
 msgstr "Všechna QSL do fronty k odeslání"
 
-#: ../mainwindow.cpp:3840
+#: ../mainwindow.cpp:3848
 msgctxt "MainWindow|"
 msgid "Put all the non-sent QSOs in the queue to be uploaded."
 msgstr "Vložit všechna neodeslaná QSO do fronty k odeslání."
 
-#: ../mainwindow.cpp:3844
+#: ../mainwindow.cpp:3852
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs from this log as sent"
 msgstr "Označit zafrontovaná QSO z tohoto logu jako odeslaná"
 
-#: ../mainwindow.cpp:3847
+#: ../mainwindow.cpp:3855
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs in this log as sent to LoTW."
 msgstr "Označit zafrontovaná QSO z tohoto logu jako odeslaná do LoTW."
 
-#: ../mainwindow.cpp:3849
+#: ../mainwindow.cpp:3857
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs as sent"
 msgstr "Označit zafrontovaná QSO jako odeslaná"
 
-#: ../mainwindow.cpp:3852
+#: ../mainwindow.cpp:3860
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs as sent to LoTW."
 msgstr "Označit zafrontovaná QSO jako odeslaná do LoTW."
 
-#: ../mainwindow.cpp:3861
+#: ../mainwindow.cpp:3869
 msgctxt "MainWindow|"
 msgid "Download from LoTW ..."
 msgstr "Stažení LoTW ..."
 
-#: ../mainwindow.cpp:3866
+#: ../mainwindow.cpp:3874
 msgctxt "MainWindow|"
 msgid "Download the full log from LoTW ..."
 msgstr "Stažení celého logu z LoTW ..."
 
-#: ../mainwindow.cpp:3871
+#: ../mainwindow.cpp:3879
 msgctxt "MainWindow|"
 msgid "ClubLog tools ..."
 msgstr "ClubLog ..."
 
-#: ../mainwindow.cpp:3873 ../mainwindow.cpp:3886
+#: ../mainwindow.cpp:3881 ../mainwindow.cpp:3894
 msgctxt "MainWindow|"
 msgid "Queue all the QSOs to be uploaded"
 msgstr "Všechna QSO do fronty k odeslání"
 
-#: ../mainwindow.cpp:3878
+#: ../mainwindow.cpp:3886
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to ClubLog ..."
 msgstr "Odeslat QSO ve frontě ..."
 
-#: ../mainwindow.cpp:3884
+#: ../mainwindow.cpp:3892
 msgctxt "MainWindow|"
 msgid "eQSL tools ..."
 msgstr "eQSL ..."
 
-#: ../mainwindow.cpp:3891
+#: ../mainwindow.cpp:3899
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to eQSL.cc ..."
 msgstr "Nahrát QSO ve frontě ..."
 
-#: ../mainwindow.cpp:3897
+#: ../mainwindow.cpp:3905
 msgctxt "MainWindow|"
 msgid "QRZ.com tools ..."
 msgstr "QRZ.com ..."
 
-#: ../mainwindow.cpp:3899
+#: ../mainwindow.cpp:3907
 msgctxt "MainWindow|"
 msgid "Check the current callsign in QRZ.com"
 msgstr "Vyhledat stanici v QRZ.com"
 
-#: ../mainwindow.cpp:3900
+#: ../mainwindow.cpp:3908
 msgctxt "MainWindow|"
 msgid "Queue all the QSO to be uploaded"
 msgstr "Všechna QSO do fronty k odeslání"
 
-#: ../mainwindow.cpp:3901
+#: ../mainwindow.cpp:3909
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to QRZ.com ..."
 msgstr "Nahrát QSO ve frontě ..."
 
-#: ../mainwindow.cpp:3924
+#: ../mainwindow.cpp:3932
 msgctxt "MainWindow|"
 msgid "Update cty.csv"
 msgstr "Aktualizovat cty.csv"
 
-#: ../mainwindow.cpp:3928 ../mainwindow.cpp:3933
+#: ../mainwindow.cpp:3936 ../mainwindow.cpp:3941
 msgctxt "MainWindow|"
 msgid "For updated DX-Entity data, update cty.csv."
 msgstr "Aktualizuje DX země, cty csv."
 
-#: ../mainwindow.cpp:3930
+#: ../mainwindow.cpp:3938
 msgctxt "MainWindow|"
 msgid "Update Satellite Data"
 msgstr "Aktualizovat Satelity"
 
-#: ../mainwindow.cpp:3937
+#: ../mainwindow.cpp:3945
 msgctxt "MainWindow|"
 msgid "Stats"
 msgstr "Statistiky"
 
-#: ../mainwindow.cpp:3940
+#: ../mainwindow.cpp:3948
 msgctxt "MainWindow|"
 msgid "Show the statistics of your radio activity."
 msgstr "Zobrazit statistiky o aktivitě."
 
-#: ../mainwindow.cpp:3957
-msgctxt "MainWindow|"
-msgid "Setup"
-msgstr "Nastavení"
-
-#: ../mainwindow.cpp:3959
-msgctxt "MainWindow|"
-msgid "Setup ..."
-msgstr "Nastavení ..."
-
-#: ../mainwindow.cpp:3965
+#: ../mainwindow.cpp:3970
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr "&Nápověda"
 
-#: ../mainwindow.cpp:3968
+#: ../mainwindow.cpp:3973
 msgctxt "MainWindow|"
 msgid "Online manual (F1) ..."
 msgstr "Online nápověda (F1) ..."
 
-#: ../mainwindow.cpp:3973
+#: ../mainwindow.cpp:3978
 msgctxt "MainWindow|"
 msgid "&Tips ..."
 msgstr "&Typy ..."
 
-#: ../mainwindow.cpp:3979
+#: ../mainwindow.cpp:3984
 msgctxt "MainWindow|"
 msgid "&Debug ..."
 msgstr "&Ladění ..."
 
-#: ../mainwindow.cpp:3984
+#: ../mainwindow.cpp:3989
 msgctxt "MainWindow|"
 msgid "&About ..."
 msgstr "&O aplikaci ..."
 
-#: ../mainwindow.cpp:3991
+#: ../mainwindow.cpp:3996
 msgctxt "MainWindow|"
 msgid "About Qt ..."
 msgstr "O Qt ..."
 
-#: ../mainwindow.cpp:3999
+#: ../mainwindow.cpp:4004
 msgctxt "MainWindow|"
 msgid "Check updates ..."
 msgstr "Aktualizace ..."
 
-#: ../mainwindow.cpp:4063 ../mainwindow.cpp:4072 ../mainwindow.cpp:4107
-#: ../mainwindow.cpp:4140 ../mainwindow.cpp:4149 ../mainwindow.cpp:4335
-#: ../mainwindow.cpp:4360 ../mainwindow.cpp:5886 ../mainwindow.cpp:5921
-#: ../mainwindow.cpp:5933 ../mainwindow.cpp:5944 ../mainwindow.cpp:5954
-#: ../mainwindow.cpp:6145 ../mainwindow.cpp:6188
+#: ../mainwindow.cpp:4068 ../mainwindow.cpp:4077 ../mainwindow.cpp:4112
+#: ../mainwindow.cpp:4145 ../mainwindow.cpp:4154 ../mainwindow.cpp:4340
+#: ../mainwindow.cpp:4365 ../mainwindow.cpp:5890 ../mainwindow.cpp:5925
+#: ../mainwindow.cpp:5937 ../mainwindow.cpp:5948 ../mainwindow.cpp:5958
+#: ../mainwindow.cpp:6149 ../mainwindow.cpp:6192
 msgctxt "MainWindow|"
 msgid "KLog - LoTW"
 msgstr "KLog - LoTW"
 
-#: ../mainwindow.cpp:4064
-msgctxt "MainWindow|"
-msgid ""
-"Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be "
-"done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW"
-msgstr ""
-
-#: ../mainwindow.cpp:4076
+#: ../mainwindow.cpp:4081
 msgctxt "MainWindow|"
 msgid "All pending QSOs of this log has been marked as queued for LoTW!"
 msgstr "Všechna čekající QSO z tohoto logu byla zafrontována do LoTW!"
 
-#: ../mainwindow.cpp:4082
+#: ../mainwindow.cpp:4087
 msgctxt "MainWindow|"
 msgid ""
 "There was a problem to mark all pending QSOs of this log as queued for LoTW!"
 msgstr ""
 "Vyskytla se chyba v označení všech QSO tohoto logu jako zafrontovaná do LoTW!"
 
-#: ../mainwindow.cpp:4112
+#: ../mainwindow.cpp:4117
 msgctxt "MainWindow|"
 msgid "Your log has been updated with the LoTW downloaded QSOs."
 msgstr "Log byl aktualizován na základě stažených dat z LoTW."
 
-#: ../mainwindow.cpp:4113
+#: ../mainwindow.cpp:4118
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog has updated %1 QSOs from LoTW."
 msgstr "KLog aktualizoval %1 QSOs."
 
-#: ../mainwindow.cpp:4123
+#: ../mainwindow.cpp:4128
 msgctxt "MainWindow|"
 msgid "Your log has not been updated."
 msgstr "Log nebyl aktualizován."
 
-#: ../mainwindow.cpp:4124
+#: ../mainwindow.cpp:4129
 msgctxt "MainWindow|"
 msgid ""
 "No QSO was updated with the data coming from LoTW. This may be because of "
@@ -2946,17 +2934,24 @@ msgstr ""
 "QSO nebyla aktualizována. Mohla to způsobit chyba v souboru nebo jednoduše "
 "nebylo co aktualizovat."
 
-#: ../mainwindow.cpp:4154
+#: ../mainwindow.cpp:4146
+msgctxt "MainWindow|"
+msgid ""
+"Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done "
+"ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
+msgstr ""
+
+#: ../mainwindow.cpp:4159
 msgctxt "MainWindow|"
 msgid "All pending QSOs has been marked as queued for LoTW!"
 msgstr "Všechna čekající QSO byla označena jako zafrontovaná do LoTW!"
 
-#: ../mainwindow.cpp:4179
+#: ../mainwindow.cpp:4184
 msgctxt "MainWindow|"
 msgid "KLog - TQSL"
 msgstr "KLog - TQSL"
 
-#: ../mainwindow.cpp:4183
+#: ../mainwindow.cpp:4188
 msgctxt "MainWindow|"
 msgid ""
 "TQSL is not installed or KLog can't find it. Please check the configuration."
@@ -2964,7 +2959,7 @@ msgstr ""
 "TQSL není nainstalovaný nebo KLog ho nemůže najít. Prosím, překontrolujte "
 "nastavení."
 
-#: ../mainwindow.cpp:4202
+#: ../mainwindow.cpp:4207
 msgctxt "MainWindow|"
 msgid ""
 "Error #1: The process was cancelled by the user or TQSL was not configured. "
@@ -2973,37 +2968,37 @@ msgstr ""
 "Chyba #1: Akce byla přerušena uživatelem nebo TQSL není nakonfigurovaný. "
 "Žádné QSO nebylo nahráno."
 
-#: ../mainwindow.cpp:4206
+#: ../mainwindow.cpp:4211
 msgctxt "MainWindow|"
 msgid "Error #2: Upload was rejected by LoTW, please check your data."
 msgstr "Chyba #2: Požadavek byl odmítnut LoTW. Prosím, překontrolujte data."
 
-#: ../mainwindow.cpp:4210
+#: ../mainwindow.cpp:4215
 msgctxt "MainWindow|"
 msgid "Error #3: The TQSL server returned an unexpected response."
 msgstr "Chyba #3: Neočekávaná odpověď ze server TQSL."
 
-#: ../mainwindow.cpp:4214
+#: ../mainwindow.cpp:4219
 msgctxt "MainWindow|"
 msgid "Error #4: There was a TQSL error."
 msgstr "Chyba #4: Chyba TQSL."
 
-#: ../mainwindow.cpp:4218
+#: ../mainwindow.cpp:4223
 msgctxt "MainWindow|"
 msgid "Error #5: There was a TQSLLib error."
 msgstr "Chyba #5: Chyba TQSLLib."
 
-#: ../mainwindow.cpp:4222
+#: ../mainwindow.cpp:4227
 msgctxt "MainWindow|"
 msgid "Error #6: It was not possible to open the input file."
 msgstr "Chyba #6: Nepodařilo se otevřít vstupní soubor."
 
-#: ../mainwindow.cpp:4226
+#: ../mainwindow.cpp:4231
 msgctxt "MainWindow|"
 msgid "Error #7: It was not possible to open the ouput file."
 msgstr "Chyba #7: Nepodařilo se otevřít výstupní soubor."
 
-#: ../mainwindow.cpp:4230
+#: ../mainwindow.cpp:4235
 msgctxt "MainWindow|"
 msgid ""
 "Error #8: No QSOs were processed since some QSOs were duplicates or out of "
@@ -3012,7 +3007,7 @@ msgstr ""
 "Chyba #8: Nebyla zpracována žádná QSO, protože QSO byla duplicitní nebo mimo "
 "časový rozsah."
 
-#: ../mainwindow.cpp:4234
+#: ../mainwindow.cpp:4239
 msgctxt "MainWindow|"
 msgid ""
 "Error #9: Some QSOs were processed, and some QSOs were ignored because they "
@@ -3021,45 +3016,45 @@ msgstr ""
 "Chyba #9: Zpracovala se pouze některá QSO, zbytek byl ignorován, protože "
 "byly duplicitní nebo mimo časovou dobu."
 
-#: ../mainwindow.cpp:4238
+#: ../mainwindow.cpp:4243
 msgctxt "MainWindow|"
 msgid "Error #10: Command syntax error. KLog sent a bad syntax command."
 msgstr "Chyba #10: Chyba syntaxe. KLog zavolal chybný příkaz."
 
-#: ../mainwindow.cpp:4242
+#: ../mainwindow.cpp:4247
 msgctxt "MainWindow|"
 msgid "Error #11: LoTW Connection error (no network or LoTW is unreachable)."
 msgstr ""
 "Chyba #11: Chyba připojení k LoTW (chyba síťového připojení nebo LoTW je "
 "nedostupný)."
 
-#: ../mainwindow.cpp:4245
+#: ../mainwindow.cpp:4250
 msgctxt "MainWindow|"
 msgid "Error #00: Unexpected error. Please contact the development team."
 msgstr "Chyba #00: Neočekávaná chyba. Prosím, kontaktujte vývojový tým."
 
-#: ../mainwindow.cpp:4277
+#: ../mainwindow.cpp:4282
 msgctxt "MainWindow|"
 msgid ""
 "The log that you have selected contains more than just one station callsign."
 msgstr "Vybraný log obsahuje více jak jednu značku stanice."
 
-#: ../mainwindow.cpp:4277
+#: ../mainwindow.cpp:4282
 msgctxt "MainWindow|"
 msgid "Please select the station callsign you want to mark as sent to LoTW:"
 msgstr "Prosím, vyberte značku stanice, která má být odeslána do LoTW:"
 
-#: ../mainwindow.cpp:4280
+#: ../mainwindow.cpp:4285
 msgctxt "MainWindow|"
 msgid "Station Callsign:"
 msgstr "Stanice:"
 
-#: ../mainwindow.cpp:4291
+#: ../mainwindow.cpp:4296
 msgctxt "MainWindow|"
 msgid "Define Station Callsign"
 msgstr "Určete značku stanice"
 
-#: ../mainwindow.cpp:4292
+#: ../mainwindow.cpp:4297
 msgctxt "MainWindow|"
 msgid ""
 "You have selected no callsign. KLog will complete the QSOs without a station "
@@ -3068,7 +3063,7 @@ msgstr ""
 "Nebyla vybrána žádná značka. KLog doplní QSO bez značky stanice definovanou "
 "značkou, kterou zde vyberete."
 
-#: ../mainwindow.cpp:4292
+#: ../mainwindow.cpp:4297
 msgctxt "MainWindow|"
 msgid ""
 "Enter the station callsign to use for this log or leave it empty for QSO "
@@ -3077,86 +3072,86 @@ msgstr ""
 "Zadejte značku stanice, kterou chcete použít pro tento log nebo ji nechte "
 "prázdnou pro QSO bez definované volací značky stanice:"
 
-#: ../mainwindow.cpp:4309
+#: ../mainwindow.cpp:4314
 msgctxt "MainWindow|"
 msgid "KLog - No station selected"
 msgstr "KLog - Nebyla vybrána žádná značka stanice"
 
-#: ../mainwindow.cpp:4310
+#: ../mainwindow.cpp:4315
 msgctxt "MainWindow|"
 msgid ""
 "No station callsign has been selected and therefore no log will be marked"
 msgstr "Nebude označen žádný log, protože nebyla vybrána žádná značka stanice"
 
-#: ../mainwindow.cpp:4365
+#: ../mainwindow.cpp:4370
 msgctxt "MainWindow|"
 msgid "All queued QSOs has been marked as sent to LoTW!"
 msgstr "Všechna zafrontovaná QSO byla označena jako odeslaná do LoTW!"
 
-#: ../mainwindow.cpp:4345
+#: ../mainwindow.cpp:4350
 msgctxt "MainWindow|"
 msgid ""
 "There was a problem to mark all queued QSOs of this log as sent to LoTW!"
 msgstr "Nastal problém s označením zafrontovaných QSO jako odeslaných do LoTW!"
 
-#: ../mainwindow.cpp:4076 ../mainwindow.cpp:4154
+#: ../mainwindow.cpp:4069
+msgctxt "MainWindow|"
+msgid ""
+"Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be "
+"done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
+msgstr ""
+
+#: ../mainwindow.cpp:4081 ../mainwindow.cpp:4159
 msgctxt "MainWindow|"
 msgid "Now you can upload them to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:4141
-msgctxt "MainWindow|"
-msgid ""
-"Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done "
-"ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW"
-msgstr ""
-
-#: ../mainwindow.cpp:4159
+#: ../mainwindow.cpp:4164
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all pending QSOs as queued for LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4340
+#: ../mainwindow.cpp:4345
 msgctxt "MainWindow|"
 msgid "All queued QSOs of this log has been marked as sent to LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4370
+#: ../mainwindow.cpp:4375
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all queued QSOs as sent to LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4423
+#: ../mainwindow.cpp:4428
 msgctxt "MainWindow|"
 msgid "About ..."
 msgstr "O aplikaci..."
 
-#: ../mainwindow.cpp:4481
+#: ../mainwindow.cpp:4486
 msgctxt "MainWindow|"
 msgid "KLog - Update checking result"
 msgstr "KLog - Výsledek Aktualizace"
 
-#: ../mainwindow.cpp:4482
+#: ../mainwindow.cpp:4487
 msgctxt "MainWindow|"
 msgid "Congratulations!"
 msgstr "Gratulujeme!"
 
-#: ../mainwindow.cpp:4482
+#: ../mainwindow.cpp:4487
 msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "Nejnovější verzi již máte."
 
-#: ../mainwindow.cpp:4615
+#: ../mainwindow.cpp:4620
 msgctxt "MainWindow|"
 msgid "You can find the KLog data folder here: "
 msgstr "KLog adresáře je možné najít: "
 
-#: ../mainwindow.cpp:4669
+#: ../mainwindow.cpp:4674
 msgctxt "MainWindow|"
 msgid "start"
 msgstr "nastartovat"
 
-#: ../mainwindow.cpp:4670 ../mainwindow.cpp:4695
+#: ../mainwindow.cpp:4675 ../mainwindow.cpp:4700
 #, qt-format
 msgctxt "MainWindow|start or stop"
 msgid ""
@@ -3166,17 +3161,17 @@ msgstr ""
 "Chyba UDP Serveru\n"
 "Serveru UDP se nepovedlo %1."
 
-#: ../mainwindow.cpp:4694
+#: ../mainwindow.cpp:4699
 msgctxt "MainWindow|"
 msgid "stop"
 msgstr "zastavit"
 
-#: ../mainwindow.cpp:5319
+#: ../mainwindow.cpp:5324
 msgctxt "MainWindow|"
 msgid "It seems that there are no QSOs in the database."
 msgstr "V databázi nejsou žádná QSO."
 
-#: ../mainwindow.cpp:5319
+#: ../mainwindow.cpp:5324
 msgctxt "MainWindow|"
 msgid ""
 "If you are sure that the database contains QSOs and KLog is not able to find "
@@ -3185,120 +3180,120 @@ msgstr ""
 "Kontaktujte KLog vývojový tým, pokud databáze obsahuje nějaká QSO a KLog je "
 "nemůže najít (Nápověda->O aplikaci)."
 
-#: ../mainwindow.cpp:5414
+#: ../mainwindow.cpp:5419
 msgctxt "MainWindow|"
 msgid "Sends the log to LoTW calling TQSL."
 msgstr "Odeslání logu to LoTW pomocí TQSL."
 
-#: ../mainwindow.cpp:5420
+#: ../mainwindow.cpp:5425
 msgctxt "MainWindow|"
 msgid "This function is disabled. Go to the Setup->LoTW tab to enable it."
 msgstr "Tato funkce je deaktivována. Aktivace v Nastavení->Nastavení->LoTW."
 
-#: ../mainwindow.cpp:5705
+#: ../mainwindow.cpp:5709
 msgctxt "MainWindow|"
 msgid "Logging operator's callsign."
 msgstr "Jméno operátora, který pořídil záznam."
 
-#: ../mainwindow.cpp:5706
+#: ../mainwindow.cpp:5710
 msgctxt "MainWindow|"
 msgid "Callsign used over the air."
 msgstr "Volací značka."
 
-#: ../mainwindow.cpp:5708
+#: ../mainwindow.cpp:5712
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
 msgstr "Status DX země."
 
-#: ../mainwindow.cpp:5710
+#: ../mainwindow.cpp:5714
 msgctxt "MainWindow|"
 msgid "Name of the DX entity."
 msgstr "Jméno DX země."
 
-#: ../mainwindow.cpp:5722
+#: ../mainwindow.cpp:5726
 msgctxt "MainWindow|"
 msgid "QSO"
 msgstr "QSO"
 
-#: ../mainwindow.cpp:5723
+#: ../mainwindow.cpp:5727
 msgctxt "MainWindow|"
 msgid "QSL"
 msgstr "QSL"
 
-#: ../mainwindow.cpp:5724 ../mainwindow.cpp:6240
+#: ../mainwindow.cpp:5728 ../mainwindow.cpp:6244
 msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr "eQSL"
 
-#: ../mainwindow.cpp:5725 ../mainwindow.cpp:7332 ../mainwindow.cpp:7931
+#: ../mainwindow.cpp:5729 ../mainwindow.cpp:7336 ../mainwindow.cpp:7937
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Poznámka"
 
-#: ../mainwindow.cpp:5728
+#: ../mainwindow.cpp:5732
 msgctxt "MainWindow|"
 msgid "Others"
 msgstr "Jiné"
 
-#: ../mainwindow.cpp:5730
+#: ../mainwindow.cpp:5734
 msgctxt "MainWindow|"
 msgid "My Data"
 msgstr "Mé údaje"
 
-#: ../mainwindow.cpp:5731
+#: ../mainwindow.cpp:5735
 msgctxt "MainWindow|"
 msgid "Satellite"
 msgstr "Satelit"
 
-#: ../mainwindow.cpp:5748
+#: ../mainwindow.cpp:5752
 msgctxt "MainWindow|"
 msgid "Info"
 msgstr "Info"
 
-#: ../mainwindow.cpp:5754
+#: ../mainwindow.cpp:5758
 msgctxt "MainWindow|"
 msgid "Awards"
 msgstr "Diplomy"
 
-#: ../mainwindow.cpp:5755
+#: ../mainwindow.cpp:5759
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr "Hledání"
 
-#: ../mainwindow.cpp:5757
+#: ../mainwindow.cpp:5761
 msgctxt "MainWindow|"
 msgid "Log"
 msgstr "Log"
 
-#: ../mainwindow.cpp:5758
+#: ../mainwindow.cpp:5762
 msgctxt "MainWindow|"
 msgid "DX-Cluster"
 msgstr "DX-Cluster"
 
-#: ../mainwindow.cpp:5759
+#: ../mainwindow.cpp:5763
 msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../mainwindow.cpp:5823
+#: ../mainwindow.cpp:5827
 msgctxt "MainWindow|"
 msgid "No QSOs have been exported to ADIF."
 msgstr "Nebylo exportováno žádné QSO do ADIF."
 
-#: ../mainwindow.cpp:5827
+#: ../mainwindow.cpp:5831
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog has exported %1 QSOs to the ADIF file: %2"
 msgstr "KLog exportoval %1 QSO do souboru ADIF: %2"
 
-#: ../mainwindow.cpp:5888
+#: ../mainwindow.cpp:5892
 msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to LoTW."
 msgstr ""
 "Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do LoTW."
 
-#: ../mainwindow.cpp:5922
+#: ../mainwindow.cpp:5926
 msgctxt "MainWindow|"
 msgid ""
 "TQSL finished with no error.\n"
@@ -3309,12 +3304,12 @@ msgstr ""
 "\n"
 "Přejete si označit všechna nahraná QSO jako odeslaná do LoTW?"
 
-#: ../mainwindow.cpp:5935
+#: ../mainwindow.cpp:5939
 msgctxt "MainWindow|"
 msgid "There was an error while updating to Yes the LoTW QSL sent information."
 msgstr "Při aktualizaci došlo k chybě."
 
-#: ../mainwindow.cpp:5945
+#: ../mainwindow.cpp:5949
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3327,7 +3322,7 @@ msgstr ""
 "\n"
 "Přejete si ho smazat?"
 
-#: ../mainwindow.cpp:5979
+#: ../mainwindow.cpp:5983
 msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to "
@@ -3335,19 +3330,19 @@ msgid ""
 msgstr ""
 "Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do ClubLog."
 
-#: ../mainwindow.cpp:6005
+#: ../mainwindow.cpp:6009
 msgctxt "MainWindow|"
 msgid "Do you want to add this QSOs to your ClubLog existing log?"
 msgstr "Přejete si přidat toto QSO to existujícího ClubLog logu?"
 
-#: ../mainwindow.cpp:6007
+#: ../mainwindow.cpp:6011
 msgctxt "MainWindow|"
 msgid ""
 "If you don't agree, this upload will overwrite your current ClubLog existing "
 "log."
 msgstr "Pokud nesouhlasíte, toto nahrání přepíše existující ClubLog log."
 
-#: ../mainwindow.cpp:6041
+#: ../mainwindow.cpp:6045
 msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to "
@@ -3355,22 +3350,22 @@ msgid ""
 msgstr ""
 "Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do eQSL."
 
-#: ../mainwindow.cpp:6128 ../mainwindow.cpp:6171
+#: ../mainwindow.cpp:6132 ../mainwindow.cpp:6175
 msgctxt "MainWindow|"
 msgid "KLog - Select the Station Callsign."
 msgstr "KLog - Vyberte značku stanice."
 
-#: ../mainwindow.cpp:6129 ../mainwindow.cpp:6172
+#: ../mainwindow.cpp:6133 ../mainwindow.cpp:6176
 msgctxt "MainWindow|"
 msgid "Select the Station Callsign to use when quering LoTW:"
 msgstr "Vyberte značku stanice, která se použije při dotazování do LoTW:"
 
-#: ../mainwindow.cpp:6147 ../mainwindow.cpp:6190
+#: ../mainwindow.cpp:6151 ../mainwindow.cpp:6194
 msgctxt "MainWindow|"
 msgid "Please check the LoTW setup"
 msgstr "Překontrolujte nastavení LoTW"
 
-#: ../mainwindow.cpp:6148 ../mainwindow.cpp:6191
+#: ../mainwindow.cpp:6152 ../mainwindow.cpp:6195
 msgctxt "MainWindow|"
 msgid ""
 "You have not defined a LoTW user or a proper Station Callsign.\n"
@@ -3379,7 +3374,7 @@ msgstr ""
 "Nenastavili jste LoTW uživatele ani správnou značku stanice.\n"
 "V Nastavení otevřte kartu LoTW a nakonfigurujte spojení LoTW."
 
-#: ../mainwindow.cpp:6209 ../mainwindow.cpp:6240 ../mainwindow.cpp:6271
+#: ../mainwindow.cpp:6213 ../mainwindow.cpp:6244 ../mainwindow.cpp:6275
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3389,17 +3384,17 @@ msgstr ""
 "Přejete si opravdu označit všechna QSO pro NAHRÁNÍ? Musí být uděláno POUZE, "
 "jestli jde o PRVNÍ NAHRÁNÍ QSO do %1"
 
-#: ../mainwindow.cpp:6209
+#: ../mainwindow.cpp:6213
 msgctxt "MainWindow|"
 msgid "ClubLog"
 msgstr "ClubLog"
 
-#: ../mainwindow.cpp:6219
+#: ../mainwindow.cpp:6223
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to ClubLog."
 msgstr "Log je připraven na nahrání do ClubLog."
 
-#: ../mainwindow.cpp:6220
+#: ../mainwindow.cpp:6224
 msgctxt "MainWindow|"
 msgid ""
 "All the QSOs in this log has been marked as Modified in the ClubLog status "
@@ -3408,12 +3403,12 @@ msgstr ""
 "Všechna spojení v tomto logu byla označena jako Upravená ve stavovém poli "
 "ClubLog"
 
-#: ../mainwindow.cpp:6225
+#: ../mainwindow.cpp:6229
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to ClubLog"
 msgstr "KLog nemohl označit celý log k odeslání do ClubLog"
 
-#: ../mainwindow.cpp:6226 ../mainwindow.cpp:6258 ../mainwindow.cpp:6289
+#: ../mainwindow.cpp:6230 ../mainwindow.cpp:6262 ../mainwindow.cpp:6293
 msgctxt "MainWindow|"
 msgid ""
 "Something prevented KLog from marking the QSOs as modified. Restart KLog and "
@@ -3422,12 +3417,12 @@ msgstr ""
 "Něco zabraňovalo KLogu, aby označil QSO jako upravená. Restartujte KLog a "
 "zkuste to znovu, než kontaktujete vývojáře KLog."
 
-#: ../mainwindow.cpp:6250
+#: ../mainwindow.cpp:6254
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to eQSL.cc."
 msgstr "Log je připraven na nahrání do eQSL.cc."
 
-#: ../mainwindow.cpp:6251
+#: ../mainwindow.cpp:6255
 msgctxt "MainWindow|"
 msgid ""
 "All the QSOs in this log has been marked as Modified in the eQSL.cc status "
@@ -3436,27 +3431,27 @@ msgstr ""
 "Všechna spojení v tomto logu byla označena jako Upravená ve stavovém poli "
 "eQSL"
 
-#: ../mainwindow.cpp:6257
+#: ../mainwindow.cpp:6261
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to eQSL"
 msgstr "KLog nemohl označit celý log k odeslání do eQSL"
 
-#: ../mainwindow.cpp:6270
+#: ../mainwindow.cpp:6274
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.COM"
 msgstr "KLog - QRZ.COM"
 
-#: ../mainwindow.cpp:6271
+#: ../mainwindow.cpp:6275
 msgctxt "MainWindow|"
 msgid "QRZ.COM"
 msgstr "QRZ.COM"
 
-#: ../mainwindow.cpp:6281
+#: ../mainwindow.cpp:6285
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to QRZ.com."
 msgstr "Log je připraven na nahrání do QRZ.com."
 
-#: ../mainwindow.cpp:6282
+#: ../mainwindow.cpp:6286
 msgctxt "MainWindow|"
 msgid ""
 "All the QSOs in this log has been marked as Modified in the QRZ.com status "
@@ -3465,39 +3460,39 @@ msgstr ""
 "Všechna spojení v tomto logu byla označena jako Upravená ve stavovém poli "
 "QRZ.com"
 
-#: ../mainwindow.cpp:6288
+#: ../mainwindow.cpp:6292
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to QRZ.com"
 msgstr "KLog nemohl označit celý log k odeslání do QRZ.com"
 
-#: ../mainwindow.cpp:6342
+#: ../mainwindow.cpp:6346
 msgctxt "MainWindow|"
 msgid ""
 "You need to define a proper API Key for your QRZ.com logbook in the eLog "
 "preferences."
 msgstr "V Nastavení je potřeba definovat správné API Key pro QRZ.com."
 
-#: ../mainwindow.cpp:6370
+#: ../mainwindow.cpp:6374
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: ../mainwindow.cpp:7045
+#: ../mainwindow.cpp:7049
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr " - Potřebné pro DXMarathon"
 
-#: ../mainwindow.cpp:7099
+#: ../mainwindow.cpp:7103
 msgctxt "MainWindow|"
 msgid "Filling QSOs ..."
 msgstr "Plnění QSO ..."
 
-#: ../mainwindow.cpp:7099
+#: ../mainwindow.cpp:7103
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "Přerušení plnění"
 
-#: ../mainwindow.cpp:7229
+#: ../mainwindow.cpp:7233
 msgctxt "MainWindow|"
 msgid ""
 "Filling DXCC, CQz, ITUz, Continent in QSOs...\n"
@@ -3506,57 +3501,57 @@ msgstr ""
 "Plnění DXCC, CQzone, ITU, Kontinentů v QSO...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7318
+#: ../mainwindow.cpp:7322
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "Počet"
 
-#: ../mainwindow.cpp:7320
+#: ../mainwindow.cpp:7324
 msgctxt "MainWindow|"
 msgid "Date/Time"
 msgstr "Datum/Čas"
 
-#: ../mainwindow.cpp:7322 ../mainwindow.cpp:7911
+#: ../mainwindow.cpp:7326 ../mainwindow.cpp:7917
 msgctxt "MainWindow|"
 msgid "Callsign"
 msgstr "Stanice"
 
-#: ../mainwindow.cpp:7324
+#: ../mainwindow.cpp:7328
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
 
-#: ../mainwindow.cpp:7326
+#: ../mainwindow.cpp:7330
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:7328
+#: ../mainwindow.cpp:7332
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Pásmo"
 
-#: ../mainwindow.cpp:7330 ../mainwindow.cpp:7917
+#: ../mainwindow.cpp:7334 ../mainwindow.cpp:7923
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Druh provozu"
 
-#: ../mainwindow.cpp:7345
+#: ../mainwindow.cpp:7349
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "Tisk logu"
 
-#: ../mainwindow.cpp:7350
+#: ../mainwindow.cpp:7354
 msgctxt "MainWindow|"
 msgid "Printing the log ..."
 msgstr "Log se tiskne..."
 
-#: ../mainwindow.cpp:7350
+#: ../mainwindow.cpp:7354
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "Přerušení tisku"
 
-#: ../mainwindow.cpp:7366 ../mainwindow.cpp:7381
+#: ../mainwindow.cpp:7370 ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -3565,72 +3560,72 @@ msgstr ""
 "Tisk logu...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7903
+#: ../mainwindow.cpp:7909
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
 msgstr "KLog - Přijato QSO"
 
-#: ../mainwindow.cpp:7908
+#: ../mainwindow.cpp:7914
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr "Následující QSO bylo přijato z WSJT-X a bude zalogováno:"
 
-#: ../mainwindow.cpp:7914
+#: ../mainwindow.cpp:7920
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr "Frek"
 
-#: ../mainwindow.cpp:7921
+#: ../mainwindow.cpp:7927
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr "Čas začátku"
 
-#: ../mainwindow.cpp:7925
+#: ../mainwindow.cpp:7931
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr "Čas konce"
 
-#: ../mainwindow.cpp:7928
+#: ../mainwindow.cpp:7934
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr "RST TX"
 
-#: ../mainwindow.cpp:7928
+#: ../mainwindow.cpp:7934
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr "RST RX"
 
-#: ../mainwindow.cpp:7934
+#: ../mainwindow.cpp:7940
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr "DX-Grid"
 
-#: ../mainwindow.cpp:7937
+#: ../mainwindow.cpp:7943
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Místní-Grid"
 
-#: ../mainwindow.cpp:7940
+#: ../mainwindow.cpp:7946
 msgctxt "MainWindow|"
 msgid "Station Callsign"
 msgstr "Stanice"
 
-#: ../mainwindow.cpp:7943
+#: ../mainwindow.cpp:7949
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
 msgstr "Volací značka Operátora"
 
-#: ../mainwindow.cpp:7985
+#: ../mainwindow.cpp:7991
 msgctxt "MainWindow|"
 msgid "KLog - WSJTX Dupe QSO"
 msgstr "KLog - WSJTX Dupe QSO"
 
-#: ../mainwindow.cpp:7988
+#: ../mainwindow.cpp:7994
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr "Jedná se o duplicitní QSO. Přejete si jej uložit nebo zamítnout?"
 
-#: ../mainwindow.cpp:7990
+#: ../mainwindow.cpp:7996
 msgctxt "MainWindow|"
 msgid ""
 "Duplicated QSOs have to match another existing QSO with the same call, band, "
@@ -3641,24 +3636,24 @@ msgstr ""
 "druhem provozu, datem/časem s přihlédnutím k období, které je definováno v "
 "nastavení."
 
-#: ../mainwindow.cpp:8028
+#: ../mainwindow.cpp:8034
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr "QSO přijato z WSJT-X:"
 
-#: ../mainwindow.cpp:8072
+#: ../mainwindow.cpp:8078
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
 msgstr "KLog - Nepodporovaný mod"
 
-#: ../mainwindow.cpp:8075
+#: ../mainwindow.cpp:8081
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external program "
 "or radio:"
 msgstr "Z externího programu nebo rádia byl přijat nepodporovaný mód:"
 
-#: ../mainwindow.cpp:8075
+#: ../mainwindow.cpp:8081
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
@@ -3667,7 +3662,7 @@ msgstr ""
 "Pokud je přijatý mod správný, kontaktujte vývojový tým KLog a požádejte o "
 "podporu pro tento režim"
 
-#: ../mainwindow.cpp:8075
+#: ../mainwindow.cpp:8081
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving these alerts? (disabling these alerts will "
@@ -3676,19 +3671,19 @@ msgstr ""
 "Přejete si nadále dostávat tato upozornění? (deaktivace těchto upozornění "
 "zabrání detekci neplatných režimů)"
 
-#: ../mainwindow.cpp:8212
+#: ../mainwindow.cpp:8218
 msgctxt "MainWindow|"
 msgid "KLog - Duplicated satellite"
 msgstr "KLog - Duplicitní satelitní"
 
-#: ../mainwindow.cpp:8214
+#: ../mainwindow.cpp:8220
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
 "imported."
 msgstr "Duplicitní satelit byl detekován v tomto souboru a nebude importován."
 
-#: ../mainwindow.cpp:8215
+#: ../mainwindow.cpp:8221
 msgctxt "MainWindow|"
 msgid ""
 "Please check the satellite information file and ensure it is properly "
@@ -3697,64 +3692,64 @@ msgstr ""
 "Zkontrolujte soubor informací o satelitu a ujistěte se, že je správně "
 "vyplněn."
 
-#: ../mainwindow.cpp:8215
+#: ../mainwindow.cpp:8221
 msgctxt "MainWindow|"
 msgid ""
 "Now you will see a more detailed error that can be used for debugging..."
 msgstr "Nyní uvidíte podrobnější chybu, kterou lze použít k ladění ..."
 
-#: ../mainwindow.cpp:8222
+#: ../mainwindow.cpp:8228
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr "Nastala neočekávaná chyba!!"
 
-#: ../mainwindow.cpp:8222
+#: ../mainwindow.cpp:8228
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr "Kontaktujte vývojáře, pokud problém přetrvává"
 
-#: ../mainwindow.cpp:8222
+#: ../mainwindow.cpp:8228
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr "pro analýzu:"
 
-#: ../mainwindow.cpp:8224
+#: ../mainwindow.cpp:8230
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Chyba ve funkci"
 
-#: ../mainwindow.cpp:8225
+#: ../mainwindow.cpp:8231
 msgctxt "MainWindow|"
 msgid "Error code"
 msgstr "Kód chyby"
 
-#: ../mainwindow.cpp:8226
+#: ../mainwindow.cpp:8232
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr "Text chyby"
 
-#: ../mainwindow.cpp:8227
+#: ../mainwindow.cpp:8233
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Neúspěšný dotaz"
 
-#: ../mainwindow.cpp:8229
+#: ../mainwindow.cpp:8235
 msgctxt "MainWindow|"
 msgid "Recommendation:"
 msgstr "Doporučení:"
 
-#: ../mainwindow.cpp:8229
+#: ../mainwindow.cpp:8235
 msgctxt "MainWindow|"
 msgid "Periodically export your data to ADIF to prevent a potential data loss."
 msgstr ""
 "Pravidelně exportujte svá data do ADIF, abyste předešli možné ztrátě dat."
 
-#: ../mainwindow.cpp:8236
+#: ../mainwindow.cpp:8242
 msgctxt "MainWindow|"
 msgid "KLog - Show errors"
 msgstr "KLog - Zobrazení chyb"
 
-#: ../mainwindow.cpp:8238
+#: ../mainwindow.cpp:8244
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr "Přejete si nadále zobrazovat chyby?"
@@ -3961,12 +3956,12 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr "Ne - Neidentifikován"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:476
+#: ../inputwidgets/mainwindowinputothers.cpp:481
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr "SOTA Ref"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:476
+#: ../inputwidgets/mainwindowinputothers.cpp:481
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr "Věk"
