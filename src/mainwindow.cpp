@@ -1238,6 +1238,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = myDataTabWidget->getStationQRZ();
+    qDebug() << Q_FUNC_INFO << "StationCallSign: " << aux1;
     if (aux1.length()>2)
     {
         //lastStationQRZ = aux1.toUpper();
@@ -3787,6 +3788,13 @@ void MainWindow::createMenusCommon()
 
     fileMenu->addSeparator();
 
+    setupAct = new QAction(tr("Settings ..."), this);
+    fileMenu->addAction(setupAct);
+    //setupAct->setMenuRole(QAction::PreferencesRole);
+    connect(setupAct, SIGNAL(triggered()), this, SLOT(slotSetup()));
+
+    fileMenu->addSeparator();
+
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     //exitAct->setMenuRole(QAction::QuitRole);
@@ -3952,14 +3960,11 @@ void MainWindow::createMenusCommon()
     //connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
     //showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
 
-    toolMenu->addSeparator();
+    //toolMenu->addSeparator();
 
-    setupMenu = menuBar()->addMenu(tr("Setup"));
+    //setupMenu = menuBar()->addMenu(tr("Setup"));
 
-    setupAct = new QAction(tr("Setup ..."), this);
-    setupMenu->addAction(setupAct);
-    //setupAct->setMenuRole(QAction::PreferencesRole);
-    connect(setupAct, SIGNAL(triggered()), this, SLOT(slotSetup()));
+
 
     //TODO: To be added once the help dialog has been implemented
     helpMenu = menuBar()->addMenu(tr("&Help"));
@@ -4058,23 +4063,32 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(tr("KLog - LoTW"));
-    if(dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
-    {
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("All pending QSOs of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
+    QMessageBox msgConfirm;
+    msgConfirm.setIcon(QMessageBox::Question);
+    msgConfirm.setWindowTitle(tr("KLog - LoTW"));
+    msgConfirm.setText(tr("Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
+    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgConfirm.setDefaultButton(QMessageBox::No);
+    int i = msgConfirm.exec();
 
-
-    }
-    else
+    if (i == QMessageBox::Yes)
     {
         QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
+        msgBox.setWindowTitle(tr("KLog - LoTW"));
+        if(dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("All pending QSOs of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can upload them to LoTW."));
+        }
+        else
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
+        }
+        msgBox.exec();
+        logEvent(Q_FUNC_INFO, "END", logSeverity);
     }
-    msgBox.exec();
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 /*
@@ -4122,25 +4136,36 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 
 void MainWindow::slotToolLoTWMarkAllQueued()
 {
-             //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
+    //qDebug() << "MainWindow::slotToolLoTWMarkAllQueued"  << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(tr("KLog - LoTW"));
 
-    if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
-    {
+    QMessageBox msgConfirm;
+    msgConfirm.setIcon(QMessageBox::Question);
+    msgConfirm.setWindowTitle(tr("KLog - LoTW"));
+    msgConfirm.setText(tr("Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
+    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgConfirm.setDefaultButton(QMessageBox::No);
+    int i = msgConfirm.exec();
 
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.setText(tr("All pending QSOs has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW."));
-    }
-    else
+    if (i == QMessageBox::Yes)
     {
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - LoTW"));
+
+        if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
+        {
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText(tr("All pending QSOs has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can upload them to LoTW."));
+        }
+        else
+        {
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(tr("There was a problem to mark all pending QSOs as queued for LoTW!") );
+        }
+        msgBox.exec();
+        logEvent(Q_FUNC_INFO, "END", logSeverity);
     }
-    msgBox.exec();
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
@@ -4309,36 +4334,23 @@ QString MainWindow::selectStationCallsign()
 
 void MainWindow::slotToolLoTWMarkAllYesThisLog()
 {
-             //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
-    //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
-    QMessageBox msgConfirm;
-    msgConfirm.setIcon(QMessageBox::Question);
-    msgConfirm.setWindowTitle(tr("KLog - LoTW"));
-    msgConfirm.setText(tr("Do you really want to mark ALL these QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to LoTW"));
-    msgConfirm.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgConfirm.setDefaultButton(QMessageBox::No);
-    int i = msgConfirm.exec();
-
-    if (i == QMessageBox::Yes)
-    {
+        //qDebug() << "MainWindow::slotToolLoTWMarkAllYesThisLog"  << endl;
+        //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         logEvent(Q_FUNC_INFO, "Start", logSeverity);
         if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
         {
-
             msgBox.setIcon(QMessageBox::Information);
-            msgBox.setText(tr("All queued QSOs of this log has been marked as sent for LoTW!")  );
+            msgBox.setText(tr("All queued QSOs of this log has been marked as sent to LoTW!")  );
         }
         else
         {
             msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent for LoTW!") );
-
+            msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent to LoTW!") );
         }
         msgBox.exec();
         logEvent(Q_FUNC_INFO, "END", logSeverity);
-    }
 }
 
 void MainWindow::slotToolLoTWMarkAllYes()
@@ -4351,7 +4363,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
     //QString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - LoTW"));
-    msgBox.exec();
+
     if (dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
     {
         msgBox.setIcon(QMessageBox::Information);
@@ -4360,8 +4372,9 @@ void MainWindow::slotToolLoTWMarkAllYes()
     else
     {
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("There was a problem to mark all queued QSOs of this log as sent to LoTW!") );
+        msgBox.setText(tr("There was a problem to mark all queued QSOs as sent to LoTW!") );
     }
+    msgBox.exec();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4549,7 +4562,7 @@ void MainWindow::openSetup(const int _page)
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
+    qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
 
     if (needToEnd)
     {
@@ -4558,7 +4571,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     if (_s == QDialog::Accepted)
     {
-        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
+        qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
         logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
         readConfigData();
         reconfigureDXMarathonUI(manageDxMarathon);
@@ -4567,7 +4580,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", logSeverity);
         logWindow->createlogPanel(currentLog);
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", logSeverity);
-        defineStationCallsign();
+        defineStationCallsign(mainQRZ);
         logEvent(Q_FUNC_INFO, "before db->reConnect", logSeverity);
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << endl;
         dataProxy->reconnectDB();
@@ -4581,19 +4594,19 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+         qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
     }
 
     if (qso->getBackup ())
     {
-        //qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
+        qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
         restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
+        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4753,7 +4766,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             slotOpenWiki();
         break;
     case Qt::Key_F4:
-            qDebug() << "MainWindow::keyPressEvent: F4"  << endl;
+            //qDebug << "MainWindow::keyPressEvent: F4"  << endl;
             mainQSOEntryWidget->toggleRealTime ();
         break;
 
@@ -4797,7 +4810,7 @@ void MainWindow::readConfigData()
             //qDebug() << Q_FUNC_INFO << ": configured = false" << QTime::currentTime().toString("hh:mm:ss") << endl;
         }
         //qDebug() << Q_FUNC_INFO << ": Calling openSetup" << endl;
-        openSetup();
+        openSetup(0);
         //qDebug() << Q_FUNC_INFO << ": After calling openSetup" << endl;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         //qDebug() << Q_FUNC_INFO << ": - END - 2" << QTime::currentTime().toString("hh:mm:ss") << endl;
@@ -4822,7 +4835,7 @@ void MainWindow::readConfigData()
     file.close ();
 
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << endl;
-    defineStationCallsign();
+    //defineStationCallsign(mainQRZ);
 
      //qDebug() << Q_FUNC_INFO << ":  " << defaultADIFLogFile << QTime::currentTime().toString("hh:mm:ss") << endl;
 
@@ -4975,7 +4988,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         //qDebug() << "MainWindow::processConfigLine: BANDS: " << value << endl;
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
-        qDebug() << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
+        //qDebug << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
         mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
         //realTime = util->trueOrFalse(value);
     }
@@ -5463,7 +5476,6 @@ bool MainWindow::processConfigLine(const QString &_line){
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     return true;
 }
-//ESTOY AQUI COMPROBANDO LO QUE TARDA EN ARRANCAR CADA PARTE
 
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
@@ -5503,7 +5515,7 @@ void MainWindow::checkIfNewBandOrMode()
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
-    dxccStatusWidget->setBands(bands);
+    dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
 
    //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") << endl;
     if (bands.contains(currentBand))
@@ -7581,28 +7593,30 @@ void MainWindow::updateQSLRecAndSent()
 
 
 
-void MainWindow::defineStationCallsign()
+void MainWindow::defineStationCallsign(const QString &_call)
 {
             //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    QString logQRZ;
-    logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
-            //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
-
-    if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
+    if (util->isValidCall (_call))
     {
-                //qDebug() << "MainWindow::defineStationCallsign TRUE "  << endl;
-        stationQRZ = logQRZ;
+        stationQRZ = _call;
     }
     else
-    {
-                //qDebug() << "MainWindow::defineStationCallsign FALSE "  << endl;
-        stationQRZ = mainQRZ;
+    { // If no call is detected, qwe try to find it from the log
+        QString logQRZ;
+        logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
+        //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << endl;
+
+        if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
+        {
+            //qDebug() << "MainWindow::defineStationCallsign TRUE "  << endl;
+            stationQRZ = logQRZ;
+        }
     }
 
-            //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ  << endl;
+     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ  << endl;
     filemanager->setStationCallSign(stationQRZ);
-            //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << endl;
+    //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << endl;
     myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     searchWidget->setStationCallsign(stationQRZ);
@@ -7776,7 +7790,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //qDebug() << Q_FUNC_INFO << endl;
-    dxccStatusWidget->setBands(_b);
+    dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
     //qDebug() << Q_FUNC_INFO << " - END" << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -8363,7 +8377,7 @@ void MainWindow::slotAwardsWidgetSetYear()
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    qDebug() << Q_FUNC_INFO;
+    //qDebug << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
@@ -8431,7 +8445,7 @@ void MainWindow::backupCurrentQSO()
     qso->setSatName (satTabWidget->getSatName ());
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
-    qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
+    //qDebug << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
 
 }
 
@@ -8451,12 +8465,12 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
     if (restoreConfig)
     {
-        qDebug() << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
+        //qDebug << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
         mainQSOEntryWidget->setRealTime (qso->getRealTime ());
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": NO restoring config";
+        //qDebug << Q_FUNC_INFO << ": NO restoring config";
     }
 
     //  MainWindowInputQSO

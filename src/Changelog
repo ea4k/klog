@@ -1,8 +1,10 @@
 TBD 2021 - 1.7
 - Bugfix: RealTime remained checked when editing.
-- Bigfix: Some Hamlib parameters were not properly stored.
+- Bugfix: Some Hamlib parameters were not properly stored.
 - Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
+- Bugfix: Coredump when no entity (Closes @302)
 - Improvement: DarkMode added. (TNX EA5WA)
+- UI: The Setup menu has been moved to Settings into the File menu.
 
 June 2021 - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.

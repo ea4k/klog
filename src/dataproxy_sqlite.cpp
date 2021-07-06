@@ -6989,7 +6989,7 @@ int DataProxy_SQLite::getITUzFromEntity(const int _n)
 
 QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 {
-      //qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n) << endl;
+    //qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n) << endl;
 
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(_n);
@@ -7095,6 +7095,92 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
   }
 
 }
+QStringList DataProxy_SQLite::getEntiNameAndPrefixFromId(const int _dxcc)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
+
+    if (_dxcc <= 0 )
+    {
+        return QStringList();
+    }
+    bool sqlOK;
+    QString queryString;
+    QSqlQuery query;
+    QString motherEntName = QString();
+    if (_dxcc > 1000)
+    {
+        QString aux = (QString::number(_dxcc)).right(3);
+        QString queryString2 = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(aux);
+        sqlOK = query.exec(queryString2);
+
+        if (sqlOK)
+        {
+            if (query.next())
+            {
+                if (query.isValid())
+                {
+                    motherEntName = (query.value(0)).toString();
+                    if (motherEntName.length ()<1)
+                    {
+                        return QStringList();
+                    }
+                }
+            }
+        }
+        else
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            query.finish ();
+            return QStringList();
+        }
+    }
+    query.finish ();
+
+    QStringList result;
+    result.clear();
+    queryString = QString("SELECT mainprefix, name FROM entity WHERE dxcc='%1'").arg(_dxcc);
+
+    sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return QStringList();
+    }
+    else
+    {
+        query.next();
+
+        if (query.isValid())
+        {
+            queryString = (query.value(0)).toString();
+            QString prefix = (query.value(0)).toString();
+            QString name  = (query.value(1)).toString();
+            query.finish();
+            if (prefix.length ()<1)
+            {
+                return QStringList();
+            }
+            if (name.length ()<1)
+            {
+                return QStringList();
+            }
+            if ((_dxcc>1000) && (motherEntName.length ()>2))
+            {
+                name = name + "(" + motherEntName + ")";
+            }
+
+            result << prefix << name;
+            return result;
+        }
+        else
+        {
+            query.finish();
+            return QStringList();
+        }
+    }
+}
 
 QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
 {
@@ -7108,9 +7194,8 @@ QString DataProxy_SQLite::getEntityMainPrefix(const int _entityN)
     QString queryString;
     QSqlQuery query;
 
-    //queryString = QString("SELECT mainprefix FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_entityN);
     queryString = QString("SELECT mainprefix FROM entity WHERE dxcc='%1'").arg(_entityN);
-    //queryString = "SELECT prefix FROM prefixesofentity WHERE dxcc=='" + QString::number(i) +"'";
+
     bool sqlOK = query.exec(queryString);
 
     if (!sqlOK)
@@ -7633,17 +7718,29 @@ bool DataProxy_SQLite::updateISONames()
 
 QString DataProxy_SQLite::getISOName(const int _n)
 {
-         //qDebug()  << "DataProxy_SQLite::getISONames: " << QString::number(_n)  << endl;
+    //qDebug()  << "DataProxy_SQLite::getISONames: " << QString::number(_n)  << endl;
     if (_n <= 0 )
     {
              //qDebug()  << "DataProxy_SQLite::getISONames: NOT KNOWN - UN" << endl;
         return "un"; // When no flag is known, we return the UN flag
     }
-
+    int n = _n;
+    if (_n<1000)
+    {
+        n = _n;
+    }
+    else if (_n>=2000)
+    {
+        n = _n - 2000;
+    }
+    else
+    {
+        n = _n - 1000;
+    }
     QString queryString, aux;
     QSqlQuery query;
     aux.clear();
-    queryString = QString("SELECT isoname FROM entity WHERE dxcc='%1'").arg(_n);
+    queryString = QString("SELECT isoname FROM entity WHERE dxcc='%1'").arg(n);
     bool sqlOK = query.exec(queryString);
 
 
@@ -7652,14 +7749,14 @@ QString DataProxy_SQLite::getISOName(const int _n)
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             //qDebug()  << "DataProxy_SQLite::getISOName: Query error - UN"  << endl;
         query.finish();
-        return "nu"; // When no flag is known, we return the UN flag
+        return "un"; // When no flag is known, we return the UN flag
     }
     else
     {
         query.next();
 
         if (query.isValid()){
-                 //qDebug()  << "DataProxy_SQLite::getISOName: ISO Name: " << (query.value(0)).toString() << endl;
+            //qDebug()  << "DataProxy_SQLite::getISOName: " << "N: " << QString::number(_n) << "- ISO Name: " << (query.value(0)).toString() << endl;
             aux = (query.value(0)).toString();
             query.finish();
             if (aux.length()>1)

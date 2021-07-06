@@ -207,7 +207,12 @@ void MainWindowInputOthers::setEntity(const int _ent)
 
 int MainWindowInputOthers::getEntity()
 {
-    return ((entityNameComboBox->currentText()).split('(').at(1).chopped (1)).toInt ();
+    QString aux = entityNameComboBox->currentText();
+    if (!aux.contains ('('))
+    {
+        return -1;
+    }
+    return (aux.split('(').at(1).chopped (1)).toInt ();
 }
 
 QString MainWindowInputOthers::getEntityPrefix()

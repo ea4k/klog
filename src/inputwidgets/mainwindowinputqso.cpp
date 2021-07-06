@@ -143,7 +143,7 @@ void MainWindowInputQSO::createUI()
 
     QHBoxLayout *freqDataLayout = new QHBoxLayout;
     freqDataLayout->addWidget(txFreqSpinBox);
-    freqDataLayout->addStretch(1);
+    //freqDataLayout->addStretch(1);
     freqDataLayout->addWidget(rxFreqSpinBox);
 
     QVBoxLayout *freqLayout = new QVBoxLayout;

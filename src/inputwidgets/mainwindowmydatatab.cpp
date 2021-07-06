@@ -288,9 +288,9 @@ void MainWindowMyDataTab::setStationQRZ(const QString _op)
 
 QString MainWindowMyDataTab::getStationQRZ()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
     lastStationQRZ = (stationCallSignLineEdit->text()).toUpper();
-    return lastStationQRZ.toUpper();
+    return lastStationQRZ;
 }
 
 void MainWindowMyDataTab::setMyLocator(const QString _op)

@@ -482,36 +482,6 @@ QString World::getQRZEntityName(const QString &_qrz)
     //QSqlQuery query;
     int prefixIDNumber = getPrefixId(_qrz);
     return getEntityName(prefixIDNumber);
-/*
-    queryString = "SELECT dxcc FROM prefixesofentity WHERE id=='" + QString::number(prefixIDNumber) +"'";
-       //qDebug() << "World::getQRZEntityName: queryString-1: " << queryString << endl;
-    query.exec(queryString);
-    query.next();
-    if (query.isValid())
-    {
-        prefixIDNumber = (query.value(0)).toInt();
-    }
-    else
-    {
-        prefixIDNumber = -1;
-    }
-
-       //qDebug() << "World::getQRZEntityName: " <<_qrz << " = " <<  (query.value(0)).toString() << endl;
-
-    queryString = "SELECT name FROM entity WHERE dxcc=='" + QString::number(prefixIDNumber) +"'";
-       //qDebug() << "World::getQRZEntityName: queryString-2: " << queryString << endl;
-    query.exec(queryString);
-    query.next();
-       //qDebug() << "World::getQRZEntityName end: " << _qrz << " = " << (query.value(0)).toString() << endl;
-
-    if (query.isValid()){
-        return (query.value(0)).toString();
-    }else{
-        return "";
-    }
-
-    return "";
-*/
 }
 
 QString World::getEntityName(const int _entityN)
@@ -522,26 +492,6 @@ QString World::getEntityName(const int _entityN)
         return QString();
     }
     return dataProxy->getEntityNameFromId(prefixIDNumber);
-/*
-    QString queryString;
-    QSqlQuery query;
-
-    queryString = QString("SELECT name FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(prefixIDNumber);
-
-    //queryString = "SELECT name FROM entity WHERE dxcc=='" + QString::number(prefixIDNumber) +"'";
-       //qDebug() << "World::getEntityName: queryString-2: " << queryString << endl;
-    query.exec(queryString);
-    query.next();
-
-
-    if (query.isValid()){
-        return (query.value(0)).toString();
-    }else{
-        return "";
-    }
-
-    return "";
-*/
 }
 
 int World::getQRZCqz(const QString &_qrz)
