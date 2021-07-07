@@ -1479,6 +1479,49 @@ bool DataProxy_SQLite::setLoTWQSLRec (const int _qsoId, const QString &_st, cons
     query.finish();
     return false;
 }
+bool DataProxy_SQLite::isQSOConfirmed(const int _qsoId, const bool _checkPaper, const bool _checkLoTW)
+{ // Returns true if the QSO has been confirmed via paper and/or LoTW
+
+    QSqlQuery query;
+    QString queryString;
+    queryString = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE id = '%1'").arg(_qsoId);
+
+    if (!query.exec(queryString))
+    {
+        return false;
+    }
+    if (!query.next ())
+    {
+        return false;
+    }
+    if (!query.isValid ())
+    {
+        return false;
+    }
+
+    QString paperQSL = (query.value(0)).toString();
+    QString lotwQSL = (query.value(1)).toString();
+    query.finish();
+
+    if (_checkPaper && _checkLoTW)
+    {
+        return ((paperQSL == "Y") || (lotwQSL == "Y"));
+    }
+    else if (_checkPaper && !_checkLoTW)
+    {
+        return (paperQSL == "Y");
+
+    }
+    else if (!_checkPaper && _checkLoTW)
+    {
+        return (lotwQSL == "Y");
+    }
+    else
+    {
+        return false;
+    }
+
+}
 
 bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
 {

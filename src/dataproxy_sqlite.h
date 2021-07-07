@@ -118,7 +118,7 @@ public:
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLLoTWReceived(const int _qsoId);
-    bool isQSOConfirmed(const int _qsoId);
+    bool isQSOConfirmed(const int _qsoId, const bool _checkPaper, const bool _checkLoTW);
     bool isQSLSent(const int _qsoId);
 
     bool qslSentViaDirect(const int _qsoId, const QDate &_updateDate);
