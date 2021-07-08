@@ -412,9 +412,6 @@ int Awards::getDXStatus (const QStringList &_qs)
         return -1;
     }
 
-
-
-
     bool checkingMode = true;
     if ( (_mode==-1) || (manageModes==false))
     {

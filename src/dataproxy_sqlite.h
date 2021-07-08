@@ -52,7 +52,6 @@ public:
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();
 
-
     QString getSoftVersion();
     QString getDBVersion();
     bool reconnectDB();
@@ -141,6 +140,8 @@ public:
     int getModeFromId(const int _qsoId);
     int getDXCCFromId(const int _qsoId);
     int getCQZFromId(const int _qsoId);
+    QList<int> getBandModeDXCCCQZlogIDFromId(const int _qsoId);
+
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous

@@ -378,8 +378,8 @@ private:
 
     bool readCtyFile();
 
-    bool isQSLReceived(const int _qsoId);
-    bool isQSLSent(const int _qsoId);
+    //bool isQSLReceived(const int _qsoId);
+    //bool isQSLSent(const int _qsoId);
 
     //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query

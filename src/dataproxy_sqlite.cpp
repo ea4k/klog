@@ -1520,7 +1520,6 @@ bool DataProxy_SQLite::isQSOConfirmed(const int _qsoId, const bool _checkPaper, 
     {
         return false;
     }
-
 }
 
 bool DataProxy_SQLite::isQSLReceived(const int _qsoId)
@@ -1726,6 +1725,84 @@ int DataProxy_SQLite::getCQZFromId(const int _qsoId)
         query.finish();
     }
     return -1;
+}
+
+QList<int> DataProxy_SQLite::getBandModeDXCCCQZlogIDFromId(const int _qsoId)
+{
+    QList<int> result;
+    result.clear();
+
+    QSqlQuery query;
+    QString queryString = QString("SELECT bandid, modeid, dxcc, cqz, lognumber FROM log WHERE id='%1'").arg(_qsoId);
+    if (!query.exec(queryString))
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish ();
+        return result;
+    }
+    if (!query.next ())
+    {
+        query.finish ();
+        return result;
+    }
+    if (!query.isValid ())
+    {
+        query.finish ();
+        return result;
+    }
+    QSqlRecord rec = query.record();
+    int nameCol = rec.indexOf("bandid");
+
+    int v = (query.value(nameCol)).toInt();
+    if (v<1)
+    {
+        return result;
+    }
+    result.append (v);
+
+    nameCol = rec.indexOf("modeid");
+    v = (query.value(nameCol)).toInt();
+    v = (query.value(nameCol)).toInt();
+    if (v<1)
+    {
+        result.clear();
+        return result;
+    }
+    result.append (v);
+
+    nameCol = rec.indexOf("dxcc");
+    v = (query.value(nameCol)).toInt();
+    v = (query.value(nameCol)).toInt();
+    if (v<1)
+    {
+        result.clear();
+        return result;
+    }
+    result.append (v);
+
+    nameCol = rec.indexOf("cqz");
+    v = (query.value(nameCol)).toInt();
+    v = (query.value(nameCol)).toInt();
+    if (v<1)
+    {
+        result.clear();
+        return result;
+    }
+    result.append (v);
+
+    nameCol = rec.indexOf("lognumber");
+    v = (query.value(nameCol)).toInt();
+    v = (query.value(nameCol)).toInt();
+    if (v<1)
+    {
+        result.clear();
+        return result;
+    }
+    result.append (v);
+
+    query.finish ();
+    return result;
+
 }
 
 QString DataProxy_SQLite::getCallFromId(const int _qsoId)
@@ -5493,29 +5570,39 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
            //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: QSOid <=0 " << QString::number(_qsoId) << endl;
         return false;
     }
+    QList<int> values;
+    values.clear();
+    values << getBandModeDXCCCQZlogIDFromId(_qsoId);
+    if (values.length ()!=5)
+    {
+        return false;
+    }
+    // bandid, modeid, dxcc, cqz, lognumber
 
-    int _dxcc = getDXCCFromId(_qsoId);
+    int _dxcc = values.at(2);
+    //int _dxcc = getDXCCFromId(_qsoId);
     if (_dxcc <= 0)
     {
            //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: DXCC <= 0: DXCC: " << QString::number(_dxcc) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
 
-    int _band = getBandFromId(_qsoId);
+    int _band = values.at(0);
+    //int _band = getBandFromId(_qsoId);
     if (_band <= 0)
     {
           //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Band <= 0: BAND: " << QString::number(_band) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
 
-    int _mode = getModeFromId(_qsoId);
+    int _mode = values.at(1);    //int _mode = getModeFromId(_qsoId);
     if (_mode <= 0)
     {
           //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Mode <= 0: Mode: " << QString::number(_mode) << " - "  << QString::number(_qsoId) << endl;
         return false;
     }
-
-    int _log = getLogNumberFromQSOId(_qsoId);
+    int _log = values.at(4);
+    //int _log = getLogNumberFromQSOId(_qsoId);
     if (_log <= 0)
     {
           //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Log <= 0: Log: " << QString::number(_log) << " - "  << QString::number(_qsoId) << endl;
@@ -5556,7 +5643,8 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             }
             else if (__confirmed == "0")
             {
-                if (!isQSLReceived((_qsoId)))
+                if (!isQSOConfirmed(_qsoId, true, true))
+                //if (!isQSLReceived((_qsoId)))
                 {// #2 - If the band/mode/log is already worked and status worked: Return true
                     query.finish();
                     return true;
@@ -5640,25 +5728,38 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
         return false;
     }
 
-    int _cqz = getCQZFromId(_qsoId);
+    QList<int> values;
+    values.clear();
+    values << getBandModeDXCCCQZlogIDFromId(_qsoId);
+    if (values.length ()!=5)
+    {
+        return false;
+    }
+    // bandid, modeid, dxcc, cqz, lognumber
+    int _cqz = values.at(3);
+
+    //int _cqz = getCQZFromId(_qsoId);
     if (_cqz <= 0)
     {
         return false;
     }
 
-    int _band = getBandFromId(_qsoId);
+    //int _band = getBandFromId(_qsoId);
+    int _band = values.at(0);
     if (_band <= 0)
     {
         return false;
     }
 
-    int _mode = getModeFromId(_qsoId);
+    //int _mode = getModeFromId(_qsoId);
+    int _mode = values.at(1);
     if (_mode <= 0)
     {
         return false;
     }
 
-    int _log = getLogNumberFromQSOId(_qsoId);
+    //int _log = getLogNumberFromQSOId(_qsoId);
+    int _log = values.at(4);
     if (_log <= 0)
     {
         return false;
@@ -5697,7 +5798,8 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
             }
             else if (__confirmed == "0")
             {
-                if (!isQSLReceived((_qsoId)))
+                if (!isQSOConfirmed(_qsoId, true, true))
+                //if (!isQSLReceived((_qsoId)))
                 {// #2 - If the band/mode/log is already worked and status worked: Return true
                     query.finish();
                     return true;

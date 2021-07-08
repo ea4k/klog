@@ -83,7 +83,7 @@ void LogWindow::createUI()
 void LogWindow::setDefaultData()
 {
 
-       //qDebug() << "LogWindow::setDefaultData"  << endl;    
+       //qDebug() << "LogWindow::setDefaultData"  << endl;
 }
 
 
@@ -183,7 +183,7 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
     QModelIndexList list = select->selectedRows();
 
     if (select->hasSelection() && (list.length()>1) )
-    {       
+    {
         rightButtonMultipleFromLogMenu();
     }
     else
@@ -301,7 +301,8 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 bool LogWindow::isQSLReceived(const int _qsoId)
 {
        //qDebug() << "LogWindow::isQSLReceived: " << QString::number(_qsoId) << endl;
-    return dataProxy->isQSLReceived(_qsoId);
+    return dataProxy->isQSOConfirmed(_qsoId, true, false); // We check just paper QSL
+    //return dataProxy->isQSLReceived(_qsoId);
 }
 
 bool LogWindow::isQSLSent(const int _qsoId)
@@ -491,7 +492,7 @@ void LogWindow::deleteQSO(const int _qsoID)
 
     //logModel->removeRow((delQSOFromLogAct->data()).toInt()); //TODO: This has been replaced by the previous line
     //awards->recalculateAwards();
-    refresh();       
+    refresh();
     //dxccStatusWidget->refresh();
     emit updateAwards();
     emit updateSearchText();

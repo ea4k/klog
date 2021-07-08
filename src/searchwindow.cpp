@@ -350,7 +350,8 @@ void SearchWindow::slotDoubleClickLog(const QModelIndex & index)
 bool SearchWindow::isQSLReceived(const int _qsoId)
 {
        //qDebug() << "SearchWindow::isQSLReceived: " << QString::number(_qsoId) << endl;
-    return dataProxy->isQSLReceived(_qsoId);
+    return dataProxy->isQSOConfirmed(_qsoId, true, false); // We check just paper QSL
+    //return dataProxy->isQSLReceived(_qsoId);
 }
 
 bool SearchWindow::isQSLSent(const int _qsoId)
