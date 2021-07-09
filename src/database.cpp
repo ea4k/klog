@@ -7894,7 +7894,7 @@ bool DataBase::updateTo021()
 
 bool DataBase::updateAwardDXCCTable()
 {
-    /*
+
        //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
 
     QList<AwarddxccEntry> dxccStatusList;
@@ -7909,12 +7909,6 @@ bool DataBase::updateAwardDXCCTable()
     awardEntry.logNumber = QString();
     awardEntry.qsoID = QString();
 
-    //AwarddxccEntryCheck awardEntryCheck;
-    //awardEntryCheck.dxcc = QString();
-    //awardEntryCheck.band = QString();
-    //awardEntryCheck.status = QString();
-
-
     QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY dxcc");
     QSqlQuery query;//, query2;
 
@@ -7922,7 +7916,6 @@ bool DataBase::updateAwardDXCCTable()
     QSqlRecord rec = query.record();
     if (!sqlOK)
     {
-
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -7976,7 +7969,6 @@ bool DataBase::updateAwardDXCCTable()
                 awardEntry.status = "0";
             }
 
-
                //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
@@ -8023,7 +8015,6 @@ bool DataBase::updateAwardDXCCTable()
            //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << endl;
     }
 
-
        //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << endl;
 
     //int i = 0;
@@ -8046,7 +8037,6 @@ bool DataBase::updateAwardDXCCTable()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-
                //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().number()) << endl;
             if (query.lastError().number() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
@@ -8139,13 +8129,12 @@ bool DataBase::updateAwardDXCCTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
-    */
+
     return true;
 }
 
 bool DataBase::updateAwardWAZTable()
 {
-    /*
        //qDebug() << "DataBase::updateAwardWAZTable" << endl;
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
@@ -8380,7 +8369,6 @@ bool DataBase::updateAwardWAZTable()
 
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << endl;
-    */
     return true;
 
 

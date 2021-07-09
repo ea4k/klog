@@ -2,7 +2,10 @@ TBD 2021 - 1.7
 - Bugfix: RealTime remained checked when editing.
 - Bugfix: Some Hamlib parameters were not properly stored.
 - Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
-- Bugfix: Coredump when no entity (Closes @302)
+- Bugfix: Coredump when no entity (Closes #302)
+- Bugfix: Colors are now properly defined. (Closes #275) (Closes #40)
+- Bugfix: Station callsign is read from the settings. (Closes #307)
+- Bugfix: The right setup dialog tab is open on first start. (Closes #311)
 - Improvement: DarkMode added. (TNX EA5WA)
 - Improvement: DXCC & WAZ management optimization.
 - UI: The Setup menu has been moved to Settings into the File menu.

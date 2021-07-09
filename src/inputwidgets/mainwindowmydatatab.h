@@ -46,34 +46,34 @@ public:
 
     void createUI();
 
-    void setData(const double _power, const QString _stationQRZ, const QString _operator, const QString _myLocator);
+    void setData(const double _power, const QString &_stationQRZ, const QString &_operator, const QString &_myLocator);
 
     void setSetupMyPower(const double _power);
-    void setSetupOperator(const QString _op);
-    void setSetupStationQRZ(const QString _op);
-    void setSetupMyLocator(const QString _op);
+    void setSetupOperator(const QString &_op);
+    void setSetupStationQRZ(const QString &_op);
+    void setSetupMyLocator(const QString &_op);
 
     void setMyPower(const double _power);
     double getMyPower();
     //double getLastPower();
 
-    void setOperator(const QString _op);
+    void setOperator(const QString &_op);
     QString getOperator();
 
     //QString getLastOperator();
 
-    void setStationQRZ(const QString _op);
+    void setStationQRZ(const QString &_op);
     QString getStationQRZ();
 
     //QString getLastStationQRZ();
 
-    void setMyLocator(const QString _op);
+    void setMyLocator(const QString &_op);
     QString getMyLocator();
-    bool setMyRig(const QString _op);
+    bool setMyRig(const QString &_op);
     QString getMyRig();
-    bool setMyAntenna(const QString _op);
+    bool setMyAntenna(const QString &_op);
     QString getMyAntenna();
-    bool setMySOTA(const QString _op);
+    bool setMySOTA(const QString &_op);
     QString getMySOTA();
 
     bool setUserADIFTypeComboBox(const QString &_value);
@@ -111,7 +111,7 @@ private:
 
     QDoubleSpinBox *myPowerSpinBox;
     QString stationQRZ, operatorQRZ, myLocator; //Not changed during normal operations. They come from the configuration
-    QString lastOperatorQRZ, lastStationQRZ, lastMyLocator; // Change dinamically during execution
+    QString lastOperatorQRZ, lastMyLocator; //lastStationQRZ, Change dinamically during execution
     double myPower, lastPower;
 
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *myUserADIFLineEdit;

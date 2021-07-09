@@ -718,7 +718,7 @@ void MainWindow::checkIfNewVersion()
         msgBox.setText(tr("It seems that you are running this version of KLog for the first time."));
         msgBox.setInformativeText(tr("The setup will be open to allow you to do any new setup you may need."));
         msgBox.exec();
-        openSetup();
+        openSetup(0);
     }
      //qDebug() << "MainWindow::checkIfNewVersion - END"  << endl;
 }
@@ -1238,7 +1238,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     }
 
     aux1 = myDataTabWidget->getStationQRZ();
-    qDebug() << Q_FUNC_INFO << "StationCallSign: " << aux1;
+    //qDebug() << Q_FUNC_INFO << "StationCallSign: " << aux1;
     if (aux1.length()>2)
     {
         //lastStationQRZ = aux1.toUpper();
@@ -2865,17 +2865,7 @@ void MainWindow::slotQSODelete(const int _id)
     {
          // TODO: The QSO to be removed was not found in the log
     }
-
-
-
-
-
-
-
-
-
-
-     //qDebug() << "MainWindow::slotQSODelete END "  << endl;
+    //qDebug() << "MainWindow::slotQSODelete END "  << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //awards->recalculateAwards();
 }
@@ -4536,24 +4526,31 @@ void MainWindow::openSetup(const int _page)
     if (!needToEnd)
     {
         logEvent(Q_FUNC_INFO, "Just before setData", logSeverity);
-       //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << endl;
-        setupDialog->setData(configFileName, softwareVersion, _page, !configured);
-
+        //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << endl;
+        if (upAndRunning)
+        {
+            setupDialog->setData(configFileName, softwareVersion, _page, !configured);
+        }
+        else
+        {
+            setupDialog->setData(configFileName, softwareVersion, 0, !configured);
+        }
         if ( (!configured) || (itIsANewversion) )
         {
             logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", logSeverity);
             itIsANewversion = false;
-            //result = setupDialog->exec();
+            //setupDialog->exec();
+
             setupDialog->setModal(true);
             setupDialog->show();
             // move part of this code to slotSetupDialogFinished
-            logEvent(Q_FUNC_INFO, "Just after setupDialog->exec", logSeverity);
-            //qDebug() << "MainWindow::openSetup - Just after setupDialog->exec : " << QString::number(result)  << endl;
+            logEvent(Q_FUNC_INFO, "Just after setupDialog->show", logSeverity);
+            //qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << endl;
         }
         else
         {
             logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", logSeverity);
-            //qDebug() << "MainWindow::openSetup - No setupDialog->exec needed"  << endl;
+             //qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << endl;
         }
     }
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -4562,7 +4559,7 @@ void MainWindow::openSetup(const int _page)
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-    qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
+    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
 
     if (needToEnd)
     {
@@ -4571,7 +4568,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     if (_s == QDialog::Accepted)
     {
-        qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
+        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
         logEvent(Q_FUNC_INFO, "Just before readConfigData", logSeverity);
         readConfigData();
         reconfigureDXMarathonUI(manageDxMarathon);
@@ -4594,19 +4591,19 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     else
     {
-         qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+         //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
     }
 
     if (qso->getBackup ())
     {
-        qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
+        //qDebug() << Q_FUNC_INFO << ": Restoring..." << endl;
         restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
-        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
+        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << endl;
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -4800,10 +4797,10 @@ void MainWindow::readConfigData()
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-       //qDebug() << Q_FUNC_INFO << ": File not found" << configFileName << QTime::currentTime().toString("hh:mm:ss") << endl;
+        //qDebug() << Q_FUNC_INFO << ": File not found" << configFileName << QTime::currentTime().toString("hh:mm:ss") << endl;
         if (configured)
         {
-           //qDebug() << Q_FUNC_INFO << ": configured = true" << QTime::currentTime().toString("hh:mm:ss") << endl;
+          //qDebug() << Q_FUNC_INFO << ": configured = true" << QTime::currentTime().toString("hh:mm:ss") << endl;
         }
         else
         {
@@ -4914,7 +4911,6 @@ void MainWindow::readConfigData()
         setHamlib(hamlibActive);
         setUDPServer(UDPServerStart);
     }
-
     //qDebug() << Q_FUNC_INFO << " - END" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4969,10 +4965,11 @@ bool MainWindow::processConfigLine(const QString &_line){
     //qDebug() << Q_FUNC_INFO << " - 30 "  << endl;
     QString aux;
     if (field == "CALLSIGN"){
+        //qDebug() << Q_FUNC_INFO << " - 30.1 - Callsign: " << value << endl;
         if (util->isValidCall(value))
         {
             mainQRZ = value;
-            //myDataTabWidget->setStationQRZ(mainQRZ);
+            myDataTabWidget->setStationQRZ(mainQRZ);
         }
     }else if (field=="CQZ"){
         my_CQz = value.toInt();
@@ -4989,7 +4986,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
         //qDebug << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
-        mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
+        mainQSOEntryWidget->sƒetRealTime(util->trueOrFalse(value));
         //realTime = util->trueOrFalse(value);
     }
     else if (field =="DXCLUSTERSERVERTOUSE"){
