@@ -657,89 +657,89 @@ msgctxt "DataProxy_SQLite|"
 msgid "Software version in DB is null"
 msgstr "La versión de software de la BBDD es nulo"
 
-#: ../dataproxy_sqlite.cpp:4520
+#: ../dataproxy_sqlite.cpp:4597
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr "Aircraft Scatter"
 
-#: ../dataproxy_sqlite.cpp:4524
+#: ../dataproxy_sqlite.cpp:4601
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr "Aurora"
 
-#: ../dataproxy_sqlite.cpp:4528
+#: ../dataproxy_sqlite.cpp:4605
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr "Aurora-E"
 
-#: ../dataproxy_sqlite.cpp:4532
+#: ../dataproxy_sqlite.cpp:4609
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr "Back scatter"
 
-#: ../dataproxy_sqlite.cpp:4536
+#: ../dataproxy_sqlite.cpp:4613
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr "Rebote Lunar"
 
-#: ../dataproxy_sqlite.cpp:4540
+#: ../dataproxy_sqlite.cpp:4617
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr "Esporádica E"
 
-#: ../dataproxy_sqlite.cpp:4552
+#: ../dataproxy_sqlite.cpp:4629
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr "Asistido por Internet"
 
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4633
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr "Ionoscatter"
 
-#: ../dataproxy_sqlite.cpp:4560
+#: ../dataproxy_sqlite.cpp:4637
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr "Meteor scatter"
 
-#: ../dataproxy_sqlite.cpp:4564
+#: ../dataproxy_sqlite.cpp:4641
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr "Terrestre, repetidor atmosférico o transpondedor"
 
-#: ../dataproxy_sqlite.cpp:4568
+#: ../dataproxy_sqlite.cpp:4645
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr "Rain scatter"
 
-#: ../dataproxy_sqlite.cpp:4572
+#: ../dataproxy_sqlite.cpp:4649
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satélite"
 
-#: ../dataproxy_sqlite.cpp:5328
+#: ../dataproxy_sqlite.cpp:5405
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr "Bureau"
 
-#: ../dataproxy_sqlite.cpp:5340
+#: ../dataproxy_sqlite.cpp:5417
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr "Manager"
 
-#: ../dataproxy_sqlite.cpp:6230
+#: ../dataproxy_sqlite.cpp:6332
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr "Todos los QSO se han actualizado con un DXCC y un continente."
 
-#: ../dataproxy_sqlite.cpp:4544
+#: ../dataproxy_sqlite.cpp:4621
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
@@ -750,90 +750,90 @@ msgctxt "DataProxy_SQLite|"
 msgid "Query didn't failed"
 msgstr "No falló ninguna query"
 
-#: ../dataproxy_sqlite.cpp:4548
+#: ../dataproxy_sqlite.cpp:4625
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr "Reflexión F2"
 
-#: ../dataproxy_sqlite.cpp:4576
+#: ../dataproxy_sqlite.cpp:4653
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr "Trans-ecuatorial"
 
-#: ../dataproxy_sqlite.cpp:4580
+#: ../dataproxy_sqlite.cpp:4657
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr "Conducto troposférico"
 
-#: ../dataproxy_sqlite.cpp:5139 ../dataproxy_sqlite.cpp:5206
+#: ../dataproxy_sqlite.cpp:5216 ../dataproxy_sqlite.cpp:5283
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr "Sí"
 
-#: ../dataproxy_sqlite.cpp:5143 ../dataproxy_sqlite.cpp:5210
+#: ../dataproxy_sqlite.cpp:5220 ../dataproxy_sqlite.cpp:5287
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr "No"
 
-#: ../dataproxy_sqlite.cpp:5147 ../dataproxy_sqlite.cpp:5214
+#: ../dataproxy_sqlite.cpp:5224 ../dataproxy_sqlite.cpp:5291
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr "Solicitada"
 
-#: ../dataproxy_sqlite.cpp:5151 ../dataproxy_sqlite.cpp:5222
+#: ../dataproxy_sqlite.cpp:5228 ../dataproxy_sqlite.cpp:5299
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr "Ignorar/No válida"
 
-#: ../dataproxy_sqlite.cpp:5155
+#: ../dataproxy_sqlite.cpp:5232
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr "Validada"
 
-#: ../dataproxy_sqlite.cpp:5218
+#: ../dataproxy_sqlite.cpp:5295
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr "En cola"
 
-#: ../dataproxy_sqlite.cpp:5270
+#: ../dataproxy_sqlite.cpp:5347
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr "Subida"
 
-#: ../dataproxy_sqlite.cpp:5274
+#: ../dataproxy_sqlite.cpp:5351
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr "No subir"
 
-#: ../dataproxy_sqlite.cpp:5278
+#: ../dataproxy_sqlite.cpp:5355
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr "Modificado"
 
-#: ../dataproxy_sqlite.cpp:5332
+#: ../dataproxy_sqlite.cpp:5409
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Directa"
 
-#: ../dataproxy_sqlite.cpp:5336
+#: ../dataproxy_sqlite.cpp:5413
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr "Electrónica"
 
-#: ../dataproxy_sqlite.cpp:6229
+#: ../dataproxy_sqlite.cpp:6331
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
 
-#: ../dataproxy_sqlite.cpp:9400
+#: ../dataproxy_sqlite.cpp:9502
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr "KLog - Indicativo no válido detectado"
 
-#: ../dataproxy_sqlite.cpp:9406
+#: ../dataproxy_sqlite.cpp:9508
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
@@ -842,7 +842,7 @@ msgstr ""
 "Se ha detectado un indicativo vacío. ¿Quiere exportar este QSO de todas "
 "formas (Pulsar en Si) o eliminar este campo del log exportado?"
 
-#: ../dataproxy_sqlite.cpp:9411
+#: ../dataproxy_sqlite.cpp:9513
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -853,7 +853,7 @@ msgstr ""
 "indicativo de todas formas (Pulsar en Si) o eliminar este indicativo del log "
 "exportado?"
 
-#: ../dataproxy_sqlite.cpp:9415
+#: ../dataproxy_sqlite.cpp:9517
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -1871,172 +1871,172 @@ msgctxt "LogWindow|"
 msgid "QSL Rcvd"
 msgstr "QSL Recibida"
 
-#: ../logwindow.cpp:318
+#: ../logwindow.cpp:319
 msgctxt "LogWindow|"
 msgid "&Delete"
 msgstr "&Borrar"
 
-#: ../logwindow.cpp:320
+#: ../logwindow.cpp:321
 msgctxt "LogWindow|"
 msgid "Delete a QSO"
 msgstr "Borrar un QSO"
 
-#: ../logwindow.cpp:323
+#: ../logwindow.cpp:324
 msgctxt "LogWindow|"
 msgid "&Edit QSO"
 msgstr "&Editar QSO"
 
-#: ../logwindow.cpp:325
+#: ../logwindow.cpp:326
 msgctxt "LogWindow|"
 msgid "Edit this QSO"
 msgstr "Edita este QSO"
 
-#: ../logwindow.cpp:328
+#: ../logwindow.cpp:329
 msgctxt "LogWindow|"
 msgid "Via &bureau"
 msgstr "Vía &bureau"
 
-#: ../logwindow.cpp:330
+#: ../logwindow.cpp:331
 msgctxt "LogWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Envía esta QSL vía bureau"
 
-#: ../logwindow.cpp:333
+#: ../logwindow.cpp:334
 msgctxt "LogWindow|"
 msgid "D&irect"
 msgstr "D&irecta"
 
-#: ../logwindow.cpp:335
+#: ../logwindow.cpp:336
 msgctxt "LogWindow|"
 msgid "Send this QSL via direct"
 msgstr "Envía esta QSL vía directa"
 
-#: ../logwindow.cpp:338 ../logwindow.cpp:384 ../logwindow.cpp:392
+#: ../logwindow.cpp:339 ../logwindow.cpp:385 ../logwindow.cpp:393
 msgctxt "LogWindow|"
 msgid "Via bureau"
 msgstr "Vía bureau"
 
-#: ../logwindow.cpp:340
+#: ../logwindow.cpp:341
 msgctxt "LogWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &recibida vía bureau"
 
-#: ../logwindow.cpp:343 ../logwindow.cpp:388 ../logwindow.cpp:396
+#: ../logwindow.cpp:344 ../logwindow.cpp:389 ../logwindow.cpp:397
 msgctxt "LogWindow|"
 msgid "Direct"
 msgstr "Directa"
 
-#: ../logwindow.cpp:345
+#: ../logwindow.cpp:346
 msgctxt "LogWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL recibida vía direc&ta"
 
-#: ../logwindow.cpp:348
+#: ../logwindow.cpp:349
 msgctxt "LogWindow|"
 msgid "Check in QRZ.com"
 msgstr "Consultar en QRZ.com"
 
-#: ../logwindow.cpp:350
+#: ../logwindow.cpp:351
 msgctxt "LogWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr "Consulta este indicativo en QRZ.com."
 
-#: ../logwindow.cpp:353
+#: ../logwindow.cpp:354
 msgctxt "LogWindow|"
 msgid "Check in DXHeat.com"
 msgstr "Consultar en DXHeat.com"
 
-#: ../logwindow.cpp:355
+#: ../logwindow.cpp:356
 msgctxt "LogWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr "Consulta este indicativo en DXHeat.com."
 
-#: ../logwindow.cpp:358
+#: ../logwindow.cpp:359
 msgctxt "LogWindow|"
 msgid "Delete selected QSOs"
 msgstr "Eliminar QSOs seleccionados"
 
-#: ../logwindow.cpp:360
+#: ../logwindow.cpp:361
 msgctxt "LogWindow|"
 msgid "Delete the selected QSOs"
 msgstr "Elimina los QSO seleccionados"
 
-#: ../logwindow.cpp:363
+#: ../logwindow.cpp:364
 msgctxt "LogWindow|"
 msgid "Export to ADIF"
 msgstr "Exportar a ADIF"
 
-#: ../logwindow.cpp:364
+#: ../logwindow.cpp:365
 msgctxt "LogWindow|"
 msgid "Export the selected QSOs to an ADIF file."
 msgstr "Exportar los QSOs seleccionados a un fichero ADIF."
 
-#: ../logwindow.cpp:372
+#: ../logwindow.cpp:373
 msgctxt "LogWindow|"
 msgid "Upload to LoTW"
 msgstr "Enviar a LoTW"
 
-#: ../logwindow.cpp:373
+#: ../logwindow.cpp:374
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to LoTW"
 msgstr "Envía los QSOs seleccionados a LoTW"
 
-#: ../logwindow.cpp:376
+#: ../logwindow.cpp:377
 msgctxt "LogWindow|"
 msgid "Upload to ClubLog"
 msgstr "Enviar a ClubLog"
 
-#: ../logwindow.cpp:377
+#: ../logwindow.cpp:378
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to ClubLog"
 msgstr "Envia los QSOs seleccionados a ClubLog"
 
-#: ../logwindow.cpp:380
+#: ../logwindow.cpp:381
 msgctxt "LogWindow|"
 msgid "Upload to eQSL.cc"
 msgstr "Enviar a eQSL.cc"
 
-#: ../logwindow.cpp:381
+#: ../logwindow.cpp:382
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to eQSL.cc"
 msgstr "Envía los QSOs seleccionados a eQSL.cc"
 
-#: ../logwindow.cpp:385
+#: ../logwindow.cpp:386
 msgctxt "LogWindow|"
 msgid "Send these QSLs via bureau"
 msgstr "Enviar estas QSLs via bureau"
 
-#: ../logwindow.cpp:389
+#: ../logwindow.cpp:390
 msgctxt "LogWindow|"
 msgid "Send these QSLs via direct"
 msgstr "Enviar estas QSLs via directa"
 
-#: ../logwindow.cpp:393
+#: ../logwindow.cpp:394
 msgctxt "LogWindow|"
 msgid "QSLs received via bureau"
 msgstr "QSLs recibidas via bureau"
 
-#: ../logwindow.cpp:397
+#: ../logwindow.cpp:398
 msgctxt "LogWindow|"
 msgid "QSLs received via direc&t"
 msgstr "QSLs recibidas vía direc&ta"
 
-#: ../logwindow.cpp:400
+#: ../logwindow.cpp:401
 msgctxt "LogWindow|"
 msgid "Select none"
 msgstr "Anular selección"
 
-#: ../logwindow.cpp:401
+#: ../logwindow.cpp:402
 msgctxt "LogWindow|"
 msgid "Remove all selections"
 msgstr "Elimina todas las selecciones"
 
-#: ../logwindow.cpp:404
+#: ../logwindow.cpp:405
 msgctxt "LogWindow|"
 msgid "Select all"
 msgstr "Seleccionar todo"
 
-#: ../logwindow.cpp:405
+#: ../logwindow.cpp:406
 msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr "Selecciona todos los QSOs"
@@ -4560,7 +4560,7 @@ msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "Indicativo de la estación"
 
-#: ../database.cpp:3868 ../database.cpp:4050 ../dataproxy_sqlite.cpp:6211
+#: ../database.cpp:3868 ../database.cpp:4050 ../dataproxy_sqlite.cpp:6313
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
@@ -4614,7 +4614,7 @@ msgstr ""
 "Preferencias->Logs para comprobar que todo está bien."
 
 #: ../database.cpp:3847 ../database.cpp:4031 ../database.cpp:4229
-#: ../database.cpp:4431 ../dataproxy_sqlite.cpp:6166
+#: ../database.cpp:4431 ../dataproxy_sqlite.cpp:6268
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Cancelar actualización"
@@ -4637,29 +4637,29 @@ msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
 msgstr "Actualizando información de modos en %1..."
 
-#: ../awards.cpp:778
+#: ../awards.cpp:775
 #| msgid "nNew One, work it!"
 msgctxt "QObject|"
 msgid "New One, work it!"
 msgstr "¡Nuevo, trabájelo!"
 
-#: ../awards.cpp:782 ../awards.cpp:786 ../awards.cpp:792 ../awards.cpp:795
-#: ../awards.cpp:798 ../awards.cpp:801 ../awards.cpp:807 ../awards.cpp:813
+#: ../awards.cpp:779 ../awards.cpp:783 ../awards.cpp:789 ../awards.cpp:792
+#: ../awards.cpp:795 ../awards.cpp:798 ../awards.cpp:804 ../awards.cpp:810
 msgctxt "QObject|"
 msgid "Needed, work it!"
 msgstr "¡Necesitado, trabájelo!"
 
-#: ../awards.cpp:789 ../awards.cpp:804 ../awards.cpp:810 ../awards.cpp:816
+#: ../awards.cpp:786 ../awards.cpp:801 ../awards.cpp:807 ../awards.cpp:813
 msgctxt "QObject|"
 msgid "Worked but not confirmed"
 msgstr "Trabajado pero no confirmado"
 
-#: ../awards.cpp:819
+#: ../awards.cpp:816
 msgctxt "QObject|"
 msgid "Confirmed"
 msgstr "Confirmado"
 
-#: ../awards.cpp:823
+#: ../awards.cpp:820
 msgctxt "QObject|"
 msgid "Not identified"
 msgstr "No identificado"
@@ -4717,12 +4717,12 @@ msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "¡Gracias por usar KLog!"
 
-#: ../dataproxy_sqlite.cpp:6166
+#: ../dataproxy_sqlite.cpp:6268
 msgctxt "QObject|"
 msgid "Updating information..."
 msgstr "Actualizando información..."
 
-#: ../dataproxy_sqlite.cpp:6211
+#: ../dataproxy_sqlite.cpp:6313
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr "Actualizando la información de DXCC y continente..."
@@ -4902,157 +4902,157 @@ msgctxt "SearchWindow|"
 msgid "QSL Send"
 msgstr "Enviar QSL"
 
-#: ../searchwindow.cpp:368
+#: ../searchwindow.cpp:369
 msgctxt "SearchWindow|"
 msgid "&Delete"
 msgstr "&Borrar"
 
-#: ../searchwindow.cpp:369
+#: ../searchwindow.cpp:370
 msgctxt "SearchWindow|"
 msgid "Delete a QSO"
 msgstr "Borrar un QSO"
 
-#: ../searchwindow.cpp:372
+#: ../searchwindow.cpp:373
 msgctxt "SearchWindow|"
 msgid "&Edit QSO"
 msgstr "&Editar QSO"
 
-#: ../searchwindow.cpp:373
+#: ../searchwindow.cpp:374
 msgctxt "SearchWindow|"
 msgid "Edit this QSO"
 msgstr "Editar este QSO"
 
-#: ../searchwindow.cpp:376
+#: ../searchwindow.cpp:377
 msgctxt "SearchWindow|"
 msgid "Via &bureau"
 msgstr "Vía &bureau"
 
-#: ../searchwindow.cpp:377
+#: ../searchwindow.cpp:378
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Envía esta QSL vía bureau"
 
-#: ../searchwindow.cpp:380
+#: ../searchwindow.cpp:381
 msgctxt "SearchWindow|"
 msgid "D&irect"
 msgstr "D&irecta"
 
-#: ../searchwindow.cpp:381
+#: ../searchwindow.cpp:382
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct"
 msgstr "Envía esta QSL vía directa"
 
-#: ../searchwindow.cpp:384
+#: ../searchwindow.cpp:385
 msgctxt "SearchWindow|"
 msgid "Via bureau"
 msgstr "Vía bureau"
 
-#: ../searchwindow.cpp:385
+#: ../searchwindow.cpp:386
 msgctxt "SearchWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &recibida vía bureau"
 
-#: ../searchwindow.cpp:388
+#: ../searchwindow.cpp:389
 msgctxt "SearchWindow|"
 msgid "Direct"
 msgstr "Directa"
 
-#: ../searchwindow.cpp:389
+#: ../searchwindow.cpp:390
 msgctxt "SearchWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL recibida vía direc&ta"
 
-#: ../searchwindow.cpp:392
+#: ../searchwindow.cpp:393
 msgctxt "SearchWindow|"
 msgid "Check in QRZ.com"
 msgstr "Consultar en QRZ.com"
 
-#: ../searchwindow.cpp:393
+#: ../searchwindow.cpp:394
 msgctxt "SearchWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr "Consulta este indicativo en QRZ.com."
 
-#: ../searchwindow.cpp:396
+#: ../searchwindow.cpp:397
 msgctxt "SearchWindow|"
 msgid "Check in DXHeat.com"
 msgstr "Consultar en DXHeat.com"
 
-#: ../searchwindow.cpp:397
+#: ../searchwindow.cpp:398
 msgctxt "SearchWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr "Consulta este indicativo en DXHeat.com."
 
-#: ../searchwindow.cpp:400
+#: ../searchwindow.cpp:401
 msgctxt "SearchWindow|"
 msgid "&Request my QSL"
 msgstr "&Requerir mi QSL"
 
-#: ../searchwindow.cpp:401
+#: ../searchwindow.cpp:402
 msgctxt "SearchWindow|"
 msgid "Mark my QSL as requested"
 msgstr "Marcar mi QSL como solicitada"
 
-#: ../searchwindow.cpp:404
+#: ../searchwindow.cpp:405
 msgctxt "SearchWindow|"
 msgid "Via Direct and mark DX QSL as requested"
 msgstr "Vía directa y marcar QSL DX como solicitada"
 
-#: ../searchwindow.cpp:405
+#: ../searchwindow.cpp:406
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct and mark DX QSL as requested"
 msgstr "Enviar esta QSL vía directa y marcar QSL DX como solicitada"
 
-#: ../searchwindow.cpp:408
+#: ../searchwindow.cpp:409
 msgctxt "SearchWindow|"
 msgid "Via Bureau and mark DX QSL as requested"
 msgstr "Vía Bureau y marcar QSL DX como solicitada"
 
-#: ../searchwindow.cpp:409
+#: ../searchwindow.cpp:410
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau and mark DX QSL as requested"
 msgstr "Enviar esta QSL vía bureau y marcar QSL DX como solicitada"
 
-#: ../searchwindow.cpp:412
+#: ../searchwindow.cpp:413
 msgctxt "SearchWindow|"
 msgid "&Request the QSL"
 msgstr "&Requerir la QSL"
 
-#: ../searchwindow.cpp:413
+#: ../searchwindow.cpp:414
 msgctxt "SearchWindow|"
 msgid "Mark the QSL as requested"
 msgstr "Marcar la QSL como solicitada"
 
-#: ../searchwindow.cpp:416
+#: ../searchwindow.cpp:417
 msgctxt "SearchWindow|"
 msgid "Via bureau and mark my QSL as requested"
 msgstr "Vía Bureau y marcar mi QSL como solicitada"
 
-#: ../searchwindow.cpp:417
+#: ../searchwindow.cpp:418
 msgctxt "SearchWindow|"
 msgid "QSL received via bureau and mark my QSL as requested"
 msgstr "QSL recibida vía bureau y marcar mi QSL como solicitada"
 
-#: ../searchwindow.cpp:420
+#: ../searchwindow.cpp:421
 msgctxt "SearchWindow|"
 msgid "Direc&t and mark as my QSL requested"
 msgstr "Direc&ta y marcar mi QSL como solicitada"
 
-#: ../searchwindow.cpp:421
+#: ../searchwindow.cpp:422
 msgctxt "SearchWindow|"
 msgid "QSL received via direct and mark my QSL as requested"
 msgstr "QSL recibida vía directa y marcar mi QSL como solicitada"
 
-#: ../searchwindow.cpp:657
+#: ../searchwindow.cpp:658
 msgctxt "SearchWindow|"
 msgid "Needed QSO to send the QSL"
 msgstr "QSO al que es necesario enviar la QSL"
 
-#: ../searchwindow.cpp:665
+#: ../searchwindow.cpp:666
 msgctxt "SearchWindow|"
 msgid "My QSL requested to be sent"
 msgstr "Se ha solicitado el envío de mi QSL"
 
-#: ../searchwindow.cpp:670 ../searchwindow.cpp:675
+#: ../searchwindow.cpp:671 ../searchwindow.cpp:676
 msgctxt "SearchWindow|"
 msgid "DX QSL pending to be received"
 msgstr "QSL del DX pendiente de recibir"

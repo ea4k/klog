@@ -648,178 +648,178 @@ msgctxt "DataProxy_SQLite|"
 msgid "Query didn't failed"
 msgstr "Dotaz neselhal"
 
-#: ../dataproxy_sqlite.cpp:4520
+#: ../dataproxy_sqlite.cpp:4597
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr "Aircraft Scatter"
 
-#: ../dataproxy_sqlite.cpp:4524
+#: ../dataproxy_sqlite.cpp:4601
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr "Aurora"
 
-#: ../dataproxy_sqlite.cpp:4528
+#: ../dataproxy_sqlite.cpp:4605
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr "Aurora-E"
 
-#: ../dataproxy_sqlite.cpp:4532
+#: ../dataproxy_sqlite.cpp:4609
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr "Back scatter"
 
-#: ../dataproxy_sqlite.cpp:4536
+#: ../dataproxy_sqlite.cpp:4613
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr "Earth-Moon-Earth"
 
-#: ../dataproxy_sqlite.cpp:4540
+#: ../dataproxy_sqlite.cpp:4617
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr "Sporadic E"
 
-#: ../dataproxy_sqlite.cpp:4544
+#: ../dataproxy_sqlite.cpp:4621
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
 msgstr "Field Aligned Irregularities"
 
-#: ../dataproxy_sqlite.cpp:4548
+#: ../dataproxy_sqlite.cpp:4625
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr "F2 Reflection"
 
-#: ../dataproxy_sqlite.cpp:4552
+#: ../dataproxy_sqlite.cpp:4629
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr "Internet-assisted"
 
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4633
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr "Ionoscatter"
 
-#: ../dataproxy_sqlite.cpp:4560
+#: ../dataproxy_sqlite.cpp:4637
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr "Meteor scatter"
 
-#: ../dataproxy_sqlite.cpp:4564
+#: ../dataproxy_sqlite.cpp:4641
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr "Převaděč nebo transponder"
 
-#: ../dataproxy_sqlite.cpp:4568
+#: ../dataproxy_sqlite.cpp:4645
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr "Rain scatter"
 
-#: ../dataproxy_sqlite.cpp:4572
+#: ../dataproxy_sqlite.cpp:4649
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satelit"
 
-#: ../dataproxy_sqlite.cpp:4576
+#: ../dataproxy_sqlite.cpp:4653
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr "Trans-equatorial"
 
-#: ../dataproxy_sqlite.cpp:4580
+#: ../dataproxy_sqlite.cpp:4657
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr "Tropospheric ducting"
 
-#: ../dataproxy_sqlite.cpp:5139 ../dataproxy_sqlite.cpp:5206
+#: ../dataproxy_sqlite.cpp:5216 ../dataproxy_sqlite.cpp:5283
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr "Ano"
 
-#: ../dataproxy_sqlite.cpp:5143 ../dataproxy_sqlite.cpp:5210
+#: ../dataproxy_sqlite.cpp:5220 ../dataproxy_sqlite.cpp:5287
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr "Ne"
 
-#: ../dataproxy_sqlite.cpp:5147 ../dataproxy_sqlite.cpp:5214
+#: ../dataproxy_sqlite.cpp:5224 ../dataproxy_sqlite.cpp:5291
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr "Vyžádané"
 
-#: ../dataproxy_sqlite.cpp:5151 ../dataproxy_sqlite.cpp:5222
+#: ../dataproxy_sqlite.cpp:5228 ../dataproxy_sqlite.cpp:5299
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr "Ignorovat / Neplatné"
 
-#: ../dataproxy_sqlite.cpp:5155
+#: ../dataproxy_sqlite.cpp:5232
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr "Ověřené"
 
-#: ../dataproxy_sqlite.cpp:5218
+#: ../dataproxy_sqlite.cpp:5295
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr "Ve frontě"
 
-#: ../dataproxy_sqlite.cpp:5270
+#: ../dataproxy_sqlite.cpp:5347
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr "Nahrané"
 
-#: ../dataproxy_sqlite.cpp:5274
+#: ../dataproxy_sqlite.cpp:5351
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr "Nenahrávat"
 
-#: ../dataproxy_sqlite.cpp:5278
+#: ../dataproxy_sqlite.cpp:5355
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr "Modifikované"
 
-#: ../dataproxy_sqlite.cpp:5328
+#: ../dataproxy_sqlite.cpp:5405
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr "Bureau"
 
-#: ../dataproxy_sqlite.cpp:5332
+#: ../dataproxy_sqlite.cpp:5409
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../dataproxy_sqlite.cpp:5336
+#: ../dataproxy_sqlite.cpp:5413
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr "Elektronicky"
 
-#: ../dataproxy_sqlite.cpp:5340
+#: ../dataproxy_sqlite.cpp:5417
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr "Manažer"
 
-#: ../dataproxy_sqlite.cpp:6229
+#: ../dataproxy_sqlite.cpp:6331
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
 
-#: ../dataproxy_sqlite.cpp:6230
+#: ../dataproxy_sqlite.cpp:6332
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr "Všechna QSO byla aktualizována na DXCC a Kontinent."
 
-#: ../dataproxy_sqlite.cpp:9400
+#: ../dataproxy_sqlite.cpp:9502
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr "KLog - Byla zjištěna chybná značka"
 
-#: ../dataproxy_sqlite.cpp:9406
+#: ../dataproxy_sqlite.cpp:9508
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
@@ -828,7 +828,7 @@ msgstr ""
 "Byla zjištěna prázdná volací značka. Přejete si přesto toto QSO exportovat "
 "(klikněte na Ano) nebo ho odstranit z exportu ADIF?"
 
-#: ../dataproxy_sqlite.cpp:9411
+#: ../dataproxy_sqlite.cpp:9513
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -838,7 +838,7 @@ msgstr ""
 "Byla zjištěna neplatná volací značka %1. Přejete si přesto toto QSO "
 "exportovat (klikněte na Ano) nebo ho odstranit z exportu?"
 
-#: ../dataproxy_sqlite.cpp:9415
+#: ../dataproxy_sqlite.cpp:9517
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -1836,172 +1836,172 @@ msgctxt "LogWindow|"
 msgid "QSL Rcvd"
 msgstr "QSL Přijato"
 
-#: ../logwindow.cpp:318
+#: ../logwindow.cpp:319
 msgctxt "LogWindow|"
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: ../logwindow.cpp:320
+#: ../logwindow.cpp:321
 msgctxt "LogWindow|"
 msgid "Delete a QSO"
 msgstr "Smazat QSO"
 
-#: ../logwindow.cpp:323
+#: ../logwindow.cpp:324
 msgctxt "LogWindow|"
 msgid "&Edit QSO"
 msgstr "&Upravit QSO"
 
-#: ../logwindow.cpp:325
+#: ../logwindow.cpp:326
 msgctxt "LogWindow|"
 msgid "Edit this QSO"
 msgstr "Upravit QSO"
 
-#: ../logwindow.cpp:328
+#: ../logwindow.cpp:329
 msgctxt "LogWindow|"
 msgid "Via &bureau"
 msgstr "Via &bureau"
 
-#: ../logwindow.cpp:330
+#: ../logwindow.cpp:331
 msgctxt "LogWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Odeslat QSL via bureau"
 
-#: ../logwindow.cpp:333
+#: ../logwindow.cpp:334
 msgctxt "LogWindow|"
 msgid "D&irect"
 msgstr "D&irect"
 
-#: ../logwindow.cpp:335
+#: ../logwindow.cpp:336
 msgctxt "LogWindow|"
 msgid "Send this QSL via direct"
 msgstr "Odeslat QSL direct"
 
-#: ../logwindow.cpp:338 ../logwindow.cpp:384 ../logwindow.cpp:392
+#: ../logwindow.cpp:339 ../logwindow.cpp:385 ../logwindow.cpp:393
 msgctxt "LogWindow|"
 msgid "Via bureau"
 msgstr "Via bureau"
 
-#: ../logwindow.cpp:340
+#: ../logwindow.cpp:341
 msgctxt "LogWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &přijato via bureau"
 
-#: ../logwindow.cpp:343 ../logwindow.cpp:388 ../logwindow.cpp:396
+#: ../logwindow.cpp:344 ../logwindow.cpp:389 ../logwindow.cpp:397
 msgctxt "LogWindow|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../logwindow.cpp:345
+#: ../logwindow.cpp:346
 msgctxt "LogWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL přijato direc&t"
 
-#: ../logwindow.cpp:348
+#: ../logwindow.cpp:349
 msgctxt "LogWindow|"
 msgid "Check in QRZ.com"
 msgstr "Vyhledat v QRZ.com"
 
-#: ../logwindow.cpp:350
+#: ../logwindow.cpp:351
 msgctxt "LogWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr "Vyhledat značku v QRZ.com"
 
-#: ../logwindow.cpp:353
+#: ../logwindow.cpp:354
 msgctxt "LogWindow|"
 msgid "Check in DXHeat.com"
 msgstr "Vyhledat v DXHeat.com"
 
-#: ../logwindow.cpp:355
+#: ../logwindow.cpp:356
 msgctxt "LogWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr "Vyhledat značku v DXHeat.com"
 
-#: ../logwindow.cpp:358
+#: ../logwindow.cpp:359
 msgctxt "LogWindow|"
 msgid "Delete selected QSOs"
 msgstr "Smazat vybraná QSO"
 
-#: ../logwindow.cpp:360
+#: ../logwindow.cpp:361
 msgctxt "LogWindow|"
 msgid "Delete the selected QSOs"
 msgstr "Smazat vybraná QSO"
 
-#: ../logwindow.cpp:363
+#: ../logwindow.cpp:364
 msgctxt "LogWindow|"
 msgid "Export to ADIF"
 msgstr "Export ADIF"
 
-#: ../logwindow.cpp:364
+#: ../logwindow.cpp:365
 msgctxt "LogWindow|"
 msgid "Export the selected QSOs to an ADIF file."
 msgstr "Exportovat vybraná QSO do ADIF."
 
-#: ../logwindow.cpp:372
+#: ../logwindow.cpp:373
 msgctxt "LogWindow|"
 msgid "Upload to LoTW"
 msgstr "Nahrát do LoTW"
 
-#: ../logwindow.cpp:373
+#: ../logwindow.cpp:374
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to LoTW"
 msgstr "Nahrát vybraná QSO do LoTW"
 
-#: ../logwindow.cpp:376
+#: ../logwindow.cpp:377
 msgctxt "LogWindow|"
 msgid "Upload to ClubLog"
 msgstr "Nahrát do ClubLog"
 
-#: ../logwindow.cpp:377
+#: ../logwindow.cpp:378
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to ClubLog"
 msgstr "Nahrát vybraná QSO do ClubLog"
 
-#: ../logwindow.cpp:380
+#: ../logwindow.cpp:381
 msgctxt "LogWindow|"
 msgid "Upload to eQSL.cc"
 msgstr "Nahrát do eQSL.cc"
 
-#: ../logwindow.cpp:381
+#: ../logwindow.cpp:382
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to eQSL.cc"
 msgstr "Nahrát vybraná QSO to QSL.cc"
 
-#: ../logwindow.cpp:385
+#: ../logwindow.cpp:386
 msgctxt "LogWindow|"
 msgid "Send these QSLs via bureau"
 msgstr "Odeslat tyto QSL via bureau"
 
-#: ../logwindow.cpp:389
+#: ../logwindow.cpp:390
 msgctxt "LogWindow|"
 msgid "Send these QSLs via direct"
 msgstr "Odeslat tyto QSL direct"
 
-#: ../logwindow.cpp:393
+#: ../logwindow.cpp:394
 msgctxt "LogWindow|"
 msgid "QSLs received via bureau"
 msgstr "QSL přijatá via bureau"
 
-#: ../logwindow.cpp:397
+#: ../logwindow.cpp:398
 msgctxt "LogWindow|"
 msgid "QSLs received via direc&t"
 msgstr "QSL přijatá direc&t"
 
-#: ../logwindow.cpp:400
+#: ../logwindow.cpp:401
 msgctxt "LogWindow|"
 msgid "Select none"
 msgstr "Zrušit výběr"
 
-#: ../logwindow.cpp:401
+#: ../logwindow.cpp:402
 msgctxt "LogWindow|"
 msgid "Remove all selections"
 msgstr "Odebrat všechny výběry"
 
-#: ../logwindow.cpp:404
+#: ../logwindow.cpp:405
 msgctxt "LogWindow|"
 msgid "Select all"
 msgstr "Vybrat všechny"
 
-#: ../logwindow.cpp:405
+#: ../logwindow.cpp:406
 msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr "Vybrat všechny QSO"
@@ -4370,28 +4370,28 @@ msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr "TX Frekvence v MHz."
 
-#: ../awards.cpp:778
+#: ../awards.cpp:775
 msgctxt "QObject|"
 msgid "New One, work it!"
 msgstr "Nové, ber ho !"
 
-#: ../awards.cpp:782 ../awards.cpp:786 ../awards.cpp:792 ../awards.cpp:795
-#: ../awards.cpp:798 ../awards.cpp:801 ../awards.cpp:807 ../awards.cpp:813
+#: ../awards.cpp:779 ../awards.cpp:783 ../awards.cpp:789 ../awards.cpp:792
+#: ../awards.cpp:795 ../awards.cpp:798 ../awards.cpp:804 ../awards.cpp:810
 msgctxt "QObject|"
 msgid "Needed, work it!"
 msgstr "Je potřeba, ber ho!"
 
-#: ../awards.cpp:789 ../awards.cpp:804 ../awards.cpp:810 ../awards.cpp:816
+#: ../awards.cpp:786 ../awards.cpp:801 ../awards.cpp:807 ../awards.cpp:813
 msgctxt "QObject|"
 msgid "Worked but not confirmed"
 msgstr "Pracováno, nepotvrzeno"
 
-#: ../awards.cpp:819
+#: ../awards.cpp:816
 msgctxt "QObject|"
 msgid "Confirmed"
 msgstr "Potvrzeno"
 
-#: ../awards.cpp:823
+#: ../awards.cpp:820
 msgctxt "QObject|"
 msgid "Not identified"
 msgstr "Neidentifikováno"
@@ -4529,12 +4529,12 @@ msgid "Updating mode information..."
 msgstr "Aktualizace informací o druhu provozu ..."
 
 #: ../database.cpp:3847 ../database.cpp:4031 ../database.cpp:4229
-#: ../database.cpp:4431 ../dataproxy_sqlite.cpp:6166
+#: ../database.cpp:4431 ../dataproxy_sqlite.cpp:6268
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Přerušit aktualizaci"
 
-#: ../database.cpp:3868 ../database.cpp:4050 ../dataproxy_sqlite.cpp:6211
+#: ../database.cpp:3868 ../database.cpp:4050 ../dataproxy_sqlite.cpp:6313
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
@@ -4572,12 +4572,12 @@ msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
 msgstr "Aktualizace informací o druhu provozu. Stav %1 ..."
 
-#: ../dataproxy_sqlite.cpp:6166
+#: ../dataproxy_sqlite.cpp:6268
 msgctxt "QObject|"
 msgid "Updating information..."
 msgstr "Aktualizace informací..."
 
-#: ../dataproxy_sqlite.cpp:6211
+#: ../dataproxy_sqlite.cpp:6313
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr "Aktualizace DXCC a kontinentů..."
@@ -4810,157 +4810,157 @@ msgctxt "SearchWindow|"
 msgid "QSL Send"
 msgstr "QSL odesláno"
 
-#: ../searchwindow.cpp:368
+#: ../searchwindow.cpp:369
 msgctxt "SearchWindow|"
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: ../searchwindow.cpp:369
+#: ../searchwindow.cpp:370
 msgctxt "SearchWindow|"
 msgid "Delete a QSO"
 msgstr "Smazat QSO"
 
-#: ../searchwindow.cpp:372
+#: ../searchwindow.cpp:373
 msgctxt "SearchWindow|"
 msgid "&Edit QSO"
 msgstr "&Upravit QSO"
 
-#: ../searchwindow.cpp:373
+#: ../searchwindow.cpp:374
 msgctxt "SearchWindow|"
 msgid "Edit this QSO"
 msgstr "Upravit QSO"
 
-#: ../searchwindow.cpp:376
+#: ../searchwindow.cpp:377
 msgctxt "SearchWindow|"
 msgid "Via &bureau"
 msgstr "Via &bureau"
 
-#: ../searchwindow.cpp:377
+#: ../searchwindow.cpp:378
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Odeslat QSL via bureau"
 
-#: ../searchwindow.cpp:380
+#: ../searchwindow.cpp:381
 msgctxt "SearchWindow|"
 msgid "D&irect"
 msgstr "D&irect"
 
-#: ../searchwindow.cpp:381
+#: ../searchwindow.cpp:382
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct"
 msgstr "Odeslat QSL via bureau"
 
-#: ../searchwindow.cpp:384
+#: ../searchwindow.cpp:385
 msgctxt "SearchWindow|"
 msgid "Via bureau"
 msgstr "Via bureau"
 
-#: ../searchwindow.cpp:385
+#: ../searchwindow.cpp:386
 msgctxt "SearchWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &přijato via bureau"
 
-#: ../searchwindow.cpp:388
+#: ../searchwindow.cpp:389
 msgctxt "SearchWindow|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../searchwindow.cpp:389
+#: ../searchwindow.cpp:390
 msgctxt "SearchWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL přijato direc&t"
 
-#: ../searchwindow.cpp:392
+#: ../searchwindow.cpp:393
 msgctxt "SearchWindow|"
 msgid "Check in QRZ.com"
 msgstr "Vyhledat v QRZ.com"
 
-#: ../searchwindow.cpp:393
+#: ../searchwindow.cpp:394
 msgctxt "SearchWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr "Vyhledat značku v QRZ.com"
 
-#: ../searchwindow.cpp:396
+#: ../searchwindow.cpp:397
 msgctxt "SearchWindow|"
 msgid "Check in DXHeat.com"
 msgstr "Vyhledat v DXHeat.com"
 
-#: ../searchwindow.cpp:397
+#: ../searchwindow.cpp:398
 msgctxt "SearchWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr "Vyhledat značku v DXHeat.com"
 
-#: ../searchwindow.cpp:400
+#: ../searchwindow.cpp:401
 msgctxt "SearchWindow|"
 msgid "&Request my QSL"
 msgstr "&Request my QSL"
 
-#: ../searchwindow.cpp:401
+#: ../searchwindow.cpp:402
 msgctxt "SearchWindow|"
 msgid "Mark my QSL as requested"
 msgstr "Označit můj QSL jako vyžádaný"
 
-#: ../searchwindow.cpp:404
+#: ../searchwindow.cpp:405
 msgctxt "SearchWindow|"
 msgid "Via Direct and mark DX QSL as requested"
 msgstr "Direct a označit QSL jako vyžádané"
 
-#: ../searchwindow.cpp:405
+#: ../searchwindow.cpp:406
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct and mark DX QSL as requested"
 msgstr "Odeslat QSL direct a označit jako vyžádané"
 
-#: ../searchwindow.cpp:408
+#: ../searchwindow.cpp:409
 msgctxt "SearchWindow|"
 msgid "Via Bureau and mark DX QSL as requested"
 msgstr "Via Bureau a označit QSL jako vyžádané"
 
-#: ../searchwindow.cpp:409
+#: ../searchwindow.cpp:410
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau and mark DX QSL as requested"
 msgstr "Odeslat QSL via Bureau a označit QSL jako vyžádané"
 
-#: ../searchwindow.cpp:412
+#: ../searchwindow.cpp:413
 msgctxt "SearchWindow|"
 msgid "&Request the QSL"
 msgstr "&Request QSL"
 
-#: ../searchwindow.cpp:413
+#: ../searchwindow.cpp:414
 msgctxt "SearchWindow|"
 msgid "Mark the QSL as requested"
 msgstr "Označit QSL jako vyžádané"
 
-#: ../searchwindow.cpp:416
+#: ../searchwindow.cpp:417
 msgctxt "SearchWindow|"
 msgid "Via bureau and mark my QSL as requested"
 msgstr "Via Bureau a označit můj QSL jako vyžádaný"
 
-#: ../searchwindow.cpp:417
+#: ../searchwindow.cpp:418
 msgctxt "SearchWindow|"
 msgid "QSL received via bureau and mark my QSL as requested"
 msgstr "QSL přijato via bureau a označit můj QSL jako vyžádaný"
 
-#: ../searchwindow.cpp:420
+#: ../searchwindow.cpp:421
 msgctxt "SearchWindow|"
 msgid "Direc&t and mark as my QSL requested"
 msgstr "Direc&t a označit můj QSL jako vyžádaný"
 
-#: ../searchwindow.cpp:421
+#: ../searchwindow.cpp:422
 msgctxt "SearchWindow|"
 msgid "QSL received via direct and mark my QSL as requested"
 msgstr "QSL přijat direct a označit můj QSL jako vyžádaný"
 
-#: ../searchwindow.cpp:657
+#: ../searchwindow.cpp:658
 msgctxt "SearchWindow|"
 msgid "Needed QSO to send the QSL"
 msgstr "K odeslání QSL je potřeba QSO"
 
-#: ../searchwindow.cpp:665
+#: ../searchwindow.cpp:666
 msgctxt "SearchWindow|"
 msgid "My QSL requested to be sent"
 msgstr "Můj vyžádaný QSL bude odeslán"
 
-#: ../searchwindow.cpp:670 ../searchwindow.cpp:675
+#: ../searchwindow.cpp:671 ../searchwindow.cpp:676
 msgctxt "SearchWindow|"
 msgid "DX QSL pending to be received"
 msgstr "QSL čeká na přijetí"
