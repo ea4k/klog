@@ -117,6 +117,7 @@ void StatisticsWidget::createUI()
      statisticsToShowList << "12-" + tr("Sent / Confirmed status");
      statisticsToShowList << "13-" + tr("Satellite grid status");
      statisticsToShowList << "14-" + tr("Satellite DXCC status");
+     statisticsToShowList << "15-" + tr("Grids per band status");
 
      statisticToShowComboBox->addItems(statisticsToShowList);
 

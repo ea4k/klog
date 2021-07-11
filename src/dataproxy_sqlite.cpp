@@ -9540,8 +9540,7 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     if (doesThisLogExist(_log))
     {
         //qDebug() << Q_FUNC_INFO << ": log exists "  << endl;
-        //stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1' group by dxcc").arg(_log);
-       //stringQuery = QString("SELECT call, qso_date, bandid, modeid, dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log where dxcc <>''  AND sat_name <>'' AND lognumber='%1'").arg(_log);
+
         stringQuery = QString("SELECT call, qso_date, band.name, mode.name, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id AND lognumber='%1' ORDER BY entity.name").arg(_log);
     }
     else
@@ -9612,6 +9611,86 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     }
 
     //qDebug() << Q_FUNC_INFO << "- END" << endl;
+    return _qsos;
+}
+
+QList<QSO *> DataProxy_SQLite::getGridStats(int _log)
+{
+    //qDebug() << Q_FUNC_INFO <<  ": log = " << QString::number(_log) << endl;
+
+    QList<QSO*> _qsos;
+    QString stringQuery;
+    if (doesThisLogExist(_log))
+    {
+        //qDebug() << Q_FUNC_INFO <<  ":: log exists "  << endl;
+        stringQuery = QString("SELECT call, substr(gridsquare, 1, 4), bandid, modeid, lotw_qsl_rcvd, qsl_rcvd from log where gridsquare <>'' AND lognumber='%1'").arg(_log);
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO <<  ": log does not exist "  << endl;
+        stringQuery = QString("SELECT call, substr(gridsquare, 1, 4), bandid, modeid, lotw_qsl_rcvd, qsl_rcvd from log where gridsquare <>''");
+    }
+
+
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        //qDebug() << Q_FUNC_INFO <<  ":  Query NOK" << endl;
+        //qDebug() << Q_FUNC_INFO <<  ":  " << query.lastError().databaseText() << endl;
+        //qDebug() << Q_FUNC_INFO <<  ":  " << query.lastQuery() << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return _qsos;
+    }
+    else
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {// call, substr(gridsquare, 1, 4), bandid, modeid, lotw_qsl_rcvd, qsl_rcvd
+                int nameCol;
+                QSO *_qso = new QSO;
+                _qso->clear();
+
+                QSqlRecord rec = query.record();
+                nameCol = rec.indexOf("call");
+                _qso->setCall((query.value(nameCol)).toString());
+
+                nameCol = rec.indexOf("substr(gridsquare, 1, 4)");
+                _qso->setGridSquare((query.value(nameCol)).toString());
+
+                nameCol = rec.indexOf("bandid");
+                //qDebug() << Q_FUNC_INFO <<  ": bandid" << QString::number((query.value(nameCol)).toInt()) << endl;
+                _qso->setBand(getNameFromBandId((query.value(nameCol)).toInt()));
+
+                nameCol = rec.indexOf("modeid");
+                //qDebug() << Q_FUNC_INFO <<  ": modeid" << QString::number((query.value(nameCol)).toInt()) << endl;
+                _qso->setMode(getNameFromModeId((query.value(nameCol)).toInt()));
+
+                nameCol = rec.indexOf("lotw_qsl_rcvd");
+                _qso->setLoTWQSL_RCVD((query.value(nameCol)).toString());
+
+                nameCol = rec.indexOf("qsl_rcvd");
+                _qso->setQSL_RCVD((query.value(nameCol)).toString());
+
+                _qsos.append(_qso);
+                //qDebug() << Q_FUNC_INFO <<  ": call: " << _call << endl;
+                //qDebug() << Q_FUNC_INFO <<  ": band: " << _band << endl;
+                //qDebug() << Q_FUNC_INFO <<  ": mode: " << _mode << endl;
+
+            }
+            else
+            {
+                _qsos.clear();
+                query.finish();
+                return _qsos;
+            }
+        }
+        //qDebug() << "DataProxy_SQLite::addQSO:  Query OK" << endl;
+    }
+
+    //qDebug() << "DataProxy_SQLite::getGridStats - END" << endl;
     return _qsos;
 }
 
@@ -9699,6 +9778,80 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
 
     //qDebug() << "DataProxy_SQLite::getGridStats - END" << endl;
     return _qsos;
+}
+
+int DataProxy_SQLite::getGridsInBand(const QString _band, bool confirmedOnly, QString _mode, int _log)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode;
+    if (!doesThisLogExist(_log))
+    {
+        return 0;
+    }
+
+    int bandId = getIdFromBandName (_band);
+    if (bandId<1)
+    {
+        return 0;
+    }
+    QString stringQuery;
+    QSqlQuery query;
+
+
+    QString modeString = QString();
+
+
+    int modeId = getIdFromModeName(_mode);
+    //qDebug() << Q_FUNC_INFO << ": Modeid: " << QString::number(modeId);
+    if (util->isValidModeId(modeId))
+    {
+        //qDebug() << Q_FUNC_INFO << ": Valid Mode" ;
+        modeString = QString(" AND modeid='%1' ").arg(modeId);
+    }
+    else if (_mode.toUpper() == "ALL")
+    {
+        //qDebug() << Q_FUNC_INFO << ": ALL Modes" ;
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << ": Mode not valid!" ;
+        return 0;
+    }
+
+    if (confirmedOnly)
+    {
+        stringQuery = QString("SELECT COUNT (DISTINCT gridsquare) from log WHERE gridsquare <>'' AND bandid ='%1' AND (lotw_qsl_rcvd='Y' OR qsl_rcvd='Y') AND lognumber='%2' %3").arg(bandId).arg(_log).arg(modeString);
+    }
+    else
+    {
+        stringQuery = QString("SELECT COUNT (DISTINCT gridsquare) from log WHERE gridsquare <>'' AND bandid ='%1' AND lognumber='%2' %3").arg(bandId).arg(_log).arg(modeString);
+    }
+
+    //qDebug() << Q_FUNC_INFO << " :  Query: " << stringQuery << endl;
+
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        //qDebug() << Q_FUNC_INFO << " :  Query NOK" << endl;
+        //qDebug() << Q_FUNC_INFO << " :  " << query.lastError().databaseText() << endl;
+        //qDebug() << Q_FUNC_INFO << " :  " << query.lastQuery() << endl;
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        query.finish();
+        return 0;
+    }
+    else
+    {
+        query.next();
+        if (query.isValid())
+        {
+            //qDebug() << Q_FUNC_INFO << " : " << QString::number((query.value(0)).toInt()) << endl;
+            int v = (query.value(0)).toInt();
+            query.finish();
+            return v;
+        }
+    }
+
+    query.finish();
+    return 0;
 }
 
 int DataProxy_SQLite::addQSO(QSO &_qso)

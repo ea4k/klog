@@ -1,10 +1,10 @@
-#ifndef BARCHARTSTATS_H
-#define BARCHARTSTATS_H
+#ifndef STATSGRIDSPERBANDWIDGET_H
+#define STATSGRIDSPERBANDWIDGET_H
 /***************************************************************************
-                          barchartstats.h  -  description
+                          statsgridsperbandwidget.h  -  description
                              -------------------
-    begin                : ago 2018
-    copyright            : (C) 2018 by Jaime Robles
+    begin                : jul 2021
+    copyright            : (C) 2021 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -27,55 +27,39 @@
  *****************************************************************************/
 #include <QObject>
 #include <QWidget>
+#include <QtWidgets>
 #include <QtCharts>
+#include <QtDebug>
+#include <QTableWidget>
 #include "dataproxy_sqlite.h"
+#include "qso.h"
+#include "utilities.h"
 #include "charts/statsgeneralchartwidget.h"
-#include "charts/statsqsosperyearbarchartwidget.h"
-#include "charts/statsqsosperbandbarchartwidget.h"
-#include "charts/statsqsospermodebarchartwidget.h"
-#include "charts/statsentitiesperyearbarchartwidget.h"
-#include "charts/statscqzperyearbarchartwidget.h"
-#include "charts/statsqsosperdxccbarchartwidget.h"
-#include "charts/statsqsospercontinentbarchartwidget.h"
-#include "charts/statsqsosperhourbarchartwidget.h"
-#include "charts/statsqsospermonthbarchartwidget.h"
-#include "charts/statsworkedconfirmedpiechartwidget.h"
-#include "charts/statsworkedsentpiechartwidget.h"
-#include "charts/statssentconfirmedpiechartwidget.h"
-#include "charts/statsgridsonsatswidget.h"
-#include "charts/statsdxccsonsatswidget.h"
-#include "charts/statsgridsperbandwidget.h"
-//#include "charts/statspiechartwidget.h"
 
-
-class BarChartStats : public QWidget
+class StatsGridsPerBandWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    BarChartStats(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    ~BarChartStats();
-    void prepareChart(const int _selection, const int _log=-1);
-    void clear();
+    StatsGridsPerBandWidget();
+    StatsGridsPerBandWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    void prepareChart(const int _log=-1);
+
 
 signals:
 
-public slots:
+private slots:
+    void slotConfirmedClicked();
+    void slotModeComboBoxChanged();
 
 private:
     void createUI();
-    void cleanLayout();
     DataProxy_SQLite *dataProxy;
+    QTableWidget *tableWidget;
+    Utilities *util;
 
-
-    //QChart *chart;
-    //QChartView *chartView;
-
-    QWidget *mainWidget;
-    StatsGeneralChartWidget *genchart;
-    QVBoxLayout *mLayout;
-
-    //QBarCategoryAxis *axis;
+    QComboBox *modeComboBox;
+    QString modeInUse;
+    int log;
 
 };
-
-#endif // BARCHARTSTATS_H
+#endif // STATSGRIDSPERBANDWIDGET_H

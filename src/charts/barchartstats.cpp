@@ -33,11 +33,9 @@ BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
      mLayout = new QVBoxLayout;
      mainWidget->setLayout(mLayout);
 
-
      QVBoxLayout *mainLayout = new QVBoxLayout;
      mainLayout->addWidget(mainWidget);
      setLayout(mainLayout);
-
 }
 
 BarChartStats::~BarChartStats(){}
@@ -68,7 +66,6 @@ void BarChartStats::cleanLayout()
         child = mLayout->takeAt(0);
         delete child->widget();
     }
-
 
     //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
@@ -178,6 +175,13 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     {
         //cleanLayout();
         genchart = new StatsDXCCOnSatsWidget(dataProxy, nullptr);
+
+    }
+    break;
+    case 15:
+    {
+        //cleanLayout();
+        genchart = new StatsGridsPerBandWidget(dataProxy, nullptr);
 
     }
     break;

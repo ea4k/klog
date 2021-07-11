@@ -4986,7 +4986,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         readActiveBands(value.split(", ", QString::SkipEmptyParts));
     }else if (field=="REALTIME"){
         //qDebug << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << endl;
-        mainQSOEntryWidget->sƒetRealTime(util->trueOrFalse(value));
+        mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
         //realTime = util->trueOrFalse(value);
     }
     else if (field =="DXCLUSTERSERVERTOUSE"){
