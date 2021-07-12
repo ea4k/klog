@@ -7010,6 +7010,11 @@ Il log non sarà aperto.</translation>
         <source>Satellite DXCC status</source>
         <translation></translation>
     </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="120"/>
+        <source>Grids per band status</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatsCQZPerYearBarChartWidget</name>
@@ -7205,6 +7210,34 @@ Il log non sarà aperto.</translation>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="141"/>
         <source>No</source>
         <translation>No</translation>
+    </message>
+</context>
+<context>
+    <name>StatsGridsPerBandWidget</name>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="46"/>
+        <source>All</source>
+        <translation type="unfinished">Tutti</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="63"/>
+        <source>Mode: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="90"/>
+        <source>Band</source>
+        <translation type="unfinished">Banda</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="91"/>
+        <source>Worked</source>
+        <translation type="unfinished">Processato</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="92"/>
+        <source>Confirmed</source>
+        <translation type="unfinished">Confermato</translation>
     </message>
 </context>
 <context>

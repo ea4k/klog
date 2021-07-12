@@ -7009,6 +7009,11 @@ Log nebude otevřen.</translation>
         <source>Satellite DXCC status</source>
         <translation>Stav Sat DXCC</translation>
     </message>
+    <message>
+        <location filename="../statisticswidget.cpp" line="120"/>
+        <source>Grids per band status</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatsCQZPerYearBarChartWidget</name>
@@ -7202,6 +7207,34 @@ Log nebude otevřen.</translation>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="141"/>
         <source>No</source>
         <translation>Ne</translation>
+    </message>
+</context>
+<context>
+    <name>StatsGridsPerBandWidget</name>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="46"/>
+        <source>All</source>
+        <translation type="unfinished">Všechny</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="63"/>
+        <source>Mode: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="90"/>
+        <source>Band</source>
+        <translation type="unfinished">Pásmo</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="91"/>
+        <source>Worked</source>
+        <translation type="unfinished">Navázané</translation>
+    </message>
+    <message>
+        <location filename="../charts/statsgridsperbandwidget.cpp" line="92"/>
+        <source>Confirmed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
