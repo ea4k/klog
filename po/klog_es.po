@@ -7483,6 +7483,11 @@ msgctxt "StatisticsWidget|"
 msgid "Satellite DXCC status"
 msgstr "DXCC en satélites"
 
+#: ../statisticswidget.cpp:120
+msgctxt "StatisticsWidget|"
+msgid "Grids per band status"
+msgstr ""
+
 #: ../charts/statscqzperyearbarchartwidget.cpp:72
 msgctxt "StatsCQZPerYearBarChartWidget|"
 msgid "CQ Zones per year"
@@ -7667,6 +7672,35 @@ msgstr "Confirmado"
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "No"
 msgstr "No"
+
+#: ../charts/statsgridsperbandwidget.cpp:46
+#, fuzzy
+msgctxt "StatsGridsPerBandWidget|"
+msgid "All"
+msgstr "Todos"
+
+#: ../charts/statsgridsperbandwidget.cpp:63
+msgctxt "StatsGridsPerBandWidget|"
+msgid "Mode: "
+msgstr ""
+
+#: ../charts/statsgridsperbandwidget.cpp:90
+#, fuzzy
+msgctxt "StatsGridsPerBandWidget|"
+msgid "Band"
+msgstr "Banda"
+
+#: ../charts/statsgridsperbandwidget.cpp:91
+#, fuzzy
+msgctxt "StatsGridsPerBandWidget|"
+msgid "Worked"
+msgstr "Trabajado"
+
+#: ../charts/statsgridsperbandwidget.cpp:92
+#, fuzzy
+msgctxt "StatsGridsPerBandWidget|"
+msgid "Confirmed"
+msgstr "Confirmado"
 
 #: ../charts/statsqsosperbandbarchartwidget.cpp:73
 msgctxt "StatsQSOsPerBandBarChartWidget|"
