@@ -38,9 +38,14 @@
 #include <stdlib.h>
 
 // Potential fix of hamlib 4.2 migration
-//#ifndef HAMLIB_FILPATHLEN
-//#define HAMLIB_FILPATHLEN FILEPATHLEN
-//#endif
+#ifndef HAMLIB_FILPATHLEN
+#define HAMLIB_FILPATHLEN FILEPATHLEN
+#endif
+
+#ifndef FILPATHLEN
+#define FILPATHLEN 100
+#endif
+
 
 class HamLibClass : public QObject
 {
