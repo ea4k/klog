@@ -9780,55 +9780,83 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
     return _qsos;
 }
 
-int DataProxy_SQLite::getGridsInBand(const QString _band, bool confirmedOnly, QString _mode, int _log)
+int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString _band, bool confirmedOnly, QString _mode, int _log)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode;
-    if (!doesThisLogExist(_log))
+    qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
+
+    if ((!doesThisLogExist(_log)) && !(_log == -1))
     {
+        //qDebug() << Q_FUNC_INFO << ": Exit no log";
         return 0;
+    }
+    int bandId = getIdFromBandName (_band);
+    QString bandString = QString();
+
+    if (!(_band.toUpper () == "ALL"))
+    {
+        if (bandId<1)
+        {
+            //qDebug() << Q_FUNC_INFO << ": Exit band";
+            return 0;
+        }
+        bandString = QString(" AND bandid='%1'").arg(bandId);
     }
 
-    int bandId = getIdFromBandName (_band);
-    if (bandId<1)
+    QString field = QString();
+    QString specialField = QString();
+
+    switch (_field)
     {
-        return 0;
+        case DXCC:
+            field = "dxcc";
+            specialField = field + " <>'' AND dxcc<1000 AND dxcc>0";
+
+        break;
+        case GridSquare:
+            field = "gridsquare";
+            specialField = field +  " <>''";
+
+        break;
     }
+
     QString stringQuery;
     QSqlQuery query;
-
-
     QString modeString = QString();
 
-
     int modeId = getIdFromModeName(_mode);
-    //qDebug() << Q_FUNC_INFO << ": Modeid: " << QString::number(modeId);
+    qDebug() << Q_FUNC_INFO << ": Modeid: " << QString::number(modeId);
     if (util->isValidModeId(modeId))
     {
-        //qDebug() << Q_FUNC_INFO << ": Valid Mode" ;
+        qDebug() << Q_FUNC_INFO << ": Valid Mode" ;
         modeString = QString(" AND modeid='%1' ").arg(modeId);
     }
     else if (_mode.toUpper() == "ALL")
     {
-        //qDebug() << Q_FUNC_INFO << ": ALL Modes" ;
+        qDebug() << Q_FUNC_INFO << ": ALL Modes" ;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": Mode not valid!" ;
+        qDebug() << Q_FUNC_INFO << ": Mode not valid!" ;
         return 0;
     }
 
+    QString logString = QString();
+    if (!(_log == -1))
+    {
+        logString = QString(" AND lognumber='%1'").arg(_log);
+    }
+    QString confirmedString = QString();
     if (confirmedOnly)
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT gridsquare) from log WHERE gridsquare <>'' AND bandid ='%1' AND (lotw_qsl_rcvd='Y' OR qsl_rcvd='Y') AND lognumber='%2' %3").arg(bandId).arg(_log).arg(modeString);
-    }
-    else
-    {
-        stringQuery = QString("SELECT COUNT (DISTINCT gridsquare) from log WHERE gridsquare <>'' AND bandid ='%1' AND lognumber='%2' %3").arg(bandId).arg(_log).arg(modeString);
+        confirmedString = QString(" AND (lotw_qsl_rcvd='Y' OR qsl_rcvd='Y')");
     }
 
-    //qDebug() << Q_FUNC_INFO << " :  Query: " << stringQuery << endl;
+    stringQuery = QString("SELECT COUNT (DISTINCT %1) from log WHERE %2 %3 %4 %5 %3").arg(field).arg(specialField).arg(bandString).arg(confirmedString).arg(logString);
+
+    qDebug() << Q_FUNC_INFO << " :  Query: " << stringQuery << endl;
 
     bool sqlOK = query.exec(stringQuery);
+
     if (!sqlOK)
     {
         //qDebug() << Q_FUNC_INFO << " :  Query NOK" << endl;

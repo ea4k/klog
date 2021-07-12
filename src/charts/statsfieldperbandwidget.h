@@ -1,7 +1,7 @@
-#ifndef STATSGRIDSPERBANDWIDGET_H
-#define STATSGRIDSPERBANDWIDGET_H
+#ifndef STATSFIELDPERBANDWIDGET_H
+#define STATSFIELDPERBANDWIDGET_H
 /***************************************************************************
-                          statsgridsperbandwidget.h  -  description
+                          statsfieldperbandwidget.h  -  description
                              -------------------
     begin                : jul 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -35,13 +35,16 @@
 #include "qso.h"
 #include "utilities.h"
 #include "charts/statsgeneralchartwidget.h"
+#include "klogdefinitions.h"
 
-class StatsGridsPerBandWidget : public StatsGeneralChartWidget
+
+
+class StatsFieldPerBandWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsGridsPerBandWidget();
-    StatsGridsPerBandWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    StatsFieldPerBandWidget();
+    StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent = nullptr);
     void prepareChart(const int _log=-1);
 
 
@@ -57,9 +60,10 @@ private:
     QTableWidget *tableWidget;
     Utilities *util;
 
+    ValidFieldsForStats selectedField;
     QComboBox *modeComboBox;
     QString modeInUse;
     int log;
 
 };
-#endif // STATSGRIDSPERBANDWIDGET_H
+#endif // STATSFIELDPERBANDWIDGET_H

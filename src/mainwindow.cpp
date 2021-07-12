@@ -469,6 +469,7 @@ void MainWindow::init()
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
+    startServices();
 
     //qDebug() << "MainWindow::init: END" << endl;
 }
@@ -4907,12 +4908,17 @@ void MainWindow::readConfigData()
     QString errorMSG;
     if (upAndRunning)
     {
-        setWindowSize (windowSize);
-        setHamlib(hamlibActive);
-        setUDPServer(UDPServerStart);
+        startServices();
     }
     //qDebug() << Q_FUNC_INFO << " - END" << QTime::currentTime().toString("hh:mm:ss") << endl;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::startServices()
+{
+    setWindowSize (windowSize);
+    setHamlib(hamlibActive);
+    setUDPServer(UDPServerStart);
 }
 
 bool MainWindow::processConfigLine(const QString &_line){
@@ -7853,7 +7859,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
                  const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
                  const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr)
 {
-      //qDebug() << "MainWindow::slotWSJTX-loggedQSO" << endl;
+    //qDebug() << "MainWindow::slotWSJTX-loggedQSO" << endl;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     bool logTheQso = false;
     QString opCall = stationQRZ;
@@ -7869,38 +7875,38 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
     if (!_datetime.isValid() || !_datetime_off.isValid())
     {
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO: DATES NOT VALID " << endl;
+          //qDebug() << Q_FUNC_INFO << " DATES NOT VALID " << endl;
         return ;
     }
 
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO dxcall: " << _dxcall << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq: " << QString::number(_freq/1000000) << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO freq no div: " << QString::number(_freq) << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO mode: " << _mode << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO band: " << _band << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO my_grid: " << _mygrid << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO dx_grid: " << _dxgrid << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO comment: " << _comment << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO StationCall: " << _stationcallsign << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO _opCall: " << _opCall << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO opCall: " << opCall << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_sent: " << _rstTX << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO report_rec: " << _rstRX << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_sent: " << _exchangeTX << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO exchange_rec: " << _exchangeRX << endl;
-            //qDebug() << "MainWindow::slotWSJTX-loggedQSO MY_PWR: " << _mypwr << endl;
+            //qDebug() << Q_FUNC_INFO << " dxcall: " << _dxcall << endl;
+            //qDebug() << Q_FUNC_INFO << " freq: " << QString::number(_freq/1000000) << endl;
+            //qDebug() << Q_FUNC_INFO << " freq no div: " << QString::number(_freq) << endl;
+            //qDebug() << Q_FUNC_INFO << " mode: " << _mode << endl;
+            //qDebug() << Q_FUNC_INFO << " band: " << _band << endl;
+            //qDebug() << Q_FUNC_INFO << " my_grid: " << _mygrid << endl;
+            //qDebug() << Q_FUNC_INFO << " dx_grid: " << _dxgrid << endl;
+            //qDebug() << Q_FUNC_INFO << " comment: " << _comment << endl;
+            //qDebug() << Q_FUNC_INFO << " StationCall: " << _stationcallsign << endl;
+            //qDebug() << Q_FUNC_INFO << " _opCall: " << _opCall << endl;
+            //qDebug() << Q_FUNC_INFO << " opCall: " << opCall << endl;
+            //qDebug() << Q_FUNC_INFO << " time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) << endl;
+            //qDebug() << Q_FUNC_INFO << " time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) << endl;
+            //qDebug() << Q_FUNC_INFO << " report_sent: " << _rstTX << endl;
+            //qDebug() << Q_FUNC_INFO << " report_rec: " << _rstRX << endl;
+            //qDebug() << Q_FUNC_INFO << " exchange_sent: " << _exchangeTX << endl;
+            //qDebug() << Q_FUNC_INFO << " exchange_rec: " << _exchangeRX << endl;
+            //qDebug() << Q_FUNC_INFO << " MY_PWR: " << _mypwr << endl;
 
 
     if (wsjtxAutoLog)
     { // Log automatically, without confirmation
         logTheQso = true;
-          //qDebug() << "MainWindow::slotWSJTX-loggedQSO: LogTheQSO = true"  << endl;
+          //qDebug() << Q_FUNC_INFO << " LogTheQSO = true"  << endl;
     }
     else
     { // Ask for confirmation before logging
-              //qDebug() << "MainWindow::slotWSJTX-loggedQSO: LogTheQSO = false - we ask for confirmation"  << endl;
+              //qDebug() << Q_FUNC_INFO << " LogTheQSO = false - we ask for confirmation"  << endl;
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog - QSO received"));
@@ -7967,7 +7973,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
         //bool saveThisQSO = true;
         if (logTheQso)
         {
-              //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must be logged" << endl;
+              //qDebug() << Q_FUNC_INFO << " QSO must be logged" << endl;
             bool qsoLogged = false;
             int dxcc = world->getQRZARRLId(_dxcall);
             dxcc = util->getNormalizedDXCCValue(dxcc);
@@ -8024,7 +8030,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
             if (qsoLogged)
             {
-                //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO OK: " << _dxcall << endl;
+                //qDebug() << Q_FUNC_INFO << " Logged QSO OK: " << _dxcall << endl;
                 actionsJustAfterAddingOneQSO();
                 infoLabel1T = infoLabel1->text();
                 infoLabel2T = infoLabel2->text();
@@ -8047,17 +8053,17 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             }
             else
             {
-                  //qDebug() << "MainWindow::slotWSJTX-loggedQSO: Logged QSO NOK: " << _dxcall << endl;
+                  //qDebug() << Q_FUNC_INFO << " Logged QSO NOK: " << _dxcall << endl;
             }
         }
         else
         {
-              //qDebug() << "MainWindow::slotWSJTX-loggedQSO: QSO must NOT be logged ... ending" << endl;
+              //qDebug() << Q_FUNC_INFO << " QSO must NOT be logged ... ending" << endl;
         }
 
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-      //qDebug() << "MainWindow::slotWSJTX-loggedQSO: - END" << endl;
+      //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 
@@ -8119,15 +8125,15 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-            //qDebug() << "MainWindow::slotStatusFromUDPServer type: " << QString::number(_type) << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer dxcall: " << _dxcall << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer freq: " << QString::number(_freq/1000000) << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer mode: " << _mode << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer report: " << _report << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer de_call: " << _de_call << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer _de_grid: " << _de_grid << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer dx_grid: " << _dx_grid << endl;
-            //qDebug() << "MainWindow::slotStatusFromUDPServer sub_mode: " << _sub_mode << endl;
+            //qDebug() << Q_FUNC_INFO << " type: " << QString::number(_type) << endl;
+            //qDebug() << Q_FUNC_INFO << " dxcall: " << _dxcall << endl;
+            //qDebug() << Q_FUNC_INFO << " freq: " << QString::number(_freq/1000000) << endl;
+            //qDebug() << Q_FUNC_INFO << " mode: " << _mode << endl;
+            //qDebug() << Q_FUNC_INFO << " report: " << _report << endl;
+            //qDebug() << Q_FUNC_INFO << " de_call: " << _de_call << endl;
+            //qDebug() << Q_FUNC_INFO << " _de_grid: " << _de_grid << endl;
+            //qDebug() << Q_FUNC_INFO << " dx_grid: " << _dx_grid << endl;
+            //qDebug() << Q_FUNC_INFO << " sub_mode: " << _sub_mode << endl;
 
     if ((!mainQSOEntryWidget->isModeExisting(_mode)) && (!noMoreModeErrorShown))
     {

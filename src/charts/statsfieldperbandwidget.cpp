@@ -1,5 +1,5 @@
 /***************************************************************************
-                          statsgridsperbandwidget.cpp  -  description
+                          statsfieldperbandwidget.cpp  -  description
                              -------------------
     begin                : jul 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -23,15 +23,15 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "statsgridsperbandwidget.h"
+#include "statsfieldperbandwidget.h"
 
-StatsGridsPerBandWidget::StatsGridsPerBandWidget(DataProxy_SQLite *dp, QWidget *parent)
+StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent)
 {
-     //qDebug() << "StatsGridsPerBandWidget::StatsGridsPerBandWidget" << endl;
+     //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget" << endl;
 
     dataProxy = dp;
     util = new Utilities;
-
+    selectedField = _field;
     modeComboBox = new QComboBox;
 
     modeInUse = QString();
@@ -41,7 +41,7 @@ StatsGridsPerBandWidget::StatsGridsPerBandWidget(DataProxy_SQLite *dp, QWidget *
     //prepareChart();
 }
 
-void StatsGridsPerBandWidget::createUI()
+void StatsFieldPerBandWidget::createUI()
 {
     QString allString = tr("All");
     modeComboBox->clear ();
@@ -49,7 +49,6 @@ void StatsGridsPerBandWidget::createUI()
     modeComboBox->addItems (dataProxy->getModesInLog (-1));
 
     dataProxy->getModesInLog (-1);
-
 
     tableWidget = new QTableWidget(this);
     tableWidget->setRowCount(0);
@@ -76,7 +75,7 @@ void StatsGridsPerBandWidget::createUI()
 
 }
 
-void StatsGridsPerBandWidget::prepareChart(const int _log)
+void StatsFieldPerBandWidget::prepareChart(const int _log)
 {
     //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << endl;
 
@@ -91,35 +90,49 @@ void StatsGridsPerBandWidget::prepareChart(const int _log)
     tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Worked")));
     tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Confirmed")));
     tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
-    //qDebug() << "StatsGridsPerBandWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
 
     QStringList bands;
     bands << dataProxy->getBandsInLog (_log);
     QString aux;
+    int gridsCount;
     foreach (aux, bands)
     {
         tableWidget->insertRow(tableWidget->rowCount());
         tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem((aux)) );
         QTableWidgetItem *item = tableWidget->item (tableWidget->rowCount()-1, 0);
         item->setTextAlignment( Qt::AlignCenter );
-        int gridsCount = dataProxy->getGridsInBand (aux, false, modeComboBox->currentText (), _log);
+        gridsCount = dataProxy->getFieldInBand (selectedField, aux, false, modeComboBox->currentText (), _log);
         tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem(QString::number(gridsCount)) );
         item = tableWidget->item (tableWidget->rowCount()-1, 1);
         item->setTextAlignment( Qt::AlignCenter );
-        gridsCount = dataProxy->getGridsInBand (aux, true, modeComboBox->currentText (), _log);
+        gridsCount = dataProxy->getFieldInBand (selectedField, aux, true, modeComboBox->currentText (), _log);
         tableWidget->setItem(tableWidget->rowCount()-1, 2, new QTableWidgetItem(QString::number(gridsCount)) );
         item = tableWidget->item (tableWidget->rowCount()-1, 2);
         item->setTextAlignment( Qt::AlignCenter );
     }
+    // Now we add the "All" row.
+    tableWidget->insertRow(tableWidget->rowCount());
+    tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem(tr("All")) );
+    QTableWidgetItem *item = tableWidget->item (tableWidget->rowCount()-1, 0);
+    item->setTextAlignment( Qt::AlignCenter );
+    gridsCount = dataProxy->getFieldInBand (selectedField, "ALL", false, modeComboBox->currentText (), _log);
+    tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem(QString::number(gridsCount)) );
+    item = tableWidget->item (tableWidget->rowCount()-1, 1);
+    item->setTextAlignment( Qt::AlignCenter );
+    gridsCount = dataProxy->getFieldInBand (selectedField, "ALL", true, modeComboBox->currentText (), _log);
+    tableWidget->setItem(tableWidget->rowCount()-1, 2, new QTableWidgetItem(QString::number(gridsCount)) );
+    item = tableWidget->item (tableWidget->rowCount()-1, 2);
+    item->setTextAlignment( Qt::AlignCenter );
 }
 
-void StatsGridsPerBandWidget::slotConfirmedClicked()
+void StatsFieldPerBandWidget::slotConfirmedClicked()
 {
     prepareChart(log);
 }
 
-void StatsGridsPerBandWidget::slotModeComboBoxChanged()
+void StatsFieldPerBandWidget::slotModeComboBoxChanged()
 {
+
     /*
     if (modeComboBox->currentIndex ()==0)
     {

@@ -172,11 +172,11 @@ int Awards::getDXCCWorked(const int _logNumber)
 
     if (dataProxy->doesThisLogExist(_logNumber))
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND lognumber='%1'").arg(_logNumber);
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND dxcc < '1000' AND lognumber='%1'").arg(_logNumber);
     }
     else
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0'");
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND dxcc < '1000' ");
     }
 
 
@@ -210,16 +210,19 @@ int Awards::getDXCCWorked(const int _logNumber)
 int Awards::getDXCCConfirmed(const int _logNumber)
 {
      //qDebug() << "Awards::getDXCCConfirmed (logNumber): " << QString::number(_logNumber) << endl;
+
+    return dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", _logNumber);
+    /*
     QSqlQuery query;
     QString stringQuery;
     bool sqlOK;
     if (dataProxy->doesThisLogExist(_logNumber))
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0' AND lognumber='%1'").arg(_logNumber);
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0' AND dxcc < '1000' AND lognumber='%1'").arg(_logNumber);
     }
     else
     {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0'");
+        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0' AND dxcc < '1000' ");
     }
 
     sqlOK = query.exec(stringQuery);
@@ -250,7 +253,7 @@ int Awards::getDXCCConfirmed(const int _logNumber)
       return 0;
     }
 
-
+    */
 }
 
 int Awards::getWAZWorked(const int _logNumber)

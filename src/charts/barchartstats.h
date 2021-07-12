@@ -44,7 +44,7 @@
 #include "charts/statssentconfirmedpiechartwidget.h"
 #include "charts/statsgridsonsatswidget.h"
 #include "charts/statsdxccsonsatswidget.h"
-#include "charts/statsgridsperbandwidget.h"
+#include "charts/statsfieldperbandwidget.h"
 //#include "charts/statspiechartwidget.h"
 
 

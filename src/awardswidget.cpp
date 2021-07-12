@@ -349,16 +349,17 @@ void AwardsWidget::showAwards()
     }
 
     qsoConfirmedQLCDNumber->display(_num);
-    _num = 0;
+    //_num = 0;
 
-    dxccWorkedQLCDNumber->display(awards->getDXCCWorked(currentLog));
-    _num = 0;
+    dxccWorkedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", false, "ALL", currentLog));
+    int getFieldInBand(ValidFieldsForStats _field, const QString _band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);_num = 0;
 
-    dxccConfirmedQLCDNumber->display(awards->getDXCCConfirmed(currentLog));
-    _num = 0;
+
+    dxccConfirmedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", currentLog));
+    //_num = 0;
 
     wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog));
-    _num = 0;
+    //_num = 0;
 
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
 

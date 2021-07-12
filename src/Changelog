@@ -8,7 +8,7 @@ TBD 2021 - 1.7
 - Improvement: DarkMode added. (TNX EA5WA)
 - Improvement: DXCC & WAZ management optimization.
 - Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
-- Statistics: Added the Grids per band statistic. (Closes 312)
+- Statistics: Added the Grids & DXCC per band statistic. (Closes #312), (Closes #313), (Closes #314)
 - UI: The Setup menu has been moved to Settings into the File menu.
 
 June 2021 - 1.6

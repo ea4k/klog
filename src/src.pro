@@ -65,7 +65,7 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \     \
-    charts/statsgridsperbandwidget.h \
+    charts/statsfieldperbandwidget.h \
     klogdefinitions.h \
     widgets/showkloglogwidget.h \
     elogqrzlog.h \
@@ -154,7 +154,7 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
-    charts/statsgridsperbandwidget.cpp \
+    charts/statsfieldperbandwidget.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \

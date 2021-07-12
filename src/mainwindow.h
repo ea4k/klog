@@ -109,10 +109,6 @@ class QGroupBox;
 class QTabWidget;
 class QFrame;
 class QTableView;
-
-
-
-
 class QLabel;
 
 
@@ -326,6 +322,7 @@ private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
 private:
     //void setWidgetsOrder();
+    void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);

@@ -181,7 +181,14 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     case 15:
     {
         //cleanLayout();
-        genchart = new StatsGridsPerBandWidget(dataProxy, nullptr);
+        genchart = new StatsFieldPerBandWidget(dataProxy, GridSquare, nullptr);
+
+    }
+    break;
+    case 16:
+    {
+        //cleanLayout();
+        genchart = new StatsFieldPerBandWidget(dataProxy, DXCC, nullptr);
 
     }
     break;
