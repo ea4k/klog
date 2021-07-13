@@ -116,7 +116,7 @@ void MainWindowMyDataTab::createUI()
     connect(myUserADIFLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentMyUSerData() ) );
 }
 
-void MainWindowMyDataTab::clear()
+void MainWindowMyDataTab::clear(bool _full)
 {
     //qDebug() << Q_FUNC_INFO;
     modify = false;
@@ -155,6 +155,19 @@ void MainWindowMyDataTab::clear()
         my_antenna = QString();
         myUserADIFComboBox->setCurrentIndex(0);
         myUserADIFLineEdit->clear();
+    }
+    if (_full)
+    {
+        operatorLineEdit->clear ();
+        stationCallSignLineEdit->clear ();
+        myLocatorLineEdit->clear ();
+        myPowerSpinBox->clear ();
+        my_rig = QString();
+        my_sota = QString();
+        my_antenna = QString();
+        myUserADIFComboBox->setCurrentIndex(0);
+        myUserADIFLineEdit->clear();
+        keepThisDataForNextQSOQCheckbox->setChecked (false);
     }
 }
 

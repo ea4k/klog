@@ -384,7 +384,7 @@ private:
     QString readDataFromUIDXModifying();
     void actionsJustAfterAddingOneQSO();
     //void clearForNextQSO();
-    void clearUIDX(); //full= false leaves some data to allow pileup or normal Dx in same band; full removes freqs and everything
+    void clearUIDX(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);

@@ -149,7 +149,7 @@ void MainWindowInputOthers::createUI()
     iotaNumberLineEdit->setText("000");
 }
 
-void MainWindowInputOthers::clear()
+void MainWindowInputOthers::clear(bool _full)
 {
       //qDebug() << "MainWindowInputOthers::clear" << endl;
     entityNameComboBox->setCurrentIndex(0);
@@ -160,9 +160,13 @@ void MainWindowInputOthers::clear()
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
-    if (!keepPropCheckBox->isChecked())
+    if ((!keepPropCheckBox->isChecked()) || _full)
     {
       propModeComboBox->setCurrentIndex(0);
+    }
+    if (_full)
+    {
+        keepPropCheckBox->setChecked (false);
     }
 }
 

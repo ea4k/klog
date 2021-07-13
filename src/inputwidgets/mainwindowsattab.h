@@ -66,7 +66,7 @@ public:
     void setModifying (const bool _m);
     void setKeep(const bool _b);
     bool getKeep();
-    void clear();
+    void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
 
 

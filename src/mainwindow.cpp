@@ -3577,24 +3577,24 @@ void MainWindow::slotClearButtonClicked()
             //qDebug() << "MainWindow::slotClearButtonClicked - END" << endl;
 }
 
-void MainWindow::clearUIDX()
+void MainWindow::clearUIDX(bool _full)
 {
     //qDebug() << Q_FUNC_INFO << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     mainQSOEntryWidget->clear();
     QSOTabWidget->clear();
-    commentTabWidget->clear();
+    commentTabWidget->clear(_full);
     infoLabel1->clear();
     infoLabel2->clear();
 
     QSOTabWidget->clear();
     eQSLTabWidget->clear();
     QSLTabWidget->clear();
-    othersTabWidget->clear();
+    othersTabWidget->clear(_full);
     infoWidget->clear();
-    satTabWidget->clear();
-    myDataTabWidget->clear();
+    satTabWidget->clear(_full);
+    myDataTabWidget->clear(_full);
 
     completedWithPreviousName = false;
     completedWithPreviousQTH = false;
@@ -6431,7 +6431,7 @@ void MainWindow::qsoToEdit (const int _qso)
     }
 
     //qDebug() << Q_FUNC_INFO;
-    clearUIDX();
+    clearUIDX(true);
     readingTheUI = true;
     int nameCol;
     QString aux1;

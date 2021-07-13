@@ -396,11 +396,11 @@ void MainWindowSatTab::setRepeatThis(const bool _t)
     keepThisDataForNextQSOQcheckbox->setChecked(_t);
 }
 
-void MainWindowSatTab::clear()
+void MainWindowSatTab::clear(bool _full)
 {
     //qDebug() << "MainWindowSatTab::clear"  << endl;
     modifying = false;
-    if (keepThisDataForNextQSOQcheckbox->isChecked())
+    if ((keepThisDataForNextQSOQcheckbox->isChecked()) || (!_full))
     {
         satDXLocatorLineEdit->clear();
     }
@@ -410,6 +410,10 @@ void MainWindowSatTab::clear()
         satNameComboBox->setCurrentIndex(0);
         satNameLineEdit->clear();
         satDXLocatorLineEdit->clear();
+    }
+    if (_full)
+    {
+        keepThisDataForNextQSOQcheckbox->setChecked (false);
     }
 
 }

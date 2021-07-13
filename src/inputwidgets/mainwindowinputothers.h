@@ -69,7 +69,7 @@ public:
     bool getKeep();
 
     void createUI();
-    void clear();
+    void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
 signals:
     void setPropMode(const QString &_p);

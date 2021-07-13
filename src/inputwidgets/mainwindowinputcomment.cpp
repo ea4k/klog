@@ -76,12 +76,16 @@ QString MainWindowInputComment::getComment()
     return commentLineEdit->text();
 }
 
-void MainWindowInputComment::clear()
+void MainWindowInputComment::clear(bool _full)
 {
-    if (!keepThisDataForNextQSOQCheckbox->isChecked())
+    if ((!keepThisDataForNextQSOQCheckbox->isChecked()) || _full)
     {
         comment.clear();
         commentLineEdit->clear();
+    }
+    if (_full)
+    {
+        keepThisDataForNextQSOQCheckbox->setChecked (false);
     }
 }
 

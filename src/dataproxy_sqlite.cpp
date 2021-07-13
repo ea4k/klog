@@ -9782,7 +9782,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
 
 int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString _band, bool confirmedOnly, QString _mode, int _log)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
+    //qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
 
     if ((!doesThisLogExist(_log)) && !(_log == -1))
     {
@@ -9824,19 +9824,19 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString _
     QString modeString = QString();
 
     int modeId = getIdFromModeName(_mode);
-    qDebug() << Q_FUNC_INFO << ": Modeid: " << QString::number(modeId);
+    //qDebug() << Q_FUNC_INFO << ": Modeid: " << QString::number(modeId);
     if (util->isValidModeId(modeId))
     {
-        qDebug() << Q_FUNC_INFO << ": Valid Mode" ;
+        //qDebug() << Q_FUNC_INFO << ": Valid Mode" ;
         modeString = QString(" AND modeid='%1' ").arg(modeId);
     }
     else if (_mode.toUpper() == "ALL")
     {
-        qDebug() << Q_FUNC_INFO << ": ALL Modes" ;
+        //qDebug() << Q_FUNC_INFO << ": ALL Modes" ;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": Mode not valid!" ;
+        //qDebug() << Q_FUNC_INFO << ": Mode not valid!" ;
         return 0;
     }
 
@@ -9853,7 +9853,7 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString _
 
     stringQuery = QString("SELECT COUNT (DISTINCT %1) from log WHERE %2 %3 %4 %5 %3").arg(field).arg(specialField).arg(bandString).arg(confirmedString).arg(logString);
 
-    qDebug() << Q_FUNC_INFO << " :  Query: " << stringQuery << endl;
+    //qDebug() << Q_FUNC_INFO << " :  Query: " << stringQuery << endl;
 
     bool sqlOK = query.exec(stringQuery);
 
