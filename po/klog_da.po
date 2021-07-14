@@ -3853,7 +3853,7 @@ msgid "Value for the selected ADIF field."
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputothers.cpp:137
-#: ../inputwidgets/mainwindowinputothers.cpp:176
+#: ../inputwidgets/mainwindowinputothers.cpp:180
 msgctxt "MainWindowInputOthers|"
 msgid "Not Identified"
 msgstr "Ikke Identificeret"
@@ -3863,12 +3863,12 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr "Ikke - ikke identificeret"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:481
+#: ../inputwidgets/mainwindowinputothers.cpp:485
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:481
+#: ../inputwidgets/mainwindowinputothers.cpp:485
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr ""
@@ -4089,7 +4089,7 @@ msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "Behold disse data"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:196
+#: ../inputwidgets/mainwindowmydatatab.cpp:209
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
 msgstr "Min QTH-locator."
@@ -4114,23 +4114,23 @@ msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "Min locator"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:208
+#: ../inputwidgets/mainwindowmydatatab.cpp:221
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
 msgstr ""
@@ -4141,7 +4141,7 @@ msgid "Keep this data"
 msgstr "Behold disse data"
 
 #: ../inputwidgets/mainwindowsattab.cpp:95
-#: ../inputwidgets/mainwindowsattab.cpp:429
+#: ../inputwidgets/mainwindowsattab.cpp:433
 msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Andre - sat er ikke i listen"
@@ -4236,12 +4236,12 @@ msgid ""
 "characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:428
+#: ../inputwidgets/mainwindowsattab.cpp:432
 msgctxt "MainWindowSatTab|"
 msgid "Not Sat QSO"
 msgstr "Ikke sat QSO"
 
-#: ../inputwidgets/mainwindowsattab.cpp:465
+#: ../inputwidgets/mainwindowsattab.cpp:469
 msgctxt "MainWindowSatTab|"
 msgid ""
 "KLog has detected a satellite name that it does not recognise. If it should "
@@ -4253,19 +4253,19 @@ msgstr ""
 "bruge et af navnene på kendte satellitter i stedet for, vælg det fra listen. "
 "Alternativt så kontakt udviklingsholdet for at tilføje det nye satellitnavn."
 
-#: ../inputwidgets/mainwindowsattab.cpp:466
+#: ../inputwidgets/mainwindowsattab.cpp:470
 msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "Satellitten du har i din QSO er: "
 
-#: ../inputwidgets/mainwindowsattab.cpp:466
+#: ../inputwidgets/mainwindowsattab.cpp:470
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Please be aware that the satellite name will not be saved if it is not in "
 "the list, so that information may be lost!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:575
+#: ../inputwidgets/mainwindowsattab.cpp:579
 #, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid ""
@@ -4275,13 +4275,13 @@ msgstr ""
 "RX-frekvens i MHz.\n"
 "Frekvens er ikke i et amatørradiobånd!"
 
-#: ../inputwidgets/mainwindowsattab.cpp:580
+#: ../inputwidgets/mainwindowsattab.cpp:584
 #, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr "RX-frekvens i MHz."
 
-#: ../inputwidgets/mainwindowsattab.cpp:644
+#: ../inputwidgets/mainwindowsattab.cpp:648
 #, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid ""
@@ -4291,7 +4291,7 @@ msgstr ""
 "TX-frekvens i MHz.\n"
 "Frekvens er ikke i et amatørradiobånd!"
 
-#: ../inputwidgets/mainwindowsattab.cpp:649
+#: ../inputwidgets/mainwindowsattab.cpp:653
 #, fuzzy
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."

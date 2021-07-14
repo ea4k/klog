@@ -3698,7 +3698,7 @@ Do you want KLog to remove that file?</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="137"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="176"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="180"/>
         <source>Not Identified</source>
         <translation>不明</translation>
     </message>
@@ -3708,12 +3708,12 @@ Do you want KLog to remove that file?</source>
         <translation>Not - 不明</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="481"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="485"/>
         <source>SOTA Ref</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="481"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="485"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3918,7 +3918,7 @@ Frequency is not in a hamradio band!</source>
         <translation>このデータを保持</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="196"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="209"/>
         <source>My QTH locator.</source>
         <translation type="unfinished">自局QTHのグリッドロケーター</translation>
     </message>
@@ -3943,22 +3943,22 @@ Frequency is not in a hamradio band!</source>
         <translation>自局のグリッドロケーター</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="208"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="221"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My Antenna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My SOTA_Ref</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4043,45 +4043,45 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="428"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="432"/>
         <source>Not Sat QSO</source>
         <translation>衛星QSOではない</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="465"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="469"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>識別不可能な衛星の名称が入力されているのを発見しました. 別の名称でも呼ばれており、その名称がリストにあるならば、その名称を使ってください. もしくは開発チームにこの新しい衛星の名称を加えるよう連絡してください.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="470"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="575"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="579"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="580"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="584"/>
         <source>RX Frequency in MHz.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="644"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="648"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="649"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="653"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="429"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>Other - Sat not in the list</source>
         <translation>その他、リストにない衛星</translation>
     </message>
@@ -4092,7 +4092,7 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="470"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>QSO情報に記録された衛星の名称は以下のものです: </translation>
     </message>

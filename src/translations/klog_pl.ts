@@ -3698,7 +3698,7 @@ Do you want KLog to remove that file?</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="137"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="176"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="180"/>
         <source>Not Identified</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3708,12 +3708,12 @@ Do you want KLog to remove that file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="481"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="485"/>
         <source>SOTA Ref</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="481"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="485"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3918,7 +3918,7 @@ Frequency is not in a hamradio band!</source>
         <translation>Zachowaj te dane</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="196"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="209"/>
         <source>My QTH locator.</source>
         <translation type="unfinished">Mój QTH Lokator.</translation>
     </message>
@@ -3943,22 +3943,22 @@ Frequency is not in a hamradio band!</source>
         <translation>Mój lokator</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="208"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="221"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My Antenna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My SOTA_Ref</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3972,7 +3972,7 @@ Frequency is not in a hamradio band!</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="429"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>Other - Sat not in the list</source>
         <translation>Inne - Satelita nie jest na liście</translation>
     </message>
@@ -4055,45 +4055,45 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="428"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="432"/>
         <source>Not Sat QSO</source>
         <translation>QSO nie przez SAT</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="465"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="469"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog wykrył nazwę satelity która nie została rozpoznana. Jeśli chcesz użyć jednej ze znanych zamiast tej, proszę wybrać ją z listy.
 Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać do listy w kolejnych wydaniach.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="470"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satelita w Twoim QSO to: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="470"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="575"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="579"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="580"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="584"/>
         <source>RX Frequency in MHz.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="644"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="648"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="649"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="653"/>
         <source>TX Frequency in MHz.</source>
         <translation type="unfinished"></translation>
     </message>

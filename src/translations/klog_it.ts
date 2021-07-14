@@ -3727,7 +3727,7 @@ Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="137"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="176"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="180"/>
         <source>Not Identified</source>
         <translation>Non identificato</translation>
     </message>
@@ -3737,12 +3737,12 @@ Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
         <translation>No - Non identificato</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="481"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="485"/>
         <source>SOTA Ref</source>
         <translation>SOTA Ref</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="481"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="485"/>
         <source>Age</source>
         <translation>Età</translation>
     </message>
@@ -3949,7 +3949,7 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
         <translation>Mantieni questa data</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="196"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="209"/>
         <source>My QTH locator.</source>
         <translation>Mio Locator QTH.</translation>
     </message>
@@ -3974,22 +3974,22 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
         <translation>Il mio Locator</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="208"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="221"/>
         <source>My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Il formato del QTH locator dovrebbe essere conformato (esempio IN70AA) fino ad un massimo di 10 caratteri.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My Rig</source>
         <translation>My Rig</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My Antenna</source>
         <translation>La mia antenna</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="451"/>
+        <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="464"/>
         <source>My SOTA_Ref</source>
         <translation>Il mio SOTA_Ref</translation>
     </message>
@@ -4074,47 +4074,47 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
         <translation>Locatore della stazione DX. Il formato dovrebbe essere conformato (esempio IN70AA) per usare fino a 10 caratteri.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="428"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="432"/>
         <source>Not Sat QSO</source>
         <translation>QSO non satellitare</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="465"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="469"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>Nome di satellite sconosciuto a KLog perché non in elenco. Se hai la necessità specifica di inserire un satellite conosciuto, selezionabile dalla lista, puoi contattare lo staff di sviluppo e chiedere che il nuovo satellite sia inserito.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="470"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Per favore, tieni presente che il nome del satellite non sarà salvato se non in elenco, quindi questa informazione può andare persa!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="575"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="579"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Frequenza RX in MHz.
 Questa frequenza non appartiene a bande radioamatoriali!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="580"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="584"/>
         <source>RX Frequency in MHz.</source>
         <translation>Frequenza RX in MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="644"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="648"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Frequenza TX in MHz.
 Questa frequenza non appartiene a bande radioamatoriali!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="649"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="653"/>
         <source>TX Frequency in MHz.</source>
         <translation>Frequenza TX in MHz.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="429"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>Other - Sat not in the list</source>
         <translation>Altro - Satellite non in elenco</translation>
     </message>
@@ -4125,7 +4125,7 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
         <translation>Tutti i dati caricati su questa maschera saranno precaricati nella maschera di inserimento del prossimo QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="466"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="470"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Il satellite del tuo QSO è: </translation>
     </message>

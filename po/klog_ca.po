@@ -4047,7 +4047,7 @@ msgid "Value for the selected ADIF field."
 msgstr "Valor per al camp ADIF seleccionat."
 
 #: ../inputwidgets/mainwindowinputothers.cpp:137
-#: ../inputwidgets/mainwindowinputothers.cpp:176
+#: ../inputwidgets/mainwindowinputothers.cpp:180
 msgctxt "MainWindowInputOthers|"
 msgid "Not Identified"
 msgstr "No identificat"
@@ -4057,12 +4057,12 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr "Not - No identificat"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:481
+#: ../inputwidgets/mainwindowinputothers.cpp:485
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr "Referència SOTA"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:481
+#: ../inputwidgets/mainwindowinputothers.cpp:485
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr "Antiguitat"
@@ -4268,7 +4268,7 @@ msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "Mantén aquestes dades"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:196
+#: ../inputwidgets/mainwindowmydatatab.cpp:209
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
 msgstr "El meu localitzador QTH."
@@ -4293,7 +4293,7 @@ msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "El meu localitzador"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:208
+#: ../inputwidgets/mainwindowmydatatab.cpp:221
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
@@ -4301,17 +4301,17 @@ msgstr ""
 "El meu localitzador QTH. El format hauria de ser «Maidenhead» (p. ex. "
 "IN70AA) de fins a 10 caràcters."
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
 msgstr "El meu equip"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
 msgstr "La meva antena"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
 msgstr "La meva referència SOTA"
@@ -4406,12 +4406,12 @@ msgstr ""
 "Localitzador de l'estació DX. El format hauria de ser «Maidenhead» (p. ex. "
 "IN70AA) de fins a 10 caràcters."
 
-#: ../inputwidgets/mainwindowsattab.cpp:428
+#: ../inputwidgets/mainwindowsattab.cpp:432
 msgctxt "MainWindowSatTab|"
 msgid "Not Sat QSO"
 msgstr "QSO sense satèl·lit"
 
-#: ../inputwidgets/mainwindowsattab.cpp:465
+#: ../inputwidgets/mainwindowsattab.cpp:469
 msgctxt "MainWindowSatTab|"
 msgid ""
 "KLog has detected a satellite name that it does not recognise. If it should "
@@ -4424,7 +4424,7 @@ msgstr ""
 "llista. Alternativament, contacteu amb l'equip de desenvolupament per afegir "
 "el nom nou de satèl·lit."
 
-#: ../inputwidgets/mainwindowsattab.cpp:466
+#: ../inputwidgets/mainwindowsattab.cpp:470
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Please be aware that the satellite name will not be saved if it is not in "
@@ -4433,7 +4433,7 @@ msgstr ""
 "Tingueu en compte que el nom del satèl·lit no es desarà si no és a la "
 "llista, i per tant, aquesta informació es podria perdre!"
 
-#: ../inputwidgets/mainwindowsattab.cpp:575
+#: ../inputwidgets/mainwindowsattab.cpp:579
 msgctxt "MainWindowSatTab|"
 msgid ""
 "RX Frequency in MHz.\n"
@@ -4442,12 +4442,12 @@ msgstr ""
 "Freqüència RX en MHz.\n"
 "La freqüència no es en una banda de radioafició!"
 
-#: ../inputwidgets/mainwindowsattab.cpp:580
+#: ../inputwidgets/mainwindowsattab.cpp:584
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr "Freqüència de RX en MHz."
 
-#: ../inputwidgets/mainwindowsattab.cpp:644
+#: ../inputwidgets/mainwindowsattab.cpp:648
 msgctxt "MainWindowSatTab|"
 msgid ""
 "TX Frequency in MHz.\n"
@@ -4456,13 +4456,13 @@ msgstr ""
 "Freqüència TX en MHz.\n"
 "La freqüència no es en una banda de radioafició!"
 
-#: ../inputwidgets/mainwindowsattab.cpp:649
+#: ../inputwidgets/mainwindowsattab.cpp:653
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr "Freqüència de TX en MHz."
 
 #: ../inputwidgets/mainwindowsattab.cpp:95
-#: ../inputwidgets/mainwindowsattab.cpp:429
+#: ../inputwidgets/mainwindowsattab.cpp:433
 msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Altres - El satèl·lit no és a la llista"
@@ -4474,7 +4474,7 @@ msgid "Data entered in this tab will be copied into the next QSO."
 msgstr ""
 "Les dades introduïdes en aquesta pestanya es copiaran en el QSO següent."
 
-#: ../inputwidgets/mainwindowsattab.cpp:466
+#: ../inputwidgets/mainwindowsattab.cpp:470
 msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "El satèl·lit que hi ha al QSO és: "

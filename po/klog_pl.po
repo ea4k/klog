@@ -3825,7 +3825,7 @@ msgid "Value for the selected ADIF field."
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputothers.cpp:137
-#: ../inputwidgets/mainwindowinputothers.cpp:176
+#: ../inputwidgets/mainwindowinputothers.cpp:180
 msgctxt "MainWindowInputOthers|"
 msgid "Not Identified"
 msgstr ""
@@ -3835,12 +3835,12 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:481
+#: ../inputwidgets/mainwindowinputothers.cpp:485
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:481
+#: ../inputwidgets/mainwindowinputothers.cpp:485
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr ""
@@ -4041,7 +4041,7 @@ msgctxt "MainWindowMyDataTab|"
 msgid "Keep this data"
 msgstr "Zachowaj te dane"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:196
+#: ../inputwidgets/mainwindowmydatatab.cpp:209
 #, fuzzy
 msgctxt "MainWindowMyDataTab|"
 msgid "My QTH locator."
@@ -4067,23 +4067,23 @@ msgctxt "MainWindowMyDataTab|"
 msgid "My Locator"
 msgstr "Mój lokator"
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:208
+#: ../inputwidgets/mainwindowmydatatab.cpp:221
 msgctxt "MainWindowMyDataTab|"
 msgid ""
 "My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My Rig"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My Antenna"
 msgstr ""
 
-#: ../inputwidgets/mainwindowmydatatab.cpp:451
+#: ../inputwidgets/mainwindowmydatatab.cpp:464
 msgctxt "MainWindowMyDataTab|"
 msgid "My SOTA_Ref"
 msgstr ""
@@ -4094,7 +4094,7 @@ msgid "Keep this data"
 msgstr "Zachowaj te dane"
 
 #: ../inputwidgets/mainwindowsattab.cpp:95
-#: ../inputwidgets/mainwindowsattab.cpp:429
+#: ../inputwidgets/mainwindowsattab.cpp:433
 msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Inne - Satelita nie jest na liście"
@@ -4184,12 +4184,12 @@ msgid ""
 "characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:428
+#: ../inputwidgets/mainwindowsattab.cpp:432
 msgctxt "MainWindowSatTab|"
 msgid "Not Sat QSO"
 msgstr "QSO nie przez SAT"
 
-#: ../inputwidgets/mainwindowsattab.cpp:465
+#: ../inputwidgets/mainwindowsattab.cpp:469
 msgctxt "MainWindowSatTab|"
 msgid ""
 "KLog has detected a satellite name that it does not recognise. If it should "
@@ -4202,38 +4202,38 @@ msgstr ""
 "Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać do "
 "listy w kolejnych wydaniach."
 
-#: ../inputwidgets/mainwindowsattab.cpp:466
+#: ../inputwidgets/mainwindowsattab.cpp:470
 msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "Satelita w Twoim QSO to: "
 
-#: ../inputwidgets/mainwindowsattab.cpp:466
+#: ../inputwidgets/mainwindowsattab.cpp:470
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Please be aware that the satellite name will not be saved if it is not in "
 "the list, so that information may be lost!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:575
+#: ../inputwidgets/mainwindowsattab.cpp:579
 msgctxt "MainWindowSatTab|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:580
+#: ../inputwidgets/mainwindowsattab.cpp:584
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:644
+#: ../inputwidgets/mainwindowsattab.cpp:648
 msgctxt "MainWindowSatTab|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:649
+#: ../inputwidgets/mainwindowsattab.cpp:653
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr ""
