@@ -495,11 +495,13 @@ void MainWindow::createActionsCommon(){
 
     connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
+    connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocus(1)));
 
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
 
     //Buttons Actions
 
+    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocus(0)));
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
@@ -8556,10 +8558,32 @@ void MainWindow::setSeverity(const DebugLogLevel _sev)
     setupDialog->setSeverity(logSeverity);
 }
 
+void MainWindow::slotTakeOverFocus(int _id)
+{
+    qDebug() << Q_FUNC_INFO;
+    switch (_id)
+    {
+        case 0:
+        dxUpLeftTab->setCurrentIndex (0);
+        QSOTabWidget->raise ();
+        QSOTabWidget->setFocus ();
+        break;
+    case 1:
+        mainQSOEntryWidget->raise();
+        mainQSOEntryWidget->setFocus ();
+        mainQSOEntryWidget->setFocusToOK ();
+        break;
+    }
+
+    //QSOTabWidget->receiveFocus ();
+
+}
+
 void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
 {
     //qDebug() << "MainWindow::slotCaptureDebugLogs: " << _func << "_/" << _msg << QString::number(_level) << endl;
     logEvent(_func, _msg, _level);
+
 }
 
 void MainWindow::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)

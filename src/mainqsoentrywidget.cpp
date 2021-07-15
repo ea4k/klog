@@ -56,7 +56,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
 
     createUI();
     setInitialData();
-
+    installEventFilter (this);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << endl;
 }
@@ -139,6 +139,9 @@ void MainQSOEntryWidget::createUI()
     //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
     connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
       //qDebug()<< "MainQSOEntryWidget::createUI-END" << endl;
+
+    QWidget::setTabOrder (qrzLineEdit, dateEdit);
+    QWidget::setTabOrder (dateEdit, timeEdit);
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 
@@ -1024,4 +1027,50 @@ bool MainQSOEntryWidget::getDarkMode()
     {
         return false;
     }
+}
+
+/*
+void MainQSOEntryWidget::keyPressEvent( QKeyEvent *event)
+{
+    qDebug() << Q_FUNC_INFO;
+    if(event->key()==Qt::Key_Enter)
+    {
+        qDebug() << Q_FUNC_INFO << " TAB...";
+    }
+
+}
+*/
+
+bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
+{
+    if (!(event->type() == QEvent::Paint ))
+    {
+        //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());
+    }
+
+    if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::ShortcutOverride)) {
+        qDebug() << Q_FUNC_INFO << "KEY PRESSED";
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->key() == Qt::Key_Tab) {
+            qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
+            if ((realtimeCheckBox->isChecked ()) && (qrzLineEdit->hasFocus ()))
+            {
+                qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB AND REAL TIME CHECKED";
+                handOverFocusSignal();
+            }
+            else if((!realtimeCheckBox->isChecked ()) && timeEdit->hasFocus () && (timeEdit->currentSection() == QTimeEdit::SecondSection))
+            {
+                handOverFocusSignal();
+            }
+
+            // special tab handling here
+            return true;
+        }
+    }
+
+    return QWidget::event(event);
+}
+void MainQSOEntryWidget::setFocusToOK()
+{
+    OKButton->setFocus ();
 }

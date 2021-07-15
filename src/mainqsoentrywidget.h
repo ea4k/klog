@@ -70,11 +70,11 @@ public:
     void selectDefaultMode(const bool _init = false);
 
     void setDuplicatedQSOSlot (const int _secs);
-
+    void setFocusToOK();
     void clear();
 
 protected:
-    // void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     //void resizeEvent(QResizeEvent *event) override;
 
 signals:
@@ -86,6 +86,7 @@ signals:
     void modeChanged(QString _mode);
     void OKClicked();
     void validBands(QStringList _bands);
+    void handOverFocusSignal();
 
 private slots:
     void slotUpdateTime();
@@ -103,6 +104,7 @@ private slots:
 
 
 private:
+    bool eventFilter(QObject *object, QEvent *event);
     void createUI();
     void setInitialData();
 

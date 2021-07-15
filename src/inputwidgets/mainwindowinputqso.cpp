@@ -198,6 +198,13 @@ void MainWindowInputQSO::createUI()
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)) ) ;
     connect(splitCheckBox, SIGNAL(clicked()), this, SLOT(slotSplitClicked()) ) ;
+
+    QWidget::setTabOrder (rstTXLineEdit, rstRXLineEdit);
+    QWidget::setTabOrder (rstRXLineEdit, nameLineEdit);
+    QWidget::setTabOrder (nameLineEdit, qthLineEdit);
+    QWidget::setTabOrder (qthLineEdit, locatorLineEdit);
+    QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
+
 }
 
 
@@ -645,3 +652,34 @@ void MainWindowInputQSO::setSplitCheckBox()
     }
 }
 
+void MainWindowInputQSO::receiveFocus()
+{
+    qDebug() << Q_FUNC_INFO;
+    rstTXLineEdit->setFocus ();
+}
+
+bool MainWindowInputQSO::eventFilter(QObject *object, QEvent *event)
+{
+    if (!(event->type() == QEvent::Paint ))
+    {
+        //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());
+    }
+
+    if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::ShortcutOverride)) {
+        qDebug() << Q_FUNC_INFO << "KEY PRESSED";
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->key() == Qt::Key_Tab) {
+            qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
+            if (rxPowerSpinBox->hasFocus ())
+            {
+                handOverFocusSignal();
+            }
+
+
+            // special tab handling here
+            return true;
+        }
+    }
+
+    return QWidget::event(event);
+}
