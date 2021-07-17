@@ -167,7 +167,7 @@ void MainWindowSatTab::createUI()
     tabLayout->addWidget(rxFreqSpinBox,2,2);
 
     tabLayout->addLayout(keepLayout,3,2);
-
+    tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
 
 }

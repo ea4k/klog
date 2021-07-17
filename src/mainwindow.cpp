@@ -222,13 +222,14 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
 void MainWindow::saveWindowsSize()
 {
-      //qDebug() << "MainWindow::saveWindows" << endl;
+    //qDebug() << "MainWindow::saveWindows" << endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     windowSize = this->size();
 
     int height = windowSize.height();
     int width = windowSize.width();
-      //qDebug() << "MainWindow::windowsSizeAndPosition: Heigth: " << QString::number(height)  << endl;
+    //qDebug() << "MainWindow::windowsSizeAndPosition: /" << QString::number(width) << "/" << QString::number(height)  << ")" << endl;
+    //qDebug() << "MainWindow::windowsSizeAndPosition: Heigth: " << QString::number(height)  << endl;
       //qDebug() << "MainWindow::windowsSizeAndPosition: Width: " << QString::number(width)  << endl;
     //(const QString& _filename, const QString &_field, const QString &_value)
     filemanager->modifySetupFile(configFileName, "MainWindowSize", QString::number(width) + "x" + QString::number(height));
@@ -495,13 +496,12 @@ void MainWindow::createActionsCommon(){
 
     connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
-    connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocus(1)));
-
+    connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToMainQSOInput() ));
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
 
     //Buttons Actions
 
-    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocus(0)));
+    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToQSOTabWidget()));
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
@@ -5728,6 +5728,12 @@ void MainWindow::createUIDX()
     dxUpRightTab->setTabPosition(QTabWidget::South);
     //qDebug() << "MainWindow::createUIDX-30" << endl;
 
+    QHBoxLayout *dxUpLeftInputFrameLayout = new QHBoxLayout;
+    dxUpLeftInputFrameLayout->addWidget (mainQSOEntryWidget);
+    //dxUpLeftInputFrameLayout->setSizeConstraint(QLayout::SetFixedSize);
+    dxUpLeftInputFrame->setLayout (dxUpLeftInputFrameLayout);
+
+
     dxUpLeftTab->addTab (QSOTabWidget, tr("QSO"));
     dxUpLeftTab->addTab(QSLTabWidget, tr("QSL"));
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
@@ -5742,8 +5748,8 @@ void MainWindow::createUIDX()
 
     //qDebug() << "MainWindow::createUIDX-90" << endl;
     QSplitter *upLeftSplitter = new QSplitter (this);
-    //upLeftSplitter->addWidget(dxUpLeftInputFrame);
-    upLeftSplitter->addWidget(mainQSOEntryWidget);
+    upLeftSplitter->addWidget(dxUpLeftInputFrame);
+    //upLeftSplitter->addWidget(mainQSOEntryWidget);
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
 
@@ -5785,7 +5791,7 @@ void MainWindow::createUIDX()
 
     QHBoxLayout *mLayout = new QHBoxLayout;
     mLayout->addWidget(splitter);
-
+    //mLayout->setSizeConstraint(QLayout::SetFixedSize);
     mainWidget->setLayout(mLayout);
 
     //qDebug() << "MainWindow::createUIDX - OS DETECTION"  << endl;
@@ -8558,24 +8564,20 @@ void MainWindow::setSeverity(const DebugLogLevel _sev)
     setupDialog->setSeverity(logSeverity);
 }
 
-void MainWindow::slotTakeOverFocus(int _id)
+void MainWindow::slotTakeOverFocusToQSOTabWidget()
 {
-    qDebug() << Q_FUNC_INFO;
-    switch (_id)
-    {
-        case 0:
-        dxUpLeftTab->setCurrentIndex (0);
-        QSOTabWidget->raise ();
-        QSOTabWidget->setFocus ();
-        break;
-    case 1:
-        mainQSOEntryWidget->raise();
-        mainQSOEntryWidget->setFocus ();
-        mainQSOEntryWidget->setFocusToOK ();
-        break;
-    }
+    //qDebug() << Q_FUNC_INFO;
+    dxUpLeftTab->setCurrentIndex (0);
+    QSOTabWidget->raise ();
+    QSOTabWidget->setFocus ();
+}
 
-    //QSOTabWidget->receiveFocus ();
+void MainWindow::slotTakeOverFocusToMainQSOInput()
+{
+    //qDebug() << Q_FUNC_INFO;
+    mainQSOEntryWidget->raise();
+    mainQSOEntryWidget->setFocus ();
+    mainQSOEntryWidget->setFocusToOK ();
 
 }
 

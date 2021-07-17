@@ -108,12 +108,12 @@ void MainWindowInputOthers::createUI()
 
     QHBoxLayout *keepLayout = new QHBoxLayout;
     keepLayout->addWidget(propModeComboBox);
-    keepLayout->addWidget(keepPropCheckBox);
+    //keepLayout->addWidget(keepPropCheckBox);
+    keepLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     QGridLayout *tabLayout = new QGridLayout;
     tabLayout->addWidget(entityNameLabel, 0, 0);
     tabLayout->addWidget(entityNameComboBox, 0, 1, 1, 2);
-
     tabLayout->addWidget(entityPrimLabel, 1, 0);
     tabLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
     tabLayout->addWidget(entitySecLabel, 2, 0);
@@ -128,8 +128,8 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(userSelectLabel, 5, 0);
     tabLayout->addWidget(userDefinedADIFComboBox, 5, 1);
     tabLayout->addWidget(userDefinedADIFValueLineEdit, 5, 2);
-
-
+    tabLayout->addWidget(keepPropCheckBox, 6, 2);
+    //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
 
     if (entitiesList.size()>1)
@@ -147,6 +147,9 @@ void MainWindowInputOthers::createUI()
     iotaContinentComboBox->addItems(dataProxy->getContinentShortNames());
     iotaNumberLineEdit->setInputMask("000");
     iotaNumberLineEdit->setText("000");
+
+
+    //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
 void MainWindowInputOthers::clear(bool _full)

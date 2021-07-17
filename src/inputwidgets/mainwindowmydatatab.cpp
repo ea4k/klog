@@ -99,6 +99,7 @@ void MainWindowMyDataTab::createUI()
     //myDataInputTabWidgetLayout->addWidget(keepLabel, 4, 2);
     myDataInputTabWidgetLayout->addWidget(keepThisDataForNextQSOQCheckbox, 4, 3);
 
+    //myDataInputTabWidgetLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     setLayout(myDataInputTabWidgetLayout);
 

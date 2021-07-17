@@ -40,11 +40,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     timeEdit = new QTimeEdit;
     realtimeCheckBox = new QCheckBox;
     enabledCR = realtimeCheckBox->backgroundRole();
-    //realtimeButton = new QPushButton;
-    //realtimeButton->setCheckable(true);
-    //realtimeButton->setFixedSize(QSize(28,28));
-    //realtimeButton->setIcon(QIcon(":/img/play.svg"));
-    //enabledCR = realtimeButton->backgroundRole();
+
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
@@ -56,7 +52,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
 
     createUI();
     setInitialData();
-    installEventFilter (this);
+    //installEventFilter (this);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << endl;
 }
@@ -116,7 +112,7 @@ void MainQSOEntryWidget::createUI()
     widgetLayout->addWidget(qrzgroupBox, 0, 0, 1, 0);
     widgetLayout->addLayout(TimeLayout, 1, 0);
     widgetLayout->addLayout(buttonsLayout,1, 1);
-
+    //widgetLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(widgetLayout);
 
     palRed.setColor(QPalette::Text, Qt::red);
@@ -145,6 +141,7 @@ void MainQSOEntryWidget::createUI()
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 
+    //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
 /*
@@ -1032,10 +1029,10 @@ bool MainQSOEntryWidget::getDarkMode()
 /*
 void MainQSOEntryWidget::keyPressEvent( QKeyEvent *event)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     if(event->key()==Qt::Key_Enter)
     {
-        qDebug() << Q_FUNC_INFO << " TAB...";
+        //qDebug() << Q_FUNC_INFO << " TAB...";
     }
 
 }
@@ -1049,18 +1046,20 @@ bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
     }
 
     if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::ShortcutOverride)) {
-        qDebug() << Q_FUNC_INFO << "KEY PRESSED";
+        //qDebug() << Q_FUNC_INFO << "KEY PRESSED";
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (ke->key() == Qt::Key_Tab) {
-            qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
+            //qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
             if ((realtimeCheckBox->isChecked ()) && (qrzLineEdit->hasFocus ()))
             {
-                qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB AND REAL TIME CHECKED";
-                handOverFocusSignal();
+                //qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB AND REAL TIME CHECKED";
+                 //qDebug() << Q_FUNC_INFO << "emitting to hand over to QSO TAB-1";
+                emit handOverFocusSignal();
             }
             else if((!realtimeCheckBox->isChecked ()) && timeEdit->hasFocus () && (timeEdit->currentSection() == QTimeEdit::SecondSection))
             {
-                handOverFocusSignal();
+                //qDebug() << Q_FUNC_INFO << "emitting to hand over to QSO TAB-2";
+                emit handOverFocusSignal();
             }
 
             // special tab handling here
@@ -1070,6 +1069,7 @@ bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
 
     return QWidget::event(event);
 }
+
 void MainQSOEntryWidget::setFocusToOK()
 {
     OKButton->setFocus ();

@@ -320,8 +320,9 @@ private slots:
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
-    void slotTakeOverFocus(int _id);
-
+    //void slotTakeOverFocus(int _id);
+    void slotTakeOverFocusToQSOTabWidget();
+    void slotTakeOverFocusToMainQSOInput();
 
 private:
     //void setWidgetsOrder();

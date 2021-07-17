@@ -62,6 +62,7 @@ void MainWindowInputComment::createUI()
     tabLayout->addWidget(commentLineEdit, 0, 1);
     tabLayout->addWidget(keepLabel, 2, 1);
     tabLayout->addWidget(keepThisDataForNextQSOQCheckbox, 2, 2);
+    //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
 }
 

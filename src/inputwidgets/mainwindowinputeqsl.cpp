@@ -126,7 +126,7 @@ void MainWindowInputEQSL::createUI()
     eqslInputTabWidgetLayout->addWidget(lotwSentQDateEdit, 3, 2);
     eqslInputTabWidgetLayout->addWidget(lotwRecQDateEdit, 4, 2);
     eqslInputTabWidgetLayout->addWidget(qrzcomQDateEdit, 5, 2);
-
+    //eqslInputTabWidgetLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(eqslInputTabWidgetLayout);
 
     connect(clublogComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotClubLogComboBoxChanged() ) )  ;

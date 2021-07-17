@@ -50,6 +50,7 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 
     createUI();
     setDefaultData();
+    //installEventFilter (this);
     clear();
        //qDebug() << "MainWindowInputQSO::MainWindowInputQSO - END"   << endl;
 
@@ -186,7 +187,7 @@ void MainWindowInputQSO::createUI()
     QVBoxLayout *qsoInputTabWidgetMainLayout = new QVBoxLayout;
     qsoInputTabWidgetMainLayout->addLayout(rstfreqLayout);
     qsoInputTabWidgetMainLayout->addLayout(namePwrLayout);
-
+    //qsoInputTabWidgetMainLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(qsoInputTabWidgetMainLayout);
 
     connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
@@ -654,11 +655,11 @@ void MainWindowInputQSO::setSplitCheckBox()
 
 void MainWindowInputQSO::receiveFocus()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     rstTXLineEdit->setFocus ();
 }
 
-bool MainWindowInputQSO::eventFilter(QObject *object, QEvent *event)
+bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
 {
     if (!(event->type() == QEvent::Paint ))
     {
@@ -666,13 +667,14 @@ bool MainWindowInputQSO::eventFilter(QObject *object, QEvent *event)
     }
 
     if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::ShortcutOverride)) {
-        qDebug() << Q_FUNC_INFO << "KEY PRESSED";
+        //qDebug() << Q_FUNC_INFO << "KEY PRESSED";
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (ke->key() == Qt::Key_Tab) {
-            qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
-            if (rxPowerSpinBox->hasFocus ())
+            //qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
+            if (rxPowerSpinBox->hasFocus())
             {
-                handOverFocusSignal();
+                //qDebug() << Q_FUNC_INFO << "emitting to hand over to mainQSO Input";
+                emit handOverFocusSignal();
             }
 
 
