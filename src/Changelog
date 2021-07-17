@@ -11,6 +11,7 @@ July 2021 - 1.7
 - Improvement: Order of widgets when tab is pressed has been improved. (Working on #265)
 - Statistics: Added the Grids & DXCC per band statistic. (Closes #312), (Closes #313), (Closes #314)
 - UI: The Setup menu has been moved to Settings into the File menu.
+- Translations: Spanish (EA4K).
 
 June 2021 - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.
