@@ -1974,7 +1974,7 @@ Codice di errore restituito: %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="81"/>
         <source>Real time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo-reale</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="98"/>
@@ -2828,7 +2828,7 @@ Vuoi cancellare quresto file?</translation>
         <location filename="../mainwindow.cpp" line="4074"/>
         <location filename="../mainwindow.cpp" line="4152"/>
         <source>Now you can upload them to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adesso puoi trasmetterlo a LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4080"/>
@@ -3266,32 +3266,32 @@ Vuoi cancellare il file?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3784"/>
         <source>Settings ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Impostazioni...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4062"/>
         <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sei certo di segnare TUTTI i QSO di questo log come da trasmettere? Questa procedura deve essere fatta SOLO SE QUESTO E&apos; il primo trasferimento di QSO verso LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4139"/>
         <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sei certo di segnare TUTTI i QSO in sopeso di questo log come da trasmettere? Questa procedura deve essere fatta SOLO SE QUESTO E&apos; il primo trasferimento di QSO verso LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4157"/>
         <source>There was a problem to mark all pending QSOs as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;operazione di segnare tutti i QSO in sospeso per la trasmissione verso LoTW ha incontrato dei problemi!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4338"/>
         <source>All queued QSOs of this log has been marked as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutti i QSO di questo log sono stati indicati per la trasmissione verso LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4368"/>
         <source>There was a problem to mark all queued QSOs as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;operazione di segnare tutti i QSO per la trasmissione verso LoTW ha incontrato dei problemi!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5937"/>
@@ -4340,32 +4340,32 @@ KLog terminerà appena cliccherai su OK.</translation>
     <message>
         <location filename="../database.cpp" line="8026"/>
         <source>Updating DXCC award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Trasmissione informazioni DXCC award...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8119"/>
         <source>Updating DXCC Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Trasmissione informazioni DXCC award...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8265"/>
         <source>Updating WAZ award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Trasmissione informazioni WAZ award...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8359"/>
         <source>Updating WAZ Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Trasmissione informazioni WAZ award...</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="262"/>
         <source>KLog is already running.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klog è già in esecuzione.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="262"/>
         <source>It is allowed to run only one instance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puo essere seguito solo una volta sulla macchina.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="333"/>
@@ -5054,7 +5054,7 @@ Per favore aggiungi /seleziona il tipo di log che ti serve.</translation>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
         <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
         <source>Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizzazione notturna</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
@@ -5084,7 +5084,7 @@ Per favore aggiungi /seleziona il tipo di log che ti serve.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
         <source>Light Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizzazione diurna</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
@@ -5099,7 +5099,7 @@ Per favore aggiungi /seleziona il tipo di log che ti serve.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
         <source>Sets the Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Attiva la visualizzazione notturna</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
@@ -5458,43 +5458,43 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="108"/>
         <source>Test: OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Test: OK</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="115"/>
         <source>Test: NOK</source>
-        <translation type="unfinished"></translation>
+        <translation>Test: NON OK</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="160"/>
         <source>Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Test</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="161"/>
         <source>Click to test the connection to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Premi per verificare la connessione alla radio</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="163"/>
         <location filename="../setuppages/setuppagehamlib.cpp" line="295"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci l&apos;hostname o l&apos;indirizzo della radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="164"/>
         <source>Set de network port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta la porta di rete della radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="166"/>
         <source>Serial radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio via seriale</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="167"/>
         <source>Network radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio via rete</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="214"/>
@@ -5619,12 +5619,12 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="293"/>
         <source>Host/Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Host/Indirizzo</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="301"/>
         <source>Enter the port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci la porta della radio.</translation>
     </message>
 </context>
 <context>
@@ -7013,12 +7013,12 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="120"/>
         <source>Grids per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>Grids per stato banda</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="121"/>
         <source>DXCC per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC per stato banda</translation>
     </message>
 </context>
 <context>
@@ -7164,27 +7164,27 @@ Il log non sarà aperto.</translation>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="46"/>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="115"/>
         <source>All</source>
-        <translation type="unfinished">Tutti</translation>
+        <translation>Tutto</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="62"/>
         <source>Mode: </source>
-        <translation type="unfinished"></translation>
+        <translation>Modo: </translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="89"/>
         <source>Band</source>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="90"/>
         <source>Worked</source>
-        <translation type="unfinished">Processato</translation>
+        <translation>Processato</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="91"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Confermato</translation>
+        <translation>Confermato</translation>
     </message>
 </context>
 <context>

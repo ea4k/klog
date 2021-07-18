@@ -88,12 +88,12 @@
     <message>
         <location filename="../aboutdialog.cpp" line="90"/>
         <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Si us agradaria col·laborar, agrairem que us subscribiu a la &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;llista de correu del KLog&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="107"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Si el KLog encara no està en el vostre idioma i voleu ajudar-nos, agrairem que contacteu amb la &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;llista de correu del KLog&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="108"/>
@@ -2300,12 +2300,12 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="4062"/>
         <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Segur que voleu marcar TOTS els QSO d&apos;aquest registre per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu aquests QSO al LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4139"/>
         <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Segur que voleu marcar TOTS els QSO pendents per a ser PUJATS? NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu aquests QSO al LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4177"/>
@@ -3278,7 +3278,7 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3784"/>
         <source>Settings ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3874"/>
@@ -3295,22 +3295,22 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="4074"/>
         <location filename="../mainwindow.cpp" line="4152"/>
         <source>Now you can upload them to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ara els podeu pujar al LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4157"/>
         <source>There was a problem to mark all pending QSOs as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Hi ha hagut un problema en marcar tots els QSO pendents com a posats en cua per al LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4338"/>
         <source>All queued QSOs of this log has been marked as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tots els QSO posats en cua d&apos;aquest registre s&apos;han marcat com a enviats al LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4368"/>
         <source>There was a problem to mark all queued QSOs as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Hi ha hagut un problema en marcar tots els QSO posats en cua com a enviats al LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5937"/>
@@ -4251,22 +4251,22 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../database.cpp" line="8026"/>
         <source>Updating DXCC award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualització de la informació dels diplomes DXCC...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8119"/>
         <source>Updating DXCC Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualització de la informació dels diplomes DXCC...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8265"/>
         <source>Updating WAZ award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualització de la informació dels diplomes WAZ...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8359"/>
         <source>Updating WAZ Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualització de la informació dels diplomes WAZ...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="3847"/>
@@ -5059,7 +5059,7 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
         <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
         <source>Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode fosc</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
@@ -5089,7 +5089,7 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
         <source>Light Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode clar</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
@@ -5104,7 +5104,7 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
         <source>Sets the Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el mode fosc</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
@@ -5475,43 +5475,43 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="108"/>
         <source>Test: OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova: Correcta</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="115"/>
         <source>Test: NOK</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova: No correcta</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="160"/>
         <source>Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="161"/>
         <source>Click to test the connection to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Feu clic per a provar la connexió a la ràdio</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="163"/>
         <location filename="../setuppages/setuppagehamlib.cpp" line="295"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduïu el nom de la màquina o l&apos;adreça de la ràdio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="164"/>
         <source>Set de network port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el port de xarxa de la ràdio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="166"/>
         <source>Serial radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ràdio sèrie</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="167"/>
         <source>Network radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ràdio en xarxa</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="214"/>
@@ -5636,12 +5636,12 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="293"/>
         <source>Host/Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Màquina/Adreça</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="301"/>
         <source>Enter the port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el port de la ràdio.</translation>
     </message>
 </context>
 <context>
@@ -7044,12 +7044,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="120"/>
         <source>Grids per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadrícules per estat de la banda</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="121"/>
         <source>DXCC per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC per estat de la banda</translation>
     </message>
 </context>
 <context>
@@ -7193,27 +7193,27 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="46"/>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="115"/>
         <source>All</source>
-        <translation type="unfinished">Tot</translation>
+        <translation>Tot</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="62"/>
         <source>Mode: </source>
-        <translation type="unfinished"></translation>
+        <translation>Mode: </translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="89"/>
         <source>Band</source>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="90"/>
         <source>Worked</source>
-        <translation type="unfinished">Treballat</translation>
+        <translation>Treballat</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="91"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Confirmat</translation>
+        <translation>Confirmat</translation>
     </message>
 </context>
 <context>
@@ -7740,7 +7740,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://groups.io/g/klog&gt;KLog mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 12:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s a la &lt;a href=https://groups.io/g/klog&gt;llista de correu del KLog&lt;/a&gt; per a conversar a través del correu quant al KLog en anglès?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="203"/>
