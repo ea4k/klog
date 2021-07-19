@@ -2085,7 +2085,7 @@ msgstr "KLog lavorerà in tempo reale se abilitato."
 #: ../mainqsoentrywidget.cpp:81
 msgctxt "MainQSOEntryWidget|"
 msgid "Real time"
-msgstr ""
+msgstr "Tempo-reale"
 
 #: ../mainqsoentrywidget.cpp:98 ../mainqsoentrywidget.cpp:977
 msgctxt "MainQSOEntryWidget|"
@@ -3045,7 +3045,7 @@ msgstr "Tutti i QSO di questo log in attesa sono inseriti in coda per LoTW!"
 #: ../mainwindow.cpp:4074 ../mainwindow.cpp:4152
 msgctxt "MainWindow|"
 msgid "Now you can upload them to LoTW."
-msgstr ""
+msgstr "Adesso puoi trasmetterlo a LoTW."
 
 #: ../mainwindow.cpp:4080
 msgctxt "MainWindow|"
@@ -3527,7 +3527,7 @@ msgstr "KLog - LoTW"
 #: ../mainwindow.cpp:3784
 msgctxt "MainWindow|"
 msgid "Settings ..."
-msgstr ""
+msgstr "Impostazioni..."
 
 #: ../mainwindow.cpp:4062
 msgctxt "MainWindow|"
@@ -3535,6 +3535,9 @@ msgid ""
 "Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be "
 "done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
 msgstr ""
+"Sei certo di segnare TUTTI i QSO di questo log come da trasmettere? Questa "
+"procedura deve essere fatta SOLO SE QUESTO E' il primo trasferimento di QSO "
+"verso LoTW."
 
 #: ../mainwindow.cpp:4139
 msgctxt "MainWindow|"
@@ -3542,21 +3545,29 @@ msgid ""
 "Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done "
 "ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
 msgstr ""
+"Sei certo di segnare TUTTI i QSO in sopeso di questo log come da "
+"trasmettere? Questa procedura deve essere fatta SOLO SE QUESTO E' il primo "
+"trasferimento di QSO verso LoTW."
 
 #: ../mainwindow.cpp:4157
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all pending QSOs as queued for LoTW!"
 msgstr ""
+"L'operazione di segnare tutti i QSO in sospeso per la trasmissione verso "
+"LoTW ha incontrato dei problemi!"
 
 #: ../mainwindow.cpp:4338
 msgctxt "MainWindow|"
 msgid "All queued QSOs of this log has been marked as sent to LoTW!"
 msgstr ""
+"Tutti i QSO di questo log sono stati indicati per la trasmissione verso LoTW!"
 
 #: ../mainwindow.cpp:4368
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all queued QSOs as sent to LoTW!"
 msgstr ""
+"L'operazione di segnare tutti i QSO per la trasmissione verso LoTW ha "
+"incontrato dei problemi!"
 
 #: ../mainwindow.cpp:5937
 msgctxt "MainWindow|"
@@ -4655,32 +4666,32 @@ msgstr "Aggiornamento dati modalità in %1 stato..."
 #: ../database.cpp:8026
 msgctxt "QObject|"
 msgid "Updating DXCC award information..."
-msgstr ""
+msgstr "Trasmissione informazioni DXCC award..."
 
 #: ../database.cpp:8119
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
-msgstr ""
+msgstr "Trasmissione informazioni DXCC award..."
 
 #: ../database.cpp:8265
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
-msgstr ""
+msgstr "Trasmissione informazioni WAZ award..."
 
 #: ../database.cpp:8359
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
-msgstr ""
+msgstr "Trasmissione informazioni WAZ award..."
 
 #: ../main.cpp:262
 msgctxt "QObject|"
 msgid "KLog is already running."
-msgstr ""
+msgstr "Klog è già in esecuzione."
 
 #: ../main.cpp:262
 msgctxt "QObject|"
 msgid "It is allowed to run only one instance."
-msgstr ""
+msgstr "Puo essere seguito solo una volta sulla macchina."
 
 #: ../main.cpp:333
 msgctxt "QObject|"
@@ -5359,7 +5370,7 @@ msgstr "Default palette colori"
 #: ../setuppages/setuppagecolors.cpp:52 ../setuppages/setuppagecolors.cpp:300
 msgctxt "SetupPageColors|"
 msgid "Dark Mode"
-msgstr ""
+msgstr "Visualizzazione notturna"
 
 #: ../setuppages/setuppagecolors.cpp:54
 msgctxt "SetupPageColors|"
@@ -5389,7 +5400,7 @@ msgstr "Seleziona la palette di default."
 #: ../setuppages/setuppagecolors.cpp:281
 msgctxt "SetupPageColors|"
 msgid "Light Mode"
-msgstr ""
+msgstr "Visualizzazione diurna"
 
 #: ../setuppages/setuppagecolors.cpp:55
 msgctxt "SetupPageColors|"
@@ -5408,7 +5419,7 @@ msgstr "DXCC processato, ma non confermato per questa banda."
 #: ../setuppages/setuppagecolors.cpp:61
 msgctxt "SetupPageColors|"
 msgid "Sets the Dark Mode"
-msgstr ""
+msgstr "Attiva la visualizzazione notturna"
 
 #: ../setuppages/setuppagecolors.cpp:174
 msgctxt "SetupPageColors|"
@@ -5809,42 +5820,42 @@ msgstr "Bauds"
 #: ../setuppages/setuppagehamlib.cpp:108
 msgctxt "SetupPageHamLib|"
 msgid "Test: OK"
-msgstr ""
+msgstr "Test: OK"
 
 #: ../setuppages/setuppagehamlib.cpp:115
 msgctxt "SetupPageHamLib|"
 msgid "Test: NOK"
-msgstr ""
+msgstr "Test: NON OK"
 
 #: ../setuppages/setuppagehamlib.cpp:160
 msgctxt "SetupPageHamLib|"
 msgid "Test"
-msgstr ""
+msgstr "Test"
 
 #: ../setuppages/setuppagehamlib.cpp:161
 msgctxt "SetupPageHamLib|"
 msgid "Click to test the connection to the radio"
-msgstr ""
+msgstr "Premi per verificare la connessione alla radio"
 
 #: ../setuppages/setuppagehamlib.cpp:163 ../setuppages/setuppagehamlib.cpp:295
 msgctxt "SetupPageHamLib|"
 msgid "Enter the hostname or address of the radio."
-msgstr ""
+msgstr "Inserisci l'hostname o l'indirizzo della radio."
 
 #: ../setuppages/setuppagehamlib.cpp:164
 msgctxt "SetupPageHamLib|"
 msgid "Set de network port of the radio."
-msgstr ""
+msgstr "Imposta la porta di rete della radio."
 
 #: ../setuppages/setuppagehamlib.cpp:166
 msgctxt "SetupPageHamLib|"
 msgid "Serial radio"
-msgstr ""
+msgstr "Radio via seriale"
 
 #: ../setuppages/setuppagehamlib.cpp:167
 msgctxt "SetupPageHamLib|"
 msgid "Network radio"
-msgstr ""
+msgstr "Radio via rete"
 
 #: ../setuppages/setuppagehamlib.cpp:214
 msgctxt "SetupPageHamLib|"
@@ -5969,12 +5980,12 @@ msgstr "Seleziona il numero di bit di stop della seriale."
 #: ../setuppages/setuppagehamlib.cpp:293
 msgctxt "SetupPageHamLib|"
 msgid "Host/Address"
-msgstr ""
+msgstr "Host/Indirizzo"
 
 #: ../setuppages/setuppagehamlib.cpp:301
 msgctxt "SetupPageHamLib|"
 msgid "Enter the port of the radio."
-msgstr ""
+msgstr "Inserisci la porta della radio."
 
 #: ../setuppages/setuppagelogs.cpp:70
 msgctxt "SetupPageLogs|"
@@ -7442,12 +7453,12 @@ msgstr ""
 #: ../statisticswidget.cpp:120
 msgctxt "StatisticsWidget|"
 msgid "Grids per band status"
-msgstr ""
+msgstr "Grids per stato banda"
 
 #: ../statisticswidget.cpp:121
 msgctxt "StatisticsWidget|"
 msgid "DXCC per band status"
-msgstr ""
+msgstr "DXCC per stato banda"
 
 #: ../charts/statscqzperyearbarchartwidget.cpp:72
 msgctxt "StatsCQZPerYearBarChartWidget|"
@@ -7581,30 +7592,26 @@ msgstr "Collegamenti: "
 
 #: ../charts/statsfieldperbandwidget.cpp:46
 #: ../charts/statsfieldperbandwidget.cpp:115
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "All"
-msgstr "Tutti"
+msgstr "Tutto"
 
 #: ../charts/statsfieldperbandwidget.cpp:62
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Mode: "
-msgstr ""
+msgstr "Modo: "
 
 #: ../charts/statsfieldperbandwidget.cpp:89
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Band"
 msgstr "Banda"
 
 #: ../charts/statsfieldperbandwidget.cpp:90
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Worked"
 msgstr "Processato"
 
 #: ../charts/statsfieldperbandwidget.cpp:91
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Confirmed"
 msgstr "Confermato"

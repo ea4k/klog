@@ -126,6 +126,8 @@ msgid ""
 "If you want to provide support you are welcome to join the <a "
 "href=\"https://groups.io/g/klog\">KLog mailing list</a>!"
 msgstr ""
+"Si us agradaria col·laborar, agrairem que us subscribiu a la <a "
+"href=\"https://groups.io/g/klog\">llista de correu del KLog</a>!"
 
 #: ../aboutdialog.cpp:107
 msgctxt "AboutDialog|"
@@ -134,6 +136,9 @@ msgid ""
 "welcome to contact us through the <a href=\"https://groups.io/g/klog\">KLog "
 "mailing list</a>!"
 msgstr ""
+"Si el KLog encara no està en el vostre idioma i voleu ajudar-nos, agrairem "
+"que contacteu amb la <a href=\"https://groups.io/g/klog\">llista de correu "
+"del KLog</a>!"
 
 #: ../aboutdialog.cpp:108 ../aboutdialog.cpp:167
 msgctxt "AboutDialog|"
@@ -2467,6 +2472,9 @@ msgid ""
 "Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be "
 "done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
 msgstr ""
+"Segur que voleu marcar TOTS els QSO d'aquest registre per a ser PUJATS? "
+"NOMÉS cal fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu aquests QSO al "
+"LoTW."
 
 #: ../mainwindow.cpp:4139
 msgctxt "MainWindow|"
@@ -2474,6 +2482,8 @@ msgid ""
 "Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done "
 "ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
 msgstr ""
+"Segur que voleu marcar TOTS els QSO pendents per a ser PUJATS? NOMÉS cal "
+"fer-ho SI AQUESTA ÉS LA PRIMERA VEGADA que pugeu aquests QSO al LoTW."
 
 #: ../mainwindow.cpp:4177
 msgctxt "MainWindow|"
@@ -3584,7 +3594,7 @@ msgstr "El desament ADIF no s'ha efectuat correctament."
 #: ../mainwindow.cpp:3784
 msgctxt "MainWindow|"
 msgid "Settings ..."
-msgstr ""
+msgstr "Configuració..."
 
 #: ../mainwindow.cpp:3874 ../mainwindow.cpp:3887
 msgctxt "MainWindow|"
@@ -3599,22 +3609,28 @@ msgstr "Posa a la cua tots els QSO per a pujar"
 #: ../mainwindow.cpp:4074 ../mainwindow.cpp:4152
 msgctxt "MainWindow|"
 msgid "Now you can upload them to LoTW."
-msgstr ""
+msgstr "Ara els podeu pujar al LoTW."
 
 #: ../mainwindow.cpp:4157
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all pending QSOs as queued for LoTW!"
 msgstr ""
+"Hi ha hagut un problema en marcar tots els QSO pendents com a posats en cua "
+"per al LoTW!"
 
 #: ../mainwindow.cpp:4338
 msgctxt "MainWindow|"
 msgid "All queued QSOs of this log has been marked as sent to LoTW!"
 msgstr ""
+"Tots els QSO posats en cua d'aquest registre s'han marcat com a enviats al "
+"LoTW!"
 
 #: ../mainwindow.cpp:4368
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all queued QSOs as sent to LoTW!"
 msgstr ""
+"Hi ha hagut un problema en marcar tots els QSO posats en cua com a enviats "
+"al LoTW!"
 
 #: ../mainwindow.cpp:5937
 msgctxt "MainWindow|"
@@ -4602,22 +4618,22 @@ msgstr "Progrés: "
 #: ../database.cpp:8026
 msgctxt "QObject|"
 msgid "Updating DXCC award information..."
-msgstr ""
+msgstr "Actualització de la informació dels diplomes DXCC..."
 
 #: ../database.cpp:8119
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
-msgstr ""
+msgstr "Actualització de la informació dels diplomes DXCC..."
 
 #: ../database.cpp:8265
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
-msgstr ""
+msgstr "Actualització de la informació dels diplomes WAZ..."
 
 #: ../database.cpp:8359
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
-msgstr ""
+msgstr "Actualització de la informació dels diplomes WAZ..."
 
 #: ../database.cpp:3847 ../database.cpp:3868
 msgctxt "QObject|"
@@ -5389,7 +5405,7 @@ msgstr "Paleta predeterminada"
 #: ../setuppages/setuppagecolors.cpp:52 ../setuppages/setuppagecolors.cpp:300
 msgctxt "SetupPageColors|"
 msgid "Dark Mode"
-msgstr ""
+msgstr "Mode fosc"
 
 #: ../setuppages/setuppagecolors.cpp:54
 msgctxt "SetupPageColors|"
@@ -5421,7 +5437,7 @@ msgstr "Estableix la paleta predeterminada."
 #: ../setuppages/setuppagecolors.cpp:281
 msgctxt "SetupPageColors|"
 msgid "Light Mode"
-msgstr ""
+msgstr "Mode clar"
 
 #: ../setuppages/setuppagecolors.cpp:55
 msgctxt "SetupPageColors|"
@@ -5440,7 +5456,7 @@ msgstr "DXCC treballat, però no confirmat en aquesta banda."
 #: ../setuppages/setuppagecolors.cpp:61
 msgctxt "SetupPageColors|"
 msgid "Sets the Dark Mode"
-msgstr ""
+msgstr "Estableix el mode fosc"
 
 #: ../setuppages/setuppagecolors.cpp:174
 msgctxt "SetupPageColors|"
@@ -5849,42 +5865,42 @@ msgstr "Bauds"
 #: ../setuppages/setuppagehamlib.cpp:108
 msgctxt "SetupPageHamLib|"
 msgid "Test: OK"
-msgstr ""
+msgstr "Prova: Correcta"
 
 #: ../setuppages/setuppagehamlib.cpp:115
 msgctxt "SetupPageHamLib|"
 msgid "Test: NOK"
-msgstr ""
+msgstr "Prova: No correcta"
 
 #: ../setuppages/setuppagehamlib.cpp:160
 msgctxt "SetupPageHamLib|"
 msgid "Test"
-msgstr ""
+msgstr "Prova"
 
 #: ../setuppages/setuppagehamlib.cpp:161
 msgctxt "SetupPageHamLib|"
 msgid "Click to test the connection to the radio"
-msgstr ""
+msgstr "Feu clic per a provar la connexió a la ràdio"
 
 #: ../setuppages/setuppagehamlib.cpp:163 ../setuppages/setuppagehamlib.cpp:295
 msgctxt "SetupPageHamLib|"
 msgid "Enter the hostname or address of the radio."
-msgstr ""
+msgstr "Introduïu el nom de la màquina o l'adreça de la ràdio."
 
 #: ../setuppages/setuppagehamlib.cpp:164
 msgctxt "SetupPageHamLib|"
 msgid "Set de network port of the radio."
-msgstr ""
+msgstr "Estableix el port de xarxa de la ràdio."
 
 #: ../setuppages/setuppagehamlib.cpp:166
 msgctxt "SetupPageHamLib|"
 msgid "Serial radio"
-msgstr ""
+msgstr "Ràdio sèrie"
 
 #: ../setuppages/setuppagehamlib.cpp:167
 msgctxt "SetupPageHamLib|"
 msgid "Network radio"
-msgstr ""
+msgstr "Ràdio en xarxa"
 
 #: ../setuppages/setuppagehamlib.cpp:214
 msgctxt "SetupPageHamLib|"
@@ -6009,12 +6025,12 @@ msgstr "Seleccioneu els bits d'aturada del sèrie."
 #: ../setuppages/setuppagehamlib.cpp:293
 msgctxt "SetupPageHamLib|"
 msgid "Host/Address"
-msgstr ""
+msgstr "Màquina/Adreça"
 
 #: ../setuppages/setuppagehamlib.cpp:301
 msgctxt "SetupPageHamLib|"
 msgid "Enter the port of the radio."
-msgstr ""
+msgstr "Estableix el port de la ràdio."
 
 #: ../setuppages/setuppagelogs.cpp:70
 #| msgid "New"
@@ -7492,12 +7508,12 @@ msgstr "Estat de la DXCC dels satèl·lits"
 #: ../statisticswidget.cpp:120
 msgctxt "StatisticsWidget|"
 msgid "Grids per band status"
-msgstr ""
+msgstr "Quadrícules per estat de la banda"
 
 #: ../statisticswidget.cpp:121
 msgctxt "StatisticsWidget|"
 msgid "DXCC per band status"
-msgstr ""
+msgstr "DXCC per estat de la banda"
 
 #: ../charts/statscqzperyearbarchartwidget.cpp:72
 msgctxt "StatsCQZPerYearBarChartWidget|"
@@ -7629,7 +7645,6 @@ msgstr "Entitats: "
 
 #: ../charts/statsfieldperbandwidget.cpp:46
 #: ../charts/statsfieldperbandwidget.cpp:115
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "All"
 msgstr "Tot"
@@ -7637,22 +7652,19 @@ msgstr "Tot"
 #: ../charts/statsfieldperbandwidget.cpp:62
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Mode: "
-msgstr ""
+msgstr "Mode: "
 
 #: ../charts/statsfieldperbandwidget.cpp:89
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Band"
 msgstr "Banda"
 
 #: ../charts/statsfieldperbandwidget.cpp:90
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Worked"
 msgstr "Treballat"
 
 #: ../charts/statsfieldperbandwidget.cpp:91
-#, fuzzy
 msgctxt "StatsFieldPerBandWidget|"
 msgid "Confirmed"
 msgstr "Confirmat"
@@ -8259,6 +8271,9 @@ msgid ""
 "href=https://groups.io/g/klog>KLog mailing list</a> to discuss via email "
 "about KLog in English?"
 msgstr ""
+"<b>Consell núm. 12:</b><br>Sabíeu que...<br>podeu subscriure's a la <a "
+"href=https://groups.io/g/klog>llista de correu del KLog</a> per a conversar "
+"a través del correu quant al KLog en anglès?"
 
 #: ../tipsdialog.cpp:203
 msgctxt "TipsDialog|"
