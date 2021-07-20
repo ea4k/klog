@@ -62,7 +62,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="107"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud KLog stále není ve vašem jazyce a chcete nám pomoci, můžete nás kontaktovat prostřednictvím &lt;a href=&quot;https://groups.io/g/klog&quot;&gt; KLog mailing listu &lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="90"/>
@@ -72,7 +72,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="90"/>
         <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud potřebujete poradit, můžete se připojit k &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing listu&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="91"/>
@@ -1974,7 +1974,7 @@ Chyba : %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="81"/>
         <source>Real time</source>
-        <translation type="unfinished"></translation>
+        <translation>Skutečný čas</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="98"/>
@@ -2520,7 +2520,7 @@ Přejete si smazat tento soubor?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3784"/>
         <source>Settings ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3791"/>
@@ -2800,7 +2800,7 @@ Přejete si smazat tento soubor?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4139"/>
         <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu si přejete označit VŠECHNA čekající QSO k Nahrání. Toto je potřeba udělat POUZE, když jsou QSO nahrávána do LoTW poprvé.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4152"/>
@@ -2930,28 +2930,28 @@ Přejete si smazat tento soubor?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4062"/>
         <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu si přejete označit VŠECHNA QSO v tomto Logu k Nahrání. Toto je potřeba udělat POUZE, když jsou QSO nahrávána do LoTW poprvé.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4074"/>
         <location filename="../mainwindow.cpp" line="4152"/>
         <source>Now you can upload them to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyní je můžete nahrát do LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4157"/>
         <source>There was a problem to mark all pending QSOs as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyskytl se problém s označením všech Čekajících QSO do LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4338"/>
         <source>All queued QSOs of this log has been marked as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Všechna QSO ve frontě byla označena jako Odeslána do LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4368"/>
         <source>There was a problem to mark all queued QSOs as sent to LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyskytl se problém s označením QSO jako Odeslaná do LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4421"/>
@@ -4340,22 +4340,22 @@ KLog se ukončí po stisknutí OK.</translation>
     <message>
         <location filename="../database.cpp" line="8026"/>
         <source>Updating DXCC award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizace DXCC informací...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8119"/>
         <source>Updating DXCC Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizace DXCC informací...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8265"/>
         <source>Updating WAZ award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizace WAZ informací...</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="8359"/>
         <source>Updating WAZ Award information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizace WAZ informací...</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="6268"/>
@@ -4370,12 +4370,12 @@ KLog se ukončí po stisknutí OK.</translation>
     <message>
         <location filename="../main.cpp" line="262"/>
         <source>KLog is already running.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog již běží.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="262"/>
         <source>It is allowed to run only one instance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je povoleno spustit pouze jednu instanci.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="333"/>
@@ -5054,7 +5054,7 @@ Přidejte a vyberte druh logu, který chcete použít.</translation>
         <location filename="../setuppages/setuppagecolors.cpp" line="52"/>
         <location filename="../setuppages/setuppagecolors.cpp" line="300"/>
         <source>Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tmavý režim</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="54"/>
@@ -5094,7 +5094,7 @@ Přidejte a vyberte druh logu, který chcete použít.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="61"/>
         <source>Sets the Dark Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení Tmavého režimu</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="174"/>
@@ -5104,7 +5104,7 @@ Přidejte a vyberte druh logu, který chcete použít.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="281"/>
         <source>Light Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Světlý režim</translation>
     </message>
 </context>
 <context>
@@ -5458,43 +5458,43 @@ Pokud nebude specifikován port, bude použit výchozí port 41112:</translation
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="108"/>
         <source>Test: OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Test: OK</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="115"/>
         <source>Test: NOK</source>
-        <translation type="unfinished"></translation>
+        <translation>Test: NOK</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="160"/>
         <source>Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Test</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="161"/>
         <source>Click to test the connection to the radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknutím se otestuje připojení radia</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="163"/>
         <location filename="../setuppages/setuppagehamlib.cpp" line="295"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadejte hostname nebo adresu rádia.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="164"/>
         <source>Set de network port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení portu rádia.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="166"/>
         <source>Serial radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio přes Sériový port</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="167"/>
         <source>Network radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Síťové rádio</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="214"/>
@@ -5619,12 +5619,12 @@ Pokud nebude specifikován port, bude použit výchozí port 41112:</translation
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="293"/>
         <source>Host/Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Host/Adresa</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="301"/>
         <source>Enter the port of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadejte port rádia</translation>
     </message>
 </context>
 <context>
@@ -7012,12 +7012,12 @@ Log nebude otevřen.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="120"/>
         <source>Grids per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>Stav čtverců na pásmo</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="121"/>
         <source>DXCC per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>Stav DXCC na pásmo</translation>
     </message>
 </context>
 <context>
@@ -7161,27 +7161,27 @@ Log nebude otevřen.</translation>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="46"/>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="115"/>
         <source>All</source>
-        <translation type="unfinished">Všechny</translation>
+        <translation>Všechny</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="62"/>
         <source>Mode: </source>
-        <translation type="unfinished"></translation>
+        <translation>Druh provozu: </translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="89"/>
         <source>Band</source>
-        <translation type="unfinished">Pásmo</translation>
+        <translation>Pásmo</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="90"/>
         <source>Worked</source>
-        <translation type="unfinished">Navázané</translation>
+        <translation>Navázané</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="91"/>
         <source>Confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrzené</translation>
     </message>
 </context>
 <context>
@@ -7693,7 +7693,7 @@ Log nebude otevřen.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="197"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://groups.io/g/klog&gt;KLog mailing list&lt;/a&gt; to discuss via email about KLog in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Víte, že...&lt;br&gt;se můžete přihlásit na &lt;a href=https://groups.io/g/klog&gt;KLog mailing list&lt;/a&gt; a diskutovat zde anglicky o KLogu?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="200"/>
