@@ -98,7 +98,7 @@ void tst_MainQSOEntryWidget::test_InitialData()
     modes << "SSB" << "CW" << "RTTY";
     QVERIFY(mainQSOEntryWidget->getModes().length ()== modes.length ());
     QVERIFY(mainQSOEntryWidget->getDate()== QDate::currentDate());
-    //qDebug() << mainQSOEntryWidget->getBand(-1) << endl;
+    //qDebug() << mainQSOEntryWidget->getBand(-1) << Qt::endl;
     //QVERIFY(mainQSOEntryWidget->getBand(-1) == "20M");
     QVERIFY(mainQSOEntryWidget->getBand(0) == "160M");
     QVERIFY(mainQSOEntryWidget->getBand(1) == "80M");
@@ -134,7 +134,7 @@ void tst_MainQSOEntryWidget::test_Bands()
     QVERIFY (mainQSOEntryWidget->getBand() == "160M");
     mainQSOEntryWidget->setBand("12M"); // Trying to select a band that is not in the list
     QVERIFY (mainQSOEntryWidget->getBand() == "160M");
-    //qDebug() <<mainQSOEntryWidget->getBand() << endl;
+    //qDebug() <<mainQSOEntryWidget->getBand() << Qt::endl;
     mainQSOEntryWidget->selectDefaultBand ();
     QVERIFY (mainQSOEntryWidget->getBand() == "20M");
     mainQSOEntryWidget->setBand (currentBand);

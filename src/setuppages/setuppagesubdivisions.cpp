@@ -30,7 +30,7 @@
 
 
 SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
-       //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions" << endl;
+       //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions" << Qt::endl;
     dataProxy = dp;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
     //util = new Utilities();
@@ -79,17 +79,17 @@ SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *pare
     updateSelectedLogs();
 
 
-       //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions - END" << endl;
+       //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions - END" << Qt::endl;
 }
 
 SetupPageSubdivisions::~SetupPageSubdivisions(){
-       //qDebug() << "SetupPageSubdivisions::~SetupPageSubdivisions" << endl;
+       //qDebug() << "SetupPageSubdivisions::~SetupPageSubdivisions" << Qt::endl;
 }
 
 /*
 void SetupPageSubdivisions::slotEditButtonClicked()
 {
-       //qDebug() << "SetupPageSubdivisions::slotEditButtonClicked" << endl;
+       //qDebug() << "SetupPageSubdivisions::slotEditButtonClicked" << Qt::endl;
     //QSqlQuery query;
     //int nameCol = -1;
 
@@ -98,7 +98,7 @@ void SetupPageSubdivisions::slotEditButtonClicked()
     QString getStationCallSignFromLog(const int _log);
 
     newLog->setEditing(true);
-      //qDebug() << "SetupPageSubdivisions::slotEditButtonClicked" << endl;
+      //qDebug() << "SetupPageSubdivisions::slotEditButtonClicked" << Qt::endl;
     newLog->setStationCallSign(dataProxy->getStationCallSignFromLog(selectedLog));
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
@@ -116,7 +116,7 @@ void SetupPageSubdivisions::slotEditButtonClicked()
 
 void SetupPageSubdivisions::slotRemoveButtonClicked()
 {
-       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked" << endl;
+       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked" << Qt::endl;
     int selectedLog = getSelectedLog();
 
     QMessageBox::StandardButton ret;
@@ -126,50 +126,50 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
              QMessageBox::Yes | QMessageBox::No);
     if (ret == QMessageBox::Yes)
     {
-           //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (selected log to remove: " << QString::number(selectedLog) << ")" << endl;
+           //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (selected log to remove: " << QString::number(selectedLog) << ")" << Qt::endl;
         QString stringQuery = QString("DELETE FROM logs WHERE id='%1'").arg(selectedLog);
         QSqlQuery query(stringQuery);
 
         bool sqlOk = query.exec();
         if (sqlOk)
         {
-               //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (REMOVED: " << QString::number(selectedLog) << ")" << endl;
+               //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (REMOVED: " << QString::number(selectedLog) << ")" << Qt::endl;
             logsModel->select();
             updateSelectedLogs();
             stringQuery = QString("DELETE FROM log WHERE lognumber='%1'").arg(selectedLog);
             query.exec(stringQuery);
             sqlOk = query.exec();
-               //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << endl;
+               //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << Qt::endl;
             if (sqlOk)
             {
-                   //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (QSOS REMOVED: " << QString::number(selectedLog) << ")" << endl;
+                   //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (QSOS REMOVED: " << QString::number(selectedLog) << ")" << Qt::endl;
                 stringQuery = QString("DELETE FROM award WHERE lognumber='%2'").arg(selectedLog);
                 query.exec(stringQuery);
                 sqlOk = query.exec();
-                   //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << endl;
+                   //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << Qt::endl;
                 if (sqlOk)
                 {
-                       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedLog) << ")" << endl;
+                       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedLog) << ")" << Qt::endl;
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                     showError(tr("Log has not been removed. (#3)"));
-                       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
+                       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")" << Qt::endl;
                 }
 
             }
             else
             {
                 showError(tr("Log has not been removed. (#2)"));
-                   //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (QSOS NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
+                   //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (QSOS NOT REMOVED: " << QString::number(selectedLog) << ")" << Qt::endl;
             }
         }
         else
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             showError(tr("Log has not been removed. (#1)"));
-               //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")" << endl;
+               //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")" << Qt::endl;
         }
     }
 
@@ -181,7 +181,7 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
 
 void SetupPageSubdivisions::createLogsPanel()
 {
-       //qDebug() << "SetupPageSubdivisions::createLogsPanel" << endl;
+       //qDebug() << "SetupPageSubdivisions::createLogsPanel" << Qt::endl;
     logsView->setModel(logsModel);
     QString stringQuery = QString("SELECT * FROM primary_subdivision");
     QSqlQuery query(stringQuery);
@@ -206,7 +206,7 @@ void SetupPageSubdivisions::createLogsPanel()
 
 void SetupPageSubdivisions::createLogsModel()
 {
-       //qDebug() << "SetupPageSubdivisions::createLogsModel" << endl;
+       //qDebug() << "SetupPageSubdivisions::createLogsModel" << Qt::endl;
 
         QString stringQuery = QString("SELECT * FROM primary_subdivisions");
         QSqlQuery q(stringQuery);
@@ -250,7 +250,7 @@ void SetupPageSubdivisions::createLogsModel()
 
 void SetupPageSubdivisions::slotLogSelected(const QModelIndex & index)
 {
-       //qDebug() << "SetupPageSubdivisions::slotLogSelected"  << endl;
+       //qDebug() << "SetupPageSubdivisions::slotLogSelected"  << Qt::endl;
     int row = index.row();
     setSelectedLog((logsModel->index(row, 0)).data(0).toInt());
 
@@ -258,7 +258,7 @@ void SetupPageSubdivisions::slotLogSelected(const QModelIndex & index)
 
 void SetupPageSubdivisions::createActions()
 {
-       //qDebug() << "SetupPageSubdivisions::createActions" << endl;
+       //qDebug() << "SetupPageSubdivisions::createActions" << Qt::endl;
     connect(currentLogs, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
     connect(importAwardPushButton, SIGNAL(clicked ( )), this, SLOT(slotImportButtonClicked() ) );
 
@@ -269,7 +269,7 @@ void SetupPageSubdivisions::createActions()
 
 QStringList SetupPageSubdivisions::readLogs()
 {
-       //qDebug() << "SetupPageSubdivisions::readLogs" << endl;
+       //qDebug() << "SetupPageSubdivisions::readLogs" << Qt::endl;
 
     QString aux, aux2;
     QStringList _logs;
@@ -304,7 +304,7 @@ QStringList SetupPageSubdivisions::readLogs()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return _logs;
     }
 
@@ -315,7 +315,7 @@ QStringList SetupPageSubdivisions::readLogs()
 
 void SetupPageSubdivisions::updateSelectedLogs()
 {
-       //qDebug() << "SetupPageSubdivisions::updateSelectedLogs" << endl;
+       //qDebug() << "SetupPageSubdivisions::updateSelectedLogs" << Qt::endl;
     logsAvailable = readLogs();
 
     if (logsAvailable.length()>0)
@@ -325,21 +325,21 @@ void SetupPageSubdivisions::updateSelectedLogs()
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisions::updateSelectedLogs Not selected (less than 1)" << endl;
+           //qDebug() << "SetupPageSubdivisions::updateSelectedLogs Not selected (less than 1)" << Qt::endl;
         currentLogs->clear();
     }
 }
 
 int SetupPageSubdivisions::getSelectedLog()
 {
-      //qDebug() << "SetupPageSubdivisions::getSelectedLog: " << currentLogs->currentText() << endl;
+      //qDebug() << "SetupPageSubdivisions::getSelectedLog: " << currentLogs->currentText() << Qt::endl;
     QString selectedLog = currentLogs->currentText();
     int i = 0;
     QStringList qs;
     qs.clear();
     qs << selectedLog.split("-");
     i = (qs.at(0)).toInt();
-      //qDebug() << "SetupPageSubdivisions::getSelectedLog: " << QString::number(i) << endl;
+      //qDebug() << "SetupPageSubdivisions::getSelectedLog: " << QString::number(i) << Qt::endl;
     if (i>=1)
     {
         return i;
@@ -352,9 +352,9 @@ int SetupPageSubdivisions::getSelectedLog()
 
 void SetupPageSubdivisions::slotCurrentLogsComboBoxChanged()
 {
-      //qDebug() << "SetupPageSubdivisions::slotCurrentLogsComboBoxChanged: " << currentLogs->currentText() << endl;
+      //qDebug() << "SetupPageSubdivisions::slotCurrentLogsComboBoxChanged: " << currentLogs->currentText() << Qt::endl;
     QString a = (currentLogs->currentText()).section('-', 0, 0);
-      //qDebug() << "SetupPageSubdivisions::slotCurrentLogsComboBoxChanged: a: " << a << endl;
+      //qDebug() << "SetupPageSubdivisions::slotCurrentLogsComboBoxChanged: a: " << a << Qt::endl;
 
     setSelectedLog(a.toInt());
 
@@ -363,18 +363,18 @@ void SetupPageSubdivisions::slotCurrentLogsComboBoxChanged()
 
 void SetupPageSubdivisions::setSelectedLog(const int _i)
 {
-      //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions::setSelectedLog: " << QString::number(_i) << endl;
+      //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions::setSelectedLog: " << QString::number(_i) << Qt::endl;
 
     QString n = QString::number(_i) + "-";
     int selected = currentLogs->findText(n, Qt::MatchStartsWith);
     if (selected >= 0)
     {
-           //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions::setSelectedLog selected>=0: " << QString::number(selected) << endl;
+           //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions::setSelectedLog selected>=0: " << QString::number(selected) << Qt::endl;
         currentLogs->setCurrentIndex(selected);
     }
     else
     {
-          //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions::setSelectedLog not selected" << endl;
+          //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions::setSelectedLog not selected" << Qt::endl;
         return;
     }
 }
@@ -393,16 +393,16 @@ void SetupPageSubdivisions::showError(const QString _errorC)
 
 void SetupPageSubdivisions::slotImportButtonClicked()
 {
-    //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked" << endl;
+    //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked" << Qt::endl;
     if (fileAwardManager->importNewAwardFile())
     {
-        //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - OK" << endl;
+        //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - OK" << Qt::endl;
     }
     else
     {
-        //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - NOK" << endl;
+        //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - NOK" << Qt::endl;
     }
     //QString fileName = QFileDialog::getOpenFileName(this, tr("Open Award file"), util->getHomeDir(), tr("Award files (*.awa)"));
 
-    //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - END" << endl;
+    //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - END" << Qt::endl;
 }

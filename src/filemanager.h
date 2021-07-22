@@ -156,7 +156,7 @@ private:
 
 signals:
     void addQSOToList(QStringList _qso);
-    void queryError(QString _functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString _functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 };
 #endif // FILEMANAGER_H

@@ -74,7 +74,7 @@ signals:
     void updateAwards();
     void updateSearchText();   
     //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     //void clearError();
     void deleteTheseQSOs(QList<int> _qsos);
     void exportToADIFTheseQSOs(QList<int> _qsos);
@@ -91,7 +91,7 @@ private slots:
     void slotQSLRecViaBureauFromLog();
     void slotQsoDeleteFromLog();
     void slotQSOToEditFromLog();
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     void slotCheckQRZCom();
     void slotCheckDXHeatCom();
 

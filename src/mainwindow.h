@@ -149,12 +149,12 @@ public:
     void init();
 
 private slots:
-    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
     void slotOpenWiki();
     void slotAWAImport();
     void slotClearNoMorErrorShown();
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed);
     void slotQRZReturnPressed();
     //void slotQRZSpacePressed();
     void slotQRZTextChanged(QString _qrz);
@@ -767,13 +767,13 @@ private:
 
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
-    void showEvent(QShowEvent *event);
+    void showEvent(QShowEvent *event) override;
 
 };
 

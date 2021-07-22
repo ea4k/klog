@@ -27,7 +27,7 @@
 
 StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent)
 {
-     //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget" << endl;
+     //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget" << Qt::endl;
 
     dataProxy = dp;
     util = new Utilities;
@@ -55,7 +55,7 @@ void StatsFieldPerBandWidget::createUI()
     tableWidget->setColumnCount(3);
 
     tableWidget->resizeRowsToContents();
-    tableWidget->sortByColumn(0);
+    tableWidget->sortByColumn(0, Qt::AscendingOrder);
     tableWidget->horizontalHeader()->setStretchLastSection(true);
 
     QLabel *textLabel = new QLabel;
@@ -77,7 +77,7 @@ void StatsFieldPerBandWidget::createUI()
 
 void StatsFieldPerBandWidget::prepareChart(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << endl;
+    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << Qt::endl;
 
     while(tableWidget->rowCount()>0)
     {

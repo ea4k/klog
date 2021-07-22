@@ -29,7 +29,7 @@
 
 SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << "SearchWindow::SearchWindow: "  << endl;
+    //qDebug() << "SearchWindow::SearchWindow: "  << Qt::endl;
     dataProxy = dp;
     showStationCallsignInHeader = true;
     //sortingThroughProxyModel = false;
@@ -49,7 +49,7 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
     createUI();
     createActions();
     setDefaultData();
-    //qDebug() << "SearchWindow::SearchWindow: - END"  << endl;
+    //qDebug() << "SearchWindow::SearchWindow: - END"  << Qt::endl;
 
 }
 
@@ -67,13 +67,13 @@ void SearchWindow::sortColumn(const int _c)
 
 void SearchWindow::clear()
 {
-      //qDebug() << "SearchWindow::clear "  << endl;
+      //qDebug() << "SearchWindow::clear "  << Qt::endl;
     qslingNeeded = false;
 }
 
 void SearchWindow::createUI()
 {
-      //qDebug() << "SearchWindow::createUI"  << endl;
+      //qDebug() << "SearchWindow::createUI"  << Qt::endl;
 
 
     //logView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -119,7 +119,7 @@ void SearchWindow::createUI()
 
 void SearchWindow::setDefaultData()
 {
-       //qDebug() << "SearchWindow::setDefaultData"  << endl;
+       //qDebug() << "SearchWindow::setDefaultData"  << Qt::endl;
 }
 
 void SearchWindow::setStationCallsignInHeader(const bool _h)
@@ -131,7 +131,7 @@ void SearchWindow::setStationCallsignInHeader(const bool _h)
 
 void SearchWindow::createlogPanel(const int _currentLog)
 {
-      //qDebug() << "SearchWindow::createlogPanel: " << QString::number(_currentLog) << endl;
+      //qDebug() << "SearchWindow::createlogPanel: " << QString::number(_currentLog) << Qt::endl;
     currentLog = _currentLog;
     searchModel->createSearchModel(currentLog);
 
@@ -147,7 +147,7 @@ void SearchWindow::createlogPanel(const int _currentLog)
     setColumnsToDX();
     sortColumn(1);  //Initial sort by column 1 (date & time)
 
-    //qDebug() << "SearchWindow::createlogPanel " << searchModel->record(0).field(1).value().toString() << endl;
+    //qDebug() << "SearchWindow::createlogPanel " << searchModel->record(0).field(1).value().toString() << Qt::endl;
     //logView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     //logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     //logView->resizeColumnsToContents();
@@ -158,12 +158,12 @@ void SearchWindow::createlogPanel(const int _currentLog)
     treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     //treeView->resizeColumnsToContents();
     //treeView->horizontalHeader()->setStretchLastSection(true);
-    treeView->sortByColumn(1);
+    treeView->sortByColumn(1, Qt::AscendingOrder);
 }
 
 void SearchWindow::setColumnsToDX()
 {
-      //qDebug() << "SearchWindow::setColumnsToDX"  << endl;
+      //qDebug() << "SearchWindow::setColumnsToDX"  << Qt::endl;
 
     QString stringQuery;
     //stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log LIMIT 1");
@@ -172,10 +172,10 @@ void SearchWindow::setColumnsToDX()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
 
-    //qDebug() << "SearchWindow::setColumnsToDX - Query: "  << query.lastQuery() << endl;
+    //qDebug() << "SearchWindow::setColumnsToDX - Query: "  << query.lastQuery() << Qt::endl;
     QSqlRecord rec;
     rec = query.record(); // Number of columns
     int columns = rec.count();
@@ -235,7 +235,7 @@ void SearchWindow::setColumnsToDX()
 
 void SearchWindow::refresh()
 {
-       //qDebug() << "SearchWindow::refresh"  << endl;
+       //qDebug() << "SearchWindow::refresh"  << Qt::endl;
 
     searchModel->select();
 }
@@ -257,7 +257,7 @@ void SearchWindow::createActionsCommon()
 
 void SearchWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-    //qDebug() << "SearchWindow::slotshowRighButtonFromLog: " << QString::number((treeView->indexAt(pos)).row())  << endl;
+    //qDebug() << "SearchWindow::slotshowRighButtonFromLog: " << QString::number((treeView->indexAt(pos)).row())  << Qt::endl;
     //int row = (logView->indexAt(pos)).row();
     int row = (treeView->indexAt(pos)).row();
     //int _qsoID = ((searchModel->index(row, 0)).data(0)).toInt();
@@ -268,10 +268,10 @@ void SearchWindow::slotRighButtonFromLog(const QPoint& pos)
 
 void SearchWindow::rightButtonFromLogMenu(const int row)
 {
-    //qDebug() << "SearchWindow::slotshowRighButtonFromLogMenu: QSO_id: " << QString::number(row) << endl;
+    //qDebug() << "SearchWindow::slotshowRighButtonFromLogMenu: QSO_id: " << QString::number(row) << Qt::endl;
 
     int _qsoID = ((searchModel->index(row, 0)).data(0)).toInt();
-    //qDebug() << "SearchWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << endl;
+    //qDebug() << "SearchWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << Qt::endl;
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
@@ -330,14 +330,14 @@ void SearchWindow::rightButtonFromLogMenu(const int row)
 
 void SearchWindow::slotDoubleClickLog(const QModelIndex & index)
 {
-    //qDebug() << "SearchWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << endl;
+    //qDebug() << "SearchWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << Qt::endl;
 
     int row = index.row();
     //qsoToEdit((searchModel->index(row, 0)).data(0).toInt());
     int qsoID = ((searchModel->index(row, Qt::DisplayRole)).data(0)).toInt();
 
-    //qDebug() << "SearchWindow::slotDoubleClickLog: n: " << QString::number (searchModel->data(index, Qt::DisplayRole).toInt()) << endl;
-    //qDebug() << "SearchWindow::slotDoubleClickLog: emitted: " << QString::number (((searchModel->index(row, Qt::DisplayRole)).data(0)).toInt()) << endl;
+    //qDebug() << "SearchWindow::slotDoubleClickLog: n: " << QString::number (searchModel->data(index, Qt::DisplayRole).toInt()) << Qt::endl;
+    //qDebug() << "SearchWindow::slotDoubleClickLog: emitted: " << QString::number (((searchModel->index(row, Qt::DisplayRole)).data(0)).toInt()) << Qt::endl;
 
     emit actionQSODoubleClicked(qsoID);
     //qsoToEdit((searchModel->index(row, 0)).data(0).toInt());
@@ -349,14 +349,14 @@ void SearchWindow::slotDoubleClickLog(const QModelIndex & index)
 
 bool SearchWindow::isQSLReceived(const int _qsoId)
 {
-       //qDebug() << "SearchWindow::isQSLReceived: " << QString::number(_qsoId) << endl;
+       //qDebug() << "SearchWindow::isQSLReceived: " << QString::number(_qsoId) << Qt::endl;
     return dataProxy->isQSOConfirmed(_qsoId, true, false); // We check just paper QSL
     //return dataProxy->isQSLReceived(_qsoId);
 }
 
 bool SearchWindow::isQSLSent(const int _qsoId)
 {
-       //qDebug() << "SearchWindow::isQSLSent: " << QString::number(_qsoId) << endl;
+       //qDebug() << "SearchWindow::isQSLSent: " << QString::number(_qsoId) << Qt::endl;
 
     return dataProxy->isQSLSent(_qsoId);
 }
@@ -364,7 +364,7 @@ bool SearchWindow::isQSLSent(const int _qsoId)
 
 void SearchWindow::showMenuRightButtonFromLogCreateActions()
 {
-   //qDebug() << "SearchWindow::showMenuRightButtonFromLogCreateActions" << endl;
+   //qDebug() << "SearchWindow::showMenuRightButtonFromLogCreateActions" << Qt::endl;
 
     delQSOFromLogAct = new QAction(tr("&Delete"), this);
     delQSOFromLogAct->setStatusTip(tr("Delete a QSO"));
@@ -427,7 +427,7 @@ void SearchWindow::showMenuRightButtonFromLogCreateActions()
 
 void SearchWindow::slotQSLSentViaBureauFromLog()
 {
-      //qDebug() << "SearchWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((searchModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+      //qDebug() << "SearchWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((searchModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << Qt::endl;
     int _qsoId = ((searchModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
     searchModel->select();
@@ -436,7 +436,7 @@ void SearchWindow::slotQSLSentViaBureauFromLog()
 
 void SearchWindow::slotQSLSentViaDirectFromLog()
 {
-       //qDebug() << "SearchWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((searchModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+       //qDebug() << "SearchWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((searchModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << Qt::endl;
      int _qsoId = ((searchModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
     dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
@@ -446,7 +446,7 @@ void SearchWindow::slotQSLSentViaDirectFromLog()
 
 void SearchWindow::slotQSLRecViaBureauFromLog()
 {
-      //qDebug() << "SearchWindow::slotQSLRecViaBureauFromLog: " << endl;
+      //qDebug() << "SearchWindow::slotQSLRecViaBureauFromLog: " << Qt::endl;
 
     int _qsoId = ((searchModel->index( ( (qslRecViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaBureau(_qsoId);
@@ -456,7 +456,7 @@ void SearchWindow::slotQSLRecViaBureauFromLog()
 
 void SearchWindow::slotQSLRecViaDirectFromLog()
 {
-       //qDebug() << "SearchWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((searchModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << endl;
+       //qDebug() << "SearchWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((searchModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << Qt::endl;
     int _qsoId = ((searchModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaDirect(_qsoId);
     searchModel->select();
@@ -466,7 +466,7 @@ void SearchWindow::slotQSLRecViaDirectFromLog()
 
 void SearchWindow::slotQSOToEditFromLog()
 {
-    //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << endl;
+    //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << Qt::endl;
 
     int QSOid = ((searchModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
     //int QSOid = qsoToEditFromLogAct->data().toInt();
@@ -479,7 +479,7 @@ void SearchWindow::slotQSOToEditFromLog()
 /*
 void SearchWindow::deleteQSO(const int _qsoID)
 {
-    //qDebug() << "SearchWindow::deleteQSO: " << QString::number(_qsoID) << endl;
+    //qDebug() << "SearchWindow::deleteQSO: " << QString::number(_qsoID) << Qt::endl;
 
     //int QSOid = (delQSOFromLogAct->data()).toInt();
     emit actionDeleteQSO(_qsoID);
@@ -500,12 +500,12 @@ void SearchWindow::deleteQSO(const int _qsoID)
 */
 void SearchWindow::slotQsoDeleteFromLog()
 {
-    //qDebug() << "SearchWindow::slotQsoDeleteFromLog: qsoID1: " << QString::number((delQSOFromLogAct->data()).toInt()) << endl;
+    //qDebug() << "SearchWindow::slotQsoDeleteFromLog: qsoID1: " << QString::number((delQSOFromLogAct->data()).toInt()) << Qt::endl;
     int QSOid = ((searchModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
 
     //int QSOid = (delQSOFromLogAct->data()).toInt();
-    //qDebug() << "SearchWindow::slotQsoDeleteFromLog: qsoID1: " << QString::number(QSOid) << endl;
-    //qDebug() << "SearchWindow::slotQsoDeleteFromLog: qsoID2: " << QString::number((delQSOFromLogAct->data()).toInt()) << endl;
+    //qDebug() << "SearchWindow::slotQsoDeleteFromLog: qsoID1: " << QString::number(QSOid) << Qt::endl;
+    //qDebug() << "SearchWindow::slotQsoDeleteFromLog: qsoID2: " << QString::number((delQSOFromLogAct->data()).toInt()) << Qt::endl;
     emit actionDeleteQSO(QSOid);
     searchModel->select();
 }
@@ -519,7 +519,7 @@ void SearchWindow::qslSentViaBureau(const int _qsoId)
 
 void SearchWindow::qslRecViaBureau(const int _qsoId)
 {
-   //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd") << endl;
+   //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd") << Qt::endl;
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
     awards->setAwards(_qsoId);   //Update the Award status
     searchModel->select();
@@ -537,15 +537,15 @@ void SearchWindow::qslRecViaDirect(const int _qsoId)
     emit updateAwards();
 }
 
-void SearchWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
+void SearchWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery)
 {
-    emit queryError(functionFailed, errorCodeS, errorCodeN, failedQuery);
+    emit queryError(functionFailed, errorCodeS, nativeError, failedQuery);
 }
 
 void SearchWindow::slotCheckQRZCom()
 {
     QString _qrz = ((searchModel->index( ( (checkQRZCOMFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
-    //qDebug() << "SearchWindow::sloTCheckQRZCom: " << _qrz << endl;
+    //qDebug() << "SearchWindow::sloTCheckQRZCom: " << _qrz << Qt::endl;
     QString url = "https://www.qrz.com/db/" + _qrz;
 
     QDesktopServices::openUrl(QUrl(url));
@@ -557,23 +557,23 @@ void SearchWindow::slotCheckDXHeatCom()
     //int _qsoId = ((searchModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
     QString _qrz = ((searchModel->index( ( (checkDXHeatFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
-      //qDebug() << "SearchWindow::slotCheckDXHeatCom(): " << _qrz << endl;
+      //qDebug() << "SearchWindow::slotCheckDXHeatCom(): " << _qrz << Qt::endl;
     QString url = "https://www.dxheat.com/db/" + _qrz;
     QDesktopServices::openUrl(QUrl(url));
 }
 
 void SearchWindow::setFilterString(const QString &_st)
 {
-    //qDebug() << "SearchWindow::setFilterString: " << _st << endl;
+    //qDebug() << "SearchWindow::setFilterString: " << _st << Qt::endl;
     searchModel->setFilterString(_st);
 
 
-    //qDebug() << "SearchWindow::setFilterString: - END "  << endl;
+    //qDebug() << "SearchWindow::setFilterString: - END "  << Qt::endl;
 }
 
 void SearchWindow::selectAll()
 {
-    //qDebug() << "SearchWindow::selectAll: " << QString::number(searchModel->rowCount()) << endl;
+    //qDebug() << "SearchWindow::selectAll: " << QString::number(searchModel->rowCount()) << Qt::endl;
     int rowCount = searchModel->rowCount();
      //logView->selectAll();
      treeView->selectAll();
@@ -587,7 +587,7 @@ void SearchWindow::selectAll()
 
 void SearchWindow::clearSelection()
 {
-    //qDebug() << "SearchWindow::clearSelection" << endl;
+    //qDebug() << "SearchWindow::clearSelection" << Qt::endl;
     //logView->clearSelection();
     treeView->clearSelection();
 
@@ -595,7 +595,7 @@ void SearchWindow::clearSelection()
 
 QList<int> SearchWindow::getSelectedQSOs()
 {
-    //qDebug() << "SearchWindow::getSelectedQSOs: (Total: " << QString::number(searchModel->rowCount()) << ")"<< endl;
+    //qDebug() << "SearchWindow::getSelectedQSOs: (Total: " << QString::number(searchModel->rowCount()) << ")"<< Qt::endl;
     QList<int> selectedQSOs;
 
     //QModelIndexList selection = //logView->selectionModel()->selectedRows();
@@ -607,7 +607,7 @@ QList<int> SearchWindow::getSelectedQSOs()
         qsoID = ((searchModel->index(row, 0)).data(0)).toInt();
         selectedQSOs.append(qsoID);
     }
-    //qDebug() << "SearchWindow::getSelectedQSOs: (Selected: (" << QString::number(selectedQSOs.count()) << ")" << endl;
+    //qDebug() << "SearchWindow::getSelectedQSOs: (Selected: (" << QString::number(selectedQSOs.count()) << ")" << Qt::endl;
     return selectedQSOs;
 
 }
@@ -637,7 +637,7 @@ void SearchWindow::setNeedingQSL(bool const _q)
 
 void SearchWindow::slotToolSearchQSL(const int actionQSL)
 {
-    //qDebug() << "SearchWidget::slotToolSearchQSL: " << QString::number(actionQSL) << " - LogNumber: " << QString::number(currentLog) << endl;
+    //qDebug() << "SearchWidget::slotToolSearchQSL: " << QString::number(actionQSL) << " - LogNumber: " << QString::number(currentLog) << Qt::endl;
     // 2 means QSL_RCVD = 'R'
     QString stringQuery = QString();
     QString message = QString();
@@ -650,7 +650,7 @@ void SearchWindow::slotToolSearchQSL(const int actionQSL)
     switch (actionQSL)
     {
         case 0://void searchToolNeededQSLToSend();
-            //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 0" << endl;
+            //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 0" << Qt::endl;
 
 
             stringQuery = QString("SELECT call, qso_date,dxcc, bandid, modeid, qsl_sent, qsl_rcvd, lotw_qsl_rcvd, station_callsign, id FROM log WHERE (qsl_rcvd<>'Y' AND lotw_qsl_rcvd<>'Y') AND qsl_sent<>'Y' AND qsl_sent<>'Q' AND qsl_sent<>'R' AND lognumber='%1' AND (bandid, dxcc) NOT IN (SELECT distinct bandid, dxcc from log WHERE qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')").arg(currentLog);
@@ -661,22 +661,22 @@ void SearchWindow::slotToolSearchQSL(const int actionQSL)
             emit requestFocus();
         break;
         case 1:
-               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 1" << endl;
+               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 1" << Qt::endl;
             filter = QString("qsl_sent=='R' AND lognumber='%1'").arg(currentLog);
             message = tr("My QSL requested to be sent");
         break;
         case 2://void slotToolSearchNeededQSLPendingToReceive();
-               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 2" << endl;
+               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 2" << Qt::endl;
             filter = QString("lognumber='%1' AND ( (qsl_sent='Y' AND qsl_rcvd!='Y' AND qsl_rcvd!='I') OR qsl_rcvd='R')").arg(currentLog);
             message = tr("DX QSL pending to be received");
         break;
     case 3://void slotToolSearchNeededQSLRequested()
-               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 3" << endl;
+               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE 3" << Qt::endl;
         filter = QString("WHERE lognumber='%1' AND  qsl_rcvd='R'").arg(currentLog);
         message = tr("DX QSL pending to be received");
     break;
         default:
-               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE DEFAULT" << endl;
+               //qDebug() << "SearchWidget::slotToolSearchQSL: CASE DEFAULT" << Qt::endl;
         // should never be reached
             return;
 //        break;
@@ -690,14 +690,14 @@ void SearchWindow::slotToolSearchQSL(const int actionQSL)
 
 void SearchWindow::searchToolNeededQSLToSend()
 {
-       //qDebug() << "SearchWidget::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << endl;
+       //qDebug() << "SearchWidget::slotToolSearchQSLToSend - TO PREPARE THE QUERY and optimize the function" << Qt::endl;
     slotToolSearchQSL(0);
-       //qDebug() << "SearchWidget::slotToolSearchQSLToSend - END" << endl;
+       //qDebug() << "SearchWidget::slotToolSearchQSLToSend - END" << Qt::endl;
 }
 
 void SearchWindow::slotQSLSentMarkAsRequested()
 {
-    //qDebug() << "SearchWindow::slotQSLSentMarkAsRequested: " << QString::number( (qslSentRequestedAct->data()).toInt() ) << endl;
+    //qDebug() << "SearchWindow::slotQSLSentMarkAsRequested: " << QString::number( (qslSentRequestedAct->data()).toInt() ) << Qt::endl;
    // bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
     int _qsoId = ((searchModel->index((qslSentRequestedAct->data()).toInt(), 0)).data(0)).toInt();
 
@@ -715,7 +715,7 @@ void SearchWindow::slotQSLSentMarkAsRequested()
 
 void SearchWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
 {
-       //qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << endl;
+       //qDebug() << "slotQSLSentViaDirectMarkDXReqFromSearch: " << Qt::endl;
     int _qsoId = ((searchModel->index((qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt(), 0)).data(0)).toInt();
     //int _qsoId = (qslSentViaDirectMarkRcvReqFromSearchAct->data()).toInt();
 
@@ -737,7 +737,7 @@ void SearchWindow::slotQSLSentViaDirectMarkDXReqFromSearch()
 
 void SearchWindow::slotQSLSentViaBureauMarkDXReqFromSearch()
 {
-    //qDebug() << "slotQSLSentViaBureauMarkDXReqFromSearch: " << QString::number( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt() ) << endl;
+    //qDebug() << "slotQSLSentViaBureauMarkDXReqFromSearch: " << QString::number( (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt() ) << Qt::endl;
      //int _qsoId = (qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt();
     int _qsoId = ((searchModel->index((qslSentViaBureauMarkRcvReqFromSearchAct->data()).toInt(), 0)).data(0)).toInt();
     dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
@@ -753,39 +753,39 @@ void SearchWindow::slotQSLSentViaBureauMarkDXReqFromSearch()
         emit updateSearchText();
     }
     searchModel->select();
-    //qDebug() << "slotQSLSentViaBureauMarkDXReqFromSearch: - END " << endl;
+    //qDebug() << "slotQSLSentViaBureauMarkDXReqFromSearch: - END " << Qt::endl;
     // Mark Sent, Bureau, date, update log.
 
 }
 
 void SearchWindow::slotQSLRecViaBureauMarkReqFromSearch()
 {
-    //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog -  Start" << endl;
+    //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog -  Start" << Qt::endl;
     //int _qsoId = (qslRecViaBureauMarkReqFromSearchAct->data()).toInt();
     int _qsoId = ((searchModel->index((qslRecViaBureauMarkReqFromSearchAct->data()).toInt(), 0)).data(0)).toInt();
-       //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 01" << endl;
+       //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 01" << Qt::endl;
     //qslRecViaBureauMarkReq(_qsoId);
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), true);
-       //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 02: n: " << QString::number(_qsoId) << endl;
+       //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 02: n: " << QString::number(_qsoId) << Qt::endl;
     if(qslingNeeded)
     {
-           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 03" << endl;
+           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 03" << Qt::endl;
         slotToolSearchQSL(0);
-           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 04" << endl;
+           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 04" << Qt::endl;
     }
     else
     {
-           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 05" << endl;
+           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 05" << Qt::endl;
         emit updateSearchText();
-           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 06" << endl;
+           //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 06" << Qt::endl;
     }
     searchModel->select();
-       //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 07" << endl;
+       //qDebug() << "SearchWidget::slotQSLRecViaBureauMarkReqFromLog: 07" << Qt::endl;
 }
 
 void SearchWindow::slotQSLRecViaDirectMarkReqFromSearch()
 {
-       //qDebug() << "SearchWidget::slotQSLRecViaDirectFromLog: " << endl;
+       //qDebug() << "SearchWidget::slotQSLRecViaDirectFromLog: " << Qt::endl;
      //int _qsoId = (qslRecViaDirectMarkReqFromSearchAct->data()).toInt();
      int _qsoId = ((searchModel->index((qslRecViaDirectMarkReqFromSearchAct->data()).toInt(), 0)).data(0)).toInt();
     //qslRecViaDirectMarkReq(_qsoId);
@@ -805,23 +805,23 @@ void SearchWindow::slotQSLRecViaDirectMarkReqFromSearch()
 /*
  void SearchWindow::qslRecViaBureauMarkReq(const int _qsoId)
 {
-    //qDebug() << "SearchWidget::qslRecViaBureau: " << QString::number(_qsoId) << "/" << QDate::currentDate() << endl;
+    //qDebug() << "SearchWidget::qslRecViaBureau: " << QString::number(_qsoId) << "/" << QDate::currentDate() << Qt::endl;
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), true);
-    //qDebug() << "SearchWidget::qslRecViaBureau: END" << endl;
+    //qDebug() << "SearchWidget::qslRecViaBureau: END" << Qt::endl;
 }
 */
 
 /*
 void SearchWindow::qslRecViaDirectMarkReq(const int _qsoId)
 {
-    //qDebug() << "SearchWidget::qslRecViaDirect: " << QString::number(_qsoId) << endl;
+    //qDebug() << "SearchWidget::qslRecViaDirect: " << QString::number(_qsoId) << Qt::endl;
     dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), true);
 }
 */
 /*
 void SearchWindow::colorTheList()
 {
-    //qDebug() << "SearchWidget::colorTheList: " << QString::number(treeView->model()->rowCount()) << endl;
+    //qDebug() << "SearchWidget::colorTheList: " << QString::number(treeView->model()->rowCount()) << Qt::endl;
     for (int i = 0; i < treeView->model()->rowCount(); i++)
     {
 
@@ -833,7 +833,7 @@ void SearchWindow::colorTheList()
 
        QColor color = QColor(Qt::blue);
         //searchModel->setItemData(searchModel->index(i, 2), color);
-        //qDebug() << "SearchWidget::colorTheList: " << _qrz << endl;
+        //qDebug() << "SearchWidget::colorTheList: " << _qrz << Qt::endl;
     }
 
 }
@@ -841,7 +841,7 @@ void SearchWindow::colorTheList()
 
 void SearchWindow::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
-       //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
+       //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << Qt::endl;
     // Just to pass the colors to the awards class
     searchModel->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
 }

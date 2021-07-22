@@ -146,7 +146,7 @@ void tst_Utilities::test_isValidCall()
     // and  a  single  digit,
     // followed  by  a  group  of  not  more  than  four  characters,
     // the last of which shall be a letter,
-    //qDebug() << Q_FUNC_INFO << " 1 Letter" << endl;
+    //qDebug() << Q_FUNC_INFO << " 1 Letter" << Qt::endl;
     QVERIFY2(util->isValidCall("B1A") == true, "B1A");
     QVERIFY2(util->isValidCall("B1AA") == true, "B1AA");
     QVERIFY2(util->isValidCall("B1AAA") == true, "B1AAA");
@@ -166,7 +166,7 @@ void tst_Utilities::test_isValidCall()
 
     //2) or–two characters and a single digit,
     // followed by a group of not more than four characters, the last of which shall be a letter.
-    //qDebug() << Q_FUNC_INFO << " 2 Letters" << endl;
+    //qDebug() << Q_FUNC_INFO << " 2 Letters" << Qt::endl;
     QVERIFY2(util->isValidCall("EA4K") == true, "EA4K");
     QVERIFY2(util->isValidCall("EA4KK") == true, "EA4KK");
     QVERIFY2(util->isValidCall("EA4KKK") == true, "EA4KKK");
@@ -179,7 +179,7 @@ void tst_Utilities::test_isValidCall()
 
     // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
-    //qDebug() << Q_FUNC_INFO << " Complex" << endl;
+    //qDebug() << Q_FUNC_INFO << " Complex" << Qt::endl;
     QVERIFY2(util->isValidCall("EA4K/P") == true, "EA4K/P");
     QVERIFY2(util->isValidCall("K/EA4K/P") == true, "EA4K/P");
     QVERIFY2(util->isValidCall("EA4K/F") == true, "EA4K/F");
@@ -189,7 +189,7 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("K/EA4K") == true, "K/EA4K");
     // TODO: FIX the isValidCall to cover this case
     //QVERIFY(util->isValidCall("1/EA4K") == false);
-    //qDebug() << Q_FUNC_INFO << " Wrong calls" << endl;
+    //qDebug() << Q_FUNC_INFO << " Wrong calls" << Qt::endl;
     QVERIFY2(util->isValidCall("EA") == false, "EA");
     QVERIFY2(util->isValidCall("EA4") == false, "EA4");
     QVERIFY2(util->isValidCall("-") == false, "-");
@@ -244,7 +244,7 @@ void tst_Utilities::test_isValidADIFField()
 
 void tst_Utilities::test_getPrefixFromCall()
 {
-    //qDebug() << Q_FUNC_INFO << " - K1AA: " << util->getPrefixFromCall ("K1AA") << endl;
+    //qDebug() << Q_FUNC_INFO << " - K1AA: " << util->getPrefixFromCall ("K1AA") << Qt::endl;
     QVERIFY2(util->getPrefixFromCall("K1AA") == "K1", "Wrong prefix 1" );
     QVERIFY2(util->getPrefixFromCall("EA4K") == "EA4", "Wrong prefix 2" );
     QVERIFY2(util->getPrefixFromCall("2E1AA") == "2E1", "Wrong prefix 2 Numb" );

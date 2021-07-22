@@ -230,7 +230,7 @@ private:
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
 
-    void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
 
 
 
@@ -263,7 +263,7 @@ private:
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
 //signals:
-    //void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    //void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     //void debugLog(QString functionFailed, QString errorCode, int level); // emitted when a function retuns false due to an error
 
 

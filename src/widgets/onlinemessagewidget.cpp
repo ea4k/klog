@@ -76,6 +76,5 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
 
 QString OnlineMessageWidget::translate(const QString _msg)
 {
-
-
+    return _msg;
 }

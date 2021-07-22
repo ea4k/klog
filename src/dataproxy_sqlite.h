@@ -299,7 +299,7 @@ public:
     //bool addRegionalAward(RegionalAward _regionalAward);
     bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);
 
-    void getFoundInLog(const QString &_txt, const int _log=-1);
+    //void getFoundInLog(const QString &_txt, const int _log=-1);
     QString getADIFQSO(const int _qsoId);
     bool showInvalidCallMessage(const QString &_call);
 
@@ -332,7 +332,7 @@ private slots:
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog(QString functionFailed, QString errorCode, DebugLogLevel level); // emitted as the KLog application log
 
 };

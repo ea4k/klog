@@ -27,7 +27,7 @@
 
 SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-      //qDebug() << "SetupPageHamLib::SetupPageHamLib" << endl;
+      //qDebug() << "SetupPageHamLib::SetupPageHamLib" << Qt::endl;
     ready = false;
     hamlibTestOK = false;
     hamlib = new HamLibClass();
@@ -75,7 +75,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     setDefaults();
     ready = true;
     slotTestHamlib();
-    //qDebug() << "SetupPageHamLib::SetupPageHamLib END" << endl;
+    //qDebug() << "SetupPageHamLib::SetupPageHamLib END" << Qt::endl;
 }
 
 void SetupPageHamLib::slotTestHamlib()
@@ -124,7 +124,7 @@ void SetupPageHamLib::slotTestHamlib()
 
 void SetupPageHamLib::fillSerialPortsComboBox()
 {
-      //qDebug() << "SetupPageHamLib::fillSerialPortsComboBox" << endl;
+      //qDebug() << "SetupPageHamLib::fillSerialPortsComboBox" << Qt::endl;
     serialPortComboBox->clear();
     serialPortComboBox->addItems(getAvailableSerialPorts());
     //serialPortComboBox->setCurrentIndex(0);
@@ -329,16 +329,16 @@ void SetupPageHamLib::createUI()
 
 void SetupPageHamLib::setRig()
 {
-   //qDebug()() << "SetupPageHamLib::SetRig" << endl;
+   //qDebug()() << "SetupPageHamLib::SetRig" << Qt::endl;
   // Rutine to fill the rig combo boxes
   // Do not display debug codes when load the rig's
     QStringList rigs;
     rigs.clear();
     rigs << hamlib->getRigList();
-   //qDebug()() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << endl;
+   //qDebug()() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << Qt::endl;
     rigTypeComboBox->clear();
     rigTypeComboBox->addItems(rigs);
-    //qDebug() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << endl;
+    //qDebug() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << Qt::endl;
     //rigTypeComboBox->insertItems(0, rigs);
 /*
     rig_set_debug (RIG_DEBUG_NONE);
@@ -350,16 +350,16 @@ void SetupPageHamLib::setRig()
   rigTypeComboBox->insertItems (0, strings);
   strings.clear ();
   */
-   //qDebug()() << "SetupPageHamLib::SetRig - END" << endl;
+   //qDebug()() << "SetupPageHamLib::SetRig - END" << Qt::endl;
 }
 /*
 int SetupPageHamLib::addRigToList (const struct rig_caps *caps, void *data)
 {
-      //qDebug() << "SetupPageHamLib::addRigToList" << endl;
+      //qDebug() << "SetupPageHamLib::addRigToList" << Qt::endl;
   QString name;
   SetupPageHamLib *r = (SetupPageHamLib *) data;
   name = caps->model_name;
-    //qDebug() << "SetupPageHamLib::addRigToList: " << name << endl;
+    //qDebug() << "SetupPageHamLib::addRigToList: " << name << Qt::endl;
   //if (name == "Dummy")
   //  name = "None";
   //r->rigname2rigid[name] = caps->rig_model;
@@ -402,7 +402,7 @@ void SetupPageHamLib::setDefaults()
 
 QString SetupPageHamLib::getData()
 {
-      //qDebug() << "SetupPageHamLib::getData" << endl;
+      //qDebug() << "SetupPageHamLib::getData" << Qt::endl;
     QString _output;
     _output.clear();
     QString _rigType, _serialPort, _baudsSpeed;//, dataBits, stopBits, handshake, flowControlLine;
@@ -449,10 +449,10 @@ QString SetupPageHamLib::getData()
 
 bool SetupPageHamLib::setRigType(const QString &_radio)
 {
-      //qDebug() << "SetupPageHamLib::setRig: " << _radio << endl;
+      //qDebug() << "SetupPageHamLib::setRig: " << _radio << Qt::endl;
 
     int _index = rigTypeComboBox->findText(hamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
-      //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << endl;
+      //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << Qt::endl;
     if (_index >= 0)
     {
         rigTypeComboBox->setCurrentIndex(_index);
@@ -497,7 +497,7 @@ bool SetupPageHamLib::setSerialSpeed(const QString &_speed )
 
 void SetupPageHamLib::setActive(const QString &_active)
 {
-      //qDebug() << "SetupPageHamLib::setActive: " << _active << endl;
+      //qDebug() << "SetupPageHamLib::setActive: " << _active << Qt::endl;
 
     if (_active.toUpper() == "TRUE")
     {
@@ -521,14 +521,14 @@ void SetupPageHamLib::setReadOnly(const QString &_m)
 
 void SetupPageHamLib::slotScanPorts()
 {
-      //qDebug() << "SetupPageHamLib::slotScanPorts"  << endl;
+      //qDebug() << "SetupPageHamLib::slotScanPorts"  << Qt::endl;
     fillSerialPortsComboBox();
 }
 
 //DataBits { Data5, Data6, Data7, Data8, UnknownDataBits }
 QString SetupPageHamLib::getDataBits()
 {
-      //qDebug() << "SetupPageHamLib::getDataBits"  << endl;
+      //qDebug() << "SetupPageHamLib::getDataBits"  << Qt::endl;
     int ret = dataBitsComboBox->currentIndex();
     QString output;
     output = "HamLibSerialDataBits=";
@@ -536,23 +536,23 @@ QString SetupPageHamLib::getDataBits()
     {
         case 0:
             output = output + "5";
-              //qDebug() << "SetupPageHamLib::getDataBits-0-5"  << endl;
+              //qDebug() << "SetupPageHamLib::getDataBits-0-5"  << Qt::endl;
         break;
         case 1:
             output = output + "6";
-              //qDebug() << "SetupPageHamLib::getDataBits-1-6"  << endl;
+              //qDebug() << "SetupPageHamLib::getDataBits-1-6"  << Qt::endl;
         break;
         case 2:
             output = output + "7";
         break;
-              //qDebug() << "SetupPageHamLib::getDataBits-2-7"  << endl;
+              //qDebug() << "SetupPageHamLib::getDataBits-2-7"  << Qt::endl;
         case 3:
             output = output + "8";
-              //qDebug() << "SetupPageHamLib::getDataBits-3-8"  << endl;
+              //qDebug() << "SetupPageHamLib::getDataBits-3-8"  << Qt::endl;
         break;
         default:
         // should never be reached
-              //qDebug() << "SetupPageHamLib::getDataBits-d-8"  << endl;
+              //qDebug() << "SetupPageHamLib::getDataBits-d-8"  << Qt::endl;
             output = output + "8";
         break;
     }

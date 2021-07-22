@@ -28,7 +28,7 @@
 
 SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << endl;
+       //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor"  << Qt::endl;
     //worldPanel = new QWidget;
     dataProxy = dp;
     world = new World(dataProxy, Q_FUNC_INFO);
@@ -123,12 +123,12 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent
         }
 
     }
-       //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor - END"  << endl;
+       //qDebug() << "SetupPageWorldEditor::SetupPageWorldEditor - END"  << Qt::endl;
 }
 
 SetupPageWorldEditor::~SetupPageWorldEditor()
 {
-       //qDebug() << "SetupPageWorldEditor::~SetupPageWorldEditor"  << endl;
+       //qDebug() << "SetupPageWorldEditor::~SetupPageWorldEditor"  << Qt::endl;
 
 }
 
@@ -235,7 +235,7 @@ void SetupPageWorldEditor::createWorldModel()
 
 void SetupPageWorldEditor::createActions()
 {
-       //qDebug() << "SetupPageWorldEditor::createActions" << endl;
+       //qDebug() << "SetupPageWorldEditor::createActions" << Qt::endl;
     connect(addEntityPushButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()) );
     connect(delEntityPushButton, SIGNAL(clicked()), this, SLOT(slotDelButtonClicked()) );
     connect(editEntityPushButton, SIGNAL(clicked()), this, SLOT(slotEditButtonClicked()) );
@@ -267,7 +267,7 @@ void SetupPageWorldEditor::slotAnalyzeEntityAddedSignal(const QStringList _qs)
                 _qs.at(7) << "\n" <<
                 _qs.at(8) << "\n" <<
                 _qs.at(9) << "\n" <<
-                _qs.at(10) << "\n" << endl;
+                _qs.at(10) << "\n" << Qt::endl;
                 */
 }
 
@@ -287,27 +287,27 @@ bool SetupPageWorldEditor::isWorldEmpty()
 
 void SetupPageWorldEditor::slotAddButtonClicked()
 {
-       //qDebug() << "SetupPageWorldEditor::slotAddButtonClicked" << endl;
+       //qDebug() << "SetupPageWorldEditor::slotAddButtonClicked" << Qt::endl;
     setupEntityDialog->exec();
     //TODO
 }
 
 void SetupPageWorldEditor::slotDelButtonClicked()
 {
-       //qDebug() << "SetupPageWorldEditor::slotDelButtonClicked" << endl;
+       //qDebug() << "SetupPageWorldEditor::slotDelButtonClicked" << Qt::endl;
     //TODO
 }
 
 void SetupPageWorldEditor::slotEditButtonClicked()
 {
-       //qDebug() << "SetupPageWorldEditor::slotEditButtonClicked" << endl;
+       //qDebug() << "SetupPageWorldEditor::slotEditButtonClicked" << Qt::endl;
     //TODO
 }
 
 /*
 void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
 {
-       //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity" << endl;
+       //qDebug() << "SetupPageWorldEditor::slotDoubleClickEntity" << Qt::endl;
     //TODO
 
     //QSqlQuery query;
@@ -319,7 +319,7 @@ void SetupPageWorldEditor::slotDoubleClickEntity( const QModelIndex & index)
 
 void SetupPageWorldEditor::slotImportWorldButtonClicked()
 {
-       //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked" << endl;
+       //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked" << Qt::endl;
     QString klogDir;
     klogDir = util->getHomeDir();
     QString worldFile;
@@ -327,7 +327,7 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
     worldFile = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, tr("BigCTY (*.csv)"));
 
     QMessageBox msgBox;
-       //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked: " << worldFile << endl;
+       //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked: " << worldFile << Qt::endl;
 
     if (world->recreate(worldFile) )
     {
@@ -344,7 +344,7 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
 
 
     msgBox.exec();
-       //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END" << endl;
+       //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END" << Qt::endl;
 }
 
 

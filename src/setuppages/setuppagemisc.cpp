@@ -31,7 +31,7 @@
 //      instead. It is easy to change but the code would not be so clear... Think about this. :-)
 
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
-       //qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
+       //qDebug() << "SetupPageMisc::SetupPageMisc" << Qt::endl;
 
     util = new Utilities;
 
@@ -74,11 +74,11 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     {
         moveDBPushButton->setEnabled(true);
     }
-       //qDebug() << "SetupPageMisc::SetupPageMisc - END" << endl;
+       //qDebug() << "SetupPageMisc::SetupPageMisc - END" << Qt::endl;
 }
 
 SetupPageMisc::~SetupPageMisc(){
-       //qDebug() << "SetupPageMisc::~SetupPageMisc" << endl;
+       //qDebug() << "SetupPageMisc::~SetupPageMisc" << Qt::endl;
 }
 
 void SetupPageMisc::createUI()
@@ -90,11 +90,11 @@ void SetupPageMisc::createUI()
 
     //TODO: To be removed when the defaultDir is saved in the config file
     #ifdef Q_OS_WIN
-       //qDebug() << "WINDOWS DETECTED!"  << endl;
+       //qDebug() << "WINDOWS DETECTED!"  << Qt::endl;
     klogDir = util->getHomeDir();  // We create the \klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #else
-       //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+       //qDebug() << "NO WINDOWS DETECTED!"  << Qt::endl;
     klogDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #endif
@@ -205,7 +205,7 @@ void SetupPageMisc::createActions(){
 void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
 
     deleteAlwaysAdiFileCheckBox->setChecked(_t);
-    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << endl;
+    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << Qt::endl;
 }
 
 QString SetupPageMisc::getDeleteAlwaysAdiFile(){
@@ -260,7 +260,7 @@ QString SetupPageMisc::getDefaultFileName()
 }
 void SetupPageMisc::setDefaultFileName(const QString &_t)
 {
-       //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t << endl;
+       //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t << Qt::endl;
     defaultFileName = _t;
     defaultFileNameLineEdit->setText(defaultFileName);
 }
@@ -301,7 +301,7 @@ void SetupPageMisc::setImperial(const QString &_t)
 
 void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
 {
-       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged" << endl;
+       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged" << Qt::endl;
 
     if (state)
     {
@@ -457,7 +457,7 @@ void SetupPageMisc::slotDBButtonClicked()
 
 void SetupPageMisc::slotDBLineEditChanged()
 {
-       //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
+       //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << Qt::endl;
     QString aux;
     aux = dbPathLineEdit->text();
 
@@ -492,15 +492,15 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - Move DB"));
 
-       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
-       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
+       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << Qt::endl;
+       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << Qt::endl;
     if ( QFile::exists(dbDirNew) )
     {
         //dbDirCurrent
         //dbDir
         if (QFile::exists(target))
         {
-            //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+            //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << Qt::endl;
         }
         if (QFile::copy(source, target))
         {
@@ -536,7 +536,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 
             if (QFile::exists(target))
             {
-                //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+                //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << Qt::endl;
 
                 msgBox.setText(tr("File already exist."));
                 msgBox.setDetailedText(tr("The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file."));

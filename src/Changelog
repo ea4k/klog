@@ -1,3 +1,6 @@
+TBD - 1.8
+- Code updated to Qt 5.12.2.
+
 July 2021 - 1.7
 - Bugfix: RealTime remained checked when editing.
 - Bugfix: Some Hamlib parameters were not properly stored.

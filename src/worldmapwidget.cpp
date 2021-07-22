@@ -28,7 +28,7 @@
 
 WorldMapWidget::WorldMapWidget() // : mapLabel (new QLabel), scrollArea (new QScrollArea), scaleFactor(1)
 {
-       //qDebug() << "WorldMapWidget::WorldMapWidget"  << endl;
+       //qDebug() << "WorldMapWidget::WorldMapWidget"  << Qt::endl;
     scrollArea = new QScrollArea;
     mapQImage = new QImage;
 
@@ -59,58 +59,58 @@ WorldMapWidget::WorldMapWidget() // : mapLabel (new QLabel), scrollArea (new QSc
     //layout->addWidget(mapLabel);
     //setLayout(layout);
 
-      //qDebug() << "WorldMapWidget::WorldMapWidget - END"  << endl;
+      //qDebug() << "WorldMapWidget::WorldMapWidget - END"  << Qt::endl;
 }
 
 WorldMapWidget::~WorldMapWidget()
 {
-       //qDebug() << "WorldMapWidget::~WorldMapWidget"  << endl;
+       //qDebug() << "WorldMapWidget::~WorldMapWidget"  << Qt::endl;
 }
 
 void WorldMapWidget::loadMap()
 {
-      //qDebug() << "WorldMapWidget::loadMap"  << endl;
+      //qDebug() << "WorldMapWidget::loadMap"  << Qt::endl;
 
     mapQImage->load(":/img/worldmap.j");
     *mapQImage = mapQImage->convertToFormat(QImage::Format_RGB32);
-       //qDebug() << "WorldMapWidget::loadMap-10"  << endl;
+       //qDebug() << "WorldMapWidget::loadMap-10"  << Qt::endl;
 
     //mapLabel->setPixmap(QPixmap::fromImage(*mapQImage));
     //mapLabel->setWordWrap(true);
-      //qDebug() << "WorldMapWidget::loadMap-11"  << endl;
+      //qDebug() << "WorldMapWidget::loadMap-11"  << Qt::endl;
     scaleFactor = 1.0;
-      //qDebug() << "WorldMapWidget::loadMap-12"  << endl;
+      //qDebug() << "WorldMapWidget::loadMap-12"  << Qt::endl;
 
     fitToWindowAct->setEnabled(true);
-      //qDebug() << "WorldMapWidget::loadMap-13"  << endl;
+      //qDebug() << "WorldMapWidget::loadMap-13"  << Qt::endl;
     updateActions();
-      //qDebug() << "WorldMapWidget::loadMap-14"  << endl;
+      //qDebug() << "WorldMapWidget::loadMap-14"  << Qt::endl;
    // mapNormalizeSize();
 
     if (!fitToWindowAct->isChecked())
     {
         mapLabel->adjustSize();
     }
-      //qDebug() << "WorldMapWidget::loadMap-15"  << endl;
+      //qDebug() << "WorldMapWidget::loadMap-15"  << Qt::endl;
 
     width = mapQImage->width();
     height = mapQImage->height();
 
     setImage(*mapQImage);
-      //qDebug() << "WorldMapWidget::loadMap-Size: " << QString::number(mapQImage->width()) <<"/" << QString::number(mapQImage->height()) << endl;
+      //qDebug() << "WorldMapWidget::loadMap-Size: " << QString::number(mapQImage->width()) <<"/" << QString::number(mapQImage->height()) << Qt::endl;
 
 
 
 
     //*mapQImage = mapQImage->scaledToWidth(1260);
 
-     //qDebug() << "WorldMapWidget::loadMap-reSize: " << QString::number(mapQImage->width()) <<"/" << QString::number(mapQImage->height()) << endl;
+     //qDebug() << "WorldMapWidget::loadMap-reSize: " << QString::number(mapQImage->width()) <<"/" << QString::number(mapQImage->height()) << Qt::endl;
 
 }
 
 void WorldMapWidget::drawLocator(const int _x, const int _y, const int _width, const int _height, const bool _confirmed)
 {
-      //qDebug() << "WorldMapWidget::drawLocator: " << QString::number(_x) << QString::number(_y) << QString::number(_width) << QString::number(_height)  << endl;
+      //qDebug() << "WorldMapWidget::drawLocator: " << QString::number(_x) << QString::number(_y) << QString::number(_width) << QString::number(_height)  << Qt::endl;
     QPainter qPainter(mapQImage);
     //qPainter.setBrush(Qt::Dense4Pattern);
 
@@ -131,12 +131,12 @@ void WorldMapWidget::drawLocator(const int _x, const int _y, const int _width, c
 
     qPainter.end();
     setImage(*mapQImage);
-      //qDebug() << "WorldMapWidget::drawLocator-END"  << endl;
+      //qDebug() << "WorldMapWidget::drawLocator-END"  << Qt::endl;
 }
 
 void WorldMapWidget::drawLocatorText (const int _x, const int _y, const QString &loc, const bool _confirmed)
 {
-      //qDebug() << "WorldMapWidget::Text"  << endl;
+      //qDebug() << "WorldMapWidget::Text"  << Qt::endl;
     QPainter qPainter(mapQImage);
     qPainter.setFont(QFont("Arial", 12, QFont::Bold));
     if (_confirmed)
@@ -151,13 +151,13 @@ void WorldMapWidget::drawLocatorText (const int _x, const int _y, const QString 
     qPainter.drawText(_x+2,_y-2, loc);
     qPainter.end();
     setImage(*mapQImage);
-      //qDebug() << "WorldMapWidget::Text-END"  << endl;
+      //qDebug() << "WorldMapWidget::Text-END"  << Qt::endl;
 
 }
 
 void WorldMapWidget::drawLocators()
 {
-      //qDebug() << "WorldMapWidget::drawLocators"  << endl;
+      //qDebug() << "WorldMapWidget::drawLocators"  << Qt::endl;
     if (width < 18 || height < 18)
     {
         return;
@@ -171,14 +171,14 @@ void WorldMapWidget::drawLocators()
         {
             x1 = (i * (width / 180));
             y1 = height - ((1+j) * (height / 180));
-              //qDebug() << "WorldMapWidget::drawLocators: " << QString::number(x1) << "/" << QString::number(y1) << "/" <<QString::number(width/18) << "/" << QString::number(height/18)  << endl;
+              //qDebug() << "WorldMapWidget::drawLocators: " << QString::number(x1) << "/" << QString::number(y1) << "/" <<QString::number(width/18) << "/" << QString::number(height/18)  << Qt::endl;
             //drawLocator(x1, y1, width/180, height/180, false);
             drawLines(x1, y1);
             //drawLocatorText(x1, y1+(height/18), QString(QChar(i+'A')) + QString(QChar(j+'A')), false);
         }
     }
     setImage(*mapQImage);
-      //qDebug() << "WorldMapWidget::drawLocators-END"  << endl;
+      //qDebug() << "WorldMapWidget::drawLocators-END"  << Qt::endl;
 }
 
 void WorldMapWidget::drawLines(const int _x, const int _y)
@@ -267,9 +267,9 @@ void WorldMapWidget::updateActions()
 
 void WorldMapWidget::scaleImage(double factor)
 {
-    Q_ASSERT(mapLabel->pixmap());
+    //Q_ASSERT(mapLabel->pixmap(Qt::ReturnByValue));
     scaleFactor *= factor;
-    mapLabel->resize(scaleFactor * mapLabel->pixmap()->size());
+    mapLabel->resize(scaleFactor * mapLabel->pixmap(Qt::ReturnByValue).size());
     adjustScrollBar(scrollArea->horizontalScrollBar(), factor);
     adjustScrollBar(scrollArea->verticalScrollBar(), factor);
     zoomInAct->setEnabled(scaleFactor < 15.0);
@@ -338,6 +338,6 @@ void WorldMapWidget::mapNormalizeSize()
 
     *mapQImage = mapQImage->scaledToHeight(mapWidth);
 
-      //qDebug() << "WorldMapWidget::mapNormalizeSize: Screen: " << QString::number(_xMax)  << endl;
-      //qDebug() << "WorldMapWidget::mapNormalizeSize: Map: " << QString::number(mapWidth)  << endl;
+      //qDebug() << "WorldMapWidget::mapNormalizeSize: Screen: " << QString::number(_xMax)  << Qt::endl;
+      //qDebug() << "WorldMapWidget::mapNormalizeSize: Map: " << QString::number(mapWidth)  << Qt::endl;
 }
