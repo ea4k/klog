@@ -93,6 +93,7 @@ public:
     bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);
     bool isValidGrid(const QString &_b);
+    bool isValidVUCCGrids(const QString &_b);
     bool isValidRST(const QString &_b);
     bool isValidPower(const QString &_b);
     bool isValidComment(const QString &_b);

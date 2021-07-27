@@ -110,7 +110,7 @@ private:
     //void setLastPower(const double _power);
     bool setInitialADIFValues();
     void setColorsForMyUserADIFLineEdit();
-    QString checkMyVUCC_GRIDS(const QString _string);
+    bool checkMyVUCC_GRIDS(const QString &_string);
     QStringList adifValidTypes;
     //bool setCurrentAdifValue();
 

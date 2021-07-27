@@ -1115,6 +1115,39 @@ bool Utilities::isValidGrid(const QString &_b)
     return locator.isValidLocator(_b);
 }
 
+bool Utilities::isValidVUCCGrids(const QString &_b)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _b;
+    QStringList tmp;
+
+    QString a = _b;
+    tmp.clear ();
+    tmp << _b.split (',', Qt::SkipEmptyParts);
+    if ((tmp.length ()!=2) && (tmp.length ()!=4))
+    {
+        qDebug() << Q_FUNC_INFO << ": NON VALID LENGTH";
+        return false;
+    }
+
+    qDebug() << Q_FUNC_INFO << ": tmp: " << tmp;
+    QString aux;
+    foreach (aux, tmp) {
+        aux = aux.trimmed ();
+
+        if ((!isValidGrid (aux)) || (aux.length ()!=4))
+        {
+            qDebug() << Q_FUNC_INFO << ": NON VALID";
+            return false;
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO << ": VALID: " << aux;
+        }
+    }
+    qDebug() << Q_FUNC_INFO << ": VALID-END";
+    return true;
+}
+
 bool Utilities::isValidRST(const QString &_b)
 {
     if (_b.length()>0)

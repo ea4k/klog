@@ -50,6 +50,7 @@ private slots:
     void test_isValidCall();
     void test_isValidFreq();
     void test_isValidGrid();
+    void test_isValidVUCCGrids();
     void test_isValidADIFField();
     void test_getPrefixFromCall();
 
@@ -233,6 +234,22 @@ void tst_Utilities::test_isValidGrid()
     QVERIFY(util->isValidGrid("AA00aa00") == true);
     QVERIFY(util->isValidGrid("RR99xx99") == true);
     QVERIFY(util->isValidGrid("RR99xz99") == false);
+
+}
+
+void tst_Utilities::test_isValidVUCCGrids()
+{ //TODO: Add the logic to check if the grids are together
+    QVERIFY(util->isValidVUCCGrids("I") == false);
+    QVERIFY(util->isValidVUCCGrids("1") == false);
+    QVERIFY(util->isValidVUCCGrids("AA") == false);
+    QVERIFY(util->isValidVUCCGrids("AA00") == false);
+    QVERIFY(util->isValidVUCCGrids("AA00aa") == false);
+    QVERIFY(util->isValidVUCCGrids("AA00aa00") == false);
+    QVERIFY(util->isValidVUCCGrids("AA00, IN80") == true);
+    QVERIFY(util->isValidVUCCGrids("AA00, IN80, IN81") == false);
+    QVERIFY(util->isValidVUCCGrids("AA00, IN80, IN81, IN82") == true);
+    QVERIFY(util->isValidVUCCGrids("AA00, IN80, IN81, IN82, IN83") == false);
+    QVERIFY(util->isValidVUCCGrids("AA00, IN80, aIN81, IN82") == false);
 
 }
 

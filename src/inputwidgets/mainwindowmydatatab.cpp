@@ -574,10 +574,14 @@ QString MainWindowMyDataTab::getMySOTA()
 
 bool MainWindowMyDataTab::setMyVUCCGrids(const QStringList &_op)
 {
-
-    my_vucc_grids = checkMyVUCC_GRIDS(_op.join(", "));
-    slotMyUserADIFComboBoxChanged();
-    return true;
+    QString aux = _op.join(", ");
+    if (checkMyVUCC_GRIDS(aux))
+    {
+        my_vucc_grids = aux;
+        slotMyUserADIFComboBoxChanged();
+        return true;
+    }
+    return false;
     /*
     QString aux;
     foreach (aux, _op) {
@@ -594,11 +598,23 @@ bool MainWindowMyDataTab::setMyVUCCGrids(const QStringList &_op)
     */
 }
 
-QString MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString _string)
+bool MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString &_string)
 {
     qDebug() << Q_FUNC_INFO << ": " << _string;
+
+    if (util->isValidVUCCGrids (_string))
+    {
+        setColorsForMyUserADIFLineEdit();
+        return true;
+    }
+    else
+    {
+        myUserADIFLineEdit->setPalette (palRed);
+        return false;
+    }
+ /*
     QStringList tmp;
-    MOver la comprobacion de VUCC a util
+
     QString a = _string;
     tmp.clear ();
     tmp << _string.split (',', Qt::SkipEmptyParts);
@@ -612,7 +628,7 @@ QString MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString _string)
     qDebug() << Q_FUNC_INFO << ": tmp: " << tmp;
     QString aux;
     foreach (aux, tmp) {
-        aux.trimmed ();
+        aux = aux.trimmed ();
         if ((!util->isValidGrid (aux)) || (aux.length ()!=4))
         {
             qDebug() << Q_FUNC_INFO << ": NON VALID";
@@ -627,6 +643,7 @@ QString MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString _string)
     setColorsForMyUserADIFLineEdit();
     qDebug() << Q_FUNC_INFO << ": VALID-END";
     return _string;
+    */
 }
 
 QStringList MainWindowMyDataTab::getMyVUCCGrids()
@@ -692,9 +709,16 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     }
     else if (currentTag == "MY_VUCC_GRIDS")
     {
-        my_vucc_grids = checkMyVUCC_GRIDS(myUserADIFLineEdit->text().toUpper());
+        if (checkMyVUCC_GRIDS(myUserADIFLineEdit->text()))
+        {
+             my_vucc_grids = myUserADIFLineEdit->text().toUpper();
+        }
+        else
+        {
+
+        }
+        //my_vucc_grids = myUserADIFLineEdit->text().toUpper();
         myUserADIFLineEdit->setText (my_vucc_grids);
-        //my_vucc_grids = myUserADIFLineEdit->text();
     }
 
     myUserADIFLineEdit->setCursorPosition (currentPos);
