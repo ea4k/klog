@@ -75,6 +75,9 @@ public:
     QString getMyAntenna();
     bool setMySOTA(const QString &_op);
     QString getMySOTA();
+    bool setMyVUCCGrids(const QStringList &_op);
+    QStringList getMyVUCCGrids();
+
 
     bool setUserADIFTypeComboBox(const QString &_value);
     QString getUserADIFTypeComboBox();
@@ -106,6 +109,8 @@ private:
     //void setLastMyLocator(const QString _op);
     //void setLastPower(const double _power);
     bool setInitialADIFValues();
+    void setColorsForMyUserADIFLineEdit();
+    QString checkMyVUCC_GRIDS(const QString _string);
     QStringList adifValidTypes;
     //bool setCurrentAdifValue();
 
@@ -122,7 +127,7 @@ private:
     Locator *locator;
     Utilities *util;
     bool modify;
-    QString my_rig, my_sota, my_antenna;
+    QString my_rig, my_sota, my_antenna, my_vucc_grids;
     bool getDarkMode();
 };
 

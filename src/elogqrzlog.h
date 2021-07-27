@@ -67,7 +67,8 @@ private:
     int sendDataParams(const QUrlQuery &_params);
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
     bool canConnect();
-    void parseAppAnswer (const int howManyQSOs, const QString &_m);
+    //void parseAppAnswer (const int howManyQSOs, const QString &_m);
+    void parseAppAnswer (const QString &_m);
     void parseNetworkError(QNetworkReply::NetworkError _error);
     void parseXMLAnswer(QXmlStreamReader &xml);
     int sendQSO(const int _qsoID);

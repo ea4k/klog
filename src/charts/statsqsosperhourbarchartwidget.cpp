@@ -31,7 +31,10 @@ StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(){}
 
 StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget" << Qt::endl;
+#ifdef QT_DEBUG
+    //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << Qt::endl;
+#else
+#endif
 
     dataProxy = dp;
     chart = new QChart();

@@ -224,6 +224,7 @@ bool SetupPageSatsNew::isItAFreq(const QString _st)
     bool ok = false;
     double freq;// = 0.0;
 
+
     freq = _st.toDouble(&ok);
     return ok;
 }

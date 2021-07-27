@@ -36,7 +36,13 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
-      //qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction << Qt::endl;
+
+#ifdef QT_DEBUG
+  qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction << Qt::endl;
+#else
+#endif
+
+
     dataProxy = dp;
     locator = new Locator();
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -243,8 +249,9 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
 
         if (newItem->text()=="C")
         {
-            newItem->setTextColor(Qt::blue);
-            newItem->setBackgroundColor(Qt::green);
+            newItem->setForeground (QBrush(Qt::blue));
+                    //newItem->setTextColor(Qt::blue);
+            newItem->setBackground(QBrush(Qt::green));
             status = 1;
         }
         else if (newItem->text()=="W")
@@ -253,8 +260,9 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
             {
                 status = 0;
             }
-            newItem->setTextColor(Qt::red);
-            newItem->setBackgroundColor(Qt::yellow);
+
+            newItem->setForeground (QBrush(Qt::red));
+            newItem->setBackground(QBrush(Qt::yellow));
         }
         else
         {
@@ -276,20 +284,18 @@ void DXCCStatusWidget::addEntity(const QStringList &_ent)
     newItemName->setIcon(flagIcon);
     if (status == 1)
     {
-        newItemName->setTextColor(Qt::blue);
-        newItemPref->setTextColor(Qt::blue);
-        //newItemName->setTextColor(Qt::blue);
-        //newItemName->setBackgroundColor(Qt::green);
+        newItemName->setForeground (QBrush(Qt::blue));
+        newItemName->setBackground(QBrush(Qt::green));
     }
     else if (status == 0)
     {
-        newItemName->setTextColor(Qt::darkRed);
-        newItemPref->setTextColor(Qt::darkRed);
+        newItemName->setForeground(QBrush(Qt::darkRed));
+        newItemPref->setForeground(QBrush(Qt::darkRed));
     }
     else
     {
-        newItemName->setTextColor(Qt::red);
-        newItemPref->setTextColor(Qt::red);
+        newItemName->setForeground(QBrush(Qt::red));
+        newItemPref->setForeground(QBrush(Qt::red));
     }
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemPref);
     dxccView->setItem(dxccView->rowCount()-1, 1, newItemName);

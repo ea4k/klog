@@ -36,6 +36,10 @@
 eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 {
     //qDebug()<< "eQSLUtilities::eQSLUtilities"  << Qt::endl;
+#ifdef QT_DEBUG
+  qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
+#else
+#endif
 
     user = QString();
     pass = QString();
@@ -121,7 +125,7 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
     {
         //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = UNDEFINED = " << QString::number(result)  << Qt::endl;
         text = "eQSL: " + tr("Undefined error number (#%1)... ").arg(result);
-        int i = QMessageBox::warning(nullptr, tr("KLog - eQSL"),
+        QMessageBox::warning(nullptr, tr("KLog - eQSL"),
                                        tr("We have received an undefined error from eQSL (%1)").arg(result) + "\n" +
                                           tr("Please check your config in the setup and contact the KLog development team if you can't fix it. eQSL uploads will be disabled."),
                                        QMessageBox::Ok);

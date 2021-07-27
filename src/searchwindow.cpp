@@ -35,7 +35,7 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
     //sortingThroughProxyModel = false;
     searchModel = new SearchModel(dataProxy, this);
     util = new Utilities;
-    connect(searchModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    connect(searchModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     //logView = new QTableView;
     treeView = new QTreeView;
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);

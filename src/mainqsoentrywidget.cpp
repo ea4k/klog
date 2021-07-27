@@ -963,7 +963,11 @@ void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
 
 void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
+
+#ifdef QT_DEBUG
    //qDebug() << Q_FUNC_INFO << "(" << _func << ")" << Qt::endl;
+#else
+#endif
 
     QDateTime _dateTime;
     _dateTime.setDate(dateEdit->date());

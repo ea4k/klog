@@ -30,7 +30,11 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(){}
 
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget" << Qt::endl;
+
+#ifdef QT_DEBUG
+//qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget" << Qt::endl;
+#else
+#endif
 
     dataProxy = dp;
     chart = new QChart();

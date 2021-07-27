@@ -166,6 +166,7 @@ void MainWindowMyDataTab::clear(bool _full)
         my_rig = QString();
         my_sota = QString();
         my_antenna = QString();
+        my_vucc_grids = QString();
         myUserADIFComboBox->setCurrentIndex(0);
         myUserADIFLineEdit->clear();
         keepThisDataForNextQSOQCheckbox->setChecked (false);
@@ -207,6 +208,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
         {
             myLocatorLineEdit->setPalette(palBlack);
         }
+
         myLocatorLineEdit->setToolTip(tr("My QTH locator."));
         myLocatorLineEdit->setCursorPosition(cursorP);
         emit myLocChangedSignal(myLocatorLineEdit->text());
@@ -462,7 +464,7 @@ bool MainWindowMyDataTab::setInitialADIFValues()
 {
     //qDebug() << Q_FUNC_INFO;
     adifValidTypes.clear ();
-    adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna") << "03-" + tr("My SOTA_Ref");
+    adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna") << "03-" + tr("My SOTA_Ref")<< "04-" + tr("My VUCC_GRIDS");
     myUserADIFComboBox->clear ();
     myUserADIFComboBox->addItems (adifValidTypes);
     return true;
@@ -482,6 +484,10 @@ bool MainWindowMyDataTab::setUserADIFTypeComboBox(const QString &_value)
     else if (_value == "MY_SOTA_REF")
     {
         myUserADIFComboBox->setCurrentIndex (2);
+    }
+    else if (_value == "MY_VUCC_GRIDS")
+    {
+        myUserADIFComboBox->setCurrentIndex (3);
     }
     else
     {
@@ -504,6 +510,8 @@ QString MainWindowMyDataTab::getUserADIFTypeComboBox()
         return "MY_ANTENNA";
     case 3:
         return "MY_SOTA_REF";
+    case 4:
+        return "MY_VUCC_GRIDS";
     default:
         return QString();
     }
@@ -564,10 +572,86 @@ QString MainWindowMyDataTab::getMySOTA()
     return my_sota;
 }
 
+bool MainWindowMyDataTab::setMyVUCCGrids(const QStringList &_op)
+{
+
+    my_vucc_grids = checkMyVUCC_GRIDS(_op.join(", "));
+    slotMyUserADIFComboBoxChanged();
+    return true;
+    /*
+    QString aux;
+    foreach (aux, _op) {
+        if (!util->isValidGrid (aux))
+        {
+            myUserADIFLineEdit->setPalette (palRed);
+            return false;
+        }
+    }
+
+    setColorsForMyUserADIFLineEdit();
+
+    my_vucc_grids = _op.join(", ");
+    */
+}
+
+QString MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString _string)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _string;
+    QStringList tmp;
+    MOver la comprobacion de VUCC a util
+    QString a = _string;
+    tmp.clear ();
+    tmp << _string.split (',', Qt::SkipEmptyParts);
+    if ((tmp.length ()!=2) && (tmp.length ()!=4))
+    {
+        qDebug() << Q_FUNC_INFO << ": NON VALID LENGTH";
+        myUserADIFLineEdit->setPalette (palRed);
+        return _string;
+    }
+
+    qDebug() << Q_FUNC_INFO << ": tmp: " << tmp;
+    QString aux;
+    foreach (aux, tmp) {
+        aux.trimmed ();
+        if ((!util->isValidGrid (aux)) || (aux.length ()!=4))
+        {
+            qDebug() << Q_FUNC_INFO << ": NON VALID";
+            myUserADIFLineEdit->setPalette (palRed);
+            return _string;
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO << ": VALID: " << aux;
+        }
+    }
+    setColorsForMyUserADIFLineEdit();
+    qDebug() << Q_FUNC_INFO << ": VALID-END";
+    return _string;
+}
+
+QStringList MainWindowMyDataTab::getMyVUCCGrids()
+{
+    return my_vucc_grids.split (',', Qt::SkipEmptyParts);
+}
+
+void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
+{
+    if (getDarkMode())
+    {
+        myUserADIFLineEdit->setPalette(palWhite);
+    }
+    else
+    {
+        myUserADIFLineEdit->setPalette(palBlack);
+    }
+}
+
 void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+    qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
+
+    setColorsForMyUserADIFLineEdit();
 
     if (currentTag == "MY_RIG")
     {
@@ -581,12 +665,18 @@ void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
     {
         myUserADIFLineEdit->setText (my_sota);
     }
+    else if (currentTag == "MY_VUCC_GRIDS")
+    {
+        myUserADIFLineEdit->setText (my_vucc_grids);
+    }
 }
 
 
 void MainWindowMyDataTab::slotSetCurrentMyUSerData()
 {
     QString currentTag = getUserADIFTypeComboBox ();
+    qDebug() << Q_FUNC_INFO << ": " << currentTag;
+    int currentPos = myUserADIFLineEdit->cursorPosition ();
 
     if (currentTag == "MY_RIG")
     {
@@ -600,6 +690,14 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     {
         my_sota = myUserADIFLineEdit->text();
     }
+    else if (currentTag == "MY_VUCC_GRIDS")
+    {
+        my_vucc_grids = checkMyVUCC_GRIDS(myUserADIFLineEdit->text().toUpper());
+        myUserADIFLineEdit->setText (my_vucc_grids);
+        //my_vucc_grids = myUserADIFLineEdit->text();
+    }
+
+    myUserADIFLineEdit->setCursorPosition (currentPos);
 }
 
 void MainWindowMyDataTab::setModify(const bool _modify)

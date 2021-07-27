@@ -34,6 +34,7 @@ StatsGeneralChartWidget::StatsGeneralChartWidget()
 
 StatsGeneralChartWidget::StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
+
       //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << Qt::endl;
 }
 

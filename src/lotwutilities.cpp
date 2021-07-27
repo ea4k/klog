@@ -33,7 +33,10 @@
 
 LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersion, const QString &_parentFunction, DataProxy_SQLite *dp)
 {
-   //qDebug() << "LoTWUtilities::LoTWUtilities(): " << _klogDir << Qt::endl;
+#ifdef QT_DEBUG
+  qDebug() << Q_FUNC_INFO << ": "  << _klogDir << " - " << _parentFunction;
+#else
+#endif
     dataProxy = dp;
     calendar = new QCalendarWidget;
     util = new Utilities;

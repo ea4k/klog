@@ -31,7 +31,11 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(){}
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << Qt::endl;
+
+#ifdef QT_DEBUG
+//qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << Qt::endl;
+#else
+#endif
 
     dataProxy = dp;
     chart = new QChart();

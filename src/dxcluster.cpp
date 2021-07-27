@@ -214,7 +214,9 @@ void DXClusterWidget::connectToDXCluster()
     tcpSocket->connectToHost( server, port );
     dxClusterListWidget->setSortingEnabled (false);
 
-    dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Trying to connect to the server") + "\n", awards->getDefaultColor());
+    //dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Trying to connect to the server") + "\n", awards->getDefaultColor());
+    dxClusterListWidget->addItem (new dxClusterSpotItem(dxClusterListWidget, tr("Trying to connect to the server") + "\n", awards->getDefaultColor()));
+
 
 }
 

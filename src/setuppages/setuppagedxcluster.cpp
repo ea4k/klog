@@ -167,7 +167,7 @@ void SetupPageDxCluster::slotAddButtonClicked()
         QString text = QInputDialog::getText (this,
                            tr("KLog: Add a DXCluster server"),
                            tr("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default:"),
-                           QLineEdit::Normal, QString::null,
+                           QLineEdit::Normal, QString(),
                            &ok);
           //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text << Qt::endl;
         if (ok && !text.isEmpty ())
@@ -462,7 +462,7 @@ void SetupPageDxCluster::setShowVHFQCheckbox(const QString t)
 }
 
 void SetupPageDxCluster::setShowWARCQCheckbox(const QString t)
-{    
+{
     if ( (t.toUpper()) == "FALSE")
     {
         showWARCQCheckbox->setChecked(false);
@@ -536,7 +536,7 @@ void SetupPageDxCluster::setShowWWVQCheckbox(const QString t)
 }
 
 void SetupPageDxCluster::setShowWCYQCheckbox(const QString t)
-{    
+{
     if ( (t.toUpper()) == "FALSE")
     {
         showWCYQCheckbox->setChecked(false);
@@ -557,9 +557,9 @@ QString SetupPageDxCluster::getSelectedDxClusterServer()
     }
     else
     {
-        return QString::null;
+        return QString();
     }
-    //return QString::null;
+    //return QString();
 
 }
 

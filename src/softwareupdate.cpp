@@ -114,10 +114,15 @@ void SoftwareUpdate::slotReadyRead()
       //qDebug() << "SoftwareUpdate::slotReadyRead: " << Qt::endl;
 }
 
+/*
 void SoftwareUpdate::slotError(int _p)
 {
-       //qDebug() << "SoftwareUpdate::slotError: " << Qt::endl;
+#ifdef QT_DEBUG
+  qDebug() << Q_FUNC_INFO << ": " << QString::number(_p) << Qt::endl;
+#else
+#endif
 }
+*/
 
 void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 {
@@ -397,7 +402,7 @@ void SoftwareUpdate::setHeader()
     }
     QByteArray str;
     str.clear();
-    str.append(ver);
+    str.append(ver.toUtf8 ());
 
       //qDebug() << "SoftwareUpdate::setHeader: " << str << Qt::endl;
     request.setRawHeader("User-Agent", str);

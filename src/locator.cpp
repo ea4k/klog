@@ -53,19 +53,19 @@ Wikipedia:
 
 */
 
-   //qDebug() << "Locator::isValidLocator: " << tlocator << Qt::endl;
+    qDebug() << "Locator::isValidLocator: " << tlocator << Qt::endl;
 
     //int lenght_of_locator;
 
     QString testLocator ="A";
-	testLocator = tlocator.toUpper();
+    testLocator = tlocator.toUpper();
     //lenght_of_locator = testLocator.length(); Locators up to 8 digits!
     //IN, IN70, IN70DD, IN70DD20, IN70DD20
     QRegularExpression rx;
     rx.setPattern("^[A-R]{2}$");
     if (rx.match(testLocator).hasMatch())
     {
-       //qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
+        qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
         return true;
     }
     else
@@ -73,7 +73,7 @@ Wikipedia:
         rx.setPattern("^[A-R]{2}[0-9]{2}$");
         if (rx.match(testLocator).hasMatch())
         {
-           //qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
+            qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
             return true;
         }
         else
@@ -81,7 +81,7 @@ Wikipedia:
             rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}$");
             if (rx.match(testLocator).hasMatch())
             {
-               //qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
+                qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
                 return true;
             }
             else
@@ -89,12 +89,12 @@ Wikipedia:
                 rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}$");
                 if (rx.match(testLocator).hasMatch())
                 {
-                   //qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
+                    qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
                     return true;
                 }
                 else
                 {
-                   //qDebug() << "Locator::isValidLocator: NOT VALID: " << testLocator;
+                    qDebug() << "Locator::isValidLocator: NOT VALID: " << testLocator;
                     return false;
                 }
             }
@@ -246,13 +246,13 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
 // << QString::number(lat1)  << ") - DxPos(" << QString::number(lon2) << "/" << QString::number(lat2) << ")" << Qt::endl;
   double lo1,la1,lo2,la2;
 
-// TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?  
+// TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?
 //   if (!( (checkCoords(lon1, lat1) ) && (checkCoords(lon2, lat2)) ))
 //     return 0;
-  
+
   lo1=lon1* DEG_TO_RAD;   // Convert degrees to radians
   la1=lat1* DEG_TO_RAD;
-  lo2=lon2* DEG_TO_RAD;  
+  lo2=lon2* DEG_TO_RAD;
   la2=lat2* DEG_TO_RAD;
 
   if (!_imperialSystem){
@@ -311,13 +311,13 @@ QString Locator::getLocator(const double lon1, const double lat1) const{
   locat = locat + QChar(fla+'A');
 
 //   locat.at(0)=QChar(alo+'A');
-  
+
 //   locat.at(1)=QChar(bla+'A');
 //   locat.at(2)=QChar(clo+'0');
 //   locat.at(3)=QChar(dla+'0');
 //   locat.at(4)=QChar(elo+'A');
 //   locat.at(5)=QChar(fla+'A');
-  
+
 
 
 return locat;
@@ -344,7 +344,7 @@ double Locator::dmsTodeg (int deg, int min, int sec)
 */
 
 int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2)
-{    
+{
        //qDebug() << "Locator::getBeamBetweenLocators: " << tlocator1 << "/" << tlocator2 << Qt::endl;
     if (  !(isValidLocator(tlocator1) && isValidLocator(tlocator2) )  )
     {

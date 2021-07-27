@@ -34,7 +34,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
     util = new Utilities;
-    connect(logModel, SIGNAL(queryError(QString, QString, int, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, int, QString)) );
+    connect(logModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logView = new QTableView;
 
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);

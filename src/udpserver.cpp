@@ -566,7 +566,7 @@ void UDPServer::adifParse(QByteArray &msg)
     QString _comment = QString();
     QString operatorCall = QString();
     QString stationcallsign = QString();
-    double freq = 0.0;
+    double freq;
     QDateTime datetime, datetime_off;
     QDate _date_on, _date_off;
     QTime _time_on, _time_off;
@@ -707,9 +707,6 @@ void UDPServer::adifParse(QByteArray &msg)
         {
         //qDebug() << "UDPServer::adifParse: Not a valid ADIF pair " << aux <<  Qt::endl;
         }
-
-
     }
-
     //qDebug() << "UDPServer::adifParse: - END" <<  Qt::endl;
 }

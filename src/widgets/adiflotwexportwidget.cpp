@@ -28,6 +28,11 @@
 
 AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
+#ifdef QT_DEBUG
+  qDebug() << ": " << _parentFunction;
+#else
+#endif
+
     dataProxy = dp;
     util = new Utilities;
     stationCallsignComboBox = new QComboBox;

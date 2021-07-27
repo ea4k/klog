@@ -131,7 +131,7 @@ eLogClubLog::~eLogClubLog()
     else if (result == 203)
     {
         text = "ClubLog: " + tr("QSO dupe or not existing (#%1)... ").arg(result);
-        int i = QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
+        QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
                                        tr("We have received an undefined error from Clublog (%1)").arg(result) + "\n" +
                                           tr("This error may be caused for the QSO being duplicated or, if removing, trying to remove a non existing QSO."),
                                        QMessageBox::Ok);
@@ -140,7 +140,7 @@ eLogClubLog::~eLogClubLog()
     {
          //qDebug()<< "eLogClubLog::slotQsoUploadFinished - Result = UNDEFINED = " << QString::number(result)  << Qt::endl;
         text = "ClubLog: " + tr("Undefined error number (#%1)... ").arg(result);
-        int i = QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
+        QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
                                        tr("We have received an undefined error from Clublog (%1)").arg(result) + "\n" +
                                           tr("Please check your config in the setup and contact the KLog development team if you can't fix it. ClubLog uploads will be disabled."),
                                        QMessageBox::Ok);
@@ -559,7 +559,7 @@ int eLogClubLog::deleteQSO(QStringList _qso)
     bandid = (_qso.at(8)).chopped(1);
       //qDebug()<< QString("eLogClubLog::deleteQSO: band-2: ") << bandid << Qt::endl;
     bool ok;
-    int a = bandid.toInt(&ok);
+    bandid.toInt(&ok);
     if (!ok)
     { // This check is to capture potential QSOs in 222Mhz (AKA 1.25)
         bandid = bandid.chopped(1);

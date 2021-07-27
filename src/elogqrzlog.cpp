@@ -33,7 +33,12 @@
 
 eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)
 {
-   //qDebug()<< QString("eLogQrzLog::eLogQrzLog (%1) ").arg(_parentFunction)  << Qt::endl;
+
+#ifdef QT_DEBUG
+  qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
+#else
+#endif
+
     klogVersion = _klogVersion;
     dataProxy = dp;
     errorWhileSendingLog = false;
@@ -90,7 +95,7 @@ void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
 
     //return text;
 
-    int i = QMessageBox::warning(nullptr, tr("KLog - QRZ.com"),
+    QMessageBox::warning(nullptr, tr("KLog - QRZ.com"),
                                            tr("We have received the following error from QRZ.com (%1)").arg(result) + "\n" +
                                               text,
                                            QMessageBox::Ok);
@@ -113,7 +118,8 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
     if (result == QNetworkReply::NoError)
     {
         QString dataReply(sdata);
-        parseAppAnswer(1, dataReply);
+        //parseAppAnswer(1, dataReply);
+        parseAppAnswer(dataReply);
        //qDebug()<< "eLogQrzLog::slotManageLogFinished - NO ERROR" << Qt::endl;
     }
     else {
@@ -534,7 +540,7 @@ int eLogQrzLog::sendQSOs(QList<int> _qsos)
     if (logbookkey.length()<1)
     {
         //qDebug()<< "eLogQrzLog::sendQSOs: No valid KEY (-2)" << Qt::endl;
-        int i = QMessageBox::warning(nullptr, tr("KLog - QRZ.com"),
+        QMessageBox::warning(nullptr, tr("KLog - QRZ.com"),
                                        tr("Not valid KEY found") + "\n" +
                                           tr("Please configure your QRZ.com API key. You will find it in your QRZ.com Logbook settings webpage.\nYou need a QRZ.com subscription to use this feature."),
                                        QMessageBox::Ok);
@@ -691,9 +697,10 @@ QString eLogQrzLog::prepareToTranslate(const QString &_m)
     }
 }
 
-void eLogQrzLog::parseAppAnswer (const int howManyQSOs, const QString &_m)
+void eLogQrzLog::parseAppAnswer (const QString &_m)
 {
     //qDebug()<< "eLogQrzLog::parseAppAnswer: " << _m  << Qt::endl;
+
     QStringList response;
     response.clear();
     response << _m.split('&');

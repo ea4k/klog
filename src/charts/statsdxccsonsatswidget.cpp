@@ -30,7 +30,11 @@
 
 StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-     //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << Qt::endl;
+
+#ifdef QT_DEBUG
+    //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << Qt::endl;
+#else
+#endif
 
     dataProxy = dp;
     util = new Utilities;
