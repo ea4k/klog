@@ -643,188 +643,188 @@ msgstr ""
 "Nebylo možné otevřít soubor s DX-Spoty pro zápis. Aktivita DX-Cluster nebude "
 "uložena!"
 
-#: ../dataproxy_sqlite.cpp:121
+#: ../dataproxy_sqlite.cpp:127
 msgctxt "DataProxy_SQLite|"
 msgid "Software version in DB is null"
 msgstr "Verze SW v databázi je NULL"
 
-#: ../dataproxy_sqlite.cpp:121
+#: ../dataproxy_sqlite.cpp:127
 msgctxt "DataProxy_SQLite|"
 msgid "Query didn't failed"
 msgstr "Dotaz neselhal"
 
-#: ../dataproxy_sqlite.cpp:4597
+#: ../dataproxy_sqlite.cpp:4601
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr "Aircraft Scatter"
 
-#: ../dataproxy_sqlite.cpp:4601
+#: ../dataproxy_sqlite.cpp:4605
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr "Aurora"
 
-#: ../dataproxy_sqlite.cpp:4605
+#: ../dataproxy_sqlite.cpp:4609
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr "Aurora-E"
 
-#: ../dataproxy_sqlite.cpp:4609
+#: ../dataproxy_sqlite.cpp:4613
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr "Back scatter"
 
-#: ../dataproxy_sqlite.cpp:4613
+#: ../dataproxy_sqlite.cpp:4617
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr "Earth-Moon-Earth"
 
-#: ../dataproxy_sqlite.cpp:4617
+#: ../dataproxy_sqlite.cpp:4621
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr "Sporadic E"
 
-#: ../dataproxy_sqlite.cpp:4621
+#: ../dataproxy_sqlite.cpp:4625
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
 msgstr "Field Aligned Irregularities"
 
-#: ../dataproxy_sqlite.cpp:4625
+#: ../dataproxy_sqlite.cpp:4629
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr "F2 Reflection"
 
-#: ../dataproxy_sqlite.cpp:4629
+#: ../dataproxy_sqlite.cpp:4633
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr "Internet-assisted"
 
-#: ../dataproxy_sqlite.cpp:4633
+#: ../dataproxy_sqlite.cpp:4637
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr "Ionoscatter"
 
-#: ../dataproxy_sqlite.cpp:4637
+#: ../dataproxy_sqlite.cpp:4641
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr "Meteor scatter"
 
-#: ../dataproxy_sqlite.cpp:4641
+#: ../dataproxy_sqlite.cpp:4645
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr "Převaděč nebo transponder"
 
-#: ../dataproxy_sqlite.cpp:4645
+#: ../dataproxy_sqlite.cpp:4649
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr "Rain scatter"
 
-#: ../dataproxy_sqlite.cpp:4649
+#: ../dataproxy_sqlite.cpp:4653
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satelit"
 
-#: ../dataproxy_sqlite.cpp:4653
+#: ../dataproxy_sqlite.cpp:4657
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr "Trans-equatorial"
 
-#: ../dataproxy_sqlite.cpp:4657
+#: ../dataproxy_sqlite.cpp:4661
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr "Tropospheric ducting"
 
-#: ../dataproxy_sqlite.cpp:5216 ../dataproxy_sqlite.cpp:5283
+#: ../dataproxy_sqlite.cpp:5220 ../dataproxy_sqlite.cpp:5287
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr "Ano"
 
-#: ../dataproxy_sqlite.cpp:5220 ../dataproxy_sqlite.cpp:5287
+#: ../dataproxy_sqlite.cpp:5224 ../dataproxy_sqlite.cpp:5291
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr "Ne"
 
-#: ../dataproxy_sqlite.cpp:5224 ../dataproxy_sqlite.cpp:5291
+#: ../dataproxy_sqlite.cpp:5228 ../dataproxy_sqlite.cpp:5295
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr "Vyžádané"
 
-#: ../dataproxy_sqlite.cpp:5228 ../dataproxy_sqlite.cpp:5299
+#: ../dataproxy_sqlite.cpp:5232 ../dataproxy_sqlite.cpp:5303
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr "Ignorovat / Neplatné"
 
-#: ../dataproxy_sqlite.cpp:5232
+#: ../dataproxy_sqlite.cpp:5236
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr "Ověřené"
 
-#: ../dataproxy_sqlite.cpp:5295
+#: ../dataproxy_sqlite.cpp:5299
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr "Ve frontě"
 
-#: ../dataproxy_sqlite.cpp:5347
+#: ../dataproxy_sqlite.cpp:5351
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr "Nahrané"
 
-#: ../dataproxy_sqlite.cpp:5351
+#: ../dataproxy_sqlite.cpp:5355
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr "Nenahrávat"
 
-#: ../dataproxy_sqlite.cpp:5355
+#: ../dataproxy_sqlite.cpp:5359
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr "Modifikované"
 
-#: ../dataproxy_sqlite.cpp:5405
+#: ../dataproxy_sqlite.cpp:5409
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr "Bureau"
 
-#: ../dataproxy_sqlite.cpp:5409
+#: ../dataproxy_sqlite.cpp:5413
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../dataproxy_sqlite.cpp:5413
+#: ../dataproxy_sqlite.cpp:5417
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr "Elektronicky"
 
-#: ../dataproxy_sqlite.cpp:5417
+#: ../dataproxy_sqlite.cpp:5421
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr "Manažer"
 
-#: ../dataproxy_sqlite.cpp:6331
+#: ../dataproxy_sqlite.cpp:6335
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
 
-#: ../dataproxy_sqlite.cpp:6332
+#: ../dataproxy_sqlite.cpp:6336
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr "Všechna QSO byla aktualizována na DXCC a Kontinent."
 
-#: ../dataproxy_sqlite.cpp:9502
+#: ../dataproxy_sqlite.cpp:9507
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr "KLog - Byla zjištěna chybná značka"
 
-#: ../dataproxy_sqlite.cpp:9508
+#: ../dataproxy_sqlite.cpp:9513
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
@@ -833,7 +833,7 @@ msgstr ""
 "Byla zjištěna prázdná volací značka. Přejete si přesto toto QSO exportovat "
 "(klikněte na Ano) nebo ho odstranit z exportu ADIF?"
 
-#: ../dataproxy_sqlite.cpp:9513
+#: ../dataproxy_sqlite.cpp:9518
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -843,7 +843,7 @@ msgstr ""
 "Byla zjištěna neplatná volací značka %1. Přejete si přesto toto QSO "
 "exportovat (klikněte na Ano) nebo ho odstranit z exportu?"
 
-#: ../dataproxy_sqlite.cpp:9517
+#: ../dataproxy_sqlite.cpp:9522
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -3095,6 +3095,11 @@ msgctxt "MainWindow|"
 msgid "All queued QSOs has been marked as sent to LoTW!"
 msgstr "Všechna zafrontovaná QSO byla označena jako odeslaná do LoTW!"
 
+#: ../mainwindow.cpp:8242
+msgctxt "MainWindow|"
+msgid "Native Error"
+msgstr ""
+
 #: ../mainwindow.cpp:4343
 msgctxt "MainWindow|"
 msgid ""
@@ -3726,11 +3731,6 @@ msgstr "pro analýzu:"
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Chyba ve funkci"
-
-#: ../mainwindow.cpp:8242
-msgctxt "MainWindow|"
-msgid "Error code"
-msgstr "Kód chyby"
 
 #: ../mainwindow.cpp:8243
 msgctxt "MainWindow|"
@@ -4539,13 +4539,13 @@ msgstr "Aktualizace informací o druhu provozu ..."
 
 #: ../database.cpp:3847 ../database.cpp:4031 ../database.cpp:4229
 #: ../database.cpp:4431 ../database.cpp:8026 ../database.cpp:8265
-#: ../dataproxy_sqlite.cpp:6268
+#: ../dataproxy_sqlite.cpp:6272
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Přerušit aktualizaci"
 
 #: ../database.cpp:3868 ../database.cpp:4050 ../database.cpp:8119
-#: ../database.cpp:8359 ../dataproxy_sqlite.cpp:6313
+#: ../database.cpp:8359 ../dataproxy_sqlite.cpp:6317
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
@@ -4603,12 +4603,12 @@ msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr "Aktualizace WAZ informací..."
 
-#: ../dataproxy_sqlite.cpp:6268
+#: ../dataproxy_sqlite.cpp:6272
 msgctxt "QObject|"
 msgid "Updating information..."
 msgstr "Aktualizace informací..."
 
-#: ../dataproxy_sqlite.cpp:6313
+#: ../dataproxy_sqlite.cpp:6317
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr "Aktualizace DXCC a kontinentů..."

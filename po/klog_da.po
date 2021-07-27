@@ -645,195 +645,195 @@ msgid ""
 "DX-Cluster activity will not be saved!"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:121
+#: ../dataproxy_sqlite.cpp:127
 msgctxt "DataProxy_SQLite|"
 msgid "Software version in DB is null"
 msgstr "Programversion i DB er nul"
 
-#: ../dataproxy_sqlite.cpp:121
+#: ../dataproxy_sqlite.cpp:127
 msgctxt "DataProxy_SQLite|"
 msgid "Query didn't failed"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4597
+#: ../dataproxy_sqlite.cpp:4601
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr "Flystøj"
 
-#: ../dataproxy_sqlite.cpp:4601
+#: ../dataproxy_sqlite.cpp:4605
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr "Aurora"
 
-#: ../dataproxy_sqlite.cpp:4605
+#: ../dataproxy_sqlite.cpp:4609
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr "Aurora-E"
 
-#: ../dataproxy_sqlite.cpp:4609
+#: ../dataproxy_sqlite.cpp:4613
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr "Baggrundsstøj"
 
-#: ../dataproxy_sqlite.cpp:4613
+#: ../dataproxy_sqlite.cpp:4617
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr "Jorden-månen-jorden"
 
-#: ../dataproxy_sqlite.cpp:4617
+#: ../dataproxy_sqlite.cpp:4621
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr "Sporadisk E"
 
-#: ../dataproxy_sqlite.cpp:4621
+#: ../dataproxy_sqlite.cpp:4625
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
 msgstr "Feltjusterede uregelmæssigheder"
 
-#: ../dataproxy_sqlite.cpp:4625
+#: ../dataproxy_sqlite.cpp:4629
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr "F2-reflektion"
 
-#: ../dataproxy_sqlite.cpp:4629
+#: ../dataproxy_sqlite.cpp:4633
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr "Internetassisteret"
 
-#: ../dataproxy_sqlite.cpp:4633
+#: ../dataproxy_sqlite.cpp:4637
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr "Ionostøj"
 
-#: ../dataproxy_sqlite.cpp:4637
+#: ../dataproxy_sqlite.cpp:4641
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr "Meteorstøj"
 
-#: ../dataproxy_sqlite.cpp:4641
+#: ../dataproxy_sqlite.cpp:4645
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr "Terrestrisk eller atmosfærisk repeater eller transponder"
 
-#: ../dataproxy_sqlite.cpp:4645
+#: ../dataproxy_sqlite.cpp:4649
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr "Regnstøj"
 
-#: ../dataproxy_sqlite.cpp:4649
+#: ../dataproxy_sqlite.cpp:4653
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satellit"
 
-#: ../dataproxy_sqlite.cpp:4653
+#: ../dataproxy_sqlite.cpp:4657
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr "Trans-ækvatoriale"
 
-#: ../dataproxy_sqlite.cpp:4657
+#: ../dataproxy_sqlite.cpp:4661
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr "Troposfærisk kanalisering"
 
-#: ../dataproxy_sqlite.cpp:5216 ../dataproxy_sqlite.cpp:5283
+#: ../dataproxy_sqlite.cpp:5220 ../dataproxy_sqlite.cpp:5287
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr "Ja"
 
-#: ../dataproxy_sqlite.cpp:5220 ../dataproxy_sqlite.cpp:5287
+#: ../dataproxy_sqlite.cpp:5224 ../dataproxy_sqlite.cpp:5291
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr "Nej"
 
-#: ../dataproxy_sqlite.cpp:5224 ../dataproxy_sqlite.cpp:5291
+#: ../dataproxy_sqlite.cpp:5228 ../dataproxy_sqlite.cpp:5295
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr "Anmodt"
 
-#: ../dataproxy_sqlite.cpp:5228 ../dataproxy_sqlite.cpp:5299
+#: ../dataproxy_sqlite.cpp:5232 ../dataproxy_sqlite.cpp:5303
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr "ignorer/ugyldig"
 
-#: ../dataproxy_sqlite.cpp:5232
+#: ../dataproxy_sqlite.cpp:5236
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr "Valideret"
 
-#: ../dataproxy_sqlite.cpp:5295
+#: ../dataproxy_sqlite.cpp:5299
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr "I kø"
 
-#: ../dataproxy_sqlite.cpp:5347
+#: ../dataproxy_sqlite.cpp:5351
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr "Overført"
 
-#: ../dataproxy_sqlite.cpp:5351
+#: ../dataproxy_sqlite.cpp:5355
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr "Overfør ikke"
 
-#: ../dataproxy_sqlite.cpp:5355
+#: ../dataproxy_sqlite.cpp:5359
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr "Ændret"
 
-#: ../dataproxy_sqlite.cpp:5405
+#: ../dataproxy_sqlite.cpp:5409
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr "Bureau"
 
-#: ../dataproxy_sqlite.cpp:5409
+#: ../dataproxy_sqlite.cpp:5413
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direkte"
 
-#: ../dataproxy_sqlite.cpp:5413
+#: ../dataproxy_sqlite.cpp:5417
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr "Elektronisk"
 
-#: ../dataproxy_sqlite.cpp:5417
+#: ../dataproxy_sqlite.cpp:5421
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr "Manager"
 
-#: ../dataproxy_sqlite.cpp:6331
+#: ../dataproxy_sqlite.cpp:6335
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog-DXCC"
 
-#: ../dataproxy_sqlite.cpp:6332
+#: ../dataproxy_sqlite.cpp:6336
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr "Alle QSO'er er blevet opdateret med en DXCC og kontinentet."
 
-#: ../dataproxy_sqlite.cpp:9502
+#: ../dataproxy_sqlite.cpp:9507
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9508
+#: ../dataproxy_sqlite.cpp:9513
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported ADIF record?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9513
+#: ../dataproxy_sqlite.cpp:9518
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -841,7 +841,7 @@ msgid ""
 "callsign anyway (click on Yes) or remove the call from the exported log?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9517
+#: ../dataproxy_sqlite.cpp:9522
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -3181,6 +3181,11 @@ msgid ""
 "prevent non-valid modes being detected)"
 msgstr ""
 
+#: ../mainwindow.cpp:8242
+msgctxt "MainWindow|"
+msgid "Native Error"
+msgstr ""
+
 #: ../mainwindow.cpp:8246
 msgctxt "MainWindow|"
 msgid "Recommendation:"
@@ -3630,11 +3635,6 @@ msgstr "for analyse:"
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Fejl i funktion"
-
-#: ../mainwindow.cpp:8242
-msgctxt "MainWindow|"
-msgid "Error code"
-msgstr "Fejlkode"
 
 #: ../mainwindow.cpp:8243
 msgctxt "MainWindow|"
@@ -4465,13 +4465,13 @@ msgstr "Opdaterer tilstandsinformation ..."
 
 #: ../database.cpp:3847 ../database.cpp:4031 ../database.cpp:4229
 #: ../database.cpp:4431 ../database.cpp:8026 ../database.cpp:8265
-#: ../dataproxy_sqlite.cpp:6268
+#: ../dataproxy_sqlite.cpp:6272
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Afbryd opdatering"
 
 #: ../database.cpp:3868 ../database.cpp:4050 ../database.cpp:8119
-#: ../database.cpp:8359 ../dataproxy_sqlite.cpp:6313
+#: ../database.cpp:8359 ../dataproxy_sqlite.cpp:6317
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
@@ -4562,12 +4562,12 @@ msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr "Husk at din KLog-mappe er på dit system ..."
 
-#: ../dataproxy_sqlite.cpp:6268
+#: ../dataproxy_sqlite.cpp:6272
 msgctxt "QObject|"
 msgid "Updating information..."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6313
+#: ../dataproxy_sqlite.cpp:6317
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr "Opdaterer DSCC- og kontinentinformation ..."
