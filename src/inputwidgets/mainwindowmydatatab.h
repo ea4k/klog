@@ -75,8 +75,8 @@ public:
     QString getMyAntenna();
     bool setMySOTA(const QString &_op);
     QString getMySOTA();
-    bool setMyVUCCGrids(const QStringList &_op);
-    QStringList getMyVUCCGrids();
+    bool setMyVUCCGrids(const QString &_op);
+    QString getMyVUCCGrids(); // Returns the VUCC list in LOC1, LOC2 or LOC1,LOC2, LOC3, LOC4 format
 
 
     bool setUserADIFTypeComboBox(const QString &_value);

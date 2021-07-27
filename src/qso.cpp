@@ -73,6 +73,7 @@ void QSO::clear()
     my_sota_ref = QString();
     my_rig = QString();
     my_antenna = QString();
+    my_vucc_grids= QString();
     qth = QString();
     name = QString();
     freq_tx = -1.0;
@@ -956,6 +957,24 @@ bool QSO::setMyRig(const QString &_c)
         return true;
     }
     return false;
+}
+
+bool QSO::setMyVUCCGrids(const QString &_c)
+{
+    if (util->isValidVUCCGrids (_c))
+    {
+        my_vucc_grids = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getMyVUCCGrids()
+{
+    return my_vucc_grids;
 }
 
 QString QSO::getMyRig()

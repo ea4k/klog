@@ -572,30 +572,16 @@ QString MainWindowMyDataTab::getMySOTA()
     return my_sota;
 }
 
-bool MainWindowMyDataTab::setMyVUCCGrids(const QStringList &_op)
+bool MainWindowMyDataTab::setMyVUCCGrids(const QString &_op)
 {
-    QString aux = _op.join(", ");
-    if (checkMyVUCC_GRIDS(aux))
+    qDebug() << Q_FUNC_INFO << ": " << _op;
+    if (checkMyVUCC_GRIDS(_op))
     {
-        my_vucc_grids = aux;
+        my_vucc_grids = _op;
         slotMyUserADIFComboBoxChanged();
         return true;
     }
     return false;
-    /*
-    QString aux;
-    foreach (aux, _op) {
-        if (!util->isValidGrid (aux))
-        {
-            myUserADIFLineEdit->setPalette (palRed);
-            return false;
-        }
-    }
-
-    setColorsForMyUserADIFLineEdit();
-
-    my_vucc_grids = _op.join(", ");
-    */
 }
 
 bool MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString &_string)
@@ -612,43 +598,19 @@ bool MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString &_string)
         myUserADIFLineEdit->setPalette (palRed);
         return false;
     }
- /*
-    QStringList tmp;
 
-    QString a = _string;
-    tmp.clear ();
-    tmp << _string.split (',', Qt::SkipEmptyParts);
-    if ((tmp.length ()!=2) && (tmp.length ()!=4))
-    {
-        qDebug() << Q_FUNC_INFO << ": NON VALID LENGTH";
-        myUserADIFLineEdit->setPalette (palRed);
-        return _string;
-    }
-
-    qDebug() << Q_FUNC_INFO << ": tmp: " << tmp;
-    QString aux;
-    foreach (aux, tmp) {
-        aux = aux.trimmed ();
-        if ((!util->isValidGrid (aux)) || (aux.length ()!=4))
-        {
-            qDebug() << Q_FUNC_INFO << ": NON VALID";
-            myUserADIFLineEdit->setPalette (palRed);
-            return _string;
-        }
-        else
-        {
-            qDebug() << Q_FUNC_INFO << ": VALID: " << aux;
-        }
-    }
-    setColorsForMyUserADIFLineEdit();
-    qDebug() << Q_FUNC_INFO << ": VALID-END";
-    return _string;
-    */
 }
 
-QStringList MainWindowMyDataTab::getMyVUCCGrids()
+QString MainWindowMyDataTab::getMyVUCCGrids()
 {
-    return my_vucc_grids.split (',', Qt::SkipEmptyParts);
+    if (checkMyVUCC_GRIDS (my_vucc_grids))
+    {
+        return my_vucc_grids;
+    }
+    else
+    {
+        return QString();
+    }
 }
 
 void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
@@ -710,14 +672,9 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     else if (currentTag == "MY_VUCC_GRIDS")
     {
         if (checkMyVUCC_GRIDS(myUserADIFLineEdit->text()))
-        {
-             my_vucc_grids = myUserADIFLineEdit->text().toUpper();
-        }
-        else
-        {
+        {}
 
-        }
-        //my_vucc_grids = myUserADIFLineEdit->text().toUpper();
+        my_vucc_grids = myUserADIFLineEdit->text().toUpper();
         myUserADIFLineEdit->setText (my_vucc_grids);
     }
 

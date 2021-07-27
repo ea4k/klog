@@ -1277,6 +1277,14 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+
+    aux1 = myDataTabWidget->getMyVUCCGrids ();
+    if (util->isValidVUCCGrids (aux1))
+    {
+        stringFields = stringFields + ", my_vucc_grids";
+        stringData = stringData + ", '" + aux1 + "'";
+    }
+
     aux1 = commentTabWidget->getComment();
     if (aux1.length()>0)
     {
@@ -2144,6 +2152,18 @@ QString MainWindow::readDataFromUIDXModifying()
     else
     {
         updateString = updateString + "my_sota_ref = '', ";
+    }
+
+
+    aux1 = myDataTabWidget->getMyVUCCGrids ();
+    if (util->isValidVUCCGrids (aux1))
+    {
+        updateString = updateString + "my_vucc_grids = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "my_vucc_grids = '', ";
     }
 
 
@@ -6649,6 +6669,10 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         myDataTabWidget->setMyLocator(aux1);
 
+        nameCol = rec.indexOf("my_vucc_grids");
+        aux1 = (query.value(nameCol)).toString();
+        myDataTabWidget->setMyVUCCGrids(aux1);
+
         nameCol = rec.indexOf("my_rig");
         aux1 = (query.value(nameCol)).toString();
         if (!aux1.isEmpty ())
@@ -8448,7 +8472,7 @@ void MainWindow::backupCurrentQSO()
     qso->setMySOTA_REF (myDataTabWidget->getMySOTA ());
     qso->setMyRig (myDataTabWidget->getMyRig());
     qso->setMyAntenna (myDataTabWidget->getMyAntenna ());
-
+    qso->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
     qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
     qso->setKeepMyData (myDataTabWidget->getKeep ());
 
@@ -8549,6 +8573,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     myDataTabWidget->setMyRig (qso->getMyRig ());
     myDataTabWidget->setMyAntenna (qso->getMyAntenna ());
     myDataTabWidget->setMySOTA (qso->getMySOTA_REF ());
+    myDataTabWidget->setMyVUCCGrids (qso->getMyVUCCGrids ());
         //MainWindowSatTab
     satTabWidget->setSatName (qso->getSatName ());
     satTabWidget->setSatMode (qso->getSatMode ());
