@@ -506,7 +506,7 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     {
         userDefinedADIFValueLineEdit->setText (QString::number(age));
     }
-
+AÑADIR el VUCC_GRIDS
 }
 
 bool MainWindowInputOthers::setSOTA(const QString _op)

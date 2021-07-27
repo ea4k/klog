@@ -165,6 +165,9 @@ public:
     QString getIOTA();
     bool setKeepOthers(bool _k);
     bool getKeepOthers();
+    bool setVUCCGrids(const QString &_c);
+    QString getVUCCGrids();
+
 
     // My data Tab
     bool setTXPwr(const double _f);
@@ -210,7 +213,7 @@ private:
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age;
-    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_vucc_grids;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
     QString clublog_status;
     QDate clublogDate;
