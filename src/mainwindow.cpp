@@ -1277,7 +1277,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-
     aux1 = myDataTabWidget->getMyVUCCGrids ();
     if (util->isValidVUCCGrids (aux1))
     {
@@ -1350,6 +1349,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", sota_ref";
         stringData = stringData + ", '" + aux1 + "'";
     }
+
     aux1 = QString::number(othersTabWidget->getAge());
     if (othersTabWidget->getAge()>0)
     {
@@ -1357,27 +1357,17 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-
-
-    aux1 = othersTabWidget->getUserADIFValue ();
-    if (!aux1.isEmpty ())
+    aux1 = othersTabWidget->getVUCCGrids ();
+    if (util->isValidVUCCGrids (aux1))
     {
-        QString data = aux1;
-        aux1 = othersTabWidget->getUserADIFTypeComboBox ();
-        if (aux1 == "SOTA_REF")
-        {
-            stringFields = stringFields + ", sota_ref";
-            stringData = stringData + ", '" + data + "'";
-        }
-        else if (aux1 == "AGE")
-        {
-            stringFields = stringFields + ", age";
-            stringData = stringData + ", '" + data + "'";
-        }
+        stringFields = stringFields + ", vucc_grids";
+        stringData = stringData + ", '" + aux1 + "'";
     }
 
+
+
     aux1 = othersTabWidget->getIOTA();
-      //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << Qt::endl;
+    //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << Qt::endl;
     if (aux1.length() == 6) // EU-001
     {
       //qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" << Qt::endl;
@@ -2284,6 +2274,16 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "age = '', ";
     }
 
+    aux1 = othersTabWidget->getVUCCGrids ();
+    if (util->isValidVUCCGrids (aux1))
+    {
+        updateString = updateString + "vucc_grids = '";
+        updateString = updateString + aux1 + "', ";
+    }
+    else
+    {
+        updateString = updateString + "vucc_grids = '', ";
+    }
 
     aux1 = othersTabWidget->getIOTA();
                //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 << Qt::endl;
@@ -6718,17 +6718,6 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
         QSOTabWidget->setRXFreq (aux1.toDouble ());
 
-        //if ((testValueDouble >0) && (testValueDouble <= rxFreqSpinBox->maximum()) )
-        //{
-        //    QSOTabWidget->setRXFreq(testValueDouble);
-                        //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OverFlow "  << Qt::endl;
-        //}
-        //else
-        //{
-        //                //qDebug() << "MainWindow::qsoToEdit: Freq_RX - OK "  << Qt::endl;
-        //    QSOTabWidget->setRXFreq(0);
-        //}
-
         //QSL SENT
 
         nameCol = rec.indexOf("qsl_sent");
@@ -6903,6 +6892,13 @@ void MainWindow::qsoToEdit (const int _qso)
                 if (aux1.toDouble ()>0)
                 {
                     othersTabWidget->setAge (aux1.toDouble ());
+                }
+
+                nameCol = rec.indexOf("vucc_grids");
+                aux1 = (query.value(nameCol)).toString();
+                if (util->isValidVUCCGrids (aux1))
+                {
+                    othersTabWidget->setVUCCGrids (aux1);
                 }
              //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  << Qt::endl;
 
@@ -8464,6 +8460,7 @@ void MainWindow::backupCurrentQSO()
     qso->setIOTA (othersTabWidget->getIOTA ());
     qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
     qso->setKeepOthers (othersTabWidget->getKeep ());
+    qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
 
     // MainWindowMyDataTab
     qso->setTXPwr (myDataTabWidget->getMyPower ());
@@ -8547,17 +8544,9 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
     // MainWindowInputOthers
 
-    QString aux = othersTabWidget->getUserADIFTypeComboBox ();
-    if (aux == "SOTA_REF")
-    {
-        othersTabWidget->setUserADIFTypeComboBox ("SOTA_REF");
-        othersTabWidget->setUserADIFValue (qso->getSOTA_REF());
-    }
-    else if (aux == "AGE")
-    {
-        othersTabWidget->setUserADIFTypeComboBox ("AGE");
-        othersTabWidget->setUserADIFValue (QString::number(qso->getAge()));
-    }
+    othersTabWidget->setVUCCGrids (qso->getVUCCGrids ());
+    othersTabWidget->setSOTA (qso->getSOTA_REF ());
+    othersTabWidget->setAge(qso->getAge ());
 
     othersTabWidget->setEntity (qso->getDXCC ());
     othersTabWidget->setIOTA (qso->getIOTA ());

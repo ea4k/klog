@@ -39,7 +39,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     propModeList = dataProxy->getPropModeList();
     sota_ref = QString();
     age = 0;
-
+    util = new Utilities;
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
     entityPrimDivComboBox = new QComboBox();
@@ -229,7 +229,7 @@ QString MainWindowInputOthers::getEntityPrefix()
     //return world->getQRZARRLId(pref);
 }
 
-void MainWindowInputOthers::setPropMode(const QString _qs, bool _keep)
+void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
       //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs << Qt::endl;
     autoUpdating = true;
@@ -294,10 +294,10 @@ bool MainWindowInputOthers::isIOTAModified()
 
 }
 
-void MainWindowInputOthers::setIOTA(const QString _qs)
+void MainWindowInputOthers::setIOTA(const QString &_qs)
 {//TODO: Seems to be better to send the color info like in: (it is much more flexible as I can send any color!)
 
-    //void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
+    //void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
       //qDebug() << "MainWindow::setIOTA: " << _qs << Qt::endl;
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {
@@ -333,7 +333,7 @@ void MainWindowInputOthers::setIOTAContinentFromEntity(const int _n)
     setIOTAContinent(dataProxy->getContinentShortNameFromEntity(_n)) ;
 }
 
-void MainWindowInputOthers::setIOTAContinent(const QString _qs)
+void MainWindowInputOthers::setIOTAContinent(const QString &_qs)
 {
        //qDebug() << "MainWindowInputOthers::setIOTAContinent: " << _qs << Qt::endl;
        //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index(a): " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << Qt::endl;
@@ -349,7 +349,7 @@ void MainWindowInputOthers::setIOTAContinent(const QString _qs)
     }
 }
 
-QString MainWindowInputOthers::checkIfValidIOTA(const QString _tiota)
+QString MainWindowInputOthers::checkIfValidIOTA(const QString &_tiota)
 {
 /**********************************
   IOTA should be always with this format: CC-NNN
@@ -466,6 +466,8 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
         return "SOTA_REF";
     case 2:
         return "AGE";
+    case 3:
+        return "VUCC_GRIDS";
     default:
         return QString();
     }
@@ -485,7 +487,7 @@ QString MainWindowInputOthers::getUserADIFValue()
 
 bool MainWindowInputOthers::setInitialADIFValues()
 {
-    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age");
+    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age") << "03-" + tr ("VUCC grids");
     userDefinedADIFComboBox->clear ();
     userDefinedADIFComboBox->addItems (adifValidTypes);
     return true;
@@ -493,8 +495,6 @@ bool MainWindowInputOthers::setInitialADIFValues()
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 {
-
-
     //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
 
@@ -506,16 +506,70 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     {
         userDefinedADIFValueLineEdit->setText (QString::number(age));
     }
-AÑADIR el VUCC_GRIDS
 }
 
-bool MainWindowInputOthers::setSOTA(const QString _op)
+bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _op;
+    if (checkVUCC_GRIDS(_op))
+    {
+        vucc_grids = _op;
+        slotUSerDefinedADIFComboBoxChanged();
+        return true;
+    }
+    return false;
+}
+
+bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _string;
+
+    if (util->isValidVUCCGrids (_string))
+    {
+        setColorsForUserDefinedADIFValueLineEdit();
+        return true;
+    }
+    else
+    {
+        userDefinedADIFValueLineEdit->setPalette (palRed);
+        return false;
+    }
+
+}
+
+QString MainWindowInputOthers::getVUCCGrids()
+{
+    if (checkVUCC_GRIDS (vucc_grids))
+    {
+        return vucc_grids;
+    }
+    else
+    {
+        return QString();
+    }
+}
+
+void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
+{
+    if (getDarkMode())
+    {
+        userDefinedADIFValueLineEdit->setPalette(palWhite);
+    }
+    else
+    {
+        userDefinedADIFValueLineEdit->setPalette(palBlack);
+    }
+}
+
+
+bool MainWindowInputOthers::setSOTA(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     sota_ref = _op;
     slotUSerDefinedADIFComboBoxChanged();
     return true;
 }
+
 QString MainWindowInputOthers::getSOTA()
 {
     //qDebug() << Q_FUNC_INFO;
@@ -545,6 +599,14 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     else if (currentTag == "AGE")
     {
         age = userDefinedADIFValueLineEdit->text().toDouble();
+    }
+    else if (currentTag == "VUCC_GRIDS")
+    {
+        if (checkVUCC_GRIDS(userDefinedADIFValueLineEdit->text()))
+        {}
+
+        vucc_grids = userDefinedADIFValueLineEdit->text().toUpper();
+        userDefinedADIFValueLineEdit->setText (vucc_grids);
     }
 }
 
