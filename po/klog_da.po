@@ -2146,19 +2146,19 @@ msgctxt "MainWindow|"
 msgid "KLog - Not valid call"
 msgstr ""
 
-#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1885
+#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1875
 msgctxt "MainWindow|"
 msgid ""
 "Adding non-valid calls to the log may create problems when applying for "
 "awards, exporting ADIF files to other systems or applications."
 msgstr ""
 
-#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1980
+#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "You have selected an entity:"
 msgstr "Du har valgt en entitet:"
 
-#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1980
+#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr "som er anderledes fra den af KLog foreslåede entitet:"
@@ -2171,18 +2171,18 @@ msgstr ""
 "Klik på præfikset for den korrekte entitet eller Afbryd for at redigere "
 "QSO'en igen."
 
-#: ../mainwindow.cpp:1950 ../mainwindow.cpp:1963
+#: ../mainwindow.cpp:1940 ../mainwindow.cpp:1953
 msgctxt "MainWindow|"
 msgid "No DXCC"
 msgstr ""
 
-#: ../mainwindow.cpp:1951 ../mainwindow.cpp:1964
+#: ../mainwindow.cpp:1941 ../mainwindow.cpp:1954
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "None"
 msgstr "Ingen"
 
-#: ../mainwindow.cpp:1981
+#: ../mainwindow.cpp:1971
 msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Klik på præfikset på den højre entitet eller Afbryd for at rette."
@@ -2192,12 +2192,12 @@ msgctxt "MainWindow|"
 msgid "KLog - QRZ.COM"
 msgstr ""
 
-#: ../mainwindow.cpp:7365
+#: ../mainwindow.cpp:7361
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:7363
+#: ../mainwindow.cpp:7359
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
@@ -2306,7 +2306,7 @@ msgctxt "MainWindow|"
 msgid "KLog - Unexpected error"
 msgstr ""
 
-#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1979
+#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1969
 msgctxt "MainWindow|"
 msgid "KLog - Select correct entity"
 msgstr ""
@@ -2388,12 +2388,12 @@ msgid ""
 "to the log?"
 msgstr ""
 
-#: ../mainwindow.cpp:1882
+#: ../mainwindow.cpp:1872
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:1883
+#: ../mainwindow.cpp:1873
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3115,83 +3115,83 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: ../mainwindow.cpp:7138
+#: ../mainwindow.cpp:7134
 msgctxt "MainWindow|"
 msgid "Filling QSOs ..."
 msgstr ""
 
-#: ../mainwindow.cpp:7359
+#: ../mainwindow.cpp:7355
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Date/Time"
 msgstr "Dato/tid"
 
-#: ../mainwindow.cpp:7361 ../mainwindow.cpp:7952
+#: ../mainwindow.cpp:7357 ../mainwindow.cpp:7948
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Callsign"
 msgstr "Kaldesignal"
 
-#: ../mainwindow.cpp:7389
+#: ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid "Printing the log ..."
 msgstr ""
 
-#: ../mainwindow.cpp:7944
+#: ../mainwindow.cpp:7940
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
 msgstr ""
 
-#: ../mainwindow.cpp:7981
+#: ../mainwindow.cpp:7977
 msgctxt "MainWindow|"
 msgid "Station Callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:7984
+#: ../mainwindow.cpp:7980
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:8026
+#: ../mainwindow.cpp:8022
 msgctxt "MainWindow|"
 msgid "KLog - WSJTX Dupe QSO"
 msgstr ""
 
-#: ../mainwindow.cpp:8029
+#: ../mainwindow.cpp:8025
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr ""
 
-#: ../mainwindow.cpp:8113
+#: ../mainwindow.cpp:8109
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
 msgstr ""
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external program "
 "or radio:"
 msgstr ""
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving these alerts? (disabling these alerts will "
 "prevent non-valid modes being detected)"
 msgstr ""
 
-#: ../mainwindow.cpp:8266
+#: ../mainwindow.cpp:8262
 msgctxt "MainWindow|"
 msgid "Native Error"
 msgstr ""
 
-#: ../mainwindow.cpp:8270
+#: ../mainwindow.cpp:8266
 msgctxt "MainWindow|"
 msgid "Recommendation:"
 msgstr ""
 
-#: ../mainwindow.cpp:8270
+#: ../mainwindow.cpp:8266
 msgctxt "MainWindow|"
 msgid "Periodically export your data to ADIF to prevent a potential data loss."
 msgstr ""
@@ -3359,7 +3359,7 @@ msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr "eQSL"
 
-#: ../mainwindow.cpp:5760 ../mainwindow.cpp:7371 ../mainwindow.cpp:7972
+#: ../mainwindow.cpp:5760 ../mainwindow.cpp:7367 ../mainwindow.cpp:7968
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Kommentar"
@@ -3439,42 +3439,42 @@ msgctxt "MainWindow|"
 msgid "KLog - LoTW"
 msgstr ""
 
-#: ../mainwindow.cpp:7955
+#: ../mainwindow.cpp:7951
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr "Frek"
 
-#: ../mainwindow.cpp:7962
+#: ../mainwindow.cpp:7958
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr "Tid på"
 
-#: ../mainwindow.cpp:7966
+#: ../mainwindow.cpp:7962
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr "Tid væk"
 
-#: ../mainwindow.cpp:7969
+#: ../mainwindow.cpp:7965
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr "RST TX"
 
-#: ../mainwindow.cpp:7969
+#: ../mainwindow.cpp:7965
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr "RST RX"
 
-#: ../mainwindow.cpp:7975
+#: ../mainwindow.cpp:7971
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr "DX-Grid"
 
-#: ../mainwindow.cpp:7978
+#: ../mainwindow.cpp:7974
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Lokalt-Net"
 
-#: ../mainwindow.cpp:8069
+#: ../mainwindow.cpp:8065
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr "QSO logget fra WSJT-X:"
@@ -3513,49 +3513,49 @@ msgctxt "MainWindow|"
 msgid "QRZ.COM"
 msgstr ""
 
-#: ../mainwindow.cpp:7084
+#: ../mainwindow.cpp:7080
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr " - Krævet for DXMarathon"
 
-#: ../mainwindow.cpp:7138
+#: ../mainwindow.cpp:7134
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "Afbryd udfyldning"
 
-#: ../mainwindow.cpp:7268
+#: ../mainwindow.cpp:7264
 msgctxt "MainWindow|"
 msgid ""
 "Filling DXCC, CQz, ITUz, Continent in QSOs...\n"
 " QSO: "
 msgstr ""
 
-#: ../mainwindow.cpp:7357
+#: ../mainwindow.cpp:7353
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "Nummer"
 
-#: ../mainwindow.cpp:7367
+#: ../mainwindow.cpp:7363
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Bånd"
 
-#: ../mainwindow.cpp:7369 ../mainwindow.cpp:7958
+#: ../mainwindow.cpp:7365 ../mainwindow.cpp:7954
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Tilstand"
 
-#: ../mainwindow.cpp:7384
+#: ../mainwindow.cpp:7380
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "Udskrivningslog"
 
-#: ../mainwindow.cpp:7389
+#: ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "Om udskrivning"
 
-#: ../mainwindow.cpp:7405 ../mainwindow.cpp:7420
+#: ../mainwindow.cpp:7401 ../mainwindow.cpp:7416
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -3564,13 +3564,13 @@ msgstr ""
 "Udskrivning af loggen ...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7949
+#: ../mainwindow.cpp:7945
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr ""
 "De følgende QSO-data er blevet modtaget fra WSJT-X for at blive logget:"
 
-#: ../mainwindow.cpp:8031
+#: ../mainwindow.cpp:8027
 msgctxt "MainWindow|"
 msgid ""
 "Duplicated QSOs have to match another existing QSO with the same call, band, "
@@ -3578,7 +3578,7 @@ msgid ""
 "the settings."
 msgstr ""
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
@@ -3587,12 +3587,12 @@ msgstr ""
 "Hvis den modtagne tilstand er korrekt, så kontakt venligst "
 "KLog-udviklingsholdet og anmod om understøttelse for den tilstand"
 
-#: ../mainwindow.cpp:8253
+#: ../mainwindow.cpp:8249
 msgctxt "MainWindow|"
 msgid "KLog - Duplicated satellite"
 msgstr ""
 
-#: ../mainwindow.cpp:8255
+#: ../mainwindow.cpp:8251
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
@@ -3600,7 +3600,7 @@ msgid ""
 msgstr ""
 "En dubletsatellit er blevet registreret i filen og vil ikke blive importeret."
 
-#: ../mainwindow.cpp:8256
+#: ../mainwindow.cpp:8252
 msgctxt "MainWindow|"
 msgid ""
 "Please check the satellite information file and ensure it is properly "
@@ -3609,49 +3609,49 @@ msgstr ""
 "Kontroller venligst satellitinformationsfilen og sikr dig at den er korrekt "
 "udfyldt."
 
-#: ../mainwindow.cpp:8256
+#: ../mainwindow.cpp:8252
 msgctxt "MainWindow|"
 msgid ""
 "Now you will see a more detailed error that can be used for debugging..."
 msgstr ""
 "Nu vil du se en mere detaljeret fejl, som kan bruges til fejlsøgning ..."
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr "Der opstod en uventet fejl!"
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr "Hvis problemet består, så kontakt udviklerne"
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr "for analyse:"
 
-#: ../mainwindow.cpp:8265
+#: ../mainwindow.cpp:8261
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Fejl i funktion"
 
-#: ../mainwindow.cpp:8267
+#: ../mainwindow.cpp:8263
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr "Fejltekst"
 
-#: ../mainwindow.cpp:8268
+#: ../mainwindow.cpp:8264
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Mislykket forespørgsel"
 
-#: ../mainwindow.cpp:8277
+#: ../mainwindow.cpp:8273
 msgctxt "MainWindow|"
 msgid "KLog - Show errors"
 msgstr ""
 
-#: ../mainwindow.cpp:8279
+#: ../mainwindow.cpp:8275
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr "Ønsker du fortsat at vise fejl?"
@@ -3863,14 +3863,19 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr "Ikke - ikke identificeret"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:488
+#: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:488
+#: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
+msgstr ""
+
+#: ../inputwidgets/mainwindowinputothers.cpp:490
+msgctxt "MainWindowInputOthers|"
+msgid "VUCC grids"
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66

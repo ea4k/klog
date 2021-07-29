@@ -2205,12 +2205,12 @@ msgstr ""
 "S'ha produït un error inesperat en intentar afegir el QSO al registre. Si el "
 "problema persisteix, contacteu amb el desenvolupador per a una anàlisi: "
 
-#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1980
+#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "You have selected an entity:"
 msgstr "Heu seleccionat una entitat:"
 
-#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1980
+#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr "que és diferent de l'entitat proposada pel KLog:"
@@ -2223,7 +2223,7 @@ msgstr ""
 "Feu clic al prefix de l'entitat correcta o Cancel·la per tornar a editar el "
 "QSO."
 
-#: ../mainwindow.cpp:1981
+#: ../mainwindow.cpp:1971
 msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Feu clic al prefix de l'entitat correcta o Cancel·la per corregir."
@@ -2253,17 +2253,17 @@ msgctxt "MainWindow|"
 msgid "QRZ.COM"
 msgstr "QRZ.com"
 
-#: ../mainwindow.cpp:7138
+#: ../mainwindow.cpp:7134
 msgctxt "MainWindow|"
 msgid "Filling QSOs ..."
 msgstr "Omplint els QSO..."
 
-#: ../mainwindow.cpp:7365
+#: ../mainwindow.cpp:7361
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:7363
+#: ../mainwindow.cpp:7359
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
@@ -2436,12 +2436,12 @@ msgstr ""
 "L'indicatiu %1 no és un indicatiu vàlid. Esteu segur que voleu afegir aquest "
 "indicatiu al registre?"
 
-#: ../mainwindow.cpp:1882
+#: ../mainwindow.cpp:1872
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
 msgstr "KLog - Indicatiu no vàlid"
 
-#: ../mainwindow.cpp:1883
+#: ../mainwindow.cpp:1873
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2762,7 +2762,7 @@ msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to eQSL"
 msgstr "El KLog no ha pogut marcar el registre complet per a enviar a l'eQSL"
 
-#: ../mainwindow.cpp:8069
+#: ../mainwindow.cpp:8065
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr "QSO enregistrat des del WSJT-X:"
@@ -2950,7 +2950,7 @@ msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr "eQSL"
 
-#: ../mainwindow.cpp:5760 ../mainwindow.cpp:7371 ../mainwindow.cpp:7972
+#: ../mainwindow.cpp:5760 ../mainwindow.cpp:7367 ../mainwindow.cpp:7968
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Comentari"
@@ -3021,7 +3021,7 @@ msgctxt "MainWindow|"
 msgid "KLog - Not valid call"
 msgstr "KLog - Indicatiu no vàlid"
 
-#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1885
+#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1875
 msgctxt "MainWindow|"
 msgid ""
 "Adding non-valid calls to the log may create problems when applying for "
@@ -3030,17 +3030,17 @@ msgstr ""
 "Afegir indicatius no vàlids al registre pot crear problemes en sol·licitar "
 "diplomes, exportar a fitxers ADIF o a altres sistemes o aplicacions."
 
-#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1979
+#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1969
 msgctxt "MainWindow|"
 msgid "KLog - Select correct entity"
 msgstr "KLog - Seleccioneu l'entitat correcta"
 
-#: ../mainwindow.cpp:1950 ../mainwindow.cpp:1963
+#: ../mainwindow.cpp:1940 ../mainwindow.cpp:1953
 msgctxt "MainWindow|"
 msgid "No DXCC"
 msgstr "Sense DXCC"
 
-#: ../mainwindow.cpp:1951 ../mainwindow.cpp:1964
+#: ../mainwindow.cpp:1941 ../mainwindow.cpp:1954
 msgctxt "MainWindow|"
 msgid "None"
 msgstr "Sense"
@@ -3407,27 +3407,27 @@ msgctxt "MainWindow|"
 msgid "The file has been removed."
 msgstr "El fitxer s'ha eliminat."
 
-#: ../mainwindow.cpp:7359
+#: ../mainwindow.cpp:7355
 msgctxt "MainWindow|"
 msgid "Date/Time"
 msgstr "Data/hora"
 
-#: ../mainwindow.cpp:7944
+#: ../mainwindow.cpp:7940
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
 msgstr "KLog - S'ha rebut un QSO"
 
-#: ../mainwindow.cpp:7981
+#: ../mainwindow.cpp:7977
 msgctxt "MainWindow|"
 msgid "Station Callsign"
 msgstr "Indicatiu de l'estació"
 
-#: ../mainwindow.cpp:7984
+#: ../mainwindow.cpp:7980
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
 msgstr "Indicatiu de l'operador"
 
-#: ../mainwindow.cpp:8031
+#: ../mainwindow.cpp:8027
 msgctxt "MainWindow|"
 msgid ""
 "Duplicated QSOs have to match another existing QSO with the same call, band, "
@@ -3438,12 +3438,12 @@ msgstr ""
 "mateix indicatiu, banda, mode, data i hora, atenint en compte que el període "
 "es pot definir a la configuració."
 
-#: ../mainwindow.cpp:8113
+#: ../mainwindow.cpp:8109
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
 msgstr "KLog - Mode no implementat"
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external program "
@@ -3451,7 +3451,7 @@ msgid ""
 msgstr ""
 "El KLog ha rebut un mode nou no admès des d'un programa extern o ràdio:"
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving these alerts? (disabling these alerts will "
@@ -3460,17 +3460,17 @@ msgstr ""
 "Voleu mantenir la recepció d'aquestes alertes? (la desactivació d'aquestes "
 "alertes evitarà que es detectin els modes no vàlids)"
 
-#: ../mainwindow.cpp:8266
+#: ../mainwindow.cpp:8262
 msgctxt "MainWindow|"
 msgid "Native Error"
 msgstr ""
 
-#: ../mainwindow.cpp:8270
+#: ../mainwindow.cpp:8266
 msgctxt "MainWindow|"
 msgid "Recommendation:"
 msgstr "Recomanació:"
 
-#: ../mainwindow.cpp:8270
+#: ../mainwindow.cpp:8266
 msgctxt "MainWindow|"
 msgid "Periodically export your data to ADIF to prevent a potential data loss."
 msgstr ""
@@ -3681,17 +3681,17 @@ msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Obre un fitxer"
 
-#: ../mainwindow.cpp:7084
+#: ../mainwindow.cpp:7080
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr " - Necessari per DXMarathon"
 
-#: ../mainwindow.cpp:7138
+#: ../mainwindow.cpp:7134
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "Interromp l'ompliment"
 
-#: ../mainwindow.cpp:7268
+#: ../mainwindow.cpp:7264
 msgctxt "MainWindow|"
 msgid ""
 "Filling DXCC, CQz, ITUz, Continent in QSOs...\n"
@@ -3700,42 +3700,42 @@ msgstr ""
 "S'està omplint DXCC, CQz, ITUz, continent al QSO...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7357
+#: ../mainwindow.cpp:7353
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "Número"
 
-#: ../mainwindow.cpp:7361 ../mainwindow.cpp:7952
+#: ../mainwindow.cpp:7357 ../mainwindow.cpp:7948
 msgctxt "MainWindow|"
 msgid "Callsign"
 msgstr "Indicatiu"
 
-#: ../mainwindow.cpp:7367
+#: ../mainwindow.cpp:7363
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Banda"
 
-#: ../mainwindow.cpp:7369 ../mainwindow.cpp:7958
+#: ../mainwindow.cpp:7365 ../mainwindow.cpp:7954
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Mode"
 
-#: ../mainwindow.cpp:7384
+#: ../mainwindow.cpp:7380
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "Imprimeix el registre"
 
-#: ../mainwindow.cpp:7389
+#: ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "Interromp la impressió"
 
-#: ../mainwindow.cpp:7389
+#: ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid "Printing the log ..."
 msgstr "S'està imprimint el registre..."
 
-#: ../mainwindow.cpp:7405 ../mainwindow.cpp:7420
+#: ../mainwindow.cpp:7401 ../mainwindow.cpp:7416
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -3744,57 +3744,57 @@ msgstr ""
 "S'està imprimint el registre...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7949
+#: ../mainwindow.cpp:7945
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr "S'han rebut les dades QSO següents des del WSJT-X per a enregistrar:"
 
-#: ../mainwindow.cpp:7955
+#: ../mainwindow.cpp:7951
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr "Freq"
 
-#: ../mainwindow.cpp:7962
+#: ../mainwindow.cpp:7958
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr "Hora d'inici"
 
-#: ../mainwindow.cpp:7966
+#: ../mainwindow.cpp:7962
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr "Hora final"
 
-#: ../mainwindow.cpp:7969
+#: ../mainwindow.cpp:7965
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr "RST TX"
 
-#: ../mainwindow.cpp:7969
+#: ../mainwindow.cpp:7965
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr "RST RX"
 
-#: ../mainwindow.cpp:7975
+#: ../mainwindow.cpp:7971
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr "DX-Grid"
 
-#: ../mainwindow.cpp:7978
+#: ../mainwindow.cpp:7974
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Local-Grid"
 
-#: ../mainwindow.cpp:8026
+#: ../mainwindow.cpp:8022
 msgctxt "MainWindow|"
 msgid "KLog - WSJTX Dupe QSO"
 msgstr "KLog - QSO duplicat del WSJTX"
 
-#: ../mainwindow.cpp:8029
+#: ../mainwindow.cpp:8025
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr "Sembla que aquest QSO és duplicat. El voleu desar o descartar?"
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
@@ -3803,19 +3803,19 @@ msgstr ""
 "Si el mode rebut és correcte, contacteu amb l'equip de desenvolupament del "
 "KLog i sol·liciteu la implementació d'aquest mode"
 
-#: ../mainwindow.cpp:8253
+#: ../mainwindow.cpp:8249
 msgctxt "MainWindow|"
 msgid "KLog - Duplicated satellite"
 msgstr "KLog - Satèl·lit duplicat"
 
-#: ../mainwindow.cpp:8255
+#: ../mainwindow.cpp:8251
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
 "imported."
 msgstr "S'ha detectat un satèl·lit duplicat al fitxer i no s'importarà."
 
-#: ../mainwindow.cpp:8256
+#: ../mainwindow.cpp:8252
 msgctxt "MainWindow|"
 msgid ""
 "Please check the satellite information file and ensure it is properly "
@@ -3824,48 +3824,48 @@ msgstr ""
 "Comproveu el fitxer d'informació del satèl·lit i assegureu que estigui "
 "correctament omplert."
 
-#: ../mainwindow.cpp:8256
+#: ../mainwindow.cpp:8252
 msgctxt "MainWindow|"
 msgid ""
 "Now you will see a more detailed error that can be used for debugging..."
 msgstr "Ara veureu un error més detallat que es pot usar per a la depuració..."
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr "Hi ha hagut un error inesperat!!"
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr "Si el problema persisteix, contacteu amb els desenvolupadors"
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr "per a l'anàlisi:"
 
-#: ../mainwindow.cpp:8265
+#: ../mainwindow.cpp:8261
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Error a la funció"
 
-#: ../mainwindow.cpp:8267
+#: ../mainwindow.cpp:8263
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr "Text de l'error"
 
-#: ../mainwindow.cpp:8268
+#: ../mainwindow.cpp:8264
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Ha fallat la consulta"
 
-#: ../mainwindow.cpp:8277
+#: ../mainwindow.cpp:8273
 msgctxt "MainWindow|"
 msgid "KLog - Show errors"
 msgstr "KLog - Mostra els errors"
 
-#: ../mainwindow.cpp:8279
+#: ../mainwindow.cpp:8275
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr "Voleu mantenir la visualització dels errors?"
@@ -4073,15 +4073,20 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr "Not - No identificat"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:488
+#: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr "Referència SOTA"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:488
+#: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr "Antiguitat"
+
+#: ../inputwidgets/mainwindowinputothers.cpp:490
+msgctxt "MainWindowInputOthers|"
+msgid "VUCC grids"
+msgstr ""
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
 msgctxt "MainWindowInputQSL|"

@@ -2212,7 +2212,7 @@ msgctxt "MainWindow|"
 msgid "KLog - Not valid call"
 msgstr "KLog - Nevaljali pozivni znak"
 
-#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1885
+#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1875
 msgctxt "MainWindow|"
 msgid ""
 "Adding non-valid calls to the log may create problems when applying for "
@@ -2222,17 +2222,17 @@ msgstr ""
 "prilikom apliciranja za nagrade, izvoza ADIF datoteka za druge sustave ili "
 "aplikacije."
 
-#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1979
+#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1969
 msgctxt "MainWindow|"
 msgid "KLog - Select correct entity"
 msgstr "KLog - Izaberite ispravan entitet"
 
-#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1980
+#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "You have selected an entity:"
 msgstr "Izabrali ste entitet:"
 
-#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1980
+#: ../mainwindow.cpp:1155 ../mainwindow.cpp:1970
 msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr "koji se razlikuje od entiteta predloženog u KLogu:"
@@ -2246,18 +2246,18 @@ msgstr ""
 "QSO."
 
 # Translated in a sense "it is not a DXCC". If the context is "there is no DXCC" the translation should say "Nema DXCCa".
-#: ../mainwindow.cpp:1950 ../mainwindow.cpp:1963
+#: ../mainwindow.cpp:1940 ../mainwindow.cpp:1953
 msgctxt "MainWindow|"
 msgid "No DXCC"
 msgstr "Nije DXCC"
 
-#: ../mainwindow.cpp:1951 ../mainwindow.cpp:1964
+#: ../mainwindow.cpp:1941 ../mainwindow.cpp:1954
 msgctxt "MainWindow|"
 msgid "None"
 msgstr "Nijedan"
 
 # "right" translated as in "correct"/"valid" (rather than "to the right of")
-#: ../mainwindow.cpp:1981
+#: ../mainwindow.cpp:1971
 msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr "Kliknite na prefiks ispravnog entiteta ili Poništi za ispravku."
@@ -2278,12 +2278,12 @@ msgctxt "MainWindow|"
 msgid "KLog - %1"
 msgstr ""
 
-#: ../mainwindow.cpp:7365
+#: ../mainwindow.cpp:7361
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:7363
+#: ../mainwindow.cpp:7359
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
@@ -2744,52 +2744,52 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: ../mainwindow.cpp:7138
+#: ../mainwindow.cpp:7134
 msgctxt "MainWindow|"
 msgid "Filling QSOs ..."
 msgstr ""
 
-#: ../mainwindow.cpp:7359
+#: ../mainwindow.cpp:7355
 msgctxt "MainWindow|"
 msgid "Date/Time"
 msgstr "Datum/Vrijeme"
 
-#: ../mainwindow.cpp:7389
+#: ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid "Printing the log ..."
 msgstr ""
 
-#: ../mainwindow.cpp:7944
+#: ../mainwindow.cpp:7940
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
 msgstr ""
 
-#: ../mainwindow.cpp:7981
+#: ../mainwindow.cpp:7977
 msgctxt "MainWindow|"
 msgid "Station Callsign"
 msgstr "Pozivni znak postaje"
 
-#: ../mainwindow.cpp:7984
+#: ../mainwindow.cpp:7980
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
 msgstr "Pozivni znak operatera"
 
-#: ../mainwindow.cpp:8026
+#: ../mainwindow.cpp:8022
 msgctxt "MainWindow|"
 msgid "KLog - WSJTX Dupe QSO"
 msgstr ""
 
-#: ../mainwindow.cpp:8029
+#: ../mainwindow.cpp:8025
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr ""
 
-#: ../mainwindow.cpp:8113
+#: ../mainwindow.cpp:8109
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
 msgstr "KLog - Način rada nije podržan"
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external program "
@@ -2797,7 +2797,7 @@ msgid ""
 msgstr ""
 "Novi način rada koji nije podržan u KLogu primljen je iz vanjskog softvera:"
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving these alerts? (disabling these alerts will "
@@ -2806,17 +2806,17 @@ msgstr ""
 "Želite li nastaviti primati ovu obavijest? (ako onemogućite ovu obavijest "
 "nećete moći otkriti nevažeće načine rada)"
 
-#: ../mainwindow.cpp:8266
+#: ../mainwindow.cpp:8262
 msgctxt "MainWindow|"
 msgid "Native Error"
 msgstr ""
 
-#: ../mainwindow.cpp:8270
+#: ../mainwindow.cpp:8266
 msgctxt "MainWindow|"
 msgid "Recommendation:"
 msgstr "Preporuka:"
 
-#: ../mainwindow.cpp:8270
+#: ../mainwindow.cpp:8266
 msgctxt "MainWindow|"
 msgid "Periodically export your data to ADIF to prevent a potential data loss."
 msgstr ""
@@ -3239,12 +3239,12 @@ msgid ""
 "to the log?"
 msgstr ""
 
-#: ../mainwindow.cpp:1882
+#: ../mainwindow.cpp:1872
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:1883
+#: ../mainwindow.cpp:1873
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3412,7 +3412,7 @@ msgctxt "MainWindow|"
 msgid "It seems that there are no QSOs in the database."
 msgstr "Izgleda da u ovoj bazi podataka nema nijednog QSOa."
 
-#: ../mainwindow.cpp:7268
+#: ../mainwindow.cpp:7264
 msgctxt "MainWindow|"
 msgid ""
 "Filling DXCC, CQz, ITUz, Continent in QSOs...\n"
@@ -3421,13 +3421,13 @@ msgstr ""
 "Popunjavam DXCC, CQz, ITUz, Kontinent u QSOima...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7361 ../mainwindow.cpp:7952
+#: ../mainwindow.cpp:7357 ../mainwindow.cpp:7948
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Callsign"
 msgstr "Pozivni znak"
 
-#: ../mainwindow.cpp:8069
+#: ../mainwindow.cpp:8065
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr "QSO zabilježen iz WSJT-X:"
@@ -3489,7 +3489,7 @@ msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr "eQSL"
 
-#: ../mainwindow.cpp:5760 ../mainwindow.cpp:7371 ../mainwindow.cpp:7972
+#: ../mainwindow.cpp:5760 ../mainwindow.cpp:7367 ../mainwindow.cpp:7968
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Komentar"
@@ -3578,42 +3578,42 @@ msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Otvori datoteku"
 
-#: ../mainwindow.cpp:7084
+#: ../mainwindow.cpp:7080
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr " - Potrebno za DXMarathon"
 
-#: ../mainwindow.cpp:7138
+#: ../mainwindow.cpp:7134
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr "Prekini ispunjavanje"
 
-#: ../mainwindow.cpp:7357
+#: ../mainwindow.cpp:7353
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr "Broj"
 
-#: ../mainwindow.cpp:7367
+#: ../mainwindow.cpp:7363
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Pojas"
 
-#: ../mainwindow.cpp:7369 ../mainwindow.cpp:7958
+#: ../mainwindow.cpp:7365 ../mainwindow.cpp:7954
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Način rada"
 
-#: ../mainwindow.cpp:7384
+#: ../mainwindow.cpp:7380
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr "Ispiši dnevnik"
 
-#: ../mainwindow.cpp:7389
+#: ../mainwindow.cpp:7385
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr "Prekini ispis"
 
-#: ../mainwindow.cpp:7405 ../mainwindow.cpp:7420
+#: ../mainwindow.cpp:7401 ../mainwindow.cpp:7416
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
@@ -3622,49 +3622,49 @@ msgstr ""
 "Ispisujem dnevnik...\n"
 " QSO: "
 
-#: ../mainwindow.cpp:7949
+#: ../mainwindow.cpp:7945
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr ""
 "QSO sa slijedećim podacima je primljen iz WSJT-Xa kako bi bilo zapisan u "
 "dnevnik:"
 
-#: ../mainwindow.cpp:7955
+#: ../mainwindow.cpp:7951
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr "Frekv"
 
-#: ../mainwindow.cpp:7962
+#: ../mainwindow.cpp:7958
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr "Vrijeme početka"
 
-#: ../mainwindow.cpp:7966
+#: ../mainwindow.cpp:7962
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr "Vrijeme kraja"
 
-#: ../mainwindow.cpp:7969
+#: ../mainwindow.cpp:7965
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr "RST TX"
 
-#: ../mainwindow.cpp:7969
+#: ../mainwindow.cpp:7965
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr "RST RX"
 
-#: ../mainwindow.cpp:7975
+#: ../mainwindow.cpp:7971
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr "DX koordinata"
 
-#: ../mainwindow.cpp:7978
+#: ../mainwindow.cpp:7974
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr "Lokalna koordinata"
 
-#: ../mainwindow.cpp:8031
+#: ../mainwindow.cpp:8027
 msgctxt "MainWindow|"
 msgid ""
 "Duplicated QSOs have to match another existing QSO with the same call, band, "
@@ -3672,7 +3672,7 @@ msgid ""
 "the settings."
 msgstr ""
 
-#: ../mainwindow.cpp:8116
+#: ../mainwindow.cpp:8112
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
@@ -3681,19 +3681,19 @@ msgstr ""
 "Ako je ovaj način rada valjan, molimo javite razvijateljima KLoga i "
 "zatražite podršku za ovaj način rada"
 
-#: ../mainwindow.cpp:8253
+#: ../mainwindow.cpp:8249
 msgctxt "MainWindow|"
 msgid "KLog - Duplicated satellite"
 msgstr "KLog - Dupliciran satelit"
 
-#: ../mainwindow.cpp:8255
+#: ../mainwindow.cpp:8251
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
 "imported."
 msgstr "Duplicirani satelit je otkriven u datoteci i neće biti uvezen."
 
-#: ../mainwindow.cpp:8256
+#: ../mainwindow.cpp:8252
 msgctxt "MainWindow|"
 msgid ""
 "Please check the satellite information file and ensure it is properly "
@@ -3702,7 +3702,7 @@ msgstr ""
 "Molim provjerite datoteku s podacima o satelitima i osigurajte da je "
 "ispravno popunjena."
 
-#: ../mainwindow.cpp:8256
+#: ../mainwindow.cpp:8252
 msgctxt "MainWindow|"
 msgid ""
 "Now you will see a more detailed error that can be used for debugging..."
@@ -3710,42 +3710,42 @@ msgstr ""
 "Sada ćete vidjeti detaljnije greške koje možete koristiti za otklanjanje "
 "neispravnosti..."
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr "Dogodila se nepredviđena greška!!"
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr "Ako problem i dalje traje, molimo javite razvijateljima programa"
 
-#: ../mainwindow.cpp:8263
+#: ../mainwindow.cpp:8259
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr "za analizu:"
 
-#: ../mainwindow.cpp:8265
+#: ../mainwindow.cpp:8261
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr "Greška u funkciji"
 
-#: ../mainwindow.cpp:8267
+#: ../mainwindow.cpp:8263
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr "Tekst greške"
 
-#: ../mainwindow.cpp:8268
+#: ../mainwindow.cpp:8264
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr "Neuspio upit"
 
-#: ../mainwindow.cpp:8277
+#: ../mainwindow.cpp:8273
 msgctxt "MainWindow|"
 msgid "KLog - Show errors"
 msgstr "KLog - Prikaži pogreške"
 
-#: ../mainwindow.cpp:8279
+#: ../mainwindow.cpp:8275
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr "Želite li nastaviti viđati greške?"
@@ -3956,14 +3956,19 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr "Nije - Nije identificiran"
 
-#: ../inputwidgets/mainwindowinputothers.cpp:488
+#: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:488
+#: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
+msgstr ""
+
+#: ../inputwidgets/mainwindowinputothers.cpp:490
+msgctxt "MainWindowInputOthers|"
+msgid "VUCC grids"
 msgstr ""
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
