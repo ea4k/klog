@@ -31,7 +31,7 @@
 #include <QFile>
 //#include <QDebug>
 
-DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : QObject(0)
+DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) : QObject(0)
 {
     //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << Qt::endl;
     util = new Utilities;

@@ -101,19 +101,19 @@ public:
     QString getQSL_SENT();
     bool setQSLSDate(const QDate &_c);
     QDate getQSLSDate();
-    bool setQSLSenVia(const QString _qs);
+    bool setQSLSenVia(const QString &_qs);
     QString getSentVia();
 
     bool setQSL_RCVD(const QString &_c);
     QString getQSL_RCVD();
     bool setQSLRDate(const QDate &_c);
     QDate getQSLRDate();
-    bool setQSLRecVia(const QString _qs);
+    bool setQSLRecVia(const QString &_qs);
     QString getRecVia();
 
-    bool setQSLVia(const QString _qs);
+    bool setQSLVia(const QString &_qs);
     QString getQSLVia();
-    bool setQSLMsg(const QString _qs);
+    bool setQSLMsg(const QString &_qs);
     QString getQSLMsg();
 
 

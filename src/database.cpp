@@ -166,7 +166,7 @@ QString DataBase::getDBVersion()
 }
 
 /*
- bool DataBase::setDir(const QString _dir)
+ bool DataBase::setDir(const QString &_dir)
 {
     dbDir = _dir;
     return true;

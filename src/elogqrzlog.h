@@ -109,10 +109,10 @@ signals:
     void done();
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
-    void showMessage(const QString _t);
+    void showMessage(const QString &_t);
     void disableQRZAction(const bool _b);
     void signalLogUploaded(QNetworkReply::NetworkError, QList<int>);
-    void dataFoundSignal(const QString &_type, const QString _data);
+    void dataFoundSignal(const QString &_type, const QString &_data);
 
 };
 #endif // DOWNLOADCTY_H

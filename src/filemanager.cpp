@@ -55,7 +55,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
 
 
 FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion)
-//FileManager::FileManager(const QString _klogDir, const QString _softVersion, DataBase _db)
+//FileManager::FileManager(const QString &_klogDir, const QString &_softVersion, DataBase _db)
 {
        //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << Qt::endl;
     constrid = 2;
@@ -742,7 +742,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 }
 
 bool FileManager::printQs(const QStringList &_line)
-//bool FileManager::printQs(const QString _q, const QStringList _line)
+//bool FileManager::printQs(const QString &_q, const QStringList _line)
 {
     QStringList qs = _line;
 
@@ -1176,7 +1176,7 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
                //qDebug() << "FileManager::adifLoTWReadLog: START of QSO adding"<< Qt::endl;
                 //dataProxy->isThisQSODuplicated()
 
-                //int getDuplicatedQSOId(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode);
+                //int getDuplicatedQSOId(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode);
                 QString str, _call, _date, _time, _band, _mode;
                 double _freq = 0.0;
                 bool haveBand = false;
@@ -3008,7 +3008,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 else if (field == "APP_KLOG_LOGN") //Lognumber in a multiple-log file
                 {
                     //TODO: Think about how to import a file with different logs
-                    //isThisQSODuplicated(const QString _qrz, const QString _date, const QString _time, const int _band, const int _mode)
+                    //isThisQSODuplicated(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
                 }
                 else if (field == "APP_N1MM_POINTS") //Importing from N1MM
                 {

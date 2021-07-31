@@ -203,7 +203,7 @@ private slots:
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
-    void setMainWindowTitle(const QString _s);
+    void setMainWindowTitle(const QString &_s);
     void slotSetup(const int _page=0);
 
     void slotADIFExport();
@@ -248,12 +248,12 @@ private slots:
     void slotDebugAction();
 
     // MainQSOEntryWidget
-    void slotShowInfoLabel(const QString _m);
+    void slotShowInfoLabel(const QString &_m);
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
 
     // MyDataTab
-    void slotMyLocatorTextChanged(const QString _loc);
+    void slotMyLocatorTextChanged(const QString &_loc);
 
     // logpanel
     //void slotRighButtonFromLog( const QPoint& pos);
@@ -291,7 +291,7 @@ private slots:
     void slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // QRZCOM
     //SATELLITE
-    //void slotSatBandTXComboBoxChanged(const QString _q);
+    //void slotSatBandTXComboBoxChanged(const QString &_q);
     void slotDefineNewBands (const QStringList _bands);
 
     //HAMLIB

@@ -514,7 +514,7 @@ void SetupPageELog::slotSelectTQSLClicked()
        //qDebug() << "SetupPageELogr::slotSelectTQSLClicked - END" << Qt::endl;
 }
 
-void SetupPageELog::slotPathLineEditChanged(const QString _q)
+void SetupPageELog::slotPathLineEditChanged(const QString &_q)
 {
 
     if (QFile::exists(_q))

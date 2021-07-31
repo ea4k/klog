@@ -46,8 +46,8 @@ public:
     int getSelectedSat();
     void setSelectedSat(const int _i);
     void createNewSat();
-    void setDefaultStationCallsign (const QString _p);
-    void setDefaultOperators(const QString _p);
+    void setDefaultStationCallsign (const QString &_p);
+    void setDefaultOperators(const QString &_p);
 
 
 private slots:

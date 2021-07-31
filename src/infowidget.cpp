@@ -333,7 +333,7 @@ void InfoWidget::clear()
     clearInfoFromLocators();
 }
 
-void InfoWidget::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
+void InfoWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
 }
@@ -361,7 +361,7 @@ void InfoWidget::setImperialSystem (const  bool _imp)
     }
 }
 
-QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString _q)
+QString InfoWidget::getStyleColorToLabelFromBand(const QString &_b, const QString &_q)
 { // Receives band name, Entity number (as a String)
    //qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << Qt::endl;
    QStringList _qs;
@@ -464,7 +464,7 @@ void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
 }
 
 
-void InfoWidget::showDistanceAndBearing(const QString _locLocal, const QString _locDX)
+void InfoWidget::showDistanceAndBearing(const QString &_locLocal, const QString &_locDX)
 {// Local / DX
        //qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << Qt::endl;
     QString lloc = _locLocal.toUpper();
@@ -507,7 +507,7 @@ void InfoWidget::showDistanceAndBearing(const QString _locLocal, const QString _
     }
 }
 
-void InfoWidget::setLocalLocator(const QString _loc)
+void InfoWidget::setLocalLocator(const QString &_loc)
 {
     if (locator->isValidLocator(_loc))
     {
@@ -515,7 +515,7 @@ void InfoWidget::setLocalLocator(const QString _loc)
     }
 }
 
-void InfoWidget::setDXLocator(const QString _loc)
+void InfoWidget::setDXLocator(const QString &_loc)
 {
     if (locator->isValidLocator(_loc))
     {

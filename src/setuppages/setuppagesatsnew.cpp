@@ -218,7 +218,7 @@ void SetupPageSatsNew::slotUpLinkTextChanged()
     }
 }
 
-bool SetupPageSatsNew::isItAFreq(const QString _st)
+bool SetupPageSatsNew::isItAFreq(const QString &_st)
 {
       //qDebug() << "SetupPageSatsNew::isItAFreq: It is one freq: " << _st << Qt::endl;
     bool ok = false;

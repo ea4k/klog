@@ -654,7 +654,7 @@ void SetupPageLogs::readSelectedLog(const int _i)
 
 }
 */
-void SetupPageLogs::showError(const QString _errorC)
+void SetupPageLogs::showError(const QString &_errorC)
 {
     QString text = QString(tr("An error has occurred showing the following error code:") + "\n'%1'").arg(_errorC);
 
@@ -665,13 +665,13 @@ void SetupPageLogs::showError(const QString _errorC)
 
 }
 
-void SetupPageLogs::setDefaultStationCallsign(const QString _p)
+void SetupPageLogs::setDefaultStationCallsign(const QString &_p)
 {
        //qDebug() << "SetupPageLogs::setDefaultStationCallsign: " << _p << Qt::endl;
     defaultStationCallSign = _p;
 }
 
-void SetupPageLogs::setDefaultOperators(const QString _p)
+void SetupPageLogs::setDefaultOperators(const QString &_p)
 {
        //SetupPageLogs
     defaultOperators = _p;

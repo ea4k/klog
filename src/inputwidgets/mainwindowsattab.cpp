@@ -862,7 +862,7 @@ void MainWindowSatTab::autofillSatMode()
     satModeLineEdit->setText(upLinkBand + "/" + downLinkBand);
 }
 
-QString MainWindowSatTab::bandToLetter(const QString _band)
+QString MainWindowSatTab::bandToLetter(const QString &_band)
 {
    QString letter = "";
 

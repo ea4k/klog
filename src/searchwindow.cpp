@@ -698,7 +698,7 @@ void SearchWindow::searchToolNeededQSLToSend()
 void SearchWindow::slotQSLSentMarkAsRequested()
 {
     //qDebug() << "SearchWindow::slotQSLSentMarkAsRequested: " << QString::number( (qslSentRequestedAct->data()).toInt() ) << Qt::endl;
-   // bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
+   // bool qslSentAsRequested(const int _qsoId, const QString &_updateDate);
     int _qsoId = ((searchModel->index((qslSentRequestedAct->data()).toInt(), 0)).data(0)).toInt();
 
     dataProxy->qslSentAsRequested(_qsoId, QDate::currentDate());

@@ -648,7 +648,7 @@ QString QSO::getQSL_RCVD()
     return qsl_rcvd;
 }
 
-bool QSO::setQSLSenVia(const QString _qs)
+bool QSO::setQSLSenVia(const QString &_qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -666,7 +666,7 @@ QString QSO::getSentVia()
     return qslSenVia;
 }
 
-bool QSO::setQSLRecVia(const QString _qs)
+bool QSO::setQSLRecVia(const QString &_qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -684,7 +684,7 @@ QString QSO::getRecVia()
     return qslRecVia;
 }
 
-bool QSO::setQSLVia(const QString _qs)
+bool QSO::setQSLVia(const QString &_qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -721,7 +721,7 @@ QDate QSO::getQSLRDate()
     return QSLRDate;
 }
 
-bool QSO::setQSLMsg(const QString _qs)
+bool QSO::setQSLMsg(const QString &_qs)
 {
     if (!_qs.isEmpty ())
     {

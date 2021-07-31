@@ -352,7 +352,7 @@ void AwardsWidget::showAwards()
     //_num = 0;
 
     dxccWorkedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", false, "ALL", currentLog));
-    int getFieldInBand(ValidFieldsForStats _field, const QString _band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);_num = 0;
+    int getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);_num = 0;
 
 
     dxccConfirmedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", currentLog));

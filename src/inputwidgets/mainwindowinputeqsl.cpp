@@ -268,7 +268,7 @@ QString MainWindowInputEQSL::getLOTWSenStatus()
 }
 
 
-void MainWindowInputEQSL::setClubLogStatus(const QString _qs)
+void MainWindowInputEQSL::setClubLogStatus(const QString &_qs)
 {
        //qDebug() << "MainWindowInputEQSL::setClubLogStatus: " << _qs << Qt::endl;
     if((( clublogComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
@@ -281,7 +281,7 @@ void MainWindowInputEQSL::setClubLogStatus(const QString _qs)
      }
 }
 
-void MainWindowInputEQSL::setQRZCOMStatus(const QString _qs)
+void MainWindowInputEQSL::setQRZCOMStatus(const QString &_qs)
 {
        //qDebug() << "MainWindowInputEQSL::setClubLogStatus: " << _qs << Qt::endl;
     if((( qrzcomComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
@@ -294,7 +294,7 @@ void MainWindowInputEQSL::setQRZCOMStatus(const QString _qs)
      }
 }
 
-void MainWindowInputEQSL::setEQSLRecStatus(const QString _qs)
+void MainWindowInputEQSL::setEQSLRecStatus(const QString &_qs)
 {
        //qDebug() << "MainWindowInputEQSL::setEQSLRecStatus: " << _qs << Qt::endl;
      //if(( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
@@ -308,7 +308,7 @@ void MainWindowInputEQSL::setEQSLRecStatus(const QString _qs)
      }
 }
 
-void MainWindowInputEQSL::setEQSLSenStatus(const QString _qs)
+void MainWindowInputEQSL::setEQSLSenStatus(const QString &_qs)
 {
     //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus: #" << _qs+" -" << Qt::endl;
 
@@ -338,7 +338,7 @@ void MainWindowInputEQSL::setEQSLSenStatus(const QString _qs)
      //qDebug() << "MainWindowInputEQSL::setEQSLSenStatus - END" << Qt::endl;
 }
 
-void MainWindowInputEQSL::setLOTWRecStatus(const QString _qs)
+void MainWindowInputEQSL::setLOTWRecStatus(const QString &_qs)
 {
       //qDebug() << "MainWindowInputEQSL::setLOTWRecStatus: " << _qs << Qt::endl;
     if((( lotwRecComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )
@@ -353,7 +353,7 @@ void MainWindowInputEQSL::setLOTWRecStatus(const QString _qs)
 }
 
 
-void MainWindowInputEQSL::setLOTWSenStatus(const QString _qs)
+void MainWindowInputEQSL::setLOTWSenStatus(const QString &_qs)
 {
       //qDebug() << "MainWindowInputEQSL::setLOTWSenStatus: " << _qs << Qt::endl;
     if((( lotwSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (_qs.length()>0)    )

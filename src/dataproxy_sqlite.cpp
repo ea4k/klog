@@ -9785,7 +9785,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
     return _qsos;
 }
 
-int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString _band, bool confirmedOnly, QString _mode, int _log)
+int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode, int _log)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
 

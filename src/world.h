@@ -89,7 +89,7 @@ public:
 
     int getEntityCqz(const int _enti);
     int getQRZCqz(const QString &_qrz);
-    //int getPrefixCQz(const QString _p);
+    //int getPrefixCQz(const QString &_p);
 
     int getQRZItuz(const QString &_qrz);
     int getEntityItuz(const int _enti);

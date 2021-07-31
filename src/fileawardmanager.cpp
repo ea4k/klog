@@ -224,7 +224,7 @@ bool FileAwardManager::importNewAwardFile()
     return false;
 }
 
-void FileAwardManager::showError(const QString _header, const QString _msg, const QString _detailedMsg)
+void FileAwardManager::showError(const QString &_header, const QString &_msg, const QString &_detailedMsg)
 {
     //qDebug() << "FileAwardManager::showError: " << _msg << Qt::endl;
     QMessageBox msgBox;

@@ -166,7 +166,7 @@ void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError
     //actionError(result);
 }
 
-void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, const QString _defaultStationCallsign)
+void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, const QString &_defaultStationCallsign)
 {
     //qDebug()<< "eQSLUtilities::setCredentials: user: " << _user << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign << Qt::endl;
     stationCallsign = _defaultStationCallsign;

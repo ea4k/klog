@@ -91,7 +91,7 @@ public:
     void setModify(const bool _modify);
 
 signals:
-    void myLocChangedSignal(const QString _q); // MyLocator once updated
+    void myLocChangedSignal(const QString &_q); // MyLocator once updated
     void returnPressed();
 
 private slots:
@@ -104,9 +104,9 @@ private slots:
 
 
 private:
-    //void setLastOperator(const QString _op);
-    //void setLastStationQRZ(const QString _op);
-    //void setLastMyLocator(const QString _op);
+    //void setLastOperator(const QString &_op);
+    //void setLastStationQRZ(const QString &_op);
+    //void setLastMyLocator(const QString &_op);
     //void setLastPower(const double _power);
     bool setInitialADIFValues();
     void setColorsForMyUserADIFLineEdit();

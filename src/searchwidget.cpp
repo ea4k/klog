@@ -79,7 +79,7 @@ void SearchWidget::clear()
     setModelFilter();
 }
 
-void SearchWidget::setCallToSearch (const QString _st)
+void SearchWidget::setCallToSearch (const QString &_st)
 {
     //qDebug() << Q_FUNC_INFO << " : " << _st;
     searchBoxLineEdit->setText(_st);
@@ -93,7 +93,7 @@ void SearchWidget::setShowCallInSearch(const bool _sh)
 
 
 
-void SearchWidget::setVersion (const QString _version)
+void SearchWidget::setVersion (const QString &_version)
 {
     filemanager->setVersion(_version);
 }
@@ -550,7 +550,7 @@ void SearchWidget::searchModel()
 /*
 void SearchWidget::slotQSLSentMarkAsRequested()
 {
-   // bool qslSentAsRequested(const int _qsoId, const QString _updateDate);
+   // bool qslSentAsRequested(const int _qsoId, const QString &_updateDate);
 
     int _qsoId = (qslSentRequestedAct->data()).toInt();
     dataProxy->qslSentAsRequested(_qsoId, QDate::currentDate());

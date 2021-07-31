@@ -91,8 +91,8 @@ signals:
 private slots:
     void slotUpdateTime();
     void slotQRZTextChanged();
-    void slotBandComboBoxChanged(const QString _b);
-    void slotModeComboBoxChanged(const QString _m);
+    void slotBandComboBoxChanged(const QString &_b);
+    void slotModeComboBoxChanged(const QString &_m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
     //void slotRealtimeButtonClicked();

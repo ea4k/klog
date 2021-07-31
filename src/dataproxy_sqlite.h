@@ -307,7 +307,7 @@ public:
 
     QList<QSO*> getGridStats(int _log=-1);
     QList<QSO*> getSatDXCCStats(int _log=-1);
-    int getFieldInBand(ValidFieldsForStats _field, const QString _band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);
+    int getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
     //bool queryExec();

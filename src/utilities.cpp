@@ -1675,7 +1675,7 @@ QPalette Utilities::getPalete(bool _ok)
 }
 */
 
-void Utilities::setDarkMode(const QString _dm)
+void Utilities::setDarkMode(const QString &_dm)
 {
     darkMode = trueOrFalse(_dm);
 }

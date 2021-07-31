@@ -194,7 +194,7 @@ QString MainWindowInputQSL::getQSLMsg()
 }
 
 
-void MainWindowInputQSL::setQSLRecStatus(const QString _qs)
+void MainWindowInputQSL::setQSLRecStatus(const QString &_qs)
 {
     if(( qslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
@@ -206,7 +206,7 @@ void MainWindowInputQSL::setQSLRecStatus(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLSenStatus(const QString _qs)
+void MainWindowInputQSL::setQSLSenStatus(const QString &_qs)
 {
     if(( qslSentComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
@@ -218,7 +218,7 @@ void MainWindowInputQSL::setQSLSenStatus(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLRecVia(const QString _qs)
+void MainWindowInputQSL::setQSLRecVia(const QString &_qs)
 {
     if(( qslRecViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
@@ -230,7 +230,7 @@ void MainWindowInputQSL::setQSLRecVia(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLSenVia(const QString _qs)
+void MainWindowInputQSL::setQSLSenVia(const QString &_qs)
 {
        //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << Qt::endl;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
@@ -243,7 +243,7 @@ void MainWindowInputQSL::setQSLSenVia(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
+void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
 {
 
     palette.setColor(QPalette::Text, qColor);
@@ -260,7 +260,7 @@ void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
 
 }
 
-void MainWindowInputQSL::setQSLMsg(const QString _qs)
+void MainWindowInputQSL::setQSLMsg(const QString &_qs)
 {
     if (_qs.length()>0)
     {

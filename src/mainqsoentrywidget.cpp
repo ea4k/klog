@@ -347,7 +347,7 @@ void MainQSOEntryWidget::setCurrentQRZ(const QString &_qrz)
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainQSOEntryWidget::slotBandComboBoxChanged(const QString _b){
+void MainQSOEntryWidget::slotBandComboBoxChanged(const QString &_b){
     //qDebug() << Q_FUNC_INFO << ": " << _b;
 
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
@@ -359,7 +359,7 @@ void MainQSOEntryWidget::slotBandComboBoxChanged(const QString _b){
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainQSOEntryWidget::slotModeComboBoxChanged(const QString _m)
+void MainQSOEntryWidget::slotModeComboBoxChanged(const QString &_m)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
 

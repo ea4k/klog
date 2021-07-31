@@ -96,7 +96,7 @@ private slots:
     void slotQRZCallTextChanged();
 
     void slotSelectTQSLClicked();
-    void slotPathLineEditChanged(const QString _q);
+    void slotPathLineEditChanged(const QString &_q);
     void slotEnterKeyPressed();
     void slotClubLogEmailDefineColor();
     void slotLoTWEmailDefineColor();

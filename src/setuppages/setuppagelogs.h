@@ -49,8 +49,8 @@ public:
     int getSelectedLog();
     void setSelectedLog(const int _i);
     void createNewLog();
-    void setDefaultStationCallsign (const QString _p);
-    void setDefaultOperators(const QString _p);
+    void setDefaultStationCallsign (const QString &_p);
+    void setDefaultOperators(const QString &_p);
 /*
     QString getBands(); // 10m, 12m, 15m
     QString getModes(); //ssb, CW
@@ -97,7 +97,7 @@ private:
     //bool addNewLog(const QStringList _qs);
     void updateSelectedLogs();
     //void readSelectedLog(const int _i);
-    void showError(const QString _errorC);
+    void showError(const QString &_errorC);
 
     /* Wizard to create a new log*/
 

@@ -754,7 +754,7 @@ void MainWindow::slotWorldMapShow()
     worldMapWidget->show();
 }
 */
-void MainWindow::setMainWindowTitle(const QString _s)
+void MainWindow::setMainWindowTitle(const QString &_s)
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
       //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux << Qt::endl;
@@ -2917,7 +2917,7 @@ void MainWindow::slotElogClubLogDisable(const bool _b)
     setupDialog->setClubLogActive(clublogActive);
 
     //TODO: Disable clublog in the klogrc file
-    //bool FileManager::modifySetupFile(const QString& _filename, const QString _field, const QString _value)
+    //bool FileManager::modifySetupFile(const QString& _filename, const QString &_field, const QString &_value)
     filemanager->modifySetupFile(configFileName, "ClubLogActive", "False");
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -6896,6 +6896,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 nameCol = rec.indexOf("vucc_grids");
                 aux1 = (query.value(nameCol)).toString();
+                qDebug() << Q_FUNC_INFO << ": VUCC_GRIDS: " << aux1;
                 if (util->isValidVUCCGrids (aux1))
                 {
                     othersTabWidget->setVUCCGrids (aux1);
@@ -7005,7 +7006,7 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
 }
 
 
-void MainWindow::slotMyLocatorTextChanged(const QString _loc)
+void MainWindow::slotMyLocatorTextChanged(const QString &_loc)
 {
              //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " <<_loc << Qt::endl;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
@@ -7784,7 +7785,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         if ((aux.length())==6)
         {
             othersTabWidget->setIOTA(aux);
-            //TODO: Decide if it is better this way or like in : void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
+            //TODO: Decide if it is better this way or like in : void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
             //QStringList values = aux.split("-", Qt::SkipEmptyParts);
             //iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
             //iotaNumberLineEdit->setPalette(palRed);
@@ -8391,7 +8392,7 @@ void MainWindow::reconfigureDXMarathonUI(const bool _dxM)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotShowInfoLabel(const QString _m)
+void MainWindow::slotShowInfoLabel(const QString &_m)
 {
     infoLabel1->setText(_m);
 }

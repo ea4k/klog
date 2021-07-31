@@ -380,7 +380,7 @@ void SetupPageSubdivisions::setSelectedLog(const int _i)
 }
 
 
-void SetupPageSubdivisions::showError(const QString _errorC)
+void SetupPageSubdivisions::showError(const QString &_errorC)
 {
     QString text = QString(tr("An error has occurred showing the following error code:") + "\n'%1'").arg(_errorC);
 

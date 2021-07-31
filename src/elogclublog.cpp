@@ -508,7 +508,7 @@ NOTES
     return qso;
 }
 
-void eLogClubLog::setCredentials(const QString &_email, const QString &_pass, const QString _defaultStationCallsign)
+void eLogClubLog::setCredentials(const QString &_email, const QString &_pass, const QString &_defaultStationCallsign)
 {
      //qDebug()<< "eLogClubLog::setCredentials: email: " << _email << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign << Qt::endl;
     stationCallsign = _defaultStationCallsign;

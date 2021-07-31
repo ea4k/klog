@@ -506,6 +506,10 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     {
         userDefinedADIFValueLineEdit->setText (QString::number(age));
     }
+    else if (currentTag == "VUCC_GRIDS")
+    {
+        userDefinedADIFValueLineEdit->setText (vucc_grids);
+    }
 }
 
 bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
