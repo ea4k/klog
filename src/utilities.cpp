@@ -136,7 +136,7 @@ QString Utilities::boolToQString(const bool _b)
 
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
-         //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << Qt::endl;
+    qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << Qt::endl;
 // This function is not really working with ASCII but with Unicode
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
     ushort unicodeVal;

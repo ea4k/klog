@@ -181,7 +181,7 @@ void FileManager::showError (const QString &_txt)
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
 //QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly)
 {
-    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << Qt::endl;
+    qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << Qt::endl;
     QList<int> qsos;
     qsos.clear();
     noMoreQso = false;
@@ -293,8 +293,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             queryString = QString("SELECT * FROM log WHERE") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
         }
     }
-    //qDebug() << "FileManager::adifLogExportReturnList: Query Count: " << queryStringCount << Qt::endl;
-    //qDebug() << "FileManager::adifLogExportReturnList: Query data: " << queryString << Qt::endl;
+    qDebug() << "FileManager::adifLogExportReturnList: Query Count: " << queryStringCount << Qt::endl;
+    qDebug() << "FileManager::adifLogExportReturnList: Query data: " << queryString << Qt::endl;
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
     int i = 0;
 
@@ -1669,7 +1669,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     // START reading QSO data...
       //qDebug() << "FileManager::adifReadLog: QSO data reading started..."  << Qt::endl;
 
-    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
+    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_state, state, my_street, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, swl, ten_ten, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_state, :state, :my_street, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :swl, :ten_ten, :web, :points, :multiplier, :lognumber)" );
 /*
     if (db.transaction())
     {
@@ -2072,9 +2072,9 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
 
-       //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << Qt::endl;
-       //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << Qt::endl;
-       //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << Qt::endl;
+       qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << Qt::endl;
+       qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << Qt::endl;
+       qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << Qt::endl;
 
     //QHash<int, int> &hashLogs = _logs;
 
@@ -2095,15 +2095,11 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     //confirmed = 0; // 0 means worked, 1 means confirmed
 
-    QString queryString, stringFields, stringData;
-    //int lastId;
-    //int dxcc = 0;
-    //int cqz = 0;
-    //int ituz = 0;
-    //int i; // Aux value
+    //QString queryString, stringFields, stringData;
+
     QString aux; // Aux string
-    QString aux2, aux3;
-    QString qrzCall = "";
+    QString aux2;
+    QString qrzCall = QString();
     QString submode = QString();
     QString defaultRSTTX = util->getDefaultRST(QString());
     QString defaultRSTRX = util->getDefaultRST(QString());
@@ -2117,7 +2113,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 
     //KLog does not understand (and will not import) a QSO without these fields
     bool haveCall = false;
-    QString wrongCall = QString();
+    //QString wrongCall = QString();
     bool haveBand = false;
     bool bandRXDef = false;
     bool haveMode = false;
@@ -2594,6 +2590,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 }
                 else if (field == "MY_ANTENNA")
                 {
+                    qDebug() << ": MY_ANTENNA: " << data;
                     preparedQuery.bindValue( ":my_antenna", data );
                 }
                 else if (field == "IOTA")
@@ -4514,14 +4511,19 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
         }
     }
     nameCol = rec.indexOf("my_antenna");
+    qDebug() << Q_FUNC_INFO << ": my_antenna-0";
     if (nameCol>=0)
     {
+        qDebug() << Q_FUNC_INFO << ": my_antenna-1";
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+        qDebug() << Q_FUNC_INFO << ": my_antenna: " << aux;
         if ((aux.length())>0)
         {
+            qDebug() << Q_FUNC_INFO << ": my_antenna ... printing...";
             out << "<MY_ANTENNA:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
     }
+    qDebug() << Q_FUNC_INFO << ": my_antenna-99";
     nameCol = rec.indexOf("my_dxcc");
     if (nameCol>=0)
     {
