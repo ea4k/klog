@@ -464,14 +464,30 @@ bool HamLibClass::init(bool _active)
     {
         // network based communication
         my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
-       strncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
+        if (sizeof(my_rig->state.rigport.pathname)<=FILPATHLEN)
+        {
+            strncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
+        }
+        else
+        {
+            return false;
+        }
         // the other stuff is hardcoded in hamlib!
     }
     else
     {
          //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << Qt::endl;
         my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
-        strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
+        //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
+        if (sizeof(my_rig->state.rigport.pathname)<=FILPATHLEN)
+        {
+            strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
+        }
+        else
+        {
+            return false;
+        }
+
          //qDebug() << "HamLibClass::init: rigport: " << my_rig->state.rigport.pathname << Qt::endl;
         my_rig->state.rigport.parm.serial.rate = bauds;
          //qDebug() << "HamLibClass::init: serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) << Qt::endl;
