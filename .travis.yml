@@ -7,7 +7,7 @@ matrix:
   - os: linux
     arch: amd64
     sudo: required
-    dist: groovy 
+    dist: focal
     before_install:
       - sudo apt-get update
       - sudo apt-get -y install qtbase5-dev libsqlite3-dev
