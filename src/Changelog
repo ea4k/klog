@@ -1,5 +1,6 @@
 TBD - 1.8
-- Code updated to Qt 5.12.2.
+- Improvement: Code updated to Qt 5.12.2.
+- Bugfix: Some recently added ADIF fields where not properly imported from ADIF.
 Improvement: VUCC_GRIDS & MY_VUCC_GRIDS are also managed in the UI.
 
 July 2021 - 1.7

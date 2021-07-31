@@ -498,6 +498,8 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
 
+    setColorsForUserDefinedADIFValueLineEdit();
+
     if (currentTag == "SOTA_REF")
     {
         userDefinedADIFValueLineEdit->setText (sota_ref);
