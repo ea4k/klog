@@ -362,11 +362,11 @@ void SetupPageSats::slotAnalyzeNewSatData(const QStringList _qs)
 void SetupPageSats::createActions()
 {
        //qDebug() << "SetupPageSats::createActions" << Qt::endl;
-    connect(importPushButton, SIGNAL(clicked ( )), this, SLOT(slotImportButtonClicked() ) );
-    connect(exportPushButton, SIGNAL(clicked ( )), this, SLOT(slotExportButtonClicked() ) );
-    connect(newSatPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
-    connect(removePushButton, SIGNAL(clicked ( )), this, SLOT(slotRemoveButtonClicked() ) );
-    connect(editPushButton, SIGNAL(clicked ( )), this, SLOT(slotEditButtonClicked() ) );
+    connect(importPushButton, SIGNAL(clicked()), this, SLOT(slotImportButtonClicked() ) );
+    connect(exportPushButton, SIGNAL(clicked()), this, SLOT(slotExportButtonClicked() ) );
+    connect(newSatPushButton, SIGNAL(clicked()), this, SLOT(slotNewButtonClicked() ) );
+    connect(removePushButton, SIGNAL(clicked()), this, SLOT(slotRemoveButtonClicked() ) );
+    connect(editPushButton, SIGNAL(clicked()), this, SLOT(slotEditButtonClicked() ) );
     connect(newSat, SIGNAL(newSatData(QStringList)), this, SLOT(slotAnalyzeNewSatData(QStringList) ) );
     connect(satsView, SIGNAL(clicked(QModelIndex)), this, SLOT(slotSatselected(QModelIndex) ) );
     connect(satsView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(slotSatDoubleClicked(QModelIndex) ) );
@@ -652,7 +652,7 @@ void SetupPageSats::slotExportButtonClicked()
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
 
     }
-    QDateTime *dateTime = new QDateTime;
+    QDateTime *dateTime = new QDateTime();
     //dateTime->currentDateTime();
 
     queryString = "SELECT id, satarrlid, satname, uplink, downlink, satmode FROM satellites";
@@ -707,7 +707,6 @@ void SetupPageSats::slotExportButtonClicked()
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-
     }
 
      //qDebug() << "SetupPageSats::slotExportButtonClicked END" << Qt::endl;

@@ -54,8 +54,8 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-    connect(propModeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
-    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
+    connect(propModeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
+    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
     connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUSerData() ) );
 
     createUI();
@@ -201,7 +201,7 @@ void MainWindowInputOthers::setEntity(const int _ent)
         aux = (QString::number(_ent)).right(3);
     }
 
-    QString pref = dataProxy->getEntityNameFromId(_ent);
+    //QString pref = dataProxy->getEntityNameFromId(_ent);
 
     //int indexC = entityNameComboBox->f
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);

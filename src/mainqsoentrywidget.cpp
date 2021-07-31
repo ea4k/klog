@@ -965,7 +965,7 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
 
 #ifdef QT_DEBUG
-   //qDebug() << Q_FUNC_INFO << "(" << _func << ")" << Qt::endl;
+   qDebug() << Q_FUNC_INFO << "(" << _func << ")" << Qt::endl;
 #else
 #endif
 

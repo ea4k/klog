@@ -110,7 +110,7 @@ void AdifLoTWExportWidget::createUI()
     setLayout(mainLayout);
     connect(startDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged())) ;
     connect(endDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged() ));
-    connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
+    connect(stationCallsignComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotStationCallsignChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
 }
@@ -213,7 +213,7 @@ void AdifLoTWExportWidget::fillTable()
        //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
        //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << Qt::endl;
 
-       QString aux, prefix;
+       //QString aux, prefix;
        //qDebug() << "AdifLoTWExportWidget::fillTable: -3"  << Qt::endl;
        tableWidget->clearContents();
        tableWidget->setRowCount(0);

@@ -91,7 +91,7 @@ void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
 
            //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << Qt::endl;
 
-        aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
+        aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i), QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 

@@ -92,7 +92,7 @@ void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
         numberPerX = dataProxy->getQSOsInMode((categories.at(i)), _log);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << Qt::endl;
         *set0 << numberPerX;
-        numberPerX = 0;
+        //numberPerX = 0;
            //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << Qt::endl;
         aux = tr("Reading data ...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(categories.count());
         //aux = tr("Reading data ...") + "\n" + tr("Modes: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));

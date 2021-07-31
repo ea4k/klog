@@ -222,10 +222,7 @@ bool SetupPageSatsNew::isItAFreq(const QString &_st)
 {
       //qDebug() << "SetupPageSatsNew::isItAFreq: It is one freq: " << _st << Qt::endl;
     bool ok = false;
-    double freq;// = 0.0;
-
-
-    freq = _st.toDouble(&ok);
+    double freq = _st.toDouble(&ok);
     return ok;
 }
 

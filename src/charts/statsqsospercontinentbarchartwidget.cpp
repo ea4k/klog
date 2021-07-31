@@ -90,7 +90,7 @@ void StatsQSOsPerContinentBarChartWidget::prepareChart(const int _log)
          numberPerX = dataProxy->getQSOsWithContinent(categories.at(i), _log);
             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX) << Qt::endl;
          *set0 << numberPerX;
-         numberPerX = 0;
+         //numberPerX = 0;
 
          aux = tr("Reading data ...") + "\n" + tr("Hours: ")  + QString::number(i) + "/" + QString::number(categories.count());
          progress.setLabelText(aux);

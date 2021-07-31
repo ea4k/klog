@@ -116,8 +116,6 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
             //qDebug() << "UDPServer::startNow port = 0"<< Qt::endl;
             port = 0;
         }
-
-
     }
     else
     {

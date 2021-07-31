@@ -163,7 +163,7 @@ void SetupPageBandMode::setActiveBands(QStringList q)
     if (q.isEmpty())
     {return;}
 
-    QString b;
+    //QString b;
     QListWidgetItem *it;
 
     if ( (bandsListWidget->count()) < 1)
@@ -193,7 +193,7 @@ void SetupPageBandMode::setActiveModes(QStringList q)
     if (q.isEmpty())
     {return;}
 
-    QString b;
+    //QString b;
     QListWidgetItem *it;
 
     if ( (modesListWidget->count()) < 1)

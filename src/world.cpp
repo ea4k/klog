@@ -411,6 +411,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
         azone = (aux.midRef(aux.indexOf('[')+1)).toString();
            //qDebug() << "World::readZones (ITU)-1: " << aux << " right of " << QString::number(aux.indexOf('[')) << " = " << azone << Qt::endl;
         itu = (azone.left(azone.indexOf(']'))).toInt();
+
            //qDebug() << "World::readZones (ITU)-2: " << azone.left(azone.indexOf(']')) << Qt::endl;
         aux = aux.left(aux.indexOf('['));
            //qDebug() << "World::readZones (ITU): "  << pref << "/" << QString::number(itu) << "/" << aux << Qt::endl;
@@ -1150,7 +1151,7 @@ bool World::readCTYCSV(const QString &_worldFile)
     tq.clear();
     QString entityNumber;
     //entityNumber = "-1";
-    QString fileName;
+    //QString fileName;
     qint64 beginingOfFile;
     int numberOfLines = 0;
     //int errorCode = -1;
@@ -1287,7 +1288,7 @@ bool World::readCTYCSV(const QString &_worldFile)
             {
                    //qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1)  << Qt::endl;
             }
-            else if (query.lastError().nativeErrorCode() == 19)
+            else if (query.lastError().nativeErrorCode() == QString::number(19))
             {
                //qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1)  << Qt::endl;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
@@ -1348,7 +1349,7 @@ bool World::readCTYCSV(const QString &_worldFile)
 
 
                     }
-                    else if (queryP.lastError().nativeErrorCode() == 19)
+                    else if (queryP.lastError().nativeErrorCode() == QString::number(19))
                     {}
                     else
                     {

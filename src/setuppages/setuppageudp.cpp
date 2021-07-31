@@ -147,10 +147,10 @@ void SetupPageUDP::createUI()
 
 void SetupPageUDP::createActions()
 {
-    connect(logFromWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotLogFromWSJTCheckBoxClicked() ) );
+    connect(logFromWSJTXCheckbox, SIGNAL(clicked()), this, SLOT(slotLogFromWSJTCheckBoxClicked() ) );
     //connect(logAutomaticallyWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotAutoLogFromWSJTCheckBoxClicked() ) );
     //connect(realDataFromWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotRealFromWSJTCheckBoxClicked() ) );
-    connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
+    connect(UDPServerCheckBox, SIGNAL(clicked()), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
 }
 

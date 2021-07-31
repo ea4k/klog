@@ -191,13 +191,13 @@ void SetupPageMisc::createUI()
 void SetupPageMisc::createActions(){
 //void	itemDoubleClicked ( QListWidgetItem * item )
 
-    connect(fileNameButton, SIGNAL(clicked () ), this, SLOT(slotOpenFileButtonClicked() ) );
-    connect(useDefaultName, SIGNAL(stateChanged (int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
+    connect(fileNameButton, SIGNAL(clicked() ), this, SLOT(slotOpenFileButtonClicked() ) );
+    connect(useDefaultName, SIGNAL(stateChanged(int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
     connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
-    connect(checkNewVersionCheckBox, SIGNAL(clicked () ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
-    connect(dbPushButton, SIGNAL(clicked () ), this, SLOT(slotDBButtonClicked() ) );
+    connect(checkNewVersionCheckBox, SIGNAL(clicked() ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
+    connect(dbPushButton, SIGNAL(clicked() ), this, SLOT(slotDBButtonClicked() ) );
     connect(dbPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDBLineEditChanged() ) );
-    connect(moveDBPushButton, SIGNAL(clicked () ), this, SLOT(slotMoveDBButtonClicked() ) );
+    connect(moveDBPushButton, SIGNAL(clicked() ), this, SLOT(slotMoveDBButtonClicked() ) );
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
 }

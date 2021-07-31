@@ -491,7 +491,7 @@ void SetupPageELog::slotSelectTQSLClicked()
 {
       //qDebug() << "SetupPageELogr::slotSelectTQSLClicked: " << QStandardPaths::ApplicationsLocation << Qt::endl;
     QString appsDir= util->getTQSLsPath();
-    QString proposedName = util->getTQSLsFileName();
+    //QString proposedName = util->getTQSLsFileName();
 
     QString filter;
     filter.clear();

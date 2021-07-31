@@ -259,10 +259,10 @@ void SetupPageSubdivisions::slotLogSelected(const QModelIndex & index)
 void SetupPageSubdivisions::createActions()
 {
        //qDebug() << "SetupPageSubdivisions::createActions" << Qt::endl;
-    connect(currentLogs, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
-    connect(importAwardPushButton, SIGNAL(clicked ( )), this, SLOT(slotImportButtonClicked() ) );
+    connect(currentLogs, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
+    connect(importAwardPushButton, SIGNAL(clicked()), this, SLOT(slotImportButtonClicked() ) );
 
-    connect(removePushButton, SIGNAL(clicked ( )), this, SLOT(slotRemoveButtonClicked() ) );
+    connect(removePushButton, SIGNAL(clicked()), this, SLOT(slotRemoveButtonClicked() ) );
     connect(logsView, SIGNAL(clicked(QModelIndex)), this, SLOT(slotLogSelected(QModelIndex) ) );
 
 }

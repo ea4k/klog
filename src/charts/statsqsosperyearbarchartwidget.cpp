@@ -87,10 +87,10 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
         numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), _log);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << Qt::endl;
         *set0 << numberPerX;
-        numberPerX = 0;
+        //numberPerX = 0;
            //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << Qt::endl;
 
-        aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
+        aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i), QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 

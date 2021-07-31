@@ -129,12 +129,12 @@ void MainWindowInputEQSL::createUI()
     //eqslInputTabWidgetLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(eqslInputTabWidgetLayout);
 
-    connect(clublogComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotClubLogComboBoxChanged() ) )  ;
-    connect(eqslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
-    connect(eqslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
-    connect(lotwSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
-    connect(lotwRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
-    connect(qrzcomComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQRZCOMComboBoxChanged() ) )  ;
+    connect(clublogComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotClubLogComboBoxChanged() ) )  ;
+    connect(eqslSentComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(sloteQSLSentComboBoxChanged() ) )  ;
+    connect(eqslRecComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(sloteQSLRecvComboBoxChanged() ) ) ;
+    connect(lotwSentComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
+    connect(lotwRecComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
+    connect(qrzcomComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQRZCOMComboBoxChanged() ) )  ;
 
 }
 

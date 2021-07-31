@@ -80,7 +80,7 @@ void ShowAdifImportWidget::fillTable()
     //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
     //qDebug() << "ShowAdifImportWidget::fillTable QSOS: " << QString::number(qsosList.length()) << Qt::endl;
 
-    QString aux, prefix;
+    //QString aux, prefix;
     //qDebug() << "ShowAdifImportWidget::fillTable: -3"  << Qt::endl;
     tableWidget->clearContents();
     tableWidget->setRowCount(0);

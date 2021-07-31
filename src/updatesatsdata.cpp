@@ -146,7 +146,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                             //haveMode = false;
                             if (!dataProxy->addSatellite(satID, satName, satDownLink,satUpLink, satMode))
                             {
-                                errorFound = true;
+                                //errorFound = true;
                                 return false;
                             }
                               //qDebug() << "UpdateSatsData::satDataFileRead - Satellite added: " << satID << Qt::endl;

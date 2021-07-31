@@ -71,7 +71,8 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     buttonBox->addButton(prevButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::ActionRole));
     buttonBox->addButton(nextButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::ActionRole));
 
-    connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
+    //connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(QDialog::reject ) );
     connect(prevButton, SIGNAL(clicked()), this, SLOT(slotPrevButtonClicked() ) );
     connect(nextButton, SIGNAL(clicked()), this, SLOT(slotNextButtonClicked() ) );
     connect(tipTextQLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotLinkActivated(QString)));

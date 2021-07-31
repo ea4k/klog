@@ -69,7 +69,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
 
 
-    connect(rigTypeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
+    connect(rigTypeComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
 
     createUI();
     setDefaults();

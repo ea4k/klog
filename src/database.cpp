@@ -475,7 +475,7 @@ bool DataBase::createTableLog(bool temp)
 
     //QString logToCreate = "log";
 
-    QSqlQuery query;
+    //QSqlQuery query;
     QString stringQuery = QString();
     if (temp)
     {
@@ -683,7 +683,7 @@ bool DataBase::createTableLog(bool temp)
 bool DataBase::createDataBase()
 {
     //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << Qt::endl;
-    QSqlQuery query;
+    //QSqlQuery query;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists log");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists band");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists mode");
@@ -852,7 +852,7 @@ bool DataBase::createDataBase()
 
 bool DataBase::recreateTableDXCC()
 {
-    QSqlQuery query;
+    //QSqlQuery query;
 
     if (execQuery(Q_FUNC_INFO, "DROP TABLE awarddxcc"))
     {
@@ -886,7 +886,7 @@ bool DataBase::createTableAwardDXCC()
 
 bool DataBase::recreateTableWAZ()
 {
-    QSqlQuery query;
+    //QSqlQuery query;
 
     if (execQuery(Q_FUNC_INFO, "DROP TABLE awardwaz"))
     {
@@ -1350,7 +1350,7 @@ int DataBase::getBandIdFromFreq(const QString &fr)
         //qDebug() << "DataBase::getBandIdFromFreq: " << fr << Qt::endl;
     //Freq should be in MHz
 
-    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
+    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr, fr);
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);

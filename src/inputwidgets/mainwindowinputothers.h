@@ -75,7 +75,7 @@ public:
     void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
 signals:
-    void setPropMode(const QString &_p);
+    void setPropMode(const QString _p);
 
 private slots:
     //void slotSetPropMode(const QString &_p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.

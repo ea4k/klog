@@ -906,7 +906,7 @@ QString Utilities::getPrefixFromCall(const QString &_c)
         call = parts.at(0) + "/" + parts.at(1);
     }
 
-    QString prefix = QString();
+    //QString prefix = QString();
     int pref = -1;
     if (call.count('/') == 1)
     { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
@@ -1120,7 +1120,7 @@ bool Utilities::isValidVUCCGrids(const QString &_b)
     qDebug() << Q_FUNC_INFO << ": " << _b;
     QStringList tmp;
 
-    QString a = _b;
+    //QString a = _b;
     tmp.clear ();
     tmp << _b.split (',', Qt::SkipEmptyParts);
     if ((tmp.length ()!=2) && (tmp.length ()!=4))

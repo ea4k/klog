@@ -71,7 +71,7 @@ void StatsFieldPerBandWidget::createUI()
     layout->addWidget(tableWidget);
     setLayout(layout);
 
-    connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModeComboBoxChanged() ) ) ;
+    connect(modeComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotModeComboBoxChanged() ) ) ;
 
 }
 

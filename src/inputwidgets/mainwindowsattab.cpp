@@ -77,14 +77,16 @@ void MainWindowSatTab::createUI()
     connect(satModeLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
     connect(satDXLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
 
-    connect(satNameComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
+    connect(satNameComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
 
-    connect(satBandRXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandRXComboBoxChanged()) ) ;
-    connect(satBandTXComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotSatBandTXComboBoxChanged()) ) ;
+    connect(satBandRXComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSatBandRXComboBoxChanged()) ) ;
+    connect(satBandTXComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSatBandTXComboBoxChanged()) ) ;
 
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqTXChanged(double)) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotSatFreqRXChanged(double)) ) ;
     connect (keepThisDataForNextQSOQcheckbox, SIGNAL(clicked()), this, SLOT(slotSatKeepThisDataClicked()) );
+
+
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));

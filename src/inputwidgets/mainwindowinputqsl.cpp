@@ -106,8 +106,8 @@ void MainWindowInputQSL::createUI()
     setLayout(QSLLayout);
 
     connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) )  ;
-    connect(qslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLRecvComboBoxChanged() ) )  ;
-    connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
+    connect(qslRecComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQSLRecvComboBoxChanged() ) )  ;
+    connect(qslSentComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
     connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQSLViaLineEditReturnPressed() ) );
 }
 

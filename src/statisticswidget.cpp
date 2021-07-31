@@ -41,8 +41,8 @@ StatisticsWidget::StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent): QWidg
     statisticsToShowList.clear();
 
     createUI();
-    connect(statisticToShowComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotChartComboBoxChanged() ) ) ;
-    connect(logComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotLogComboBoxChanged() ) ) ;
+    connect(statisticToShowComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChartComboBoxChanged() ) ) ;
+    connect(logComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLogComboBoxChanged() ) ) ;
 
     //barChartStats->prepareChart(1);
 
