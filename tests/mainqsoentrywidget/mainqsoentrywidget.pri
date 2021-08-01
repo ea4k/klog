@@ -26,8 +26,9 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/locator.cpp \
     ../../src/database.cpp
 
-
-
+    LIBS += -lgcov
+    QMAKE_CXXFLAGS += --coverage
+    QMAKE_LFLAGS += --coverage
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe

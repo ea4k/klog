@@ -78,18 +78,18 @@ int main(int argc, char *argv[])
         if (arguments.contains("-h"))
         {
             //cout << "Usage: klog [OPTION]... [FILE]..." << Qt::endl;
-            cout << "Usage: klog [OPTION]..." << Qt::endl;
+            cout << "Usage: klog [OPTION]..." ;
             cout << "Options:" << Qt::endl;
-            cout << "     -?           Display this help" << Qt::endl;
-            cout << "     -h           Display this help" << Qt::endl;
-            cout << "     -v           Display program version" << Qt::endl;
+            cout << "     -?           Display this help" ;
+            cout << "     -h           Display this help" ;
+            cout << "     -v           Display program version" ;
             //cout << "     -e <file>    Export Adif file <file>" << Qt::endl;
         }
         else if (arguments.contains("-?"))
         {
             cout << "Usage: klog [OPTION]..." << Qt::endl;
             cout << "Options:" << Qt::endl;
-            cout << "     -?           Display this help" << Qt::endl;
+            cout << "     -?           Display this help" ;
             cout << "     -h           Display this help" << Qt::endl;
             cout << "     -v           Display program version" << Qt::endl;
         }

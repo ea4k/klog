@@ -22,10 +22,5 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
-TEMPLATE = subdirs
-
-SUBDIRS += src
-
-CONFIG(debug, debug) {
-        SUBDIRS += tests
-}
+include( $$PWD/src/src.pri )
+include( $$PWD/tests/tests.pri )

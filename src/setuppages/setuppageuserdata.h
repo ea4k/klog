@@ -29,10 +29,10 @@
 
 #include <QtWidgets>
 //#include <QtWidgets>
-#include "world.h"
-#include "locator.h"
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "src/world.h"
+#include "src/locator.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 
 
 class SetupPageUserDataPage : public QWidget {

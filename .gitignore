@@ -11,3 +11,7 @@ KLog.app
 *.qm
 
 *.autosave
+.qmake.stash
+coverage/coverage.info
+Makefile
+target_wrapper.sh
