@@ -9,20 +9,20 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/world.h \
-    ../../src/dataproxy_sqlite.h \
-    ../../src/locator.h \
-    ../../src/utilities.h \
-    ../../src/database.h \
-    ../../src/qso.h
+    src/world.h \
+    src/dataproxy_sqlite.h \
+    src/locator.h \
+    src/utilities.h \
+    src/database.h \
+    src/qso.h
 
-SOURCES +=  tst_world.cpp \
-    ../../src/world.cpp \
-    ../../src/dataproxy_sqlite.cpp \
-    ../../src/qso.cpp \
-    ../../src/utilities.cpp \
-    ../../src/database.cpp \
-    ../../src/locator.cpp
+SOURCES +=  tests/world/tst_world.cpp \
+    src/world.cpp \
+    src/dataproxy_sqlite.cpp \
+    src/qso.cpp \
+    src/utilities.cpp \
+    src/database.cpp \
+    src/locator.cpp
 
 
 

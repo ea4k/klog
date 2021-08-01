@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsqsospermodebarchartwidget.h"
+#include "src/charts/statsqsospermodebarchartwidget.h"
 
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(){}

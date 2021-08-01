@@ -9,19 +9,19 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/dataproxy_sqlite.h \
-    ../../src/utilities.h \
-    ../../src/locator.h \
-    ../../src/database.h \
-    ../../src/qso.h \
-    ../../src/klogdefinitions.h
+    src/dataproxy_sqlite.h \
+    src/utilities.h \
+    src/locator.h \
+    src/database.h \
+    src/qso.h \
+    src/klogdefinitions.h
 
-SOURCES +=  tst_dataproxy.cpp \
-        ../../src/utilities.cpp \
-        ../../src/locator.cpp \
-        ../../src/database.cpp \
-        ../../src/qso.cpp \
-        ../../src/dataproxy_sqlite.cpp
+SOURCES +=  tests/tst_dataproxy/tst_dataproxy.cpp \
+        src/utilities.cpp \
+        src/locator.cpp \
+        src/database.cpp \
+        src/qso.cpp \
+        src/dataproxy_sqlite.cpp
 
 
 

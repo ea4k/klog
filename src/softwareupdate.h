@@ -38,8 +38,8 @@
 //#include <QList>
 #include <QRegularExpression>
 //#include <QDebug>
-#include "utilities.h"
-#include "softwareupdatedialog.h"
+#include "src/utilities.h"
+#include "src/softwareupdatedialog.h"
 
 
 class QSslError;

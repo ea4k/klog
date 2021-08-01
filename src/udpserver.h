@@ -31,7 +31,7 @@
 #include <QObject>
 #include <QHostAddress>
 #include <QDataStream>
-#include "utilities.h"
+#include "src/utilities.h"
 
 enum Type
     {

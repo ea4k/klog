@@ -29,7 +29,7 @@
 //#include <QtWidgets>
 //#include <QPalette>
 #include <QtWidgets>
-#include "utilities.h"
+#include "src/utilities.h"
 
 class SetupPageColors : public QWidget {
     Q_OBJECT

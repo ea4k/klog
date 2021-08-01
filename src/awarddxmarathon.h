@@ -26,7 +26,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "dataproxy_sqlite.h"
+#include "src/dataproxy_sqlite.h"
 
 
 class DXMarathon

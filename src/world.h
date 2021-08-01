@@ -38,10 +38,10 @@
 #include <QtGlobal>
 #include <QtDebug>
 
-#include "locator.h"
-#include "dataproxy_sqlite.h"
-//#include "klogdefinitions.h"
-//#include "awards.h"
+#include "src/locator.h"
+#include "src/dataproxy_sqlite.h"
+//#include "src/klogdefinitions.h"
+//#include "src/awards.h"
 
 
 class QStringList;

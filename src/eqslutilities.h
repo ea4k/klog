@@ -36,7 +36,7 @@
 #include <QUrlQuery>
 #include <QHttpMultiPart>
 #include <QHttpPart>
-#include "utilities.h"
+#include "src/utilities.h"
 // https://www.eqsl.cc/qslcard/Programming.cfm
 class eQSLUtilities : public QObject {
     Q_OBJECT

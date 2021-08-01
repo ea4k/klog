@@ -10,20 +10,20 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/inputwidgets/mainwindowinputqso.h \
-    ../../src/dataproxy_sqlite.h \
-    ../../src/database.h \
-    ../../src/qso.h \
-    ../../src/utilities.h \
-    ../../src/locator.h
+    src/inputwidgets/mainwindowinputqso.h \
+    src/dataproxy_sqlite.h \
+    src/database.h \
+    src/qso.h \
+    src/utilities.h \
+    src/locator.h
 
-SOURCES +=  tst_mainwindowinputqso.cpp \
-    ../../src/inputwidgets/mainwindowinputqso.cpp \
-    ../../src/dataproxy_sqlite.cpp \
-    ../../src/database.cpp \
-    ../../src/qso.cpp \
-    ../../src/utilities.cpp \
-    ../../src/locator.cpp
+SOURCES +=  tests/tst_mainwindowinputqso/tst_mainwindowinputqso.cpp \
+    src/inputwidgets/mainwindowinputqso.cpp \
+    src/dataproxy_sqlite.cpp \
+    src/database.cpp \
+    src/qso.cpp \
+    src/utilities.cpp \
+    src/locator.cpp
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe

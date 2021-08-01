@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "setuppages/setuppageudp.h"
+#include "setuppageudp.h"
 
 SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 {

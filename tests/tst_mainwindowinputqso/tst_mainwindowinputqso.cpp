@@ -26,11 +26,11 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/inputwidgets/mainwindowinputqso.h"
-#include "../../src/dataproxy_sqlite.h"
-#include "../../src/utilities.h"
-#include "../../src/locator.h"
-#include "../../src/qso.h"
+#include "src/inputwidgets/mainwindowinputqso.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
+#include "src/locator.h"
+#include "src/qso.h"
 
 class tst_MainWindowInputQSO : public QObject
 {

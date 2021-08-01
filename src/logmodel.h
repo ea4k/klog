@@ -30,7 +30,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlError>
-#include "dataproxy_sqlite.h"
+#include "src/dataproxy_sqlite.h"
 
 
 class LogModel : public QSqlRelationalTableModel

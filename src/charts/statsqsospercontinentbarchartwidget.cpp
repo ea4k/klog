@@ -23,7 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "charts/statsqsospercontinentbarchartwidget.h"
+#include "src/charts/statsqsospercontinentbarchartwidget.h"
 
 
 StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(){}

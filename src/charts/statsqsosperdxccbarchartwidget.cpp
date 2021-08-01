@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsqsosperdxccbarchartwidget.h"
+#include "src/charts/statsqsosperdxccbarchartwidget.h"
 
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(){}

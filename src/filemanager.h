@@ -39,13 +39,13 @@
 #include <QProgressDialog>
 #include <QMessageBox>
 #include <QDateTime>
-#include "world.h"
-#include "awards.h"
-#include "database.h"
-#include "dataproxy_sqlite.h"
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
-#include "qso.h"
+#include "src/world.h"
+#include "src/awards.h"
+#include "src/database.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
+#include "src/qso.h"
 
 
 /*

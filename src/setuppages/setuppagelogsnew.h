@@ -28,8 +28,8 @@
 //
 // This class implements the Dialog to add a new log
 //
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 
 #include <QDialog>
 #include <QtWidgets>

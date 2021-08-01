@@ -26,8 +26,8 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/dataproxy_sqlite.h"
-#include "../../src/utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 
 class tst_DataProxy : public QObject
 {

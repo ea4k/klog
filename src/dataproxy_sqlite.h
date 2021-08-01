@@ -29,10 +29,10 @@
 #include <QString>
 #include <QStringList>
 #include <QObject>
-#include "database.h"
-#include "qso.h"
-#include "klogdefinitions.h"
-//#include "regionalaward.h"
+#include "src/database.h"
+#include "src/qso.h"
+#include "src/klogdefinitions.h"
+//#include "src/regionalaward.h"
 
 //Class QSO;
 

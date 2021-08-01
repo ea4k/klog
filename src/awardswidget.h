@@ -30,11 +30,11 @@
 //
 #include <QWidget>
 #include <QtWidgets>
-#include "dataproxy_sqlite.h"
-#include "awards.h"
-//#include "world.h"
-//#include "utilities.h"
-//#include "filemanager.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/awards.h"
+//#include "src/world.h"
+//#include "src/utilities.h"
+//#include "src/filemanager.h"
 
 
 class AwardsWidget : public QWidget

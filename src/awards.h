@@ -39,10 +39,10 @@
 #include <QObject>
 #include <QtGlobal>
 
-#include "world.h"
-#include "awarddxmarathon.h"
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "src/world.h"
+#include "src/awarddxmarathon.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 
 class QProgressDialog;
 

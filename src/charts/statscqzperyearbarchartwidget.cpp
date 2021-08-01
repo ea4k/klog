@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statscqzperyearbarchartwidget.h"
+#include "src/charts/statscqzperyearbarchartwidget.h"
 
 
 StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(){}

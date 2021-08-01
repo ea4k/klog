@@ -35,9 +35,9 @@
 #include <QUrlQuery>
 #include <QHttpMultiPart>
 #include <QHttpPart>
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
-#include "widgets/onlinemessagewidget.h"
+#include "src/utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/widgets/onlinemessagewidget.h"
 
 // https://www.qrz.com/XML/current_spec.html
 // https://www.qrz.com/page/xml_data.html

@@ -38,8 +38,8 @@
 #include <QUrl>
 #include <QMessageBox>
 #include <QInputDialog>
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/?lang=en
 class QSslError;
 

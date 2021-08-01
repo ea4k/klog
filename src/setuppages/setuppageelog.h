@@ -28,7 +28,7 @@
 
 
 #include <QtWidgets>
-#include "utilities.h"
+#include "src/utilities.h"
 
 class SetupPageELog : public QWidget {
     Q_OBJECT

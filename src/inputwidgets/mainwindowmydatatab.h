@@ -32,8 +32,8 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "../locator.h"
-#include "../utilities.h"
+#include "src/locator.h"
+#include "src/utilities.h"
 //#include "dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 

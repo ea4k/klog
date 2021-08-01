@@ -37,7 +37,7 @@
 #include <QDateTime>
 #include <QInputDialog>
 #include <QProgressDialog>
-#include "utilities.h"
+#include "src/utilities.h"
 
 class QSqlRelationalTableModel;
 const float DBVersionf = 0.022f; // This is the latest version of the DB.

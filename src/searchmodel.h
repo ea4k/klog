@@ -30,8 +30,8 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlError>
-#include "awards.h"
-#include "dataproxy_sqlite.h"
+#include "src/awards.h"
+#include "src/dataproxy_sqlite.h"
 
 
 class SearchModel : public QSqlRelationalTableModel

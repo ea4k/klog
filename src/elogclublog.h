@@ -35,7 +35,7 @@
 #include <QUrlQuery>
 #include <QHttpMultiPart>
 #include <QHttpPart>
-#include "utilities.h"
+#include "src/utilities.h"
 
 class eLogClubLog : public QObject {
     Q_OBJECT

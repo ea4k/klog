@@ -29,11 +29,11 @@
 #include <QtWidgets>
 #include <QString>
 //#include <QTableView>
-#include "awards.h"
-#include "world.h"
-#include "dataproxy_sqlite.h"
-#include "locator.h"
-#include "klogdefinitions.h"
+#include "src/awards.h"
+#include "src/world.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/locator.h"
+#include "src/klogdefinitions.h"
 
 
 //TODO: Creating the widget to show the DXCC status

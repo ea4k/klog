@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "statsdxccsonsatswidget.h"
+#include "src/statsdxccsonsatswidget.h"
 
 
 

@@ -30,10 +30,10 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QSqlQuery>
-#include "dataproxy_sqlite.h"
-//#include "utilities.h"
-//#include "setuppages/setuppagesubdivisionnew.h"
-#include "fileawardmanager.h"
+#include "src/dataproxy_sqlite.h"
+//#include "src/utilities.h"
+//#include "src/setuppages/setuppagesubdivisionnew.h"
+#include "src/fileawardmanager.h"
 
 
 class SetupPageSubdivisions : public QWidget {

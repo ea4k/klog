@@ -26,12 +26,12 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/inputwidgets/mainwindowsattab.h"
-#include "../../src/dataproxy_sqlite.h"
-#include "../../src/database.h"
-#include "../../src/klogdefinitions.h"
-#include "../../src/utilities.h"
-#include "../../src/qso.h"
+#include "src/inputwidgets/mainwindowsattab.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/database.h"
+#include "src/klogdefinitions.h"
+#include "src/utilities.h"
+#include "src/qso.h"
 
 class tst_MainQSOEntryWidget : public QObject
 {

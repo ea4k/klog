@@ -31,10 +31,10 @@ email                : jaime@robles.es
 #include <QtWidgets>
 #include <QTcpSocket>
 #include <QObject>
-#include "awards.h"
-#include "world.h"
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
+#include "src/awards.h"
+#include "src/world.h"
+#include "src/utilities.h"
+#include "src/dataproxy_sqlite.h"
 
 class QWidget;
 class QTcpSocket;

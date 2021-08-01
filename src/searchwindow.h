@@ -36,11 +36,11 @@
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
 #include <QDesktopServices>
-#include "dataproxy_sqlite.h"
-#include "searchmodel.h"
-#include "awards.h"
-//#include "elogclublog.h"
-#include "utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/searchmodel.h"
+#include "src/awards.h"
+//#include "src/elogclublog.h"
+#include "src/utilities.h"
 
 class SearchWindow : public  QWidget
 {

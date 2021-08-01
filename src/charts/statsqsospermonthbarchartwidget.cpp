@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsqsospermonthbarchartwidget.h"
+#include "src/charts/statsqsospermonthbarchartwidget.h"
 
 
 StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(){}

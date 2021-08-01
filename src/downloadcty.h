@@ -37,7 +37,7 @@
 #include <QTimer>
 #include <QUrl>
 #include <QMessageBox>
-#include "utilities.h"
+#include "src/utilities.h"
 
 class QSslError;
 

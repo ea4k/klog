@@ -30,7 +30,7 @@
 #include <QtWidgets>
 #include <QListView>
 #include <QStringListModel>
-#include "utilities.h"
+#include "src/utilities.h"
 
 // This widget will show the KLog log, the software log, to be able to debug
 // or see how it is executing. Mainly for debug & development.

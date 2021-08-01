@@ -28,9 +28,9 @@
 #include <QObject>
 #include <QFileDialog>
 #include <QFile>
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
-#include "world.h"
+#include "src/utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/world.h"
 
 
 class FileAwardManager : public QWidget

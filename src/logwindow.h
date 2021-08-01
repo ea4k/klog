@@ -36,13 +36,13 @@
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
 #include <QDesktopServices>
-#include "dataproxy_sqlite.h"
-#include "logmodel.h"
-#include "awards.h"
-//#include "dxccstatuswidget.h"
-//#include "elogclublog.h"
-#include "utilities.h"
-//#include "logviewsortfilterproxymodel.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/logmodel.h"
+#include "src/awards.h"
+//#include "src/dxccstatuswidget.h"
+//#include "src/elogclublog.h"
+#include "src/utilities.h"
+//#include "src/logviewsortfilterproxymodel.h"
 
 //class  LogViewSortFilterProxyModel;
 //class ItemDelegate;

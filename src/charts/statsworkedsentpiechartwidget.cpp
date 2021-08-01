@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsworkedsentpiechartwidget.h"
+#include "src/charts/statsworkedsentpiechartwidget.h"
 
 StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(){}
 

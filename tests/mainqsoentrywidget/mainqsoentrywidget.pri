@@ -10,21 +10,21 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/mainqsoentrywidget.h \
-    ../../src/dataproxy_sqlite.h \
-    ../../src/utilities.h \
-    ../../src/qso.h \
-    ../../src/locator.h \
-    ../../src/klogdefinitions.h \
-    ../../src/database.h
+    src/mainqsoentrywidget.h \
+    src/dataproxy_sqlite.h \
+    src/utilities.h \
+    src/qso.h \
+    src/locator.h \
+    src/klogdefinitions.h \
+    src/database.h
 
-SOURCES +=  tst_mainqsoentrywidget.cpp \
-    ../../src/mainqsoentrywidget.cpp \
-    ../../src/dataproxy_sqlite.cpp \
-    ../../src/utilities.cpp \
-    ../../src/qso.cpp \
-    ../../src/locator.cpp \
-    ../../src/database.cpp
+SOURCES +=  tests/mainqsoentrywidget/tst_mainqsoentrywidget.cpp \
+    src/mainqsoentrywidget.cpp \
+    src/dataproxy_sqlite.cpp \
+    src/utilities.cpp \
+    src/qso.cpp \
+    src/locator.cpp \
+    src/database.cpp
 
     LIBS += -lgcov
     QMAKE_CXXFLAGS += --coverage

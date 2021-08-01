@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "setuppages/setupentitydialog.h"
+#include "setupentitydialog.h"
 //#include <QDebug>
 /*
 This class calls all the othet "Setup..." to manage the configuration

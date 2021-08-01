@@ -32,7 +32,7 @@
 
 
 #include <QTabWidget>
-#include "klogdefinitions.h"
+#include "src/klogdefinitions.h"
 
 
 

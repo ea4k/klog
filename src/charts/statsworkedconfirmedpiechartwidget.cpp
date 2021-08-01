@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsworkedconfirmedpiechartwidget.h"
+#include "src/charts/statsworkedconfirmedpiechartwidget.h"
 
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(){}
 

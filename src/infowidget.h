@@ -30,11 +30,10 @@
 //
 #include <QWidget>
 #include <QtWidgets>
-#include "locator.h"
-#include "awards.h"
-#include "world.h"
-#include "dataproxy_sqlite.h"
-#include "dataproxy_sqlite.h"
+#include "src/locator.h"
+#include "src/awards.h"
+#include "src/world.h"
+#include "src/dataproxy_sqlite.h"
 
 
 

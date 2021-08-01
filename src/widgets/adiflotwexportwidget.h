@@ -26,8 +26,8 @@
  *                                                                           *
  *****************************************************************************/
 #include <QtWidgets>
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 
 
 

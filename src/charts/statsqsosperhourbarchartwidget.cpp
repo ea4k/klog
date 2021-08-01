@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsqsosperhourbarchartwidget.h"
+#include "src/charts/statsqsosperhourbarchartwidget.h"
 
 
 StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(){}

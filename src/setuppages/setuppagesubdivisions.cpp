@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppagesubdivisions.h"
+#include "setuppagesubdivisions.h"
 
 
 SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){

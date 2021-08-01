@@ -31,9 +31,9 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "../dataproxy_sqlite.h"
-#include "../locator.h"
-#include "../utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/locator.h"
+#include "src/utilities.h"
 
 class MainWindowInputQSO : public QWidget
 {

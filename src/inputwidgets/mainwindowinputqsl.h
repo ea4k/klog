@@ -32,8 +32,8 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QWidget>
-#include "../dataproxy_sqlite.h"
-#include "../utilities.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/utilities.h"
 
 class MainWindowInputQSL : public QWidget
 {

@@ -29,9 +29,8 @@
 #include <QFile>
 #include <QProgressDialog>
 #include <QFileDialog>
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
-#include "dataproxy_sqlite.h"
+#include "src/utilities.h"
+#include "src/dataproxy_sqlite.h"
 
 class UpdateSatsData : public QObject
 {

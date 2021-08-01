@@ -30,7 +30,7 @@
 #include <QDate>
 #include <QTime>
 #include <QDebug>
-#include "utilities.h"
+#include "src/utilities.h"
 
 class QSO : public QObject
 {

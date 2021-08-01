@@ -23,7 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "charts/statsentitiesperyearbarchartwidget.h"
+#include "src/charts/statsentitiesperyearbarchartwidget.h"
 
 
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(){}

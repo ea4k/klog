@@ -26,7 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/utilities.h"
+#include "src/utilities.h"
 
 class tst_Utilities : public QObject
 {

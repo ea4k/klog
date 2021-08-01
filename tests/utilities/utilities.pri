@@ -7,16 +7,18 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-QMAKE_CXXFLAGS += -Wall -Wextra -Werror
-QMAKE_CFLAGS += -Wall -Wextra -Werror
+#QMAKE_CXXFLAGS += -Wall -Wextra -Werror
+#QMAKE_CFLAGS += -Wall -Wextra -Werror
+QMAKE_CXXFLAGS += -Wall -Wextra
+QMAKE_CFLAGS += -Wall -Wextra
 
 HEADERS += \
-    ../../src/utilities.h \
-    ../../src/locator.h
+    src/utilities.h \
+    src/locator.h
 
-SOURCES +=  tst_utilities.cpp \
-    ../../src/utilities.cpp \
-    ../../src/locator.cpp
+SOURCES +=  tests/utilities/tst_utilities.cpp \
+    src/utilities.cpp \
+    src/locator.cpp
 
 
 

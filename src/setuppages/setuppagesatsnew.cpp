@@ -27,7 +27,7 @@
 // This class implements the Dialog to add a new log
 //
 
-#include "setuppages/setuppagesatsnew.h"
+#include "setuppagesatsnew.h"
 
 
 SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)

@@ -31,10 +31,10 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QDialog>
-#include "world.h"
-#include "dataproxy_sqlite.h"
-#include "setuppages/setupentitydialog.h"
-#include "utilities.h"
+#include "src/world.h"
+#include "src/dataproxy_sqlite.h"
+#include "src/setuppages/setupentitydialog.h"
+#include "src/utilities.h"
 
 enum
 {

@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsgeneralchartwidget.h"
+#include "src/charts/statsgeneralchartwidget.h"
 
 
 StatsGeneralChartWidget::StatsGeneralChartWidget()

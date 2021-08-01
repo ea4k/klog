@@ -179,7 +179,7 @@ SOURCES += src/main.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
     src/widgets/onlinemessagewidget.cpp \
-    src/src/widgets/showadifimportwidget.cpp \
+    src/widgets/showadifimportwidget.cpp \
     src/widgets/showkloglogwidget.cpp \
     src/world.cpp \
     src/logwindow.cpp \
@@ -351,7 +351,6 @@ win32: {
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 }
-
 
 else:
 {

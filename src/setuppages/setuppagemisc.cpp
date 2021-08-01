@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppagemisc.h"
+#include "setuppagemisc.h"
 //TODO: The defaultFileName QString can be removed and used the content of defaultFileNameLineEdit
 //      instead. It is easy to change but the code would not be so clear... Think about this. :-)
 

@@ -35,9 +35,9 @@
 #include <QString>
 #include <QtWidgets>
 #include <QPalette>
-#include "locator.h"
+#include "src/locator.h"
 #include <QtDebug>
-#include "klogdefinitions.h"
+#include "src/klogdefinitions.h"
 
 class Utilities
 {

@@ -29,7 +29,7 @@
 #include <QObject>
 #include <QtWidgets>
 #include <QNetworkInterface>
-#include "utilities.h"
+#include "src/utilities.h"
 
 
 class SetupPageUDP : public QWidget

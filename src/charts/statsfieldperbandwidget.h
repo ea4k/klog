@@ -37,8 +37,6 @@
 #include "src/charts/statsgeneralchartwidget.h"
 #include "src/klogdefinitions.h"
 
-
-
 class StatsFieldPerBandWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT

@@ -35,7 +35,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 #include <QProgressDialog>
-#include "downloadcty.h"
+#include "src/downloadcty.h"
 
 
 class FileOrMemoryPage;
