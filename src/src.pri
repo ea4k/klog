@@ -333,9 +333,7 @@ macx: {
     ICON = src/klog.icns
     TARGET = KLog
     CONFIG += c++11
-    LIBS += -lgcov
-    QMAKE_CXXFLAGS += --coverage
-    QMAKE_LFLAGS += --coverage
+
     #INCLUDEPATH +=../../../hamlib/include/
     #LIBS += -L"../../../hamlib/lib" -lhamlib
     INCLUDEPATH +=/usr/local/include/

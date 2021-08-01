@@ -23,7 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "src/statsgridsonsatswidget.h"
+#include "statsgridsonsatswidget.h"
 
 StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

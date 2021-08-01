@@ -1,3 +1,7 @@
+LIBS += -lgcov
+QMAKE_CXXFLAGS += --coverage
+QMAKE_LFLAGS += --coverage
+
 include(utilities/utilities.pri)
 include(mainqsoentrywidget/mainqsoentrywidget.pri)
 include(mainwindowsattab/mainwindowsattab.pri)

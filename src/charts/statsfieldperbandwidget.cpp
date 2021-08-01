@@ -23,7 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "src/charts/statsfieldperbandwidget.h"
+#include "statsfieldperbandwidget.h"
 
 StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent)
 {

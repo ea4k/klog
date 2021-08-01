@@ -22,5 +22,6 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
+
 include( $$PWD/src/src.pri )
 include( $$PWD/tests/tests.pri )
