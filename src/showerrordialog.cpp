@@ -49,7 +49,7 @@ ShowErrorDialog::ShowErrorDialog()
     buttonBox->addButton(closeButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::RejectRole | QDialogButtonBox::AcceptRole));
     //connect(buttonBox, SIGNAL(rejected()), this, &QDialog::reject);
 
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(&QDialog::reject)) ;
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject())) ;
     txtLabel->setFrameShadow(QFrame::Raised);
     txtLabel->setFrameStyle(QFrame::StyledPanel);
 

@@ -37,7 +37,7 @@ eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 {
     //qDebug()<< "eQSLUtilities::eQSLUtilities"  << Qt::endl;
 #ifdef QT_DEBUG
-  qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
+  //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #else
 #endif
 

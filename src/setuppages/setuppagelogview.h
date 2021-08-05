@@ -1,10 +1,10 @@
-#ifndef LOGMODEL_H
-#define LOGMODEL_H
+#ifndef SETUPPAGELOGVIEW_H
+#define SETUPPAGELOGVIEW_H
 /***************************************************************************
-                          logmodel.h  -  description
+                          setuppagelogview.h  -  description
                              -------------------
-    begin                : june 2017
-    copyright            : (C) 2017 by Jaime Robles
+    begin                : ago 2021
+    copyright            : (C) 2021 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -25,47 +25,36 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QDebug>
-#include <QSqlRelationalTableModel>
+#include <QtWidgets>
 #include <QSqlQuery>
-#include <QSqlRecord>
-#include <QSqlError>
+#include <QStringList>
+#include <QListWidget>
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
 
 
-class LogModel : public QSqlRelationalTableModel
+class SetupPageLogView : public QWidget
 {
     Q_OBJECT
 public:
-    LogModel(DataProxy_SQLite *dp, QObject *parent);
-    void createlogModel(const int _i);
-    void setColumns(const QStringList &_columns);
-private:
-    //void showColumn(const QString &_columnName);
+    SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent=nullptr);
+    ~SetupPageLogView();
 
-    //QSqlRelationalTableModel *logModel;
-    DataProxy_SQLite *dataProxy;
-    Utilities *util;
+    QString getFields();
 
-    QStringList columns;
+    void setActiveFields(QStringList _q);
+
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+
+public slots:
+
+private:
+    void addFields (QStringList _b); // read the available fields from the DB
+
+    QListWidget *fieldsListWidget;
+
+    DataProxy_SQLite *dataProxy;
 
 };
 
-#endif // LOGMODEL_H
-
-
-/*
-class MyModel : public QAbstractTableModel
-{
-    Q_OBJECT
-public:
-    MyModel(QObject *parent);
-    int rowCount(const QModelIndex &parent = QModelIndex()) const ;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-};
-*/
+#endif // SETUPPAGELOGVIEW_H

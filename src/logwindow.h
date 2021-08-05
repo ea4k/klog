@@ -67,6 +67,7 @@ public:
     bool isQSLSent(const int _qsoId);
     //void setProxyModel (const bool _p);
     void sortColumn(const int _c);
+    void setColumns(const QStringList &_columns);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
@@ -83,7 +84,6 @@ signals:
 private slots:
 
     void slotDoubleClickLog(const QModelIndex & index);
-
     void slotRighButtonFromLog(const QPoint& pos);
     void slotQSLSentViaBureauFromLog();
     void slotQSLSentViaDirectFromLog();
@@ -117,10 +117,10 @@ private:
     void rightButtonFromLogMenu(const int trow);
     void rightButtonMultipleFromLogMenu();
     void showMenuRightButtonFromLogCreateActions();
-
+    void showColumn(const QString &_columnName);
 
     void setDefaultData();
-    void setColumnsToDX();
+    void setColumnsOfLog(const QStringList &_columns);
 
 
     DataProxy_SQLite *dataProxy;
@@ -160,6 +160,7 @@ private:
     int currentLog;
 
     Utilities *util;
+    QStringList columns;
 
    //LogViewSortFilterProxyModel *proxyModel;
    //bool sortingThroughProxyModel;

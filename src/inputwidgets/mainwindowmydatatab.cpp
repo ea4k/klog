@@ -574,7 +574,7 @@ QString MainWindowMyDataTab::getMySOTA()
 
 bool MainWindowMyDataTab::setMyVUCCGrids(const QString &_op)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _op;
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
     if (checkMyVUCC_GRIDS(_op))
     {
         my_vucc_grids = _op;
@@ -586,7 +586,7 @@ bool MainWindowMyDataTab::setMyVUCCGrids(const QString &_op)
 
 bool MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString &_string)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _string;
+    //qDebug() << Q_FUNC_INFO << ": " << _string;
 
     if (util->isValidVUCCGrids (_string))
     {
@@ -627,7 +627,7 @@ void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
 
 void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+    //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
 
     setColorsForMyUserADIFLineEdit();
@@ -654,7 +654,7 @@ void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
 void MainWindowMyDataTab::slotSetCurrentMyUSerData()
 {
     QString currentTag = getUserADIFTypeComboBox ();
-    qDebug() << Q_FUNC_INFO << ": " << currentTag;
+    //qDebug() << Q_FUNC_INFO << ": " << currentTag;
     int currentPos = myUserADIFLineEdit->cursorPosition ();
 
     if (currentTag == "MY_RIG")

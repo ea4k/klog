@@ -610,6 +610,27 @@ bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const QString &_fr
     return db->isThisFreqInBand(_band, _fr);
 }
 
+QStringList DataProxy_SQLite::getFields()
+{
+    //qDebug() << Q_FUNC_INFO;
+    QStringList fields;
+    fields.clear();
+    QSqlQuery q;
+    QSqlRecord localRecord = q.driver()->record("log");
+    for (int var = 0; var < localRecord.count(); ++var) {
+        QString fieldName = localRecord.fieldName(var);
+        fields << fieldName;
+        //qDebug() << fieldName;
+    }
+    /*
+    QString LogWindow::getColumnName(int col)
+    {
+       return logModel->record().fieldName(col);
+    }
+    */
+    return fields;
+}
+
 QStringList DataProxy_SQLite::getBands()
 {
        //qDebug() << "DataProxy_SQLite::getBands - DEPRECATED please use getBandNames - TODO: Remove this function and change the calls" << Qt::endl;
@@ -7018,6 +7039,51 @@ bool DataProxy_SQLite::isValidDXCC(const int _e)
         return false;
     }
 }
+
+QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
+{
+    qDebug() << Q_FUNC_INFO << ": Length: " << QString::number(_fields.length());
+
+    QStringList validFields;
+    validFields.clear();
+    validFields << getFields();
+    QString aux;
+    //foreach(aux, validFields)
+    //{
+    //    qDebug() << Q_FUNC_INFO << ": validFields: " << aux;
+    //}
+
+    foreach(aux, _fields)
+    {
+        qDebug() << Q_FUNC_INFO << ": _fields: " << aux;
+    }
+
+    QStringList returningFields;
+    returningFields.clear();
+
+    QString field;
+    foreach (field, _fields)
+    {
+        qDebug() << Q_FUNC_INFO << ": Field:-1: " << field;
+        field = field.trimmed();
+        if (field.endsWith(';'))
+        {
+            field.chop(1);
+        }
+        qDebug() << Q_FUNC_INFO << ": Field:-2: " << field;
+        if (validFields.contains(field))
+        {
+            returningFields << field;
+        }
+    }
+    if (returningFields.isEmpty())
+    {
+        returningFields << util->getDefaultLogFields();
+    }
+
+    return returningFields;
+}
+
 
 int DataProxy_SQLite::getITUzFromPrefix(const QString &_p)
 {

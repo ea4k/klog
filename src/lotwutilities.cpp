@@ -34,7 +34,7 @@
 LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersion, const QString &_parentFunction, DataProxy_SQLite *dp)
 {
 #ifdef QT_DEBUG
-  qDebug() << Q_FUNC_INFO << ": "  << _klogDir << " - " << _parentFunction;
+  //qDebug() << Q_FUNC_INFO << ": "  << _klogDir << " - " << _parentFunction;
 #else
 #endif
     dataProxy = dp;

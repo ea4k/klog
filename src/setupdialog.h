@@ -43,6 +43,7 @@
 #include "setuppages/setuppagesats.h"
 #include "setuppages/setuppagehamlib.h"
 #include "setuppages/setuppagesubdivisions.h"
+#include "setuppages/setuppagelogview.h"
 //#include "setuppages/setuppageinterfaceswindows.h"
 #include "utilities.h"
 #include "locator.h"
@@ -136,12 +137,13 @@ private:
     SetupPageHamLib *hamlibPage;
     //SetupPageInterfacesWindows *interfacesWindowsPage;
     SetupPageSubdivisions *subdivisionsPage;
+    SetupPageLogView *logViewPage;
     //SetupPageRegionalAwards *regionalAwardsPage;
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;
     QString configFileName, version;
 
-    QStringList bands, modes;
+    QStringList bands, modes, logViewFields;
     Locator *locator;
     DataProxy_SQLite *dataProxy;
 

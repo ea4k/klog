@@ -7,20 +7,20 @@
  ***************************************************************************/
 
 /*****************************************************************************
- * This file is part of KLog.                                             *
+ * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify        *
+ *    KLog is free software: you can redistribute it and/or modify           *
  *    it under the terms of the GNU General Public License as published by   *
  *    the Free Software Foundation, either version 3 of the License, or      *
  *    (at your option) any later version.                                    *
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,             *
+ *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -29,13 +29,14 @@
 
 LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-      //qDebug() << "LogWindow::LogWindow: "  << Qt::endl;
+    qDebug() << "LogWindow::LogWindow: "  << Qt::endl;
     dataProxy = dp;
     //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
     util = new Utilities;
     connect(logModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logView = new QTableView;
+    columns.clear();
 
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
     //elogClublog = new eLogClubLog();
@@ -47,7 +48,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     createUI();
     createActions();
     setDefaultData();
-       //qDebug() << "LogWindow::LogWindow: - END"  << Qt::endl;
+    qDebug() << "LogWindow::LogWindow: - END"  << Qt::endl;
 
 }
 
@@ -56,6 +57,13 @@ LogWindow::~LogWindow()
 //    emit clearError();
 }
 
+void LogWindow::setColumns(const QStringList &_columns)
+{
+    qDebug() << Q_FUNC_INFO;
+    columns.clear();
+    columns << dataProxy->filterValidFields(_columns);
+    logModel->setColumns(columns);
+}
 
 void LogWindow::sortColumn(const int _c)
 {
@@ -70,7 +78,7 @@ void LogWindow::clear()
 
 void LogWindow::createUI()
 {
-      //qDebug() << "LogWindow::createUI"  << Qt::endl;
+    qDebug() << Q_FUNC_INFO;
 
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
@@ -82,31 +90,24 @@ void LogWindow::createUI()
 
 void LogWindow::setDefaultData()
 {
-
+    qDebug() << Q_FUNC_INFO;
+    columns.clear();
+    columns << dataProxy->filterValidFields(util->getDefaultLogFields());
        //qDebug() << "LogWindow::setDefaultData"  << Qt::endl;
 }
 
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-      //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << Qt::endl;
+    qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << Qt::endl;
     currentLog = _currentLog;
     logModel->createlogModel(currentLog);
     //proxyModel->setSourceModel(logModel);
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
 
-
-    //setProxyModel(false);
-
-    //QString contestMode = dataProxy->getLogTypeOfUserLog(currentLog);
-    setColumnsToDX();
+    setColumnsOfLog(columns);
     sortColumn(1);  //Initial sort by column 1 (date & time)
-
-
-    //qDebug() << "LogWindow::createlogPanel " << logModel->record(0).field(1).value().toString() << Qt::endl;
-    //logView->setItemDelegateForColumn(1, new ItemDelegate);
-    //logView->setItemDelegate(new QSqlRelationalDelegate(this));
 
     logView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -114,12 +115,12 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->horizontalHeader()->setStretchLastSection(true);
     logView->sortByColumn(1, Qt::AscendingOrder);
 
-
 }
 
-void LogWindow::setColumnsToDX()
+void LogWindow::setColumnsOfLog(const QStringList &_columns)
 {
-      //qDebug() << "LogWindow::setColumnsToDX"  << Qt::endl;
+    qDebug() << Q_FUNC_INFO;
+
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
     QSqlQuery query;
@@ -130,27 +131,46 @@ void LogWindow::setColumnsToDX()
     }
     QSqlRecord rec;
     rec = query.record(); // Number of columns
-    int columns = rec.count();
+    int ncolumns = rec.count();
 
-
-    for (int i=0; i < columns; i++)
+    for (int i=0; i < ncolumns; i++)
     {
         logView->setColumnHidden(i, true);
     }
 
-    columns = rec.indexOf("qso_date");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("call");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("rst_sent");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("rst_rcvd");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("bandid");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("modeid");
-    logView->setColumnHidden(columns, false);
-    columns = rec.indexOf("comment");
+    QString aux;
+    foreach(aux, columns)
+    {
+        qDebug() << Q_FUNC_INFO << ":-1: " << aux;
+    }
+
+    columns.clear();
+    columns <<  dataProxy->filterValidFields(_columns);
+    foreach(aux, columns)
+    {
+        qDebug() << Q_FUNC_INFO << ":-2:  " << aux;
+    }
+
+    foreach(aux, columns)
+    {
+        qDebug() << Q_FUNC_INFO << ": " << aux;
+        showColumn(aux);
+    }
+}
+
+void LogWindow::showColumn(const QString &_columnName)
+{
+    QString stringQuery;
+    stringQuery = QString("SELECT * FROM log LIMIT 1");
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    }
+    QSqlRecord rec;
+    rec = query.record(); // Number of columns
+    int columns = rec.indexOf(_columnName);
     logView->setColumnHidden(columns, false);
 }
 
@@ -163,6 +183,7 @@ void LogWindow::refresh()
 
 void LogWindow::createActions()
 {
+    qDebug() << Q_FUNC_INFO;
     createActionsCommon();
     showMenuRightButtonFromLogCreateActions();
 }
@@ -177,7 +198,7 @@ void LogWindow::createActionsCommon()
 
 void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-       //qDebug() << "LogWindow::slotshowRighButtonFromLog"  << Qt::endl;
+    qDebug() << Q_FUNC_INFO;
     int row = (logView->indexAt(pos)).row();
     QItemSelectionModel *select = logView->selectionModel();
     QModelIndexList list = select->selectedRows();
@@ -197,7 +218,7 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 }
 void LogWindow::rightButtonMultipleFromLogMenu()
 {
-    //qDebug() << "LogWindow::slotshowRighButtonMultipleFromLogMenu:  "  << Qt::endl;
+    qDebug() << Q_FUNC_INFO;
 
     QMenu menu(this);
     menu.addAction(multipleDelQSOsFromLogAct);
@@ -232,7 +253,7 @@ void LogWindow::rightButtonMultipleFromLogMenu()
 void LogWindow::rightButtonFromLogMenu(const int trow)
 {
     //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << Qt::endl;
-
+    qDebug() << Q_FUNC_INFO;
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
     //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << Qt::endl;
     bool qslReceived = isQSLReceived(_qsoID);
@@ -503,15 +524,7 @@ void LogWindow::slotQsoDeleteFromLog()
 {
       //qDebug() << "LogWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << Qt::endl;
     //TODO: To be added to the logWindow and create an action that emist the QSO id
-/*
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Information);
-    msgBox.setText(tr("You have requested to delete this QSO."));
-    msgBox.setInformativeText(tr("Are you sure?"));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::No);
-    int ret = msgBox.exec();
-*/
+
     int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
     deleteQSO(QSOid);
       //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << Qt::endl;

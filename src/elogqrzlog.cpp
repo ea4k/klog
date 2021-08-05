@@ -35,7 +35,7 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
 {
 
 #ifdef QT_DEBUG
-  qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
+  //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #else
 #endif
 

@@ -28,12 +28,14 @@
 
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-       //qDebug() << "LogModel::LogModel "  << Qt::endl;
+    qDebug() << Q_FUNC_INFO ;
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = dp;
+    util = new Utilities;
+    columns = dataProxy->filterValidFields(util->getDefaultLogFields());
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
-       //qDebug() << "LogModel::LogModel - END"  << Qt::endl;
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
@@ -62,44 +64,28 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-      //qDebug() << "LogModel::createlogModel: log: " << QString::number(_i) << Qt::endl;
-
-   //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
+    qDebug() << Q_FUNC_INFO ;
 
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
-    QSqlQuery query(stringQuery);
+    //QSqlQuery query(stringQuery);
     setFilter(stringQuery);
-    setColumnsToDX();
-
-    /*
-
-   //if (contestMode.compare("DX"))
-    if (contestMode == "DX")
-   {
-          //qDebug() << "LogModel::createlogModel: found type DX" << Qt::endl;
-
-   }
-   else if (contestMode == "CQ-WW-SSB")
-   {
-          //qDebug() << "LogModel::createlogModel: found type CQ-WW-SSB" << Qt::endl;
-   }
-   else
-   {
-       // THIS POINT SHOULD NOT BE REACHED. It means that there is a kind of contest not supported.
-       // Maybe the way should be to move ALL the actions from DX here.
-          //qDebug() << "LogModel::createlogModel: log type NOT found" << Qt::endl;
-   }
-    */
+    setColumns(columns);
 
     select();
-
-
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
- void LogModel::setColumnsToDX()
+ void LogModel::setColumns(const QStringList &_columns)
  {
-        //qDebug() << "LogModel::setColumnsToDX"  << Qt::endl;
+     qDebug() << Q_FUNC_INFO ;
+     //QString auxt;
+     //foreach(auxt, _columns)
+     //{
+     //    qDebug() << Q_FUNC_INFO << ": " << auxt;
+     //}
+    columns.clear();
+    columns << dataProxy->filterValidFields(_columns);
 
      QSqlQuery q;
      QString stringQuery = QString("SELECT * from log LIMIT 1");
@@ -126,27 +112,32 @@ This should be coherent with the logview
 
      nameCol = rec.indexOf("id");
      setSort(nameCol, Qt::AscendingOrder);
+     QString aux;
 
-     nameCol = rec.indexOf("qso_date");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Date"));
-
-     nameCol = rec.indexOf("call");
-     setHeaderData(nameCol, Qt::Horizontal,tr("Call"));
-
-     nameCol = rec.indexOf("bandid");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Band"));
-
-     nameCol = rec.indexOf("modeid");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Mode"));
-
-     nameCol = rec.indexOf("rst_sent");
-     setHeaderData(nameCol, Qt::Horizontal, tr("RSTtx"));
-
-     nameCol = rec.indexOf("rst_rcvd");
-     setHeaderData(nameCol, Qt::Horizontal, tr("RSTrx"));
-
-     nameCol = rec.indexOf("comment");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Comment"));
+     foreach(aux, columns)
+     {
+         nameCol = rec.indexOf(aux);
+         setHeaderData(nameCol, Qt::Horizontal, util->getLogColumnName(aux));
+         qDebug() << Q_FUNC_INFO << ": - " << aux;
+     }
+     qDebug() << Q_FUNC_INFO << " - END";
  }
+/*
+ void LogModel::showColumn(const QString &_columnName)
+ {
+     QString stringQuery;
+     stringQuery = QString("SELECT * FROM log LIMIT 1");
+     QSqlQuery query;
+     bool sqlOK = query.exec(stringQuery);
+     if (!sqlOK)
+     {
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+     }
+     QSqlRecord rec;
+     rec = query.record(); // Number of columns
 
+     int nameCol = rec.indexOf(_columnName);
+     setHeaderData(nameCol, Qt::Horizontal, _columnName);
 
+ }
+*/
