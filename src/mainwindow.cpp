@@ -420,9 +420,9 @@ void MainWindow::init()
     }
     //qDebug() << "MainWindow::init - 70" << Qt::endl;
     readConfigData();
-    qDebug() << "MainWindow::init - 71" << Qt::endl;
+    //qDebug() << "MainWindow::init - 71" << Qt::endl;
     logWindow->createlogPanel(currentLog);
-    qDebug() << "MainWindow::init - 72" << Qt::endl;
+    //qDebug() << "MainWindow::init - 72" << Qt::endl;
     awards->setManageModes(manageMode);
     //qDebug() << "MainWindow::init - 73" << Qt::endl;
     if (dataProxy->getNumberOfManagedLogs()<1)
@@ -459,9 +459,9 @@ void MainWindow::init()
     timerInfoBars = new QTimer(this);
 
     //qDebug() << "MainWindow::init - 90" << Qt::endl;
-    qDebug() << "MainWindow::init: Calling createUI" << Qt::endl;
+    //qDebug() << "MainWindow::init: Calling createUI" << Qt::endl;
     createUI();
-    qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << Qt::endl;
+    //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << Qt::endl;
     //qDebug() << Q_FUNC_INFO;
     slotClearButtonClicked();
 
@@ -4596,7 +4596,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         readConfigData();
         reconfigureDXMarathonUI(manageDxMarathon);
         logEvent(Q_FUNC_INFO, "Just after readConfigData", logSeverity);
-        qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" << Qt::endl;
+        //qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" << Qt::endl;
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", logSeverity);
         logWindow->createlogPanel(currentLog);
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", logSeverity);
@@ -5017,7 +5017,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
         //realTime = util->trueOrFalse(value);
     }else if (field=="LOGVIEWFIELDS"){
-        qDebug() << "MainWindow::processConfigLine: LOGVIEWFIELDS: " << value.toUpper() << Qt::endl;
+        //qDebug() << "MainWindow::processConfigLine: LOGVIEWFIELDS: " << value.toUpper() << Qt::endl;
         logWindow->setColumns(value.split(",", Qt::SkipEmptyParts));
     }else if (field =="DXCLUSTERSERVERTOUSE"){
         aux = value;  //dxfun.com:8000
@@ -6898,7 +6898,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 nameCol = rec.indexOf("vucc_grids");
                 aux1 = (query.value(nameCol)).toString();
-                qDebug() << Q_FUNC_INFO << ": VUCC_GRIDS: " << aux1;
+                //qDebug() << Q_FUNC_INFO << ": VUCC_GRIDS: " << aux1;
                 if (util->isValidVUCCGrids (aux1))
                 {
                     othersTabWidget->setVUCCGrids (aux1);

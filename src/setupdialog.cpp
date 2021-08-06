@@ -809,7 +809,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
     //    miscPage->setInMemory(value);
     }else if (tab=="LOGVIEWFIELDS"){
         logViewFields.clear();
-        qDebug() << Q_FUNC_INFO << ": " << value;
+        //qDebug() << Q_FUNC_INFO << ": " << value;
+        //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
         logViewFields << dataProxy->filterValidFields(value.split(",", Qt::SkipEmptyParts));
         logViewFields.removeDuplicates();
         logViewPage->setActiveFields(logViewFields);

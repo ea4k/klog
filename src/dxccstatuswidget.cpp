@@ -38,7 +38,7 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentF
 {
 
 #ifdef QT_DEBUG
-  qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction << Qt::endl;
+  //qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction << Qt::endl;
 #else
 #endif
 

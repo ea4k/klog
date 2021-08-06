@@ -181,7 +181,7 @@ void FileManager::showError (const QString &_txt)
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
 //QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly)
 {
-    qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << Qt::endl;
     QList<int> qsos;
     qsos.clear();
     noMoreQso = false;
@@ -293,8 +293,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             queryString = QString("SELECT * FROM log WHERE") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
         }
     }
-    qDebug() << "FileManager::adifLogExportReturnList: Query Count: " << queryStringCount << Qt::endl;
-    qDebug() << "FileManager::adifLogExportReturnList: Query data: " << queryString << Qt::endl;
+    //qDebug() << "FileManager::adifLogExportReturnList: Query Count: " << queryStringCount << Qt::endl;
+    //qDebug() << "FileManager::adifLogExportReturnList: Query data: " << queryString << Qt::endl;
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
     int i = 0;
 
@@ -2072,9 +2072,9 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
 
-       qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << Qt::endl;
-       qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << Qt::endl;
-       qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << Qt::endl;
+       //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << Qt::endl;
+       //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << Qt::endl;
+       //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << Qt::endl;
 
     //QHash<int, int> &hashLogs = _logs;
 
@@ -2590,7 +2590,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 }
                 else if (field == "MY_ANTENNA")
                 {
-                    qDebug() << ": MY_ANTENNA: " << data;
+                    //qDebug() << ": MY_ANTENNA: " << data;
                     preparedQuery.bindValue( ":my_antenna", data );
                 }
                 else if (field == "IOTA")
@@ -4511,19 +4511,19 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
         }
     }
     nameCol = rec.indexOf("my_antenna");
-    qDebug() << Q_FUNC_INFO << ": my_antenna-0";
+    //qDebug() << Q_FUNC_INFO << ": my_antenna-0";
     if (nameCol>=0)
     {
-        qDebug() << Q_FUNC_INFO << ": my_antenna-1";
+        //qDebug() << Q_FUNC_INFO << ": my_antenna-1";
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qDebug() << Q_FUNC_INFO << ": my_antenna: " << aux;
+        //qDebug() << Q_FUNC_INFO << ": my_antenna: " << aux;
         if ((aux.length())>0)
         {
-            qDebug() << Q_FUNC_INFO << ": my_antenna ... printing...";
+            //qDebug() << Q_FUNC_INFO << ": my_antenna ... printing...";
             out << "<MY_ANTENNA:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
     }
-    qDebug() << Q_FUNC_INFO << ": my_antenna-99";
+    //qDebug() << Q_FUNC_INFO << ": my_antenna-99";
     nameCol = rec.indexOf("my_dxcc");
     if (nameCol>=0)
     {

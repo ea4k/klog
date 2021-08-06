@@ -118,7 +118,7 @@ void SoftwareUpdate::slotReadyRead()
 void SoftwareUpdate::slotError(int _p)
 {
 #ifdef QT_DEBUG
-  qDebug() << Q_FUNC_INFO << ": " << QString::number(_p) << Qt::endl;
+  //qDebug() << Q_FUNC_INFO << ": " << QString::number(_p) << Qt::endl;
 #else
 #endif
 }

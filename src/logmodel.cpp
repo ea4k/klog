@@ -28,14 +28,15 @@
 
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = dp;
     util = new Utilities;
+    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns = dataProxy->filterValidFields(util->getDefaultLogFields());
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
@@ -64,7 +65,7 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
 
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
@@ -73,18 +74,19 @@ This should be coherent with the logview
     setColumns(columns);
 
     select();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
  void LogModel::setColumns(const QStringList &_columns)
  {
-     qDebug() << Q_FUNC_INFO ;
+     //qDebug() << Q_FUNC_INFO ;
      //QString auxt;
      //foreach(auxt, _columns)
      //{
-     //    qDebug() << Q_FUNC_INFO << ": " << auxt;
+     //    //qDebug() << Q_FUNC_INFO << ": " << auxt;
      //}
     columns.clear();
+    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
 
      QSqlQuery q;
@@ -110,6 +112,9 @@ This should be coherent with the logview
      nameCol = rec.indexOf("modeid");
      setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
 
+     nameCol = rec.indexOf("dxcc");
+     setRelation(nameCol, QSqlRelation("entity", "dxcc", "name"));
+
      nameCol = rec.indexOf("id");
      setSort(nameCol, Qt::AscendingOrder);
      QString aux;
@@ -118,9 +123,9 @@ This should be coherent with the logview
      {
          nameCol = rec.indexOf(aux);
          setHeaderData(nameCol, Qt::Horizontal, util->getLogColumnName(aux));
-         qDebug() << Q_FUNC_INFO << ": - " << aux;
+         //qDebug() << Q_FUNC_INFO << ": - " << aux;
      }
-     qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
  }
 /*
  void LogModel::showColumn(const QString &_columnName)

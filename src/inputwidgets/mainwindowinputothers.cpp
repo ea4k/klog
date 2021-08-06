@@ -516,7 +516,7 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 
 bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _op;
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
     if (checkVUCC_GRIDS(_op))
     {
         vucc_grids = _op;
@@ -528,7 +528,7 @@ bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
 
 bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _string;
+    //qDebug() << Q_FUNC_INFO << ": " << _string;
 
     if (util->isValidVUCCGrids (_string))
     {

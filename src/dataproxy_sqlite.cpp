@@ -31,7 +31,7 @@
 DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
 {
     #ifdef QT_DEBUG
-      qDebug() << Q_FUNC_INFO << _softVersion << _parentFunction << Qt::endl;
+      //qDebug() << Q_FUNC_INFO << _softVersion << _parentFunction << Qt::endl;
     #else
       //qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
@@ -7042,7 +7042,7 @@ bool DataProxy_SQLite::isValidDXCC(const int _e)
 
 QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
 {
-    qDebug() << Q_FUNC_INFO << ": Length: " << QString::number(_fields.length());
+    //qDebug() << Q_FUNC_INFO << ": Length: " << QString::number(_fields.length());
 
     QStringList validFields;
     validFields.clear();
@@ -7050,12 +7050,12 @@ QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
     QString aux;
     //foreach(aux, validFields)
     //{
-    //    qDebug() << Q_FUNC_INFO << ": validFields: " << aux;
+    //    //qDebug() << Q_FUNC_INFO << ": validFields: " << aux;
     //}
 
     foreach(aux, _fields)
     {
-        qDebug() << Q_FUNC_INFO << ": _fields: " << aux;
+        //qDebug() << Q_FUNC_INFO << ": _fields: " << aux;
     }
 
     QStringList returningFields;
@@ -7064,13 +7064,13 @@ QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
     QString field;
     foreach (field, _fields)
     {
-        qDebug() << Q_FUNC_INFO << ": Field:-1: " << field;
+        //qDebug() << Q_FUNC_INFO << ": Field:-1: " << field;
         field = field.trimmed();
         if (field.endsWith(';'))
         {
             field.chop(1);
         }
-        qDebug() << Q_FUNC_INFO << ": Field:-2: " << field;
+        //qDebug() << Q_FUNC_INFO << ": Field:-2: " << field;
         if (validFields.contains(field))
         {
             returningFields << field;

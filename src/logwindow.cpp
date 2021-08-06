@@ -29,7 +29,7 @@
 
 LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-    qDebug() << "LogWindow::LogWindow: "  << Qt::endl;
+    //qDebug() << "LogWindow::LogWindow: "  << Qt::endl;
     dataProxy = dp;
     //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
@@ -48,7 +48,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     createUI();
     createActions();
     setDefaultData();
-    qDebug() << "LogWindow::LogWindow: - END"  << Qt::endl;
+    //qDebug() << "LogWindow::LogWindow: - END"  << Qt::endl;
 
 }
 
@@ -59,8 +59,9 @@ LogWindow::~LogWindow()
 
 void LogWindow::setColumns(const QStringList &_columns)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     columns.clear();
+    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
 }
@@ -78,7 +79,7 @@ void LogWindow::clear()
 
 void LogWindow::createUI()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
@@ -90,8 +91,9 @@ void LogWindow::createUI()
 
 void LogWindow::setDefaultData()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     columns.clear();
+    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(util->getDefaultLogFields());
        //qDebug() << "LogWindow::setDefaultData"  << Qt::endl;
 }
@@ -99,7 +101,7 @@ void LogWindow::setDefaultData()
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-    qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << Qt::endl;
+    //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << Qt::endl;
     currentLog = _currentLog;
     logModel->createlogModel(currentLog);
     //proxyModel->setSourceModel(logModel);
@@ -119,7 +121,7 @@ void LogWindow::createlogPanel(const int _currentLog)
 
 void LogWindow::setColumnsOfLog(const QStringList &_columns)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO << ": Length: " << QString::number(_columns.length());
 
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
@@ -141,19 +143,26 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
     QString aux;
     foreach(aux, columns)
     {
-        qDebug() << Q_FUNC_INFO << ":-1: " << aux;
+        //qDebug() << Q_FUNC_INFO << ": columns-1: " << aux;
     }
-
+    foreach(aux, _columns)
+    {
+        //qDebug() << Q_FUNC_INFO << ": _columns-1: " << aux;
+    }
+    QStringList temPColumns;
+    temPColumns.clear();
+    temPColumns << _columns;
     columns.clear();
-    columns <<  dataProxy->filterValidFields(_columns);
+    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+    columns <<  dataProxy->filterValidFields(temPColumns);
     foreach(aux, columns)
     {
-        qDebug() << Q_FUNC_INFO << ":-2:  " << aux;
+        //qDebug() << Q_FUNC_INFO << ":-2:  " << aux;
     }
 
     foreach(aux, columns)
     {
-        qDebug() << Q_FUNC_INFO << ": " << aux;
+        //qDebug() << Q_FUNC_INFO << ": " << aux;
         showColumn(aux);
     }
 }
@@ -183,7 +192,7 @@ void LogWindow::refresh()
 
 void LogWindow::createActions()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     createActionsCommon();
     showMenuRightButtonFromLogCreateActions();
 }
@@ -198,7 +207,7 @@ void LogWindow::createActionsCommon()
 
 void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     int row = (logView->indexAt(pos)).row();
     QItemSelectionModel *select = logView->selectionModel();
     QModelIndexList list = select->selectedRows();
@@ -218,7 +227,7 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 }
 void LogWindow::rightButtonMultipleFromLogMenu()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QMenu menu(this);
     menu.addAction(multipleDelQSOsFromLogAct);
@@ -253,7 +262,7 @@ void LogWindow::rightButtonMultipleFromLogMenu()
 void LogWindow::rightButtonFromLogMenu(const int trow)
 {
     //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << Qt::endl;
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
     //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << Qt::endl;
     bool qslReceived = isQSLReceived(_qsoID);

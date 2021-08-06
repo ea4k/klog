@@ -29,7 +29,7 @@
 AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
 #ifdef QT_DEBUG
-  qDebug() << ": " << _parentFunction;
+  //qDebug() << ": " << _parentFunction;
 #else
 #endif
 

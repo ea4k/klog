@@ -29,7 +29,7 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
 {
 
 #ifdef QT_DEBUG
-     qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget: " << Qt::endl;
+     //qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget: " << Qt::endl;
 #else
 #endif
 
