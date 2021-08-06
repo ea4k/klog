@@ -136,7 +136,7 @@ QString Utilities::boolToQString(const bool _b)
 
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
-    qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << Qt::endl;
+    //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << Qt::endl;
 // This function is not really working with ASCII but with Unicode
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
     ushort unicodeVal;
@@ -295,8 +295,14 @@ QString Utilities::getDefaultRST(const QString &_m)
    { // By default SSB RST is configured but anything could be added
         return "59";
    }
+}
 
-
+QStringList Utilities::getDefaultLogFields()
+{
+    QStringList fields;
+    fields.clear();
+    fields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
+    return fields;
 }
 
 QString Utilities::getKLogDefaultDatabaseFile()
@@ -1117,7 +1123,7 @@ bool Utilities::isValidGrid(const QString &_b)
 
 bool Utilities::isValidVUCCGrids(const QString &_b)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _b;
+    //qDebug() << Q_FUNC_INFO << ": " << _b;
     QStringList tmp;
 
     //QString a = _b;
@@ -1125,26 +1131,26 @@ bool Utilities::isValidVUCCGrids(const QString &_b)
     tmp << _b.split (',', Qt::SkipEmptyParts);
     if ((tmp.length ()!=2) && (tmp.length ()!=4))
     {
-        qDebug() << Q_FUNC_INFO << ": NON VALID LENGTH";
+        //qDebug() << Q_FUNC_INFO << ": NON VALID LENGTH";
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << ": tmp: " << tmp;
+    //qDebug() << Q_FUNC_INFO << ": tmp: " << tmp;
     QString aux;
     foreach (aux, tmp) {
         aux = aux.trimmed ();
 
         if ((!isValidGrid (aux)) || (aux.length ()!=4))
         {
-            qDebug() << Q_FUNC_INFO << ": NON VALID";
+            //qDebug() << Q_FUNC_INFO << ": NON VALID";
             return false;
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << ": VALID: " << aux;
+            //qDebug() << Q_FUNC_INFO << ": VALID: " << aux;
         }
     }
-    qDebug() << Q_FUNC_INFO << ": VALID-END";
+    //qDebug() << Q_FUNC_INFO << ": VALID-END";
     return true;
 }
 
@@ -1690,4 +1696,284 @@ bool Utilities::isDarkMode()
     {
         return false;
     }
+}
+
+QString Utilities::getLogColumnName(const QString &_column)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _column;
+    if (_column == "qso_date")
+        return QObject::tr("Date");
+    else if (_column == "call")
+        return QObject::tr("Call");
+    else if (_column == "rst_sent")
+        return QObject::tr("RSTtx");
+    else if (_column == "rst_rcvd")
+        return QObject::tr("RSTrx");
+    else if (_column == "bandid")
+        return QObject::tr("Band");
+    else if (_column == "comment")
+        return QObject::tr("Comment");
+    else if (_column == "modeid")
+        return QObject::tr("Mode");
+    else if (_column == "cqz")
+        return QObject::tr("CQz");
+    else if (_column == "ituz")
+        return QObject::tr("ITUz");
+    else if (_column == "dxcc")
+        return QObject::tr("DXCC");
+    else if (_column == "address")
+        return QObject::tr("Address");
+    else if (_column == "age")
+        return QObject::tr("Age");
+    else if (_column == "cnty")
+        return QObject::tr("County");
+    else if (_column == "a_index")
+        return QObject::tr("A_Index");
+    else if (_column == "ant_az")
+        return QObject::tr("Ant_Az");
+    else if (_column == "ant_el")
+        return QObject::tr("Ant_El");
+    else if (_column == "ant_path")
+        return QObject::tr("Ant_Path");
+    else if (_column == "arrl_sect")
+        return QObject::tr("ARRL_SECT");
+    else if (_column == "award_submitted")
+        return QObject::tr("Award_Submitted");
+    else if (_column == "award_granted")
+        return QObject::tr("Award_granted");    
+    else if (_column == "band_rx")
+        return QObject::tr("Band_RX");
+    else if (_column == "checkcontest")
+        return QObject::tr("CheckContest");
+    else if (_column == "class")
+        return QObject::tr("Class");
+    else if (_column == "clublog_qso_upload_date")
+        return QObject::tr("ClubLog SDate");
+    else if (_column == "clublog_qso_upload_staus")
+        return QObject::tr("ClubLog status");
+    else if (_column == "cont")
+        return QObject::tr("Continent");
+    else if (_column == "contacted_op")
+        return QObject::tr("Contacted Op");
+    else if (_column == "contest_id")
+        return QObject::tr("Contest Id");
+    else if (_column == "country")
+        return QObject::tr("Country");
+    else if (_column == "credit_submitted")
+        return QObject::tr("Credit Submitted");
+    else if (_column == "credit_granted")
+        return QObject::tr("Credit granted");
+    else if (_column == "dark_dok")
+        return QObject::tr("Dark Dok");
+    else if (_column == "distance")
+        return QObject::tr("Distance");
+    else if (_column == "email")
+        return QObject::tr("Email");
+    else if (_column == "eq_call")
+        return QObject::tr("EQ_Call");
+    else if (_column == "eqsl_qslrdate")
+        return QObject::tr("eQSL RDate");
+    else if (_column == "eqsl_qslsdate")
+        return QObject::tr("eQSL SDate");
+    else if (_column == "eqsl_qsl_rcvd")
+        return QObject::tr("eQSL Rcvd");
+    else if (_column == "eqsl_qsl_sent")
+        return QObject::tr("eQSL Sent");
+    else if (_column == "fists")
+        return QObject::tr("Fists");
+    else if (_column == "fists_cc")
+        return QObject::tr("Fists CC");
+    else if (_column == "force_init")
+        return QObject::tr("Force Init");
+    else if (_column == "freq")
+        return QObject::tr("Freq");
+    else if (_column == "freq_rx")
+        return QObject::tr("Freq RX");
+    else if (_column == "gridsquare")
+        return QObject::tr("Gridsquare");
+    else if (_column == "guest_op")
+        return QObject::tr("Guest OP");
+    else if (_column == "hrdlog_qso_upload_date")
+        return QObject::tr("HRDLog SDate");
+    else if (_column == "hrdlog_qso_upload_status")
+        return QObject::tr("HRDLog status");
+    else if (_column == "iota")
+        return QObject::tr("IOTA");
+    else if (_column == "iota_island_id")
+        return QObject::tr("IOTA Island id");
+    else if (_column == "k_index")
+        return QObject::tr("K Index");
+    else if (_column == "lat")
+        return QObject::tr("Lat");
+    else if (_column == "lon")
+        return QObject::tr("Lon");
+    else if (_column == "lotw_qslrdate")
+        return QObject::tr("LoTW RDate");
+    else if (_column == "lotw_qslsdate")
+        return QObject::tr("LoTW SDate");
+    else if (_column == "lotw_qsl_rcvd")
+        return QObject::tr("LoTW Rcvd");
+    else if (_column == "lotw_qsl_sent")
+        return QObject::tr("LoTW Sent");
+    else if (_column == "max_bursts")
+        return QObject::tr("Max Bursts");
+    else if (_column == "multiplier")
+        return QObject::tr("Multiplier");
+    else if (_column == "ms_shower")
+        return QObject::tr("MS Shower");
+    else if (_column == "my_antenna")
+        return QObject::tr("My Antenna");
+    else if (_column == "my_city")
+        return QObject::tr("My City");
+    else if (_column == "my_cnty")
+        return QObject::tr("My Cnty");
+    else if (_column == "my_country")
+        return QObject::tr("My Country");
+    else if (_column == "my_cq_zone")
+        return QObject::tr("My CQz");
+    else if (_column == "my_dxcc")
+        return QObject::tr("My DXCC");
+    else if (_column == "my_fists")
+        return QObject::tr("My Fists");
+    else if (_column == "my_gridsquare")
+        return QObject::tr("My Gridsquare");
+    else if (_column == "my_iota")
+        return QObject::tr("My IOTA");
+    else if (_column == "my_iota_island_id")
+        return QObject::tr("My IOTA island id");
+    else if (_column == "my_itu_zone")
+        return QObject::tr("My ITUz");
+    else if (_column == "my_lat")
+        return QObject::tr("My Lat");
+    else if (_column == "my_lon")
+        return QObject::tr("My Lon");
+    else if (_column == "my_name")
+        return QObject::tr("My Name");
+    else if (_column == "my_postal_code")
+        return QObject::tr("My Postal code");
+    else if (_column == "my_rig")
+        return QObject::tr("My Rig");
+    else if (_column == "my_sig")
+        return QObject::tr("My Sig");
+    else if (_column == "my_sig_info")
+        return QObject::tr("My Sig Info");
+    else if (_column == "my_sota_ref")
+        return QObject::tr("My SOTA ref");
+    else if (_column == "my_state")
+        return QObject::tr("My State");
+    else if (_column == "my_street")
+        return QObject::tr("My Street");
+    else if (_column == "my_usaca_counties")
+        return QObject::tr("My USACA counties");
+    else if (_column == "my_vucc_grids")
+        return QObject::tr("My VUCC grids");
+    else if (_column == "name")
+        return QObject::tr("Name");
+    else if (_column == "notes")
+        return QObject::tr("Notes");
+    else if (_column == "nr_bursts")
+        return QObject::tr("Nr bursts");
+    else if (_column == "nr_pings")
+        return QObject::tr("Nr pings");
+    else if (_column == "operator")
+        return QObject::tr("Operator");
+    else if (_column == "owner_callsign")
+        return QObject::tr("Owner Callsign");
+    else if (_column == "pfx")
+        return QObject::tr("Pfx");
+    else if (_column == "points")
+        return QObject::tr("Points");
+    else if (_column == "precedence")
+        return QObject::tr("Precedence");
+    else if (_column == "prop_mode")
+        return QObject::tr("Prop Mode");
+    else if (_column == "public_key")
+        return QObject::tr("Public Key");
+    else if (_column == "qrzcom_qso_upload_date")
+        return QObject::tr("QRZcom SDate");
+    else if (_column == "qrzcom_qso_upload_status")
+        return QObject::tr("QRZcom status");
+    else if (_column == "qslmsg")
+        return QObject::tr("QSL msg");
+    else if (_column == "qslrdate")
+        return QObject::tr("QSL RDate");
+    else if (_column == "qslsdate")
+        return QObject::tr("QSL SDate");
+    else if (_column == "qsl_rcvd")
+        return QObject::tr("QSL Rcvd");
+    else if (_column == "qsl_sent")
+        return QObject::tr("QSL Sent");
+    else if (_column == "qsl_rcvd_via")
+        return QObject::tr("QSL rcvd via");
+    else if (_column == "qsl_sent_via")
+        return QObject::tr("QSL sent via");
+    else if (_column == "qsl_via")
+        return QObject::tr("QSL via");
+    else if (_column == "qso_complete")
+        return QObject::tr("QSO complete");
+    else if (_column == "qso_random")
+        return QObject::tr("QSO random");
+    else if (_column == "qth")
+        return QObject::tr("QTH");
+    else if (_column == "region")
+        return QObject::tr("Region");
+    else if (_column == "rig")
+        return QObject::tr("Rig");
+    else if (_column == "rx_pwr")
+        return QObject::tr("RX Pwr");
+    else if (_column == "sat_mode")
+        return QObject::tr("Sat Mode");
+    else if (_column == "sat_name")
+        return QObject::tr("Sat name");
+    else if (_column == "sfi")
+        return QObject::tr("SFI");
+    else if (_column == "sig")
+        return QObject::tr("Sig");
+    else if (_column == "sig_info")
+        return QObject::tr("Sig Info");
+    else if (_column == "silent_key")
+        return QObject::tr("Silent key", "Do not translate if unsure, common hamradio term.");
+    else if (_column == "skcc")
+        return QObject::tr("SKCC");
+    else if (_column == "sota_ref")
+        return QObject::tr("SOTA Ref");
+    else if (_column == "srx_string")
+        return QObject::tr("SRX String");
+    else if (_column == "srx")
+        return QObject::tr("SRX");
+    else if (_column == "stx_string")
+        return QObject::tr("STX String");
+    else if (_column == "state")
+        return QObject::tr("State");
+    else if (_column == "station_callsign")
+        return QObject::tr("Station Callsign");
+    else if (_column == "submode")
+        return QObject::tr("Submode");
+    else if (_column == "swl")
+        return QObject::tr("SWL");
+    else if (_column == "uksmg")
+        return QObject::tr("UKSMG");
+    else if (_column == "usaca_counties")
+        return QObject::tr("USACA counties");
+    else if (_column == "ve_prov")
+        return QObject::tr("VE prov");
+    else if (_column == "vucc_grids")
+        return QObject::tr("VUCC grids");
+    else if (_column == "ten_ten")
+        return QObject::tr("Ten-Ten", "Do not translate, it is a groups name.");
+    else if (_column == "tx_pwr")
+        return QObject::tr("TX Pwr");
+    else if (_column == "web")
+        return QObject::tr("Web");
+    else if (_column == "qso_date_off")
+        return QObject::tr("QSO Date off");
+    else if (_column == "transmiterid")
+        return QObject::tr("Transmitter id");
+    else if (_column == "lognumber")
+        return QObject::tr("Log number");
+    else
+    {
+        return _column;
+    }
+
 }

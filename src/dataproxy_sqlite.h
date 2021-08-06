@@ -67,6 +67,7 @@ public:
     int getSubModeIdFromSubMode(const QString &_subModeName);
     int getModeIdFromSubModeId(const int _sm);
 
+    QStringList getFields();
     QStringList getBands();
     QStringList getModes();
     QStringList sortBandNamesBottonUp(const QStringList _qs);
@@ -190,6 +191,7 @@ public:
     QStringList getContinentShortNames();
     bool isValidContinentShortName(const QString &_n);
     bool isValidDXCC(const int _e);
+    QStringList filterValidFields(const QStringList &_fields);
 
     int getCQzFromPrefix(const QString &_p);
     int getCQzFromEntity(const int _n);
