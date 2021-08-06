@@ -338,6 +338,7 @@ macx: {
     #LIBS += -L"../../../hamlib/lib" -lhamlib
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
+
 }
 win32: {
     RC_ICONS = src/klog.ico

@@ -49,7 +49,7 @@ private slots:
 private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
-    World *world;
+    //World *world;
     QString version;
 };
 
@@ -109,4 +109,4 @@ void tst_World::test_WorldCreation()
 
 QTEST_APPLESS_MAIN(tst_World)
 
-#include "tst_world.moc"
+#include "tests/world/tst_world.moc"

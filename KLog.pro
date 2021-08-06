@@ -23,5 +23,12 @@
 # *                                                                           *
 # *****************************************************************************/
 
+# --coverage option is synonym for: -fprofile-arcs -ftest-coverage -lgcov
+INCLUDEPATH +=/usr/local/Cellar/llvm/12.0.1/include/
+#LIBS += -L"/usr/local/lib" -lhamlib
+LIBS += -L"/usr/local/Cellar/llvm/12.0.1/lib" -lgcov
+QMAKE_CXXFLAGS += --coverage
+QMAKE_LFLAGS += --coverage
+
 include( $$PWD/src/src.pri )
 include( $$PWD/tests/tests.pri )

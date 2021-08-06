@@ -197,4 +197,4 @@ void tst_MainWindowInputQSO::test_Cleaners()
 
 QTEST_MAIN(tst_MainWindowInputQSO)
 
-#include "tst_mainwindowinputqso.moc"
+#include "tests/tst_mainwindowinputqso/tst_mainwindowinputqso.moc"
