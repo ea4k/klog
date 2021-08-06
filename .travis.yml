@@ -8,6 +8,12 @@ matrix:
     arch: amd64
     sudo: required
     dist: focal
+addons:
+    apt:
+      sources:
+        - sourceline: 'ppa:beineri/opt-qt-5.15.2-focal'
+      packages:
+        - qt515base
     before_install:
       - sudo apt-get update
       - sudo apt-get -y install qtbase5-dev libsqlite3-dev
