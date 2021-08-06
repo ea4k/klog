@@ -1,7 +1,8 @@
 TBD - 1.8
-- Improvement: Code updated to Qt 5.12.2.
 - Bugfix: Some recently added ADIF fields where not properly imported from ADIF.
-Improvement: VUCC_GRIDS & MY_VUCC_GRIDS are also managed in the UI.
+- Improvement: Code updated to Qt 5.12.2. (Closes #323)
+- Improvement: VUCC_GRIDS & MY_VUCC_GRIDS are also managed in the UI. (Closes #319)
+- Improvement: LogView fields to be shown can be selected in the prerefences. (Closes #23)
 
 July 2021 - 1.7
 - Bugfix: RealTime remained checked when editing.
