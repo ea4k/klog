@@ -74,6 +74,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     satsPage = new SetupPageSats(dataProxy, this);
     //qDebug() << "SetupDialog::SetupDialog 01.100" << Qt::endl;
     hamlibPage = new SetupPageHamLib(dataProxy, this);
+    logViewPage = new SetupPageLogView(dataProxy, this);
     //subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
     //regionalAwardsPage = new SetupPageRegionalAwards(dataProxy, this);
     //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
@@ -82,6 +83,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
+    tabWidget->addTab(logViewPage, tr("Log widget"));
     tabWidget->addTab(dxClusterPage, tr("D&X-Cluster"));
     tabWidget->addTab(colorsPage, tr("Colors"));
     tabWidget->addTab(miscPage, tr("Misc"));
@@ -460,6 +462,7 @@ void SetupDialog::slotOkButtonClicked()
         //stream << "Operators=" <<  ";" << Qt::endl;
         stream << "Bands=" << bandModePage->getBands() << ";" <<  Qt::endl;
         stream << "Modes=" << bandModePage->getModes() << ";" <<  Qt::endl;
+        stream << "LogViewFields=" << logViewPage->getFields() << ";" <<  Qt::endl;
 
         //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  Qt::endl;
         stream << "RealTime=" << miscPage->getRealTime() << ";" <<  Qt::endl;
@@ -695,8 +698,10 @@ void SetupDialog::slotReadConfigData()
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
+        logViewFields.removeDuplicates();
         bandModePage->setActiveModes(modes);
         bandModePage->setActiveBands(bands);
+        logViewPage->setActiveFields(logViewFields);
     }
 
     //qDebug() << "SetupDialog::slotReadConfigData - 1" << Qt::endl;
@@ -732,10 +737,16 @@ void SetupDialog::slotReadConfigData()
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
 
     }
+    if (logViewFields.isEmpty())
+    {
+        logViewFields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
+    }
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
     bands.removeDuplicates();
     bandModePage->setActiveBands(bands);
+    logViewFields.removeDuplicates();
+    logViewPage->setActiveFields(logViewFields);
     //qDebug() << "SetupDialog::slotReadConfigData - END" << Qt::endl;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 
@@ -796,6 +807,13 @@ bool SetupDialog::processConfigLine(const QString &_line)
         bandModePage->setActiveBands(bands);
     //}else if (tab=="INMEMORY"){
     //    miscPage->setInMemory(value);
+    }else if (tab=="LOGVIEWFIELDS"){
+        logViewFields.clear();
+        //qDebug() << Q_FUNC_INFO << ": " << value;
+        //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+        logViewFields << dataProxy->filterValidFields(value.split(",", Qt::SkipEmptyParts));
+        logViewFields.removeDuplicates();
+        logViewPage->setActiveFields(logViewFields);
     }else if (tab=="REALTIME"){
         miscPage->setRealTime(value);
     }else if (tab=="UTCTIME"){

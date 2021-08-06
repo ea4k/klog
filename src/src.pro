@@ -67,6 +67,7 @@ HEADERS += setupdialog.h \
     awardswidget.h \     \
     charts/statsfieldperbandwidget.h \
     klogdefinitions.h \
+    setuppages/setuppagelogview.h \
     widgets/showkloglogwidget.h \
     elogqrzlog.h \
     eqslutilities.h \
@@ -172,6 +173,7 @@ SOURCES += main.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
     setuppages/setuppageelog.cpp \
+    setuppages/setuppagelogview.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
     setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \

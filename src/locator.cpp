@@ -53,7 +53,7 @@ Wikipedia:
 
 */
 
-    qDebug() << "Locator::isValidLocator: " << tlocator << Qt::endl;
+    //qDebug() << "Locator::isValidLocator: " << tlocator << Qt::endl;
 
     //int lenght_of_locator;
 
@@ -65,7 +65,7 @@ Wikipedia:
     rx.setPattern("^[A-R]{2}$");
     if (rx.match(testLocator).hasMatch())
     {
-        qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
+        //qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
         return true;
     }
     else
@@ -73,7 +73,7 @@ Wikipedia:
         rx.setPattern("^[A-R]{2}[0-9]{2}$");
         if (rx.match(testLocator).hasMatch())
         {
-            qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
+            //qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
             return true;
         }
         else
@@ -81,7 +81,7 @@ Wikipedia:
             rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}$");
             if (rx.match(testLocator).hasMatch())
             {
-                qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
+                //qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
                 return true;
             }
             else
@@ -89,12 +89,12 @@ Wikipedia:
                 rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}$");
                 if (rx.match(testLocator).hasMatch())
                 {
-                    qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
+                    //qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
                     return true;
                 }
                 else
                 {
-                    qDebug() << "Locator::isValidLocator: NOT VALID: " << testLocator;
+                    //qDebug() << "Locator::isValidLocator: NOT VALID: " << testLocator;
                     return false;
                 }
             }

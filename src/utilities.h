@@ -81,6 +81,8 @@ public:
 
     QDate getDefaultDate();
     QString getDefaultRST(const QString &_m);
+    QStringList getDefaultLogFields();
+
     int getNormalizedDXCCValue(const int _dxcc);
 
     // Validations
@@ -121,6 +123,8 @@ public:
     QTime getTimeFromSQLiteString(const QString &_s);
     QDate getDateFromSQliteString(const QString &_s);
 
+    // Translate the LOG table fields into human readable
+    QString getLogColumnName(const QString &_column);
 
     // Creates the ADIF DATE & TIME formats
     QString getADIFDateFromQDateTime(const QDateTime &_d);  // Will produce the ADIF DATE format: "YYYYMMDD"
