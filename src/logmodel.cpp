@@ -109,6 +109,9 @@ This should be coherent with the logview
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
 
+nameCol = rec.indexOf("band_rx");
+     setRelation(nameCol, QSqlRelation("band", "id", "name"));
+
      nameCol = rec.indexOf("modeid");
      setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
 
