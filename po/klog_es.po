@@ -3427,7 +3427,7 @@ msgstr ""
 #: ../mainwindow.cpp:8265
 msgctxt "MainWindow|"
 msgid "Native Error"
-msgstr ""
+msgstr "Error nativo"
 
 #: ../mainwindow.cpp:8269
 msgctxt "MainWindow|"
@@ -4015,7 +4015,7 @@ msgstr "Edad"
 #: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "VUCC grids"
-msgstr ""
+msgstr "Cuadriculas VUCC"
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
 msgctxt "MainWindowInputQSL|"
@@ -4269,7 +4269,7 @@ msgstr "Mi ref SOTA"
 #: ../inputwidgets/mainwindowmydatatab.cpp:467
 msgctxt "MainWindowMyDataTab|"
 msgid "My VUCC_GRIDS"
-msgstr ""
+msgstr "Mis cuadriculas VUCC"
 
 #: ../inputwidgets/mainwindowsattab.cpp:92
 msgctxt "MainWindowSatTab|"
@@ -4437,10 +4437,9 @@ msgstr "El satélite que tiene en su QSO es: "
 #, qt-format
 msgctxt "OnlineMessageWidget|"
 msgid "The server returned the following error: %1"
-msgstr ""
+msgstr "El servidor envió el siguiente error: %1"
 
 #: ../widgets/onlinemessagewidget.cpp:170
-#, fuzzy
 msgctxt "OnlineMessageWidget|"
 msgid "Not identified"
 msgstr "No identificado"
@@ -4571,22 +4570,22 @@ msgstr "Progreso: "
 #: ../database.cpp:8026
 msgctxt "QObject|"
 msgid "Updating DXCC award information..."
-msgstr ""
+msgstr "Actualizando la información de DXCC ..."
 
 #: ../database.cpp:8119
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
-msgstr ""
+msgstr "Actualizando la información de DXCC ..."
 
 #: ../database.cpp:8265
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
-msgstr ""
+msgstr "Actualizando la información de WAZ ..."
 
 #: ../database.cpp:8359
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
-msgstr ""
+msgstr "Actualizando la información de WAZ ..."
 
 #: ../database.cpp:3847 ../database.cpp:3868
 msgctxt "QObject|"
@@ -4761,43 +4760,36 @@ msgid "KLog - Not valid callsign found"
 msgstr "KLog - Indicativo no válido encontrado"
 
 #: ../utilities.cpp:1705
-#, fuzzy
 msgctxt "QObject|"
 msgid "Date"
 msgstr "Fecha"
 
 #: ../utilities.cpp:1707
-#, fuzzy
 msgctxt "QObject|"
 msgid "Call"
 msgstr "Indicativo"
 
 #: ../utilities.cpp:1709
-#, fuzzy
 msgctxt "QObject|"
 msgid "RSTtx"
 msgstr "RSTtx"
 
 #: ../utilities.cpp:1711
-#, fuzzy
 msgctxt "QObject|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
 #: ../utilities.cpp:1713
-#, fuzzy
 msgctxt "QObject|"
 msgid "Band"
 msgstr "Banda"
 
 #: ../utilities.cpp:1715
-#, fuzzy
 msgctxt "QObject|"
 msgid "Comment"
 msgstr "Comentario"
 
 #: ../utilities.cpp:1717
-#, fuzzy
 msgctxt "QObject|"
 msgid "Mode"
 msgstr "Modo"
@@ -4805,15 +4797,14 @@ msgstr "Modo"
 #: ../utilities.cpp:1719
 msgctxt "QObject|"
 msgid "CQz"
-msgstr ""
+msgstr "CQz"
 
 #: ../utilities.cpp:1721
 msgctxt "QObject|"
 msgid "ITUz"
-msgstr ""
+msgstr "ITUz"
 
 #: ../utilities.cpp:1723
-#, fuzzy
 msgctxt "QObject|"
 msgid "DXCC"
 msgstr "DXCC"
@@ -4821,10 +4812,9 @@ msgstr "DXCC"
 #: ../utilities.cpp:1725
 msgctxt "QObject|"
 msgid "Address"
-msgstr ""
+msgstr "Dirección"
 
 #: ../utilities.cpp:1727
-#, fuzzy
 msgctxt "QObject|"
 msgid "Age"
 msgstr "Edad"
@@ -4832,47 +4822,47 @@ msgstr "Edad"
 #: ../utilities.cpp:1729
 msgctxt "QObject|"
 msgid "County"
-msgstr ""
+msgstr "Pais"
 
 #: ../utilities.cpp:1731
 msgctxt "QObject|"
 msgid "A_Index"
-msgstr ""
+msgstr "A_Index"
 
 #: ../utilities.cpp:1733
 msgctxt "QObject|"
 msgid "Ant_Az"
-msgstr ""
+msgstr "Azimuth"
 
 #: ../utilities.cpp:1735
 msgctxt "QObject|"
 msgid "Ant_El"
-msgstr ""
+msgstr "Elevación"
 
 #: ../utilities.cpp:1737
 msgctxt "QObject|"
 msgid "Ant_Path"
-msgstr ""
+msgstr "Paso"
 
 #: ../utilities.cpp:1739
 msgctxt "QObject|"
 msgid "ARRL_SECT"
-msgstr ""
+msgstr "Sección ARRL"
 
 #: ../utilities.cpp:1741
 msgctxt "QObject|"
 msgid "Award_Submitted"
-msgstr ""
+msgstr "Diploma enviado"
 
 #: ../utilities.cpp:1743
 msgctxt "QObject|"
 msgid "Award_granted"
-msgstr ""
+msgstr "Diploma concedido"
 
 #: ../utilities.cpp:1745
 msgctxt "QObject|"
 msgid "Band_RX"
-msgstr ""
+msgstr "Banda RX"
 
 #: ../utilities.cpp:1747
 msgctxt "QObject|"
@@ -4882,20 +4872,19 @@ msgstr ""
 #: ../utilities.cpp:1749
 msgctxt "QObject|"
 msgid "Class"
-msgstr ""
+msgstr "Clase"
 
 #: ../utilities.cpp:1751
 msgctxt "QObject|"
 msgid "ClubLog SDate"
-msgstr ""
+msgstr "c"
 
 #: ../utilities.cpp:1753
 msgctxt "QObject|"
 msgid "ClubLog status"
-msgstr ""
+msgstr "Estado ClubLog"
 
 #: ../utilities.cpp:1755
-#, fuzzy
 msgctxt "QObject|"
 msgid "Continent"
 msgstr "Continente"
@@ -4903,7 +4892,7 @@ msgstr "Continente"
 #: ../utilities.cpp:1757
 msgctxt "QObject|"
 msgid "Contacted Op"
-msgstr ""
+msgstr "Operador contactado"
 
 #: ../utilities.cpp:1759
 msgctxt "QObject|"
@@ -4936,9 +4925,10 @@ msgid "Distance"
 msgstr ""
 
 #: ../utilities.cpp:1771
+#, fuzzy
 msgctxt "QObject|"
 msgid "Email"
-msgstr ""
+msgstr "Correo-e"
 
 #: ../utilities.cpp:1773
 msgctxt "QObject|"
@@ -4961,7 +4951,6 @@ msgid "eQSL Rcvd"
 msgstr ""
 
 #: ../utilities.cpp:1781
-#, fuzzy
 msgctxt "QObject|"
 msgid "eQSL Sent"
 msgstr "Envío eQSL"
@@ -4982,13 +4971,11 @@ msgid "Force Init"
 msgstr ""
 
 #: ../utilities.cpp:1789
-#, fuzzy
 msgctxt "QObject|"
 msgid "Freq"
 msgstr "Frec"
 
 #: ../utilities.cpp:1791
-#, fuzzy
 msgctxt "QObject|"
 msgid "Freq RX"
 msgstr "Frec RX"
@@ -5014,7 +5001,6 @@ msgid "HRDLog status"
 msgstr ""
 
 #: ../utilities.cpp:1801
-#, fuzzy
 msgctxt "QObject|"
 msgid "IOTA"
 msgstr "IOTA"
@@ -5152,7 +5138,6 @@ msgid "My Postal code"
 msgstr ""
 
 #: ../utilities.cpp:1855
-#, fuzzy
 msgctxt "QObject|"
 msgid "My Rig"
 msgstr "Mi equipo"
@@ -5160,7 +5145,7 @@ msgstr "Mi equipo"
 #: ../utilities.cpp:1857
 msgctxt "QObject|"
 msgid "My Sig"
-msgstr ""
+msgstr "Mi Sig"
 
 #: ../utilities.cpp:1859
 msgctxt "QObject|"
@@ -5193,7 +5178,6 @@ msgid "My VUCC grids"
 msgstr ""
 
 #: ../utilities.cpp:1871
-#, fuzzy
 msgctxt "QObject|"
 msgid "Name"
 msgstr "Nombre"
@@ -5274,13 +5258,11 @@ msgid "QSL SDate"
 msgstr ""
 
 #: ../utilities.cpp:1903
-#, fuzzy
 msgctxt "QObject|"
 msgid "QSL Rcvd"
 msgstr "QSL Recibida"
 
 #: ../utilities.cpp:1905
-#, fuzzy
 msgctxt "QObject|"
 msgid "QSL Sent"
 msgstr "QSL Enviada"
@@ -5311,7 +5293,6 @@ msgid "QSO random"
 msgstr ""
 
 #: ../utilities.cpp:1917
-#, fuzzy
 msgctxt "QObject|"
 msgid "QTH"
 msgstr "QTH"
@@ -5337,7 +5318,6 @@ msgid "Sat Mode"
 msgstr ""
 
 #: ../utilities.cpp:1927
-#, fuzzy
 msgctxt "QObject|"
 msgid "Sat name"
 msgstr "Nombre"
@@ -5368,7 +5348,6 @@ msgid "SKCC"
 msgstr ""
 
 #: ../utilities.cpp:1939
-#, fuzzy
 msgctxt "QObject|"
 msgid "SOTA Ref"
 msgstr "Ref SOTA"
@@ -5419,9 +5398,10 @@ msgid "VE prov"
 msgstr ""
 
 #: ../utilities.cpp:1961
+#, fuzzy
 msgctxt "QObject|"
 msgid "VUCC grids"
-msgstr ""
+msgstr "Cuadriculas VUCC"
 
 #: ../utilities.cpp:1963
 msgctxt "QObject|Do not translate, it is a groups name."
