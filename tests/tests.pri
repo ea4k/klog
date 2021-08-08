@@ -1,6 +1,3 @@
-#LIBS += -lgcov
-#QMAKE_CXXFLAGS += --coverage
-#QMAKE_LFLAGS += --coverage -fprofile-instr-generate -fcoverage-mapping
 
 include(utilities/utilities.pri)
 include(mainqsoentrywidget/mainqsoentrywidget.pri)

@@ -142,5 +142,5 @@ void tst_DataProxy::test_bands()
 
 QTEST_APPLESS_MAIN(tst_DataProxy)
 
-#include "tests/tst_dataproxy/tst_dataproxy.moc"
+#include "tst_dataproxy.moc"
 

@@ -279,4 +279,4 @@ void tst_Utilities::test_getPrefixFromCall()
 
 QTEST_APPLESS_MAIN(tst_Utilities)
 
-#include "tests/utilities/tst_utilities.moc"
+#include "tst_utilities.moc"

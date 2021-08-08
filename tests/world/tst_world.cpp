@@ -109,4 +109,4 @@ void tst_World::test_WorldCreation()
 
 QTEST_APPLESS_MAIN(tst_World)
 
-#include "tests/world/tst_world.moc"
+#include "tst_world.moc"

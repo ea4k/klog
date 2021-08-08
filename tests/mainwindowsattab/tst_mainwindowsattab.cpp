@@ -137,4 +137,4 @@ void tst_MainQSOEntryWidget::test_SatMode()
 
 QTEST_MAIN(tst_MainQSOEntryWidget)
 
-#include "tests/mainwindowsattab/tst_mainwindowsattab.moc"
+#include "tst_mainwindowsattab.moc"

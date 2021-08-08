@@ -150,4 +150,4 @@ void tst_MainQSOEntryWidget::test_Modes()
 
 QTEST_MAIN(tst_MainQSOEntryWidget)
 
-#include "tests/mainqsoentrywidget/tst_mainqsoentrywidget.moc"
+#include "tst_mainqsoentrywidget.moc"
