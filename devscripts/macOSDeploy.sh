@@ -37,7 +37,7 @@ if [ $# -ne 1 ]; then
 export CXXFLAGS=-std=c++11
 KLOG_VERSION="$1"
 KLOG_SOURCES="../src"
-QTDIRi=$HOME"/Qt/5.15.2/clang_64"
+QTDIRi="/usr/local/Cellar/qt@5/5.15.2"
 rm -Rf KLog.app
 rm -Rf build 
 /usr/bin/make clean
