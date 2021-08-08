@@ -5060,7 +5060,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1961"/>
         <source>VUCC grids</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuadriculas VUCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1963"/>

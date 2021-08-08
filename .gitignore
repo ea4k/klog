@@ -13,3 +13,5 @@ KLog.app
 *.autosave
 .qmake.stash
 target_wrapper.sh
+*.sh~
+*.dmg
