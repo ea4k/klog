@@ -4801,9 +4801,10 @@ msgid "Date"
 msgstr "Data"
 
 #: ../utilities.cpp:1707
+#, fuzzy
 msgctxt "QObject|"
 msgid "Call"
-msgstr ""
+msgstr "Trucada"
 
 #: ../utilities.cpp:1709
 #, fuzzy

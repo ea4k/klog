@@ -197,7 +197,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="93"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tila</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="136"/>
@@ -4424,7 +4424,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../utilities.cpp" line="1717"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tila</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1719"/>
@@ -5178,7 +5178,7 @@ KLog will finish when you click on OK.</source>
         <location filename="../searchwindow.cpp" line="90"/>
         <location filename="../searchwindow.cpp" line="207"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tila</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="85"/>
@@ -7519,7 +7519,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="56"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tila</translation>
     </message>
 </context>
 <context>
@@ -7738,7 +7738,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="116"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tila</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="117"/>
@@ -7864,7 +7864,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="113"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tila</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="114"/>

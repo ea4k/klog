@@ -232,9 +232,10 @@ msgid "Band"
 msgstr "Taajuusalue"
 
 #: ../widgets/adiflotwexportwidget.cpp:93
+#, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "Mode"
-msgstr ""
+msgstr "Tila"
 
 #: ../widgets/adiflotwexportwidget.cpp:136
 msgctxt "AdifLoTWExportWidget|"
@@ -4646,9 +4647,10 @@ msgid "Comment"
 msgstr "Kommentti"
 
 #: ../utilities.cpp:1717
+#, fuzzy
 msgctxt "QObject|"
 msgid "Mode"
-msgstr ""
+msgstr "Tila"
 
 #: ../utilities.cpp:1719
 msgctxt "QObject|"
@@ -5408,9 +5410,10 @@ msgid "Band"
 msgstr "Taajuusalue"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:207
+#, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mode"
-msgstr ""
+msgstr "Tila"
 
 #: ../searchwindow.cpp:85 ../searchwindow.cpp:90 ../searchwindow.cpp:213
 #, fuzzy
@@ -7898,9 +7901,10 @@ msgid "Band"
 msgstr "Taajuusalue"
 
 #: ../widgets/showadifimportwidget.cpp:56
+#, fuzzy
 msgctxt "ShowAdifImportWidget|"
 msgid "Mode"
-msgstr ""
+msgstr "Tila"
 
 #: ../showerrordialog.cpp:35
 msgctxt "ShowErrorDialog|"
@@ -8110,9 +8114,10 @@ msgid "Band"
 msgstr "Taajuusalue"
 
 #: ../charts/statsdxccsonsatswidget.cpp:116
+#, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Mode"
-msgstr ""
+msgstr "Tila"
 
 #: ../charts/statsdxccsonsatswidget.cpp:117
 #, fuzzy
@@ -8240,9 +8245,10 @@ msgid "Band"
 msgstr "Taajuusalue"
 
 #: ../charts/statsgridsonsatswidget.cpp:113
+#, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Mode"
-msgstr ""
+msgstr "Tila"
 
 #: ../charts/statsgridsonsatswidget.cpp:114
 msgctxt "StatsGridsOnSatsWidget|"

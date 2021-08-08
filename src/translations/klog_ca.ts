@@ -4428,7 +4428,7 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
     <message>
         <location filename="../utilities.cpp" line="1707"/>
         <source>Call</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trucada</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1709"/>
