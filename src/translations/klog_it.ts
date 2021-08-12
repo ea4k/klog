@@ -3031,7 +3031,7 @@ Configura i parametri di connessione di LoTW.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="8265"/>
         <source>Native Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore nativo</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="8269"/>
@@ -3711,7 +3711,7 @@ Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="490"/>
         <source>VUCC grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistiche VUCC</translation>
     </message>
 </context>
 <context>
@@ -3963,7 +3963,7 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="467"/>
         <source>My VUCC_GRIDS</source>
-        <translation type="unfinished"></translation>
+        <translation>I miei grafici VUCC</translation>
     </message>
 </context>
 <context>
@@ -4107,12 +4107,12 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="38"/>
         <source>The server returned the following error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Il server ha riportato il seguente errore: %1</translation>
     </message>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="170"/>
         <source>Not identified</source>
-        <translation type="unfinished">Non identificato</translation>
+        <translation>Non identificato</translation>
     </message>
 </context>
 <context>
@@ -4419,674 +4419,674 @@ KLog terminerà appena cliccherai su OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1705"/>
         <source>Date</source>
-        <translation type="unfinished">Data</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1707"/>
         <source>Call</source>
-        <translation type="unfinished">Nominativo</translation>
+        <translation>Nominativo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1709"/>
         <source>RSTtx</source>
-        <translation type="unfinished">RSTtx</translation>
+        <translation>RSTtx</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1711"/>
         <source>RSTrx</source>
-        <translation type="unfinished">RSTrx</translation>
+        <translation>RSTrx</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1713"/>
         <source>Band</source>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1715"/>
         <source>Comment</source>
-        <translation type="unfinished">Commento</translation>
+        <translation>Commento</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1717"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1719"/>
         <source>CQz</source>
-        <translation type="unfinished"></translation>
+        <translation>CQz</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1721"/>
         <source>ITUz</source>
-        <translation type="unfinished"></translation>
+        <translation>ITUz</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1723"/>
         <source>DXCC</source>
-        <translation type="unfinished">DXCC</translation>
+        <translation>DXCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1725"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1727"/>
         <source>Age</source>
-        <translation type="unfinished">Età</translation>
+        <translation>Età</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1729"/>
         <source>County</source>
-        <translation type="unfinished"></translation>
+        <translation>Country</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1731"/>
         <source>A_Index</source>
-        <translation type="unfinished"></translation>
+        <translation>A_Index</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1733"/>
         <source>Ant_Az</source>
-        <translation type="unfinished"></translation>
+        <translation>Ant_AZ</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1735"/>
         <source>Ant_El</source>
-        <translation type="unfinished"></translation>
+        <translation>Ant_El</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1737"/>
         <source>Ant_Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Anth_Percorso</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1739"/>
         <source>ARRL_SECT</source>
-        <translation type="unfinished"></translation>
+        <translation>ARRL_SECT</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1741"/>
         <source>Award_Submitted</source>
-        <translation type="unfinished"></translation>
+        <translation>Award Inviato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1743"/>
         <source>Award_granted</source>
-        <translation type="unfinished"></translation>
+        <translation>Award_concesso</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1745"/>
         <source>Band_RX</source>
-        <translation type="unfinished"></translation>
+        <translation>Banda_RX</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1747"/>
         <source>CheckContest</source>
-        <translation type="unfinished"></translation>
+        <translation>CheckContest</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1749"/>
         <source>Class</source>
-        <translation type="unfinished"></translation>
+        <translation>Class</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1751"/>
         <source>ClubLog SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLog SDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1753"/>
         <source>ClubLog status</source>
-        <translation type="unfinished"></translation>
+        <translation>ClubLog stato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1755"/>
         <source>Continent</source>
-        <translation type="unfinished"></translation>
+        <translation>Continente</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1757"/>
         <source>Contacted Op</source>
-        <translation type="unfinished"></translation>
+        <translation>Op Contattato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1759"/>
         <source>Contest Id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id Contest</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1761"/>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation>Country</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1763"/>
         <source>Credit Submitted</source>
-        <translation type="unfinished"></translation>
+        <translation>Credito Inviato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1765"/>
         <source>Credit granted</source>
-        <translation type="unfinished"></translation>
+        <translation>Credito concesso</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1767"/>
         <source>Dark Dok</source>
-        <translation type="unfinished"></translation>
+        <translation>Dark-Dok</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1769"/>
         <source>Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanza</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1771"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1773"/>
         <source>EQ_Call</source>
-        <translation type="unfinished"></translation>
+        <translation>EQ_Nominativo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1775"/>
         <source>eQSL RDate</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL RDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1777"/>
         <source>eQSL SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL SDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1779"/>
         <source>eQSL Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL Rcvd</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1781"/>
         <source>eQSL Sent</source>
-        <translation type="unfinished">Invio eQSL</translation>
+        <translation>eQSL Sent</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1783"/>
         <source>Fists</source>
-        <translation type="unfinished"></translation>
+        <translation>Prime</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1785"/>
         <source>Fists CC</source>
-        <translation type="unfinished"></translation>
+        <translation>Prime CC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1787"/>
         <source>Force Init</source>
-        <translation type="unfinished"></translation>
+        <translation>Forza Init</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1789"/>
         <source>Freq</source>
-        <translation type="unfinished">Frequenza</translation>
+        <translation>Frequenza</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1791"/>
         <source>Freq RX</source>
-        <translation type="unfinished">Frequenza RX</translation>
+        <translation>Frequenza RX</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1793"/>
         <source>Gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Statisticaa</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1795"/>
         <source>Guest OP</source>
-        <translation type="unfinished"></translation>
+        <translation>Operatore ospite</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1797"/>
         <source>HRDLog SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>HRDLog SDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1799"/>
         <source>HRDLog status</source>
-        <translation type="unfinished"></translation>
+        <translation>HRDLog stato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1801"/>
         <source>IOTA</source>
-        <translation type="unfinished">IOTA</translation>
+        <translation>IOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1803"/>
         <source>IOTA Island id</source>
-        <translation type="unfinished"></translation>
+        <translation>IOTA Id isola</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1805"/>
         <source>K Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Indice K</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1807"/>
         <source>Lat</source>
-        <translation type="unfinished"></translation>
+        <translation>lat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1809"/>
         <source>Lon</source>
-        <translation type="unfinished"></translation>
+        <translation>Long</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1811"/>
         <source>LoTW RDate</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW RDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1813"/>
         <source>LoTW SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW SDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1815"/>
         <source>LoTW Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW Rcvd</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1817"/>
         <source>LoTW Sent</source>
-        <translation type="unfinished">Invio a LoTW</translation>
+        <translation>LoTW Sent</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1819"/>
         <source>Max Bursts</source>
-        <translation type="unfinished"></translation>
+        <translation>Burst Max</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1821"/>
         <source>Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Moltiplicatore</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1823"/>
         <source>MS Shower</source>
-        <translation type="unfinished"></translation>
+        <translation>MS Shower</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1825"/>
         <source>My Antenna</source>
-        <translation type="unfinished">La mia antenna</translation>
+        <translation>Mia antenna</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1827"/>
         <source>My City</source>
-        <translation type="unfinished"></translation>
+        <translation>Mia città</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1829"/>
         <source>My Cnty</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio country</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1831"/>
         <source>My Country</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio Country</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1833"/>
         <source>My CQz</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio CQx</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1835"/>
         <source>My DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio DXCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1837"/>
         <source>My Fists</source>
-        <translation type="unfinished"></translation>
+        <translation>Mie prime</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1839"/>
         <source>My Gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Mie statistiche</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1841"/>
         <source>My IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio IOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1843"/>
         <source>My IOTA island id</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio id isola IOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1845"/>
         <source>My ITUz</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio ITUz</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1847"/>
         <source>My Lat</source>
-        <translation type="unfinished"></translation>
+        <translation>Mia Lat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1849"/>
         <source>My Lon</source>
-        <translation type="unfinished"></translation>
+        <translation>Mia Long</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1851"/>
         <source>My Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio nome</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1853"/>
         <source>My Postal code</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio codice postale</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1855"/>
         <source>My Rig</source>
-        <translation type="unfinished">My Rig</translation>
+        <translation>Mio Rig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1857"/>
         <source>My Sig</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio Sig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1859"/>
         <source>My Sig Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Mie info Sig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1861"/>
         <source>My SOTA ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Mie ref SOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1863"/>
         <source>My State</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio stato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1865"/>
         <source>My Street</source>
-        <translation type="unfinished"></translation>
+        <translation>Mia Via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1867"/>
         <source>My USACA counties</source>
-        <translation type="unfinished"></translation>
+        <translation>Miei counties USACA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1869"/>
         <source>My VUCC grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Mia statistica VUCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1871"/>
         <source>Name</source>
-        <translation type="unfinished">Nome</translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1873"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Note</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1875"/>
         <source>Nr bursts</source>
-        <translation type="unfinished"></translation>
+        <translation>Nr. bursts</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1877"/>
         <source>Nr pings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nr. pings</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1879"/>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operatore</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1881"/>
         <source>Owner Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominativo proprietario</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1883"/>
         <source>Pfx</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfx</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1885"/>
         <source>Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Punti</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1887"/>
         <source>Precedence</source>
-        <translation type="unfinished"></translation>
+        <translation>Priorità</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1889"/>
         <source>Prop Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Prop Mode</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1891"/>
         <source>Public Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiave pubblica</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1893"/>
         <source>QRZcom SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZcom SDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1895"/>
         <source>QRZcom status</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZcom stato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1897"/>
         <source>QSL msg</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL msg</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1899"/>
         <source>QSL RDate</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL RDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSL SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL SDate</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1903"/>
         <source>QSL Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL Rcvd</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1905"/>
         <source>QSL Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL Sent</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1907"/>
         <source>QSL rcvd via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL rcvd via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1909"/>
         <source>QSL sent via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL sent via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1911"/>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1913"/>
         <source>QSO complete</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO completo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1915"/>
         <source>QSO random</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO random</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1917"/>
         <source>QTH</source>
-        <translation type="unfinished">QTH</translation>
+        <translation>QTH</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1919"/>
         <source>Region</source>
-        <translation type="unfinished"></translation>
+        <translation>Regione</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1921"/>
         <source>Rig</source>
-        <translation type="unfinished"></translation>
+        <translation>Rig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1923"/>
         <source>RX Pwr</source>
-        <translation type="unfinished"></translation>
+        <translation>RX Pwr</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1925"/>
         <source>Sat Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo Satellite</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1927"/>
         <source>Sat name</source>
-        <translation type="unfinished">Nome satellite</translation>
+        <translation>Nome satellite</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1929"/>
         <source>SFI</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1931"/>
         <source>Sig</source>
-        <translation type="unfinished"></translation>
+        <translation>Sig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1933"/>
         <source>Sig Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Sig Info</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1935"/>
         <source>Silent key</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished"></translation>
+        <translation>Silent key</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1937"/>
         <source>SKCC</source>
-        <translation type="unfinished"></translation>
+        <translation>SKCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1939"/>
         <source>SOTA Ref</source>
-        <translation type="unfinished">SOTA Ref</translation>
+        <translation>SOTA Ref</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1941"/>
         <source>SRX String</source>
-        <translation type="unfinished"></translation>
+        <translation>SRX String</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1943"/>
         <source>SRX</source>
-        <translation type="unfinished"></translation>
+        <translation>SRX</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1945"/>
         <source>STX String</source>
-        <translation type="unfinished"></translation>
+        <translation>STX String</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1947"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Stato</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1951"/>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Sub-modo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1953"/>
         <source>SWL</source>
-        <translation type="unfinished"></translation>
+        <translation>SWL</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1955"/>
         <source>UKSMG</source>
-        <translation type="unfinished"></translation>
+        <translation>UKSMG</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1957"/>
         <source>USACA counties</source>
-        <translation type="unfinished"></translation>
+        <translation>USACA counties</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1959"/>
         <source>VE prov</source>
-        <translation type="unfinished"></translation>
+        <translation>VE prov</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1961"/>
         <source>VUCC grids</source>
-        <translation type="unfinished"></translation>
+        <translation>VUCC statistiche</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1963"/>
         <source>Ten-Ten</source>
         <comment>Do not translate, it is a groups name.</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ten-Ten</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1965"/>
         <source>TX Pwr</source>
-        <translation type="unfinished"></translation>
+        <translation>TX Pwr</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1967"/>
         <source>Web</source>
-        <translation type="unfinished"></translation>
+        <translation>Web</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1969"/>
         <source>QSO Date off</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO Date spenta</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1971"/>
         <source>Transmitter id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id trasmettitore</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1973"/>
         <source>Log number</source>
-        <translation type="unfinished"></translation>
+        <translation>Log number</translation>
     </message>
 </context>
 <context>
@@ -5487,7 +5487,7 @@ KLog terminerà appena cliccherai su OK.</translation>
     <message>
         <location filename="../setupdialog.cpp" line="86"/>
         <source>Log widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Log widget</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="87"/>
@@ -6295,7 +6295,7 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppagelogview.cpp" line="41"/>
         <source>Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Campi</translation>
     </message>
 </context>
 <context>
