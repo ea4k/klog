@@ -3282,7 +3282,7 @@ msgstr ""
 #: ../mainwindow.cpp:8265
 msgctxt "MainWindow|"
 msgid "Native Error"
-msgstr ""
+msgstr "Errore nativo"
 
 #: ../mainwindow.cpp:8269
 msgctxt "MainWindow|"
@@ -4014,7 +4014,7 @@ msgstr "Età"
 #: ../inputwidgets/mainwindowinputothers.cpp:490
 msgctxt "MainWindowInputOthers|"
 msgid "VUCC grids"
-msgstr ""
+msgstr "Statistiche VUCC"
 
 #: ../inputwidgets/mainwindowinputqsl.cpp:66
 msgctxt "MainWindowInputQSL|"
@@ -4268,7 +4268,7 @@ msgstr "Il mio SOTA_Ref"
 #: ../inputwidgets/mainwindowmydatatab.cpp:467
 msgctxt "MainWindowMyDataTab|"
 msgid "My VUCC_GRIDS"
-msgstr ""
+msgstr "I miei grafici VUCC"
 
 #: ../inputwidgets/mainwindowsattab.cpp:92
 msgctxt "MainWindowSatTab|"
@@ -4438,10 +4438,9 @@ msgstr "Il satellite del tuo QSO è: "
 #, qt-format
 msgctxt "OnlineMessageWidget|"
 msgid "The server returned the following error: %1"
-msgstr ""
+msgstr "Il server ha riportato il seguente errore: %1"
 
 #: ../widgets/onlinemessagewidget.cpp:170
-#, fuzzy
 msgctxt "OnlineMessageWidget|"
 msgid "Not identified"
 msgstr "Non identificato"
@@ -4760,37 +4759,31 @@ msgid "KLog - Not valid callsign found"
 msgstr "KLog - Nominativo di stazione trovato non valido"
 
 #: ../utilities.cpp:1705
-#, fuzzy
 msgctxt "QObject|"
 msgid "Date"
 msgstr "Data"
 
 #: ../utilities.cpp:1707
-#, fuzzy
 msgctxt "QObject|"
 msgid "Call"
 msgstr "Nominativo"
 
 #: ../utilities.cpp:1709
-#, fuzzy
 msgctxt "QObject|"
 msgid "RSTtx"
 msgstr "RSTtx"
 
 #: ../utilities.cpp:1711
-#, fuzzy
 msgctxt "QObject|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
 #: ../utilities.cpp:1713
-#, fuzzy
 msgctxt "QObject|"
 msgid "Band"
 msgstr "Banda"
 
 #: ../utilities.cpp:1715
-#, fuzzy
 msgctxt "QObject|"
 msgid "Comment"
 msgstr "Commento"
@@ -4798,20 +4791,19 @@ msgstr "Commento"
 #: ../utilities.cpp:1717
 msgctxt "QObject|"
 msgid "Mode"
-msgstr ""
+msgstr "Modo"
 
 #: ../utilities.cpp:1719
 msgctxt "QObject|"
 msgid "CQz"
-msgstr ""
+msgstr "CQz"
 
 #: ../utilities.cpp:1721
 msgctxt "QObject|"
 msgid "ITUz"
-msgstr ""
+msgstr "ITUz"
 
 #: ../utilities.cpp:1723
-#, fuzzy
 msgctxt "QObject|"
 msgid "DXCC"
 msgstr "DXCC"
@@ -4819,10 +4811,9 @@ msgstr "DXCC"
 #: ../utilities.cpp:1725
 msgctxt "QObject|"
 msgid "Address"
-msgstr ""
+msgstr "Indirizzo"
 
 #: ../utilities.cpp:1727
-#, fuzzy
 msgctxt "QObject|"
 msgid "Age"
 msgstr "Età"
@@ -4830,162 +4821,159 @@ msgstr "Età"
 #: ../utilities.cpp:1729
 msgctxt "QObject|"
 msgid "County"
-msgstr ""
+msgstr "Country"
 
 #: ../utilities.cpp:1731
 msgctxt "QObject|"
 msgid "A_Index"
-msgstr ""
+msgstr "A_Index"
 
 #: ../utilities.cpp:1733
 msgctxt "QObject|"
 msgid "Ant_Az"
-msgstr ""
+msgstr "Ant_AZ"
 
 #: ../utilities.cpp:1735
 msgctxt "QObject|"
 msgid "Ant_El"
-msgstr ""
+msgstr "Ant_El"
 
 #: ../utilities.cpp:1737
 msgctxt "QObject|"
 msgid "Ant_Path"
-msgstr ""
+msgstr "Anth_Percorso"
 
 #: ../utilities.cpp:1739
 msgctxt "QObject|"
 msgid "ARRL_SECT"
-msgstr ""
+msgstr "ARRL_SECT"
 
 #: ../utilities.cpp:1741
 msgctxt "QObject|"
 msgid "Award_Submitted"
-msgstr ""
+msgstr "Award Inviato"
 
 #: ../utilities.cpp:1743
 msgctxt "QObject|"
 msgid "Award_granted"
-msgstr ""
+msgstr "Award_concesso"
 
 #: ../utilities.cpp:1745
 msgctxt "QObject|"
 msgid "Band_RX"
-msgstr ""
+msgstr "Banda_RX"
 
 #: ../utilities.cpp:1747
 msgctxt "QObject|"
 msgid "CheckContest"
-msgstr ""
+msgstr "CheckContest"
 
 #: ../utilities.cpp:1749
 msgctxt "QObject|"
 msgid "Class"
-msgstr ""
+msgstr "Class"
 
 #: ../utilities.cpp:1751
 msgctxt "QObject|"
 msgid "ClubLog SDate"
-msgstr ""
+msgstr "ClubLog SDate"
 
 #: ../utilities.cpp:1753
 msgctxt "QObject|"
 msgid "ClubLog status"
-msgstr ""
+msgstr "ClubLog stato"
 
 #: ../utilities.cpp:1755
 msgctxt "QObject|"
 msgid "Continent"
-msgstr ""
+msgstr "Continente"
 
 #: ../utilities.cpp:1757
 msgctxt "QObject|"
 msgid "Contacted Op"
-msgstr ""
+msgstr "Op Contattato"
 
 #: ../utilities.cpp:1759
 msgctxt "QObject|"
 msgid "Contest Id"
-msgstr ""
+msgstr "Id Contest"
 
 #: ../utilities.cpp:1761
 msgctxt "QObject|"
 msgid "Country"
-msgstr ""
+msgstr "Country"
 
 #: ../utilities.cpp:1763
 msgctxt "QObject|"
 msgid "Credit Submitted"
-msgstr ""
+msgstr "Credito Inviato"
 
 #: ../utilities.cpp:1765
 msgctxt "QObject|"
 msgid "Credit granted"
-msgstr ""
+msgstr "Credito concesso"
 
 #: ../utilities.cpp:1767
 msgctxt "QObject|"
 msgid "Dark Dok"
-msgstr ""
+msgstr "Dark-Dok"
 
 #: ../utilities.cpp:1769
 msgctxt "QObject|"
 msgid "Distance"
-msgstr ""
+msgstr "Distanza"
 
 #: ../utilities.cpp:1771
 msgctxt "QObject|"
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../utilities.cpp:1773
 msgctxt "QObject|"
 msgid "EQ_Call"
-msgstr ""
+msgstr "EQ_Nominativo"
 
 #: ../utilities.cpp:1775
 msgctxt "QObject|"
 msgid "eQSL RDate"
-msgstr ""
+msgstr "eQSL RDate"
 
 #: ../utilities.cpp:1777
 msgctxt "QObject|"
 msgid "eQSL SDate"
-msgstr ""
+msgstr "eQSL SDate"
 
 #: ../utilities.cpp:1779
 msgctxt "QObject|"
 msgid "eQSL Rcvd"
-msgstr ""
+msgstr "eQSL Rcvd"
 
 #: ../utilities.cpp:1781
-#, fuzzy
 msgctxt "QObject|"
 msgid "eQSL Sent"
-msgstr "Invio eQSL"
+msgstr "eQSL Sent"
 
 #: ../utilities.cpp:1783
 msgctxt "QObject|"
 msgid "Fists"
-msgstr ""
+msgstr "Prime"
 
 #: ../utilities.cpp:1785
 msgctxt "QObject|"
 msgid "Fists CC"
-msgstr ""
+msgstr "Prime CC"
 
 #: ../utilities.cpp:1787
 msgctxt "QObject|"
 msgid "Force Init"
-msgstr ""
+msgstr "Forza Init"
 
 #: ../utilities.cpp:1789
-#, fuzzy
 msgctxt "QObject|"
 msgid "Freq"
 msgstr "Frequenza"
 
 #: ../utilities.cpp:1791
-#, fuzzy
 msgctxt "QObject|"
 msgid "Freq RX"
 msgstr "Frequenza RX"
@@ -4993,25 +4981,24 @@ msgstr "Frequenza RX"
 #: ../utilities.cpp:1793
 msgctxt "QObject|"
 msgid "Gridsquare"
-msgstr ""
+msgstr "Statisticaa"
 
 #: ../utilities.cpp:1795
 msgctxt "QObject|"
 msgid "Guest OP"
-msgstr ""
+msgstr "Operatore ospite"
 
 #: ../utilities.cpp:1797
 msgctxt "QObject|"
 msgid "HRDLog SDate"
-msgstr ""
+msgstr "HRDLog SDate"
 
 #: ../utilities.cpp:1799
 msgctxt "QObject|"
 msgid "HRDLog status"
-msgstr ""
+msgstr "HRDLog stato"
 
 #: ../utilities.cpp:1801
-#, fuzzy
 msgctxt "QObject|"
 msgid "IOTA"
 msgstr "IOTA"
@@ -5019,178 +5006,174 @@ msgstr "IOTA"
 #: ../utilities.cpp:1803
 msgctxt "QObject|"
 msgid "IOTA Island id"
-msgstr ""
+msgstr "IOTA Id isola"
 
 #: ../utilities.cpp:1805
 msgctxt "QObject|"
 msgid "K Index"
-msgstr ""
+msgstr "Indice K"
 
 #: ../utilities.cpp:1807
 msgctxt "QObject|"
 msgid "Lat"
-msgstr ""
+msgstr "lat"
 
 #: ../utilities.cpp:1809
 msgctxt "QObject|"
 msgid "Lon"
-msgstr ""
+msgstr "Long"
 
 #: ../utilities.cpp:1811
 msgctxt "QObject|"
 msgid "LoTW RDate"
-msgstr ""
+msgstr "LoTW RDate"
 
 #: ../utilities.cpp:1813
 msgctxt "QObject|"
 msgid "LoTW SDate"
-msgstr ""
+msgstr "LoTW SDate"
 
 #: ../utilities.cpp:1815
 msgctxt "QObject|"
 msgid "LoTW Rcvd"
-msgstr ""
+msgstr "LoTW Rcvd"
 
 #: ../utilities.cpp:1817
-#, fuzzy
 msgctxt "QObject|"
 msgid "LoTW Sent"
-msgstr "Invio a LoTW"
+msgstr "LoTW Sent"
 
 #: ../utilities.cpp:1819
 msgctxt "QObject|"
 msgid "Max Bursts"
-msgstr ""
+msgstr "Burst Max"
 
 #: ../utilities.cpp:1821
 msgctxt "QObject|"
 msgid "Multiplier"
-msgstr ""
+msgstr "Moltiplicatore"
 
 #: ../utilities.cpp:1823
 msgctxt "QObject|"
 msgid "MS Shower"
-msgstr ""
+msgstr "MS Shower"
 
 #: ../utilities.cpp:1825
-#, fuzzy
 msgctxt "QObject|"
 msgid "My Antenna"
-msgstr "La mia antenna"
+msgstr "Mia antenna"
 
 #: ../utilities.cpp:1827
 msgctxt "QObject|"
 msgid "My City"
-msgstr ""
+msgstr "Mia città"
 
 #: ../utilities.cpp:1829
 msgctxt "QObject|"
 msgid "My Cnty"
-msgstr ""
+msgstr "Mio country"
 
 #: ../utilities.cpp:1831
 msgctxt "QObject|"
 msgid "My Country"
-msgstr ""
+msgstr "Mio Country"
 
 #: ../utilities.cpp:1833
 msgctxt "QObject|"
 msgid "My CQz"
-msgstr ""
+msgstr "Mio CQx"
 
 #: ../utilities.cpp:1835
 msgctxt "QObject|"
 msgid "My DXCC"
-msgstr ""
+msgstr "Mio DXCC"
 
 #: ../utilities.cpp:1837
 msgctxt "QObject|"
 msgid "My Fists"
-msgstr ""
+msgstr "Mie prime"
 
 #: ../utilities.cpp:1839
 msgctxt "QObject|"
 msgid "My Gridsquare"
-msgstr ""
+msgstr "Mie statistiche"
 
 #: ../utilities.cpp:1841
 msgctxt "QObject|"
 msgid "My IOTA"
-msgstr ""
+msgstr "Mio IOTA"
 
 #: ../utilities.cpp:1843
 msgctxt "QObject|"
 msgid "My IOTA island id"
-msgstr ""
+msgstr "Mio id isola IOTA"
 
 #: ../utilities.cpp:1845
 msgctxt "QObject|"
 msgid "My ITUz"
-msgstr ""
+msgstr "Mio ITUz"
 
 #: ../utilities.cpp:1847
 msgctxt "QObject|"
 msgid "My Lat"
-msgstr ""
+msgstr "Mia Lat"
 
 #: ../utilities.cpp:1849
 msgctxt "QObject|"
 msgid "My Lon"
-msgstr ""
+msgstr "Mia Long"
 
 #: ../utilities.cpp:1851
 msgctxt "QObject|"
 msgid "My Name"
-msgstr ""
+msgstr "Mio nome"
 
 #: ../utilities.cpp:1853
 msgctxt "QObject|"
 msgid "My Postal code"
-msgstr ""
+msgstr "Mio codice postale"
 
 #: ../utilities.cpp:1855
-#, fuzzy
 msgctxt "QObject|"
 msgid "My Rig"
-msgstr "My Rig"
+msgstr "Mio Rig"
 
 #: ../utilities.cpp:1857
 msgctxt "QObject|"
 msgid "My Sig"
-msgstr ""
+msgstr "Mio Sig"
 
 #: ../utilities.cpp:1859
 msgctxt "QObject|"
 msgid "My Sig Info"
-msgstr ""
+msgstr "Mie info Sig"
 
 #: ../utilities.cpp:1861
 msgctxt "QObject|"
 msgid "My SOTA ref"
-msgstr ""
+msgstr "Mie ref SOTA"
 
 #: ../utilities.cpp:1863
 msgctxt "QObject|"
 msgid "My State"
-msgstr ""
+msgstr "Mio stato"
 
 #: ../utilities.cpp:1865
 msgctxt "QObject|"
 msgid "My Street"
-msgstr ""
+msgstr "Mia Via"
 
 #: ../utilities.cpp:1867
 msgctxt "QObject|"
 msgid "My USACA counties"
-msgstr ""
+msgstr "Miei counties USACA"
 
 #: ../utilities.cpp:1869
 msgctxt "QObject|"
 msgid "My VUCC grids"
-msgstr ""
+msgstr "Mia statistica VUCC"
 
 #: ../utilities.cpp:1871
-#, fuzzy
 msgctxt "QObject|"
 msgid "Name"
 msgstr "Nome"
@@ -5198,115 +5181,114 @@ msgstr "Nome"
 #: ../utilities.cpp:1873
 msgctxt "QObject|"
 msgid "Notes"
-msgstr ""
+msgstr "Note"
 
 #: ../utilities.cpp:1875
 msgctxt "QObject|"
 msgid "Nr bursts"
-msgstr ""
+msgstr "Nr. bursts"
 
 #: ../utilities.cpp:1877
 msgctxt "QObject|"
 msgid "Nr pings"
-msgstr ""
+msgstr "Nr. pings"
 
 #: ../utilities.cpp:1879
 msgctxt "QObject|"
 msgid "Operator"
-msgstr ""
+msgstr "Operatore"
 
 #: ../utilities.cpp:1881
 msgctxt "QObject|"
 msgid "Owner Callsign"
-msgstr ""
+msgstr "Nominativo proprietario"
 
 #: ../utilities.cpp:1883
 msgctxt "QObject|"
 msgid "Pfx"
-msgstr ""
+msgstr "Pfx"
 
 #: ../utilities.cpp:1885
 msgctxt "QObject|"
 msgid "Points"
-msgstr ""
+msgstr "Punti"
 
 #: ../utilities.cpp:1887
 msgctxt "QObject|"
 msgid "Precedence"
-msgstr ""
+msgstr "Priorità"
 
 #: ../utilities.cpp:1889
 msgctxt "QObject|"
 msgid "Prop Mode"
-msgstr ""
+msgstr "Prop Mode"
 
 #: ../utilities.cpp:1891
 msgctxt "QObject|"
 msgid "Public Key"
-msgstr ""
+msgstr "Chiave pubblica"
 
 #: ../utilities.cpp:1893
 msgctxt "QObject|"
 msgid "QRZcom SDate"
-msgstr ""
+msgstr "QRZcom SDate"
 
 #: ../utilities.cpp:1895
 msgctxt "QObject|"
 msgid "QRZcom status"
-msgstr ""
+msgstr "QRZcom stato"
 
 #: ../utilities.cpp:1897
 msgctxt "QObject|"
 msgid "QSL msg"
-msgstr ""
+msgstr "QSL msg"
 
 #: ../utilities.cpp:1899
 msgctxt "QObject|"
 msgid "QSL RDate"
-msgstr ""
+msgstr "QSL RDate"
 
 #: ../utilities.cpp:1901
 msgctxt "QObject|"
 msgid "QSL SDate"
-msgstr ""
+msgstr "QSL SDate"
 
 #: ../utilities.cpp:1903
 msgctxt "QObject|"
 msgid "QSL Rcvd"
-msgstr ""
+msgstr "QSL Rcvd"
 
 #: ../utilities.cpp:1905
 msgctxt "QObject|"
 msgid "QSL Sent"
-msgstr ""
+msgstr "QSL Sent"
 
 #: ../utilities.cpp:1907
 msgctxt "QObject|"
 msgid "QSL rcvd via"
-msgstr ""
+msgstr "QSL rcvd via"
 
 #: ../utilities.cpp:1909
 msgctxt "QObject|"
 msgid "QSL sent via"
-msgstr ""
+msgstr "QSL sent via"
 
 #: ../utilities.cpp:1911
 msgctxt "QObject|"
 msgid "QSL via"
-msgstr ""
+msgstr "QSL via"
 
 #: ../utilities.cpp:1913
 msgctxt "QObject|"
 msgid "QSO complete"
-msgstr ""
+msgstr "QSO completo"
 
 #: ../utilities.cpp:1915
 msgctxt "QObject|"
 msgid "QSO random"
-msgstr ""
+msgstr "QSO random"
 
 #: ../utilities.cpp:1917
-#, fuzzy
 msgctxt "QObject|"
 msgid "QTH"
 msgstr "QTH"
@@ -5314,25 +5296,24 @@ msgstr "QTH"
 #: ../utilities.cpp:1919
 msgctxt "QObject|"
 msgid "Region"
-msgstr ""
+msgstr "Regione"
 
 #: ../utilities.cpp:1921
 msgctxt "QObject|"
 msgid "Rig"
-msgstr ""
+msgstr "Rig"
 
 #: ../utilities.cpp:1923
 msgctxt "QObject|"
 msgid "RX Pwr"
-msgstr ""
+msgstr "RX Pwr"
 
 #: ../utilities.cpp:1925
 msgctxt "QObject|"
 msgid "Sat Mode"
-msgstr ""
+msgstr "Modo Satellite"
 
 #: ../utilities.cpp:1927
-#, fuzzy
 msgctxt "QObject|"
 msgid "Sat name"
 msgstr "Nome satellite"
@@ -5340,30 +5321,29 @@ msgstr "Nome satellite"
 #: ../utilities.cpp:1929
 msgctxt "QObject|"
 msgid "SFI"
-msgstr ""
+msgstr "SFI"
 
 #: ../utilities.cpp:1931
 msgctxt "QObject|"
 msgid "Sig"
-msgstr ""
+msgstr "Sig"
 
 #: ../utilities.cpp:1933
 msgctxt "QObject|"
 msgid "Sig Info"
-msgstr ""
+msgstr "Sig Info"
 
 #: ../utilities.cpp:1935
 msgctxt "QObject|Do not translate if unsure, common hamradio term."
 msgid "Silent key"
-msgstr ""
+msgstr "Silent key"
 
 #: ../utilities.cpp:1937
 msgctxt "QObject|"
 msgid "SKCC"
-msgstr ""
+msgstr "SKCC"
 
 #: ../utilities.cpp:1939
-#, fuzzy
 msgctxt "QObject|"
 msgid "SOTA Ref"
 msgstr "SOTA Ref"
@@ -5371,82 +5351,82 @@ msgstr "SOTA Ref"
 #: ../utilities.cpp:1941
 msgctxt "QObject|"
 msgid "SRX String"
-msgstr ""
+msgstr "SRX String"
 
 #: ../utilities.cpp:1943
 msgctxt "QObject|"
 msgid "SRX"
-msgstr ""
+msgstr "SRX"
 
 #: ../utilities.cpp:1945
 msgctxt "QObject|"
 msgid "STX String"
-msgstr ""
+msgstr "STX String"
 
 #: ../utilities.cpp:1947
 msgctxt "QObject|"
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 #: ../utilities.cpp:1951
 msgctxt "QObject|"
 msgid "Submode"
-msgstr ""
+msgstr "Sub-modo"
 
 #: ../utilities.cpp:1953
 msgctxt "QObject|"
 msgid "SWL"
-msgstr ""
+msgstr "SWL"
 
 #: ../utilities.cpp:1955
 msgctxt "QObject|"
 msgid "UKSMG"
-msgstr ""
+msgstr "UKSMG"
 
 #: ../utilities.cpp:1957
 msgctxt "QObject|"
 msgid "USACA counties"
-msgstr ""
+msgstr "USACA counties"
 
 #: ../utilities.cpp:1959
 msgctxt "QObject|"
 msgid "VE prov"
-msgstr ""
+msgstr "VE prov"
 
 #: ../utilities.cpp:1961
 msgctxt "QObject|"
 msgid "VUCC grids"
-msgstr ""
+msgstr "VUCC statistiche"
 
 #: ../utilities.cpp:1963
 msgctxt "QObject|Do not translate, it is a groups name."
 msgid "Ten-Ten"
-msgstr ""
+msgstr "Ten-Ten"
 
 #: ../utilities.cpp:1965
 msgctxt "QObject|"
 msgid "TX Pwr"
-msgstr ""
+msgstr "TX Pwr"
 
 #: ../utilities.cpp:1967
 msgctxt "QObject|"
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../utilities.cpp:1969
 msgctxt "QObject|"
 msgid "QSO Date off"
-msgstr ""
+msgstr "QSO Date spenta"
 
 #: ../utilities.cpp:1971
 msgctxt "QObject|"
 msgid "Transmitter id"
-msgstr ""
+msgstr "Id trasmettitore"
 
 #: ../utilities.cpp:1973
 msgctxt "QObject|"
 msgid "Log number"
-msgstr ""
+msgstr "Log number"
 
 #: ../searchwidget.cpp:50
 msgctxt "SearchWidget|"
@@ -5826,7 +5806,7 @@ msgstr "Dati utente"
 #: ../setupdialog.cpp:86
 msgctxt "SetupDialog|"
 msgid "Log widget"
-msgstr ""
+msgstr "Log widget"
 
 #: ../setupdialog.cpp:87
 msgctxt "SetupDialog|"
@@ -6671,7 +6651,7 @@ msgstr "Inserisci la porta della radio."
 #: ../setuppages/setuppagelogview.cpp:41
 msgctxt "SetupPageLogView|"
 msgid "Fields"
-msgstr ""
+msgstr "Campi"
 
 #: ../setuppages/setuppagelogs.cpp:70
 msgctxt "SetupPageLogs|"
