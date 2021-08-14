@@ -4529,7 +4529,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1747"/>
         <source>CheckContest</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobacion Concurso</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1749"/>
@@ -4559,57 +4559,57 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1759"/>
         <source>Contest Id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id Concurso</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1761"/>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation>País</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1763"/>
         <source>Credit Submitted</source>
-        <translation type="unfinished"></translation>
+        <translation>Credit enviado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1765"/>
         <source>Credit granted</source>
-        <translation type="unfinished"></translation>
+        <translation>Credit otorgado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1767"/>
         <source>Dark Dok</source>
-        <translation type="unfinished"></translation>
+        <translation>DOK de DARC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1769"/>
         <source>Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1771"/>
         <source>Email</source>
-        <translation type="unfinished">Correo-e</translation>
+        <translation>Correo-e</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1773"/>
         <source>EQ_Call</source>
-        <translation type="unfinished"></translation>
+        <translation>EQ_Call</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1775"/>
         <source>eQSL RDate</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL Fecha rec</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1777"/>
         <source>eQSL SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1779"/>
         <source>eQSL Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>eQSL recv</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1781"/>
@@ -4619,12 +4619,12 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1783"/>
         <source>Fists</source>
-        <translation type="unfinished"></translation>
+        <translation>FISTS</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1785"/>
         <source>Fists CC</source>
-        <translation type="unfinished"></translation>
+        <translation>FISTS CC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1787"/>
@@ -4644,12 +4644,12 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1793"/>
         <source>Gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuadrícula local</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1795"/>
         <source>Guest OP</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Op invitado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1797"/>
