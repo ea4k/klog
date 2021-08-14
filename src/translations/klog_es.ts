@@ -4629,7 +4629,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1787"/>
         <source>Force Init</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1789"/>
@@ -4709,7 +4709,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1819"/>
         <source>Max Bursts</source>
-        <translation type="unfinished"></translation>
+        <translation>max ráfagas</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1821"/>
@@ -4849,7 +4849,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1875"/>
         <source>Nr bursts</source>
-        <translation></translation>
+        <translation>Ráfagas</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1877"/>
@@ -4889,32 +4889,32 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1891"/>
         <source>Public Key</source>
-        <translation type="unfinished">Clave pública</translation>
+        <translation>Clave pública</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1893"/>
         <source>QRZcom SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZcom Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1895"/>
         <source>QRZcom status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado en QRZ.com</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1897"/>
         <source>QSL msg</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje QSL</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1899"/>
         <source>QSL RDate</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL Fecha rec</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSL SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1903"/>
@@ -4929,27 +4929,27 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1907"/>
         <source>QSL rcvd via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL rcvd via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1909"/>
         <source>QSL sent via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL enviada via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1911"/>
         <source>QSL via</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL via</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1913"/>
         <source>QSO complete</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO completo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1915"/>
         <source>QSO random</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO random</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1917"/>
@@ -4959,22 +4959,22 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1919"/>
         <source>Region</source>
-        <translation type="unfinished"></translation>
+        <translation>Región</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1921"/>
         <source>Rig</source>
-        <translation type="unfinished"></translation>
+        <translation>Equipo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1923"/>
         <source>RX Pwr</source>
-        <translation type="unfinished"></translation>
+        <translation>Potencia RX</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1925"/>
         <source>Sat Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo sat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1927"/>
@@ -4984,28 +4984,28 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1929"/>
         <source>SFI</source>
-        <translation type="unfinished"></translation>
+        <translation>SFI</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1931"/>
         <source>Sig</source>
-        <translation type="unfinished"></translation>
+        <translation>Sig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1933"/>
         <source>Sig Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info de sig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1935"/>
         <source>Silent key</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fallecido (SK)</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1937"/>
         <source>SKCC</source>
-        <translation type="unfinished"></translation>
+        <translation>SKCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1939"/>
@@ -5015,83 +5015,83 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1941"/>
         <source>SRX String</source>
-        <translation type="unfinished"></translation>
+        <translation>SRX texto</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1943"/>
         <source>SRX</source>
-        <translation type="unfinished"></translation>
+        <translation>SRX</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1945"/>
         <source>STX String</source>
-        <translation type="unfinished"></translation>
+        <translation>STX texto</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1947"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1951"/>
         <source>Submode</source>
-        <translation type="unfinished"></translation>
+        <translation>Submodo</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1953"/>
         <source>SWL</source>
-        <translation type="unfinished"></translation>
+        <translation>SWL</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1955"/>
         <source>UKSMG</source>
-        <translation type="unfinished"></translation>
+        <translation>UKSMG</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1957"/>
         <source>USACA counties</source>
-        <translation type="unfinished"></translation>
+        <translation>Condados USACA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1959"/>
         <source>VE prov</source>
-        <translation type="unfinished"></translation>
+        <translation>Provincias VE</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1961"/>
         <source>VUCC grids</source>
-        <translation type="unfinished">Cuadriculas VUCC</translation>
+        <translation>Locators VUCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1963"/>
         <source>Ten-Ten</source>
         <comment>Do not translate, it is a groups name.</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ten-Ten</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1965"/>
         <source>TX Pwr</source>
-        <translation type="unfinished"></translation>
+        <translation>Potencia TX</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1967"/>
         <source>Web</source>
-        <translation type="unfinished"></translation>
+        <translation>Web</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1969"/>
         <source>QSO Date off</source>
-        <translation type="unfinished"></translation>
+        <translation>Fecha fin QSO</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1971"/>
         <source>Transmitter id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id transmisor</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1973"/>
         <source>Log number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de log</translation>
     </message>
 </context>
 <context>
@@ -5498,7 +5498,7 @@ o la base de datos no se moverá a la nueva ubicación.</translation>
     <message>
         <location filename="../setupdialog.cpp" line="86"/>
         <source>Log widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Visor de log</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="92"/>
@@ -6313,7 +6313,7 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppages/setuppagelogview.cpp" line="41"/>
         <source>Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Campos</translation>
     </message>
 </context>
 <context>
@@ -7716,12 +7716,12 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="120"/>
         <source>Grids per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado de Locators por banda</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="121"/>
         <source>DXCC per band status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado de DXCC por banda</translation>
     </message>
 </context>
 <context>
@@ -7865,27 +7865,27 @@ El log no se abrirá.</translation>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="46"/>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="115"/>
         <source>All</source>
-        <translation type="unfinished">Todos</translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="62"/>
         <source>Mode: </source>
-        <translation type="unfinished"></translation>
+        <translation>Modo: </translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="89"/>
         <source>Band</source>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="90"/>
         <source>Worked</source>
-        <translation type="unfinished">Trabajado</translation>
+        <translation>Trabajado</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="91"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Confirmado</translation>
+        <translation>Confirmado</translation>
     </message>
 </context>
 <context>
