@@ -4649,17 +4649,17 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1795"/>
         <source>Guest OP</source>
-        <translation type="unfinished">Op invitado</translation>
+        <translation>Op invitado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1797"/>
         <source>HRDLog SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>HRDLog Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1799"/>
         <source>HRDLog status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado HRDLog</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1801"/>
@@ -4669,42 +4669,42 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1803"/>
         <source>IOTA Island id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id isla IOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1805"/>
         <source>K Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Índice K</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1807"/>
         <source>Lat</source>
-        <translation type="unfinished"></translation>
+        <translation>Lat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1809"/>
         <source>Lon</source>
-        <translation type="unfinished"></translation>
+        <translation>Lon</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1811"/>
         <source>LoTW RDate</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW Fecha rec</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1813"/>
         <source>LoTW SDate</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1815"/>
         <source>LoTW Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>Recepción LoTW</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1817"/>
         <source>LoTW Sent</source>
-        <translation type="unfinished">Envío LoTW</translation>
+        <translation>Envío LoTW</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1819"/>
@@ -4714,87 +4714,87 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1821"/>
         <source>Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1823"/>
         <source>MS Shower</source>
-        <translation type="unfinished"></translation>
+        <translation>Lluvia MS</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1825"/>
         <source>My Antenna</source>
-        <translation type="unfinished">Mi antena</translation>
+        <translation>Mi antena</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1827"/>
         <source>My City</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi ciudad</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1829"/>
         <source>My Cnty</source>
-        <translation type="unfinished"></translation>
+        <translation>My condado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1831"/>
         <source>My Country</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi país</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1833"/>
         <source>My CQz</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi zona CQ</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1835"/>
         <source>My DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi DXCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1837"/>
         <source>My Fists</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi FISTS</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1839"/>
         <source>My Gridsquare</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi cuadrícula</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1841"/>
         <source>My IOTA</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi IOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1843"/>
         <source>My IOTA island id</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi id isla IOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1845"/>
         <source>My ITUz</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi zona ITU</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1847"/>
         <source>My Lat</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi Lat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1849"/>
         <source>My Lon</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi Lon</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1851"/>
         <source>My Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi nombre</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1853"/>
         <source>My Postal code</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi código postal</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1855"/>
@@ -4809,32 +4809,32 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1859"/>
         <source>My Sig Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi info Sig</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1861"/>
         <source>My SOTA ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi ref SOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1863"/>
         <source>My State</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi estado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1865"/>
         <source>My Street</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi calle</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1867"/>
         <source>My USACA counties</source>
-        <translation type="unfinished"></translation>
+        <translation>Mis condados USACA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1869"/>
         <source>My VUCC grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Mis cuadrículas VUCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1871"/>
@@ -4844,52 +4844,52 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1873"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1875"/>
         <source>Nr bursts</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1877"/>
         <source>Nr pings</source>
-        <translation type="unfinished"></translation>
+        <translation>Núm «pings»</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1879"/>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operador</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1881"/>
         <source>Owner Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicativo del dueño</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1883"/>
         <source>Pfx</source>
-        <translation type="unfinished"></translation>
+        <translation>Pref</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1885"/>
         <source>Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Puntos</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1887"/>
         <source>Precedence</source>
-        <translation type="unfinished"></translation>
+        <translation>Precedencia</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1889"/>
         <source>Prop Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de propagación</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1891"/>
         <source>Public Key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Clave pública</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1893"/>
