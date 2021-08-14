@@ -3715,7 +3715,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="490"/>
         <source>VUCC grids</source>
-        <translation>Cuadriculas VUCC</translation>
+        <translation>Locators VUCC</translation>
     </message>
 </context>
 <context>
@@ -3967,7 +3967,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="467"/>
         <source>My VUCC_GRIDS</source>
-        <translation>Mis cuadriculas VUCC</translation>
+        <translation>Mis locators VUCC</translation>
     </message>
 </context>
 <context>
@@ -4644,7 +4644,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1793"/>
         <source>Gridsquare</source>
-        <translation>Cuadrícula local</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1795"/>
@@ -4759,7 +4759,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1839"/>
         <source>My Gridsquare</source>
-        <translation>Mi cuadrícula</translation>
+        <translation>Mi locator</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1841"/>
@@ -4834,7 +4834,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1869"/>
         <source>My VUCC grids</source>
-        <translation>Mis cuadrículas VUCC</translation>
+        <translation>Mis locator VUCC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1871"/>
@@ -5758,7 +5758,7 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="55"/>
         <source>This DXCC was worked before in another band but not in the selected band. It may be needed due to the CQ, ITU, Grid, ...</source>
-        <translation>Este DXCC fue trabajado antes en otra banda pero no en la banda seleccionada. Puede ser necesitado debido a CQ, ITU, cuadrícula, ...</translation>
+        <translation>Este DXCC fue trabajado antes en otra banda pero no en la banda seleccionada. Puede ser necesitado debido a CQ, ITU, locator, ...</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagecolors.cpp" line="56"/>
@@ -7706,7 +7706,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="118"/>
         <source>Satellite grid status</source>
-        <translation>Cuadrículas en satélites</translation>
+        <translation>Locators en satélites</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="119"/>
@@ -7929,7 +7929,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="114"/>
         <source>Grid</source>
-        <translation>Cuadrícula</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="115"/>
