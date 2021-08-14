@@ -5,6 +5,8 @@ branches:
 matrix:
   include:
   - os: linux
+    env:
+      - QT_CI_PACKAGES=qt.qt5.5152.gcc_64,qt.qt5.5152.qtwebengine PATH="$TRAVIS_BUILD_DIR/Qt/5.15.2/gcc_64/bin:${PATH}"
     arch: amd64
     sudo: required
     dist: focal
@@ -21,5 +23,8 @@ matrix:
     compiler:
       - gcc
     script:
+      - git clone https://github.com/benlau/qtci.git
+      - source qtci/path.env
+      - install-qt 5.15.2
       - qmake KLog.pro
       - make
