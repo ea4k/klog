@@ -12,12 +12,14 @@ matrix:
     sudo: required
     dist: focal
     before_install:
-      - docker pull ea4k/qt-ubuntu-5.15.2
-      - sudo apt-get update
-      - sudo apt-get -y install qtbase5-dev libsqlite3-dev
-      - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
-    compiler:
-      - gcc
+    - docker load -i docker_images/images.tar || true
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker pull "$DOCKER_USERNAME"/qt-ubuntu-5.15.2:v1
     script:
-      - qmake KLog.pro
-      - make
+    - docker run -ti -v "$PWD":/root/klog "$DOCKER_USERNAME"/qt-ubuntu-5.15.2:v1 /root/klog/devscripts/buildWithDocker.sh
+    cache:
+      directories:
+      - docker_images
+    before_cache:
+    - docker save -o docker_images/images.tar $(docker images -a -q)
+    
