@@ -745,8 +745,7 @@ void MainWindow::slotWorldMapShow()
     worldMapWidget->show();
 }
 */
-
-void MainWindow::setMainWindowTitle(const QString &_s)
+void MainWindow::setMainWindowTitle(const QString _s)
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
       //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux << endl;
@@ -926,15 +925,15 @@ void MainWindow::slotQRZReturnPressed()
     {
         if (!query.exec(queryString))
         {
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
                 query.finish();
                   //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString << endl;
-                //errorCode = query.lastError().number();
+                errorCode = query.lastError().number();
                 QMessageBox msgBox;
                 msgBox.setWindowTitle(tr("KLog - Unexpected error"));
                 msgBox.setIcon(QMessageBox::Warning);
                 QString aux = tr("An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: ");
-                msgBox.setText(aux + "MW-1: " + query.lastError().nativeErrorCode());
+                msgBox.setText(aux + "MW-1#" + QString::number(errorCode));
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
                 int ret = msgBox.exec();
@@ -6074,7 +6073,7 @@ void MainWindow::qsoToEdit (const int _qso)
     bool sqlOK = query.exec();
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     query.next();
@@ -6144,7 +6143,7 @@ void MainWindow::qsoToEdit (const int _qso)
     sqlOK = queryAux.exec();
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().nativeErrorCode(), queryAux.lastQuery());
+        emit queryError(Q_FUNC_INFO, queryAux.lastError().databaseText(), queryAux.lastError().number(), queryAux.lastQuery());
     }
 
     queryAux.next();
@@ -6707,7 +6706,7 @@ void MainWindow::fillQSOData()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     QSqlQuery query1;
@@ -6846,7 +6845,7 @@ void MainWindow::fillQSOData()
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().nativeErrorCode(), query1.lastQuery());
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                                 //qDebug() << "MainWindow::fillQSOData: sqlOK=False" << endl;
                 }
 
@@ -6986,7 +6985,7 @@ void MainWindow::slotFilePrint()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
             logEvent(Q_FUNC_INFO, "END-1", logSeverity);
             return;
             //TODO: Print a message showing an error and exit.
@@ -7049,7 +7048,7 @@ void MainWindow::slotFilePrint()
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().nativeErrorCode(), query1.lastQuery());
+                    emit queryError(Q_FUNC_INFO, query1.lastError().databaseText(), query1.lastError().number(), query1.lastQuery());
                 }
 
                         //qDebug() << "MainWindow::slotFilePrint: Band: " << aux << endl;
@@ -7203,7 +7202,7 @@ void MainWindow::updateQSLRecAndSent()
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
 
     queryString = QString("UPDATE log SET qsl_sent='N' WHERE qsl_sent ='' AND lognumber='%1'").arg(currentLog);
@@ -7211,7 +7210,7 @@ void MainWindow::updateQSLRecAndSent()
     sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
            //qDebug() << "MainWindow::updateQSLRecAndSent - END"  << endl;
@@ -8191,5 +8190,5 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
     //Criticality
 
     QTextStream out(debugFile);
-    out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << Qt::endl;
+    out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << endl;
 }
