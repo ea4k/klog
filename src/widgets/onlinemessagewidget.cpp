@@ -31,24 +31,12 @@ OnlineMessageWidget::OnlineMessageWidget(QWidget *parent) : QWidget(parent)
 }
 
 
-int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineProvider _prov, OnlineErrorCode _onlineError, OnlineErrorReason _onlineReason, const QString &_msg)
+int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineProvider _prov, OnlineErrorCode _onlineError, OnlineErrorReason _onlineReason, const QString _msg)
 {
     //enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ, HamQTH};
     QString message = QString();
-    QString detailedText = QString(tr("The server returned the following error: %1")).arg(translate(_error));
+    QString detailedText = QString();
     QString title = QString();
-
-    switch (_onlineReason)
-    {
-    case OnlineErrorReason::Other:
-    break;
-    case OnlineErrorReason::Auth:
-    break;
-    case OnlineErrorReason::DupeQSO:
-    break;
-    case OnlineErrorReason::WrongLogBook:
-    break;
-    }
 
     switch (_prov)
     {
@@ -68,21 +56,13 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
         break;
     }
 
-    if ((title.length()<1) | (message.length()<1) | (detailedText.length()<1))
+    if ((title.length()<1) | (message.length()<1) | detailedText.length()<1)
     {
         return -100;
     }
 
     QMessageBox msgBox;
-    if (_onlineError == OnlineErrorCode::Ok)
-    {
-      msgBox.setIcon(QMessageBox::Warning);
-    }
-    else
-    {
-        msgBox.setIcon(QMessageBox::Information);
-    }
-
+    msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle(title);
     msgBox.setText(message);
     msgBox.setDetailedText(detailedText);
@@ -94,82 +74,8 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
 }
 
 
-QString OnlineMessageWidget::translate(QNetworkReply::NetworkError _error)
+QString OnlineMessageWidget::translate(const QString _msg)
 {
-    switch (_error) {
-        case QNetworkReply::NoError:
-            return QString::number(_error);
-        break;
-        case QNetworkReply::ConnectionRefusedError:
-        break;
-        case  QNetworkReply::RemoteHostClosedError:
-        break;
-        case QNetworkReply::HostNotFoundError:
-        break;
-    case QNetworkReply::TimeoutError:
-        break;
-    case QNetworkReply::OperationCanceledError:
-        break;
-    case QNetworkReply::SslHandshakeFailedError:
-        break;
-    case QNetworkReply::TemporaryNetworkFailureError:
-        break;
-    case QNetworkReply::NetworkSessionFailedError:
-        break;
-    case QNetworkReply::BackgroundRequestNotAllowedError:
-        break;
-    case QNetworkReply::TooManyRedirectsError:
-        break;
-    case QNetworkReply::InsecureRedirectError:
-        break;
-    case QNetworkReply::ProxyConnectionRefusedError:
-        break;
-    case QNetworkReply::ProxyConnectionClosedError:
-        break;
-    case QNetworkReply::ProxyNotFoundError:
-        break;
-    case QNetworkReply::ProxyTimeoutError:
-        break;
-    case QNetworkReply::ProxyAuthenticationRequiredError:
-        break;
-    case QNetworkReply::ContentAccessDenied:
-        break;
-    case QNetworkReply::ContentOperationNotPermittedError:
-        break;
-    case QNetworkReply::ContentNotFoundError:
-        break;
-    case QNetworkReply::AuthenticationRequiredError:
-        break;
-    case QNetworkReply::ContentReSendError:
-        break;
-    case QNetworkReply::ContentConflictError:
-        break;
-    case QNetworkReply::ContentGoneError:
-        break;
-    case QNetworkReply::InternalServerError:
-        break;
-    case QNetworkReply::OperationNotImplementedError:
-        break;
-    case QNetworkReply::ServiceUnavailableError:
-        break;
-    case QNetworkReply::ProtocolUnknownError:
-        break;
-    case QNetworkReply::ProtocolInvalidOperationError:
-        break;
-    case QNetworkReply::UnknownNetworkError:
-        break;
-    case QNetworkReply::UnknownProxyError:
-        break;
-    case QNetworkReply::UnknownContentError:
-        break;
-    case QNetworkReply::ProtocolFailure:
-        break;
-    case QNetworkReply::UnknownServerError:
-        break;
-    default:
-        return QString(tr("Not identified"));
-        break;
-    }
 
-    return QString::number(_error);
+
 }

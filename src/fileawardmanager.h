@@ -45,7 +45,7 @@ signals:
 public slots:
 
 private:
-    void showError(const QString &_header, const QString &_msg, const QString &_detailedMsg);
+    void showError(const QString _header, const QString _msg, const QString _detailedMsg);
     DataProxy_SQLite *dataProxy;
     Utilities *util;
     World *world;

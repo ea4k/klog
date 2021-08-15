@@ -46,18 +46,18 @@ public:
     void createUI();
     void clear();
     void setCurrentLog(const int _log);
-    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
     void setImperialSystem (const  bool _imp);
     void showInfo(const int _entity);
-    void showDistanceAndBearing(const QString &_locLocal, const QString &_loc2);
+    void showDistanceAndBearing(const QString _locLocal, const QString _loc2);
     void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
-    void setLocalLocator(const QString &_loc);   //MAYBE NOT NEEDED
-    void setDXLocator(const QString &_loc);      //MAYBE NOT NEEDED
+    void setLocalLocator(const QString _loc);   //MAYBE NOT NEEDED
+    void setDXLocator(const QString _loc);      //MAYBE NOT NEEDED
 
 private:
     void clearBandLabels();
     void clearInfoFromLocators();
-    QString getStyleColorToLabelFromBand(const QString &_b, const QString &_q);
+    QString getStyleColorToLabelFromBand(const QString _b, const QString _q);
 
     QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;

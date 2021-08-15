@@ -34,7 +34,7 @@
 
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
-      //qDebug() << "TipsDialog::TipsDialog" << Qt::endl;
+      //qDebug() << "TipsDialog::TipsDialog" << endl;
     logSeverity = Info;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
     tipTextQLabel = new QLabel;
@@ -71,8 +71,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     buttonBox->addButton(prevButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::ActionRole));
     buttonBox->addButton(nextButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::ActionRole));
 
-    //connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject())) ;
+    connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(prevButton, SIGNAL(clicked()), this, SLOT(slotPrevButtonClicked() ) );
     connect(nextButton, SIGNAL(clicked()), this, SLOT(slotNextButtonClicked() ) );
     connect(tipTextQLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotLinkActivated(QString)));
@@ -94,7 +93,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     setLayout(layout);
 
 
-       //qDebug() << "TipsDialog::TipsDialog - END" << Qt::endl;
+       //qDebug() << "TipsDialog::TipsDialog - END" << endl;
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
@@ -228,14 +227,14 @@ void TipsDialog::setTip(const int _t)
     tipTextQLabel->setText(description);
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "TipsDialog::setTip: END"  << Qt::endl;
+      //qDebug() << "TipsDialog::setTip: END"  << endl;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 
-      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << Qt::endl;
+      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
     {

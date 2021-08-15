@@ -31,9 +31,9 @@
 #include <QFile>
 //#include <QDebug>
 
-DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) : QObject(0)
+DownLoadCTY::DownLoadCTY(const QString _klogDir, const QString _klogVersion) : QObject(0)
 {
-    //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << Qt::endl;
+    //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << endl;
     util = new Utilities;
     url = new QUrl;
     klogDir = _klogDir;
@@ -45,31 +45,31 @@ DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) :
     request->setUrl(QUrl("https://www.country-files.com/bigcty/cty.csv"));
     QString ver = "KLog"+_klogVersion;
     QByteArray str;
-    str.clear();    
-    str.append(util->getAgent(_klogVersion).toUtf8());
+    str.clear();
+    str.append(util->getAgent(_klogVersion));
 
     request->setRawHeader("User-Agent", str);
     //request->setHeader(QNetworkRequest::UserAgentHeader, str);
 
-     //qDebug() << "DownLoadCTY::DownLoadCTY() - UserAgent: " <<  request->rawHeader("QNetworkRequest::UserAgentHeader") << Qt::endl;
+     //qDebug() << "DownLoadCTY::DownLoadCTY() - UserAgent: " <<  request->rawHeader("QNetworkRequest::UserAgentHeader") << endl;
 
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
-     //qDebug() << "DownLoadCTY::DownLoadCTY(): - END"  << Qt::endl;
+     //qDebug() << "DownLoadCTY::DownLoadCTY(): - END"  << endl;
 }
 
 DownLoadCTY::~DownLoadCTY()
 {
-   //qDebug() << "DownLoadCTY::~DownLoadCTY"  << Qt::endl;
+   //qDebug() << "DownLoadCTY::~DownLoadCTY"  << endl;
 }
 
 
 
  void DownLoadCTY::slotDownloadFinished(QNetworkReply *reply)
 {
-   //qDebug() << "DownLoadCTY::slotDownloadFinished"  << Qt::endl;
+   //qDebug() << "DownLoadCTY::slotDownloadFinished"  << endl;
    emit downloadStopped();
    QUrl url = reply->url();
-   //qDebug() << "DownLoadCTY::slotDownloadFinished - URL: " << url.toString()  << Qt::endl;
+   //qDebug() << "DownLoadCTY::slotDownloadFinished - URL: " << url.toString()  << endl;
 
    QMessageBox msgBox;
    QString aux;
@@ -82,7 +82,7 @@ DownLoadCTY::~DownLoadCTY()
        //        qPrintable(reply->errorString()));
 
 
-       //errorCode = query.lastError().nativeErrorCode();
+       //errorCode = query.lastError().number();
 
        msgBox.setIcon(QMessageBox::Warning);
        aux = tr("Download of cty.csv failed with the following error code: ");
@@ -116,16 +116,16 @@ DownLoadCTY::~DownLoadCTY()
 
 int DownLoadCTY::download()
 {
-   //qDebug() << "DownLoadCTY::download..." << Qt::endl;
+   //qDebug() << "DownLoadCTY::download..." << endl;
 
     manager->get(*request);
     return 1;
 }
 
 void DownLoadCTY::slotDownloadProgress(qint64 received, qint64 total) {
-   //qDebug() << "DownLoadCTY::slotDownloadProgress: " << Qt::endl;
+   //qDebug() << "DownLoadCTY::slotDownloadProgress: " << endl;
 
-    //qDebug() << "DownLoadCTY::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << Qt::endl;
+    //qDebug() << "DownLoadCTY::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
      //qDebug() << received << total;
 
     emit actionShowProgres(received, total);
@@ -133,21 +133,21 @@ void DownLoadCTY::slotDownloadProgress(qint64 received, qint64 total) {
 
 void DownLoadCTY::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
-    //qDebug() << "DownLoadCTY::slotErrorManagement: " << QString::number(networkError) << Qt::endl;
+    //qDebug() << "DownLoadCTY::slotErrorManagement: " << QString::number(networkError) << endl;
 
     result = networkError;
 
     if (result == QNetworkReply::NoError)
     {
-        //qDebug() << "DownLoadCTY::downloadFinished: No error" << Qt::endl;
+        //qDebug() << "DownLoadCTY::downloadFinished: No error" << endl;
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-         //qDebug() << "DownLoadCTY::downloadFinished: Host not found" << Qt::endl;
+         //qDebug() << "DownLoadCTY::downloadFinished: Host not found" << endl;
     }
     else
     {
-        //qDebug() << "DownLoadCTY::downloadFinished: ERROR: " << QString::number(result) << Qt::endl;
+        //qDebug() << "DownLoadCTY::downloadFinished: ERROR: " << QString::number(result) << endl;
     }
 
     emit actionError(result);
@@ -155,7 +155,7 @@ void DownLoadCTY::slotErrorManagement(QNetworkReply::NetworkError networkError)
 
 QString DownLoadCTY::saveFileName(const QUrl &url)
 {
-    //qDebug() << "DownLoadCTY::saveFileName" << Qt::endl;
+    //qDebug() << "DownLoadCTY::saveFileName" << endl;
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
     QMessageBox msgBox;
@@ -189,7 +189,7 @@ QString DownLoadCTY::saveFileName(const QUrl &url)
 
 bool DownLoadCTY::saveToDisk(const QString &filename, QIODevice *data)
 {
-     //qDebug() << "DownLoadCTY::saveToDisk: " << filename << Qt::endl;
+     //qDebug() << "DownLoadCTY::saveToDisk: " << filename << endl;
     QFile file(filename);
     QMessageBox msgBox;
     QString aux;

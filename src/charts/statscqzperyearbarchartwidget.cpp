@@ -31,7 +31,7 @@ StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(){}
 
 StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget" << Qt::endl;
+      //qDebug() << "StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -76,7 +76,7 @@ void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << Qt::endl;
+       //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
      categories.append(dataProxy->getOperatingYears(_log));
      categoriesElem = tr("CQ zones");
      categoriesTitle = tr("CQ zones per year");
@@ -86,12 +86,12 @@ void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
     {
         numberPerX = dataProxy->getCQzonYear((categories.at(i)).toInt(), _log);
         //numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), -1);
-           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << Qt::endl;
+           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
         *set0 << numberPerX;
 
-           //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << Qt::endl;
+           //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
 
-        aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i), QString::number(categories.count()));
+        aux = tr("Reading data ...") + "\n" + tr("Years: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 

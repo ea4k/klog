@@ -67,7 +67,6 @@ public:
     bool isQSLSent(const int _qsoId);
     //void setProxyModel (const bool _p);
     void sortColumn(const int _c);
-    void setColumns(const QStringList &_columns);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
@@ -75,7 +74,7 @@ signals:
     void updateAwards();
     void updateSearchText();   
     //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
     //void clearError();
     void deleteTheseQSOs(QList<int> _qsos);
     void exportToADIFTheseQSOs(QList<int> _qsos);
@@ -84,6 +83,7 @@ signals:
 private slots:
 
     void slotDoubleClickLog(const QModelIndex & index);
+
     void slotRighButtonFromLog(const QPoint& pos);
     void slotQSLSentViaBureauFromLog();
     void slotQSLSentViaDirectFromLog();
@@ -91,7 +91,7 @@ private slots:
     void slotQSLRecViaBureauFromLog();
     void slotQsoDeleteFromLog();
     void slotQSOToEditFromLog();
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
     void slotCheckQRZCom();
     void slotCheckDXHeatCom();
 
@@ -117,10 +117,10 @@ private:
     void rightButtonFromLogMenu(const int trow);
     void rightButtonMultipleFromLogMenu();
     void showMenuRightButtonFromLogCreateActions();
-    void showColumn(const QString &_columnName);
+
 
     void setDefaultData();
-    void setColumnsOfLog(const QStringList &_columns);
+    void setColumnsToDX();
 
 
     DataProxy_SQLite *dataProxy;
@@ -160,7 +160,6 @@ private:
     int currentLog;
 
     Utilities *util;
-    QStringList columns;
 
    //LogViewSortFilterProxyModel *proxyModel;
    //bool sortingThroughProxyModel;

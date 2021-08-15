@@ -81,7 +81,7 @@ signals:
     void updateSearchText();
     void updateSearchLineEdit();
     void requestFocus();
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 private slots:
 
@@ -96,7 +96,7 @@ private slots:
     void slotQSLRecMarkAsRequested();
     void slotQsoDeleteFromLog();
     void slotQSOToEditFromLog();
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
     void slotCheckQRZCom();
     void slotCheckDXHeatCom();
 

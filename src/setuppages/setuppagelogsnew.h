@@ -53,7 +53,7 @@ public:
     void setDateString(const QString &_st);
     //void setTypeN(const int _n);
 
-    //void setType(const QString &_st);
+    //void setType(const QString _st);
     //void setCMode(const int _n);
     //void setCOperators(const int _n);
     //void setCAssisted(const int _n);

@@ -74,7 +74,7 @@ private:
     //bool isThereAnyNotManagedSat();
     void createUI();
     void gatherAndSend();
-    bool isItAFreq(const QString &_st);
+    bool isItAFreq(const QString _st);
 
     //void fillWithType(const int _n);
     //void updateAllCats();

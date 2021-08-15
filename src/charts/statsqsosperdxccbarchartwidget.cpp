@@ -31,11 +31,7 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(){}
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
-#ifdef QT_DEBUG
-//qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << Qt::endl;
-#else
-#endif
+      //qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -88,7 +84,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
     entities.clear();
     entities << dataProxy->getEntitiesIds();
 
-       //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << Qt::endl;
+       //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
 
      QMap<int, int> map; // key,value = number of QSO, dxcc
      //int qsos = -1;
@@ -98,13 +94,13 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
      QList<QList<int>> data;
      data.clear();
     data <<  dataProxy->getTop10QSOPerDXCC(_log);
-    //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length()) << Qt::endl;
+    //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length()) << endl;
 
     foreach(QList<int> pair, data)
     {
         map.insert(pair.at(0), pair.at(1));
-        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0)) << Qt::endl;
-        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1)) << Qt::endl;
+        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0)) << endl;
+        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1)) << endl;
         categories.append(dataProxy->getEntityMainPrefix(pair.at(0)) + " (" + QString::number(pair.at(1)) + ")");
         set0->append(pair.at(1));
         //*set0 << pair.at(1);
@@ -130,8 +126,8 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
                      it.next();
                      if (it.key()< qsos)
                      {
-                            //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << Qt::endl;
-                            //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << Qt::endl;
+                            //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value()) << endl;
+                            //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << endl;
                          map.remove(it.key());
                          map.insert(qsos, (entities.at(i)).toInt());
                          it.toBack();
@@ -147,7 +143,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
          {
              i = entities.size();
          }
-         //qDebug() << "End of for iteration" << Qt::endl;
+         //qDebug() << "End of for iteration" << endl;
      }
     */
     /*
@@ -155,14 +151,14 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
      while (it.hasNext()) {
          it.next();
          categories.append(dataProxy->getEntityMainPrefix(it.value()));
-         //qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value()) << Qt::endl;
+         //qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value()) << endl;
 
          numberPerX = it.key();
          *set0 << numberPerX;
          numberPerX = 0;
-            //qDebug() << "End of while iteration" << Qt::endl;
+            //qDebug() << "End of while iteration" << endl;
      }
-        //qDebug() << "Out of while" << Qt::endl;
+        //qDebug() << "Out of while" << endl;
     */
      categoriesElem = tr("DXCC");
      categoriesTitle = tr("Top ten DXCC per QSO");

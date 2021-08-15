@@ -89,7 +89,7 @@ public:
 
     int getEntityCqz(const int _enti);
     int getQRZCqz(const QString &_qrz);
-    //int getPrefixCQz(const QString &_p);
+    //int getPrefixCQz(const QString _p);
 
     int getQRZItuz(const QString &_qrz);
     int getEntityItuz(const int _enti);
@@ -155,7 +155,7 @@ private:
     //FLAGS-END
 signals:
     //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 };
 
 

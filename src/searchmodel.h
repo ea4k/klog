@@ -59,7 +59,7 @@ private:
     bool stationCallsignInHeader;
     int dxcc, bandid, modeid, logn;
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
 

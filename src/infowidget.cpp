@@ -29,7 +29,7 @@
 InfoWidget::InfoWidget(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "InfoWidget::InfoWidget: "   << Qt::endl;
+       //qDebug() << "InfoWidget::InfoWidget: "   << endl;
     dataProxy = dp;
     awards = new Awards(dataProxy, Q_FUNC_INFO); //Just to know colors
 
@@ -66,7 +66,7 @@ InfoWidget::InfoWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
     createUI();
     clearBandLabels();
-       //qDebug() << "InfoWidget::InfoWidget: - END"   << Qt::endl;
+       //qDebug() << "InfoWidget::InfoWidget: - END"   << endl;
 }
 
 void InfoWidget::createUI()
@@ -316,7 +316,7 @@ void InfoWidget::clearBandLabels()
 
 void InfoWidget::clearInfoFromLocators()
 {
-       //qDebug() << "InfoWidget::clearInfoFromLocators" << Qt::endl;
+       //qDebug() << "InfoWidget::clearInfoFromLocators" << endl;
     gradShortLabel->setText( "0" );
     gradLongLabel->setText( "0" );
     distShortLabel->setText( "0" );
@@ -333,7 +333,7 @@ void InfoWidget::clear()
     clearInfoFromLocators();
 }
 
-void InfoWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
+void InfoWidget::setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default)
 {
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
 }
@@ -361,15 +361,15 @@ void InfoWidget::setImperialSystem (const  bool _imp)
     }
 }
 
-QString InfoWidget::getStyleColorToLabelFromBand(const QString &_b, const QString &_q)
+QString InfoWidget::getStyleColorToLabelFromBand(const QString _b, const QString _q)
 { // Receives band name, Entity number (as a String)
-   //qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << Qt::endl;
+   //qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q << endl;
    QStringList _qs;
     _qs.clear();
 
     _qs << _q << QString::number(dataProxy->getIdFromBandName(_b)) << QString::number(-1) << QString::number(currentLog);
     //TODO: Check if we can know the mode and replace the -1
-    //qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << Qt::endl;
+    //qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name()  << endl;
     return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name() + "; }";
 }
 
@@ -377,7 +377,7 @@ QString InfoWidget::getStyleColorToLabelFromBand(const QString &_b, const QStrin
 //void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
 void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
-    //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << Qt::endl;
+    //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << endl;
     //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
 
     bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));
@@ -396,7 +396,7 @@ void InfoWidget::showInfo(const int _entity)
 
 void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
 {
-    //qDebug() << "InfoWidget::showEntityInfo" << QString::number(_enti) << Qt::endl;
+    //qDebug() << "InfoWidget::showEntityInfo" << QString::number(_enti) << endl;
 
     if (_enti<=0)
     {
@@ -464,9 +464,9 @@ void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
 }
 
 
-void InfoWidget::showDistanceAndBearing(const QString &_locLocal, const QString &_locDX)
+void InfoWidget::showDistanceAndBearing(const QString _locLocal, const QString _locDX)
 {// Local / DX
-       //qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << Qt::endl;
+       //qDebug() << "InfoWidget::showDistanceAndBearing: " << _locLocal << "/" << _locDX << endl;
     QString lloc = _locLocal.toUpper();
     QString ldx = _locDX.toUpper();
 
@@ -507,7 +507,7 @@ void InfoWidget::showDistanceAndBearing(const QString &_locLocal, const QString 
     }
 }
 
-void InfoWidget::setLocalLocator(const QString &_loc)
+void InfoWidget::setLocalLocator(const QString _loc)
 {
     if (locator->isValidLocator(_loc))
     {
@@ -515,7 +515,7 @@ void InfoWidget::setLocalLocator(const QString &_loc)
     }
 }
 
-void InfoWidget::setDXLocator(const QString &_loc)
+void InfoWidget::setDXLocator(const QString _loc)
 {
     if (locator->isValidLocator(_loc))
     {

@@ -30,11 +30,7 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(){}
 
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
-#ifdef QT_DEBUG
-//qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget" << Qt::endl;
-#else
-#endif
+      //qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget" << endl;
 
     dataProxy = dp;
     chart = new QChart();
@@ -80,8 +76,8 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "StatsEntitiesPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << Qt::endl;
-       //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC " << Qt::endl;
+       //qDebug() << "StatsEntitiesPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << endl;
+       //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC " << endl;
         categories.append(dataProxy->getOperatingYears(_log));
         categoriesElem = tr("DXCC Entities");
         categoriesTitle = tr("DXCC Entities per year");
@@ -90,7 +86,7 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
         {
             numberPerX = dataProxy->getDXCConYear((categories.at(i)).toInt(), _log);
             *set0 << numberPerX;
-            //numberPerX = 0;
+            numberPerX = 0;
 
             aux = tr("Reading data ...") + "\n" + tr("Entities: ")  + QString::number(i) + "/" + QString::number(categories.count());
             progress.setLabelText(aux);
@@ -100,7 +96,7 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
             {
                 i = categories.count();
             }
-               //qDebug() << "BarChartStats::prepareChart DXCCs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << Qt::endl;
+               //qDebug() << "BarChartStats::prepareChart DXCCs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
         }
 
     series->append(set0);

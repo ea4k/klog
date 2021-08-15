@@ -66,7 +66,7 @@ public:
     void setModifying (const bool _m);
     void setKeep(const bool _b);
     bool getKeep();
-    void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
+    void clear();
 
 
 
@@ -102,7 +102,7 @@ private:
     void setBandsOfSat(const QString &_p);
     void addNewBand(const QString &_p);
     void setUpLink(const QString &_t);
-    QString bandToLetter(const QString &_band);
+    QString bandToLetter(const QString _band);
 
     void autofillSatMode();
 

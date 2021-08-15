@@ -74,7 +74,6 @@ public:
     void setRXPwr(const double _pw);
 
     void setModifying(const bool _m);
-    void receiveFocus();
 
     void clear();
     void cleanQRZCOM();
@@ -90,7 +89,6 @@ signals:
     //void rxFreqChangedForSat(double _f);
     //void txFreqBeingChanged(bool _f);
     void txFreqChanged(double _f);
-    void handOverFocusSignal();
     //void txFreqChangedForSat(double _f);
 
 private slots:
@@ -101,7 +99,7 @@ private slots:
     void slotSplitClicked();
 
 private:
-    bool eventFilter(QObject *object, QEvent *event);
+
     void createUI();
     void setDefaultData();
     bool getDarkMode();

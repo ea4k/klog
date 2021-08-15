@@ -43,7 +43,7 @@ public:
     explicit eLogClubLog();
     ~eLogClubLog();
 
-    void setCredentials(const QString &_email, const QString &_pass, const QString &_defaultStationCallsign);
+    void setCredentials(const QString &_email, const QString &_pass, const QString _defaultStationCallsign);
     int sendQSO(QStringList _qso);
 
     int deleteQSO(QStringList _qso);
@@ -84,7 +84,7 @@ signals:
     void done();
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
-    void showMessage(const QString &_t);
+    void showMessage(const QString _t);
     void disableClubLogAction(const bool _b);
     void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
 

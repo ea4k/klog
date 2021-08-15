@@ -41,7 +41,7 @@ public:
     explicit MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     //~MainWindowInputEQSL();
 
-    //void setData(const QString &_comment);
+    //void setData(const QString _comment);
     //QString getComment();
 
     void clear();
@@ -53,12 +53,12 @@ public:
     QString getLOTWRecStatus();
     QString getLOTWSenStatus();
 
-    void setQRZCOMStatus(const QString &_qs);
-    void setClubLogStatus(const QString &_qs);
-    void setEQSLRecStatus(const QString &_qs);
-    void setEQSLSenStatus(const QString &_qs);
-    void setLOTWRecStatus(const QString &_qs);
-    void setLOTWSenStatus(const QString &_qs);
+    void setQRZCOMStatus(const QString _qs);
+    void setClubLogStatus(const QString _qs);
+    void setEQSLRecStatus(const QString _qs);
+    void setEQSLSenStatus(const QString _qs);
+    void setLOTWRecStatus(const QString _qs);
+    void setLOTWSenStatus(const QString _qs);
 
     QDate getQRZCOMDate();
     QDate getClubLogDate();

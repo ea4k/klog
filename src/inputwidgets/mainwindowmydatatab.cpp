@@ -29,7 +29,7 @@
 MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << Qt::endl;
+       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << endl;
     myPowerSpinBox = new QDoubleSpinBox;
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
@@ -42,7 +42,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     locator = new Locator();
 
     lastOperatorQRZ = QString();    // Last QRZ used by the user, will remain if the button is checked and removed if not
-    //lastStationQRZ = QString();     // Last QRZ used by the user, will remain if the button is checked and removed if not
+    lastStationQRZ = QString();     // Last QRZ used by the user, will remain if the button is checked and removed if not
     lastMyLocator = QString();      // Last locator used by the user, will remain if the button is checked and removed if not
 
     stationQRZ = QString();         // Defined in the configuration by the user, will be used if the user configured so in the setup
@@ -54,7 +54,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     setInitialADIFValues();
     myPower = 0;
     lastPower = 0;
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << Qt::endl;
+       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << endl;
 
 }
 
@@ -99,7 +99,6 @@ void MainWindowMyDataTab::createUI()
     //myDataInputTabWidgetLayout->addWidget(keepLabel, 4, 2);
     myDataInputTabWidgetLayout->addWidget(keepThisDataForNextQSOQCheckbox, 4, 3);
 
-    //myDataInputTabWidgetLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     setLayout(myDataInputTabWidgetLayout);
 
@@ -112,18 +111,18 @@ void MainWindowMyDataTab::createUI()
     connect(operatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorTextChanged()) );
     connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
-    connect(myUserADIFComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotMyUserADIFComboBoxChanged() ) ) ;
+    connect(myUserADIFComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotMyUserADIFComboBoxChanged() ) ) ;
 
     connect(myUserADIFLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentMyUSerData() ) );
 }
 
-void MainWindowMyDataTab::clear(bool _full)
+void MainWindowMyDataTab::clear()
 {
     //qDebug() << Q_FUNC_INFO;
     modify = false;
     if (!keepThisDataForNextQSOQCheckbox->isChecked())
     {
-        //qDebug() << "MainWindowMyDataTab::clear: NOT checked"  << Qt::endl;
+        //qDebug() << "MainWindowMyDataTab::clear: NOT checked"  << endl;
         myPowerSpinBox->setValue(myPower);
         if (util->isValidCall(operatorQRZ))
         {
@@ -157,30 +156,16 @@ void MainWindowMyDataTab::clear(bool _full)
         myUserADIFComboBox->setCurrentIndex(0);
         myUserADIFLineEdit->clear();
     }
-    if (_full)
-    {
-        operatorLineEdit->clear ();
-        stationCallSignLineEdit->clear ();
-        myLocatorLineEdit->clear ();
-        myPowerSpinBox->clear ();
-        my_rig = QString();
-        my_sota = QString();
-        my_antenna = QString();
-        my_vucc_grids = QString();
-        myUserADIFComboBox->setCurrentIndex(0);
-        myUserADIFLineEdit->clear();
-        keepThisDataForNextQSOQCheckbox->setChecked (false);
-    }
 }
 
 void MainWindowMyDataTab::show()
 {
     //qDebug() << Q_FUNC_INFO;
-    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << Qt::endl;
+    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << endl;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationQRZ);
-    //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator  << Qt::endl;
+    //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator  << endl;
     myLocatorLineEdit->setText(myLocator);
 
 }
@@ -188,11 +173,11 @@ void MainWindowMyDataTab::show()
 void MainWindowMyDataTab::slotMyLocatorTextChanged()
 {
     //qDebug() << Q_FUNC_INFO;
-     //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << Qt::endl;
+     //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << endl;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     int cursorP = myLocatorLineEdit->cursorPosition();
     myLocatorLineEdit->setText(util->getClearSQLi(myLocatorLineEdit->text()).toUpper());
-    //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text()  << Qt::endl;
+    //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text()  << endl;
     if ( locator->isValidLocator(myLocatorLineEdit->text()))
     {
         if (!modify)
@@ -208,13 +193,12 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
         {
             myLocatorLineEdit->setPalette(palBlack);
         }
-
         myLocatorLineEdit->setToolTip(tr("My QTH locator."));
         myLocatorLineEdit->setCursorPosition(cursorP);
         emit myLocChangedSignal(myLocatorLineEdit->text());
 
         //dxccStatusWidget->setMyLocator(myLocator);
-              //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << Qt::endl;
+              //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << endl;
         //slotLocatorTextChanged();
     }
     else
@@ -238,46 +222,29 @@ void MainWindowMyDataTab::setSetupMyPower(const double _power)
 {
     //qDebug() << Q_FUNC_INFO;
     myPower = _power;
-    myPowerSpinBox->setValue(_power);
 }
 
-void MainWindowMyDataTab::setSetupOperator(const QString &_op)
+void MainWindowMyDataTab::setSetupOperator(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO;
-    if (!util->isValidCall (_op))
-    {
-        return;
-    }
     operatorQRZ = _op.toUpper();
-    operatorLineEdit->setText (operatorQRZ);
 }
 
-void MainWindowMyDataTab::setSetupStationQRZ(const QString &_op)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << _op ;
-    if (!util->isValidCall (_op))
-    {
-        return;
-    }
-    stationQRZ = _op.toUpper();
-    stationCallSignLineEdit->setText(stationQRZ);
-}
-
-void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
+void MainWindowMyDataTab::setSetupStationQRZ(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO;
-    if (!locator->isValidLocator (_op))
-    {
-        return;
-    }
-    myLocator = _op.toUpper();
-    myLocatorLineEdit->setText (myLocator);
+    stationQRZ = _op.toUpper();
+}
 
+void MainWindowMyDataTab::setSetupMyLocator(const QString _op)
+{
+    //qDebug() << Q_FUNC_INFO;
+    myLocator = _op.toUpper();
 }
 
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
-      //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << Qt::endl;
+      //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << endl;
     //qDebug() << Q_FUNC_INFO;
     myPowerSpinBox->setValue(_power);
 }
@@ -298,7 +265,7 @@ double MainWindowMyDataTab::getMyPower()
     //return myPowerSpinBox->value();
 }
 
-void MainWindowMyDataTab::setOperator(const QString &_op)
+void MainWindowMyDataTab::setOperator(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     //qDebug() << Q_FUNC_INFO;
@@ -313,7 +280,7 @@ QString MainWindowMyDataTab::getOperator()
 }
 
 
-void MainWindowMyDataTab::setStationQRZ(const QString &_op)
+void MainWindowMyDataTab::setStationQRZ(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     stationCallSignLineEdit->setText(_op);
@@ -321,12 +288,12 @@ void MainWindowMyDataTab::setStationQRZ(const QString &_op)
 
 QString MainWindowMyDataTab::getStationQRZ()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
-    return (stationCallSignLineEdit->text()).toUpper();
-    //return lastStationQRZ;
+    //qDebug() << Q_FUNC_INFO;
+    lastStationQRZ = (stationCallSignLineEdit->text()).toUpper();
+    return lastStationQRZ.toUpper();
 }
 
-void MainWindowMyDataTab::setMyLocator(const QString &_op)
+void MainWindowMyDataTab::setMyLocator(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     myLocatorLineEdit->setText(_op);
@@ -340,7 +307,7 @@ QString MainWindowMyDataTab::getMyLocator()
 }
 
 
-void MainWindowMyDataTab::setData(const double _power, const QString &_stationQRZ, const QString &_operator, const QString &_myLocator)
+void MainWindowMyDataTab::setData(const double _power, const QString _stationQRZ, const QString _operator, const QString _myLocator)
 {
     //qDebug() << Q_FUNC_INFO;
     if (_power > 0.0)
@@ -354,8 +321,7 @@ void MainWindowMyDataTab::setData(const double _power, const QString &_stationQR
 
     if (_stationQRZ.length()>0)
     {
-        setStationQRZ (_stationQRZ);
-        //stationQRZ = _stationQRZ;
+        stationQRZ = _stationQRZ;
     }
     else
     {
@@ -364,8 +330,7 @@ void MainWindowMyDataTab::setData(const double _power, const QString &_stationQR
 
     if (_operator.length()>0)
     {
-        setOperator (_operator);
-        //operatorQRZ = _operator;
+        operatorQRZ = _operator;
     }
     else
     {
@@ -375,7 +340,6 @@ void MainWindowMyDataTab::setData(const double _power, const QString &_stationQR
     if (_myLocator.length()>0)
     {
         myLocator = _myLocator;
-        setMyLocator (_myLocator);
     }
     else
     {
@@ -464,7 +428,7 @@ bool MainWindowMyDataTab::setInitialADIFValues()
 {
     //qDebug() << Q_FUNC_INFO;
     adifValidTypes.clear ();
-    adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna") << "03-" + tr("My SOTA_Ref")<< "04-" + tr("My VUCC_GRIDS");
+    adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna") << "03-" + tr("My SOTA_Ref");
     myUserADIFComboBox->clear ();
     myUserADIFComboBox->addItems (adifValidTypes);
     return true;
@@ -484,10 +448,6 @@ bool MainWindowMyDataTab::setUserADIFTypeComboBox(const QString &_value)
     else if (_value == "MY_SOTA_REF")
     {
         myUserADIFComboBox->setCurrentIndex (2);
-    }
-    else if (_value == "MY_VUCC_GRIDS")
-    {
-        myUserADIFComboBox->setCurrentIndex (3);
     }
     else
     {
@@ -510,8 +470,6 @@ QString MainWindowMyDataTab::getUserADIFTypeComboBox()
         return "MY_ANTENNA";
     case 3:
         return "MY_SOTA_REF";
-    case 4:
-        return "MY_VUCC_GRIDS";
     default:
         return QString();
     }
@@ -530,7 +488,7 @@ QString MainWindowMyDataTab::getUserADIFValue()
     return myUserADIFLineEdit->text();
 }
 
-bool MainWindowMyDataTab::setMyRig(const QString &_op)
+bool MainWindowMyDataTab::setMyRig(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     my_rig = _op;
@@ -544,7 +502,7 @@ QString MainWindowMyDataTab::getMyRig()
     return my_rig;
 }
 
-bool MainWindowMyDataTab::setMyAntenna(const QString &_op)
+bool MainWindowMyDataTab::setMyAntenna(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     my_antenna = _op;
@@ -558,7 +516,7 @@ QString MainWindowMyDataTab::getMyAntenna()
     return my_antenna;
 }
 
-bool MainWindowMyDataTab::setMySOTA(const QString &_op)
+bool MainWindowMyDataTab::setMySOTA(const QString _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     my_sota = _op;
@@ -572,65 +530,10 @@ QString MainWindowMyDataTab::getMySOTA()
     return my_sota;
 }
 
-bool MainWindowMyDataTab::setMyVUCCGrids(const QString &_op)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
-    if (checkMyVUCC_GRIDS(_op))
-    {
-        my_vucc_grids = _op;
-        slotMyUserADIFComboBoxChanged();
-        return true;
-    }
-    return false;
-}
-
-bool MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString &_string)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << _string;
-
-    if (util->isValidVUCCGrids (_string))
-    {
-        setColorsForMyUserADIFLineEdit();
-        return true;
-    }
-    else
-    {
-        myUserADIFLineEdit->setPalette (palRed);
-        return false;
-    }
-
-}
-
-QString MainWindowMyDataTab::getMyVUCCGrids()
-{
-    if (checkMyVUCC_GRIDS (my_vucc_grids))
-    {
-        return my_vucc_grids;
-    }
-    else
-    {
-        return QString();
-    }
-}
-
-void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
-{
-    if (getDarkMode())
-    {
-        myUserADIFLineEdit->setPalette(palWhite);
-    }
-    else
-    {
-        myUserADIFLineEdit->setPalette(palBlack);
-    }
-}
-
 void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
-
-    setColorsForMyUserADIFLineEdit();
 
     if (currentTag == "MY_RIG")
     {
@@ -644,18 +547,12 @@ void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
     {
         myUserADIFLineEdit->setText (my_sota);
     }
-    else if (currentTag == "MY_VUCC_GRIDS")
-    {
-        myUserADIFLineEdit->setText (my_vucc_grids);
-    }
 }
 
 
 void MainWindowMyDataTab::slotSetCurrentMyUSerData()
 {
     QString currentTag = getUserADIFTypeComboBox ();
-    //qDebug() << Q_FUNC_INFO << ": " << currentTag;
-    int currentPos = myUserADIFLineEdit->cursorPosition ();
 
     if (currentTag == "MY_RIG")
     {
@@ -669,16 +566,6 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     {
         my_sota = myUserADIFLineEdit->text();
     }
-    else if (currentTag == "MY_VUCC_GRIDS")
-    {
-        if (checkMyVUCC_GRIDS(myUserADIFLineEdit->text()))
-        {}
-
-        my_vucc_grids = myUserADIFLineEdit->text().toUpper();
-        myUserADIFLineEdit->setText (my_vucc_grids);
-    }
-
-    myUserADIFLineEdit->setCursorPosition (currentPos);
 }
 
 void MainWindowMyDataTab::setModify(const bool _modify)

@@ -49,12 +49,12 @@ public:
     QString getQSLVia();
     QString getQSLMsg();
 
-    void setQSLRecStatus(const QString &_qs);
-    void setQSLSenStatus(const QString &_qs);
-    void setQSLRecVia(const QString &_qs);
-    void setQSLSenVia(const QString &_qs);
-    void setQSLVia(const QString &_qs, QColor qColor=Qt::black);
-    void setQSLMsg(const QString &_qs);
+    void setQSLRecStatus(const QString _qs);
+    void setQSLSenStatus(const QString _qs);
+    void setQSLRecVia(const QString _qs);
+    void setQSLSenVia(const QString _qs);
+    void setQSLVia(const QString _qs, QColor qColor=Qt::black);
+    void setQSLMsg(const QString _qs);
 
     QDate getQSLRecDate();
     QDate getQSLSenDate();

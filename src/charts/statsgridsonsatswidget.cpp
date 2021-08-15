@@ -27,11 +27,7 @@
 
 StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
-#ifdef QT_DEBUG
-     //qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget: " << Qt::endl;
-#else
-#endif
+     //qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget" << endl;
 
     dataProxy = dp;
     util = new Utilities;
@@ -62,9 +58,9 @@ void StatsGridsOnSatsWidget::createUI()
     tableWidget->setColumnCount(7);
 
     tableWidget->resizeRowsToContents();
-    tableWidget->sortByColumn(2, Qt::AscendingOrder);
+    tableWidget->sortByColumn(2);
     tableWidget->horizontalHeader()->setStretchLastSection(true);
-    //logView->sortByColumn(1, Qt::AscendingOrder);
+    //logView->sortByColumn(1);
 
 
 
@@ -96,7 +92,7 @@ void StatsGridsOnSatsWidget::createUI()
 
 void StatsGridsOnSatsWidget::prepareChart(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << endl;
 
     while(tableWidget->rowCount()>0)
     {
@@ -115,7 +111,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     tableWidget->setHorizontalHeaderItem(5, new QTableWidgetItem(tr("Satellite")));
     tableWidget->setHorizontalHeaderItem(6, new QTableWidgetItem(tr("Confirmed")));
     tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
-    //qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << Qt::endl;
+    //qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
 
     int number = 0;
     QStringList grids;

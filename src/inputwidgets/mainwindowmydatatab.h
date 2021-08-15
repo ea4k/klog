@@ -46,38 +46,35 @@ public:
 
     void createUI();
 
-    void setData(const double _power, const QString &_stationQRZ, const QString &_operator, const QString &_myLocator);
+    void setData(const double _power, const QString _stationQRZ, const QString _operator, const QString _myLocator);
 
     void setSetupMyPower(const double _power);
-    void setSetupOperator(const QString &_op);
-    void setSetupStationQRZ(const QString &_op);
-    void setSetupMyLocator(const QString &_op);
+    void setSetupOperator(const QString _op);
+    void setSetupStationQRZ(const QString _op);
+    void setSetupMyLocator(const QString _op);
 
     void setMyPower(const double _power);
     double getMyPower();
     //double getLastPower();
 
-    void setOperator(const QString &_op);
+    void setOperator(const QString _op);
     QString getOperator();
 
     //QString getLastOperator();
 
-    void setStationQRZ(const QString &_op);
+    void setStationQRZ(const QString _op);
     QString getStationQRZ();
 
     //QString getLastStationQRZ();
 
-    void setMyLocator(const QString &_op);
+    void setMyLocator(const QString _op);
     QString getMyLocator();
-    bool setMyRig(const QString &_op);
+    bool setMyRig(const QString _op);
     QString getMyRig();
-    bool setMyAntenna(const QString &_op);
+    bool setMyAntenna(const QString _op);
     QString getMyAntenna();
-    bool setMySOTA(const QString &_op);
+    bool setMySOTA(const QString _op);
     QString getMySOTA();
-    bool setMyVUCCGrids(const QString &_op);
-    QString getMyVUCCGrids(); // Returns the VUCC list in LOC1, LOC2 or LOC1,LOC2, LOC3, LOC4 format
-
 
     bool setUserADIFTypeComboBox(const QString &_value);
     QString getUserADIFTypeComboBox();
@@ -85,13 +82,13 @@ public:
     QString getUserADIFValue();
 
     void show(); //Shows the values into the widget
-    void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
+    void clear();
     void setKeep(const bool _b);
     bool getKeep();
     void setModify(const bool _modify);
 
 signals:
-    void myLocChangedSignal(const QString &_q); // MyLocator once updated
+    void myLocChangedSignal(const QString _q); // MyLocator once updated
     void returnPressed();
 
 private slots:
@@ -104,19 +101,17 @@ private slots:
 
 
 private:
-    //void setLastOperator(const QString &_op);
-    //void setLastStationQRZ(const QString &_op);
-    //void setLastMyLocator(const QString &_op);
+    //void setLastOperator(const QString _op);
+    //void setLastStationQRZ(const QString _op);
+    //void setLastMyLocator(const QString _op);
     //void setLastPower(const double _power);
     bool setInitialADIFValues();
-    void setColorsForMyUserADIFLineEdit();
-    bool checkMyVUCC_GRIDS(const QString &_string);
     QStringList adifValidTypes;
     //bool setCurrentAdifValue();
 
     QDoubleSpinBox *myPowerSpinBox;
     QString stationQRZ, operatorQRZ, myLocator; //Not changed during normal operations. They come from the configuration
-    QString lastOperatorQRZ, lastMyLocator; //lastStationQRZ, Change dinamically during execution
+    QString lastOperatorQRZ, lastStationQRZ, lastMyLocator; // Change dinamically during execution
     double myPower, lastPower;
 
     QLineEdit *operatorLineEdit, *stationCallSignLineEdit, *myLocatorLineEdit, *myUserADIFLineEdit;
@@ -127,7 +122,7 @@ private:
     Locator *locator;
     Utilities *util;
     bool modify;
-    QString my_rig, my_sota, my_antenna, my_vucc_grids;
+    QString my_rig, my_sota, my_antenna;
     bool getDarkMode();
 };
 

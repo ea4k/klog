@@ -33,16 +33,18 @@ BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
      mLayout = new QVBoxLayout;
      mainWidget->setLayout(mLayout);
 
+
      QVBoxLayout *mainLayout = new QVBoxLayout;
      mainLayout->addWidget(mainWidget);
      setLayout(mainLayout);
+
 }
 
 BarChartStats::~BarChartStats(){}
 
 void BarChartStats::clear()
 {
-      //qDebug() << "BarChartStats::clear()" << Qt::endl;
+      //qDebug() << "BarChartStats::clear()" << endl;
     //cleanLayout();
     prepareChart(1);
 }
@@ -57,7 +59,7 @@ void BarChartStats::createUI()
 
 void BarChartStats::cleanLayout()
 {
-    //qDebug() << Q_FUNC_INFO << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << endl;
 
     QLayoutItem *child;
 
@@ -67,13 +69,14 @@ void BarChartStats::cleanLayout()
         delete child->widget();
     }
 
-    //qDebug() << Q_FUNC_INFO << " - END" << Qt::endl;
+
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
 }
 
 
 void BarChartStats::prepareChart(const int _selection, const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << endl;
     cleanLayout();
 
     switch (_selection)
@@ -102,27 +105,27 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     case 4:
     {
         //cleanLayout();
-          //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << Qt::endl;
+          //qDebug() << "BarChartStats::prepareChart SelectedGrapth-4: per band " << endl;
         genchart = new StatsQSOsPerBandBarChartWidget(dataProxy, nullptr);
     }
     break;
     case 5:
     {
         //cleanLayout();
-          //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << Qt::endl;
+          //qDebug() << "BarChartStats::prepareChart SelectedGrapth-5: per modes " << endl;
         genchart = new StatsQSOsPerModeBarChartWidget(dataProxy, nullptr);
     }
     break;
     case 6:
     {
         //cleanLayout();
-           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << Qt::endl;
+           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-6: per dxcc " << endl;
         genchart = new StatsQSOsPerDXCCBarChartWidget(dataProxy, nullptr);
     }
     break;
     case 7:
     { // How many QSO per Continent
-           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << Qt::endl;
+           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/Continent " << endl;
         //cleanLayout();
         genchart = new StatsQSOsPerContinentBarChartWidget(dataProxy, nullptr);
 
@@ -130,7 +133,7 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
     break;
     case 8:
     {
-           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << Qt::endl;
+           //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour " << endl;
         //cleanLayout();
         genchart = new StatsQSOsPerHourBarChartWidget(dataProxy, nullptr);
 
@@ -178,25 +181,11 @@ void BarChartStats::prepareChart(const int _selection, const int _log)
 
     }
     break;
-    case 15:
-    {
-        //cleanLayout();
-        genchart = new StatsFieldPerBandWidget(dataProxy, GridSquare, nullptr);
-
-    }
-    break;
-    case 16:
-    {
-        //cleanLayout();
-        genchart = new StatsFieldPerBandWidget(dataProxy, DXCC, nullptr);
-
-    }
-    break;
 
     }
 
     genchart->prepareChart(_log);
     mLayout->addWidget(genchart);
-    //qDebug() << Q_FUNC_INFO << " - END" << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << endl;
     //delete genchart;
 }

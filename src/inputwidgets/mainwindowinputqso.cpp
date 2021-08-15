@@ -32,7 +32,7 @@
 MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputQSO::MainWindowInputQSO"   << Qt::endl;
+       //qDebug() << "MainWindowInputQSO::MainWindowInputQSO"   << endl;
     dataProxy = dp;
     locator = new Locator();
 
@@ -50,9 +50,8 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 
     createUI();
     setDefaultData();
-    //installEventFilter (this);
     clear();
-       //qDebug() << "MainWindowInputQSO::MainWindowInputQSO - END"   << Qt::endl;
+       //qDebug() << "MainWindowInputQSO::MainWindowInputQSO - END"   << endl;
 
 }
 
@@ -144,7 +143,7 @@ void MainWindowInputQSO::createUI()
 
     QHBoxLayout *freqDataLayout = new QHBoxLayout;
     freqDataLayout->addWidget(txFreqSpinBox);
-    //freqDataLayout->addStretch(1);
+    freqDataLayout->addStretch(1);
     freqDataLayout->addWidget(rxFreqSpinBox);
 
     QVBoxLayout *freqLayout = new QVBoxLayout;
@@ -187,7 +186,7 @@ void MainWindowInputQSO::createUI()
     QVBoxLayout *qsoInputTabWidgetMainLayout = new QVBoxLayout;
     qsoInputTabWidgetMainLayout->addLayout(rstfreqLayout);
     qsoInputTabWidgetMainLayout->addLayout(namePwrLayout);
-    //qsoInputTabWidgetMainLayout->setSizeConstraint(QLayout::SetFixedSize);
+
     setLayout(qsoInputTabWidgetMainLayout);
 
     connect(rstTXLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
@@ -199,13 +198,6 @@ void MainWindowInputQSO::createUI()
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)) ) ;
     connect(splitCheckBox, SIGNAL(clicked()), this, SLOT(slotSplitClicked()) ) ;
-
-    QWidget::setTabOrder (rstTXLineEdit, rstRXLineEdit);
-    QWidget::setTabOrder (rstRXLineEdit, nameLineEdit);
-    QWidget::setTabOrder (nameLineEdit, qthLineEdit);
-    QWidget::setTabOrder (qthLineEdit, locatorLineEdit);
-    QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
-
 }
 
 
@@ -262,14 +254,14 @@ void MainWindowInputQSO::slotReturnPressed()
 
 void MainWindowInputQSO::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-    //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << endl;
     int cursorP = locatorLineEdit->cursorPosition();
 
     locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
 
     if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
     {
-        //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text() << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text() << endl;
         setPaletteRightDXLocator(true);
         emit dxLocatorChanged (locatorLineEdit->text());
 
@@ -277,12 +269,12 @@ void MainWindowInputQSO::slotLocatorTextChanged()
         //infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
         //satTabWidget->setLocator(dxLocator);
         locatorLineEdit->setToolTip(tr("DX QTH locator."));
-        //qDebug() << Q_FUNC_INFO << ": " << locator->getLat(locatorLineEdit->text()) << Qt::endl;
-        //qDebug() << Q_FUNC_INFO << ": LON: " << locator->getLon(locatorLineEdit->text()) << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": " << locator->getLat(locatorLineEdit->text()) << endl;
+        //qDebug() << Q_FUNC_INFO << ": LON: " << locator->getLon(locatorLineEdit->text()) << endl;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": NOT VALID: " << locatorLineEdit->text() << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": NOT VALID: " << locatorLineEdit->text() << endl;
         setPaletteRightDXLocator(false);
         locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
         locatorLineEdit->setCursorPosition(cursorP);
@@ -321,19 +313,19 @@ double MainWindowInputQSO::getTXFreq()
 
 void MainWindowInputQSO::setTXFreq(const double _ft)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ft) << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ft) << endl;
 
     if ( (_ft >= double(0)) && (_ft <= txFreqSpinBox->maximum()))
     {
-        //qDebug() << Q_FUNC_INFO << ": defining FR: " << QString::number(_ft) << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": defining FR: " << QString::number(_ft) << endl;
         txFreqSpinBox->setValue(_ft);
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": defining FR: 0"  << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": defining FR: 0"  << endl;
         txFreqSpinBox->setValue(0);
     }
-    //qDebug() << Q_FUNC_INFO << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << endl;
 }
 
 double MainWindowInputQSO::getRXFreq()
@@ -403,7 +395,7 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 
     if ((_m == "SSB") || (_m== "LSB") || (_m=="USB") || (_m == "FM") || (_m == "AM") )
     {
-         //qDebug() << Q_FUNC_INFO << ": Detected SSB/LSB/USB"  << Qt::endl;
+         //qDebug() << Q_FUNC_INFO << ": Detected SSB/LSB/USB"  << endl;
         rstTXLineEdit->setInputMask("#DD");
         rstRXLineEdit->setInputMask("#DD");
 
@@ -450,7 +442,7 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
     }
     if (!_reading)
     {
-         //qDebug() << Q_FUNC_INFO << ": reading the UI" << Qt::endl;
+         //qDebug() << Q_FUNC_INFO << ": reading the UI" << endl;
         rstTXLineEdit->setText(util->getDefaultRST(_m));
         rstRXLineEdit->setText(util->getDefaultRST(_m));
     }
@@ -527,7 +519,7 @@ void MainWindowInputQSO::setPaletteRightDXLocator(const bool _ok)
 
 void MainWindowInputQSO::setPropModeFromSat(const QString &_p)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _p << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": " << _p << endl;
     propMode = _p;
     if (propMode == "SAT")
     {
@@ -541,10 +533,10 @@ void MainWindowInputQSO::setPropModeFromSat(const QString &_p)
 
 void MainWindowInputQSO::slotFreqTXChanged (double _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << endl;
     if (util->isSameFreq (_f, freqTX))
     {
-        //qDebug() << Q_FUNC_INFO << ": Same Freq return"  << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": Same Freq return"  << endl;
         return;
     }
     freqTX = _f;
@@ -560,21 +552,21 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
         {
             txFreqSpinBox->setPalette(palBlack);
         }
-        //qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f) << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f) << endl;
         emit txFreqChanged (_f);
     }
     else
     {
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         txFreqSpinBox->setPalette(palRed);
-         //qDebug() << Q_FUNC_INFO << ":RED - Not in band "  << Qt::endl;
+         //qDebug() << Q_FUNC_INFO << ":RED - Not in band "  << endl;
     }
     if ((!splitCheckBox->isChecked()) || modify )
     {
         rxFreqSpinBox->setValue (_f);
-        //qDebug() << Q_FUNC_INFO << ": copying to RX Freq "  << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << ": copying to RX Freq "  << endl;
     }
-    //qDebug() << Q_FUNC_INFO << " - END"  << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << " - END"  << endl;
     setSplitCheckBox();
 }
 
@@ -611,7 +603,7 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
     {
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         rxFreqSpinBox->setPalette(palRed);
-         //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << Qt::endl;
+         //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << endl;
     }
     if ((!splitCheckBox->isChecked()) && !modify)
     {
@@ -629,15 +621,15 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
     {
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         rxFreqSpinBox->setPalette(palRed);
-                //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << Qt::endl;
+                //qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band" << endl;
     }
     if (!rxFreqBeingAutoChanged)
     {
-                //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Downlink" << Qt::endl;
+                //qDebug() << "MainWindow::slotFreqTXChanged: Updating SAT Downlink" << endl;
         emit rxFreqChangedForSat(rxFreqSpinBox->value());
     }
     */
-    //qDebug() << "MainWindow::slotFreqRXChanged: END" << Qt::endl;
+    //qDebug() << "MainWindow::slotFreqRXChanged: END" << endl;
     setSplitCheckBox();
 }
 
@@ -653,35 +645,3 @@ void MainWindowInputQSO::setSplitCheckBox()
     }
 }
 
-void MainWindowInputQSO::receiveFocus()
-{
-    //qDebug() << Q_FUNC_INFO;
-    rstTXLineEdit->setFocus ();
-}
-
-bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
-{
-    if (!(event->type() == QEvent::Paint ))
-    {
-        //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());
-    }
-
-    if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::ShortcutOverride)) {
-        //qDebug() << Q_FUNC_INFO << "KEY PRESSED";
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if (ke->key() == Qt::Key_Tab) {
-            //qDebug() << Q_FUNC_INFO << "KEY PRESSED TAB";
-            if (rxPowerSpinBox->hasFocus())
-            {
-                //qDebug() << Q_FUNC_INFO << "emitting to hand over to mainQSO Input";
-                emit handOverFocusSignal();
-            }
-
-
-            // special tab handling here
-            return true;
-        }
-    }
-
-    return QWidget::event(event);
-}

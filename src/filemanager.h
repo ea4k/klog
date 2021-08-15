@@ -63,9 +63,9 @@ class FileManager : public QWidget
     Q_OBJECT
 public:
     FileManager(DataProxy_SQLite *dp);
-    //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
+    //FileManager(DataProxy_SQLite *dp, const QString _klogDir);
     FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion);
-    //FileManager(DataProxy_SQLite *dp, const QString &_softVersion);
+    //FileManager(DataProxy_SQLite *dp, const QString _softVersion);
     ~FileManager();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
@@ -131,7 +131,7 @@ private:
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 
 
-    //bool printQs(const QString &_q, const QStringList _line);
+    //bool printQs(const QString _q, const QStringList _line);
     bool printQs(const QStringList &_line);
     //int confirmed;
     QString klogDir;
@@ -156,7 +156,7 @@ private:
 
 signals:
     void addQSOToList(QStringList _qso);
-    void queryError(QString _functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString _functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
 
 };
 #endif // FILEMANAGER_H

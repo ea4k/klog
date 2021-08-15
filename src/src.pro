@@ -29,7 +29,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.8
+VERSION = 1.6
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -65,9 +65,7 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \     \
-    charts/statsfieldperbandwidget.h \
     klogdefinitions.h \
-    setuppages/setuppagelogview.h \
     widgets/showkloglogwidget.h \
     elogqrzlog.h \
     eqslutilities.h \
@@ -155,7 +153,6 @@ message(Sources)
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
-    charts/statsfieldperbandwidget.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \
@@ -173,7 +170,6 @@ SOURCES += main.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
     setuppages/setuppageelog.cpp \
-    setuppages/setuppagelogview.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
     setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \

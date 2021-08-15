@@ -73,8 +73,6 @@ void QSO::clear()
     my_sota_ref = QString();
     my_rig = QString();
     my_antenna = QString();
-    my_vucc_grids= QString();
-    vucc_grids= QString();
     qth = QString();
     name = QString();
     freq_tx = -1.0;
@@ -101,8 +99,6 @@ void QSO::clear()
     keepMyData = false;
     keepOther = false;
     keepSat = false;
-    modifying = false;
-
 }
 
 void QSO::setBackup(const bool _rt)
@@ -113,16 +109,6 @@ void QSO::setBackup(const bool _rt)
 bool QSO::getBackup()
 {
     return backup;
-}
-
-void QSO::setModifying(const bool _mod)
-{
-    modifying = _mod;
-}
-
-bool QSO::getModifying()
-{
-    return modifying;
 }
 
 bool QSO::setQSOid(const int _i)
@@ -163,15 +149,15 @@ int QSO::getLogId()
 
 bool QSO::isValid()
 {
-   //qDebug() << "QSO::isValid: " << callsign << Qt::endl;
+   //qDebug() << "QSO::isValid: " << callsign << endl;
     if ( (callsign.length()>0))
     {
-       //qDebug() << "QSO::isValid: TRUE" << Qt::endl;
+       //qDebug() << "QSO::isValid: TRUE" << endl;
         return true;
     }
     else
     {
-       //qDebug() << "QSO::isValid: FALSE" << Qt::endl;
+       //qDebug() << "QSO::isValid: FALSE" << endl;
         return false;
     }
 
@@ -179,15 +165,15 @@ bool QSO::isValid()
 
 bool QSO::setCall(const QString &_c)
 {
-   //qDebug() << "QSO::setCall: " << _c << Qt::endl;
+   //qDebug() << "QSO::setCall: " << _c << endl;
     if (util->isValidCall(_c))
     {
-       //qDebug() << "QSO::setCall: Valid Call"  << Qt::endl;
+       //qDebug() << "QSO::setCall: Valid Call"  << endl;
         callsign = _c;
         return true;
     }
     else {
-       //qDebug() << "QSO::setCall: NOT valid Call"  << Qt::endl;
+       //qDebug() << "QSO::setCall: NOT valid Call"  << endl;
         return false;
     }
 }
@@ -199,7 +185,7 @@ QString QSO::getCall()
 
 bool QSO::setBand(const QString &_c)
 {
-   //qDebug() << "QSO::setBand: "<< _c << Qt::endl;
+   //qDebug() << "QSO::setBand: "<< _c << endl;
     if (_c.length()>0)
     {
         band = _c;
@@ -219,7 +205,7 @@ QString QSO::getBand()
 
 bool QSO::setBandRX(const QString &_c)
 {
-   //qDebug() << "QSO::setBandRX: "<< _c << Qt::endl;
+   //qDebug() << "QSO::setBandRX: "<< _c << endl;
     if (_c.length()>0)
     {
         band = _c;
@@ -259,16 +245,16 @@ QString QSO::getMode()
 
 bool QSO::setDate(const QDate &_c)
 {
-   //qDebug() << "QSO::setDate: " << util->getDateSQLiteStringFromDate(_c) << Qt::endl;
+   //qDebug() << "QSO::setDate: " << util->getDateSQLiteStringFromDate(_c) << endl;
     if (_c.isValid())
     {
-       //qDebug() << "QSO::setDate: VALID" << Qt::endl;
+       //qDebug() << "QSO::setDate: VALID" << endl;
         qso_dateTime.setDate(_c);
         return true;
     }
     else
     {
-       //qDebug() << "QSO::setDate: NOT VALID" << Qt::endl;
+       //qDebug() << "QSO::setDate: NOT VALID" << endl;
         qso_dateTime.setDate(QDate());
         return false;
     }
@@ -281,16 +267,16 @@ QDate QSO::getDate()
 
 bool QSO::setTimeOn(const QTime &_c)
 {
-   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << Qt::endl;
+   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << endl;
     if (_c.isValid())
     {
-       //qDebug() << "QSO::setQSLTime: VALID" << Qt::endl;
+       //qDebug() << "QSO::setQSLTime: VALID" << endl;
         qso_dateTime.setTime(_c);
         return true;
     }
     else
     {
-       //qDebug() << "QSO::setQSLTime: NOT VALID" << Qt::endl;
+       //qDebug() << "QSO::setQSLTime: NOT VALID" << endl;
         qso_dateTime.setTime(QTime());
         return false;
     }
@@ -552,16 +538,16 @@ QDate QSO::getLoTWQSLSDate()
 
 bool QSO::setLoTWQSL_RCVD(const QString &_c)
 {
-    //qDebug() << "QSO::setLoTWQSL_RCVD: " << _c  << Qt::endl;
+    //qDebug() << "QSO::setLoTWQSL_RCVD: " << _c  << endl;
     if (util->isValidQSL_Rcvd(_c))
     {
-        //qDebug() << "QSO::setLoTWQSL_RCVD: VALID " << Qt::endl;
+        //qDebug() << "QSO::setLoTWQSL_RCVD: VALID " << endl;
         lotw_qsl_rcvd = _c;
         return true;
     }
     else
     {
-        //qDebug() << "QSO::setLoTWQSL_RCVD: NOT valid " << Qt::endl;
+        //qDebug() << "QSO::setLoTWQSL_RCVD: NOT valid " << endl;
         return false;
     }
 }
@@ -573,16 +559,16 @@ QString QSO::getLoTWQSL_RCVD()
 
 bool QSO::setLoTWQSLRDate(const QDate &_c)
 {
-    //qDebug() << "QSO::setLoTWQSLRDate: " << _c.toString("yyyy-MM-dd") << Qt::endl;
+    //qDebug() << "QSO::setLoTWQSLRDate: " << _c.toString("yyyy-MM-dd") << endl;
     if (_c.isValid())
     {
-        //qDebug() << "QSO::setLoTWQSLRDate: TRUE" << Qt::endl;
+        //qDebug() << "QSO::setLoTWQSLRDate: TRUE" << endl;
         QSLLoTWRDate = _c;
         return true;
     }
     else
     {
-        //qDebug() << "QSO::setLoTWQSLRDate: FALSE" << Qt::endl;
+        //qDebug() << "QSO::setLoTWQSLRDate: FALSE" << endl;
         QSLLoTWRDate = QDate();
         return false;
     }
@@ -648,7 +634,7 @@ QString QSO::getQSL_RCVD()
     return qsl_rcvd;
 }
 
-bool QSO::setQSLSenVia(const QString &_qs)
+bool QSO::setQSLSenVia(const QString _qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -666,7 +652,7 @@ QString QSO::getSentVia()
     return qslSenVia;
 }
 
-bool QSO::setQSLRecVia(const QString &_qs)
+bool QSO::setQSLRecVia(const QString _qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -684,7 +670,7 @@ QString QSO::getRecVia()
     return qslRecVia;
 }
 
-bool QSO::setQSLVia(const QString &_qs)
+bool QSO::setQSLVia(const QString _qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -721,7 +707,7 @@ QDate QSO::getQSLRDate()
     return QSLRDate;
 }
 
-bool QSO::setQSLMsg(const QString &_qs)
+bool QSO::setQSLMsg(const QString _qs)
 {
     if (!_qs.isEmpty ())
     {
@@ -960,42 +946,6 @@ bool QSO::setMyRig(const QString &_c)
     return false;
 }
 
-bool QSO::setVUCCGrids(const QString &_c)
-{
-    if (util->isValidVUCCGrids (_c))
-    {
-        vucc_grids = _c;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-QString QSO::getVUCCGrids()
-{
-    return vucc_grids;
-}
-
-bool QSO::setMyVUCCGrids(const QString &_c)
-{
-    if (util->isValidVUCCGrids (_c))
-    {
-        my_vucc_grids = _c;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-QString QSO::getMyVUCCGrids()
-{
-    return my_vucc_grids;
-}
-
 QString QSO::getMyRig()
 {
     return my_rig;
@@ -1199,16 +1149,16 @@ bool QSO::getKeepSatTab()
 // SET DATA
 bool QSO::setData(const QString &_adifPair)
 {
-    //qDebug() << "QSO::setData: " << _adifPair << Qt::endl;
+    //qDebug() << "QSO::setData: " << _adifPair << endl;
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
     if (d.length()!=2)
     {
-        //qDebug() << "QSO::setData: NOT VALID ADIF: " << _adifPair << Qt::endl;
+        //qDebug() << "QSO::setData: NOT VALID ADIF: " << _adifPair << endl;
         return false;
     }
-   //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1) << Qt::endl;
+   //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1) << endl;
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
@@ -1231,7 +1181,7 @@ bool QSO::setData(const QString &_adifPair)
     }
     else if (field == "QSO_DATE")
     {
-       //qDebug() << "QSO::setData: QSO_DATE: " << data  << Qt::endl;
+       //qDebug() << "QSO::setData: QSO_DATE: " << data  << endl;
         setDate(util->getDateFromADIFDateString(data));
     }
     else if (field == "FREQ")
@@ -1288,7 +1238,7 @@ bool QSO::setData(const QString &_adifPair)
     }
     else if (field == "APP_LOTW_RXQSL")
     {
-        //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << Qt::endl;
+        //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << endl;
         setLoTWQSL_RCVD("Y");
         setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
     }

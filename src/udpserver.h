@@ -67,7 +67,7 @@ public:
     bool isStarted();
     void setLogging(const bool _t);
     void setRealTimeUpdate(const bool _t);
-    //void setAddress(const QString &_address);
+    //void setAddress(const QString _address);
     void setPort(const int _port);
     void setNetworkInterface(const QString &_t);
 
@@ -100,13 +100,13 @@ private:
 #endif
 
 signals:
-    void status_update (const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
+    void status_update (const int _type, const QString _dxcall, const double _freq, const QString _mode,
                         const QString report, const QString de_call, const QString de_grid,
                         const QString dx_grid, const QString sub_mode);
 
-    //void logged_qso (const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
-    //                 const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
-    //                 const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid);
+    //void logged_qso (const int _type, const QString _dxcall, const double _freq, const QString _mode,
+    //                 const QString _dx_grid, const QString _time_off, const QString _report_sent, const QString _report_rec,
+    //                 const QString _tx_power, const QString _comments, const QString _name, const QString _time_on, const QString _de_call, const QString _de_grid);
 
     void logged_qso (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
                      const QString &_mygrid, const QString &_dxgrid, const QString &rstTX, const QString &rstRX,

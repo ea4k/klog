@@ -128,7 +128,7 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "577", "Wrong RST RX - RTTY");
     mainWindowInputQSO->setRSTRX("57A");
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "57", "Wrong invalid RST RX - RTTY");
-    //qDebug() << Q_FUNC_INFO << ": RTTY Wrong RST: " << mainWindowInputQSO->getRSTRX () << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": RTTY Wrong RST: " << mainWindowInputQSO->getRSTRX () << endl;
 
     mainWindowInputQSO->setRSTToMode ("PSK31", true);
     mainWindowInputQSO->setRSTTX("577");
@@ -137,7 +137,7 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "577", "Wrong RST RX - PSK31");
     mainWindowInputQSO->setRSTRX("57A");
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "57", "Wrong invalid RST RX - PSK31");
-    //qDebug() << Q_FUNC_INFO << ": PSK31 Wrong RST: " << mainWindowInputQSO->getRSTRX () << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": PSK31 Wrong RST: " << mainWindowInputQSO->getRSTRX () << endl;
 
     mainWindowInputQSO->setRSTToMode ("FT8", true);
     mainWindowInputQSO->setRSTTX("-18");
@@ -146,7 +146,7 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "18", "Wrong RST RX - FT8");
     mainWindowInputQSO->setRSTRX("57A");
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "57", "Wrong invalid RST RX - FT8");
-    //qDebug() << Q_FUNC_INFO << ": FT8 Wrong RST: " << mainWindowInputQSO->getRSTRX () << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": FT8 Wrong RST: " << mainWindowInputQSO->getRSTRX () << endl;
 
     mainWindowInputQSO->setRSTToMode ("ELSE", true);
     mainWindowInputQSO->setRSTTX("555");
@@ -155,7 +155,7 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "555", "Wrong RST RX - ELSE");
     mainWindowInputQSO->setRSTRX("57AAAA");
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "57AA", "Wrong invalid RST RX - ELSE");
-    //qDebug() << Q_FUNC_INFO << ": ELSE Wrong RST: " << mainWindowInputQSO->getRSTRX () << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << ": ELSE Wrong RST: " << mainWindowInputQSO->getRSTRX () << endl;
 
 }
 

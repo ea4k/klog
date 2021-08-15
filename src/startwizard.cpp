@@ -30,7 +30,7 @@
  StartWizard::StartWizard(const QString &_klogDir, const QString &_softVersion, QWidget *parent)
      : QWizard(parent)
  {
-        //qDebug() << "StartWizard::StartWizard: v=" << _softVersion << Qt::endl;
+        //qDebug() << "StartWizard::StartWizard: v=" << _softVersion << endl;
     //licAcepted = false;
     version = _softVersion;
     klogDir = _klogDir;
@@ -67,7 +67,7 @@
 
     setWindowTitle(tr("KLog - The free hamradio logging program"));
 
-       //qDebug() << "StartWizard::StartWizard: - END" << Qt::endl;
+       //qDebug() << "StartWizard::StartWizard: - END" << endl;
 
  }
 
@@ -78,14 +78,14 @@
 
 /*void StartWizard::slotUpdateDownloadProgress(qint64 received, qint64 total)
 {
-        //qDebug() << "StartWizard::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << Qt::endl;
+        //qDebug() << "StartWizard::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
      ctyPage->updateProgress(received, total);
 }
 */
 /*
  void StartWizard::slotDownloadFinished()
 {
-        //qDebug() << "StartWizard::slotDownloadFinished" << Qt::endl;
+        //qDebug() << "StartWizard::slotDownloadFinished" << endl;
      //close();
 }
 */
@@ -112,16 +112,16 @@
 
  void StartWizard::slotButtonFinishedClicked()
  {
-        //qDebug() << "StartWizard::slotButtonFinishedClicked " << Qt::endl;
+        //qDebug() << "StartWizard::slotButtonFinishedClicked " << endl;
 
      if (inMemory)
      {
          setResult(1);
-            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 1 " << Qt::endl;
+            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 1 " << endl;
      }
      else
      {
-            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 2 " << Qt::endl;
+            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 2 " << endl;
          setResult(2);
      }
 
@@ -131,7 +131,7 @@
 
  bool StartWizard::doTheDownload()
  {
-        //qDebug() << "StartWizard::doTheDownload" << Qt::endl;
+        //qDebug() << "StartWizard::doTheDownload" << endl;
     int downloading = 1;
     int i = 0;
     int ret;
@@ -154,7 +154,7 @@
 
  void StartWizard::slotValueReturnedFromDownload(int value)
  {
-        //qDebug() << "StartWizard::slotValueReturnedFromDownload: " << QString::number(value) << Qt::endl;
+        //qDebug() << "StartWizard::slotValueReturnedFromDownload: " << QString::number(value) << endl;
      downloadValueResult = value;
      //close();
  }
@@ -989,7 +989,7 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
 
 void CTYPage::slotUpdateDownloadProgress(qint64 received, qint64 total)
 {
-       //qDebug() << "CTYPage::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << Qt::endl;
+       //qDebug() << "CTYPage::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total) << endl;
 
     progressBar->setValue(received);
 
@@ -997,7 +997,7 @@ void CTYPage::slotUpdateDownloadProgress(qint64 received, qint64 total)
 
 void CTYPage::slotDownloadButtonClicked()
 {
-        //qDebug() << "CTYPage::slotDownloadButtonClicked" << Qt::endl;
+        //qDebug() << "CTYPage::slotDownloadButtonClicked" << endl;
      progressBar->setEnabled(true);
      progressBar->reset();
      progressBar->setRange(0, 0);
@@ -1006,7 +1006,7 @@ void CTYPage::slotDownloadButtonClicked()
 }
 void CTYPage::slotIgnoreDownloadButtonClicked()
 {
-    //qDebug() << "CTYPage::slotIgnoreDownloadButtonClicked" << Qt::endl;
+    //qDebug() << "CTYPage::slotIgnoreDownloadButtonClicked" << endl;
     //ignoreDownloadButton->setChecked(true);
     slotStopProgressBar();
     hiddenCheckBox->setChecked(true);
@@ -1018,7 +1018,7 @@ void CTYPage::slotIgnoreDownloadButtonClicked()
 
 void CTYPage::slotDownloadFinished(const int ret)
 {
-    //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << Qt::endl;
+    //qDebug() << "CTYPage::slotDownloadFinished: " << QString::number(ret) << endl;
     slotStopProgressBar();
      if (ret == QNetworkReply::NoError) // No error
      {
@@ -1026,15 +1026,15 @@ void CTYPage::slotDownloadFinished(const int ret)
         progressBar->setEnabled(false);
         //progressBar->setValue(progressBar->maximum());
         //hiddenCheckBox->setChecked(true);
-        //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << Qt::endl;
+        //qDebug() << "CTYPage::slotDownloadFinished: (no error): " << QString::number(ret) << endl;
      }
      else if (ret == -1) // File could not be created!
      {
-           //qDebug() << "CTYPage::slotDownloadFinished: (file could not be created): " << QString::number(ret) << Qt::endl;
+           //qDebug() << "CTYPage::slotDownloadFinished: (file could not be created): " << QString::number(ret) << endl;
      }
      else
      {
-       //qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret) << Qt::endl;
+       //qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret) << endl;
      }
 
 
@@ -1042,7 +1042,7 @@ void CTYPage::slotDownloadFinished(const int ret)
 
 void CTYPage::slotDownloadError(const int ret)
 {
-    //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << Qt::endl;
+    //qDebug() << "CTYPage::slotDownloadError: " << QString::number(ret) << endl;
     int errorCode = ret;
     int i;
     slotStopProgressBar();
@@ -1076,7 +1076,7 @@ void CTYPage::slotDownloadError(const int ret)
 
 void CTYPage::slotStopProgressBar()
 {
-    //qDebug() << "CTYPage::slotStopProgressBar" << Qt::endl;
+    //qDebug() << "CTYPage::slotStopProgressBar" << endl;
     progressBar->reset();
     progressBar->setRange(0,1);
     progressBar->setValue(1);

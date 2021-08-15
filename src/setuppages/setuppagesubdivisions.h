@@ -45,8 +45,8 @@ public:
     int getSelectedLog();
     void setSelectedLog(const int _i);
     void createNewLog();
-    void setDefaultStationCallsign (const QString &_p);
-    void setDefaultOperators(const QString &_p);
+    void setDefaultStationCallsign (const QString _p);
+    void setDefaultOperators(const QString _p);
 
 
 private slots:
@@ -66,7 +66,7 @@ private slots:
 signals:
    //void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     //void newLogData(const QStringList _qs); // Station QRZ + Operators to be shown in the main tab
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
     void focusOK();
 
 private:
@@ -79,7 +79,7 @@ private:
     //bool addNewLog(const QStringList _qs);
     void updateSelectedLogs();
     //void readSelectedLog(const int _i);
-    void showError(const QString &_errorC);
+    void showError(const QString _errorC);
 
     /* Wizard to create a new log*/
 
