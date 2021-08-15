@@ -41,7 +41,7 @@ KlogConfig::~KlogConfig()
 
 bool KlogConfig::old2newMigrationSuccess()
 {
-    qDebug() << "KlogConfig::old2newMigrationSuccess - START" << endl;
+    qDebug() << "KlogConfig::old2newMigrationSuccess - START";
 
     QString oldconfig = Utilities::getHomeDir() +
 #if defined(Q_OS_WIN)
@@ -52,7 +52,7 @@ bool KlogConfig::old2newMigrationSuccess()
 
     if (!QFile::exists(oldconfig))
     {
-        qDebug() << "KlogConfig::old2newMigrationSuccess - " << oldconfig << " does not exists - END" << endl;
+        qDebug() << "KlogConfig::old2newMigrationSuccess - " << oldconfig << " does not exists - END";
         //old config does not exists
         return false;
     }
@@ -60,7 +60,7 @@ bool KlogConfig::old2newMigrationSuccess()
     QFile file(oldconfig);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qDebug() << "KlogConfig::old2newMigrationSuccess - " << oldconfig << " cannot open - END" << endl;
+        qDebug() << "KlogConfig::old2newMigrationSuccess - " << oldconfig << " cannot open - END";
         //cannot open file
         return false;
     }
@@ -77,13 +77,13 @@ bool KlogConfig::old2newMigrationSuccess()
 
     file.close();
 
-    qDebug() << "KlogConfig::old2newMigrationSuccess - END" << endl;
+    qDebug() << "KlogConfig::old2newMigrationSuccess - END";
     return true;
 }
 
 void KlogConfig::processOldConfigLine(const QString &_line)
 {
-    qDebug() << "KlogConfig::ProcessOldConfigLine - ["<< _line << "] - START" << endl;
+    qDebug() << "KlogConfig::ProcessOldConfigLine - ["<< _line << "] - START";
 
     QString line = _line.simplified();
 
@@ -99,7 +99,7 @@ void KlogConfig::processOldConfigLine(const QString &_line)
 
     QStringList config_values;
     config_values.clear();
-    config_values << line.split("=", QString::SkipEmptyParts);
+    config_values << line.split("=", Qt::SkipEmptyParts);
 
     if (config_values.length() != 2)
     {
@@ -110,7 +110,7 @@ void KlogConfig::processOldConfigLine(const QString &_line)
     QString config_value = config_values.at(1);
     config_value = config_value.remove(";");
 
-    qDebug() << "KlogConfig::ProcessOldConfigLine [1:" << field << ", 2:" << config_value << "]" << endl;
+    qDebug() << "KlogConfig::ProcessOldConfigLine [1:" << field << ", 2:" << config_value << "]";
 
     if (field == "CALLSIGN")  setValue("userdata/callsign", config_value.toUpper());
     else if (field == "OPERATORS") setValue("userdata/operators", config_value);
@@ -134,8 +134,8 @@ void KlogConfig::processOldConfigLine(const QString &_line)
     else if (field == "ANTENNA1") setValue("userdata/antenna1", config_value);
     else if (field == "ANTENNA2") setValue("userdata/antenna2", config_value);
     else if (field == "ANTENNA3") setValue("userdata/antenna3", config_value);
-    else if (field == "MODES") setValue("userdata/modes", config_value.split(", ", QString::SkipEmptyParts));
-    else if (field == "BANDS") setValue("userdata/bands", config_value.split(", ", QString::SkipEmptyParts));
+    else if (field == "MODES") setValue("userdata/modes", config_value.split(", ", Qt::SkipEmptyParts));
+    else if (field == "BANDS") setValue("userdata/bands", config_value.split(", ", Qt::SkipEmptyParts));
     else if (field == "REALTIME"  // generic false / true mapping
              || field == "USEDEFAULTNAME"
              || field == "IMPERIALSYSTEM"
@@ -222,7 +222,7 @@ void KlogConfig::processOldConfigLine(const QString &_line)
         setValue(field.toLower(), config_value);
     }
 
-    qDebug() << "KlogConfig::ProcessOldConfigLine - END" << endl;
+    qDebug() << "KlogConfig::ProcessOldConfigLine - END";
 
     return;
 }
