@@ -31,7 +31,7 @@
 
 SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageColors::SetupPageColors" << Qt::endl;
+       //qDebug() << "SetupPageColors::SetupPageColors" << endl;
 
     newOneColorButton = new QPushButton;
     neededColorButton = new QPushButton;
@@ -93,7 +93,7 @@ SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)
 
     setDefaultColors();
 
-       //qDebug() << "SetupPageColors::SetupPageColors - END" << Qt::endl;
+       //qDebug() << "SetupPageColors::SetupPageColors - END" << endl;
 }
 
 SetupPageColors::~SetupPageColors()
@@ -120,7 +120,7 @@ void SetupPageColors::setWSJTXColors()
 
 void SetupPageColors::slotNewOneColorButtonClicked()
 {
-       //qDebug()  << "SetupPageColors::slotNewOneColorButtonClicked " << Qt::endl;
+       //qDebug()  << "SetupPageColors::slotNewOneColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(newOneColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -129,7 +129,7 @@ void SetupPageColors::slotNewOneColorButtonClicked()
 
 void SetupPageColors::slotNeededColorButtonClicked ()
 {
-       //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << Qt::endl;
+       //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(neededColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -139,7 +139,7 @@ void SetupPageColors::slotNeededColorButtonClicked ()
 
 void SetupPageColors::slotWorkedColorButtonClicked ()
 {
-       //qDebug()  << "SetupPageColors::slotWorkedColorButtonClicked " << Qt::endl;
+       //qDebug()  << "SetupPageColors::slotWorkedColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(workedColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -149,7 +149,7 @@ void SetupPageColors::slotWorkedColorButtonClicked ()
 
 void SetupPageColors::slotConfirmedColorButtonClicked ()
 {
-       //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << Qt::endl;
+       //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(confirmedColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -158,7 +158,7 @@ void SetupPageColors::slotConfirmedColorButtonClicked ()
 
 void SetupPageColors::slotDefaultColorButtonClicked()
 {
-       //qDebug()  << "SetupPageColors::slotDefaultColorButtonClicked " << Qt::endl;
+       //qDebug()  << "SetupPageColors::slotDefaultColorButtonClicked " << endl;
     QString style = "* { background-color: ";
     style = style + (giveColor(defaultColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
@@ -174,12 +174,12 @@ QColor SetupPageColors::giveColor (QColor c)
   color = QColorDialog::getColor (color, this, tr("Choose a color"));
   if (color.isValid ())
     {
-            //qDebug()  << "SetupPageColors::giveColor valid color: " << color.name() << Qt::endl;
+            //qDebug()  << "SetupPageColors::giveColor valid color: " << color.name() << endl;
       return color;
     }
   else
     {
-           //qDebug()  << "SetupPageColors::giveColor NOT valid color" << Qt::endl;
+           //qDebug()  << "SetupPageColors::giveColor NOT valid color" << endl;
       return colorb;
     }
 
@@ -187,7 +187,7 @@ QColor SetupPageColors::giveColor (QColor c)
 
 QString SetupPageColors::getNewOneColor()
 {
-       //qDebug()  << "SetupPageColors::getNewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name() << Qt::endl;
+       //qDebug()  << "SetupPageColors::getNewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name() << endl;
     return (newOneColorButton->palette().color(QPalette::Button)).name();
 }
 
@@ -302,13 +302,13 @@ void SetupPageColors::slotSetDarkMode()
     }
 }
 
-QString SetupPageColors::getDarkMode(){
+bool SetupPageColors::getDarkMode(){
 
-    return util->boolToQString(darkMode);
+    return darkMode;
 }
 
-void SetupPageColors::setDarkMode(const QString &_dm)
+void SetupPageColors::setDarkMode(const bool _dm)
 {
-    darkMode = !util->trueOrFalse(_dm);
+    darkMode = !_dm;
     slotSetDarkMode();
 }

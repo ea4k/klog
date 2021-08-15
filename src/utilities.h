@@ -44,7 +44,7 @@ class Utilities
 public:
     Utilities();
     ~Utilities();
-    void setDarkMode(const QString &_dm);
+    void setDarkMode(const bool _dm);
     bool isDarkMode();
     bool darkMode;
     int getProgresStepForDialog(int totalSteps);
@@ -65,8 +65,7 @@ public:
     bool isDBFileExisting(const QString &_file);
     QString getTQSLsFileName();
     QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
-    QString getHomeDir();
-    QString getCfgFile();
+    static QString getHomeDir();
     QString getCTYFile();
     QString getDebugLogFile();
     QString getSaveSpotsLogFile();
@@ -81,8 +80,6 @@ public:
 
     QDate getDefaultDate();
     QString getDefaultRST(const QString &_m);
-    QStringList getDefaultLogFields();
-
     int getNormalizedDXCCValue(const int _dxcc);
 
     // Validations
@@ -95,7 +92,6 @@ public:
     bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);
     bool isValidGrid(const QString &_b);
-    bool isValidVUCCGrids(const QString &_b);
     bool isValidRST(const QString &_b);
     bool isValidPower(const QString &_b);
     bool isValidComment(const QString &_b);
@@ -123,8 +119,6 @@ public:
     QTime getTimeFromSQLiteString(const QString &_s);
     QDate getDateFromSQliteString(const QString &_s);
 
-    // Translate the LOG table fields into human readable
-    QString getLogColumnName(const QString &_column);
 
     // Creates the ADIF DATE & TIME formats
     QString getADIFDateFromQDateTime(const QDateTime &_d);  // Will produce the ADIF DATE format: "YYYYMMDD"
@@ -145,7 +139,6 @@ public:
     QString getOnlineServiceName(OnLineProvider _service);
     //QPalette getPalete(bool _ok);
 private:
-    bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);

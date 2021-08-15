@@ -59,7 +59,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 }
 
 SetupPageUDP::~SetupPageUDP(){
-       //qDebug() << "SetupPageUDP::~SetupPageUDP" << Qt::endl;
+       //qDebug() << "SetupPageUDP::~SetupPageUDP" << endl;
 }
 
 void SetupPageUDP::createUI()
@@ -147,16 +147,16 @@ void SetupPageUDP::createUI()
 
 void SetupPageUDP::createActions()
 {
-    connect(logFromWSJTXCheckbox, SIGNAL(clicked()), this, SLOT(slotLogFromWSJTCheckBoxClicked() ) );
+    connect(logFromWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotLogFromWSJTCheckBoxClicked() ) );
     //connect(logAutomaticallyWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotAutoLogFromWSJTCheckBoxClicked() ) );
     //connect(realDataFromWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotRealFromWSJTCheckBoxClicked() ) );
-    connect(UDPServerCheckBox, SIGNAL(clicked()), this, SLOT(slotUDPServerCheckBoxClicked() ) );
+    connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
 }
 
 void SetupPageUDP::slotUDPServerCheckBoxClicked()
  {
-       //qDebug() << "SetupPageUDP::slotUDPServerCheckBoxClicked" << Qt::endl;
+       //qDebug() << "SetupPageUDP::slotUDPServerCheckBoxClicked" << endl;
 
     if (UDPServerCheckBox->isChecked())
     {
@@ -205,7 +205,7 @@ void SetupPageUDP::fillNetworkInterfaceComboBox()
 
 void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 {
-       //qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked" << Qt::endl;
+       //qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked" << endl;
     if (logFromWSJTXCheckbox->isChecked())
     {
         logAutomaticallyWSJTXCheckbox->setEnabled(true);
@@ -218,15 +218,15 @@ void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 }
 
 
-QString SetupPageUDP::getUDPServer()
+bool SetupPageUDP::getUDPServer()
 {
-    return util->boolToQString(UDPServerCheckBox->isChecked());
+    return UDPServerCheckBox->isChecked();
 }
 
-void SetupPageUDP::setUDPServer(const QString &_t)
+void SetupPageUDP::setUDPServer(const bool &_t)
 {
-       //qDebug() << "SetupPageUDP::setUDPServer: "  << t << Qt::endl;
-    UDPServerCheckBox->setChecked(util->trueOrFalse(_t));
+       //qDebug() << "SetupPageUDP::setUDPServer: "  << t << endl;
+    UDPServerCheckBox->setChecked(_t);
     slotUDPServerCheckBoxClicked();
 }
 
@@ -283,35 +283,35 @@ QString SetupPageUDP::getTimeout()
     }
 }
 
-QString SetupPageUDP::getLogFromWSJTx()
+bool SetupPageUDP::getLogFromWSJTx()
 {
-    return util->boolToQString(logFromWSJTXCheckbox->isChecked());
+    return logFromWSJTXCheckbox->isChecked();
 }
 
-QString SetupPageUDP::getAutoLogFromWSJTx()
+bool SetupPageUDP::getAutoLogFromWSJTx()
 {
-    return  util->boolToQString(logAutomaticallyWSJTXCheckbox->isChecked());
+    return  logAutomaticallyWSJTXCheckbox->isChecked();
 }
 
-QString SetupPageUDP::getReaDataFromWSJTx()
+bool SetupPageUDP::getReaDataFromWSJTx()
 {
-    return util->boolToQString(realDataFromWSJTXCheckbox->isChecked());
+    return realDataFromWSJTXCheckbox->isChecked();
 }
 
-void SetupPageUDP::setLogFromWSJTx(const QString &_t)
+void SetupPageUDP::setLogFromWSJTx(const bool &_t)
 {
-    logFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    logFromWSJTXCheckbox->setChecked(_t);
     slotLogFromWSJTCheckBoxClicked();
 }
 
-void SetupPageUDP::setAutoLogFromWSJTx(const QString &_t)
+void SetupPageUDP::setAutoLogFromWSJTx(const bool &_t)
 {
-    logAutomaticallyWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    logAutomaticallyWSJTXCheckbox->setChecked(_t);
 }
 
-void SetupPageUDP::setReaDataFromWSJTx(const QString &_t)
+void SetupPageUDP::setReaDataFromWSJTx(const bool &_t)
 {
-    realDataFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    realDataFromWSJTXCheckbox->setChecked(_t);
 }
 
 QString SetupPageUDP::getNetworkInterface()
@@ -328,15 +328,15 @@ QString SetupPageUDP::getNetworkInterface()
 
 void SetupPageUDP::setNetworkInterface(const QString &_t)
 {
-    //qDebug() << "SetupPageUDP::setNetworkInterface: " << _t << Qt::endl;
+    //qDebug() << "SetupPageUDP::setNetworkInterface: " << _t << endl;
     if (networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith) >= 0)
     {
-        //qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t << Qt::endl;
+        //qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t << endl;
        networkInterfacesComboBox->setCurrentIndex(networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith));
     }
     else
     {
-        //qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t << Qt::endl;
+        //qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t << endl;
         networkInterfacesComboBox->setCurrentIndex(0);
     }
 }

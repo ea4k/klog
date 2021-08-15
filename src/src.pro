@@ -74,6 +74,7 @@ HEADERS += setupdialog.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
+    klogconfig.h \
     inputwidgets/mainwindowinputqso.h \
     inputwidgets/mainwindowinputcomment.h \
     inputwidgets/mainwindowmydatatab.h \
@@ -161,6 +162,7 @@ SOURCES += main.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
+    klogconfig.cpp \
     inputwidgets/mainwindowinputqso.cpp \
     inputwidgets/mainwindowinputcomment.cpp \
     inputwidgets/mainwindowmydatatab.cpp \

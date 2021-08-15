@@ -37,15 +37,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#define FILPATHLEN 100
 // Potential fix of hamlib 4.2 migration
 #ifndef HAMLIB_FILPATHLEN
 #define HAMLIB_FILPATHLEN FILEPATHLEN
 #endif
-
-#ifndef FILPATHLEN
-#define FILPATHLEN 100
-#endif
-
 
 class HamLibClass : public QObject
 {

@@ -43,17 +43,16 @@
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
-
+#include "klogconfig.h"
 
 int main(int argc, char *argv[])
 {
-    //qDebug() << "KLog Main: Start! " << Qt::endl;
-    //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << Qt::endl;
-    QT_REQUIRE_VERSION(argc, argv, "5.15")
+    //qDebug() << "KLog Main: Start! " << endl;
+    //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << endl;
+    QT_REQUIRE_VERSION(argc, argv, "5.11")
     QDir d1 = QDir();
-    QString version = "1.8";
-    //qDebug() << "KLog Main STARTED: " << version << Qt::endl;
-    Utilities util = Utilities();
+    QString version = "1.6.1";
+    //qDebug() << "KLog Main STARTED: " << version << endl;
     QStringList arguments;
     QTextStream cout(stdout);
     QCoreApplication::setOrganizationName("EA4K");
@@ -69,7 +68,7 @@ int main(int argc, char *argv[])
     //QApplication app(argc, argv);
     app.setApplicationName(QString("KLog"));
     app.setApplicationVersion(QString(version));
-    //qDebug() << "KLog Main: -10 " << Qt::endl;
+    //qDebug() << "KLog Main: -10 " << endl;
     // Now we check if the user is executing from the command line
     arguments.clear();
     arguments << app.arguments();
@@ -77,39 +76,39 @@ int main(int argc, char *argv[])
     {
         if (arguments.contains("-h"))
         {
-            //cout << "Usage: klog [OPTION]... [FILE]..." << Qt::endl;
-            cout << "Usage: klog [OPTION]..." << Qt::endl;
-            cout << "Options:" << Qt::endl;
-            cout << "     -?           Display this help" << Qt::endl;
-            cout << "     -h           Display this help" << Qt::endl;
-            cout << "     -v           Display program version" << Qt::endl;
-            //cout << "     -e <file>    Export Adif file <file>" << Qt::endl;
+            //cout << "Usage: klog [OPTION]... [FILE]..." << endl;
+            cout << "Usage: klog [OPTION]..." << endl;
+            cout << "Options:" << endl;
+            cout << "     -?           Display this help" << endl;
+            cout << "     -h           Display this help" << endl;
+            cout << "     -v           Display program version" << endl;
+            //cout << "     -e <file>    Export Adif file <file>" << endl;
         }
         else if (arguments.contains("-?"))
         {
-            cout << "Usage: klog [OPTION]..." << Qt::endl;
-            cout << "Options:" << Qt::endl;
-            cout << "     -?           Display this help" << Qt::endl;
-            cout << "     -h           Display this help" << Qt::endl;
-            cout << "     -v           Display program version" << Qt::endl;
+            cout << "Usage: klog [OPTION]..." << endl;
+            cout << "Options:" << endl;
+            cout << "     -?           Display this help" << endl;
+            cout << "     -h           Display this help" << endl;
+            cout << "     -v           Display program version" << endl;
         }
         else if (arguments.contains("-v"))
         {
-            cout << "Version: KLog-" << app.applicationVersion() << Qt::endl;
+            cout << "Version: KLog-" << app.applicationVersion() << endl;
         }
         else
         {
-            cout << "Usage: klog [OPTION]..." << Qt::endl;
-            cout << "Options:" << Qt::endl;
-            cout << "     -?           Display this help" << Qt::endl;
-            cout << "     -h           Display this help" << Qt::endl;
-            cout << "     -v           Display program version" << Qt::endl;
+            cout << "Usage: klog [OPTION]..." << endl;
+            cout << "Options:" << endl;
+            cout << "     -?           Display this help" << endl;
+            cout << "     -h           Display this help" << endl;
+            cout << "     -v           Display program version" << endl;
         }
         app.quit();
         return 0;
     }
-    //qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
-    //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()).left(2) << ".qm" << Qt::endl;
+    //qDebug() << "KLog Main: Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
+    //qDebug() << "KLog Main: Detected language: " << (QLocale::system().name()).left(2) << ".qm" << endl;
     // Translations begin
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)); /* Flawfinder: ignore */
@@ -120,8 +119,8 @@ int main(int argc, char *argv[])
     //QString msgOSFilePath = QString();        // The OS depending part of the message to be printed if no translation is found.
 
     #if defined(Q_OS_WIN)
-        //qDebug() << "KLog WIN " << Qt::endl;
-        //qDebug() << "KLog Main: -20 - WIN" << Qt::endl;
+        //qDebug() << "KLog WIN " << endl;
+        //qDebug() << "KLog Main: -20 - WIN" << endl;
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
@@ -138,9 +137,9 @@ int main(int argc, char *argv[])
             missingTranslation = true;
             //msgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
         }
-      //qDebug() << "KLog Main: -20 - end WIN " << Qt::endl;
+      //qDebug() << "KLog Main: -20 - end WIN " << endl;
     #elif defined(Q_OS_OSX)
-    //qDebug() << "KLog OSX " << Qt::endl;
+    //qDebug() << "KLog OSX " << endl;
 
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" +  (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
@@ -155,19 +154,19 @@ int main(int argc, char *argv[])
             missingTranslation = true;
         }
     #else
-           //qDebug() << "KLog OTHER OS: " << (QLocale::system()).name() << Qt::endl;
+           //qDebug() << "KLog OTHER OS: " << (QLocale::system()).name() << endl;
         if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
             myappTranslator.load("klog_" + (QLocale::system().name()).left(2)); /* Flawfinder: ignore */
         }
         else if (QFile::exists("/usr/share/klog/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-               //qDebug() << "KLog OTHER -2: " << "/usr/share/klog/klog_" + (QLocale::system().name()).left(2) << Qt::endl; /* Flawfinder: ignore */
+               //qDebug() << "KLog OTHER -2: " << "/usr/share/klog/klog_" + (QLocale::system().name()).left(2) << endl; /* Flawfinder: ignore */
             myappTranslator.load("/usr/share/klog/translations/klog_" + (QLocale::system().name()));  /* Flawfinder: ignore */
         }
         else if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm")) /* Flawfinder: ignore */
         {
-            //qDebug() << "KLog OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) << Qt::endl;
+            //qDebug() << "KLog OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) << endl;
             myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name())); /* Flawfinder: ignore */
         }
 
@@ -182,10 +181,10 @@ int main(int argc, char *argv[])
         }
 
     #endif
-    //qDebug() << "KLog Main: -40 " << Qt::endl;
+    //qDebug() << "KLog Main: -40 " << endl;
     if (missingTranslation)
         {
-            //qDebug() << "KLog Main: Translation missing! " << Qt::endl;
+            //qDebug() << "KLog Main: Translation missing! " << endl;
             QMessageBox msgBox;
             QString urlTranslate = QString();
             urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
@@ -208,10 +207,10 @@ int main(int argc, char *argv[])
 
         }
 
-    //qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << Qt::endl;
+    //qDebug() << "KLog Main-1" << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
 
     app.installTranslator(&myappTranslator);
-    //qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+    //qDebug() << "KLog Main: End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss") << endl;
     // Traslations end
 
     /* Application Singleton
@@ -266,56 +265,73 @@ int main(int argc, char *argv[])
 
     // END OF Application Singleton
 
-    QString configFileName, klogDir;
+    QString klogDir = Utilities::getHomeDir();
 
-    klogDir = util.getHomeDir();
-    configFileName = util.getCfgFile();
-
-    //qDebug() << "KLog Main-10" << Qt::endl;
-
-    //qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< Qt::endl;;
+    //qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< endl;;
     if (!QDir::setCurrent (klogDir) )
     {
-        //qDebug() << "MAIN:  KLogDir does not exist.... creating " << Qt::endl;
+        //qDebug() << "MAIN:  KLogDir does not exist.... creating " << endl;
         if (d1.mkdir(klogDir))
         {
             if (QDir::setCurrent (klogDir) )
             {
-                    //qDebug() << "MAIN:  KLogDir has just been created and pointed " << Qt::endl;
+                    //qDebug() << "MAIN:  KLogDir has just been created and pointed " << endl;
             }
             else
             {
-                    //qDebug() << "MAIN:  KLogDir has just been created and pointed FAILED! " << Qt::endl;
+                    //qDebug() << "MAIN:  KLogDir has just been created and pointed FAILED! " << endl;
             }
         }
         else
         {
-                //qDebug() << "MAIN:  KLogDir can not be created?? " << Qt::endl;
+                //qDebug() << "MAIN:  KLogDir can not be created?? " << endl;
         }
     }
     else
     {
-        //qDebug() << "MAIN:  KLogDir already existed!! " << Qt::endl;
+        //qDebug() << "MAIN:  KLogDir already existed!! " << endl;
     }
-    //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+    //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
-    //qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << Qt::endl;
+    //qDebug() << "KLog Main: Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
     QPixmap pixmap(":img/klog_512x512.png");
-    //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+    //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
     QSplashScreen splash(pixmap);
-    if(!QFile::exists(configFileName))
+
+    KlogConfig config;
+
+    // to find out whether config file is exist, try to query it for basic element - version 
+    if(!config.contains("version"))
     {
-        //qDebug() << "MAIN:  Starting wizard... " << Qt::endl;
+        //configure file does not exist
+
+        //try to migrate old config to new format, if exists 
+        if(!config.old2newMigrationSuccess())
+        {
+            //does not exists or error - Starting wizard
+            StartWizard *wizard = new StartWizard(klogDir, version);
+            wizard->setModal(true);
+            wizard->exec();
+        }
+
+        MainWindow mw(klogDir, version);
+        mw.init();
+        splash.finish(&mw);
+        mw.show();
+        return app.exec();
+
+#if 0 //inMemory is always 1, only inMemory ==1 branch is always executed (wizard); wizard is above
+        //qDebug() << "MAIN:  Starting wizard... " << endl;
 
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         int inMemory = wizard->exec();
-        //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << Qt::endl;
+        //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << endl;
         inMemory = 1;
 
         if (inMemory == 1)
         {
-            //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << Qt::endl;
+            //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << endl;
             MainWindow mw(klogDir, version);
             mw.init();
             splash.finish(&mw);
@@ -327,7 +343,7 @@ int main(int argc, char *argv[])
 
         else
         {
-               //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << Qt::endl;
+               //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << endl;
 
             QMessageBox msgBox;
             msgBox.setText(QObject::tr("Install wizard was canceled before completing..."));
@@ -369,28 +385,35 @@ int main(int argc, char *argv[])
             }
             return 0;
         }
+#endif
     }
-
     else
     {
-            //qDebug() << "Main: Start of DB Activities" << Qt::endl;
-        DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-           //qDebug() << "Main: After Start of DB Activities" << Qt::endl;
+        // configuration file exists
+            
+        //qDebug() << "Main: Start of DB Activities" << endl;
+        QString db_dir = config.value("dbpath",
+                                      Utilities::getHomeDir()).toString();
+
+        qDebug() << "Main: db_dir: " << db_dir << endl;
+
+        DataBase *db = new DataBase(Q_FUNC_INFO, version, db_dir.append("/logbook.dat"));
+           //qDebug() << "Main: After Start of DB Activities" << endl;
         if (!db->createConnection(Q_FUNC_INFO))
         {
-                //qDebug() << "Main: Conection not created" << Qt::endl;
+                //qDebug() << "Main: Conection not created" << endl;
             return -1; // Exits with an error; no DB has been created
         }
         else
         {
-            //qDebug() << "Main: DB to be updated" << Qt::endl;
+            //qDebug() << "Main: DB to be updated" << endl;
             db->updateIfNeeded(); // Check if we need to update the DB
-            //qDebug() << "Main: DB Updated" << Qt::endl;
+            //qDebug() << "Main: DB Updated" << endl;
         }
         db->~DataBase();
 
         splash.show();
-          //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+          //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         MainWindow mw(klogDir, version);
 
         mw.init();
@@ -398,16 +421,16 @@ int main(int argc, char *argv[])
         mw.checkIfNewVersion();
         mw.recommendBackupIfNeeded();
 
-            //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+            //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
         mw.show();
-            //qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+            //qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
-           //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+           //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
 
         return app.exec();
-           //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
+           //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << endl;
     }
-       //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << Qt::endl;
+       //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << endl;
 
     //return app.exec();
 }
