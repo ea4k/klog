@@ -5,10 +5,14 @@ branches:
 matrix:
   include:
   - os: linux
+    services:
+    - docker
+    
     arch: amd64
     sudo: required
     dist: focal
     before_install:
+      - docker pull ea4k/qt-ubuntu-5.15.2
       - sudo apt-get update
       - sudo apt-get -y install qtbase5-dev libsqlite3-dev
       - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
