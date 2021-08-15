@@ -43,6 +43,9 @@ public:
     void setBackup(const bool _rt);
     bool getBackup();
 
+    void setModifying(const bool _mod);
+    bool getModifying();
+
     bool setData(const QString &_adifPair);
     void clear();
     bool isValid();
@@ -98,19 +101,19 @@ public:
     QString getQSL_SENT();
     bool setQSLSDate(const QDate &_c);
     QDate getQSLSDate();
-    bool setQSLSenVia(const QString _qs);
+    bool setQSLSenVia(const QString &_qs);
     QString getSentVia();
 
     bool setQSL_RCVD(const QString &_c);
     QString getQSL_RCVD();
     bool setQSLRDate(const QDate &_c);
     QDate getQSLRDate();
-    bool setQSLRecVia(const QString _qs);
+    bool setQSLRecVia(const QString &_qs);
     QString getRecVia();
 
-    bool setQSLVia(const QString _qs);
+    bool setQSLVia(const QString &_qs);
     QString getQSLVia();
-    bool setQSLMsg(const QString _qs);
+    bool setQSLMsg(const QString &_qs);
     QString getQSLMsg();
 
 
@@ -156,18 +159,15 @@ public:
     QString getPropMode();
     bool setSOTA_REF(const QString &_c);
     QString getSOTA_REF();
-    bool setMySOTA_REF(const QString &_c);
-    QString getMySOTA_REF();
-    bool setMyRig(const QString &_c);
-    QString getMyRig();
-    bool setMyAntenna(const QString &_c);
-    QString getMyAntenna();
     double setAge(const double _c);
     double getAge();
     bool setIOTA(const QString &_c);
     QString getIOTA();
     bool setKeepOthers(bool _k);
     bool getKeepOthers();
+    bool setVUCCGrids(const QString &_c);
+    QString getVUCCGrids();
+
 
     // My data Tab
     bool setTXPwr(const double _f);
@@ -180,6 +180,14 @@ public:
     QString getMyGridSquare();
     bool setKeepMyData(bool _k);
     bool getKeepMyData();
+    bool setMySOTA_REF(const QString &_c);
+    QString getMySOTA_REF();
+    bool setMyRig(const QString &_c);
+    QString getMyRig();
+    bool setMyAntenna(const QString &_c);
+    QString getMyAntenna();
+    bool setMyVUCCGrids(const QString &_c);
+    QString getMyVUCCGrids();
 
     // Satellite Tab
     bool setSatName(const QString &_c);
@@ -205,7 +213,7 @@ private:
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age;
-    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
     QString clublog_status;
     QDate clublogDate;
@@ -214,7 +222,7 @@ private:
     QString QRZCom_status;
     QDate QRZComDate;
     QString comment;
-    bool keepComment, keepOther, keepMyData, keepSat;
+    bool keepComment, keepOther, keepMyData, keepSat, modifying;
 
     QString iota;
 

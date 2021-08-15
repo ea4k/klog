@@ -30,12 +30,12 @@
 MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << endl;
+       //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << Qt::endl;
     commentLineEdit = new QLineEdit();
     keepThisDataForNextQSOQCheckbox = new QCheckBox;
     comment.clear();
     createUI();
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << endl;
+       //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << Qt::endl;
 }
 
 
@@ -62,6 +62,7 @@ void MainWindowInputComment::createUI()
     tabLayout->addWidget(commentLineEdit, 0, 1);
     tabLayout->addWidget(keepLabel, 2, 1);
     tabLayout->addWidget(keepThisDataForNextQSOQCheckbox, 2, 2);
+    //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
 }
 
@@ -76,12 +77,16 @@ QString MainWindowInputComment::getComment()
     return commentLineEdit->text();
 }
 
-void MainWindowInputComment::clear()
+void MainWindowInputComment::clear(bool _full)
 {
-    if (!keepThisDataForNextQSOQCheckbox->isChecked())
+    if ((!keepThisDataForNextQSOQCheckbox->isChecked()) || _full)
     {
         comment.clear();
         commentLineEdit->clear();
+    }
+    if (_full)
+    {
+        keepThisDataForNextQSOQCheckbox->setChecked (false);
     }
 }
 

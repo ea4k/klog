@@ -32,7 +32,7 @@
 
 SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew"   << endl;
+      //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew"   << Qt::endl;
     dataProxy = dp;
     editing = false;
     checking = false;
@@ -103,12 +103,12 @@ SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *
 
     okButton->setEnabled(false);
 
-       //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew - END"   << endl;
+       //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew - END"   << Qt::endl;
 }
 
 void SetupPageSubdivisionNew::clear()
 {
-      //qDebug() << "SetupPageSubdivisionNew::Clear - Start"   << endl;
+      //qDebug() << "SetupPageSubdivisionNew::Clear - Start"   << Qt::endl;
     stationCallsignLineEdit->clear();
     operatorsLineEdit->clear();
     dateEdit->setDate(QDate::currentDate ());
@@ -131,12 +131,12 @@ void SetupPageSubdivisionNew::clear()
     contestBands = 0;
     contestCatOverlay = 0;
     typeContestSelected = 0;*/
-      //qDebug() << "SetupPageSubdivisionNew::Clear - END"   << endl;
+      //qDebug() << "SetupPageSubdivisionNew::Clear - END"   << Qt::endl;
 }
 
 void SetupPageSubdivisionNew::createWidget()
 {
-      //qDebug() << "SetupPageSubdivisionNew::createWidget - Start" << endl;
+      //qDebug() << "SetupPageSubdivisionNew::createWidget - Start" << Qt::endl;
 
     stationCallsignLabel->setWordWrap(true);
     operatorsLabel->setWordWrap(true);
@@ -177,7 +177,7 @@ void SetupPageSubdivisionNew::createWidget()
     _qs.clear();
     _qs.append(dataProxy->getContestNames());
     typeComboBox->addItems(_qs);
-       //qDebug() << "SetupPageSubdivisionNew::createWidget - contestNames: " << _qs.at(0) << endl;
+       //qDebug() << "SetupPageSubdivisionNew::createWidget - contestNames: " << _qs.at(0) << Qt::endl;
 
     catModeLabel->setText(tr("&Mode Category"));
     catModeLabel->setWordWrap(true);
@@ -295,14 +295,14 @@ void SetupPageSubdivisionNew::createWidget()
     setLayout(mainLayout);
     clear();
     //page->setLayout(callsLayout);
-      //qDebug() << "SetupPageSubdivisionNew::createWidget - End" << endl;
+      //qDebug() << "SetupPageSubdivisionNew::createWidget - End" << Qt::endl;
 
 }
 
 
 void SetupPageSubdivisionNew::slotOperatorsTextChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotOperatorsTextChanged - Start" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotOperatorsTextChanged - Start" << Qt::endl;
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((operatorsLineEdit->text()).length()<1)
     {
@@ -328,12 +328,12 @@ void SetupPageSubdivisionNew::slotOperatorsTextChanged()
     {//TODO: Add a check of the format (comma separated)
         operatorsFilled= true;
     }
-      //qDebug() << "SetupPageSubdivisionNew::slotOperatorsTextChanged - End" << endl;
+      //qDebug() << "SetupPageSubdivisionNew::slotOperatorsTextChanged - End" << Qt::endl;
 }
 
 void SetupPageSubdivisionNew::slotStationCallSignTextChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotStationCallSignTextChanged" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotStationCallSignTextChanged" << Qt::endl;
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((stationCallsignLineEdit->text()).length()<1)
     {
@@ -361,13 +361,13 @@ void SetupPageSubdivisionNew::slotStationCallSignTextChanged()
         stationCallsignFilled = true;
     }
     showOK();
-      //qDebug() << "SetupPageSubdivisionNew::slotStationCallSignTextChanged - End" << endl;
+      //qDebug() << "SetupPageSubdivisionNew::slotStationCallSignTextChanged - End" << Qt::endl;
 }
 
 /*
 void SetupPageSubdivisionNew::slotTypeComboBoxChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotTypeComboBoxChanged" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotTypeComboBoxChanged" << Qt::endl;
 //    connect(typeComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotTypeComboBoxChanged() ) ) ;
 
 
@@ -397,7 +397,7 @@ void SetupPageSubdivisionNew::slotTypeComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotCatAssistedComboBoxChanged()
 {
-      //qDebug() << "SetupPageLogs:slotCatAssistedComboBoxChanged: " << QString::number(contestCatAssistedComboBox->currentIndex())  << endl;
+      //qDebug() << "SetupPageLogs:slotCatAssistedComboBoxChanged: " << QString::number(contestCatAssistedComboBox->currentIndex())  << Qt::endl;
 //connect(contestCatAssistedComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatAssistedComboBoxChanged() ) ) ;
 
    contestCatMode = contestCatModeComboBox->currentIndex();
@@ -425,7 +425,7 @@ void SetupPageSubdivisionNew::slotCatAssistedComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotCatOperatorsComboBoxChanged()
 {
-      //qDebug() << "SetupPageSubdivisionNew::slotCatOperatorsComboBoxChanged(): " << QString::number(contestCatOperatorsComboBox->currentIndex())  << endl;
+      //qDebug() << "SetupPageSubdivisionNew::slotCatOperatorsComboBoxChanged(): " << QString::number(contestCatOperatorsComboBox->currentIndex())  << Qt::endl;
 
    contestCatMode = contestCatModeComboBox->currentIndex();
    contestCatBands = contestCatBandsComboBox->currentIndex();
@@ -452,7 +452,7 @@ void SetupPageSubdivisionNew::slotCatOperatorsComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotCatPowerComboBoxChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotCatPowerComboBoxChanged(): " << QString::number(contestCatPowerComboBox->currentIndex())  << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotCatPowerComboBoxChanged(): " << QString::number(contestCatPowerComboBox->currentIndex())  << Qt::endl;
 //connect(contestCatPowerComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatPowerComboBoxChanged() ) ) ;
 
     contestCatMode = contestCatModeComboBox->currentIndex();
@@ -480,7 +480,7 @@ void SetupPageSubdivisionNew::slotCatPowerComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotCatBandsComboBoxChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotCatBandsComboBoxChanged(): " << QString::number(contestCatBandsComboBox->currentIndex())  << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotCatBandsComboBoxChanged(): " << QString::number(contestCatBandsComboBox->currentIndex())  << Qt::endl;
 //connect(contestCatBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotCatBandsComboBoxChanged() ) ) ;
 
     contestCatMode = contestCatModeComboBox->currentIndex();
@@ -508,7 +508,7 @@ void SetupPageSubdivisionNew::slotCatBandsComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotBandsComboBoxChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotBandsComboBoxChanged(): " << QString::number(contestBandsComboBox->currentIndex()) << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotBandsComboBoxChanged(): " << QString::number(contestBandsComboBox->currentIndex()) << Qt::endl;
             //connect(contestBandsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotBandsComboBoxChanged() ) ) ;
 
 }
@@ -516,7 +516,7 @@ void SetupPageSubdivisionNew::slotBandsComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged()
 {
-        //qDebug() << "SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged(): " << QString::number(contestCatOverlayComboBox->currentIndex())  << endl;
+        //qDebug() << "SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged(): " << QString::number(contestCatOverlayComboBox->currentIndex())  << Qt::endl;
 
      contestCatMode = contestCatModeComboBox->currentIndex();
      contestCatBands = contestCatBandsComboBox->currentIndex();
@@ -527,7 +527,7 @@ void SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged()
      contestCatOverlay= contestCatOverlayComboBox->currentIndex();
 
      typeContest = getSelectedTypeContest();
-        //qDebug() << "SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged(): typeContest =  " << QString::number(typeContest)  << endl;
+        //qDebug() << "SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged(): typeContest =  " << QString::number(typeContest)  << Qt::endl;
 
      if (typeContest < 0)
      {
@@ -544,7 +544,7 @@ void SetupPageSubdivisionNew::slotCatOverlayComboBoxChanged()
 
 void SetupPageSubdivisionNew::slotCatModeComboBoxChanged()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotCatModeComboBoxChanged(): " << QString::number(contestCatModeComboBox->currentIndex())  << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotCatModeComboBoxChanged(): " << QString::number(contestCatModeComboBox->currentIndex())  << Qt::endl;
 
     contestCatMode = contestCatModeComboBox->currentIndex();
     contestCatBands = contestCatBandsComboBox->currentIndex();
@@ -555,7 +555,7 @@ void SetupPageSubdivisionNew::slotCatModeComboBoxChanged()
     contestCatOverlay= contestCatOverlayComboBox->currentIndex();
 
     typeContest = getSelectedTypeContest();
-       //qDebug() << "SetupPageSubdivisionNew::slotCatModeComboBoxChanged(): " << QString::number(typeContest)  << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotCatModeComboBoxChanged(): " << QString::number(typeContest)  << Qt::endl;
 
     if (typeContest < 0)
     {
@@ -573,7 +573,7 @@ void SetupPageSubdivisionNew::slotCatModeComboBoxChanged()
 void SetupPageSubdivisionNew::slotOKButtonClicked()
 {
 
-       //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked" << Qt::endl;
     stationCallsign = stationCallsignLineEdit->text();
     if (stationCallsign.length()<3)
     {
@@ -612,92 +612,92 @@ void SetupPageSubdivisionNew::slotOKButtonClicked()
 /*
     if (typeComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: type" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: type" << Qt::endl;
         typeContestSelected = typeComboBox->currentIndex();
         typeConteststr = typeComboBox->currentText();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: type" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: type" << Qt::endl;
         typeContestSelected = 0;
         typeConteststr = QString();
     }
 
     if (contestCatModeComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: mode" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: mode" << Qt::endl;
         contestCatMode = contestCatModeComboBox->currentIndex();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: mode" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: mode" << Qt::endl;
         contestCatMode = 0;
     }
 
     if (contestCatOperatorsComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: oper" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: oper" << Qt::endl;
        contestCatOperators = contestCatOperatorsComboBox->currentIndex();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: oper" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: oper" << Qt::endl;
         contestCatOperators = 0;
     }
 
     if (contestCatAssistedComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: ass" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: ass" << Qt::endl;
         contestCatAssisted = contestCatAssistedComboBox->currentIndex();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: ass" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: ass" << Qt::endl;
         contestCatAssisted = 0;
     }
 
     if (contestCatPowerComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: pwr" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: pwr" << Qt::endl;
         contestCatPower = contestCatPowerComboBox->currentIndex();
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: pwr - " << contestCatPowerComboBox->currentText() << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: pwr - " << contestCatPowerComboBox->currentText() << Qt::endl;
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: pwr" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: pwr" << Qt::endl;
          contestCatPower = 0;
     }
 
     if (contestCatBandsComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: Cbands" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: Cbands" << Qt::endl;
         contestCatBands = contestCatBandsComboBox->currentIndex();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: Cbands" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: Cbands" << Qt::endl;
         contestCatBands = 0;
     }
 
     if (contestBandsComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: bands" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: bands" << Qt::endl;
         contestBands = contestBandsComboBox->currentIndex();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: bands" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: bands" << Qt::endl;
         contestBands = 0;
     }
 
     if (contestCatOverlayComboBox->isEnabled())
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: over" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked ENA: over" << Qt::endl;
         contestCatOverlay = contestCatOverlayComboBox->currentIndex();
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: over" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked NOT ENA: over" << Qt::endl;
         contestCatOverlay = 0;
     }
 
@@ -723,7 +723,7 @@ void SetupPageSubdivisionNew::slotOKButtonClicked()
 
 void SetupPageSubdivisionNew::gatherAndSend()
 {
-        //qDebug() << "SetupPageSubdivisionNew::gatherAndSend: "  << endl;
+        //qDebug() << "SetupPageSubdivisionNew::gatherAndSend: "  << Qt::endl;
 
     // The following lines will be removed once more contest types have been added
     //contestCatMode = contestCatModeComboBox->currentIndex();
@@ -766,14 +766,14 @@ void SetupPageSubdivisionNew::gatherAndSend()
     //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
 
-       //qDebug() << "SetupPageSubdivisionNew::gatherAndSend: EMITED" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::gatherAndSend: EMITED" << Qt::endl;
     emit newLogData(logData);
 
 }
 
 void SetupPageSubdivisionNew::slotCancelButtonClicked()
 {
-       //qDebug() << "SetupPageSubdivisionNew::slotCancelButtonClicked" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::slotCancelButtonClicked" << Qt::endl;
     logData.clear();
     emit cancelled(true);
     setResult(QDialog::Rejected);
@@ -792,7 +792,7 @@ QStringList SetupPageSubdivisionNew::getValidCatOptions(const int _currentCat, c
 // 5 - contestcatoverlay
 // 6 - contestcatmode
 
-       //qDebug() << "SetupPageSubdivisionNew::getValidCatOptions: " << QString::number(_currentCat) <<"/"<< QString::number(_higherCat) << endl;
+       //qDebug() << "SetupPageSubdivisionNew::getValidCatOptions: " << QString::number(_currentCat) <<"/"<< QString::number(_higherCat) << Qt::endl;
     //return dataProxy->getValidCatOptions(_currentCat, _higherCat);
     return QStringList();
 }
@@ -889,32 +889,32 @@ void SetupPageSubdivisionNew::setEditing(const bool b)
 /*
 int SetupPageSubdivisionNew::getSelectedTypeContest()
 {
-       //qDebug() << "SetupPageSubdivisionNew::getSelectedTypeContest: " << endl;
+       //qDebug() << "SetupPageSubdivisionNew::getSelectedTypeContest: " << Qt::endl;
     //is/contest/catoperator/catassisted/catpower/catband/catoverlay/catmode
     int i = dataProxy->getContestTypeN(typeContestSelected, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestCatOverlay, contestCatMode);
-       //qDebug() << "SetupPageSubdivisionNew::getSelectedTypeContest: " << QString::number(i) << endl;
+       //qDebug() << "SetupPageSubdivisionNew::getSelectedTypeContest: " << QString::number(i) << Qt::endl;
     return i;
 
 }
 
 void SetupPageSubdivisionNew::setTypeN(const int _n)
 {
-       //qDebug() << "SetupPageSubdivisionNew::setTypeN: " << QString::number(_n) << endl;
+       //qDebug() << "SetupPageSubdivisionNew::setTypeN: " << QString::number(_n) << Qt::endl;
     typeContestSelected = _n;
     fillWithType(typeContestSelected);
 }
 
 void SetupPageSubdivisionNew::fillWithType(const int _n)
 {
-       //qDebug() << "SetupPageSubdivisionNew::fillWithType - n = " << QString::number(_n) << endl;
+       //qDebug() << "SetupPageSubdivisionNew::fillWithType - n = " << QString::number(_n) << Qt::endl;
     typeContestSelected = _n;
     QStringList contestData;
     contestData << dataProxy->getDataFromContestType(_n);
-       //qDebug() << "SetupPageSubdivisionNew::fillWithType-1 (length = " << QString::number(contestData.length()) << ")" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::fillWithType-1 (length = " << QString::number(contestData.length()) << ")" << Qt::endl;
     if (contestData.length()== 8)
     {
 
-           //qDebug() << "SetupPageSubdivisionNew::fillWithType-2" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::fillWithType-2" << Qt::endl;
         //setCOperators ((contestData.at(1)).toInt());
         //setCAssisted ((contestData.at(2)).toInt());
         //setCPower ((contestData.at(3)).toInt());
@@ -922,11 +922,11 @@ void SetupPageSubdivisionNew::fillWithType(const int _n)
         //setCMode ((contestData.at(5)).toInt());
         //setType(contestData.at(6));
         //setCBands((contestData.at(7)).toInt());
-           //qDebug() << "SetupPageSubdivisionNew::fillWithType: " << contestData.at(6) << endl;
+           //qDebug() << "SetupPageSubdivisionNew::fillWithType: " << contestData.at(6) << Qt::endl;
     }
     else
     {
-           //qDebug() << "SetupPageSubdivisionNew::fillWithType-3" << endl;
+           //qDebug() << "SetupPageSubdivisionNew::fillWithType-3" << Qt::endl;
         return;
     }
 
@@ -935,7 +935,7 @@ void SetupPageSubdivisionNew::fillWithType(const int _n)
 
 void SetupPageSubdivisionNew::updateAllCats()
 {
-       //qDebug() << "SetupPageSubdivisionNew::updateAllCats" << endl;
+       //qDebug() << "SetupPageSubdivisionNew::updateAllCats" << Qt::endl;
 
     contestCatMode = contestCatModeComboBox->currentIndex();
     contestCatBands = contestCatBandsComboBox->currentIndex();

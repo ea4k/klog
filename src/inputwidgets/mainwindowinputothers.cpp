@@ -30,7 +30,7 @@
 MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << endl;
+       //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << Qt::endl;
     entitiesList.clear();
     propModeList.clear();
     adifValidTypes.clear();
@@ -39,7 +39,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     propModeList = dataProxy->getPropModeList();
     sota_ref = QString();
     age = 0;
-
+    util = new Utilities;
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
     entityPrimDivComboBox = new QComboBox();
@@ -54,20 +54,20 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-    connect(propModeComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
-    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
+    connect(propModeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
+    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
     connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUSerData() ) );
 
     createUI();
     setInitialADIFValues ();
-       //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << endl;
+       //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << Qt::endl;
 }
 
 MainWindowInputOthers::~MainWindowInputOthers(){}
 
 void MainWindowInputOthers::createUI()
 {
-      //qDebug() << "MainWindowInputOthers::createUI" << endl;
+      //qDebug() << "MainWindowInputOthers::createUI" << Qt::endl;
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
@@ -108,12 +108,12 @@ void MainWindowInputOthers::createUI()
 
     QHBoxLayout *keepLayout = new QHBoxLayout;
     keepLayout->addWidget(propModeComboBox);
-    keepLayout->addWidget(keepPropCheckBox);
+    //keepLayout->addWidget(keepPropCheckBox);
+    keepLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     QGridLayout *tabLayout = new QGridLayout;
     tabLayout->addWidget(entityNameLabel, 0, 0);
     tabLayout->addWidget(entityNameComboBox, 0, 1, 1, 2);
-
     tabLayout->addWidget(entityPrimLabel, 1, 0);
     tabLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
     tabLayout->addWidget(entitySecLabel, 2, 0);
@@ -128,8 +128,8 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(userSelectLabel, 5, 0);
     tabLayout->addWidget(userDefinedADIFComboBox, 5, 1);
     tabLayout->addWidget(userDefinedADIFValueLineEdit, 5, 2);
-
-
+    tabLayout->addWidget(keepPropCheckBox, 6, 2);
+    //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
 
     if (entitiesList.size()>1)
@@ -147,11 +147,14 @@ void MainWindowInputOthers::createUI()
     iotaContinentComboBox->addItems(dataProxy->getContinentShortNames());
     iotaNumberLineEdit->setInputMask("000");
     iotaNumberLineEdit->setText("000");
+
+
+    //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
-void MainWindowInputOthers::clear()
+void MainWindowInputOthers::clear(bool _full)
 {
-      //qDebug() << "MainWindowInputOthers::clear" << endl;
+      //qDebug() << "MainWindowInputOthers::clear" << Qt::endl;
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
     userDefinedADIFValueLineEdit->clear ();
@@ -160,15 +163,19 @@ void MainWindowInputOthers::clear()
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
-    if (!keepPropCheckBox->isChecked())
+    if ((!keepPropCheckBox->isChecked()) || _full)
     {
       propModeComboBox->setCurrentIndex(0);
+    }
+    if (_full)
+    {
+        keepPropCheckBox->setChecked (false);
     }
 }
 
 void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 {
-      //qDebug() << "MainWindowInputOthers::setEntitiesList: " << QString::number(_qs.length()) << endl;
+      //qDebug() << "MainWindowInputOthers::setEntitiesList: " << QString::number(_qs.length()) << Qt::endl;
     entitiesList.clear();
     entitiesList << _qs;
     if (entitiesList.size()>1)
@@ -181,7 +188,7 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
-       //qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << endl;
+       //qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << Qt::endl;
     if (_ent<=0)
     {
         entityNameComboBox->setCurrentIndex(0);
@@ -194,12 +201,12 @@ void MainWindowInputOthers::setEntity(const int _ent)
         aux = (QString::number(_ent)).right(3);
     }
 
-    QString pref = dataProxy->getEntityNameFromId(_ent);
+    //QString pref = dataProxy->getEntityNameFromId(_ent);
 
     //int indexC = entityNameComboBox->f
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
 
-       //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << endl;
+       //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << Qt::endl;
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
 
@@ -207,19 +214,24 @@ void MainWindowInputOthers::setEntity(const int _ent)
 
 int MainWindowInputOthers::getEntity()
 {
-    return ((entityNameComboBox->currentText()).split('(').at(1).chopped (1)).toInt ();
+    QString aux = entityNameComboBox->currentText();
+    if (!aux.contains ('('))
+    {
+        return -1;
+    }
+    return (aux.split('(').at(1).chopped (1)).toInt ();
 }
 
 QString MainWindowInputOthers::getEntityPrefix()
 {
-    //qDebug() << "MainWindowInputOthers::getEntityPrefix: " << (entityNameComboBox->currentText()).split('-').at(0) << endl;
+    //qDebug() << "MainWindowInputOthers::getEntityPrefix: " << (entityNameComboBox->currentText()).split('-').at(0) << Qt::endl;
     return (entityNameComboBox->currentText()).split('-').at(0);
     //return world->getQRZARRLId(pref);
 }
 
-void MainWindowInputOthers::setPropMode(const QString _qs, bool _keep)
+void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
-      //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs << endl;
+      //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs << Qt::endl;
     autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
@@ -237,10 +249,10 @@ void MainWindowInputOthers::setPropMode(const QString _qs, bool _keep)
 QString MainWindowInputOthers::getPropModeFromComboBox()
 {
     QString _pm = QString();
-      //qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << endl;
+      //qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << Qt::endl;
     _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
     QString _n = (((propModeComboBox->currentText()).split('-')).at(0)).simplified();
-      //qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << endl;
+      //qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << Qt::endl;
 
     if (_n == "00")
     {
@@ -282,11 +294,11 @@ bool MainWindowInputOthers::isIOTAModified()
 
 }
 
-void MainWindowInputOthers::setIOTA(const QString _qs)
+void MainWindowInputOthers::setIOTA(const QString &_qs)
 {//TODO: Seems to be better to send the color info like in: (it is much more flexible as I can send any color!)
 
-    //void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
-      //qDebug() << "MainWindow::setIOTA: " << _qs << endl;
+    //void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
+      //qDebug() << "MainWindow::setIOTA: " << _qs << Qt::endl;
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {
         iotaNumberLineEdit->setPalette(palRed);
@@ -294,8 +306,8 @@ void MainWindowInputOthers::setIOTA(const QString _qs)
     }
     else
     {
-        QStringList values = _qs.split("-", QString::SkipEmptyParts);
-          //qDebug() << "MainWindowInputOthers::setIOTA: IOTA " << _qs << endl;
+        QStringList values = _qs.split("-", Qt::SkipEmptyParts);
+          //qDebug() << "MainWindowInputOthers::setIOTA: IOTA " << _qs << Qt::endl;
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
         iotaNumberLineEdit->setText(values.at(1));
         if (getDarkMode())
@@ -317,27 +329,27 @@ QString MainWindowInputOthers::getIOTA()
 
 void MainWindowInputOthers::setIOTAContinentFromEntity(const int _n)
 {
-      //qDebug() << "MainWindow::setIOTAContinentFromEntity:" << QString::number(_n) << endl;
+      //qDebug() << "MainWindow::setIOTAContinentFromEntity:" << QString::number(_n) << Qt::endl;
     setIOTAContinent(dataProxy->getContinentShortNameFromEntity(_n)) ;
 }
 
-void MainWindowInputOthers::setIOTAContinent(const QString _qs)
+void MainWindowInputOthers::setIOTAContinent(const QString &_qs)
 {
-       //qDebug() << "MainWindowInputOthers::setIOTAContinent: " << _qs << endl;
-       //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index(a): " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << endl;
+       //qDebug() << "MainWindowInputOthers::setIOTAContinent: " << _qs << Qt::endl;
+       //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index(a): " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << Qt::endl;
     if(( iotaContinentComboBox->findText(_qs, Qt::MatchContains))>0)
     {
-          //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << endl;
+          //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << Qt::endl;
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(_qs, Qt::MatchContains));
     }
     else
     {
-           //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: 00" << endl;
+           //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: 00" << Qt::endl;
         iotaContinentComboBox->setCurrentIndex(0);
     }
 }
 
-QString MainWindowInputOthers::checkIfValidIOTA(const QString _tiota)
+QString MainWindowInputOthers::checkIfValidIOTA(const QString &_tiota)
 {
 /**********************************
   IOTA should be always with this format: CC-NNN
@@ -352,14 +364,14 @@ QString MainWindowInputOthers::checkIfValidIOTA(const QString _tiota)
 Returns a valid format IOTA if possible and "" in other cases.
 
 ************************************/
-      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA: " << _tiota << endl;
+      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA: " << _tiota << Qt::endl;
     //bool _valid = false;
     QString _continent;
     QString _number;
 
     if (_tiota.count("-") == 1)
     {
-        QStringList _values = _tiota.split("-", QString::SkipEmptyParts);
+        QStringList _values = _tiota.split("-", Qt::SkipEmptyParts);
         _continent = _values.at(0);
         _number = _values.at(1);
     }
@@ -368,8 +380,8 @@ Returns a valid format IOTA if possible and "" in other cases.
         return "";
     }
 
-      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (cont) " << _continent << endl;
-      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (numb): " << _number << endl;
+      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (cont) " << _continent << Qt::endl;
+      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (numb): " << _number << Qt::endl;
 
     // Check if continent is valid
 
@@ -454,6 +466,8 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
         return "SOTA_REF";
     case 2:
         return "AGE";
+    case 3:
+        return "VUCC_GRIDS";
     default:
         return QString();
     }
@@ -473,7 +487,7 @@ QString MainWindowInputOthers::getUserADIFValue()
 
 bool MainWindowInputOthers::setInitialADIFValues()
 {
-    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age");
+    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age") << "03-" + tr ("VUCC grids");
     userDefinedADIFComboBox->clear ();
     userDefinedADIFComboBox->addItems (adifValidTypes);
     return true;
@@ -481,10 +495,10 @@ bool MainWindowInputOthers::setInitialADIFValues()
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 {
-
-
     //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     QString currentTag = getUserADIFTypeComboBox ();
+
+    setColorsForUserDefinedADIFValueLineEdit();
 
     if (currentTag == "SOTA_REF")
     {
@@ -494,16 +508,74 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     {
         userDefinedADIFValueLineEdit->setText (QString::number(age));
     }
+    else if (currentTag == "VUCC_GRIDS")
+    {
+        userDefinedADIFValueLineEdit->setText (vucc_grids);
+    }
+}
+
+bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    if (checkVUCC_GRIDS(_op))
+    {
+        vucc_grids = _op;
+        slotUSerDefinedADIFComboBoxChanged();
+        return true;
+    }
+    return false;
+}
+
+bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _string;
+
+    if (util->isValidVUCCGrids (_string))
+    {
+        setColorsForUserDefinedADIFValueLineEdit();
+        return true;
+    }
+    else
+    {
+        userDefinedADIFValueLineEdit->setPalette (palRed);
+        return false;
+    }
 
 }
 
-bool MainWindowInputOthers::setSOTA(const QString _op)
+QString MainWindowInputOthers::getVUCCGrids()
+{
+    if (checkVUCC_GRIDS (vucc_grids))
+    {
+        return vucc_grids;
+    }
+    else
+    {
+        return QString();
+    }
+}
+
+void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
+{
+    if (getDarkMode())
+    {
+        userDefinedADIFValueLineEdit->setPalette(palWhite);
+    }
+    else
+    {
+        userDefinedADIFValueLineEdit->setPalette(palBlack);
+    }
+}
+
+
+bool MainWindowInputOthers::setSOTA(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     sota_ref = _op;
     slotUSerDefinedADIFComboBoxChanged();
     return true;
 }
+
 QString MainWindowInputOthers::getSOTA()
 {
     //qDebug() << Q_FUNC_INFO;
@@ -533,6 +605,14 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     else if (currentTag == "AGE")
     {
         age = userDefinedADIFValueLineEdit->text().toDouble();
+    }
+    else if (currentTag == "VUCC_GRIDS")
+    {
+        if (checkVUCC_GRIDS(userDefinedADIFValueLineEdit->text()))
+        {}
+
+        vucc_grids = userDefinedADIFValueLineEdit->text().toUpper();
+        userDefinedADIFValueLineEdit->setText (vucc_grids);
     }
 }
 

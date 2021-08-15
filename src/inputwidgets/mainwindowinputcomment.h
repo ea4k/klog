@@ -41,7 +41,7 @@ public:
     void createUI();
     void setData(const QString &_comment);
     QString getComment();
-    void clear();
+    void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
     void setKeep(const bool _b);
     bool getKeep();
 

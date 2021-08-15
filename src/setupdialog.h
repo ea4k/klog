@@ -43,6 +43,7 @@
 #include "setuppages/setuppagesats.h"
 #include "setuppages/setuppagehamlib.h"
 #include "setuppages/setuppagesubdivisions.h"
+#include "setuppages/setuppagelogview.h"
 //#include "setuppages/setuppageinterfaceswindows.h"
 #include "utilities.h"
 #include "locator.h"
@@ -70,7 +71,7 @@ public:
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void qrzcomAuto(bool);
     //void newLogRequested(const bool _s); // true show new log
@@ -83,7 +84,7 @@ private slots:
     void slotAnalyzeNewLogData(const QStringList _qs);  // We receive the station callsign and operators from the logs tab
     void slotSetStationCallSign(const QString &_p);      // We receive te station callsign from the userData tab to fill the new log
     void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     void slotFocusOK();
     void slotQRZCOMAuto(const bool _b);
 
@@ -136,12 +137,13 @@ private:
     SetupPageHamLib *hamlibPage;
     //SetupPageInterfacesWindows *interfacesWindowsPage;
     SetupPageSubdivisions *subdivisionsPage;
+    SetupPageLogView *logViewPage;
     //SetupPageRegionalAwards *regionalAwardsPage;
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;
     QString configFileName, version;
 
-    QStringList bands, modes;
+    QStringList bands, modes, logViewFields;
     Locator *locator;
     DataProxy_SQLite *dataProxy;
 

@@ -31,6 +31,7 @@
 #include <QSqlRecord>
 #include <QSqlError>
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 
 
 class LogModel : public QSqlRelationalTableModel
@@ -39,14 +40,18 @@ class LogModel : public QSqlRelationalTableModel
 public:
     LogModel(DataProxy_SQLite *dp, QObject *parent);
     void createlogModel(const int _i);
-
+    void setColumns(const QStringList &_columns);
 private:
-    void setColumnsToDX();
+    //void showColumn(const QString &_columnName);
+
     //QSqlRelationalTableModel *logModel;
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
+
+    QStringList columns;
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 };
 

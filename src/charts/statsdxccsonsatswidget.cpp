@@ -30,7 +30,11 @@
 
 StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-     //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << endl;
+
+#ifdef QT_DEBUG
+    //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget" << Qt::endl;
+#else
+#endif
 
     dataProxy = dp;
     util = new Utilities;
@@ -61,7 +65,7 @@ void StatsDXCCOnSatsWidget::createUI()
     tableWidget->setColumnCount(7);
 
     tableWidget->resizeRowsToContents();
-    tableWidget->sortByColumn(2);
+    tableWidget->sortByColumn(2, Qt::AscendingOrder);
     tableWidget->horizontalHeader()->setStretchLastSection(true);
     //logView->sortByColumn(1);
 
@@ -95,7 +99,7 @@ void StatsDXCCOnSatsWidget::createUI()
 
 void StatsDXCCOnSatsWidget::prepareChart(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << endl;
+    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << Qt::endl;
 
      while(tableWidget->rowCount()>0)
      {
@@ -114,7 +118,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
      tableWidget->setHorizontalHeaderItem(5, new QTableWidgetItem(tr("Satellite")));
      tableWidget->setHorizontalHeaderItem(6, new QTableWidgetItem(tr("Confirmed")));
      tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
-     //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << endl;
+     //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << Qt::endl;
 
      int number = 0;
      QList<int> entities;
@@ -160,7 +164,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
 
              if (printThisOne)
              {
-                 //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: printThisOne: " << (_qsos.at(i)->getCall())  << endl;
+                 //qDebug() << "StatsDxccOnSatsWidget::prepareChart: QSOs: printThisOne: " << (_qsos.at(i)->getCall())  << Qt::endl;
                  entities.append(_qsos.at(i)->getDXCC());
                  number++;
                  tableWidget->insertRow(tableWidget->rowCount());

@@ -1,10 +1,10 @@
-#ifndef BARCHARTSTATS_H
-#define BARCHARTSTATS_H
+#ifndef SETUPPAGELOGVIEW_H
+#define SETUPPAGELOGVIEW_H
 /***************************************************************************
-                          barchartstats.h  -  description
+                          setuppagelogview.h  -  description
                              -------------------
-    begin                : ago 2018
-    copyright            : (C) 2018 by Jaime Robles
+    begin                : ago 2021
+    copyright            : (C) 2021 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -25,57 +25,36 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QObject>
-#include <QWidget>
-#include <QtCharts>
+#include <QtWidgets>
+#include <QSqlQuery>
+#include <QStringList>
+#include <QListWidget>
 #include "dataproxy_sqlite.h"
-#include "charts/statsgeneralchartwidget.h"
-#include "charts/statsqsosperyearbarchartwidget.h"
-#include "charts/statsqsosperbandbarchartwidget.h"
-#include "charts/statsqsospermodebarchartwidget.h"
-#include "charts/statsentitiesperyearbarchartwidget.h"
-#include "charts/statscqzperyearbarchartwidget.h"
-#include "charts/statsqsosperdxccbarchartwidget.h"
-#include "charts/statsqsospercontinentbarchartwidget.h"
-#include "charts/statsqsosperhourbarchartwidget.h"
-#include "charts/statsqsospermonthbarchartwidget.h"
-#include "charts/statsworkedconfirmedpiechartwidget.h"
-#include "charts/statsworkedsentpiechartwidget.h"
-#include "charts/statssentconfirmedpiechartwidget.h"
-#include "charts/statsgridsonsatswidget.h"
-#include "charts/statsdxccsonsatswidget.h"
-#include "charts/statsfieldperbandwidget.h"
-//#include "charts/statspiechartwidget.h"
 
 
-class BarChartStats : public QWidget
+class SetupPageLogView : public QWidget
 {
     Q_OBJECT
 public:
-    BarChartStats(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    ~BarChartStats();
-    void prepareChart(const int _selection, const int _log=-1);
-    void clear();
+    SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent=nullptr);
+    ~SetupPageLogView();
+
+    QString getFields();
+
+    void setActiveFields(QStringList _q);
+
 
 signals:
 
 public slots:
 
 private:
-    void createUI();
-    void cleanLayout();
+    void addFields (QStringList _b); // read the available fields from the DB
+
+    QListWidget *fieldsListWidget;
+
     DataProxy_SQLite *dataProxy;
-
-
-    //QChart *chart;
-    //QChartView *chartView;
-
-    QWidget *mainWidget;
-    StatsGeneralChartWidget *genchart;
-    QVBoxLayout *mLayout;
-
-    //QBarCategoryAxis *axis;
 
 };
 
-#endif // BARCHARTSTATS_H
+#endif // SETUPPAGELOGVIEW_H

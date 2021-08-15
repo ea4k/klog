@@ -31,6 +31,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 
 class MainWindowInputOthers : public QWidget
 {
@@ -45,7 +46,7 @@ public:
     int getEntity();
     QString getEntityPrefix();
 
-    void setPropMode(const QString _qs, bool _keep);
+    void setPropMode(const QString &_qs, bool _keep);
     QString getPropModeFromComboBox();
     bool isSATPropagation();
 
@@ -54,38 +55,42 @@ public:
     bool setUserADIFValue(const QString &_adifValue);
     QString getUserADIFValue();
 
-    bool setSOTA(const QString _op);
+    bool setSOTA(const QString &_op);
     QString getSOTA();
     bool setAge(const double _op);
     double getAge();
+    bool setVUCCGrids(const QString &_op);
+    QString getVUCCGrids();
 
-    void setIOTA(const QString _qs);
+    void setIOTA(const QString &_qs);
     QString getIOTA();
     void setIOTAContinentFromEntity(const int _n);
-    void setIOTAContinent(const QString _qs);
+    void setIOTAContinent(const QString &_qs);
     bool isIOTAModified();
     void clearIOTA();
     void setKeep(const bool _b);
     bool getKeep();
 
     void createUI();
-    void clear();
+    void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
 signals:
-    void setPropMode(const QString &_p);
+    void setPropMode(const QString _p);
 
 private slots:
-    //void slotSetPropMode(const QString _p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
+    //void slotSetPropMode(const QString &_p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
     void slotPropModeComboBoxChanged();
     void slotUSerDefinedADIFComboBoxChanged();
     void slotSetCurrentUSerData();
 
 private:
-    QString checkIfValidIOTA(const QString _tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
+    QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
+    void setColorsForUserDefinedADIFValueLineEdit();
+    bool checkVUCC_GRIDS(const QString &_string);
     bool setInitialADIFValues();
     bool getDarkMode();
 
-
+    Utilities *util;
     DataProxy_SQLite *dataProxy;
 
     QStringList entitiesList, propModeList;
@@ -101,7 +106,7 @@ private:
     QLineEdit *userDefinedADIFValueLineEdit;
     QStringList adifValidTypes;
 
-    QString sota_ref;
+    QString sota_ref, vucc_grids;
     double age;
 };
 
