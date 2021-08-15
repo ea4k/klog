@@ -68,7 +68,7 @@ class DataBase //: public QObject
 
 public:
     DataBase(const QString &_parentClass, const QString &_DBName);
-    //DataBase(const QString _softVersion, bool  inmemoryonly = false);
+    //DataBase(const QString &_softVersion, bool  inmemoryonly = false);
     DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName);
     //virtual ~DataBase();
     ~DataBase();
@@ -81,7 +81,7 @@ public:
                                                 // not just connecting to an existing one.
                                                 // That will be done in the default path
     bool reConnect(const QString &_DBName);
-    //bool setDir(const QString _dir);
+    //bool setDir(const QString &_dir);
     QStringList getColumnNamesFromTable(const QString &_tableName);
 
 
@@ -129,7 +129,7 @@ public:
     //bool queryExec();
 
     //bool queryPrepare(const QString &_query);
-    //bool queryBind(const QString _field, const QString value);
+    //bool queryBind(const QString &_field, const QString value);
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
@@ -230,7 +230,7 @@ private:
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
 
-    void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
 
 
 
@@ -263,7 +263,7 @@ private:
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
 //signals:
-    //void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    //void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     //void debugLog(QString functionFailed, QString errorCode, int level); // emitted when a function retuns false due to an error
 
 

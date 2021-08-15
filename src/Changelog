@@ -1,8 +1,24 @@
-TBD 2021 - 1.7
+Aug 2021 - 1.8
+- Bugfix: Some recently added ADIF fields where not properly imported from ADIF.
+- Improvement: Code updated to Qt 5.15.2. (Closes #323)
+- Improvement: VUCC_GRIDS & MY_VUCC_GRIDS are also managed in the UI. (Closes #319)
+- Improvement: LogView fields to be shown can be selected in the preferences. (Closes #23)
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU) & Spanish (EA4K).
+
+July 2021 - 1.7
 - Bugfix: RealTime remained checked when editing.
-- Bigfix: Some Hamlib parameters were not properly stored.
+- Bugfix: Some Hamlib parameters were not properly stored.
+- Bugfix: Coredump when no entity (Closes #302)
+- Bugfix: Colors are now properly defined. (Closes #275) (Closes #40)
+- Bugfix: Station callsign is read from the settings. (Closes #307)
+- Bugfix: The right setup dialog tab is open on first start. (Closes #311)
+- Improvement: DarkMode added. (TNX EA5WA) (Closes #56)
+- Improvement: DXCC & WAZ management optimization.
 - Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
-- Improvement: DarkMode added. (TNX EA5WA)
+- Improvement: Order of widgets when tab is pressed has been improved. (Working on #265)
+- Statistics: Added the Grids & DXCC per band statistic. (Closes #312), (Closes #313), (Closes #314)
+- UI: The Setup menu has been moved to Settings into the File menu.
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU) & Spanish (EA4K).
 
 June 2021 - 1.6
 - Optimization: Isolated the QSO tab to an independent widget.

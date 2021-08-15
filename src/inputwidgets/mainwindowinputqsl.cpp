@@ -32,7 +32,7 @@
 MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << endl;
+       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << Qt::endl;
     util = new Utilities;
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
@@ -50,7 +50,7 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
-       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << endl;
+       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << Qt::endl;
 
 }
 
@@ -101,13 +101,14 @@ void MainWindowInputQSL::createUI()
     QSLLayout->addWidget(qslSentViaComboBox, 0, 3);
     QSLLayout->addWidget(qslRecViaComboBox, 1, 3);
 
+    //QSLLayout->setSizeConstraint(QLayout::SetFixedSize);
+
     setLayout(QSLLayout);
 
     connect(qslViaLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQSLViaTextChanged() ) )  ;
-    connect(qslRecComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLRecvComboBoxChanged() ) )  ;
-    connect(qslSentComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
+    connect(qslRecComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQSLRecvComboBoxChanged() ) )  ;
+    connect(qslSentComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQSLSentComboBoxChanged() ) )  ;
     connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQSLViaLineEditReturnPressed() ) );
-
 }
 
 
@@ -170,7 +171,7 @@ QString MainWindowInputQSL::getSentVia()
 {
     QString _pm = QString();
     _pm = (((qslSentViaComboBox->currentText()).split('-')).at(0)).simplified();
-       //qDebug() << "MainWindow::getSentVia: " << _pm << endl;
+       //qDebug() << "MainWindow::getSentVia: " << _pm << Qt::endl;
      return _pm;
 }
 
@@ -178,7 +179,7 @@ QString MainWindowInputQSL::getRecVia()
 {
     QString _pm = QString();
     _pm = (((qslRecViaComboBox->currentText()).split('-')).at(0)).simplified();
-       //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << endl;
+       //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << Qt::endl;
      return _pm;
 }
 
@@ -193,7 +194,7 @@ QString MainWindowInputQSL::getQSLMsg()
 }
 
 
-void MainWindowInputQSL::setQSLRecStatus(const QString _qs)
+void MainWindowInputQSL::setQSLRecStatus(const QString &_qs)
 {
     if(( qslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
@@ -205,7 +206,7 @@ void MainWindowInputQSL::setQSLRecStatus(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLSenStatus(const QString _qs)
+void MainWindowInputQSL::setQSLSenStatus(const QString &_qs)
 {
     if(( qslSentComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
@@ -217,7 +218,7 @@ void MainWindowInputQSL::setQSLSenStatus(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLRecVia(const QString _qs)
+void MainWindowInputQSL::setQSLRecVia(const QString &_qs)
 {
     if(( qslRecViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
@@ -229,9 +230,9 @@ void MainWindowInputQSL::setQSLRecVia(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLSenVia(const QString _qs)
+void MainWindowInputQSL::setQSLSenVia(const QString &_qs)
 {
-       //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << endl;
+       //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << Qt::endl;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
         qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -242,7 +243,7 @@ void MainWindowInputQSL::setQSLSenVia(const QString _qs)
     }
 }
 
-void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
+void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
 {
 
     palette.setColor(QPalette::Text, qColor);
@@ -259,7 +260,7 @@ void MainWindowInputQSL::setQSLVia(const QString _qs, QColor qColor)
 
 }
 
-void MainWindowInputQSL::setQSLMsg(const QString _qs)
+void MainWindowInputQSL::setQSLMsg(const QString &_qs)
 {
     if (_qs.length()>0)
     {
@@ -309,7 +310,7 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
 
 void MainWindowInputQSL::slotQSLViaTextChanged()
 {
-       //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << endl;
+       //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << Qt::endl;
     qslViaLineEdit->setText((util->getClearSQLi(qslViaLineEdit->text())).toUpper());
 }
 

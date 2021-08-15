@@ -36,14 +36,14 @@ class OnlineMessageWidget : public QWidget
     Q_OBJECT
 public:
     explicit OnlineMessageWidget(QWidget *parent = nullptr);
-    int showMessage(QNetworkReply::NetworkError _error, OnLineProvider _prov, OnlineErrorCode _onlineError, OnlineErrorReason _onlineReason, const QString _msg);
+    int showMessage(QNetworkReply::NetworkError _error, OnLineProvider _prov, OnlineErrorCode _onlineError, OnlineErrorReason _onlineReason, const QString &_msg);
 
 signals:
 
 public slots:
 
 private:
-    QString translate(const QString _msg);
+    QString translate(QNetworkReply::NetworkError _error);
 
 };
 

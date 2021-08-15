@@ -72,41 +72,41 @@ void ShowAdifImportWidget::createUI()
 
 void ShowAdifImportWidget::fillTable()
 {
-    //qDebug() << "ShowAdifImportWidget::fillTable " << endl;
+    //qDebug() << "ShowAdifImportWidget::fillTable " << Qt::endl;
     //header << tr("DX") << tr("Date/Time") << tr("Band") << tr("Mode");
 
     //QList<int> qsos;
     //qsos.clear();
     //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
-    //qDebug() << "ShowAdifImportWidget::fillTable QSOS: " << QString::number(qsosList.length()) << endl;
+    //qDebug() << "ShowAdifImportWidget::fillTable QSOS: " << QString::number(qsosList.length()) << Qt::endl;
 
-    QString aux, prefix;
-    //qDebug() << "ShowAdifImportWidget::fillTable: -3"  << endl;
+    //QString aux, prefix;
+    //qDebug() << "ShowAdifImportWidget::fillTable: -3"  << Qt::endl;
     tableWidget->clearContents();
     tableWidget->setRowCount(0);
     if (tableWidget->columnCount()>0)
     {
-       //qDebug() << "ShowAdifImportWidget::fillTable pre FOR" << endl;
+       //qDebug() << "ShowAdifImportWidget::fillTable pre FOR" << Qt::endl;
         for (int i=0; i<qsosList.length(); i++)
         {
-            //qDebug() << "ShowAdifImportWidget::fillTable in FOR " << QString::number(i) << endl;
+            //qDebug() << "ShowAdifImportWidget::fillTable in FOR " << QString::number(i) << Qt::endl;
             addQSO(qsosList.at(i));
         }
     }
-    //qDebug() << "ShowAdifImportWidget::fillTable END" << endl;
+    //qDebug() << "ShowAdifImportWidget::fillTable END" << Qt::endl;
 }
 
 void ShowAdifImportWidget::addQSO(const QStringList &_qso)
 {
-    //qDebug() << "ShowAdifImportWidget::addQSO: " << QString::number(_qsoID) << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSO: " << QString::number(_qsoID) << Qt::endl;
     // QRZ-DX, Date-Time, Band, Mode
 
     QStringList qsoToAdd;
     qsoToAdd.clear();
     qsoToAdd << _qso;
 
-    //qDebug() << "ShowAdifImportWidget::addQSO: Columns: " << QString::number(tableWidget->columnCount()) << endl;
-    //qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd-length: " << QString::number(qsoToAdd.length()) << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSO: Columns: " << QString::number(tableWidget->columnCount()) << Qt::endl;
+    //qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd-length: " << QString::number(qsoToAdd.length()) << Qt::endl;
 
     if (qsoToAdd.length() == tableWidget->columnCount())
     {
@@ -114,7 +114,7 @@ void ShowAdifImportWidget::addQSO(const QStringList &_qso)
 
         for (int i = 0; i<qsoToAdd.length(); i++)
         {
-            //qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i) << endl;
+            //qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i) << Qt::endl;
             QTableWidgetItem *newItemID = new QTableWidgetItem(qsoToAdd.at(i));
             newItemID->setTextAlignment(Qt::AlignCenter);
             newItemID->setFlags(Qt::NoItemFlags);
@@ -126,7 +126,7 @@ void ShowAdifImportWidget::addQSO(const QStringList &_qso)
 
     }
 
-    //qDebug() << "ShowAdifImportWidget::addQSO: - END"  << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSO: - END"  << Qt::endl;
 }
 
 
@@ -140,46 +140,46 @@ void ShowAdifImportWidget::slotOKPushButtonClicked()
 
 void ShowAdifImportWidget::closeEvent(QCloseEvent *event)
 {
-    //qDebug() << "ShowAdifImportWidget::closeEvent" << endl;
+    //qDebug() << "ShowAdifImportWidget::closeEvent" << Qt::endl;
     event->accept();
 }
 
 void ShowAdifImportWidget::showEvent(QShowEvent *event)
 {
-    //qDebug() << "ShowAdifImportWidget::showEvent" << endl;
+    //qDebug() << "ShowAdifImportWidget::showEvent" << Qt::endl;
     fillTable();
     event->accept();
 }
 
 void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
 {
-    //qDebug() << "ShowAdifImportWidget::addQSOToTheList - Start" << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSOToTheList - Start" << Qt::endl;
     // QRZ-DX, Date-Time(yyyyMMdd-hhmmss), Band, Mode
     if (_qso.length()!=4)
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received" << Qt::endl;
         return;
     }
     if (!util->isValidCall(_qso.at(0)))
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received" << Qt::endl;
         return;
     }
     if (dataProxy->getIdFromBandName(_qso.at(2))<0)
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid BAND received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid BAND received" << Qt::endl;
         return;
     }
     if (dataProxy->getIdFromModeName(_qso.at(3))<0)
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received" << Qt::endl;
         return;
     }
 
     QDateTime _dateTime = util->getDateTimeFromSQLiteString(_qso.at(1));
     if (!_dateTime.isValid())
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received" << endl;
+        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received" << Qt::endl;
         return;
     }
 
@@ -188,6 +188,6 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
 
     _newQSO << _qso.at(0) << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _qso.at(2) << _qso.at(3);
     qsosList << _newQSO;
-    //qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END" << endl;
+    //qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END" << Qt::endl;
 }
 

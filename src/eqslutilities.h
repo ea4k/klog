@@ -45,7 +45,7 @@ public:
     ~eQSLUtilities();
     void setUser(const QString &_call);
     void setPass(const QString &_pass);
-    void setCredentials(const QString &_user, const QString &_pass, const QString _defaultStationCallsign);
+    void setCredentials(const QString &_user, const QString &_pass, const QString &_defaultStationCallsign);
     //int sendQSO(QStringList _qso);
     //int deleteQSO(QStringList _qso);
     //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
@@ -84,7 +84,7 @@ signals:
     void done();
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
-    void showMessage(const QString _t);
+    void showMessage(const QString &_t);
     void disableeQSLAction(const bool _b);
     void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
 

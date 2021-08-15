@@ -5,9 +5,17 @@ branches:
 matrix:
   include:
   - os: linux
+    env:
+      - QT_CI_PACKAGES=qt.qt5.5142.gcc_64,qt.qt5.5142.qtwebengine PATH="$TRAVIS_BUILD_DIR/Qt/5.14.2/gcc_64/bin:${PATH}"
     arch: amd64
     sudo: required
     dist: focal
+    addons:
+      apt:
+        sources:
+        - sourceline: 'ppa:beineri/opt-qt-5.14.2-focal'
+        packages:
+        - qt514base
     before_install:
       - sudo apt-get update
       - sudo apt-get -y install qtbase5-dev libsqlite3-dev
@@ -15,5 +23,8 @@ matrix:
     compiler:
       - gcc
     script:
+      - git clone https://github.com/benlau/qtci.git
+      - source qtci/path.env
+      - install-qt 5.14.2
       - qmake KLog.pro
       - make

@@ -27,7 +27,7 @@ rem *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         
 rem *                                                                           *
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
-set PATH=C:/Qt/5.12.3/mingw73_32/bin;C:/Qt/Tools/mingw730_32/bin;%PATH%
+set PATH=C:/Qt/5.15.2/mingw81_32/bin;C:/Qt/Tools/mingw810_32/bin;%PATH%
 cd ../src/
 rmdir /S /Q build
 rmdir /S /Q release

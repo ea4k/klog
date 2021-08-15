@@ -64,16 +64,17 @@ public:
     void toggleRealTime();
     void setUTC(const bool _utc);
     void setModify(const bool _modify);
+    bool getModifying();
     void setUpAndRunning(const bool _u);
     void selectDefaultBand(const bool _init = false);
     void selectDefaultMode(const bool _init = false);
 
     void setDuplicatedQSOSlot (const int _secs);
-
+    void setFocusToOK();
     void clear();
 
 protected:
-    // void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     //void resizeEvent(QResizeEvent *event) override;
 
 signals:
@@ -85,12 +86,13 @@ signals:
     void modeChanged(QString _mode);
     void OKClicked();
     void validBands(QStringList _bands);
+    void handOverFocusSignal();
 
 private slots:
     void slotUpdateTime();
     void slotQRZTextChanged();
-    void slotBandComboBoxChanged(const QString _b);
-    void slotModeComboBoxChanged(const QString _m);
+    void slotBandComboBoxChanged(const QString &_b);
+    void slotModeComboBoxChanged(const QString &_m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
     //void slotRealtimeButtonClicked();
@@ -102,6 +104,7 @@ private slots:
 
 
 private:
+    bool eventFilter(QObject *object, QEvent *event);
     void createUI();
     void setInitialData();
 

@@ -109,10 +109,6 @@ class QGroupBox;
 class QTabWidget;
 class QFrame;
 class QTableView;
-
-
-
-
 class QLabel;
 
 
@@ -153,12 +149,12 @@ public:
     void init();
 
 private slots:
-    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
     void slotOpenWiki();
     void slotAWAImport();
     void slotClearNoMorErrorShown();
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed);
     void slotQRZReturnPressed();
     //void slotQRZSpacePressed();
     void slotQRZTextChanged(QString _qrz);
@@ -207,7 +203,7 @@ private slots:
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
-    void setMainWindowTitle(const QString _s);
+    void setMainWindowTitle(const QString &_s);
     void slotSetup(const int _page=0);
 
     void slotADIFExport();
@@ -252,12 +248,12 @@ private slots:
     void slotDebugAction();
 
     // MainQSOEntryWidget
-    void slotShowInfoLabel(const QString _m);
+    void slotShowInfoLabel(const QString &_m);
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
 
     // MyDataTab
-    void slotMyLocatorTextChanged(const QString _loc);
+    void slotMyLocatorTextChanged(const QString &_loc);
 
     // logpanel
     //void slotRighButtonFromLog( const QPoint& pos);
@@ -295,7 +291,7 @@ private slots:
     void slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // QRZCOM
     //SATELLITE
-    //void slotSatBandTXComboBoxChanged(const QString _q);
+    //void slotSatBandTXComboBoxChanged(const QString &_q);
     void slotDefineNewBands (const QStringList _bands);
 
     //HAMLIB
@@ -324,8 +320,13 @@ private slots:
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
+    //void slotTakeOverFocus(int _id);
+    void slotTakeOverFocusToQSOTabWidget();
+    void slotTakeOverFocusToMainQSOInput();
+
 private:
     //void setWidgetsOrder();
+    void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -378,8 +379,8 @@ private:
 
     bool readCtyFile();
 
-    bool isQSLReceived(const int _qsoId);
-    bool isQSLSent(const int _qsoId);
+    //bool isQSLReceived(const int _qsoId);
+    //bool isQSLSent(const int _qsoId);
 
     //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
@@ -387,7 +388,7 @@ private:
     QString readDataFromUIDXModifying();
     void actionsJustAfterAddingOneQSO();
     //void clearForNextQSO();
-    void clearUIDX(); //full= false leaves some data to allow pileup or normal Dx in same band; full removes freqs and everything
+    void clearUIDX(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);
@@ -402,7 +403,7 @@ private:
     void openSetup(const int _page=0);
     bool processConfigData();
     void readConfigData();
-    void defineStationCallsign();
+    void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();
 
     void checkIfNewBandOrMode();
@@ -502,7 +503,7 @@ private:
     //QMenu *lotwMarkAllAsQueuedMenu;
     //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
-    QMenu *setupMenu;
+    //QMenu *setupMenu;
     QMenu *helpMenu;
 
     //QAction *TestAct;       // Action for testing purposes only
@@ -766,13 +767,13 @@ private:
 
 
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
-    void showEvent(QShowEvent *event);
+    void showEvent(QShowEvent *event) override;
 
 };
 

@@ -28,7 +28,7 @@
 
 SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << endl;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << Qt::endl;
     dataProxy = dp;
 
     bandsListWidget = new QListWidget;
@@ -61,7 +61,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     //layout->addWidget(modesListWidget);
 
     setLayout(layout);
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << endl;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << Qt::endl;
 }
 
 SetupPageBandMode::~SetupPageBandMode()
@@ -96,7 +96,7 @@ void SetupPageBandMode::addModes(QStringList _b)
 
 QString SetupPageBandMode::getBands()
 {
-       //qDebug() << "SetupPageBandMode::getBands" << endl;
+       //qDebug() << "SetupPageBandMode::getBands" << Qt::endl;
 
     QString b;
     QListWidgetItem *it;
@@ -125,7 +125,7 @@ QString SetupPageBandMode::getBands()
 
 QString SetupPageBandMode::getModes()
 {
-       //qDebug() << "SetupPageBandMode::getModes" << endl;
+       //qDebug() << "SetupPageBandMode::getModes" << Qt::endl;
 
     QString b;
     QListWidgetItem *it;
@@ -151,19 +151,19 @@ QString SetupPageBandMode::getModes()
     {
         b.chop(2);
     }
-       //qDebug() << "SetupPageBandMode::getModes: " << b << endl;
+       //qDebug() << "SetupPageBandMode::getModes: " << b << Qt::endl;
     return b;
 }
 
 
 void SetupPageBandMode::setActiveBands(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveBands" << endl;
+       //qDebug() << "SetupPageBandMode::setActiveBands" << Qt::endl;
 
     if (q.isEmpty())
     {return;}
 
-    QString b;
+    //QString b;
     QListWidgetItem *it;
 
     if ( (bandsListWidget->count()) < 1)
@@ -188,12 +188,12 @@ void SetupPageBandMode::setActiveBands(QStringList q)
 
 void SetupPageBandMode::setActiveModes(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveModes" << endl;
+       //qDebug() << "SetupPageBandMode::setActiveModes" << Qt::endl;
 
     if (q.isEmpty())
     {return;}
 
-    QString b;
+    //QString b;
     QListWidgetItem *it;
 
     if ( (modesListWidget->count()) < 1)

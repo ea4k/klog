@@ -52,7 +52,6 @@ public:
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();
 
-
     QString getSoftVersion();
     QString getDBVersion();
     bool reconnectDB();
@@ -68,6 +67,7 @@ public:
     int getSubModeIdFromSubMode(const QString &_subModeName);
     int getModeIdFromSubModeId(const int _sm);
 
+    QStringList getFields();
     QStringList getBands();
     QStringList getModes();
     QStringList sortBandNamesBottonUp(const QStringList _qs);
@@ -118,7 +118,7 @@ public:
     bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLLoTWReceived(const int _qsoId);
-    bool isQSOConfirmed(const int _qsoId);
+    bool isQSOConfirmed(const int _qsoId, const bool _checkPaper, const bool _checkLoTW);
     bool isQSLSent(const int _qsoId);
 
     bool qslSentViaDirect(const int _qsoId, const QDate &_updateDate);
@@ -141,6 +141,8 @@ public:
     int getModeFromId(const int _qsoId);
     int getDXCCFromId(const int _qsoId);
     int getCQZFromId(const int _qsoId);
+    QList<int> getBandModeDXCCCQZlogIDFromId(const int _qsoId);
+
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
     // Complete with previous
@@ -189,6 +191,7 @@ public:
     QStringList getContinentShortNames();
     bool isValidContinentShortName(const QString &_n);
     bool isValidDXCC(const int _e);
+    QStringList filterValidFields(const QStringList &_fields);
 
     int getCQzFromPrefix(const QString &_p);
     int getCQzFromEntity(const int _n);
@@ -197,6 +200,7 @@ public:
     QString getEntityNameFromId(const int _n);
     int getEntityIdFromName(const QString &_e);
     QString getEntityMainPrefix(const int _entityN);
+    QStringList getEntiNameAndPrefixFromId(const int _dxcc);
     int getEntityIdFromMainPrefix(const QString &_e);
     bool isNewCQz(int _c);
     bool isNewEntity(int _e);
@@ -297,13 +301,15 @@ public:
     //bool addRegionalAward(RegionalAward _regionalAward);
     bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);
 
-    void getFoundInLog(const QString &_txt, const int _log=-1);
+    //void getFoundInLog(const QString &_txt, const int _log=-1);
     QString getADIFQSO(const int _qsoId);
     bool showInvalidCallMessage(const QString &_call);
 
     QList<QSO*> getSatGridStats(int _log=-1);
-    QList<QSO*> getSatDXCCStats(int _log=-1);
 
+    QList<QSO*> getGridStats(int _log=-1);
+    QList<QSO*> getSatDXCCStats(int _log=-1);
+    int getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
     //bool queryExec();
@@ -328,7 +334,7 @@ private slots:
 
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog(QString functionFailed, QString errorCode, DebugLogLevel level); // emitted as the KLog application log
 
 };
