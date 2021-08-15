@@ -403,7 +403,7 @@ private:
     void openSetup(const int _page=0);
     bool processConfigData();
     void readConfigData();
-    void defineStationCallsign(const QString &_call);
+    void defineStationCallsign();
     QString selectStationCallsign();
 
     void checkIfNewBandOrMode();
