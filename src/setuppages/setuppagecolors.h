@@ -43,14 +43,14 @@ public:
     QString getWorkedColor();
     QString getConfirmedColor();
     QString getDefaultColor();
-    bool getDarkMode();
+    QString getDarkMode();
 
     void setNewOneColor(const QString &_c);
     void setNeededColor(const QString &_c);
     void setWorkedColor(const QString &_c);
     void setConfirmedColor(const QString &_c);
     void setDefaultColor(const QString &_c);
-    void setDarkMode(const bool _dm);
+    void setDarkMode(const QString &_dm);
 
 
 

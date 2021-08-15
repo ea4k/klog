@@ -16,8 +16,7 @@ HEADERS += \
     ../../src/qso.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
-    ../../src/database.h \
-    ../../src/klogconfig.h
+    ../../src/database.h
 
 SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/mainqsoentrywidget.cpp \
@@ -25,8 +24,7 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
     ../../src/locator.cpp \
-    ../../src/database.cpp \
-    ../../src/klogconfig.cpp
+    ../../src/database.cpp
 
 
 

@@ -39,19 +39,19 @@ public:
     SetupPageUDP(QWidget *parent = nullptr);
     ~SetupPageUDP();
 
-    void setLogFromWSJTx(const bool &_t);
-    void setAutoLogFromWSJTx(const bool &_t);
-    void setReaDataFromWSJTx(const bool &_t);
-    void setUDPServer(const bool &_t);
+    void setLogFromWSJTx(const QString &_t);
+    void setAutoLogFromWSJTx(const QString &_t);
+    void setReaDataFromWSJTx(const QString &_t);
+    void setUDPServer(const QString &_t);
     void setUDPServerPort(const QString &_t);
     void setTimeout(const QString &_t);
     void setNetworkInterface(const QString &_t);
 
-    bool getLogFromWSJTx();
-    bool getAutoLogFromWSJTx();
-    bool getReaDataFromWSJTx();
+    QString getLogFromWSJTx();
+    QString getAutoLogFromWSJTx();
+    QString getReaDataFromWSJTx();
     QString getUDPServerPort();
-    bool getUDPServer();
+    QString getUDPServer();
     QString getTimeout();
     QString getNetworkInterface();
 

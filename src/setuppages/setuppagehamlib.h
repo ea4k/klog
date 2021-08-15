@@ -39,13 +39,12 @@ class SetupPageHamLib : public QWidget
     Q_OBJECT
 public:
     explicit SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    QString getData();
     bool setRigType(const QString &_radio);
     void setPollingInterval(const int _msecs);
     bool setSerialPort(const QString &_port);
     bool setSerialSpeed(const QString &_speed );
-    void setActive(const bool &_active);
-    bool isActive();
-    bool isReadOnly();
+    void setActive(const QString &_active);
     //void setRTS(const QString &_state);
     //void setDTR(const QString &_state);
     void setDataBits(const QString &_st);
@@ -53,10 +52,10 @@ public:
     void setParity(const QString &_st);
     void setStopBits(const QString &_st);
     //void setPollInterval(const QString &_st);
-    void setReadOnly(const bool &_m);
+    void setReadOnly(const QString &_m);
     void setRadioNetworkAddress(const QString &_m);
     void setRadioNetworkPort(const int _p);
-    void saveConfig();
+
 
 signals:
 

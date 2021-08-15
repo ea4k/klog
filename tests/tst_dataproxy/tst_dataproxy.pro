@@ -14,16 +14,14 @@ HEADERS += \
     ../../src/locator.h \
     ../../src/database.h \
     ../../src/qso.h \
-    ../../src/klogdefinitions.h \
-    ../../src/klogconfig.h \
+    ../../src/klogdefinitions.h
 
 SOURCES +=  tst_dataproxy.cpp \
         ../../src/utilities.cpp \
         ../../src/locator.cpp \
         ../../src/database.cpp \
         ../../src/qso.cpp \
-        ../../src/dataproxy_sqlite.cpp \
-        ../../src/klogconfig.cpp
+        ../../src/dataproxy_sqlite.cpp
 
 
 

@@ -24,8 +24,7 @@ HEADERS += \
     ../../src/utilities.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
-    ../../src/database.h \
-    ../../src/klogconfig.h
+    ../../src/database.h
 
 SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \
@@ -33,8 +32,7 @@ SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/qso.cpp \
     ../../src/utilities.cpp \
     ../../src/locator.cpp \
-    ../../src/database.cpp \
-    ../../src/klogconfig.cpp
+    ../../src/database.cpp
 
 
 isEmpty(QMAKE_LRELEASE) {

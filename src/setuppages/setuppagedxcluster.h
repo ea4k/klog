@@ -45,26 +45,26 @@ public:
     QString getSelectedDxClusterServer();
     void setSelectedDxClusterServer(const QString t);
 
-    bool getShowHFQCheckbox();
-    bool getShowVHFQCheckbox();
-    bool getShowWARCQCheckbox();
-    bool getShowWorkedQCheckbox();
-    bool getShowConfirmedQCheckbox();
-    bool getShowANNQCheckbox();
-    bool getShowWWVQCheckbox();
-    bool getShowWCYQCheckbox();
-    bool getSaveActivityQCheckbox();
+    QString getShowHFQCheckbox();
+    QString getShowVHFQCheckbox();
+    QString getShowWARCQCheckbox();
+    QString getShowWorkedQCheckbox();
+    QString getShowConfirmedQCheckbox();
+    QString getShowANNQCheckbox();
+    QString getShowWWVQCheckbox();
+    QString getShowWCYQCheckbox();
+    QString getSaveActivityQCheckbox();
 
 
-    void setShowHFQCheckbox(const bool t);
-    void setShowVHFQCheckbox(const bool t);
-    void setShowWARCQCheckbox(const bool t);
-    void setShowWorkedQCheckbox(const bool t);
-    void setShowConfirmedQCheckbox(const bool t);
-    void setShowANNQCheckbox(const bool t);
-    void setShowWWVQCheckbox(const bool t);
-    void setShowWCYQCheckbox(const bool t);
-    void setSaveActivityQCheckbox(const bool t);
+    void setShowHFQCheckbox(const QString t);
+    void setShowVHFQCheckbox(const QString t);
+    void setShowWARCQCheckbox(const QString t);
+    void setShowWorkedQCheckbox(const QString t);
+    void setShowConfirmedQCheckbox(const QString t);
+    void setShowANNQCheckbox(const QString t);
+    void setShowWWVQCheckbox(const QString t);
+    void setShowWCYQCheckbox(const QString t);
+    void setSaveActivityQCheckbox(const QString t);
 
 private slots:
     void slotAddButtonClicked();

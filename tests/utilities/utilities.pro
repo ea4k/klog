@@ -12,13 +12,11 @@ QMAKE_CFLAGS += -Wall -Wextra -Werror
 
 HEADERS += \
     ../../src/utilities.h \
-    ../../src/locator.h \
-    ../../src/klogconfig.h
+    ../../src/locator.h
 
 SOURCES +=  tst_utilities.cpp \
     ../../src/utilities.cpp \
-    ../../src/locator.cpp \
-    ../../src/klogconfig.cpp
+    ../../src/locator.cpp
 
 
 

@@ -15,8 +15,7 @@ HEADERS += \
     ../../src/database.h \
     ../../src/qso.h \
     ../../src/utilities.h \
-    ../../src/locator.h \
-    ../../src/klogconfig.h
+    ../../src/locator.h
 
 SOURCES +=  tst_mainwindowinputqso.cpp \
     ../../src/inputwidgets/mainwindowinputqso.cpp \
@@ -24,8 +23,7 @@ SOURCES +=  tst_mainwindowinputqso.cpp \
     ../../src/database.cpp \
     ../../src/qso.cpp \
     ../../src/utilities.cpp \
-    ../../src/locator.cpp \
-    ../../src/klogconfig.cpp
+    ../../src/locator.cpp
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
