@@ -88,10 +88,8 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     QString author4 = QString("<tr><td>Akihiro Koda</td>")  + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td>") + "<td>(2016-2017)</td></tr>";
     QString author5 = QString("<tr><td>Andrew Goldie</td>") + QString("<td><a href=\"https://www.qrz.com/db/zl2agc\">ZL2ACG</a></td>") + "<td>(2009-2010)</td></tr>";
 
-
     QString authorText = tr("KLog is developed by a very small team and you are invited to join!") + "<br><br>" + tr("If you want to provide support you are welcome to join the <a href=\"https://groups.io/g/klog\">KLog mailing list</a>!") + "<br><br>" + tr("You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.");
     QString authors = "<center><h2>" + tr("Authors") + "</h2></center><br>" + authorText + "<br><table>" + author1 + author2 + author3 + author4 + author5 + "</table>";
-
 
     QString translator1 = QString("<tr><td>Catalan</td>")  + QString("<td>Josep Ma. Ferrer</td>") + QString("<td><a href=\"mailto://kde-i18n-ca@kde.org\">KDE Catalan translation team</a></td></tr>");
     QString translator2 = QString("<tr><td>Croatian</td>")  + QString("<td>Kristijan Conkas</td>") + QString("<td><a href=\"https://www.qrz.com/db/m0nkc\">M0NKC</a></td></tr>");
@@ -111,7 +109,6 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
                                                                                                                       + translator4 + translator5 + translator6
                                                                                                                       + translator7 + translator8 + translator9
                                                                                                                       + translator10 + translator11 + "</table>";
-
     QLabel *authorsLabel = new QLabel(authors);
     authorsLabel->setWordWrap(true);
     authorsLabel->setOpenExternalLinks(true);
