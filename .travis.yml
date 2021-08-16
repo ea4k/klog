@@ -1,15 +1,21 @@
-language: cpp
 branches:
   only:
     - master
 matrix:
   include:
   - os: linux
+    dist: focal
+    language: shell
     services:
     - docker
-    dist: focal
-    install:
-    - devscripts/buildWithDocker.sh
+    before_install:
+    - docker load -i docker_images/images.tar || true
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker pull "$DOCKER_USERNAME"/devel-qt-5.15.2:v0
     script:
-    - docker run -v "$PWD":/Work/klog "$DOCKER_USERNAME"/devel-qt-5.15.2:v0/Work/klog/devscripts/buildWithDocker.sh
-    
+    - docker run -ti -v "$PWD":/root/klog "$DOCKER_USERNAME"/devel-qt-5.15.2:v0 /root/klog/buildWithDocker.sh
+    cache:
+    directories:
+    - docker_images
+    before_cache:
+    - docker save -o docker_images/images.tar $(docker images -a -q)
