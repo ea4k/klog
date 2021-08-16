@@ -469,10 +469,9 @@ void SetupPageELog::setLoTWActive(const bool &_s)
     //lotwPasswordLineEdit->setEnabled(_s);
 }
 
-QString SetupPageELog::getLoTWActive()
+bool SetupPageELog::getLoTWActive()
 {
-    lotwTQSL = lotwUseTQSLCheckBox->isChecked();
-    return util->boolToQString(lotwTQSL);
+    return lotwUseTQSLCheckBox->isChecked();
 }
 
 void SetupPageELog::setTQSLPath(const QString &c)
@@ -644,14 +643,12 @@ QString SetupPageELog::getQRZCOMPassword()
 
 bool SetupPageELog::getQRZCOMAutoCheck()
 {
-    qrzcomAutoFill = QRZCOMAutoCheckCheckBox->isChecked();
-    return qrzcomAutoFill;
+    return QRZCOMAutoCheckCheckBox->isChecked();
 }
 
-void SetupPageELog::setQRZCOMAutoCheck(const QString &_s)
+void SetupPageELog::setQRZCOMAutoCheck(const bool &_s)
 {
-    qrzcomAutoFill = util->trueOrFalse(_s);
-    QRZCOMAutoCheckCheckBox->setChecked(qrzcomAutoFill);
+    QRZCOMAutoCheckCheckBox->setChecked(_s);
 }
 
 void SetupPageELog::showEvent(QShowEvent *event)

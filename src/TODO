@@ -1,3 +1,7 @@
+Done to: src/setuppages/setuppagedxcluster.h
+
+https://github.com/foldynl/klog/commit/d68a9fec601805232281c5ca338328e95d51bd0b#diff-8a6a421339db369cb2b34097f1a6fede57afb13e7e858e255ed7d6895f814540
+
 BUG: KLog needs to update the Entity DB is shown on every start
 
 KLog should update ALWAYS when receiving from LoTW the QSL_LOTW_rcvd or add the QSO if not in local log.

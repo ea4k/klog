@@ -43,7 +43,7 @@
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
-
+#include "klogconfig.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     QDir d1 = QDir();
     QString version = "1.8";
     //qDebug() << "KLog Main STARTED: " << version << Qt::endl;
-    Utilities util = Utilities();
+    //Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
     QCoreApplication::setOrganizationName("EA4K");
@@ -266,12 +266,13 @@ int main(int argc, char *argv[])
 
     // END OF Application Singleton
 
-    QString configFileName, klogDir;
+    //QString configFileName, klogDir;
 
-    klogDir = util.getHomeDir();
-    configFileName = util.getCfgFile();
+    //klogDir = util.getHomeDir();
+    //configFileName = util.getCfgFile();
 
     //qDebug() << "KLog Main-10" << Qt::endl;
+    QString klogDir = Utilities::getHomeDir();
 
     //qDebug() << "KLog Main: Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< Qt::endl;;
     if (!QDir::setCurrent (klogDir) )
@@ -303,8 +304,29 @@ int main(int argc, char *argv[])
     QPixmap pixmap(":img/klog_512x512.png");
     //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << Qt::endl;
     QSplashScreen splash(pixmap);
-    if(!QFile::exists(configFileName))
-    {
+    KlogConfig config;
+
+    if(!config.contains("version"))
+        {
+            //configure file does not exist
+
+            //try to migrate old config to new format, if exists
+            if(!config.old2newMigrationSuccess())
+            {
+                //does not exists or error - Starting wizard
+                StartWizard *wizard = new StartWizard(klogDir, version);
+                wizard->setModal(true);
+                wizard->exec();
+            }
+
+            MainWindow mw(klogDir, version);
+            mw.init();
+            splash.finish(&mw);
+            mw.show();
+            return app.exec();
+
+    #if 0
+
         //qDebug() << "MAIN:  Starting wizard... " << Qt::endl;
 
         StartWizard *wizard = new StartWizard(klogDir, version);
@@ -319,8 +341,6 @@ int main(int argc, char *argv[])
             MainWindow mw(klogDir, version);
             mw.init();
             splash.finish(&mw);
-            //mw.checkIfNewVersion();
-            //mw.recommendBackupIfNeeded();
             mw.show();
             return app.exec();
         }
@@ -369,13 +389,24 @@ int main(int argc, char *argv[])
             }
             return 0;
         }
+#endif
     }
-
     else
     {
-            //qDebug() << "Main: Start of DB Activities" << Qt::endl;
-        DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-           //qDebug() << "Main: After Start of DB Activities" << Qt::endl;
+         //qDebug() << "Main: Start of DB Activities" << Qt::endl;
+        //DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
+        // configuration file exists
+
+        //qDebug() << "Main: Start of DB Activities" << endl;
+        QString db_dir = config.value("dbpath",
+                                      Utilities::getHomeDir()).toString();
+
+        qDebug() << "Main: db_dir: " << db_dir << endl;
+
+        DataBase *db = new DataBase(Q_FUNC_INFO, version, db_dir.append("/logbook.dat"));
+
+
+        //qDebug() << "Main: After Start of DB Activities" << Qt::endl;
         if (!db->createConnection(Q_FUNC_INFO))
         {
                 //qDebug() << "Main: Conection not created" << Qt::endl;

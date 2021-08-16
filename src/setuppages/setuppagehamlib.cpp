@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "setuppages/setuppagehamlib.h"
+#include "klogconfig.h"
 
 SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
@@ -584,21 +585,20 @@ QString SetupPageHamLib::getFlowControl()
 {
     int ret = flowControlComboBox->currentIndex();
     QString output;
-    output = "HamLibSerialFlowControl=";
     switch (ret)
     {
         case 0:
-            output = output + "None";
+            output = "None";
         break;
         case 1:
-            output = output + "Hardware";
+            output = "Hardware";
             break;
         case 2:
-            output = output + "Software";
+            output = "Software";
             break;
         default:
         // should never be reached
-            output = output + "None";
+            output = "None";
         break;
     }
     return output;
@@ -625,27 +625,26 @@ QString SetupPageHamLib::getParity()
 {
     int ret = parityComboBox->currentIndex();
     QString output;
-    output = "HamLibSerialParity=";
     switch (ret)
     {
         case 0:
-            output = output + "None";
+            output = "None";
         break;
         case 1:
-            output = output + "Even";
+            output = "Even";
             break;
         case 2:
-            output = output + "Odd";
+            output = "Odd";
             break;
         case 3:
-            output = output + "Space";
+            output = "Space";
             break;
         case 4:
-            output = output + "Mark";
+            output = "Mark";
             break;
         default:
         // should never be reached
-            output = output + "None";
+            output = "None";
         break;
     }
     return output;
@@ -681,22 +680,21 @@ QString SetupPageHamLib::getStopBits()
 {
     int ret = stopBitsComboBox->currentIndex();
     QString output;
-    output = "HamLibSerialStopBits=";
     switch (ret)
     {
         case 0:
-            output = output + "1";
+            output = "1";
         break;
         case 1:
-            output = output + "1.5";
+            output = "1.5";
             break;
         case 2:
-            output = output + "2";
+            output = "2";
             break;
 
         default:
         // should never be reached
-            output = output + "1";
+            output = "1";
         break;
     }
     return output;
@@ -705,7 +703,6 @@ void SetupPageHamLib::setStopBits(const QString &_st)
 {
     if (_st == "1.5")
     {
-
         stopBitsComboBox->setCurrentIndex(1);
     }
     else if (_st == "2")

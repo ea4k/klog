@@ -65,8 +65,7 @@ public:
     bool isDBFileExisting(const QString &_file);
     QString getTQSLsFileName();
     QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
-    QString getHomeDir();
-    QString getCfgFile();
+    static QString getHomeDir();
     QString getCTYFile();
     QString getDebugLogFile();
     QString getSaveSpotsLogFile();
@@ -145,7 +144,6 @@ public:
     QString getOnlineServiceName(OnLineProvider _service);
     //QPalette getPalete(bool _ok);
 private:
-    bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);

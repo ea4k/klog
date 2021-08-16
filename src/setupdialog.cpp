@@ -26,6 +26,7 @@
 
 #include "setupdialog.h"
 #include "setuppages/setuppagemisc.h"
+#include "klogconfig.h"
 //#include <QDebug>
 
 /*
@@ -33,9 +34,9 @@ This class calls all the othet "Setup..." to manage the configuration
 
 */
 
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
 {
-    //qDebug() << "SetupDialog::SetupDialog 2: " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
+    //qDebug() << "SetupDialog::SetupDialog 2: /" << _softwareVersion << "/" << QString::number(_page) << _firstTime << endl ;
 
     logSeverity = Info;
     constrid = 2;
@@ -43,7 +44,6 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     firstTime = _firstTime;
     latestBackup = QString();
     dataProxy = dp;
-    configFileName = _configFile;
     version = _softwareVersion;
     pageRequested = _page;
     int logsPageTabN=-1;
@@ -168,7 +168,7 @@ void SetupDialog::slotQRZCOMAuto(const bool _b)
     emit qrzcomAuto(_b);
 }
 
-void SetupDialog::setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
+void SetupDialog::setData(const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
       //qDebug() << "SetupDialog::setData: " << "/" << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << Qt::endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
@@ -184,21 +184,12 @@ void SetupDialog::setData(const QString &_configFile, const QString &_softwareVe
         miscPage->setUseDefaultDBPath(miscPage->getDefaultDBPath());
     }
 
-    setConfigFile(_configFile);
     setSoftVersion(_softwareVersion);
     slotReadConfigData ();
     setPage(_page);
     //removeBandModeDuplicates();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
       //qDebug() << "SetupDialog::setData - END" << Qt::endl;
-}
-
-void SetupDialog::setConfigFile(const QString &_configFile)
-{
-       //qDebug() << "SetupDialog::setConfigFile" << Qt::endl;
-    emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
-    configFileName = _configFile;
-    emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }
 
 void SetupDialog::setSoftVersion(const QString &_softwareVersion)
@@ -326,7 +317,7 @@ void SetupDialog::slotOkButtonClicked()
 {
     //qDebug() << "SetupDialog::slotOkButtonClicked" << Qt::endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
-
+    KlogConfig config;
     if (!miscPage->areDBPathChangesApplied())
     {
         QMessageBox msgBox;
@@ -366,322 +357,108 @@ void SetupDialog::slotOkButtonClicked()
         return;
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - 10" << Qt::endl;
-    QFile file (configFileName);
-    QString tmp;
-    tmp = "true";
-    if (file.open (QIODevice::WriteOnly))   /* Flawfinder: ignore */
+
+    config.setValue("version", version);
+    config.setValue("userdata/callsign", userDataPage->getStationQrz());
+
+    if ((userDataPage->getOperators()).length() >= 3)
+    { // There are no valid calls with less than 3 Chars
+        config.setValue("userdata/operators",userDataPage->getOperators());
+    }
+    config.setValue("userdata/cqz", QString::number(userDataPage->getCQz()));
+    config.setValue("userdata/ituz", QString::number(userDataPage->getITUz()));
+    if ( locator->isValidLocator(userDataPage->getStationLocator()) )
     {
-        QTextStream stream (&file);
-    /*QString stationCall;
-    int contest;
-    int contestCategory;
-    int modes;*/
-    //QRZ/CQ/ITU/CONTEST
-    stream << "Version=" << version << ";" << Qt::endl;
-    stream << "Callsign="  << userDataPage->getStationQrz() << ";" << Qt::endl;
-    if ((userDataPage->getOperators()).length() >= 3){ // There are no valid calls with less than 3 Chars
-        stream << "Operators="  << userDataPage->getOperators() << ";" << Qt::endl;
+        config.setValue("userdata/stationlocator", userDataPage->getStationLocator());
     }
-    stream << "CQz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  Qt::endl;
-    stream << "ITUz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  Qt::endl;
-
-        if ( locator->isValidLocator(userDataPage->getStationLocator()) )
-        {
-            stream << "StationLocator=" << userDataPage->getStationLocator() << ";" << Qt::endl;
-        }
-
-
-        if ((!(userDataPage->getName()).isNull()) && (  (userDataPage->getName()).length() > 0   ))
-        {
-            stream << "Name=" << userDataPage->getName() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAddress1()).isNull()) && (  (userDataPage->getAddress1()).length() > 0   ))
-        {
-            stream << "Address1=" << userDataPage->getAddress1() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAddress2()).isNull())  && (  (userDataPage->getAddress2()).length() > 0   ))
-        {
-            stream << "Address2=" << userDataPage->getAddress2() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAddress3()).isNull()) && (  (userDataPage->getAddress3()).length() > 0   ))
-        {
-            stream << "Address3=" << userDataPage->getAddress3() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAddress4()).isNull()) && (  (userDataPage->getAddress4()).length() > 0   ))
-        {
-            stream << "Address4=" << userDataPage->getAddress4() <<";" << Qt::endl;
-        }
-
-        if ((!(userDataPage->getCity()).isNull()) && (  (userDataPage->getCity()).length() > 0   ))
-        {
-            stream << "City=" << userDataPage->getCity() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getZipCode()).isNull()) && (  (userDataPage->getZipCode()).length() > 0   ))
-        {
-            stream << "ZipCode=" << userDataPage->getZipCode() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getProvince()).isNull()) && (  (userDataPage->getProvince()).length() > 0   ))
-        {
-            stream << "ProvinceState=" << userDataPage->getProvince() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getCountry()).isNull()) && (  (userDataPage->getCountry()).length() > 0   ))
-        {
-            stream << "Country=" << userDataPage->getCountry() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getRig1()).isNull()) && (  (userDataPage->getRig1()).length() > 0   ))
-        {
-            stream << "Rig1=" << userDataPage->getRig1() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getRig2()).isNull()) && (  (userDataPage->getRig2()).length() > 0   ))
-        {
-            stream << "Rig2=" << userDataPage->getRig2() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getRig3()).isNull()) && (  (userDataPage->getRig3()).length() > 0   ))
-        {
-            stream << "Rig3=" << userDataPage->getRig3() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAntenna1()).isNull()) && (  (userDataPage->getAntenna1()).length() > 0   ))
-        {
-            stream << "Antenna1=" << userDataPage->getAntenna1() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAntenna2()).isNull()) && (  (userDataPage->getAntenna2()).length() > 0   ))
-        {
-            stream << "Antenna2=" << userDataPage->getAntenna2() <<";" << Qt::endl;
-        }
-        if ((!(userDataPage->getAntenna3()).isNull()) && (  (userDataPage->getAntenna2()).length() > 0   ))
-        {
-            stream << "Antenna3=" << userDataPage->getAntenna3() <<";" << Qt::endl;
-        }
-        if ((userDataPage->getPower()).toFloat()>=0)
-        {
-            stream << "Power=" << userDataPage->getPower() << ";" << Qt::endl;
-        }
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 20" << Qt::endl;
-        //stream << "locator=" << (MyLocatorkLineEdit->text ()).toUpper () <<  ";" << Qt::endl;
-        //stream << "CallUsed=" << (UserDataPage.qrzLineEdit).text() <<  ";" << Qt::endl;
-        //stream << "Operators=" <<  ";" << Qt::endl;
-        stream << "Bands=" << bandModePage->getBands() << ";" <<  Qt::endl;
-        stream << "Modes=" << bandModePage->getModes() << ";" <<  Qt::endl;
-        stream << "LogViewFields=" << logViewPage->getFields() << ";" <<  Qt::endl;
-
-        //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  Qt::endl;
-        stream << "RealTime=" << miscPage->getRealTime() << ";" <<  Qt::endl;
-        stream << "UTCTime=" << miscPage->getUTCTime() << ";" <<  Qt::endl;
-        stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  Qt::endl;
-        stream << "UseDefaultName=" << miscPage->getUseDefaultName() << ";" <<  Qt::endl;
-        stream << "DefaultADIFFile=" << miscPage->getDefaultFileName() << ";" <<  Qt::endl;
-        stream << "DBPath=" << miscPage->getDefaultDBPath() << ";" <<  Qt::endl;
-        stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  Qt::endl;
-        stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  Qt::endl;
-        stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  Qt::endl;
-        //stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  Qt::endl;
-        stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  Qt::endl;
-        stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  Qt::endl;
-        stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  Qt::endl;
-        stream << "DebugLog=" << miscPage->getDebugLog() << ";" << Qt::endl;
-        //stream << "LogSort=" << miscPage->getLogSort() << ";" << Qt::endl;
-        stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << Qt::endl;
-        stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";" << Qt::endl;
-
-        if (miscPage->getDupeTime()>0)
-        {
-            stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";" << Qt::endl;
-        }
-
-        //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << Qt::endl;
-        //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << Qt::endl;
-        //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << Qt::endl;
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 30" << Qt::endl;
-
-        if ( miscPage->getReportInfo())
-        {
-            stream << "ProvideInfo=True;"  <<  Qt::endl;
-        }
-
-
-        if ((!(dxClusterPage->getSelectedDxClusterServer()).isNull()) && (  (dxClusterPage->getSelectedDxClusterServer()).length() > 0   ))
-        {
-            stream << "DXClusterServerToUse=" << dxClusterPage->getSelectedDxClusterServer() <<";" << Qt::endl;
-        }
-
-        QStringList stringList;
-        stringList.clear();
-        stringList << dxClusterPage->getDxclusterServersComboBox();
-
-        if (stringList.size()>0)
-        {
-            for (int i = 0; i < stringList.size(); i++)
-            {
-                 stream << "DXClusterServerPort="<< stringList.at(i) << ";" << Qt::endl;
-            }
-        }
-
-        stream << "DXClusterShowHF=" << dxClusterPage->getShowHFQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWorked=" << dxClusterPage->getShowWorkedQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowConfirmed=" << dxClusterPage->getShowConfirmedQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  Qt::endl;
-
-        stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  Qt::endl;
-        stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  Qt::endl;
-        stream << "WorkedColor=" << colorsPage->getWorkedColor() << ";" <<  Qt::endl;
-        stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  Qt::endl;
-        stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  Qt::endl;
-        stream << "DarkMode=" << colorsPage->getDarkMode() << ";" << Qt::endl;
-        stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  Qt::endl;
-        //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << Qt::endl;
-        // CLUBLOG
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 40" << Qt::endl;
-
-            if (eLogPage->getClubLogActive())
-            {
-                stream << "ClubLogActive=True;"<<  Qt::endl;
-            }
-            else
-            {
-                stream << "ClubLogActive=False;"<< Qt::endl;
-            }
-            if (eLogPage->getClubLogRealTime())
-            {
-                stream << "ClubLogRealTime=True;" <<  Qt::endl;
-            }
-            else
-            {
-                stream << "ClubLogRealTime=False;" << Qt::endl;
-            }
-            tmp = eLogPage->getClubLogEmail() ;
-            if (tmp.length()>0)
-            {
-                 stream << "ClubLogEmail=" << tmp << ";" <<  Qt::endl;
-            }
-
-            tmp = eLogPage->getClubLogPassword() ;
-            if (tmp.length()>0)
-            {
-                stream << "ClubLogPass=" << tmp << ";" <<  Qt::endl;
-            }
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << Qt::endl;
-        // eQSL
-
-
-            if (eLogPage->getEQSLActive())
-            {
-                stream << "eQSLActive=True;" <<  Qt::endl;
-            }
-            else
-            {
-                stream << "eQSLActive=False;" << Qt::endl;
-            }
-            tmp = eLogPage->getEQSLUser();
-            if (tmp.length()>0)
-            {
-                 stream << "eQSLCall=" << tmp << ";" <<  Qt::endl;
-            }
-
-            tmp = eLogPage->getEQSLPassword() ;
-            if (tmp.length()>0)
-            {
-                stream << "eQSLPass=" << tmp << ";" <<  Qt::endl;
-            }
-
-        // eQSL - END
-
-        // QRZ.com
-
-            //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << Qt::endl;
-
-            if (eLogPage->getQRZCOMActive())
-            {
-                stream << "QRZcomActive=True;" <<  Qt::endl;
-            }
-            else
-            {
-                stream << "QRZcomActive=False;" << Qt::endl;
-            }
-            tmp = eLogPage->getQRZCOMUser();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomUser=" << tmp << ";" <<  Qt::endl;
-            }
-            tmp = eLogPage->getQRZCOMPassword();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomPass=" << tmp << ";" <<  Qt::endl;
-            }
-
-            if (eLogPage->getQRZCOMAutoCheck())
-            {
-                 stream << "QRZcomAuto=True;" << Qt::endl;
-            }
-            else
-            {
-                stream << "QRZcomAuto=False;" <<  Qt::endl;
-            }
-            tmp = eLogPage->getQRZCOMLogBookKEY();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomLogBookKey=" << tmp << ";" <<  Qt::endl;
-            }
-
-        // QRZ.com - END
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 60" << Qt::endl;
-
-        // LOTW
-        stream << "LoTWActive=" << eLogPage->getLoTWActive() << ";" <<  Qt::endl;
-        tmp = eLogPage->getTQSLPath();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWPath=" << tmp << ";" <<  Qt::endl;
-        }
-        tmp = eLogPage->getLoTWUser();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWUSer=" << tmp << ";" <<  Qt::endl;
-        }
-        tmp = eLogPage->getLoTWPass();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWPass=" << tmp << ";" <<  Qt::endl;
-        }
-
-        // LOTW
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 70" << Qt::endl;
-        //WSJTX
-        stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  Qt::endl;
-        stream << "UDPNetworkInterface=" << UDPPage->getNetworkInterface() << ";" <<  Qt::endl;
-        stream << "UDPServerPort=" << UDPPage->getUDPServerPort() << ";" <<  Qt::endl;
-        stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  Qt::endl;
-        stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  Qt::endl;
-        stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  Qt::endl;
-        stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  Qt::endl;
-
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib" << Qt::endl;
-        QString _aa = hamlibPage->getData();
-        stream << _aa << Qt::endl;
-
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa << Qt::endl;
-
-        //WSJTX
-
-        //Windows Size
-        if (windowSize.length()>0)
-        {
-            stream << "MainWindowSize=" << windowSize << ";" <<  Qt::endl;
-        }
-        if (latestBackup.length()>0)
-        {
-            stream << "LatestBackup=" << latestBackup << ";" << Qt::endl;
-        }
-        file.close ();
+    else
+    {
+        config.setValue("userdata/stationlocator", QString());
     }
-    //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << Qt::endl;
+
+    config.setValue("userdata/name",userDataPage->getName());
+    config.setValue("userdata/address1", userDataPage->getAddress1());
+    config.setValue("userdata/address2", userDataPage->getAddress2());
+    config.setValue("userdata/address3", userDataPage->getAddress3());
+    config.setValue("userdata/address4", userDataPage->getAddress4());
+    config.setValue("userdata/city", userDataPage->getCity());
+    config.setValue("userdata/zipcode", userDataPage->getZipCode());
+    config.setValue("userdata/provincestate", userDataPage->getProvince());
+    config.setValue("userdata/country", userDataPage->getCountry());
+    config.setValue("userdata/rig1", userDataPage->getRig1());
+    config.setValue("userdata/rig2", userDataPage->getRig2());
+    config.setValue("userdata/rig3", userDataPage->getRig3());
+    config.setValue("userdata/antenna1", userDataPage->getAntenna1());
+    config.setValue("userdata/antenna2", userDataPage->getAntenna2());
+    config.setValue("userdata/antenna3", userDataPage->getAntenna3());
+    config.setValue("userdata/power", userDataPage->getPower());
+    config.setValue("userdata/bands", bandModePage->getBands());
+    config.setValue("userdata/modes", bandModePage->getModes());
+    config.setValue("realtime", miscPage->getRealTime());
+    config.setValue("utctime", miscPage->getUTCTime());
+    config.setValue("alwaysadif", miscPage->getAlwaysADIF());
+    config.setValue("usedefaultname", miscPage->getUseDefaultName());
+    config.setValue("defaultadiffile", miscPage->getDefaultFileName());
+    config.setValue("dbpath", miscPage->getDefaultDBPath());
+    config.setValue("imperialSystem", miscPage->getImperial());
+    config.setValue("sendqslwhenrec", miscPage->getSendQSLWhenRec());
+    config.setValue("showcallsigninsearch", miscPage->getShowStationCallSignInSearch());
+    config.setValue("completewithprevious", miscPage->getCompleteWithPrevious());
+    config.setValue("checknewversions", miscPage->getCheckNewVersions());
+    config.setValue("managedxmarathon", miscPage->getDXMarathon());
+    config.setValue("debuglog", miscPage->getDebugLog());
+    config.setValue("sendeqslbydefault", miscPage->getSendEQSLByDefault());
+    config.setValue("deletealwaysadifile", miscPage->getDeleteAlwaysAdiFile());
+    config.setValue("duplicateqsoslot", QString::number(miscPage->getDupeTime()));
+    config.setValue("provideinfo", miscPage->getReportInfo());
+    config.setValue("DXC/servertouse", dxClusterPage->getSelectedDxClusterServer());
+    config.setValue("DXC/servervariants", dxClusterPage->getDxclusterServersComboBox());
+    config.setValue("DXC/showhf", dxClusterPage->getShowHFQCheckbox());
+    config.setValue("DXC/showvhf", dxClusterPage->getShowVHFQCheckbox());
+    config.setValue("DXC/showwarc", dxClusterPage->getShowWARCQCheckbox());
+    config.setValue("DXC/showworked", dxClusterPage->getShowWorkedQCheckbox());
+    config.setValue("DXC/showconfirmed", dxClusterPage->getShowConfirmedQCheckbox());
+    config.setValue("DXC/showann", dxClusterPage->getShowANNQCheckbox());
+    config.setValue("DXC/showwwn", dxClusterPage->getShowWWVQCheckbox());
+    config.setValue("DXC/showwcy", dxClusterPage->getShowWCYQCheckbox());
+    config.setValue("DXC/save", dxClusterPage->getSaveActivityQCheckbox());
+    config.setValue("colors/newone", colorsPage->getNewOneColor());
+    config.setValue("colors/needed", colorsPage->getNeededColor());
+    config.setValue("colors/worked", colorsPage->getWorkedColor());
+    config.setValue("colors/confirmed", colorsPage->getConfirmedColor());
+    config.setValue("colors/default", colorsPage->getDefaultColor());
+    config.setValue("colors/darkmode", colorsPage->getDarkMode());
+    config.setValue("selectedlog", QString::number(logsPage->getSelectedLog()));
+    config.setValue("clublog/active", eLogPage->getClubLogActive());
+    config.setValue("clublog/realtime", eLogPage->getClubLogRealTime());
+    config.setValue("clublog/email", eLogPage->getClubLogEmail());
+    config.setValue("clublog/pass", eLogPage->getClubLogPassword());
+    config.setValue("eqsl/active", eLogPage->getEQSLActive());
+    config.setValue("eqsl/call", eLogPage->getEQSLUser());
+    config.setValue("eqsl/pass", eLogPage->getEQSLPassword());
+    config.setValue("qrzcom/active", eLogPage->getQRZCOMActive());
+    config.setValue("qrzcom/user", eLogPage->getQRZCOMUser());
+    config.setValue("qrzcom/pass", eLogPage->getQRZCOMPassword());
+    config.setValue("qrzcom/auto", eLogPage->getQRZCOMAutoCheck());
+    config.setValue("qrzcom/logbookkey", eLogPage->getQRZCOMLogBookKEY());
+    config.setValue("lotw/active", eLogPage->getLoTWActive());
+    config.setValue("lotw/path", eLogPage->getTQSLPath());
+    config.setValue("lotw/user", eLogPage->getLoTWUser());
+    config.setValue("lotw/pass", eLogPage->getLoTWPass());
+    config.setValue("udpserver/active", UDPPage->getUDPServer());
+    config.setValue("udpserver/interface", UDPPage->getNetworkInterface());
+    config.setValue("udpserver/port", UDPPage->getUDPServerPort());
+    config.setValue("wsjtx/logfromwsjtx", UDPPage->getLogFromWSJTx());
+    config.setValue("wsjtx/logautofromwsjtx", UDPPage->getAutoLogFromWSJTx());
+    config.setValue("wsjtx/realtimefromwsjtx", UDPPage->getReaDataFromWSJTx());
+    config.setValue("wsjtx/infotimeout", UDPPage->getTimeout());
+    config.setValue("hamlib/active", hamlibPage->isActive());
+    config.setValue("hamlib/readonly", hamlibPage->isReadOnly());
+
+    hamlibPage->saveConfig();
+
+   //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << endl;
+
     QDialog::accept();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "SetupDialog::slotOkButtonClicked - END" << Qt::endl;
@@ -706,23 +483,12 @@ void SetupDialog::slotReadConfigData()
 
     //qDebug() << "SetupDialog::slotReadConfigData - 1" << Qt::endl;
 
-    QFile file(configFileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+   if ( !processConfigData())
     {
-        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << Qt::endl;
-        //firstTime = true;
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-    //qDebug() << "SetupDialog::slotReadConfigData - 2" << Qt::endl;
-    //dxClusterServers.clear();
 
-    while (!file.atEnd()){
-        QByteArray line = file.readLine();
-        processConfigLine(line);
-        //qDebug() << "SetupDialog::slotReadConfigData - in the while" << Qt::endl;
-    }
-    //qDebug() << "SetupDialog::slotReadConfigData - 3" << Qt::endl;
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -752,412 +518,143 @@ void SetupDialog::slotReadConfigData()
 
 }
 
-bool SetupDialog::processConfigLine(const QString &_line)
+bool SetupDialog::processConfigData()
 {
-    //qDebug() << "SetupDialog::processConfigLine: " << _line << Qt::endl;
+    //qDebug() << "SetupDialog::processConfigLine: " << endl;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
-
-    QString line = _line.simplified();
-    //line.simplified();
-    int i = 0; //aux variable
-    QStringList values = line.split("=", Qt::SkipEmptyParts);
-    QString tab = QString();
-
-
-    if (line.startsWith('#')){
-           //qDebug() << "SetupDialog::processConfigLine: Comment Line!" << Qt::endl;
-        emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
-        return true;
-    }
-    if (!( (line.contains('=')) && (line.contains(';')))){
-           //qDebug() << "SetupDialog::processConfigLine: Wrong Line!" << Qt::endl;
-        emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
+    KlogConfig config;
+    if ( !config.contains("version") )
+    {
         return false;
     }
-    QString value = values.at(1);
-    tab = (values.at(0)).toUpper();
+    //LFF
+    userDataPage->setStationQrz(config.value("userdata/callsign").toString());
+    userDataPage->setOperators(config.value("userdata/operators").toString());
+    userDataPage->setCQz(config.value("userdata/cqz").toInt());
+    userDataPage->setITUz(config.value("userdata/ituz").toInt());
+    readActiveModes(config.value("userdata/modes").toString());
+    modes.removeDuplicates();
+    bandModePage->setActiveModes(modes);
+    miscPage->setRealTime(config.value("realtime").toBool());
+    miscPage->setUTCTime(config.value("utctime").toBool());
+    miscPage->setAlwaysADIF(config.value("alwaysadif").toBool());
+    miscPage->setDefaultFileName(config.value("usedefaultname").toString());
+    miscPage->setUseDefaultDBPath(config.value("dbpath").toString());
+    miscPage->setDefaultFileName(config.value("defaultadiffile").toString().toLower());
+    miscPage->setImperial(config.value("imperialsystem").toBool());
+    miscPage->setCompleteWithPrevious(config.value("completewithprevious").toBool());
+    miscPage->setSendQSLWhenRec(config.value("sendqslwhenrec").toBool());
+    miscPage->setDXMarathon(config.value("managedxmarathon").toBool());
+    miscPage->setDebugLog(config.value("debuglog").toBool());
+    miscPage->setShowStationCallSignInSearch(config.value("showcallsigninsearch").toBool());
+    miscPage->setCheckNewVersions(config.value("checknewversions").toBool());
+    miscPage->setReportInfo(config.value("provideinfo").toBool());
+    miscPage->setSetEQSLByDefault(config.value("sendeqslbydefault").toBool());
+    miscPage->setDupeTime(config.value("duplicatedqsoslot").toInt());
 
-    int endValue = value.indexOf(';');
-    if (endValue>-1){
+    UDPPage->setUDPServer(config.value("udpserver/active").toBool());
+    UDPPage->setNetworkInterface(config.value("udpserver/interface").toString());
+    UDPPage->setUDPServerPort(config.value("udpserver/port").toString());
+    UDPPage->setLogFromWSJTx(config.value("wsjtx/logfromwsjtx").toBool());
+    UDPPage->setAutoLogFromWSJTx(config.value("wsjtx/logautofromwsjtx").toBool());
+    UDPPage->setReaDataFromWSJTx(config.value("wsjtx/realtimefromwsjtx").toBool());
+    UDPPage->setTimeout(config.value("wsjtx/infotimeout").toString());
 
-        value = value.left(value.length() - (value.length() - endValue));
-    }
-    value = checkAndFixASCIIinADIF(value); // Check whether the value is valid.
-      //qDebug() << "SetupDialog::processConfigLine: TAB: " << tab << Qt::endl;
-      //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value << Qt::endl;
-    if (tab == "CALLSIGN"){
-           //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value << Qt::endl;
-        userDataPage->setStationQrz(value);
-    }else if (tab == "OPERATORS"){
-        userDataPage->setOperators(value);
-    }else if (tab=="CQZ"){
-        userDataPage->setCQz((value).toInt());
-
-    }else if (tab=="ITUZ"){
-        userDataPage->setITUz((value).toInt());
-    }else if (tab=="CONTEST"){
-        //userDataPage->setContest(value);
-    }else if (tab=="MODES"){
-        readActiveModes(value);
-        modes.removeDuplicates();
-        bandModePage->setActiveModes(modes);
-    }else if (tab=="BANDS"){
-        readActiveBands(value);
-        bands.removeDuplicates();
-        bandModePage->setActiveBands(bands);
-    //}else if (tab=="INMEMORY"){
-    //    miscPage->setInMemory(value);
-    }else if (tab=="LOGVIEWFIELDS"){
-        logViewFields.clear();
-        //qDebug() << Q_FUNC_INFO << ": " << value;
-        //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
-        logViewFields << dataProxy->filterValidFields(value.split(",", Qt::SkipEmptyParts));
-        logViewFields.removeDuplicates();
-        logViewPage->setActiveFields(logViewFields);
-    }else if (tab=="REALTIME"){
-        miscPage->setRealTime(value);
-    }else if (tab=="UTCTIME"){
-        miscPage->setUTCTime(value);
-    }else if (tab=="ALWAYSADIF"){
-        miscPage->setAlwaysADIF(value);
-    }else if (tab=="USEDEFAULTNAME"){
-        miscPage->setDefaultFileName(value);
-    }else if (tab=="DBPATH"){
-        miscPage->setUseDefaultDBPath(value);
-    }else if (tab=="DEFAULTADIFFILE"){
-        miscPage->setDefaultFileName(value);
-           //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << Qt::endl;
-    }else if (tab=="IMPERIALSYSTEM"){
-        miscPage->setImperial(value.toUpper());
-    }else if (tab=="COMPLETEWITHPREVIOUS"){
-        miscPage->setCompleteWithPrevious(value.toUpper());
-    }else if (tab=="SENDQSLWHENREC"){
-        miscPage->setSendQSLWhenRec(value.toUpper());
-    }else if (tab=="MANAGEDXMARATHON"){
-        miscPage->setDXMarathon(value.toUpper());
-    }else if (tab=="DEBUGLOG"){
-        miscPage->setDebugLog(value);
-    }
-    else if (tab=="SHOWCALLSIGNINSEARCH"){
-        miscPage->setShowStationCallSignInSearch(value.toUpper());
-    }
-    else if (tab=="CHECKNEWVERSIONS"){
-        miscPage->setCheckNewVersions(value);
-    }
-    else if (tab=="PROVIDEINFO"){
-        miscPage->setReportInfo(value);
-    }
-    /*
-    else if (tab=="LOGSORT"){
-        miscPage->setLogSort(value);
-    }
-    */
-    else if (tab=="SENDEQSLBYDEFAULT"){
-        miscPage->setSetEQSLByDefault(value);
-    }
-    else if (tab=="DUPLICATEDQSOSLOT"){
-        if (value.toInt()>=0)
-        {
-            miscPage->setDupeTime(value.toInt());
-        }
+    userDataPage->setName(config.value("userdata/name").toString());
+    userDataPage->setAddress1(config.value("userdata/address1").toString());
+    userDataPage->setAddress2(config.value("userdata/address2").toString());
+    userDataPage->setAddress3(config.value("userdata/address3").toString());
+    userDataPage->setAddress4(config.value("userdata/address4").toString());
+    userDataPage->setCity(config.value("userdata/city").toString());
+    userDataPage->setZipCode(config.value("userdata/zipcode").toString());
+    userDataPage->setProvince(config.value("userdata/provincestate").toString());
+    userDataPage->setCountry(config.value("userdata/country").toString());
+    userDataPage->setPower(config.value("userdata/power").toString());
+    userDataPage->setRig1(config.value("userdata/rig1").toString());
+    userDataPage->setRig2(config.value("userdata/rig2").toString());
+    userDataPage->setRig3(config.value("userdata/rig3").toString());
+    userDataPage->setAntenna1(config.value("userdata/antenna1").toString());
+    userDataPage->setAntenna2(config.value("userdata/antenna2").toString());
+    userDataPage->setAntenna3(config.value("userdata/antenna3").toString());
+    if ( locator->isValidLocator(config.value("userdata/stationlocator").toString() ))
+    {
+        userDataPage->setStationLocator(config.value("userdata/stationlocator").toString());
     }
 
-    /*
-    else if (tab=="PSTROTATORACTIVE"){
-        interfacesWindowsPage->setSendToPSTRotator(value);
-    }
-    else if (tab=="PSTROTATORPORT"){
-        interfacesWindowsPage->setPSTRotatorUDPServerPort(value);
-    }
-    else if (tab=="PSTROTATORSERVER")
-    {
-        interfacesWindowsPage->setPSTRotatorUDPServer(value);
-    }
-    */
-    else if (tab=="UDPSERVER"){
-        UDPPage->setUDPServer(value);
-    }
-    else if (tab=="UDPNETWORKINTERFACE"){
-        UDPPage->setNetworkInterface(value);
-    }
-    else if (tab=="UDPSERVERPORT"){
-        UDPPage->setUDPServerPort(value);
-    }
-    else if (tab=="LOGFROMWSJTX")
-    {
-        UDPPage->setLogFromWSJTx(value);
-    }
-    else if (tab=="LOGAUTOFROMWSJTX")
-    {
-        UDPPage->setAutoLogFromWSJTx(value);
-    }
-    else if (tab=="REALTIMEFROMWSJTX")
-    {
-        UDPPage->setReaDataFromWSJTx(value);
-    }
-    else if (tab=="INFOTIMEOUT")
-    {
-        UDPPage->setTimeout(value);
-    }
-    else if (tab =="NAME")
-    {
-        userDataPage->setName(value);
-    }
-    else if (tab =="ADDRESS1")
-    {
-        userDataPage->setAddress1(value);
-    }
-    else if (tab =="ADDRESS2")
-    {
-        userDataPage->setAddress2(value);
-    }
-    else if (tab =="ADDRESS3")
-    {
-        userDataPage->setAddress3(value);
-    }
-    else if (tab =="ADDRESS4")
-    {
-        userDataPage->setAddress4(value);
-    }
-    else if (tab =="CITY")
-    {
-        userDataPage->setCity(value);
-    }
-    else if (tab =="ZIPCODE")
-    {
-        userDataPage->setZipCode(value);
-    }
-    else if (tab =="PROVINCESTATE")
-    {
-        userDataPage->setProvince(value);
-    }
-    else if (tab =="COUNTRY")
-    {
-        userDataPage->setCountry(value);
-    }
-    else if (tab =="POWER")
-    {
-        userDataPage->setPower(value);
-    }
-    else if (tab =="RIG1")
-    {
-        userDataPage->setRig1(value);
-    }
-    else if (tab =="RIG2")
-    {
-        userDataPage->setRig2(value);
-    }
-    else if (tab =="RIG3")
-    {
-        userDataPage->setRig3(value);
-    }
+    dxClusterPage->setShowHFQCheckbox(config.value("DXC/showhf").toBool());
+    dxClusterPage->setShowVHFQCheckbox(config.value("DXC/showvhf").toBool());
+    dxClusterPage->setShowWARCQCheckbox(config.value("DXC/showwarc").toBool());
+    dxClusterPage->setShowWorkedQCheckbox(config.value("DXC/showworked").toBool());
+    dxClusterPage->setShowConfirmedQCheckbox(config.value("DXC/showconfirmed").toBool());
+    dxClusterPage->setShowANNQCheckbox(config.value("DXC/showann").toBool());
+    dxClusterPage->setShowWWVQCheckbox(config.value("DXC/showwwn").toBool());
+    dxClusterPage->setShowWCYQCheckbox(config.value("DXC/showwcy").toBool());
+    dxClusterServers = config.value("DXC/servervariants").toStringList();
+    dxClusterServerToUse = config.value("DXC/servertouse").toString();
+    dxClusterPage->setSaveActivityQCheckbox(config.value("DXC/save").toBool());
 
-    else if (tab =="ANTENNA1")
+    colorsPage->setNewOneColor(config.value("colors/newone").toString());
+    colorsPage->setNeededColor(config.value("colors/needed").toString());
+    colorsPage->setWorkedColor(config.value("colors/worked").toString());
+    colorsPage->setConfirmedColor(config.value("colors/confirmed").toString());
+    colorsPage->setDefaultColor(config.value("colors/default").toString());
+    colorsPage->setDarkMode(config.value("colors/darkmode").toBool());
+
+    hamlibPage->setRigType(config.value("hamlib/rigtype").toString());
+    hamlibPage->setSerialPort(config.value("hamlib/serialport").toString());
+    hamlibPage->setSerialSpeed(config.value("hamlib/serialbauds").toString());
+    hamlibPage->setActive(config.value("hamlib/active").toBool());
+    hamlibPage->setReadOnly(config.value("hamlib/readonly").toBool());
+    hamlibPage->setDataBits(config.value("hamlib/serialdatabits").toString());
+    hamlibPage->setStopBits(config.value("hamlib/serialstopbits").toString());
+    hamlibPage->setFlowControl(config.value("hamlib/serialflowcontrol").toString());
+    hamlibPage->setParity(config.value("hamlib/serialparity").toString());
+    hamlibPage->setPollingInterval(config.value("hamlib/pollrate").toInt());
+    hamlibPage->setRadioNetworkAddress(config.value("hamlib/netaddress").toString());
+    hamlibPage->setRadioNetworkPort(config.value("hamlib/netport").toInt());
+
+    int i = config.value("selectedlog").toInt();
+
+    if (dataProxy->doesThisLogExist(i))
     {
-        userDataPage->setAntenna1(value);
-    }
-    else if (tab =="ANTENNA2")
-    {
-        userDataPage->setAntenna2(value);
-    }
-    else if (tab =="ANTENNA3")
-    {
-        userDataPage->setAntenna3(value);
-    }
-    else if (tab =="STATIONLOCATOR"){
-
-        if ( locator->isValidLocator(value) )
-        {
-            userDataPage->setStationLocator(value);
-        }
-    }else if (tab =="DXCLUSTERSHOWHF"){
-        dxClusterPage->setShowHFQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWVHF"){
-        dxClusterPage->setShowVHFQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWARC"){
-        dxClusterPage->setShowWARCQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWORKED"){
-        dxClusterPage->setShowWorkedQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWCONFIRMED"){
-        dxClusterPage->setShowConfirmedQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWANN"){
-        dxClusterPage->setShowANNQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWWV"){
-        dxClusterPage->setShowWWVQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWCY"){
-        dxClusterPage->setShowWCYQCheckbox(value);
-    }else if(tab =="DXCLUSTERSERVERPORT"){
-        dxClusterServers << value;
-           //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << Qt::endl;
-    }else if (tab  =="DXCLUSTERSERVERTOUSE"){
-        dxClusterServerToUse=value;
-    }
-    else if (tab  =="DXCLUSTERSAVE"){
-        dxClusterPage->setSaveActivityQCheckbox(value);
-    }
-    else if(tab =="NEWONECOLOR"){
-        colorsPage->setNewOneColor(value);
-    }else if(tab =="NEEDEDCOLOR"){
-        colorsPage->setNeededColor(value);
-    }else if(tab =="WORKEDCOLOR"){
-        colorsPage->setWorkedColor(value);
-    }else if(tab =="CONFIRMEDCOLOR"){
-        colorsPage->setConfirmedColor(value);
-    }else if(tab =="DEFAULTCOLOR"){
-        colorsPage->setDefaultColor(value);
-          //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << Qt::endl;
-    }else if(tab =="DARKMODE"){
-        colorsPage->setDarkMode(value);
-    }else if(tab =="HAMLIBRIGTYPE"){
-          //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << Qt::endl;
-        hamlibPage->setRigType(value);
-          //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << Qt::endl;
-    }else if(tab =="HAMLIBSERIALPORT"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << Qt::endl;
-        hamlibPage->setSerialPort(value);
-    }else if(tab =="HAMLIBSERIALBAUDS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << Qt::endl;
-        hamlibPage->setSerialSpeed(value);
-    }else if(tab =="HAMLIB"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value << Qt::endl;
-        hamlibPage->setActive(value);
-    }else if(tab=="HAMLIBREADONLY"){
-        hamlibPage->setReadOnly(value);
-    }else if(tab =="HAMLIBSERIALDATABITS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << Qt::endl;
-        hamlibPage->setDataBits(value);
-    }else if(tab =="HAMLIBSERIALSTOPBITS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << Qt::endl;
-        hamlibPage->setStopBits(value);
-    }else if(tab =="HAMLIBSERIALFLOWCONTROL"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << Qt::endl;
-        hamlibPage->setFlowControl(value);
-    }else if(tab =="HAMLIBSERIALPARITY"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value << Qt::endl;
-        hamlibPage->setParity(value);
-    }else if(tab =="HAMLIBSERIALRTS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << Qt::endl;
-        //hamlibPage->setRTS(value);
-    }else if(tab =="HAMLIBSERIALDTR"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << Qt::endl;
-        //hamlibPage->setDTR(value);
-    }else if (tab == "HAMLIBRIGPOLLRATE"){
-        hamlibPage->setPollingInterval(value.toInt());
-    }else if (tab == "HAMLIBNETADDRESS"){
-        hamlibPage->setRadioNetworkAddress (value);
-    }else if (tab == "HAMLIBNETPORT"){
-        hamlibPage->setRadioNetworkPort (value.toInt ());
-    }else if(tab =="SELECTEDLOG"){
-           //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << Qt::endl;
-        i = value.toInt();
-
-        if (dataProxy->doesThisLogExist(i))
-        {
-               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist TRUE" << Qt::endl;
-        }
-        else
-        {
-               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist FALSE" << Qt::endl;
-            i = 0;
-            while(!dataProxy->doesThisLogExist(i))
-            {
-                i++;
-            }
-        }
-        logsPage->setSelectedLog(i);
-           //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END" << Qt::endl;
-
-    }else if(tab =="CLUBLOGACTIVE"){
-        eLogPage->setClubLogActive(util->trueOrFalse(value));
-
-    }
-    else if(tab =="CLUBLOGREALTIME"){
-        //clubLogPage->setClubLogRealTime(value);
-        eLogPage->setClubLogRealTime(util->trueOrFalse(value));
-    }
-    else if(tab =="CLUBLOGPASS"){
-        //clubLogPage->setPassword(value);
-        eLogPage->setClubLogPassword(value);
-    }
-    else if(tab =="CLUBLOGEMAIL"){
-        //clubLogPage->setEmail(value);
-        eLogPage->setClubLogEmail(value);
-    }
-    else if(tab =="EQSLACTIVE"){
-        //eQSLPage->setActive(value);
-        eLogPage->setEQSLActive(util->trueOrFalse(value));
-    }
-    else if(tab =="EQSLCALL"){
-        //eQSLPage->setCallsign(value);
-        eLogPage->setEQSLUser(value);
-    }
-    else if(tab =="EQSLPASS"){
-        //eQSLPage->setPassword(value);
-        eLogPage->setEQSLPassword(value);
-    }
-    else if(tab =="QRZCOMACTIVE"){
-        //eQSLPage->setActive(value);
-        eLogPage->setQRZCOMActive(value);
-    }
-    else if(tab =="QRZCOMUSER"){
-        eLogPage->setQRZCOMUser(value);
-    }
-    else if(tab =="QRZCOMAUTO"){
-        eLogPage->setQRZCOMAutoCheck(value);
-    }
-    else if(tab =="QRZCOMPASS"){
-        eLogPage->setQRZCOMPassword(value);
-    }
-    else if(tab =="QRZCOMLOGBOOKKEY"){
-        eLogPage->setQRZCOMLogBookKEY(value);
-    }
-    else if(tab =="LOTWACTIVE"){
-        eLogPage->setLoTWActive(util->trueOrFalse(value));
-    }
-    else if(tab =="LOTWPATH"){
-        eLogPage->setTQSLPath(value);
-    }
-    else if(tab =="LOTWUSER"){
-        eLogPage->setLoTWUser(value);
-    }
-    else if(tab =="LOTWPASS"){
-        eLogPage->setLoTWPass(value);
-    }
-    else if(tab =="MAINWINDOWSIZE"){
-        QStringList values;
-        values.clear();
-        values << value.split("x");
-        if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
-        {
-            windowSize = value;
-        }
-    }
-    else if(tab =="DELETEALWAYSADIFILE"){
-            miscPage->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
-        }
-    else if (tab == "LATESTBACKUP"){
-        if (value.length()>0)
-        {
-            latestBackup = value;
-        }
-        else
-        {
-            latestBackup = QString();
-        }
-    //s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
+        //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist TRUE" << endl;
     }
     else
     {
-           //qDebug() << "SetupDialog::processConfigLine: NONE: " << Qt::endl;
+        //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist FALSE" << endl;
+        i = 0;
+        while(!dataProxy->doesThisLogExist(i))
+        {
+            i++;
+        }
     }
+    logsPage->setSelectedLog(i);
 
-    // Lines are: Option = value;
+    eLogPage->setClubLogActive(config.value("clublog/active").toBool());
+    eLogPage->setClubLogRealTime(config.value("clublog/realtime").toBool());
+    eLogPage->setClubLogPassword(config.value("clublog/pass").toString());
+    eLogPage->setClubLogEmail(config.value("clublog/email").toString());
 
-       //qDebug() << "SetupDialog::processConfigLine: END "  << Qt::endl;
+    eLogPage->setEQSLActive(config.value("eqsl/active").toBool());
+    eLogPage->setEQSLUser(config.value("eqsl/call").toString());
+    eLogPage->setEQSLPassword(config.value("eqsl/pass").toString());
+
+    eLogPage->setQRZCOMActive(config.value("qrzcom/active").toBool());
+    eLogPage->setQRZCOMUser(config.value("qrzcom/user").toString());
+    eLogPage->setQRZCOMAutoCheck(config.value("qrzcom/auto").toBool());
+    eLogPage->setQRZCOMPassword(config.value("qrzcom/pass").toString());
+    eLogPage->setQRZCOMLogBookKEY(config.value("qrzcom/logbookkey").toString());
+
+    eLogPage->setLoTWActive(config.value("lotw/active").toBool());
+    eLogPage->setTQSLPath(config.value("lotw/path").toString());
+    eLogPage->setLoTWUser(config.value("lotw/user").toString());
+    eLogPage->setLoTWPass(config.value("lotw/pass").toString());
+
+    miscPage->setDeleteAlwaysAdiFile(config.value("deletealwaysadifile").toBool());
+    latestBackup = config.value("latestbackup", QString()).toString();
+
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
     return true;
-
-
 }
 
 void SetupDialog::readActiveBands (const QString &actives)
@@ -1350,7 +847,7 @@ void SetupDialog::setClubLogActive(const bool _b)
 
 void SetupDialog::setQRZCOMAutoCheckActive(const bool _b)
 {
-     eLogPage->setQRZCOMAutoCheck(util->boolToQString(_b));
+     eLogPage->setQRZCOMAutoCheck(_b);
 }
 
 void SetupDialog::setEQSLActive(const bool _b)

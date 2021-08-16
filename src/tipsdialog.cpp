@@ -169,7 +169,7 @@ void TipsDialog::setTip(const int _t)
     break;
     case 5:
         description = tr("<b>Tip #5:</b><br>Do you know...<br>You can find the file containing all your log and other information in the logbook.dat "
-                         "file and the klogrc file, containing the KLog config file in the KLog folder by opening the"
+                         "file and the klog.ini file, containing the KLog config file in the KLog folder by opening the"
                          " <a href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu?");
     break;
     case 6:

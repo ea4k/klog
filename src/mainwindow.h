@@ -401,7 +401,7 @@ private:
     bool createConnection();
     void createData();
     void openSetup(const int _page=0);
-    bool processConfigLine(const QString &_line);
+    bool processConfigData();
     void readConfigData();
     void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();

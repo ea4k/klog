@@ -208,50 +208,50 @@ void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
     //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << Qt::endl;
 }
 
-QString SetupPageMisc::getDeleteAlwaysAdiFile(){
+bool SetupPageMisc::getDeleteAlwaysAdiFile(){
 
-    return util->boolToQString(deleteAlwaysAdiFileCheckBox->isChecked());
+    return deleteAlwaysAdiFileCheckBox->isChecked();
 }
 
-QString SetupPageMisc::getSendEQSLByDefault(){
+bool SetupPageMisc::getSendEQSLByDefault(){
 
-    return util->boolToQString(sendEQSLByDefaultSearchCheckBox->isChecked());
+    return sendEQSLByDefaultSearchCheckBox->isChecked();
 }
 
-void SetupPageMisc::setSetEQSLByDefault(const QString &_t){
+void SetupPageMisc::setSetEQSLByDefault(const bool &_t){
 
-    sendEQSLByDefaultSearchCheckBox->setChecked(util->trueOrFalse(_t));
+    sendEQSLByDefaultSearchCheckBox->setChecked(_t);
 }
 
-QString SetupPageMisc::getRealTime(){
+bool SetupPageMisc::getRealTime(){
 
-    return util->boolToQString(realTimeCheckbox->isChecked());
+    return realTimeCheckbox->isChecked();
 }
 
-void SetupPageMisc::setRealTime(const QString &_t)
+void SetupPageMisc::setRealTime(const bool &_t)
 {
-    realTimeCheckbox->setChecked(util->trueOrFalse(_t));
+    realTimeCheckbox->setChecked(_t);
 }
 
-QString SetupPageMisc::getUTCTime(){
+bool SetupPageMisc::getUTCTime(){
 
-    return util->boolToQString(UTCCheckbox->isChecked());
+    return UTCCheckbox->isChecked();
 }
 
 
-void SetupPageMisc::setUTCTime(const QString &_t)
+void SetupPageMisc::setUTCTime(const bool &_t)
 {
-    UTCCheckbox->setChecked(util->trueOrFalse(_t));
+    UTCCheckbox->setChecked(_t);
 }
 
 
-QString SetupPageMisc::getAlwaysADIF()
+bool SetupPageMisc::getAlwaysADIF()
 {
-    return util->boolToQString(alwaysADIFCheckBox->isChecked());
+    return alwaysADIFCheckBox->isChecked();
 }
-void SetupPageMisc::setAlwaysADIF(const QString &_t)
+void SetupPageMisc::setAlwaysADIF(const bool &_t)
 { // Defaul value is false
-    alwaysADIFCheckBox->setChecked(util->trueOrFalse(_t));
+    alwaysADIFCheckBox->setChecked(_t);
 }
 
 QString SetupPageMisc::getDefaultFileName()
@@ -278,24 +278,24 @@ void SetupPageMisc::slotOpenFileButtonClicked()
  }
 
 
-QString SetupPageMisc::getUseDefaultName()
+bool SetupPageMisc::getUseDefaultName()
 {
-    return util->boolToQString(useDefaultName->isChecked());
+    return useDefaultName->isChecked();
 }
 
-void SetupPageMisc::setUseDefaultName(const QString &_t)
+void SetupPageMisc::setUseDefaultName(const bool &_t)
 {
-    useDefaultName->setChecked(util->trueOrFalse(_t));
+    useDefaultName->setChecked(_t);
 }
 
-QString SetupPageMisc::getImperial()
+bool SetupPageMisc::getImperial()
 {
-    return util->boolToQString(imperialCheckBox->isChecked());
+    return imperialCheckBox->isChecked();
 }
 
-void SetupPageMisc::setImperial(const QString &_t)
+void SetupPageMisc::setImperial(const bool &_t)
 {
-    imperialCheckBox->setChecked(util->trueOrFalse(_t));
+    imperialCheckBox->setChecked(_t);
 }
 
 
@@ -316,25 +316,25 @@ void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
     }
 }
 
-QString SetupPageMisc::getSendQSLWhenRec()
+bool SetupPageMisc::getSendQSLWhenRec()
 {
-    return util->boolToQString(sendQSLWhenRecCheckBox->isChecked());
+    return sendQSLWhenRecCheckBox->isChecked();
 }
 
 
-void SetupPageMisc::setSendQSLWhenRec(const QString &_t)
+void SetupPageMisc::setSendQSLWhenRec(const bool &_t)
 {
-    sendQSLWhenRecCheckBox->setChecked(util->trueOrFalse(_t));
+    sendQSLWhenRecCheckBox->setChecked(_t);
 }
 
-QString SetupPageMisc::getShowStationCallSignInSearch()
+bool SetupPageMisc::getShowStationCallSignInSearch()
 {
-    return util->boolToQString(showStationCallWhenSearchCheckBox->isChecked());
+    return showStationCallWhenSearchCheckBox->isChecked();
 }
 
-void SetupPageMisc::setShowStationCallSignInSearch(const QString &_t)
+void SetupPageMisc::setShowStationCallSignInSearch(const bool &_t)
 {
-    showStationCallWhenSearchCheckBox->setChecked(util->trueOrFalse(_t));
+    showStationCallWhenSearchCheckBox->setChecked(_t);
 }
 
 /*
@@ -349,14 +349,14 @@ void SetupPageMisc::setKeepMyData(const QString &_t)
 }
 */
 
-QString SetupPageMisc::getCompleteWithPrevious()
+bool SetupPageMisc::getCompleteWithPrevious()
 {
-    return util->boolToQString(completeWithPreviousCheckBox->isChecked());
+    return completeWithPreviousCheckBox->isChecked();
 }
 
-void SetupPageMisc::setCompleteWithPrevious(const QString &_t)
+void SetupPageMisc::setCompleteWithPrevious(const bool &_t)
 {
-    completeWithPreviousCheckBox->setChecked(util->trueOrFalse(_t));
+    completeWithPreviousCheckBox->setChecked(_t);
 }
 
 
@@ -374,14 +374,14 @@ void SetupPageMisc::slotcheckNewVersionCheckBoxClicked()
     }
 }
 
-QString SetupPageMisc::getCheckNewVersions()
+bool SetupPageMisc::getCheckNewVersions()
 {
-    return util->boolToQString(checkNewVersionCheckBox->isChecked());
+    return checkNewVersionCheckBox->isChecked();
 }
 
-void SetupPageMisc::setCheckNewVersions(const QString &_t)
+void SetupPageMisc::setCheckNewVersions(const bool &_t)
 {
-    checkNewVersionCheckBox->setChecked(util->trueOrFalse(_t));
+    checkNewVersionCheckBox->setChecked(_t);
 }
 
 bool SetupPageMisc::getReportInfo()
@@ -389,9 +389,9 @@ bool SetupPageMisc::getReportInfo()
     return checkNewVersionCheckBox->isChecked();
 }
 
-void SetupPageMisc::setReportInfo(const QString &_t)
+void SetupPageMisc::setReportInfo(const bool &_t)
 {
-    provideCallCheckBox->setChecked(util->trueOrFalse(_t));
+    provideCallCheckBox->setChecked(_t);
 }
 
 QString SetupPageMisc::getDefaultDBPath()
@@ -408,23 +408,23 @@ void SetupPageMisc::setUseDefaultDBPath(const QString &_t)
 }
 
 
-QString SetupPageMisc::getDXMarathon(){
-    return util->boolToQString(useDxMarathonCheckBox->isChecked());
+bool SetupPageMisc::getDXMarathon(){
+    return useDxMarathonCheckBox->isChecked();
 }
 
-void SetupPageMisc::setDXMarathon(const QString &_t){
+void SetupPageMisc::setDXMarathon(const bool &_t){
     //QString st = t;
-    useDxMarathonCheckBox->setChecked(util->trueOrFalse(_t));
+    useDxMarathonCheckBox->setChecked(_t);
 }
 
-QString SetupPageMisc::getDebugLog()
+bool SetupPageMisc::getDebugLog()
 {
-    return util->boolToQString(debugLogCheckBox->isChecked());
+    return debugLogCheckBox->isChecked();
 }
 
-void SetupPageMisc::setDebugLog(const QString &_t)
+void SetupPageMisc::setDebugLog(const bool &_t)
 {
-    debugLogCheckBox->setChecked(util->trueOrFalse(_t));
+    debugLogCheckBox->setChecked(_t);
 }
 
 

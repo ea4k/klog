@@ -23,8 +23,8 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-
 #include "utilities.h"
+#include "klogconfig.h"
 
 Utilities::Utilities()
 {
@@ -134,6 +134,7 @@ QString Utilities::boolToQString(const bool _b)
     }
 }
 
+
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
     //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << Qt::endl;
@@ -159,6 +160,8 @@ QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
     return newString;
 }
 
+#if 0
+//not used
 void Utilities::printQString(const QStringList &_qs)
 {
         //qDebug() << "Utilities::printQString: COMMENT THIS CALL BEFORE RELEASING" << Qt::endl;
@@ -173,6 +176,8 @@ void Utilities::printQString(const QStringList &_qs)
     }
         //qDebug() << _qs.at(_qs.length()-1) << Qt::endl;
 }
+
+#endif
 
 QString Utilities::getGlobalAgent(const QString &_klogversion)
 {
@@ -259,7 +264,6 @@ QString Utilities::getAgent(const QString &_klogversion)
 
 QString Utilities::getHomeDir()
 {
-//TODO: To be removed when the defaultDir is saved in the config file
 #if defined(Q_OS_WIN)
          //qDebug() << "WINDOWS DETECTED!: "  << QDir::homePath() + "/klog" << Qt::endl;
     return QDir::homePath()+"/klog";  // We create the \klog for the logs and data

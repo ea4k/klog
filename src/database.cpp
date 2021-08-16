@@ -23,8 +23,8 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-
 #include "database.h"
+#include "klogconfig.h"
 //#include <qDebug>
 
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
@@ -1567,7 +1567,7 @@ void DataBase::backupB4Update()
 void DataBase::logBackup()
 {
     //qDebug() << "DataBase::logBackup - Start" << Qt::endl;
-
+    //KlogConfig config;
     QFile DBFile(util->getKLogDBFile());
     QString newFile = util->getKLogDBBackupFile();
     bool copied = DBFile.copy(newFile);

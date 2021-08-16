@@ -53,7 +53,7 @@ public:
     void setTQSLPath(const QString &c);
     QString getTQSLPath();
     void setLoTWActive(const bool &_s);
-    QString getLoTWActive();
+    bool getLoTWActive();
     void setLoTWUser(const QString &_s);
     QString getLoTWUser();
     void setLoTWPass(const QString &_s);
@@ -75,8 +75,8 @@ public:
     void setQRZCOMPassword(const QString &_s);
 
     void setQRZCOMLogBookKEY(const QString &_s);
-    void setQRZCOMActive(const QString &_s);
-    void setQRZCOMAutoCheck(const QString &_s);
+    void setQRZCOMActive(const bool &_s);
+    void setQRZCOMAutoCheck(const bool &_s);
 
     QString getQRZCOMUser();
     QString getQRZCOMPassword();
