@@ -13,7 +13,7 @@ matrix:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker pull "$DOCKER_USERNAME"/devel-qt-5.15.2:v0
     script:
-    - docker run -ti -v "$PWD":/root/klog "$DOCKER_USERNAME"/devel-qt-5.15.2:v0 /root/klog/devscripts/buildWithDocker.sh
+    - docker run -ti -v "$PWD":/Work/klog "$DOCKER_USERNAME"/devel-qt-5.15.2:v0 /Work/klog/devscripts/buildWithDocker.sh
     cache:
     directories:
     - docker_images
