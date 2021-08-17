@@ -561,19 +561,17 @@ void SetupPageELog::slotEnterKeyPressed()
 
 // QRZ.COM
 
-void SetupPageELog::setQRZCOMActive(const QString &_s)
+void SetupPageELog::setQRZCOMActive(const bool &_s)
 {
     //qDebug() << "SetupPageELog::setQRZCOMActive " << Qt::endl;
-    qrzcomActive = util->trueOrFalse(_s);
-    QRZCOMActiveCheckBox->setChecked(qrzcomActive);
-    QRZCOMAutoCheckCheckBox->setEnabled(qrzcomActive);
+    QRZCOMActiveCheckBox->setChecked(_s);
+    QRZCOMAutoCheckCheckBox->setEnabled(_s);
 }
 
 bool SetupPageELog::SetupPageELog::getQRZCOMActive()
 {
     //qDebug() << "SetupPageELog::getQRZCOMActive :" << Qt::endl;
-    qrzcomActive = QRZCOMActiveCheckBox->isChecked();
-    return qrzcomActive;
+    return QRZCOMActiveCheckBox->isChecked();
     //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << Qt::endl;
 }
 

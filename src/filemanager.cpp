@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "filemanager.h"
+#include "klogconfig.h"
 //#include <QDebug>
 
 
@@ -3353,20 +3354,20 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
     //qDebug() << "FileManager::adifReqQSLExport" << _fileName << Qt::endl;
     return adifLogExportToFile(_fileName, 0, false, true, false);
 }
-
+/*
 bool FileManager::modifySetupFile(const QString& _filename, const QString &_field, const QString &_value)
 {
       //qDebug() << "FileManager::modifySetupFile" << Qt::endl;
 
 
     QFile file(_filename);
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)){ /* Flawfinder: ignore */
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)){
           //qDebug() << "FileManager::modifySetupFile File not found" << _filename << Qt::endl;
         return false;
     }
 
     QTemporaryFile tmp;
-    if (!tmp.open()) { /* Flawfinder: ignore */
+    if (!tmp.open()) {
              //qDebug() << "FileManager::modifySetupFile- Temp file not opened" << Qt::endl;
            return false;
     }
@@ -3405,7 +3406,7 @@ bool FileManager::modifySetupFile(const QString& _filename, const QString &_fiel
 
     return true;
 }
-
+*/
 int FileManager::howManyLogsInFile(QFile& _f)
 {
       //qDebug() << "FileManager::howManyLogsInFile:" << Qt::endl;
@@ -3698,13 +3699,14 @@ QDateTime FileManager::getDateTimeOfLastBackup()
 {
       //qDebug() << "FileManager::getDateTimeOfLastBackup: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss")<< Qt::endl;
       //qDebug() << "FileManager::getDateTimeOfLastBackup: " << util->getCfgFile() << Qt::endl;
-    QFile file (util->getCfgFile());
+    /*
+     QFile file (util->getCfgFile());
     QString line;
     QStringList fields;
     fields.clear();
     QDateTime _dataTime = QDateTime();
 
-    if (file.open (QIODevice::ReadOnly)) /* Flawfinder: ignore */
+    if (file.open (QIODevice::ReadOnly))
     {
         while ( !file.atEnd()   )
         {
@@ -3720,6 +3722,10 @@ QDateTime FileManager::getDateTimeOfLastBackup()
         }
     }
     return QDateTime();
+    */
+    KlogConfig config;
+    QDateTime _dateTime = QDateTime();
+    return _dateTime.fromString(config.value("latestbackup").toString(), "yyyyMMdd-hhmmss");
 }
 
 bool FileManager::writeBackupDate()
@@ -3727,32 +3733,9 @@ bool FileManager::writeBackupDate()
       //qDebug() << "FileManager::writeBackupDate: current: " << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") << Qt::endl;
       //qDebug() << "FileManager::writeBackupDate: current: " << (getDateTimeOfLastBackup()).toString("yyyyMMdd-hhmmss") << Qt::endl;
 
-    QFile file (util->getCfgFile());
-    QString line, lineTemp;
-    //QStringList fields;
-    //fields.clear();
-    QDateTime _dataTime = QDateTime();
+    KlogConfig config;
 
-    QStringList completeFile;
-    completeFile.clear();
-
-    if(file.open(QIODevice::ReadWrite | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        QString s;
-        QTextStream t(&file);
-        while(!t.atEnd())
-        {
-            QString line = t.readLine();
-            if ( !(line.toUpper()).contains("LATESTBACKUP")  )
-            {
-                s.append(line + "\n");
-            }
-        }
-        s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
-        file.resize(0);
-        t << s;
-        file.close();
-    }
+    config.setValue("latestbackup", (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss"));
 
     return true;
 }
