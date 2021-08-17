@@ -318,29 +318,9 @@ QString Utilities::getKLogDefaultDatabaseFile()
 QString Utilities::getKLogDBFile()
 {
         //qDebug() << "Utilities::getKLogDBFile: start " << Qt::endl;
-
-    dbPath = getKLogDefaultDatabaseFile();
-    QFile file(getCfgFile());
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
-    {
-
-        //return dbPath;
-        //return getKLogDatabaseFile(dbPath);
-    }
-    else
-    {
-        while (!file.atEnd()) {
-            QByteArray line = file.readLine();
-            processConfigLine(line);
-        }
-
-        if (dbPath.length()<1)
-        {
-            dbPath = getKLogDefaultDatabaseFile();
-        }
-    }
-       //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << Qt::endl;
+    KlogConfig config;
+    dbPath = config.value("dbpath", getKLogDefaultDatabaseFile()).toString();
+    //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << Qt::endl;
     return dbPath + "/logbook.dat";
 }
 
@@ -348,106 +328,22 @@ QString Utilities::getKLogDBBackupFile()
 {
         //qDebug() << "Utilities::getKLogDBFile: start " << Qt::endl;
 
-    dbPath = getKLogDefaultDatabaseFile();
-    QFile file(getCfgFile());
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-
-        //return dbPath;
-        //return getKLogDatabaseFile(dbPath);
-    }
-    else
-    {
-        while (!file.atEnd()) {
-            QByteArray line = file.readLine();
-            processConfigLine(line);
-        }
-
-        if (dbPath.length()<1)
-        {
-            dbPath = getKLogDefaultDatabaseFile();
-        }
-    }
-       //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << Qt::endl;
+    KlogConfig config;
+    dbPath = config.value("dbpath",
+                              getHomeDir()).toString();
+          //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath << endl;
     return dbPath + "/" + QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss") + "-backup-logbook.dat" ;
-}
-
-bool Utilities::processConfigLine(const QString &_line)
-{
-             //qDebug() << "Utilities::processConfigLine: " << _line << Qt::endl;
-
-        QString line = _line.simplified();
-        //line.simplified();
-        //QString aux;
-
-        QStringList values = line.split("=", Qt::SkipEmptyParts);
-
-
-        if (line.startsWith('#')){
-                 //qDebug() << "Utilities::processConfigLine: notes Line!" << Qt::endl;
-            return true;
-        }
-        if (!( (line.contains('=')) && (line.contains(';')))){
-                 //qDebug() << "Utilities::processConfigLine: Wrong Line!" << Qt::endl;
-            return false;
-        }
-        QString field = (values.at(0)).toUpper();
-        QString value = values.at(1);
-
-        int endValue = value.indexOf(';');
-        if (endValue>-1){
-
-            value = value.left(value.length() - (value.length() - endValue));
-        }
-
-        if (field == "DBPATH")
-        {
-                  //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value << Qt::endl;
-            dbPath = value;
-        }
-        return true;
-}
-
-/*
-QString Utilities::getKLogDatabaseFile(const QString &_file)
-{
-       //qDebug() << "Utilities::getKLogDatabaseFile:" << _file << Qt::endl;
-    if ( QFile::exists(_file + "/logbook.dat") )
-    {
-           //qDebug() << "Utilities::getKLogDatabaseFile:returning: " <<  _file + "/logbook.dat" << Qt::endl;
-        return _file + "/logbook.dat";
-    }
-    else
-    {}
-         //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << Qt::endl;
-        return getKLogDefaultDatabaseFile();
-}
-*/
-
-QString Utilities::getCfgFile()
-{
-//TODO: To be removed when the defaultDir is saved in the config file
-#if defined(Q_OS_WIN)
-         //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << Qt::endl;
-    return getHomeDir() + "/klogrc.cfg";
-
-#else
-         //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << Qt::endl;
-    return getHomeDir() + "/klogrc";
-
-#endif
 
 }
 
 QString Utilities::getDebugLogFile()
 {
 #if defined(Q_OS_WIN)
-         //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << Qt::endl;
+         //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogdebug.log"  << Qt::endl;
     return getHomeDir() + "/klogdebug.log";
 
 #else
-         //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  << Qt::endl;
+         //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogdebug.log"  << Qt::endl;
     return getHomeDir() + "/klogdebug.log";
 
 #endif
@@ -1685,21 +1581,14 @@ QPalette Utilities::getPalete(bool _ok)
 }
 */
 
-void Utilities::setDarkMode(const QString &_dm)
+void Utilities::setDarkMode(const bool _dm)
 {
-    darkMode = trueOrFalse(_dm);
+    darkMode = _dm;
 }
 
 bool Utilities::isDarkMode()
 {
-    if (darkMode)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return darkMode;
 }
 
 QString Utilities::getLogColumnName(const QString &_column)

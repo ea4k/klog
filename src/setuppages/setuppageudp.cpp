@@ -218,15 +218,15 @@ void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 }
 
 
-QString SetupPageUDP::getUDPServer()
+bool SetupPageUDP::getUDPServer()
 {
-    return util->boolToQString(UDPServerCheckBox->isChecked());
+    return UDPServerCheckBox->isChecked();
 }
 
-void SetupPageUDP::setUDPServer(const QString &_t)
+void SetupPageUDP::setUDPServer(const bool &_t)
 {
        //qDebug() << "SetupPageUDP::setUDPServer: "  << t << Qt::endl;
-    UDPServerCheckBox->setChecked(util->trueOrFalse(_t));
+    UDPServerCheckBox->setChecked(_t);
     slotUDPServerCheckBoxClicked();
 }
 

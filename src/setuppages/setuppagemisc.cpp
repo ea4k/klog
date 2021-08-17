@@ -408,7 +408,8 @@ void SetupPageMisc::setUseDefaultDBPath(const QString &_t)
 }
 
 
-bool SetupPageMisc::getDXMarathon(){
+bool SetupPageMisc::getDXMarathon()
+{
     return useDxMarathonCheckBox->isChecked();
 }
 

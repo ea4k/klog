@@ -44,7 +44,7 @@ class Utilities
 public:
     Utilities();
     ~Utilities();
-    void setDarkMode(const QString &_dm);
+    void setDarkMode(const bool _dm);
     bool isDarkMode();
     bool darkMode;
     int getProgresStepForDialog(int totalSteps);
