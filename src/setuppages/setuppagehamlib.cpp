@@ -479,7 +479,12 @@ void SetupPageHamLib::setActive(const bool &_active)
     activateHamlibCheckBox->setChecked(_active);
 }
 
-void SetupPageHamLib::isReadOnly()
+bool SetupPageHamLib::isActive()
+{
+    return activateHamlibCheckBox->isChecked();
+}
+
+bool SetupPageHamLib::isReadOnly()
 {
     return readOnlyModeCheckBox->isChecked();
 }
