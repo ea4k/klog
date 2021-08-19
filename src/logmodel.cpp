@@ -106,17 +106,29 @@ This should be coherent with the logview
 
     //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count()) << Qt::endl;
 
-     nameCol = rec.indexOf("bandid");
-     setRelation(nameCol, QSqlRelation("band", "id", "name"));
+     if (_columns.contains("bandid"))
+     {
+         nameCol = rec.indexOf("bandid");
+         setRelation(nameCol, QSqlRelation("band", "id", "name"));
+     }
 
-nameCol = rec.indexOf("band_rx");
-     setRelation(nameCol, QSqlRelation("band", "id", "name"));
+    if (_columns.contains("band_rx"))
+    {
+        nameCol = rec.indexOf("band_rx");
+        setRelation(nameCol, QSqlRelation("band", "id", "name"));
+    }
 
-     nameCol = rec.indexOf("modeid");
-     setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
+    if (_columns.contains("modeid"))
+    {
+        nameCol = rec.indexOf("modeid");
+        setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
+    }
 
-     nameCol = rec.indexOf("dxcc");
-     setRelation(nameCol, QSqlRelation("entity", "dxcc", "name"));
+     if (_columns.contains("dxcc"))
+     {
+         nameCol = rec.indexOf("dxcc");
+         setRelation(nameCol, QSqlRelation("entity", "dxcc", "name"));
+     }
 
      nameCol = rec.indexOf("id");
      setSort(nameCol, Qt::AscendingOrder);

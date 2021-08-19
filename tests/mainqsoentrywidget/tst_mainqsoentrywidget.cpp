@@ -91,6 +91,7 @@ void tst_MainQSOEntryWidget::test_CallSign()
 
 void tst_MainQSOEntryWidget::test_InitialData()
 {
+    QString mode = mainQSOEntryWidget->getMode();
     QStringList modes, bands;
     modes.clear();
     bands.clear();
@@ -107,7 +108,7 @@ void tst_MainQSOEntryWidget::test_InitialData()
     QVERIFY(mainQSOEntryWidget->getBand(4) == "15M");
     QVERIFY(mainQSOEntryWidget->getBand(5) == "10M");
     QVERIFY(mainQSOEntryWidget->getBand(6) == "");
-    QVERIFY(mainQSOEntryWidget->getMode(-1) == "SSB");
+    QVERIFY(mainQSOEntryWidget->getMode(-1) == mode);
     QVERIFY(mainQSOEntryWidget->getMode(0) == "CW");
     QVERIFY(mainQSOEntryWidget->getMode(1) == "RTTY");
     QVERIFY(mainQSOEntryWidget->getMode(2) == "SSB");
@@ -117,6 +118,8 @@ void tst_MainQSOEntryWidget::test_InitialData()
 
 void tst_MainQSOEntryWidget::test_Bands()
 {
+    QString band = mainQSOEntryWidget->getBand();
+
     QVERIFY (mainQSOEntryWidget->isBandExisting ("160M") == true);
     QVERIFY (mainQSOEntryWidget->isBandExisting ("70M") == false);
     QString currentBand = mainQSOEntryWidget->getBand ();
@@ -132,8 +135,9 @@ void tst_MainQSOEntryWidget::test_Bands()
     QVERIFY (mainQSOEntryWidget->getBand() == "80M");
     mainQSOEntryWidget->setBand ("160M");
     QVERIFY (mainQSOEntryWidget->getBand() == "160M");
+    //qDebug() <<mainQSOEntryWidget->getBand() << endl;
     mainQSOEntryWidget->setBand("12M"); // Trying to select a band that is not in the list
-    QVERIFY (mainQSOEntryWidget->getBand() == "160M");
+    QVERIFY (mainQSOEntryWidget->getBand() == band);
     //qDebug() <<mainQSOEntryWidget->getBand() << endl;
     mainQSOEntryWidget->selectDefaultBand ();
     QVERIFY (mainQSOEntryWidget->getBand() == "20M");

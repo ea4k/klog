@@ -196,7 +196,7 @@ void UDPServer::leaveMultiCastGroup()
 
 void UDPServer::parse(const QByteArray &msg)
 {
-    qDebug() << "UDPServer::parse: " << msg << Qt::endl;
+    //qDebug() << "UDPServer::parse: " << msg << Qt::endl;
     //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString()) << Qt::endl;
     //in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
     //        tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
@@ -283,7 +283,7 @@ void UDPServer::parse(const QByteArray &msg)
         return;
     }
 
-    qDebug() << "UDPServer::parse: TYPE: " << QString::number(type)<< Qt::endl;
+    //qDebug() << "UDPServer::parse: TYPE: " << QString::number(type)<< Qt::endl;
     //QDateTime dateTime, dateTimeOff;
     //QString line;
     switch (type)
@@ -358,7 +358,7 @@ void UDPServer::parse(const QByteArray &msg)
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay " << Qt::endl;
         break;
         case QSOLogged:
-            qDebug() << "UDPServer::parse: -   type = QSOLogged "  << Qt::endl;
+            //qDebug() << "UDPServer::parse: -   type = QSOLogged "  << Qt::endl;
 
 
         in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
@@ -444,10 +444,10 @@ void UDPServer::parse(const QByteArray &msg)
             //qDebug() << "UDPServer::parse: -   type = Location"  << Qt::endl;
         break;
         case LoggedADIF:
-           qDebug() << "UDPServer::parse: -   type = LoggedADIF"  << Qt::endl;
-           qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ADIF" << Qt::endl;
-           in >> adifReceived;
-           adifParse(adifReceived);
+           //qDebug() << "UDPServer::parse: -   type = LoggedADIF"  << Qt::endl;
+           //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ADIF" << Qt::endl;
+           //in >> adifReceived;
+           //adifParse(adifReceived);
             //qDebug() << "UDPServer::parse: ADIF: " << adifReceived << Qt::endl;
            // Q_SIGNAL void logged_ADIF (QString const& id, QByteArray const& ADIF);
         break;
@@ -551,7 +551,7 @@ void UDPServer::setRealTimeUpdate(const bool _t)
 
 void UDPServer::adifParse(QByteArray &msg)
 {
-    qDebug() << "UDPServer::adifParse: " << msg <<  Qt::endl;
+    //qDebug() << "UDPServer::adifParse: " << msg <<  Qt::endl;
 
 
     QString dx_call = QString();
@@ -578,7 +578,7 @@ void UDPServer::adifParse(QByteArray &msg)
 
 
     adifLine << line.split('<');
-    qDebug() << "UDPServer::adifParse: before the while"  <<  Qt::endl;
+    //qDebug() << "UDPServer::adifParse: before the while"  <<  Qt::endl;
     for (int i = 0; i < adifLine.length() ;i++)
     {
         //qDebug() << "UDPServer::adifParse: While-1"  <<  Qt::endl;
@@ -619,11 +619,11 @@ void UDPServer::adifParse(QByteArray &msg)
                 if (util->isValidGrid(data))
                 {
                     mygrid = data;
-                    qDebug() << "UDPServer::adifParse: Rec mGrid to export: " << mygrid <<  Qt::endl;
+                    //qDebug() << "UDPServer::adifParse: Rec mGrid to export: " << mygrid <<  Qt::endl;
                 }
                 else
                 {
-                    qDebug() << "UDPServer::adifParse: INVALID mGRID: " << mygrid <<  Qt::endl;
+                    //qDebug() << "UDPServer::adifParse: INVALID mGRID: " << mygrid <<  Qt::endl;
                 }
             }
             else if (type == "MODE")
@@ -698,7 +698,7 @@ void UDPServer::adifParse(QByteArray &msg)
                 {
                     datetime_off = QDateTime();
                 }
-                qDebug() << "UDPServer::adifParse: Emitting"  <<  Qt::endl;
+                //qDebug() << "UDPServer::adifParse: Emitting"  <<  Qt::endl;
                 emit logged_qso (dx_call, mode, band, freq,
                                  mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign, _name,
                                  operatorCall, datetime, datetime_off, _exchangeTX, _exchangeRX, _myPWR);
@@ -707,14 +707,14 @@ void UDPServer::adifParse(QByteArray &msg)
             }
             else
             {
-                qDebug() << "UDPServer::adifParse: NON captured ADIF type: " << type <<  Qt::endl;
-                qDebug() << "UDPServer::adifParse: NON captured ADIF data: " << data <<  Qt::endl;
+                //qDebug() << "UDPServer::adifParse: NON captured ADIF type: " << type <<  Qt::endl;
+                //qDebug() << "UDPServer::adifParse: NON captured ADIF data: " << data <<  Qt::endl;
             }
         }
         else
         {
-        qDebug() << "UDPServer::adifParse: Not a valid ADIF pair " << aux <<  Qt::endl;
+        //qDebug() << "UDPServer::adifParse: Not a valid ADIF pair " << aux <<  Qt::endl;
         }
     }
-    qDebug() << "UDPServer::adifParse: - END" <<  Qt::endl;
+    //qDebug() << "UDPServer::adifParse: - END" <<  Qt::endl;
 }

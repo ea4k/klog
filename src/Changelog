@@ -1,3 +1,6 @@
+Aug 2021 - 1.8.1
+- Bugfix: QSOs comming from WSJTX and other sources where not shown, depending on logview configuration. (Closes  #338)
+
 Aug 2021 - 1.8
 - Bugfix: Some recently added ADIF fields where not properly imported from ADIF.
 - Improvement: Code updated to Qt 5.15.2. (Closes #323)
