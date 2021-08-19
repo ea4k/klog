@@ -13,3 +13,4 @@ KLog.app
 *.autosave
 *.sh~
 src/klog_resource.rc
+src/klog_resource.rc
