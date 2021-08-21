@@ -1,4 +1,7 @@
-TBD - 1.9
+Aug 2021 - 1.8.2
+- Bugfix: Updated the openSSL libraries for Windows users that was causing TLS errors on some connections. (Closes #342)
+- Bugfix: Spanish typo (TNX (EA5WA) (Closes #341)
+- Bugfix: Statistics were showing wrong numbers on DXCC/Grid per band (Closes #344)
 
 Aug 2021 - 1.8.1
 - Bugfix: QSOs comming from WSJTX and other sources where not shown, depending on logview configuration. (Closes  #338)
