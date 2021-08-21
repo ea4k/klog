@@ -4980,7 +4980,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1927"/>
         <source>Sat name</source>
-        <translation>Nombre</translation>
+        <translation>Nombre de Sat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1929"/>

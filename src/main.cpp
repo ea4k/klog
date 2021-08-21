@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << Qt::endl;
     QT_REQUIRE_VERSION(argc, argv, "5.15")
     QDir d1 = QDir();
-    QString version = "1.8.2";
+    QString version = "1.9";
     //qDebug() << "KLog Main STARTED: " << version << Qt::endl;
     Utilities util = Utilities();
     QStringList arguments;
