@@ -176,7 +176,7 @@ public:
     bool lotwSentQSOs(const QList<int> &_qsos);
     int lotwUpdateQSLReception (const QString &_call, const QDateTime &_dateTime, const QString &_band, const QString &_mode, const QDate &_qslrdate);
     QList<int> getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
-    QStringList getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
+    //QStringList getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
     QStringList getQSODetailsForLoTWDownload(const int _id);
 
     QList<int> getQSOsListeQSLNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
@@ -184,6 +184,7 @@ public:
     QList<int> getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
+    QList<int> getQSOsListToBeExported(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);
