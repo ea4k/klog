@@ -1,5 +1,5 @@
 TBD - 1.9
-- Bugfix: Selecting
+- Bugfix: Selecting File->Export to ADIF was not showing all the possible QSOs to be exported.
 
 Aug 2021 - 1.8.2
 - Bugfix: Updated the openSSL libraries for Windows users that was causing TLS errors on some connections. (Closes #342)
