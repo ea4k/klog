@@ -3315,7 +3315,7 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="6277"/>
         <location filename="../mainwindow.cpp" line="6308"/>
         <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1</source>
-        <translation>¿Quiere marcar TODOS los QSOs para subir? Debería hacer esto SOLO SI ES LA PRIMERA VES que sube QSOs a %1.</translation>
+        <translation>¿Quiere marcar TODOS los QSOs para subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6246"/>
