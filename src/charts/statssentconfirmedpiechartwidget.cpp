@@ -30,7 +30,7 @@ StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(){}
 
 StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget" << Qt::endl;
+      //qDebug() << "StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget" << QT_ENDL;
 
     dataProxy = dp;
     chart = new QChart();
@@ -59,7 +59,7 @@ void StatsSentConfirmedPieChartWidget::prepareChart(const int _log)
     int sent = dataProxy->getHowManyQSLSentInLog(_log);
     int confirmed = dataProxy->getHowManyConfirmedQSLInLog(_log);
 
-    //qDebug() << "Confirmed: " << QString::number(confirmed) << Qt::endl;
+    //qDebug() << "Confirmed: " << QString::number(confirmed) << QT_ENDL;
 
 
     series->append(tr("Sent - %1").arg(sent), sent);

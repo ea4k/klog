@@ -31,7 +31,7 @@ StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(){}
 
 StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget" << Qt::endl;
+      //qDebug() << "StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget" << QT_ENDL;
 
     dataProxy = dp;
     chart = new QChart();
@@ -88,7 +88,7 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
      for (int i = 0; i < categories.count(); i++ )
      {
          numberPerX = dataProxy->getQSOsOnMonth(i+1, _log);
-            //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX) << Qt::endl;
+            //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX) << QT_ENDL;
          *set0 << numberPerX;
          //numberPerX = 0;
 
@@ -100,7 +100,7 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
          {
              i = categories.count();
          }
-            //qDebug() << "BarChartStats::prepareChart CQz: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << Qt::endl;
+            //qDebug() << "BarChartStats::prepareChart CQz: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << QT_ENDL;
      }
 
     sum = set0->sum();

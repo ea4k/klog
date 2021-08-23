@@ -59,17 +59,17 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
     util = new Utilities;
     serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
     //serviceUrl = QUrl("https://xmldata.qrz.com/xml/1.31/ ");
-   //qDebug()<< "eLogQrzLog::eLogQrzLog - END"  << Qt::endl;
+   //qDebug()<< "eLogQrzLog::eLogQrzLog - END"  << QT_ENDL;
 }
 
 eLogQrzLog::~eLogQrzLog()
 {
-        //qDebug()<< "eLogQrzLog::~eLogQrzLog"  << Qt::endl;
+        //qDebug()<< "eLogQrzLog::~eLogQrzLog"  << QT_ENDL;
 }
 
 void eLogQrzLog::setLogBookKey(const QString &_key)
 {
-    //qDebug()<< "eLogQrzLog::setLogBookKey: " << _key  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::setLogBookKey: " << _key  << QT_ENDL;
     if (_key.length()>0)
     {
         logbookkey = _key;
@@ -104,23 +104,23 @@ void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
 
 void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
 {
-    //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << QT_ENDL;
     sendingQSO = false;
     result = data->error();
-    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << Qt::endl;
+    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << QT_ENDL;
 
     const QByteArray sdata = data->readAll();
     //qDebug() << "eLogQrzLog::slotManagerLogFinished: Received: " << sdata;
 
     QString text = QString();
 
-    //qDebug() << "eLogQrzLog::slotManagerLogFinished - 00010" << Qt::endl;
+    //qDebug() << "eLogQrzLog::slotManagerLogFinished - 00010" << QT_ENDL;
     if (result == QNetworkReply::NoError)
     {
         QString dataReply(sdata);
         //parseAppAnswer(1, dataReply);
         parseAppAnswer(dataReply);
-       //qDebug()<< "eLogQrzLog::slotManageLogFinished - NO ERROR" << Qt::endl;
+       //qDebug()<< "eLogQrzLog::slotManageLogFinished - NO ERROR" << QT_ENDL;
     }
     else {
         parseNetworkError(result);
@@ -134,15 +134,15 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
         sendSignal(result, qsos);
     }
 
-    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << Qt::endl;
-    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result Text = " << text << Qt::endl;
+    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << QT_ENDL;
+    //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result Text = " << text << QT_ENDL;
     emit showMessage(text);
 
 }
 
 void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
 {
-    //qDebug() << "eLogQrzLog::parseXMLAnswer: " << xml.text() << Qt::endl;
+    //qDebug() << "eLogQrzLog::parseXMLAnswer: " << xml.text() << QT_ENDL;
     QString tdata = QString();
 
     while (!xml.atEnd())
@@ -151,22 +151,22 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
         QXmlStreamReader::TokenType t = xml.readNext();
         if (t == QXmlStreamReader::StartDocument)
         {
-            //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read version: " << xml.documentVersion().toString() << Qt::endl;
-            //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read encoding: " << xml.documentEncoding().toString() << Qt::endl;
+            //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read version: " << xml.documentVersion().toString() << QT_ENDL;
+            //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read encoding: " << xml.documentEncoding().toString() << QT_ENDL;
         }
 
         if (t == QXmlStreamReader::StartElement)
         {
             QString name = xml.name().toString();
-            //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read name: " << name << Qt::endl;
+            //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read name: " << name << QT_ENDL;
             if (name == "QRZDatabase" || name == "Session" || name == "Callsign")
             {
-                //qDebug() << "eLogQrzLog::parseXMLAnswer - No data: " << name << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer - No data: " << name << QT_ENDL;
             }
             else if (name == "Key")
             {
                 tdata = xml.readElementText();
-                //qDebug() << "eLogQrzLog::parseXMLAnswer: API-Key: " << tdata << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer: API-Key: " << tdata << QT_ENDL;
                 if (tdata.length()>0)
                 {
                     sessionkey = tdata;
@@ -179,14 +179,14 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 tdata = xml.readElementText();
                 if (tdata.length()>0)
                 {
-                   //qDebug() << "eLogQrzLog::parseXMLAnswer: CALL: " << tdata << Qt::endl;
+                   //qDebug() << "eLogQrzLog::parseXMLAnswer: CALL: " << tdata << QT_ENDL;
                 }
                 continue;
             }
             else if (name == "Error")
             {
                 tdata = xml.readElementText();
-                //qDebug() << "eLogQrzLog::parseXMLAnswer: Error: " << tdata << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer: Error: " << tdata << QT_ENDL;
                 if (tdata == "Username/password incorrect ")
                 {
                     pass = QString();
@@ -197,7 +197,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "Message")
              {
                  tdata = xml.readElementText();
-                 //qDebug() << "eLogQrzLog::parseXMLAnswer: Message: " << tdata << Qt::endl;
+                 //qDebug() << "eLogQrzLog::parseXMLAnswer: Message: " << tdata << QT_ENDL;
                  emit dataFoundSignal("message", tdata);
                  continue;
              }
@@ -208,7 +208,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 if (tdata.length()>0)
                 {
                     emit dataFoundSignal("name", tdata);
-                    //qDebug() << "eLogQrzLog::parseXMLAnswer: Name: " << tdata << Qt::endl;
+                    //qDebug() << "eLogQrzLog::parseXMLAnswer: Name: " << tdata << QT_ENDL;
                 }
                 continue;
             }
@@ -218,7 +218,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 if (tdata.length()>0)
                 {
                     //emit dataFoundSignal("grid", tdata);
-                   //qDebug() << "eLogQrzLog::parseXMLAnswer: addr1: " << tdata << Qt::endl;
+                   //qDebug() << "eLogQrzLog::parseXMLAnswer: addr1: " << tdata << QT_ENDL;
                 }
                 continue;
             }
@@ -228,7 +228,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 if (tdata.length()>0)
                 {
                     emit dataFoundSignal("qth", tdata);
-                   //qDebug() << "eLogQrzLog::parseXMLAnswer: addr2: " << tdata << Qt::endl;
+                   //qDebug() << "eLogQrzLog::parseXMLAnswer: addr2: " << tdata << QT_ENDL;
                 }
                 continue;
             }
@@ -252,52 +252,52 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             }
             else if (name == "Remark")
             {
-                //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: "  << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: "  << QT_ENDL;
                 tdata = xml.readElementText();
                 if (tdata.length()>0)
                 {
-                    //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " << tdata << Qt::endl;
+                    //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " << tdata << QT_ENDL;
                 }
                 continue;
             }
             else
             {
-                //qDebug() << "eLogQrzLog::parseXMLAnswer - name =  " << name << Qt::endl;
-                //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read data: " << xml.readElementText() << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer - name =  " << name << QT_ENDL;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer - quick read data: " << xml.readElementText() << QT_ENDL;
             }
         }
     }
     if (xml.hasError())
     {
-        //qDebug() << "eLogQrzLog::parseXMLAnswer - ERROR: " << xml.errorString()  << Qt::endl;
+        //qDebug() << "eLogQrzLog::parseXMLAnswer - ERROR: " << xml.errorString()  << QT_ENDL;
     }
     else if (xml.atEnd())
     {
-        //qDebug() << "eLogQrzLog::parseXMLAnswer - XML END"  << Qt::endl;
+        //qDebug() << "eLogQrzLog::parseXMLAnswer - XML END"  << QT_ENDL;
     }
 /*
      QString tname, tdata;
      while(!xml.atEnd() && !xml.hasError())
      {
-         //qDebug() << "eLogQrzLog::parseXMLAnswer - 00012" << Qt::endl;
+         //qDebug() << "eLogQrzLog::parseXMLAnswer - 00012" << QT_ENDL;
          QXmlStreamReader::TokenType token = xml.readNext();
 
          if (token == QXmlStreamReader::StartDocument)
          {
-             //qDebug() << "eLogQrzLog::parseXMLAnswer - StartDocument" << Qt::endl;
+             //qDebug() << "eLogQrzLog::parseXMLAnswer - StartDocument" << QT_ENDL;
              continue;
          }
-         //qDebug() << "eLogQrzLog::parseXMLAnswer - 00014" << Qt::endl;
+         //qDebug() << "eLogQrzLog::parseXMLAnswer - 00014" << QT_ENDL;
          if (token == QXmlStreamReader::StartElement)
          {
              tname = xml.name().toString();
 
-            //qDebug() << "eLogQrzLog::parseXMLAnswer - tname = " << tname << Qt::endl;
+            //qDebug() << "eLogQrzLog::parseXMLAnswer - tname = " << tname << QT_ENDL;
 
             if (tname == "Key")
             {
                 tdata = xml.readElementText();
-                //qDebug() << "eLogQrzLog::parseXMLAnswer: API-Key: " << tdata << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer: API-Key: " << tdata << QT_ENDL;
                 if (tdata.length()>0)
                 {
                     sessionkey = tdata;
@@ -308,13 +308,13 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "Error")
             {
                 tdata = xml.readElementText();
-                //qDebug() << "eLogQrzLog::parseXMLAnswer: Error: " << tdata << Qt::endl;
+                //qDebug() << "eLogQrzLog::parseXMLAnswer: Error: " << tdata << QT_ENDL;
                 emit dataFoundSignal("error", tdata);
             }
             if (tname == "Message")
              {
                  tdata = xml.readElementText();
-                 //qDebug() << "eLogQrzLog::parseXMLAnswer: Message: " << tdata << Qt::endl;
+                 //qDebug() << "eLogQrzLog::parseXMLAnswer: Message: " << tdata << QT_ENDL;
                  emit dataFoundSignal("message", tdata);
              }
             if (tname == "call")
@@ -322,7 +322,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                   tdata = xml.readElementText();
                   if (tdata.length()>0)
                   {
-                     //qDebug() << "eLogQrzLog::parseXMLAnswer: CALL: " << tdata << Qt::endl;
+                     //qDebug() << "eLogQrzLog::parseXMLAnswer: CALL: " << tdata << QT_ENDL;
                   }
                   continue;
               }
@@ -332,7 +332,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                   if (tdata.length()>0)
                   {
                       emit dataFoundSignal("name", tdata);
-                     //qDebug() << "eLogQrzLog::parseXMLAnswer: Name: " << tdata << Qt::endl;
+                     //qDebug() << "eLogQrzLog::parseXMLAnswer: Name: " << tdata << QT_ENDL;
                   }
                   continue;
               }
@@ -342,7 +342,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                   if (tdata.length()>0)
                   {
                       //emit dataFoundSignal("grid", tdata);
-                     //qDebug() << "eLogQrzLog::parseXMLAnswer: addr1: " << tdata << Qt::endl;
+                     //qDebug() << "eLogQrzLog::parseXMLAnswer: addr1: " << tdata << QT_ENDL;
                   }
                   continue;
               }
@@ -352,7 +352,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                   if (tdata.length()>0)
                   {
                       emit dataFoundSignal("qth", tdata);
-                     //qDebug() << "eLogQrzLog::parseXMLAnswer: addr2: " << tdata << Qt::endl;
+                     //qDebug() << "eLogQrzLog::parseXMLAnswer: addr2: " << tdata << QT_ENDL;
                   }
                   continue;
               }
@@ -376,54 +376,54 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
               }
             if (tname == "Remark")
               {
-                  //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: "  << Qt::endl;
+                  //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: "  << QT_ENDL;
                   tdata = xml.readElementText();
                   if (tdata.length()>0)
                   {
-                      //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " << tdata << Qt::endl;
+                      //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " << tdata << QT_ENDL;
                   }
                   continue;
               }
             if (tname == "Session")
               {
-                  //qDebug() << "eLogQrzLog::parseXMLAnswer: Session: "  << Qt::endl;
+                  //qDebug() << "eLogQrzLog::parseXMLAnswer: Session: "  << QT_ENDL;
                   tdata = xml.readElementText();
                   if (tdata.length()>0)
                   {
-                      //qDebug() << "eLogQrzLog::parseXMLAnswer: Session: " << tdata << Qt::endl;
+                      //qDebug() << "eLogQrzLog::parseXMLAnswer: Session: " << tdata << QT_ENDL;
                   }
                   continue;
               }
 
-              //qDebug() << "eLogQrzLog::parseXMLAnswer: Unknown: " << tname << Qt::endl;
+              //qDebug() << "eLogQrzLog::parseXMLAnswer: Unknown: " << tname << QT_ENDL;
          }
      }
      if (xml.hasError())
      {
-           //qDebug() << "eLogQrzLog::parseXMLAnswer XML error: " << "XML error: " << xml.errorString() << Qt::endl;
+           //qDebug() << "eLogQrzLog::parseXMLAnswer XML error: " << "XML error: " << xml.errorString() << QT_ENDL;
      }
      else if (xml.atEnd())
      {
-           //qDebug() << "eLogQrzLog::parseXMLAnswer XML END: " << "Reached end, done" << Qt::endl;
+           //qDebug() << "eLogQrzLog::parseXMLAnswer XML END: " << "Reached end, done" << QT_ENDL;
      }
      */
-    //qDebug() << "eLogQrzLog::parseXMLAnswer: END of token while" << Qt::endl;
-    //qDebug()<< "eLogQrzLog::parseXMLAnswer - NO ERROR" << Qt::endl;
+    //qDebug() << "eLogQrzLog::parseXMLAnswer: END of token while" << QT_ENDL;
+    //qDebug()<< "eLogQrzLog::parseXMLAnswer - NO ERROR" << QT_ENDL;
 }
 
 void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
 {
-    //qDebug()<< "eLogQrzLog::slotManagerFinished"  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::slotManagerFinished"  << QT_ENDL;
 
     result = data->error();
-    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result = " << QString::number(result) << Qt::endl;
+    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result = " << QString::number(result) << QT_ENDL;
 
     const QByteArray sdata = data->readAll();
    //qDebug() << "eLogQrzLog::slotManagerFinished: Received: " << sdata;
 
     QString text = QString();
 
-   //qDebug() << "eLogQrzLog::slotManagerFinished - 00010" << Qt::endl;
+   //qDebug() << "eLogQrzLog::slotManagerFinished - 00010" << QT_ENDL;
     if (result == QNetworkReply::NoError)
     {
         //QXmlStreamReader reader(sdata);
@@ -436,15 +436,15 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
         //parseNetworkError(result);
     }
 
-    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result = " << QString::number(result) << Qt::endl;
-    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result Text = " << text << Qt::endl;
+    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result = " << QString::number(result) << QT_ENDL;
+    //qDebug()<< "eLogQrzLog::slotManagerFinished - Result Text = " << text << QT_ENDL;
 
     emit showMessage(text);
 
 }
 
 void eLogQrzLog::downloadProgress(qint64 received, qint64 total) {
-       //qDebug()<< "eLogQrzLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << Qt::endl;
+       //qDebug()<< "eLogQrzLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << QT_ENDL;
 
        //qDebug()<< received << total;
     emit actionShowProgres(received, total);
@@ -452,7 +452,7 @@ void eLogQrzLog::downloadProgress(qint64 received, qint64 total) {
 
 void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
-       //qDebug()<< "eLogQrzLog::slotErrorManagement: " << QString::number(networkError) << Qt::endl;
+       //qDebug()<< "eLogQrzLog::slotErrorManagement: " << QString::number(networkError) << QT_ENDL;
     result = networkError;
 
     if (result == QNetworkReply::NoError)
@@ -460,11 +460,11 @@ void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-            //qDebug()<< "eLogQrzLog::slotErrorManagement: Host not found" << Qt::endl;
+            //qDebug()<< "eLogQrzLog::slotErrorManagement: Host not found" << QT_ENDL;
     }
     else
     {
-            //qDebug()<< "eLogQrzLog::slotErrorManagement: ERROR!" << Qt::endl;
+            //qDebug()<< "eLogQrzLog::slotErrorManagement: ERROR!" << QT_ENDL;
     }
 
     //actionError(result);
@@ -472,34 +472,34 @@ void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 
 bool eLogQrzLog::canConnect()
 {
-   //qDebug()<< "eLogQrzLog::canConnect: "  << Qt::endl;
+   //qDebug()<< "eLogQrzLog::canConnect: "  << QT_ENDL;
    if (!logged)
    {
-       //qDebug()<< "eLogQrzLog::canConnect: 10"  << Qt::endl;
+       //qDebug()<< "eLogQrzLog::canConnect: 10"  << QT_ENDL;
        login();
        if (!logged)
        {
-            //qDebug()<< "eLogQrzLog::canConnect: Not logged"  << Qt::endl;
+            //qDebug()<< "eLogQrzLog::canConnect: Not logged"  << QT_ENDL;
             return false;
        }
    }
    if (sessionkey.length()<1)
    {
-        //qDebug()<< "eLogQrzLog::canConnect: API not valid"  << Qt::endl;
+        //qDebug()<< "eLogQrzLog::canConnect: API not valid"  << QT_ENDL;
        return false;
    }
-   //qDebug()<< "eLogQrzLog::canConnect: END"  << Qt::endl;
+   //qDebug()<< "eLogQrzLog::canConnect: END"  << QT_ENDL;
    return true;
 }
 
 void eLogQrzLog::fetchData()
 {
-    //qDebug()<< "eLogQrzLog::fetchData"  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::fetchData"  << QT_ENDL;
     if (!canConnect())
     {
         return;
     }
-   //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << Qt::endl;
+   //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << QT_ENDL;
     QUrlQuery params;
 
 
@@ -512,10 +512,10 @@ void eLogQrzLog::fetchData()
 
 void eLogQrzLog::checkQRZ(const QString &_qrz)
 {
-    //qDebug()<< "eLogQrzLog::checkQRZ: " << _qrz << Qt::endl;
+    //qDebug()<< "eLogQrzLog::checkQRZ: " << _qrz << QT_ENDL;
     if (!util->isValidCall(_qrz))
     {
-        //qDebug()<< "eLogQrzLog::checkQRZ: CALL not valid"  << Qt::endl;
+        //qDebug()<< "eLogQrzLog::checkQRZ: CALL not valid"  << QT_ENDL;
         return;
     }
     serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
@@ -525,7 +525,7 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
         return;
     }
 
-    //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << QT_ENDL;
     QUrlQuery params;
     params.addQueryItem("s", sessionkey);
     params.addQueryItem("callsign", _qrz);
@@ -535,11 +535,11 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
 
 int eLogQrzLog::sendQSOs(QList<int> _qsos)
 {
-    //qDebug()<< "eLogQrzLog::sendQSOs: QSOs: " << QString::number(_qsos.length()) << Qt::endl;
+    //qDebug()<< "eLogQrzLog::sendQSOs: QSOs: " << QString::number(_qsos.length()) << QT_ENDL;
     errorWhileSendingLog = false;
     if (logbookkey.length()<1)
     {
-        //qDebug()<< "eLogQrzLog::sendQSOs: No valid KEY (-2)" << Qt::endl;
+        //qDebug()<< "eLogQrzLog::sendQSOs: No valid KEY (-2)" << QT_ENDL;
         QMessageBox::warning(nullptr, tr("KLog - QRZ.com"),
                                        tr("Not valid KEY found") + "\n" +
                                           tr("Please configure your QRZ.com API key. You will find it in your QRZ.com Logbook settings webpage.\nYou need a QRZ.com subscription to use this feature."),
@@ -562,19 +562,19 @@ int eLogQrzLog::sendQSOs(QList<int> _qsos)
 
 int eLogQrzLog::sendQSO(const int _qsoID)
 {
-    //qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID) << Qt::endl;
+    //qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID) << QT_ENDL;
 
     QString adifQSO = dataProxy->getADIFQSO(_qsoID);
 
-    //qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO << Qt::endl;
-    //qDebug()<< "eLogQrzLog::sendQSO: (KEY) :" << logbookkey << Qt::endl;
+    //qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO << QT_ENDL;
+    //qDebug()<< "eLogQrzLog::sendQSO: (KEY) :" << logbookkey << QT_ENDL;
     QUrlQuery params;
 
     params.addQueryItem("KEY", logbookkey);
     params.addQueryItem("ACTION", "INSERT");
     params.addQueryItem("ADIF",adifQSO);
     params.addQueryItem("agent", util->getGlobalAgent(klogVersion));
-    //qDebug() << "eLogQrzLog::sendQSO: END" << Qt::endl;
+    //qDebug() << "eLogQrzLog::sendQSO: END" << QT_ENDL;
 
     QByteArray postData;
 
@@ -584,10 +584,10 @@ int eLogQrzLog::sendQSO(const int _qsoID)
     QNetworkRequest requestLog(QUrl("https://logbook.qrz.com/api"));
     requestLog.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
-    //qDebug()<< "eLogQrzLog::sendQSO: postData: " << postData << Qt::endl;
+    //qDebug()<< "eLogQrzLog::sendQSO: postData: " << postData << QT_ENDL;
     while (sendingQSO)
     {
-        //qDebug() << "eLogQrzLog::sendQSO: sending QSO... just wait!" << Qt::endl;
+        //qDebug() << "eLogQrzLog::sendQSO: sending QSO... just wait!" << QT_ENDL;
     }
     managerLog->post(requestLog, postData);
     return 1;
@@ -607,10 +607,10 @@ bool eLogQrzLog::hasLogBookKey()
 
 void eLogQrzLog::login()
 {
-    //qDebug()<< "eLogQrzLog::login"  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::login"  << QT_ENDL;
     if (logged)
     {
-        //qDebug()<< "eLogQrzLog::login Already logged!"  << Qt::endl;
+        //qDebug()<< "eLogQrzLog::login Already logged!"  << QT_ENDL;
         return;
     }
 
@@ -623,7 +623,7 @@ void eLogQrzLog::login()
         pass = QInputDialog::getText(nullptr, tr("KLog - QRZ.com password needed"),                                                   tr("Please enter your QRZ.com password: "), QLineEdit::Password, "", &ok);
         if (!ok)
         {
-             //qDebug() << "eLogQrzLog::login - END 1" <<  Qt::endl;
+             //qDebug() << "eLogQrzLog::login - END 1" <<  QT_ENDL;
             return;
         }
     }
@@ -631,7 +631,7 @@ void eLogQrzLog::login()
 
     if ((user.length()<1) || (pass.length()<1))
     {
-        //qDebug()<< "eLogQrzLog::login error 2"  << Qt::endl;
+        //qDebug()<< "eLogQrzLog::login error 2"  << QT_ENDL;
         //if (!savePassword)
         //{// We delete the password as soon as possible if the user is not willing to save it
         //    pass = QString();
@@ -650,13 +650,13 @@ void eLogQrzLog::login()
     //{// We delete the password as soon as possible if the user is not willing to save it
     //        pass = QString();
     //}
-    //qDebug()<< "eLogQrzLog::login - END"  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::login - END"  << QT_ENDL;
 
 }
 
 int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
 {
-    //qDebug()<< "eLogQrzLog::sendDataParams: Params: " << _params.query(QUrl::FullyEncoded).toUtf8() << Qt::endl;
+    //qDebug()<< "eLogQrzLog::sendDataParams: Params: " << _params.query(QUrl::FullyEncoded).toUtf8() << QT_ENDL;
 
     QByteArray postData;
 
@@ -671,22 +671,22 @@ int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
-    //qDebug()<< "eLogQrzLog::sendDataParams: postData: " << postData << Qt::endl;
+    //qDebug()<< "eLogQrzLog::sendDataParams: postData: " << postData << QT_ENDL;
     manager->post(request, postData);
-     //qDebug()<< "eLogQrzLog::sendDataParams - END" << Qt::endl;
+     //qDebug()<< "eLogQrzLog::sendDataParams - END" << QT_ENDL;
     return -1;
 }
 
 void eLogQrzLog::setCredentials(const QString &_user, const QString &_pass)
 {
-    //qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass  << QT_ENDL;
     user = _user;
     pass = _pass;
 }
 
 QString eLogQrzLog::prepareToTranslate(const QString &_m)
 {
-       //qDebug()<< "eLogQrzLog:: = prepareToTranslate" << _m << Qt::endl;
+       //qDebug()<< "eLogQrzLog:: = prepareToTranslate" << _m << QT_ENDL;
     if (_m == "Callsign missing")
     {
         return tr("Callsign missing");
@@ -699,7 +699,7 @@ QString eLogQrzLog::prepareToTranslate(const QString &_m)
 
 void eLogQrzLog::parseAppAnswer (const QString &_m)
 {
-    //qDebug()<< "eLogQrzLog::parseAppAnswer: " << _m  << Qt::endl;
+    //qDebug()<< "eLogQrzLog::parseAppAnswer: " << _m  << QT_ENDL;
 
     QStringList response;
     response.clear();
@@ -707,12 +707,12 @@ void eLogQrzLog::parseAppAnswer (const QString &_m)
 
     QString responseType = response.at(0).split('=').at(0);
     QString responseResult = response.at(0).split('=').at(1);
-    //qDebug()<< "eLogQrzLog::parseAppAnswer: responseType: " << responseType  << Qt::endl;
-    //qDebug()<< "eLogQrzLog::parseAppAnswer: responseResult: " << responseResult << Qt::endl;
+    //qDebug()<< "eLogQrzLog::parseAppAnswer: responseType: " << responseType  << QT_ENDL;
+    //qDebug()<< "eLogQrzLog::parseAppAnswer: responseResult: " << responseResult << QT_ENDL;
 
     if ((responseType == "STATUS") && (responseResult == "OK"))
     {
-        //qDebug()<< "eLogQrzLog::parseAppAnswer: OK"  << Qt::endl;
+        //qDebug()<< "eLogQrzLog::parseAppAnswer: OK"  << QT_ENDL;
     }
     else if ((responseType == "STATUS") && (responseResult == "FAIL"))
     {
@@ -720,7 +720,7 @@ void eLogQrzLog::parseAppAnswer (const QString &_m)
         if (response.at(1).split('=').at(0) == "REASON")
         {
             QString reason = response.at(1).split('=').at(1);
-           //qDebug()<< "eLogQrzLog::parseAppAnswer: " << reason  << Qt::endl;
+           //qDebug()<< "eLogQrzLog::parseAppAnswer: " << reason  << QT_ENDL;
         }
     }
     else if ((responseType == "STATUS") && (responseResult == "AUTH"))
@@ -729,7 +729,7 @@ void eLogQrzLog::parseAppAnswer (const QString &_m)
         if (response.at(1).split('=').at(0) == "REASON")
         {
             QString reason = response.at(1).split('=').at(1);
-            //qDebug()<< "eLogQrzLog::parseAppAnswer: " << reason  << Qt::endl;
+            //qDebug()<< "eLogQrzLog::parseAppAnswer: " << reason  << QT_ENDL;
             //onlineMessage->showMessage(QNetworkReply::NoError, QRZ, Fail, Other, reason);
         }
     }

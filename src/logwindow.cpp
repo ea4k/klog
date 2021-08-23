@@ -29,7 +29,7 @@
 
 LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << "LogWindow::LogWindow: "  << Qt::endl;
+    //qDebug() << "LogWindow::LogWindow: "  << QT_ENDL;
     dataProxy = dp;
     //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
@@ -48,7 +48,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     createUI();
     createActions();
     setDefaultData();
-    //qDebug() << "LogWindow::LogWindow: - END"  << Qt::endl;
+    //qDebug() << "LogWindow::LogWindow: - END"  << QT_ENDL;
 
 }
 
@@ -74,7 +74,7 @@ void LogWindow::sortColumn(const int _c)
 
 void LogWindow::clear()
 {
-      //qDebug() << "LogWindow::clear "  << Qt::endl;
+      //qDebug() << "LogWindow::clear "  << QT_ENDL;
 }
 
 void LogWindow::createUI()
@@ -95,13 +95,13 @@ void LogWindow::setDefaultData()
     columns.clear();
     //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(util->getDefaultLogFields());
-       //qDebug() << "LogWindow::setDefaultData"  << Qt::endl;
+       //qDebug() << "LogWindow::setDefaultData"  << QT_ENDL;
 }
 
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-    //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << Qt::endl;
+    //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog) << QT_ENDL;
     currentLog = _currentLog;
     logModel->createlogModel(currentLog);
     //proxyModel->setSourceModel(logModel);
@@ -185,7 +185,7 @@ void LogWindow::showColumn(const QString &_columnName)
 
 void LogWindow::refresh()
 {
-       //qDebug() << "LogWindow::refresh"  << Qt::endl;
+       //qDebug() << "LogWindow::refresh"  << QT_ENDL;
 
     logModel->select();
 }
@@ -261,10 +261,10 @@ void LogWindow::rightButtonMultipleFromLogMenu()
 
 void LogWindow::rightButtonFromLogMenu(const int trow)
 {
-    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << Qt::endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow) << QT_ENDL;
     //qDebug() << Q_FUNC_INFO;
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
-    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << Qt::endl;
+    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID) << QT_ENDL;
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
@@ -311,14 +311,14 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
 
 void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 {
-       //qDebug() << "LogWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << Qt::endl;
+       //qDebug() << "LogWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column()) << QT_ENDL;
 
     int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
 
-       //qDebug() << "LogWindow::slotDoubleClickLog: n: " << QString::number (logModel->data(index, Qt::DisplayRole).toInt()) << Qt::endl;
-       //qDebug() << "LogWindow::slotDoubleClickLog: emitted: " << QString::number (((logModel->index(row, Qt::DisplayRole)).data(0)).toInt()) << Qt::endl;
+       //qDebug() << "LogWindow::slotDoubleClickLog: n: " << QString::number (logModel->data(index, Qt::DisplayRole).toInt()) << QT_ENDL;
+       //qDebug() << "LogWindow::slotDoubleClickLog: emitted: " << QString::number (((logModel->index(row, Qt::DisplayRole)).data(0)).toInt()) << QT_ENDL;
 
     emit actionQSODoubleClicked(qsoID);
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
@@ -330,21 +330,21 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
 bool LogWindow::isQSLReceived(const int _qsoId)
 {
-       //qDebug() << "LogWindow::isQSLReceived: " << QString::number(_qsoId) << Qt::endl;
+       //qDebug() << "LogWindow::isQSLReceived: " << QString::number(_qsoId) << QT_ENDL;
     return dataProxy->isQSOConfirmed(_qsoId, true, false); // We check just paper QSL
     //return dataProxy->isQSLReceived(_qsoId);
 }
 
 bool LogWindow::isQSLSent(const int _qsoId)
 {
-       //qDebug() << "LogWindow::isQSLSent: " << QString::number(_qsoId) << Qt::endl;
+       //qDebug() << "LogWindow::isQSLSent: " << QString::number(_qsoId) << QT_ENDL;
 
     return dataProxy->isQSLSent(_qsoId);
 }
 
 void LogWindow::showMenuRightButtonFromLogCreateActions()
 {
-   //qDebug() << "LogWindow::showMenuRightButtonFromLogCreateActions" << Qt::endl;
+   //qDebug() << "LogWindow::showMenuRightButtonFromLogCreateActions" << QT_ENDL;
 
     delQSOFromLogAct = new QAction(tr("&Delete"), this);
     delQSOFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
@@ -449,14 +449,14 @@ void LogWindow::slotQSOsDeselectAll()
 
 void LogWindow::slotQSLSentViaBureauFromLog()
 {
-      //qDebug() << "LogWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << Qt::endl;
+      //qDebug() << "LogWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << QT_ENDL;
     int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
 }
 
 void LogWindow::slotQSLSentViaDirectFromLog()
 {
-       //qDebug() << "LogWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << Qt::endl;
+       //qDebug() << "LogWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << QT_ENDL;
      int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
     dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
@@ -465,7 +465,7 @@ void LogWindow::slotQSLSentViaDirectFromLog()
 
 void LogWindow::slotQSLRecViaBureauFromLog()
 {
-      //qDebug() << "LogWindow::slotQSLRecViaBureauFromLog: " << Qt::endl;
+      //qDebug() << "LogWindow::slotQSLRecViaBureauFromLog: " << QT_ENDL;
 
     int _qsoId = ((logModel->index( ( (qslRecViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaBureau(_qsoId);
@@ -474,7 +474,7 @@ void LogWindow::slotQSLRecViaBureauFromLog()
 
 void LogWindow::slotQSLRecViaDirectFromLog()
 {
-       //qDebug() << "LogWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << Qt::endl;
+       //qDebug() << "LogWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) ) << QT_ENDL;
     int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaDirect(_qsoId);
     // Mark Sent, Bureau, date, update log.
@@ -483,7 +483,7 @@ void LogWindow::slotQSLRecViaDirectFromLog()
 
 void LogWindow::slotQSOToEditFromLog()
 {
-       //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << Qt::endl;
+       //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString() << QT_ENDL;
 
     //qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
     int QSOid = ((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
@@ -504,14 +504,14 @@ void LogWindow::slotQSOToEditFromLog()
 
 void LogWindow::deleteQSO(const int _qsoId)
 {
-   //qDebug() << "LogWindow::deleteQSO " << QString::number(_qsoId) << Qt::endl;
+   //qDebug() << "LogWindow::deleteQSO " << QString::number(_qsoId) << QT_ENDL;
     emit actionDeleteQSO(_qsoId);
 }
 
 /*
 void LogWindow::deleteQSO(const int _qsoID)
 {
-       //qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID) << Qt::endl;
+       //qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID) << QT_ENDL;
 
 
 
@@ -531,16 +531,16 @@ void LogWindow::deleteQSO(const int _qsoID)
 */
 void LogWindow::slotQsoDeleteFromLog()
 {
-      //qDebug() << "LogWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << Qt::endl;
+      //qDebug() << "LogWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString() << QT_ENDL;
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 
     int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
     deleteQSO(QSOid);
-      //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << Qt::endl;
+      //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid) << QT_ENDL;
     /*
     switch (ret) {
       case QMessageBox::Yes:
-          //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): -1" << Qt::endl;
+          //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): -1" << QT_ENDL;
         deleteQSO(QSOid);
 
           break;
@@ -556,7 +556,7 @@ void LogWindow::slotQsoDeleteFromLog()
 
 void LogWindow::slotQSOsDeleteFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsDeleteFromLog" << Qt::endl;
+    //qDebug() << "LogWindow::slotQSOsDeleteFromLog" << QT_ENDL;
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -566,8 +566,8 @@ void LogWindow::slotQSOsDeleteFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.row())  << Qt::endl;
-            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.data(0).toInt())  << Qt::endl;
+            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.row())  << QT_ENDL;
+            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.data(0).toInt())  << QT_ENDL;
         }
     }
     if (qsos.length()>0)
@@ -578,7 +578,7 @@ void LogWindow::slotQSOsDeleteFromLog()
 
 void LogWindow::slotQSOsExportFromLog()
 {
-   //qDebug() << "LogWindow::slotQSOsExportFromLog" << Qt::endl;
+   //qDebug() << "LogWindow::slotQSOsExportFromLog" << QT_ENDL;
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -588,31 +588,31 @@ void LogWindow::slotQSOsExportFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row())  << Qt::endl;
-           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt())  << Qt::endl;
+           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row())  << QT_ENDL;
+           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt())  << QT_ENDL;
         }
     }
     if (qsos.length()>0)
     {
         emit exportToADIFTheseQSOs(qsos);
     }
-   //qDebug() << "LogWindow::slotQSOsExportFromLog - END - " << QString::number(qsos.length()) << Qt::endl;
+   //qDebug() << "LogWindow::slotQSOsExportFromLog - END - " << QString::number(qsos.length()) << QT_ENDL;
 }
 
 
 void LogWindow::slotQSOsUploadToLoTWFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsUploadToLoTWFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotQSOsUploadToLoTWFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 void LogWindow::slotQSOsUploadToClubLogFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsUploadToClubLogFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotQSOsUploadToClubLogFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 void LogWindow::slotQSOsQRZUploadFromLog()
 {
-   //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog - TO BE IMPLEMENTED" << Qt::endl;
+   //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog - TO BE IMPLEMENTED" << QT_ENDL;
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -622,8 +622,8 @@ void LogWindow::slotQSOsQRZUploadFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.row())  << Qt::endl;
-            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.data(0).toInt())  << Qt::endl;
+            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.row())  << QT_ENDL;
+            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.data(0).toInt())  << QT_ENDL;
         }
     }
     if (qsos.length()>0)
@@ -634,27 +634,27 @@ void LogWindow::slotQSOsQRZUploadFromLog()
 
 void LogWindow::slotQSOsUploadToEQSLFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsUploadToEQSLFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotQSOsUploadToEQSLFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 void LogWindow::slotMultipleQSLSentViaBureauFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLSentViaBureauFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotMultipleQSLSentViaBureauFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 void LogWindow::slotMultipleQSLSentViaDirectFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLSentViaDirectFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotMultipleQSLSentViaDirectFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 void LogWindow::slotMultipleQSLRecViaBureauFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLRecViaBureauFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotMultipleQSLRecViaBureauFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 void LogWindow::slotMultipleQSLRecViaDirectFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLRecViaDirectFromLog - TO BE IMPLEMENTED" << Qt::endl;
+    //qDebug() << "LogWindow::slotMultipleQSLRecViaDirectFromLog - TO BE IMPLEMENTED" << QT_ENDL;
 }
 
 
@@ -666,7 +666,7 @@ void LogWindow::qslSentViaBureau(const int _qsoId)
 
 void LogWindow::qslRecViaBureau(const int _qsoId)
 {
-   //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd") << Qt::endl;
+   //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd") << QT_ENDL;
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
     awards->setAwards(_qsoId);   //Update the Award status
 
@@ -696,7 +696,7 @@ void LogWindow::slotCheckQRZCom()
     QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
-      //qDebug() << "LogWindow::sloTCheckQRZCom: " << _qrz << Qt::endl;
+      //qDebug() << "LogWindow::sloTCheckQRZCom: " << _qrz << QT_ENDL;
     QString url = "https://www.qrz.com/db/" + _qrz;
 
     QDesktopServices::openUrl(QUrl(url));
@@ -708,7 +708,7 @@ void LogWindow::slotCheckDXHeatCom()
     QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
-      //qDebug() << "LogWindow::slotCheckDXHeatCom(): " << _qrz << Qt::endl;
+      //qDebug() << "LogWindow::slotCheckDXHeatCom(): " << _qrz << QT_ENDL;
     QString url = "https://www.dxheat.com/db/" + _qrz;
     QDesktopServices::openUrl(QUrl(url));
 }

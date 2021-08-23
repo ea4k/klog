@@ -29,7 +29,7 @@
 
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 {
-       //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName << Qt::endl;
+       //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName << QT_ENDL;
     constrid = 1;
     created = false;
 
@@ -39,23 +39,23 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
 
 
-       //qDebug() << "DataBase::DataBase1: dbName: " << dbName << Qt::endl;
+       //qDebug() << "DataBase::DataBase1: dbName: " << dbName << QT_ENDL;
 
     //db = QSqlDatabase::database();
 
     dbVersion = DBVersionf;
     createConnection(QString(Q_FUNC_INFO)+"1");
-       //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << Qt::endl;
-       //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << Qt::endl;
+       //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << QT_ENDL;
+       //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << QT_ENDL;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
 
-       //qDebug() << "DataBase::DataBase: PLAIN: - END" << Qt::endl;
+       //qDebug() << "DataBase::DataBase: PLAIN: - END" << QT_ENDL;
 }
 
 DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
 {
-       //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName << Qt::endl;
+       //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName << QT_ENDL;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     constrid = 2;
     created = false;
@@ -69,9 +69,9 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     dbName = _DBName;
     //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
 
-       //qDebug() << "DataBase::DataBase2: dbName: " << dbName << Qt::endl;
+       //qDebug() << "DataBase::DataBase2: dbName: " << dbName << QT_ENDL;
     //dbDir = dbName;
-       //qDebug() << "DataBase::DataBase: DB(string): " << dbName << Qt::endl;
+       //qDebug() << "DataBase::DataBase: DB(string): " << dbName << QT_ENDL;
 
     //db = QSqlDatabase::database();
 
@@ -83,25 +83,25 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
         createConnection(QString(Q_FUNC_INFO)+"2");
 
     }
-       //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << Qt::endl;
-       //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << Qt::endl;
+       //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << QT_ENDL;
+       //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << QT_ENDL;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
 
-       //qDebug() << "DataBase::DataBase2: END"  << Qt::endl;
+       //qDebug() << "DataBase::DataBase2: END"  << QT_ENDL;
 }
 
 
 DataBase::~DataBase()
 {
-         //qDebug() << "DataBase::~DataBase"  << Qt::endl;
+         //qDebug() << "DataBase::~DataBase"  << QT_ENDL;
 }
 
 //void DataBase::slotPrintErrors(QString _func, QString _msg, int _level)
 //{
-    //qDebug() << "DataBase::slotPrintErrors: FUNC: " << _func << Qt::endl;
-    //qDebug() << "DataBase::slotPrintErrors: MSG: " << _msg << Qt::endl;
-    //qDebug() << "DataBase::slotPrintErrors: LEVEL: " << QString::number(_level) << Qt::endl;
+    //qDebug() << "DataBase::slotPrintErrors: FUNC: " << _func << QT_ENDL;
+    //qDebug() << "DataBase::slotPrintErrors: MSG: " << _msg << QT_ENDL;
+    //qDebug() << "DataBase::slotPrintErrors: LEVEL: " << QString::number(_level) << QT_ENDL;
 //}
 
 QString DataBase::getSoftVersion()
@@ -181,7 +181,7 @@ QString DataBase::getDBName()
 QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 {
 
-      //qDebug() << "DataBase::getColumnNamesFromTable: " << _tableName << Qt::endl;
+      //qDebug() << "DataBase::getColumnNamesFromTable: " << _tableName << QT_ENDL;
    QSqlQuery query;
 
    QString queryString = QString("PRAGMA table_info('%1')").arg(_tableName);
@@ -192,7 +192,7 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
     QString aux;
    if (sqlOK)
    {
-          //qDebug() << "DataBase::getColumnNamesFromTable: OK" << Qt::endl;
+          //qDebug() << "DataBase::getColumnNamesFromTable: OK" << QT_ENDL;
        while(query.next())
        {
            if (query.isValid())
@@ -201,7 +201,7 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
                if (( aux.toUpper() != "ID" ) && (aux.length()>0))
                {
                    list << aux;
-                      //qDebug() << "DataBase::getColumnNamesFromTable: " << (query.value(1)).toString() << Qt::endl;
+                      //qDebug() << "DataBase::getColumnNamesFromTable: " << (query.value(1)).toString() << QT_ENDL;
                }
            }
        }
@@ -212,14 +212,14 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
     query.finish();
-       //qDebug() << "DataBase::getColumnNamesFromTable: " << QString::number(list.size()) << Qt::endl;
+       //qDebug() << "DataBase::getColumnNamesFromTable: " << QString::number(list.size()) << QT_ENDL;
     return list;
 
 }
 
 void DataBase::compress()
 {
-         //qDebug() << "DataBase::compress " << Qt::endl;
+         //qDebug() << "DataBase::compress " << QT_ENDL;
 
     //QSqlDatabase db = QSqlDatabase::database();
     if (!db.open()) { /* Flawfinder: ignore */
@@ -235,75 +235,75 @@ void DataBase::compress()
 
 bool DataBase::reConnect(const QString &_DBName)
 {
-       //qDebug() << "DataBase::reConnect:"  << Qt::endl;
+       //qDebug() << "DataBase::reConnect:"  << QT_ENDL;
     db.close();
     dbName = _DBName;
-        //qDebug() << "DataBase::reConnect: DB closed"  << Qt::endl;
-        //qDebug() << "DataBase::reConnect: DB: " << dbDir  << Qt::endl;
+        //qDebug() << "DataBase::reConnect: DB closed"  << QT_ENDL;
+        //qDebug() << "DataBase::reConnect: DB: " << dbDir  << QT_ENDL;
     bool sqlOK =  createConnection(Q_FUNC_INFO);
     if (!sqlOK)
     {
    //// emit debugLog(Q_FUNC_INFO, "1", 7);
     }
     return sqlOK;
-        //qDebug() << "DataBase::reConnect: END"  << Qt::endl;
+        //qDebug() << "DataBase::reConnect: END"  << QT_ENDL;
 
 }
 
 bool DataBase::createConnection(const QString &function, bool newDB)
 {
-   //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << Qt::endl;
+   //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << QT_ENDL;
     QString stringQuery;
     QSqlQuery query;
 
 
     if (!db.isOpen())
     {
-       //qDebug() << "DataBase::createConnection: DB NOT Opened" << Qt::endl;
+       //qDebug() << "DataBase::createConnection: DB NOT Opened" << QT_ENDL;
 
         if (db.isValid())
         {
-            //qDebug() << "DataBase::createConnection: DB is Valid"  << Qt::endl;
+            //qDebug() << "DataBase::createConnection: DB is Valid"  << QT_ENDL;
         }
         else
         {
-           //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << Qt::endl;
+           //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << QT_ENDL;
             if (db.isOpen())
             {
-             //qDebug() << "DataBase::createConnection: DB is already open"  << Qt::endl;
+             //qDebug() << "DataBase::createConnection: DB is already open"  << QT_ENDL;
             }
             else
             {
-               //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< Qt::endl;
+               //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< QT_ENDL;
                 QSqlDatabase::removeDatabase("qt_sql_default_connection");
                 db = QSqlDatabase::addDatabase("QSQLITE");
             }
 
-           //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << Qt::endl;
+           //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << QT_ENDL;
             db.setDatabaseName(dbName);
-           //qDebug() << "DataBase::createConnection: end of not valid"  << Qt::endl;
+           //qDebug() << "DataBase::createConnection: end of not valid"  << QT_ENDL;
         }
-       //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << Qt::endl;
+       //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << QT_ENDL;
         if (!db.open()) /* Flawfinder: ignore */
         {
-        //qDebug() << "DataBase::createConnection:Not open "  << Qt::endl;
+        //qDebug() << "DataBase::createConnection:Not open "  << QT_ENDL;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
-              //qDebug() << "DataBase::createConnection: DB creation ERROR"  << Qt::endl;
+              //qDebug() << "DataBase::createConnection: DB creation ERROR"  << QT_ENDL;
            //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         else
         {
-           //qDebug() << "DataBase::createConnection: created and opened after the creation" << Qt::endl;
+           //qDebug() << "DataBase::createConnection: created and opened after the creation" << QT_ENDL;
             if (isTheDBCreated())
             {
-           //qDebug() << "DataBase::createConnection: DB Exists"  << Qt::endl;
+           //qDebug() << "DataBase::createConnection: DB Exists"  << QT_ENDL;
             }
             else
             {
-           //qDebug() << "DataBase::createConnection: DB does not exist"  << Qt::endl;
+           //qDebug() << "DataBase::createConnection: DB does not exist"  << QT_ENDL;
                 createDataBase();
-           //qDebug() << "DataBase::createConnection: After creation"  << Qt::endl;
+           //qDebug() << "DataBase::createConnection: After creation"  << QT_ENDL;
                 stringQuery ="PRAGMA main.page_size = 4096;";
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
@@ -329,29 +329,29 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     else
     {
-      //qDebug() << "DataBase::createConnection: No Error, DB is open" << Qt::endl;
+      //qDebug() << "DataBase::createConnection: No Error, DB is open" << QT_ENDL;
     }
 
 
-     //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << Qt::endl;
+     //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << QT_ENDL;
 
     if (createBandModeMaps())
     {
-         //qDebug() << "DataBase::createConnection: createBandModeMaps true" << Qt::endl;
+         //qDebug() << "DataBase::createConnection: createBandModeMaps true" << QT_ENDL;
     }
     else
     {
-          //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << Qt::endl;
+          //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << QT_ENDL;
     }
 
     //created = true;
-   //qDebug() << "DataBase::createConnection -------------------------------------------- END" << Qt::endl;
+   //qDebug() << "DataBase::createConnection -------------------------------------------- END" << QT_ENDL;
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << Qt::endl;
+    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << QT_ENDL;
 
     QSqlQuery query;
     int _num = 0;
@@ -362,24 +362,24 @@ bool DataBase::isTheDBCreated()
 
     if (sqlOK)
     {
-           //qDebug() << "DataBase::isTheDBCreated - SQL OK"  << Qt::endl;
+           //qDebug() << "DataBase::isTheDBCreated - SQL OK"  << QT_ENDL;
         query.next();
         if (query.isValid())
         {
 
-                //qDebug() << "DataBase::isTheDBCreated - valid"  << Qt::endl;
+                //qDebug() << "DataBase::isTheDBCreated - valid"  << QT_ENDL;
             _num = (query.value(0)).toInt();
             if (_num > 0)
             {
-                //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << Qt::endl;
-                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << Qt::endl;
+                //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << QT_ENDL;
+                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << QT_ENDL;
                  query.finish();
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << Qt::endl;
-                    //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << Qt::endl;
+                    //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << QT_ENDL;
+                    //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << QT_ENDL;
                  query.finish();
                 //// emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
@@ -388,8 +388,8 @@ bool DataBase::isTheDBCreated()
         else
         {
 
-                //qDebug() << "DataBase::isTheDBCreated - not valid"  << Qt::endl;
-                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << Qt::endl;
+                //qDebug() << "DataBase::isTheDBCreated - not valid"  << QT_ENDL;
+                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << QT_ENDL;
              query.finish();
             //// emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
@@ -397,25 +397,25 @@ bool DataBase::isTheDBCreated()
     }
     else
     { //ERROR in Query execution
-           //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------ ERROR IN QUERY EXECUTION" << Qt::endl;
+           //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------ ERROR IN QUERY EXECUTION" << QT_ENDL;
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //query.finish();
-       //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << Qt::endl;
+       //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << QT_ENDL;
     //return false;
 
 }
 
 bool DataBase::recreateTableLog()
 {
-    //qDebug() << "DataBase::recreateTableLog" << Qt::endl;
+    //qDebug() << "DataBase::recreateTableLog" << QT_ENDL;
 
     if (!createTableLog(false))         // Create modetemp
     {
-        //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << Qt::endl;
+        //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
@@ -450,23 +450,23 @@ bool DataBase::recreateTableLog()
             }
             else
             {
-                //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << Qt::endl;
+                //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << QT_ENDL;
                //// emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
         else
         {
-            //qDebug() << "recreateTableLog ERROR - log table not dropped" << Qt::endl;
+            //qDebug() << "recreateTableLog ERROR - log table not dropped" << QT_ENDL;
         }
     }
     else
     {
-        //qDebug() << "recreateTableLog ERROR - Data not moved" << Qt::endl;
+        //qDebug() << "recreateTableLog ERROR - Data not moved" << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
-       //qDebug() << "recreateTableLog END" << Qt::endl;
+       //qDebug() << "recreateTableLog END" << QT_ENDL;
     return true;
 }
 
@@ -480,12 +480,12 @@ bool DataBase::createTableLog(bool temp)
     if (temp)
     {
         stringQuery = "CREATE TABLE log" ;
-            //qDebug() << "DataBase::createTableLog: log"  << Qt::endl;
+            //qDebug() << "DataBase::createTableLog: log"  << QT_ENDL;
     }
     else
     {
         stringQuery = "CREATE TABLE logtemp" ;
-            //qDebug() << "DataBase::createTableLog: logtemp"  << Qt::endl;
+            //qDebug() << "DataBase::createTableLog: logtemp"  << QT_ENDL;
     }
 
              stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -650,7 +650,7 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (dxcc) REFERENCES entity, "
              "FOREIGN KEY (bandid) REFERENCES band)");
 
-         //qDebug() << "DataBase::createTableLog: " << stringQuery  << Qt::endl;
+         //qDebug() << "DataBase::createTableLog: " << stringQuery  << QT_ENDL;
 
     if (execQuery(Q_FUNC_INFO, stringQuery))
     {
@@ -682,7 +682,7 @@ bool DataBase::createTableLog(bool temp)
 
 bool DataBase::createDataBase()
 {
-    //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << Qt::endl;
+    //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << QT_ENDL;
     //QSqlQuery query;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists log");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists band");
@@ -845,7 +845,7 @@ bool DataBase::createDataBase()
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
-   //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << Qt::endl;
+   //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << QT_ENDL;
     return true;
 
 }
@@ -921,10 +921,10 @@ bool DataBase::createTableAwardWAZ()
 
 bool DataBase::createTableSubdivision(const bool NoTmp)
 {
-    //qDebug() << "DataBase::createTableSubdivisions" << Qt::endl;
+    //qDebug() << "DataBase::createTableSubdivisions" << QT_ENDL;
     // NoTmp = false => TMP data table to operate and be deleted afterwards
 
-    //qDebug() << "DataBase::createTableSubdivisions" << Qt::endl;
+    //qDebug() << "DataBase::createTableSubdivisions" << QT_ENDL;
 
     QString stringQuery = QString();
     QString table = QString();
@@ -959,16 +959,16 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
     QString delS = QString();
     delS = "DROP TABLE IF exists " + table;
     execQuery(Q_FUNC_INFO, delS);
-    //qDebug() << "DataBase::createTableSubdivision - END" << Qt::endl;
+    //qDebug() << "DataBase::createTableSubdivision - END" << QT_ENDL;
     return execQuery(Q_FUNC_INFO, stringQuery);
 
-    //qDebug() << "DataBase::createTableSubdivision - END" << Qt::endl;
+    //qDebug() << "DataBase::createTableSubdivision - END" << QT_ENDL;
 }
 
 
 int DataBase::getBandIdFromName(const QString &b)
 {
-    //qDebug() << "DataBase::getBandIdFromName: " << b << Qt::endl;
+    //qDebug() << "DataBase::getBandIdFromName: " << b << QT_ENDL;
     QString band = b.toUpper();
     QSqlQuery query;
     if (isValidBand(band))
@@ -982,7 +982,7 @@ int DataBase::getBandIdFromName(const QString &b)
             query.next();
             if ( query.isValid() )
             {
-                //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << Qt::endl;
+                //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << QT_ENDL;
                 int v = (query.value(0)).toInt();
                 query.finish();
                 return v;
@@ -990,7 +990,7 @@ int DataBase::getBandIdFromName(const QString &b)
             }
             else
             {
-                //qDebug() << "DataBase::getBandIdFromName: NOK 1" << Qt::endl;
+                //qDebug() << "DataBase::getBandIdFromName: NOK 1" << QT_ENDL;
                 query.finish();
                 return -1;
             }
@@ -1001,25 +1001,25 @@ int DataBase::getBandIdFromName(const QString &b)
             query.finish();
             return -2;
         }
-        //qDebug() << "DataBase::getBandIdFromName: NOK 3" << Qt::endl;
+        //qDebug() << "DataBase::getBandIdFromName: NOK 3" << QT_ENDL;
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << band << Qt::endl;
+           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << band << QT_ENDL;
     }
-    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << band << Qt::endl;
+    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << band << QT_ENDL;
     query.finish();
     return -3;
 }
 
 int DataBase::getModeIdFromName(const QString &b)
 {
-       //qDebug() << "DataBase::getModeIdFromName: " << b << Qt::endl;
+       //qDebug() << "DataBase::getModeIdFromName: " << b << QT_ENDL;
     QSqlQuery query;
     if (isValidMode(b, false))
     {
         QString queryString = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
-            //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << Qt::endl;
+            //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << QT_ENDL;
         bool sqlOK = query.exec(queryString);
 
         if (sqlOK)
@@ -1027,13 +1027,13 @@ int DataBase::getModeIdFromName(const QString &b)
             query.next();
             if ( query.isValid() )
             {
-                    //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << Qt::endl;
+                    //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << QT_ENDL;
                 return (query.value(0)).toInt();
 
             }
             else
             {
-                    //qDebug() << "DataBase::getModeIdFromName: NOK 1" << Qt::endl;
+                    //qDebug() << "DataBase::getModeIdFromName: NOK 1" << QT_ENDL;
                 query.finish();
                 return -1;
             }
@@ -1046,7 +1046,7 @@ int DataBase::getModeIdFromName(const QString &b)
     }
 
 
-        //qDebug() << "DataBase::getModeIdFromName: NOK 3" << Qt::endl;
+        //qDebug() << "DataBase::getModeIdFromName: NOK 3" << QT_ENDL;
     query.finish();
     return -1;
 }
@@ -1054,7 +1054,7 @@ int DataBase::getModeIdFromName(const QString &b)
 
 int DataBase::getModeIdFromSubMode(const QString &b)
 {
-        //qDebug() << "DataBase::getModeIdFromSubMode: " << b << Qt::endl;
+        //qDebug() << "DataBase::getModeIdFromSubMode: " << b << QT_ENDL;
      QSqlQuery query;
      QString queryString = QString("SELECT id FROM mode WHERE submode='%1'").arg(b);
 /*
@@ -1075,33 +1075,33 @@ int DataBase::getModeIdFromSubMode(const QString &b)
          query.next();
          if (query.isValid())
          {
-                  //qDebug() << "DataBase::getModeIdFromName: OK - Mode: " << b << " - " << (query.value(0)).toString() << Qt::endl;
+                  //qDebug() << "DataBase::getModeIdFromName: OK - Mode: " << b << " - " << (query.value(0)).toString() << QT_ENDL;
              return (query.value(0)).toInt();
          }
          else
          {
-                  //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< Qt::endl;
+                  //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< QT_ENDL;
              query.finish();
              return -1;
          }
      }
      else
      {
-              //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< Qt::endl;
+              //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< QT_ENDL;
          queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
          query.finish();
          return -1;
      }
 
 
-         //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< Qt::endl;
+         //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< QT_ENDL;
      //query.finish();
      //return -1;
 }
 
 QString DataBase::getBandNameFromNumber(const int _n)
 {
-       //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << Qt::endl;
+       //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << QT_ENDL;
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
 
@@ -1114,19 +1114,19 @@ QString DataBase::getBandNameFromNumber(const int _n)
         {
             if ( isValidBand((query.value(0)).toString())  )
             {
-                    //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << Qt::endl;
+                    //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << QT_ENDL;
                 return (query.value(0)).toString();
             }
             else
             {
-                   //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << Qt::endl;
+                   //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << QT_ENDL;
                 query.finish();
                 return QString();
             }
         }
         else
         {
-                //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << Qt::endl;
+                //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << QT_ENDL;
             query.finish();
             return QString();
         }
@@ -1145,7 +1145,7 @@ QString DataBase::getBandNameFromNumber(const int _n)
 QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 {
     //TODO May fail to identify the sumbode(mode/modetemp... (Review STEP-2 o 3)
-        //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) << Qt::endl;
+        //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) << QT_ENDL;
     QSqlQuery query;
     QString queryString;
     if (_tmp)
@@ -1166,30 +1166,30 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
         query.finish();
     }
     query.next();
-         //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) <<" - " <<  isValidMode((query.value(0)).toString(), _tmp) << Qt::endl;
+         //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) <<" - " <<  isValidMode((query.value(0)).toString(), _tmp) << QT_ENDL;
     if ( query.isValid() )
     {
-            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-1" << Qt::endl;
+            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-1" << QT_ENDL;
         return (query.value(0)).toString();
         /* In a version when I change the mode table to include submode, this comparison may need to be checked in both versions
          * at once, failing the query as old version was not having the column submode
          *
         if ( isValidMode((query.value(0)).toString(), _tmp))
         {
-                 //qDebug() << "DataBase::getModeNameFromNumber - Found: " << (query.value(0)).toString() << Qt::endl;
+                 //qDebug() << "DataBase::getModeNameFromNumber - Found: " << (query.value(0)).toString() << QT_ENDL;
             return (query.value(0)).toString();
         }
         else
         {
-                 //qDebug() << "DataBase::getModeNameFromNumber - Not Valid Mode: " << (query.value(0)).toString()  << Qt::endl;
+                 //qDebug() << "DataBase::getModeNameFromNumber - Not Valid Mode: " << (query.value(0)).toString()  << QT_ENDL;
             return QString();
         }
         */
     }
     else
     {
-             //qDebug() << "DataBase::getModeNameFromNumber - Not Valid record"  << Qt::endl;
-            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-2" << Qt::endl;
+             //qDebug() << "DataBase::getModeNameFromNumber - Not Valid record"  << QT_ENDL;
+            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-2" << QT_ENDL;
         query.finish();
         return QString();
     }
@@ -1197,7 +1197,7 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 
 QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 {
-       //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) << Qt::endl;
+       //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) << QT_ENDL;
     QSqlQuery query;
     QString queryString;
     if (_tmp)
@@ -1212,7 +1212,7 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 
     bool sqlOk = query.exec(queryString);
 
-         //qDebug() << "DataBase::getSubModeNameFromNumber - query: " << query.lastQuery() << Qt::endl;
+         //qDebug() << "DataBase::getSubModeNameFromNumber - query: " << query.lastQuery() << QT_ENDL;
 
     if (sqlOk)
     {
@@ -1222,19 +1222,19 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
             {
                 if ( isValidMode((query.value(0)).toString(), _tmp)  )
                 {
-                        //qDebug() << "DataBase::getSubModeNameFromNumber: RETURN: " << (query.value(0)).toString() << Qt::endl;
+                        //qDebug() << "DataBase::getSubModeNameFromNumber: RETURN: " << (query.value(0)).toString() << QT_ENDL;
                     return (query.value(0)).toString();
                 }
                 else
                 {
-                        //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" << Qt::endl;
+                        //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" << QT_ENDL;
                     query.finish();
                     return QString();
                 }
             }
             else
             {
-                    //qDebug() << "DataBase::getSubModeNameFromNumber: query not valid - END" << Qt::endl;
+                    //qDebug() << "DataBase::getSubModeNameFromNumber: query not valid - END" << QT_ENDL;
                 query.finish();
                 return QString();
             }
@@ -1242,7 +1242,7 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
         }
         else
         {
-                //qDebug() << "DataBase::getSubModeNameFromNumber: query not next - END" << Qt::endl;
+                //qDebug() << "DataBase::getSubModeNameFromNumber: query not next - END" << QT_ENDL;
             query.finish();
             return QString();
         }
@@ -1252,18 +1252,18 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" << Qt::endl;
+            //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" << QT_ENDL;
         query.finish();
         return QString();
     }
-        //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << Qt::endl;
+        //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << QT_ENDL;
     //query.finish();
     //return QString();
 }
 
 bool DataBase::isValidBand (const QString &b)
 {
-        //qDebug() << "DataBase::isValidBand: " << b << Qt::endl;
+        //qDebug() << "DataBase::isValidBand: " << b << QT_ENDL;
     if (b.length()<1)
     {
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -1301,11 +1301,11 @@ bool DataBase::isValidBand (const QString &b)
 
 bool DataBase::isValidMode (const QString &b, const bool _tmp)
 {
-        //qDebug() << "DataBase::isValidMode: " << b << Qt::endl;
+        //qDebug() << "DataBase::isValidMode: " << b << QT_ENDL;
     QString stringQuery;
     if (b.length()<2)
     {
-             //qDebug() << "DataBase::isValidMode: (length<2) FALSE"  << Qt::endl;
+             //qDebug() << "DataBase::isValidMode: (length<2) FALSE"  << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
@@ -1334,20 +1334,20 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
 
 bool DataBase::isValidBandNumber (const int b)
 {
-        //qDebug() << "DataBase::isValidBandNumber: " << QString::number(b)<< Qt::endl;
+        //qDebug() << "DataBase::isValidBandNumber: " << QString::number(b)<< QT_ENDL;
     return isValidBand(getBandNameFromNumber(b));
 
 }
 
 bool DataBase::isValidModeNumber (const int b)
 {
-        //qDebug() << "DataBase::isValidModeNumber: " << QString::number(b)<< Qt::endl;
+        //qDebug() << "DataBase::isValidModeNumber: " << QString::number(b)<< QT_ENDL;
     return isValidMode(getModeNameFromNumber(b, false), false);
 }
 
 int DataBase::getBandIdFromFreq(const QString &fr)
 {
-        //qDebug() << "DataBase::getBandIdFromFreq: " << fr << Qt::endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: " << fr << QT_ENDL;
     //Freq should be in MHz
 
     QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr, fr);
@@ -1355,37 +1355,37 @@ int DataBase::getBandIdFromFreq(const QString &fr)
 
     bool sqlOK = query.exec(queryString);
 
-        //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << Qt::endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << QT_ENDL;
     if (sqlOK)
     {
-           //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << Qt::endl;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << QT_ENDL;
         query.next();
 
 
         if (query.isValid())
         {
-                //qDebug() << "DataBase::getBandIdFromFreq: Query OK - END" << Qt::endl;
+                //qDebug() << "DataBase::getBandIdFromFreq: Query OK - END" << QT_ENDL;
             return (query.value(0)).toInt();
         }
         else
         {
-                //qDebug() << "DataBase::getBandIdFromFreq: Valid NOK - END" << Qt::endl;
+                //qDebug() << "DataBase::getBandIdFromFreq: Valid NOK - END" << QT_ENDL;
             query.finish();
             return -1;
         }
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << Qt::endl;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() << Qt::endl;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().nativeErrorCode() << Qt::endl;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << QT_ENDL;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() << QT_ENDL;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().nativeErrorCode() << QT_ENDL;
         if (query.lastError().isValid())
         {
-               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" << Qt::endl;
+               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error NOT-VALID" << Qt::endl;
+               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error NOT-VALID" << QT_ENDL;
         }
 
 
@@ -1394,7 +1394,7 @@ int DataBase::getBandIdFromFreq(const QString &fr)
         query.finish();
        return -2;
     }
-        //qDebug() << "DataBase::getBandIdFromFreq: END-X" << Qt::endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: END-X" << QT_ENDL;
     //query.finish();
     //return -3;
 }
@@ -1402,34 +1402,34 @@ int DataBase::getBandIdFromFreq(const QString &fr)
 
 bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
 {//Freq should be in MHz
-    //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << Qt::endl;
+    //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << QT_ENDL;
     if (b.length()<2)
     {
-        //qDebug() << "DataBase::isThisFreqInBand returning false" << Qt::endl;
+        //qDebug() << "DataBase::isThisFreqInBand returning false" << QT_ENDL;
         return false;
     }
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIDFromName2(b);
-       //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << Qt::endl;
+       //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << QT_ENDL;
     if (bandNf == bandN)
     {
-           //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << Qt::endl;
+           //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << QT_ENDL;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << Qt::endl;
+           //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
-        //qDebug() << "DataBase::isThisFreqInBand: END" << Qt::endl;
+        //qDebug() << "DataBase::isThisFreqInBand: END" << QT_ENDL;
     //return false;
 }
 
 
 bool DataBase::unMarkAllQSO()
 {
-       //qDebug() << "DataBase::unMarkAllQSO" << Qt::endl;
+       //qDebug() << "DataBase::unMarkAllQSO" << QT_ENDL;
     QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
     return execQuery(Q_FUNC_INFO, stringQuery);
 }
@@ -1438,7 +1438,7 @@ bool DataBase::unMarkAllQSO()
 bool DataBase::updateIfNeeded()
 {
 
-     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << Qt::endl;
+     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << QT_ENDL;
 
 
     /**************************************************************************************
@@ -1476,7 +1476,7 @@ bool DataBase::updateIfNeeded()
     //latestReaded = (query.value(0)).toFloat();
     query.finish();
 
-      //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << Qt::endl;
+      //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << QT_ENDL;
 
 
 
@@ -1484,16 +1484,16 @@ bool DataBase::updateIfNeeded()
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
 
-          //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << Qt::endl;
+          //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << QT_ENDL;
 
         //toBeUpdated = false;
-          //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << Qt::endl;
+          //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << QT_ENDL;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
 
-          //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << Qt::endl;
+          //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << QT_ENDL;
 
         QMessageBox msgBox;
         msgBox.setWindowTitle("KLog");
@@ -1519,7 +1519,7 @@ bool DataBase::updateIfNeeded()
             break;
             default:
             // should never be reached
-               //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << Qt::endl;
+               //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << QT_ENDL;
            //// emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             //break;
@@ -1528,13 +1528,13 @@ bool DataBase::updateIfNeeded()
 
     // If the DB needs to be updated... we update it! :-)
 
-     //qDebug() << "DataBase::updateIfNeeded - END!" << Qt::endl;
+     //qDebug() << "DataBase::updateIfNeeded - END!" << QT_ENDL;
     return true;
 }
 
 void DataBase::backupB4Update()
 {
-    //qDebug() << "DataBase::backupB4Update - Start" << Qt::endl;
+    //qDebug() << "DataBase::backupB4Update - Start" << QT_ENDL;
     QMessageBox msgBox;
     msgBox.setWindowTitle("KLog backup");
     msgBox.setText( QObject::tr("Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea."));
@@ -1561,17 +1561,17 @@ void DataBase::backupB4Update()
         break;
     }
 
-    //qDebug() << "DataBase::backupB4Update - END" << Qt::endl;
+    //qDebug() << "DataBase::backupB4Update - END" << QT_ENDL;
 }
 
 void DataBase::logBackup()
 {
-    //qDebug() << "DataBase::logBackup - Start" << Qt::endl;
+    //qDebug() << "DataBase::logBackup - Start" << QT_ENDL;
 
     QFile DBFile(util->getKLogDBFile());
     QString newFile = util->getKLogDBBackupFile();
     bool copied = DBFile.copy(newFile);
-    //qDebug() << "DataBase::logBackup copy: " << newFile << Qt::endl;
+    //qDebug() << "DataBase::logBackup copy: " << newFile << QT_ENDL;
     QMessageBox msgBox;
     msgBox.setWindowTitle("KLog DB backup");
     msgBox.setWindowFlags(Qt::WindowStaysOnTopHint|Qt::Popup);
@@ -1580,7 +1580,7 @@ void DataBase::logBackup()
 
     if (copied)
     {
-        //qDebug() << "DataBase::logBackup - DB backup was OK"  << Qt::endl;
+        //qDebug() << "DataBase::logBackup - DB backup was OK"  << QT_ENDL;
 
         msgBox.setText( QObject::tr("The backup finished successfully."));
         msgBox.setInformativeText( QObject::tr("You can find the backup in this file: %1").arg(newFile) );
@@ -1592,7 +1592,7 @@ void DataBase::logBackup()
     }
     else
     {
-        //qDebug() << "DataBase::logBackup - DB backup was NOK"  << Qt::endl;
+        //qDebug() << "DataBase::logBackup - DB backup was NOK"  << QT_ENDL;
         msgBox.setText( QObject::tr("The backup was not properly done."));
         msgBox.setInformativeText( QObject::tr("You will be sent back to the starting point."));
         msgBox.setIcon(QMessageBox::Warning);
@@ -1637,12 +1637,12 @@ void DataBase::logBackup()
         break;
         default:
         // should never be reached
-            //qDebug() << "DataBase::backupB4Update - FALSE - CHECK IF SEEN, shoud not be here! - END "  << Qt::endl;
+            //qDebug() << "DataBase::backupB4Update - FALSE - CHECK IF SEEN, shoud not be here! - END "  << QT_ENDL;
             //lse;
         //break;
     }
 */
-    //qDebug() << "DataBase::logBackup - END" << Qt::endl;
+    //qDebug() << "DataBase::logBackup - END" << QT_ENDL;
 }
 
 bool DataBase::createTheBandQuickReference()
@@ -1657,7 +1657,7 @@ bool DataBase::createTheBandQuickReference()
 
 */
 
-        //qDebug() << "DataBase::createTheBandQuickReference: " << Qt::endl;
+        //qDebug() << "DataBase::createTheBandQuickReference: " << QT_ENDL;
 
     QString st = "NULL";
     int in = 0;
@@ -1689,11 +1689,11 @@ bool DataBase::createTheBandQuickReference()
             IDBandHash.insert(in, st);
             freqBandIdHash.insert(in, fr);
 
-                 //qDebug() << "DataBase::createTheBandQuickReference: " << st <<"/" << QString::number(in)<< Qt::endl;
+                 //qDebug() << "DataBase::createTheBandQuickReference: " << st <<"/" << QString::number(in)<< QT_ENDL;
         }
         else
         {
-              //qDebug() << "DataBase::createTheBandQuickReference: Query not valid -'RETURN FALSE - END" << Qt::endl;
+              //qDebug() << "DataBase::createTheBandQuickReference: Query not valid -'RETURN FALSE - END" << QT_ENDL;
 
           // QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheBandQuickReference)"),
           //                      query.lastError().text());
@@ -1703,10 +1703,10 @@ bool DataBase::createTheBandQuickReference()
            //TODO: Manage this error, in case the query is NOK.
 
         }
-              //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << Qt::endl;
+              //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << QT_ENDL;
     }
     query.finish();
-        //qDebug() << "DataBase::createTheBandQuickReference: END" << Qt::endl;
+        //qDebug() << "DataBase::createTheBandQuickReference: END" << QT_ENDL;
     return true;
 }
 
@@ -1720,7 +1720,7 @@ bool DataBase::createTheModeQuickReference()
         QHash<int, QString> IDModeHash
 
     */
-          //qDebug() << "DataBase::createTheModeQuickReference: " << Qt::endl;
+          //qDebug() << "DataBase::createTheModeQuickReference: " << QT_ENDL;
 
     if (getDBVersion().toFloat()<0.01f)
     {
@@ -1760,11 +1760,11 @@ bool DataBase::createTheModeQuickReference()
                 IDModeHash.insert(in, st);
                 subModeIDHash.insert(sm, in );
                 IDSubModeHash.insert(in, sm);
-                     //qDebug() << "DataBase::createTheModeQuickReference: " << st <<"/" << QString::number(in)<< Qt::endl;
+                     //qDebug() << "DataBase::createTheModeQuickReference: " << st <<"/" << QString::number(in)<< QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::createTheModeQuickReference: Query not valid - END" << Qt::endl;
+                   //qDebug() << "DataBase::createTheModeQuickReference: Query not valid - END" << QT_ENDL;
 
                //QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheModeQuickReference)"),
                //                     query.lastError().text());
@@ -1776,7 +1776,7 @@ bool DataBase::createTheModeQuickReference()
             }
         }
         query.finish();
-            //qDebug() << "DataBase::createTheModeQuickReference: END" << Qt::endl;
+            //qDebug() << "DataBase::createTheModeQuickReference: END" << QT_ENDL;
         return true;
 }
 
@@ -1792,10 +1792,10 @@ int DataBase::getBandIDFromName2(const QString &b)
     QHash<int, QString> IDModeHash
     */
 
-        //qDebug() << "DataBase::getBandIDFromName2: " << b << Qt::endl;
-        //qDebug() << "DataBase::getBandIDFromName2: This line should be the last one... "  << Qt::endl;
+        //qDebug() << "DataBase::getBandIDFromName2: " << b << QT_ENDL;
+        //qDebug() << "DataBase::getBandIDFromName2: This line should be the last one... "  << QT_ENDL;
     return getBandIdFromName(b);
-        //qDebug() << "DataBase::getBandIDFromName2: CHECK IF THIS LINE IS SEEN"  << Qt::endl;
+        //qDebug() << "DataBase::getBandIDFromName2: CHECK IF THIS LINE IS SEEN"  << QT_ENDL;
     /*
 
     if (b.length()<1)
@@ -1805,48 +1805,48 @@ int DataBase::getBandIDFromName2(const QString &b)
 
     if (bandIDHash.contains(b))
     {
-             //qDebug() << "DataBase::getBandIDFromName2: " << b << ":" <<  bandIDHash.value(b) << Qt::endl;
+             //qDebug() << "DataBase::getBandIDFromName2: " << b << ":" <<  bandIDHash.value(b) << QT_ENDL;
         return bandIDHash.value(b);
     }
     else
     {
-            //qDebug() << "DataBase::getBandIDFromName2: Contains - False" << Qt::endl;
+            //qDebug() << "DataBase::getBandIDFromName2: Contains - False" << QT_ENDL;
         return -1;
     }
-         //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << Qt::endl;
+         //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << QT_ENDL;
     */
 
 }
 
 int DataBase::getModeIDFromName2(const QString &b)
 {
-      //qDebug() << "DataBase::getModeIDFromName2: " << b << Qt::endl;
+      //qDebug() << "DataBase::getModeIDFromName2: " << b << QT_ENDL;
     return getModeIdFromSubMode(b);
     /*
     if (b.length()<2)
     {
-            //qDebug() << "DataBase::getModeIDFromName2: END -3" << Qt::endl;
+            //qDebug() << "DataBase::getModeIDFromName2: END -3" << QT_ENDL;
         return -3;
     }
 
     if (modeIDHash.contains(b))
     {
-           //qDebug() << "DataBase::getModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << Qt::endl;
+           //qDebug() << "DataBase::getModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << QT_ENDL;
         return modeIDHash.value(b);
     }
     else
     {
-           //qDebug() << "DataBase::getModeIDFromName2: Contains - False - END" << Qt::endl;
+           //qDebug() << "DataBase::getModeIDFromName2: Contains - False - END" << QT_ENDL;
         return -1;
     }
-        //qDebug() << "DataBase::getModeIDFromName2: Safety exit - END" << Qt::endl;
+        //qDebug() << "DataBase::getModeIDFromName2: Safety exit - END" << QT_ENDL;
     */
 }
 
 
 int DataBase::getSubModeIDFromName2(const QString &b)
 {
-       //qDebug() << "DataBase::getSubModeIDFromName2: " << b << Qt::endl;
+       //qDebug() << "DataBase::getSubModeIDFromName2: " << b << QT_ENDL;
 
 
     return getModeIdFromSubMode(b);
@@ -1855,21 +1855,21 @@ int DataBase::getSubModeIDFromName2(const QString &b)
 
     if (b.length()<2)
     {
-            //qDebug() << "DataBase::getSubModeIDFromName2: END -3" << Qt::endl;
+            //qDebug() << "DataBase::getSubModeIDFromName2: END -3" << QT_ENDL;
         return -3;
     }
 
     if (subModeIDHash.contains(b))
     {
-           //qDebug() << "DataBase::getSubModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << Qt::endl;
+           //qDebug() << "DataBase::getSubModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << QT_ENDL;
         return subModeIDHash.value(b);
     }
     else
     {
-           //qDebug() << "DataBase::getSubModeIDFromName2: Contains - False - END" << Qt::endl;
+           //qDebug() << "DataBase::getSubModeIDFromName2: Contains - False - END" << QT_ENDL;
         return -1;
     }
-        //qDebug() << "DataBase::getSubModeIDFromName2: Safety exit - END" << Qt::endl;
+        //qDebug() << "DataBase::getSubModeIDFromName2: Safety exit - END" << QT_ENDL;
     return -2;
     */
 
@@ -1877,66 +1877,66 @@ int DataBase::getSubModeIDFromName2(const QString &b)
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
-       //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << Qt::endl;
+       //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << QT_ENDL;
     return getBandNameFromNumber(_i);
     /*
     if (IDBandHash.contains(_i))
     {
-            //qDebug() << "DataBase::getBandNameFromid2: END OK"  << Qt::endl;
+            //qDebug() << "DataBase::getBandNameFromid2: END OK"  << QT_ENDL;
         return IDBandHash.value(_i);
     }
     else
     {
-            //qDebug() << "DataBase::getBandNameFromid2: END-1"  << Qt::endl;
+            //qDebug() << "DataBase::getBandNameFromid2: END-1"  << QT_ENDL;
         return "-1";
     }
     */
-        //qDebug() << "DataBase::getBandNameFromid2: END-2"  << Qt::endl;
+        //qDebug() << "DataBase::getBandNameFromid2: END-2"  << QT_ENDL;
     //return "-2";
 
 }
 QString DataBase::getModeNameFromID2(const int _i)
 {
-         //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << Qt::endl;
+         //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << QT_ENDL;
     return getSubModeNameFromNumber(_i);
 /*
     if (IDModeHash.contains(_i))
     {
-            //qDebug() << "DataBase::getModeNameFromId2: END OK - " << IDModeHash.value(_i) << Qt::endl;
+            //qDebug() << "DataBase::getModeNameFromId2: END OK - " << IDModeHash.value(_i) << QT_ENDL;
         return IDModeHash.value(_i);
     }
     else
     {
-             //qDebug() << "DataBase::getModeNameFromId2: END-1" << Qt::endl;
+             //qDebug() << "DataBase::getModeNameFromId2: END-1" << QT_ENDL;
         return "-1";
     }
     */
-         //qDebug() << "DataBase::getModeNameFromId2: END-2" << Qt::endl;
+         //qDebug() << "DataBase::getModeNameFromId2: END-2" << QT_ENDL;
     //return "-2";
 }
 
 QString DataBase::getSubModeNameFromID2(const int _i)
 {
-         //qDebug() << "DataBase::getSubModeNameFromId2: " << QString::number(_i) << Qt::endl;
+         //qDebug() << "DataBase::getSubModeNameFromId2: " << QString::number(_i) << QT_ENDL;
     return getSubModeNameFromNumber(_i);
     /*
     if (IDSubModeHash.contains(_i))
     {
-            //qDebug() << "DataBase::getSubModeNameFromId2: END OK - " << IDModeHash.value(_i) << Qt::endl;
+            //qDebug() << "DataBase::getSubModeNameFromId2: END OK - " << IDModeHash.value(_i) << QT_ENDL;
         return IDSubModeHash.value(_i);
     }
     else
     {
-             //qDebug() << "DataBase::getSubModeNameFromId2: END-1" << Qt::endl;
+             //qDebug() << "DataBase::getSubModeNameFromId2: END-1" << QT_ENDL;
         return "-1";
     }
-         //qDebug() << "DataBase::getSubModeNameFromId2: END-2" << Qt::endl;
+         //qDebug() << "DataBase::getSubModeNameFromId2: END-2" << QT_ENDL;
     */
 }
 
 bool DataBase::createBandModeMaps()
 {
-    //qDebug() << "DataBase::createBandModeMaps" << Qt::endl;
+    //qDebug() << "DataBase::createBandModeMaps" << QT_ENDL;
     bool b = false;
     bool m = false;
 
@@ -1947,7 +1947,7 @@ bool DataBase::createBandModeMaps()
         b = createTheBandQuickReference();
         m = createTheModeQuickReference();
 
-             //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << Qt::endl;
+             //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << QT_ENDL;
         if (!b)
         {
            //emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -1956,41 +1956,41 @@ bool DataBase::createBandModeMaps()
         {
            //emit debugLog(Q_FUNC_INFO, "2", 7);
         }
-        //qDebug() << "DataBase::createBandModeMaps END 1" << Qt::endl;
+        //qDebug() << "DataBase::createBandModeMaps END 1" << QT_ENDL;
         return (b && m);
     }
     else
     {
-        //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << Qt::endl;
+        //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << QT_ENDL;
        //emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //return false;
-    //qDebug() << "DataBase::createBandModeMaps END" << Qt::endl;
+    //qDebug() << "DataBase::createBandModeMaps END" << QT_ENDL;
 }
 
 QString DataBase::getFreqFromBandId(const int _i)
 {
-    //qDebug() << "DataBase::getFreqFromBandId" << Qt::endl;
+    //qDebug() << "DataBase::getFreqFromBandId" << QT_ENDL;
 
     if (freqBandIdHash.contains(_i))
     {
-        //qDebug() << "DataBase::getFreqFromBandId OK END" << Qt::endl;
+        //qDebug() << "DataBase::getFreqFromBandId OK END" << QT_ENDL;
         return freqBandIdHash.value(_i);
     }
     else
     {
-        //qDebug() << "DataBase::getFreqFromBandId END-1" << Qt::endl;
+        //qDebug() << "DataBase::getFreqFromBandId END-1" << QT_ENDL;
         return "-1.0";
     }
-        //qDebug() << "DataBase::getFreqFromBandId END-2" << Qt::endl;
+        //qDebug() << "DataBase::getFreqFromBandId END-2" << QT_ENDL;
     //return "-2.0";
 }
 
 /*
 int DataBase::getLogTypeNumber(const QString &_logType)
 {
-        //qDebug() << "DataBase::getLogTypeNumber: " << _logType << Qt::endl;
+        //qDebug() << "DataBase::getLogTypeNumber: " << _logType << QT_ENDL;
      QSqlQuery query;
      QString queryString = QString("SELECT id FROM supportedcontests WHERE name='%1'").arg(_logType);
 
@@ -2018,7 +2018,7 @@ int DataBase::getLogTypeNumber(const QString &_logType)
 
 QString DataBase::getLogTypeName(const int _logType)
 {
-         //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) << Qt::endl;
+         //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) << QT_ENDL;
      QSqlQuery query;
      QString queryString = QString("SELECT name FROM supportedcontests WHERE id='%1'").arg(_logType);
      bool sqlOK = query.exec(queryString);
@@ -2050,11 +2050,11 @@ bool DataBase::updateToLatest()
  *
  */
 
-      //qDebug() << "DataBase::updateToLatest " << Qt::endl;
+      //qDebug() << "DataBase::updateToLatest " << QT_ENDL;
 
     if (requiresManualUpgrade())
     {
-        //qDebug() << "DataBase::updateToLatest requires" << Qt::endl;
+        //qDebug() << "DataBase::updateToLatest requires" << QT_ENDL;
         exit(1);
         //return false;
     }
@@ -2069,15 +2069,15 @@ bool DataBase::requiresManualUpgrade()
     // Install new KLog version
     // import ADIF file
     float ver = getDBVersion().toFloat();
-    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << QString::number(ver) << Qt::endl;
+    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << QString::number(ver) << QT_ENDL;
     if (ver >= 0.007f)
     {
-        //qDebug() << "DataBase::requiresManualUpgrade false" << Qt::endl;
+        //qDebug() << "DataBase::requiresManualUpgrade false" << QT_ENDL;
         return false;
     }
     else
     {
-        //qDebug() << "DataBase::requiresManualUpgrade true" << Qt::endl;
+        //qDebug() << "DataBase::requiresManualUpgrade true" << QT_ENDL;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setWindowTitle(QObject::tr("KLog - DB can't be updated automatically"));
@@ -2106,7 +2106,7 @@ bool DataBase::updateTo003()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-       //qDebug() << "DataBase::updateTo003: latestRead: " << QString::number(latestReaded) << Qt::endl;
+       //qDebug() << "DataBase::updateTo003: latestRead: " << QString::number(latestReaded) << QT_ENDL;
     bool IAmIn003 = false;
     bool IAmIn002 = false;
     bool ErrorUpdating = false;
@@ -2144,8 +2144,8 @@ bool DataBase::updateTo003()
 bool DataBase::updateTo004()
 {// Updates the DB to 0.0.4
 
-       //qDebug() << "DataBase::updateTo004: latestRead: " << getDBVersion() << Qt::endl;
-       //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) << Qt::endl;
+       //qDebug() << "DataBase::updateTo004: latestRead: " << getDBVersion() << QT_ENDL;
+       //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) << QT_ENDL;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
     bool ErrorUpdating = false;
@@ -2156,21 +2156,21 @@ bool DataBase::updateTo004()
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= 0.004f)
     {
-            //qDebug() << "DataBase::updateTo004: - I am in 004" << Qt::endl;
+            //qDebug() << "DataBase::updateTo004: - I am in 004" << QT_ENDL;
         return true;
     }
     else
     {
-            //qDebug() << "DataBase::updateTo004: - I am not in 004" << Qt::endl;
+            //qDebug() << "DataBase::updateTo004: - I am not in 004" << QT_ENDL;
         IAmIn004 = false;
     }
 
     while (!IAmIn004 && !ErrorUpdating)
     {
-           //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" << Qt::endl;
+           //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" << QT_ENDL;
         while (!IAmIn003 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo004: - And I am not in 003" << Qt::endl;
+               //qDebug() << "DataBase::updateTo004: - And I am not in 003" << QT_ENDL;
             //IAmIn002 = updateTo002();
             IAmIn003 = true;
         }
@@ -2179,32 +2179,32 @@ bool DataBase::updateTo004()
            //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
-           //qDebug() << "DataBase::updateTo004: - And I am in 003" << Qt::endl;
+           //qDebug() << "DataBase::updateTo004: - And I am in 003" << QT_ENDL;
         sqlOk = updateDBVersion(softVersion, "0.004");
-           //qDebug() << "DataBase::updateTo004: - Update Version" << Qt::endl;
+           //qDebug() << "DataBase::updateTo004: - Update Version" << QT_ENDL;
         if (sqlOk)
         { // Version updated
-               //qDebug() << "DataBase::updateTo004: - Update OK" << Qt::endl;
+               //qDebug() << "DataBase::updateTo004: - Update OK" << QT_ENDL;
             sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE award_enumeration");
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo004: - Update NOK" << Qt::endl;
+               //qDebug() << "DataBase::updateTo004: - Update NOK" << QT_ENDL;
         }
         //DO ALL THE TASKS TO BE IN 0.004 from 0.003 HERE and set ErrorUpdating if it is not possible.
-           //qDebug() << "DataBase::updateTo004: - IAmIn004 = true" << Qt::endl;
+           //qDebug() << "DataBase::updateTo004: - IAmIn004 = true" << QT_ENDL;
         IAmIn004 = true;
     }
 
     if (IAmIn004)
     {
-           //qDebug() << "DataBase::updateTo004: - Return... TRUE" << Qt::endl;
+           //qDebug() << "DataBase::updateTo004: - Return... TRUE" << QT_ENDL;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo004: - Return... FALSE" << Qt::endl;
+           //qDebug() << "DataBase::updateTo004: - Return... FALSE" << QT_ENDL;
     }
-       //qDebug() << "DataBase::updateTo004: UPDATED OK!" << Qt::endl;
+       //qDebug() << "DataBase::updateTo004: UPDATED OK!" << QT_ENDL;
     return IAmIn004;
 }
 
@@ -2212,7 +2212,7 @@ bool DataBase::updateTo004()
 bool DataBase::updateTo005()
 {// Updates the DB to 0.0.5
 
-          //qDebug() << "DataBase::updateTo005: latestRead: " << getDBVersion() << Qt::endl;
+          //qDebug() << "DataBase::updateTo005: latestRead: " << getDBVersion() << QT_ENDL;
        bool IAmIn005 = false;
        bool IAmIn004 = false;
        bool ErrorUpdating = false;
@@ -2228,28 +2228,28 @@ bool DataBase::updateTo005()
 
        if (latestReaded >= 0.005f)
        {
-                //qDebug() << "DataBase::updateTo005 - Already in 005" << Qt::endl;
+                //qDebug() << "DataBase::updateTo005 - Already in 005" << QT_ENDL;
            return true;
        }
        else
        {
-                //qDebug() << "DataBase::updateTo005 - 005 update false" << Qt::endl;
+                //qDebug() << "DataBase::updateTo005 - 005 update false" << QT_ENDL;
            IAmIn005 = false;
        }
 
 
        while (!IAmIn005 && !ErrorUpdating)
        {
-                 //qDebug() << "DataBase::updateTo005 - I am not in 005" << Qt::endl;
+                 //qDebug() << "DataBase::updateTo005 - I am not in 005" << QT_ENDL;
            while (!IAmIn004 && !ErrorUpdating)
            {
-                    //qDebug() << "DataBase::updateTo005 - I am not in 004" << Qt::endl;
+                    //qDebug() << "DataBase::updateTo005 - I am not in 004" << QT_ENDL;
                IAmIn004 = updateTo004();
            }
-              //qDebug() << "DataBase::updateTo005 - I am in 004" << Qt::endl;
+              //qDebug() << "DataBase::updateTo005 - I am in 004" << QT_ENDL;
            if (ErrorUpdating)
            {
-                  //qDebug() << "DataBase::updateTo005 - 005 update false2" << Qt::endl;
+                  //qDebug() << "DataBase::updateTo005 - 005 update false2" << QT_ENDL;
               //// emit debugLog(Q_FUNC_INFO, "1", 7);
                return false;
            }
@@ -2259,7 +2259,7 @@ bool DataBase::updateTo005()
            { // Version updated
                if (recreateContestData())
                {
-                        //qDebug() << "DataBase::updateTo005 - recreateContestData OK" << Qt::endl;
+                        //qDebug() << "DataBase::updateTo005 - recreateContestData OK" << QT_ENDL;
 
                    sqlOk = execQuery(Q_FUNC_INFO, "DROP table logs");
 
@@ -2267,7 +2267,7 @@ bool DataBase::updateTo005()
                     if (!sqlOk)
                     {
                         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-                            //qDebug() << "DataBase::updateTo005 - logs table do not created" << Qt::endl;
+                            //qDebug() << "DataBase::updateTo005 - logs table do not created" << QT_ENDL;
                     }
 
 
@@ -2286,7 +2286,7 @@ bool DataBase::updateTo005()
                         {
                             //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                             //showError(QObject::tr("QSOs not updated to main log"));
-                                 //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << Qt::endl;
+                                 //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << QT_ENDL;
                         }
 
                         QString dateString = (QDate::currentDate()).toString("yyyy-MM-dd");
@@ -2320,8 +2320,8 @@ bool DataBase::updateTo005()
                         {
                             //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                             //showError(QObject::tr("New Log not created"));
-                                 //qDebug() << "DataBase::updateTo005 - New Log not created" << Qt::endl;
-                                 //qDebug() << "DataBase::clearLog: Log deleted FAILED" << Qt::endl;
+                                 //qDebug() << "DataBase::updateTo005 - New Log not created" << QT_ENDL;
+                                 //qDebug() << "DataBase::clearLog: Log deleted FAILED" << QT_ENDL;
                         }
                    }
                    else
@@ -2333,17 +2333,17 @@ bool DataBase::updateTo005()
                }
                else
                {
-                        //qDebug() << "DataBase::updateTo005 - recreateContestData FAILED" << Qt::endl;
+                        //qDebug() << "DataBase::updateTo005 - recreateContestData FAILED" << QT_ENDL;
                    ErrorUpdating = true;
                }
            }
            else
            { // Version not updated
-                    //qDebug() << "DataBase::updateTo005 - 005 update false6" << Qt::endl;
+                    //qDebug() << "DataBase::updateTo005 - 005 update false6" << QT_ENDL;
                 ErrorUpdating = true;
            }
        }
-            //qDebug() << "DataBase::updateTo005 - 005 updated 3" << Qt::endl;
+            //qDebug() << "DataBase::updateTo005 - 005 updated 3" << QT_ENDL;
 
        //TODO: Delete the table and recreate it
        if (IAmIn005)
@@ -2355,14 +2355,14 @@ bool DataBase::updateTo005()
         {
           //// emit debugLog(Q_FUNC_INFO, "2", 7);
         }
-             //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << Qt::endl;
-          //qDebug() << "DataBase::updateTo005: UPDATED OK!" << Qt::endl;
+             //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << QT_ENDL;
+          //qDebug() << "DataBase::updateTo005: UPDATED OK!" << QT_ENDL;
        return IAmIn005;
 }
 
 bool DataBase::recreateSatelliteData()
 {
-       //qDebug() << "DataBase::recreateSatelliteData"  << Qt::endl;
+       //qDebug() << "DataBase::recreateSatelliteData"  << QT_ENDL;
     QSqlQuery query;
 
     if (isTheTableExisting("satellites"))
@@ -2371,17 +2371,17 @@ bool DataBase::recreateSatelliteData()
         {
             if (createTableSatellites(true))
             {
-                    //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << Qt::endl;
+                    //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << QT_ENDL;
                 return populateTableSatellites(true);
             }
             else
             {
-                     //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << Qt::endl;
+                     //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << QT_ENDL;
             }
         }
         else
         {
-               //qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  << Qt::endl;
+               //qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  << QT_ENDL;
         }
 
     }
@@ -2389,23 +2389,23 @@ bool DataBase::recreateSatelliteData()
     {
         if (createTableSatellites(true))
         {
-                //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << Qt::endl;
+                //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << QT_ENDL;
             return populateTableSatellites(true);
         }
         else
         {
-                 //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << Qt::endl;
+                 //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << QT_ENDL;
         }
 
     }
 
-       //qDebug() << "DataBase::recreateSatelliteData END FALSE"  << Qt::endl;
+       //qDebug() << "DataBase::recreateSatelliteData END FALSE"  << QT_ENDL;
     return false;
 }
 
 bool DataBase::recreateContestData()
 {
-        //qDebug() << "DataBase::recreateContestData"  << Qt::endl;
+        //qDebug() << "DataBase::recreateContestData"  << QT_ENDL;
     if (isTheTableExisting("contest"))
     {
         QSqlQuery query;
@@ -2431,7 +2431,7 @@ bool DataBase::recreateContestData()
 
 bool DataBase::recreateSupportedContest()
 {
-       //qDebug() << "DataBase::recreateSupportedContest"  << Qt::endl;
+       //qDebug() << "DataBase::recreateSupportedContest"  << QT_ENDL;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
 
     if (isTheTableExisting("supportedcontests"))
@@ -2441,15 +2441,15 @@ bool DataBase::recreateSupportedContest()
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE supportedcontests");
         if (sqlOk)
         {
-                //qDebug() << "DataBase::recreateSupportedContest SQLOK"  << Qt::endl;
+                //qDebug() << "DataBase::recreateSupportedContest SQLOK"  << QT_ENDL;
             if (createTableSupportedContest())
             {
-                    //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << Qt::endl;
+                    //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << QT_ENDL;
                 return populateTableSupportedContest();
             }
             else
             {
-                    //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << Qt::endl;
+                    //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << QT_ENDL;
                 return false;
             }
         }
@@ -2462,84 +2462,84 @@ bool DataBase::recreateSupportedContest()
     {
         if (createTableSupportedContest())
         {
-                //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << Qt::endl;
+                //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << QT_ENDL;
             return populateTableSupportedContest();
         }
         else
         {
-                //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << Qt::endl;
+                //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << QT_ENDL;
             return false;
         }
     }
-        //qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << Qt::endl;
+        //qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << QT_ENDL;
     return false;
 }
 
 
 bool DataBase::recreatePropModes()
 {
-       //qDebug() << "DataBase::recreatePropModes"  << Qt::endl;
+       //qDebug() << "DataBase::recreatePropModes"  << QT_ENDL;
     if (isTheTableExisting("prop_mode_enumeration"))
     {
-           //qDebug() << "DataBase::recreatePropModes: Table Exist"  << Qt::endl;
+           //qDebug() << "DataBase::recreatePropModes: Table Exist"  << QT_ENDL;
         bool sqlOk = false;
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE prop_mode_enumeration");
 
         if (sqlOk)
         {
-               //qDebug() << "DataBase::recreatePropModes SQLOK"  << Qt::endl;
+               //qDebug() << "DataBase::recreatePropModes SQLOK"  << QT_ENDL;
             if (createTablePropModes())
             {
-                   //qDebug() << "DataBase::recreatePropModes - createTable OK"  << Qt::endl;
+                   //qDebug() << "DataBase::recreatePropModes - createTable OK"  << QT_ENDL;
                 if (populatePropagationModes())
                 {
-                       //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << Qt::endl;
+                       //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << QT_ENDL;
                     return true;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << Qt::endl;
+                       //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << QT_ENDL;
                     return false;
                 }
             }
             else
             {
-                     //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-1"  << Qt::endl;
+                     //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-1"  << QT_ENDL;
                   return false;
             }
         }
         else
         {
             //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-                 //qDebug() << "DataBase::recreatePropModes - prop_mode_enumeration table has not been dropped"  << Qt::endl;
-                 //qDebug() << "DataBase::recreatePropModes : Table creation FAILED" << Qt::endl;
+                 //qDebug() << "DataBase::recreatePropModes - prop_mode_enumeration table has not been dropped"  << QT_ENDL;
+                 //qDebug() << "DataBase::recreatePropModes : Table creation FAILED" << QT_ENDL;
         }
 
     }
     else
     {
-           //qDebug() << "DataBase::recreatePropModes: Table does NOT Exist"  << Qt::endl;
+           //qDebug() << "DataBase::recreatePropModes: Table does NOT Exist"  << QT_ENDL;
         if (createTablePropModes())
         {
-               //qDebug() << "DataBase::recreatePropModes - createTable OK"  << Qt::endl;
+               //qDebug() << "DataBase::recreatePropModes - createTable OK"  << QT_ENDL;
             if (populatePropagationModes())
             {
-                   //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << Qt::endl;
+                   //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << QT_ENDL;
                 return true;
             }
             else
             {
-                   //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << Qt::endl;
+                   //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << QT_ENDL;
                 return false;
             }
         }
         else
         {
-                 //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-2"  << Qt::endl;
+                 //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-2"  << QT_ENDL;
         }
     }
 
-        //qDebug() << "DataBase::recreatePropModes - FALSE end"  << Qt::endl;
+        //qDebug() << "DataBase::recreatePropModes - FALSE end"  << QT_ENDL;
     return false;
 }
 
@@ -2548,18 +2548,18 @@ bool DataBase::createTableLogs(const bool real)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-        //qDebug() << "DataBase::createTableLogs" << Qt::endl;
+        //qDebug() << "DataBase::createTableLogs" << QT_ENDL;
 
     QString stringQuery = QString();
     //QSqlQuery query;
     if (real)
     {
-            //qDebug() << "DataBase::createTableLogs - logs" << Qt::endl;
+            //qDebug() << "DataBase::createTableLogs - logs" << QT_ENDL;
         stringQuery = "CREATE TABLE logs" ;
     }
     else
     {
-            //qDebug() << "DataBase::createTableLogs - logstemp" << Qt::endl;
+            //qDebug() << "DataBase::createTableLogs - logstemp" << QT_ENDL;
         stringQuery = "CREATE TABLE logstemp" ;
     }
 
@@ -2575,7 +2575,7 @@ bool DataBase::createTableLogs(const bool real)
 
 
 
-            //qDebug() << "DataBase::createTableLogs - END" << Qt::endl;
+            //qDebug() << "DataBase::createTableLogs - END" << QT_ENDL;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
 
@@ -2585,7 +2585,7 @@ bool DataBase::createTableLogs(const bool real)
 
 bool DataBase::createTablePropModes()
 {
-       //qDebug() << "DataBase::createTablePropModes" << Qt::endl;
+       //qDebug() << "DataBase::createTablePropModes" << QT_ENDL;
 
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists prop_mode_enumeration");
     return execQuery(Q_FUNC_INFO, "CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )");
@@ -2594,7 +2594,7 @@ bool DataBase::createTablePropModes()
 
 bool DataBase::createTableSupportedContest()
 {
-         //qDebug() << "DataBase::createTableSupportedContest" << Qt::endl;
+         //qDebug() << "DataBase::createTableSupportedContest" << QT_ENDL;
 
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
 
@@ -2607,7 +2607,7 @@ bool DataBase::createTableSupportedContest()
 
 bool DataBase::createTableContest()
 {
-        //qDebug() << "DataBase::createTableContest" << Qt::endl;
+        //qDebug() << "DataBase::createTableContest" << QT_ENDL;
     //QSqlQuery query;
 
     createTableSupportedContest();
@@ -2688,14 +2688,14 @@ bool DataBase::createTableContest()
     execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('2', 'CW')");
     execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('3', 'MIXED')");
 
-         //qDebug() << "DataBase::createTableContest END" << Qt::endl;
+         //qDebug() << "DataBase::createTableContest END" << QT_ENDL;
     return true;
 
 }
 
 bool DataBase::populateTableSupportedContest()
 {
-        //qDebug() << "DataBase::populateTableSupportedContest" << Qt::endl;
+        //qDebug() << "DataBase::populateTableSupportedContest" << QT_ENDL;
     // ADDING ALL THE CATEGORIES OPTIONS
     return execQuery(Q_FUNC_INFO, "INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
 
@@ -2724,7 +2724,7 @@ bool DataBase::populateTableQSL_Via_enumeration()
 bool DataBase::createTableMode(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
 
-        //qDebug() << "DataBase::createTableMode" << Qt::endl;
+        //qDebug() << "DataBase::createTableMode" << QT_ENDL;
     QString stringQuery = QString();
     QSqlQuery query;
     if (NoTmp)
@@ -2742,7 +2742,7 @@ bool DataBase::createTableMode(const bool NoTmp)
                                              "submode VARCHAR(40) NOT NULL, "
                                              "deprecated VARCHAR(1) NOT NULL)");
 
-            //qDebug() << "DataBase::createTableMode END" << Qt::endl;
+            //qDebug() << "DataBase::createTableMode END" << QT_ENDL;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
 
@@ -2750,7 +2750,7 @@ bool DataBase::createTableMode(const bool NoTmp)
 
 bool DataBase::populateTableMode(const bool NoTmp)
 {
-         //qDebug() << "DataBase::populateTableMode" << Qt::endl;
+         //qDebug() << "DataBase::populateTableMode" << QT_ENDL;
     //QSqlQuery query;
     QString tableName = QString();
     QString squery = QString();
@@ -2770,13 +2770,13 @@ bool DataBase::populateTableMode(const bool NoTmp)
     if (!sqlOK)
     {
         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-             //qDebug() << "DataBase::populateTableMode: Mode table population FAILED" << Qt::endl;
+             //qDebug() << "DataBase::populateTableMode: Mode table population FAILED" << QT_ENDL;
         //errorCode = query.lastError().nativeErrorCode();
 
     }
     else
     {
-             //qDebug() << "DataBase::populateTableMode: Mode table population  OK" << Qt::endl;
+             //qDebug() << "DataBase::populateTableMode: Mode table population  OK" << QT_ENDL;
     }
 
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ARDOP', 'ARDOP', 'NO', '0')").arg(tableName));
@@ -2930,7 +2930,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
 
 
     createTheModeQuickReference();
-         //qDebug() << "DataBase::populateTableMode END" << Qt::endl;
+         //qDebug() << "DataBase::populateTableMode END" << QT_ENDL;
     return true;
 }
 
@@ -2939,7 +2939,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-       //qDebug() << "DataBase::createTableSatellites" << Qt::endl;
+       //qDebug() << "DataBase::createTableSatellites" << QT_ENDL;
 
     // The satmode column has the following format: {Up/down-mode;Up/down-mode}
     // this way we can implement several freqs/modes per sat
@@ -2996,7 +2996,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
     }
 */
 
-        //qDebug() << "DataBase::createTableSatellites END" << Qt::endl;
+        //qDebug() << "DataBase::createTableSatellites END" << QT_ENDL;
     //return sqlOK;
 
 }
@@ -3005,7 +3005,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
 {
     // Data must come from:
     // https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
-       //qDebug() << "DataBase::populateTableSatellites" << Qt::endl;
+       //qDebug() << "DataBase::populateTableSatellites" << QT_ENDL;
 
     //QSqlQuery query;
     QString tableName = QString();
@@ -3097,13 +3097,13 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('QO-100', 'Es''hail-2', '2400.050-2409.500', '10489.550-10499.000', 'SSB,CW')").arg(tableName));
 
 
-       //qDebug() << "DataBase::populateTableSatellites - END" << Qt::endl;
+       //qDebug() << "DataBase::populateTableSatellites - END" << QT_ENDL;
     return true;
 }
 
 bool DataBase::createTableEntity(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
-        //qDebug() << "DataBase::createTableEntity" << Qt::endl;
+        //qDebug() << "DataBase::createTableEntity" << QT_ENDL;
 
     QString stringQuery = QString();
     //QSqlQuery query;
@@ -3133,7 +3133,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "UNIQUE (dxcc, mainprefix), "
                                              "FOREIGN KEY (continent) REFERENCES continent(shortname) )");
 
-         //qDebug() << "DataBase::createTableEntity END" << Qt::endl;
+         //qDebug() << "DataBase::createTableEntity END" << QT_ENDL;
     return execQuery(Q_FUNC_INFO, stringQuery);
 
 
@@ -3145,7 +3145,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
 bool DataBase::createTableBand(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
 
-        //qDebug() << "DataBase::createTableBand" << Qt::endl;
+        //qDebug() << "DataBase::createTableBand" << QT_ENDL;
     QString stringQuery = QString();
     //QSqlQuery query;
     if (NoTmp)
@@ -3164,14 +3164,14 @@ bool DataBase::createTableBand(const bool NoTmp)
                                             "name VARCHAR(40) NOT NULL, "
                                             "UNIQUE (lower, upper, cabrillo, name) )");
 
-        //qDebug() << "DataBase::createTableBand END" << Qt::endl;
+        //qDebug() << "DataBase::createTableBand END" << QT_ENDL;
     return execQuery(Q_FUNC_INFO, stringQuery);
 
 }
 
 bool DataBase::syncLogQSOsOnBandTableChange()
 {
-    //qDebug() << Q_FUNC_INFO << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
     QString stringQuery;
     QSqlQuery query;
 
@@ -3208,7 +3208,7 @@ bool DataBase::syncLogQSOsOnBandTableChange()
         foreach(int i, bandIDs)
         {
             stringQuery = QString("UPDATE log SET bandid = (SELECT DISTINCT bandtemp.id FROM bandtemp INNER JOIN band ON band.name = bandtemp.name WHERE band.id='%1') WHERE log.bandid='%1'").arg(i);
-            //qDebug() << Q_FUNC_INFO << ": " << stringQuery << Qt::endl;
+            //qDebug() << Q_FUNC_INFO << ": " << stringQuery << QT_ENDL;
             if (!query.exec(stringQuery))
             {
                 query.finish();
@@ -3218,7 +3218,7 @@ bool DataBase::syncLogQSOsOnBandTableChange()
     }
     query.finish ();
 
-    //qDebug() << Q_FUNC_INFO << " - END" << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
     return true;
 }
 
@@ -3226,7 +3226,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 {
     // Cabrillo definition: http://wwrof.org/cabrillo/cabrillo-specification-v3/
 
-        //qDebug() << "DataBase::populateTableBand" << Qt::endl;
+        //qDebug() << "DataBase::populateTableBand" << QT_ENDL;
 
 
     QString tableName = QString();
@@ -3278,7 +3278,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 
     createTheBandQuickReference();
 
-        //qDebug() << "DataBase::populateTableBand END" << Qt::endl;
+        //qDebug() << "DataBase::populateTableBand END" << QT_ENDL;
     return true;
 }
 
@@ -3286,7 +3286,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 bool DataBase::populatePropagationModes()
 {
 
-        //qDebug() << "DataBase::populatePropagationModes" << Qt::endl;
+        //qDebug() << "DataBase::populatePropagationModes" << QT_ENDL;
     //QSqlQuery query;
 
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')"));
@@ -3308,14 +3308,14 @@ bool DataBase::populatePropagationModes()
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TEP', 'Trans-equatorial')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TR', 'Tropospheric ducting')"));
 
-       //qDebug() << "DataBase::populatePropagationModes END" << Qt::endl;
+       //qDebug() << "DataBase::populatePropagationModes END" << QT_ENDL;
     return true;
 }
 
 
 bool DataBase::populateContestData()
 {
-        //qDebug() << "DataBase::populateContestData" << Qt::endl;
+        //qDebug() << "DataBase::populateContestData" << QT_ENDL;
 
 
 
@@ -3376,13 +3376,13 @@ bool DataBase::populateContestData()
     // CQ WW DX SSB END
 */
 
-        //qDebug() << "DataBase::populateContestData END" << Qt::endl;
+        //qDebug() << "DataBase::populateContestData END" << QT_ENDL;
     return true;
 }
 
 bool DataBase::howManyQSOsInLog(const int i)
 {
-        //qDebug() << "DataBase::howManyQSOsInLog" << Qt::endl;
+        //qDebug() << "DataBase::howManyQSOsInLog" << QT_ENDL;
 
     QSqlQuery query;
     QString sqlQueryString = QString("SELECT COUNT(id) from log WHERE lognumber='%1'").arg(i);
@@ -3393,12 +3393,12 @@ bool DataBase::howManyQSOsInLog(const int i)
         query.next();
         if (query.isValid())
         {
-                //qDebug() << "DataBase::howManyQSOsInLog OK END" << Qt::endl;
+                //qDebug() << "DataBase::howManyQSOsInLog OK END" << QT_ENDL;
             return (query.value(0)).toInt();
         }
         else
         {
-                //qDebug() << "DataBase::howManyQSOsInLog END-1" << Qt::endl;
+                //qDebug() << "DataBase::howManyQSOsInLog END-1" << QT_ENDL;
             query.finish();
             return false;
         }
@@ -3407,7 +3407,7 @@ bool DataBase::howManyQSOsInLog(const int i)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::howManyQSOsInLog END-2" << Qt::endl;
+            //qDebug() << "DataBase::howManyQSOsInLog END-2" << QT_ENDL;
         return false;
     }
     //query.finish();
@@ -3417,7 +3417,7 @@ bool DataBase::howManyQSOsInLog(const int i)
 bool DataBase::updateTo006()
 {// Updates the DB to 0.0.6
 
-       //qDebug() << "DataBase::updateTo006: latestRead: " << getDBVersion() << Qt::endl;
+       //qDebug() << "DataBase::updateTo006: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn006 = false;
     bool IAmIn005 = false;
     bool ErrorUpdating = false;
@@ -3436,16 +3436,16 @@ bool DataBase::updateTo006()
 
     while (!IAmIn006 && !ErrorUpdating)
     {
-             //qDebug() << "DataBase::updateTo006: - Still not in 006" << Qt::endl;
+             //qDebug() << "DataBase::updateTo006: - Still not in 006" << QT_ENDL;
         while (!IAmIn005 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo006: - And still not in 005" << Qt::endl;
+               //qDebug() << "DataBase::updateTo006: - And still not in 005" << QT_ENDL;
             IAmIn005 = updateTo005();
         }
-           //qDebug() << "DataBase::updateTo006: - Already in 005" << Qt::endl;
+           //qDebug() << "DataBase::updateTo006: - Already in 005" << QT_ENDL;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(0)" << Qt::endl;
+               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(0)" << QT_ENDL;
             return false;
         }
 
@@ -3453,31 +3453,31 @@ bool DataBase::updateTo006()
 
         if(sqlOk)
         {
-               //qDebug() << "DataBase::updateTo006: - DB Updated" << Qt::endl;
+               //qDebug() << "DataBase::updateTo006: - DB Updated" << QT_ENDL;
             sqlOk = recreatePropModes();
 
             if(sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - recreatePropModes OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - recreatePropModes OK" << QT_ENDL;
                 sqlOk = updateTableLog(6); // We copy the log into logtemp
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: - recreatePropModes NOK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - recreatePropModes NOK" << QT_ENDL;
                 ErrorUpdating = true;
                 IAmIn006 = false;
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(1)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(1)" << QT_ENDL;
                 return false;
             }
 
             sqlOk = createTableBand(false);             // We create the bandTemp
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - createTableBand OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - createTableBand OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(2)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(2)" << QT_ENDL;
                 ErrorUpdating = true;
                 //return false;
             }
@@ -3485,44 +3485,44 @@ bool DataBase::updateTo006()
             sqlOk = populateTableBand(false);           // Populate the bandTemp
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - populateTableBand OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - populateTableBand OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(3)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(3)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateBandIdTableLogToNewOnes();
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableLogToNewOnes OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableLogToNewOnes OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(4)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(4)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateBandIdTableAward(1); // DXCC
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 1 OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 1 OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(5)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(5)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateBandIdTableAward(2); // WAZ
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 2 OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 2 OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(6)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(6)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
@@ -3531,73 +3531,73 @@ bool DataBase::updateTo006()
             {
                 if (execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO band"))
                 {
-                       //qDebug() << "DataBase::updateTo006 - bandtemp renamed" << Qt::endl;
+                       //qDebug() << "DataBase::updateTo006 - bandtemp renamed" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << Qt::endl;
+                       //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << QT_ENDL;
                     ErrorUpdating = true;
-                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(7)" << Qt::endl;
+                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(7)" << QT_ENDL;
                 }
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << QT_ENDL;
                 ErrorUpdating = true;
                 IAmIn006 = false;
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(8)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(8)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateTheModeTableAndSyncLog();
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateTheModeTableAndSyncLog OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - updateTheModeTableAndSyncLog OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(9)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(9)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = createTableClubLogStatus();
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - createTableClubLogStatus OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: - createTableClubLogStatus OK" << QT_ENDL;
                 sqlOk = populateTableClubLogStatus();
                 if (sqlOk)
                 {
-                       //qDebug() << "DataBase::updateTo006: - populateTableClubLogStatus OK" << Qt::endl;
+                       //qDebug() << "DataBase::updateTo006: - populateTableClubLogStatus OK" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(10)" << Qt::endl;
+                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(10)" << QT_ENDL;
                     ErrorUpdating = true;
                 }
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(11)" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(11)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
         }
         else
         {// Version not updated
-               //qDebug() << "DataBase::updateTo006: - DB NOT Updated" << Qt::endl;
+               //qDebug() << "DataBase::updateTo006: - DB NOT Updated" << QT_ENDL;
             ErrorUpdating = true;
             IAmIn006 = false;
-               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(12)" << Qt::endl;
+               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(12)" << QT_ENDL;
             ErrorUpdating = true;
         }
-           //qDebug() << "DataBase::updateTo006: - IAmIn006 = TRUE" << Qt::endl;
+           //qDebug() << "DataBase::updateTo006: - IAmIn006 = TRUE" << QT_ENDL;
         IAmIn006 = true;
 
     }
         //DO ALL THE TASKS TO BE IN 0.006 from 0.005 HERE and set ErrorUpdating if it is not possible.
-             //qDebug() << "DataBase::updateTo006 - I am in 006 " << Qt::endl;
-         //qDebug() << "DataBase::updateTo006 - END " << Qt::endl;
-       //qDebug() << "DataBase::updateTo006: UPDATED OK!" << Qt::endl;
+             //qDebug() << "DataBase::updateTo006 - I am in 006 " << QT_ENDL;
+         //qDebug() << "DataBase::updateTo006 - END " << QT_ENDL;
+       //qDebug() << "DataBase::updateTo006: UPDATED OK!" << QT_ENDL;
     if (!IAmIn006)
      {
        // emit debugLog(Q_FUNC_INFO, "2", 7);
@@ -3607,7 +3607,7 @@ bool DataBase::updateTo006()
 
 bool DataBase::updateTableLog(const int _v)
 {
-       //qDebug() << "DataBase::updateTableLog " << Qt::endl;
+       //qDebug() << "DataBase::updateTableLog " << QT_ENDL;
     createTableLog(false);
     QString queryString;
     switch (_v)
@@ -3617,47 +3617,47 @@ bool DataBase::updateTableLog(const int _v)
         queryString = QString ("INSERT INTO logtemp (qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, transmiterid, marked, lognumber) SELECT qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, transmiterid, marked, lognumber FROM log");
     break;
     default:
-            //qDebug() << "DataBase::updateTableLog FALSE END" << Qt::endl;
+            //qDebug() << "DataBase::updateTableLog FALSE END" << QT_ENDL;
         return false;
     //break;
     }
 
     if (execQuery(Q_FUNC_INFO, queryString))
     {
-            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Query executed" << Qt::endl;
+            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Query executed" << QT_ENDL;
         queryString = "DROP TABLE log";
         if (execQuery(Q_FUNC_INFO, queryString))
         {
-                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log dropped" << Qt::endl;
+                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log dropped" << QT_ENDL;
 
             queryString = "ALTER TABLE logtemp RENAME TO log" ;
             if (execQuery(Q_FUNC_INFO, queryString))
             {
-                   //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - tmp renamed - END" << Qt::endl;
+                   //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - tmp renamed - END" << QT_ENDL;
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Renaming failed" << Qt::endl;
+                    //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Renaming failed" << QT_ENDL;
             }
         }
         else
         {
-                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log Not dropped" << Qt::endl;
+                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log Not dropped" << QT_ENDL;
         }
     }
     else
     {
-            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - query failed" << Qt::endl;
+            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - query failed" << QT_ENDL;
     }
-        //qDebug() << "DataBase::updateTableLog END" << Qt::endl;
+        //qDebug() << "DataBase::updateTableLog END" << QT_ENDL;
     return false;
 }
 
 
 bool DataBase::createTableClubLogStatus()
 {
-        //qDebug() << "createTableClubLogStatus" << Qt::endl;
+        //qDebug() << "createTableClubLogStatus" << QT_ENDL;
 
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists clublog_status");
     QString queryString = QString("CREATE TABLE clublog_status ("
@@ -3671,7 +3671,7 @@ bool DataBase::createTableClubLogStatus()
 
 bool DataBase::populateTableClubLogStatus()
 {
-        //qDebug() << "populateTableClubLogStatus" << Qt::endl;
+        //qDebug() << "populateTableClubLogStatus" << QT_ENDL;
 
     QString queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('Y', 'Uploaded')";
 
@@ -3682,12 +3682,12 @@ bool DataBase::populateTableClubLogStatus()
         if (execQuery(Q_FUNC_INFO, queryString))
         {
             queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
-                //qDebug() << "populateTableClubLogStatus END" << Qt::endl;
+                //qDebug() << "populateTableClubLogStatus END" << QT_ENDL;
             return execQuery(Q_FUNC_INFO, queryString);
         }
 
     }
-        //qDebug() << "populateTableClubLogStatus FALSE END" << Qt::endl;
+        //qDebug() << "populateTableClubLogStatus FALSE END" << QT_ENDL;
     return false;
 }
 /*
@@ -3699,7 +3699,7 @@ bool DataBase::moveFromModeIdToSubmodeId()
 
 bool DataBase::updateTableEntity()
 {
-        //qDebug() << "DataBase::updateTableEntity" << Qt::endl;
+        //qDebug() << "DataBase::updateTableEntity" << QT_ENDL;
     bool result = false;
     QString stringQuery;
     bool sqlOk;
@@ -3707,7 +3707,7 @@ bool DataBase::updateTableEntity()
     result = createTableEntity(false);  // Now we have a temp entity table with the correct format
     if (result)
     {
-            //qDebug() << "DataBase::updateTableEntity: Table entitytemp created!" << Qt::endl;
+            //qDebug() << "DataBase::updateTableEntity: Table entitytemp created!" << QT_ENDL;
         // Now we need to move all the data from the old to the temp entity table.
 
         stringQuery = QString("INSERT INTO entitytemp (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) SELECT name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate FROM entity");
@@ -3716,11 +3716,11 @@ bool DataBase::updateTableEntity()
 
         if (sqlOk)
         {
-                //qDebug() << "DataBase::updateTableEntity: Data copied from entity to entitytemp!" << Qt::endl;
+                //qDebug() << "DataBase::updateTableEntity: Data copied from entity to entitytemp!" << QT_ENDL;
             stringQuery = "DROP TABLE entity";
             if (execQuery(Q_FUNC_INFO, stringQuery))
             {
-                    //qDebug() << "DataBase::updateTableEntity: Table entity DELETED" << Qt::endl;
+                    //qDebug() << "DataBase::updateTableEntity: Table entity DELETED" << QT_ENDL;
                 stringQuery = "ALTER TABLE entitytemp RENAME TO entity";
                 return execQuery(Q_FUNC_INFO, stringQuery);
 
@@ -3733,7 +3733,7 @@ bool DataBase::updateTableEntity()
         }
         else
         {
-                //qDebug() << "DataBase::updateTableEntity: Data NOT copied from entity to entitytemp!" << Qt::endl;
+                //qDebug() << "DataBase::updateTableEntity: Data NOT copied from entity to entitytemp!" << QT_ENDL;
             //TODO: If it fails, we should manage errors...
             return false;
         }
@@ -3741,7 +3741,7 @@ bool DataBase::updateTableEntity()
     }
     else
     {
-            //qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT created!" << Qt::endl;
+            //qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT created!" << QT_ENDL;
         return false;
     }
 
@@ -3750,7 +3750,7 @@ bool DataBase::updateTableEntity()
 
 bool DataBase::updateTableLogs()
 {
-        //qDebug() << "DataBase::updateTableLogs" << Qt::endl;
+        //qDebug() << "DataBase::updateTableLogs" << QT_ENDL;
     bool result = false;
     QString stringQuery;
     bool sqlOk;
@@ -3759,7 +3759,7 @@ bool DataBase::updateTableLogs()
 
     if (result)
     {
-            //qDebug() << "DataBase::updateTableLogs: Table logstemp created!" << Qt::endl;
+            //qDebug() << "DataBase::updateTableLogs: Table logstemp created!" << QT_ENDL;
         // Now we need to move all the data from the old to the temp logs table.
 
         stringQuery = QString("INSERT INTO logstemp (logdate, stationcall, comment, logtype, logtypen) SELECT logdate, stationcall, comment, logtype, logtypen FROM logs");
@@ -3768,18 +3768,18 @@ bool DataBase::updateTableLogs()
 
         if (sqlOk)
         {
-                //qDebug() << "DataBase::updateTableLogs: data copied" << Qt::endl;
+                //qDebug() << "DataBase::updateTableLogs: data copied" << QT_ENDL;
 
             stringQuery = "DROP TABLE logs";
             if (execQuery(Q_FUNC_INFO, stringQuery))
             {
-                    //qDebug() << "DataBase::updateTableLogs: Table logs DELETED" << Qt::endl;
+                    //qDebug() << "DataBase::updateTableLogs: Table logs DELETED" << QT_ENDL;
                 stringQuery = "ALTER TABLE logstemp RENAME TO logs";
                 return execQuery(Q_FUNC_INFO, stringQuery);
             }
             else
             {
-                   //qDebug() << "DataBase::updateTableLogs: Table logs NOT DELETED" << Qt::endl;
+                   //qDebug() << "DataBase::updateTableLogs: Table logs NOT DELETED" << QT_ENDL;
                return false;
             }
 
@@ -3787,7 +3787,7 @@ bool DataBase::updateTableLogs()
         else
         {
             //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-                //qDebug() << "DataBase::updateTableLogs: data NOT copied" << Qt::endl;
+                //qDebug() << "DataBase::updateTableLogs: data NOT copied" << QT_ENDL;
             //TODO: If it fails, we should manage errors...
             return false;
         }
@@ -3795,11 +3795,11 @@ bool DataBase::updateTableLogs()
     }
     else
     {
-            //qDebug() << "DataBase::updateTableLogs: Table logstemp NOT created!" << Qt::endl;
+            //qDebug() << "DataBase::updateTableLogs: Table logstemp NOT created!" << QT_ENDL;
         return false;
     }
 
-        //qDebug() << "DataBase::updateTableLogs: END" << Qt::endl;
+        //qDebug() << "DataBase::updateTableLogs: END" << QT_ENDL;
     //return false;
 }
 
@@ -3811,7 +3811,7 @@ bool DataBase::updateModeIdFromSubModeId()
     // STEP-4: Updates the new ID in the QSO in the log
     //TODO: Optimize this function
 
-         //qDebug() << "DataBase::updateModeIdFromSubModeId: "  << Qt::endl;
+         //qDebug() << "DataBase::updateModeIdFromSubModeId: "  << QT_ENDL;
     bool cancel = false;
     bool alreadyCancelled = false;
     QString modetxt = QString();
@@ -3838,7 +3838,7 @@ bool DataBase::updateModeIdFromSubModeId()
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-             //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END"  << Qt::endl;
+             //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END"  << QT_ENDL;
         return false;
     }
 
@@ -3872,11 +3872,11 @@ bool DataBase::updateModeIdFromSubModeId()
 
                 modeFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
-                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-1) modeFound (numb): " << QString::number(modeFound) << Qt::endl;
+                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-1) modeFound (numb): " << QString::number(modeFound) << QT_ENDL;
 
                 modetxt = getModeNameFromNumber(modeFound, false);                                                      //STEP-2
 
-                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-2) mode found (txt): " << modetxt << Qt::endl;
+                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-2) mode found (txt): " << modetxt << QT_ENDL;
 
                 //TODO The following query can be executed in: getModeIdFromSubMode()
 
@@ -3886,7 +3886,7 @@ bool DataBase::updateModeIdFromSubModeId()
                 if (sqlOk2)
                 {
 
-                         //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) sqlOK2 TRUE" << Qt::endl;
+                         //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) sqlOK2 TRUE" << QT_ENDL;
                     if (query2.next())
                     {
                         if (query2.isValid())
@@ -3898,23 +3898,23 @@ bool DataBase::updateModeIdFromSubModeId()
 
                             if (sqlOk3)
                             {
-                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << Qt::endl;
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << QT_ENDL;
                             }
                             else
                             {
                                 //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  << Qt::endl;
+                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
                             }
                         }
                         else
                         {
                             query2.finish();
-                                 //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) query2 not valid "   << Qt::endl;
+                                 //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not next "   << Qt::endl;
+                          //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not next "   << QT_ENDL;
                     }
 
                 }
@@ -3922,7 +3922,7 @@ bool DataBase::updateModeIdFromSubModeId()
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-1"  << Qt::endl;
+                         //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
 
             }
@@ -3968,12 +3968,12 @@ bool DataBase::updateModeIdFromSubModeId()
         query.finish();
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 2"  << Qt::endl;
+                //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 2"  << QT_ENDL;
             query.finish();
             return false;
         }
 
-            //qDebug() << "DataBase::updateModeIdFromSubModeId: END"  << Qt::endl;
+            //qDebug() << "DataBase::updateModeIdFromSubModeId: END"  << QT_ENDL;
 
         query.finish();
         return true;
@@ -3981,11 +3981,11 @@ bool DataBase::updateModeIdFromSubModeId()
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 3"  << Qt::endl;
+            //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 3"  << QT_ENDL;
         query.finish();
         return false;
     }
-        //qDebug() << "DataBase::updateModeIdFromSubModeId: CHECK IF this is seen - END"  << Qt::endl;
+        //qDebug() << "DataBase::updateModeIdFromSubModeId: CHECK IF this is seen - END"  << QT_ENDL;
     //query.finish();
    //return false;
 }
@@ -3993,7 +3993,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
 bool DataBase::updateBandIdTableLogToNewOnes()
 {
-       //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  << Qt::endl;
+       //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  << QT_ENDL;
 
     QString bandtxt = QString();
 
@@ -4021,7 +4021,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  << Qt::endl;
+        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  << QT_ENDL;
         query.finish();
         return false;
     }
@@ -4057,7 +4057,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << Qt::endl;
+                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4075,23 +4075,23 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << Qt::endl;
+                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
                                 //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << Qt::endl;
-                                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" << Qt::endl;
+                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" << QT_ENDL;
                             }
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   << Qt::endl;
+                                 //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   << Qt::endl;
+                          //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   << QT_ENDL;
                     }
                     query2.finish();
 
@@ -4100,7 +4100,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << Qt::endl;
+                         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
 
             }
@@ -4145,17 +4145,17 @@ bool DataBase::updateBandIdTableLogToNewOnes()
         query.finish();
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 2"  << Qt::endl;
+                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 2"  << QT_ENDL;
             return false;
         }
-            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: END OK"  << Qt::endl;
+            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: END OK"  << QT_ENDL;
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  << Qt::endl;
+            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  << QT_ENDL;
         return false;
     }
 
@@ -4163,7 +4163,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
 bool DataBase::updateBandIdTableAward(const int _db)
 {
-       //qDebug() << "DataBase::updateBandIdTableAward: "  << Qt::endl;
+       //qDebug() << "DataBase::updateBandIdTableAward: "  << QT_ENDL;
 
     QString table = QString();
     QString field = QString();
@@ -4182,7 +4182,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
             awardSelected = "WAZ";
           break;
       default:
-                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END"  << Qt::endl;
+                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END"  << QT_ENDL;
             return false;
           //break;
     }
@@ -4219,7 +4219,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-2"  << Qt::endl;
+            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-2"  << QT_ENDL;
         return false;
     }
 
@@ -4258,7 +4258,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << Qt::endl;
+                     //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4276,24 +4276,24 @@ bool DataBase::updateBandIdTableAward(const int _db)
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << Qt::endl;
+                                     //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
                                 //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                    //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << Qt::endl;
+                                    //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
 
-                                    //qDebug() << "DataBase::updateBandIdTableAward - QSOs not updated to main log" << Qt::endl;
+                                    //qDebug() << "DataBase::updateBandIdTableAward - QSOs not updated to main log" << QT_ENDL;
                             }
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateBandIdTableAward: query2 not valid "   << Qt::endl;
+                                 //qDebug() << "DataBase::updateBandIdTableAward: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateBandIdTableAward: query2 not next "   << Qt::endl;
+                          //qDebug() << "DataBase::updateBandIdTableAward: query2 not next "   << QT_ENDL;
                     }
                     query2.finish();
 
@@ -4302,7 +4302,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << Qt::endl;
+                         //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
 
             }
@@ -4345,29 +4345,29 @@ bool DataBase::updateBandIdTableAward(const int _db)
         }
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-3"  << Qt::endl;
+                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-3"  << QT_ENDL;
             query.finish();
             return false;
         }
-           //qDebug() << "DataBase::updateBandIdTableAward: END OK"  << Qt::endl;
+           //qDebug() << "DataBase::updateBandIdTableAward: END OK"  << QT_ENDL;
         query.finish();
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  << Qt::endl;
+            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  << QT_ENDL;
         query.finish();
         return false;
     }
-         //qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << Qt::endl;
+         //qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << QT_ENDL;
     //query.finish();
     //return false;
 }
 
 bool DataBase::updateModeIdTableAward(const int _db)
 {
-       //qDebug() << "DataBase::updateModeIdTableAward: " << QString::number(_db)  << Qt::endl;
+       //qDebug() << "DataBase::updateModeIdTableAward: " << QString::number(_db)  << QT_ENDL;
 
     QString table = QString();
     QString field = "mode";
@@ -4384,7 +4384,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
             awardSelected = "WAZ";
           break;
       default:
-                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END"   << Qt::endl;
+                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END"   << QT_ENDL;
             return false;
           //break;
     }
@@ -4420,7 +4420,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-2"   << Qt::endl;
+            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-2"   << QT_ENDL;
         query.finish();
         return false;
     }
@@ -4437,7 +4437,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
     sqlOk = query.exec(sq);
 
-          //qDebug() << "DataBase::updateModeIdTableAward (query): " << query.lastQuery()  << Qt::endl;
+          //qDebug() << "DataBase::updateModeIdTableAward (query): " << query.lastQuery()  << QT_ENDL;
     if (sqlOk)
     {
         while (query.next() && (!cancel) )
@@ -4459,18 +4459,18 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
-                     //qDebug() << "DataBase::updateModeIdTableAward: bandfound: "  << QString::number(bandFound) << Qt::endl;
-                     //qDebug() << "DataBase::updateModeIdTableAward: id: "  << QString::number(id) << Qt::endl;
+                     //qDebug() << "DataBase::updateModeIdTableAward: bandfound: "  << QString::number(bandFound) << QT_ENDL;
+                     //qDebug() << "DataBase::updateModeIdTableAward: id: "  << QString::number(id) << QT_ENDL;
 
                 bandtxt = getSubModeNameFromNumber(bandFound, true);
 
-                     //qDebug() << "DataBase::updateModeIdTableAward: mode found: " << bandtxt << "/" << QString::number(bandFound) << Qt::endl;
+                     //qDebug() << "DataBase::updateModeIdTableAward: mode found: " << bandtxt << "/" << QString::number(bandFound) << QT_ENDL;
 
                 sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
 
 
-                     //qDebug() << "DataBase::updateModeIdTableAward (query2): " << query2.lastQuery()  << Qt::endl;
+                     //qDebug() << "DataBase::updateModeIdTableAward (query2): " << query2.lastQuery()  << QT_ENDL;
                 if (sqlOk2)
                 {
                     if (query2.next())
@@ -4485,25 +4485,25 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << Qt::endl;
+                                     //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
                                 //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                    //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << Qt::endl;
+                                    //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
 
-                                    //qDebug() << "DataBase::updateModeIdTableAward - QSOs not updated to main log" << Qt::endl;
+                                    //qDebug() << "DataBase::updateModeIdTableAward - QSOs not updated to main log" << QT_ENDL;
                             }
 
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateModeIdTableAward: query2 not valid "   << Qt::endl;
+                                 //qDebug() << "DataBase::updateModeIdTableAward: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateModeIdTableAward: query2 not next "   << Qt::endl;
+                          //qDebug() << "DataBase::updateModeIdTableAward: query2 not next "   << QT_ENDL;
                     }
 
                 }
@@ -4511,7 +4511,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << Qt::endl;
+                         //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
 
             }
@@ -4554,22 +4554,22 @@ bool DataBase::updateModeIdTableAward(const int _db)
         }
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-3"   << Qt::endl;
+                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-3"   << QT_ENDL;
             query.finish();
             return false;
         }
-           //qDebug() << "DataBase::updateModeIdTableAward: END OK"  << Qt::endl;
+           //qDebug() << "DataBase::updateModeIdTableAward: END OK"  << QT_ENDL;
         query.finish();
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-4"   << Qt::endl;
+            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-4"   << QT_ENDL;
         query.finish();
         return false;
     }
-        //qDebug() << "DataBase::updateModeIdTableAward: Checkif seen END"   << Qt::endl;
+        //qDebug() << "DataBase::updateModeIdTableAward: Checkif seen END"   << QT_ENDL;
     //query.finish();
     //return false;
 }
@@ -4578,7 +4578,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
 bool DataBase::updateModeIdTableLogToNewOnes()
 {
-        //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: "  << Qt::endl;
+        //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: "  << QT_ENDL;
 
     QString bandtxt = QString();
 
@@ -4636,7 +4636,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
                 id = (query.value(1)).toInt();
                 bandtxt = getModeNameFromNumber(bandFound, false);
 
-                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: mode found: " << bandtxt << Qt::endl;
+                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: mode found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM modetemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4652,36 +4652,36 @@ bool DataBase::updateModeIdTableLogToNewOnes()
                             sqlOk3 = query3.exec(sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << Qt::endl;
+                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
-                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << Qt::endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - QSOs not updated to main log" << Qt::endl;
+                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - QSOs not updated to main log" << QT_ENDL;
                                 errorCode = query3.lastError().nativeErrorCode();
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - query error: " << QString::number(errorCode) << Qt::endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastQuery: " << query3.lastQuery()  << Qt::endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-data: " << query3.lastError().databaseText()  << Qt::endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-driver: " << query3.lastError().driverText()  << Qt::endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-n: " << QString::number(query3.lastError().nativeErrorCode() ) << Qt::endl;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - query error: " << QString::number(errorCode) << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastQuery: " << query3.lastQuery()  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-data: " << query3.lastError().databaseText()  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-driver: " << query3.lastError().driverText()  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-n: " << QString::number(query3.lastError().nativeErrorCode() ) << QT_ENDL;
 
                             }
 
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not valid "   << Qt::endl;
+                                 //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not next "   << Qt::endl;
+                          //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not next "   << QT_ENDL;
                     }
 
                 }
                 else
                 {
-                         //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << Qt::endl;
+                         //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
 
             }
@@ -4726,7 +4726,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
         {
             return false;
         }
-             //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: FINISHED OK"  << Qt::endl;
+             //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: FINISHED OK"  << QT_ENDL;
         return true;
     }
     else
@@ -4740,7 +4740,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
 bool DataBase::updateTo007()
 {// Updates the DB to 0.0.7
 
-       //qDebug() << "DataBase::updateTo007: latestRead: " << getDBVersion() << Qt::endl;
+       //qDebug() << "DataBase::updateTo007: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn007 = false;
     bool IAmIn006 = false;
     bool ErrorUpdating = false;
@@ -4752,12 +4752,12 @@ bool DataBase::updateTo007()
 
     if (latestReaded >= 0.007f)
     {
-             //qDebug() << "DataBase::updateTo007: - I am in 007" << Qt::endl;
+             //qDebug() << "DataBase::updateTo007: - I am in 007" << QT_ENDL;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo007: - I am not in 007" << Qt::endl;
+             //qDebug() << "DataBase::updateTo007: - I am not in 007" << QT_ENDL;
         IAmIn007 = false;
     }
 
@@ -4766,15 +4766,15 @@ bool DataBase::updateTo007()
     {
         while (!IAmIn006 && !ErrorUpdating)
         {
-                //qDebug() << "DataBase::updateTo007: - And I am not in 006" << Qt::endl;
+                //qDebug() << "DataBase::updateTo007: - And I am not in 006" << QT_ENDL;
             IAmIn006 = updateTo006();
 
 
         }
-           //qDebug() << "DataBase::updateTo007: - And I am in 006!!!!" << Qt::endl;
+           //qDebug() << "DataBase::updateTo007: - And I am in 006!!!!" << QT_ENDL;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo007: NOK-1" << Qt::endl;
+               //qDebug() << "DataBase::updateTo007: NOK-1" << QT_ENDL;
              // emit debugLog(Q_FUNC_INFO, "1", 7);
 
             return false;
@@ -4787,7 +4787,7 @@ bool DataBase::updateTo007()
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo007: NOK-2" << Qt::endl;
+               //qDebug() << "DataBase::updateTo007: NOK-2" << QT_ENDL;
               // emit debugLog(Q_FUNC_INFO, "2", 7);
 
             return false;
@@ -4795,7 +4795,7 @@ bool DataBase::updateTo007()
         //DO ALL THE TASKS TO BE IN 0.007 from 0.006 HERE and set ErrorUpdating if it is not possible.
         IAmIn007 = true;
     }
-       //qDebug() << "DataBase::updateTo007: END" << Qt::endl;
+       //qDebug() << "DataBase::updateTo007: END" << QT_ENDL;
     if (!IAmIn007)
     {
        // emit debugLog(Q_FUNC_INFO, "3", 7);
@@ -4808,7 +4808,7 @@ bool DataBase::updateTo007()
 bool DataBase::updateTo008()
 {// Updates the DB to 0.0.8
 
-    //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << Qt::endl;
+    //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
     bool ErrorUpdating = false;
@@ -4816,12 +4816,12 @@ bool DataBase::updateTo008()
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= 0.008f)
     {
-          //qDebug() << "DataBase::updateTo008: - I am in 008" << Qt::endl;
+          //qDebug() << "DataBase::updateTo008: - I am in 008" << QT_ENDL;
         return true;
     }
     else
     {
-          //qDebug() << "DataBase::updateTo008: - I am not in 008" << Qt::endl;
+          //qDebug() << "DataBase::updateTo008: - I am not in 008" << QT_ENDL;
         IAmIn008 = false;
     }
 
@@ -4830,14 +4830,14 @@ bool DataBase::updateTo008()
     {
         while (!IAmIn007 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo008: - And I am not in 007" << Qt::endl;
+               //qDebug() << "DataBase::updateTo008: - And I am not in 007" << QT_ENDL;
             IAmIn007 = updateTo007();
 
         }
-           //qDebug() << "DataBase::updateTo008: - I am in 007" << Qt::endl;
+           //qDebug() << "DataBase::updateTo008: - I am in 007" << QT_ENDL;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo008: - NOK-1" << Qt::endl;
+               //qDebug() << "DataBase::updateTo008: - NOK-1" << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -4850,24 +4850,24 @@ bool DataBase::updateTo008()
             bool sqlOk = updateDBVersion(softVersion, "0.008");
             if (sqlOk)
             { // Version updated
-                   //qDebug() << "DataBase::updateTo008: - OK" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo008: - OK" << QT_ENDL;
             }
             else
             { // Version not updated
-                   //qDebug() << "DataBase::updateTo008: - NOK-3" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo008: - NOK-3" << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
         else
         {
-               //qDebug() << "DataBase::updateTo008: - NOK-2" << Qt::endl;
+               //qDebug() << "DataBase::updateTo008: - NOK-2" << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
 
     }
-       //qDebug() << "DataBase::updateTo008: - END" << Qt::endl;
+       //qDebug() << "DataBase::updateTo008: - END" << QT_ENDL;
     if (!IAmIn008)
     {/*emit debugLog(Q_FUNC_INFO, "4", 7);*/
 
@@ -4879,35 +4879,35 @@ bool DataBase::updateTo008()
 bool DataBase::updateTo009()
 {// Updates the DB to 0.0.9 - We add the Satellite tables
 
-       //qDebug() << "DataBase::updateTo009: latestRead: " << getDBVersion() << Qt::endl;
+       //qDebug() << "DataBase::updateTo009: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn009 = false;
     bool IAmIn008 = false;
     bool ErrorUpdating = false;
 
-    //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< Qt::endl;
+    //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< QT_ENDL;
     latestReaded = getDBVersion().toFloat();
    if (latestReaded >= 0.009f)
     //if ((latestReaded = 0.009) || (latestReaded > 0.009))
     {
-            //qDebug() << "DataBase::updateTo009: - I am in 009" << Qt::endl;
+            //qDebug() << "DataBase::updateTo009: - I am in 009" << QT_ENDL;
         //IAmIn009 = true;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< Qt::endl;
+             //qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< QT_ENDL;
         IAmIn009 = false;
     }
-        //qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << Qt::endl;
+        //qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << QT_ENDL;
     while (!IAmIn009 && !ErrorUpdating)
     {
         while (!IAmIn008 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo009: - And I am not in 008" << Qt::endl;
+               //qDebug() << "DataBase::updateTo009: - And I am not in 008" << QT_ENDL;
             IAmIn008 = updateTo008();
 
         }
-           //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << Qt::endl;
+           //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << QT_ENDL;
         if (ErrorUpdating)
         {
            // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -4917,43 +4917,43 @@ bool DataBase::updateTo009()
 
         if (sqlOk)
         { // Version updated
-               //qDebug() << "DataBase::updateTo009: - version updated" << Qt::endl;
+               //qDebug() << "DataBase::updateTo009: - version updated" << QT_ENDL;
             //IAmIn009 = updateTableLog(6);
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo009: - version not updated" << Qt::endl;
+               //qDebug() << "DataBase::updateTo009: - version not updated" << QT_ENDL;
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
         if (recreateSatelliteData())
         //if (createTableSatellites(true))
         {
-               //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << Qt::endl;
+               //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << QT_ENDL;
             //if (populateTableSatellites(true))
 
             if (updateTableEntity())
             {
-                  //qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << Qt::endl;
+                  //qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << QT_ENDL;
                if (updateTheEntityTableISONames())
                {
-                     //qDebug() << "DataBase::updateTo009: - isonames updated" << Qt::endl;
+                     //qDebug() << "DataBase::updateTo009: - isonames updated" << QT_ENDL;
                   // Now I need to update the logs table
 
                   if (updateTableLogs())
                   {
-                         //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << Qt::endl;
+                         //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << QT_ENDL;
                       IAmIn009 = true;
                   }
                   else
                   {
-                         //qDebug() << "DataBase::updateTo009: - logs NOT updated" << Qt::endl;
+                         //qDebug() << "DataBase::updateTo009: - logs NOT updated" << QT_ENDL;
                       IAmIn009 = false;
                       ErrorUpdating = true;
                   }
                }
                else
                {
-                     //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << Qt::endl;
+                     //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << QT_ENDL;
                   IAmIn009 = false;
                   ErrorUpdating = true;
                }
@@ -4966,13 +4966,13 @@ bool DataBase::updateTo009()
         }
         else
         {
-               //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << Qt::endl;
+               //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << QT_ENDL;
             ErrorUpdating = true;
             IAmIn009 = false;
         }
     }
 
-         //qDebug() << "DataBase::updateTo009: - END" << Qt::endl;
+         //qDebug() << "DataBase::updateTo009: - END" << QT_ENDL;
     if (!IAmIn009)
     {
        // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -4986,7 +4986,7 @@ bool DataBase::updateTo010()
     // We add FT8 mode and
     // AS Propagation
 
-       //qDebug() << "DataBase::updateTo010: latestRead: " << getDBVersion() << Qt::endl;
+       //qDebug() << "DataBase::updateTo010: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn010 = false;
     bool IAmIn009 = false;
     bool ErrorUpdating = false;
@@ -4994,36 +4994,36 @@ bool DataBase::updateTo010()
     QSqlQuery query;
 
     latestReaded = getDBVersion().toFloat();
-        //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << Qt::endl;
+        //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.010f)
     {
-           //qDebug() << "DataBase::updateTo010: - I am in 010" << Qt::endl;
+           //qDebug() << "DataBase::updateTo010: - I am in 010" << QT_ENDL;
         IAmIn010 = true;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo010: - I am not in 010 I am in: " << QString::number(latestReaded)<< Qt::endl;
+             //qDebug() << "DataBase::updateTo010: - I am not in 010 I am in: " << QString::number(latestReaded)<< QT_ENDL;
 
         while (!IAmIn009 && !ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo010: - Check if I am in 009: !" << Qt::endl;
+                 //qDebug() << "DataBase::updateTo010: - Check if I am in 009: !" << QT_ENDL;
             IAmIn009 = updateTo009();
 
             if (IAmIn009)
             {
-                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned TRUE - I am in 0.009: " << QString::number(latestReaded) << Qt::endl;
+                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned TRUE - I am in 0.009: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned FALSE - I am NOT in 0.009: " << QString::number(latestReaded) << Qt::endl;
+                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned FALSE - I am NOT in 0.009: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
 
         if (ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo010: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+                 //qDebug() << "DataBase::updateTo010: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -5034,12 +5034,12 @@ bool DataBase::updateTo010()
     bool sqlOk = execQuery(Q_FUNC_INFO, "UPDATE band SET lower = '0.1357', upper = '0.1378' WHERE name='2190M'");
     if (sqlOk)
     {
-             //qDebug() << "DataBase::updateTo010: - Band update OK" << Qt::endl;
+             //qDebug() << "DataBase::updateTo010: - Band update OK" << QT_ENDL;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-             //qDebug() << "DataBase::updateTo010: - Band update NOK" << Qt::endl;
+             //qDebug() << "DataBase::updateTo010: - Band update NOK" << QT_ENDL;
     }
 
 
@@ -5049,17 +5049,17 @@ bool DataBase::updateTo010()
 
     if (updateDBVersion(softVersion, "0.010"))
     {
-             //qDebug() << "DataBase::updateTo010: - We are in 010! " << Qt::endl;
+             //qDebug() << "DataBase::updateTo010: - We are in 010! " << QT_ENDL;
         IAmIn010 = true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo010: - Failed to go to 010! " << Qt::endl;
+             //qDebug() << "DataBase::updateTo010: - Failed to go to 010! " << QT_ENDL;
         IAmIn010 = false;
        // emit debugLog(Q_FUNC_INFO, "1", 7);
     }
 
-         //qDebug() << "DataBase::updateTo010: - END" << Qt::endl;
+         //qDebug() << "DataBase::updateTo010: - END" << QT_ENDL;
     return IAmIn010;
 }
 
@@ -5068,7 +5068,7 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 
     QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
 
-       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << Qt::endl;
+       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << QT_ENDL;
     QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
     bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
@@ -5081,7 +5081,7 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 
 bool DataBase::updateTheModeTableAndSyncLog()
 {
-         //qDebug() << "DataBase::updateTheModeTableAndSyncLog" << Qt::endl;
+         //qDebug() << "DataBase::updateTheModeTableAndSyncLog" << QT_ENDL;
     QSqlQuery query;
 
     createTableMode(false);         // Create modetemp
@@ -5097,7 +5097,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
     if (sqlOK)
     {
         //QSqlDatabase::database().commit();
-             //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" << Qt::endl;
+             //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" << QT_ENDL;
 
         sqlOK = execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
         if (!sqlOK)
@@ -5110,17 +5110,17 @@ bool DataBase::updateTheModeTableAndSyncLog()
     else
     {
         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << Qt::endl;
+            //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-         //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << Qt::endl;
+         //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << QT_ENDL;
     //return true;
 }
 
 bool DataBase::recreateTableBand()
 {
-        //qDebug() << "DataBase::recreateTableBand" << Qt::endl;
+        //qDebug() << "DataBase::recreateTableBand" << QT_ENDL;
     QSqlQuery query;
 
     createTableBand(false);         // Create modetemp
@@ -5135,28 +5135,28 @@ bool DataBase::recreateTableBand()
     else
     {
         //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-            //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" << Qt::endl;
+            //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-        //qDebug() << "DataBase::recreateTableBand END" << Qt::endl;
+        //qDebug() << "DataBase::recreateTableBand END" << QT_ENDL;
 }
 
 bool DataBase::updateTheEntityTableISONames()
 {
-       //qDebug() << "DataBase::updateTheEntityTableISONames" << Qt::endl;
+       //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
     QSqlQuery query;
     QString sq;
 
     //First of all we will check if the entity table does contain data. We can't update something non existent!
     if (!hasTheTableData("entity"))
     {
-            //qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << Qt::endl;
+            //qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
-        //qDebug() << "DataBase::updateTheEntityTableISONames-1" << Qt::endl;
+        //qDebug() << "DataBase::updateTheEntityTableISONames-1" << QT_ENDL;
     sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='246'");  //Sovereign Order of Malta
 
     bool sqlOK = execQuery(Q_FUNC_INFO, sq);
@@ -5166,7 +5166,7 @@ bool DataBase::updateTheEntityTableISONames()
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-        //qDebug() << "DataBase::updateTheEntityTableISONames-2" << Qt::endl;
+        //qDebug() << "DataBase::updateTheEntityTableISONames-2" << QT_ENDL;
 
     sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='247'");  //Spratly
     sqlOK = execQuery(Q_FUNC_INFO, sq);
@@ -6921,7 +6921,7 @@ bool DataBase::updateTheEntityTableISONames()
     if (!sqlOK)
     {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
 
-        //qDebug() << "DataBase::updateTheEntityTableISONames-END" << Qt::endl;
+        //qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
     return true;
 }
 
@@ -6941,12 +6941,12 @@ bool DataBase::isTheTableExisting(const QString &_tableName)
                 query.finish();
                 if (_n > 0)
                 {
-                        //qDebug() << "DataBase::isTheTableExisting - Table Exists"  << Qt::endl;
+                        //qDebug() << "DataBase::isTheTableExisting - Table Exists"  << QT_ENDL;
                     return true;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::isTheTableExisting - Table does not Exist"  << Qt::endl;
+                        //qDebug() << "DataBase::isTheTableExisting - Table does not Exist"  << QT_ENDL;
                    // emit debugLog(Q_FUNC_INFO, "1", 7);
                     return false;
                 }
@@ -6966,7 +6966,7 @@ bool DataBase::isTheTableExisting(const QString &_tableName)
 
 bool DataBase::hasTheTableData(const QString &_tableName)
 {
-       //qDebug() << "DataBase::hasTheTableData" << _tableName << Qt::endl;
+       //qDebug() << "DataBase::hasTheTableData" << _tableName << QT_ENDL;
     QSqlQuery query;
 
 
@@ -6978,24 +6978,24 @@ bool DataBase::hasTheTableData(const QString &_tableName)
         query.next();
         if (query.isValid())
         {
-                //qDebug() << "DataBase::hasTheTableData - valid"  << Qt::endl;
+                //qDebug() << "DataBase::hasTheTableData - valid"  << QT_ENDL;
             int _num = (query.value(0)).toInt();
             query.finish();
             if (_num > 0)
             {
-                    //qDebug() << "DataBase::hasTheTableData - DB Exists"  << Qt::endl;
+                    //qDebug() << "DataBase::hasTheTableData - DB Exists"  << QT_ENDL;
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << Qt::endl;
+                    //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
         else
         {
-                //qDebug() << "DataBase::hasTheTableData - not valid"  << Qt::endl;
+                //qDebug() << "DataBase::hasTheTableData - not valid"  << QT_ENDL;
             query.finish();
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
@@ -7003,18 +7003,18 @@ bool DataBase::hasTheTableData(const QString &_tableName)
     }
     else
     {
-            //qDebug() << "DataBase::hasTheTableData: LastQuery: " << query.lastQuery()  << Qt::endl;
-            //qDebug() << "DataBase::hasTheTableData: LastError-data: " << query.lastError().databaseText()  << Qt::endl;
-            //qDebug() << "DataBase::hasTheTableData: LastError-driver: " << query.lastError().driverText()  << Qt::endl;
-            //qDebug() << "DataBase::hasTheTableData LastError-n: " << QString::number(query.lastError().nativeErrorCode() ) << Qt::endl;
-            //qDebug() << "DataBase::updateTheEntityTableISONames" << Qt::endl;
+            //qDebug() << "DataBase::hasTheTableData: LastQuery: " << query.lastQuery()  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData: LastError-data: " << query.lastError().databaseText()  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData: LastError-driver: " << query.lastError().driverText()  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData LastError-n: " << QString::number(query.lastError().nativeErrorCode() ) << QT_ENDL;
+            //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
-        //qDebug() << "DataBase::isTheDBCreated: END FALSE" << Qt::endl;
+        //qDebug() << "DataBase::isTheDBCreated: END FALSE" << QT_ENDL;
     //query.finish();
     //return false;
 }
@@ -7025,7 +7025,7 @@ bool DataBase::updateTo011()
     // AS Propagation
 
 
-       //qDebug() << "DataBase::updateTo011: latestRead: " << getDBVersion() << Qt::endl;
+       //qDebug() << "DataBase::updateTo011: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn011 = false;
     bool IAmIn010 = false;
 
@@ -7034,36 +7034,36 @@ bool DataBase::updateTo011()
 
     //bool sqlOk = false;
     latestReaded = getDBVersion().toFloat();
-       //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << Qt::endl;
+       //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.011f)
     {
-           //qDebug() << "DataBase::updateTo011: - I am in 011" << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - I am in 011" << QT_ENDL;
         IAmIn011 = true;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo011: - I am not in 0.012 I am in: " << QString::number(latestReaded)<< Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - I am not in 0.012 I am in: " << QString::number(latestReaded)<< QT_ENDL;
         bool ErrorUpdating = false;
         while (!IAmIn010 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo011: - Check if I am in 010: !" << Qt::endl;
+               //qDebug() << "DataBase::updateTo011: - Check if I am in 010: !" << QT_ENDL;
             IAmIn010 = updateTo010();
 
             if (IAmIn010)
             {
-                     //qDebug() << "DataBase::updateTo011: - updateTo010 returned TRUE - I am in 0.010: " << QString::number(latestReaded) << Qt::endl;
+                     //qDebug() << "DataBase::updateTo011: - updateTo010 returned TRUE - I am in 0.010: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo011: - updateTo009 returned FALSE - I am NOT in 0.010: " << QString::number(latestReaded) << Qt::endl;
+                   //qDebug() << "DataBase::updateTo011: - updateTo009 returned FALSE - I am NOT in 0.010: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
 
         if (ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo011: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+                 //qDebug() << "DataBase::updateTo011: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7072,28 +7072,28 @@ bool DataBase::updateTo011()
 
     if (!recreateSatelliteData())
     {
-           //qDebug() << "DataBase::updateTo011: - Sats update NOK " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - Sats update NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
     if (!recreateTableDXCC())
     {
-           //qDebug() << "DataBase::updateTo011: - recreateTableDXCC NOK " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - recreateTableDXCC NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
     if (!recreateTableWAZ())
     {
-           //qDebug() << "DataBase::updateTo011: - recreateTableWAZ NOK " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - recreateTableWAZ NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "4", 7);
         return false;
     }
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
-           //qDebug() << "DataBase::updateTo011: - MSK NOK " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - MSK NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "5", 7);
         return false;
     }
@@ -7101,38 +7101,38 @@ bool DataBase::updateTo011()
 
     if (!recreateTableLog())
     {
-           //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "6", 7);
         return false;
     }
 
     if (updateDBVersion(softVersion, "0.011"))
     {
-           //qDebug() << "DataBase::updateTo011: - We are in 011! " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - We are in 011! " << QT_ENDL;
         IAmIn011 = true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo011: - Failed to go to 011! " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - Failed to go to 011! " << QT_ENDL;
         IAmIn011 = false;
     }
 
 
     if (!updateAwardDXCCTable())
     {
-         //qDebug() << "DataBase::updateTo011: - updateAwardDXCCTable NOK " << Qt::endl;
+         //qDebug() << "DataBase::updateTo011: - updateAwardDXCCTable NOK " << QT_ENDL;
       IAmIn011 = false;
      // emit debugLog(Q_FUNC_INFO, "7", 7);
       return false;
     }
     if (!updateAwardWAZTable())
     {
-           //qDebug() << "DataBase::updateTo011: - updateAwardWAZTable NOK " << Qt::endl;
+           //qDebug() << "DataBase::updateTo011: - updateAwardWAZTable NOK " << QT_ENDL;
         IAmIn011 = false;
 
     }
 
-       //qDebug() << "DataBase::updateTo011: - END" << Qt::endl;
+       //qDebug() << "DataBase::updateTo011: - END" << QT_ENDL;
     if (!IAmIn011)
     {// emit debugLog(Q_FUNC_INFO, "8", 7);
     }
@@ -7147,37 +7147,37 @@ bool DataBase::updateTo012()
     // Solve the supportedContest table missing bug in some deployments
 
 
-           //qDebug() << "DataBase::updateTo012: latestRead: " << getDBVersion() << Qt::endl;
+           //qDebug() << "DataBase::updateTo012: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn011 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateTo012: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+           //qDebug() << "DataBase::updateTo012: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.012f)
         {
-               //qDebug() << "DataBase::updateTo012: - I am in 012" << Qt::endl;
+               //qDebug() << "DataBase::updateTo012: - I am in 012" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo012: - I am not in 0.012 I am in: " << getDBVersion() << Qt::endl;
+               //qDebug() << "DataBase::updateTo012: - I am not in 0.012 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn011 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateTo012: - Check if I am in 011: !" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo012: - Check if I am in 011: !" << QT_ENDL;
                 IAmIn011 = updateTo011();
 
                 if (IAmIn011)
                 {
-                         //qDebug() << "DataBase::updateTo012: - updateTo011 returned TRUE - I am in 0.011: " << QString::number(latestReaded) << Qt::endl;
+                         //qDebug() << "DataBase::updateTo012: - updateTo011 returned TRUE - I am in 0.011: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateTo012: - updateTo011 returned FALSE - I am NOT in 0.011: " << QString::number(latestReaded) << Qt::endl;
+                        //qDebug() << "DataBase::updateTo012: - updateTo011 returned FALSE - I am NOT in 0.011: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateTo012: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+                    //qDebug() << "DataBase::updateTo012: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                 // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7197,7 +7197,7 @@ bool DataBase::updateTo012()
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo012: UPDATED NOK-1!" << Qt::endl;
+                       //qDebug() << "DataBase::updateTo012: UPDATED NOK-1!" << QT_ENDL;
                    // emit debugLog(Q_FUNC_INFO, "2", 7);
                    return false;
                 }
@@ -7209,7 +7209,7 @@ bool DataBase::updateTo012()
             {
                if (!recreateSupportedContest())
                {
-                      //qDebug() << "DataBase::updateTo012: UPDATED NOK-2!" << Qt::endl;
+                      //qDebug() << "DataBase::updateTo012: UPDATED NOK-2!" << QT_ENDL;
                   // emit debugLog(Q_FUNC_INFO, "3", 7);
                    return false;
                }
@@ -7218,16 +7218,16 @@ bool DataBase::updateTo012()
 
         if (updateDBVersion(softVersion, "0.012"))
         {
-               //qDebug() << "DataBase::updateTo012: - We are in 012! " << Qt::endl;
+               //qDebug() << "DataBase::updateTo012: - We are in 012! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo011: - Failed to go to 012! " << Qt::endl;
+               //qDebug() << "DataBase::updateTo011: - Failed to go to 012! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "4", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo012: UPDATED OK!" << Qt::endl;
+           //qDebug() << "DataBase::updateTo012: UPDATED OK!" << QT_ENDL;
         return true;
 
 }
@@ -7239,37 +7239,37 @@ bool DataBase::updateTo013()
     // Solve the supportedContest table missing bug in some deployments
 
 
-           //qDebug() << "DataBase::updateTo013: latestRead: " << getDBVersion() << Qt::endl;
+           //qDebug() << "DataBase::updateTo013: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn012 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+           //qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.013f)
         {
-               //qDebug() << "DataBase::updateTo013: - I am in 013" << Qt::endl;
+               //qDebug() << "DataBase::updateTo013: - I am in 013" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo013: - I am not in 0.013 I am in: " << getDBVersion() << Qt::endl;
+               //qDebug() << "DataBase::updateTo013: - I am not in 0.013 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn012 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateTo013: - Check if I am in 012: !" << Qt::endl;
+                   //qDebug() << "DataBase::updateTo013: - Check if I am in 012: !" << QT_ENDL;
                 IAmIn012 = updateTo012();
 
                 if (IAmIn012)
                 {
-                         //qDebug() << "DataBase::updateTo013: - updateTo012 returned TRUE - I am in 0.012: " << QString::number(latestReaded) << Qt::endl;
+                         //qDebug() << "DataBase::updateTo013: - updateTo012 returned TRUE - I am in 0.012: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateTo013: - updateTo011 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) << Qt::endl;
+                        //qDebug() << "DataBase::updateTo013: - updateTo011 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+                    //qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7306,16 +7306,16 @@ bool DataBase::updateTo013()
 
         if (updateDBVersion(softVersion, "0.013"))
         {
-               //qDebug() << "DataBase::updateTo013: - We are in 013! " << Qt::endl;
+               //qDebug() << "DataBase::updateTo013: - We are in 013! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo013: - Failed to go to 013! " << Qt::endl;
+               //qDebug() << "DataBase::updateTo013: - Failed to go to 013! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "5", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo013: UPDATED OK!" << Qt::endl;
+           //qDebug() << "DataBase::updateTo013: UPDATED OK!" << QT_ENDL;
         return true;
 
 }
@@ -7327,37 +7327,37 @@ bool DataBase::updateTo014()
     // Updates the Satellite DB
 
 
-           //qDebug() << "DataBase::updateto014: latestRead: " << getDBVersion() << Qt::endl;
+           //qDebug() << "DataBase::updateto014: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn013 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+           //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.014f)
         {
-               //qDebug() << "DataBase::updateto014: - I am in 013" << Qt::endl;
+               //qDebug() << "DataBase::updateto014: - I am in 013" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - I am not in 0.013 I am in: " << getDBVersion() << Qt::endl;
+               //qDebug() << "DataBase::updateto014: - I am not in 0.013 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn013 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateto014: - Check if I am in 013: !" << Qt::endl;
+                   //qDebug() << "DataBase::updateto014: - Check if I am in 013: !" << QT_ENDL;
                 IAmIn013 = updateTo013();
 
                 if (IAmIn013)
                 {
-                         //qDebug() << "DataBase::updateto014: - updateTo012 returned TRUE - I am in 0.013: " << QString::number(latestReaded) << Qt::endl;
+                         //qDebug() << "DataBase::updateto014: - updateTo012 returned TRUE - I am in 0.013: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateto014: - updateTo011 returned FALSE - I am NOT in 0.013: " << QString::number(latestReaded) << Qt::endl;
+                        //qDebug() << "DataBase::updateto014: - updateTo011 returned FALSE - I am NOT in 0.013: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateto014: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+                    //qDebug() << "DataBase::updateto014: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7368,7 +7368,7 @@ bool DataBase::updateTo014()
 
         if (!recreateSatelliteData())
         {
-               //qDebug() << "DataBase::updateTo014: - Sats update NOK " << Qt::endl;
+               //qDebug() << "DataBase::updateTo014: - Sats update NOK " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
@@ -7376,16 +7376,16 @@ bool DataBase::updateTo014()
 
         if (updateDBVersion(softVersion, "0.014"))
         {
-               //qDebug() << "DataBase::updateto014: - We are in 013! " << Qt::endl;
+               //qDebug() << "DataBase::updateto014: - We are in 013! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - Failed to go to 013! " << Qt::endl;
+               //qDebug() << "DataBase::updateto014: - Failed to go to 013! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo014: UPDATED OK!" << Qt::endl;
+           //qDebug() << "DataBase::updateTo014: UPDATED OK!" << QT_ENDL;
         return true;
 }
 
@@ -7395,36 +7395,36 @@ bool DataBase::updateTo015()
     // Updates the DB to 0.015:
     // Adds the FT4 mode
 
-    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << Qt::endl;
+    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn014 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-      //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+      //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.015f)
     {
-          //qDebug() << "DataBase::updateto015: - I am in 013" << Qt::endl;
+          //qDebug() << "DataBase::updateto015: - I am in 013" << QT_ENDL;
         return true;
     }
     else
     {
-          //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() << Qt::endl;
+          //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() << QT_ENDL;
         while (!IAmIn014 && !ErrorUpdating)
         {
-              //qDebug() << "DataBase::updateto015: - Check if I am in 014: !" << Qt::endl;
+              //qDebug() << "DataBase::updateto015: - Check if I am in 014: !" << QT_ENDL;
             IAmIn014 = updateTo014();
             if (IAmIn014)
             {
-                  //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) << Qt::endl;
+                  //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                  //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) << Qt::endl;
+                  //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-              //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+              //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7435,27 +7435,27 @@ bool DataBase::updateTo015()
 
     if (updateTheModeTableAndSyncLog())
     {
-          //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" << Qt::endl;
+          //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" << QT_ENDL;
     }
     else
     {
-          //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" << Qt::endl;
+          //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" << QT_ENDL;
         //ErrorUpdating = true;
     }
 
 
     if (updateDBVersion(softVersion, "0.015"))
     {
-          //qDebug() << "DataBase::updateto015: - We are in 015! " << Qt::endl;
+          //qDebug() << "DataBase::updateto015: - We are in 015! " << QT_ENDL;
     }
     else
     {
-          //qDebug() << "DataBase::updateto015: - Failed to go to 014! " << Qt::endl;
+          //qDebug() << "DataBase::updateto015: - Failed to go to 014! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
-      //qDebug() << "DataBase::updateTo015: UPDATED OK!" << Qt::endl;
+      //qDebug() << "DataBase::updateTo015: UPDATED OK!" << QT_ENDL;
     return true;
 
 }
@@ -7467,37 +7467,37 @@ bool DataBase::updateTo016()
     // Updates the Satellite DB
 
 
-           //qDebug() << "DataBase::updateto016: latestRead: " << getDBVersion() << Qt::endl;
+           //qDebug() << "DataBase::updateto016: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn015 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+           //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.016f)
         {
-               //qDebug() << "DataBase::updateto016: - I am in 015" << Qt::endl;
+               //qDebug() << "DataBase::updateto016: - I am in 015" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateto016: - I am not in 0.015 I am in: " << getDBVersion() << Qt::endl;
+               //qDebug() << "DataBase::updateto016: - I am not in 0.015 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn015 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateto014: - Check if I am in 015: !" << Qt::endl;
+                   //qDebug() << "DataBase::updateto014: - Check if I am in 015: !" << QT_ENDL;
                 IAmIn015 = updateTo015();
 
                 if (IAmIn015)
                 {
-                         //qDebug() << "DataBase::updateto016: - updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) << Qt::endl;
+                         //qDebug() << "DataBase::updateto016: - updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateto016: - updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) << Qt::endl;
+                        //qDebug() << "DataBase::updateto016: - updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+                    //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7507,21 +7507,21 @@ bool DataBase::updateTo016()
 
         if (!recreateSatelliteData())
         {
-               //qDebug() << "DataBase::updateTo016: - Sats update NOK " << Qt::endl;
+               //qDebug() << "DataBase::updateTo016: - Sats update NOK " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
         if (updateDBVersion(softVersion, "0.016"))
         {
-               //qDebug() << "DataBase::updateto014: - We are in 016! " << Qt::endl;
+               //qDebug() << "DataBase::updateto014: - We are in 016! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - Failed to go to 016! " << Qt::endl;
+               //qDebug() << "DataBase::updateto014: - Failed to go to 016! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
-           //qDebug() << "DataBase::updateTo016: UPDATED OK!" << Qt::endl;
+           //qDebug() << "DataBase::updateTo016: UPDATED OK!" << QT_ENDL;
         return true;
 }
 
@@ -7530,36 +7530,36 @@ bool DataBase::updateTo017()
     // Updates the DB to 0.017:
     // Updates the Satellite DB
 
-    //qDebug() << "DataBase::updateto017: latestRead: " << getDBVersion() << Qt::endl;
+    //qDebug() << "DataBase::updateto017: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn016 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-    //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+    //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.017f)
     {
-        //qDebug() << "DataBase::updateto017: - I am in 017" << Qt::endl;
+        //qDebug() << "DataBase::updateto017: - I am in 017" << QT_ENDL;
         return true;
     }
     else
     {
-        //qDebug() << "DataBase::updateto017: - I am not in 0.017 I am in: " << getDBVersion() << Qt::endl;
+        //qDebug() << "DataBase::updateto017: - I am not in 0.017 I am in: " << getDBVersion() << QT_ENDL;
         while (!IAmIn016 && !ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - Check if I am in 016: !" << Qt::endl;
+            //qDebug() << "DataBase::updateto017: - Check if I am in 016: !" << QT_ENDL;
             IAmIn016 = updateTo016();
             if (IAmIn016)
             {
-                //qDebug() << "DataBase::updateto017: - updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) << Qt::endl;
+                //qDebug() << "DataBase::updateto017: - updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                //qDebug() << "DataBase::updateto017: - updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) << Qt::endl;
+                //qDebug() << "DataBase::updateto017: - updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+            //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7651,17 +7651,17 @@ bool DataBase::updateTo017()
     {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
     if (!recreateTableLog())
     {
-        //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << Qt::endl;
+        //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "14", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo017: - Recreated Table Log " << Qt::endl;
+    //qDebug() << "DataBase::updateTo017: - Recreated Table Log " << QT_ENDL;
 
     /*
 
     else
     {
-        //qDebug() << "DataBase::updateTo017: - Table log recreated OK" << Qt::endl;
+        //qDebug() << "DataBase::updateTo017: - Table log recreated OK" << QT_ENDL;
     }
     */
 
@@ -7671,15 +7671,15 @@ bool DataBase::updateTo017()
     // If everything went OK, we update the DB number.
     if (updateDBVersion(softVersion, "0.017"))
     {
-        //qDebug() << "DataBase::updateto017: - We are in 017! " << Qt::endl;
+        //qDebug() << "DataBase::updateto017: - We are in 017! " << QT_ENDL;
     }
     else
     {
-        //qDebug() << "DataBase::updateto017: - Failed to go to 017! " << Qt::endl;
+        //qDebug() << "DataBase::updateto017: - Failed to go to 017! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo017: UPDATED OK!" << Qt::endl;
+    //qDebug() << "DataBase::updateTo017: UPDATED OK!" << QT_ENDL;
     return true;
 }
 
@@ -7688,36 +7688,36 @@ bool DataBase::updateTo018()
     // Updates the DB to 0.018:
     // Adds the Subdivisions
 
-    //qDebug() << "DataBase::updateto018: latestRead: " << getDBVersion() << Qt::endl;
+    //qDebug() << "DataBase::updateto018: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn017 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-    //qDebug() << "DataBase::updateto018: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+    //qDebug() << "DataBase::updateto018: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.018f)
     {
-        //qDebug() << "DataBase::updateto018: - I am in 018" << Qt::endl;
+        //qDebug() << "DataBase::updateto018: - I am in 018" << QT_ENDL;
         return true;
     }
     else
     {
-        //qDebug() << "DataBase::updateto018: - I am not in 0.018 I am in: " << getDBVersion() << Qt::endl;
+        //qDebug() << "DataBase::updateto018: - I am not in 0.018 I am in: " << getDBVersion() << QT_ENDL;
         while (!IAmIn017 && !ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - Check if I am in 017: !" << Qt::endl;
+            //qDebug() << "DataBase::updateto017: - Check if I am in 017: !" << QT_ENDL;
             IAmIn017 = updateTo017();
             if (IAmIn017)
             {
-                //qDebug() << "DataBase::updateto018: - updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) << Qt::endl;
+                //qDebug() << "DataBase::updateto018: - updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                //qDebug() << "DataBase::updateto017: - updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) << Qt::endl;
+                //qDebug() << "DataBase::updateto017: - updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto018: - I Could not update to: " << QString::number(dbVersion) << Qt::endl;
+            //qDebug() << "DataBase::updateto018: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7737,29 +7737,29 @@ bool DataBase::updateTo018()
     // If everything went OK, we update the DB number.
     if (updateDBVersion(softVersion, "0.018"))
     {
-        //qDebug() << "DataBase::updateto018: - We are in 018! " << Qt::endl;
+        //qDebug() << "DataBase::updateto018: - We are in 018! " << QT_ENDL;
     }
     else
     {
-        //qDebug() << "DataBase::updateto018: - Failed to go to 018! " << Qt::endl;
+        //qDebug() << "DataBase::updateto018: - Failed to go to 018! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo018: UPDATED OK!" << Qt::endl;
+    //qDebug() << "DataBase::updateTo018: UPDATED OK!" << QT_ENDL;
     return true;
 }
 
 bool DataBase::updateTo019()
 {// Adds FTS4 and FST4W modes
  // Adds RS-44 sat
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << Qt::endl;
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IAmIn018 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.019f)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << Qt::endl;
+       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << QT_ENDL;
         return true;
     }
     else
@@ -7788,40 +7788,40 @@ bool DataBase::updateTo019()
 
     if (updateTheModeTableAndSyncLog() && recreateSatelliteData())
     {
-          //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << Qt::endl;
+          //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " : UPDATED NOK!(9)" << Qt::endl;
+         //qDebug() << Q_FUNC_INFO << " : UPDATED NOK!(9)" << QT_ENDL;
         return false;
     }
 
 
     if (updateDBVersion(softVersion, "0.019"))
     {
-          //qDebug() << Q_FUNC_INFO << " : - We are in 019! " << Qt::endl;
+          //qDebug() << Q_FUNC_INFO << " : - We are in 019! " << QT_ENDL;
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " : - Failed to go to 018! " << Qt::endl;
+       //qDebug() << Q_FUNC_INFO << " : - Failed to go to 018! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
-   //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << Qt::endl;
+   //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
     return true;
 }
 
 bool DataBase::updateTo022()
 {// Adds Q65 mode
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << Qt::endl;
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= dbVersion)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 022" << Qt::endl;
+       //qDebug() << Q_FUNC_INFO << " : - I am in 022" << QT_ENDL;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
@@ -7837,31 +7837,31 @@ bool DataBase::updateTo022()
 
     if (!updateTheModeTableAndSyncLog() )
     {
-        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
         return false;
     }
 
     if (!updateDBVersion(softVersion, QString::number(0.022)))
     {
-        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
         return false;
 
     }
-    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << Qt::endl;
-    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
     return true;
 }
 
 bool DataBase::updateTo021()
 {// Adds 5M & 8M bands
-    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
      bool IamInPreviousVersion = false;
      bool ErrorUpdating = false;
      latestReaded = getDBVersion().toFloat();
-    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
      if (latestReaded >= dbVersion)
      {
-        //qDebug() << Q_FUNC_INFO << " : - I am in 019" << Qt::endl;
+        //qDebug() << Q_FUNC_INFO << " : - I am in 019" << QT_ENDL;
          return true;
      }
      while (!IamInPreviousVersion && !ErrorUpdating)
@@ -7877,25 +7877,25 @@ bool DataBase::updateTo021()
 
      if (!recreateTableBand ())
      {
-         //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << Qt::endl;
+         //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
          return false;
      }
 
      if (!updateDBVersion(softVersion, QString::number(0.021)))
      {
-         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << Qt::endl;
+         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
          return false;
 
      }
-     //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << Qt::endl;
-     //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << Qt::endl;
+     //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
      return true;
 }
 
 bool DataBase::updateAwardDXCCTable()
 {
 
-       //qDebug() << "DataBase::updateAwardDXCCTable" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable" << QT_ENDL;
 
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
@@ -7923,7 +7923,7 @@ bool DataBase::updateAwardDXCCTable()
     }
     else
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable SELECT when OK" << Qt::endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable SELECT when OK" << QT_ENDL;
     }
     QStringList dxccStatus = QStringList(); //dxcc, band, mode, confirmed, lognumber, qsoid (per award set)
     QStringList dxccStatusCheck = QStringList(); //dxcc, band, mode, confirmed, lognumber (per award set) just to check
@@ -7931,20 +7931,20 @@ bool DataBase::updateAwardDXCCTable()
 
     QString _aux = QString();
 
-       //qDebug() << "DataBase::updateAwardDXCCTable before the while" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable before the while" << QT_ENDL;
     while (query.next())
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable IN the while" << Qt::endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable IN the while" << QT_ENDL;
         if (query.isValid())
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable VALID" << Qt::endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable VALID" << QT_ENDL;
             awardEntry.dxcc.clear();
             awardEntry.band.clear();
             awardEntry.status.clear();
             awardEntry.logNumber.clear();
             awardEntry.qsoID.clear();
 
-               //qDebug() << "DataBase::updateAwardDXCCTable in the while" << Qt::endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable in the while" << QT_ENDL;
             nameCol = rec.indexOf("qsl_rcvd");
             bool qsl = false;
 
@@ -7969,7 +7969,7 @@ bool DataBase::updateAwardDXCCTable()
                 awardEntry.status = "0";
             }
 
-               //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << Qt::endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << QT_ENDL;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
 
@@ -7990,7 +7990,7 @@ bool DataBase::updateAwardDXCCTable()
                     nameCol = rec.indexOf("lognumber");
                     awardEntry.logNumber = (query.value(nameCol)).toString();
 
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << Qt::endl;
+                       //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << QT_ENDL;
                     dxccStatusList.append(awardEntry);
 
                 }
@@ -7998,12 +7998,12 @@ bool DataBase::updateAwardDXCCTable()
         }
     } // END OF  WHILE
 
-       //qDebug() << "DataBase::updateAwardDXCCTable - END OF WHILE" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable - END OF WHILE" << QT_ENDL;
 
     query.finish();
 
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: Log analized... let's clean the table!" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: Log analized... let's clean the table!" << QT_ENDL;
 
     stringQuery = QString("DELETE FROM awarddxcc");
 
@@ -8012,10 +8012,10 @@ bool DataBase::updateAwardDXCCTable()
     {return false;}
     else
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << Qt::endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << QT_ENDL;
     }
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << QT_ENDL;
 
     //int i = 0;
     _aux.clear();
@@ -8027,7 +8027,7 @@ bool DataBase::updateAwardDXCCTable()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: INSERTING: " << QString::number(qsos) << " QSOS..." << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: INSERTING: " << QString::number(qsos) << " QSOS..." << QT_ENDL;
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
@@ -8037,17 +8037,17 @@ bool DataBase::updateAwardDXCCTable()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << Qt::endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << QT_ENDL;
             if (query.lastError().nativeErrorCode() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
                 { // If tne new status is not confirmed, no change. DO NOTHING
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << Qt::endl;
+                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but NOW is confirmed!!!" << Qt::endl;
+                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but NOW is confirmed!!!" << QT_ENDL;
                     stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
                     QSqlQuery query2;//, query2;
 
@@ -8081,23 +8081,23 @@ bool DataBase::updateAwardDXCCTable()
                                 }
                                 else
                                 {
-                                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE IS NOT DONE" << Qt::endl;
+                                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
                                 }
 
                             }
                             else
                             {
-                                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE NOT NEEDED" << Qt::endl;
+                                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE NOT NEEDED" << QT_ENDL;
                             }
                         }
                         else
                         {
-                               //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" << Qt::endl;
+                               //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" << QT_ENDL;
                         }
                     }
                 }
 
-                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << Qt::endl;
+                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << QT_ENDL;
             }
             else
             {
@@ -8109,11 +8109,11 @@ bool DataBase::updateAwardDXCCTable()
         }
         else
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable: INSERT OK: " << Qt::endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable: INSERT OK: " << QT_ENDL;
         }
 
         query.finish();
-           //qDebug() << "DataBase::updateAwardDXCCTable: Checking steps " << Qt::endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable: Checking steps " << QT_ENDL;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
             _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
@@ -8122,20 +8122,20 @@ bool DataBase::updateAwardDXCCTable()
         }
         if ( progress.wasCanceled() )
         {
-                  //qDebug() << "DataBase::updateAwardDXCCTable: progress canceled" << Qt::endl;
+                  //qDebug() << "DataBase::updateAwardDXCCTable: progress canceled" << QT_ENDL;
             return true;
         }
     }
 
     progress.setValue(qsos);
-       //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << Qt::endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << QT_ENDL;
 
     return true;
 }
 
 bool DataBase::updateAwardWAZTable()
 {
-       //qDebug() << "DataBase::updateAwardWAZTable" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable" << QT_ENDL;
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
     dxccStatusList.clear();
@@ -8162,7 +8162,7 @@ bool DataBase::updateAwardWAZTable()
     }
     else
     {
-           //qDebug() << "DataBase::updateAwardWAZTable SELECT when OK" << Qt::endl;
+           //qDebug() << "DataBase::updateAwardWAZTable SELECT when OK" << QT_ENDL;
     }
     QStringList dxccStatus = QStringList(); //cqz, band, mode, confirmed, lognumber, qsoid (per award set)
     QStringList dxccStatusCheck = QStringList(); //cqz, band, mode, confirmed, lognumber (per award set) just to check
@@ -8170,20 +8170,20 @@ bool DataBase::updateAwardWAZTable()
 
     QString _aux = QString();
 
-       //qDebug() << "DataBase::updateAwardWAZTable before the while" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable before the while" << QT_ENDL;
     while (query.next())
     {
-           //qDebug() << "DataBase::updateAwardWAZTable IN the while" << Qt::endl;
+           //qDebug() << "DataBase::updateAwardWAZTable IN the while" << QT_ENDL;
         if (query.isValid())
         {
-               //qDebug() << "DataBase::updateAwardWAZTable VALID" << Qt::endl;
+               //qDebug() << "DataBase::updateAwardWAZTable VALID" << QT_ENDL;
             awardEntry.dxcc.clear();
             awardEntry.band.clear();
             awardEntry.status.clear();
             awardEntry.logNumber.clear();
             awardEntry.qsoID.clear();
 
-               //qDebug() << "DataBase::updateAwardWAZTable in the while" << Qt::endl;
+               //qDebug() << "DataBase::updateAwardWAZTable in the while" << QT_ENDL;
             nameCol = rec.indexOf("qsl_rcvd");
             bool qsl = false;
 
@@ -8207,7 +8207,7 @@ bool DataBase::updateAwardWAZTable()
             {
                 awardEntry.status = "0";
             }
-               //qDebug() << "DataBase::updateAwardWAZTable - status" << awardEntry.status << Qt::endl;
+               //qDebug() << "DataBase::updateAwardWAZTable - status" << awardEntry.status << QT_ENDL;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
 
@@ -8228,7 +8228,7 @@ bool DataBase::updateAwardWAZTable()
                     nameCol = rec.indexOf("lognumber");
                     awardEntry.logNumber = (query.value(nameCol)).toString();
 
-                       //qDebug() << "DataBase::updateAwardWAZTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << Qt::endl;
+                       //qDebug() << "DataBase::updateAwardWAZTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << QT_ENDL;
                     dxccStatusList.append(awardEntry);
 
                 }
@@ -8236,12 +8236,12 @@ bool DataBase::updateAwardWAZTable()
         }
     } // END OF  WHILE
 
-       //qDebug() << "DataBase::updateAwardWAZTable - END OF WHILE" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable - END OF WHILE" << QT_ENDL;
 
     query.finish();
 
 
-       //qDebug() << "DataBase::updateAwardWAZTable: Log analized... let's clean the table!" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: Log analized... let's clean the table!" << QT_ENDL;
 
     stringQuery = QString("DELETE FROM awardwaz");
 
@@ -8250,11 +8250,11 @@ bool DataBase::updateAwardWAZTable()
     {return false;}
     else
     {
-           //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << Qt::endl;
+           //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << QT_ENDL;
     }
 
 
-       //qDebug() << "DataBase::updateAwardWAZTable: Now we start writing the table!!" << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: Now we start writing the table!!" << QT_ENDL;
 
     //int i = 0;
     _aux.clear();
@@ -8266,7 +8266,7 @@ bool DataBase::updateAwardWAZTable()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "DataBase::updateAwardWAZTable: INSERTING: " << QString::number(qsos) << " QSOS..." << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: INSERTING: " << QString::number(qsos) << " QSOS..." << QT_ENDL;
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
@@ -8277,17 +8277,17 @@ bool DataBase::updateAwardWAZTable()
         if (!sqlOK)
         {
 
-               //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << Qt::endl;
+               //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << QT_ENDL;
             if (query.lastError().nativeErrorCode() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
                 { // If tne new status is not confirmed, no change. DO NOTHING
-                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << Qt::endl;
+                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but NOW is confirmed!!!" << Qt::endl;
+                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but NOW is confirmed!!!" << QT_ENDL;
                     stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awardwaz WHERE cqz='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
                     QSqlQuery query2;//, query2;
 
@@ -8321,23 +8321,23 @@ bool DataBase::updateAwardWAZTable()
                                 }
                                 else
                                 {
-                                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << Qt::endl;
+                                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
                                 }
 
                             }
                             else
                             {
-                                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE NOT NEEDED" << Qt::endl;
+                                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE NOT NEEDED" << QT_ENDL;
                             }
                         }
                         else
                         {
-                               //qDebug() << "DataBase::updateAwardWAZTable: Duplicated SELECT query is not Valid" << Qt::endl;
+                               //qDebug() << "DataBase::updateAwardWAZTable: Duplicated SELECT query is not Valid" << QT_ENDL;
                         }
                     }
                 }
 
-                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated!" << Qt::endl;
+                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated!" << QT_ENDL;
             }
             else
             {
@@ -8349,11 +8349,11 @@ bool DataBase::updateAwardWAZTable()
         }
         else
         {
-               //qDebug() << "DataBase::updateAwardWAZTable: INSERT OK: " << Qt::endl;
+               //qDebug() << "DataBase::updateAwardWAZTable: INSERT OK: " << QT_ENDL;
         }
 
         query.finish();
-           //qDebug() << "DataBase::updateAwardWAZTable: Checking steps " << Qt::endl;
+           //qDebug() << "DataBase::updateAwardWAZTable: Checking steps " << QT_ENDL;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
             _aux = QObject::tr("Updating WAZ Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
@@ -8362,13 +8362,13 @@ bool DataBase::updateAwardWAZTable()
         }
         if ( progress.wasCanceled() )
         {
-                  //qDebug() << "DataBase::updateAwardWAZTable: progress canceled" << Qt::endl;
+                  //qDebug() << "DataBase::updateAwardWAZTable: progress canceled" << QT_ENDL;
             return true;
         }
     }
 
     progress.setValue(qsos);
-       //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << Qt::endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << QT_ENDL;
     return true;
 
 
@@ -8408,17 +8408,17 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
 void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
 {
-       //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) << Qt::endl;
-       //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << Qt::endl;
-       //qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError << Qt::endl;
-       //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << Qt::endl;
-       //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << Qt::endl;
+       //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << QT_ENDL;
 }
 
 /*
  bool DataBase::beginTransaction()
  {
-        //qDebug() << "DataBase::beginTransaction: " << Qt::endl;
+        //qDebug() << "DataBase::beginTransaction: " << QT_ENDL;
      QSqlDatabase db = QSqlDatabase::database();
      db.setDatabaseName(dbName);
      return execQuery(Q_FUNC_INFO, "BEGIN IMMEDIATE TRANSACTION");
@@ -8427,7 +8427,7 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
 
  bool DataBase::commitTransaction()
  {
-        //qDebug() << "DataBase::commitTransaction: " << Qt::endl;
+        //qDebug() << "DataBase::commitTransaction: " << QT_ENDL;
      return db.commit();
  }
 
@@ -8435,7 +8435,7 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
 
  bool DataBase::execQuery(const QString &function, const QString &stringQuery)
  {
-    //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << Qt::endl;
+    //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << QT_ENDL;
     QSqlQuery query;
 
 
@@ -8444,10 +8444,10 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     {
         while (query.isActive())
         {
-               //qDebug() << "DataBase::execQuery: Still active... " << Qt::endl;
+               //qDebug() << "DataBase::execQuery: Still active... " << QT_ENDL;
             query.finish();
         }
-    //qDebug() << "DataBase::execQuery: No longer active... " << Qt::endl;
+    //qDebug() << "DataBase::execQuery: No longer active... " << QT_ENDL;
         return true;
     }
     else

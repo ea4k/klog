@@ -29,6 +29,7 @@
 #include <QtWidgets>
 #include <QWidget>
 //#include <QTextBrowser>
+#include "klogdefinitions.h"
 
 class QMenu;
 class QScrollArea;

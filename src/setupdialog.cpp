@@ -47,39 +47,39 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     version = _softwareVersion;
     pageRequested = _page;
     int logsPageTabN=-1;
-    //qDebug() << "SetupDialog::SetupDialog 01" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01" << QT_ENDL;
 
     locator = new Locator();
 
     tabWidget = new QTabWidget;
-    //qDebug() << "SetupDialog::SetupDialog 01.0" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.0" << QT_ENDL;
     userDataPage = new SetupPageUserDataPage(dataProxy);
-    //qDebug() << "SetupDialog::SetupDialog 01.10" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.10" << QT_ENDL;
     bandModePage = new SetupPageBandMode(dataProxy, this);
-    //qDebug() << "SetupDialog::SetupDialog 01.20" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.20" << QT_ENDL;
     dxClusterPage = new SetupPageDxCluster(this);
-    //qDebug() << "SetupDialog::SetupDialog 01.30" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.30" << QT_ENDL;
     colorsPage = new SetupPageColors(this);
-    //qDebug() << "SetupDialog::SetupDialog 01.40" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.40" << QT_ENDL;
     miscPage = new SetupPageMisc(this);
-    //qDebug() << "SetupDialog::SetupDialog 01.50" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.50" << QT_ENDL;
     worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
-    //qDebug() << "SetupDialog::SetupDialog 01.60" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.60" << QT_ENDL;
     logsPage = new SetupPageLogs(dataProxy, this);
-    //qDebug() << "SetupDialog::SetupDialog 01.70" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.70" << QT_ENDL;
     eLogPage = new SetupPageELog(this);
-    //qDebug() << "SetupDialog::SetupDialog 01.80" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.80" << QT_ENDL;
     UDPPage = new SetupPageUDP(this);
-    //qDebug() << "SetupDialog::SetupDialog 01.90" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.90" << QT_ENDL;
     satsPage = new SetupPageSats(dataProxy, this);
-    //qDebug() << "SetupDialog::SetupDialog 01.100" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 01.100" << QT_ENDL;
     hamlibPage = new SetupPageHamLib(dataProxy, this);
     logViewPage = new SetupPageLogView(dataProxy, this);
     //subdivisionsPage = new SetupPageSubdivisions(dataProxy, this);
     //regionalAwardsPage = new SetupPageRegionalAwards(dataProxy, this);
     //interfacesWindowsPage = new SetupPageInterfacesWindows(this);
 
-    //qDebug() << "SetupDialog::SetupDialog 02" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 02" << QT_ENDL;
     //tabWidget->addTab(subdivisionsPage, tr("Subdivisions"));
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -98,7 +98,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
     //tabWidget->addTab(interfacesWindowsPage, tr ("Interfaces"));
 
-    //qDebug() << "SetupDialog::SetupDialog 03" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 03" << QT_ENDL;
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     okButton = new QPushButton(tr("OK"));
@@ -115,35 +115,35 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
-    //qDebug() << "SetupDialog::SetupDialog 04" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 04" << QT_ENDL;
 
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
 
-    //qDebug() << "SetupDialog::SetupDialog 05" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 05" << QT_ENDL;
 
     slotReadConfigData();
-    //qDebug() << "SetupDialog::SetupDialog 05.1" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 05.1" << QT_ENDL;
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
-         //qDebug() << "SetupDialog::SetupDialog 05.2" << Qt::endl;
+         //qDebug() << "SetupDialog::SetupDialog 05.2" << QT_ENDL;
         tabWidget->setCurrentIndex(logsPageTabN);
     }
-    //qDebug() << "SetupDialog::SetupDialog 05.3" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 05.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
 
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
 
-    //qDebug() << "SetupDialog::SetupDialog 2  - END" << Qt::endl;
+    //qDebug() << "SetupDialog::SetupDialog 2  - END" << QT_ENDL;
 }
 
 
 SetupDialog::~SetupDialog()
 {
-       //qDebug() << "SetupDialog::~SetupDialog " << Qt::endl;
+       //qDebug() << "SetupDialog::~SetupDialog " << QT_ENDL;
 }
 
 void SetupDialog::connectActions()
@@ -170,17 +170,17 @@ void SetupDialog::slotQRZCOMAuto(const bool _b)
 
 void SetupDialog::setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
-      //qDebug() << "SetupDialog::setData: " << "/" << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << Qt::endl;
+      //qDebug() << "SetupDialog::setData: " << "/" << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     nolog = !(haveAtleastOneLog());
     firstTime = _firstTime;
     if (firstTime)
     {
-          //qDebug() << "SetupDialog::setData FIRST TIME! " << Qt::endl;
+          //qDebug() << "SetupDialog::setData FIRST TIME! " << QT_ENDL;
     }
     else
     {
-          //qDebug() << "SetupDialog::setData NOT FIRST TIME! " << Qt::endl;
+          //qDebug() << "SetupDialog::setData NOT FIRST TIME! " << QT_ENDL;
         miscPage->setUseDefaultDBPath(miscPage->getDefaultDBPath());
     }
 
@@ -190,12 +190,12 @@ void SetupDialog::setData(const QString &_configFile, const QString &_softwareVe
     setPage(_page);
     //removeBandModeDuplicates();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-      //qDebug() << "SetupDialog::setData - END" << Qt::endl;
+      //qDebug() << "SetupDialog::setData - END" << QT_ENDL;
 }
 
 void SetupDialog::setConfigFile(const QString &_configFile)
 {
-       //qDebug() << "SetupDialog::setConfigFile" << Qt::endl;
+       //qDebug() << "SetupDialog::setConfigFile" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     configFileName = _configFile;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -203,7 +203,7 @@ void SetupDialog::setConfigFile(const QString &_configFile)
 
 void SetupDialog::setSoftVersion(const QString &_softwareVersion)
 {
-       //qDebug() << "SetupDialog::setSoftVersion" << Qt::endl;
+       //qDebug() << "SetupDialog::setSoftVersion" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     version = _softwareVersion;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -212,7 +212,7 @@ void SetupDialog::setSoftVersion(const QString &_softwareVersion)
 
 void SetupDialog::setPage(const int _page)
 {
-       //qDebug() << "SetupDialog::setPage("<<QString::number(_page) << ")" << Qt::endl;
+       //qDebug() << "SetupDialog::setPage("<<QString::number(_page) << ")" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     pageRequested = _page;
 
@@ -225,7 +225,7 @@ void SetupDialog::setPage(const int _page)
 
 void SetupDialog::slotCancelButtonClicked()
 {
-      //qDebug() << "SetupDialog::slotCancelButtonClicked" << Qt::endl;
+      //qDebug() << "SetupDialog::slotCancelButtonClicked" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     if (firstTime || nolog)
     {
@@ -258,7 +258,7 @@ void SetupDialog::slotCancelButtonClicked()
 
 void SetupDialog::createIcons()
 {
-       //qDebug() << "SetupDialog::createIcons" << Qt::endl;
+       //qDebug() << "SetupDialog::createIcons" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     QListWidgetItem *configButton = new QListWidgetItem(contentsWidget);
     configButton->setIcon(QIcon(":/images/config.png"));
@@ -311,7 +311,7 @@ void SetupDialog::createIcons()
 
 void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous)
 {
-       //qDebug() << "SetupDialog::changePage" << Qt::endl;
+       //qDebug() << "SetupDialog::changePage" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     if (!current)
         current = previous;
@@ -324,7 +324,7 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 
 void SetupDialog::slotOkButtonClicked()
 {
-    //qDebug() << "SetupDialog::slotOkButtonClicked" << Qt::endl;
+    //qDebug() << "SetupDialog::slotOkButtonClicked" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
 
     if (!miscPage->areDBPathChangesApplied())
@@ -350,7 +350,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!haveAtleastOneLog())
     {
-        //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!" << Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!" << QT_ENDL;
 
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
@@ -365,7 +365,7 @@ void SetupDialog::slotOkButtonClicked()
         emit debugLog (Q_FUNC_INFO, "END-3", logSeverity);
         return;
     }
-    //qDebug() << "SetupDialog::slotOkButtonClicked - 10" << Qt::endl;
+    //qDebug() << "SetupDialog::slotOkButtonClicked - 10" << QT_ENDL;
     QFile file (configFileName);
     QString tmp;
     tmp = "true";
@@ -377,132 +377,132 @@ void SetupDialog::slotOkButtonClicked()
     int contestCategory;
     int modes;*/
     //QRZ/CQ/ITU/CONTEST
-    stream << "Version=" << version << ";" << Qt::endl;
-    stream << "Callsign="  << userDataPage->getStationQrz() << ";" << Qt::endl;
+    stream << "Version=" << version << ";" << QT_ENDL;
+    stream << "Callsign="  << userDataPage->getStationQrz() << ";" << QT_ENDL;
     if ((userDataPage->getOperators()).length() >= 3){ // There are no valid calls with less than 3 Chars
-        stream << "Operators="  << userDataPage->getOperators() << ";" << Qt::endl;
+        stream << "Operators="  << userDataPage->getOperators() << ";" << QT_ENDL;
     }
-    stream << "CQz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  Qt::endl;
-    stream << "ITUz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  Qt::endl;
+    stream << "CQz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  QT_ENDL;
+    stream << "ITUz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  QT_ENDL;
 
         if ( locator->isValidLocator(userDataPage->getStationLocator()) )
         {
-            stream << "StationLocator=" << userDataPage->getStationLocator() << ";" << Qt::endl;
+            stream << "StationLocator=" << userDataPage->getStationLocator() << ";" << QT_ENDL;
         }
 
 
         if ((!(userDataPage->getName()).isNull()) && (  (userDataPage->getName()).length() > 0   ))
         {
-            stream << "Name=" << userDataPage->getName() <<";" << Qt::endl;
+            stream << "Name=" << userDataPage->getName() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAddress1()).isNull()) && (  (userDataPage->getAddress1()).length() > 0   ))
         {
-            stream << "Address1=" << userDataPage->getAddress1() <<";" << Qt::endl;
+            stream << "Address1=" << userDataPage->getAddress1() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAddress2()).isNull())  && (  (userDataPage->getAddress2()).length() > 0   ))
         {
-            stream << "Address2=" << userDataPage->getAddress2() <<";" << Qt::endl;
+            stream << "Address2=" << userDataPage->getAddress2() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAddress3()).isNull()) && (  (userDataPage->getAddress3()).length() > 0   ))
         {
-            stream << "Address3=" << userDataPage->getAddress3() <<";" << Qt::endl;
+            stream << "Address3=" << userDataPage->getAddress3() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAddress4()).isNull()) && (  (userDataPage->getAddress4()).length() > 0   ))
         {
-            stream << "Address4=" << userDataPage->getAddress4() <<";" << Qt::endl;
+            stream << "Address4=" << userDataPage->getAddress4() <<";" << QT_ENDL;
         }
 
         if ((!(userDataPage->getCity()).isNull()) && (  (userDataPage->getCity()).length() > 0   ))
         {
-            stream << "City=" << userDataPage->getCity() <<";" << Qt::endl;
+            stream << "City=" << userDataPage->getCity() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getZipCode()).isNull()) && (  (userDataPage->getZipCode()).length() > 0   ))
         {
-            stream << "ZipCode=" << userDataPage->getZipCode() <<";" << Qt::endl;
+            stream << "ZipCode=" << userDataPage->getZipCode() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getProvince()).isNull()) && (  (userDataPage->getProvince()).length() > 0   ))
         {
-            stream << "ProvinceState=" << userDataPage->getProvince() <<";" << Qt::endl;
+            stream << "ProvinceState=" << userDataPage->getProvince() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getCountry()).isNull()) && (  (userDataPage->getCountry()).length() > 0   ))
         {
-            stream << "Country=" << userDataPage->getCountry() <<";" << Qt::endl;
+            stream << "Country=" << userDataPage->getCountry() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getRig1()).isNull()) && (  (userDataPage->getRig1()).length() > 0   ))
         {
-            stream << "Rig1=" << userDataPage->getRig1() <<";" << Qt::endl;
+            stream << "Rig1=" << userDataPage->getRig1() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getRig2()).isNull()) && (  (userDataPage->getRig2()).length() > 0   ))
         {
-            stream << "Rig2=" << userDataPage->getRig2() <<";" << Qt::endl;
+            stream << "Rig2=" << userDataPage->getRig2() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getRig3()).isNull()) && (  (userDataPage->getRig3()).length() > 0   ))
         {
-            stream << "Rig3=" << userDataPage->getRig3() <<";" << Qt::endl;
+            stream << "Rig3=" << userDataPage->getRig3() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAntenna1()).isNull()) && (  (userDataPage->getAntenna1()).length() > 0   ))
         {
-            stream << "Antenna1=" << userDataPage->getAntenna1() <<";" << Qt::endl;
+            stream << "Antenna1=" << userDataPage->getAntenna1() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAntenna2()).isNull()) && (  (userDataPage->getAntenna2()).length() > 0   ))
         {
-            stream << "Antenna2=" << userDataPage->getAntenna2() <<";" << Qt::endl;
+            stream << "Antenna2=" << userDataPage->getAntenna2() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAntenna3()).isNull()) && (  (userDataPage->getAntenna2()).length() > 0   ))
         {
-            stream << "Antenna3=" << userDataPage->getAntenna3() <<";" << Qt::endl;
+            stream << "Antenna3=" << userDataPage->getAntenna3() <<";" << QT_ENDL;
         }
         if ((userDataPage->getPower()).toFloat()>=0)
         {
-            stream << "Power=" << userDataPage->getPower() << ";" << Qt::endl;
+            stream << "Power=" << userDataPage->getPower() << ";" << QT_ENDL;
         }
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 20" << Qt::endl;
-        //stream << "locator=" << (MyLocatorkLineEdit->text ()).toUpper () <<  ";" << Qt::endl;
-        //stream << "CallUsed=" << (UserDataPage.qrzLineEdit).text() <<  ";" << Qt::endl;
-        //stream << "Operators=" <<  ";" << Qt::endl;
-        stream << "Bands=" << bandModePage->getBands() << ";" <<  Qt::endl;
-        stream << "Modes=" << bandModePage->getModes() << ";" <<  Qt::endl;
-        stream << "LogViewFields=" << logViewPage->getFields() << ";" <<  Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - 20" << QT_ENDL;
+        //stream << "locator=" << (MyLocatorkLineEdit->text ()).toUpper () <<  ";" << QT_ENDL;
+        //stream << "CallUsed=" << (UserDataPage.qrzLineEdit).text() <<  ";" << QT_ENDL;
+        //stream << "Operators=" <<  ";" << QT_ENDL;
+        stream << "Bands=" << bandModePage->getBands() << ";" <<  QT_ENDL;
+        stream << "Modes=" << bandModePage->getModes() << ";" <<  QT_ENDL;
+        stream << "LogViewFields=" << logViewPage->getFields() << ";" <<  QT_ENDL;
 
-        //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  Qt::endl;
-        stream << "RealTime=" << miscPage->getRealTime() << ";" <<  Qt::endl;
-        stream << "UTCTime=" << miscPage->getUTCTime() << ";" <<  Qt::endl;
-        stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  Qt::endl;
-        stream << "UseDefaultName=" << miscPage->getUseDefaultName() << ";" <<  Qt::endl;
-        stream << "DefaultADIFFile=" << miscPage->getDefaultFileName() << ";" <<  Qt::endl;
-        stream << "DBPath=" << miscPage->getDefaultDBPath() << ";" <<  Qt::endl;
-        stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  Qt::endl;
-        stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  Qt::endl;
-        stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  Qt::endl;
-        //stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  Qt::endl;
-        stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  Qt::endl;
-        stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  Qt::endl;
-        stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  Qt::endl;
-        stream << "DebugLog=" << miscPage->getDebugLog() << ";" << Qt::endl;
-        //stream << "LogSort=" << miscPage->getLogSort() << ";" << Qt::endl;
-        stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << Qt::endl;
-        stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";" << Qt::endl;
+        //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  QT_ENDL;
+        stream << "RealTime=" << miscPage->getRealTime() << ";" <<  QT_ENDL;
+        stream << "UTCTime=" << miscPage->getUTCTime() << ";" <<  QT_ENDL;
+        stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  QT_ENDL;
+        stream << "UseDefaultName=" << miscPage->getUseDefaultName() << ";" <<  QT_ENDL;
+        stream << "DefaultADIFFile=" << miscPage->getDefaultFileName() << ";" <<  QT_ENDL;
+        stream << "DBPath=" << miscPage->getDefaultDBPath() << ";" <<  QT_ENDL;
+        stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  QT_ENDL;
+        stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  QT_ENDL;
+        stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  QT_ENDL;
+        //stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  QT_ENDL;
+        stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  QT_ENDL;
+        stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  QT_ENDL;
+        stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  QT_ENDL;
+        stream << "DebugLog=" << miscPage->getDebugLog() << ";" << QT_ENDL;
+        //stream << "LogSort=" << miscPage->getLogSort() << ";" << QT_ENDL;
+        stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << QT_ENDL;
+        stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";" << QT_ENDL;
 
         if (miscPage->getDupeTime()>0)
         {
-            stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";" << Qt::endl;
+            stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";" << QT_ENDL;
         }
 
-        //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << Qt::endl;
-        //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << Qt::endl;
-        //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << Qt::endl;
+        //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";" << QT_ENDL;
+        //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";" << QT_ENDL;
+        //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";" << QT_ENDL;
 
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 30" << Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - 30" << QT_ENDL;
 
         if ( miscPage->getReportInfo())
         {
-            stream << "ProvideInfo=True;"  <<  Qt::endl;
+            stream << "ProvideInfo=True;"  <<  QT_ENDL;
         }
 
 
         if ((!(dxClusterPage->getSelectedDxClusterServer()).isNull()) && (  (dxClusterPage->getSelectedDxClusterServer()).length() > 0   ))
         {
-            stream << "DXClusterServerToUse=" << dxClusterPage->getSelectedDxClusterServer() <<";" << Qt::endl;
+            stream << "DXClusterServerToUse=" << dxClusterPage->getSelectedDxClusterServer() <<";" << QT_ENDL;
         }
 
         QStringList stringList;
@@ -513,188 +513,188 @@ void SetupDialog::slotOkButtonClicked()
         {
             for (int i = 0; i < stringList.size(); i++)
             {
-                 stream << "DXClusterServerPort="<< stringList.at(i) << ";" << Qt::endl;
+                 stream << "DXClusterServerPort="<< stringList.at(i) << ";" << QT_ENDL;
             }
         }
 
-        stream << "DXClusterShowHF=" << dxClusterPage->getShowHFQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWorked=" << dxClusterPage->getShowWorkedQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowConfirmed=" << dxClusterPage->getShowConfirmedQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  Qt::endl;
-        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  Qt::endl;
+        stream << "DXClusterShowHF=" << dxClusterPage->getShowHFQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowWorked=" << dxClusterPage->getShowWorkedQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowConfirmed=" << dxClusterPage->getShowConfirmedQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  QT_ENDL;
 
-        stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  Qt::endl;
-        stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  Qt::endl;
-        stream << "WorkedColor=" << colorsPage->getWorkedColor() << ";" <<  Qt::endl;
-        stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  Qt::endl;
-        stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  Qt::endl;
-        stream << "DarkMode=" << colorsPage->getDarkMode() << ";" << Qt::endl;
-        stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  Qt::endl;
-        //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << Qt::endl;
+        stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  QT_ENDL;
+        stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  QT_ENDL;
+        stream << "WorkedColor=" << colorsPage->getWorkedColor() << ";" <<  QT_ENDL;
+        stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  QT_ENDL;
+        stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  QT_ENDL;
+        stream << "DarkMode=" << colorsPage->getDarkMode() << ";" << QT_ENDL;
+        stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  QT_ENDL;
+        //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog() << QT_ENDL;
         // CLUBLOG
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 40" << Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - 40" << QT_ENDL;
 
             if (eLogPage->getClubLogActive())
             {
-                stream << "ClubLogActive=True;"<<  Qt::endl;
+                stream << "ClubLogActive=True;"<<  QT_ENDL;
             }
             else
             {
-                stream << "ClubLogActive=False;"<< Qt::endl;
+                stream << "ClubLogActive=False;"<< QT_ENDL;
             }
             if (eLogPage->getClubLogRealTime())
             {
-                stream << "ClubLogRealTime=True;" <<  Qt::endl;
+                stream << "ClubLogRealTime=True;" <<  QT_ENDL;
             }
             else
             {
-                stream << "ClubLogRealTime=False;" << Qt::endl;
+                stream << "ClubLogRealTime=False;" << QT_ENDL;
             }
             tmp = eLogPage->getClubLogEmail() ;
             if (tmp.length()>0)
             {
-                 stream << "ClubLogEmail=" << tmp << ";" <<  Qt::endl;
+                 stream << "ClubLogEmail=" << tmp << ";" <<  QT_ENDL;
             }
 
             tmp = eLogPage->getClubLogPassword() ;
             if (tmp.length()>0)
             {
-                stream << "ClubLogPass=" << tmp << ";" <<  Qt::endl;
+                stream << "ClubLogPass=" << tmp << ";" <<  QT_ENDL;
             }
 
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << QT_ENDL;
         // eQSL
 
 
             if (eLogPage->getEQSLActive())
             {
-                stream << "eQSLActive=True;" <<  Qt::endl;
+                stream << "eQSLActive=True;" <<  QT_ENDL;
             }
             else
             {
-                stream << "eQSLActive=False;" << Qt::endl;
+                stream << "eQSLActive=False;" << QT_ENDL;
             }
             tmp = eLogPage->getEQSLUser();
             if (tmp.length()>0)
             {
-                 stream << "eQSLCall=" << tmp << ";" <<  Qt::endl;
+                 stream << "eQSLCall=" << tmp << ";" <<  QT_ENDL;
             }
 
             tmp = eLogPage->getEQSLPassword() ;
             if (tmp.length()>0)
             {
-                stream << "eQSLPass=" << tmp << ";" <<  Qt::endl;
+                stream << "eQSLPass=" << tmp << ";" <<  QT_ENDL;
             }
 
         // eQSL - END
 
         // QRZ.com
 
-            //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << Qt::endl;
+            //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << QT_ENDL;
 
             if (eLogPage->getQRZCOMActive())
             {
-                stream << "QRZcomActive=True;" <<  Qt::endl;
+                stream << "QRZcomActive=True;" <<  QT_ENDL;
             }
             else
             {
-                stream << "QRZcomActive=False;" << Qt::endl;
+                stream << "QRZcomActive=False;" << QT_ENDL;
             }
             tmp = eLogPage->getQRZCOMUser();
             if (tmp.length()>0)
             {
-                 stream << "QRZcomUser=" << tmp << ";" <<  Qt::endl;
+                 stream << "QRZcomUser=" << tmp << ";" <<  QT_ENDL;
             }
             tmp = eLogPage->getQRZCOMPassword();
             if (tmp.length()>0)
             {
-                 stream << "QRZcomPass=" << tmp << ";" <<  Qt::endl;
+                 stream << "QRZcomPass=" << tmp << ";" <<  QT_ENDL;
             }
 
             if (eLogPage->getQRZCOMAutoCheck())
             {
-                 stream << "QRZcomAuto=True;" << Qt::endl;
+                 stream << "QRZcomAuto=True;" << QT_ENDL;
             }
             else
             {
-                stream << "QRZcomAuto=False;" <<  Qt::endl;
+                stream << "QRZcomAuto=False;" <<  QT_ENDL;
             }
             tmp = eLogPage->getQRZCOMLogBookKEY();
             if (tmp.length()>0)
             {
-                 stream << "QRZcomLogBookKey=" << tmp << ";" <<  Qt::endl;
+                 stream << "QRZcomLogBookKey=" << tmp << ";" <<  QT_ENDL;
             }
 
         // QRZ.com - END
 
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 60" << Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - 60" << QT_ENDL;
 
         // LOTW
-        stream << "LoTWActive=" << eLogPage->getLoTWActive() << ";" <<  Qt::endl;
+        stream << "LoTWActive=" << eLogPage->getLoTWActive() << ";" <<  QT_ENDL;
         tmp = eLogPage->getTQSLPath();
         if (tmp.length()>0)
         {
-            stream << "LoTWPath=" << tmp << ";" <<  Qt::endl;
+            stream << "LoTWPath=" << tmp << ";" <<  QT_ENDL;
         }
         tmp = eLogPage->getLoTWUser();
         if (tmp.length()>0)
         {
-            stream << "LoTWUSer=" << tmp << ";" <<  Qt::endl;
+            stream << "LoTWUSer=" << tmp << ";" <<  QT_ENDL;
         }
         tmp = eLogPage->getLoTWPass();
         if (tmp.length()>0)
         {
-            stream << "LoTWPass=" << tmp << ";" <<  Qt::endl;
+            stream << "LoTWPass=" << tmp << ";" <<  QT_ENDL;
         }
 
         // LOTW
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 70" << Qt::endl;
+        //qDebug() << "SetupDialog::slotOkButtonClicked - 70" << QT_ENDL;
         //WSJTX
-        stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  Qt::endl;
-        stream << "UDPNetworkInterface=" << UDPPage->getNetworkInterface() << ";" <<  Qt::endl;
-        stream << "UDPServerPort=" << UDPPage->getUDPServerPort() << ";" <<  Qt::endl;
-        stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  Qt::endl;
-        stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  Qt::endl;
-        stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  Qt::endl;
-        stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  Qt::endl;
+        stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  QT_ENDL;
+        stream << "UDPNetworkInterface=" << UDPPage->getNetworkInterface() << ";" <<  QT_ENDL;
+        stream << "UDPServerPort=" << UDPPage->getUDPServerPort() << ";" <<  QT_ENDL;
+        stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  QT_ENDL;
+        stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  QT_ENDL;
+        stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  QT_ENDL;
+        stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  QT_ENDL;
 
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib" << Qt::endl;
+          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib" << QT_ENDL;
         QString _aa = hamlibPage->getData();
-        stream << _aa << Qt::endl;
+        stream << _aa << QT_ENDL;
 
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa << Qt::endl;
+          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa << QT_ENDL;
 
         //WSJTX
 
         //Windows Size
         if (windowSize.length()>0)
         {
-            stream << "MainWindowSize=" << windowSize << ";" <<  Qt::endl;
+            stream << "MainWindowSize=" << windowSize << ";" <<  QT_ENDL;
         }
         if (latestBackup.length()>0)
         {
-            stream << "LatestBackup=" << latestBackup << ";" << Qt::endl;
+            stream << "LatestBackup=" << latestBackup << ";" << QT_ENDL;
         }
         file.close ();
     }
-    //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << Qt::endl;
+    //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << QT_ENDL;
     QDialog::accept();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "SetupDialog::slotOkButtonClicked - END" << Qt::endl;
+    //qDebug() << "SetupDialog::slotOkButtonClicked - END" << QT_ENDL;
     //close();
 }
 
 void SetupDialog::slotReadConfigData()
 {
-    //qDebug() << "SetupDialog::slotReadConfigData" << Qt::endl;
+    //qDebug() << "SetupDialog::slotReadConfigData" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     if (firstTime)
     {
-        //qDebug() << "SetupDialog::slotReadConfigData - First time" << Qt::endl;
+        //qDebug() << "SetupDialog::slotReadConfigData - First time" << QT_ENDL;
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
@@ -704,25 +704,25 @@ void SetupDialog::slotReadConfigData()
         logViewPage->setActiveFields(logViewFields);
     }
 
-    //qDebug() << "SetupDialog::slotReadConfigData - 1" << Qt::endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - 1" << QT_ENDL;
 
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
     {
-        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << Qt::endl;
+        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << QT_ENDL;
         //firstTime = true;
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-    //qDebug() << "SetupDialog::slotReadConfigData - 2" << Qt::endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - 2" << QT_ENDL;
     //dxClusterServers.clear();
 
     while (!file.atEnd()){
         QByteArray line = file.readLine();
         processConfigLine(line);
-        //qDebug() << "SetupDialog::slotReadConfigData - in the while" << Qt::endl;
+        //qDebug() << "SetupDialog::slotReadConfigData - in the while" << QT_ENDL;
     }
-    //qDebug() << "SetupDialog::slotReadConfigData - 3" << Qt::endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - 3" << QT_ENDL;
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -747,30 +747,30 @@ void SetupDialog::slotReadConfigData()
     bandModePage->setActiveBands(bands);
     logViewFields.removeDuplicates();
     logViewPage->setActiveFields(logViewFields);
-    //qDebug() << "SetupDialog::slotReadConfigData - END" << Qt::endl;
+    //qDebug() << "SetupDialog::slotReadConfigData - END" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 
 }
 
 bool SetupDialog::processConfigLine(const QString &_line)
 {
-    //qDebug() << "SetupDialog::processConfigLine: " << _line << Qt::endl;
+    //qDebug() << "SetupDialog::processConfigLine: " << _line << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
 
     QString line = _line.simplified();
     //line.simplified();
     int i = 0; //aux variable
-    QStringList values = line.split("=", Qt::SkipEmptyParts);
+    QStringList values = line.split("=", QT_SKIP);
     QString tab = QString();
 
 
     if (line.startsWith('#')){
-           //qDebug() << "SetupDialog::processConfigLine: Comment Line!" << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: Comment Line!" << QT_ENDL;
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
         return true;
     }
     if (!( (line.contains('=')) && (line.contains(';')))){
-           //qDebug() << "SetupDialog::processConfigLine: Wrong Line!" << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: Wrong Line!" << QT_ENDL;
         emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
         return false;
     }
@@ -783,10 +783,10 @@ bool SetupDialog::processConfigLine(const QString &_line)
         value = value.left(value.length() - (value.length() - endValue));
     }
     value = checkAndFixASCIIinADIF(value); // Check whether the value is valid.
-      //qDebug() << "SetupDialog::processConfigLine: TAB: " << tab << Qt::endl;
-      //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value << Qt::endl;
+      //qDebug() << "SetupDialog::processConfigLine: TAB: " << tab << QT_ENDL;
+      //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value << QT_ENDL;
     if (tab == "CALLSIGN"){
-           //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value << QT_ENDL;
         userDataPage->setStationQrz(value);
     }else if (tab == "OPERATORS"){
         userDataPage->setOperators(value);
@@ -811,7 +811,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         logViewFields.clear();
         //qDebug() << Q_FUNC_INFO << ": " << value;
         //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
-        logViewFields << dataProxy->filterValidFields(value.split(",", Qt::SkipEmptyParts));
+        logViewFields << dataProxy->filterValidFields(value.split(",", QT_SKIP));
         logViewFields.removeDuplicates();
         logViewPage->setActiveFields(logViewFields);
     }else if (tab=="REALTIME"){
@@ -826,7 +826,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         miscPage->setUseDefaultDBPath(value);
     }else if (tab=="DEFAULTADIFFILE"){
         miscPage->setDefaultFileName(value);
-           //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: FILE: " << value << QT_ENDL;
     }else if (tab=="IMPERIALSYSTEM"){
         miscPage->setImperial(value.toUpper());
     }else if (tab=="COMPLETEWITHPREVIOUS"){
@@ -988,7 +988,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         dxClusterPage->setShowWCYQCheckbox(value);
     }else if(tab =="DXCLUSTERSERVERPORT"){
         dxClusterServers << value;
-           //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last() << QT_ENDL;
     }else if (tab  =="DXCLUSTERSERVERTOUSE"){
         dxClusterServerToUse=value;
     }
@@ -1005,41 +1005,41 @@ bool SetupDialog::processConfigLine(const QString &_line)
         colorsPage->setConfirmedColor(value);
     }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
-          //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value << QT_ENDL;
     }else if(tab =="DARKMODE"){
         colorsPage->setDarkMode(value);
     }else if(tab =="HAMLIBRIGTYPE"){
-          //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value << QT_ENDL;
         hamlibPage->setRigType(value);
-          //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value << QT_ENDL;
     }else if(tab =="HAMLIBSERIALPORT"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value << QT_ENDL;
         hamlibPage->setSerialPort(value);
     }else if(tab =="HAMLIBSERIALBAUDS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
         hamlibPage->setSerialSpeed(value);
     }else if(tab =="HAMLIB"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value << QT_ENDL;
         hamlibPage->setActive(value);
     }else if(tab=="HAMLIBREADONLY"){
         hamlibPage->setReadOnly(value);
     }else if(tab =="HAMLIBSERIALDATABITS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
         hamlibPage->setDataBits(value);
     }else if(tab =="HAMLIBSERIALSTOPBITS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << QT_ENDL;
         hamlibPage->setStopBits(value);
     }else if(tab =="HAMLIBSERIALFLOWCONTROL"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << QT_ENDL;
         hamlibPage->setFlowControl(value);
     }else if(tab =="HAMLIBSERIALPARITY"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value << QT_ENDL;
         hamlibPage->setParity(value);
     }else if(tab =="HAMLIBSERIALRTS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value << QT_ENDL;
         //hamlibPage->setRTS(value);
     }else if(tab =="HAMLIBSERIALDTR"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << Qt::endl;
+          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value << QT_ENDL;
         //hamlibPage->setDTR(value);
     }else if (tab == "HAMLIBRIGPOLLRATE"){
         hamlibPage->setPollingInterval(value.toInt());
@@ -1048,16 +1048,16 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if (tab == "HAMLIBNETPORT"){
         hamlibPage->setRadioNetworkPort (value.toInt ());
     }else if(tab =="SELECTEDLOG"){
-           //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value << QT_ENDL;
         i = value.toInt();
 
         if (dataProxy->doesThisLogExist(i))
         {
-               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist TRUE" << Qt::endl;
+               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist TRUE" << QT_ENDL;
         }
         else
         {
-               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist FALSE" << Qt::endl;
+               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist FALSE" << QT_ENDL;
             i = 0;
             while(!dataProxy->doesThisLogExist(i))
             {
@@ -1065,7 +1065,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
             }
         }
         logsPage->setSelectedLog(i);
-           //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END" << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END" << QT_ENDL;
 
     }else if(tab =="CLUBLOGACTIVE"){
         eLogPage->setClubLogActive(util->trueOrFalse(value));
@@ -1148,12 +1148,12 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else
     {
-           //qDebug() << "SetupDialog::processConfigLine: NONE: " << Qt::endl;
+           //qDebug() << "SetupDialog::processConfigLine: NONE: " << QT_ENDL;
     }
 
     // Lines are: Option = value;
 
-       //qDebug() << "SetupDialog::processConfigLine: END "  << Qt::endl;
+       //qDebug() << "SetupDialog::processConfigLine: END "  << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
     return true;
 
@@ -1163,12 +1163,12 @@ bool SetupDialog::processConfigLine(const QString &_line)
 void SetupDialog::readActiveBands (const QString &actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
-      //qDebug() << "SetupDialog::readActiveBands: " << actives << Qt::endl;
+      //qDebug() << "SetupDialog::readActiveBands: " << actives << QT_ENDL;
 
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     bool atLeastOne = false;
 
-    QStringList values = actives.split(", ", Qt::SkipEmptyParts);
+    QStringList values = actives.split(", ", QT_SKIP);
     QStringList _abands;
 
     for (int i = 0; i < values.size() ; i++)
@@ -1177,13 +1177,13 @@ void SetupDialog::readActiveBands (const QString &actives)
         {
             if (!atLeastOne)
             {
-                   //qDebug() << "SetupDialog::readActiveBands (at least One!): " << values.at(i) << Qt::endl;
+                   //qDebug() << "SetupDialog::readActiveBands (at least One!): " << values.at(i) << QT_ENDL;
                 atLeastOne = true;
                 _abands.clear();
             }
 
             _abands << values.at(i);
-               //qDebug() << "SetupDialog::readActiveBands: " << values.at(i) << Qt::endl;
+               //qDebug() << "SetupDialog::readActiveBands: " << values.at(i) << QT_ENDL;
         }
 
     }
@@ -1199,14 +1199,14 @@ void SetupDialog::readActiveBands (const QString &actives)
 
 void SetupDialog::readActiveModes (const QString &actives)
 {
-       //qDebug() << "SetupDialog::readActiveModes: " << actives << Qt::endl;
+       //qDebug() << "SetupDialog::readActiveModes: " << actives << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
 
     bool atLeastOne = false;
     QStringList _amodes;//, _backModes;
     // _backModes.clear();
     // _backModes << modes;
-    QStringList values = actives.split(", ", Qt::SkipEmptyParts);
+    QStringList values = actives.split(", ", QT_SKIP);
     values.removeDuplicates();
 
     for (int i = 0; i < values.size() ; i++)
@@ -1227,12 +1227,12 @@ void SetupDialog::readActiveModes (const QString &actives)
     modes << _amodes;
     modes.removeDuplicates();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-       //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ") << Qt::endl;
+       //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ") << QT_ENDL;
 }
 
 bool SetupDialog::isValidBand (const QString &b)
 {
-       //qDebug() << "SetupDialog::isValidBand: "<< b << Qt::endl;
+       //qDebug() << "SetupDialog::isValidBand: "<< b << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(b);
     QSqlQuery query(stringQuery);
@@ -1243,7 +1243,7 @@ bool SetupDialog::isValidBand (const QString &b)
 }
 bool SetupDialog::isValidMode (const QString &b)
 {
-       //qDebug() << "SetupDialog::isValidMode: " << b << Qt::endl;
+       //qDebug() << "SetupDialog::isValidMode: " << b << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     QString stringQuery = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
     QSqlQuery query(stringQuery);
@@ -1255,7 +1255,7 @@ bool SetupDialog::isValidMode (const QString &b)
 
 void SetupDialog::setDefaults()
 {
-       //qDebug() << "SetupDialog::setDefaults" << Qt::endl;
+       //qDebug() << "SetupDialog::setDefaults" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     miscPage->setRealTime("TRUE");
     miscPage->setUTCTime("TRUE");
@@ -1308,7 +1308,7 @@ void SetupDialog::setDefaults()
 
 QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
 {
-       //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << Qt::endl;
+       //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data << QT_ENDL;
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     ushort unicodeVal;
@@ -1323,7 +1323,7 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
         {
             newString.append(st.at(i));
         }
-           //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << Qt::endl;
+           //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << QT_ENDL;
     }
 
     // Show into another lineEdit
@@ -1360,35 +1360,35 @@ void SetupDialog::setEQSLActive(const bool _b)
 
 void SetupDialog::checkIfNewBandOrMode()
 {
-      //qDebug() << "SetupDialog::checkIfNewBandOrMode: logSeverity: " << QString::number(logSeverity) << Qt::endl;
+      //qDebug() << "SetupDialog::checkIfNewBandOrMode: logSeverity: " << QString::number(logSeverity) << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     QStringList _items;
 
     _items.clear();
-       //qDebug() << "SetupDialog::checkIfNewBandOrMode -1" << Qt::endl;
+       //qDebug() << "SetupDialog::checkIfNewBandOrMode -1" << QT_ENDL;
     _items << dataProxy->getBandsInLog(-1);
-       //qDebug() << "SetupDialog::checkIfNewBandOrMode -2" << Qt::endl;
-    _items << (bandModePage->getBands()).split(", ", Qt::SkipEmptyParts);
-       //qDebug() << "SetupDialog::checkIfNewBandOrMode -3" << Qt::endl;
+       //qDebug() << "SetupDialog::checkIfNewBandOrMode -2" << QT_ENDL;
+    _items << (bandModePage->getBands()).split(", ", QT_SKIP);
+       //qDebug() << "SetupDialog::checkIfNewBandOrMode -3" << QT_ENDL;
     _items.removeDuplicates();
-       //qDebug() << "SetupDialog::checkIfNewBandOrMode -4" << Qt::endl;
+       //qDebug() << "SetupDialog::checkIfNewBandOrMode -4" << QT_ENDL;
     bandModePage->setActiveBands(_items);
-       //qDebug() << "SetupDialog::checkIfNewBandOrMode -5" << Qt::endl;
+       //qDebug() << "SetupDialog::checkIfNewBandOrMode -5" << QT_ENDL;
 
     _items.clear();
     _items << dataProxy->getModesInLog(-1);
-    _items << (bandModePage->getModes()).split(", ", Qt::SkipEmptyParts);
+    _items << (bandModePage->getModes()).split(", ", QT_SKIP);
     _items.removeDuplicates();
     bandModePage->setActiveModes(_items);
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-       //qDebug() << "SetupDialog::checkIfNewBandOrMode END" << Qt::endl;
+       //qDebug() << "SetupDialog::checkIfNewBandOrMode END" << QT_ENDL;
 }
 
 
 void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
 {
-      //qDebug() << "SetupDialog::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << Qt::endl;
-       //qDebug() << "SetupDialog::slotAnalyzeNewLogData" << Qt::endl;
+      //qDebug() << "SetupDialog::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")" << QT_ENDL;
+       //qDebug() << "SetupDialog::slotAnalyzeNewLogData" << QT_ENDL;
  // We receive the station callsign and operators from the logs tab
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     if (_qs.length()!=2)
@@ -1403,7 +1403,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
 
 void SetupDialog::slotSetStationCallSign(const QString &_p)
 {
-       //qDebug() << "SetupDialog::slotSetStationCallSign: " << _p << Qt::endl;
+       //qDebug() << "SetupDialog::slotSetStationCallSign: " << _p << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     logsPage->setDefaultStationCallsign(_p);
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -1411,7 +1411,7 @@ void SetupDialog::slotSetStationCallSign(const QString &_p)
 
 void SetupDialog::slotSetOperators(const QString &_p)
 {
-       //qDebug() << "SetupDialog::slotSetOperators: " << _p << Qt::endl;
+       //qDebug() << "SetupDialog::slotSetOperators: " << _p << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     logsPage->setDefaultOperators(_p);
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -1430,14 +1430,14 @@ void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString error
 
 void SetupDialog::slotFocusOK()
 {
-      //qDebug() << "SetupDialog::slotFocusOK" << Qt::endl;
+      //qDebug() << "SetupDialog::slotFocusOK" << QT_ENDL;
     okButton->setFocus(Qt::OtherFocusReason);
 }
 
 void SetupDialog::showEvent(QShowEvent *event)
 {
-    //qDebug() << Q_FUNC_INFO << Qt::endl;
-    //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << QT_ENDL;
     QWidget::showEvent(event);
 
     userDataPage->setStationFocus();

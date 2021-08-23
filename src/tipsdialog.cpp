@@ -34,7 +34,7 @@
 
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
-      //qDebug() << "TipsDialog::TipsDialog" << Qt::endl;
+      //qDebug() << "TipsDialog::TipsDialog" << QT_ENDL;
     logSeverity = Info;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
     tipTextQLabel = new QLabel;
@@ -94,7 +94,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     setLayout(layout);
 
 
-       //qDebug() << "TipsDialog::TipsDialog - END" << Qt::endl;
+       //qDebug() << "TipsDialog::TipsDialog - END" << QT_ENDL;
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
@@ -228,14 +228,14 @@ void TipsDialog::setTip(const int _t)
     tipTextQLabel->setText(description);
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "TipsDialog::setTip: END"  << Qt::endl;
+      //qDebug() << "TipsDialog::setTip: END"  << QT_ENDL;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 
-      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << Qt::endl;
+      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << QT_ENDL;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
     {

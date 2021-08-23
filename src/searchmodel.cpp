@@ -28,7 +28,7 @@
 
 SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-    //qDebug() << "SearchModel::SearchModel "  << Qt::endl;
+    //qDebug() << "SearchModel::SearchModel "  << QT_ENDL;
     dataProxy = dp;
     stationCallsignInHeader = true;
     setTable("log");
@@ -40,8 +40,8 @@ SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTa
 
     award = new Awards(dataProxy, Q_FUNC_INFO);
 
-    //qDebug() << "SearchModel::SearchModel: Rows obtained: " << QString::number(rowCount())  << Qt::endl;
-    //qDebug() << "SearchModel::SearchModel - END"  << Qt::endl;
+    //qDebug() << "SearchModel::SearchModel: Rows obtained: " << QString::number(rowCount())  << QT_ENDL;
+    //qDebug() << "SearchModel::SearchModel - END"  << QT_ENDL;
 }
 
 void SearchModel::setDXCCColumn(const int _i)
@@ -89,7 +89,7 @@ the view should present the city's name field to the user.
 This should be coherent with the treeview
 */
 
-      //qDebug() << "SearchModel::createSearchModel: log: " << QString::number(_i) << Qt::endl;
+      //qDebug() << "SearchModel::createSearchModel: log: " << QString::number(_i) << QT_ENDL;
 
    //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
 
@@ -111,7 +111,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 /*
  void SearchModel::setColumnsToDX()
  {
-        //qDebug() << "SearchModel::setColumnsToDX"  << Qt::endl;
+        //qDebug() << "SearchModel::setColumnsToDX"  << QT_ENDL;
 
      QSqlQuery q;
 
@@ -130,8 +130,8 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
      }
     q.next();
     rec = q.record(); // Number of columns
-    //qDebug() << "SearchModel::createSearchModel - query: " << q.lastQuery() << Qt::endl;
-    //qDebug() << "SearchModel::createSearchModel - columns: " << QString::number(rec.count()) << Qt::endl;
+    //qDebug() << "SearchModel::createSearchModel - query: " << q.lastQuery() << QT_ENDL;
+    //qDebug() << "SearchModel::createSearchModel - columns: " << QString::number(rec.count()) << QT_ENDL;
 
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
@@ -170,7 +170,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 */
  void SearchModel::setFilterString(const QString &_st)
  {
-    //qDebug() << "SearchModel::setFilterString: " << _st << Qt::endl;
+    //qDebug() << "SearchModel::setFilterString: " << _st << QT_ENDL;
      setFilter(_st);
      select();
  }
@@ -182,7 +182,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 
  void SearchModel::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
  {
-        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << Qt::endl;
+        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << QT_ENDL;
      // Just to pass the colors to the awards class
      award->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
  }

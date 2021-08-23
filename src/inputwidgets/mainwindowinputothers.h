@@ -32,6 +32,7 @@
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
 #include "../utilities.h"
+#include "../klogdefinitions.h"
 
 class MainWindowInputOthers : public QWidget
 {

@@ -42,4 +42,15 @@ struct EntityData { // Used to pass a list of data from World to dxccstatuswidge
 
 } ;
 
+#if (QT_VERSION>=0x051202)
+#define QT_SKIP Qt::SkipEmptyParts
+#define QT_ENDL Qt::endl
+#define QT_RETURNBYVALUE Qt::ReturnByValue
+#else
+#define QT_SKIP QString::SkipEmptyParts
+#define QT_ENDL endl
+#define QT_RETURNBYVALUE
+#endif
+
+
 #endif // KLOGDEFINITIONS_H

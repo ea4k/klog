@@ -28,7 +28,7 @@
 
 SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageLogView::SetupPageLogView"   << Qt::endl;
+       //qDebug() << "SetupPageLogView::SetupPageLogView"   << QT_ENDL;
     dataProxy = dp;
 
     fieldsListWidget = new QListWidget;
@@ -50,7 +50,7 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
     layout->addLayout(fLayout);
 
     setLayout(layout);
-       //qDebug() << "SetupPageLogView::SetupPageLogView - END"   << Qt::endl;
+       //qDebug() << "SetupPageLogView::SetupPageLogView - END"   << QT_ENDL;
 }
 
 SetupPageLogView::~SetupPageLogView()
@@ -70,7 +70,7 @@ void SetupPageLogView::addFields(QStringList _b)
 
 QString SetupPageLogView::getFields()
 {
-       //qDebug() << "SetupPageLogView::getBands" << Qt::endl;
+       //qDebug() << "SetupPageLogView::getBands" << QT_ENDL;
 
     QString b;
     QListWidgetItem *it;
@@ -100,7 +100,7 @@ QString SetupPageLogView::getFields()
 
 void SetupPageLogView::setActiveFields(QStringList q)
 {
-       //qDebug() << "SetupPageLogView::setActiveFields" << Qt::endl;
+       //qDebug() << "SetupPageLogView::setActiveFields" << QT_ENDL;
 
     if (q.isEmpty())
     {return;}

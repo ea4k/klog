@@ -28,7 +28,7 @@
 
 SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << Qt::endl;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << QT_ENDL;
     dataProxy = dp;
 
     bandsListWidget = new QListWidget;
@@ -61,7 +61,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     //layout->addWidget(modesListWidget);
 
     setLayout(layout);
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << Qt::endl;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << QT_ENDL;
 }
 
 SetupPageBandMode::~SetupPageBandMode()
@@ -96,7 +96,7 @@ void SetupPageBandMode::addModes(QStringList _b)
 
 QString SetupPageBandMode::getBands()
 {
-       //qDebug() << "SetupPageBandMode::getBands" << Qt::endl;
+       //qDebug() << "SetupPageBandMode::getBands" << QT_ENDL;
 
     QString b;
     QListWidgetItem *it;
@@ -125,7 +125,7 @@ QString SetupPageBandMode::getBands()
 
 QString SetupPageBandMode::getModes()
 {
-       //qDebug() << "SetupPageBandMode::getModes" << Qt::endl;
+       //qDebug() << "SetupPageBandMode::getModes" << QT_ENDL;
 
     QString b;
     QListWidgetItem *it;
@@ -151,14 +151,14 @@ QString SetupPageBandMode::getModes()
     {
         b.chop(2);
     }
-       //qDebug() << "SetupPageBandMode::getModes: " << b << Qt::endl;
+       //qDebug() << "SetupPageBandMode::getModes: " << b << QT_ENDL;
     return b;
 }
 
 
 void SetupPageBandMode::setActiveBands(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveBands" << Qt::endl;
+       //qDebug() << "SetupPageBandMode::setActiveBands" << QT_ENDL;
 
     if (q.isEmpty())
     {return;}
@@ -188,7 +188,7 @@ void SetupPageBandMode::setActiveBands(QStringList q)
 
 void SetupPageBandMode::setActiveModes(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveModes" << Qt::endl;
+       //qDebug() << "SetupPageBandMode::setActiveModes" << QT_ENDL;
 
     if (q.isEmpty())
     {return;}

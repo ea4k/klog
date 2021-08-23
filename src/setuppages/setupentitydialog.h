@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include <QDialog>
 #include <QPalette>
+#include "../klogdefinitions.h"
 
 
 class SetupEntityDialog : public QDialog

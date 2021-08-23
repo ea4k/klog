@@ -27,7 +27,7 @@
 
 StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent)
 {
-     //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget" << Qt::endl;
+     //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget" << QT_ENDL;
 
     dataProxy = dp;
     util = new Utilities;
@@ -77,7 +77,7 @@ void StatsFieldPerBandWidget::createUI()
 
 void StatsFieldPerBandWidget::prepareChart(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << Qt::endl;
+    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << QT_ENDL;
 
     while(tableWidget->rowCount()>0)
     {

@@ -47,6 +47,7 @@
 //#include "setuppages/setuppageinterfaceswindows.h"
 #include "utilities.h"
 #include "locator.h"
+#include "klogdefinitions.h"
 
 
 class QListWidget;

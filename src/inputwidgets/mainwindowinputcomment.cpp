@@ -30,12 +30,12 @@
 MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << Qt::endl;
+       //qDebug() << "MainWindowInputComment::MainWindowInputComment"   << QT_ENDL;
     commentLineEdit = new QLineEdit();
     keepThisDataForNextQSOQCheckbox = new QCheckBox;
     comment.clear();
     createUI();
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << Qt::endl;
+       //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"   << QT_ENDL;
 }
 
 
