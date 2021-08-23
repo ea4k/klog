@@ -186,40 +186,40 @@ void AdifLoTWExportWidget::fillTable()
 
        if (stationCallsignComboBox->currentIndex() == 0)
        { // Not defined station_callsign (blank)
-           qDebug() << "AdifLoTWExportWidget::fillTable blank station callsign " << Qt::endl;
+           qDebug() << "AdifLoTWExportWidget::fillTable blank station callsign " << QT_ENDL;
            qsos.append(dataProxy->getQSOsListLoTWNotSent(QString(), startDate->date(), endDate->date(), justQueued));
        }
        else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
        { // ALL stations, no matter the station.
-           qDebug() << "AdifLoTWExportWidget::fillTable ALL station callsign " << Qt::endl;
+           qDebug() << "AdifLoTWExportWidget::fillTable ALL station callsign " << QT_ENDL;
            qsos.append(dataProxy->getQSOsListLoTWNotSent("ALL", startDate->date(), endDate->date(), justQueued));
        }
        else
        {
-           qDebug() << "AdifLoTWExportWidget::fillTable OTHER station callsign " << Qt::endl;
+           qDebug() << "AdifLoTWExportWidget::fillTable OTHER station callsign " << QT_ENDL;
            if (currentExportMode == ModeClubLog)
            {
-               qDebug() << "AdifLoTWExportWidget::fillTable Mode ClubLog" << Qt::endl;
+               qDebug() << "AdifLoTWExportWidget::fillTable Mode ClubLog" << QT_ENDL;
                qsos.append(dataProxy->getQSOsListClubLogToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else if (currentExportMode == ModeEQSL)
            {
-               qDebug() << "AdifLoTWExportWidget::fillTable Mode eQSL" << Qt::endl;
+               qDebug() << "AdifLoTWExportWidget::fillTable Mode eQSL" << QT_ENDL;
               qsos.append(dataProxy->getQSOsListEQSLToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else if (currentExportMode == ModeQRZ)
            {
-               qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << Qt::endl;
+               qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
               qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else if (currentExportMode == ModeLotW)
            {
-               qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << Qt::endl;
+               qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
               qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else
            {//(currentExportMode == ModeADIF)
-               qDebug() << "AdifLoTWExportWidget::fillTable Mode LoTW" << Qt::endl;
+               qDebug() << "AdifLoTWExportWidget::fillTable Mode LoTW" << QT_ENDL;
                qsos.append(dataProxy->getQSOsListToBeExported(stationCallsignComboBox->currentText(), startDate->date(), endDate->date()));
            }
        }
