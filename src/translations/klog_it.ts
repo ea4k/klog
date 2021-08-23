@@ -4575,7 +4575,59 @@ KLog terminerà appena cliccherai su OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1767"/>
         <source>Dark Dok</source>
-        <translation>Dark-Dok</translation>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">Dark-Dok</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1783"/>
+        <source>Fists</source>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">Prime</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1785"/>
+        <source>Fists CC</source>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">Prime CC</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1837"/>
+        <source>My Fists</source>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">Mie prime</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1875"/>
+        <source>Nr bursts</source>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">Nr. bursts</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1877"/>
+        <source>Nr pings</source>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">Nr. pings</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1925"/>
+        <source>Sat mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1953"/>
+        <source>SWL</source>
+        <comment>Do not translate if unsure, common hamradio term.</comment>
+        <translation type="unfinished">SWL</translation>
+    </message>
+    <message>
+        <location filename="../utilities.cpp" line="1963"/>
+        <source>Ten-Ten</source>
+        <comment>Do not translate, it is a hamradio group name.</comment>
+        <translation type="unfinished">Ten-Ten</translation>
+    </message>
+    <message>
+        <source>Dark Dok</source>
+        <translation type="vanished">Dark-Dok</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1769"/>
@@ -4613,14 +4665,12 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>eQSL Sent</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1783"/>
         <source>Fists</source>
-        <translation>Prime</translation>
+        <translation type="vanished">Prime</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1785"/>
         <source>Fists CC</source>
-        <translation>Prime CC</translation>
+        <translation type="vanished">Prime CC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1787"/>
@@ -4748,9 +4798,8 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>Mio DXCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1837"/>
         <source>My Fists</source>
-        <translation>Mie prime</translation>
+        <translation type="vanished">Mie prime</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1839"/>
@@ -4843,14 +4892,12 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>Note</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1875"/>
         <source>Nr bursts</source>
-        <translation>Nr. bursts</translation>
+        <translation type="vanished">Nr. bursts</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1877"/>
         <source>Nr pings</source>
-        <translation>Nr. pings</translation>
+        <translation type="vanished">Nr. pings</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1879"/>
@@ -4968,9 +5015,8 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>RX Pwr</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1925"/>
         <source>Sat Mode</source>
-        <translation>Modo Satellite</translation>
+        <translation type="vanished">Modo Satellite</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1927"/>
@@ -5034,9 +5080,8 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>Sub-modo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1953"/>
         <source>SWL</source>
-        <translation>SWL</translation>
+        <translation type="vanished">SWL</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1955"/>
@@ -5059,10 +5104,9 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>VUCC statistiche</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1963"/>
         <source>Ten-Ten</source>
         <comment>Do not translate, it is a groups name.</comment>
-        <translation>Ten-Ten</translation>
+        <translation type="vanished">Ten-Ten</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1965"/>

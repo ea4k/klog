@@ -13,3 +13,4 @@ KLog.app
 *.autosave
 *.sh~
 *.dmg
+src/macOSDeploy.sh

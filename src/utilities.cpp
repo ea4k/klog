@@ -1763,7 +1763,7 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "credit_granted")
         return QObject::tr("Credit granted");
     else if (_column == "dark_dok")
-        return QObject::tr("Dark Dok");
+        return QObject::tr("Dark Dok", "Do not translate if unsure, common hamradio term.");
     else if (_column == "distance")
         return QObject::tr("Distance");
     else if (_column == "email")
@@ -1779,9 +1779,9 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "eqsl_qsl_sent")
         return QObject::tr("eQSL Sent");
     else if (_column == "fists")
-        return QObject::tr("Fists");
+        return QObject::tr("Fists", "Do not translate if unsure, common hamradio term.");
     else if (_column == "fists_cc")
-        return QObject::tr("Fists CC");
+        return QObject::tr("Fists CC", "Do not translate if unsure, common hamradio term.");
     else if (_column == "force_init")
         return QObject::tr("Force Init");
     else if (_column == "freq")
@@ -1833,7 +1833,7 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "my_dxcc")
         return QObject::tr("My DXCC");
     else if (_column == "my_fists")
-        return QObject::tr("My Fists");
+        return QObject::tr("My Fists", "Do not translate if unsure, common hamradio term.");
     else if (_column == "my_gridsquare")
         return QObject::tr("My Gridsquare");
     else if (_column == "my_iota")
@@ -1871,9 +1871,9 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "notes")
         return QObject::tr("Notes");
     else if (_column == "nr_bursts")
-        return QObject::tr("Nr bursts");
+        return QObject::tr("Nr bursts", "Do not translate if unsure, common hamradio term.");
     else if (_column == "nr_pings")
-        return QObject::tr("Nr pings");
+        return QObject::tr("Nr pings", "Do not translate if unsure, common hamradio term.");
     else if (_column == "operator")
         return QObject::tr("Operator");
     else if (_column == "owner_callsign")
@@ -1921,7 +1921,7 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "rx_pwr")
         return QObject::tr("RX Pwr");
     else if (_column == "sat_mode")
-        return QObject::tr("Sat Mode");
+        return QObject::tr("Sat mode");
     else if (_column == "sat_name")
         return QObject::tr("Sat name");
     else if (_column == "sfi")
@@ -1949,7 +1949,7 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "submode")
         return QObject::tr("Submode");
     else if (_column == "swl")
-        return QObject::tr("SWL");
+        return QObject::tr("SWL", "Do not translate if unsure, common hamradio term.");
     else if (_column == "uksmg")
         return QObject::tr("UKSMG");
     else if (_column == "usaca_counties")
@@ -1959,7 +1959,7 @@ QString Utilities::getLogColumnName(const QString &_column)
     else if (_column == "vucc_grids")
         return QObject::tr("VUCC grids");
     else if (_column == "ten_ten")
-        return QObject::tr("Ten-Ten", "Do not translate, it is a groups name.");
+        return QObject::tr("Ten-Ten", "Do not translate, it is a hamradio group name.");
     else if (_column == "tx_pwr")
         return QObject::tr("TX Pwr");
     else if (_column == "web")

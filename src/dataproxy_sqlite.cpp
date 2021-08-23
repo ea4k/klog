@@ -3510,8 +3510,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCalls
     return qsoList;
 
 }
-
-
+/*
 QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
 {
     //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent2 Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
@@ -3613,6 +3612,7 @@ QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCal
     return list;
 
 }
+*/
 
 QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified)
 {
@@ -3856,6 +3856,73 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
     return qsoList;
 }
 
+
+QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate)
+{
+    qDebug() << Q_FUNC_INFO << ": Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << Qt::endl;
+    QList <int> qsoList;
+    qsoList.clear();
+    QDate tmpDate;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString;
+
+    QString _queryST_string;
+    if (util->isValidCall(_stationCallsign))
+    {
+        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
+    }
+    else if (_stationCallsign == "ALL")
+    {
+        _queryST_string = QString("station_callsign!='ALL'");
+    }
+    else
+    {
+        _queryST_string = QString("station_callsign=''");
+    }
+
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string ;
+
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+    //qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << Qt::endl;
+
+    if (sqlOK)
+    {
+       // //qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << Qt::endl;
+
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                aux.clear();
+                aux = (query.value(1)).toString() ;
+                tmpDate = util->getDateFromSQliteString(aux);
+                //qDebug() << Q_FUNC_INFO << ": QSO Date: " << aux << "/" << tmpDate.toString("yyyy-MM-dd") << Qt::endl;
+                //tmpDate = QDate::fromString(aux, "yyyy-MM-dd");
+                if ((_startDate<=tmpDate) && _endDate>=tmpDate)
+                {
+                    qsoList.append((query.value(0)).toInt());
+                }
+            }
+            else
+            {
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        qsoList.clear();
+        return qsoList;
+    }
+    query.finish();
+    qs.sort();
+    return qsoList;
+}
 
 QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
 {
