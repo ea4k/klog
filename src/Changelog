@@ -1,4 +1,4 @@
-TBD - 1.9
+Aug 2021 - 1.8.3
 - Added some backport code so systems without Qt 5.15.2 can compile and use KLog.
 - Bugfix: Selecting File->Export to ADIF was not showing all the possible QSOs to be exported.
 
