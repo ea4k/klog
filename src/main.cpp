@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << QT_ENDL;
     QT_REQUIRE_VERSION(argc, argv, "5.9")
     QDir d1 = QDir();
-    QString version = "1.8.2";
+    QString version = "1.8.3";
     //qDebug() << "KLog Main STARTED: " << version << QT_ENDL;
     Utilities util = Utilities();
     QStringList arguments;
