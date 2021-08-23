@@ -1,21 +1,19 @@
+Language: cpp
 branches:
   only:
     - master
 matrix:
   include:
   - os: linux
+    arch: amd64
+    sudo: required
     dist: focal
-    language: shell
-    services:
-    - docker
     before_install:
-    - docker load -i docker_images/images.tar || true
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker pull "$DOCKER_USERNAME"/devel-qt-5.15.2:v0
+      - sudo apt-get update
+      - sudo apt-get -y install qtbase5-dev libsqlite3-dev
+      - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
+    compiler:
+      - gcc
     script:
-    - docker run -it -v "$PWD":/root/klog "$DOCKER_USERNAME"/devel-qt-5.15.2:v0 /root/klog/devscripts/buildWithDocker.sh
-    cache:
-    directories:
-    - docker_images
-    before_cache:
-    - docker save -o docker_images/images.tar $(docker images -a -q)
+      - qmake KLog.pro
+      - make
