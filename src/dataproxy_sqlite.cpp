@@ -3859,7 +3859,7 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
 
 QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate)
 {
-    qDebug() << Q_FUNC_INFO << ": Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
     QList <int> qsoList;
     qsoList.clear();
     QDate tmpDate;

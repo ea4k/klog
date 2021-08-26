@@ -379,6 +379,10 @@ void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
     //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity) << QT_ENDL;
     //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
+    if (_entity <1)
+    {
+      clearBandLabels();
+    }
 
     bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));
     bandLabel2->setStyleSheet(getStyleColorToLabelFromBand(bandLabel2->text(), QString::number(_entity)));
