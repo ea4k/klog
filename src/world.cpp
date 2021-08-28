@@ -436,7 +436,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 int World::getPrefixId(const QString &_qrz)
 {
-      //qDebug() << "World::getPrefixId: -" << _qrz <<"-" << QT_ENDL;
+    //qDebug() << "World::getPrefixId: -" << _qrz <<"-" << QT_ENDL;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
 
@@ -450,7 +450,7 @@ int World::getPrefixId(const QString &_qrz)
 
     while ((entityID <= 0) && (aux.length()>=1) )
     {
-          //qDebug() << "World::getPrefixId: in the while before calling dataProxy: " << aux << QT_ENDL;
+        //qDebug() << "World::getPrefixId: in the while before calling dataProxy: " << aux << QT_ENDL;
         if (aux == "KG4")
         {
             if (_qrz.length()!=5)
@@ -461,14 +461,14 @@ int World::getPrefixId(const QString &_qrz)
         entityID = dataProxy->getDXCCFromPrefix(aux);
           //qDebug() << "World::getPrefixId: in the while After calling dataProxy" << QT_ENDL;
 
-          //qDebug() << "World::getPrefixId: in the while" << aux << " = " <<  QString::number(entityID) << QT_ENDL;
+        //qDebug() << "World::getPrefixId: in the while" << aux << " = " <<  QString::number(entityID) << QT_ENDL;
         if (entityID<=0)
         {
             aux.chop(1);
         }
 
     }
-      //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID) << QT_ENDL;
+    //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID) << QT_ENDL;
     return entityID;
 }
 

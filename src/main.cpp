@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
     QSystemSemaphore semaphore("klogapp", 1);  // create semaphore with unique ID klogapp
     semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
 
-#ifndef Q_OS_WIN32
+#ifndef Q_OS_WIN
     // in linux / unix shared memory is not freed when the application terminates abnormally,
     // so you need to get rid of the garbage
     QSharedMemory nix_fix_shared_memory("klogshm");
@@ -377,12 +377,12 @@ int main(int argc, char *argv[])
 
     else
     {
-            //qDebug() << "Main: Start of DB Activities" << QT_ENDL;
+        //qDebug() << "Main: Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-           //qDebug() << "Main: After Start of DB Activities" << QT_ENDL;
+        //qDebug() << "Main: After Start of DB Activities" << QT_ENDL;
         if (!db->createConnection(Q_FUNC_INFO))
         {
-                //qDebug() << "Main: Conection not created" << QT_ENDL;
+            //qDebug() << "Main: Conection not created" << QT_ENDL;
             return -1; // Exits with an error; no DB has been created
         }
         else
@@ -391,27 +391,28 @@ int main(int argc, char *argv[])
             db->updateIfNeeded(); // Check if we need to update the DB
             //qDebug() << "Main: DB Updated" << QT_ENDL;
         }
+        //qDebug() << "Main: DB Updated" << QT_ENDL;
+        //qDebug() << "KLog Main-98" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         db->~DataBase();
-
+        //qDebug() << "KLog Main-99" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.show();
-          //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         MainWindow mw(klogDir, version);
-
+        //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         mw.init();
+        //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.finish(&mw);
+        //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         mw.checkIfNewVersion();
+        //qDebug() << "KLog Main-104" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         mw.recommendBackupIfNeeded();
-
-            //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-105" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         mw.show();
-            //qDebug() << "KLog Main-101.5" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
-
-           //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
-
+        //qDebug() << "KLog Main-106" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         return app.exec();
-           //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-107" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }
-       //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << QT_ENDL;
+        //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << QT_ENDL;
 
     //return app.exec();
 }

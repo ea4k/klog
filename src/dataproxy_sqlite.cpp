@@ -7377,7 +7377,7 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
   }
 
 }
-QStringList DataProxy_SQLite::getEntiNameAndPrefixFromId(const int _dxcc)
+QStringList DataProxy_SQLite::getEntiNameISOAndPrefixFromId(const int _dxcc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
 
@@ -7420,7 +7420,7 @@ QStringList DataProxy_SQLite::getEntiNameAndPrefixFromId(const int _dxcc)
 
     QStringList result;
     result.clear();
-    queryString = QString("SELECT mainprefix, name FROM entity WHERE dxcc='%1'").arg(_dxcc);
+    queryString = QString("SELECT mainprefix, name, isoname FROM entity WHERE dxcc='%1'").arg(_dxcc);
 
     sqlOK = query.exec(queryString);
 
@@ -7436,9 +7436,10 @@ QStringList DataProxy_SQLite::getEntiNameAndPrefixFromId(const int _dxcc)
 
         if (query.isValid())
         {
-            queryString = (query.value(0)).toString();
+            //queryString = (query.value(0)).toString();
             QString prefix = (query.value(0)).toString();
-            QString name  = (query.value(1)).toString();
+            QString name = (query.value(1)).toString();
+             QString isoName = (query.value(2)).toString();
             query.finish();
             if (prefix.length ()<1)
             {
@@ -7452,8 +7453,12 @@ QStringList DataProxy_SQLite::getEntiNameAndPrefixFromId(const int _dxcc)
             {
                 name = name + "(" + motherEntName + ")";
             }
+            if (isoName.length ()<2)
+            {
+                return QStringList();
+            }
 
-            result << prefix << name;
+            result << prefix << name << isoName;
             return result;
         }
         else

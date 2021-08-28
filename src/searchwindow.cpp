@@ -566,8 +566,6 @@ void SearchWindow::setFilterString(const QString &_st)
 {
     //qDebug() << "SearchWindow::setFilterString: " << _st << QT_ENDL;
     searchModel->setFilterString(_st);
-
-
     //qDebug() << "SearchWindow::setFilterString: - END "  << QT_ENDL;
 }
 

@@ -39,17 +39,29 @@ struct EntityData { // Used to pass a list of data from World to dxccstatuswidge
   QString mainprefix;
   QString name;
   QString isoname;
+};
 
-} ;
+struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstatuswidget
+  int dxcc;
+  int bandid;
+  bool confirmed;
+};
 
-#if (QT_VERSION>=0x051202)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 2))
 #define QT_SKIP Qt::SkipEmptyParts
 #define QT_ENDL Qt::endl
 #define QT_RETURNBYVALUE Qt::ReturnByValue
-#else
+ #else
 #define QT_SKIP QString::SkipEmptyParts
 #define QT_ENDL endl
 #define QT_RETURNBYVALUE
+ #endif
+
+
+#if QT_VERSION>=0x041502
+
+#else
+
 #endif
 
 

@@ -308,6 +308,7 @@ QMAKE_EXTRA_COMPILERS += updateqm
 DISTFILES += Changelog COPYING
 
 unix:!mac {
+    message(unix:!mac)
     DEFINES += APP_LINUX
     CONFIG  += c++11
     #QMAKE_CXXFLAGS += --coverage
@@ -332,6 +333,7 @@ unix:!mac {
 }
 
 macx: {
+    message(macx)
     ICON = klog.icns
     TARGET = KLog
     CONFIG += c++11
@@ -340,20 +342,23 @@ macx: {
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
 }
+
 win32: {
+    message(win32)
     RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
     LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
+    LIBS += -L"$$PWD/../../libs/hamlib/bin"
     INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
+    #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/bin"
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 }
-
-
 else:
 {
+    message(Uknown platform)
     TARGET = klog
 }
 

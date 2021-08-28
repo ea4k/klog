@@ -568,7 +568,7 @@ void UDPServer::adifParse(QByteArray &msg)
     QString _myPWR = QString();
     QString operatorCall = QString();
     QString stationcallsign = QString();
-    double freq;
+    double freq = 0.0;
     QDateTime datetime, datetime_off;
     QDate _date_on, _date_off;
     QTime _time_on, _time_off;
@@ -699,6 +699,10 @@ void UDPServer::adifParse(QByteArray &msg)
                     datetime_off = QDateTime();
                 }
                 //qDebug() << "UDPServer::adifParse: Emitting"  <<  QT_ENDL;
+                if ((freq < 0.1) && (band.length ()<2))
+                {
+                    return;
+                }
                 emit logged_qso (dx_call, mode, band, freq,
                                  mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign, _name,
                                  operatorCall, datetime, datetime_off, _exchangeTX, _exchangeRX, _myPWR);

@@ -105,7 +105,6 @@ This should be coherent with the treeview
 void SearchModel::setStationCallsignInHeader(const bool _s)
 {
     stationCallsignInHeader = _s;
-
 }
 
 /*
@@ -171,8 +170,10 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
  void SearchModel::setFilterString(const QString &_st)
  {
     //qDebug() << "SearchModel::setFilterString: " << _st << QT_ENDL;
-     setFilter(_st);
-     select();
+    setFilter(_st);
+    select();
+    //qDebug() << "SearchModel::setFilterString: SelectStatement: " << selectStatement () << QT_ENDL;
+
  }
 
  void SearchModel::update()
@@ -196,12 +197,10 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
              //QString _qrz = data(index, Qt::DisplayRole).toString();
              //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
-
              QString _dxcc = index.siblingAtColumn(dxcc).data().toString();
              QString _bandid = index.siblingAtColumn(bandid).data().toString();
              QString _modeid = index.siblingAtColumn(modeid).data().toString();
              QString _log = index.siblingAtColumn(logn).data().toString();
-
 
              QStringList qs;
              qs.clear();
@@ -209,8 +208,6 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
 
              //spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
              //qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
-
-
 
             return QVariant( award->getQRZDXStatusColor(qs) );
             // return QVariant( QColor( Qt::red ) );

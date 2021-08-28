@@ -100,15 +100,13 @@ void SearchWidget::setVersion (const QString &_version)
 
 void SearchWidget::showQSOs(QList<int> qsoIdList)
 {
-       //qDebug() << "SearchWidget::showQSOs received QSOs: " << QString::number(qsoIdList.length()) << QT_ENDL;
-
-
+    //qDebug() << "SearchWidget::showQSOs received QSOs: " << QString::number(qsoIdList.length()) << QT_ENDL;
     if (qsoIdList.length()<0)
     {
         return;
     }
     //QString _call, _dateTime, _band, _mode, _freq, _qsltx, _qslrx, _id, _stationcallsign, _dxcc;
-       //qDebug() << "SearchWidget::showQSOs query: : 01"  << QT_ENDL;
+    //qDebug() << "SearchWidget::showQSOs query: : 01"  << QT_ENDL;
     int i = 0;
 
     QString filter;
@@ -119,17 +117,17 @@ void SearchWidget::showQSOs(QList<int> qsoIdList)
         i++;
     }
 
-       //qDebug() << "SearchWidget::showQSOs query: : 02 - :" << QString::number(i)  << QT_ENDL;
-    filter = QString("id = '%1'").arg(qsoIdList.at(i));
+    //qDebug() << "SearchWidget::showQSOs query: : 02 - :" << QString::number(i)  << QT_ENDL;
+    filter = QString("log.id = '%1'").arg(qsoIdList.at(i));
 
     i++;
-       //qDebug() << "SearchWidget::showQSOs query: : 03 - :" << QString::number(i)  << QT_ENDL;
+    //qDebug() << "SearchWidget::showQSOs query: : 03 - :" << QString::number(i)  << QT_ENDL;
 
     for (int j=i; j<qsoIdList.length(); ++j)
     {
-        filter = filter + QString(" OR id = '%1'").arg(qsoIdList.at(j));
+        filter = filter + QString(" OR log.id = '%1'").arg(qsoIdList.at(j));
     }
-       //qDebug() << "SearchWidget::showQSOs query: : " << queryString << QT_ENDL;
+    //qDebug() << "SearchWidget::showQSOs filter: " << filter << QT_ENDL;
 
     searchWindow->setFilterString(filter);
 

@@ -76,7 +76,7 @@ void Awards::setAwardWAZ(const int _qsoId)
     dataProxy->setWAZAwardStatus(_qsoId);
 }
 
-QString Awards::getQSOofAward (const int _enti, const int _bandid)
+QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed)
 {// Returns the QRZ that granted that status in the DXCC
        //qDebug() << "Awards::getQSOofAward: " << QString::number(_enti) << "/" << QString::number(_bandid) << QT_ENDL;
     QSqlQuery query;
@@ -84,7 +84,15 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid)
     bool sqlOK = false;
     QString answer = QString();
 
-    stringQuery = QString("SELECT call, qso_date, from log where id=(SELECT qsoid from awarddxcc where dxcc='%1' and band='%2')").arg(_enti).arg(_bandid);
+    if (_confirmed)
+    {
+        stringQuery = QString("SELECT call, qso_date from log where dxcc='%1' AND bandid='%2' AND lognumber='%3' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')").arg(_enti).arg(_bandid).arg(_log);
+    }
+    else
+    {
+       stringQuery = QString("SELECT call, qso_date from log where dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(_enti).arg(_bandid).arg(_log);
+    }
+
 
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getQSOofAward: stringQuery: " << stringQuery << QT_ENDL;
@@ -116,7 +124,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid)
 
 }
 
-int Awards::getQSOIdofAward (const int _enti, const int _bandid)
+int Awards::getQSOIdofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed)
 {// Returns the QSOid that granted that status in the DXCC
        //qDebug() << "Awards::getQSOIdofAward: " << QString::number(_enti) << "/" << QString::number(_bandid) << QT_ENDL;
     QSqlQuery query;
@@ -124,7 +132,17 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid)
     bool sqlOK = false;
     int answer = -1;
 
-    stringQuery = QString("SELECT qsoid from awarddxcc where dxcc='%1' and band='%2'").arg(_enti).arg(_bandid);
+    //stringQuery = QString("SELECT qsoid from awarddxcc where dxcc='%1' and band='%2'").arg(_enti).arg(_bandid);
+
+
+    if (_confirmed)
+    {
+        stringQuery = QString("SELECT id from log where dxcc='%1' AND bandid='%2' AND lognumber='%3' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')").arg(_enti).arg(_bandid).arg(_log);
+    }
+    else
+    {
+       stringQuery = QString("SELECT id from log where dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(_enti).arg(_bandid).arg(_log);
+    }
 
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getQSOIdofAward: stringQuery: " << stringQuery << QT_ENDL;
@@ -587,12 +605,12 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
     if (_checkingMode)
     {
            //qDebug() << "Awards::dxccStatusBandMode: Checking Mode TRUE" << QT_ENDL;
-        queryString = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND modeid='%3' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
+        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND modeid='%3' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
     }
     else
     {
            //qDebug() << "Awards::dxccStatusBandMode: Checking Mode FALSE" << QT_ENDL;
-        queryString = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
+        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
     }
 
     int status = 0;
@@ -691,7 +709,7 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
     QString queryString = QString();
     int worked = 0;
 
-    queryString = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND lognumber='%2' ").arg(QString::number(_ent)).arg(QString::number(_logNumber));
+    queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND lognumber='%2' ").arg(QString::number(_ent)).arg(QString::number(_logNumber));
 
     if (query.exec(queryString))
     {
@@ -925,18 +943,45 @@ QString Awards::getDXStatusString (const int &_status)
 return message;
 }
 
-QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber)
+QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
+{
+    // Returns -, W or C (Not worked, worked, Confirmed)
+
+    //dxccStatus
+    EntityBandStatus aux;
+
+    foreach (aux, dxccStatusList)
+    {
+        if (aux.dxcc == _dxcc)
+        {
+            if (aux.bandid == _band)
+            {
+                if (aux.confirmed)
+                {
+                    return "C";
+                }
+                else
+                {
+                    return "W";
+                }
+            }
+        }
+    }
+    return "-";
+}
+
+QString Awards::getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber)
 {
     // Returns -, W or C (Not worked, worked, Confirmed)
        //qDebug() << "Awards::getDXCCStatusBand: log received: " << QString::number(_logNumber) << QT_ENDL;
     QString stringQuery;
     if (_logNumber<0)
     {
-        stringQuery = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2'").arg(_dxcc).arg(_band);
+        stringQuery = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2'").arg(_dxcc).arg(_band);
     }
     else
     {
-        stringQuery = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(_dxcc).arg(_band).arg(_logNumber);
+        stringQuery = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(_dxcc).arg(_band).arg(_logNumber);
     }
     QString status = "-";
 
@@ -965,7 +1010,6 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _l
     query.finish();
     return status;
 }
-
 
 
 /*
@@ -1633,7 +1677,7 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
     //qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band) << QT_ENDL;
 
         QSqlQuery query = QSqlQuery();
-        QString queryString = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
+        QString queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND qsl_rcvd='Y' AND bandid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
 
         int status = 0;
  //qDebug() << "Awards::dxccStatusBand: " << queryString << QT_ENDL;
@@ -1727,7 +1771,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
             return -1;
         }
         int status = 0;
-        queryString = QString("SELECT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND modeid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
+        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND modeid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
 
 
         if (query.exec(queryString))
@@ -1736,7 +1780,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
             {
                 if ( query.isValid() )
                 {
-                    if((query.value(0).toString() == "Y") || (query.value(0).toString() == "Y"))         // Confirmed
+                    if((query.value(0).toString() == "Y") || (query.value(1).toString() == "Y"))         // Confirmed
                     {
                         query.finish();
                         return 2;
@@ -1807,4 +1851,60 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
 void Awards::setManageModes(const bool _manageModes)
 {
     manageModes = _manageModes;
+}
+
+bool Awards::updateDXCCBAndsStatus(const int _logNumber)
+{
+
+    //QList<EntityBandStatus> dxccStatus;
+    QSqlQuery query;
+    QString stringQuery = QString();
+    bool sqlOK = false;
+    QString answer = QString();
+    if (_logNumber>0)
+    {
+        stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc>0 AND lognumber='%1'ORDER BY dxcc").arg(_logNumber);
+    }
+    else
+    {
+        stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc>0 ORDER BY dxcc");
+    }
+
+
+    sqlOK = query.exec(stringQuery);
+    if (sqlOK)
+    {
+        dxccStatusList.clear();
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+               EntityBandStatus ent;
+               ent.dxcc = query.value(0).toInt();
+               ent.bandid = query.value(1).toInt();
+               if ((query.value(2).toString () == "Y") || (query.value(3).toString () == "Y"))
+               {
+                   ent.confirmed = true;
+               }
+               else
+               {
+                   ent.confirmed = false;
+               }
+               dxccStatusList.append (ent);
+            }
+            else
+            {
+                query.finish();
+                return false;
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    query.finish();
+    return true;
 }

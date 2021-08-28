@@ -87,6 +87,7 @@ void LogWindow::createUI()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(logView);
     setLayout(layout);
+
 }
 
 void LogWindow::setDefaultData()

@@ -130,6 +130,7 @@ This should be coherent with the logview
          setRelation(nameCol, QSqlRelation("entity", "dxcc", "name"));
      }
 
+
      nameCol = rec.indexOf("id");
      setSort(nameCol, Qt::AscendingOrder);
      QString aux;

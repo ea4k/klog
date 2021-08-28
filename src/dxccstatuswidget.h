@@ -50,7 +50,6 @@ public:
     void setBands(const QString &_callingFunc, const QStringList &_ent, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);
     void setMyLocator(const QString &_loc);
-
     void refresh();
 
 signals:
@@ -73,7 +72,8 @@ private slots:
 private:
     void createUI();
     void setDefaultBands();
-    void addEntity(const QStringList &_ent); // DXCC id, bandid, bandid, ...
+    void addEntity(const QList<int> &_ent); // DXCC id, bandid, bandid, ...
+    void addEntity2(const QStringList &_ent); // DXCC id, bandid, bandid, ...
 //    void showMenuRightButtonFromLogCreateActions();
 //    void righButtonFromLogMenu(const int trow);
 
@@ -96,6 +96,7 @@ private:
     QString loc; // The locator of the user.
 
     QAction *showDXCCWikipediaAct;
+    int currentLog;
 
 };
 

@@ -256,7 +256,7 @@ void MainWindow::setWindowSize(const QSize &_size)
 
 void MainWindow::init()
 {
-     //qDebug() << "MainWindow::init: START" << QT_ENDL;
+    //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logEvents = true;
     debugFileOpen = false;
 
@@ -267,7 +267,8 @@ void MainWindow::init()
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW" << "RTTY";
-    //qDebug() << "MainWindow::init - 00" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 00" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+
     hamlibActive = false;
     hamlibModeNotADIFSupported = false;
     hamlibChangingMode = false;
@@ -302,7 +303,7 @@ void MainWindow::init()
     selectedYear = 0;
     defaultMode = 1;
     defaultBand = 1;
-    //qDebug() << "MainWindow::init - 20" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 20" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     currentMode = 1;
     currentModeShown = currentMode;
     currentBand = 1;
@@ -317,7 +318,7 @@ void MainWindow::init()
     myPower = 0.0;
     UDPServerStart = false;   // By default the UDP server is started
 
-    //qDebug() << "MainWindow::init - 30" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 30" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
     //realTime=true;
@@ -348,7 +349,7 @@ void MainWindow::init()
     dxClusterShowWCY=true;
 
     keepSatPage = false;
-    //qDebug() << "MainWindow::init - 40" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 40" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     //clublogUser = QString();
     clublogPass = QString();
     clublogEmail = QString();
@@ -368,7 +369,7 @@ void MainWindow::init()
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     //previousQrz = "";
     setModifying(false);
-    //qDebug() << "MainWindow::init - 50" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 50" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
 
@@ -386,7 +387,7 @@ void MainWindow::init()
     workedColor.setNamedColor("blue");
     confirmedColor.setNamedColor("red");
     newOneColor.setNamedColor("green");
-    //qDebug() << "MainWindow::init - 60" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 60" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     bool existingData = QFile::exists(util->getKLogDBFile());
     if (!existingData)
     {
@@ -416,31 +417,31 @@ void MainWindow::init()
         default:
             break;
         }
-        //qDebug() << "MainWindow::init - 69" << QT_ENDL;
+        //qDebug() << "MainWindow::init - 69" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }
-    //qDebug() << "MainWindow::init - 70" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     readConfigData();
-    //qDebug() << "MainWindow::init - 71" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logWindow->createlogPanel(currentLog);
-    //qDebug() << "MainWindow::init - 72" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 72" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     awards->setManageModes(manageMode);
-    //qDebug() << "MainWindow::init - 73" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 73" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-        //qDebug() << "MainWindow::init - 73.1" << QT_ENDL;
+        //qDebug() << "MainWindow::init - 73.1" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         openSetup(6);
-        //qDebug() << "MainWindow::init - 73.2" << QT_ENDL;
+        //qDebug() << "MainWindow::init - 73.2" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }
-    //qDebug() << "MainWindow::init - 74" << QT_ENDL;
-    checkIfNewBandOrMode();
-    //qDebug() << "MainWindow::init - 75" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 74" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    //checkIfNewBandOrMode();
+    //qDebug() << "MainWindow::init - 75" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
-    //qDebug() << "MainWindow::init - 80" << QT_ENDL;
-    //qDebug() << "MainWindow::Init: calling Software update ..." << QT_ENDL;
+    //qDebug() << "MainWindow::init - 80" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::Init: calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     if (checkNewVersions)
     {//reportInfo
         if (reportInfo)
@@ -449,19 +450,19 @@ void MainWindow::init()
         }
         softUpdate->needToUpdate();
     }
-    //qDebug() << "MainWindow::init - 90" << QT_ENDL;
+    //qDebug() << "MainWindow::init - 90" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
+    //qDebug() << "MainWindow::init - 91" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
+    //qDebug() << "MainWindow::init - 92" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
-//    timer->start(1000);
     timerInfoBars = new QTimer(this);
 
-    //qDebug() << "MainWindow::init - 90" << QT_ENDL;
-    //qDebug() << "MainWindow::init: Calling createUI" << QT_ENDL;
+    //qDebug() << "MainWindow::init: Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     createUI();
-    //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << QT_ENDL;
+    //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     //qDebug() << Q_FUNC_INFO;
     slotClearButtonClicked();
 
@@ -472,7 +473,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     startServices();
 
-    //qDebug() << "MainWindow::init: END" << QT_ENDL;
+    //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
 }
 
 
@@ -5519,15 +5520,15 @@ void MainWindow::checkIfNewBandOrMode()
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
     //qDebug() << "MainWindow::checkIfNewBandOrMode - 2 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 3 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 3 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     QStringList qsTemp;
     qsTemp.clear();
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.1 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.1 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     bands << bandsInLog;
     bands.removeDuplicates();
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.2 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.2 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     qsTemp << dataProxy->sortBandNamesBottonUp(bands);
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.3 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.3 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     bands.clear();
     bands = qsTemp;
 
@@ -5535,30 +5536,29 @@ void MainWindow::checkIfNewBandOrMode()
     modes.removeDuplicates();
     modes.sort();
 
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setBands(bands);
     satTabWidget->addBands(bands);
 
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setModes(modes);
 
 
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
     dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
 
-   //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     if (bands.contains(currentBand))
     {
         mainQSOEntryWidget->setBand(currentBand);
-
     }
     else
     {
         selectDefaultBand();
     }
 
-   //qDebug() << "MainWindow::checkIfNewBandOrMode-99 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode-99 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     if (modes.contains(currentMode))
     {
         mainQSOEntryWidget->setMode(currentMode);
@@ -5570,7 +5570,7 @@ void MainWindow::checkIfNewBandOrMode()
 
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-   //qDebug() << "MainWindow::checkIfNewBandOrMode END " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode END " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 }
 
 void MainWindow::selectDefaultBand()
@@ -7879,7 +7879,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
 
 void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 {
-             //qDebug() << "MainWindow::slotShowQSOsFromDXCCWidget" << QT_ENDL;
+    //qDebug() << "MainWindow::slotShowQSOsFromDXCCWidget" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     slotShowSearchWidget();
     searchWidget->showQSOs(_qsos);
