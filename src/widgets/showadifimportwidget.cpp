@@ -77,7 +77,7 @@ void ShowAdifImportWidget::fillTable()
 
     //QList<int> qsos;
     //qsos.clear();
-    //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+    //qsos.append(dataProxy->getQSOsListLoTWToSend(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
     //qDebug() << "ShowAdifImportWidget::fillTable QSOS: " << QString::number(qsosList.length()) << QT_ENDL;
 
     //QString aux, prefix;

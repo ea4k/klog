@@ -187,12 +187,12 @@ void AdifLoTWExportWidget::fillTable()
        if (stationCallsignComboBox->currentIndex() == 0)
        { // Not defined station_callsign (blank)
            //qDebug() << "AdifLoTWExportWidget::fillTable blank station callsign " << QT_ENDL;
-           qsos.append(dataProxy->getQSOsListLoTWNotSent(QString(), startDate->date(), endDate->date(), justQueued));
+           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), startDate->date(), endDate->date(), justQueued));
        }
        else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
        { // ALL stations, no matter the station.
            //qDebug() << "AdifLoTWExportWidget::fillTable ALL station callsign " << QT_ENDL;
-           qsos.append(dataProxy->getQSOsListLoTWNotSent("ALL", startDate->date(), endDate->date(), justQueued));
+           qsos.append(dataProxy->getQSOsListLoTWToSend("ALL", startDate->date(), endDate->date(), justQueued));
        }
        else
        {
@@ -215,7 +215,8 @@ void AdifLoTWExportWidget::fillTable()
            else if (currentExportMode == ModeLotW)
            {
                //qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
-              qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+                qsos.append(dataProxy->getQSOsListLoTWToSend (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+              //qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else
            {//(currentExportMode == ModeADIF)
@@ -223,7 +224,7 @@ void AdifLoTWExportWidget::fillTable()
                qsos.append(dataProxy->getQSOsListToBeExported(stationCallsignComboBox->currentText(), startDate->date(), endDate->date()));
            }
        }
-       //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+       //qsos.append(dataProxy->getQSOsListLoTWToSend(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
        //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << QT_ENDL;
 
        //QString aux, prefix;

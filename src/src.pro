@@ -29,7 +29,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.8.3
+VERSION = 1.8.4
 DEFINES += APP_VERSION="$$VERSION"
 
 
@@ -356,9 +356,9 @@ win32: {
     #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/bin"
     #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 }
-else:
-{
-    message(Uknown platform)
-    TARGET = klog
-}
+#else:
+#{
+#    message(Uknown platform)
+#    TARGET = klog
+#}
 

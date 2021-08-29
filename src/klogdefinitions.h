@@ -47,11 +47,11 @@ struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstat
   bool confirmed;
 };
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 2))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
 #define QT_SKIP Qt::SkipEmptyParts
 #define QT_ENDL Qt::endl
 #define QT_RETURNBYVALUE Qt::ReturnByValue
- #else
+#else
 #define QT_SKIP QString::SkipEmptyParts
 #define QT_ENDL endl
 #define QT_RETURNBYVALUE

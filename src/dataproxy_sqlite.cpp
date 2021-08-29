@@ -3419,9 +3419,9 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
     return -100;
 }
 
-QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
+QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued)
 {
-    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
     QList <int> qsoList;
     qsoList.clear();
@@ -3448,12 +3448,12 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCalls
     QString _query_justQueued;
     if (_justQueued)
     {
-        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent justQueued TRUE" << QT_ENDL;
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend justQueued TRUE" << QT_ENDL;
         _query_justQueued = QString("lotw_qsl_sent='Q'");
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent justQueued FALSE" << QT_ENDL;
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend justQueued FALSE" << QT_ENDL;
         _query_justQueued = QString("lotw_qsl_sent!='1'");
     }
 
@@ -3474,11 +3474,11 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCalls
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Query: " << query.lastQuery() << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() << QT_ENDL;
 
     if (sqlOK)
     {
-       // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Query: " << query.lastQuery() << QT_ENDL;
+       // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() << QT_ENDL;
 
         while ( (query.next())) {
             if (query.isValid())
@@ -3486,7 +3486,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWNotSent(const QString &_stationCalls
                 aux.clear();
                 aux = (query.value(1)).toString() ;
                 tmpDate = util->getDateFromSQliteString(aux);
-                //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent QSO Date: " << aux << "/" << tmpDate.toString("yyyy-MM-dd") << QT_ENDL;
+                //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend QSO Date: " << aux << "/" << tmpDate.toString("yyyy-MM-dd") << QT_ENDL;
                 //tmpDate = QDate::fromString(aux, "yyyy-MM-dd");
                 if ((_startDate<=tmpDate) && _endDate>=tmpDate)
                 {
@@ -3542,12 +3542,12 @@ QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCal
     QString _query_justQueued;
     if (_justQueued)
     {
-        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent justQueued TRUE" << QT_ENDL;
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend justQueued TRUE" << QT_ENDL;
         _query_justQueued = QString("lotw_qsl_sent='Q'");
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent justQueued FALSE" << QT_ENDL;
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend justQueued FALSE" << QT_ENDL;
         _query_justQueued = QString("lotw_qsl_sent!='1'");
     }
 
@@ -3558,11 +3558,11 @@ QStringList DataProxy_SQLite::getQSOsListLoTWNotSent2(const QString &_stationCal
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Query: " << query.lastQuery() << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() << QT_ENDL;
 
     if (sqlOK)
     {
-       // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent Query: " << query.lastQuery() << QT_ENDL;
+       // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() << QT_ENDL;
         QStringList result;
         while ( (query.next())) {
             if (query.isValid())
@@ -3979,7 +3979,7 @@ QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCalls
                 aux.clear();
                 aux = (query.value(1)).toString() ;
                 tmpDate = util->getDateFromSQliteString(aux);
-                //qDebug() << "DataProxy_SQLite::getQSOsListLoTWNotSent QSO Date: " << aux << "/" << tmpDate.toString("yyyy-MM-dd") << QT_ENDL;
+                //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend QSO Date: " << aux << "/" << tmpDate.toString("yyyy-MM-dd") << QT_ENDL;
                 //tmpDate = QDate::fromString(aux, "yyyy-MM-dd");
                 if ((_startDate<=tmpDate) && _endDate>=tmpDate)
                 {
