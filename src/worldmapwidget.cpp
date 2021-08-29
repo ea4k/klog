@@ -270,7 +270,7 @@ void WorldMapWidget::scaleImage(double factor)
     //Q_ASSERT(mapLabel->pixmap(Qt::ReturnByValue));
     scaleFactor *= factor;
 
-    #if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 2))
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
     mapLabel->resize(scaleFactor * mapLabel->pixmap(Qt::ReturnByValue).size());
     #else
     mapLabel->resize(scaleFactor * mapLabel->pixmap()->size());
