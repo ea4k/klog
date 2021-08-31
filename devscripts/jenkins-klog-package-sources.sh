@@ -32,13 +32,13 @@ export CXXFLAGS=-std=c++11
 rm src/README.md
 
 NEW_NAME=klog-$KLOG_VERSION
-mv src $NEW_NAME
+mv src "$NEW_NAME"
 if [ $? -ne 0 ]; then
 echo "There was an error when copying the KLog folder"
 exit 1
 fi
 
-tar cvzf $NEW_NAME.tar.gz $NEW_NAME
+tar cvzf "$NEW_NAME".tar.gz "$NEW_NAME"
 if [ $? -eq 0 ]; then
 echo "You can find the tar.gz file in this folder... enjoy KLog!"
 exit 0
