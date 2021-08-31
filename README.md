@@ -12,7 +12,7 @@
 The objective of KLog is to provide a free software that runs in GNU/Linux, macOS and Windows.
 KLog provides general purpose Hamradio DX logging support.
 
-### IMPORTANT:
+## IMPORTANT
 All the mailing lists, code and releases have been removed from Savannah and they are no longer available.
 I will wait some days to see if they can be recovered before looking for another place to host all the needed services.
 
@@ -42,11 +42,8 @@ If you are a native in a language different than English or Spanish, please cons
 ## Install
 Read the INSTALL.txt for installation purposes.
 
-
-
 Please send all your suggestions & bug reports.
 
 I hope you enjoy KLog!
 
 73 de Jaime, EA4K
-
