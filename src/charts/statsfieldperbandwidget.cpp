@@ -34,15 +34,14 @@ StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFiel
     selectedField = _field;
     modeComboBox = new QComboBox;
 
-    modeInUse = "ALL";
-    log = -1;
-
     createUI();
     //prepareChart();
 }
 
 void StatsFieldPerBandWidget::createUI()
 {
+    modeInUse = "ALL";
+    log = -1;
     QString allString = tr("All");
     modeComboBox->clear ();
     modeComboBox->addItem (allString);

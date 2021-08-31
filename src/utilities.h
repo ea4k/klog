@@ -46,7 +46,7 @@ public:
     ~Utilities();
     void setDarkMode(const QString &_dm);
     bool isDarkMode();
-    bool darkMode;
+
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
     QChar boolToCharToSQLite(const bool _b);
@@ -145,13 +145,14 @@ public:
     QString getOnlineServiceName(OnLineProvider _service);
     //QPalette getPalete(bool _ok);
 private:
+    void init();
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
-
+    bool darkMode;
     QString dbPath;
     QString softwareVersion;
     //QPalette palRed, palBlack;

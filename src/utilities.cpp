@@ -28,18 +28,24 @@
 
 Utilities::Utilities()
 {
-       //qDebug() << "Utilities::Utilities"  << Qt_endl;
+    //qDebug() << "Utilities::Utilities"  << Qt_endl;
 
-    softwareVersion = "0.0";
+    init();
 
     //palRed.setColor(QPalette::Text, Qt::red);
     //palBlack.setColor(QPalette::Text, Qt::black);
-       //qDebug() << "Utilities::Utilities - END"  << Qt_endl;
+    //qDebug() << "Utilities::Utilities - END"  << Qt_endl;
 }
 
 Utilities::~Utilities()
 {
 
+}
+
+void Utilities::init()
+{
+    softwareVersion = "0.0";
+    darkMode = false;
 }
 
 void Utilities::setVersion(const QString &_v)

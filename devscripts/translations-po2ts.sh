@@ -26,10 +26,10 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
-SOURCES="src" 
+#SOURCES="src" 
 TRANSLATIONS="src/translations"
 POFILES="po"
-QT_SELECT="qt5"
+export QT_SELECT="qt5"
 
 
 for file in $POFILES/*.po
