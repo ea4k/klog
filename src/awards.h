@@ -70,7 +70,7 @@ public:
     int getDXCCConfirmed(const int _logNumber);
     int getWAZWorked(const int _logNumber);
     int getWAZConfirmed(const int _logNumber);
-    bool updateDXCCBAndsStatus(const int _logNumber=0);
+    bool updateDXCCBandsStatus(const int _logNumber=0);
 
 
     int getQSOsInLog(const int _logNumber);

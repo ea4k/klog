@@ -680,8 +680,6 @@ void SearchWindow::slotToolSearchQSL(const int actionQSL)
 //        break;
     }
 
-
-
     clear();
     setFilterString(filter);
 }

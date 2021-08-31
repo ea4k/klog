@@ -620,7 +620,7 @@ void SetupPageSats::slotExportButtonClicked()
     int nameCol = -1;
     QString queryString, aux;
     QSqlQuery query;
-    QString satText = QString();
+
     int satsN = -1;
 
     bool sqlOk = false;
@@ -680,7 +680,7 @@ void SetupPageSats::slotExportButtonClicked()
         {
             nameCol = rec.indexOf("satarrlid");
             aux = (query.value(nameCol)).toString();
-            satText = "<app_klog_sats_arrlid:" + QString::number(aux.length()) + ">" + aux + " ";
+            QString satText = "<app_klog_sats_arrlid:" + QString::number(aux.length()) + ">" + aux + " ";
 
             nameCol = rec.indexOf("satname");
             aux = (query.value(nameCol)).toString();
@@ -699,8 +699,7 @@ void SetupPageSats::slotExportButtonClicked()
             satText = satText + "<app_klog_sats_mode:" + QString::number(aux.length()) + ">" + aux + " " + "<eor>";
 
             out << satText << QT_ENDL;
-            satText.clear();
-
+            //satText.clear();
         }
 
     }

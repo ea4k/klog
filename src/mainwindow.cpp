@@ -572,6 +572,7 @@ void MainWindow::createActionsCommon(){
     //connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
     connect(dxccStatusWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(dxccStatusWidget, SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
+    connect(dxccStatusWidget, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
     //connect(dxccStatusWidget, SIGNAL(updateAwards()), this, SLOT(slotShowAwards() ) );
 
     connect(filemanager, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
@@ -2815,6 +2816,7 @@ void MainWindow::slotQSOsDelete(QList<int> _id)
                 }
             }
         }
+        dxccStatusWidget->refresh();
         logWindow->refresh();
         slotShowAwards();
 
@@ -2868,6 +2870,7 @@ void MainWindow::slotQSODelete(const int _id)
                       //qDebug() << "MainWindow::slotQSODelete: NOT emoving from ClubLog" << QT_ENDL;
                 }
 
+                dxccStatusWidget->refresh();
                 logWindow->refresh();
                 slotShowAwards();
                //emit updateSearchText();
@@ -4134,6 +4137,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         msgBox.setInformativeText(aux);
         msgBox.exec();
         logWindow->refresh();
+        dxccStatusWidget->refresh();
 
         //TODO: Add the QSOs to the widget and show showAdifImportWidget->show();
     }
@@ -6421,7 +6425,7 @@ void MainWindow::slotADIFImport(){
 
 
                  //qDebug() << "MainWindow::slotADIFImport -2" << QT_ENDL;
-
+        //dxccStatusWidget->refresh();
         logWindow->refresh();
                  //qDebug() << "MainWindow::slotADIFImport -3" << QT_ENDL;
         checkIfNewBandOrMode();
@@ -7099,7 +7103,7 @@ void MainWindow::slotShowAwards()
 
     awardsWidget->showAwards();
              //qDebug() << "MainWindow::slotShowAwards-3"  << QT_ENDL;
-    dxccStatusWidget->refresh();
+    //dxccStatusWidget->refresh();
     setMainWindowTitle(QString::number(dataProxy->getHowManyQSOInLog(currentLog)));
     logEvent(Q_FUNC_INFO, "END", logSeverity);
              //qDebug() << "MainWindow::slotShowAwards-END"  << QT_ENDL;
@@ -7112,7 +7116,7 @@ void MainWindow::fillQSOData()
             //qDebug() << "MainWindow::fillQSOData" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
-    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE lognumber='%1'").arg(currentLog);
+    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE ((dxcc<1) OR (cqz<1) OR (ituz<1)) AND lognumber='%1'").arg(currentLog);
 
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
@@ -7211,29 +7215,20 @@ void MainWindow::fillQSOData()
 
             nameCol = rec.indexOf("dxcc");
             _dxcc = (query.value(nameCol)).toInt();
-            //if (( (query.value(nameCol)).toString()).length() < 1 )
+
             if (_dxcc < 1)
             {
                 aux1 = QString::number(world->getQRZARRLId(_call) );
-                            //qDebug() << "MainWindow::fillQSOData: DXCC proposed: " << aux1 << QT_ENDL;
-                if (aux1.toInt()>0)
-                {
-                    updateString = updateString + ", dxcc='" + aux1 + "'";
-                    toModify = true;
-                                //qDebug() << "MainWindow::fillQSOData: DXCC: " << aux1 << QT_ENDL;
-                    _dxcc = aux1.toInt();
-                }
-                else
-                {
-                                //qDebug() << "MainWindow::fillQSOData: no DXCC identified"  << QT_ENDL;
-                }
-
+                //qDebug() << "MainWindow::fillQSOData: DXCC proposed: " << aux1 << QT_ENDL;
+                updateString = updateString + ", dxcc='" + aux1 + "'";
+                toModify = true;
+                _dxcc = aux1.toInt();
             }
             else
             {
-
-                            //qDebug() << "MainWindow::fillQSOData: DXCC already existed"  << QT_ENDL;
+                //qDebug() << "MainWindow::fillQSOData: DXCC already existed"  << QT_ENDL;
             }
+
             nameCol = rec.indexOf("cont");
             if (( (query.value(nameCol)).toString()).length() < 2 )
             {

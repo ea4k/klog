@@ -121,9 +121,42 @@ void DXCCStatusWidget::createUI()
 void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "DXCCStatusWidget::update " << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
+    //qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
     //int entities = world->getHowManyEntities();
     int entities = dataProxy->getMaxEntityID(false);
+    if (!awards->updateDXCCBandsStatus (-1)) // We update all
+    {
+        //qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned FALSE";
+        // It may be the case that DXCC field in the table is not defined.
+        // It should be updated.
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setText(tr("It seems that the dxcc status in your database is not updated and KLog can't find any dxcc information. You can try to fix this by updating the log."));
+        msgBox.setInformativeText(tr("Do you want to update your DXCC status?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        int ret = msgBox.exec();
+
+        switch (ret)
+        {
+            case QMessageBox::Yes:
+                emit fillInQSOSignal();
+            break;
+            case QMessageBox::No:
+              // No was clicked
+                return;
+            break;
+            default:
+              // should never be reached
+            break;
+        }
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned TRUE";
+    }
+
+    //qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCBandsStatus returned";
     QList<int> bandIds;
     bandIds.clear();
     QString aux;
@@ -137,14 +170,12 @@ void DXCCStatusWidget::update()
     //qDebug() << "DXCCStatusWidget::update: -1"  << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
     list.clear();
     //qDebug() << "DXCCStatusWidget::update: -2"  << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
-
     //QString prefix;
-
     //qDebug() << "DXCCStatusWidget::update: -3"  << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
     if (dxccView->columnCount()>0)
     {
         dxccView->clearContents();
-        tempLog = -1;
+
         //qDebug() << "DXCCStatusWidget::update pre FOR" << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
         for (int i=1; i<=entities; i++)
         {
@@ -171,13 +202,6 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     //qDebug() << "DXCCStatusWidget::addEntity: " << QString::number(_ent.at(0)) << "/" <<QString::number(_ent.at(1)) << " / " << QString::number(_ent.length()) << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
     // DXCC id, Entity Name, bandName1, bandName2, ...
 
-    //QString au = "New Line ";
-    //foreach (QString a, _ent)
-    //{
-    //   au = au + " - " + a;
-    //}
-    //qDebug() << Q_FUNC_INFO << ": " << au << " - " << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;;
-
     if (_ent.length() != numberOfColumns-1)
     {
         //qDebug() << "DXCCStatusWidget::addEntity: ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
@@ -197,12 +221,7 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
         //qDebug() << "DXCCStatusWidget::addEntity: Wrong Entity Name and Prefix - END" << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
         return;
     }
-    //au = "data: ";
-    //foreach (QString a, data)
-    //{
-    //    au = au + " - " + a;
-    //}
-    //qDebug() << Q_FUNC_INFO << ": " << au;
+
     QString prefix = data.at(0);
     QString entName = data.at(1);
     QString isoName = data.at(2);
@@ -218,14 +237,15 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
 
     if (isoName.length()>1)
     {
-        flagSt = ":/" + isoName + ".png";
+        //flagSt = ":/" + isoName + ".png";
+        flagSt = ":/flags/" + isoName + ".png";
     }
     else
     {
         flagSt.clear();
     }
 
-    flagSt = ":/flags/" + isoName + ".png";
+    //flagSt = ":/flags/" + isoName + ".png";
     QIcon flagIcon(flagSt);
 
     //qDebug() << "DXCCStatusWidget::addEntity: Name: " << entName << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
@@ -239,16 +259,16 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
-    awards->updateDXCCBAndsStatus (tempLog);
+
     for (int i=1; i < _ent.length(); i++)
     {
-        //qDebug << Q_FUNC_INFO << ": " << prefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
+        //qDebug() << Q_FUNC_INFO << ": " << prefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
         int bandid = _ent.at(i);
         QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(_dxcc, bandid));
         //QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand2(_dxcc, bandid, tempLog));
         newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::ItemIsEnabled);
-
+        //qDebug() << Q_FUNC_INFO << ": C/W/- : " << newItem->text();
         if (newItem->text()=="C")
         {
             newItem->setForeground (QBrush(Qt::blue));
@@ -262,7 +282,6 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
             {
                 status = 0;
             }
-
             newItem->setForeground (QBrush(Qt::red));
             newItem->setBackground(QBrush(Qt::yellow));
         }
@@ -311,7 +330,7 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
     // _ent.at(0) = dxcc column of Entity Table (considering big numbers, like 2248 for IT9!)
     // _ent.at(1) until number of Columns are just the bandnames
 
-    //qDebug() << "DXCCStatusWidget::addEntity: " << _ent.at(0) << "/" <<_ent.at(1) << " / " << QString::number(_ent.length()) << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO;
     // DXCC id, Entity Name, bandName1, bandName2, ...
 
     //QString au = "New Line ";
@@ -382,7 +401,7 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
-    awards->updateDXCCBAndsStatus (tempLog);
+    awards->updateDXCCBandsStatus (tempLog);
     for (int i=1; i < _ent.length(); i++)
     {
         //qDebug << Q_FUNC_INFO << ": " << prefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
@@ -609,15 +628,15 @@ void DXCCStatusWidget::refresh()
     QString tip;
     tip.clear();
     //int row = -1;
-    int column = -1;
-    int bandi = -1;
-    QString band = QString();
+
+    //int bandi = -1;
+    //QString band = QString();
 
 
     if (item)
     {
       //  row = dxccView->row(item);
-        column = dxccView->column(item);
+        int column = dxccView->column(item);
 
            //qDebug() << "DXCCStatusWidget::slotItemEntered: row: " << QString::number(row) << QT_ENDL;
            //qDebug() << "DXCCStatusWidget::slotItemEntered: hrow: " <<  dxccView->verticalHeaderItem(row)->text() << QT_ENDL;
@@ -649,9 +668,9 @@ void DXCCStatusWidget::refresh()
             }
             else
             {
-                band = dxccView->horizontalHeaderItem(column)->text();
+                QString band = dxccView->horizontalHeaderItem(column)->text();
                    //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << band << QT_ENDL;
-                bandi = dataProxy->getIdFromBandName(band);
+                int bandi = dataProxy->getIdFromBandName(band);
                    //qDebug() << "DXCCStatusWidget::slotItemEntered: band: " << QString::number(bandi) << QT_ENDL;
                 if (item->text() == "C")
                 {
@@ -702,11 +721,11 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
     }
     int row = -1;
     //int column = -1;
-    int qsoId = -1;
-    int bandi = -1;
+
+    //int bandi = -1;
     int columns = dxccView->columnCount();
     int _entiNumb = -1; //Read the Entity number that the user is selecting.
-    QString band = QString();
+    //QString band = QString();
 
     QList<int> qsos;
     qsos.clear();
@@ -738,11 +757,11 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
             it->setText(dxccView->item(row,i)->text());
             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column-txt: "  << it->text() << QT_ENDL;
 
-            band = dxccView->horizontalHeaderItem(i)->text();
+            QString band = dxccView->horizontalHeaderItem(i)->text();
             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << band << QT_ENDL;
-            bandi = dataProxy->getIdFromBandName(band);
+            int bandi = dataProxy->getIdFromBandName(band);
             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << QString::number(bandi) << QT_ENDL;
-
+            int qsoId = -1;
           if (item->text() == "C")
           {
             qsoId = awards->getQSOIdofAward(_entiNumb, bandi, logNumber, true);

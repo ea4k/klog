@@ -65,8 +65,8 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
 
     int numberPerX = 0;
     chart->removeAllSeries();
-    categoriesTitle = QString();
-    categoriesElem = QString();
+    //categoriesTitle = QString();
+    //categoriesElem = QString();
     categories.clear();
     axis->clear();
     series->clear();

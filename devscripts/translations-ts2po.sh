@@ -29,7 +29,7 @@
 SOURCES="src"
 TRANSLATIONS="src/translations"
 POFILES="po"
-QT_SELECT="qt5"
+export QT_SELECT="qt5"
 lupdate -no-obsolete $SOURCES/src.pro
 
 

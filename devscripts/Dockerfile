@@ -1,6 +1,8 @@
 FROM ubuntu:21.04
 
 RUN apt-get -y update
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
 RUN apt-get install  --no-install-recommends -y tzdata

@@ -37,14 +37,14 @@ eLogClubLog::eLogClubLog()
 {
      //qDebug()<< "eLogClubLog::eLogClubLog"  << QT_ENDL;
 
-    email = QString();
-    pass = QString();
+    //email = QString();
+    //pass = QString();
     qsos.clear();
     api = "9467beee93377e82a276b0a777d388b5c933d044";
     currentQSO = -1;
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotQsoUploadFinished(QNetworkReply*)));
-    stationCallsign = QString();
+    //stationCallsign = QString();
     uploadingFile = false;
     util = new Utilities;
      //qDebug()<< "eLogClubLog::eLogClubLog - END"  << QT_ENDL;
@@ -165,7 +165,7 @@ void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
 
     const QByteArray sdata = data->readAll();
 
-    QString text = QString();
+    QString text;
 
 
     if (result == QNetworkReply::NoError)
@@ -174,8 +174,6 @@ void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
         text = "ClubLog: " + prepareToTranslate(sdata);
             //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = NoError = " << QString::number(result)  << QT_ENDL;
             //qDebug()<< sdata;
-
-
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
