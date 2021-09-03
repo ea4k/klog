@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "klogdefinitions.h"
 
 // Potential fix of hamlib 4.2 migration
 #ifndef HAMLIB_FILPATHLEN
@@ -99,6 +100,7 @@ private:
     bool readRadioInternal(bool _forceRead);
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
+    bool errorManage(const int _errorcode);
     //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;

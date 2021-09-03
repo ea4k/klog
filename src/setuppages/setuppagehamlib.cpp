@@ -81,9 +81,9 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 void SetupPageHamLib::slotTestHamlib()
 {
     QPalette pal = testHamlibPushButton->palette();
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     hamlib->stop ();
-    if (rigTypeComboBox->currentText ().contains ("NET rigctl"))
+    if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
         hamlib->setNetworkPort (portQSpinBox->value ());
         hamlib->setNetworkAddress (hostAddressLineEdit->text ());
@@ -104,14 +104,14 @@ void SetupPageHamLib::slotTestHamlib()
 
    if (hamlib->init (true))
    {
-       //qDebug() << Q_FUNC_INFO << " - Tested OK";
+       qDebug() << Q_FUNC_INFO << " - Tested OK";
        testHamlibPushButton->setText (tr("Test: OK"));
-        pal.setColor(QPalette::Button, QColor(Qt::green));
+       pal.setColor(QPalette::Button, QColor(Qt::green));
 
    }
    else
    {
-       //qDebug() << Q_FUNC_INFO << " - Tested NOK";
+       qDebug() << Q_FUNC_INFO << " - Tested NOK";
        testHamlibPushButton->setText (tr("Test: NOK"));
        pal.setColor(QPalette::Button, QColor(Qt::red));
 
@@ -136,6 +136,17 @@ void SetupPageHamLib::slotRadioComboBoxChanged(QString _r)
 
     if (_r == "NET rigctl")
     {
+        rigctlport = 4532;
+        portQSpinBox->setValue (rigctlport);
+        serialGroup->setEnabled (false);
+        networkGroup->setEnabled (true);
+        //qDebug() << Q_FUNC_INFO << ": Network radio found!" ;
+        networkRadio = true;
+    }
+    else if (_r == "FLRig")
+    {
+        rigctlport = 12345;
+        portQSpinBox->setValue (rigctlport);
         serialGroup->setEnabled (false);
         networkGroup->setEnabled (true);
         //qDebug() << Q_FUNC_INFO << ": Network radio found!" ;

@@ -1,3 +1,6 @@
+TBD - 1.8.5
+- Bugfix: Station callsign was not shown on window title (Closes #347)
+
 Aug 2021 - 1.8.4
 - Bugfix: In some situations callsigns were always shown as to be worked. (Closes #345)
 - Bugfix: Double click on DXCC widget was not sending the DXCC QSOs to the search widget.

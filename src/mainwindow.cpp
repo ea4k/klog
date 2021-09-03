@@ -5005,7 +5005,8 @@ bool MainWindow::processConfigLine(const QString &_line){
         if (util->isValidCall(value))
         {
             mainQRZ = value;
-            myDataTabWidget->setStationQRZ(mainQRZ);
+            defineStationCallsign(mainQRZ);
+            //myDataTabWidget->setStationQRZ(mainQRZ);
         }
     }else if (field=="CQZ"){
         my_CQz = value.toInt();
@@ -7654,6 +7655,8 @@ void MainWindow::defineStationCallsign(const QString &_call)
     searchWidget->setStationCallsign(stationQRZ);
     lotwUtilities->setStationCallSign(stationQRZ);
     adifLoTWExportWidget->setDefaultStationCallsign(stationQRZ);
+    myDataTabWidget->setStationQRZ(mainQRZ);
+
     logEvent(Q_FUNC_INFO, "END", logSeverity);
              //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << QT_ENDL;
 
