@@ -203,7 +203,7 @@ private slots:
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
-    void setMainWindowTitle(const QString &_s);
+    void setMainWindowTitle();
     void slotSetup(const int _page=0);
 
     void slotADIFExport();

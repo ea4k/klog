@@ -421,6 +421,7 @@ void MainWindow::init()
     }
     //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     readConfigData();
+
     //qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logWindow->createlogPanel(currentLog);
     //qDebug() << "MainWindow::init - 72" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -757,17 +758,18 @@ void MainWindow::slotWorldMapShow()
     worldMapWidget->show();
 }
 */
-void MainWindow::setMainWindowTitle(const QString &_s)
+void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
+    int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
       //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux << QT_ENDL;
-    if (aux.length()>0)
+    if (aux.length ()>0)
     {
-        setWindowTitle(tr("KLog - %1 - QSOs: %2 - %3" ).arg(stationQRZ).arg(_s).arg(aux));
+        setWindowTitle(tr("KLog - %1 - QSOs: %2 - %3" ).arg(stationQRZ).arg(numberOfQSOs).arg(aux));
     }
     else
     {
-        setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationQRZ).arg(_s));
+        setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationQRZ).arg(numberOfQSOs));
     }
 
 
@@ -3583,7 +3585,7 @@ void MainWindow::slotClearButtonClicked()
     setCleaning(false);
 
     //qDebug() << "MainWindow::slotClearButtonClicked: Log: " << QString::number(currentLog) << QT_ENDL;
-    setMainWindowTitle(QString::number(dataProxy->getHowManyQSOInLog(currentLog)));
+    setMainWindowTitle();
     if (needToRecover)
     {
         //qDebug() << Q_FUNC_INFO << ": Recovening the previous status...";
@@ -4606,7 +4608,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", logSeverity);
         logWindow->createlogPanel(currentLog);
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", logSeverity);
-        defineStationCallsign(mainQRZ);
+        defineStationCallsign(stationQRZ);
         logEvent(Q_FUNC_INFO, "before db->reConnect", logSeverity);
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << QT_ENDL;
         dataProxy->reconnectDB();
@@ -4885,6 +4887,7 @@ void MainWindow::readConfigData()
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
+    setMainWindowTitle();
     dxClusterWidget->setMyQRZ(stationQRZ);
     //qDebug() << Q_FUNC_INFO << ": 97"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     checkIfNewBandOrMode();
@@ -5005,7 +5008,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         if (util->isValidCall(value))
         {
             mainQRZ = value;
-            defineStationCallsign(mainQRZ);
+            //defineStationCallsign(mainQRZ);
             //myDataTabWidget->setStationQRZ(mainQRZ);
         }
     }else if (field=="CQZ"){
@@ -5373,6 +5376,8 @@ bool MainWindow::processConfigLine(const QString &_line){
             }
 
         }
+        stationQRZ = dataProxy->getStationCallSignFromLog (currentLog);
+        defineStationCallsign (stationQRZ);
         dxClusterWidget->setCurrentLog(currentLog);
         dxccStatusWidget->setCurrentLog(currentLog);
                  //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << QT_ENDL;
@@ -7105,7 +7110,7 @@ void MainWindow::slotShowAwards()
     awardsWidget->showAwards();
              //qDebug() << "MainWindow::slotShowAwards-3"  << QT_ENDL;
     //dxccStatusWidget->refresh();
-    setMainWindowTitle(QString::number(dataProxy->getHowManyQSOInLog(currentLog)));
+    setMainWindowTitle();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
              //qDebug() << "MainWindow::slotShowAwards-END"  << QT_ENDL;
 }
@@ -7655,7 +7660,7 @@ void MainWindow::defineStationCallsign(const QString &_call)
     searchWidget->setStationCallsign(stationQRZ);
     lotwUtilities->setStationCallSign(stationQRZ);
     adifLoTWExportWidget->setDefaultStationCallsign(stationQRZ);
-    myDataTabWidget->setStationQRZ(mainQRZ);
+    myDataTabWidget->setStationQRZ(stationQRZ);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
              //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << QT_ENDL;
