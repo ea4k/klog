@@ -45,7 +45,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     //lastStationQRZ = QString();     // Last QRZ used by the user, will remain if the button is checked and removed if not
     lastMyLocator = QString();      // Last locator used by the user, will remain if the button is checked and removed if not
 
-    stationQRZ = QString();         // Defined in the configuration by the user, will be used if the user configured so in the setup
+    stationCallsign = QString();         // Defined in the configuration by the user, will be used if the user configured so in the setup
     operatorQRZ = QString();        // Defined in the configuration by the user, will be used if the user configured so in the setup
     myLocator = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
     util = new Utilities;
@@ -134,9 +134,9 @@ void MainWindowMyDataTab::clear(bool _full)
         {
             operatorLineEdit->clear();
         }
-        if (util->isValidCall(stationQRZ))
+        if (util->isValidCall(stationCallsign))
         {
-            stationCallSignLineEdit->setText(stationQRZ);
+            stationCallSignLineEdit->setText(stationCallsign);
         }
         else
         {
@@ -176,10 +176,10 @@ void MainWindowMyDataTab::clear(bool _full)
 void MainWindowMyDataTab::show()
 {
     //qDebug() << Q_FUNC_INFO;
-    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationQRZ << "/" << myLocator << QT_ENDL;
+    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationCallsign << "/" << myLocator << QT_ENDL;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
-    stationCallSignLineEdit->setText(stationQRZ);
+    stationCallSignLineEdit->setText(stationCallsign);
     //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator  << QT_ENDL;
     myLocatorLineEdit->setText(myLocator);
 
@@ -251,7 +251,7 @@ void MainWindowMyDataTab::setSetupOperator(const QString &_op)
     operatorQRZ = _op.toUpper();
     operatorLineEdit->setText (operatorQRZ);
 }
-
+/*
 void MainWindowMyDataTab::setSetupStationQRZ(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op ;
@@ -262,6 +262,7 @@ void MainWindowMyDataTab::setSetupStationQRZ(const QString &_op)
     stationQRZ = _op.toUpper();
     stationCallSignLineEdit->setText(stationQRZ);
 }
+*/
 
 void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
 {
@@ -313,13 +314,13 @@ QString MainWindowMyDataTab::getOperator()
 }
 
 
-void MainWindowMyDataTab::setStationQRZ(const QString &_op)
+void MainWindowMyDataTab::setStationCallsign(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    qDebug() << Q_FUNC_INFO << ": " << _op;
     stationCallSignLineEdit->setText(_op);
 }
 
-QString MainWindowMyDataTab::getStationQRZ()
+QString MainWindowMyDataTab::getStationCallsign()
 {
     //qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
     return (stationCallSignLineEdit->text()).toUpper();
@@ -340,9 +341,9 @@ QString MainWindowMyDataTab::getMyLocator()
 }
 
 
-void MainWindowMyDataTab::setData(const double _power, const QString &_stationQRZ, const QString &_operator, const QString &_myLocator)
+void MainWindowMyDataTab::setData(const double _power, const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     if (_power > 0.0)
     {
         myPower = _power;
@@ -352,14 +353,13 @@ void MainWindowMyDataTab::setData(const double _power, const QString &_stationQR
         myPower = 0;
     }
 
-    if (_stationQRZ.length()>0)
+    if (_stationCallsign.length()>0)
     {
-        setStationQRZ (_stationQRZ);
-        //stationQRZ = _stationQRZ;
+        setStationCallsign (_stationCallsign);
     }
     else
     {
-        stationQRZ = QString();
+        stationCallsign = QString();
     }
 
     if (_operator.length()>0)
@@ -438,7 +438,7 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
 
         if (!modify)
         {
-            stationQRZ = (stationCallSignLineEdit->text());
+            stationCallsign = (stationCallSignLineEdit->text());
         }
     }
     else

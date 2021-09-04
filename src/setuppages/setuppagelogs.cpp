@@ -29,33 +29,20 @@
 #include "setuppages/setuppagelogs.h"
 
 SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
-       //qDebug() << "SetupPageLogs::SetupPageLogs" << QT_ENDL;
+    //qDebug() << "SetupPageLogs::SetupPageLogs" << QT_ENDL;
     dataProxy = dp;
     stationCallsign = QString();
     operators = QString();
     comment = QString();
-    //dateString = QDate::currentDate().toString("yyyy/MM/dd");
     dateString = QString();
-    //typeContest = QString();
-    //contestCatMode = -1;
-    //contestCatOperators = -1;
-    //contestCatAssisted = -1;
-    //contestCatPower = -1;
-    //contestCatBands = -1;
-    //contestBands = -1;
-    //typeContestN = -1;
-
     selectedLog = -1;
     defaultStationCallSign.clear();
-
-    //setupD = new SetupDialog();
-
-
     logsAvailable.clear();
 
     newLog = new SetupPageLogsNew(dataProxy);
     logsModel = new QSqlRelationalTableModel(this);
     logsView = new QTableView;
+
     logsView->setContextMenuPolicy(Qt::CustomContextMenu);
     logsView->setSortingEnabled(true);
 
@@ -66,20 +53,13 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
 
     lastLog = 0;
 
-
     newLogPushButton = new QPushButton(tr("&New"), this);
     editPushButton = new QPushButton(tr("&Edit"), this);
     removePushButton = new QPushButton(tr("&Remove"), this);
 
-
     newLogPushButton->setToolTip(tr("Add a new log."));
-    //loadAllPushButton->setToolTip(tr("Load all the logs"));
-    //loadSelectedPushButton->setToolTip(tr("Load only the selected log"));
-    //clearPushButton->setToolTip(tr("Clear selection"));
     editPushButton->setToolTip(tr("Edit the selected log."));
     removePushButton->setToolTip(tr("Remove the selected log."));
-
-
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(newLogPushButton);
@@ -90,23 +70,13 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     widgetLayout->addWidget(logsView);
 
     widgetLayout->addLayout(buttonsLayout);
-    //widgetLayout->addLayout(logDataLayout);
-
 
     setLayout(widgetLayout);
-
-
-
-    //connect(newLogPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
-    //QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
-    //connect(setupD, SIGNAL(newLogRequested(true)), this, slotNewButtonClicked() )
-
 
     createActions();
     updateSelectedLogs();
 
-
-       //qDebug() << "SetupPageLogs::SetupPageLogs - END" << QT_ENDL;
+    //qDebug() << "SetupPageLogs::SetupPageLogs - END" << QT_ENDL;
 }
 
 SetupPageLogs::~SetupPageLogs(){
@@ -116,13 +86,12 @@ SetupPageLogs::~SetupPageLogs(){
 
 void SetupPageLogs::createNewLog()
 {
-      //qDebug() << "SetupPageLogs::createNewLog" << QT_ENDL;
+    //qDebug() << "SetupPageLogs::createNewLog" << QT_ENDL;
     selectedLog = -1;
-    //newLog->clear();
     newLog->setEditing(false);
     if (defaultStationCallSign.length()>2)
     {
-          //qDebug() << "SetupPageLogs::createNewLog-1" << QT_ENDL;
+        //qDebug() << "SetupPageLogs::createNewLog-1" << QT_ENDL;
         newLog->setStationCallSign(defaultStationCallSign);
     }
     if (defaultOperators.length()>2)
@@ -133,19 +102,18 @@ void SetupPageLogs::createNewLog()
     newLog->setComment("");
 
     int result = newLog->exec();
-      //qDebug() << "SetupPageLogs::createNewLog: result: " << QString::number(result) << QT_ENDL;
+    //qDebug() << "SetupPageLogs::createNewLog: result: " << QString::number(result) << QT_ENDL;
     if (result == QDialog::Accepted)
     {
-          //qDebug() << "SetupPageLogs::createNewLog - Accepted, emitting focusOK" << QT_ENDL;
+        //qDebug() << "SetupPageLogs::createNewLog - Accepted, emitting focusOK" << QT_ENDL;
         emit focusOK();
     }
-      //qDebug() << "SetupPageLogs::createNewLog - END" << QT_ENDL;
+    //qDebug() << "SetupPageLogs::createNewLog - END" << QT_ENDL;
 }
 
 void SetupPageLogs::slotNewButtonClicked()
 {
-       //qDebug() << "SetupPageLogs::slotNewButtonClicked" << QT_ENDL;
-
+    //qDebug() << "SetupPageLogs::slotNewButtonClicked" << QT_ENDL;
     createNewLog();
 }
 
@@ -354,7 +322,6 @@ void SetupPageLogs::createLogsModel()
 
 void SetupPageLogs::slotLogSelected(const QModelIndex & index)
 {
-
     int row = index.row();
     selectedLog = (logsModel->index(row, 0)).data(0).toInt();
     //qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog)  << QT_ENDL;
@@ -376,7 +343,7 @@ void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
 
 void SetupPageLogs::createActions()
 {
-       //qDebug() << "SetupPageLogs::createActions" << QT_ENDL;
+    //qDebug() << "SetupPageLogs::createActions" << QT_ENDL;
     //connect(currentLogs, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentLogsComboBoxChanged() ) ) ;
     connect(newLogPushButton, SIGNAL(clicked()), this, SLOT(slotNewButtonClicked() ) );
     connect(removePushButton, SIGNAL(clicked()), this, SLOT(slotRemoveButtonClicked() ) );
@@ -384,12 +351,6 @@ void SetupPageLogs::createActions()
     connect(newLog, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList) ) );
     connect(logsView, SIGNAL(clicked(QModelIndex)), this, SLOT(slotLogSelected(QModelIndex) ) );
     connect(logsView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(slotLogDoubleClicked(QModelIndex) ) );
-    //connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
-
-    //loadAllPushButton->setToolTip(tr("Load all the logs"));
-    //loadSelectedPushButton->setToolTip(tr("Load only the selected log"));
-    //clearPushButton->setToolTip(tr("Clear selection"));
-
 }
 
 QStringList SetupPageLogs::readLogs()
@@ -406,8 +367,6 @@ QStringList SetupPageLogs::readLogs()
     aux.clear();
     _logs.clear();
 
-
-    //aux = "SELECT id, logdate, stationcall, logtype FROM logs";
     aux = "SELECT id, logdate, stationcall FROM logs";
 
     sqlOk = query.exec(aux);
@@ -464,64 +423,16 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     {
         return;
     }
-/*     From SetupPageLogsNew::gatherAndSend()
-    logData.clear();
-    logData << stationCallsign << operators << comment << dateString
-            << typeConteststr
-            << QString::number(contestCatMode)
-            << QString::number(contestCatOperators)
-            << QString::number(contestCatAssisted)
-            << QString::number(contestCatPower)
-            << QString::number(contestCatBands)
-            << QString::number(contestBands)
-            << QString::number(contestCatOverlay)
-            << QString::number(typeContest);
-            << editing (1/0)
 
-*/
     stationCallsign = _qs.at(0);
     operators = _qs.at(1);
     comment = _qs.at(2);
     dateString = _qs.at(3);
-   //typeContest  = _qs.at(4);
-/*
-    contestCatMode  = (_qs.at(5)).toInt();
-    contestCatOperators  = (_qs.at(6)).toInt();
-    contestCatAssisted  = (_qs.at(7)).toInt();
-    contestCatPower  = (_qs.at(8)).toInt();
-    contestCatBands  = (_qs.at(9)).toInt();
-    contestBands  = (_qs.at(10)).toInt();
-    typeContestN = (_qs.at(12)).toInt();
-*/
-    /*
-    bool editing;
-    if ( (_qs.at(4)).toInt() == 1)
-    {
-        editing = true;
-    }
-    else
-    {
-        editing = false;
-    }
-    */
-    //OVERLAY = 11
-/*
-    QString _dateString = _qs.at(0);
-    QString _stationCallsign = _qs.at(1);
-    QString _operators = _qs.at(2);
-
-    QString _typeContest = _qs.at(3);
-    QString _comment = _qs.at(4);
-    QString _typeContestN = _qs.at(5);
-    QString id = _qs.at(6);
-    QString editing = _qs.at(7);
-*/
+    //TODO: Check that those vars have received valid data (calls, date, ...)
 
     QStringList newLogq;
     newLogq.clear();
-    //If qs.at(12) == 1 then we are editing, any other value is a new log
-    //Date/Call/Operators/"DX"/comment/"1"
-    //newLogq << dateString << stationCallsign << operators << typeContest << comment << "1" << QString::number(selectedLog) << _qs.at(13) ;
+
     newLogq << dateString << stationCallsign << operators << comment << QString::number(selectedLog) << _qs.at(4) ;
 
     if (dataProxy->addNewLog(newLogq))
@@ -611,38 +522,18 @@ int SetupPageLogs::getSelectedLog()
 {
       //qDebug() << "SetupPageLogs::getSelectedLog: " << currentLogs->currentText() << QT_ENDL;
     return selectedLog;
-    /*
-    QString selectedLog = currentLogs->currentText();
-    int i = 0;
-    QStringList qs;
-    qs.clear();
-    qs << selectedLog.split("-");
-    i = (qs.at(0)).toInt();
-    //qDebug() << "SetupPageLogs::getSelectedLog: " << QString::number(i) << QT_ENDL;
-    if (i>=1)
-    {
-        return i;
-    }
-    else
-    {
-        return 0;
-    }
-    */
 }
 
 
 
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-    //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << QT_ENDL;
-    //QString n = QString::number(_i) + "-";
-    //selectedLog = (logsModel->index(row, 0)).data(0).toInt();
-
+    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << QT_ENDL;
+    //TODO: Show which is the selected log
     selectedLog = _i;
     logsView->selectRow(1);
 
     QModelIndex index = logsModel->index(selectedLog, 0);
-
     logsView->setCurrentIndex(index);
 
 }

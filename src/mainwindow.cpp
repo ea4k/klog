@@ -179,8 +179,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     infoLabel2 = new QLabel(tr("DX Entity"));
     loggWinAct = new QAction(tr("&Log Window"), this);
 
-    operatorLineEdit = new QLineEdit;
-    stationCallSignLineEdit = new QLineEdit;
+    //operatorLineEdit = new QLineEdit;
+    //stationCallSignLineEdit = new QLineEdit;
     //txFreqSpinBox = new QDoubleSpinBox;
     //rxFreqSpinBox = new QDoubleSpinBox;
 
@@ -311,7 +311,7 @@ void MainWindow::init()
     currentLog = 1;
 
     operatorQRZ = "";
-    stationQRZ = "";
+    stationCallsign = "";
     mainQRZ = "";
     //myLocator = "";
     dxLocator ="";
@@ -447,7 +447,7 @@ void MainWindow::init()
     {//reportInfo
         if (reportInfo)
         {
-            softUpdate->addCall(stationQRZ);
+            softUpdate->addCall(stationCallsign);
         }
         softUpdate->needToUpdate();
     }
@@ -485,8 +485,8 @@ void MainWindow::createActionsCommon(){
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 // Return pressed = QSO ENTRY
 
-    connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
+    //connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
     connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
@@ -765,11 +765,11 @@ void MainWindow::setMainWindowTitle()
       //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux << QT_ENDL;
     if (aux.length ()>0)
     {
-        setWindowTitle(tr("KLog - %1 - QSOs: %2 - %3" ).arg(stationQRZ).arg(numberOfQSOs).arg(aux));
+        setWindowTitle(tr("KLog - %1 - QSOs: %2 - %3" ).arg(stationCallsign).arg(numberOfQSOs).arg(aux));
     }
     else
     {
-        setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationQRZ).arg(numberOfQSOs));
+        setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationCallsign).arg(numberOfQSOs));
     }
 
 
@@ -1240,12 +1240,11 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     aux1 = myDataTabWidget->getOperator();
     if (aux1.length()>2)
     {
-        //lastOperatorQRZ = aux1.toUpper();
         stringFields = stringFields + ", operator";
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-    aux1 = myDataTabWidget->getStationQRZ();
+    aux1 = myDataTabWidget->getStationCallsign();
     //qDebug() << Q_FUNC_INFO << "StationCallSign: " << aux1;
     if (aux1.length()>2)
     {
@@ -2081,7 +2080,7 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = myDataTabWidget->getOperator();
-    //aux1 = operatorLineEdit->text();
+
     if (util->isValidCall(aux1))
     {
         updateString = updateString + "operator = '";
@@ -2092,7 +2091,7 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "operator = '', ";
     }
 
-    aux1 = myDataTabWidget->getStationQRZ();
+    aux1 = myDataTabWidget->getStationCallsign();
     //aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (util->isValidCall(aux1))
     {
@@ -4477,7 +4476,7 @@ void MainWindow::slotHelpCheckUpdatesAction()
             //qDebug() << "MainWindow::slotHelpCheckUpdatesAction" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     callingUpdate = true;
-    softUpdate->addCall(stationQRZ);
+    softUpdate->addCall(stationCallsign);
     softUpdate->needToUpdate(true);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4608,7 +4607,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", logSeverity);
         logWindow->createlogPanel(currentLog);
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", logSeverity);
-        defineStationCallsign(stationQRZ);
+        defineStationCallsign(stationCallsign);
         logEvent(Q_FUNC_INFO, "before db->reConnect", logSeverity);
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << QT_ENDL;
         dataProxy->reconnectDB();
@@ -4888,7 +4887,7 @@ void MainWindow::readConfigData()
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
     setMainWindowTitle();
-    dxClusterWidget->setMyQRZ(stationQRZ);
+    dxClusterWidget->setMyQRZ(stationCallsign);
     //qDebug() << Q_FUNC_INFO << ": 97"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     checkIfNewBandOrMode();
     //qDebug() << Q_FUNC_INFO << ": 98"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -4904,7 +4903,7 @@ void MainWindow::readConfigData()
     // I need to init the CLUBLOG
     if (clublogActive)
     {
-        elogClublog->setCredentials(clublogEmail, clublogPass, stationQRZ);
+        elogClublog->setCredentials(clublogEmail, clublogPass, stationCallsign);
     }
     else
     {
@@ -5008,8 +5007,6 @@ bool MainWindow::processConfigLine(const QString &_line){
         if (util->isValidCall(value))
         {
             mainQRZ = value;
-            //defineStationCallsign(mainQRZ);
-            //myDataTabWidget->setStationQRZ(mainQRZ);
         }
     }else if (field=="CQZ"){
         my_CQz = value.toInt();
@@ -5328,7 +5325,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         //if ( ((dataProxy->doesThisLogExist(currentLog))  && (dataProxy->getHowManyQSOInLog(currentLog) > 0)) )
         if ( ((dataProxy->doesThisLogExist(currentLog)) ) )
         {
-                      //qDebug() << "MainWindow::processConfigLine: currentLog - Log with QSO - SelectedLog: " << QString::number(currentLog) << QT_ENDL;
+            //qDebug() << "MainWindow::processConfigLine: currentLog - Log with QSO - SelectedLog: " << QString::number(currentLog) << QT_ENDL;
         }
         else
         {
@@ -5336,16 +5333,15 @@ bool MainWindow::processConfigLine(const QString &_line){
             int _howManyQSOMaxT = 0;    // Number of QSO in ine specific log
             QStringList logs = QStringList();
 
-
             logs << dataProxy->getListOfManagedLogs();
-                     //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << QT_ENDL;
+            //qDebug() << "MainWindow::processConfigLine: logs: " << QString::number(logs.size()) << QT_ENDL;
             for (int i = 0;i<logs.length();i++)
             {
                 _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
-                          //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << QT_ENDL;
+                //qDebug() << "MainWindow::processConfigLine: SelectedLog-x: " << QString::number(i) << " - QSOs: " << QString::number(_howManyQSOMaxT) << QT_ENDL;
                 if (_howManyQSOMax < _howManyQSOMaxT)
                 {
-                              //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << QT_ENDL;
+                 //qDebug() << "MainWindow::processConfigLine: Found log with more QSO: " << logs.at(i) << QT_ENDL;
                     _howManyQSOMax = _howManyQSOMaxT;
                    _logWithMoreQSOs = (logs.at(i)).toInt();
                 }
@@ -5376,8 +5372,8 @@ bool MainWindow::processConfigLine(const QString &_line){
             }
 
         }
-        stationQRZ = dataProxy->getStationCallSignFromLog (currentLog);
-        defineStationCallsign (stationQRZ);
+        stationCallsign = dataProxy->getStationCallSignFromLog (currentLog);
+        defineStationCallsign (stationCallsign);
         dxClusterWidget->setCurrentLog(currentLog);
         dxccStatusWidget->setCurrentLog(currentLog);
                  //qDebug() << "MainWindow::processConfigLine: currentLog: " << value << QT_ENDL;
@@ -5746,8 +5742,8 @@ void MainWindow::createUIDX()
     //        //qDebug() << "MainWindow::createUIDX << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
-    operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
-    stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
+    //operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
+    //stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
 
     infoLabel1->setToolTip(tr("Status of the DX entity."));
             //qDebug() << "MainWindow::createUIDX-13" << QT_ENDL;
@@ -6678,7 +6674,7 @@ void MainWindow::qsoToEdit (const int _qso)
         nameCol = rec.indexOf("station_callsign");
         aux1 = (query.value(nameCol)).toString();
           //qDebug() << "MainWindow::qsoToEdit: - STATIONQRZ: " << aux1  << QT_ENDL;
-        myDataTabWidget->setStationQRZ(aux1);
+        myDataTabWidget->setStationCallsign(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
         aux1 = (query.value(nameCol)).toString();
@@ -7381,7 +7377,7 @@ void MainWindow::slotFilePrint()
     //int page = 1;
 
     printer.setPageOrientation(QPageLayout::Landscape); // For testing, the log will be printed landscape.
-    printer.setDocName(stationQRZ+"-log");
+    printer.setDocName(stationCallsign+"-log");
 
     QPrintDialog printDialog(&printer, this);
     printDialog.setWindowTitle(tr("Print Log"));
@@ -7633,11 +7629,11 @@ void MainWindow::updateQSLRecAndSent()
 
 void MainWindow::defineStationCallsign(const QString &_call)
 {
-            //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << QT_ENDL;
+    qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (util->isValidCall (_call))
     {
-        stationQRZ = _call;
+        stationCallsign = _call;
     }
     else
     { // If no call is detected, qwe try to find it from the log
@@ -7648,22 +7644,21 @@ void MainWindow::defineStationCallsign(const QString &_call)
         if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
         {
             //qDebug() << "MainWindow::defineStationCallsign TRUE "  << QT_ENDL;
-            stationQRZ = logQRZ;
+            stationCallsign = logQRZ;
         }
     }
 
-     //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ  << QT_ENDL;
-    filemanager->setStationCallSign(stationQRZ);
+     //qDebug() << "MainWindow::defineStationCallsign: " << stationCallsign  << QT_ENDL;
+    filemanager->setStationCallSign(stationCallsign);
     //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << QT_ENDL;
-    myDataTabWidget->setData(myPower, stationQRZ, operatorQRZ, myDataTabWidget->getMyLocator());
+    myDataTabWidget->setData(myPower, stationCallsign, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
-    searchWidget->setStationCallsign(stationQRZ);
-    lotwUtilities->setStationCallSign(stationQRZ);
-    adifLoTWExportWidget->setDefaultStationCallsign(stationQRZ);
-    myDataTabWidget->setStationQRZ(stationQRZ);
+    searchWidget->setStationCallsign(stationCallsign);
+    lotwUtilities->setStationCallSign(stationCallsign);
+    adifLoTWExportWidget->setDefaultStationCallsign(stationCallsign);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-             //qDebug() << "MainWindow::defineStationCallsign: " << stationQRZ << " - END" << QT_ENDL;
+             //qDebug() << "MainWindow::defineStationCallsign: " << stationCallsign << " - END" << QT_ENDL;
 
 }
 
@@ -7899,7 +7894,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
     //qDebug() << "MainWindow::slotWSJTX-loggedQSO" << QT_ENDL;
     //logEvent(Q_FUNC_INFO, "Start", logSeverity);
     bool logTheQso = false;
-    QString opCall = stationQRZ;
+    QString opCall = stationCallsign;
     if (util->isValidCall(_opCall))
     {
         opCall = _opCall.toUpper();
@@ -8199,7 +8194,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
              }
             QSOTabWidget->setRSTTX (_report);
              myDataTabWidget->setMyLocator(_de_grid);
-             myDataTabWidget->setStationQRZ(_de_call.toUpper());
+             myDataTabWidget->setStationCallsign(_de_call.toUpper());
 
              //TODO: Check what to do with _de_call -> Check if _de_call == station callsign and update if needed.
              //TODO: Check what to do with _de_grid -> Check if _de_grid == My Grid and update if needed.
@@ -8474,7 +8469,7 @@ void MainWindow::backupCurrentQSO()
     // MainWindowMyDataTab
     qso->setTXPwr (myDataTabWidget->getMyPower ());
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
-    qso->setStationCallsign (myDataTabWidget->getStationQRZ ());
+    qso->setStationCallsign (myDataTabWidget->getStationCallsign ());
     qso->setMySOTA_REF (myDataTabWidget->getMySOTA ());
     qso->setMyRig (myDataTabWidget->getMyRig());
     qso->setMyAntenna (myDataTabWidget->getMyAntenna ());
@@ -8565,7 +8560,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     // MainWindowMyDataTab
     myDataTabWidget->setMyPower (qso->getTXPwr ());
     myDataTabWidget->setOperator (qso->getOperatorCallsign());
-    myDataTabWidget->setStationQRZ (qso->getStationCallsign());
+    myDataTabWidget->setStationCallsign (qso->getStationCallsign());
     myDataTabWidget->setMyLocator (qso->getMyGridSquare ());
     myDataTabWidget->setKeep (qso->getKeepMyData ());
     myDataTabWidget->setMyRig (qso->getMyRig ());

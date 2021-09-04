@@ -51,35 +51,15 @@ public:
     void createNewLog();
     void setDefaultStationCallsign (const QString &_p);
     void setDefaultOperators(const QString &_p);
-/*
-    QString getBands(); // 10m, 12m, 15m
-    QString getModes(); //ssb, CW
-
-    void setActiveBands(QStringList q);
-    void setActiveModes(QStringList q);
-    */
 
 private slots:
-/*
-    void slotBandActiveItemDoubleClicked ( QListWidgetItem * item );
-    void slotBandNotActiveItemDoubleClicked ( QListWidgetItem * item );
-    void slotBandSelButtonClicked( );
-    void slotBandUnSelButtonClicked( );
-    void slotModeSelButtonClicked( );
-    void slotModeUnSelButtonClicked( );
-*/
     void slotNewButtonClicked();
     void slotEditButtonClicked();
     void slotRemoveButtonClicked();
     void slotAnalyzeNewLogData(const QStringList _qs);
     void slotLogSelected(const QModelIndex & index);
     void slotLogDoubleClicked(const QModelIndex & index);
-    //void slotCurrentLogsComboBoxChanged();
-    //void slotLogsCancelled(const bool _q);
 
-    //void slotCreateLog();
-
-        //
 signals:
    //void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void newLogData(const QStringList _qs); // Station QRZ + Operators to be shown in the main tab
@@ -113,29 +93,17 @@ private:
 
     QAbstractButton *finishButton;
 
-    //QWidget *logsWidget;
-    //QTreeWidget *logsQTreeWidget;
-    //QListWidget *bandsNotActiveListWidget, *bandsActiveListWidget;
-    //QListWidget *modesNotActiveListWidget, *modesActiveListWidget;
-    //QStringList bands, modes;
     QPushButton *newLogPushButton,  *editPushButton, *removePushButton;
-    //*loadAllPushButton, *loadSelectedPushButton, *clearPushButton,;
+
     int lastLog;
     QString currentLogComment;
     QString currentStationCallSign;
-    //QComboBox *currentLogs;
     QStringList logsAvailable;
-
     SetupPageLogsNew *newLog;
-
     QString stationCallsign, operators, comment, dateString;//, typeContest;
-    //int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;//, typeContestN;
-
     DataProxy_SQLite *dataProxy;
     int selectedLog;
-
     QString defaultStationCallSign, defaultOperators;
-
 
 };
 

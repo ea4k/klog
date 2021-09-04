@@ -46,11 +46,11 @@ public:
 
     void createUI();
 
-    void setData(const double _power, const QString &_stationQRZ, const QString &_operator, const QString &_myLocator);
+    void setData(const double _power, const QString &_stationCallsign, const QString &_operator, const QString &_myLocator);
 
     void setSetupMyPower(const double _power);
     void setSetupOperator(const QString &_op);
-    void setSetupStationQRZ(const QString &_op);
+    //void setSetupStationQRZ(const QString &_op);
     void setSetupMyLocator(const QString &_op);
 
     void setMyPower(const double _power);
@@ -62,8 +62,8 @@ public:
 
     //QString getLastOperator();
 
-    void setStationQRZ(const QString &_op);
-    QString getStationQRZ();
+    void setStationCallsign(const QString &_op);
+    QString getStationCallsign();
 
     //QString getLastStationQRZ();
 
@@ -102,20 +102,15 @@ private slots:
     void slotMyUserADIFComboBoxChanged();
     void slotSetCurrentMyUSerData();
 
-
 private:
-    //void setLastOperator(const QString &_op);
-    //void setLastStationQRZ(const QString &_op);
-    //void setLastMyLocator(const QString &_op);
-    //void setLastPower(const double _power);
+
     bool setInitialADIFValues();
     void setColorsForMyUserADIFLineEdit();
     bool checkMyVUCC_GRIDS(const QString &_string);
     QStringList adifValidTypes;
-    //bool setCurrentAdifValue();
 
     QDoubleSpinBox *myPowerSpinBox;
-    QString stationQRZ, operatorQRZ, myLocator; //Not changed during normal operations. They come from the configuration
+    QString stationCallsign, operatorQRZ, myLocator; //Not changed during normal operations. They come from the configuration
     QString lastOperatorQRZ, lastMyLocator; //lastStationQRZ, Change dinamically during execution
     double myPower, lastPower;
 

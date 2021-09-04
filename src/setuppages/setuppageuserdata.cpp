@@ -32,7 +32,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
    util = new Utilities;
    dataProxy = dp;
    world = new World(dataProxy, Q_FUNC_INFO);
-   operatorOK = false;
+   mainCallOK = false;
    operatorsOK = false;
    tabWidget = new QTabWidget;
    QWidget *personalTab = new QWidget;
@@ -41,7 +41,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
    tabWidget->addTab(personalTab, tr("&Personal data"));
    tabWidget->addTab(stationTab, tr("Station &data"));
 
-   qrzLineEdit = new QLineEdit;
+   maincallsignLineEdit = new QLineEdit;
    operatorsLineEdit = new QLineEdit;
    nameLineEdit = new QLineEdit;
    cqzLineEdit = new QLineEdit;
@@ -184,10 +184,9 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     stationTab->setLayout(stationLayout);
 
     //TODO:Defining ALL the tooltips
-    qrzLineEdit->setToolTip(tr("Enter the station callsign that will be used for logging."));
+    maincallsignLineEdit->setToolTip(tr("Enter the station callsign that will be used for logging."));
     operatorsLineEdit->setToolTip(tr("Enter the operators (comma separated if more than one)."));
     myLocatorLineEdit->setToolTip(tr("Enter the locator of your station. Alternatively, KLog can use an approximate locator based on your callsign."));
-
 
     QLabel *qrzLabel = new QLabel(tr("&Callsign"));
     QLabel *operatorsLabel = new QLabel (tr("&Operators"));
@@ -195,7 +194,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     QLabel *ituzLabel = new QLabel(tr("&ITU Zone"));
     myLocatorLabel = new QLabel(tr("&Locator"));
 
-    qrzLabel->setBuddy(qrzLineEdit);
+    qrzLabel->setBuddy(maincallsignLineEdit);
     operatorsLabel->setBuddy(operatorsLineEdit);
     cqzLabel->setBuddy(cqzLineEdit);
     ituzLabel->setBuddy(ituzLineEdit);
@@ -206,35 +205,9 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     cqzLineEdit->setText("00");
     ituzLineEdit->setText("00");
 
-    //QHBoxLayout *operatorLayout = new QHBoxLayout;
-    //operatorLayout->addWidget(qrzLabel);
-    //operatorLayout->addWidget(qrzLineEdit);
-    //operatorLayout->addWidget(operatorsLabel);
-    //operatorLayout->addWidget(operatorsLineEdit);
-
-
-    //QGridLayout *operatorLayout = new QGridLayout();
-    //operatorLayout->addWidget(qrzLabel, 0, 0);
-    //operatorLayout->addWidget(qrzLineEdit, 1, 0);
-    ////operatorLayout->addWidget(nameLabel, 0, 1);
-    ////operatorLayout->addWidget(nameLineEdit, 1, 1);
-/*
-    QGridLayout *zonesBoxLayout = new QGridLayout;
-    zonesBoxLayout->addWidget(myLocatorLabel,0,0);
-    zonesBoxLayout->addWidget(cqzLabel,0,1);
-    zonesBoxLayout->addWidget(ituzLabel,0,2);
-    zonesBoxLayout->addWidget(myLocatorLineEdit,1,0);
-    zonesBoxLayout->addWidget(cqzLineEdit,1,1);
-    zonesBoxLayout->addWidget(ituzLineEdit,1,2);
-
-    QVBoxLayout *userdataLayout = new QVBoxLayout();
-    userdataLayout->addLayout(operatorLayout);
-    userdataLayout->addLayout(zonesBoxLayout);
-
-*/
     QGridLayout *userdataLayout = new QGridLayout;
     userdataLayout->addWidget(qrzLabel, 0, 0);
-    userdataLayout->addWidget(qrzLineEdit, 1, 0);
+    userdataLayout->addWidget(maincallsignLineEdit, 1, 0);
     userdataLayout->addWidget(operatorsLabel, 0, 1);
     userdataLayout->addWidget(operatorsLineEdit, 1, 1, 1, -1);
     userdataLayout->addWidget(myLocatorLabel, 3, 0);
@@ -250,8 +223,8 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     mainLayout->addWidget(tabWidget);
     //mainLayout->addStretch(1);
 
-    connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
-    connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
+    connect(maincallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZTextChanged() ) );
+    connect(maincallsignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(operatorsLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(cqzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
@@ -271,7 +244,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     connect(operatorsLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorsChanged() ) );
 
     setLayout(mainLayout);
-    qrzLineEdit->setFocus();
+    maincallsignLineEdit->setFocus();
 
        //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END" << QT_ENDL;
 }
@@ -282,12 +255,12 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
        //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage" << QT_ENDL;
 }
 
-QString SetupPageUserDataPage::getStationQrz()
+QString SetupPageUserDataPage::getMainCallsign()
 {
-    operatorOK = world->checkQRZValidFormat(qrzLineEdit->text());
-    if (operatorOK)
+    mainCallOK = world->checkQRZValidFormat(maincallsignLineEdit->text());
+    if (mainCallOK)
     {
-        return qrzLineEdit->text();
+        return maincallsignLineEdit->text();
     }
     else
     {
@@ -304,11 +277,11 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
-      //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << QT_ENDL;
+      //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size()) << QT_ENDL;
 
-    int i = qrzLineEdit->cursorPosition();
+    int i = maincallsignLineEdit->cursorPosition();
 
-    QString _a = util->getClearSQLi (qrzLineEdit->text());
+    QString _a = util->getClearSQLi (maincallsignLineEdit->text());
     if (i<1)
     {
         return;
@@ -316,26 +289,26 @@ void SetupPageUserDataPage::slotQRZTextChanged()
 
     if ((_a.at(i-1)).isSpace())
     {
-        qrzLineEdit->setText(_a.remove(i-1, 1));
+        maincallsignLineEdit->setText(_a.remove(i-1, 1));
     }
 
 
-    qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
-    qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
+    maincallsignLineEdit->setText(((maincallsignLineEdit->text())).simplified());
+    maincallsignLineEdit->setText((maincallsignLineEdit->text()).toUpper());
 
-    cqzLineEdit->setText(QString::number(world->getQRZCqz(qrzLineEdit->text())));
-    ituzLineEdit->setText(QString::number(world->getQRZItuz(qrzLineEdit->text())));
-    myLocatorLineEdit->setText(world->getQRZLocator(qrzLineEdit->text()));
+    cqzLineEdit->setText(QString::number(world->getQRZCqz(maincallsignLineEdit->text())));
+    ituzLineEdit->setText(QString::number(world->getQRZItuz(maincallsignLineEdit->text())));
+    myLocatorLineEdit->setText(world->getQRZLocator(maincallsignLineEdit->text()));
 
-    qrzLineEdit->setCursorPosition(i);
+    maincallsignLineEdit->setCursorPosition(i);
 
-    emit stationCallSignal(qrzLineEdit->text());
-    //emit stationCallSignal("TEST");
+    emit mainCallsignSignal(maincallsignLineEdit->text());
+
 
     /*
      if (!locator->isValidLocator(myLocatorLineEdit->text()) )
     {
-        myLocatorLineEdit->setText(world->getQRZLocator(qrzLineEdit->text()));
+        myLocatorLineEdit->setText(world->getQRZLocator(maincallsignLineEdit->text()));
     }
     */
 }
@@ -348,8 +321,8 @@ int SetupPageUserDataPage::getITUz(){
     return (ituzLineEdit->text()).toInt();
 }
 
-bool SetupPageUserDataPage::setStationQrz(const QString &_qrz){
-    qrzLineEdit->setText((_qrz).toUpper());
+bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz){
+    maincallsignLineEdit->setText((_qrz).toUpper());
     return true;
 }
 
@@ -692,9 +665,9 @@ void SetupPageUserDataPage::slotOperatorsChanged()
        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05" << QT_ENDL;
 
  /*
-    cqzLineEdit->setText(QString::number(world->getQRZCqz(qrzLineEdit->text())));
-    ituzLineEdit->setText(QString::number(world->getQRZItuz(qrzLineEdit->text())));
-    myLocatorLineEdit->setText(world->getQRZLocator(qrzLineEdit->text()));
+    cqzLineEdit->setText(QString::number(world->getQRZCqz(maincallsignLineEdit->text())));
+    ituzLineEdit->setText(QString::number(world->getQRZItuz(maincallsignLineEdit->text())));
+    myLocatorLineEdit->setText(world->getQRZLocator(maincallsignLineEdit->text()));
 
 
   */
@@ -742,5 +715,5 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 void SetupPageUserDataPage::setStationFocus()
 {
     //qDebug() << "SetupPageUserDataPage::setStationFocus" << QT_ENDL;
-    qrzLineEdit->setFocus();
+    maincallsignLineEdit->setFocus();
 }

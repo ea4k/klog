@@ -151,7 +151,7 @@ void SetupDialog::connectActions()
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
     connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
     connect(logsPage, SIGNAL(focusOK()), this, SLOT(slotFocusOK()) );
-    connect (userDataPage, SIGNAL(stationCallSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
+    connect (userDataPage, SIGNAL(mainCallsignSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     //connect (lotwPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
@@ -338,7 +338,7 @@ void SetupDialog::slotOkButtonClicked()
         return;
     }
 
-    if (!util->isValidCall(userDataPage->getStationQrz())){ //
+    if (!util->isValidCall(userDataPage->getMainCallsign())){ //
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid callsign."));
@@ -369,35 +369,34 @@ void SetupDialog::slotOkButtonClicked()
     QFile file (configFileName);
     QString tmp;
     tmp = "true";
-    if (file.open (QIODevice::WriteOnly))   /* Flawfinder: ignore */
+    if (!file.open (QIODevice::WriteOnly))   /* Flawfinder: ignore */
     {
-        QTextStream stream (&file);
-    /*QString stationCall;
-    int contest;
-    int contestCategory;
-    int modes;*/
-    //QRZ/CQ/ITU/CONTEST
+      QDialog::reject();
+    }
+    QTextStream stream (&file);
+
+        //QRZ/CQ/ITU/CONTEST
     stream << "Version=" << version << ";" << QT_ENDL;
-    stream << "Callsign="  << userDataPage->getStationQrz() << ";" << QT_ENDL;
-    if ((userDataPage->getOperators()).length() >= 3){ // There are no valid calls with less than 3 Chars
+    stream << "Callsign="  << userDataPage->getMainCallsign() << ";" << QT_ENDL;
+    if ((userDataPage->getOperators()).length() >= 3)
+    { // There are no valid calls with less than 3 Chars
         stream << "Operators="  << userDataPage->getOperators() << ";" << QT_ENDL;
     }
     stream << "CQz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  QT_ENDL;
     stream << "ITUz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  QT_ENDL;
 
-        if ( locator->isValidLocator(userDataPage->getStationLocator()) )
-        {
-            stream << "StationLocator=" << userDataPage->getStationLocator() << ";" << QT_ENDL;
-        }
+    if ( locator->isValidLocator(userDataPage->getStationLocator()) )
+    {
+        stream << "StationLocator=" << userDataPage->getStationLocator() << ";" << QT_ENDL;
+    }
 
-
-        if ((!(userDataPage->getName()).isNull()) && (  (userDataPage->getName()).length() > 0   ))
-        {
-            stream << "Name=" << userDataPage->getName() <<";" << QT_ENDL;
-        }
-        if ((!(userDataPage->getAddress1()).isNull()) && (  (userDataPage->getAddress1()).length() > 0   ))
-        {
-            stream << "Address1=" << userDataPage->getAddress1() <<";" << QT_ENDL;
+    if ((!(userDataPage->getName()).isNull()) && (  (userDataPage->getName()).length() > 0   ))
+    {
+        stream << "Name=" << userDataPage->getName() <<";" << QT_ENDL;
+    }
+    if ((!(userDataPage->getAddress1()).isNull()) && (  (userDataPage->getAddress1()).length() > 0   ))
+    {
+        stream << "Address1=" << userDataPage->getAddress1() <<";" << QT_ENDL;
         }
         if ((!(userDataPage->getAddress2()).isNull())  && (  (userDataPage->getAddress2()).length() > 0   ))
         {
@@ -457,9 +456,7 @@ void SetupDialog::slotOkButtonClicked()
             stream << "Power=" << userDataPage->getPower() << ";" << QT_ENDL;
         }
         //qDebug() << "SetupDialog::slotOkButtonClicked - 20" << QT_ENDL;
-        //stream << "locator=" << (MyLocatorkLineEdit->text ()).toUpper () <<  ";" << QT_ENDL;
-        //stream << "CallUsed=" << (UserDataPage.qrzLineEdit).text() <<  ";" << QT_ENDL;
-        //stream << "Operators=" <<  ";" << QT_ENDL;
+
         stream << "Bands=" << bandModePage->getBands() << ";" <<  QT_ENDL;
         stream << "Modes=" << bandModePage->getModes() << ";" <<  QT_ENDL;
         stream << "LogViewFields=" << logViewPage->getFields() << ";" <<  QT_ENDL;
@@ -474,12 +471,10 @@ void SetupDialog::slotOkButtonClicked()
         stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  QT_ENDL;
         stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  QT_ENDL;
         stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  QT_ENDL;
-        //stream << "KeepMyData=" << miscPage->getKeepMyData() << ";" <<  QT_ENDL;
         stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  QT_ENDL;
         stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  QT_ENDL;
         stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  QT_ENDL;
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << QT_ENDL;
-        //stream << "LogSort=" << miscPage->getLogSort() << ";" << QT_ENDL;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << QT_ENDL;
         stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";" << QT_ENDL;
 
@@ -680,7 +675,7 @@ void SetupDialog::slotOkButtonClicked()
             stream << "LatestBackup=" << latestBackup << ";" << QT_ENDL;
         }
         file.close ();
-    }
+
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << QT_ENDL;
     QDialog::accept();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -787,7 +782,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
       //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value << QT_ENDL;
     if (tab == "CALLSIGN"){
            //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value << QT_ENDL;
-        userDataPage->setStationQrz(value);
+        userDataPage->setMainCallsign(value);
     }else if (tab == "OPERATORS"){
         userDataPage->setOperators(value);
     }else if (tab=="CQZ"){
@@ -1396,7 +1391,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
         emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-    userDataPage->setStationQrz(_qs.at(0));
+    userDataPage->setMainCallsign(_qs.at(0));
     userDataPage->setOperators(_qs.at(1));
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
 }

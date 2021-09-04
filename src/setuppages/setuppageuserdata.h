@@ -42,7 +42,7 @@ public:
     SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageUserDataPage();
 
-    QString getStationQrz();
+    QString getMainCallsign();
     QString getOperators();
 
     QString getStationLocator();
@@ -72,7 +72,7 @@ public:
     bool setProvince (const QString &_aux);
     bool setCountry (const QString &_aux);
 
-    bool setStationQrz(const QString &_qrz);
+    bool setMainCallsign(const QString &_qrz);
     bool setOperators(const QString &_aux);
 
     bool setStationLocator(const QString &_loc);
@@ -102,7 +102,7 @@ public:
     void setStationFocus();
 
 signals:
-    void stationCallSignal (const QString &_p);
+    void mainCallsignSignal (const QString &_p);
     void operatorsSignal (const QString &_p);
     void enterKey();
 
@@ -121,7 +121,7 @@ private:
 
     QTabWidget *tabWidget;
 
-    QLineEdit *qrzLineEdit; // Station Callsign
+    QLineEdit *maincallsignLineEdit; // This is the callsign of the user. Will be suggested as station callsign for new logs
     QLineEdit *operatorsLineEdit; //Operators
     QLineEdit *cqzLineEdit;
     QLineEdit *ituzLineEdit;
@@ -158,7 +158,7 @@ private:
     DataProxy_SQLite *dataProxy;
 
     bool operatorsOK;
-    bool operatorOK;
+    bool mainCallOK;
     Utilities *util;
 
 };

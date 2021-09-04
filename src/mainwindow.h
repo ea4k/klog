@@ -482,7 +482,7 @@ private:
 
 
     // <UI>
-    QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;
+    //QGroupBox *gridGroupBox;//, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
 
     //QComboBox *bandComboBox, *modeComboBox;
@@ -609,27 +609,11 @@ private:
 
     //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
 
-    QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
-    QTextEdit *notesTextEdit;
-    QDoubleSpinBox *rxPowerSpinBox;//  *txFreqSpinBox, *rxFreqSpinBox, *myPowerSpinBox,
+    //QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
+    //QTextEdit *notesTextEdit;
+    //QDoubleSpinBox *rxPowerSpinBox;//  *txFreqSpinBox, *rxFreqSpinBox, *myPowerSpinBox,
 
     QString lotwTQSLpath;
-
-    //eQSL
-    //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
-    //QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
-
-    //QComboBox *qslSentComboBox, *qslRecComboBox, *qslSentViaComboBox, *qslRecViaComboBox;
-    //QDateEdit *qslSentQDateEdit, *qslRecQDateEdit;
-    //QTextEdit *qslmsgTextEdit;
-    //QLineEdit *qslViaLineEdit;
-
-
-    //QLineEdit *searchBoxLineEdit;
-    //QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
-    //QCheckBox *searchAllQCheckbox;
-    //QPushButton *recalculateAwardsButton;
-    //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
     bool logEvents;                     // Should KLog log the events for debugging
@@ -684,12 +668,6 @@ private:
     bool itIsANewversion;
     int dupeSlotInSeconds;
 
-
-
-
-    //QString currentQrz;
-    //QString previousQrz;
-
     QString stx;
     QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
@@ -701,8 +679,8 @@ private:
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
     //bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
-    QString mainQRZ, stationQRZ, operatorQRZ, dxLocator;
-    QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
+    QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
+
     double myPower, lastPower;
 
     int my_CQz, my_ITUz, defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;

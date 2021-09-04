@@ -6763,17 +6763,11 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
       //qDebug() << "DataProxy_SQLite::addNewLog: Has the appropriate length"  << QT_ENDL;
 
     QString aux = QString();
-    //int nameCol = -1;
 
     QString _dateString = _qs.at(0);
     QString _stationCallsign = _qs.at(1);
     QString _operators = _qs.at(2);
-
-    //_operators.clear();
-    //_operators << (_qs.at(2)).split(',', QT_SKIP);
-    //QString _typeContest = _qs.at(3);
     QString _comment = _qs.at(3);
-    //QString _typeContestN = _qs.at(5);
 
     QString id = _qs.at(4);
     QString editing = _qs.at(5);
@@ -6791,13 +6785,13 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
         if (sqlOK)
         {
-                //qDebug() << "DataProxy_SQLite::addNewLog: Editing OK!" << QT_ENDL;
+            //qDebug() << "DataProxy_SQLite::addNewLog: Editing OK!" << QT_ENDL;
             query.finish();
             return true;
         }
         else
         {
-                //qDebug() << "DataProxy_SQLite::addNewLog: Editing NOK!" << QT_ENDL;
+            //qDebug() << "DataProxy_SQLite::addNewLog: Editing NOK!" << QT_ENDL;
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             query.finish();
             return false;
@@ -6805,10 +6799,10 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
         //return false;
     }
 
-        //qDebug() << "DataProxy_SQLite::addNewLog: We are adding a new log" << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::addNewLog: We are adding a new log" << QT_ENDL;
 
     // First we check if the log is already there
-    //queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND logtype='%3' AND logtypen='%4'").arg(_dateString).arg(_stationCallsign).arg(_typeContest).arg(_typeContestN);
+
     queryString = QString("SELECT id FROM logs WHERE logdate='%1' AND stationcall='%2' AND operators = '%3' AND comment = '%4'").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment);
     //"logs"
     //"id, logdate, stationcall, comment, logtype"
@@ -6824,7 +6818,6 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
             // It seems that the log is already existing!
             return false;
         }
-
     }
     else
     {
@@ -6833,16 +6826,10 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
         return false;
     }
 
-
-
-
     //Now we add the new log
-
-    //queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment, logtype, logtypen) values('%1','%2','%3','%4', '%5', '%6')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment).arg(_typeContest).arg(_typeContestN);
     queryString = QString("INSERT INTO logs (logdate, stationcall, operators, comment) values('%1','%2','%3','%4')").arg(_dateString).arg(_stationCallsign).arg(_operators).arg(_comment);
-         //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << QT_ENDL;
+     //qDebug() << "DataProxy_SQLite::addNewLog query1: " << queryString << QT_ENDL;
     sqlOK = query.exec(queryString);
-
 
     if (sqlOK)
     {

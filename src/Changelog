@@ -1,5 +1,7 @@
 TBD - 1.8.5
 - Bugfix: Station callsign was not shown on window title (Closes #347)
+- Removed dead & commented code.
+- Improved how mainCallsign & Station callsigns are used.
 
 Aug 2021 - 1.8.4
 - Bugfix: In some situations callsigns were always shown as to be worked. (Closes #345)
