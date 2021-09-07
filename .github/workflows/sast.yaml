@@ -44,4 +44,3 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         env:
           LOG_VERBOSE: true
-          
