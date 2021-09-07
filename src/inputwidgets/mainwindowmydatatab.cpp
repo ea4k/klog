@@ -671,8 +671,8 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     }
     else if (currentTag == "MY_VUCC_GRIDS")
     {
-        if (checkMyVUCC_GRIDS(myUserADIFLineEdit->text()))
-        {}
+        //if (checkMyVUCC_GRIDS(myUserADIFLineEdit->text()))
+        //{}
 
         my_vucc_grids = myUserADIFLineEdit->text().toUpper();
         myUserADIFLineEdit->setText (my_vucc_grids);

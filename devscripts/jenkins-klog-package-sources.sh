@@ -26,7 +26,7 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
-KLOG_VERSION=`grep "VERSION =" src/src.pro |awk '{print $3}'`
+KLOG_VERSION=$(grep "VERSION =" src/src.pro |awk '{print $3}')
 echo "Packaging KLog-$KLOG_VERSION"
 export CXXFLAGS=-std=c++11
 rm src/README.md

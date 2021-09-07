@@ -161,7 +161,6 @@ QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
     }
 
     // Show into another lineEdit
-
     return newString;
 }
 

@@ -608,9 +608,8 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     }
     else if (currentTag == "VUCC_GRIDS")
     {
-        if (checkVUCC_GRIDS(userDefinedADIFValueLineEdit->text()))
-        {}
-
+        //if (checkVUCC_GRIDS(userDefinedADIFValueLineEdit->text()))
+        //{}
         vucc_grids = userDefinedADIFValueLineEdit->text().toUpper();
         userDefinedADIFValueLineEdit->setText (vucc_grids);
     }

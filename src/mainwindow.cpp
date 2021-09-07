@@ -8015,10 +8015,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
             {
                 _myLoc = myDataTabWidget->getMyLocator();
             }
-            if ((_band>=1) && (_mode>=1))
-            {
 
-            }
             if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, _dxcall, _datetime,  dataProxy->getBandIdFromFreq(_freq),  dataProxy->getIdFromModeName(_mode), dupeSlotInSeconds)).length()>1)
             {
 

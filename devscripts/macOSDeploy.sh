@@ -32,7 +32,7 @@ if [ $# -ne 1 ]; then
 	echo "example: deployOSX.sh 0.9.2 "
 	echo ""
 	echo ""
-	exit -1
+	exit 1
  fi
 export CXXFLAGS=-std=c++11
 KLOG_VERSION="$1"
