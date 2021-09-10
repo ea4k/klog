@@ -177,6 +177,11 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << QT_ENDL;
     QList<int> qsos;
     qsos.clear();
+    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
+    {
+         showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
+         return qsos;
+    }
     noMoreQso = false;
     if (_logN != -1)
     { // We will export data from ALL logs.
@@ -234,12 +239,6 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     else
     {
          _queryLog = QString();
-    }
-
-    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
-    {
-         showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
-         return qsos;
     }
 
     QFile file(_fileName);
@@ -402,7 +401,6 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
                 break;
             }
         }
-
     } // END OF WHILE
 
     //qDebug() << "FileManager::adifLogExportReturnList: End: " << QString::number(qsos.count()) << QT_ENDL;
@@ -3088,7 +3086,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         msgBox.setStandardButtons(QMessageBox::Ok);
                         msgBox.setDefaultButton(QMessageBox::Ok);
                         msgBox.exec();
-
                     }
                     else
                     {
