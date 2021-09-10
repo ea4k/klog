@@ -528,7 +528,7 @@ int SetupPageLogs::getSelectedLog()
 
 void SetupPageLogs::setSelectedLog(const int _i)
 {
-    qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << QT_ENDL;
+    //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i) << QT_ENDL;
     //TODO: Show which is the selected log
     selectedLog = _i;
     logsView->selectRow(1);

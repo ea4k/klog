@@ -763,13 +763,26 @@ void MainWindow::setMainWindowTitle()
     QString aux = dataProxy->getCommentsFromLog(currentLog);
     int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
       //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux << QT_ENDL;
-    if (aux.length ()>0)
+    QString msg;
+
+    if (mainQRZ == stationCallsign)
     {
-        setWindowTitle(tr("KLog - %1 - QSOs: %2 - %3" ).arg(stationCallsign).arg(numberOfQSOs).arg(aux));
+        msg = QString(tr("KLog - Logbook of %1 - QSOs: %2" )).arg(stationCallsign).arg(numberOfQSOs);
     }
     else
     {
-        setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationCallsign).arg(numberOfQSOs));
+        msg = QString(tr("KLog - Logbook of %1 - Station Callsign: %2 - QSOs: %3" )).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
+    }
+
+    if (aux.length ()>0)
+    {
+        setWindowTitle(tr("%1 - %2" ).arg(msg).arg(aux));
+    }
+    else
+    {
+        setWindowTitle(msg);
+        //setWindowTitle(tr("KLog - Logbook of %1 - Station Callsign: %2 - QSOs: %3" ).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs));
+        //setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationCallsign).arg(numberOfQSOs));
     }
 
 
@@ -4933,7 +4946,7 @@ void MainWindow::readConfigData()
     infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
 
     satTabWidget->refreshData();
-
+    adifLoTWExportWidget->setLogNumber (currentLog);
     QString aux;
     QString errorMSG;
     if (upAndRunning)
@@ -7629,7 +7642,7 @@ void MainWindow::updateQSLRecAndSent()
 
 void MainWindow::defineStationCallsign(const QString &_call)
 {
-    qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << QT_ENDL;
+    //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (util->isValidCall (_call))
     {
@@ -8413,6 +8426,7 @@ void MainWindow::backupCurrentQSO()
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
+    qso->setLogId (currentLog);
 
     // MainQSOEntryWidget
     qso->setCall (mainQSOEntryWidget->getQrz ());
@@ -8555,9 +8569,17 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     othersTabWidget->setKeep (qso->getKeepOthers ());
 
     // MainWindowMyDataTab
+    if (qso->getLogId () == currentLog)
+    {
+        myDataTabWidget->setStationCallsign (qso->getStationCallsign());
+    }
+    else
+    {
+        myDataTabWidget->setStationCallsign (stationCallsign);
+    }
     myDataTabWidget->setMyPower (qso->getTXPwr ());
     myDataTabWidget->setOperator (qso->getOperatorCallsign());
-    myDataTabWidget->setStationCallsign (qso->getStationCallsign());
+
     myDataTabWidget->setMyLocator (qso->getMyGridSquare ());
     myDataTabWidget->setKeep (qso->getKeepMyData ());
     myDataTabWidget->setMyRig (qso->getMyRig ());

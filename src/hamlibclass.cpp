@@ -153,7 +153,7 @@ void HamLibClass::setMode(const QString &_m)
     retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
     if (RIG_OK != retcode)
     {
-        qDebug() << "HamLibClass::setMode: ERROR: Could not get mode: " << QT_ENDL;
+        //qDebug() << "HamLibClass::setMode: ERROR: Could not get mode: " << QT_ENDL;
         errorManage (retcode);
     }
     QString currentMode = hamlibMode2Mode(rmode);
@@ -166,7 +166,7 @@ void HamLibClass::setMode(const QString &_m)
 
     if (RIG_OK != retcode)
     {
-        qDebug() << "HamLibClass::setMode: ERROR: Could not set mode: " << _m << QT_ENDL;
+        //qDebug() << "HamLibClass::setMode: ERROR: Could not set mode: " << _m << QT_ENDL;
         errorManage (retcode);
     }
 
@@ -415,40 +415,40 @@ void HamLibClass::clean()
 
 bool HamLibClass::init(bool _active)
 {
-     qDebug()<< "HamLibClass::init: "  << QT_ENDL;
-     qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << QT_ENDL;
+     //qDebug()<< "HamLibClass::init: "  << QT_ENDL;
+     //qDebug() << "HamLibClass::init: " << getNameFromModelId(myrig_model) << QT_ENDL;
 
     if (!_active)
     {
-        qDebug()<< "HamLibClass::init: Stopping..."  << QT_ENDL;
-        qDebug() << Q_FUNC_INFO << ": Calling stop";
+        //qDebug()<< "HamLibClass::init: Stopping..."  << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Calling stop";
         return stop();
         //qDebug() << "HamLibClass::init: Stopped!"  << QT_ENDL;
     }
 
     if (myrig_model < 0)
     {
-        qDebug()<< "HamLibClass::init: Rig Model not valid"  << QT_ENDL;
+        //qDebug()<< "HamLibClass::init: Rig Model not valid"  << QT_ENDL;
         return false;
     }
 
     rig_set_debug(RIG_DEBUG_NONE);
-    qDebug()<< "HamLibClass::init: set Debug NONE"  << QT_ENDL;
+    //qDebug()<< "HamLibClass::init: set Debug NONE"  << QT_ENDL;
     my_rig = rig_init(myrig_model);
-    qDebug()<< "HamLibClass::init: set after init"  << QT_ENDL;
+    //qDebug()<< "HamLibClass::init: set after init"  << QT_ENDL;
     if (my_rig == nullptr)
     {
-       qDebug()<< "HamLibClass::init: Init failed, hamlib returned fail!" << QT_ENDL;
+       //qDebug()<< "HamLibClass::init: Init failed, hamlib returned fail!" << QT_ENDL;
        return false;
     }
     else
     {
-        qDebug() << "HamLibClass::init: rig_init went OK!" << QT_ENDL;
+        //qDebug() << "HamLibClass::init: rig_init went OK!" << QT_ENDL;
     }
     // Code of DG1VS (Thank you!)
     if (myrig_model == RIG_MODEL_NETRIGCTL)
     {
-         qDebug() << "HamLibClass::init: RIG_PORT_NETWORK" << QT_ENDL;
+         //qDebug() << "HamLibClass::init: RIG_PORT_NETWORK" << QT_ENDL;
         // network based communication
         my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
         qstrncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
@@ -457,15 +457,15 @@ bool HamLibClass::init(bool _active)
     }
     else if (myrig_model == RIG_MODEL_FLRIG)
     {
-        qDebug() << "HamLibClass::init: RIG_PORT_RPC" << QT_ENDL;
+        //qDebug() << "HamLibClass::init: RIG_PORT_RPC" << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_RPC;
         qstrncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
 
     }
     else
     {
-        qDebug() << "HamLibClass::init: !RIG_PORT_NETWORK" << QT_ENDL;
-        qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << QT_ENDL;
+        //qDebug() << "HamLibClass::init: !RIG_PORT_NETWORK" << QT_ENDL;
+        //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
         //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
         qstrncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
@@ -485,26 +485,26 @@ bool HamLibClass::init(bool _active)
         // Config done
     }
 
-    qDebug() << "HamLibClass::init: after handshake "  << QT_ENDL;
+    //qDebug() << "HamLibClass::init: after handshake "  << QT_ENDL;
     // Config done
     retcode = rig_open(my_rig);
-    qDebug() << "HamLibClass::init: retcode"  << QT_ENDL;
+    //qDebug() << "HamLibClass::init: retcode"  << QT_ENDL;
 
     if (retcode != RIG_OK)
     {
-        qDebug()<< "HamLibClass::init: Can't open: " << rigerror(retcode) << QT_ENDL;
+        //qDebug()<< "HamLibClass::init: Can't open: " << rigerror(retcode) << QT_ENDL;
 
         rig_cleanup(my_rig);
         return errorManage (retcode);
     }
 
-    qDebug()<< "HamLibClass::init: Rig open!"  << QT_ENDL;
+    //qDebug()<< "HamLibClass::init: Rig open!"  << QT_ENDL;
     errorCount = 0;
     rigLaunched = true;
     freq_old = 0.0;
     timer->start(pollInterval);
 
-    qDebug() << "HamLibClass::init: END TRUE" << QT_ENDL;
+    //qDebug() << "HamLibClass::init: END TRUE" << QT_ENDL;
     return true;
 }
 
@@ -737,72 +737,73 @@ void HamLibClass::setNetworkPort(const int _port)
 
 bool HamLibClass::errorManage(const int _errorcode)
 {
-    qDebug() << Q_FUNC_INFO << ": error: " << QString::number(_errorcode);
+    //qDebug() << Q_FUNC_INFO << ": error: " << QString::number(_errorcode);
 
     if (RIG_OK == _errorcode)
     {
-        qDebug() << Q_FUNC_INFO << " - RIG_OK";
+        //qDebug() << Q_FUNC_INFO << " - RIG_OK";
         return true;
     }
     switch (_errorcode)
     {
 
     case (RIG_EINVAL):
-        qDebug() << Q_FUNC_INFO << ": Error: 1 invalid parameter";
+        //qDebug() << Q_FUNC_INFO << ": Error: 1 invalid parameter";
     break;
     case (RIG_ECONF):
-        qDebug() << Q_FUNC_INFO << ": Error: 2 invalid configuration (serial,..) ";
+        //qDebug() << Q_FUNC_INFO << ": Error: 2 invalid configuration (serial,..) ";
     break;
     case (RIG_ENOMEM):
-        qDebug() << Q_FUNC_INFO << ": Error: 3 memory shortage";
+        //qDebug() << Q_FUNC_INFO << ": Error: 3 memory shortage";
     break;
     case (RIG_ENIMPL):
-        qDebug() << Q_FUNC_INFO << ": Error: 4 function not implemented, but will be ";
+        //qDebug() << Q_FUNC_INFO << ": Error: 4 function not implemented, but will be ";
     break;
     case (RIG_ETIMEOUT):
-        qDebug() << Q_FUNC_INFO << ": Error: 5 communication timed ou";
+        //qDebug() << Q_FUNC_INFO << ": Error: 5 communication timed ou";
     break;
     case (RIG_EIO):
-        qDebug() << Q_FUNC_INFO << ": Error: 6 IO error, including open failed";
+        //qDebug() << Q_FUNC_INFO << ": Error: 6 IO error, including open failed";
     break;
     case (RIG_EINTERNAL):
-        qDebug() << Q_FUNC_INFO << ": Error: 7 Internal Hamlib error, huh!";
+        //qDebug() << Q_FUNC_INFO << ": Error: 7 Internal Hamlib error, huh!";
     break;
     case (RIG_EPROTO):
-        qDebug() << Q_FUNC_INFO << ": Error: 9 Command rejected by the rig";
+        //qDebug() << Q_FUNC_INFO << ": Error: 9 Command rejected by the rig";
     break;
     case (RIG_ETRUNC):
-        qDebug() << Q_FUNC_INFO << ": Error: 10 Command performed, but arg truncated";
+        //qDebug() << Q_FUNC_INFO << ": Error: 10 Command performed, but arg truncated";
     break;
     case (RIG_ENAVAIL):
-        qDebug() << Q_FUNC_INFO << ": Error: 11 Function not available";
+        //qDebug() << Q_FUNC_INFO << ": Error: 11 Function not available";
     break;
     case (RIG_ENTARGET):
-        qDebug() << Q_FUNC_INFO << ": Error: 12 VFO not targetable";
+        //qDebug() << Q_FUNC_INFO << ": Error: 12 VFO not targetable";
     break;
     case (RIG_BUSERROR):
-        qDebug() << Q_FUNC_INFO << ": Error: 13 Error talking on the bus";
+        //qDebug() << Q_FUNC_INFO << ": Error: 13 Error talking on the bus";
     break;
     case (RIG_BUSBUSY):
-        qDebug() << Q_FUNC_INFO << ": Error: 14 Collision on the bus";
+        //qDebug() << Q_FUNC_INFO << ": Error: 14 Collision on the bus";
     break;
     case (RIG_EARG):
-        qDebug() << Q_FUNC_INFO << ": Error: 15 NULL RIG handle or any invalid pointer parameter in get arg";
+        //qDebug() << Q_FUNC_INFO << ": Error: 15 NULL RIG handle or any invalid pointer parameter in get arg";
     break;
     case (RIG_EVFO):
-        qDebug() << Q_FUNC_INFO << ": Error: 16 Invalid VFO";
+        //qDebug() << Q_FUNC_INFO << ": Error: 16 Invalid VFO";
     break;
     case (RIG_EDOM):
-        qDebug() << Q_FUNC_INFO << ": Error: 17 Argument out of domain of func";
+        //qDebug() << Q_FUNC_INFO << ": Error: 17 Argument out of domain of func";
     break;
     default:
-        qDebug() << Q_FUNC_INFO << ": Error: ?? Unknown error";
+      //qDebug() << Q_FUNC_INFO << ": Error: ?? Unknown error";
+    break;
     }
     if (_errorcode == RIG_EINVAL || _errorcode == RIG_ENIMPL || _errorcode == RIG_ERJCTED \
             || _errorcode == RIG_ETRUNC || _errorcode == RIG_ENAVAIL || _errorcode == RIG_ENTARGET \
             || _errorcode == RIG_EVFO || _errorcode == RIG_EDOM)
     {
-        qDebug() << Q_FUNC_INFO << ": Soft error: Invalid parameters - No reason to re-initialize the hardware";
+        //qDebug() << Q_FUNC_INFO << ": Soft error: Invalid parameters - No reason to re-initialize the hardware";
     }
 
 

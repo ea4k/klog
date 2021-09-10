@@ -45,7 +45,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     //lastStationQRZ = QString();     // Last QRZ used by the user, will remain if the button is checked and removed if not
     lastMyLocator = QString();      // Last locator used by the user, will remain if the button is checked and removed if not
 
-    stationCallsign = QString();         // Defined in the configuration by the user, will be used if the user configured so in the setup
+    stationCallsign = QString();    // Defined in the configuration by the user, will be used if the user configured so in the setup
     operatorQRZ = QString();        // Defined in the configuration by the user, will be used if the user configured so in the setup
     myLocator = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
     util = new Utilities;
@@ -316,8 +316,15 @@ QString MainWindowMyDataTab::getOperator()
 
 void MainWindowMyDataTab::setStationCallsign(const QString &_op)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _op;
-    stationCallSignLineEdit->setText(_op);
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    if (util->isValidCall (_op))
+    {
+        stationCallSignLineEdit->setText(_op);
+    }
+    else
+    {
+        stationCallsign.clear ();
+    }
 }
 
 QString MainWindowMyDataTab::getStationCallsign()
@@ -343,7 +350,7 @@ QString MainWindowMyDataTab::getMyLocator()
 
 void MainWindowMyDataTab::setData(const double _power, const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     if (_power > 0.0)
     {
         myPower = _power;
@@ -352,15 +359,16 @@ void MainWindowMyDataTab::setData(const double _power, const QString &_stationCa
     {
         myPower = 0;
     }
-
-    if (_stationCallsign.length()>0)
+    if (util->isValidCall (_stationCallsign))
     {
-        setStationCallsign (_stationCallsign);
+        stationCallsign = _stationCallsign;
     }
     else
     {
         stationCallsign = QString();
     }
+    //qDebug() << Q_FUNC_INFO << ": Setting station Callsign: " << stationCallsign;
+    setStationCallsign (stationCallsign);
 
     if (_operator.length()>0)
     {
@@ -436,10 +444,10 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
             stationCallSignLineEdit->setPalette(palBlack);
         }
 
-        if (!modify)
-        {
-            stationCallsign = (stationCallSignLineEdit->text());
-        }
+        //if (!modify)
+        //{
+        //    stationCallsign = (stationCallSignLineEdit->text());
+        //}
     }
     else
     {
