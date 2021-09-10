@@ -776,7 +776,6 @@ void MainWindow::setMainWindowTitle()
 
 void MainWindow::createUI()
 {
-
             //qDebug() << "MainWindow::createUI" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     createStatusBar();
@@ -1411,7 +1410,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", 'Y'";
         stringFields = stringFields + ", clublog_qso_upload_date";
         stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "'";
-
     }
     else if (aux1 == "N")
     {
@@ -3218,7 +3216,6 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
        {
            QSOTabWidget->setDXLocator(_d);
        }
-
    }
    else if (_t == "qth")
    {
@@ -5329,7 +5326,6 @@ bool MainWindow::processConfigLine(const QString &_line){
                     break;
                 }
             }
-
         }
         stationCallsign = dataProxy->getStationCallSignFromLog (currentLog);
         defineStationCallsign (stationCallsign);
