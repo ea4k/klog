@@ -377,7 +377,6 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
             QString v = (query.value(0)).toString();
             query.finish();
             return v;
-
         }
         else
         {
@@ -1862,7 +1861,6 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                     query.finish();
                     //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: without BAND-RX" << QT_ENDL;
                     queryString = QString("SELECT qso_date, qslrdate, qslsdate, call, station_callsign, operator, M.name, B.name, freq, qsl_rcvd, lotw_qsl_rcvd, qsl_sent, dxcc, prop_mode, credit_granted FROM log INNER JOIN band as B ON bandid = B.id INNER JOIN mode as M ON modeid = M.id WHERE log.id='%1'").arg(_qsoId);
-
                 }
                 else {
                     haveBandRX = true;
@@ -2902,7 +2900,6 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs)
 //QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode)
 {
-
         //qDebug() << "DataProxy_SQLite::isThisQSODuplicated" << QT_ENDL;
     QSqlQuery query;
     QString queryString;
@@ -4660,7 +4657,6 @@ bool DataProxy_SQLite::addSatellite(const QString &_arrlId, const QString &_name
     if (id>0)
     {
         queryString = QString("UPDATE satellites set satarrlid = '%1', satname = '%2', uplink = '%3', downlink = '%4', satmode = '%5' WHERE id = '%6'").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode).arg(id);
-
     }
     else
     {
@@ -5521,7 +5517,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 }
             }
         }
-
     }
     else
     {
@@ -5677,7 +5672,6 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
     }
     query.finish();
     return true;
-
 }
 bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref,
                                                 const QString &_group, const int _regId,
@@ -5889,7 +5883,6 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
                //qDebug() << "DataProxy_SQLite::getStationCallSignsFromLog-END-1 - fail" << QT_ENDL;
                return QStringList();
            }
-
        }
        query.finish();
        calls.removeDuplicates();
@@ -6603,7 +6596,6 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
 
 int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString &_n)
 {
-
     if (_n.length()!=2)
     {
         return -3;
@@ -6698,7 +6690,6 @@ int DataProxy_SQLite::getContinentIdFromEntity(const int _n)
 
 QStringList DataProxy_SQLite::getContinentShortNames()
 {
-
     QSqlQuery query;
     QStringList continents;
     continents.clear();
@@ -7002,7 +6993,6 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
                 if (_n>1000)
                 {
                     motherEntName = (query.value(0)).toString() + " (" + motherEntName + ")";
-
                 }
                 else
                 {
@@ -7338,7 +7328,6 @@ bool DataProxy_SQLite::isNewEntity(int _e)
 
 double DataProxy_SQLite::getLongitudeFromEntity(const int _e)
 {
-
     QString queryString = QString("SELECT longitude FROM entity WHERE dxcc='%1'").arg(_e);
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
@@ -7368,7 +7357,6 @@ double DataProxy_SQLite::getLongitudeFromEntity(const int _e)
 
 double DataProxy_SQLite::getLatitudeFromEntity(const int _e)
 {
-
     QString queryString = QString("SELECT latitude FROM entity WHERE dxcc='%1'").arg(_e);
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
@@ -7631,7 +7619,6 @@ QString DataProxy_SQLite::getISOName(const int _n)
             }
             else
             {
-
                 return "un"; // When no flag is known, we return the UN flag
             }
         }
@@ -8175,7 +8162,6 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         {
             ADIFqso.append("<APP_KLOG_TRX:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
-
     }
     nameCol = rec.indexOf("country");
     if (nameCol>=0)
@@ -8480,7 +8466,6 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
             aux = util->getADIFDateFromQDate(date);
             ADIFqso.append("<LOTW_QSLSDATE:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
-
     }
     nameCol = rec.indexOf("lotw_qsl_rcvd");
     if (nameCol>=0)
@@ -8499,7 +8484,6 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         {
             ADIFqso.append("<LOTW_QSL_SENT:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
-
     }
     nameCol = rec.indexOf("clublog_qso_upload_date");
     if (nameCol>=0)
