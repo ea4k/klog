@@ -360,7 +360,6 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
             i++;
             //qDebug() << "FileManager::adifLogExportReturnList: Start of isValid"  << QT_ENDL;
-
         } // END of if (query.isValid())
         else
         {
@@ -483,7 +482,6 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
             progress.setValue(currentQso);
         }
        //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step) << QT_ENDL;
-
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
@@ -669,7 +667,6 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         if (query.isValid())
         {
             writeQuery(query, out, ModeADIF, exportJustMarkedQSO, exportOnlyQSLRequested, _logN);
-
         } // Closes the isValid
 
         //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso) << QT_ENDL;
@@ -705,7 +702,6 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                   break;
             }
         }
-
     } //Closes the While
 
       //qDebug() << "FileManager::adifLogExportToFile -  after the While" << QT_ENDL;
@@ -1201,7 +1197,6 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
                              if (_tdate.isValid())
                              {
                                  _dateTime.setDate(_tdate);
-
                              }
                         }
                         else if (field == "TIME_ON")
@@ -1321,7 +1316,6 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
                                 emit addQSOToList(modifiedQSOList);
                                 modifiedQSOList.clear();
                               //qDebug() << "FileManager::adifLoTWReadLog: QSO ADDED: " << QString::number(modifiedQSO) << QT_ENDL;
-
                             }
                             else
                             {
@@ -1415,7 +1409,6 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
         }
         if ( progress.wasCanceled() )
         {
-
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("KLog - User cancelled"));
             aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
@@ -1574,7 +1567,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
     if ( (!(line.startsWith('<'))) && (inHeader) )
     { // The file has a header
-
         if (line.contains("<EOH>")) // To check if the first line contains the EOR but not alone in the line.
         {
             inHeader = false;
@@ -1636,7 +1628,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     //time1.start();
     while ((!noMoreQso) && (sqlOK))
     {
-
         if (!file.atEnd())
         {
             line.clear();
@@ -1702,7 +1693,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 
             while ( (!EOR) && (!fields.isEmpty()) )
             {
-
                    //qDebug() << "FileManager::adifReadLog-W-2" << QT_ENDL;
                 fieldToAnalyze = (fields.takeFirst()).trimmed();
 
@@ -1748,7 +1738,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
                         auxString = auxString + "\n" + fieldToAnalyze;
                         //currentQSOfields.at(currentQSOfields.length()) = auxString;
                         fieldToAnalyze = auxString;
-
                     }
                     currentQSOfields << fieldToAnalyze;
                     EOR = false;
@@ -1887,7 +1876,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
             }
             if ( progress.wasCanceled() )
             {
-
                 QMessageBox msgBox;
                 msgBox.setWindowTitle(tr("KLog - User cancelled"));
                 aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
@@ -1993,7 +1981,6 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logNumber) //, const bool _keepLogsInFile)
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
-
        //qDebug() << "FileManager::processQsoReadingADIF: log: " << QString::number(logNumber) << QT_ENDL;
        //qDebug() << "FileManager::processQsoReadingADIF: log: " << _line.at(0) << QT_ENDL;
        //qDebug() << "FileManager::processQsoReadingADIF: " << _line.join("/") << QT_ENDL;
@@ -3326,11 +3313,7 @@ int FileManager::howManyLogsInFile(QFile& _f)
                     data << aux.split('>');
                       //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << QT_ENDL;
                       //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << QT_ENDL;
-                    if (logs.contains(data.at(1)))
-                    {
-
-                    }
-                    else
+                    if (!logs.contains(data.at(1)))
                     {
                         logs.append(data.at(1));
                     }
@@ -3434,12 +3417,8 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
                     data << aux.split('>');
                        //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << QT_ENDL;
                        //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << QT_ENDL;
-                    if (logs.contains(QString::number(data.at(1).toInt()+10000)))
-                    {
-
-                    }
-                    else
-                    {
+                    if (!logs.contains(QString::number(data.at(1).toInt()+10000)))
+                    {                   
                         logs.append(QString::number(data.at(1).toInt()+10000));
                     }
                 }
@@ -3713,13 +3692,11 @@ bool FileManager::showInvalidCallMessage(const QString &_call){
     if (aux.length()<1)
     {
         aux = QString(tr("An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported log file?"));
-
     }
     else
     {
         aux = QString(tr("An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?").arg(aux));
     }
-
     msgBox.setText(aux);
     msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished."));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -3855,7 +3832,6 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
             {
                 out << "<FREQ:" << QString::number(aux.length()) << ">" << aux  << " ";
             }
-
         }
         if (dataProxy->getIdFromBandName(bandst)>0)
         {
