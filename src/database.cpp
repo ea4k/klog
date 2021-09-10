@@ -7994,15 +7994,12 @@ bool DataBase::updateAwardDXCCTable()
                             {
                                 query2.finish();
                                 stringQuery = QString ("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
-                                if (execQuery(Q_FUNC_INFO, stringQuery))
-                                {
-
+                                if (execQuery(Q_FUNC_INFO, stringQuery))                                {
                                 }
                                 else
                                 {
                                        //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
                                 }
-
                             }
                             else
                             {
@@ -8015,7 +8012,6 @@ bool DataBase::updateAwardDXCCTable()
                         }
                     }
                 }
-
                    //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << QT_ENDL;
             }
             else
@@ -8129,7 +8125,6 @@ bool DataBase::updateAwardWAZTable()
                //qDebug() << "DataBase::updateAwardWAZTable - status" << awardEntry.status << QT_ENDL;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
-
                 nameCol = rec.indexOf("cqz");
                 awardEntry.dxcc = (query.value(nameCol)).toString();
 
@@ -8149,7 +8144,6 @@ bool DataBase::updateAwardWAZTable()
 
                        //qDebug() << "DataBase::updateAwardWAZTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << QT_ENDL;
                     dxccStatusList.append(awardEntry);
-
                 }
             } // END OF IF VALID
         }
@@ -8189,13 +8183,11 @@ bool DataBase::updateAwardWAZTable()
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
-
         stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode).arg(dxccStatusList.at(j).status).arg(dxccStatusList.at(j).logNumber).arg(dxccStatusList.at(j).qsoID);
         //sqlOK = query.exec(Q_FUNC_INFO, stringQuery);
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-
                //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << QT_ENDL;
             if (query.lastError().nativeErrorCode() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
@@ -8236,13 +8228,11 @@ bool DataBase::updateAwardWAZTable()
                                 stringQuery = QString ("UPDATE awardwaz SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
                                 if (execQuery(Q_FUNC_INFO, stringQuery))
                                 {
-
                                 }
                                 else
                                 {
                                        //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
                                 }
-
                             }
                             else
                             {
@@ -8255,7 +8245,6 @@ bool DataBase::updateAwardWAZTable()
                         }
                     }
                 }
-
                    //qDebug() << "DataBase::updateAwardWAZTable: Duplicated!" << QT_ENDL;
             }
             else
@@ -8289,9 +8278,6 @@ bool DataBase::updateAwardWAZTable()
     progress.setValue(qsos);
        //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << QT_ENDL;
     return true;
-
-
-
 }
 
 
@@ -8319,7 +8305,6 @@ int DataBase::getNumberOfQsos(const int _logNumber)
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-
     }
     query.finish();
     return qsos;
@@ -8357,8 +8342,6 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << QT_ENDL;
     QSqlQuery query;
 
-
-
     if (query.exec(stringQuery))
     {
         while (query.isActive())
@@ -8371,7 +8354,6 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     }
     else
     {
-
         queryErrorManagement(function, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
