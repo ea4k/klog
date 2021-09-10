@@ -6861,7 +6861,6 @@ int DataProxy_SQLite::getITUzFromPrefix(const QString &_p)
         query.finish();
         return -2;
     }
-
 }
 
 int DataProxy_SQLite::getCQzFromPrefix(const QString &_p)
@@ -7455,7 +7454,6 @@ QStringList DataProxy_SQLite::getEntitiesNames()
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-
     }
     query.finish();
     qs.sort();
