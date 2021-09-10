@@ -37,10 +37,7 @@ Utilities::Utilities()
     //qDebug() << "Utilities::Utilities - END"  << Qt_endl;
 }
 
-Utilities::~Utilities()
-{
-
-}
+Utilities::~Utilities(){}
 
 void Utilities::init()
 {
@@ -62,7 +59,6 @@ QString Utilities::getVersion()
 double Utilities::getVersionDouble()
 {
        //qDebug() << "Utilities::getVersionDouble: " << softwareVersion << Qt_endl;
-
     if (softwareVersion.count('.')>1)
     {
         QString first = softwareVersion.section('.', 0, 0);
@@ -73,7 +69,6 @@ double Utilities::getVersionDouble()
         first = first + "." + decimals;
            //qDebug() << "Utilities::getVersionDouble - returning: "  << first << Qt_endl;
         return first.toDouble();
-
     }
        //qDebug() << "Utilities::getVersionDouble: no points detected" << Qt_endl;
     return softwareVersion.toDouble();
@@ -125,7 +120,6 @@ QChar Utilities::boolToCharToSQLite(const bool _b)
     {
         return 'N';
     }
-
 }
 
 QString Utilities::boolToQString(const bool _b)
@@ -159,7 +153,6 @@ QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
         }
              //qDebug() << "SetupDialog::checkAndFixunicodeinADIF: " << st.at(i) <<" = " << QString::number(unicodeVal) << Qt_endl;
     }
-
     // Show into another lineEdit
     return newString;
 }
@@ -183,6 +176,7 @@ QString Utilities::getGlobalAgent(const QString &_klogversion)
 {
     return QString("KLog-%1").arg(_klogversion);
 }
+
 QString Utilities::getAgent(const QString &_klogversion)
 {
     QString version;
@@ -354,7 +348,6 @@ QString Utilities::getKLogDBBackupFile()
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-
         //return dbPath;
         //return getKLogDatabaseFile(dbPath);
     }
@@ -364,7 +357,6 @@ QString Utilities::getKLogDBBackupFile()
             QByteArray line = file.readLine();
             processConfigLine(line);
         }
-
         if (dbPath.length()<1)
         {
             dbPath = getKLogDefaultDatabaseFile();
@@ -396,7 +388,6 @@ bool Utilities::processConfigLine(const QString &_line)
 
         int endValue = value.indexOf(';');
         if (endValue>-1){
-
             value = value.left(value.length() - (value.length() - endValue));
         }
 
@@ -417,8 +408,6 @@ QString Utilities::getKLogDatabaseFile(const QString &_file)
            //qDebug() << "Utilities::getKLogDatabaseFile:returning: " <<  _file + "/logbook.dat" << Qt_endl;
         return _file + "/logbook.dat";
     }
-    else
-    {}
          //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() << Qt_endl;
         return getKLogDefaultDatabaseFile();
 }
@@ -436,7 +425,6 @@ QString Utilities::getCfgFile()
     return getHomeDir() + "/klogrc";
 
 #endif
-
 }
 
 QString Utilities::getDebugLogFile()
@@ -455,7 +443,6 @@ QString Utilities::getDebugLogFile()
 QString Utilities::getSaveSpotsLogFile()
 {
     QString filename = "/" + (QDateTime::currentDateTime()).toString("yyyyMMdd") + "-klogdxcluster.txt";
-
     return getHomeDir() + filename;
 }
 
@@ -493,7 +480,6 @@ QString Utilities::getTQSLsFileName()
          //qDebug() << "NO WINDOWS/macOS DETECTED!: "   << Qt_endl;
     return "tqsl";
 #endif
-
 }
 
 QString Utilities::getTQSLsPath()
@@ -511,9 +497,7 @@ QString Utilities::getTQSLsPath()
 #else
          //qDebug() << "NO WINDOWS/macOS DETECTED!: "   << Qt_endl;
     return "/usr/bin/";
-
 #endif
-
 }
 
 QString Utilities::getCTYFile()
@@ -535,7 +519,6 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
 
 QDate Utilities::getDefaultDate()
 {
-
     //return QDate::fromString("18000101", "yyyyMMdd");
     return QDate::currentDate();
 }
@@ -570,7 +553,6 @@ bool Utilities::isValidDateTime(const QString &_d)
 
 bool Utilities::isValidSubCall(const QString &_c)
 {
-
     //qDebug() << "Utilities::isValidSubCall: " << _c << Qt_endl;
     // This functions only checks simple calls like EA4K, not composed like EA4K/F of F/EA4K/QRP
     //Rules: http://life.itu.int/radioclub/rr/art19.pdf
@@ -903,7 +885,6 @@ bool Utilities::isValidCall(const QString &_c)
 QString Utilities::getPrefixFromCall(const QString &_c)
 {
     //qDebug() << "Utilities::getPrefixFromCall: " << _c << Qt_endl;
-
     QString call = _c;
     call.replace('\\', '/');
 
@@ -919,7 +900,6 @@ QString Utilities::getPrefixFromCall(const QString &_c)
     int pref = -1;
     if (call.count('/') == 1)
     { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
-
         QStringList parts;
         parts.clear();
         parts << call.split ('/');
@@ -962,7 +942,6 @@ QString Utilities::getPrefixFromCall(const QString &_c)
                     return QString();
                 }
             }
-
         }
         else
         { //Both lenght are just the same, we need to check both parts and return true if one is valid
@@ -1196,8 +1175,7 @@ bool Utilities::isValidName(const QString &_b)
 
 bool Utilities::isDBFileExisting()
 {
-         //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << Qt_endl;
-
+    //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() << Qt_endl;
     if (QFile::exists(getKLogDBFile()))
     {
              //qDebug() << "Utilities::isDBFileExisting - true" << Qt_endl;
@@ -1302,7 +1280,6 @@ bool Utilities::isValidADIFField(const QString &_b)
     }
 
        //qDebug() << "FileManager::checkADIFValidFormat: Return true" << Qt_endl;
-
     return true;
 }
 
@@ -1466,9 +1443,6 @@ QString Utilities::getAValidCall (const QString &_wrongCall)
     {
         _confirmedCall = QString();
     }
-
-
-
     //qDebug() << "Utilities::getAValidCall: " << _confirmedCall << Qt_endl;
     return _confirmedCall;
 }
@@ -1525,7 +1499,6 @@ QTime Utilities::getTimeFromSQLiteString(const QString &_s)
     {
         return QTime::fromString(_s, "hh:mm:ss");
     }
-
 }
 
 QDate Utilities::getDateFromSQliteString(const QString &_s)
@@ -1535,21 +1508,17 @@ QDate Utilities::getDateFromSQliteString(const QString &_s)
     if (getDateTimeFromSQLiteString(_s).isValid()) // if we have received a full date time
     {
         return (getDateTimeFromSQLiteString(_s)).date();
-
     }
     else // If we have received "just a date" or an error
     {
         return  QDate::fromString(_s, "yyyy-MM-dd");
     }
-
-
 }
 
 QDate Utilities::getDateFromADIFDateString(const QString &_s)
 {// Expects an ADIF DATE format string: "YYYYMMDD"
    //qDebug() << "Utilities::getDateFromADIFDateString: " << _s << Qt_endl;
     return QDate::fromString(_s, "yyyyMMdd");
-
 }
 
 QTime Utilities::getTimeFromADIFTimeString(const QString &_s)
@@ -1557,7 +1526,6 @@ QTime Utilities::getTimeFromADIFTimeString(const QString &_s)
     //qDebug() << "Utilities::getTimeFromADIFTimeString: " << _s << Qt_endl;
     if (_s.length()==4)
     {
-
         return QTime::fromString(_s, "hhmm");
     }
     else
@@ -1979,5 +1947,4 @@ QString Utilities::getLogColumnName(const QString &_column)
     {
         return _column;
     }
-
 }
