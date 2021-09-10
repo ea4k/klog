@@ -29,3 +29,7 @@ SUBDIRS += src
 CONFIG(debug, debug) {
         SUBDIRS += tests
 }
+
+QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage
+LIBS += -lgcov
