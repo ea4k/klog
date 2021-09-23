@@ -477,6 +477,7 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DebugLog=" << miscPage->getDebugLog() << ";" << QT_ENDL;
         stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";" << QT_ENDL;
         stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";" << QT_ENDL;
+        stream << "CheckValidCalls=" << util->boolToQString (miscPage->getCheckCalls())<< ";" << QT_ENDL;
 
         if (miscPage->getDupeTime()>0)
         {
@@ -856,6 +857,11 @@ bool SetupDialog::processConfigLine(const QString &_line)
             miscPage->setDupeTime(value.toInt());
         }
     }
+    else if (tab == "CHECKVALIDCALLS")
+    {
+        miscPage->setCheckCalls (util->trueOrFalse (value));
+    }
+
 
     /*
     else if (tab=="PSTROTATORACTIVE"){
@@ -1264,6 +1270,7 @@ void SetupDialog::setDefaults()
     miscPage->setDebugLog("FALSE");
     //miscPage->setLogSort("FALSE");
     miscPage->setSetEQSLByDefault("TRUE");
+    miscPage->setCheckCalls (true);
 
     UDPPage->setUDPServer("FALSE");
     UDPPage->setUDPServerPort("2237");

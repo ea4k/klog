@@ -257,7 +257,7 @@ void MainWindow::init()
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logEvents = true;
     debugFileOpen = false;
-
+    util->setCallValidation (true);
     infoLabel1T = QString();
     infoLabel2T = QString();
     qso->clear();
@@ -4504,26 +4504,26 @@ void MainWindow::slotLogWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-    //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
+    qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     configured = false;
     backupCurrentQSO ();
     openSetup(_page);
-    //qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
+    qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 
 void MainWindow::openSetup(const int _page)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //int result = -1;
     hamlib->stop();
     if (!needToEnd)
     {
         logEvent(Q_FUNC_INFO, "Just before setData", logSeverity);
-        //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << QT_ENDL;
+        qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << QT_ENDL;
         if (upAndRunning)
         {
             setupDialog->setData(configFileName, softwareVersion, _page, !configured);
@@ -4542,15 +4542,15 @@ void MainWindow::openSetup(const int _page)
             setupDialog->show();
             // move part of this code to slotSetupDialogFinished
             logEvent(Q_FUNC_INFO, "Just after setupDialog->show", logSeverity);
-            //qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << QT_ENDL;
+            qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << QT_ENDL;
         }
         else
         {
             logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", logSeverity);
-             //qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << QT_ENDL;
+            qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << QT_ENDL;
         }
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -5453,6 +5453,10 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         deleteAlwaysAdiFile = util->trueOrFalse(value);
         //qDebug() << "Delete Aways Adif File = " << deleteAlwaysAdiFile <<endl;
+    }
+    else if (field == "CHECKVALIDCALLS")
+    {
+        util->setCallValidation (util->trueOrFalse (value));
     }
     else if(field=="LATESTBACKUP")
     {
@@ -6875,7 +6879,7 @@ void MainWindow::qsoToEdit (const int _qso)
                 if (aux1.toInt()>=1)
                 {
                     if (aux1.toInt() != util->getNormalizedDXCCValue(currentEntity))
-                    {                   
+                    {
                         currentEntity = aux1.toInt();
                     }
                                //qDebug() << "MainWindow::qsoToEdit: - in default - 101: " << QString::number(currentEntity)  << QT_ENDL;
@@ -8329,18 +8333,23 @@ void MainWindow::slotAwardsWidgetSetYear()
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    //qDebug << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
     qso->setLogId (currentLog);
-
+    qDebug() << Q_FUNC_INFO << " - 010";
     // MainQSOEntryWidget
     qso->setCall (mainQSOEntryWidget->getQrz ());
+    qDebug() << Q_FUNC_INFO << " - 011";
     qso->setBand (mainQSOEntryWidget->getBand ());
+    qDebug() << Q_FUNC_INFO << " - 012";
     qso->setMode (mainQSOEntryWidget->getMode ());
+    qDebug() << Q_FUNC_INFO << " - 013";
     qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
+    qDebug() << Q_FUNC_INFO << " - 014";
     qso->setRealTime (mainQSOEntryWidget->getRealTime ());
+    qDebug() << Q_FUNC_INFO << " - 020";
     //  MainWindowInputQSO
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
@@ -8350,6 +8359,7 @@ void MainWindow::backupCurrentQSO()
     qso->setName (QSOTabWidget->getName ());
     qso->setQTH (QSOTabWidget->getQTH ());
     qso->setRXPwr (QSOTabWidget->getRXPwr ());
+    qDebug() << Q_FUNC_INFO << " - 030";
     // MainWindowInputQSL
     qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus ());
     qso->setQSL_RCVD (QSLTabWidget->getQSLRecStatus ());
@@ -8359,7 +8369,7 @@ void MainWindow::backupCurrentQSO()
     qso->setQSLRecVia (QSLTabWidget->getRecVia ());
     qso->setQSLVia (QSLTabWidget->getQSLVia ());
     qso->setQSLMsg (QSLTabWidget->getQSLMsg ());
-
+    qDebug() << Q_FUNC_INFO << " - 040";
     // MainWindowInputEQSL
     qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
     qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
@@ -8373,7 +8383,7 @@ void MainWindow::backupCurrentQSO()
     qso->setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate ());
     qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
     qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
-
+    qDebug() << Q_FUNC_INFO << " - 050";
     // MainWindowInputComment
     qso->setComment (commentTabWidget->getComment ());
     qso->setKeepComment (commentTabWidget->getKeep ());
@@ -8383,7 +8393,7 @@ void MainWindow::backupCurrentQSO()
     qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
     qso->setKeepOthers (othersTabWidget->getKeep ());
     qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
-
+    qDebug() << Q_FUNC_INFO << " - 060";
     // MainWindowMyDataTab
     qso->setTXPwr (myDataTabWidget->getMyPower ());
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
@@ -8394,12 +8404,12 @@ void MainWindow::backupCurrentQSO()
     qso->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
     qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
     qso->setKeepMyData (myDataTabWidget->getKeep ());
-
+    qDebug() << Q_FUNC_INFO << " - 070";
     //MainWindowSatTab
     qso->setSatName (satTabWidget->getSatName ());
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
-    //qDebug << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
+    qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
 }
 
 void MainWindow::restoreCurrentQSO(const bool restoreConfig)

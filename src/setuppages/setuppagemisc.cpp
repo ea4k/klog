@@ -34,7 +34,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
        //qDebug() << "SetupPageMisc::SetupPageMisc" << QT_ENDL;
 
     util = new Utilities;
-
+    checkCallsCheckBox = new QCheckBox(tr("Check non-valid calls"), this);
     imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
     realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);
     UTCCheckbox = new QCheckBox(tr("&Time in UTC"), this);
@@ -109,11 +109,6 @@ void SetupPageMisc::createUI()
     dbPathLineEdit->setText(dbDirCurrent);
     dbPathLineEdit->setEnabled(true);
 
-    //UDPServerCheckBox->setChecked(true);
-    //UDPServerPortSpinBox->setEnabled(true);
-    //UDPServerCheckBox->setEnabled(false);
-    //UDPServerPortSpinBox->setEnabled(false);
-
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
     showStationCallWhenSearchCheckBox->setChecked(true);
@@ -126,6 +121,9 @@ void SetupPageMisc::createUI()
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
     dupeTimeLineEdit->setText("300");
+    checkCallsCheckBox->setEnabled (true);
+    checkCallsCheckBox->setChecked (true);
+    checkCallsCheckBox->setToolTip (tr("If you disable this checkbox KLog will not check callsigns to identify wrong callsigns."));
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
     //keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
@@ -183,6 +181,7 @@ void SetupPageMisc::createUI()
     //mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
     mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
     mainLayou1->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
+    mainLayou1->addWidget (checkCallsCheckBox, 9, 0, 1, 1);
 
     setLayout(mainLayou1);
 
@@ -581,4 +580,14 @@ void SetupPageMisc::setDupeTime(const int _t)
 int SetupPageMisc::getDupeTime()
 {
     return dupeTimeLineEdit->text().toInt();
+}
+
+bool SetupPageMisc::getCheckCalls()
+{
+    return checkCallsCheckBox->isChecked ();
+}
+
+void SetupPageMisc::setCheckCalls(const bool &_t)
+{
+    checkCallsCheckBox->setChecked (_t);
 }

@@ -179,15 +179,16 @@ bool QSO::isValid()
 
 bool QSO::setCall(const QString &_c)
 {
-   //qDebug() << "QSO::setCall: " << _c << QT_ENDL;
+    qDebug() << "QSO::setCall: " << _c << QT_ENDL;
     if (util->isValidCall(_c))
     {
-       //qDebug() << "QSO::setCall: Valid Call"  << QT_ENDL;
+        qDebug() << "QSO::setCall: Valid Call"  << QT_ENDL;
         callsign = _c;
         return true;
     }
-    else {
-       //qDebug() << "QSO::setCall: NOT valid Call"  << QT_ENDL;
+    else
+    {
+        qDebug() << "QSO::setCall: NOT valid Call"  << QT_ENDL;
         return false;
     }
 }

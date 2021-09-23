@@ -46,6 +46,7 @@ public:
     ~Utilities();
     void setDarkMode(const QString &_dm);
     bool isDarkMode();
+    void setCallValidation(const bool _b);
 
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
@@ -152,7 +153,7 @@ private:
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
-    bool darkMode;
+    bool darkMode, callValidation;
     QString dbPath;
     QString softwareVersion;
     //QPalette palRed, palBlack;
