@@ -23,13 +23,13 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-
+#include "global.h"
 #include "utilities.h"
 
+bool g_callsignCheck;
 Utilities::Utilities()
 {
     //qDebug() << "Utilities::Utilities"  ;
-
     init();
 
     //palRed.setColor(QPalette::Text, Qt::red);
@@ -37,12 +37,15 @@ Utilities::Utilities()
     //qDebug() << "Utilities::Utilities - END"  ;
 }
 
-Utilities::~Utilities(){}
+Utilities::~Utilities()
+{
+}
 
 void Utilities::init()
 {
     softwareVersion = "0.0";
     darkMode = false;
+    callValidation = true;
 }
 
 void Utilities::setVersion(const QString &_v)
@@ -837,18 +840,19 @@ bool Utilities::isValidCall(const QString &_c)
 {
     qDebug() << "Utilities::isValidCall: " << _c ;
     // Prefixes are at least 2 chars
-    if (!callValidation)
+    if (g_callsignCheck)
     {
+        qDebug() << "Utilities::isValidCall - 009" ;
         return true;
     }
-
+    qDebug() << "Utilities::isValidCall - 010" ;
     QString call = _c;
     if (_c.length()<3)
     {
-        //qDebug() << "Utilities::isValidCall: FALSE-1: " << _c ;
+        qDebug() << "Utilities::isValidCall: FALSE-1: " << _c ;
         return false;
     }
-
+    qDebug() << "Utilities::isValidCall - 015" ;
     call.replace('\\', '/');
 
     if (call.count('/')>2)
@@ -856,6 +860,7 @@ bool Utilities::isValidCall(const QString &_c)
         //qDebug() << "Utilities::isValidCall: FALSE-3: " << call;
         return false;
     }
+    qDebug() << "Utilities::isValidCall - 020" ;
     if (call.count('/') == 2)
     { //Things like F/EA4K/P will become F/EA4K
         //qDebug() << "Utilities::isValidCall: Two /; Ignoring the last part: " << call ;
@@ -864,6 +869,7 @@ bool Utilities::isValidCall(const QString &_c)
         parts << call.split('/');
         call = parts.at(0) + "/" + parts.at(1);
     }
+    qDebug() << "Utilities::isValidCall - 025" ;
     //qDebug() << "Utilities::isValidCall: Call: " << call ;
 
     if (call.count('/') == 1)
@@ -871,7 +877,7 @@ bool Utilities::isValidCall(const QString &_c)
       // We are just checking the call format not if it belongs to a country or whatever.
       // It may return true for wrong calls like "ABC/EA4K"
       // TODO: Add a check just for prefixes to fix the previous
-        //qDebug() << "Utilities::isValidCall: Call with one /: " << call ;
+        qDebug() << "Utilities::isValidCall: Call with one /: " << call ;
         QStringList parts;
         parts.clear();
         parts << call.split ('/');

@@ -66,6 +66,7 @@ HEADERS += setupdialog.h \
     aboutdialog.h \
     awardswidget.h \     \
     charts/statsfieldperbandwidget.h \
+    global.h \
     klogdefinitions.h \
     setuppages/setuppagelogview.h \
     widgets/showkloglogwidget.h \

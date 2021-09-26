@@ -27,9 +27,6 @@
  *****************************************************************************/
 
 #include <QString>
-
-using namespace std;
-
 enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
 enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
 enum OnlineErrorCode {Ok, Fail};
@@ -50,6 +47,8 @@ struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstat
   bool confirmed;
 };
 
+extern bool callsignCheck;
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
 #define QT_SKIP Qt::SkipEmptyParts
 #define QT_ENDL Qt::endl
@@ -61,8 +60,11 @@ struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstat
  #endif
 
 
-//#if QT_VERSION>=0x041502
-//#else
-//#endif
+#if QT_VERSION>=0x041502
+
+#else
+
+#endif
+
 
 #endif // KLOGDEFINITIONS_H

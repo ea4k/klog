@@ -23,8 +23,6 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-
-
 #include <QtWidgets>
 //#include <QtSql>
 #include <QTranslator>
@@ -51,6 +49,7 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: Start! " << QT_ENDL;
     //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << QT_ENDL;
     QT_REQUIRE_VERSION(argc, argv, "5.9")
+
     QDir d1 = QDir();
     QString version = "1.8.5";
     //qDebug() << "KLog Main STARTED: " << version << QT_ENDL;

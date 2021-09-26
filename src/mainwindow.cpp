@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-
+#include "global.h"
 #include <QtWidgets>
 #include <QtSql>
 #include <QObject>
@@ -32,13 +32,16 @@
 #include <QNetworkRequest>
 #include "database.h"
 #include "mainwindow.h"
-
+//using namespace G_callsignCheck;
 //#include <qDebug>
+
+//extern bool g_callsignCheck;
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
    //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << QT_ENDL;
+    g_callsignCheck  = true;
     showKLogLogWidget = new ShowKLogLogWidget;
     softwareVersion = tversion;
     klogDir = _klogDir;
@@ -5456,7 +5459,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field == "CHECKVALIDCALLS")
     {
-        util->setCallValidation (util->trueOrFalse (value));
+         g_callsignCheck = util->trueOrFalse (value);
+        //util->setCallValidation (util->trueOrFalse (value));
     }
     else if(field=="LATESTBACKUP")
     {

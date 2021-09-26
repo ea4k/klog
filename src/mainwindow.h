@@ -86,7 +86,7 @@
 //#include "worldmapwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
-
+#include "klogdefinitions.h"
 
 class QTimer;
 class QDateTime;
@@ -741,8 +741,6 @@ private:
     //LOGVIEW
     //QString bandOld, modeOld;
     //LOGVIEW
-
-
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
