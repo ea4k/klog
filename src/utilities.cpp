@@ -840,7 +840,7 @@ bool Utilities::isValidCall(const QString &_c)
 {
     qDebug() << "Utilities::isValidCall: " << _c ;
     // Prefixes are at least 2 chars
-    if (g_callsignCheck)
+    if (!g_callsignCheck)
     {
         qDebug() << "Utilities::isValidCall - 009" ;
         return true;
