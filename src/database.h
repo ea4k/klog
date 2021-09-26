@@ -141,7 +141,7 @@ private:
     //bool beginTransaction();
     //bool commitTransaction();
     bool execQuery(const QString &function, const QString &stringQuery);
-
+    bool updateEntity (const QString &_codeString, const int _code);
     bool createDataBase();
     bool isTheDBCreated();
     bool isTheTableExisting(const QString &_tableName);

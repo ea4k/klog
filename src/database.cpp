@@ -4943,71 +4943,18 @@ bool DataBase::updateTheEntityTableISONames()
         return false;
     }
 
-        //qDebug() << "DataBase::updateTheEntityTableISONames-1" << QT_ENDL;
-    sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='246'");  //Sovereign Order of Malta
+    if (!updateEntity ("mt", 246)) return false;
+    if (!updateEntity ("un", 247)) return false;
+    if (!updateEntity ("mc", 260)) return false;
+    if (!updateEntity ("mu", 4)) return false;
+    if (!updateEntity ("mu", 165)) return false;
+    if (!updateEntity ("mu", 207)) return false;
+    if (!updateEntity ("gq", 49)) return false;
+    if (!updateEntity ("gq", 195)) return false;
+    if (!updateEntity ("fj", 176)) return false;
+    if (!updateEntity ("fj", 489)) return false;
+    if (!updateEntity ("fj", 460)) return false;
 
-    bool sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-       // emit debugLog(Q_FUNC_INFO, "2", 7);
-        return false;
-    }
-        //qDebug() << "DataBase::updateTheEntityTableISONames-2" << QT_ENDL;
-
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='247'");  //Spratly
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-       // emit debugLog(Q_FUNC_INFO, "3", 7);
-        return false;
-    }
-
-    sq = QString ("UPDATE entity SET isoname='mc' WHERE dxcc='260'");  //Monaco
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "4", 7); */return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='4'");  // Agalega
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "5", 7); */return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='165'");  //Mauricio
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "6", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='207'");  //Rodriguez
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "7", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='49'");  // Equatorial Guinea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "8", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='176'");  //Fidji
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "9", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='195'");  //Annobon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "10", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='489'");  // Conway reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "11", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='460'");  // Rotuma
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "12", 7);*/return false;}
 
     sq = QString ("UPDATE entity SET isoname='sz' WHERE dxcc='468'");  // Swaziland
     sqlOK = execQuery(Q_FUNC_INFO, sq);
@@ -5608,7 +5555,6 @@ bool DataBase::updateTheEntityTableISONames()
     sqlOK = execQuery(Q_FUNC_INFO, sq);
     if (!sqlOK)
     {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
 
     sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='131'");  // Kerguelen
     sqlOK = execQuery(Q_FUNC_INFO, sq);
@@ -6710,6 +6656,13 @@ bool DataBase::updateTheEntityTableISONames()
 
         //qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
     return true;
+}
+
+bool DataBase::updateEntity (const QString &_codeString, const int _code)
+{
+    QString sq = QString ("UPDATE entity SET isoname='%1' WHERE dxcc='%2'").arg(_codeString).arg(_code);
+    //TODO Capture and manage the error
+    return execQuery(Q_FUNC_INFO, sq);
 }
 
 bool DataBase::isTheTableExisting(const QString &_tableName)
