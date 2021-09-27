@@ -79,7 +79,7 @@ public:
 
     bool createConnection(const QString &function, bool newDB=false);    // If true that means that we are creating the DB,
                                                 // not just connecting to an existing one.
-                                                // That will be done in the default path
+                                               // That will be done in the default path
     bool reConnect(const QString &_DBName);
     //bool setDir(const QString &_dir);
     QStringList getColumnNamesFromTable(const QString &_tableName);
@@ -120,16 +120,11 @@ public:
     void logBackup();
     void compress();
 
-
+    QMultiMap<QString, int> fillCountryCodes();
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
 
-    //bool queryAddField(const QString &_field, const QString &value);
-    //bool queryPrepare();
-    //bool queryExec();
 
-    //bool queryPrepare(const QString &_query);
-    //bool queryBind(const QString &_field, const QString value);
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);

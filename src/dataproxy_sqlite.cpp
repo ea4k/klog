@@ -4616,7 +4616,7 @@ QStringList DataProxy_SQLite::getPropModeList()
                 }
                 aux = num + " - " + (query.value(1)).toString() + " - " + translatedValue;
                 qs << aux;
-            }            
+            }
         }
     }
     else
@@ -5258,7 +5258,7 @@ QStringList DataProxy_SQLite::getClubLogStatusList()
                  aux.clear();
                  aux = (query.value(0)).toString() + " - " + translatedValue;
                  qs << aux;
-             }             
+             }
          }
      }
      else
@@ -5316,7 +5316,7 @@ QStringList DataProxy_SQLite::getQSLViaList()
                  aux.clear();
                  aux = (query.value(0)).toString() + " - " + translatedValue;
                  qs << aux;
-             }             
+             }
          }
      }
      else
@@ -7565,7 +7565,7 @@ int DataProxy_SQLite::getMaxEntityID(bool limit)
 
 bool DataProxy_SQLite::updateISONames()
 {
-     //qDebug()  << "DataProxy_SQLite::updateISONames"  << QT_ENDL;
+    qDebug()  << "DataProxy_SQLite::updateISONames"  << QT_ENDL;
     return db->updateTheEntityTableISONames();
 }
 

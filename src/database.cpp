@@ -321,10 +321,11 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     else
     {
-          //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << QT_ENDL;
+          //qDebug() << "DataBase::createConnection: createBandModeMaps false Stop" << QT_ENDL;
     }
     //created = true;
    //qDebug() << "DataBase::createConnection -------------------------------------------- END" << QT_ENDL;
+
     return unMarkAllQSO();
 }
 
@@ -1487,7 +1488,6 @@ void DataBase::backupB4Update()
         case QMessageBox::Yes:
         // Save was clicked
             logBackup();
-
         break;
         case QMessageBox::No:
         // NO backup was selected
@@ -1941,9 +1941,7 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-
       //qDebug() << "DataBase::updateToLatest " << QT_ENDL;
-
     if (requiresManualUpgrade())
     {
         //qDebug() << "DataBase::updateToLatest requires" << QT_ENDL;
@@ -4907,7 +4905,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
 
 bool DataBase::recreateTableBand()
 {
-        //qDebug() << "DataBase::recreateTableBand" << QT_ENDL;
+    //qDebug() << "DataBase::recreateTableBand" << QT_ENDL;
     QSqlQuery query;
 
     createTableBand(false);         // Create modetemp
@@ -4929,9 +4927,380 @@ bool DataBase::recreateTableBand()
         //qDebug() << "DataBase::recreateTableBand END" << QT_ENDL;
 }
 
+QMultiMap<QString, int> DataBase::fillCountryCodes()
+{
+
+    qDebug() << Q_FUNC_INFO;
+    QMultiMap<QString, int> countryCodes;
+    countryCodes.clear ();
+    countryCodes.insert ("mt", 246);
+    countryCodes.insert ("un", 247);
+    countryCodes.insert ("mc", 260);
+    countryCodes.insert ("mu", 4);
+    countryCodes.insert ("mu", 165);
+    countryCodes.insert ("mu", 207);
+    countryCodes.insert ("gq", 49);
+    countryCodes.insert ("gq", 195);
+    countryCodes.insert ("fj", 176);
+    countryCodes.insert ("fj", 489);
+    countryCodes.insert ("fj", 460);
+    countryCodes.insert ("sz", 468);
+    countryCodes.insert ("tn", 474);
+    countryCodes.insert ("vn", 293);
+    countryCodes.insert ("gn", 107);
+    countryCodes.insert ("bv", 24);
+    countryCodes.insert ("no", 199);
+    countryCodes.insert ("az", 18);
+    countryCodes.insert ("ge", 75);
+    countryCodes.insert ("me", 514);
+    countryCodes.insert ("lk", 315);
+    countryCodes.insert ("ch", 177);  // ITU HQ
+    countryCodes.insert ("us", 289);  // UN HQ
+    countryCodes.insert ("tl", 511);  // Timor Leste
+    countryCodes.insert ("il", 336);  // Israel
+    countryCodes.insert ("ly", 436);  // Libya
+    countryCodes.insert ("cy", 215);  // Cyprus
+    countryCodes.insert ("tz", 470);  // Tanzania
+    countryCodes.insert ("ng", 450);  // Nigeria
+    countryCodes.insert ("mg", 438);  // Madagascar
+    countryCodes.insert ("mr", 444);  // Mauritania
+    countryCodes.insert ("ne", 187);  // Niger
+    countryCodes.insert ("tg", 484);  // Togo
+    countryCodes.insert ("ws", 190);  // Samoa
+    countryCodes.insert ("ug", 286);  // Uganda
+    countryCodes.insert ("ke", 430);  // Kenya
+    countryCodes.insert ("sn", 456);  // Senegal
+    countryCodes.insert ("jm", 82);   // Jamaica
+    countryCodes.insert ("es", 281);  // Spain
+    countryCodes.insert ("ls", 432);  // Lesotho
+    countryCodes.insert ("mw", 440);  // Malawi
+    countryCodes.insert ("dz", 400);  // Algeria
+    countryCodes.insert ("ye", 492);  // Yemen
+    countryCodes.insert ("bb", 62);   // Barbados
+    countryCodes.insert ("mv", 159);  // Maldives
+    countryCodes.insert ("gy", 129);  // Guyana
+    countryCodes.insert ("hr", 497);  // Croatia
+    countryCodes.insert ("gh", 424);  // Ghana
+    countryCodes.insert ("mt", 257);  // Malta
+    countryCodes.insert ("zm", 482);  // Zambia
+    countryCodes.insert ("kw", 348);  // Kuwait
+    countryCodes.insert ("sl", 458);  //Sierra Leone
+    countryCodes.insert ("my", 299);  // West Malaysia
+    countryCodes.insert ("my", 46);   // East Malaysia
+    countryCodes.insert ("np", 369);  // Nepal
+    countryCodes.insert ("cd", 414);  // Dem Rep Congo
+    countryCodes.insert ("bi", 404);  // Burundi
+    countryCodes.insert ("sg", 381);  // Singapore
+    countryCodes.insert ("rw", 454);  // Rwanda
+    countryCodes.insert ("tt", 90);   // Trinidad & Tobago
+    countryCodes.insert ("bw", 402);
+    countryCodes.insert ("to", 160);
+    countryCodes.insert ("om", 370);
+    countryCodes.insert ("bt", 306);  // Bhutan
+    countryCodes.insert ("ae", 391);  // Un Arab Emirates
+    countryCodes.insert ("qa", 376);  // Qatar
+    countryCodes.insert ("bh", 304);  // Bahrain
+    countryCodes.insert ("pk", 372);  // Pakistan
+    countryCodes.insert ("tw", 386);  // Taiwan
+    countryCodes.insert ("tw", 505);  // Pratas Is
+    countryCodes.insert ("cn", 318);  // China
+    countryCodes.insert ("nr", 157);  //  Nauru
+    countryCodes.insert ("ad", 203);  // Andorra
+    countryCodes.insert ("gm", 422);  // Gambia
+    countryCodes.insert ("bs", 60);
+    countryCodes.insert ("mz", 181);  // Mozambique
+    countryCodes.insert ("cl", 112);  // Chile
+    countryCodes.insert ("cl", 217);  // San Felix
+    countryCodes.insert ("cl", 47);   // Easter Is
+    countryCodes.insert ("cl", 125);  //  Juan Fernandez is
+    countryCodes.insert ("cu", 70);   // Cuba
+    countryCodes.insert ("ma", 446);  // Morocco
+    countryCodes.insert ("bo", 104);  // Bolivia
+    countryCodes.insert ("pt", 272);  // Portugal
+    countryCodes.insert ("pt", 256);  // Madeira
+    countryCodes.insert ("pt", 149);  // Azores
+    countryCodes.insert ("uy", 144);  // Uruguay
+    countryCodes.insert ("ca", 211);  // Sable Is
+    countryCodes.insert ("ca", 252);  // St Paul is
+    countryCodes.insert ("ao", 401);  // Angola
+    countryCodes.insert ("cv", 409);  // Cape Verde
+    countryCodes.insert ("km", 411);  // Comoros
+    countryCodes.insert ("de", 203);  // Fed Rep Germany
+    countryCodes.insert ("ph", 375);  //Philippines
+    countryCodes.insert ("er", 51);   // Eritrea
+    countryCodes.insert ("ps", 510);  // Palestine
+    countryCodes.insert ("ck", 191);  // North Cook
+    countryCodes.insert ("ck", 234);  // South Cook
+    countryCodes.insert ("nu", 188);  // Niue
+    countryCodes.insert ("ba", 501);  // Bosnia
+    countryCodes.insert ("balear", 21); // Balearic is
+    countryCodes.insert ("canary", 29); // Canary Is
+    countryCodes.insert ("ceuta", 32);  // Ceuta & Melilla //TODO: Fix the flag
+    countryCodes.insert ("ie", 245); // Ireland
+    countryCodes.insert ("am", 14);
+    countryCodes.insert ("lr", 434);
+    countryCodes.insert ("ir",330);  // Iran
+    countryCodes.insert ("mv", 179); // Moldova
+    countryCodes.insert ("ee", 52);  //  Estonia
+    countryCodes.insert ("et", 53);  // Ethiopia
+    countryCodes.insert ("by", 27);  // Belarus
+    countryCodes.insert ("kg", 135); // Kyrgyzstan
+    countryCodes.insert ("tm", 280); // Turkmenistan
+    countryCodes.insert ("tj", 262); // Tajikistan
+    countryCodes.insert ("fr", 227); // France
+    countryCodes.insert ("fr", 79);  // Guadeloupe
+    countryCodes.insert ("yt", 169); // Mayotte
+    countryCodes.insert ("fr", 516); // St Barthelemy
+    countryCodes.insert ("fr", 36);  // Clipperton Is
+    countryCodes.insert ("nc", 162);  // New Caledonia
+    countryCodes.insert ("nc", 512);  // Chesterfield Is
+    countryCodes.insert ("mq", 84);   // Martinique
+    countryCodes.insert ("pf", 175);  // French Polynesia
+    countryCodes.insert ("pf", 508);  // Austral Is
+    countryCodes.insert ("pm", 277);  //  St Pierre & Miquelon
+    countryCodes.insert ("re", 453);  //Reunion Is
+    countryCodes.insert ("fr", 213); // St Marteen
+    countryCodes.insert ("fr", 99);  // Glorioso is
+    countryCodes.insert ("fr", 124); // Juan de nova, Europa
+    countryCodes.insert ("fr", 276);  //  Tromelin - TODO: Add the wikipedia flag
+    countryCodes.insert ("fr", 41);  // Crozet
+    countryCodes.insert ("fr", 131);  // Kerguelen
+    //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
+    countryCodes.insert ("fr", 10);  //Amsterdam & St Paul is
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("wf", 298);  // Wallis & Futuna is
+    countryCodes.insert ("gf", 63);  // French Guiana
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("england", 223);  // England
+    countryCodes.insert ("gb", 114); //Isle of Man
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("northernireland", 265); // Northern Ireland
+    countryCodes.insert ("gb", 122);  // Jersey
+    countryCodes.insert ("scotland", 279);  //  Scotland
+    countryCodes.insert ("scotland", 1279);  //  Shetland is (Scotland)
+    countryCodes.insert ("gb", 106);  // Guernsey
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("wales", 294);  // Wales
+    countryCodes.insert ("sb", 185); // Solomon
+    countryCodes.insert ("sb", 507);  // Temotu Province
+    countryCodes.insert ("hu", 239);  // Hungary
+    countryCodes.insert ("ch", 287);  // Switzerland
+    countryCodes.insert ("li", 251); // Liechtenstein
+    countryCodes.insert ("ec", 120);  // Ecuador
+    countryCodes.insert ("ec", 71);  // Galapagos Is
+    countryCodes.insert ("ht", 78);  // Haiti
+    countryCodes.insert ("do", 72);  // Dominican Rep
+    countryCodes.insert ("co", 116);  // Colombia
+    countryCodes.insert ("co", 216);  // San Andres & Providencia
+    countryCodes.insert ("co", 161);  // Malpelo
+    countryCodes.insert ("kr", 137);  // Rep Korea
+    countryCodes.insert ("pa", 88);  // Panama
+    countryCodes.insert ("hn", 80); // Honduras
+    countryCodes.insert ("th", 387);  // Thailand
+    countryCodes.insert ("va", 295);
+    countryCodes.insert ("sa", 378); // Saudi Arabia
+    countryCodes.insert ("it", 248);  // Italy
+    countryCodes.insert ("it", 1248);  // African Italy
+    countryCodes.insert ("it", 2248); // Sicily
+    countryCodes.insert ("it", 225);  // Sardinia
+    countryCodes.insert ("dj", 382);  // Djibouti
+    countryCodes.insert ("gd", 77);  // Grenada
+    countryCodes.insert ("gw", 109);  // Guinea-Bissau
+    countryCodes.insert ("lc", 97);  // St Lucia
+    countryCodes.insert ("dm", 95);  // Dominica
+    countryCodes.insert ("vc", 98);  // St Vicent
+    countryCodes.insert ("jp", 339);  // Japan
+    countryCodes.insert ("jp", 177);  // Minami Torishima
+    countryCodes.insert ("jp", 192);  // Ogasawara
+    countryCodes.insert ("mn", 363);  // Mongolia
+    countryCodes.insert ("sj", 259);  // Svalbard
+    countryCodes.insert ("sj", 1259);  // Svalbard
+    countryCodes.insert ("sj", 118);  // Jan Mayen
+    countryCodes.insert ("jo", 342);
+    countryCodes.insert ("us", 291);
+    countryCodes.insert ("us", 105);
+    countryCodes.insert ("mp", 166);
+    countryCodes.insert ("us", 20);
+    countryCodes.insert ("gu", 103);
+    countryCodes.insert ("us", 123);
+    countryCodes.insert ("us", 174);
+    countryCodes.insert ("us", 197);
+    countryCodes.insert ("us", 134);
+    countryCodes.insert ("us", 110);  // Hawaii
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("us", 138);  // Kure is
+    countryCodes.insert ("as", 9);  // American Samoa
+    countryCodes.insert ("as", 515);  // Swains is
+    countryCodes.insert ("us", 297);  // Wake is
+    countryCodes.insert ("us", 6); // Alaska
+    countryCodes.insert ("us", 182);  // Navassa Is
+    countryCodes.insert ("vi", 285);  // Us Virgin is
+    countryCodes.insert ("pr", 202);  // Puerto Rico
+    countryCodes.insert ("us", 43);  // Desecheo Is
+    countryCodes.insert ("no", 266);  // Norway
+    countryCodes.insert ("ar", 100);  // Argentina
+    countryCodes.insert ("lu", 254);  // Luxembourg
+    countryCodes.insert ("lt", 146);  // Lithuania
+    countryCodes.insert ("bg", 212);  // Bulgaria
+    countryCodes.insert ("pe", 136);  // Peru
+    countryCodes.insert ("lb", 354);  // Lebanon
+    countryCodes.insert ("at", 206);  // Austria & Viena Intl HQ
+    countryCodes.insert ("fi", 224);  // Findland
+    countryCodes.insert ("fi", 5); // Aland is
+    countryCodes.insert ("fi", 167);  // Market Reef
+    countryCodes.insert ("cz", 503);  // Czech Rep
+    countryCodes.insert ("sk", 504);  // Slovak Rep
+    countryCodes.insert ("be", 209);  // Belgium
+    countryCodes.insert ("gl", 237);  // Greenland
+    countryCodes.insert ("dk", 222); // Faroe is
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("dk", 221);  // Denmark
+    countryCodes.insert ("pg", 163);  // Papua New Guinea
+    countryCodes.insert ("aw", 91);  // Aruba
+    countryCodes.insert ("kp", 344);  //Dpr Korea
+    countryCodes.insert ("nl", 263); // Netherlands
+    countryCodes.insert ("cw", 517);  // Curacao
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("bq", 520);  // Bonaire
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("nl", 519);  // Saba & St Eustatius
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("shm", 518);  // Sint Marteen
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("br", 108);  // Brazil
+    countryCodes.insert ("br", 56);  // Fernando de Noronha
+    countryCodes.insert ("br", 253);  //  St Peter & St Paul
+    countryCodes.insert ("br", 273);  // Trindade & Martim Vaz
+    countryCodes.insert ("sr", 140);  // Suriname
+    countryCodes.insert ("ru", 61);  // Franz Josef Land
+    countryCodes.insert ("eh", 302); // Western Sahara
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("bd", 305);  // Bangladesh
+    countryCodes.insert ("si", 499);  // Slovenia
+    countryCodes.insert ("sc", 379);  // Seychelles
+    countryCodes.insert ("st", 219);  // Sao Tome & Principe
+    countryCodes.insert ("se", 284);  // Sweden
+    countryCodes.insert ("pl", 269);  // Poland
+    countryCodes.insert ("sd", 466);  // Sudan
+    countryCodes.insert ("eg", 478);  // Egypt
+    countryCodes.insert ("gr", 236);  // Greece
+    countryCodes.insert ("gr", 180);  // Mount Athos
+    countryCodes.insert ("gr", 45);  // Dodecanese
+    countryCodes.insert ("gr", 40);  // Crete
+    countryCodes.insert ("tv", 282); // Tuvalu
+    countryCodes.insert ("ki", 301); // Western Kiribati
+    countryCodes.insert ("ki", 31);  // Central Kiribati
+    countryCodes.insert ("ki", 48); // Eastern Kiribati
+    countryCodes.insert ("ki", 490); // Banaba is
+    countryCodes.insert ("so", 232);  // Somalia
+    countryCodes.insert ("sm", 278); // San Marino
+    countryCodes.insert ("pw", 22);  // Palau
+    countryCodes.insert ("tr", 390);  // Turkey
+    countryCodes.insert ("tr", 1390);  // European Turkey
+    countryCodes.insert ("is", 242); // Iceland
+    countryCodes.insert ("gt", 76); // Guatemala
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("cr", 308);  // Costa Rica
+    countryCodes.insert ("cr", 37); // Coco is
+    countryCodes.insert ("cm", 406);  // Cameroon
+    countryCodes.insert ("fr", 214);  // Corsica
+    // TODO: Add the wikipedia flag
+    countryCodes.insert ("cf", 408);  // Central African Rep
+    countryCodes.insert ("cg", 412);  // Rep of Congo
+    countryCodes.insert ("ga", 420);  // Gabon
+    countryCodes.insert ("td", 410);  // Chad
+    countryCodes.insert ("ci", 428);  // Cote d'Ivoire
+    countryCodes.insert ("bj", 416); // Benin
+    countryCodes.insert ("ml", 442);  // Mali
+    countryCodes.insert ("ru", 54); // European Russia
+    countryCodes.insert ("ru", 15);  // Asiatic Russia
+    countryCodes.insert ("ru", 126);  // Kaliningrad
+    countryCodes.insert ("uz", 292);  // Uzbekistan
+    countryCodes.insert ("kz", 130);  // Kazakhstan
+    countryCodes.insert ("ua", 288);  // Ukraine
+    countryCodes.insert ("ag", 94);  // Antigua & Barbuda
+    countryCodes.insert ("bz", 66);  // Belize
+    countryCodes.insert ("kn", 249);  // St Kitts & Nevis
+    countryCodes.insert ("na", 464);  // Namibia
+    countryCodes.insert ("fm", 173);  // Micronesia
+    countryCodes.insert ("fm", 168);  // Marshall Is
+    countryCodes.insert ("bn", 345); // Brunei Darusalam
+    countryCodes.insert ("ca", 1);  // Canada
+    countryCodes.insert ("au", 150);  // Australia
+    countryCodes.insert ("hm", 111);  // Heard Is
+    countryCodes.insert ("au", 153);  // Macquarie is
+    countryCodes.insert ("cc", 38);  //  Cocos / Keeling is
+    countryCodes.insert ("au", 147); //  Lord Howe is
+    countryCodes.insert ("au", 171); // Mellish Reed
+    countryCodes.insert ("nf", 189); // Norkfolk is
+    countryCodes.insert ("au", 303);  // Willis Is
+    countryCodes.insert ("cx", 35);  // Christmas is
+    countryCodes.insert ("ai", 12); //  Anguilla
+    countryCodes.insert ("ms", 96);  // Montserrat
+    countryCodes.insert ("vg", 65);  // British is
+    countryCodes.insert ("tc", 89);  // Turks & Caicos is
+    countryCodes.insert ("pn", 172);  // Pitcairn
+    countryCodes.insert ("gb", 513);  // Ducie is
+    countryCodes.insert ("fk", 141);  // Falkland is
+    countryCodes.insert ("gs", 235);  // South Georgia is
+    countryCodes.insert ("southbritish", 241);  // South Shetland is
+    countryCodes.insert ("un", 238);  // South Orkney is
+    countryCodes.insert ("gs", 240);  // South Sandwich Is
+    countryCodes.insert ("bm", 64);  // Bermuda
+    countryCodes.insert ("io", 33);  // Chagos is
+    countryCodes.insert ("hk", 321);  // Hong Kong
+    countryCodes.insert ("in", 324);  // India
+    countryCodes.insert ("in", 11);  // Andaman & Nicobar
+    countryCodes.insert ("in", 142);  // Lakshadweep Is
+    countryCodes.insert ("mx", 50);  // Mexico
+    countryCodes.insert ("mx", 204);  // Revilagigedo
+    countryCodes.insert ("bf", 480);  // Burkina Faso
+    countryCodes.insert ("kh", 312); //  Cambodia
+    countryCodes.insert ("la", 143);  // Laos
+    countryCodes.insert ("mo", 152); // Macao
+    countryCodes.insert ("mm", 309);  // Myanmar
+    countryCodes.insert ("af", 3);  // Afganistan
+    countryCodes.insert ("id", 327);  // Indonesia
+    countryCodes.insert ("iq", 333);  // Iraq
+    countryCodes.insert ("vu", 158);  // Vanuatu
+    countryCodes.insert ("sy", 384); // Syria
+    countryCodes.insert ("lv", 145);  // Latvia
+    countryCodes.insert ("ni", 86);  //  Nicaragua
+    countryCodes.insert ("ro", 275); // Romania
+    countryCodes.insert ("sv", 74);  // El Salvador
+    countryCodes.insert ("rs", 296); // Serbia
+    countryCodes.insert ("ve", 148);  // Venezuela
+    countryCodes.insert ("ve", 17); // Aves Is
+    countryCodes.insert ("zw", 452);  // Zimbabwe
+    countryCodes.insert ("mk", 502);  // Macedonia
+    countryCodes.insert ("ss", 521);  //Rep South Sudan
+    countryCodes.insert ("al", 7);  // Albania
+    countryCodes.insert ("gi", 233);  // Gibraltar
+    countryCodes.insert ("gb", 283);  // UK Base Aereas Cyprus
+    countryCodes.insert ("sh", 250); // St Helena
+    countryCodes.insert ("sh", 205);  // Ascension is
+    countryCodes.insert ("sh", 274);  // Tristan da Cunha & Gough is
+    countryCodes.insert ("ky", 69); // Cayman Is
+    countryCodes.insert ("tk", 270);  // Tokelau Is
+    countryCodes.insert ("marquesas", 509);  // Marquesas Is
+    countryCodes.insert ("nz", 170);  // New Zeland
+    countryCodes.insert ("nz", 34);  // Chatham Is
+    countryCodes.insert ("nz", 133);  // Kermadec is
+    countryCodes.insert ("nz", 16);  // Auckland & Campbell is
+    countryCodes.insert ("py", 132);  // Paraguay
+    countryCodes.insert ("za", 462);  // South Africa
+    countryCodes.insert ("za", 201);  // Pr Edward & Marion Is
+    countryCodes.insert ("xk", 522);  // Kosovo
+    // Countries without flag or controversial - Data is added just to keep the DB filled-up
+    countryCodes.insert ("un", 506);  // Scarboroug Reef
+    countryCodes.insert ("un", 13); //  Antartica
+
+    return countryCodes;
+}
+
 bool DataBase::updateTheEntityTableISONames()
 {
-       //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
+    qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
     QSqlQuery query;
     QString sq;
 
@@ -4942,1724 +5311,28 @@ bool DataBase::updateTheEntityTableISONames()
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
+    QMultiMap<QString, int> countryCodes;
+    countryCodes.clear ();
 
-    if (!updateEntity ("mt", 246)) return false;
-    if (!updateEntity ("un", 247)) return false;
-    if (!updateEntity ("mc", 260)) return false;
-    if (!updateEntity ("mu", 4)) return false;
-    if (!updateEntity ("mu", 165)) return false;
-    if (!updateEntity ("mu", 207)) return false;
-    if (!updateEntity ("gq", 49)) return false;
-    if (!updateEntity ("gq", 195)) return false;
-    if (!updateEntity ("fj", 176)) return false;
-    if (!updateEntity ("fj", 489)) return false;
-    if (!updateEntity ("fj", 460)) return false;
+    countryCodes = fillCountryCodes ();
 
+    foreach (const QString &str, countryCodes.uniqueKeys()) {
+        foreach (int i, countryCodes.values(str))
+        {
+            if (!updateEntity (str, i))
+                return false;
 
-    sq = QString ("UPDATE entity SET isoname='sz' WHERE dxcc='468'");  // Swaziland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
+            //qDebug() << str << ':' << i;
+        }
+    }
 
-    sq = QString ("UPDATE entity SET isoname='tn' WHERE dxcc='474'");  // Tunisia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "14", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vn' WHERE dxcc='293'");  // Vietnam
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "15", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gn' WHERE dxcc='107'");  // Guinea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "16", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bv' WHERE dxcc='24'");  // Bouvet
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "17", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='199'");  // Peter 1 Is"
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "18", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='az' WHERE dxcc='18'");  // Azerbaijan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "19", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ge' WHERE dxcc='75'");  // Georgia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='me' WHERE dxcc='514'");  // Montenegro
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lk' WHERE dxcc='315'");  // Sri lanka
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='117'");  // ITU HQ
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='289'");  // UN HQ
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tl' WHERE dxcc='511'");  // Timor Leste
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='il' WHERE dxcc='336'");  // Israel
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ly' WHERE dxcc='436'");  // Libya
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cy' WHERE dxcc='215'");  // Cyprus
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tz' WHERE dxcc='470'");  // Tanzania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ng' WHERE dxcc='450'");  // Nigeria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mg' WHERE dxcc='438'");  // Madagascar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mr' WHERE dxcc='444'");  // Mauritania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ne' WHERE dxcc='187'");  // Niger
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tg' WHERE dxcc='483'");  // Togo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ws' WHERE dxcc='190'");  // Samoa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ug' WHERE dxcc='286'");  // Uganda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ke' WHERE dxcc='430'");  // Kenya
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sn' WHERE dxcc='456'");  // Senegal
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jm' WHERE dxcc='82'");  // Jamaica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='es' WHERE dxcc='281'");  // Spain
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ls' WHERE dxcc='432'");  //Lesotho
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mw' WHERE dxcc='440'");  // Malawi
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dz' WHERE dxcc='400'");  // Algeria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ye' WHERE dxcc='492'");  // Yemen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bb' WHERE dxcc='62'");  // Barbados
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='159'");  // Maldives
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gy' WHERE dxcc='129'");  // Guyana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hr' WHERE dxcc='497'");  // Croatia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gh' WHERE dxcc='424'");  // Ghana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='257'");  // Malta
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='zm' WHERE dxcc='482'");  // Zambia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kw' WHERE dxcc='348'");  // Kuwait
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sl' WHERE dxcc='458'");  // Sierra Leone
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='299'");  // West Malaysia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='46'");  // East Malaysia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='np' WHERE dxcc='369'");  // Nepal
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cd' WHERE dxcc='414'");  // Dem Rep Congo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bi' WHERE dxcc='404'");  // Burundi
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sg' WHERE dxcc='381'");  // Singapore
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='rw' WHERE dxcc='454'");  // Rwanda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tt' WHERE dxcc='90'");  // Trinidad & Tobago
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bw' WHERE dxcc='402'");  // Botswana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='to' WHERE dxcc='160'");  //  Tonga
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='om' WHERE dxcc='370'");  // Oman
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bt' WHERE dxcc='306'");  // Bhutan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ae' WHERE dxcc='391'");  // Un Arab Emirates
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='qa' WHERE dxcc='376'");  // Qatar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bh' WHERE dxcc='304'");  // Bahrain
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pk' WHERE dxcc='372'");  // Pakistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='386'");  // Taiwan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='505'");  // Pratas Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cn' WHERE dxcc='318'");  // China
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nr' WHERE dxcc='157'");  //  Nauru
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ad' WHERE dxcc='203'");  // Andorra
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gm' WHERE dxcc='422'");  // Gambia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bs' WHERE dxcc='60'");  // Bahamas
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mz' WHERE dxcc='181'");  // Mozambique
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='112'");  // Chile
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='217'");  // San Felix
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='47'");  // Easter Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='125'");  //  Juan Fernandez is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cu' WHERE dxcc='70'");  // Cuba
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ma' WHERE dxcc='446'");  // Morocco
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bo' WHERE dxcc='104'");  // Bolivia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='272'");  // Portugal
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='256'");  // Madeira
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='149'");  // Azores
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='uy' WHERE dxcc='144'");  // Uruguay
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='211'");  // Sable Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='252'");  // St Paul is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ao' WHERE dxcc='401'");  // Angola
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cv' WHERE dxcc='409'");  // Cape Verde
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='km' WHERE dxcc='411'");  // Comoros
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='de' WHERE dxcc='230'");  // Fed Rep Germany
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ph' WHERE dxcc='375'");  //Philippines
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='er' WHERE dxcc='51'");  // Eritrea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ps' WHERE dxcc='510'");  // Palestine
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='191'");  // North Cook
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='234'");  // South Cook
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nu' WHERE dxcc='188'");  // Niue
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ba' WHERE dxcc='501'");  // Bosnia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='balear' WHERE dxcc='21'");  // Balearic is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='canary' WHERE dxcc='29'");  // Canary Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ceuta' WHERE dxcc='32'");  // Ceuta & Melilla //TODO: Fix the flag
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ie' WHERE dxcc='245'");  // Ireland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='am' WHERE dxcc='14'");  // Armenia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lr' WHERE dxcc='434'");  // Liberia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ir' WHERE dxcc='330'");  // Iran
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='179'");  // Moldova
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ee' WHERE dxcc='52'");  //  Estonia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='et' WHERE dxcc='53'");  // Ethiopia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='by' WHERE dxcc='27'");  // Belarus
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kg' WHERE dxcc='135'");  // Kyrgyzstan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tm' WHERE dxcc='280'");  // Turkmenistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tj' WHERE dxcc='262'");  // Turkmenistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='227'");  // France
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='79'");  // Guadeloupe
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='yt' WHERE dxcc='169'");  // Mayotte
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='516'");  // St Barthelemy
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='36'");  // Clipperton Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='162'");  // New Caledonia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='512'");  // Chesterfield Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mq' WHERE dxcc='84'");  // Martinique
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='175'");  // French Polynesia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='508'");  // Austral Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pm' WHERE dxcc='277'");  //  St Pierre & Miquelon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='re' WHERE dxcc='453'");  //Reunion Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='213'");  // St Marteen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='99'");  // Glorioso is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='124'");  // Juan de nova, Europa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='276'");  //  Tromelin - TODO: Add the wikipedia flag
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='41'");  // Crozet
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='131'");  // Kerguelen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='10'");  //Amsterdam & St Paul is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='wf' WHERE dxcc='298'");  // Wallis & Futuna is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gf' WHERE dxcc='63'");  // French Guiana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='england' WHERE dxcc='223'");  // England
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='114'");  //Isle of Man
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='northernireland' WHERE dxcc='265'");  // Northern Ireland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='122'");  // Jersey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='1279'");  //  Shetland is (Scotland)
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='106'");  // Guernsey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='wales' WHERE dxcc='294'");  // Wales
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='185'");  // Solomon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='507'");  // Temotu Province
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hu' WHERE dxcc='239'");  // Hungary
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='287'");  // Switzerland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='li' WHERE dxcc='251'");   // Liechtenstein
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='120'");  // Ecuador
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='71'");  // Galapagos Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ht' WHERE dxcc='78'");  // Haiti
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='do' WHERE dxcc='72'");  // Dominican Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='116'");  // Colombia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='216'");  // San Andres & Providencia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='161'");  // Malpelo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kr' WHERE dxcc='137'");  // Rep Korea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pa' WHERE dxcc='88'");  // Panama
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hn' WHERE dxcc='80'");  // Honduras
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='th' WHERE dxcc='387'");  // Thailand
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='va' WHERE dxcc='295'");  // Vatican City
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sa' WHERE dxcc='378'");  // Saudi Arabia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='248'");  // Italy
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='1248'");  // African Italy
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='2248'");  // Sicily
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='225'");  // Sardinia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dj' WHERE dxcc='382'");  // Djibouti
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gd' WHERE dxcc='77'");  // Grenada
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gw' WHERE dxcc='109'");  // Guinea-Bissau
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lc' WHERE dxcc='97'");  // St Lucia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dm' WHERE dxcc='95'");  // Dominica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vc' WHERE dxcc='98'");  // St Vicent
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='339'");  // Japan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='177'");  // Minami Torishima
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='192'");  // Ogasawara
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mn' WHERE dxcc='363'");  // Mongolia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='259'");  // Svalbard
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='1259'");  // Svalbard
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='118'");  // Jan Mayen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jo' WHERE dxcc='342'");  // Jordan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='291'");  // United States
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='105'");  // Guantanamo Bay
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mp' WHERE dxcc='166'");  //  Mariana is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='20'");  // Baker & Howland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gu' WHERE dxcc='103'");  // Guam
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='123'");  // Johnston is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='174'");  // Midway is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='197'");  // Palmyra & Jarbis is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='134'");  // Kingman Reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='110'");  // Hawaii
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='138'");  // Kure is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='9'");  // American Samoa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='515'");  // Swains is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='297'");  // Wake is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='6'");  // Alaska
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='182'");  // Navassa Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vi' WHERE dxcc='285'");  // Us Virgin is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pr' WHERE dxcc='202'");  // Puerto Rico
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='43'");  // Desecheo Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='266'");  // Norway
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ar' WHERE dxcc='100'");  // Argentina
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lu' WHERE dxcc='254'");  // Luxembourg
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lt' WHERE dxcc='146'");  // Lithuania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bg' WHERE dxcc='212'");  // Bulgaria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pe' WHERE dxcc='136'");  // Peru
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lb' WHERE dxcc='354'");  // Lebanon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='at' WHERE dxcc='206'");  // Austria & Viena Intl HQ
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='224'");  // Findland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='5'");  // Aland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='167'");  // Market Reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cz' WHERE dxcc='503'");  // Czech Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sk' WHERE dxcc='504'");  // Slovak Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='be' WHERE dxcc='209'");  // Belgium
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gl' WHERE dxcc='237'");  // Greenland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='222'");  // Faroe is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='221'");  // Denmark
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pg' WHERE dxcc='163'");  // Papua New Guinea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='aw' WHERE dxcc='91'");  // Aruba
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kp' WHERE dxcc='344'");  //Dpr Korea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='263'");  // Netherlands
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cw' WHERE dxcc='517'");  // Curacao
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='bq' WHERE dxcc='520'");  // Bonaire
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='519'");  // Saba & St Eustatius
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='shm' WHERE dxcc='518'");  // Sint Marteen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='108'");  // Brazil
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='56'");  // Fernando de Noronha
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='253'");  //  St Peter & St Paul
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='273'");  // Trindade & Martim Vaz
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sr' WHERE dxcc='140'");  // Suriname
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='61'");  // Franz Josef Land
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='eh' WHERE dxcc='302'");  // Western Sahara
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='bd' WHERE dxcc='305'");  // Bangladesh
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='si' WHERE dxcc='499'");  // Slovenia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sc' WHERE dxcc='379'");  // Seychelles
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='st' WHERE dxcc='219'");  // Sao Tome & Principe
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='se' WHERE dxcc='284'");  // Sweden
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pl' WHERE dxcc='269'");  // Poland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sd' WHERE dxcc='466'");  // Sudan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='eg' WHERE dxcc='478'");  // Egypt
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='236'");  // Greece
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='180'");  // Mount Athos
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='45'");  // Dodecanese
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='40'");  // Crete
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tv' WHERE dxcc='282'");  // Tuvalu
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='301'");  // Western Kiribati
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='31'");  // Central Kiribati
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='48'");  // Eastern Kiribati
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='490'");  // Banaba is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='so' WHERE dxcc='232'");  // Somalia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sm' WHERE dxcc='278'");  // San Marino
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pw' WHERE dxcc='22'");  // Palau
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='390'");  // Turkey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='1390'");  // European Turkey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='is' WHERE dxcc='242'");  // Iceland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gt' WHERE dxcc='76'");  // Guatemala
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='308'");  // Costa Rica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='37'");  // Coco is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cm' WHERE dxcc='406'");  // Cameroon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='214'");  // Corsica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    // TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='cf' WHERE dxcc='408'");  // Central African Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cg' WHERE dxcc='412'");  // Rep of Congo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='ga' WHERE dxcc='420'");  // Gabon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='td' WHERE dxcc='410'");  // Chad
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ci' WHERE dxcc='428'");  // Cote d'Ivoire
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bj' WHERE dxcc='416'");  // Benin
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ml' WHERE dxcc='442'");  // Mali
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Russia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Russia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='126'");  // Kaliningrad
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Rusia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='uz' WHERE dxcc='292'");  // Uzbekistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kz' WHERE dxcc='130'");  // Kazakhstan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ua' WHERE dxcc='288'");  // Ukraine
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ag' WHERE dxcc='94'");  // Antigua & Barbuda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bz' WHERE dxcc='66'");  // Belize
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kn' WHERE dxcc='249'");  // St Kitts & Nevis
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='na' WHERE dxcc='464'");  // Namibia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='173'");  // Micronesia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='168'");  // Marshall Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bn' WHERE dxcc='345'");  // Brunei Darusalam
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='1'");  // Canada
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='150'");  // Australia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hm' WHERE dxcc='111'");  // Heard Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='153'");  // Macquarie is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cc' WHERE dxcc='38'");  //  Cocos / Keeling is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='147'");  //  Lord Howe is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='171'");  // Mellish Reed
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nf' WHERE dxcc='189'");  // Norkfolk is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='303'");  // Willis Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cx' WHERE dxcc='35'");  // Christmas is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ai' WHERE dxcc='12'");  //  Anguilla
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ms' WHERE dxcc='96'");  // Montserrat
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vg' WHERE dxcc='65'");  // British is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tc' WHERE dxcc='89'");  // Turks & Caicos is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pn' WHERE dxcc='172'");  // Pitcairn
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='513'");  // Ducie is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fk' WHERE dxcc='141'");  // Falkland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='235'");  // South Georgia is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='southbritish' WHERE dxcc='241'");  // South Shetland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='238'");  // South Orkney is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='240'");  // South Sandwich Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bm' WHERE dxcc='64'");  // Bermuda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='io' WHERE dxcc='33'");  // Chagos is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hk' WHERE dxcc='321'");  // Hong Kong
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='324'");  // India
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='11'");  // Andaman & Nicobar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='142'");  // Lakshadweep Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='50'");  // Mexico
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='204'");  // Revilagigedo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bf' WHERE dxcc='480'");  // Burkina Faso
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kh' WHERE dxcc='312'");  //  Cambodia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='la' WHERE dxcc='143'");  // Laos
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mo' WHERE dxcc='152'");  // Macao
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mm' WHERE dxcc='309'");  // Myanmar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='af' WHERE dxcc='3'");  // Afganistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='id' WHERE dxcc='327'");  // Indonesia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='iq' WHERE dxcc='333'");  // Iraq
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc='158'");  // Vanuatu
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sy' WHERE dxcc='384'");  // Syria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lv' WHERE dxcc='145'");  // Latvia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ni' WHERE dxcc='86'");  //  Nicaragua
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ro' WHERE dxcc='275'");  // Romania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sv' WHERE dxcc='74'");  // El Salvador
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='rs' WHERE dxcc='296'");  // Serbia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='148'");  // Venezuela
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='17'");  // Aves Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='zw' WHERE dxcc='452'");  // Zimbabwe
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mk' WHERE dxcc='502'");  // Macedonia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ss' WHERE dxcc='521'");  //Rep South Sudan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='al' WHERE dxcc='7'");  // Albania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gi' WHERE dxcc='233'");  // Gibraltar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='283'");  // UK Base Aereas Cyprus
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='250'");  // St Helena
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='205'");  // Ascension is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='274'");  // Tristan da Cunha & Gough is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ky' WHERE dxcc='69'");  // Cayman Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tk' WHERE dxcc='270'");  // Tokelau Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='marquesas' WHERE dxcc='509'");  // Marquesas Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='170'");  // New Zeland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='34'");  // Chatham Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='133'");  // Kermadec is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='16'");  // Auckland & Campbell is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='py' WHERE dxcc='132'");  // Paraguay
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='462'");  // South Africa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='201'");  // Pr Edward & Marion Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='xk' WHERE dxcc='522'");  // Kosovo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-// Countries without flag or controversial - Data is added just to keep the DB filled-up
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='506'");  // Scarboroug Reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='13'");  //  Antartica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-        //qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
+    qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
     return true;
 }
 
 bool DataBase::updateEntity (const QString &_codeString, const int _code)
 {
+    //qDebug() << Q_FUNC_INFO << "ISOCode: " << _codeString << " - int: " << QString::number(_code);
     QString sq = QString ("UPDATE entity SET isoname='%1' WHERE dxcc='%2'").arg(_codeString).arg(_code);
     //TODO Capture and manage the error
     return execQuery(Q_FUNC_INFO, sq);
@@ -6718,17 +5391,17 @@ bool DataBase::hasTheTableData(const QString &_tableName)
         query.next();
         if (query.isValid())
         {
-                //qDebug() << "DataBase::hasTheTableData - valid"  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData - valid"  << QT_ENDL;
             int _num = (query.value(0)).toInt();
             query.finish();
             if (_num > 0)
             {
-                    //qDebug() << "DataBase::hasTheTableData - DB Exists"  << QT_ENDL;
+                //qDebug() << "DataBase::hasTheTableData - DB Exists"  << QT_ENDL;
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << QT_ENDL;
+               //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -6754,7 +5427,7 @@ bool DataBase::hasTheTableData(const QString &_tableName)
         return false;
     }
 
-        //qDebug() << "DataBase::isTheDBCreated: END FALSE" << QT_ENDL;
+    //qDebug() << "DataBase::isTheDBCreated: END FALSE" << QT_ENDL;
     //query.finish();
     //return false;
 }
