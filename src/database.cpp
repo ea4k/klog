@@ -5541,9 +5541,7 @@ bool DataBase::updateTo011()
     {
            //qDebug() << "DataBase::updateTo011: - updateAwardWAZTable NOK " << QT_ENDL;
         IAmIn011 = false;
-
     }
-
        //qDebug() << "DataBase::updateTo011: - END" << QT_ENDL;
     if (!IAmIn011)
     {// emit debugLog(Q_FUNC_INFO, "8", 7);
