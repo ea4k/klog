@@ -4929,7 +4929,6 @@ bool DataBase::recreateTableBand()
 
 QMultiMap<QString, int> DataBase::fillCountryCodes()
 {
-
     qDebug() << Q_FUNC_INFO;
     QMultiMap<QString, int> countryCodes;
     countryCodes.clear ();
