@@ -4097,27 +4097,27 @@ Frequency is not in a hamradio band!</source>
         <translation>データベース&#x3000;エラー</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1436"/>
+        <location filename="../database.cpp" line="1437"/>
         <source>KLog DB needs to be upgraded.</source>
         <translation>KLog DBを更新する必要があります.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1437"/>
+        <location filename="../database.cpp" line="1438"/>
         <source>Do you want to upgrade it now?</source>
         <translation>いま更新しますか?</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1437"/>
+        <location filename="../database.cpp" line="1438"/>
         <source>If DB is not upgraded KLog may not work properly.</source>
         <translation>DBを更新しないとKLogは正しく動作しない可能性があります.</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1474"/>
+        <location filename="../database.cpp" line="1475"/>
         <source>Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1475"/>
+        <location filename="../database.cpp" line="1476"/>
         <source>Do you want to backup your DB now?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4142,96 +4142,96 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1974"/>
+        <location filename="../database.cpp" line="1972"/>
         <source>KLog - DB can&apos;t be updated automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1975"/>
+        <location filename="../database.cpp" line="1973"/>
         <source>You are upgrading from a too old KLog version and this upgrade can&apos;t be upgraded automatically from that version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2109"/>
-        <location filename="../database.cpp" line="3762"/>
-        <location filename="../database.cpp" line="3932"/>
-        <location filename="../database.cpp" line="4125"/>
-        <location filename="../database.cpp" line="4327"/>
+        <location filename="../database.cpp" line="2107"/>
+        <location filename="../database.cpp" line="3760"/>
+        <location filename="../database.cpp" line="3930"/>
+        <location filename="../database.cpp" line="4123"/>
+        <location filename="../database.cpp" line="4325"/>
         <source>KLog - DB update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2167"/>
+        <location filename="../database.cpp" line="2165"/>
         <source>KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you.</source>
         <translation>DBの中に以前のバージョンのログを発見しました。すべてのデータを新しく作成されるDXタイプのログに移行します。</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2185"/>
+        <location filename="../database.cpp" line="2183"/>
         <source>KLog: Enter Station callsign</source>
         <translation>KLog: 無線局のコールサインを入力してください</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2186"/>
+        <location filename="../database.cpp" line="2184"/>
         <source>Enter the station callsign used in this log</source>
         <translation>このログで使用する無線局のコールサインを入力してください</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2187"/>
+        <location filename="../database.cpp" line="2185"/>
         <location filename="../utilities.cpp" line="1937"/>
         <source>Station Callsign</source>
         <translation>無線局のコールサイン</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3696"/>
-        <location filename="../database.cpp" line="3869"/>
-        <location filename="../database.cpp" line="7837"/>
-        <location filename="../database.cpp" line="8070"/>
+        <location filename="../database.cpp" line="3694"/>
+        <location filename="../database.cpp" line="3867"/>
+        <location filename="../database.cpp" line="6507"/>
+        <location filename="../database.cpp" line="6740"/>
         <location filename="../dataproxy_sqlite.cpp" line="6115"/>
         <source>QSO: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3763"/>
-        <location filename="../database.cpp" line="3933"/>
-        <location filename="../database.cpp" line="4126"/>
-        <location filename="../database.cpp" line="4328"/>
+        <location filename="../database.cpp" line="3761"/>
+        <location filename="../database.cpp" line="3931"/>
+        <location filename="../database.cpp" line="4124"/>
+        <location filename="../database.cpp" line="4326"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
         <translation>更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. &#x3000;更新を中止しますか？</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4062"/>
-        <location filename="../database.cpp" line="4258"/>
+        <location filename="../database.cpp" line="4060"/>
+        <location filename="../database.cpp" line="4256"/>
         <source>Progress: </source>
         <translation>進捗状況: </translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7749"/>
+        <location filename="../database.cpp" line="6419"/>
         <source>Updating DXCC award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7837"/>
+        <location filename="../database.cpp" line="6507"/>
         <source>Updating DXCC Award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="7981"/>
+        <location filename="../database.cpp" line="6651"/>
         <source>Updating WAZ award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="8070"/>
+        <location filename="../database.cpp" line="6740"/>
         <source>Updating WAZ Award information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3677"/>
-        <location filename="../database.cpp" line="3696"/>
+        <location filename="../database.cpp" line="3675"/>
+        <location filename="../database.cpp" line="3694"/>
         <source>Updating mode information...</source>
         <translation>モードの情報を更新しています...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="1976"/>
+        <location filename="../database.cpp" line="1974"/>
         <source>The process to upgrade is:
 - Using an old KLog version export your log to ADIF.
 - Remove your logbook.dat file from your KLog folder.
@@ -4242,36 +4242,36 @@ KLog will finish when you click on OK.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="2229"/>
+        <location filename="../database.cpp" line="2227"/>
         <source>All the data was migrated correctly. You should now go to Setup-&gt;Preferences-&gt;Logs to check that everything is okay.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3677"/>
-        <location filename="../database.cpp" line="3850"/>
-        <location filename="../database.cpp" line="4040"/>
-        <location filename="../database.cpp" line="4235"/>
-        <location filename="../database.cpp" line="7749"/>
-        <location filename="../database.cpp" line="7981"/>
+        <location filename="../database.cpp" line="3675"/>
+        <location filename="../database.cpp" line="3848"/>
+        <location filename="../database.cpp" line="4038"/>
+        <location filename="../database.cpp" line="4233"/>
+        <location filename="../database.cpp" line="6419"/>
+        <location filename="../database.cpp" line="6651"/>
         <location filename="../dataproxy_sqlite.cpp" line="6070"/>
         <source>Abort updating</source>
         <translation>更新の中止</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="3850"/>
-        <location filename="../database.cpp" line="3869"/>
-        <location filename="../database.cpp" line="4062"/>
-        <location filename="../database.cpp" line="4258"/>
+        <location filename="../database.cpp" line="3848"/>
+        <location filename="../database.cpp" line="3867"/>
+        <location filename="../database.cpp" line="4060"/>
+        <location filename="../database.cpp" line="4256"/>
         <source>Updating bands information...</source>
         <translation>バンドの情報を更新しています...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4038"/>
+        <location filename="../database.cpp" line="4036"/>
         <source>Updating bands information in %1 status...</source>
         <translation>%1 用のバンドの情報を更新しています...</translation>
     </message>
     <message>
-        <location filename="../database.cpp" line="4233"/>
+        <location filename="../database.cpp" line="4231"/>
         <source>Updating mode information in %1 status...</source>
         <translation>%1 用のモードの情報を更新しています...</translation>
     </message>

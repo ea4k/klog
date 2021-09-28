@@ -4262,12 +4262,12 @@ msgctxt "QObject|"
 msgid "Database Error"
 msgstr "Błąd bazy dancyh"
 
-#: ../database.cpp:1436
+#: ../database.cpp:1437
 msgctxt "QObject|"
 msgid "KLog DB needs to be upgraded."
 msgstr "Baza danych KLog musi zostać zaktualizowana."
 
-#: ../database.cpp:1976
+#: ../database.cpp:1974
 msgctxt "QObject|"
 msgid ""
 "The process to upgrade is:\n"
@@ -4279,13 +4279,13 @@ msgid ""
 "KLog will finish when you click on OK."
 msgstr ""
 
-#: ../database.cpp:2109 ../database.cpp:3762 ../database.cpp:3932
-#: ../database.cpp:4125 ../database.cpp:4327
+#: ../database.cpp:2107 ../database.cpp:3760 ../database.cpp:3930
+#: ../database.cpp:4123 ../database.cpp:4325
 msgctxt "QObject|"
 msgid "KLog - DB update"
 msgstr ""
 
-#: ../database.cpp:2167
+#: ../database.cpp:2165
 msgctxt "QObject|"
 msgid ""
 "KLog has detected a previous log in the DB. All data will be migrated to a "
@@ -4294,29 +4294,29 @@ msgstr ""
 "KLog wykrył poprzedni LOG w bazie dancy. Wszystkie dane zostaną dla Ciebie "
 "zaimportowane do nowo utworzonego Logu."
 
-#: ../database.cpp:2185
+#: ../database.cpp:2183
 msgctxt "QObject|"
 msgid "KLog: Enter Station callsign"
 msgstr "KLog: Wprowadź znak stacji"
 
-#: ../database.cpp:2186
+#: ../database.cpp:2184
 msgctxt "QObject|"
 msgid "Enter the station callsign used in this log"
 msgstr "Wprowadź znak używany w KLog"
 
-#: ../database.cpp:2187 ../utilities.cpp:1937
+#: ../database.cpp:2185 ../utilities.cpp:1937
 msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "Znak Stacji"
 
-#: ../database.cpp:3696 ../database.cpp:3869 ../database.cpp:7837
-#: ../database.cpp:8070 ../dataproxy_sqlite.cpp:6115
+#: ../database.cpp:3694 ../database.cpp:3867 ../database.cpp:6507
+#: ../database.cpp:6740 ../dataproxy_sqlite.cpp:6115
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
 
-#: ../database.cpp:3763 ../database.cpp:3933 ../database.cpp:4126
-#: ../database.cpp:4328
+#: ../database.cpp:3761 ../database.cpp:3931 ../database.cpp:4124
+#: ../database.cpp:4326
 msgctxt "QObject|"
 msgid ""
 "Canceling this update will cause data inconsistencies and possibly data "
@@ -4325,34 +4325,34 @@ msgstr ""
 "Przerwanie tej aktualizjacji może grozić utratą danych, Czy napewno chcesz "
 "przerwać?"
 
-#: ../database.cpp:4062 ../database.cpp:4258
+#: ../database.cpp:4060 ../database.cpp:4256
 msgctxt "QObject|"
 msgid "Progress: "
 msgstr "Postęp: "
 
-#: ../database.cpp:3677 ../database.cpp:3696
+#: ../database.cpp:3675 ../database.cpp:3694
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "Updating mode information..."
 
-#: ../database.cpp:1437
+#: ../database.cpp:1438
 msgctxt "QObject|"
 msgid "Do you want to upgrade it now?"
 msgstr "Czy chcesz aktualizować teraz?"
 
-#: ../database.cpp:1437
+#: ../database.cpp:1438
 msgctxt "QObject|"
 msgid "If DB is not upgraded KLog may not work properly."
 msgstr "Jeśli DB nie zostanie zauktualizowana KLog może nie działać poprawnie."
 
-#: ../database.cpp:1474
+#: ../database.cpp:1475
 msgctxt "QObject|"
 msgid ""
 "Upgrading software may potentially cause problems. Backing up your DB, "
 "before upgrading, is always a good idea."
 msgstr ""
 
-#: ../database.cpp:1475
+#: ../database.cpp:1476
 msgctxt "QObject|"
 msgid "Do you want to backup your DB now?"
 msgstr ""
@@ -4378,66 +4378,66 @@ msgctxt "QObject|"
 msgid "You will be sent back to the starting point."
 msgstr ""
 
-#: ../database.cpp:1974
+#: ../database.cpp:1972
 msgctxt "QObject|"
 msgid "KLog - DB can't be updated automatically"
 msgstr ""
 
-#: ../database.cpp:1975
+#: ../database.cpp:1973
 msgctxt "QObject|"
 msgid ""
 "You are upgrading from a too old KLog version and this upgrade can't be "
 "upgraded automatically from that version."
 msgstr ""
 
-#: ../database.cpp:2229
+#: ../database.cpp:2227
 msgctxt "QObject|"
 msgid ""
 "All the data was migrated correctly. You should now go to "
 "Setup->Preferences->Logs to check that everything is okay."
 msgstr ""
 
-#: ../database.cpp:3677 ../database.cpp:3850 ../database.cpp:4040
-#: ../database.cpp:4235 ../database.cpp:7749 ../database.cpp:7981
+#: ../database.cpp:3675 ../database.cpp:3848 ../database.cpp:4038
+#: ../database.cpp:4233 ../database.cpp:6419 ../database.cpp:6651
 #: ../dataproxy_sqlite.cpp:6070
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Przerwij aktualizowanie"
 
-#: ../database.cpp:3850 ../database.cpp:3869 ../database.cpp:4062
-#: ../database.cpp:4258
+#: ../database.cpp:3848 ../database.cpp:3867 ../database.cpp:4060
+#: ../database.cpp:4256
 msgctxt "QObject|"
 msgid "Updating bands information..."
 msgstr "Aktualizowanie informacjo o pasmach..."
 
-#: ../database.cpp:4038
+#: ../database.cpp:4036
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
 msgstr "Updating bands information in %1 status..."
 
-#: ../database.cpp:4233
+#: ../database.cpp:4231
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
 msgstr "Updating mode information in %1 status..."
 
-#: ../database.cpp:7749
+#: ../database.cpp:6419
 msgctxt "QObject|"
 msgid "Updating DXCC award information..."
 msgstr ""
 
-#: ../database.cpp:7837
+#: ../database.cpp:6507
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
 msgstr ""
 
-#: ../database.cpp:7981
+#: ../database.cpp:6651
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
 msgstr ""
 
-#: ../database.cpp:8070
+#: ../database.cpp:6740
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr ""
