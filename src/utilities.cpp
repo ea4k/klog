@@ -322,7 +322,6 @@ QString Utilities::getKLogDBFile()
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
     {
-
         //return dbPath;
         //return getKLogDatabaseFile(dbPath);
     }
@@ -1395,7 +1394,6 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
           //qDebug() << "Utilities::getValidADIFFieldAndData - DataType: -" << dataType << "-" ;
         if (!validDataTypes.contains(dataType.toUpper()))
         {
-
               //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType ;
             return result;
         }
@@ -1439,7 +1437,6 @@ QString Utilities::getAValidCall (const QString &_wrongCall)
     bool ok;
     if (_wrongCall.length() > 0)
     {
-
         //qDebug() << "Utilities::getAValidCall (Don't have VALID CALL): " << _wrongCall ;
         _confirmedCall = QString(QObject::tr("A wrong callsign has been found: %1. Please enter a new callsign or confirm that the current one is a good callsign.")).arg(_wrongCall);
     }

@@ -4562,8 +4562,6 @@ bool DataBase::updateTo007()
         {
                 //qDebug() << "DataBase::updateTo007: - And I am not in 006" << QT_ENDL;
             IAmIn006 = updateTo006();
-
-
         }
            //qDebug() << "DataBase::updateTo007: - And I am in 006!!!!" << QT_ENDL;
         if (ErrorUpdating)

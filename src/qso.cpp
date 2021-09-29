@@ -523,12 +523,14 @@ bool QSO::setLoTWQSL_SENT(const QString &_c)
         lotw_qsl_sent = _c;
         return true;
     }
-    else {
+    else
+    {
         return false;
     }
 }
 
-QString QSO::getLoTWQSL_SENT() {
+QString QSO::getLoTWQSL_SENT()
+{
     return lotw_qsl_sent;
 }
 
@@ -1289,9 +1291,15 @@ bool QSO::setData(const QString &_adifPair)
     }
     else if (field == "APP_LOTW_RXQSL")
     {
-        //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
+        qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
         setLoTWQSL_RCVD("Y");
         setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
+    }
+    else if (field == "APP_LOTW_RXQSO")
+    {
+        qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data  << QT_ENDL;
+        setLoTWQSL_SENT ("Y");
+        setLoTWQSLSDate (util->getDateFromLoTWQSLDateString(data));
     }
 
     return true;

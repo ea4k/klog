@@ -4096,7 +4096,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
 void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    //qDebug() << "MainWindow::slotLoTWDownloadedFileProcess: " << _fn << QT_ENDL;
+    qDebug() << "MainWindow::slotLoTWDownloadedFileProcess: " << _fn << QT_ENDL;
     QList<int> a;
     a.clear();
     a.append(filemanager->adifLoTWReadLog2(_fn, currentLog));
@@ -4113,7 +4113,6 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         msgBox.exec();
         logWindow->refresh();
         dxccStatusWidget->refresh();
-
         //TODO: Add the QSOs to the widget and show showAdifImportWidget->show();
     }
     else

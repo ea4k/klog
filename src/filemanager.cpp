@@ -805,7 +805,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
     progress.setWindowTitle(tr("LoTW reading"));
     progress.setAutoClose(true);
 
-   //qDebug() << "FileManager::adifLoTWReadLog2 - After header while"  << QT_ENDL;
+    qDebug() << "FileManager::adifLoTWReadLog2 - After header while"  << QT_ENDL;
     noMoreQso = false;
     QStringList fields;
     QSO qso;
@@ -823,7 +823,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
 
         foreach(QString a, fields)
         {
-            //qDebug() << "FileManager::adifLoTWReadLog2 - Fields: " << a  << QT_ENDL;
+            qDebug() << "FileManager::adifLoTWReadLog2 - Fields: " << a  << QT_ENDL;
 
             QString fullField = "<" + a.trimmed();
             if (fullField.contains("<EOR>"))
@@ -3415,7 +3415,7 @@ QStringList FileManager::getListOfLogsInFile(QFile& _f)
                        //qDebug() << "FileManager::howManyLogsInFile: data.0: " << data.at(0) << QT_ENDL;
                        //qDebug() << "FileManager::howManyLogsInFile: data.1: " << data.at(1) << QT_ENDL;
                     if (!logs.contains(QString::number(data.at(1).toInt()+10000)))
-                    {                   
+                    {
                         logs.append(QString::number(data.at(1).toInt()+10000));
                     }
                 }
