@@ -131,7 +131,7 @@ void DXCCStatusWidget::update()
         // It should be updated.
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setText(tr("It seems that the dxcc status in your database is not updated and KLog can't find any dxcc information. You can try to fix this by updating the log."));
+        msgBox.setText(tr("It seems that the DXCC status in your database is not updated and KLog can't find any dxcc information. You can try to fix this by updating the log."));
         msgBox.setInformativeText(tr("Do you want to update your DXCC status?"));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
@@ -140,7 +140,9 @@ void DXCCStatusWidget::update()
         switch (ret)
         {
             case QMessageBox::Yes:
+                //qDebug() << Q_FUNC_INFO << " - emitting fillInQSOSignal()";
                 emit fillInQSOSignal();
+                return;
             break;
             case QMessageBox::No:
               // No was clicked

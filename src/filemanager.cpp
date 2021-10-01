@@ -758,7 +758,8 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
    QFile file( fileName );
    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
    {
-       //qDebug() << "FileManager::adifLoTWReadLog File not found" << fn << QT_ENDL;
+
+       //qDebug() << "FileManager::adifLoTWReadLog File not found" << fileName << QT_ENDL;
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Warning);
        msgBox.setWindowTitle(tr("KLog - File not opened"));
@@ -804,8 +805,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
     progress.setValue(0);
     progress.setWindowTitle(tr("LoTW reading"));
     progress.setAutoClose(true);
-
-    qDebug() << "FileManager::adifLoTWReadLog2 - After header while"  << QT_ENDL;
+    //qDebug() << "FileManager::adifLoTWReadLog2 - After header while"  << QT_ENDL;
     noMoreQso = false;
     QStringList fields;
     QSO qso;
@@ -823,8 +823,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
 
         foreach(QString a, fields)
         {
-            qDebug() << "FileManager::adifLoTWReadLog2 - Fields: " << a  << QT_ENDL;
-
+            //qDebug() << "FileManager::adifLoTWReadLog2 - Fields: " << a  << QT_ENDL;
             QString fullField = "<" + a.trimmed();
             if (fullField.contains("<EOR>"))
             {
@@ -837,7 +836,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                         QString aux = QString("<STATION_CALLSIGN:%1>%2").arg(QString::number(stationCallSign.length())).arg(stationCallSign);
                         qso.setData(aux);
                     }
-
                     QList<int> dupeQsos;
                     dupeQsos.clear();
                     dupeQsos << dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), dataProxy->getIdFromModeName(qso.getMode()), duplicatedQSOSlotInSecs);
@@ -866,7 +864,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                             break;
                         }
                     }
-
                     if ((dupeQsos.length()<1) && (addNewQSOs))
                     {
                         //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << QT_ENDL;
@@ -875,10 +872,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                         {
                             _qsos.append(lastId);
                             //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... added ..."   << QT_ENDL;
-                        }
-                        else
-                        {
-                            //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ... FAILED TO ADD"   << QT_ENDL;
                         }
                     }
                     else
@@ -890,21 +883,27 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                             //qDebug() << "FileManager::adifLoTWReadLog2: Modified QSO: " << QString::number(dupeQsos.at(0)) << QT_ENDL;
                         }
                     }
-
                     i++;
                     qso.clear();
-                }
-                else
-                {
-                   //qDebug() << "FileManager::adifLoTWReadLog2 NOT VALID QSO: " << QT_ENDL;
                 }
             }
             else
             {
                 qso.setData(fullField);
+                //qDebug() << Q_FUNC_INFO << ": - " << fullField;
+                if (fullField.contains ("<CALL:"))
+                {
+                    //qDebug() << Q_FUNC_INFO << ": Getting the DXCC for a call.";
+                    int _dxcc = dataProxy->getDXCCFromPrefix (qso.getCall ());
+                    //qDebug() << Q_FUNC_INFO << ": DXCC: "  << QString::number(_dxcc);
+                    if (util->isValidDXCC (_dxcc))
+                    {
+                        //qDebug() << Q_FUNC_INFO << ": - Adding a DXCC" ;
+                        qso.setDXCC (_dxcc);
+                    }
+                }
             }
         }
-
         if (( (i % step ) == 0) )
         { // To update the speed I will only show the progress once each X QSOs
             //qDebug() << "FileManager::adifLoTWReadLog2: ********************************   UPDATING THE MESSAGE! " << QString::number(i)  << QT_ENDL;
@@ -913,7 +912,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
             progress.setValue(i);
             //qDebug() << "FileManager::adifLoTWReadLog2: ********************************   UPDATING THE MESSAGE: " << aux  << QT_ENDL;
         }
-
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
@@ -941,8 +939,8 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
             }
         }
     }
-    // Start reading the file
-  //qDebug() << "FileManager::adifLoTWReadLog2 - END"  << QT_ENDL;
+
+   //qDebug() << "FileManager::adifLoTWReadLog2 - END: " << QString::number(_qsos.length ()) << QT_ENDL;
    return _qsos;
 }
 

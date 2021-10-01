@@ -7223,7 +7223,7 @@ int DataProxy_SQLite::getEntityIdFromMainPrefix(const QString &_e)
 
 int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 {
-      //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix - " << Q_FUNC_INFO << "-" << _p << "-" << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix - " << Q_FUNC_INFO << "-" << _p << "-" << QT_ENDL;
 
     QSqlQuery query;
     QString queryString = QString("SELECT dxcc FROM prefixesofentity WHERE prefix='%1'").arg(_p);
@@ -7565,7 +7565,7 @@ int DataProxy_SQLite::getMaxEntityID(bool limit)
 
 bool DataProxy_SQLite::updateISONames()
 {
-    qDebug()  << "DataProxy_SQLite::updateISONames"  << QT_ENDL;
+    //qDebug()  << "DataProxy_SQLite::updateISONames"  << QT_ENDL;
     return db->updateTheEntityTableISONames();
 }
 
@@ -9412,7 +9412,7 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
 
 int DataProxy_SQLite::addQSO(QSO &_qso)
 {
-   //qDebug() << "DataProxy_SQLite::addQSO: " << _qso.getCall() << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::addQSO: " << _qso.getCall() << QT_ENDL;
     qso = &_qso;
    //qDebug() << "DataProxy_SQLite::addQSO: " << qso->getCall() << QT_ENDL;
     //qso = _qso;
@@ -9523,11 +9523,18 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
         stringFields.append("lotw_qslrdate, ");
         stringData = stringData + "'" + util->getDateSQLiteStringFromDate(qso->getLoTWQSLRDate()) + "', ";
     }
+
+    if (util->isValidQSL_Sent (qso->getLoTWQSL_SENT ()))
+    {
+        stringFields.append("lotw_qsl_sent, ");
+        stringData = stringData + "'" + qso->getLoTWQSL_SENT ()+ "', ";
+    }
     if (qso->getLoTWQSLSDate().isValid())
     {
         stringFields.append("lotw_qslsdate, ");
         stringData = stringData + "'" + util->getDateSQLiteStringFromDate(qso->getLoTWQSLSDate()) + "', ";
     }
+
     if ( getSatelliteName(qso->getSatName()).length()>0 )
     {
         stringFields.append("sat_name, ");

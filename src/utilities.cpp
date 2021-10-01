@@ -837,21 +837,21 @@ void Utilities::setCallValidation(const bool _b)
 
 bool Utilities::isValidCall(const QString &_c)
 {
-    qDebug() << "Utilities::isValidCall: " << _c ;
+     //qDebug() << "Utilities::isValidCall: " << _c ;
     // Prefixes are at least 2 chars
     if (!g_callsignCheck)
     {
-        qDebug() << "Utilities::isValidCall - 009" ;
+         //qDebug() << "Utilities::isValidCall - 009" ;
         return true;
     }
-    qDebug() << "Utilities::isValidCall - 010" ;
+     //qDebug() << "Utilities::isValidCall - 010" ;
     QString call = _c;
     if (_c.length()<3)
     {
-        qDebug() << "Utilities::isValidCall: FALSE-1: " << _c ;
+         //qDebug() << "Utilities::isValidCall: FALSE-1: " << _c ;
         return false;
     }
-    qDebug() << "Utilities::isValidCall - 015" ;
+     //qDebug() << "Utilities::isValidCall - 015" ;
     call.replace('\\', '/');
 
     if (call.count('/')>2)
@@ -859,7 +859,7 @@ bool Utilities::isValidCall(const QString &_c)
         //qDebug() << "Utilities::isValidCall: FALSE-3: " << call;
         return false;
     }
-    qDebug() << "Utilities::isValidCall - 020" ;
+     //qDebug() << "Utilities::isValidCall - 020" ;
     if (call.count('/') == 2)
     { //Things like F/EA4K/P will become F/EA4K
         //qDebug() << "Utilities::isValidCall: Two /; Ignoring the last part: " << call ;
@@ -868,7 +868,7 @@ bool Utilities::isValidCall(const QString &_c)
         parts << call.split('/');
         call = parts.at(0) + "/" + parts.at(1);
     }
-    qDebug() << "Utilities::isValidCall - 025" ;
+     //qDebug() << "Utilities::isValidCall - 025" ;
     //qDebug() << "Utilities::isValidCall: Call: " << call ;
 
     if (call.count('/') == 1)
@@ -876,7 +876,7 @@ bool Utilities::isValidCall(const QString &_c)
       // We are just checking the call format not if it belongs to a country or whatever.
       // It may return true for wrong calls like "ABC/EA4K"
       // TODO: Add a check just for prefixes to fix the previous
-        qDebug() << "Utilities::isValidCall: Call with one /: " << call ;
+         //qDebug() << "Utilities::isValidCall: Call with one /: " << call ;
         QStringList parts;
         parts.clear();
         parts << call.split ('/');
@@ -1300,7 +1300,7 @@ bool Utilities::isValidADIFField(const QString &_b)
 
 bool Utilities::isValidQSL_Rcvd(const QString &c)
 {
-    if ((c == "Y") | (c == "N") | (c == "R") | (c == "I") | (c == "V"))
+    if ((c == "Y") || (c == "N") || (c == "R") || (c == "I") || (c == "V"))
     {
         return true;
     }
@@ -1311,18 +1311,19 @@ bool Utilities::isValidQSL_Rcvd(const QString &c)
 
 bool Utilities::isValidQSL_Sent(const QString &c)
 {
-    if ((c == "Y") | (c == "N") | (c == "R") | (c == "Q") | (c == "I"))
+    if ((c == "Y") || (c == "N") || (c == "R") || (c == "Q") || (c == "I"))
     {
         return true;
     }
-    else {
+    else
+    {
         return false;
     }
 }
 
 bool Utilities::isValidUpload_Status(const QString &c)
 {
-    if ((c == "Y") | (c == "N") | (c == "M"))
+    if ((c == "Y") || (c == "N") || (c == "M"))
     {
         return true;
     }
@@ -1552,8 +1553,15 @@ QDate Utilities::getDateFromLoTWQSLDateString(const QString &_s)
     //qDebug() << "Utilities::getDateFromLoTWQSLDateString: " << _s ;
     QStringList datet;
     datet.clear();
-    datet << _s.split(" ");
-    //qDebug() << "Utilities::getDateFromLoTWQSLDateString: date:" << datet.at(0) ;
+    if (_s.endsWith ('Z'))
+    {
+        datet << _s.split("T");
+    }
+    else
+    {
+        datet << _s.split(" ");
+    }
+    //qDebug() << "Utilities::getDateFromLoTWQSLDateString: " << datet.at(0) ;
     return QDate::fromString(datet.at(0), "yyyy-MM-dd");
 }
 

@@ -179,16 +179,16 @@ bool QSO::isValid()
 
 bool QSO::setCall(const QString &_c)
 {
-    qDebug() << "QSO::setCall: " << _c << QT_ENDL;
+    //qDebug() << "QSO::setCall: " << _c << QT_ENDL;
     if (util->isValidCall(_c))
     {
-        qDebug() << "QSO::setCall: Valid Call"  << QT_ENDL;
+        //qDebug() << "QSO::setCall: Valid Call"  << QT_ENDL;
         callsign = _c;
         return true;
     }
     else
     {
-        qDebug() << "QSO::setCall: NOT valid Call"  << QT_ENDL;
+        //qDebug() << "QSO::setCall: NOT valid Call"  << QT_ENDL;
         return false;
     }
 }
@@ -536,13 +536,16 @@ QString QSO::getLoTWQSL_SENT()
 
 bool QSO::setLoTWQSLSDate(const QDate &_c)
 {
+    //qDebug() << Q_FUNC_INFO;
     if (_c.isValid())
     {
+        //qDebug() << Q_FUNC_INFO << " - valid";
         QSLLoTWSDate = _c;
         return true;
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - NOT valid";
         QSLLoTWSDate = QDate();
         return false;
     }
@@ -1211,7 +1214,7 @@ bool QSO::setData(const QString &_adifPair)
         //qDebug() << "QSO::setData: NOT VALID ADIF: " << _adifPair << QT_ENDL;
         return false;
     }
-   //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1) << QT_ENDL;
+    //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1) << QT_ENDL;
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
@@ -1291,15 +1294,21 @@ bool QSO::setData(const QString &_adifPair)
     }
     else if (field == "APP_LOTW_RXQSL")
     {
-        qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
+        //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
         setLoTWQSL_RCVD("Y");
         setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
     }
     else if (field == "APP_LOTW_RXQSO")
     {
-        qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data  << QT_ENDL;
-        setLoTWQSL_SENT ("Y");
-        setLoTWQSLSDate (util->getDateFromLoTWQSLDateString(data));
+        //qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data  << QT_ENDL;
+        setLoTWQSL_SENT("Y");
+        setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
+    }
+    else if (field == "APP_LOTW_QSO_TIMESTAMP")
+    {
+        //qDebug() << "QSO::setData: APP_LoTW_QSO_TIMESTAMP: " << data  << QT_ENDL;
+        setLoTWQSL_SENT("Y");
+        setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
     }
 
     return true;

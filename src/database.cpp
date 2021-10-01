@@ -4927,7 +4927,7 @@ bool DataBase::recreateTableBand()
 
 QMultiMap<QString, int> DataBase::fillCountryCodes()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QMultiMap<QString, int> countryCodes;
     countryCodes.clear ();
     countryCodes.insert ("mt", 246);
@@ -5297,7 +5297,7 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
 
 bool DataBase::updateTheEntityTableISONames()
 {
-    qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
+    //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
     QSqlQuery query;
     QString sq;
 
@@ -5323,7 +5323,7 @@ bool DataBase::updateTheEntityTableISONames()
         }
     }
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
+    //qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
     return true;
 }
 

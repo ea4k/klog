@@ -68,7 +68,7 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
         break;
     }
 
-    if ((title.length()<1) | (message.length()<1) | (detailedText.length()<1))
+    if ((title.length()<1) || (message.length()<1) || (detailedText.length()<1))
     {
         return -100;
     }

@@ -1,4 +1,4 @@
-TBD - 1.8.5
+Oct 2021 - 1.8.5
 - Bugfix: Station callsign was not shown on window title. (Closes #347)
 - Bugfix: Received QSOs from LoTW were shown as to be sent. (Closes #358)
 - Improvement: Message of the mainwindow has been updated. (Closes #361)

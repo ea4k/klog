@@ -4096,7 +4096,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
 void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    qDebug() << "MainWindow::slotLoTWDownloadedFileProcess: " << _fn << QT_ENDL;
+     //qDebug() << "MainWindow::slotLoTWDownloadedFileProcess: " << _fn << QT_ENDL;
     QList<int> a;
     a.clear();
     a.append(filemanager->adifLoTWReadLog2(_fn, currentLog));
@@ -4506,26 +4506,26 @@ void MainWindow::slotLogWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-    qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
+     //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     configured = false;
     backupCurrentQSO ();
     openSetup(_page);
-    qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
+     //qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
 
 void MainWindow::openSetup(const int _page)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //int result = -1;
     hamlib->stop();
     if (!needToEnd)
     {
         logEvent(Q_FUNC_INFO, "Just before setData", logSeverity);
-        qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << QT_ENDL;
+         //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << QT_ENDL;
         if (upAndRunning)
         {
             setupDialog->setData(configFileName, softwareVersion, _page, !configured);
@@ -4544,15 +4544,15 @@ void MainWindow::openSetup(const int _page)
             setupDialog->show();
             // move part of this code to slotSetupDialogFinished
             logEvent(Q_FUNC_INFO, "Just after setupDialog->show", logSeverity);
-            qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << QT_ENDL;
+             //qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << QT_ENDL;
         }
         else
         {
             logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", logSeverity);
-            qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << QT_ENDL;
+             //qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << QT_ENDL;
         }
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -5309,7 +5309,7 @@ bool MainWindow::processConfigLine(const QString &_line){
                 currentLog = _logWithMoreQSOs;
                 filemanager->modifySetupFile(configFileName, "SelectedLog", QString::number(currentLog));
             }
-                else
+            else
             {
                 QMessageBox msgBox;
 
@@ -7056,16 +7056,17 @@ void MainWindow::slotShowAwards()
 
 void MainWindow::fillQSOData()
 { // Updates all QSO with the dxcc, CQZ, ... if empty.
-            //qDebug() << "MainWindow::fillQSOData" << QT_ENDL;
+    //qDebug() << "MainWindow::fillQSOData" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
-    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE ((dxcc<1) OR (cqz<1) OR (ituz<1)) AND lognumber='%1'").arg(currentLog);
-
+    //QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE ((dxcc<1) OR (cqz<1) OR (ituz<1) OR (dxcc IS NULL) OR (cqz IS NULL) OR (ituz IS NULL)) AND lognumber='%1'").arg(currentLog);
+    QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE ((dxcc<1) OR (cqz<1) OR (ituz<1) OR (dxcc IS NULL) OR (cqz IS NULL) OR (ituz IS NULL))");
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        return;
     }
 
     QSqlQuery query1;
@@ -7113,13 +7114,11 @@ void MainWindow::fillQSOData()
             {
                 _tdate = (query.value(nameCol)).toString();
             }
-
-
-            nameCol = rec.indexOf("lognumber");
-            if ( (query.value(nameCol)).isValid() )
-            {
-                _lognumber = (query.value(nameCol)).toString();
-            }
+            //nameCol = rec.indexOf("lognumber");
+            //if ( (query.value(nameCol)).isValid() )
+            //{
+            //    _lognumber = (query.value(nameCol)).toString();
+            //}
             //nameCol = rec.indexOf("confirmed");
             //if ( (query.value(nameCol)).isValid() )
             //{
@@ -7132,7 +7131,7 @@ void MainWindow::fillQSOData()
             }
                         //qDebug() << "MainWindow::fillQSOData: ID: " << _id << QT_ENDL;
             //TODO: Prepare this query
-            updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "', lognumber = '" + _lognumber + "'";//  + "', confirmed = '" + _confirmed + "'";
+            updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "'" ;//  + "', confirmed = '" + _confirmed + "'";
 
             nameCol = rec.indexOf("cqz");
             if (( (query.value(nameCol)).toString()).length() < 1 )
@@ -7140,9 +7139,6 @@ void MainWindow::fillQSOData()
                 aux1 = QString::number(world->getQRZCqz(_call));
                 updateString = updateString + ", cqz='" + aux1 + "'";
             toModify = true;
-            }
-            else
-            {
             }
 
             nameCol = rec.indexOf("ituz");
@@ -7152,13 +7148,12 @@ void MainWindow::fillQSOData()
                 updateString = updateString + ", ituz='" + aux1 + "'";
                 toModify = true;
             }
-            else
-            {}
-                //qDebug() << "MainWindow::fillQSOData: DXCC" << QT_ENDL;
+
+            //qDebug() << "MainWindow::fillQSOData: DXCC" << QT_ENDL;
 
             nameCol = rec.indexOf("dxcc");
             _dxcc = (query.value(nameCol)).toInt();
-
+            //qDebug() << "MainWindow::fillQSOData: DXCC: " << QString::number(_dxcc) << QT_ENDL;
             if (_dxcc < 1)
             {
                 aux1 = QString::number(world->getQRZARRLId(_call) );
@@ -7180,8 +7175,7 @@ void MainWindow::fillQSOData()
                 updateString = updateString + ", ituz='" + aux1 + "'";
                 toModify = true;
             }
-            else
-            {}
+
             _dxcc = -1;
                         //qDebug() << "MainWindow::fillQSOData1: " << updateString << QT_ENDL;
             if (toModify)
@@ -8336,23 +8330,23 @@ void MainWindow::slotAwardsWidgetSetYear()
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    qDebug() << Q_FUNC_INFO;
+     //qDebug() << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
     qso->setLogId (currentLog);
-    qDebug() << Q_FUNC_INFO << " - 010";
+     //qDebug() << Q_FUNC_INFO << " - 010";
     // MainQSOEntryWidget
     qso->setCall (mainQSOEntryWidget->getQrz ());
-    qDebug() << Q_FUNC_INFO << " - 011";
+     //qDebug() << Q_FUNC_INFO << " - 011";
     qso->setBand (mainQSOEntryWidget->getBand ());
-    qDebug() << Q_FUNC_INFO << " - 012";
+     //qDebug() << Q_FUNC_INFO << " - 012";
     qso->setMode (mainQSOEntryWidget->getMode ());
-    qDebug() << Q_FUNC_INFO << " - 013";
+     //qDebug() << Q_FUNC_INFO << " - 013";
     qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
-    qDebug() << Q_FUNC_INFO << " - 014";
+     //qDebug() << Q_FUNC_INFO << " - 014";
     qso->setRealTime (mainQSOEntryWidget->getRealTime ());
-    qDebug() << Q_FUNC_INFO << " - 020";
+     //qDebug() << Q_FUNC_INFO << " - 020";
     //  MainWindowInputQSO
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
@@ -8362,7 +8356,7 @@ void MainWindow::backupCurrentQSO()
     qso->setName (QSOTabWidget->getName ());
     qso->setQTH (QSOTabWidget->getQTH ());
     qso->setRXPwr (QSOTabWidget->getRXPwr ());
-    qDebug() << Q_FUNC_INFO << " - 030";
+     //qDebug() << Q_FUNC_INFO << " - 030";
     // MainWindowInputQSL
     qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus ());
     qso->setQSL_RCVD (QSLTabWidget->getQSLRecStatus ());
@@ -8372,7 +8366,7 @@ void MainWindow::backupCurrentQSO()
     qso->setQSLRecVia (QSLTabWidget->getRecVia ());
     qso->setQSLVia (QSLTabWidget->getQSLVia ());
     qso->setQSLMsg (QSLTabWidget->getQSLMsg ());
-    qDebug() << Q_FUNC_INFO << " - 040";
+     //qDebug() << Q_FUNC_INFO << " - 040";
     // MainWindowInputEQSL
     qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
     qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
@@ -8386,7 +8380,7 @@ void MainWindow::backupCurrentQSO()
     qso->setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate ());
     qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
     qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
-    qDebug() << Q_FUNC_INFO << " - 050";
+     //qDebug() << Q_FUNC_INFO << " - 050";
     // MainWindowInputComment
     qso->setComment (commentTabWidget->getComment ());
     qso->setKeepComment (commentTabWidget->getKeep ());
@@ -8396,7 +8390,7 @@ void MainWindow::backupCurrentQSO()
     qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
     qso->setKeepOthers (othersTabWidget->getKeep ());
     qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
-    qDebug() << Q_FUNC_INFO << " - 060";
+     //qDebug() << Q_FUNC_INFO << " - 060";
     // MainWindowMyDataTab
     qso->setTXPwr (myDataTabWidget->getMyPower ());
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
@@ -8407,12 +8401,12 @@ void MainWindow::backupCurrentQSO()
     qso->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
     qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
     qso->setKeepMyData (myDataTabWidget->getKeep ());
-    qDebug() << Q_FUNC_INFO << " - 070";
+     //qDebug() << Q_FUNC_INFO << " - 070";
     //MainWindowSatTab
     qso->setSatName (satTabWidget->getSatName ());
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
-    qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
+     //qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
 }
 
 void MainWindow::restoreCurrentQSO(const bool restoreConfig)
