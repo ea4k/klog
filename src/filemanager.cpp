@@ -758,7 +758,6 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
    QFile file( fileName );
    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
    {
-
        //qDebug() << "FileManager::adifLoTWReadLog File not found" << fileName << QT_ENDL;
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Warning);
