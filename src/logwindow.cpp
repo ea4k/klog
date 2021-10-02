@@ -116,7 +116,7 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
-    logView->sortByColumn(1, Qt::AscendingOrder);
+    logView->sortByColumn(1, Qt::DescendingOrder);
 
 }
 
