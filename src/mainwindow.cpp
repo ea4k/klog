@@ -758,11 +758,11 @@ void MainWindow::setMainWindowTitle()
 
     if (mainQRZ == stationCallsign)
     {
-        msg = QString(tr("KLog - Logbook of %1 - QSOs: %2" )).arg(stationCallsign).arg(numberOfQSOs);
+        msg = QString(tr("KLog-%1 - Logbook of %2 - QSOs: %3" )).arg(softwareVersion).arg(stationCallsign).arg(numberOfQSOs);
     }
     else
     {
-        msg = QString(tr("KLog - Logbook of %1 - Station Callsign: %2 - QSOs: %3" )).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
+        msg = QString(tr("KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4" )).arg(softwareVersion).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
     }
 
     if (aux.length ()>0)

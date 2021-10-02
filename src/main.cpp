@@ -35,13 +35,10 @@
 #include <QSharedMemory>
 #include <QMessageBox>
 #include "klogdefinitions.h"
-
-//#include <QDebug>
-
-
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
+
 
 
 int main(int argc, char *argv[])
@@ -51,24 +48,25 @@ int main(int argc, char *argv[])
     QT_REQUIRE_VERSION(argc, argv, "5.9")
 
     QDir d1 = QDir();
-    QString version = "1.8.5";
+    //QCoreApplication::setApplicationVersion(QString(APP_VERSION));
     //qDebug() << "KLog Main STARTED: " << version << QT_ENDL;
     Utilities util = Utilities();
     QStringList arguments;
     QTextStream cout(stdout);
-    QCoreApplication::setOrganizationName("EA4K");
-    QCoreApplication::setOrganizationDomain("klog.xyz");
-    QCoreApplication::setApplicationName("KLog");
+    //QCoreApplication::setOrganizationName("EA4K");
+    //QCoreApplication::setOrganizationDomain("klog.xyz");
+    //QCoreApplication::setApplicationName("KLog");
     QApplication app(argc, argv);
 
     QString iconSt;
     iconSt = ":/img/klog.ico";
     QIcon KLogIcon(iconSt);
     QApplication::setWindowIcon(KLogIcon);
-
-    //QApplication app(argc, argv);
     app.setApplicationName(QString("KLog"));
-    app.setApplicationVersion(QString(version));
+    app.setOrganizationName("EA4K");
+    app.setOrganizationDomain("klog.xyz");
+    app.setApplicationVersion(QString(APP_VERSION));
+    QString version = QCoreApplication::applicationVersion();
     //qDebug() << "KLog Main: -10 " << QT_ENDL;
     // Now we check if the user is executing from the command line
     arguments.clear();
@@ -306,6 +304,7 @@ int main(int argc, char *argv[])
     QPixmap pixmap(":img/klog_512x512.png");
     //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     QSplashScreen splash(pixmap);
+
     if(!QFile::exists(configFileName))
     {
         //qDebug() << "MAIN:  Starting wizard... " << QT_ENDL;

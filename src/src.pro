@@ -29,9 +29,8 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.8.5
-DEFINES += APP_VERSION="$$VERSION"
-
+VERSION = "1.8.5"
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog
 DEFINES += APP_NAME="$$APP_NAME"
