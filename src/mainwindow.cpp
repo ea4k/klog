@@ -765,22 +765,19 @@ void MainWindow::setMainWindowTitle()
     {
         msg = QString(tr("KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4" )).arg(softwareVersion).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
     }
-
     if (aux.length ()>0)
     {
-        setWindowTitle("%1 - %2" ).arg(msg).arg(aux);
+        setWindowTitle(QString("%1 - %2").arg(msg).arg(aux));
     }
     else
     {
         setWindowTitle(msg);
-        //setWindowTitle(tr("KLog - Logbook of %1 - Station Callsign: %2 - QSOs: %3" ).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs));
-        //setWindowTitle(tr("KLog - %1 - QSOs: %2" ).arg(stationCallsign).arg(numberOfQSOs));
     }
 }
 
 void MainWindow::createUI()
 {
-            //qDebug() << "MainWindow::createUI" << QT_ENDL;
+    //qDebug() << "MainWindow::createUI" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     createStatusBar();
     setWindowTitle(tr("KLog"));
@@ -817,7 +814,6 @@ void MainWindow::setModeFromFreq()
         {
             hamlib->setMode("LSB");
         }
-
         if (!hamlibChangingMode)
         {
             hamlib->setMode(mainQSOEntryWidget->getMode());
@@ -1008,7 +1004,6 @@ void MainWindow::actionsJustAfterAddingOneQSO()
                awardsWidget->fillOperatingYears();
                yearChangedDuringModification = false;
            }
-
            if ((clublogActive) && (clublogRealTime))
            {
                 //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) << QT_ENDL;
@@ -1033,9 +1028,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         {
               //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) << QT_ENDL;
             awards->setAwards(lastId);   //Update the DXCC award status
-
             // Send to CLUBLOG if enabled
-
             if ((clublogActive) && (clublogRealTime))
             {
                   //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Sending ClubLog) Lastid: "<< QString::number(lastId) << QT_ENDL;
@@ -1053,18 +1046,16 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         }
         //awards->setAwards(lastId);
     }
-
     logWindow->refresh();
     dxccStatusWidget->refresh();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-      //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << QT_ENDL;
+     //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << QT_ENDL;
 }
 
 QString MainWindow::readDataFromUI()
 {
-            //qDebug() << "MainWindow::readDataFromUI: " << QT_ENDL;
+    //qDebug() << "MainWindow::readDataFromUI: " << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
     if (modify)
     {
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
@@ -1075,7 +1066,6 @@ QString MainWindow::readDataFromUI()
         logEvent(Q_FUNC_INFO, "END-3", logSeverity);
         return readDataFromUIDX();
     }
-
     //logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -1084,7 +1074,7 @@ QString MainWindow::readDataFromUIDX()
 /*
 If you make any change here, please update also readDataFromUIDXModifying to keep data integrity!
 */
-             //qDebug() << "MainWindow::readDataFromUIDX:" << QT_ENDL;
+    //qDebug() << "MainWindow::readDataFromUIDX:" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
     if (!util->isValidCall(tqrz))
@@ -1110,7 +1100,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
             break;
         }
     }
-
     QString stringQuery = "NULL";
     QString aux1, aux2, stringFields, stringData;
     //QString aux, aux2;
@@ -1220,13 +1209,12 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
 
     if ( QSOTabWidget->getRXFreq() > 0  )
     {
-            //qDebug() << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" << QT_ENDL;
+        //qDebug() << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" << QT_ENDL;
         aux1 = QString::number(QSOTabWidget->getRXFreq());
         stringFields = stringFields + ", freq_rx, band_rx";
         stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(QSOTabWidget->getRXFreq())) + "'";
         //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
     }
-
     aux1 = QSOTabWidget->getQTH();
     if (aux1.length()>2)
     {
@@ -1404,9 +1392,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-
     //CLUBLOG
-
     aux1 = eQSLTabWidget->getClubLogStatus(); //Y, N, M
     if (aux1 == "Y")
     {
@@ -1432,10 +1418,8 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", clublog_qso_upload_status";
         stringData = stringData + ", 'N'";
     }
-
     //CLUBLOG
-
-    aux1 = eQSLTabWidget->getEQSLSenStatus();
+   aux1 = eQSLTabWidget->getEQSLSenStatus();
     if (aux1 == "Y")
     {
         stringFields = stringFields + ", eqsl_qsl_sent";
@@ -1796,8 +1780,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", qslrdate";
         stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
         //TODO: Check if the QSL has been received or not as this "V" could mask a received QSL as a Worked (0)
-        //stringFields = stringFields + ", confirmed";
-        //stringData = stringData + ", '0'";
         stringFields = stringFields + ", qsl_rcvd_via";
         if (aux2=="D")
         {
@@ -1907,8 +1889,6 @@ QString MainWindow::readDataFromUIDXModifying()
         yearChangedDuringModification = true;
     }
 
-    //    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
-
     QString trsttx = QSOTabWidget->getRSTTX();
     QString trstrx = QSOTabWidget->getRSTRX();
 
@@ -1939,7 +1919,6 @@ QString MainWindow::readDataFromUIDXModifying()
             dxccPref1 = tr("None");
         }
 
-
         QString dxccn2 = world->getEntityName(dxcc2);
         if (dxccn2.length()>0)
         {
@@ -1952,16 +1931,11 @@ QString MainWindow::readDataFromUIDXModifying()
             dxccPref2 = tr("None");
         }
 
-
-
         QPushButton *button2 = new QPushButton(this);
         QPushButton *button1 = new QPushButton(this);
-
         button1->setText(dxccPref1);
         button2->setText(dxccPref2);
-
         int ret;
-
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - Select correct entity"));
@@ -2015,7 +1989,6 @@ QString MainWindow::readDataFromUIDXModifying()
     {
         updateString = updateString + "name = '', ";
     }
-
     aux1 = QSOTabWidget->getDXLocator ();
     if ( locator->isValidLocator(aux1)  )
     {
@@ -2142,7 +2115,6 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "my_sota_ref = '', ";
     }
 
-
     aux1 = myDataTabWidget->getMyVUCCGrids ();
     if (util->isValidVUCCGrids (aux1))
     {
@@ -2154,15 +2126,11 @@ QString MainWindow::readDataFromUIDXModifying()
         updateString = updateString + "my_vucc_grids = '', ";
     }
 
-
     aux1 = commentTabWidget->getComment();
     updateString = updateString + "comment = '";
     updateString = updateString + aux1 + "', ";
-    //aux1 = commentLineEdit->text();
-
 
     aux1 = QSLTabWidget->getQSLMsg();
-    //aux1 = qslmsgTextEdit->toPlainText();
     if (aux1.length()>0)
     {
         updateString = updateString + "qslmsg = '";
@@ -2174,19 +2142,17 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = QString::number(dxcc);
-
-      //qDebug() << "MainWindow::readDataFromUIDXModifying: DXCC=" << aux1 << QT_ENDL;
+    //qDebug() << "MainWindow::readDataFromUIDXModifying: DXCC=" << aux1 << QT_ENDL;
     if (dataProxy->isValidDXCC(dxcc))
     {
         updateString = updateString + "dxcc = '";
         updateString = updateString + aux1 + "', ";
-                    //qDebug() << "MainWindow::readDataFromUIDXModifying: Saving DXCC=" << aux1 << QT_ENDL;
+        //qDebug() << "MainWindow::readDataFromUIDXModifying: Saving DXCC=" << aux1 << QT_ENDL;
     }
     else
     {
         updateString = updateString + "dxcc = '', ";
     }
-
 
     if ((cqz>0) && (cqz<41))
     {
@@ -2198,7 +2164,6 @@ QString MainWindow::readDataFromUIDXModifying()
     {
         updateString = updateString + "cqz = '', ";
     }
-
 
     if ((ituz>0) && (ituz<91))
     {
