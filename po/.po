@@ -2089,6 +2089,18 @@ msgctxt "MainWindow|"
 msgid "Ready"
 msgstr ""
 
+#: ../mainwindow.cpp:761
+#, qt-format
+msgctxt "MainWindow|"
+msgid "KLog-%1 - Logbook of %2 - QSOs: %3"
+msgstr ""
+
+#: ../mainwindow.cpp:765
+#, qt-format
+msgctxt "MainWindow|"
+msgid "KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4"
+msgstr ""
+
 #: ../mainwindow.cpp:950
 msgctxt "MainWindow|"
 msgid ""
@@ -2822,18 +2834,6 @@ msgstr ""
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog"
 msgstr "Klog -ClubLog"
-
-#: ../mainwindow.cpp:761
-#, qt-format
-msgctxt "MainWindow|"
-msgid "KLog - Logbook of %1 - QSOs: %2"
-msgstr ""
-
-#: ../mainwindow.cpp:765
-#, qt-format
-msgctxt "MainWindow|"
-msgid "KLog - Logbook of %1 - Station Callsign: %2 - QSOs: %3"
-msgstr ""
 
 #: ../mainwindow.cpp:770
 #, qt-format
@@ -4442,32 +4442,32 @@ msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr ""
 
-#: ../main.cpp:265
+#: ../main.cpp:263
 msgctxt "QObject|"
 msgid "KLog is already running."
 msgstr ""
 
-#: ../main.cpp:265
+#: ../main.cpp:263
 msgctxt "QObject|"
 msgid "It is allowed to run only one instance."
 msgstr ""
 
-#: ../main.cpp:336
+#: ../main.cpp:335
 msgctxt "QObject|"
 msgid "Install wizard was canceled before completing..."
 msgstr "Proces aktualizacji został przerwany przed zakończeniem..."
 
-#: ../main.cpp:337
+#: ../main.cpp:336
 msgctxt "QObject|"
 msgid "Do you want to remove the KLog dir from your disk?"
 msgstr "Czy chcesz usunąć katalog KLoog ze sswojego dysku?"
 
-#: ../main.cpp:350
+#: ../main.cpp:349
 msgctxt "QObject|"
 msgid "Your KLog dir has been removed"
 msgstr "Katalog KLog został usunięty"
 
-#: ../main.cpp:356
+#: ../main.cpp:355
 msgctxt "QObject|"
 msgid ""
 "I could not remove your KLog dir. You should do it manually if you want it "
@@ -4476,7 +4476,7 @@ msgstr ""
 "Usunięcie katalogu KLog było nie możliwe. Powinieneś zrobić to manualnie "
 "jeśli aby katalog KLog został całkowicie usunięty. "
 
-#: ../main.cpp:363
+#: ../main.cpp:362
 msgctxt "QObject|"
 msgid ""
 "Your KLog dir could not be removed. You should do it manually if you want it "
@@ -4485,12 +4485,12 @@ msgstr ""
 "Katalog KLog nie został usunięty. Aby usunąć ten katalog z dysku powinieneś "
 "usunąć go ręcznie. "
 
-#: ../main.cpp:369
+#: ../main.cpp:368
 msgctxt "QObject|"
 msgid "Remember that your KLog dir is on your system..."
 msgstr "Pamiętaj że katalog Klo jest w zainstalowany na Twoim systemie..."
 
-#: ../main.cpp:350 ../main.cpp:356 ../main.cpp:363 ../main.cpp:369
+#: ../main.cpp:349 ../main.cpp:355 ../main.cpp:362 ../main.cpp:368
 msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "Dziękujemy za korzystanie z KLog!"
