@@ -1,6 +1,7 @@
 Oct 2021 - 1.8.5
 - Bugfix: Station callsign was not shown on window title. (Closes #347)
 - Bugfix: Received QSOs from LoTW were shown as to be sent. (Closes #358)
+- Bugfix: Log was not properly ordered. (Closes #346) (TNX EA5WA)
 - Improvement: Message of the mainwindow has been updated. (Closes #361)
 - Improvement: Logs to be uploaded to LoTW are only shown from the current log. (Closes #362)
 - Improvement: Logs to be uploaded to ClubLog are only shown from the current log. (Closes #363)
