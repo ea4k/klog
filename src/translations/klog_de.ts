@@ -2342,16 +2342,6 @@ Do you want KLog to remove that file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="761"/>
-        <source>KLog - Logbook of %1 - QSOs: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="765"/>
-        <source>KLog - Logbook of %1 - Station Callsign: %2 - QSOs: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="770"/>
         <source>%1 - %2</source>
         <translation type="unfinished"></translation>
@@ -2732,6 +2722,16 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../mainwindow.cpp" line="715"/>
         <source>KLog - New version detected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="761"/>
+        <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="765"/>
+        <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4323,50 +4323,50 @@ KLog will finish when you click on OK.</source>
         <translation>DXCC- und Kontinent-Informationen werden aktualisiert ...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="265"/>
+        <location filename="../main.cpp" line="263"/>
         <source>KLog is already running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="265"/>
+        <location filename="../main.cpp" line="263"/>
         <source>It is allowed to run only one instance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="336"/>
+        <location filename="../main.cpp" line="335"/>
         <source>Install wizard was canceled before completing...</source>
         <translation>Der Installationsassistent wurde abgebrochen, bevor die Installation abgeschlossen wurde ...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="337"/>
+        <location filename="../main.cpp" line="336"/>
         <source>Do you want to remove the KLog dir from your disk?</source>
         <translation>Möchten Sie den KLog-Ordner von Ihrer Festplatte löschen?</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="350"/>
+        <location filename="../main.cpp" line="349"/>
         <source>Your KLog dir has been removed</source>
         <translation>Ihr KLog-Ordner wurde gelöscht</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="350"/>
-        <location filename="../main.cpp" line="356"/>
-        <location filename="../main.cpp" line="363"/>
-        <location filename="../main.cpp" line="369"/>
+        <location filename="../main.cpp" line="349"/>
+        <location filename="../main.cpp" line="355"/>
+        <location filename="../main.cpp" line="362"/>
+        <location filename="../main.cpp" line="368"/>
         <source>Thank you for running KLog!</source>
         <translation>Vielen Dank für die Nutzung von KLog.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="356"/>
+        <location filename="../main.cpp" line="355"/>
         <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
         <translation>Ihr KLog-Ordner kann nicht entfernt werden. Sie müssen diesen Ordner manuell löschen.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="363"/>
+        <location filename="../main.cpp" line="362"/>
         <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
         <translation>Ihr KLog-Ordner kann nicht entfernt werden. Sie müssen diesen Ordner manuell löschen.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="369"/>
+        <location filename="../main.cpp" line="368"/>
         <source>Remember that your KLog dir is on your system...</source>
         <translation>Ihr KLog-Ordner ist immer noch auf Ihren System vorhanden ...</translation>
     </message>
