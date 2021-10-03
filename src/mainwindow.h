@@ -200,6 +200,7 @@ private slots:
     void slotQSOsExportToADIF(QList<int> _id);
     void slotQRZcomUpload(QList<int> _id);
     void slotQRZCOMLogUpload();
+    void slotElogQRZCOMDisable(const bool _b);
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);

@@ -226,6 +226,7 @@ void MainWindowInputQSO::setDefaultData()
 
 void MainWindowInputQSO::clear()
 {
+    //qDebug() << Q_FUNC_INFO ;
     qthLineEdit->clear();
     nameLineEdit->clear();
     locatorLineEdit->clear();
@@ -235,6 +236,7 @@ void MainWindowInputQSO::clear()
 
 void MainWindowInputQSO::cleanQRZCOM()
 {
+    //qDebug() << Q_FUNC_INFO ;
     qthLineEdit->clear();
     nameLineEdit->clear();
     locatorLineEdit->clear();
@@ -252,6 +254,7 @@ void MainWindowInputQSO::clearQTH()
 
 void MainWindowInputQSO::clearDXLocator()
 {
+    //qDebug() << Q_FUNC_INFO ;
     locatorLineEdit->clear ();
 }
 
@@ -293,11 +296,13 @@ void MainWindowInputQSO::slotLocatorTextChanged()
 
 QString MainWindowInputQSO::getDXLocator()
 {
+    //qDebug() << Q_FUNC_INFO << " - returning: " << locatorLineEdit->text ();
     return locatorLineEdit->text();
 }
 
 void MainWindowInputQSO::setDXLocator(const QString &_loc)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (locator->isValidLocator (_loc))
     {
         locatorLineEdit->setText (_loc.toUpper ());

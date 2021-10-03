@@ -7,6 +7,7 @@ Oct 2021 - 1.8.5
 - New feature: It is now possible to enable/disable the callsign check. (Closes #186)
 - Removed dead & commented code.
 - Improved how mainCallsign & Station callsigns are used.
+- QRZ.com queries are disabled if QRZ.com returns a non-subscribed user answer.
 
 Aug 2021 - 1.8.4
 - Bugfix: In some situations callsigns were always shown as to be worked. (Closes #345)

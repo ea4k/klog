@@ -546,6 +546,7 @@ void MainWindow::createActionsCommon(){
     connect (elogQRZcom, SIGNAL (showMessage(QString)), this, SLOT (slotElogQRZCOMShowMessage(QString)));
     connect (elogQRZcom, SIGNAL (dataFoundSignal(QString, QString)), this, SLOT (slotElogQRZCOMFoundData(QString, QString)));
     connect (elogQRZcom, SIGNAL (signalLogUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogQRZCOMLogUploaded(QNetworkReply::NetworkError, QList<int>)));
+    connect (elogQRZcom, SIGNAL (disableQRZAction(bool)), this, SLOT (slotElogQRZCOMDisable(bool)));
 
     // SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
@@ -3122,6 +3123,29 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
       //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << QT_ENDL;
 }
 
+void MainWindow::slotElogQRZCOMDisable(const bool _b)
+{
+    //qDebug() << Q_FUNC_INFO;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (_b)
+    {
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
+        msgBox.setText(tr("QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled."));
+        msgBox.setDetailedText(tr("Please check your QRZ.com subcription or credentials."));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+
+
+        qrzcomActive = false;
+        setupDialog->setQRZCOMAutoCheckActive (false);
+        filemanager->modifySetupFile(configFileName, "QRZcomActive", "False");
+    }
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
 
 void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos)
 {
@@ -3185,15 +3209,17 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 
      //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << QT_ENDL;
 }
+
 void MainWindow::slotElogQRZCOMShowMessage(const QString &_s)
 {
-      //qDebug() << "MainWindow::slotElogQRZCOMShowMessage: " << _s << QT_ENDL;
+    //qDebug() << "MainWindow::slotElogQRZCOMShowMessage: " << _s << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     slotUpdateStatusBar(_s);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 void MainWindow::cleanQRZCOMreceivedDataFromUI()
 {
+    //qDebug() << Q_FUNC_INFO;
     if (!modify)
     {
         QSOTabWidget->cleanQRZCOM();
@@ -3205,7 +3231,7 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
 
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
 {
-    //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << QT_ENDL;
+  //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << QT_ENDL;
    if (_t == "name")
    {
        if (QSOTabWidget->getName().length()<1)
@@ -3215,9 +3241,14 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    }
    else if (_t == "grid")
    {
-       if (QSOTabWidget->getDXLocator().length()<1)
+       //qDebug() << Q_FUNC_INFO << " Grid found: " << _d;
+       if ((QSOTabWidget->getDXLocator()).length()<1)
        {
            QSOTabWidget->setDXLocator(_d);
+       }
+       else
+       {
+           //qDebug() << Q_FUNC_INFO << " There was already a Grid: " << QSOTabWidget->getDXLocator();
        }
    }
    else if (_t == "qth")
@@ -3248,7 +3279,7 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << QT_ENDL;
         if (_d.contains("Not found: "))
         {
-            cleanQRZCOMreceivedDataFromUI();
+            //cleanQRZCOMreceivedDataFromUI();
              //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
             slotUpdateStatusBar(tr("Call not found in QRZ.com"));
             return;
@@ -3416,7 +3447,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_CQz = -1;
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
-    cleanQRZCOMreceivedDataFromUI();
+    //cleanQRZCOMreceivedDataFromUI();
     //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
     //qDebug() << "MainWindow::slotQRZTextChanged: pref: " << pref << QT_ENDL;
@@ -3508,9 +3539,14 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     {
         searchWidget->setCallToSearch(_qrz);
 
-        if (qrzcomActive && QRZCOMAutoCheckAct->isChecked())
+        if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
+            //qDebug() << Q_FUNC_INFO << " - Checking QRZ.com";
             elogQRZcom->checkQRZ(_qrz);
+        }
+        else
+        {
+            //qDebug() << Q_FUNC_INFO << " - NOT checking QRZ.com";
         }
     }
 
@@ -4627,7 +4663,7 @@ bool MainWindow::slotOpenKLogFolder()
 
 void MainWindow::slotUpdateStatusBar(const QString &statusm)
 {
-     //qDebug() << "MainWindow::slotUpdateStatusBar: " << statusm  << QT_ENDL;
+    //qDebug() << "MainWindow::slotUpdateStatusBar: " << statusm  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     statusBar()->showMessage(statusm, 2000);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -8297,7 +8333,7 @@ void MainWindow::slotRotatorShow()
 void MainWindow::slotUpdateLocator(QString _loc)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-      //qDebug() << "MainWindow::slotUpdateLocator: " << _loc<< endl;
+    //qDebug() << "MainWindow::slotUpdateLocator: " << _loc << endl;
     QSOTabWidget->setDXLocator (_loc);
       //qDebug() << "MainWindow::slotUpdateLocator - END" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
