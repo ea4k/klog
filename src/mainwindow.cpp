@@ -768,7 +768,7 @@ void MainWindow::setMainWindowTitle()
 
     if (aux.length ()>0)
     {
-        setWindowTitle(tr("%1 - %2" ).arg(msg).arg(aux));
+        setWindowTitle("%1 - %2" ).arg(msg).arg(aux);
     }
     else
     {

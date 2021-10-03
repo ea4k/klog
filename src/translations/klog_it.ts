@@ -3232,11 +3232,6 @@ Vuoi cancellare il file?</translation>
         <translation>KLog - LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="771"/>
-        <source>%1 - %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3135"/>
         <source>KLog - QRZ.com warning</source>
         <translation type="unfinished"></translation>

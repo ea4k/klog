@@ -2921,11 +2921,6 @@ Přejete si smazat tento soubor?</translation>
         <translation>Nastal problém s označením zafrontovaných QSO jako odeslaných do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="771"/>
-        <source>%1 - %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4098"/>
         <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
         <translation>Opravdu si přejete označit VŠECHNA QSO v tomto Logu k Nahrání. Toto je potřeba udělat POUZE, když jsou QSO nahrávána do LoTW poprvé.</translation>
