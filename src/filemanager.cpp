@@ -2895,9 +2895,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 {
                     preparedQuery.bindValue( ":points", data );
                 }
-                else
-                {
-                }
             }
             else
             {
@@ -3317,9 +3314,6 @@ int FileManager::howManyLogsInFile(QFile& _f)
         else if (line.contains("EOR"))
         {
             atLeastOneLog = true;
-        }
-        else
-        {
         }
     }
        //qDebug() << "FileManager::howManyLogsInFile: JUST ONE!" << aux << QT_ENDL;
