@@ -226,7 +226,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
 MainWindow::~MainWindow()
 {
-
+ delete qso;
 }
 
 
