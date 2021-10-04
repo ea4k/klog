@@ -223,6 +223,14 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow: END " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 }
 
+
+MainWindow::~MainWindow()
+{
+
+}
+
+
+
 void MainWindow::saveWindowsSize()
 {
     //qDebug() << "MainWindow::saveWindows" << QT_ENDL;
