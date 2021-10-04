@@ -2165,11 +2165,9 @@ bool DataBase::updateTo005()
                        msgBox.setText(QObject::tr("KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you."));
                        msgBox.exec();
 
-                        if (execQuery(Q_FUNC_INFO, "UPDATE log SET lognumber='1' WHERE lognumber='0'"))
-                        {}
-                        else
+                        if (!execQuery(Q_FUNC_INFO, "UPDATE log SET lognumber='1' WHERE lognumber='0'"))
                         {
-                            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                          //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                             //showError(QObject::tr("QSOs not updated to main log"));
                                  //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << QT_ENDL;
                         }
@@ -6164,10 +6162,7 @@ bool DataBase::updateTo019()
         while (!IAmIn018 && !ErrorUpdating)
         {
             IAmIn018 = updateTo018();
-            if (IAmIn018)
-            {
-            }
-            else
+            if (!IAmIn018)
             {
                 ErrorUpdating = false;
             }
@@ -6697,10 +6692,7 @@ bool DataBase::updateAwardWAZTable()
                             {
                                 query2.finish();
                                 stringQuery = QString ("UPDATE awardwaz SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
-                                if (execQuery(Q_FUNC_INFO, stringQuery))
-                                {
-                                }
-                                else
+                                if (!execQuery(Q_FUNC_INFO, stringQuery))
                                 {
                                        //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
                                 }
