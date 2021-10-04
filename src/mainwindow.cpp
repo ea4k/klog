@@ -1160,8 +1160,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
             logEvent(Q_FUNC_INFO, "END-2", logSeverity);
             return  "NULL";
         }
-        else
-        {}
     }
 
     aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
@@ -1962,8 +1960,6 @@ QString MainWindow::readDataFromUIDXModifying()
               //qDebug() << "MainWindow::readDataFromUIDXModifying - Button 2: " << QString::number(dxcc2) << QT_ENDL;
             return  "NULL";
         }
-        else
-        {}
     }
 
     QString updateString = "UPDATE log SET call = '" + tqrz + "', bandid = '" + QString::number(tband) + "', modeid = '" + QString::number(tmode) + "', qso_date = '" + tdate + "', rst_sent = '" + trsttx + "', rst_rcvd = '" + trstrx + "', lognumber = '" + QString::number(currentLog) + "', ";
@@ -5462,13 +5458,13 @@ bool MainWindow::processConfigLine(const QString &_line){
          g_callsignCheck = util->trueOrFalse (value);
         //util->setCallValidation (util->trueOrFalse (value));
     }
-    else if(field=="LATESTBACKUP")
-    {
-    }
-    else
-    {
+    //else if(field=="LATESTBACKUP")
+    //{
+    //}
+    //else
+    //{
       //qDebug() << "MainWindow::processConfigLine: NONE: " << QT_ENDL;
-    }
+    //}
 
     // Lines are: Option = value;
     //qDebug() << "MainWindow::processConfigLine: END" << QT_ENDL;
@@ -6372,12 +6368,9 @@ void MainWindow::slotADIFImport(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                      util->getHomeDir(),
                                                      "ADIF (*.adi *.adif)");
-    if (fileName.isNull())
+    if (!fileName.isNull())
     {
-    }
-    else
-    {
-                 //qDebug() << "MainWindow::slotADIFImport -1" << QT_ENDL;
+        //qDebug() << "MainWindow::slotADIFImport -1" << QT_ENDL;
         filemanager->adifReadLog(fileName, currentLog);
         updateQSLRecAndSent();
 
@@ -6399,8 +6392,8 @@ void MainWindow::slotADIFImport(){
             awardsWidget->showAwards();
                      //qDebug() << "MainWindow::slotADIFImport-DX-1-end" << QT_ENDL;
         }
-        else if (contestMode == "CQ-WW-SSB")
-        {}
+        //else if (contestMode == "CQ-WW-SSB")
+        //{}
         else
         {
             awardsWidget->fillOperatingYears();
@@ -6408,7 +6401,6 @@ void MainWindow::slotADIFImport(){
             slotShowAwards();
             awardsWidget->showAwards();
         }
-
                  //qDebug() << "MainWindow::slotADIFImport-7" << QT_ENDL;
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -7473,13 +7465,10 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
             //qls << QRZ << BandId << ModeId << lognumber;
             showStatusOfDXCC(qls);
         }
-        else
-        {
-        }
     }
-    else
-    { // Signal was not properly emited
-    }
+    //else
+    //{ // Signal was not properly emited
+    //}
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
