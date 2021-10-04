@@ -9,7 +9,6 @@
 [![](https://tokei.rs/b1/github/ea4k/klog)](https://github.com/ea4k/klog).
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/ea4k/klog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ea4k/klog/alerts/)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ea4k/klog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ea4k/klog/context:cpp)
-[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ea4k/klog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ea4k/klog/context:cpp)
 
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
 
