@@ -9,5 +9,5 @@ install:
   - sh: 'sudo apt install -y g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev'
 
 build_script:
-  - qmake KLog.pro
+  - qmake -qt=qt5 KLog.pro
   - make
