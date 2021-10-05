@@ -704,9 +704,6 @@ void DXCCStatusWidget::refresh()
         item->setToolTip(tip);
            //qDebug() << "DXCCStatusWidget::slotItemEntered: tip: " << tip << QT_ENDL;
     }
-    else
-    {}
-
       //qDebug() << "DXCCStatusWidget::slotItemEntered: END " << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "END", Debug);
  }

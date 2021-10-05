@@ -223,13 +223,26 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << "MainWindow::MainWindow: END " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 }
 
-
 MainWindow::~MainWindow()
 {
- delete qso;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
+    if (hamlibActive)
+    {
+        hamlib->stop();
+    }
+    delete qso;
+    delete debugFile;
+    delete showErrorDialog;
+    delete lotwUtilities;
+    delete eqslUtilities;
+    delete elogQRZcom;
+    delete downloadcty;
+    delete world;
+    delete locator;
+
+    logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
-
-
 
 void MainWindow::saveWindowsSize()
 {
@@ -729,19 +742,6 @@ void MainWindow::checkIfNewVersion()
     }
      //qDebug() << "MainWindow::checkIfNewVersion - END"  << QT_ENDL;
 }
-
-MainWindow::~MainWindow()
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-
-    if (hamlibActive)
-    {
-        hamlib->stop();
-    }
-    logEvent(Q_FUNC_INFO, "KLog exit", Info);
-}
-
-
 
 void MainWindow::createStatusBar()
 {

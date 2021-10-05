@@ -37,7 +37,7 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
     QString message = QString();
     QString detailedText = QString(tr("The server returned the following error: %1")).arg(translate(_error));
     QString title = QString();
-
+    /*
     switch (_onlineReason)
     {
     case OnlineErrorReason::Other:
@@ -49,6 +49,7 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
     case OnlineErrorReason::WrongLogBook:
     break;
     }
+
 
     switch (_prov)
     {
@@ -67,6 +68,7 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
     {}
         break;
     }
+    */
 
     if ((title.length()<1) || (message.length()<1) || (detailedText.length()<1))
     {
