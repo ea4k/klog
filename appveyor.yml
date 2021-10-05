@@ -7,7 +7,7 @@ install:
   - sh: 'sudo add-apt-repository ppa:beineri/opt-qt-5.15.2-bionic'
   - sh: 'sudo apt update'
   - sh: 'sudo apt install -y g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev'
-  - sh: '/opt/qt515/bin/qt515-env.sh'
+  - sh: 'ls /'
 
 build_script:
   - qmake -qt=qt5 KLog.pro
