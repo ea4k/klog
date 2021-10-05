@@ -219,7 +219,12 @@ int MainWindowInputOthers::getEntity()
     {
         return -1;
     }
-    return (aux.split('(').at(1).chopped (1)).toInt ();
+    //qDebug() << Q_FUNC_INFO << ": " << (aux.split('(').at(1).chopped(1));
+    //return (aux.split('(').at(1).chopped(1)).toInt ();
+    QString a = aux.split('(').at(1);
+    a.chop(1);
+    //qDebug() << Q_FUNC_INFO << ": " << a;
+    return a.toInt ();
 }
 
 QString MainWindowInputOthers::getEntityPrefix()

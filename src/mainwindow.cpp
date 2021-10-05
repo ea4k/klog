@@ -231,15 +231,15 @@ MainWindow::~MainWindow()
     {
         hamlib->stop();
     }
-    delete qso;
-    delete debugFile;
-    delete showErrorDialog;
-    delete lotwUtilities;
-    delete eqslUtilities;
-    delete elogQRZcom;
-    delete downloadcty;
-    delete world;
-    delete locator;
+    //delete qso;
+    //delete debugFile;
+    //delete showErrorDialog;
+    //delete lotwUtilities;
+    //delete eqslUtilities;
+    //delete elogQRZcom;
+    //delete downloadcty;
+    //delete world;
+    //delete locator;
 
     logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
