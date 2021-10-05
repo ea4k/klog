@@ -6,7 +6,8 @@ image:
 install:
   - sh: sudo add-apt-repository -y ppa:beineri/opt-qt-5.15.2-bionic
   - sh: sudo apt-get -qq update
-  - sh: 'sudo apt install -qqy g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev'
+  - sh: sudo apt-get -qq install qt5125ools qt515base
+  - sh: sudo apt install -qqy g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
   - sh: 'ls /opt/'
   - sh: source /opt/qt515/bin/qt515-env.sh
 
