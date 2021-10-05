@@ -10,4 +10,4 @@ install:
 
 build_script:
   - qmake KLog.pro
-  - mingw32-make
+  - make
