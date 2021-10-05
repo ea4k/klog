@@ -1,7 +1,7 @@
-environment:
-  matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-      BUILD_TARGET: linux
+version: build{build}
+
+image:
+  - Ubuntu
 
   - sh: sudo add-apt-repository -y ppa:beineri/opt-qt-5.10.1-xenial
   - sh: sudo apt-get -qq update
