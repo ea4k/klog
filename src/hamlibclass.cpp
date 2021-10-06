@@ -407,6 +407,8 @@ void HamLibClass::clean()
     sdtr = RIG_SIGNAL_UNSET;
      //qDebug() << "HamLibClass::Clean - 9" << QT_ENDL;
     srts = RIG_SIGNAL_UNSET;
+    networkPort = 4532;
+    networkAddress = "127.0.0.1";
 
      //qDebug() << "HamLibClass::Clean - 10" << QT_ENDL;
     rigLaunched = false;
@@ -448,23 +450,25 @@ bool HamLibClass::init(bool _active)
     // Code of DG1VS (Thank you!)
     if (myrig_model == RIG_MODEL_NETRIGCTL)
     {
-         //qDebug() << "HamLibClass::init: RIG_PORT_NETWORK" << QT_ENDL;
+        qDebug() << "HamLibClass::init: RIG_PORT_NETWORK" << QT_ENDL;
         // network based communication
         my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
-        qstrncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
+        QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
+        qstrncpy (my_rig->state.rigport.pathname, netAddPort.toLocal8Bit().constData(), FILPATHLEN);
 
         // the other stuff is hardcoded in hamlib!
     }
     else if (myrig_model == RIG_MODEL_FLRIG)
     {
-        //qDebug() << "HamLibClass::init: RIG_PORT_RPC" << QT_ENDL;
+        qDebug() << "HamLibClass::init: RIG_PORT_RPC" << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_RPC;
-        qstrncpy (my_rig->state.rigport.pathname, networkAddress.toLocal8Bit().constData(), FILPATHLEN);
-
+        QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
+        qDebug() << "HamLibClass::init: " << netAddPort << QT_ENDL;
+        qstrncpy (my_rig->state.rigport.pathname, netAddPort.toLocal8Bit().constData(), FILPATHLEN);
     }
     else
     {
-        //qDebug() << "HamLibClass::init: !RIG_PORT_NETWORK" << QT_ENDL;
+        qDebug() << "HamLibClass::init: !RIG_PORT_NETWORK" << QT_ENDL;
         //qDebug() << "HamLibClass::init: serialport2: " << serialPort.toLocal8Bit() << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
         //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
@@ -485,26 +489,26 @@ bool HamLibClass::init(bool _active)
         // Config done
     }
 
-    //qDebug() << "HamLibClass::init: after handshake "  << QT_ENDL;
+    qDebug() << "HamLibClass::init: after handshake "  << QT_ENDL;
     // Config done
     retcode = rig_open(my_rig);
-    //qDebug() << "HamLibClass::init: retcode"  << QT_ENDL;
+    qDebug() << "HamLibClass::init: retcode"  << QT_ENDL;
 
     if (retcode != RIG_OK)
     {
-        //qDebug()<< "HamLibClass::init: Can't open: " << rigerror(retcode) << QT_ENDL;
+        qDebug()<< "HamLibClass::init: Can't open: " << rigerror(retcode) << QT_ENDL;
 
         rig_cleanup(my_rig);
         return errorManage (retcode);
     }
 
-    //qDebug()<< "HamLibClass::init: Rig open!"  << QT_ENDL;
+    qDebug()<< "HamLibClass::init: Rig open!"  << QT_ENDL;
     errorCount = 0;
     rigLaunched = true;
     freq_old = 0.0;
     timer->start(pollInterval);
 
-    //qDebug() << "HamLibClass::init: END TRUE" << QT_ENDL;
+    qDebug() << "HamLibClass::init: END TRUE" << QT_ENDL;
     return true;
 }
 
