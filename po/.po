@@ -2029,7 +2029,7 @@ msgctxt "MainWindow|"
 msgid "KLog"
 msgstr "Klog"
 
-#: ../mainwindow.cpp:661
+#: ../mainwindow.cpp:674
 msgctxt "MainWindow|"
 msgid ""
 "It seems that you have never done a backup or exported your log to ADIF."
@@ -2047,22 +2047,22 @@ msgctxt "MainWindow|"
 msgid "Status bar ..."
 msgstr ""
 
-#: ../mainwindow.cpp:413
+#: ../mainwindow.cpp:426
 msgctxt "MainWindow|"
 msgid "KLog - CTY.dat update"
 msgstr ""
 
-#: ../mainwindow.cpp:667
+#: ../mainwindow.cpp:680
 msgctxt "MainWindow|"
 msgid "It seems that the latest backup you did is older than one month."
 msgstr ""
 
-#: ../mainwindow.cpp:678
+#: ../mainwindow.cpp:691
 msgctxt "MainWindow|"
 msgid "Log backup recommended!"
 msgstr ""
 
-#: ../mainwindow.cpp:681
+#: ../mainwindow.cpp:694
 msgctxt "MainWindow|"
 msgid ""
 "It is a good practice to backup your full log regularly to avoid loosing "
@@ -2074,12 +2074,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.cpp:696
+#: ../mainwindow.cpp:709
 msgctxt "MainWindow|"
 msgid "KLog - Backup"
 msgstr ""
 
-#: ../mainwindow.cpp:724
+#: ../mainwindow.cpp:737
 msgctxt "MainWindow|"
 msgid "KLog - New version detected!"
 msgstr ""
@@ -2442,7 +2442,7 @@ msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to LoTW"
 msgstr ""
 
-#: ../mainwindow.cpp:414
+#: ../mainwindow.cpp:427
 msgctxt "MainWindow|"
 msgid "KLog needs to update the Entities database."
 msgstr ""
@@ -2722,12 +2722,12 @@ msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr ""
 
-#: ../mainwindow.cpp:725
+#: ../mainwindow.cpp:738
 msgctxt "MainWindow|"
 msgid "It seems that you are running this version of KLog for the first time."
 msgstr ""
 
-#: ../mainwindow.cpp:726
+#: ../mainwindow.cpp:739
 msgctxt "MainWindow|"
 msgid "The setup will be open to allow you to do any new setup you may need."
 msgstr ""
@@ -2749,32 +2749,32 @@ msgctxt "MainWindow|"
 msgid "Check always the current callsign in QRZ.com"
 msgstr ""
 
-#: ../mainwindow.cpp:415
+#: ../mainwindow.cpp:428
 msgctxt "MainWindow|"
 msgid "You can update the entities database in Tools->Update cty.csv"
 msgstr ""
 
-#: ../mainwindow.cpp:416
+#: ../mainwindow.cpp:429
 msgctxt "MainWindow|"
 msgid "Do you want to do it now?"
 msgstr ""
 
-#: ../mainwindow.cpp:700
+#: ../mainwindow.cpp:713
 msgctxt "MainWindow|"
 msgid "The backup was done successfully"
 msgstr ""
 
-#: ../mainwindow.cpp:701
+#: ../mainwindow.cpp:714
 msgctxt "MainWindow|"
 msgid "KLog will remind you to backup your data again in aprox one month."
 msgstr ""
 
-#: ../mainwindow.cpp:706
+#: ../mainwindow.cpp:719
 msgctxt "MainWindow|"
 msgid "The backup was not properly done."
 msgstr ""
 
-#: ../mainwindow.cpp:707
+#: ../mainwindow.cpp:720
 msgctxt "MainWindow|"
 msgid ""
 "It is recommended to backup your data periodically to prevent lose or "
@@ -3817,17 +3817,17 @@ msgctxt "MainWindowInputOthers|"
 msgid "Not - Not Identified"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:490
+#: ../inputwidgets/mainwindowinputothers.cpp:495
 msgctxt "MainWindowInputOthers|"
 msgid "SOTA Ref"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:490
+#: ../inputwidgets/mainwindowinputothers.cpp:495
 msgctxt "MainWindowInputOthers|"
 msgid "Age"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputothers.cpp:490
+#: ../inputwidgets/mainwindowinputothers.cpp:495
 msgctxt "MainWindowInputOthers|"
 msgid "VUCC grids"
 msgstr ""
@@ -4236,7 +4236,7 @@ msgctxt "OnlineMessageWidget|"
 msgid "The server returned the following error: %1"
 msgstr ""
 
-#: ../widgets/onlinemessagewidget.cpp:170
+#: ../widgets/onlinemessagewidget.cpp:172
 #, fuzzy
 msgctxt "OnlineMessageWidget|"
 msgid "Not identified"
