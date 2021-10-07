@@ -306,7 +306,7 @@ int Awards::getWAZConfirmed(const int _logNumber)
 
 bool Awards::isThisSpotConfirmed(const QStringList &_qs)
 {
-    return (getDXStatus(_qs) == 13)
+    return (getDXStatus(_qs) == 13);
 }
 
 int Awards::getDXStatus (const QStringList &_qs)
@@ -529,7 +529,6 @@ int Awards::getDXStatus (const QStringList &_qs)
     //return -1;
 }
 
-
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
     //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode) << QT_ENDL;
@@ -576,7 +575,6 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
            //qDebug() << "Awards::dxccStatusBandMode: return - 0-4" << QT_ENDL;
     return status;
 }
-
 
 /*
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
@@ -635,6 +633,7 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
 }
 
 */
+
 int Awards::dxccStatus(const int _ent, const int _logNumber)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
     //qDebug() << "Awards::dxccStatus: " << QString::number(_ent) << QT_ENDL;
@@ -678,8 +677,6 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
        //qDebug() << "Awards::dxccStatus: return 0"  << QT_ENDL;
     //return worked;
 }
-
-
 
 /*
 int Awards::dxccStatus(const int _ent, const int _logNumber)
@@ -735,7 +732,6 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
     //return worked;
 }
 */
-
 
 QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 {
@@ -956,7 +952,6 @@ QString Awards::getDXCCStatusBand2(const int _dxcc, const int _band, const int _
     return status;
 }
 
-
 /*
   QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber)
 {
@@ -1133,9 +1128,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 */
 }
 
-
 void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
-//void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
        //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << QT_ENDL;
 
@@ -1207,7 +1200,6 @@ void Awards::recalculateAwards()
     dataProxy->updateAwardWAZ();
        //qDebug() << "Awards::recalculateAwards - END" << QT_ENDL;
 }
-
 
 int Awards::getQSOsInLog(const int _logNumber)
 {
@@ -1651,8 +1643,6 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
        //qDebug() << "Awards::dxccStatusBand: return - 0.3" << QT_ENDL;
         return status;                                       // if arrives to here decision => not worked
 }
-
-
 
 /*
 int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed

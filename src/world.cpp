@@ -265,9 +265,6 @@ QStringList World::processLine(const QString &_line)
     return aa;
 }
 
-
-
-
 QStringList World::processLineP(const QString &_line, const int _processingEntity){
     //Returns QStringList: prefix << dxcc << cqz << ituz OR CurrentEntity as a number
 
@@ -279,7 +276,6 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
     //_cqz = 0;
     //_ituz = 0;
     line = (_line).simplified();
-
 
     if ((line).count('\'')) // Replaces ' by _
     //The error comes from "Cote d'Ivoire" that breaks the SQL
