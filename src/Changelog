@@ -1,5 +1,6 @@
 TBD - 1.8.6
 - Bugfix: Net rig & FLRig hamlib connections were not working propertly. (Closes #339) (TNX W5PNY)
+- Improvement: RTS & DTR are defined to OFF by default in hamlib.
 
 Oct 2021 - 1.8.5
 - Bugfix: Station callsign was not shown on window title. (Closes #347)

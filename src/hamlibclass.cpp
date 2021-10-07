@@ -404,9 +404,9 @@ void HamLibClass::clean()
 
         //qDebug() << "HamLibClass::Clean - 8" << QT_ENDL;
     serialPort = QString();
-    sdtr = RIG_SIGNAL_UNSET;
+    sdtr = RIG_SIGNAL_OFF;
      //qDebug() << "HamLibClass::Clean - 9" << QT_ENDL;
-    srts = RIG_SIGNAL_UNSET;
+    srts = RIG_SIGNAL_OFF;
     networkPort = 4532;
     networkAddress = "127.0.0.1";
 
