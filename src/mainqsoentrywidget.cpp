@@ -311,11 +311,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     }
     else
     {
-        if (cursorP==0)
-        {
-
-        }
-        else if ((currentQrz.at(cursorP-1)).isSpace())
+        if (((currentQrz.at(cursorP-1)).isSpace()) && (cursorP!=0))
         {
             //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << QT_ENDL;
             previousQRZ = currentQrz.remove(cursorP-1, 1);
@@ -325,7 +321,6 @@ void MainQSOEntryWidget::slotQRZTextChanged()
             qrzLineEdit->setText(previousQRZ);
         }
     }
-
     currentQrz = qrzLineEdit->text();
     //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: Emitting: " << currentQrz << QT_ENDL;
     emit currentQRZSignal(currentQrz);
@@ -422,7 +417,6 @@ void MainQSOEntryWidget::setInitialData()
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW" << "RTTY";
 
-
     setBands(bands);
     setModes(modes);
 
@@ -439,13 +433,11 @@ void MainQSOEntryWidget::setInitialData()
 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
      //qDebug()<< "MainQSOEntryWidget::setInitialData-END" << QT_ENDL;
-
 }
 
 bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _band << QT_ENDL;
-
     //QString _currentBand = getBand();
     if (!isBandExisting(_band))
     {// The selected frequency is of a band that is not currently selected
@@ -473,25 +465,18 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
             return false;
         }
     }
-
-
     //qDebug() << Q_FUNC_INFO << ": Band already existing, no need to add"  << QT_ENDL;
     return true;
-
-
-
-
 }
 
 void MainQSOEntryWidget::setBands(const QStringList _bands)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     //qDebug()<< "MainQSOEntryWidget::setBands" << QT_ENDL;
-    foreach(QString i, _bands)
-    {
+    //foreach(QString i, _bands)
+    //{
         //qDebug()<< "MainQSOEntryWidget::setBands - received: " << i << QT_ENDL;
-    }
-
+    //}
     bands.clear();
     bands = _bands;
     bands.removeDuplicates();
@@ -526,7 +511,6 @@ QStringList MainQSOEntryWidget::getModes()
 bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
-
     if (isRX)
     {
         if (util->isSameFreq (freqRX, _f))
@@ -557,7 +541,6 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
             return true;
         }
         return setBand(_newBand);
-
     }
     return false;
 }
@@ -632,7 +615,6 @@ bool MainQSOEntryWidget::setDateTime(const QDateTime _date)
     {
         dateEdit->setDate(_date.date());
         timeEdit->setTime(_date.time());
-
         emit debugLog(Q_FUNC_INFO, "END", Debug);
         return true;
     }
@@ -732,7 +714,6 @@ QDateTime MainQSOEntryWidget::getDateTime()
     dateTime.setDate(dateEdit->date());
     dateTime.setTime(timeEdit->time());
     return dateTime;
-
 }
 
 QTime MainQSOEntryWidget::getTime()
@@ -749,7 +730,8 @@ void MainQSOEntryWidget::toggleRealTime()
     {
         setRealTime (false);
     }
-    else {
+    else
+    {
         setRealTime (true);
     }
 }
@@ -758,7 +740,6 @@ bool MainQSOEntryWidget::getRealTime()
 {
     //return realtimeButton->isChecked ();
     return realtimeCheckBox->isChecked ();
-
 }
 
 void MainQSOEntryWidget::setRealTime(const bool _realTime)
@@ -795,7 +776,6 @@ void MainQSOEntryWidget::setModify(const bool _modify)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
     modify = _modify;
-
     if (modify)
     {
         OKButton->setText(tr("&Modify"));
@@ -853,7 +833,6 @@ bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
             emit debugLog(Q_FUNC_INFO, "END-1", Debug);
             return false;
         }
-
     }
     emit debugLog(Q_FUNC_INFO, "END", Debug);
     return true;
@@ -872,7 +851,6 @@ bool MainQSOEntryWidget::isModeExisting(const QString &_m)
         emit debugLog(Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
-
 }
 
 bool MainQSOEntryWidget::isBandExisting(const QString &_b)
@@ -916,16 +894,13 @@ void MainQSOEntryWidget::selectDefaultBand(const bool _init)
       //qDebug() << "MainQSOEntryWidget::selectDefaultBand: " << QString::number(defaultBand) << dataProxy->getNameFromBandId (defaultBand)<< QT_ENDL;
     if (defaultBand<1)
     {
-
         defaultBand = dataProxy->getIdFromBandName(getBand(0));
-
     }
 
     aux = dataProxy->getNameFromBandId(defaultBand);
     //qDebug() << Q_FUNC_INFO << ": before setting band: " << aux << QT_ENDL;
     setBand(aux);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
-
       //qDebug() << "MainQSOEntryWidgetselectDefaultBand_END" << QT_ENDL;
 }
 
@@ -963,7 +938,6 @@ void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
 
 void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
-
 #ifdef QT_DEBUG
    //qDebug() << Q_FUNC_INFO << "(" << _func << ")" << QT_ENDL;
 #else
@@ -977,7 +951,6 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     {
         //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << QT_ENDL;
         //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify) << QT_ENDL;
-
         qrzgroupBox->setTitle(tr("Callsign"));
     }
     else
@@ -1020,14 +993,7 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
 
 bool MainQSOEntryWidget::getDarkMode()
 {
-    if (OKButton->palette().color (QPalette::Base) == "#646464")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (OKButton->palette().color (QPalette::Base) == "#646464")
 }
 
 /*
@@ -1070,7 +1036,6 @@ bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
             return true;
         }
     }
-
     return QWidget::event(event);
 }
 
