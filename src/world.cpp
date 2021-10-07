@@ -1057,87 +1057,10 @@ QString World::getLocator(const int _entityN)
     return locator->getLocator(getLongitude(_entityN), getLatitude(_entityN));
 }
 
-/*
-int World::getBandIdFromFreq(const QString fr)
-{
-       //qDebug() << "World::getBandIdFromFreq: " << fr  << QT_ENDL;
-    //Freq should be in MHz
-    QSqlQuery query;
-    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
-       //qDebug() << "World::getBandIdFromFreq query: " << queryString  << QT_ENDL;
-
-
-    if (!query.exec(queryString))
-    {
-        return -1;
-    }
-    else
-    {
-        query.next();
-
-        int b=-1;
-        if (query.isValid())
-        {
-            b = (query.value(0)).toInt();
-               //qDebug() << "World::getBandIdFromFreq value: " << QString::number(b)  << QT_ENDL;
-            //return (query.value(0)).toInt();
-            return b;
-        }
-        else
-        {
-               //qDebug() << "World::getBandIdFromFreq value not valid!!" << QT_ENDL;
-            return -1;
-        }
-    }
-
-    return -1;
-}
-*/
-
-
-
 QString World::getQRZEntityPrefixes(const QString &_qrz)
 {
-
     int i = getQRZARRLId(_qrz);
     return dataProxy->getEntityMainPrefix(i);
-/*
-    QString result;
-    result = "";
-    QString queryString;
-    QSqlQuery query;
-    queryString = "SELECT prefix FROM prefixesofentity WHERE dxcc=='" + QString::number(i) +"'";
-
-
-    if (!query.exec(queryString))
-    {
-        return "";
-    }
-    else
-    {
-        while ( (query.next())) {
-            if (query.isValid())
-            {
-                result = result + ", " + (query.value(0)).toString();
-            }
-            else
-            {
-            }
-        }
-
-        if (result.length() < 1)
-        {
-            return result;
-        }
-        else
-        {
-            result = result.remove(0,2);
-            return result;
-        }
-    }
-
-    return "";
-*/
 }
 
 bool World::readCTYCSV(const QString &_worldFile)
@@ -1428,7 +1351,6 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
     return aux;
 }
 
-
 bool World::checkQRZValidFormat(const QString &_qrz)
 {
         //qDebug()  << "World::checkQRZValidFormat: -" << _qrz <<"-" << QT_ENDL;
@@ -1447,12 +1369,7 @@ bool World::checkQRZValidFormat(const QString &_qrz)
 
     //int sepPos = 0;
 
-
     int barPos = aux.indexOf('/');
-
-    //QString prefix = QString();
-    //QString suffix = QString();
-    //QString separator = QString();
     // If barPos > 0 we have a complex call like F/EA0K
 
     QCharRef c = aux[aux.length()-1];
@@ -1582,7 +1499,6 @@ bool World::insertSpecialEntities()
     return true;
 
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
-
 }
 
 bool World::hasSpecialEntities()
@@ -1612,7 +1528,6 @@ bool World::hasSpecialEntities()
     }
     query.finish();
     return false;
-
 }
 
 
