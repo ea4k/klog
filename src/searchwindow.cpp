@@ -51,7 +51,6 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
     createActions();
     setDefaultData();
     //qDebug() << "SearchWindow::SearchWindow: - END"  << QT_ENDL;
-
 }
 
 SearchWindow::~SearchWindow()
@@ -75,8 +74,6 @@ void SearchWindow::clear()
 void SearchWindow::createUI()
 {
       //qDebug() << "SearchWindow::createUI"  << QT_ENDL;
-
-
     //logView->setContextMenuPolicy(Qt::CustomContextMenu);
     //logView->setSortingEnabled(true);
 
@@ -127,7 +124,6 @@ void SearchWindow::setStationCallsignInHeader(const bool _h)
 {
     showStationCallsignInHeader = _h;
     setColumnsToDX();
-
 }
 
 void SearchWindow::createlogPanel(const int _currentLog)
@@ -324,7 +320,6 @@ void SearchWindow::rightButtonFromLogMenu(const int row)
             qslRecViaDirectFromLogAct->setData(row);
             qslRecViaDirectMarkReqFromSearchAct->setData(row);
             qslRecRequestedAct->setData(row);
-
         }
     menu.exec(QCursor::pos());
 }
@@ -422,7 +417,6 @@ void SearchWindow::showMenuRightButtonFromLogCreateActions()
     qslRecViaDirectMarkReqFromSearchAct = new QAction(tr("Direc&t and mark as my QSL requested"), this);
     qslRecViaDirectMarkReqFromSearchAct->setStatusTip(tr("QSL received via direct and mark my QSL as requested"));
     connect(qslRecViaDirectMarkReqFromSearchAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectMarkReqFromSearch() ));
-
 }
 
 
@@ -432,7 +426,6 @@ void SearchWindow::slotQSLSentViaBureauFromLog()
     int _qsoId = ((searchModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
     searchModel->select();
-
 }
 
 void SearchWindow::slotQSLSentViaDirectFromLog()
@@ -442,7 +435,6 @@ void SearchWindow::slotQSLSentViaDirectFromLog()
     //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
     dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
     searchModel->select();
-
 }
 
 void SearchWindow::slotQSLRecViaBureauFromLog()
@@ -472,8 +464,6 @@ void SearchWindow::slotQSOToEditFromLog()
     int QSOid = ((searchModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
     //int QSOid = qsoToEditFromLogAct->data().toInt();
     emit actionQSODoubleClicked(QSOid);
-
-
 
     //TODO: To be added to the SearchWindow and create an action that emit the QSO id
 }
@@ -550,7 +540,6 @@ void SearchWindow::slotCheckQRZCom()
     QString url = "https://www.qrz.com/db/" + _qrz;
 
     QDesktopServices::openUrl(QUrl(url));
-
 }
 
 void SearchWindow::slotCheckDXHeatCom()
@@ -580,8 +569,6 @@ void SearchWindow::selectAll()
     {
         //searchModel->selectRow(i);
     }
-
-
 }
 
 void SearchWindow::clearSelection()
@@ -589,7 +576,6 @@ void SearchWindow::clearSelection()
     //qDebug() << "SearchWindow::clearSelection" << QT_ENDL;
     //logView->clearSelection();
     treeView->clearSelection();
-
 }
 
 QList<int> SearchWindow::getSelectedQSOs()
@@ -608,7 +594,6 @@ QList<int> SearchWindow::getSelectedQSOs()
     }
     //qDebug() << "SearchWindow::getSelectedQSOs: (Selected: (" << QString::number(selectedQSOs.count()) << ")" << QT_ENDL;
     return selectedQSOs;
-
 }
 
 void SearchWindow::slotQSLRecMarkAsRequested()
@@ -631,7 +616,6 @@ void SearchWindow::slotQSLRecMarkAsRequested()
 void SearchWindow::setNeedingQSL(bool const _q)
 {
     qslingNeeded = _q;
-
 }
 
 void SearchWindow::slotToolSearchQSL(const int actionQSL)
@@ -821,7 +805,6 @@ void SearchWindow::colorTheList()
     //qDebug() << "SearchWidget::colorTheList: " << QString::number(treeView->model()->rowCount()) << QT_ENDL;
     for (int i = 0; i < treeView->model()->rowCount(); i++)
     {
-
        //QString _qrz = ((searchModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(1).toString());
        QString _qrz =  (searchModel->index(i, 2)).data(Qt::DisplayRole).toString();
 
