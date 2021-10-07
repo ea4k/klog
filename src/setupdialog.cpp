@@ -136,10 +136,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
-
     //qDebug() << "SetupDialog::SetupDialog 2  - END" << QT_ENDL;
 }
-
 
 SetupDialog::~SetupDialog()
 {
@@ -160,7 +158,6 @@ void SetupDialog::connectActions()
     connect (eLogPage, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotQRZCOMAuto(bool)));
 
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-
 }
 
 void SetupDialog::slotQRZCOMAuto(const bool _b)
@@ -302,7 +299,6 @@ void SetupDialog::createIcons()
     worldButton->setTextAlignment(Qt::AlignHCenter);
     worldButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-
     connect(contentsWidget,
             SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
             this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
@@ -351,7 +347,6 @@ void SetupDialog::slotOkButtonClicked()
     if (!haveAtleastOneLog())
     {
         //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!" << QT_ENDL;
-
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You have not selected the kind of log you want."));
@@ -495,7 +490,6 @@ void SetupDialog::slotOkButtonClicked()
             stream << "ProvideInfo=True;"  <<  QT_ENDL;
         }
 
-
         if ((!(dxClusterPage->getSelectedDxClusterServer()).isNull()) && (  (dxClusterPage->getSelectedDxClusterServer()).length() > 0   ))
         {
             stream << "DXClusterServerToUse=" << dxClusterPage->getSelectedDxClusterServer() <<";" << QT_ENDL;
@@ -512,7 +506,6 @@ void SetupDialog::slotOkButtonClicked()
                  stream << "DXClusterServerPort="<< stringList.at(i) << ";" << QT_ENDL;
             }
         }
-
         stream << "DXClusterShowHF=" << dxClusterPage->getShowHFQCheckbox() << ";" <<  QT_ENDL;
         stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFQCheckbox() << ";" <<  QT_ENDL;
         stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCQCheckbox() << ";" <<  QT_ENDL;
@@ -565,7 +558,6 @@ void SetupDialog::slotOkButtonClicked()
         //qDebug() << "SetupDialog::slotOkButtonClicked - 50" << QT_ENDL;
         // eQSL
 
-
             if (eLogPage->getEQSLActive())
             {
                 stream << "eQSLActive=True;" <<  QT_ENDL;
@@ -587,7 +579,6 @@ void SetupDialog::slotOkButtonClicked()
             }
 
         // eQSL - END
-
         // QRZ.com
 
             //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data" << QT_ENDL;
@@ -726,12 +717,10 @@ void SetupDialog::slotReadConfigData()
     if (modes.isEmpty())
     {
         modes << "SSB" << "CW" << "RTTY";
-
     }
     if (bands.isEmpty())
     {
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
-
     }
     if (logViewFields.isEmpty())
     {
@@ -745,7 +734,6 @@ void SetupDialog::slotReadConfigData()
     logViewPage->setActiveFields(logViewFields);
     //qDebug() << "SetupDialog::slotReadConfigData - END" << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-
 }
 
 bool SetupDialog::processConfigLine(const QString &_line)
@@ -758,7 +746,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     int i = 0; //aux variable
     QStringList values = line.split("=", QT_SKIP);
     QString tab = QString();
-
 
     if (line.startsWith('#')){
            //qDebug() << "SetupDialog::processConfigLine: Comment Line!" << QT_ENDL;
@@ -788,7 +775,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         userDataPage->setOperators(value);
     }else if (tab=="CQZ"){
         userDataPage->setCQz((value).toInt());
-
     }else if (tab=="ITUZ"){
         userDataPage->setITUz((value).toInt());
     }else if (tab=="CONTEST"){
@@ -861,8 +847,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     {
         miscPage->setCheckCalls (util->trueOrFalse (value));
     }
-
-
     /*
     else if (tab=="PSTROTATORACTIVE"){
         interfacesWindowsPage->setSendToPSTRotator(value);
@@ -1067,10 +1051,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
         }
         logsPage->setSelectedLog(i);
            //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END" << QT_ENDL;
-
     }else if(tab =="CLUBLOGACTIVE"){
         eLogPage->setClubLogActive(util->trueOrFalse(value));
-
     }
     else if(tab =="CLUBLOGREALTIME"){
         //clubLogPage->setClubLogRealTime(value);
@@ -1157,8 +1139,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
        //qDebug() << "SetupDialog::processConfigLine: END "  << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
     return true;
-
-
 }
 
 void SetupDialog::readActiveBands (const QString &actives)
@@ -1186,7 +1166,6 @@ void SetupDialog::readActiveBands (const QString &actives)
             _abands << values.at(i);
                //qDebug() << "SetupDialog::readActiveBands: " << values.at(i) << QT_ENDL;
         }
-
     }
 
     bands.clear();
@@ -1240,7 +1219,6 @@ bool SetupDialog::isValidBand (const QString &b)
     query.next();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
     return query.isValid();
-
 }
 bool SetupDialog::isValidMode (const QString &b)
 {
@@ -1251,7 +1229,6 @@ bool SetupDialog::isValidMode (const QString &b)
     query.next();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
     return query.isValid();
-
 }
 
 void SetupDialog::setDefaults()
@@ -1340,7 +1317,6 @@ bool SetupDialog::haveAtleastOneLog()
     emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
     return dataProxy->haveAtLeastOneLog();
     //emit debugLog (Q_FUNC_INFO, "END", logSeverity);
-
 }
 
 void SetupDialog::setClubLogActive(const bool _b)
@@ -1441,6 +1417,5 @@ void SetupDialog::showEvent(QShowEvent *event)
     //qDebug() << Q_FUNC_INFO << QT_ENDL;
     //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << QT_ENDL;
     QWidget::showEvent(event);
-
     userDataPage->setStationFocus();
 }
