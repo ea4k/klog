@@ -121,7 +121,6 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _lo
            //qDebug() << "Awards::getQSOofAward: Query error" << QT_ENDL;
         return QString();
     }
-
 }
 
 int Awards::getQSOIdofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed)
@@ -162,7 +161,6 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid, const int _log,
             {
                 return -1;
             }
-
         }
         else
         {
@@ -178,7 +176,6 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid, const int _log,
            //qDebug() << "Awards::getQSOIdofAward: Query error" << QT_ENDL;
         return -3;
     }
-
 }
 
 int Awards::getDXCCWorked(const int _logNumber)
@@ -228,50 +225,7 @@ int Awards::getDXCCWorked(const int _logNumber)
 int Awards::getDXCCConfirmed(const int _logNumber)
 {
      //qDebug() << "Awards::getDXCCConfirmed (logNumber): " << QString::number(_logNumber) << QT_ENDL;
-
     return dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", _logNumber);
-    /*
-    QSqlQuery query;
-    QString stringQuery;
-    bool sqlOK;
-    if (dataProxy->doesThisLogExist(_logNumber))
-    {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0' AND dxcc < '1000' AND lognumber='%1'").arg(_logNumber);
-    }
-    else
-    {
-        stringQuery = QString("SELECT COUNT (DISTINCT dxcc) FROM log where (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND dxcc!='' AND dxcc >'0' AND dxcc < '1000' ");
-    }
-
-    sqlOK = query.exec(stringQuery);
-     //qDebug() << "Awards::getDXCCWorked: stringQuery: " << stringQuery << QT_ENDL;
-
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-             //qDebug() << "Awards::getDXCCConfirmed: " << QString::number((query.value(0)).toInt()) << QT_ENDL;
-            int v = (query.value(0)).toInt();
-            query.finish();
-            return v;
-        }
-        else
-        {
-             //qDebug() << "Awards::getDXCCConfirmed: 0" << QT_ENDL;
-            return 0;
-        }
-
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-         //qDebug() << "Awards::getDXCCConfirmed: query error" << QT_ENDL;
-      return 0;
-    }
-
-    */
 }
 
 int Awards::getWAZWorked(const int _logNumber)
@@ -309,8 +263,6 @@ int Awards::getWAZWorked(const int _logNumber)
         query.finish();
         return 0;
     }
-
-
 }
 
 int Awards::getWAZConfirmed(const int _logNumber)
@@ -329,8 +281,6 @@ int Awards::getWAZConfirmed(const int _logNumber)
         stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y'))");
     }
 
-
-
     bool sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
@@ -345,7 +295,6 @@ int Awards::getWAZConfirmed(const int _logNumber)
         {
             return 0;
         }
-
     }
     else
     {
@@ -353,26 +302,15 @@ int Awards::getWAZConfirmed(const int _logNumber)
         query.finish();
         return 0;
     }
-
 }
 
 bool Awards::isThisSpotConfirmed(const QStringList &_qs)
 {
-
-    if (getDXStatus(_qs) == 13)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
+    return (getDXStatus(_qs) == 13)
 }
 
 int Awards::getDXStatus (const QStringList &_qs)
 {
-
     //qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  QT_ENDL;
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << << ModeId << lognumber;
@@ -411,8 +349,6 @@ int Awards::getDXStatus (const QStringList &_qs)
 2   -   Worked      -   Worked in this band but not confirmed       -   YELLOW
 3   -   Confirmed   -   Confirmed in this band                      -   GREEN
 */
-
-
     if (_qs.length() != 4  )
     {
         //qDebug() << "Awards::getDXStatus: Length != 4, return -1" << QT_ENDL;
@@ -534,7 +470,6 @@ int Awards::getDXStatus (const QStringList &_qs)
                 //qDebug() << "Awards::getDXStatus: return 13 nc" << QT_ENDL;
                 return 13;
             }
-
         }
         else if ((wb ==1) || (wb == 0))
         {
@@ -566,7 +501,6 @@ int Awards::getDXStatus (const QStringList &_qs)
                         return 5;
                     }
                 }
-
             }
             else
             {
@@ -631,7 +565,6 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
             }
         }
         query.finish();
-
     }
     else
     { // The query fails...
@@ -734,7 +667,6 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
         query.finish();
            //qDebug() << "Awards::dxccStatus: END: " << QString::number(worked) << QT_ENDL;
         return worked;
-
     }
     else
     { // The query fails...
@@ -876,14 +808,12 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
         default:
             returnedColor =  defaultColor;
         break;
-
     }
     return returnedColor;
 }
 
 QString Awards::getDXStatusString (const int &_status)
 {
-
        //qDebug() << "Awards::getDXStatusString: " << QString::number(_status) << QT_ENDL;
 
     QString message = QString();
@@ -938,9 +868,8 @@ QString Awards::getDXStatusString (const int &_status)
     default:
         message = QObject::tr("Not identified");
     break;
-
-}
-return message;
+    }
+    return message;
 }
 
 QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
@@ -1122,8 +1051,6 @@ Returns a valid format IOTA if possible and "" in other cases.
         {
             return "";
         }
-
-
     }
     else
     {

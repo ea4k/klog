@@ -993,7 +993,7 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
 
 bool MainQSOEntryWidget::getDarkMode()
 {
-    return (OKButton->palette().color (QPalette::Base) == "#646464")
+    return (OKButton->palette().color (QPalette::Base) == "#646464");
 }
 
 /*
