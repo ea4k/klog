@@ -1894,8 +1894,8 @@ Chyba : %2</translation>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="44"/>
-        <location filename="../mainqsoentrywidget.cpp" line="401"/>
-        <location filename="../mainqsoentrywidget.cpp" line="806"/>
+        <location filename="../mainqsoentrywidget.cpp" line="396"/>
+        <location filename="../mainqsoentrywidget.cpp" line="786"/>
         <source>&amp;Add</source>
         <translation>&amp;Vložit</translation>
     </message>
@@ -1951,17 +1951,17 @@ Chyba : %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="98"/>
-        <location filename="../mainqsoentrywidget.cpp" line="981"/>
+        <location filename="../mainqsoentrywidget.cpp" line="954"/>
         <source>Callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="801"/>
+        <location filename="../mainqsoentrywidget.cpp" line="781"/>
         <source>&amp;Modify</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="986"/>
+        <location filename="../mainqsoentrywidget.cpp" line="959"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3985,135 +3985,135 @@ Frekvence je mimo radioamatérké pásmo!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
         <source>Keep this data</source>
         <translation>Ponechat pro další</translation>
     </message>
     <message>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="96"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Data zadaná na této kartě budou zkopírována do dalšího spojení.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="97"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="435"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
         <source>Other - Sat not in the list</source>
         <translation>Jiný - Sat není v seznamu</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Jméno satelitu pokud není v seznamu. Vyberte: &quot;%1&quot; aktivovat toto pole. (např. AO-51).</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
         <source>Satellite mode used.</source>
         <translation>Použit satelitní režim.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Select the satellite you are using.</source>
         <translation>Vyberte satelit, který používáte.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>UpLink band.</source>
         <translation>Pásmo UpLink.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="106"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>DownLink band.</source>
         <translation>Pásmo DownLink.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="289"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="275"/>
         <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
         <translation>Lokátor DX stanice. Toto pole je synchronizováno s polem Lokátoru v záložce QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="110"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>UpLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="114"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>DownLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="118"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="122"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Druh provozu</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="126"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>DX Locator</source>
         <translation>DX Lokátor</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="131"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="128"/>
         <source>Other</source>
         <translation>Jiné</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="136"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="140"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="133"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="137"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="299"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="285"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Lokátor DX stanice. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="434"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="418"/>
         <source>Not Sat QSO</source>
         <translation>Není Sat QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="471"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="455"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>Jméno satelity nebylo rozpoznáno. Pokud má být použito jedno ze jmen známých satelitů, vyberte jej ze seznamu. Případně kontaktujte vývojový tým a přidejte nový název satelitu.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="472"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satelit použit pro: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="472"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Pamatujte, že název satelitu nebude uložen, pokud není v seznamu, takže může dojít ke ztrátě informací!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="581"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="562"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="586"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="567"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Frekvence v MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="650"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="628"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="655"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="633"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Frekvence v MHz.</translation>
     </message>
@@ -4134,37 +4134,37 @@ Frekvence je mimo radioamatérké pásmo!</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../awards.cpp" line="894"/>
+        <location filename="../awards.cpp" line="820"/>
         <source>New One, work it!</source>
         <translation>Nové, ber ho !</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="898"/>
-        <location filename="../awards.cpp" line="902"/>
-        <location filename="../awards.cpp" line="908"/>
-        <location filename="../awards.cpp" line="911"/>
-        <location filename="../awards.cpp" line="914"/>
-        <location filename="../awards.cpp" line="917"/>
-        <location filename="../awards.cpp" line="923"/>
-        <location filename="../awards.cpp" line="929"/>
+        <location filename="../awards.cpp" line="824"/>
+        <location filename="../awards.cpp" line="828"/>
+        <location filename="../awards.cpp" line="834"/>
+        <location filename="../awards.cpp" line="837"/>
+        <location filename="../awards.cpp" line="840"/>
+        <location filename="../awards.cpp" line="843"/>
+        <location filename="../awards.cpp" line="849"/>
+        <location filename="../awards.cpp" line="855"/>
         <source>Needed, work it!</source>
         <translation>Je potřeba, ber ho!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="905"/>
-        <location filename="../awards.cpp" line="920"/>
-        <location filename="../awards.cpp" line="926"/>
-        <location filename="../awards.cpp" line="932"/>
+        <location filename="../awards.cpp" line="831"/>
+        <location filename="../awards.cpp" line="846"/>
+        <location filename="../awards.cpp" line="852"/>
+        <location filename="../awards.cpp" line="858"/>
         <source>Worked but not confirmed</source>
         <translation>Pracováno, nepotvrzeno</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="935"/>
+        <location filename="../awards.cpp" line="861"/>
         <source>Confirmed</source>
         <translation>Potvrzeno</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="939"/>
+        <location filename="../awards.cpp" line="865"/>
         <source>Not identified</source>
         <translation>Neidentifikováno</translation>
     </message>
@@ -5209,226 +5209,226 @@ KLog se ukončí po stisknutí OK.</translation>
 <context>
     <name>SearchWindow</name>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="197"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="193"/>
         <source>Call</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
         <source>Date/Time</source>
         <translation>Datum/Čas</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="203"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="199"/>
         <source>Band</source>
         <translation>Pásmo</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="208"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="204"/>
         <source>Mode</source>
         <translation>Druh provozu</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="214"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="210"/>
         <source>QSL Sent</source>
         <translation>QSL odesláno</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="218"/>
-        <location filename="../searchwindow.cpp" line="316"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="214"/>
+        <location filename="../searchwindow.cpp" line="312"/>
         <source>QSL Rcvd</source>
         <translation>QSL přijato</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
+        <location filename="../searchwindow.cpp" line="83"/>
         <source>Station Callsign</source>
         <translation>Volací značka</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="192"/>
+        <location filename="../searchwindow.cpp" line="188"/>
         <source>Date/time</source>
         <translation>Datum/Čas</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="224"/>
+        <location filename="../searchwindow.cpp" line="220"/>
         <source>Station callsign</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="295"/>
+        <location filename="../searchwindow.cpp" line="291"/>
         <source>QSL Send</source>
         <translation>QSL odesláno</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="370"/>
+        <location filename="../searchwindow.cpp" line="365"/>
         <source>&amp;Delete</source>
         <translation>&amp;Smazat</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="371"/>
+        <location filename="../searchwindow.cpp" line="366"/>
         <source>Delete a QSO</source>
         <translation>Smazat QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="374"/>
+        <location filename="../searchwindow.cpp" line="369"/>
         <source>&amp;Edit QSO</source>
         <translation>&amp;Upravit QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="375"/>
+        <location filename="../searchwindow.cpp" line="370"/>
         <source>Edit this QSO</source>
         <translation>Upravit QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="378"/>
+        <location filename="../searchwindow.cpp" line="373"/>
         <source>Via &amp;bureau</source>
         <translation>Via &amp;bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="379"/>
+        <location filename="../searchwindow.cpp" line="374"/>
         <source>Send this QSL via bureau</source>
         <translation>Odeslat QSL via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="382"/>
+        <location filename="../searchwindow.cpp" line="377"/>
         <source>D&amp;irect</source>
         <translation>D&amp;irect</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="383"/>
+        <location filename="../searchwindow.cpp" line="378"/>
         <source>Send this QSL via direct</source>
         <translation>Odeslat QSL via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="386"/>
+        <location filename="../searchwindow.cpp" line="381"/>
         <source>Via bureau</source>
         <translation>Via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="387"/>
+        <location filename="../searchwindow.cpp" line="382"/>
         <source>QSL &amp;received via bureau</source>
         <translation>QSL &amp;přijato via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="390"/>
+        <location filename="../searchwindow.cpp" line="385"/>
         <source>Direct</source>
         <translation>Direct</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="391"/>
+        <location filename="../searchwindow.cpp" line="386"/>
         <source>QSL received via direc&amp;t</source>
         <translation>QSL přijato direc&amp;t</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="394"/>
+        <location filename="../searchwindow.cpp" line="389"/>
         <source>Check in QRZ.com</source>
         <translation>Vyhledat v QRZ.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="395"/>
+        <location filename="../searchwindow.cpp" line="390"/>
         <source>Check this callsign in QRZ.com</source>
         <translation>Vyhledat značku v QRZ.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="398"/>
+        <location filename="../searchwindow.cpp" line="393"/>
         <source>Check in DXHeat.com</source>
         <translation>Vyhledat v DXHeat.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="399"/>
+        <location filename="../searchwindow.cpp" line="394"/>
         <source>Check this callsign in DXHeat.com</source>
         <translation>Vyhledat značku v DXHeat.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="402"/>
+        <location filename="../searchwindow.cpp" line="397"/>
         <source>&amp;Request my QSL</source>
         <translation>&amp;Request my QSL</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="403"/>
+        <location filename="../searchwindow.cpp" line="398"/>
         <source>Mark my QSL as requested</source>
         <translation>Označit můj QSL jako vyžádaný</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="406"/>
+        <location filename="../searchwindow.cpp" line="401"/>
         <source>Via Direct and mark DX QSL as requested</source>
         <translation>Direct a označit QSL jako vyžádané</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="407"/>
+        <location filename="../searchwindow.cpp" line="402"/>
         <source>Send this QSL via direct and mark DX QSL as requested</source>
         <translation>Odeslat QSL direct a označit jako vyžádané</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="410"/>
+        <location filename="../searchwindow.cpp" line="405"/>
         <source>Via Bureau and mark DX QSL as requested</source>
         <translation>Via Bureau a označit QSL jako vyžádané</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="411"/>
+        <location filename="../searchwindow.cpp" line="406"/>
         <source>Send this QSL via bureau and mark DX QSL as requested</source>
         <translation>Odeslat QSL via Bureau a označit QSL jako vyžádané</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="414"/>
+        <location filename="../searchwindow.cpp" line="409"/>
         <source>&amp;Request the QSL</source>
         <translation>&amp;Request QSL</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="415"/>
+        <location filename="../searchwindow.cpp" line="410"/>
         <source>Mark the QSL as requested</source>
         <translation>Označit QSL jako vyžádané</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="418"/>
+        <location filename="../searchwindow.cpp" line="413"/>
         <source>Via bureau and mark my QSL as requested</source>
         <translation>Via Bureau a označit můj QSL jako vyžádaný</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="419"/>
+        <location filename="../searchwindow.cpp" line="414"/>
         <source>QSL received via bureau and mark my QSL as requested</source>
         <translation>QSL přijato via bureau a označit můj QSL jako vyžádaný</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="422"/>
+        <location filename="../searchwindow.cpp" line="417"/>
         <source>Direc&amp;t and mark as my QSL requested</source>
         <translation>Direc&amp;t a označit můj QSL jako vyžádaný</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="423"/>
+        <location filename="../searchwindow.cpp" line="418"/>
         <source>QSL received via direct and mark my QSL as requested</source>
         <translation>QSL přijat direct a označit můj QSL jako vyžádaný</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="657"/>
+        <location filename="../searchwindow.cpp" line="641"/>
         <source>Needed QSO to send the QSL</source>
         <translation>K odeslání QSL je potřeba QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="665"/>
+        <location filename="../searchwindow.cpp" line="649"/>
         <source>My QSL requested to be sent</source>
         <translation>Můj vyžádaný QSL bude odeslán</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="670"/>
-        <location filename="../searchwindow.cpp" line="675"/>
+        <location filename="../searchwindow.cpp" line="654"/>
+        <location filename="../searchwindow.cpp" line="659"/>
         <source>DX QSL pending to be received</source>
         <translation>QSL čeká na přijetí</translation>
     </message>
@@ -5437,13 +5437,13 @@ KLog se ukončí po stisknutí OK.</translation>
     <name>SetupDialog</name>
     <message>
         <location filename="../setupdialog.cpp" line="84"/>
-        <location filename="../setupdialog.cpp" line="265"/>
+        <location filename="../setupdialog.cpp" line="262"/>
         <source>User data</source>
         <translation>Uživatel</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="85"/>
-        <location filename="../setupdialog.cpp" line="277"/>
+        <location filename="../setupdialog.cpp" line="274"/>
         <source>Bands/Modes</source>
         <translation>Pásma/Druhy provozu</translation>
     </message>
@@ -5459,13 +5459,13 @@ KLog se ukončí po stisknutí OK.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="88"/>
-        <location filename="../setupdialog.cpp" line="289"/>
+        <location filename="../setupdialog.cpp" line="286"/>
         <source>Colors</source>
         <translation>Barvy</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="89"/>
-        <location filename="../setupdialog.cpp" line="295"/>
+        <location filename="../setupdialog.cpp" line="292"/>
         <source>Misc</source>
         <translation>Různé</translation>
     </message>
@@ -5476,7 +5476,7 @@ KLog se ukončí po stisknutí OK.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="91"/>
-        <location filename="../setupdialog.cpp" line="271"/>
+        <location filename="../setupdialog.cpp" line="268"/>
         <source>Logs</source>
         <translation>Logy</translation>
     </message>
@@ -5516,56 +5516,56 @@ KLog se ukončí po stisknutí OK.</translation>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="238"/>
+        <location filename="../setupdialog.cpp" line="235"/>
         <source>You need to enter at least one log in the Logs tab.</source>
         <translation>Na kartě Logy je nutné zadat alespoň jeden log.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="239"/>
+        <location filename="../setupdialog.cpp" line="236"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
         <translation>Přejete si přidat log v záložce Log nebo ukončit KLog?
 (ANO - přidat log nebo NE - opustit)</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="283"/>
+        <location filename="../setupdialog.cpp" line="280"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="301"/>
+        <location filename="../setupdialog.cpp" line="298"/>
         <source>World</source>
         <translation>Svět</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="334"/>
+        <location filename="../setupdialog.cpp" line="330"/>
         <source>DB has not been moved to new path.</source>
         <translation>DB nebyla přesunuta do nové cesty.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="335"/>
+        <location filename="../setupdialog.cpp" line="331"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Jdete do karty Různé a klikněte na Přesun DB
 jinak DB nebude přesunuta do nového adresáře.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="344"/>
+        <location filename="../setupdialog.cpp" line="340"/>
         <source>You need to enter at least a valid callsign.</source>
         <translation>Musíte vložit alespoň platnou značku.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="345"/>
+        <location filename="../setupdialog.cpp" line="341"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation>Použijte kartu Uživatel a vložte platnou značku.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="357"/>
+        <location filename="../setupdialog.cpp" line="352"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>Nevybrali jste požadovaný druh logu.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="358"/>
+        <location filename="../setupdialog.cpp" line="353"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
         <translation>Budete přesměrováni na kartu Log.
@@ -8476,12 +8476,12 @@ Log nebude otevřen.</translation>
         <translation>Kontinent</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1188"/>
+        <location filename="../world.cpp" line="1108"/>
         <source>Reading cty.csv...</source>
         <translation>Čtení cty.csv...</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1188"/>
+        <location filename="../world.cpp" line="1108"/>
         <source>Abort reading</source>
         <translation>Přerušit čtení</translation>
     </message>

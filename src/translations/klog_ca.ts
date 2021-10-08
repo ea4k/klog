@@ -1897,8 +1897,8 @@ Error retornat: %2</translation>
     <name>MainQSOEntryWidget</name>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="44"/>
-        <location filename="../mainqsoentrywidget.cpp" line="401"/>
-        <location filename="../mainqsoentrywidget.cpp" line="806"/>
+        <location filename="../mainqsoentrywidget.cpp" line="396"/>
+        <location filename="../mainqsoentrywidget.cpp" line="786"/>
         <source>&amp;Add</source>
         <translation>&amp;Afegeix</translation>
     </message>
@@ -1954,17 +1954,17 @@ Error retornat: %2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="98"/>
-        <location filename="../mainqsoentrywidget.cpp" line="981"/>
+        <location filename="../mainqsoentrywidget.cpp" line="954"/>
         <source>Callsign</source>
         <translation>Indicatiu</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="801"/>
+        <location filename="../mainqsoentrywidget.cpp" line="781"/>
         <source>&amp;Modify</source>
         <translation>&amp;Modifica</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="986"/>
+        <location filename="../mainqsoentrywidget.cpp" line="959"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
@@ -3988,135 +3988,135 @@ La freqüència no es en una banda de radioafició!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
         <source>Keep this data</source>
         <translation>Mantén aquestes dades</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="100"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Nom del satèl·lit si no és a la llista. Seleccioneu: «%1» per activar aquest quadre. (format semblant AO-51).</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
         <source>Satellite mode used.</source>
         <translation>Mode usat de satèl·lit.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Select the satellite you are using.</source>
         <translation>Seleccioneu el satèl·lit que esteu usant.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>UpLink band.</source>
         <translation>Banda de pujada (UpLink).</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="106"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>DownLink band.</source>
         <translation>Banda de baixada (DownLink).</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="289"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="275"/>
         <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
         <translation>Localitzador de l&apos;estació DX. Aquest quadre està sincronitzat amb el quadre Localitzador de la pestanya QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="110"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>Pujada</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="114"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>Baixada</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="118"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satèl·lit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="122"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="126"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>DX Locator</source>
         <translation>Localitzador DX</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="131"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="128"/>
         <source>Other</source>
         <translation>Altres</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="136"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="140"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="133"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="137"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="299"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="285"/>
         <source>Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters.</source>
         <translation>Localitzador de l&apos;estació DX. El format hauria de ser «Maidenhead» (p. ex. IN70AA) de fins a 10 caràcters.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="434"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="418"/>
         <source>Not Sat QSO</source>
         <translation>QSO sense satèl·lit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="471"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="455"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>El KLog ha detectat un nom de satèl·lit que no reconeix. En el seu lloc, caldria usar un dels noms coneguts de satèl·lit. Seleccioneu-lo de la llista. Alternativament, contacteu amb l&apos;equip de desenvolupament per afegir el nom nou de satèl·lit.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="472"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Tingueu en compte que el nom del satèl·lit no es desarà si no és a la llista, i per tant, aquesta informació es podria perdre!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="581"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="562"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Freqüència RX en MHz.
 La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="586"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="567"/>
         <source>RX Frequency in MHz.</source>
         <translation>Freqüència de RX en MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="650"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="628"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Freqüència TX en MHz.
 La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="655"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="633"/>
         <source>TX Frequency in MHz.</source>
         <translation>Freqüència de TX en MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="97"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="435"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
         <source>Other - Sat not in the list</source>
         <translation>Altres - El satèl·lit no és a la llista</translation>
     </message>
     <message>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="96"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Les dades introduïdes en aquesta pestanya es copiaran en el QSO següent.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="472"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>El satèl·lit que hi ha al QSO és: </translation>
     </message>
@@ -4328,38 +4328,38 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <translation>Actualitzant informació dels modes en %1...</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="894"/>
+        <location filename="../awards.cpp" line="820"/>
         <source>New One, work it!</source>
         <oldsource>nNew One, work it!</oldsource>
         <translation>Un de nou, treballeu-ho!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="898"/>
-        <location filename="../awards.cpp" line="902"/>
-        <location filename="../awards.cpp" line="908"/>
-        <location filename="../awards.cpp" line="911"/>
-        <location filename="../awards.cpp" line="914"/>
-        <location filename="../awards.cpp" line="917"/>
-        <location filename="../awards.cpp" line="923"/>
-        <location filename="../awards.cpp" line="929"/>
+        <location filename="../awards.cpp" line="824"/>
+        <location filename="../awards.cpp" line="828"/>
+        <location filename="../awards.cpp" line="834"/>
+        <location filename="../awards.cpp" line="837"/>
+        <location filename="../awards.cpp" line="840"/>
+        <location filename="../awards.cpp" line="843"/>
+        <location filename="../awards.cpp" line="849"/>
+        <location filename="../awards.cpp" line="855"/>
         <source>Needed, work it!</source>
         <translation>Necessari, treballeu-ho!</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="905"/>
-        <location filename="../awards.cpp" line="920"/>
-        <location filename="../awards.cpp" line="926"/>
-        <location filename="../awards.cpp" line="932"/>
+        <location filename="../awards.cpp" line="831"/>
+        <location filename="../awards.cpp" line="846"/>
+        <location filename="../awards.cpp" line="852"/>
+        <location filename="../awards.cpp" line="858"/>
         <source>Worked but not confirmed</source>
         <translation>Treballat però no confirmat</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="935"/>
+        <location filename="../awards.cpp" line="861"/>
         <source>Confirmed</source>
         <translation>Confirmat</translation>
     </message>
     <message>
-        <location filename="../awards.cpp" line="939"/>
+        <location filename="../awards.cpp" line="865"/>
         <source>Not identified</source>
         <translation>No identificat</translation>
     </message>
@@ -5213,226 +5213,226 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
 <context>
     <name>SearchWindow</name>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
         <source>Date/Time</source>
         <translation>Data/hora</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="203"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="199"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="208"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="204"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="214"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="210"/>
         <source>QSL Sent</source>
         <translation>QSL enviada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="218"/>
-        <location filename="../searchwindow.cpp" line="316"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="214"/>
+        <location filename="../searchwindow.cpp" line="312"/>
         <source>QSL Rcvd</source>
         <translation>QSL rebuda</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
+        <location filename="../searchwindow.cpp" line="83"/>
         <source>Station Callsign</source>
         <translation>Indicatiu de l&apos;estació</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="86"/>
-        <location filename="../searchwindow.cpp" line="91"/>
-        <location filename="../searchwindow.cpp" line="197"/>
+        <location filename="../searchwindow.cpp" line="83"/>
+        <location filename="../searchwindow.cpp" line="88"/>
+        <location filename="../searchwindow.cpp" line="193"/>
         <source>Call</source>
         <translation>Trucada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="192"/>
+        <location filename="../searchwindow.cpp" line="188"/>
         <source>Date/time</source>
         <translation>Data/hora</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="224"/>
+        <location filename="../searchwindow.cpp" line="220"/>
         <source>Station callsign</source>
         <translation>Indicatiu de l&apos;estació</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="295"/>
+        <location filename="../searchwindow.cpp" line="291"/>
         <source>QSL Send</source>
         <translation>QSL enviada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="370"/>
+        <location filename="../searchwindow.cpp" line="365"/>
         <source>&amp;Delete</source>
         <translation>&amp;Suprimeix</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="371"/>
+        <location filename="../searchwindow.cpp" line="366"/>
         <source>Delete a QSO</source>
         <translation>Suprimeix un QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="374"/>
+        <location filename="../searchwindow.cpp" line="369"/>
         <source>&amp;Edit QSO</source>
         <translation>&amp;Edita QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="375"/>
+        <location filename="../searchwindow.cpp" line="370"/>
         <source>Edit this QSO</source>
         <translation>Edita aquest QSO</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="378"/>
+        <location filename="../searchwindow.cpp" line="373"/>
         <source>Via &amp;bureau</source>
         <translation>Via &amp;bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="379"/>
+        <location filename="../searchwindow.cpp" line="374"/>
         <source>Send this QSL via bureau</source>
         <translation>Envia aquesta QSL via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="382"/>
+        <location filename="../searchwindow.cpp" line="377"/>
         <source>D&amp;irect</source>
         <translation>D&amp;irecta</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="383"/>
+        <location filename="../searchwindow.cpp" line="378"/>
         <source>Send this QSL via direct</source>
         <translation>Envia aquesta QSL via directa</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="386"/>
+        <location filename="../searchwindow.cpp" line="381"/>
         <source>Via bureau</source>
         <translation>Via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="387"/>
+        <location filename="../searchwindow.cpp" line="382"/>
         <source>QSL &amp;received via bureau</source>
         <translation>QSL &amp;rebuda via bureau</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="390"/>
+        <location filename="../searchwindow.cpp" line="385"/>
         <source>Direct</source>
         <translation>Directa</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="391"/>
+        <location filename="../searchwindow.cpp" line="386"/>
         <source>QSL received via direc&amp;t</source>
         <translation>QSL rebuda via direc&amp;ta</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="394"/>
+        <location filename="../searchwindow.cpp" line="389"/>
         <source>Check in QRZ.com</source>
         <translation>Comprova a QRZ.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="395"/>
+        <location filename="../searchwindow.cpp" line="390"/>
         <source>Check this callsign in QRZ.com</source>
         <translation>Comprova aquest identificador a QRZ.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="398"/>
+        <location filename="../searchwindow.cpp" line="393"/>
         <source>Check in DXHeat.com</source>
         <translation>Comprova a DXHeat.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="399"/>
+        <location filename="../searchwindow.cpp" line="394"/>
         <source>Check this callsign in DXHeat.com</source>
         <translation>Comprova aquest identificador a DXHeat.com</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="402"/>
+        <location filename="../searchwindow.cpp" line="397"/>
         <source>&amp;Request my QSL</source>
         <translation>&amp;Sol·licita la meva QSL</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="403"/>
+        <location filename="../searchwindow.cpp" line="398"/>
         <source>Mark my QSL as requested</source>
         <translation>Marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="406"/>
+        <location filename="../searchwindow.cpp" line="401"/>
         <source>Via Direct and mark DX QSL as requested</source>
         <translation>Via directa i marca la DX QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="407"/>
+        <location filename="../searchwindow.cpp" line="402"/>
         <source>Send this QSL via direct and mark DX QSL as requested</source>
         <translation>Envia aquesta QSL via directa i marca la DX QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="410"/>
+        <location filename="../searchwindow.cpp" line="405"/>
         <source>Via Bureau and mark DX QSL as requested</source>
         <translation>Via bureau i marca la DX QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="411"/>
+        <location filename="../searchwindow.cpp" line="406"/>
         <source>Send this QSL via bureau and mark DX QSL as requested</source>
         <translation>Envia aquesta QSL via bureau i marca la DX QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="414"/>
+        <location filename="../searchwindow.cpp" line="409"/>
         <source>&amp;Request the QSL</source>
         <translation>&amp;Sol·licita la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="415"/>
+        <location filename="../searchwindow.cpp" line="410"/>
         <source>Mark the QSL as requested</source>
         <translation>Marca la QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="418"/>
+        <location filename="../searchwindow.cpp" line="413"/>
         <source>Via bureau and mark my QSL as requested</source>
         <translation>Via bureau i marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="419"/>
+        <location filename="../searchwindow.cpp" line="414"/>
         <source>QSL received via bureau and mark my QSL as requested</source>
         <translation>QSL rebuda via bureau i marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="422"/>
+        <location filename="../searchwindow.cpp" line="417"/>
         <source>Direc&amp;t and mark as my QSL requested</source>
         <translation>Direc&amp;ta i marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="423"/>
+        <location filename="../searchwindow.cpp" line="418"/>
         <source>QSL received via direct and mark my QSL as requested</source>
         <translation>QSL rebuda via directa i marca la meva QSL com a sol·licitada</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="657"/>
+        <location filename="../searchwindow.cpp" line="641"/>
         <source>Needed QSO to send the QSL</source>
         <translation>QSO necessari per enviar la QSL</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="665"/>
+        <location filename="../searchwindow.cpp" line="649"/>
         <source>My QSL requested to be sent</source>
         <translation>La meva QSL sol·licitada per enviar</translation>
     </message>
     <message>
-        <location filename="../searchwindow.cpp" line="670"/>
-        <location filename="../searchwindow.cpp" line="675"/>
+        <location filename="../searchwindow.cpp" line="654"/>
+        <location filename="../searchwindow.cpp" line="659"/>
         <source>DX QSL pending to be received</source>
         <translation>QSL del DX pendent de rebre</translation>
     </message>
@@ -5441,30 +5441,30 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
     <name>SetupDialog</name>
     <message>
         <location filename="../setupdialog.cpp" line="84"/>
-        <location filename="../setupdialog.cpp" line="265"/>
+        <location filename="../setupdialog.cpp" line="262"/>
         <source>User data</source>
         <translation>Dades de l&apos;usuari</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="85"/>
-        <location filename="../setupdialog.cpp" line="277"/>
+        <location filename="../setupdialog.cpp" line="274"/>
         <source>Bands/Modes</source>
         <translation>Bandes/modes</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="283"/>
+        <location filename="../setupdialog.cpp" line="280"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="88"/>
-        <location filename="../setupdialog.cpp" line="289"/>
+        <location filename="../setupdialog.cpp" line="286"/>
         <source>Colors</source>
         <translation>Colors</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="89"/>
-        <location filename="../setupdialog.cpp" line="295"/>
+        <location filename="../setupdialog.cpp" line="292"/>
         <source>Misc</source>
         <translation>Varis</translation>
     </message>
@@ -5474,7 +5474,7 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <translation>Editor mundial</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="335"/>
+        <location filename="../setupdialog.cpp" line="331"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Aneu a la pestanya Varis i feu clic a Mou la BD
@@ -5526,52 +5526,52 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <translation>Configuració</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="238"/>
+        <location filename="../setupdialog.cpp" line="235"/>
         <source>You need to enter at least one log in the Logs tab.</source>
         <translation>Com a mínim cal introduir un registre a la pestanya Registres.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="239"/>
+        <location filename="../setupdialog.cpp" line="236"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
         <translation>Voleu afegir un registre a la pestanya de Registres o sortir del KLog?
 (Feu clic a Sí per afegir un registre o No per a sortir del KLog)</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="334"/>
+        <location filename="../setupdialog.cpp" line="330"/>
         <source>DB has not been moved to new path.</source>
         <translation>La BD no s&apos;ha mogut al camí nou.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="344"/>
+        <location filename="../setupdialog.cpp" line="340"/>
         <source>You need to enter at least a valid callsign.</source>
         <translation>Com a mínim cal introduir un indicatiu vàlid com a mínim.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="345"/>
+        <location filename="../setupdialog.cpp" line="341"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation>Aneu a la pestanya Usuari i introduïu un indicatiu vàlid.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="358"/>
+        <location filename="../setupdialog.cpp" line="353"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
         <translation>Sereu redirigit a la pestanya Registre.
 Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="357"/>
+        <location filename="../setupdialog.cpp" line="352"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>No heu seleccionat la classe de registre que voleu.</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="91"/>
-        <location filename="../setupdialog.cpp" line="271"/>
+        <location filename="../setupdialog.cpp" line="268"/>
         <source>Logs</source>
         <translation>Registres</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="301"/>
+        <location filename="../setupdialog.cpp" line="298"/>
         <source>World</source>
         <translation>Mundial</translation>
     </message>
@@ -8508,12 +8508,12 @@ El registre no s&apos;obrirà.</translation>
         <translation>Continent</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1188"/>
+        <location filename="../world.cpp" line="1108"/>
         <source>Abort reading</source>
         <translation>Interromp la lectura</translation>
     </message>
     <message>
-        <location filename="../world.cpp" line="1188"/>
+        <location filename="../world.cpp" line="1108"/>
         <source>Reading cty.csv...</source>
         <translation>S&apos;està llegint el «cty.csv»...</translation>
     </message>

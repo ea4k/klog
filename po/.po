@@ -1933,8 +1933,8 @@ msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:44 ../mainqsoentrywidget.cpp:401
-#: ../mainqsoentrywidget.cpp:806
+#: ../mainqsoentrywidget.cpp:44 ../mainqsoentrywidget.cpp:396
+#: ../mainqsoentrywidget.cpp:786
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
 msgstr ""
@@ -1990,18 +1990,18 @@ msgctxt "MainQSOEntryWidget|"
 msgid "Real time"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:98 ../mainqsoentrywidget.cpp:981
+#: ../mainqsoentrywidget.cpp:98 ../mainqsoentrywidget.cpp:954
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
 msgstr "Znak wywoławczy"
 
-#: ../mainqsoentrywidget.cpp:801
+#: ../mainqsoentrywidget.cpp:781
 msgctxt "MainQSOEntryWidget|"
 msgid "&Modify"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:986
+#: ../mainqsoentrywidget.cpp:959
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
@@ -4080,24 +4080,24 @@ msgctxt "MainWindowMyDataTab|"
 msgid "My VUCC_GRIDS"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:92
+#: ../inputwidgets/mainwindowsattab.cpp:90
 msgctxt "MainWindowSatTab|"
 msgid "Keep this data"
 msgstr "Zachowaj te dane"
 
-#: ../inputwidgets/mainwindowsattab.cpp:97
-#: ../inputwidgets/mainwindowsattab.cpp:435
+#: ../inputwidgets/mainwindowsattab.cpp:95
+#: ../inputwidgets/mainwindowsattab.cpp:419
 msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Inne - Satelita nie jest na liście"
 
+#: ../inputwidgets/mainwindowsattab.cpp:92
 #: ../inputwidgets/mainwindowsattab.cpp:94
-#: ../inputwidgets/mainwindowsattab.cpp:96
 msgctxt "MainWindowSatTab|"
 msgid "Data entered in this tab will be copied into the next QSO."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:100
+#: ../inputwidgets/mainwindowsattab.cpp:98
 #, qt-format
 msgctxt "MainWindowSatTab|"
 msgid ""
@@ -4105,83 +4105,83 @@ msgid ""
 "(format like AO-51)."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:103
+#: ../inputwidgets/mainwindowsattab.cpp:101
 msgctxt "MainWindowSatTab|"
 msgid "Satellite mode used."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:104
+#: ../inputwidgets/mainwindowsattab.cpp:102
 msgctxt "MainWindowSatTab|"
 msgid "Select the satellite you are using."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:105
+#: ../inputwidgets/mainwindowsattab.cpp:103
 msgctxt "MainWindowSatTab|"
 msgid "UpLink band."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:106
+#: ../inputwidgets/mainwindowsattab.cpp:104
 msgctxt "MainWindowSatTab|"
 msgid "DownLink band."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:107
-#: ../inputwidgets/mainwindowsattab.cpp:289
+#: ../inputwidgets/mainwindowsattab.cpp:105
+#: ../inputwidgets/mainwindowsattab.cpp:275
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Locator of the DX station. This box is synchronized with the Locator box in "
 "the QSO tab."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:110
+#: ../inputwidgets/mainwindowsattab.cpp:108
 msgctxt "MainWindowSatTab|"
 msgid "UpLink"
 msgstr "UpLink"
 
-#: ../inputwidgets/mainwindowsattab.cpp:114
+#: ../inputwidgets/mainwindowsattab.cpp:112
 msgctxt "MainWindowSatTab|"
 msgid "DownLink"
 msgstr "DownLink"
 
-#: ../inputwidgets/mainwindowsattab.cpp:118
+#: ../inputwidgets/mainwindowsattab.cpp:116
 msgctxt "MainWindowSatTab|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../inputwidgets/mainwindowsattab.cpp:122
+#: ../inputwidgets/mainwindowsattab.cpp:120
 msgctxt "MainWindowSatTab|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../inputwidgets/mainwindowsattab.cpp:126
+#: ../inputwidgets/mainwindowsattab.cpp:124
 msgctxt "MainWindowSatTab|"
 msgid "DX Locator"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:131
+#: ../inputwidgets/mainwindowsattab.cpp:128
 msgctxt "MainWindowSatTab|"
 msgid "Other"
 msgstr "Inne"
 
-#: ../inputwidgets/mainwindowsattab.cpp:136
-#: ../inputwidgets/mainwindowsattab.cpp:140
+#: ../inputwidgets/mainwindowsattab.cpp:133
+#: ../inputwidgets/mainwindowsattab.cpp:137
 msgctxt "MainWindowSatTab|"
 msgid "MHz"
 msgstr "MHz"
 
-#: ../inputwidgets/mainwindowsattab.cpp:299
+#: ../inputwidgets/mainwindowsattab.cpp:285
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 "
 "characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:434
+#: ../inputwidgets/mainwindowsattab.cpp:418
 msgctxt "MainWindowSatTab|"
 msgid "Not Sat QSO"
 msgstr "QSO nie przez SAT"
 
-#: ../inputwidgets/mainwindowsattab.cpp:471
+#: ../inputwidgets/mainwindowsattab.cpp:455
 msgctxt "MainWindowSatTab|"
 msgid ""
 "KLog has detected a satellite name that it does not recognise. If it should "
@@ -4194,38 +4194,38 @@ msgstr ""
 "Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać do "
 "listy w kolejnych wydaniach."
 
-#: ../inputwidgets/mainwindowsattab.cpp:472
+#: ../inputwidgets/mainwindowsattab.cpp:456
 msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "Satelita w Twoim QSO to: "
 
-#: ../inputwidgets/mainwindowsattab.cpp:472
+#: ../inputwidgets/mainwindowsattab.cpp:456
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Please be aware that the satellite name will not be saved if it is not in "
 "the list, so that information may be lost!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:581
+#: ../inputwidgets/mainwindowsattab.cpp:562
 msgctxt "MainWindowSatTab|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:586
+#: ../inputwidgets/mainwindowsattab.cpp:567
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:650
+#: ../inputwidgets/mainwindowsattab.cpp:628
 msgctxt "MainWindowSatTab|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:655
+#: ../inputwidgets/mainwindowsattab.cpp:633
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr ""
@@ -4242,28 +4242,28 @@ msgctxt "OnlineMessageWidget|"
 msgid "Not identified"
 msgstr "Nie zidetyfikowany"
 
-#: ../awards.cpp:894
+#: ../awards.cpp:820
 msgctxt "QObject|"
 msgid "New One, work it!"
 msgstr "New One, work it!"
 
-#: ../awards.cpp:898 ../awards.cpp:902 ../awards.cpp:908 ../awards.cpp:911
-#: ../awards.cpp:914 ../awards.cpp:917 ../awards.cpp:923 ../awards.cpp:929
+#: ../awards.cpp:824 ../awards.cpp:828 ../awards.cpp:834 ../awards.cpp:837
+#: ../awards.cpp:840 ../awards.cpp:843 ../awards.cpp:849 ../awards.cpp:855
 msgctxt "QObject|"
 msgid "Needed, work it!"
 msgstr "Potrzebny, zrób QSO!"
 
-#: ../awards.cpp:905 ../awards.cpp:920 ../awards.cpp:926 ../awards.cpp:932
+#: ../awards.cpp:831 ../awards.cpp:846 ../awards.cpp:852 ../awards.cpp:858
 msgctxt "QObject|"
 msgid "Worked but not confirmed"
 msgstr "Zrobione, ale nie potwierdzone"
 
-#: ../awards.cpp:935
+#: ../awards.cpp:861
 msgctxt "QObject|"
 msgid "Confirmed"
 msgstr "Potwierdzone"
 
-#: ../awards.cpp:939
+#: ../awards.cpp:865
 msgctxt "QObject|"
 msgid "Not identified"
 msgstr "Nie zidetyfikowany"
@@ -5311,254 +5311,254 @@ msgctxt "SearchWidget|"
 msgid "Are you sure?"
 msgstr "Czy jesteś pewien?"
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Date/Time"
 msgstr "Data/Czas"
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91 ../searchwindow.cpp:203
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88 ../searchwindow.cpp:199
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Band"
 msgstr "Pasmo"
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91 ../searchwindow.cpp:208
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88 ../searchwindow.cpp:204
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91 ../searchwindow.cpp:214
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88 ../searchwindow.cpp:210
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL Sent"
 msgstr "QSL wysłane"
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91 ../searchwindow.cpp:218
-#: ../searchwindow.cpp:316
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88 ../searchwindow.cpp:214
+#: ../searchwindow.cpp:312
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL Rcvd"
 msgstr "QSL Otrzymane"
 
-#: ../searchwindow.cpp:86
+#: ../searchwindow.cpp:83
 msgctxt "SearchWindow|"
 msgid "Station Callsign"
 msgstr ""
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "ID"
 msgstr "ID"
 
-#: ../searchwindow.cpp:86 ../searchwindow.cpp:91 ../searchwindow.cpp:197
+#: ../searchwindow.cpp:83 ../searchwindow.cpp:88 ../searchwindow.cpp:193
 msgctxt "SearchWindow|"
 msgid "Call"
 msgstr ""
 
-#: ../searchwindow.cpp:192
+#: ../searchwindow.cpp:188
 msgctxt "SearchWindow|"
 msgid "Date/time"
 msgstr ""
 
-#: ../searchwindow.cpp:224
+#: ../searchwindow.cpp:220
 msgctxt "SearchWindow|"
 msgid "Station callsign"
 msgstr ""
 
-#: ../searchwindow.cpp:295
+#: ../searchwindow.cpp:291
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL Send"
 msgstr "QSL wysłane"
 
-#: ../searchwindow.cpp:370
+#: ../searchwindow.cpp:365
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Delete"
 msgstr "&Delete"
 
-#: ../searchwindow.cpp:371
+#: ../searchwindow.cpp:366
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Delete a QSO"
 msgstr "Usuń QSO"
 
-#: ../searchwindow.cpp:374
+#: ../searchwindow.cpp:369
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Edit QSO"
 msgstr "&Edit QSO"
 
-#: ../searchwindow.cpp:375
+#: ../searchwindow.cpp:370
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Edit this QSO"
 msgstr "Edytuj QSO"
 
-#: ../searchwindow.cpp:378
+#: ../searchwindow.cpp:373
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via &bureau"
 msgstr "Via &bureau"
 
-#: ../searchwindow.cpp:379
+#: ../searchwindow.cpp:374
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Wyśłij QSL przez biuro"
 
-#: ../searchwindow.cpp:382
+#: ../searchwindow.cpp:377
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "D&irect"
 msgstr "D&irect"
 
-#: ../searchwindow.cpp:383
+#: ../searchwindow.cpp:378
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct"
 msgstr "Wyślij QSL direktem"
 
-#: ../searchwindow.cpp:386
+#: ../searchwindow.cpp:381
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via bureau"
 msgstr "Przez biuro"
 
-#: ../searchwindow.cpp:387
+#: ../searchwindow.cpp:382
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &received via bureau"
 
-#: ../searchwindow.cpp:390
+#: ../searchwindow.cpp:385
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../searchwindow.cpp:391
+#: ../searchwindow.cpp:386
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL odebrane przez direct&t"
 
-#: ../searchwindow.cpp:394
+#: ../searchwindow.cpp:389
 msgctxt "SearchWindow|"
 msgid "Check in QRZ.com"
 msgstr ""
 
-#: ../searchwindow.cpp:395
+#: ../searchwindow.cpp:390
 msgctxt "SearchWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr ""
 
-#: ../searchwindow.cpp:398
+#: ../searchwindow.cpp:393
 msgctxt "SearchWindow|"
 msgid "Check in DXHeat.com"
 msgstr ""
 
-#: ../searchwindow.cpp:399
+#: ../searchwindow.cpp:394
 msgctxt "SearchWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr ""
 
-#: ../searchwindow.cpp:402
+#: ../searchwindow.cpp:397
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Request my QSL"
 msgstr "&Request my QSL"
 
-#: ../searchwindow.cpp:403
+#: ../searchwindow.cpp:398
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mark my QSL as requested"
 msgstr "Zaznacz moje QSL jako oczekiwane"
 
-#: ../searchwindow.cpp:406
+#: ../searchwindow.cpp:401
 msgctxt "SearchWindow|"
 msgid "Via Direct and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:407
+#: ../searchwindow.cpp:402
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:410
+#: ../searchwindow.cpp:405
 msgctxt "SearchWindow|"
 msgid "Via Bureau and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:411
+#: ../searchwindow.cpp:406
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:414
+#: ../searchwindow.cpp:409
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Request the QSL"
 msgstr "&Request the QSL"
 
-#: ../searchwindow.cpp:415
+#: ../searchwindow.cpp:410
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mark the QSL as requested"
 msgstr "Zaznacz to QSL jako oczekiwane"
 
-#: ../searchwindow.cpp:418
+#: ../searchwindow.cpp:413
 msgctxt "SearchWindow|"
 msgid "Via bureau and mark my QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:419
+#: ../searchwindow.cpp:414
 msgctxt "SearchWindow|"
 msgid "QSL received via bureau and mark my QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:422
+#: ../searchwindow.cpp:417
 msgctxt "SearchWindow|"
 msgid "Direc&t and mark as my QSL requested"
 msgstr ""
 
-#: ../searchwindow.cpp:423
+#: ../searchwindow.cpp:418
 msgctxt "SearchWindow|"
 msgid "QSL received via direct and mark my QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:657
+#: ../searchwindow.cpp:641
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Needed QSO to send the QSL"
 msgstr "QSO wymagne aby wysłać QSL"
 
-#: ../searchwindow.cpp:665
+#: ../searchwindow.cpp:649
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "My QSL requested to be sent"
 msgstr "Moje QSL jako oczekiwane"
 
-#: ../searchwindow.cpp:670 ../searchwindow.cpp:675
+#: ../searchwindow.cpp:654 ../searchwindow.cpp:659
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "DX QSL pending to be received"
 msgstr "DX QSL jako oczekjące"
 
-#: ../setupdialog.cpp:85 ../setupdialog.cpp:277
+#: ../setupdialog.cpp:85 ../setupdialog.cpp:274
 msgctxt "SetupDialog|"
 msgid "Bands/Modes"
 msgstr "Pasma/Emisje"
 
-#: ../setupdialog.cpp:283
+#: ../setupdialog.cpp:280
 msgctxt "SetupDialog|"
 msgid "DX-Cluster"
 msgstr "DX-Klaster"
 
-#: ../setupdialog.cpp:88 ../setupdialog.cpp:289
+#: ../setupdialog.cpp:88 ../setupdialog.cpp:286
 msgctxt "SetupDialog|"
 msgid "Colors"
 msgstr "Kolory"
@@ -5568,7 +5568,7 @@ msgctxt "SetupDialog|"
 msgid "Log widget"
 msgstr ""
 
-#: ../setupdialog.cpp:89 ../setupdialog.cpp:295
+#: ../setupdialog.cpp:89 ../setupdialog.cpp:292
 msgctxt "SetupDialog|"
 msgid "Misc"
 msgstr "Inne"
@@ -5578,7 +5578,7 @@ msgctxt "SetupDialog|"
 msgid "World Editor"
 msgstr "Edycja Znaków"
 
-#: ../setupdialog.cpp:91 ../setupdialog.cpp:271
+#: ../setupdialog.cpp:91 ../setupdialog.cpp:268
 msgctxt "SetupDialog|"
 msgid "Logs"
 msgstr "Logi"
@@ -5593,19 +5593,19 @@ msgctxt "SetupDialog|"
 msgid "HamLib"
 msgstr ""
 
-#: ../setupdialog.cpp:239
+#: ../setupdialog.cpp:236
 msgctxt "SetupDialog|"
 msgid ""
 "Do you want to add one log in the Logs tab or exit KLog?\n"
 "(Click Yes to add a log or No to exit KLog)"
 msgstr ""
 
-#: ../setupdialog.cpp:334
+#: ../setupdialog.cpp:330
 msgctxt "SetupDialog|"
 msgid "DB has not been moved to new path."
 msgstr ""
 
-#: ../setupdialog.cpp:335
+#: ../setupdialog.cpp:331
 msgctxt "SetupDialog|"
 msgid ""
 "Go to the Misc tab and click on Move DB\n"
@@ -5622,7 +5622,7 @@ msgctxt "SetupDialog|"
 msgid "OK"
 msgstr "OK"
 
-#: ../setupdialog.cpp:84 ../setupdialog.cpp:265
+#: ../setupdialog.cpp:84 ../setupdialog.cpp:262
 msgctxt "SetupDialog|"
 msgid "User data"
 msgstr "Dane użytkownika"
@@ -5632,7 +5632,7 @@ msgctxt "SetupDialog|"
 msgid "D&X-Cluster"
 msgstr "D&X-Cluster"
 
-#: ../setupdialog.cpp:358
+#: ../setupdialog.cpp:353
 msgctxt "SetupDialog|"
 msgid ""
 "You will be redirected to the Log tab.\n"
@@ -5641,7 +5641,7 @@ msgstr ""
 "Zstaniesz przekierowany do zakłdki Log.\n"
 "Proszę wybrać z którego logu chcesz obecnie korzystać."
 
-#: ../setupdialog.cpp:301
+#: ../setupdialog.cpp:298
 msgctxt "SetupDialog|"
 msgid "World"
 msgstr "Świat"
@@ -5661,22 +5661,22 @@ msgctxt "SetupDialog|"
 msgid "Settings"
 msgstr ""
 
-#: ../setupdialog.cpp:238
+#: ../setupdialog.cpp:235
 msgctxt "SetupDialog|"
 msgid "You need to enter at least one log in the Logs tab."
 msgstr "Wymagane jest abyś dodał przynajmniej jeden Log w zakładce Log."
 
-#: ../setupdialog.cpp:344
+#: ../setupdialog.cpp:340
 msgctxt "SetupDialog|"
 msgid "You need to enter at least a valid callsign."
 msgstr ""
 
-#: ../setupdialog.cpp:345
+#: ../setupdialog.cpp:341
 msgctxt "SetupDialog|"
 msgid "Go to the User tab and enter valid callsign."
 msgstr ""
 
-#: ../setupdialog.cpp:357
+#: ../setupdialog.cpp:352
 msgctxt "SetupDialog|"
 msgid "You have not selected the kind of log you want."
 msgstr "Nie zanaczono żadnego logu."
@@ -8706,12 +8706,12 @@ msgctxt "World|"
 msgid "Continent"
 msgstr "Kontynent"
 
-#: ../world.cpp:1188
+#: ../world.cpp:1108
 msgctxt "World|"
 msgid "Reading cty.csv..."
 msgstr "Wczytywanie cty.csv..."
 
-#: ../world.cpp:1188
+#: ../world.cpp:1108
 msgctxt "World|"
 msgid "Abort reading"
 msgstr "Przerwij wczytywanie"
