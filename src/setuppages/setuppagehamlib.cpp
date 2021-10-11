@@ -27,62 +27,46 @@
 
 SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-      //qDebug() << "SetupPageHamLib::SetupPageHamLib" << QT_ENDL;
-    ready = false;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
     hamlibTestOK = false;
+    //qDebug() << Q_FUNC_INFO << ": 01" << QT_ENDL;
     hamlib = new HamLibClass();
+    //qDebug() << Q_FUNC_INFO << ": 02" << QT_ENDL;
     activateHamlibCheckBox = new QCheckBox();
     readOnlyModeCheckBox = new QCheckBox();
     rigTypeComboBox = new QComboBox();
     pollIntervalQSpinBox = new QSpinBox();
     serialBaudsComboBox = new QComboBox();
     serialPortComboBox = new QComboBox();
-
     dataBitsComboBox = new QComboBox();
     flowControlComboBox = new QComboBox();
     parityComboBox = new QComboBox();
     stopBitsComboBox = new QComboBox();
     hostAddressLineEdit = new QLineEdit();
-
     portQSpinBox = new QSpinBox;
-
     serialGroup = new QGroupBox;
     networkGroup = new QGroupBox;
-
-    //RTSCheckBox = new QCheckBox();
-    //DTRCheckBox = new QCheckBox();
 
     scanSerialPortButton = new QPushButton();
     testHamlibPushButton = new QPushButton();
 
-    //serialBaudsSpinBox = new QSpinBox;
-
     serialPort = new QLineEdit;
 
-   strings.clear();
-   //strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
-    pollMax = 5000;
-    pollMin = 10;
-    rigctlport = 4532;
-    networkRadio = false;
-    connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
-    connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
-
-
-    connect(rigTypeComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
-
+    //qDebug() << Q_FUNC_INFO << ": 07" << QT_ENDL;
     createUI();
+    //qDebug() << Q_FUNC_INFO << ": 08" << QT_ENDL;
     setDefaults();
-    ready = true;
+    //qDebug() << Q_FUNC_INFO << ": 10" << QT_ENDL;
     slotTestHamlib();
-    //qDebug() << "SetupPageHamLib::SetupPageHamLib END" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
 void SetupPageHamLib::slotTestHamlib()
 {
-    QPalette pal = testHamlibPushButton->palette();
     //qDebug() << Q_FUNC_INFO;
-    hamlib->stop ();
+    QPalette pal = testHamlibPushButton->palette();
+
+    //hamlib->stop ();
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
         hamlib->setNetworkPort (portQSpinBox->value ());
@@ -91,35 +75,37 @@ void SetupPageHamLib::slotTestHamlib()
     else
     {
         hamlib->setPort (serialPortComboBox->currentText());
-        hamlib->setSpeed (serialBaudsComboBox->currentText ());
+        hamlib->setSpeed ((serialBaudsComboBox->currentText()).toInt());
         hamlib->setParity(getParity ());
         hamlib->setFlow(getFlowControl ());
+        //qDebug() << Q_FUNC_INFO << ": StopBits: " << QString::number(getStopBits());
         hamlib->setStop(getStopBits ());
-        hamlib->setData(getDataBits ());
+        //qDebug() << Q_FUNC_INFO << " - 50";
+        hamlib->setDataBits(getDataBits ());
+        //qDebug() << Q_FUNC_INFO << " - 51";
     }
 
     hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
     hamlib->setPoll (2000);
 
 
-   if (hamlib->init (true))
+   if (hamlib->init(true))
    {
        //qDebug() << Q_FUNC_INFO << " - Tested OK";
        testHamlibPushButton->setText (tr("Test: OK"));
        pal.setColor(QPalette::Button, QColor(Qt::green));
-
+       hamlib->stop();
    }
    else
    {
        //qDebug() << Q_FUNC_INFO << " - Tested NOK";
        testHamlibPushButton->setText (tr("Test: NOK"));
        pal.setColor(QPalette::Button, QColor(Qt::red));
-
    }
-   //hamlib->stop ();
-   //testHamlibPushButton->setAutoFillBackground(true);
+
    testHamlibPushButton->setPalette(pal);
    testHamlibPushButton->update();
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageHamLib::fillSerialPortsComboBox()
@@ -180,7 +166,6 @@ void SetupPageHamLib::createUI()
     portQSpinBox->setMaximum (65535);
     portQSpinBox->setMinimum (0);
     portQSpinBox->setValue (rigctlport);
-
 
     rigTypeComboBox->clear();
     strings.clear();
@@ -270,7 +255,8 @@ void SetupPageHamLib::createUI()
 
     //qDebug() << Q_FUNC_INFO << " - 90";
     strings.clear();
-    strings << tr("1 bit") << tr("1.5 bits") << tr("2 bits");
+    //strings << tr("1 bit") << tr("1.5 bits") << tr("2 bits");
+    strings << tr("Default") << tr("1 bit") << tr("2 bits");
     stopBitsComboBox->addItems(strings);
     QLabel *stopBitsLabel = new QLabel(tr("Stop bits"));
     stopBitsLabel->setBuddy(stopBitsComboBox);
@@ -335,50 +321,26 @@ void SetupPageHamLib::createUI()
 
     //qDebug() << Q_FUNC_INFO << " - 199";
     setLayout(mLayout);
+
+    connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
+    connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
+    connect(rigTypeComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageHamLib::setRig()
 {
-   //qDebug()() << "SetupPageHamLib::SetRig" << QT_ENDL;
-  // Rutine to fill the rig combo boxes
-  // Do not display debug codes when load the rig's
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    // Rutine to fill the rig combo boxes
+    // Do not display debug codes when load the rig's
     QStringList rigs;
     rigs.clear();
     rigs << hamlib->getRigList();
-   //qDebug()() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - rigs: " << QString::number(rigs.length())<< QT_ENDL;
     rigTypeComboBox->clear();
     rigTypeComboBox->addItems(rigs);
-    //qDebug() << "SetupPageHamLib::SetRig - rigs: " << QString::number(rigs.length()) << QT_ENDL;
-    //rigTypeComboBox->insertItems(0, rigs);
-/*
-    rig_set_debug (RIG_DEBUG_NONE);
-
-  // and continue...
-  rig_load_all_backends ();
-  rig_list_foreach (addRigToList, this);
-  strings.sort ();
-  rigTypeComboBox->insertItems (0, strings);
-  strings.clear ();
-  */
-   //qDebug()() << "SetupPageHamLib::SetRig - END" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
-/*
-int SetupPageHamLib::addRigToList (const struct rig_caps *caps, void *data)
-{
-      //qDebug() << "SetupPageHamLib::addRigToList" << QT_ENDL;
-  QString name;
-  SetupPageHamLib *r = (SetupPageHamLib *) data;
-  name = caps->model_name;
-    //qDebug() << "SetupPageHamLib::addRigToList: " << name << QT_ENDL;
-  //if (name == "Dummy")
-  //  name = "None";
-  //r->rigname2rigid[name] = caps->rig_model;
-  //r->rigid2rigname[caps->rig_model] = name;
-  r->strings << name;
-  return -1;                    // not 0 --> we want all rigs
-}
-*/
 
 QStringList SetupPageHamLib::getAvailableSerialPorts()
 {
@@ -391,12 +353,19 @@ QStringList SetupPageHamLib::getAvailableSerialPorts()
         st << info.systemLocation();
     }
     return st;
-
 }
 
 void SetupPageHamLib::setDefaults()
 {
     //qDebug() << Q_FUNC_INFO;
+    hamlib->initClass();
+    strings.clear();
+    //strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
+    pollMax = 5000;
+    pollMin = 10;
+    rigctlport = 4532;
+    networkRadio = false;
+
     rigTypeComboBox->setCurrentIndex(0);
     serialPortComboBox->setCurrentIndex(0);
     serialBaudsComboBox->setCurrentIndex(0);
@@ -427,10 +396,6 @@ QString SetupPageHamLib::getData()
     {
         _output = _output + "Hamlib=True;\n";
     }
-    else
-    {
-
-    }
 
     if (readOnlyModeCheckBox->isChecked())
     {
@@ -445,8 +410,10 @@ QString SetupPageHamLib::getData()
     _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value()) + ";\n";
     _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
     _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
-    _output = _output + getDataBits() + ";\n";
-    _output = _output + getStopBits() + ";\n";
+    _output = _output + "HamLibSerialDataBits=" + QString::number(getDataBits()) + ";\n";
+    _output = _output + "HamLibSerialStopBits=" + QString::number(getStopBits()) + ";\n";
+
+    //_output = _output + getStopBits() + ";\n";
     _output = _output + getFlowControl() + ";\n";
     _output = _output + getParity() + ";\n";
 
@@ -491,9 +458,9 @@ bool SetupPageHamLib::setSerialPort(const QString &_port)
     return false;
 }
 
-bool SetupPageHamLib::setSerialSpeed(const QString &_speed )
+bool SetupPageHamLib::setSerialSpeed(const int _speed )
 {
-    int _index = serialBaudsComboBox->findText(_speed, Qt::MatchFlag::MatchExactly);
+    int _index = serialBaudsComboBox->findText(QString::number(_speed), Qt::MatchFlag::MatchExactly);
     if (_index >= 0)
     {
         serialBaudsComboBox->setCurrentIndex(_index);
@@ -514,7 +481,8 @@ void SetupPageHamLib::setActive(const QString &_active)
     {
         activateHamlibCheckBox->setChecked(true);
     }
-    else {
+    else
+    {
        activateHamlibCheckBox->setChecked(false);
     }
 }
@@ -525,7 +493,8 @@ void SetupPageHamLib::setReadOnly(const QString &_m)
     {
         readOnlyModeCheckBox->setChecked(true);
     }
-    else {
+    else
+    {
         readOnlyModeCheckBox->setChecked(false);
     }
 }
@@ -537,50 +506,41 @@ void SetupPageHamLib::slotScanPorts()
 }
 
 //DataBits { Data5, Data6, Data7, Data8, UnknownDataBits }
-QString SetupPageHamLib::getDataBits()
+int SetupPageHamLib::getDataBits()
 {
       //qDebug() << "SetupPageHamLib::getDataBits"  << QT_ENDL;
-    int ret = dataBitsComboBox->currentIndex();
-    QString output;
-    output = "HamLibSerialDataBits=";
-    switch (ret)
-    {
-        case 0:
-            output = output + "5";
-              //qDebug() << "SetupPageHamLib::getDataBits-0-5"  << QT_ENDL;
-        break;
-        case 1:
-            output = output + "6";
-              //qDebug() << "SetupPageHamLib::getDataBits-1-6"  << QT_ENDL;
-        break;
-        case 2:
-            output = output + "7";
-        break;
-              //qDebug() << "SetupPageHamLib::getDataBits-2-7"  << QT_ENDL;
-        case 3:
-            output = output + "8";
-              //qDebug() << "SetupPageHamLib::getDataBits-3-8"  << QT_ENDL;
-        break;
-        default:
-        // should never be reached
-              //qDebug() << "SetupPageHamLib::getDataBits-d-8"  << QT_ENDL;
-            output = output + "8";
-        break;
-    }
-    return output;
+    return dataBitsComboBox->currentText ().toInt ();
 }
 
-void SetupPageHamLib::setDataBits(const QString &_st)
+void SetupPageHamLib::setDataBits(const int _st)
 {
-    if (_st == "5")
+    switch (_st)
+    {
+        case 5:
+            dataBitsComboBox->setCurrentIndex(0);
+        break;
+        case 6:
+            dataBitsComboBox->setCurrentIndex(1);
+            break;
+        case 7:
+            dataBitsComboBox->setCurrentIndex(2);
+            break;
+        default:
+        // should never be reached
+            dataBitsComboBox->setCurrentIndex(3);
+        break;
+    }
+
+   /*
+    if (_st == 5)
     {
         dataBitsComboBox->setCurrentIndex(0);
     }
-    else if (_st == "6")
+    else if (_st == 6)
     {
         dataBitsComboBox->setCurrentIndex(1);
     }
-    else if (_st == "7")
+    else if (_st == 7)
     {
         dataBitsComboBox->setCurrentIndex(2);
     }
@@ -588,6 +548,7 @@ void SetupPageHamLib::setDataBits(const QString &_st)
     {
         dataBitsComboBox->setCurrentIndex(3);
     }
+    */
 }
 
 //FlowControl { NoFlowControl, HardwareControl, SoftwareControl, UnknownFlowControl }
@@ -688,46 +649,43 @@ void SetupPageHamLib::setParity(const QString &_st)
 
 //StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 
-QString SetupPageHamLib::getStopBits()
+int SetupPageHamLib::getStopBits()
 {
     int ret = stopBitsComboBox->currentIndex();
-    QString output;
-    output = "HamLibSerialStopBits=";
     switch (ret)
     {
         case 0:
-            output = output + "1";
+            return 0;
         break;
         case 1:
-            output = output + "1.5";
+            return 1;
             break;
         case 2:
-            output = output + "2";
+            return 2;
             break;
-
         default:
         // should never be reached
-            output = output + "1";
+            return 2;
         break;
     }
-    return output;
 }
+
 void SetupPageHamLib::setStopBits(const QString &_st)
 {
-    if (_st == "1.5")
-    {
-
-        stopBitsComboBox->setCurrentIndex(1);
-    }
-    else if (_st == "2")
-    {
-        stopBitsComboBox->setCurrentIndex(2);
-    }
-    else
+    if (_st == "Default")
     {
         stopBitsComboBox->setCurrentIndex(0);
     }
+    else if (_st == "1")
+    {
+        stopBitsComboBox->setCurrentIndex(1);
+    }
+    else
+    {
+        stopBitsComboBox->setCurrentIndex(2);
+    }
 }
+
 void SetupPageHamLib::setPollingInterval(const int _msecs)
 {
     if ((_msecs>=pollMin) && (_msecs<=pollMax))
@@ -742,7 +700,6 @@ void SetupPageHamLib::setRadioNetworkAddress(const QString &_m)
     {
         hostAddressLineEdit->setText (_m);
     }
-
 }
 
 void SetupPageHamLib::setRadioNetworkPort(const int _p)

@@ -43,11 +43,11 @@ public:
     bool setRigType(const QString &_radio);
     void setPollingInterval(const int _msecs);
     bool setSerialPort(const QString &_port);
-    bool setSerialSpeed(const QString &_speed );
+    bool setSerialSpeed(const int _speed );
     void setActive(const QString &_active);
     //void setRTS(const QString &_state);
     //void setDTR(const QString &_state);
-    void setDataBits(const QString &_st);
+    void setDataBits(const int _st);
     void setFlowControl(const QString &_st);
     void setParity(const QString &_st);
     void setStopBits(const QString &_st);
@@ -55,7 +55,6 @@ public:
     void setReadOnly(const QString &_m);
     void setRadioNetworkAddress(const QString &_m);
     void setRadioNetworkPort(const int _p);
-
 
 signals:
 
@@ -72,10 +71,10 @@ private:
     //static int addRigToList(const struct rig_caps* caps, void* data);
     QStringList getAvailableSerialPorts();
 
-    QString getDataBits();
+    int getDataBits();
     QString getFlowControl();
     QString getParity();
-    QString getStopBits();
+    int getStopBits();
     QString getPollInterval();
     QString getNetworkSettings();
 
@@ -96,16 +95,11 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
     QSpinBox *pollIntervalQSpinBox, *portQSpinBox;
     int pollMin, pollMax, rigctlport;
 
-
     HamLibClass *hamlib;
-
-    //RIG *my_rig;            // handle to rig (instance)
-    //freq_t freq;
-    //rig_model_t myrig_model;
 
     QStringList strings, serialPorts;
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
-    bool networkRadio, ready, hamlibTestOK;
+    bool networkRadio, hamlibTestOK;
 
     QGroupBox *serialGroup, *networkGroup;
 

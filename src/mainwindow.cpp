@@ -39,8 +39,7 @@
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-   //qDebug() << "MainWindow::MainWindow: "<<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    //qDebug() << "MainWindow::MainWindow: Con func: "<<  Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     g_callsignCheck  = true;
     showKLogLogWidget = new ShowKLogLogWidget;
     softwareVersion = tversion;
@@ -58,7 +57,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     QString debugName = util->getDebugLogFile();
-     //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << QT_ENDL;
+    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << QT_ENDL;
     debugFile = new QFile(debugName);
 
 
@@ -81,15 +80,15 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //QTime start;
     //start = QTime::currentTime();
-    //qDebug() << "MainWindow::MainWindow: "<< QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-     //qDebug() << "MainWindow::MainWindow: BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     hamlib = new HamLibClass();
     //pstRotator = new PSTRotatorSupport(this);
     //rotatorWidget = new RotatorWidget;
-     //qDebug() << "MainWindow::MainWindow: AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
 
@@ -97,41 +96,37 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
 
-     //qDebug() << "MainWindow::MainWindow: Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
-     //qDebug() << "MainWindow::MainWindow: After DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-     //qDebug() << "MainWindow::MainWindow: 00081" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": After DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     elogClublog = new eLogClubLog();
-    //qDebug() << "MainWindow::MainWindow: 00082" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 00082: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
 
-    //qDebug() << "MainWindow::MainWindow: 00083" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 00083: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     updateSatsData = new UpdateSatsData(dataProxy);
-    //qDebug() << "MainWindow::MainWindow: 00084" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 00084: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     statsWidget = new StatisticsWidget(dataProxy);
-
-     //qDebug() << "MainWindow::MainWindow: 00085" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    //statsWidget->show();
-
+    //qDebug() << Q_FUNC_INFO << ": 00085: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
      //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     logWindow = new LogWindow(dataProxy, this);
-    //qDebug() << "MainWindow::MainWindow: 00087" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 00087: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     searchWidget = new SearchWidget(dataProxy, this);
-    //qDebug() << "MainWindow::MainWindow: 00087.1" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 00087.1: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //advancedSearchWidget = new AdvancedSearchWidget(dataProxy, this);
     //qDebug() << "MainWindow::MainWindow: 00087.2" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     infoWidget = new InfoWidget(dataProxy, this);
 
-     //qDebug() << "MainWindow::MainWindow: 00088" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Creating AwardsWidget", Debug);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
-     //qDebug() << "MainWindow::MainWindow: 0009" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
@@ -151,13 +146,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
         }
     }
 
-   //qDebug() << "MainWindow::MainWindow: 4 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 40: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
-   //qDebug() << "MainWindow::MainWindow: xx " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
-   //qDebug() << "MainWindow::MainWindow: satTabWidget to be created " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
 
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
@@ -168,31 +163,24 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
 
-   //qDebug() << "MainWindow::MainWindow: locator to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << ": locator to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     locator = new Locator();
 
     mainWidget = new QWidget(this);
     setCentralWidget(mainWidget);
-   //qDebug() << "MainWindow::MainWindow: 8 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << ": 8 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
     // UI DX
-    //previousQRZ = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
     loggWinAct = new QAction(tr("&Log Window"), this);
 
-    //operatorLineEdit = new QLineEdit;
-    //stationCallSignLineEdit = new QLineEdit;
-    //txFreqSpinBox = new QDoubleSpinBox;
-    //rxFreqSpinBox = new QDoubleSpinBox;
-
-
-    //qDebug() << "MainWindow::MainWindow: dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    //qDebug() << "MainWindow::MainWindow: Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    //qDebug() << "MainWindow::MainWindow: Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     // </UI>
 
 
@@ -201,26 +189,23 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
        exit(0);
     }
 
-
-   //qDebug() << "MainWindow::MainWindow: Software update to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     softUpdate = new SoftwareUpdate(softwareVersion);
-   //qDebug() << "MainWindow::MainWindow: FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-   //qDebug() << "MainWindow::MainWindow: FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
     lotwCallTQSL = new QAction(tr("Upload the queued QSOs to LoTW"), this);
-   //qDebug() << "MainWindow::MainWindow: AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
-   //qDebug() << "MainWindow::MainWindow: ShowAdifImportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": ShowAdifImportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
 
-
-    //lotwUtilities->download();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 
 
-    //qDebug() << "MainWindow::MainWindow: END " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": END " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 }
 
 MainWindow::~MainWindow()
@@ -281,6 +266,7 @@ void MainWindow::init()
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logEvents = true;
     debugFileOpen = false;
+    hamlib->initClass();
     util->setCallValidation (true);
     infoLabel1T = QString();
     infoLabel2T = QString();
@@ -4727,6 +4713,7 @@ bool MainWindow::setHamlib(const bool _b)
     {
         //qDebug() << Q_FUNC_INFO << ": Hamlib active";
         hamlib->init(true);
+        //qDebug() << Q_FUNC_INFO << ": After Hamlib active";
         return hamlib->readRadio(true); // Forcing the radio update
     }
     else
@@ -5228,15 +5215,15 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if (field == "HAMLIBSERIALBAUDS")
     {
                 //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
-        hamlib->setSpeed(value);
+        hamlib->setSpeed(value.toInt());
                 //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
     }else if(field =="HAMLIBSERIALDATABITS"){
-             //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
-        hamlib->setData(value);
-             //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
+        hamlib->setDataBits(value.toInt());
+        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
     }else if(field =="HAMLIBSERIALSTOPBITS"){
              //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << QT_ENDL;
-        hamlib->setStop(value);
+        hamlib->setStop(value.toInt ());
              //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << QT_ENDL;
     }else if(field =="HAMLIBSERIALFLOWCONTROL"){
              //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << QT_ENDL;
@@ -5475,7 +5462,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     //}
 
     // Lines are: Option = value;
-    //qDebug() << "MainWindow::processConfigLine: END" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << "(" << field << "/" << value << ")" << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     return true;
 }

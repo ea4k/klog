@@ -61,11 +61,11 @@ public:
     void setPort(const QString &_port);
     void setPoll(const int _milsecs);
 
-    void setData(const QString &_data);
-    void setStop(const QString &_stop);
+    void setDataBits(const int data);
+    void setStop(const int _stop);
     void setFlow(const QString &_flow);
     void setParity(const QString &_parity);
-    void setSpeed(const QString &_speed);
+    void setSpeed(const int _speed);
     void setRTS(const QString &_state);
     void setDTR(const QString &_state);
 
@@ -82,6 +82,7 @@ public:
     bool stop();
     bool readRadio(bool _forceRead);
     bool isRunning();
+    void initClass();
     void clean();
     void checkErrorCountAndStop();
 
@@ -114,7 +115,6 @@ private:
     serial_handshake_e shandshake;
     serial_control_state_e srts, sdtr;
 
-
     int retcode;                // generic return code from functions
 
     rig_model_t myrig_model;    // Integer radio model
@@ -122,8 +122,8 @@ private:
 
 
     pbwidth_t width;
-    vfo_t vfo;              /* vfo selection */
-    int strength;           /* S-Meter level */
+    //vfo_t vfo;              /* vfo selection */
+    //int strength;           /* S-Meter level */
 
 
 
@@ -140,6 +140,7 @@ private:
     bool rigLaunched;
     bool readOnlyMode;          // If true, KLog will not modify any parameter (freq/mode...) in the radio. KLog just will follow the radio.
     bool justEmitted;
+    bool reading;   // Just a semaphore to prevent several readings
     //bool active;
 
     //QSerialPort *m_serial;
