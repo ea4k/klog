@@ -3358,12 +3358,12 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    //qDebug()<< "MainWindow::slotQRZTextChanged: " << _qrz << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": " << _qrz << QT_ENDL;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
-        //qDebug()<< "MainWindow::slotQRZTextChanged: Empty... " << QT_ENDL;
+       qDebug()<< Q_FUNC_INFO << ": Empty... " << QT_ENDL;
         infoLabel1->clear();
         infoLabel2->clear();
         //qDebug() << Q_FUNC_INFO;
@@ -3371,11 +3371,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-    //qDebug()<< "MainWindow::slotQRZTextChanged: cursor position: " << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": cursor position: " << QT_ENDL;
 
     if (cleaning)
     {
-        //qDebug()<< "MainWindow::slotQRZTextChanged: Cleaning" << QT_ENDL;
+        qDebug()<< Q_FUNC_INFO << ": Cleaning" << QT_ENDL;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
@@ -3385,17 +3385,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
 
-    //qDebug()<< "MainWindow::slotQRZTextChanged: checking for modify or length<1" << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": checking for modify or length<1" << QT_ENDL;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-        //qDebug() << "MainWindow::slotQRZTextChanged: MODIFY or Lenght < 1" << QT_ENDL;
+        qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" << QT_ENDL;
         qrzSmallModDontCalculate=false;
         logEvent(Q_FUNC_INFO, "END-6", logSeverity);
         return;
     }
 
-    //qDebug()<< "MainWindow::slotQRZTextChanged: running ..." << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": running ..." << QT_ENDL;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -3403,9 +3403,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
     //cleanQRZCOMreceivedDataFromUI();
-    //qDebug() << "MainWindow::slotQRZTextChanged: currentQRZ: " <<_qrz << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
-    //qDebug() << "MainWindow::slotQRZTextChanged: pref: " << pref << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
 
     if (pref.length ()>0)
     {
@@ -3419,17 +3419,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
     //currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
-    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
     othersTabWidget->setEntity(currentEntity);
 
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
     dx_ITUz = world->getQRZItuz(_qrz);
     dxE_ITUz = world->getEntityItuz(currentEntity);
-    //qDebug()<< "MainWindow::slotQRZTextChanged: CQ: " << QString::number(dx_CQz) << QT_ENDL;
-    //qDebug()<< "MainWindow::slotQRZTextChanged: CQe: " << QString::number(dxE_CQz) << QT_ENDL;
-    //qDebug()<< "MainWindow::slotQRZTextChanged: ITU: " << QString::number(dx_ITUz) << QT_ENDL;
-    //qDebug()<< "MainWindow::slotQRZTextChanged: ITUe: " << QString::number(dxE_ITUz) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": CQ: " << QString::number(dx_CQz) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": CQe: " << QString::number(dxE_CQz) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": ITU: " << QString::number(dx_ITUz) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": ITUe: " << QString::number(dxE_ITUz) << QT_ENDL;
 
     if (dx_CQz == dxE_CQz)
     {
@@ -3444,7 +3444,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
-    //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity: " << QString::number(currentEntity) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
@@ -3454,36 +3454,36 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         dxLocator = world->getLocator(currentEntity);
     }
 
-    //qDebug() << "MainWindow::slotQRZTextChanged: Going to check the DXCC" << QT_ENDL;
-    //qDebug() << "MainWindow::slotQRZTextChanged: - current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << QT_ENDL;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
-            //qDebug() << "MainWindow::slotQRZTextChanged: currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << QT_ENDL;
+            qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << QT_ENDL;
             previousEntity = currentEntity;
             InValidCharsInPrevCall = false;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-             //qDebug() << "MainWindow:: - calling showStatusOfDXCC-03 " << QT_ENDL;
+            qDebug()<< Q_FUNC_INFO << ": calling showStatusOfDXCC-03 " << QT_ENDL;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
-            //qDebug() << "MainWindow::slotQRZTextChanged: 000" << QT_ENDL;
+            qDebug()<< Q_FUNC_INFO << ": 000" << QT_ENDL;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
-           //qDebug() << "MainWindow::slotQRZTextChanged: Default: else" << QT_ENDL;
+           qDebug()<< Q_FUNC_INFO << ": Default: else" << QT_ENDL;
         }
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    //qDebug() << "MainWindow::slotQRZTextChanged: cursorP at the end : "  << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": cursorP at the end : "  << QT_ENDL;
 
   if (completeWithPrevious)
   {
@@ -3496,20 +3496,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
         if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
-            //qDebug() << Q_FUNC_INFO << " - Checking QRZ.com";
+            qDebug()<< Q_FUNC_INFO << ": Checking QRZ.com";
             elogQRZcom->checkQRZ(_qrz);
         }
         else
         {
-            //qDebug() << Q_FUNC_INFO << " - NOT checking QRZ.com";
+            qDebug()<< Q_FUNC_INFO << ": NOT checking QRZ.com";
         }
     }
-
-
-
-    //qrzAutoChanging = false;
+   //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    //qDebug() << "MainWindow::slotQRZTextChanged: END" << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": END" << QT_ENDL;
 }
 
 void MainWindow::setCleaning(const bool _c)

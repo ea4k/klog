@@ -57,7 +57,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     //qDebug() << Q_FUNC_INFO << ": 08" << QT_ENDL;
     setDefaults();
     //qDebug() << Q_FUNC_INFO << ": 10" << QT_ENDL;
-    slotTestHamlib();
+    //slotTestHamlib();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
