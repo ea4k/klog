@@ -6,7 +6,6 @@ matrix:
   include:
   - os: linux
     arch: amd64
-    sudo: required
     dist: focal
     before_install:
       - apt-get update
