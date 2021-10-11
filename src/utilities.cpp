@@ -962,7 +962,7 @@ QString Utilities::getPrefixFromCall(const QString &_c)
             qDebug() << Q_FUNC_INFO << ": Same length, we shoudl consider the first one if valid, if not the second one " ;
         }
     }
-EA6 debveria sallir como ea6 y no ea
+
     pref = isAPrefix (call);
     if (pref>0)
     {
