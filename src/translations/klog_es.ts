@@ -1974,551 +1974,551 @@ Error: #2</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="144"/>
+        <location filename="../mainwindow.cpp" line="139"/>
         <source>Starting KLog</source>
         <translation>Iniciando KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="118"/>
-        <location filename="../mainwindow.cpp" line="182"/>
+        <location filename="../mainwindow.cpp" line="113"/>
+        <location filename="../mainwindow.cpp" line="176"/>
         <source>DX Entity</source>
         <translation>Entidad DX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="183"/>
+        <location filename="../mainwindow.cpp" line="177"/>
         <source>&amp;Log Window</source>
         <translation>Ventana de &amp;Log</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="791"/>
-        <location filename="../mainwindow.cpp" line="4623"/>
+        <location filename="../mainwindow.cpp" line="777"/>
+        <location filename="../mainwindow.cpp" line="4606"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="749"/>
+        <location filename="../mainwindow.cpp" line="735"/>
         <source>Ready</source>
         <translation>Listo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="955"/>
+        <location filename="../mainwindow.cpp" line="941"/>
         <source>An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: </source>
         <translation>Ha ocurrido un error inesperado al intentar añadir el QSO al log. Si el problema persiste, contacte con el desarrollador para que lo analice: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1154"/>
-        <location filename="../mainwindow.cpp" line="1948"/>
+        <location filename="../mainwindow.cpp" line="1140"/>
+        <location filename="../mainwindow.cpp" line="1934"/>
         <source>You have selected an entity:</source>
         <translation>Ha seleccionado la entidad:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1154"/>
-        <location filename="../mainwindow.cpp" line="1948"/>
+        <location filename="../mainwindow.cpp" line="1140"/>
+        <location filename="../mainwindow.cpp" line="1934"/>
         <source>that is different from the KLog proposed entity:</source>
         <translation>que es distinta de la que propone KLog:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1155"/>
+        <location filename="../mainwindow.cpp" line="1141"/>
         <source>Click on the prefix of the correct entity or Cancel to edit the QSO again.</source>
         <translation>Pulse en el prefijo de la entidad correcta o Cancelar para editar el QSO de nuevo.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1949"/>
+        <location filename="../mainwindow.cpp" line="1935"/>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
         <translation>Pulse en el prefijo de la entidad correcta o Cancelar para corregir.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7299"/>
+        <location filename="../mainwindow.cpp" line="7283"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7297"/>
+        <location filename="../mainwindow.cpp" line="7281"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="426"/>
+        <location filename="../mainwindow.cpp" line="412"/>
         <source>KLog - CTY.dat update</source>
         <translation>KLog - Actualización de CTY.dat</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="709"/>
+        <location filename="../mainwindow.cpp" line="695"/>
         <source>KLog - Backup</source>
         <translation>KLog - Copia de seguridad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="737"/>
+        <location filename="../mainwindow.cpp" line="723"/>
         <source>KLog - New version detected!</source>
         <translation>KLog - ¡Se ha detectado una versión nueva de KLog!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2892"/>
+        <location filename="../mainwindow.cpp" line="2878"/>
         <source>KLog - ClubLog error</source>
         <translation>KLog - Error de ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3010"/>
+        <location filename="../mainwindow.cpp" line="2996"/>
         <source>KLog - eQSL error</source>
         <translation>KLog - Error de eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3291"/>
+        <location filename="../mainwindow.cpp" line="3277"/>
         <source>KLog - %1</source>
         <translation>KLog - %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3352"/>
+        <location filename="../mainwindow.cpp" line="3338"/>
         <source>Do you really want to exit KLog?</source>
         <translation>¿Realmente quiere salir de KLog?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3736"/>
+        <location filename="../mainwindow.cpp" line="3719"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3750"/>
+        <location filename="../mainwindow.cpp" line="3733"/>
         <source>Import an ADIF file into the current log.</source>
         <translation>Importar un fichero ADIF al log actual.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3764"/>
+        <location filename="../mainwindow.cpp" line="3747"/>
         <source>Export the current log to an ADIF logfile.</source>
         <translation>Exportar ellog actual al un fichero de log ADIF.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3770"/>
+        <location filename="../mainwindow.cpp" line="3753"/>
         <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
         <translation>Exportar TODOS los QSO a un fichero ADIF, mezclando los QSOs de todos los logs.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3777"/>
+        <location filename="../mainwindow.cpp" line="3760"/>
         <source>Print your log.</source>
         <translation>Imprime el log.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3782"/>
+        <location filename="../mainwindow.cpp" line="3765"/>
         <source>KLog folder</source>
         <translation>Carpeta KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3784"/>
+        <location filename="../mainwindow.cpp" line="3767"/>
         <source>Opens the data folder of KLog.</source>
         <translation>Abre la carpeta de datos de KLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3796"/>
+        <location filename="../mainwindow.cpp" line="3779"/>
         <source>E&amp;xit</source>
         <translation>Sali&amp;r</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3803"/>
+        <location filename="../mainwindow.cpp" line="3786"/>
         <source>&amp;Tools</source>
         <translation>Herramien&amp;tas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3805"/>
+        <location filename="../mainwindow.cpp" line="3788"/>
         <source>Fill in QSO data</source>
         <translation>Completar QSOs</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3809"/>
+        <location filename="../mainwindow.cpp" line="3792"/>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
         <translation>Revisar el log, reutilizando datos de QSOs anteriores para completar información que falte en otros QSOs.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3817"/>
+        <location filename="../mainwindow.cpp" line="3800"/>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
         <translation>Muestra QSOs para los que tenga que enviat la QSL y solicitar la QSL del DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3819"/>
+        <location filename="../mainwindow.cpp" line="3802"/>
         <source>Find My-QSLs pending to send</source>
         <translation>Buscar mis QSL pendientes de envío</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3823"/>
+        <location filename="../mainwindow.cpp" line="3806"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
         <translation>Muestra los QSOs que tienen QSL pendiente de enviar. ¡Debería mantener esta cola vacía!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3853"/>
+        <location filename="../mainwindow.cpp" line="3836"/>
         <source>Mark all queued QSOs in this log as sent to LoTW.</source>
         <translation>Marcar como encolados los QSOs de este log como enviados a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3858"/>
+        <location filename="../mainwindow.cpp" line="3841"/>
         <source>Mark all queued QSOs as sent to LoTW.</source>
         <translation>Marca todos los QSOs encolados como enviados por LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4480"/>
+        <location filename="../mainwindow.cpp" line="4463"/>
         <source>KLog - Update checking result</source>
         <translation>KLog - Resultado de la comprobación de actualizaciones de KLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5418"/>
+        <location filename="../mainwindow.cpp" line="5402"/>
         <source>Sends the log to LoTW calling TQSL.</source>
         <translation>Envía el log a LoTW a través de TQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3934"/>
-        <location filename="../mainwindow.cpp" line="3939"/>
+        <location filename="../mainwindow.cpp" line="3917"/>
+        <location filename="../mainwindow.cpp" line="3922"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
         <translation>Actualizar cty.csv para actualizar los datos de entidades DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3943"/>
+        <location filename="../mainwindow.cpp" line="3926"/>
         <source>Stats</source>
         <translation>Estadísticas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3946"/>
+        <location filename="../mainwindow.cpp" line="3929"/>
         <source>Show the statistics of your radio activity.</source>
         <translation>Muestra estadísticas de la actividad en radio.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3968"/>
+        <location filename="../mainwindow.cpp" line="3951"/>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4182"/>
+        <location filename="../mainwindow.cpp" line="4165"/>
         <source>KLog - TQSL</source>
         <translation>KLog - TQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4186"/>
+        <location filename="../mainwindow.cpp" line="4169"/>
         <source>TQSL is not installed or KLog can&apos;t find it. Please check the configuration.</source>
         <translation>TQSL no está instalado o KLog no puede encontrarlo. Por favor, revise la confirguración.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4205"/>
+        <location filename="../mainwindow.cpp" line="4188"/>
         <source>Error #1: The process was cancelled by the user or TQSL was not configured. No QSOs were uploaded.</source>
         <translation>Error #1: El proceso ha sido cancelado por el usuario o TQSL no estaba configurado. No se han subido los QSO.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4209"/>
+        <location filename="../mainwindow.cpp" line="4192"/>
         <source>Error #2: Upload was rejected by LoTW, please check your data.</source>
         <translation>Error #2: La subida de QSO fue rechazada por LoTW, por favor revise sus datos.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4213"/>
+        <location filename="../mainwindow.cpp" line="4196"/>
         <source>Error #3: The TQSL server returned an unexpected response.</source>
         <translation>Error #3: El servidor TQSL ha devuelto una respuesta inesperada.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4217"/>
+        <location filename="../mainwindow.cpp" line="4200"/>
         <source>Error #4: There was a TQSL error.</source>
         <translation>Error #4: Ha habido un error de TQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4221"/>
+        <location filename="../mainwindow.cpp" line="4204"/>
         <source>Error #5: There was a TQSLLib error.</source>
         <translation>Error #5: Ha habido un error de TQSLLib.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4225"/>
+        <location filename="../mainwindow.cpp" line="4208"/>
         <source>Error #6: It was not possible to open the input file.</source>
         <translation>Error #6: No ha sido posible abrir el fichero de entrada.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4229"/>
+        <location filename="../mainwindow.cpp" line="4212"/>
         <source>Error #7: It was not possible to open the ouput file.</source>
         <translation>Error #7: No ha sido posible abrir el fichero de salida.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4233"/>
+        <location filename="../mainwindow.cpp" line="4216"/>
         <source>Error #8: No QSOs were processed since some QSOs were duplicates or out of date range.</source>
         <translation>Error #8: No se procesaron los QSO ya que algunos de ellos eran duplicados o estaban fuera de rango.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4237"/>
+        <location filename="../mainwindow.cpp" line="4220"/>
         <source>Error #9: Some QSOs were processed, and some QSOs were ignored because they were duplicates or out of date range.</source>
         <translation>Error #9: Se procesaron algunos QSO y otros se han ignorado porque eran duplicados o fuera de rango de fecha.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4241"/>
+        <location filename="../mainwindow.cpp" line="4224"/>
         <source>Error #10: Command syntax error. KLog sent a bad syntax command.</source>
         <translation>Error #10: Error de sintaxis en los comandos. KLog envió un comando con sintáxis errónea.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4245"/>
+        <location filename="../mainwindow.cpp" line="4228"/>
         <source>Error #11: LoTW Connection error (no network or LoTW is unreachable).</source>
         <translation>Error #11: Error de conexión a LoTW (no hay red o LoTW no está alcanzable).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4248"/>
+        <location filename="../mainwindow.cpp" line="4231"/>
         <source>Error #00: Unexpected error. Please contact the development team.</source>
         <translation>Error #00: Error inesperado. Por favor contacte con el equipo de desarrollo.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4280"/>
+        <location filename="../mainwindow.cpp" line="4263"/>
         <source>The log that you have selected contains more than just one station callsign.</source>
         <translation>El log que ha seleccionado contiene más de un sólo indicativo de estación.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4280"/>
+        <location filename="../mainwindow.cpp" line="4263"/>
         <source>Please select the station callsign you want to mark as sent to LoTW:</source>
         <translation>Por favor seleccione el indicativo de estación que quiere marcar como enviado a LoTW:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4283"/>
+        <location filename="../mainwindow.cpp" line="4266"/>
         <source>Station Callsign:</source>
         <translation>Indicativo de la estación:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4294"/>
+        <location filename="../mainwindow.cpp" line="4277"/>
         <source>Define Station Callsign</source>
         <translation>Definir indicativo de estación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4295"/>
+        <location filename="../mainwindow.cpp" line="4278"/>
         <source>Enter the station callsign to use for this log or leave it empty for QSO without station callsign defined:</source>
         <translation>Introduzca el indicativo de estación para usar en este log o déjelo vacío para poner un QSO sin un indicativo de estación definido:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4310"/>
+        <location filename="../mainwindow.cpp" line="4293"/>
         <source>KLog - No station selected</source>
         <translation>KLog - No se ha seleccionado estación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4311"/>
+        <location filename="../mainwindow.cpp" line="4294"/>
         <source>No station callsign has been selected and therefore no log will be marked</source>
         <translation>No se ha seleccionado indicativo de estación por lo que no se exportará ningún log</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4481"/>
+        <location filename="../mainwindow.cpp" line="4464"/>
         <source>Congratulations!</source>
         <translation>¡Enhorabuena!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4481"/>
+        <location filename="../mainwindow.cpp" line="4464"/>
         <source>You already have the latest version.</source>
         <translation>Ya cuenta con la última versión.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5322"/>
+        <location filename="../mainwindow.cpp" line="5306"/>
         <source>It seems that there are no QSOs in the database.</source>
         <translation>Parece que no hay QSOs en la base de datos.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5424"/>
+        <location filename="../mainwindow.cpp" line="5408"/>
         <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
         <translation>Esta función está deshabilitada. Vaya a Preferencias-&gt;LoTW para habilitarla.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5944"/>
+        <location filename="../mainwindow.cpp" line="5928"/>
         <source>There was an error while updating to Yes the LoTW QSL sent information.</source>
         <translation>Hubo un error al actualizar a Si la información de envío de QSL por LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4621"/>
+        <location filename="../mainwindow.cpp" line="4604"/>
         <source>You can find the KLog data folder here: </source>
         <translation>Puede encontrar la carpeta de KLog aquí: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4672"/>
+        <location filename="../mainwindow.cpp" line="4655"/>
         <source>start</source>
         <translation>arrancar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4697"/>
+        <location filename="../mainwindow.cpp" line="4680"/>
         <source>stop</source>
         <translation>parar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5322"/>
+        <location filename="../mainwindow.cpp" line="5306"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
         <translation>Si está seguro de que la base de datos contiene QSOs y KLog no es capaz de encontrarlo, por favor contacte con los desarrolladores (mirar en Acerca de KLog) para obtener ayuda.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="69"/>
+        <location filename="../mainwindow.cpp" line="68"/>
         <source>KLog - File not open</source>
         <translation>KLog - Fichero no abierto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="70"/>
+        <location filename="../mainwindow.cpp" line="69"/>
         <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
         <translation>No fue posible abrir el fichero de depuración para escritura. No se guardará log de depuración.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4115"/>
+        <location filename="../mainwindow.cpp" line="4098"/>
         <source>Your log has been updated with the LoTW downloaded QSOs.</source>
         <translation>Su log ha sido actualizado con los datos de los QSOs descargados de LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4116"/>
+        <location filename="../mainwindow.cpp" line="4099"/>
         <source>KLog has updated %1 QSOs from LoTW.</source>
         <translation>KLog ha actualizado %1 QSOs de LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3867"/>
+        <location filename="../mainwindow.cpp" line="3850"/>
         <source>Download from LoTW ...</source>
         <translation>Descargar de LoTW ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3872"/>
+        <location filename="../mainwindow.cpp" line="3855"/>
         <source>Download the full log from LoTW ...</source>
         <translation>Descargar de LoTW el log completo ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3877"/>
+        <location filename="../mainwindow.cpp" line="3860"/>
         <source>ClubLog tools ...</source>
         <translation>Herramientas de ClubLog ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3884"/>
+        <location filename="../mainwindow.cpp" line="3867"/>
         <source>Upload the queued QSOs to ClubLog ...</source>
         <translation>Envia los QSOs seleccionados a ClubLog ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3890"/>
+        <location filename="../mainwindow.cpp" line="3873"/>
         <source>eQSL tools ...</source>
         <translation>Herramientas de eQSL ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3897"/>
+        <location filename="../mainwindow.cpp" line="3880"/>
         <source>Upload the queued QSOs to eQSL.cc ...</source>
         <translation>Envia los QSOs seleccionados a eQSL.cc ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3903"/>
+        <location filename="../mainwindow.cpp" line="3886"/>
         <source>QRZ.com tools ...</source>
         <translation>Herramientas de QRZ.com ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3907"/>
+        <location filename="../mainwindow.cpp" line="3890"/>
         <source>Upload the queued QSOs to QRZ.com ...</source>
         <translation>Enviar QSOs en cola a QRZ.com ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3930"/>
+        <location filename="../mainwindow.cpp" line="3913"/>
         <source>Update cty.csv</source>
         <translation>Actualizar cty.csv</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3936"/>
+        <location filename="../mainwindow.cpp" line="3919"/>
         <source>Update Satellite Data</source>
         <translation>Actualizar datos de satélites</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3976"/>
+        <location filename="../mainwindow.cpp" line="3959"/>
         <source>&amp;Tips ...</source>
         <translation>Conse&amp;jos ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3987"/>
+        <location filename="../mainwindow.cpp" line="3970"/>
         <source>&amp;About ...</source>
         <translation>&amp;Acerca de ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3994"/>
+        <location filename="../mainwindow.cpp" line="3977"/>
         <source>About Qt ...</source>
         <translation>Acerca de Qt ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4002"/>
+        <location filename="../mainwindow.cpp" line="3985"/>
         <source>Check updates ...</source>
         <translation>Comprobar actualizaciones ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4424"/>
+        <location filename="../mainwindow.cpp" line="4407"/>
         <source>About ...</source>
         <translation>Acerca de ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5832"/>
+        <location filename="../mainwindow.cpp" line="5816"/>
         <source>No QSOs have been exported to ADIF.</source>
         <translation>No se han exportado QSOs a ADIF.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5836"/>
+        <location filename="../mainwindow.cpp" line="5820"/>
         <source>KLog has exported %1 QSOs to the ADIF file: %2</source>
         <translation>KLog ha exportado %1 QSOs al fichero ADIF: %2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5988"/>
+        <location filename="../mainwindow.cpp" line="5972"/>
         <source>You need to select one station callsign to be able to send your log to ClubLog.</source>
         <translation>Necesita seleccionar un indicativo de estación para poder mandar el log a ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6014"/>
+        <location filename="../mainwindow.cpp" line="5998"/>
         <source>Do you want to add this QSOs to your ClubLog existing log?</source>
         <translation>¿Quiere añadir estos QSOs a su log de Clublog ya existente?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6016"/>
+        <location filename="../mainwindow.cpp" line="6000"/>
         <source>If you don&apos;t agree, this upload will overwrite your current ClubLog existing log.</source>
         <translation>Si no acepta, este envío sobreescribirá su log existente en ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3030"/>
-        <location filename="../mainwindow.cpp" line="3045"/>
-        <location filename="../mainwindow.cpp" line="3057"/>
-        <location filename="../mainwindow.cpp" line="3067"/>
-        <location filename="../mainwindow.cpp" line="3077"/>
-        <location filename="../mainwindow.cpp" line="6048"/>
-        <location filename="../mainwindow.cpp" line="6248"/>
+        <location filename="../mainwindow.cpp" line="3016"/>
+        <location filename="../mainwindow.cpp" line="3031"/>
+        <location filename="../mainwindow.cpp" line="3043"/>
+        <location filename="../mainwindow.cpp" line="3053"/>
+        <location filename="../mainwindow.cpp" line="3063"/>
+        <location filename="../mainwindow.cpp" line="6032"/>
+        <location filename="../mainwindow.cpp" line="6232"/>
         <source>KLog - eQSL</source>
         <translation>KLog - eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6050"/>
+        <location filename="../mainwindow.cpp" line="6034"/>
         <source>You need to select one station callsign to be able to send your log to eQSL.cc.</source>
         <translation>Necesita seleccionar un indicativo de estación para poder mandar el log a eQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6137"/>
-        <location filename="../mainwindow.cpp" line="6180"/>
+        <location filename="../mainwindow.cpp" line="6121"/>
+        <location filename="../mainwindow.cpp" line="6164"/>
         <source>KLog - Select the Station Callsign.</source>
         <translation>KLog - Seleccione indicativo de estación.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7202"/>
+        <location filename="../mainwindow.cpp" line="7186"/>
         <source>Filling DXCC, CQz, ITUz, Continent in QSOs...
  QSO: </source>
         <translation>Rellenando DXCC, CQz, ITUz Continente en los QSOs...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7987"/>
+        <location filename="../mainwindow.cpp" line="7971"/>
         <source>QSO logged from WSJT-X:</source>
         <translation>QSO guardado desde WSJT-X:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="117"/>
+        <location filename="../mainwindow.cpp" line="112"/>
         <source>Status bar ...</source>
         <translation>Barra de estado ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="212"/>
+        <location filename="../mainwindow.cpp" line="199"/>
         <source>Upload the queued QSOs to LoTW</source>
         <translation>Enviar QSOs en cola a LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="427"/>
+        <location filename="../mainwindow.cpp" line="413"/>
         <source>KLog needs to update the Entities database.</source>
         <translation>KLog necesita actualizar la base de datos de entidades.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="674"/>
+        <location filename="../mainwindow.cpp" line="660"/>
         <source>It seems that you have never done a backup or exported your log to ADIF.</source>
         <translation>Parece que no ha hecho nunca una copia de seguridad o exportado su log a ADIF.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="680"/>
+        <location filename="../mainwindow.cpp" line="666"/>
         <source>It seems that the latest backup you did is older than one month.</source>
         <translation>Parece que la última copia de seguridad que hizo fue hace más de un mes.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="691"/>
+        <location filename="../mainwindow.cpp" line="677"/>
         <source>Log backup recommended!</source>
         <translation>¡Se recomienda hacer una copia de seguridad!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="694"/>
+        <location filename="../mainwindow.cpp" line="680"/>
         <source>It is a good practice to backup your full log regularly to avoid loosing data in case of a problem.
 Once you export your log to an ADIF file, you should copy that file to a safe place, like an USB drive, cloud drive, another computer, ...
 
@@ -2533,155 +2533,155 @@ KLog recordará hacer una copia de seguridad una vez al mes.
 </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="713"/>
+        <location filename="../mainwindow.cpp" line="699"/>
         <source>The backup was done successfully</source>
         <translation>La copia de seguridad se realizó correctamente.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="714"/>
+        <location filename="../mainwindow.cpp" line="700"/>
         <source>KLog will remind you to backup your data again in aprox one month.</source>
         <translation>KLog no le recordará de nuevo, en un mes, que debe realizar la copia de seguridad.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="719"/>
+        <location filename="../mainwindow.cpp" line="705"/>
         <source>The backup was not properly done.</source>
         <translation>La copia de seguridad no se hizo correctamente.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="720"/>
+        <location filename="../mainwindow.cpp" line="706"/>
         <source>It is recommended to backup your data periodically to prevent lose or corruption of your log.</source>
         <translation>Se recomienda hacer una copia de seguridad de forma periódica para prevenir una potencial pérdida de datos.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="738"/>
+        <location filename="../mainwindow.cpp" line="724"/>
         <source>It seems that you are running this version of KLog for the first time.</source>
         <translation>Parece que está ejecutando esta versión de KLog por primera vez.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="739"/>
+        <location filename="../mainwindow.cpp" line="725"/>
         <source>The setup will be open to allow you to do any new setup you may need.</source>
         <translation>Se abrirá la el menú de configuración para que pueda hacer cualquier nueva configuración que pueda necesitar.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="953"/>
+        <location filename="../mainwindow.cpp" line="939"/>
         <source>KLog - Unexpected error</source>
         <translation>KLog - Error inesperado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1092"/>
+        <location filename="../mainwindow.cpp" line="1078"/>
         <source>KLog - Not valid call</source>
         <translation>KLog - Indicativo no válido</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1095"/>
-        <location filename="../mainwindow.cpp" line="1862"/>
+        <location filename="../mainwindow.cpp" line="1081"/>
+        <location filename="../mainwindow.cpp" line="1848"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
         <translation>Añadir indicativos no válidos al log puede crear problemas al optar a diplomas, exportar ficheros ADIF a otros sistemas o aplicaciones.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1153"/>
-        <location filename="../mainwindow.cpp" line="1947"/>
+        <location filename="../mainwindow.cpp" line="1139"/>
+        <location filename="../mainwindow.cpp" line="1933"/>
         <source>KLog - Select correct entity</source>
         <translation>KLog - Seleccione la entidad correcta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1924"/>
-        <location filename="../mainwindow.cpp" line="1936"/>
+        <location filename="../mainwindow.cpp" line="1910"/>
+        <location filename="../mainwindow.cpp" line="1922"/>
         <source>No DXCC</source>
         <translation>NO DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1925"/>
-        <location filename="../mainwindow.cpp" line="1937"/>
+        <location filename="../mainwindow.cpp" line="1911"/>
+        <location filename="../mainwindow.cpp" line="1923"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2746"/>
+        <location filename="../mainwindow.cpp" line="2732"/>
         <source>This operation shall remove definitely all the selected QSO and associated data and you will not be able to recover it again.</source>
         <translation>Esta operación eliminará definitivamente todos los QSOs seleccionados y datos asociados y no será posible recuperarlos de nuevo.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2797"/>
+        <location filename="../mainwindow.cpp" line="2783"/>
         <source>You have requested to delete the QSO with: %1</source>
         <translation>Ha solicitado eliminar un QSO con: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2747"/>
-        <location filename="../mainwindow.cpp" line="2802"/>
+        <location filename="../mainwindow.cpp" line="2733"/>
+        <location filename="../mainwindow.cpp" line="2788"/>
         <source>Are you sure?</source>
         <translation>¿Está seguro?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="57"/>
-        <location filename="../mainwindow.cpp" line="3913"/>
+        <location filename="../mainwindow.cpp" line="56"/>
+        <location filename="../mainwindow.cpp" line="3896"/>
         <source>Check always the current callsign in QRZ.com</source>
         <translation>Comprobar siempre el indicativo actual en QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="428"/>
+        <location filename="../mainwindow.cpp" line="414"/>
         <source>You can update the entities database in Tools-&gt;Update cty.csv</source>
         <translation>Puede actualizar la base de datos de entidades en Herramientas-&gt;Actualizar cty.csv</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="429"/>
+        <location filename="../mainwindow.cpp" line="415"/>
         <source>Do you want to do it now?</source>
         <translation>¿Quiere hacerlo ahora?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1093"/>
+        <location filename="../mainwindow.cpp" line="1079"/>
         <source>The callsign %1 is not a valid call. Do you really want to add this callsign to the log?</source>
         <translation>El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este indicativo al log?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1859"/>
+        <location filename="../mainwindow.cpp" line="1845"/>
         <source>KLog - Not valid callsign</source>
         <translation>KLog - Indicativo no válido</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1860"/>
+        <location filename="../mainwindow.cpp" line="1846"/>
         <source>The callsign %1 is not a valid callsign. Do you really want to add this callsign to the log?</source>
         <translation>El indicativo %1 no es un indicativo válido. ¿Quiere realmente añadir este indicativo al log?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2742"/>
+        <location filename="../mainwindow.cpp" line="2728"/>
         <source>You have requested to delete several QSOs </source>
         <translation>Ha seleccionado eliminar varios QSOs </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2893"/>
+        <location filename="../mainwindow.cpp" line="2879"/>
         <source>The ClubLog upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El proceso de subida de datos a ClubLog terminó con un error y es posible que no se haya subido el log.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2894"/>
+        <location filename="../mainwindow.cpp" line="2880"/>
         <source>Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1</source>
         <translation>Por favor, compruebe sus credenciales, su conexión a Internet y su cuenta de Clublog. El error recibido fue: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2914"/>
+        <location filename="../mainwindow.cpp" line="2900"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?</source>
         <translation>¿Quiere marcar como enviados todos los QSOs enviados a ClubLog?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2913"/>
-        <location filename="../mainwindow.cpp" line="2928"/>
-        <location filename="../mainwindow.cpp" line="2939"/>
-        <location filename="../mainwindow.cpp" line="2949"/>
-        <location filename="../mainwindow.cpp" line="2959"/>
-        <location filename="../mainwindow.cpp" line="5986"/>
-        <location filename="../mainwindow.cpp" line="6012"/>
-        <location filename="../mainwindow.cpp" line="6217"/>
+        <location filename="../mainwindow.cpp" line="2899"/>
+        <location filename="../mainwindow.cpp" line="2914"/>
+        <location filename="../mainwindow.cpp" line="2925"/>
+        <location filename="../mainwindow.cpp" line="2935"/>
+        <location filename="../mainwindow.cpp" line="2945"/>
+        <location filename="../mainwindow.cpp" line="5970"/>
+        <location filename="../mainwindow.cpp" line="5996"/>
+        <location filename="../mainwindow.cpp" line="6201"/>
         <source>KLog - ClubLog</source>
         <translation>KLog - ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2930"/>
+        <location filename="../mainwindow.cpp" line="2916"/>
         <source>There was an error while updating to Yes the ClubLog QSO upload information.</source>
         <translation>Hubo un problema al marcar como enviados los QSO enviados a ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2940"/>
+        <location filename="../mainwindow.cpp" line="2926"/>
         <source>The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
@@ -2690,42 +2690,42 @@ Do you want KLog to remove that file?</source>
 ¿Quiere eliminar ese fichero?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2960"/>
-        <location filename="../mainwindow.cpp" line="3078"/>
+        <location filename="../mainwindow.cpp" line="2946"/>
+        <location filename="../mainwindow.cpp" line="3064"/>
         <source>The file has not been removed.</source>
         <translation>No se ha eliminado el fichero.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2961"/>
-        <location filename="../mainwindow.cpp" line="3079"/>
+        <location filename="../mainwindow.cpp" line="2947"/>
+        <location filename="../mainwindow.cpp" line="3065"/>
         <source>It seems that there was something that prevented KLog from removing the file
 You can remove it manually.</source>
         <translation>Nos e pudo eliminar el fichero.
 Puede eliminarlo manualmente.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3011"/>
+        <location filename="../mainwindow.cpp" line="2997"/>
         <source>The eQSL upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El proceso de subida de datos a eQSL terminó con un error y es posible que no se haya subido el log.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3012"/>
-        <location filename="../mainwindow.cpp" line="3129"/>
+        <location filename="../mainwindow.cpp" line="2998"/>
+        <location filename="../mainwindow.cpp" line="3115"/>
         <source>Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1</source>
         <translation>Por favor, compruebe sus credenciales, su conexión a Internet y su cuenta de eQSL. El error recibido fue: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3031"/>
+        <location filename="../mainwindow.cpp" line="3017"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to eQSL?</source>
         <translation>¿Quiere marcar como enviados todos los QSOs enviados a eQSL?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3047"/>
+        <location filename="../mainwindow.cpp" line="3033"/>
         <source>There was an error while updating to Yes the eQSL QSO upload information.</source>
         <translation>Hubo un problema al marcar como enviados los QSO enviados a eQSL.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3058"/>
+        <location filename="../mainwindow.cpp" line="3044"/>
         <source>The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
@@ -2734,253 +2734,253 @@ Do you want KLog to remove that file?</source>
 ¿Quiere eliminar ese fichero?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3128"/>
+        <location filename="../mainwindow.cpp" line="3114"/>
         <source>The QRZ.com upload process has finished with an error and the log was possibly not uploaded.</source>
         <translation>El proceso de subida de datos a QRZ.com terminó con un error y es posible que no se haya subido el log.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3148"/>
+        <location filename="../mainwindow.cpp" line="3134"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to QRZ.com?</source>
         <translation>¿Quiere marcar como enviados todos los QSOs enviados a QRZ.com?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3147"/>
-        <location filename="../mainwindow.cpp" line="3162"/>
-        <location filename="../mainwindow.cpp" line="3173"/>
-        <location filename="../mainwindow.cpp" line="6348"/>
+        <location filename="../mainwindow.cpp" line="3133"/>
+        <location filename="../mainwindow.cpp" line="3148"/>
+        <location filename="../mainwindow.cpp" line="3159"/>
+        <location filename="../mainwindow.cpp" line="6332"/>
         <source>KLog - QRZ.com</source>
         <translation>KLog - QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3164"/>
+        <location filename="../mainwindow.cpp" line="3150"/>
         <source>There was an error while updating to Yes the QRZ.com QSO upload information.</source>
         <translation>Hubo un problema al marcar como enviados los QSO enviados a QRZ.com.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3174"/>
+        <location filename="../mainwindow.cpp" line="3160"/>
         <source>The QRZ.com upload process has finished successfully</source>
         <translation>El proceso de envio a QRZ.com ha terminado satisfactoriamente.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3253"/>
+        <location filename="../mainwindow.cpp" line="3239"/>
         <source>Call not found in QRZ.com</source>
         <translation>Indicativo no encontrado en QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3127"/>
-        <location filename="../mainwindow.cpp" line="3258"/>
+        <location filename="../mainwindow.cpp" line="3113"/>
+        <location filename="../mainwindow.cpp" line="3244"/>
         <source>KLog - QRZ.com error</source>
         <translation>KLog error de QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="770"/>
+        <location filename="../mainwindow.cpp" line="756"/>
         <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
         <translation>KLog-%1 - Log de %2 - QSOs: %3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="774"/>
+        <location filename="../mainwindow.cpp" line="760"/>
         <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
         <translation>KLog-%1 - Log de %2 - Estación: %3 - QSOs: %4</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3259"/>
+        <location filename="../mainwindow.cpp" line="3245"/>
         <source>KLog has received an error from QRZ.com.</source>
         <translation>KLog ha recibido un error de QRZ.com.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3292"/>
+        <location filename="../mainwindow.cpp" line="3278"/>
         <source>You need to activate the %1 service in the eLog preferences.</source>
         <translation>Necesita activar el servicio %1 en las preferencias de eLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3351"/>
+        <location filename="../mainwindow.cpp" line="3337"/>
         <source>KLog - Exit</source>
         <translation>KLog - Salir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3658"/>
+        <location filename="../mainwindow.cpp" line="3641"/>
         <source>The logfile has been modified.</source>
         <translation>Se ha modificado el log.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3658"/>
+        <location filename="../mainwindow.cpp" line="3641"/>
         <source>Do you want to save your changes?</source>
         <translation>¿Quiere guardar los cambios?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3677"/>
-        <location filename="../mainwindow.cpp" line="5829"/>
+        <location filename="../mainwindow.cpp" line="3660"/>
+        <location filename="../mainwindow.cpp" line="5813"/>
         <source>KLog - ADIF export</source>
         <translation>KLog - Exportado de ADIF</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3678"/>
+        <location filename="../mainwindow.cpp" line="3661"/>
         <source>It is important to export to ADIF and save a copy as a backup.</source>
         <translation>Es importante exportar a ADIF y guardar una copia de seguridad.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3682"/>
+        <location filename="../mainwindow.cpp" line="3665"/>
         <source>Saving the log was done successfully.</source>
         <translation>El proceso de salvado del log ha terminado satisfactoriamente.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3690"/>
+        <location filename="../mainwindow.cpp" line="3673"/>
         <source>The ADIF export was not properly done.</source>
         <translation>La exportación a ADIF no terminó correctamente.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3747"/>
+        <location filename="../mainwindow.cpp" line="3730"/>
         <source>&amp;Import from ADIF ...</source>
         <translation>&amp;Importar desde ADIF ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3760"/>
+        <location filename="../mainwindow.cpp" line="3743"/>
         <source>Export to ADIF ...</source>
         <translation>Exportar a ADIF ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3766"/>
+        <location filename="../mainwindow.cpp" line="3749"/>
         <source>Export all logs to ADIF ...</source>
         <translation>Exportar todos los logs a ADIF ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3774"/>
+        <location filename="../mainwindow.cpp" line="3757"/>
         <source>&amp;Print Log ...</source>
         <translation>Im&amp;primir Log ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3812"/>
+        <location filename="../mainwindow.cpp" line="3795"/>
         <source>QSL tools ...</source>
         <translation>Herramientas de QSL ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3814"/>
+        <location filename="../mainwindow.cpp" line="3797"/>
         <source>Find QSO to QSL</source>
         <translation>Buscar QSO para enviar QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3825"/>
+        <location filename="../mainwindow.cpp" line="3808"/>
         <source>Find DX-QSLs pending to receive</source>
         <translation>Buscar QSL DX pendientes de recibir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3828"/>
+        <location filename="../mainwindow.cpp" line="3811"/>
         <source>Shows DX-QSLs for which requests or QSLs have been sent with no answer.</source>
         <translation>Muestra las QSLs de estaciones DX que se han solicitado o hemos enviado pero no tenemos respuesta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3830"/>
+        <location filename="../mainwindow.cpp" line="3813"/>
         <source>Find requested pending to receive</source>
         <translation>Buscar solicitadas sin recibir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3833"/>
+        <location filename="../mainwindow.cpp" line="3816"/>
         <source>Shows the DX-QSLs that have been requested.</source>
         <translation>Muestra QSLs DX que se han solicitado.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3836"/>
+        <location filename="../mainwindow.cpp" line="3819"/>
         <source>LoTW tools ...</source>
         <translation>Herramientas LoTW ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3838"/>
+        <location filename="../mainwindow.cpp" line="3821"/>
         <source>Queue all QSLs from this log to be sent</source>
         <translation>Encolar todas las QSLs de este log para enviar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3841"/>
+        <location filename="../mainwindow.cpp" line="3824"/>
         <source>Mark all non-sent QSOs in this log as queued to be uploaded.</source>
         <translation>Marca todos los QSOs de este log como encolados para ser enviados.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3843"/>
+        <location filename="../mainwindow.cpp" line="3826"/>
         <source>Queue all QSLs to be sent</source>
         <translation>Poner en la cola de envío todas las QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3846"/>
+        <location filename="../mainwindow.cpp" line="3829"/>
         <source>Put all the non-sent QSOs in the queue to be uploaded.</source>
         <translation>Pone todos los QSOs mp enviados en la cola para ser enviados.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3850"/>
+        <location filename="../mainwindow.cpp" line="3833"/>
         <source>Mark all queued QSOs from this log as sent</source>
         <translation>Marcar todos los QSOs de este log como enviados</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3855"/>
+        <location filename="../mainwindow.cpp" line="3838"/>
         <source>Mark all queued QSOs as sent</source>
         <translation>Marcar como enviados todos los QSO de la cola</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3905"/>
+        <location filename="../mainwindow.cpp" line="3888"/>
         <source>Check the current callsign in QRZ.com</source>
         <translation>Comprobar el indicativo actual en QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3906"/>
+        <location filename="../mainwindow.cpp" line="3889"/>
         <source>Queue all the QSO to be uploaded</source>
         <translation>Marcar todos los QSOs para ser enviados</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3971"/>
+        <location filename="../mainwindow.cpp" line="3954"/>
         <source>Online manual (F1) ...</source>
         <translation>Manual online (F1) ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3982"/>
+        <location filename="../mainwindow.cpp" line="3965"/>
         <source>&amp;Debug ...</source>
         <translation>&amp;Debug ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4067"/>
+        <location filename="../mainwindow.cpp" line="4050"/>
         <source>Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
         <translation>¿Quiere marcar TODOS los QSOs de este log para subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4079"/>
+        <location filename="../mainwindow.cpp" line="4062"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
         <translation>Todos los QSO pendientes de este log se han añadido a la cola de LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4085"/>
+        <location filename="../mainwindow.cpp" line="4068"/>
         <source>There was a problem to mark all pending QSOs of this log as queued for LoTW!</source>
         <translation>¡Hubo un problema al poner en la cola de LoTW los QSOs pendientes!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4126"/>
+        <location filename="../mainwindow.cpp" line="4109"/>
         <source>Your log has not been updated.</source>
         <translation>Su log no ha sido actualizado.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4127"/>
+        <location filename="../mainwindow.cpp" line="4110"/>
         <source>No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated.</source>
         <translation>No se actualizó ningún QSO con los datos llegados de LoTW. Puede ser por errores en el fichero de log o simplemente porque el log ya estaba actualizado.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4144"/>
+        <location filename="../mainwindow.cpp" line="4127"/>
         <source>Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW.</source>
         <translation>¿Quiere marcar TODOS los QSOs pendientes por subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4157"/>
+        <location filename="../mainwindow.cpp" line="4140"/>
         <source>All pending QSOs has been marked as queued for LoTW!</source>
         <translation>Se han puesto en la cola de LoTW todos los QSOs pendientes.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4366"/>
+        <location filename="../mainwindow.cpp" line="4349"/>
         <source>All queued QSOs has been marked as sent to LoTW!</source>
         <translation>¡Se han marcado como enviados a LoTW todos los QSOs en cola!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4346"/>
+        <location filename="../mainwindow.cpp" line="4329"/>
         <source>There was a problem to mark all queued QSOs of this log as sent to LoTW!</source>
         <translation>¡Hubo un problema al marcar todos los QSO en cola de este log como enviados a LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4673"/>
-        <location filename="../mainwindow.cpp" line="4698"/>
+        <location filename="../mainwindow.cpp" line="4656"/>
+        <location filename="../mainwindow.cpp" line="4681"/>
         <source>UDP Server error
 The UDP server failed to %1.</source>
         <comment>start or stop</comment>
@@ -2988,7 +2988,7 @@ The UDP server failed to %1.</source>
 El servidor de UDP falló al %1.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5931"/>
+        <location filename="../mainwindow.cpp" line="5915"/>
         <source>TQSL finished with no error.
 
 Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
@@ -2997,257 +2997,257 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
 ¿Quiere marcar como enviados todos los QSOs enviados a LoTW?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6138"/>
-        <location filename="../mainwindow.cpp" line="6181"/>
+        <location filename="../mainwindow.cpp" line="6122"/>
+        <location filename="../mainwindow.cpp" line="6165"/>
         <source>Select the Station Callsign to use when quering LoTW:</source>
         <translation>Seleccione el indicativo de estación a usar cuando se consulte a LoTW:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6156"/>
-        <location filename="../mainwindow.cpp" line="6199"/>
+        <location filename="../mainwindow.cpp" line="6140"/>
+        <location filename="../mainwindow.cpp" line="6183"/>
         <source>Please check the LoTW setup</source>
         <translation>Por favor revise la configuración de LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6157"/>
-        <location filename="../mainwindow.cpp" line="6200"/>
+        <location filename="../mainwindow.cpp" line="6141"/>
+        <location filename="../mainwindow.cpp" line="6184"/>
         <source>You have not defined a LoTW user or a proper Station Callsign.
 Open the LoTW tab in the Setup and configure your LoTW connection.</source>
         <translation>No ha definido un usuario de LoTW o un indicativo de estación adecuado.
 Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6228"/>
+        <location filename="../mainwindow.cpp" line="6212"/>
         <source>The log is ready to be uploaded to ClubLog.</source>
         <translation>El log está listo para enviarse a ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6229"/>
+        <location filename="../mainwindow.cpp" line="6213"/>
         <source>All the QSOs in this log has been marked as Modified in the ClubLog status field</source>
         <translation>Todos los QSOs de este log se han marcado, como modificados, para ser enviados a ClubLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6234"/>
+        <location filename="../mainwindow.cpp" line="6218"/>
         <source>KLog could not mark the full log to be sent to ClubLog</source>
         <translation>KLog no pudo marcar el log completo para ser enviado a ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6235"/>
-        <location filename="../mainwindow.cpp" line="6266"/>
-        <location filename="../mainwindow.cpp" line="6296"/>
+        <location filename="../mainwindow.cpp" line="6219"/>
+        <location filename="../mainwindow.cpp" line="6250"/>
+        <location filename="../mainwindow.cpp" line="6280"/>
         <source>Something prevented KLog from marking the QSOs as modified. Restart KLog and try again before contacting the KLog developers.</source>
         <translation>Algo evitó que KLog pudiera marcar los QSOs como modificados. Reinicie KLog y pruebe de nuevo antes de contactar con el equipo de desarrollo de KLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6259"/>
+        <location filename="../mainwindow.cpp" line="6243"/>
         <source>The log is ready to be uploaded to eQSL.cc.</source>
         <translation>El log está listo para enviarse a eQSL.cc.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6260"/>
+        <location filename="../mainwindow.cpp" line="6244"/>
         <source>All the QSOs in this log has been marked as Modified in the eQSL.cc status field</source>
         <translation>Todos los QSOs de este log se han marcado, como modificados, para ser enviados a eQSL.cc.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6265"/>
+        <location filename="../mainwindow.cpp" line="6249"/>
         <source>KLog could not mark the full log to be sent to eQSL</source>
         <translation>KLog no pudo marcar el log completo para ser enviado a eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6289"/>
+        <location filename="../mainwindow.cpp" line="6273"/>
         <source>The log is ready to be uploaded to QRZ.com.</source>
         <translation>El log está listo para enviarse a QRZ.com.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6290"/>
+        <location filename="../mainwindow.cpp" line="6274"/>
         <source>All the QSOs in this log has been marked as Modified in the QRZ.com status field</source>
         <translation>Todos los QSOs de este log se han marcado, como modificados, para ser enviados a QRZ.com.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6295"/>
+        <location filename="../mainwindow.cpp" line="6279"/>
         <source>KLog could not mark the full log to be sent to QRZ.com</source>
         <translation>KLog no pudo marcar el log completo para ser enviado a QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6349"/>
+        <location filename="../mainwindow.cpp" line="6333"/>
         <source>You need to define a proper API Key for your QRZ.com logbook in the eLog preferences.</source>
         <translation>Necesita introducir una clave API (API key) correcta para el libro de guardia de QRZ.com en las preferencias de eLog.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7089"/>
+        <location filename="../mainwindow.cpp" line="7073"/>
         <source>Filling QSOs ...</source>
         <translation>Completando QSOs ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7293"/>
+        <location filename="../mainwindow.cpp" line="7277"/>
         <source>Date/Time</source>
         <translation>Fecha/Hora</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7295"/>
-        <location filename="../mainwindow.cpp" line="7876"/>
+        <location filename="../mainwindow.cpp" line="7279"/>
+        <location filename="../mainwindow.cpp" line="7860"/>
         <source>Callsign</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7323"/>
+        <location filename="../mainwindow.cpp" line="7307"/>
         <source>Printing the log ...</source>
         <translation>Imprimiendo el log ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7868"/>
+        <location filename="../mainwindow.cpp" line="7852"/>
         <source>KLog - QSO received</source>
         <translation>KLog - QSO recibido</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7905"/>
+        <location filename="../mainwindow.cpp" line="7889"/>
         <source>Station Callsign</source>
         <translation>Indicativo de la estación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7908"/>
+        <location filename="../mainwindow.cpp" line="7892"/>
         <source>Operator Callsign</source>
         <translation>Operador</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7945"/>
+        <location filename="../mainwindow.cpp" line="7929"/>
         <source>KLog - WSJTX Dupe QSO</source>
         <translation>KLog - QSO duplicado de WSJTX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7948"/>
+        <location filename="../mainwindow.cpp" line="7932"/>
         <source>This QSO seems to be duplicated. Do you want to save or discard it?</source>
         <translation>Este QSO parece duplicado. ¿Quiere guardarlo o descartarlo?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8030"/>
+        <location filename="../mainwindow.cpp" line="8014"/>
         <source>KLog - Non-supported mode</source>
         <translation>KLog - Modo no soportado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8033"/>
+        <location filename="../mainwindow.cpp" line="8017"/>
         <source>A new mode not supported by KLog has been received from an external program or radio:</source>
         <translation>Se ha recibido un nuevo modo no soportado por KLog desde un programa externo o la radio:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8033"/>
+        <location filename="../mainwindow.cpp" line="8017"/>
         <source>Do you want to keep receiving these alerts? (disabling these alerts will prevent non-valid modes being detected)</source>
         <translation>¿Quiere seguir recibiendo estas alertas? (deshabilitar esta alerta evitará que los modos no válidos se detecten)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8182"/>
+        <location filename="../mainwindow.cpp" line="8166"/>
         <source>Native Error</source>
         <translation>Error nativo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8186"/>
+        <location filename="../mainwindow.cpp" line="8170"/>
         <source>Recommendation:</source>
         <translation>Recomendación:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8186"/>
+        <location filename="../mainwindow.cpp" line="8170"/>
         <source>Periodically export your data to ADIF to prevent a potential data loss.</source>
         <translation>Exporte periódicamente los datos a ADIF para prevenir una potencial pérdida de datos.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5712"/>
+        <location filename="../mainwindow.cpp" line="5696"/>
         <source>Status of the DX entity.</source>
         <translation>Estado de la entidad DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5714"/>
+        <location filename="../mainwindow.cpp" line="5698"/>
         <source>Name of the DX entity.</source>
         <translation>Nombre de la entidad DX.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5732"/>
+        <location filename="../mainwindow.cpp" line="5716"/>
         <source>QSO</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5733"/>
+        <location filename="../mainwindow.cpp" line="5717"/>
         <source>QSL</source>
         <translation>QSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5734"/>
-        <location filename="../mainwindow.cpp" line="6249"/>
+        <location filename="../mainwindow.cpp" line="5718"/>
+        <location filename="../mainwindow.cpp" line="6233"/>
         <source>eQSL</source>
         <translation>eQSL</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5735"/>
-        <location filename="../mainwindow.cpp" line="7305"/>
-        <location filename="../mainwindow.cpp" line="7896"/>
+        <location filename="../mainwindow.cpp" line="5719"/>
+        <location filename="../mainwindow.cpp" line="7289"/>
+        <location filename="../mainwindow.cpp" line="7880"/>
         <source>Comment</source>
         <translation>Comentario</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5738"/>
+        <location filename="../mainwindow.cpp" line="5722"/>
         <source>Others</source>
         <translation>Otros</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5740"/>
+        <location filename="../mainwindow.cpp" line="5724"/>
         <source>My Data</source>
         <translation>Mis datos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5741"/>
+        <location filename="../mainwindow.cpp" line="5725"/>
         <source>Satellite</source>
         <translation>Satélite</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5769"/>
+        <location filename="../mainwindow.cpp" line="5753"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5758"/>
+        <location filename="../mainwindow.cpp" line="5742"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5764"/>
+        <location filename="../mainwindow.cpp" line="5748"/>
         <source>Awards</source>
         <translation>Diplomas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5765"/>
+        <location filename="../mainwindow.cpp" line="5749"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5767"/>
+        <location filename="../mainwindow.cpp" line="5751"/>
         <source>Log</source>
         <translation>Log</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5768"/>
+        <location filename="../mainwindow.cpp" line="5752"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2711"/>
-        <location filename="../mainwindow.cpp" line="5849"/>
-        <location filename="../mainwindow.cpp" line="5864"/>
-        <location filename="../mainwindow.cpp" line="6363"/>
+        <location filename="../mainwindow.cpp" line="2697"/>
+        <location filename="../mainwindow.cpp" line="5833"/>
+        <location filename="../mainwindow.cpp" line="5848"/>
+        <location filename="../mainwindow.cpp" line="6347"/>
         <source>Save ADIF File</source>
         <translation>Salvar fichero ADIF</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3879"/>
-        <location filename="../mainwindow.cpp" line="3892"/>
+        <location filename="../mainwindow.cpp" line="3862"/>
+        <location filename="../mainwindow.cpp" line="3875"/>
         <source>Queue all the QSOs to be uploaded</source>
         <translation>Marcar todos los QSOs para ser enviados</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5897"/>
+        <location filename="../mainwindow.cpp" line="5881"/>
         <source>You need to select one station callsign to be able to send your log to LoTW.</source>
         <translation>Necesita seleccionar un indicativo de estación para poder mandar el log a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5954"/>
+        <location filename="../mainwindow.cpp" line="5938"/>
         <source>The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
@@ -3256,254 +3256,254 @@ Do you want KLog to remove that file?</source>
 ¿Quiere eliminar ese fichero?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2950"/>
-        <location filename="../mainwindow.cpp" line="3068"/>
-        <location filename="../mainwindow.cpp" line="5964"/>
+        <location filename="../mainwindow.cpp" line="2936"/>
+        <location filename="../mainwindow.cpp" line="3054"/>
+        <location filename="../mainwindow.cpp" line="5948"/>
         <source>The file has been removed.</source>
         <translation>Se ha eliminado el fichero.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4295"/>
+        <location filename="../mainwindow.cpp" line="4278"/>
         <source>You have selected no callsign. KLog will complete the QSOs without a station callsign defined and those with the callsign you are entering here.</source>
         <translation>No ha seleccionado un indicativo. KLog completará los QSOs sin un indicativo de estación con el indicativo que se introduzca aquí.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4066"/>
-        <location filename="../mainwindow.cpp" line="4075"/>
-        <location filename="../mainwindow.cpp" line="4110"/>
-        <location filename="../mainwindow.cpp" line="4143"/>
-        <location filename="../mainwindow.cpp" line="4152"/>
-        <location filename="../mainwindow.cpp" line="4336"/>
-        <location filename="../mainwindow.cpp" line="4361"/>
-        <location filename="../mainwindow.cpp" line="5895"/>
-        <location filename="../mainwindow.cpp" line="5930"/>
-        <location filename="../mainwindow.cpp" line="5942"/>
-        <location filename="../mainwindow.cpp" line="5953"/>
-        <location filename="../mainwindow.cpp" line="5963"/>
-        <location filename="../mainwindow.cpp" line="6154"/>
-        <location filename="../mainwindow.cpp" line="6197"/>
+        <location filename="../mainwindow.cpp" line="4049"/>
+        <location filename="../mainwindow.cpp" line="4058"/>
+        <location filename="../mainwindow.cpp" line="4093"/>
+        <location filename="../mainwindow.cpp" line="4126"/>
+        <location filename="../mainwindow.cpp" line="4135"/>
+        <location filename="../mainwindow.cpp" line="4319"/>
+        <location filename="../mainwindow.cpp" line="4344"/>
+        <location filename="../mainwindow.cpp" line="5879"/>
+        <location filename="../mainwindow.cpp" line="5914"/>
+        <location filename="../mainwindow.cpp" line="5926"/>
+        <location filename="../mainwindow.cpp" line="5937"/>
+        <location filename="../mainwindow.cpp" line="5947"/>
+        <location filename="../mainwindow.cpp" line="6138"/>
+        <location filename="../mainwindow.cpp" line="6181"/>
         <source>KLog - LoTW</source>
         <translation>KLog - LoTW</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3104"/>
+        <location filename="../mainwindow.cpp" line="3090"/>
         <source>KLog - QRZ.com warning</source>
         <translation>KLog - Atención QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3105"/>
+        <location filename="../mainwindow.cpp" line="3091"/>
         <source>QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled.</source>
         <translation>QRZ.com ha devuelto un error de fallo de subscripción y las consultas a QRZ.com se deshabilitarán.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3106"/>
+        <location filename="../mainwindow.cpp" line="3092"/>
         <source>Please check your QRZ.com subcription or credentials.</source>
         <translation>Compruebe su subscripción a QRZ.com o las credenciales.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3789"/>
+        <location filename="../mainwindow.cpp" line="3772"/>
         <source>Settings ...</source>
         <translation>Ajustes ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4079"/>
-        <location filename="../mainwindow.cpp" line="4157"/>
+        <location filename="../mainwindow.cpp" line="4062"/>
+        <location filename="../mainwindow.cpp" line="4140"/>
         <source>Now you can upload them to LoTW.</source>
         <translation>Puede enviarlos ahora a LoTW.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4162"/>
+        <location filename="../mainwindow.cpp" line="4145"/>
         <source>There was a problem to mark all pending QSOs as queued for LoTW!</source>
         <translation>¡Hubo un problema al poner en la cola de LoTW los QSOs pendientes!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4341"/>
+        <location filename="../mainwindow.cpp" line="4324"/>
         <source>All queued QSOs of this log has been marked as sent to LoTW!</source>
         <translation>¡Se han marcado como enviados a LoTW todos los QSOs en cola!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4371"/>
+        <location filename="../mainwindow.cpp" line="4354"/>
         <source>There was a problem to mark all queued QSOs as sent to LoTW!</source>
         <translation>¡Hubo un problema al marcar todos los QSO en cola como enviados a LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6218"/>
-        <location filename="../mainwindow.cpp" line="6249"/>
-        <location filename="../mainwindow.cpp" line="6279"/>
+        <location filename="../mainwindow.cpp" line="6202"/>
+        <location filename="../mainwindow.cpp" line="6233"/>
+        <location filename="../mainwindow.cpp" line="6263"/>
         <source>Do you really want to mark ALL your QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading QSOs to %1</source>
         <translation>¿Quiere marcar TODOS los QSOs para subir? Debería hacer esto SOLO SI ES LA PRIMERA VEZ que sube QSOs a %1.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6218"/>
+        <location filename="../mainwindow.cpp" line="6202"/>
         <source>ClubLog</source>
         <translation>ClubLog</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6278"/>
+        <location filename="../mainwindow.cpp" line="6262"/>
         <source>KLog - QRZ.COM</source>
         <translation>KLog - QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6279"/>
+        <location filename="../mainwindow.cpp" line="6263"/>
         <source>QRZ.COM</source>
         <translation>QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6376"/>
+        <location filename="../mainwindow.cpp" line="6360"/>
         <source>Open File</source>
         <translation>Abrir fichero</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7034"/>
+        <location filename="../mainwindow.cpp" line="7018"/>
         <source> - Needed for DXMarathon</source>
         <translation> - Necesitado para DXMarathon</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7089"/>
+        <location filename="../mainwindow.cpp" line="7073"/>
         <source>Abort filling</source>
         <translation>Cancelar completado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7291"/>
+        <location filename="../mainwindow.cpp" line="7275"/>
         <source>Number</source>
         <translation>Número</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7301"/>
+        <location filename="../mainwindow.cpp" line="7285"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7303"/>
-        <location filename="../mainwindow.cpp" line="7882"/>
+        <location filename="../mainwindow.cpp" line="7287"/>
+        <location filename="../mainwindow.cpp" line="7866"/>
         <source>Mode</source>
         <translation>Modo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7318"/>
+        <location filename="../mainwindow.cpp" line="7302"/>
         <source>Print Log</source>
         <translation>Imprimir log</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7323"/>
+        <location filename="../mainwindow.cpp" line="7307"/>
         <source>Abort printing</source>
         <translation>Cancelar impresión</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7339"/>
-        <location filename="../mainwindow.cpp" line="7353"/>
+        <location filename="../mainwindow.cpp" line="7323"/>
+        <location filename="../mainwindow.cpp" line="7337"/>
         <source>Printing the log...
  QSO: </source>
         <translation>Imprimiendo el log ...
  QSO: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7873"/>
+        <location filename="../mainwindow.cpp" line="7857"/>
         <source>The following QSO data has been received from WSJT-X to be logged:</source>
         <translation>Se ha recibido el siguiente QSO desde WSJT-X para ser guardado:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7879"/>
+        <location filename="../mainwindow.cpp" line="7863"/>
         <source>Freq</source>
         <translation>Frec</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7886"/>
+        <location filename="../mainwindow.cpp" line="7870"/>
         <source>Time On</source>
         <translation>Hora inicio</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7890"/>
+        <location filename="../mainwindow.cpp" line="7874"/>
         <source>Time Off</source>
         <translation>Hora fin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7893"/>
+        <location filename="../mainwindow.cpp" line="7877"/>
         <source>RST TX</source>
         <translation>RST TX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7893"/>
+        <location filename="../mainwindow.cpp" line="7877"/>
         <source>RST RX</source>
         <translation>RST RX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7899"/>
+        <location filename="../mainwindow.cpp" line="7883"/>
         <source>DX-Grid</source>
         <translation>DX locator</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7902"/>
+        <location filename="../mainwindow.cpp" line="7886"/>
         <source>Local-Grid</source>
         <translation>Locator local</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7950"/>
+        <location filename="../mainwindow.cpp" line="7934"/>
         <source>Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings.</source>
         <translation>Los QSOs duplicados deben coincidir con otro QSO existente en el indicativo, banda, modo, fecha y hora, teniendo en cuenta el periodo que puede ser definido en las preferencias.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8033"/>
+        <location filename="../mainwindow.cpp" line="8017"/>
         <source>If the received mode is correct, please contact KLog development team and request support for that mode</source>
         <translation>So el modo recibido es correcto, contacte con el equipo de desarrollo de KLog y solicite soporte para ese modo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8170"/>
+        <location filename="../mainwindow.cpp" line="8154"/>
         <source>KLog - Duplicated satellite</source>
         <translation>KLog - Satélite duplicado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8172"/>
+        <location filename="../mainwindow.cpp" line="8156"/>
         <source>A duplicated satellite has been detected in the file and will not be imported.</source>
         <translation>Se ha detectado un satélite duplicado en el fichero y no se importará.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8173"/>
+        <location filename="../mainwindow.cpp" line="8157"/>
         <source>Please check the satellite information file and ensure it is properly populated.</source>
         <translation>Por favor, revise el fichero de la información de satélites y asegúrese de que está correctamente relleno.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8173"/>
+        <location filename="../mainwindow.cpp" line="8157"/>
         <source>Now you will see a more detailed error that can be used for debugging...</source>
         <translation>Ahora verá errores más detallados que pueden ser usados para depurar ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8179"/>
+        <location filename="../mainwindow.cpp" line="8163"/>
         <source>An unexpected error ocurred!!</source>
         <translation>¡Ha ocurrido un error inesperado!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8179"/>
+        <location filename="../mainwindow.cpp" line="8163"/>
         <source>If the problem persists, please contact the developers</source>
         <translation>Si el problema persiste contacte con los desarrolladores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8179"/>
+        <location filename="../mainwindow.cpp" line="8163"/>
         <source>for analysis:</source>
         <translation>para que lo analicen:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8181"/>
+        <location filename="../mainwindow.cpp" line="8165"/>
         <source>Error in function</source>
         <translation>Error en la función</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8183"/>
+        <location filename="../mainwindow.cpp" line="8167"/>
         <source>Error text</source>
         <translation>Texto del error</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8184"/>
+        <location filename="../mainwindow.cpp" line="8168"/>
         <source>Failed query</source>
         <translation>Consulta fallida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8193"/>
+        <location filename="../mainwindow.cpp" line="8177"/>
         <source>KLog - Show errors</source>
         <translation>KLog - Mostrar errores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8195"/>
+        <location filename="../mainwindow.cpp" line="8179"/>
         <source>Do you want to keep showing errors?</source>
         <translation>¿Quiere seguir viendo los errores?</translation>
     </message>
@@ -4224,7 +4224,7 @@ Frequency is not in a hamradio band!</source>
     </message>
     <message>
         <location filename="../database.cpp" line="2183"/>
-        <location filename="../utilities.cpp" line="1942"/>
+        <location filename="../utilities.cpp" line="1941"/>
         <source>Station Callsign</source>
         <translation>Indicativo de la estación</translation>
     </message>
@@ -4423,696 +4423,696 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <translation>Actualizando la información de DXCC y continente...</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1442"/>
+        <location filename="../utilities.cpp" line="1441"/>
         <source>A wrong callsign has been found: %1. Please enter a new callsign or confirm that the current one is a good callsign.</source>
         <translation>Se ha encontrado un indicativo incorrecto: %1. Introduzca el nuevo indicativo o confirme si el actual es correcto.</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1447"/>
+        <location filename="../utilities.cpp" line="1446"/>
         <source>An empty callsign has been detected. If it is possible, please enter the right call.</source>
         <translation>Se ha detectado un indicativo vacío. Si es posible, introduzca el indicativo correcto.</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1450"/>
+        <location filename="../utilities.cpp" line="1449"/>
         <source>KLog - Not valid callsign found</source>
         <translation>KLog - Indicativo no válido encontrado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1698"/>
+        <location filename="../utilities.cpp" line="1697"/>
         <source>Date</source>
         <translation>Fecha</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1700"/>
+        <location filename="../utilities.cpp" line="1699"/>
         <source>Call</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1702"/>
+        <location filename="../utilities.cpp" line="1701"/>
         <source>RSTtx</source>
         <translation>RSTtx</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1704"/>
+        <location filename="../utilities.cpp" line="1703"/>
         <source>RSTrx</source>
         <translation>RSTrx</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1706"/>
+        <location filename="../utilities.cpp" line="1705"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1708"/>
+        <location filename="../utilities.cpp" line="1707"/>
         <source>Comment</source>
         <translation>Comentario</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1710"/>
+        <location filename="../utilities.cpp" line="1709"/>
         <source>Mode</source>
         <translation>Modo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1712"/>
+        <location filename="../utilities.cpp" line="1711"/>
         <source>CQz</source>
         <translation>CQz</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1714"/>
+        <location filename="../utilities.cpp" line="1713"/>
         <source>ITUz</source>
         <translation>ITUz</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1716"/>
+        <location filename="../utilities.cpp" line="1715"/>
         <source>DXCC</source>
         <translation>DXCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1718"/>
+        <location filename="../utilities.cpp" line="1717"/>
         <source>Address</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1720"/>
+        <location filename="../utilities.cpp" line="1719"/>
         <source>Age</source>
         <translation>Edad</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1722"/>
+        <location filename="../utilities.cpp" line="1721"/>
         <source>County</source>
         <translation>Pais</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1724"/>
+        <location filename="../utilities.cpp" line="1723"/>
         <source>A_Index</source>
         <translation>A_Index</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1726"/>
+        <location filename="../utilities.cpp" line="1725"/>
         <source>Ant_Az</source>
         <translation>Azimuth</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1728"/>
+        <location filename="../utilities.cpp" line="1727"/>
         <source>Ant_El</source>
         <translation>Elevación</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1730"/>
+        <location filename="../utilities.cpp" line="1729"/>
         <source>Ant_Path</source>
         <translation>Paso</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1732"/>
+        <location filename="../utilities.cpp" line="1731"/>
         <source>ARRL_SECT</source>
         <translation>Sección ARRL</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1734"/>
+        <location filename="../utilities.cpp" line="1733"/>
         <source>Award_Submitted</source>
         <translation>Diploma enviado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1736"/>
+        <location filename="../utilities.cpp" line="1735"/>
         <source>Award_granted</source>
         <translation>Diploma concedido</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1738"/>
+        <location filename="../utilities.cpp" line="1737"/>
         <source>Band_RX</source>
         <translation>Banda RX</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1740"/>
+        <location filename="../utilities.cpp" line="1739"/>
         <source>CheckContest</source>
         <translation>Comprobacion Concurso</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1742"/>
+        <location filename="../utilities.cpp" line="1741"/>
         <source>Class</source>
         <translation>Clase</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1744"/>
+        <location filename="../utilities.cpp" line="1743"/>
         <source>ClubLog SDate</source>
         <translation>c</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1746"/>
+        <location filename="../utilities.cpp" line="1745"/>
         <source>ClubLog status</source>
         <translation>Estado ClubLog</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1748"/>
+        <location filename="../utilities.cpp" line="1747"/>
         <source>Continent</source>
         <translation>Continente</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1750"/>
+        <location filename="../utilities.cpp" line="1749"/>
         <source>Contacted Op</source>
         <translation>Operador contactado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1752"/>
+        <location filename="../utilities.cpp" line="1751"/>
         <source>Contest Id</source>
         <translation>Id Concurso</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1754"/>
+        <location filename="../utilities.cpp" line="1753"/>
         <source>Country</source>
         <translation>País</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1756"/>
+        <location filename="../utilities.cpp" line="1755"/>
         <source>Credit Submitted</source>
         <translation>Credit enviado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1758"/>
+        <location filename="../utilities.cpp" line="1757"/>
         <source>Credit granted</source>
         <translation>Credit otorgado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1760"/>
+        <location filename="../utilities.cpp" line="1759"/>
         <source>Dark Dok</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>DOK de DARC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1776"/>
+        <location filename="../utilities.cpp" line="1775"/>
         <source>Fists</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>FISTS</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1778"/>
+        <location filename="../utilities.cpp" line="1777"/>
         <source>Fists CC</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>FISTS CC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1830"/>
+        <location filename="../utilities.cpp" line="1829"/>
         <source>My Fists</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>Mi FISTS</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1868"/>
+        <location filename="../utilities.cpp" line="1867"/>
         <source>Nr bursts</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>Ráfagas</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1870"/>
+        <location filename="../utilities.cpp" line="1869"/>
         <source>Nr pings</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>Núm «pings»</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1918"/>
+        <location filename="../utilities.cpp" line="1917"/>
         <source>Sat mode</source>
         <translation>Modo Sat</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1946"/>
+        <location filename="../utilities.cpp" line="1945"/>
         <source>SWL</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>SWL</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1956"/>
+        <location filename="../utilities.cpp" line="1955"/>
         <source>Ten-Ten</source>
         <comment>Do not translate, it is a hamradio group name.</comment>
         <translation>Ten-Ten</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1762"/>
+        <location filename="../utilities.cpp" line="1761"/>
         <source>Distance</source>
         <translation>Distancia</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1764"/>
+        <location filename="../utilities.cpp" line="1763"/>
         <source>Email</source>
         <translation>Correo-e</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1766"/>
+        <location filename="../utilities.cpp" line="1765"/>
         <source>EQ_Call</source>
         <translation>EQ_Call</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1768"/>
+        <location filename="../utilities.cpp" line="1767"/>
         <source>eQSL RDate</source>
         <translation>eQSL Fecha rec</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1770"/>
+        <location filename="../utilities.cpp" line="1769"/>
         <source>eQSL SDate</source>
         <translation>eQSL Fecha env</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1772"/>
+        <location filename="../utilities.cpp" line="1771"/>
         <source>eQSL Rcvd</source>
         <translation>eQSL recv</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1774"/>
+        <location filename="../utilities.cpp" line="1773"/>
         <source>eQSL Sent</source>
         <translation>Envío eQSL</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1780"/>
+        <location filename="../utilities.cpp" line="1779"/>
         <source>Force Init</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1782"/>
+        <location filename="../utilities.cpp" line="1781"/>
         <source>Freq</source>
         <translation>Frec</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1784"/>
+        <location filename="../utilities.cpp" line="1783"/>
         <source>Freq RX</source>
         <translation>Frec RX</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1786"/>
+        <location filename="../utilities.cpp" line="1785"/>
         <source>Gridsquare</source>
         <translation>Locator</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1788"/>
+        <location filename="../utilities.cpp" line="1787"/>
         <source>Guest OP</source>
         <translation>Op invitado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1790"/>
+        <location filename="../utilities.cpp" line="1789"/>
         <source>HRDLog SDate</source>
         <translation>HRDLog Fecha env</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1792"/>
+        <location filename="../utilities.cpp" line="1791"/>
         <source>HRDLog status</source>
         <translation>Estado HRDLog</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1794"/>
+        <location filename="../utilities.cpp" line="1793"/>
         <source>IOTA</source>
         <translation>IOTA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1796"/>
+        <location filename="../utilities.cpp" line="1795"/>
         <source>IOTA Island id</source>
         <translation>Id isla IOTA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1798"/>
+        <location filename="../utilities.cpp" line="1797"/>
         <source>K Index</source>
         <translation>Índice K</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1800"/>
+        <location filename="../utilities.cpp" line="1799"/>
         <source>Lat</source>
         <translation>Lat</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1802"/>
+        <location filename="../utilities.cpp" line="1801"/>
         <source>Lon</source>
         <translation>Lon</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1804"/>
+        <location filename="../utilities.cpp" line="1803"/>
         <source>LoTW RDate</source>
         <translation>LoTW Fecha rec</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1806"/>
+        <location filename="../utilities.cpp" line="1805"/>
         <source>LoTW SDate</source>
         <translation>LoTW Fecha env</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1808"/>
+        <location filename="../utilities.cpp" line="1807"/>
         <source>LoTW Rcvd</source>
         <translation>Recepción LoTW</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1810"/>
+        <location filename="../utilities.cpp" line="1809"/>
         <source>LoTW Sent</source>
         <translation>Envío LoTW</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1812"/>
+        <location filename="../utilities.cpp" line="1811"/>
         <source>Max Bursts</source>
         <translation>max ráfagas</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1814"/>
+        <location filename="../utilities.cpp" line="1813"/>
         <source>Multiplier</source>
         <translation>Multiplicador</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1816"/>
+        <location filename="../utilities.cpp" line="1815"/>
         <source>MS Shower</source>
         <translation>Lluvia MS</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1818"/>
+        <location filename="../utilities.cpp" line="1817"/>
         <source>My Antenna</source>
         <translation>Mi antena</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1820"/>
+        <location filename="../utilities.cpp" line="1819"/>
         <source>My City</source>
         <translation>Mi ciudad</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1822"/>
+        <location filename="../utilities.cpp" line="1821"/>
         <source>My Cnty</source>
         <translation>My condado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1824"/>
+        <location filename="../utilities.cpp" line="1823"/>
         <source>My Country</source>
         <translation>Mi país</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1826"/>
+        <location filename="../utilities.cpp" line="1825"/>
         <source>My CQz</source>
         <translation>Mi zona CQ</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1828"/>
+        <location filename="../utilities.cpp" line="1827"/>
         <source>My DXCC</source>
         <translation>Mi DXCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1832"/>
+        <location filename="../utilities.cpp" line="1831"/>
         <source>My Gridsquare</source>
         <translation>Mi locator</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1834"/>
+        <location filename="../utilities.cpp" line="1833"/>
         <source>My IOTA</source>
         <translation>Mi IOTA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1836"/>
+        <location filename="../utilities.cpp" line="1835"/>
         <source>My IOTA island id</source>
         <translation>Mi id isla IOTA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1838"/>
+        <location filename="../utilities.cpp" line="1837"/>
         <source>My ITUz</source>
         <translation>Mi zona ITU</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1840"/>
+        <location filename="../utilities.cpp" line="1839"/>
         <source>My Lat</source>
         <translation>Mi Lat</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1842"/>
+        <location filename="../utilities.cpp" line="1841"/>
         <source>My Lon</source>
         <translation>Mi Lon</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1844"/>
+        <location filename="../utilities.cpp" line="1843"/>
         <source>My Name</source>
         <translation>Mi nombre</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1846"/>
+        <location filename="../utilities.cpp" line="1845"/>
         <source>My Postal code</source>
         <translation>Mi código postal</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1848"/>
+        <location filename="../utilities.cpp" line="1847"/>
         <source>My Rig</source>
         <translation>Mi equipo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1850"/>
+        <location filename="../utilities.cpp" line="1849"/>
         <source>My Sig</source>
         <translation>Mi Sig</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1852"/>
+        <location filename="../utilities.cpp" line="1851"/>
         <source>My Sig Info</source>
         <translation>Mi info Sig</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1854"/>
+        <location filename="../utilities.cpp" line="1853"/>
         <source>My SOTA ref</source>
         <translation>Mi ref SOTA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1856"/>
+        <location filename="../utilities.cpp" line="1855"/>
         <source>My State</source>
         <translation>Mi estado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1858"/>
+        <location filename="../utilities.cpp" line="1857"/>
         <source>My Street</source>
         <translation>Mi calle</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1860"/>
+        <location filename="../utilities.cpp" line="1859"/>
         <source>My USACA counties</source>
         <translation>Mis condados USACA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1862"/>
+        <location filename="../utilities.cpp" line="1861"/>
         <source>My VUCC grids</source>
         <translation>Mis locator VUCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1864"/>
+        <location filename="../utilities.cpp" line="1863"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1866"/>
+        <location filename="../utilities.cpp" line="1865"/>
         <source>Notes</source>
         <translation>Notas</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1872"/>
+        <location filename="../utilities.cpp" line="1871"/>
         <source>Operator</source>
         <translation>Operador</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1874"/>
+        <location filename="../utilities.cpp" line="1873"/>
         <source>Owner Callsign</source>
         <translation>Indicativo del dueño</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1876"/>
+        <location filename="../utilities.cpp" line="1875"/>
         <source>Pfx</source>
         <translation>Pref</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1878"/>
+        <location filename="../utilities.cpp" line="1877"/>
         <source>Points</source>
         <translation>Puntos</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1880"/>
+        <location filename="../utilities.cpp" line="1879"/>
         <source>Precedence</source>
         <translation>Precedencia</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1882"/>
+        <location filename="../utilities.cpp" line="1881"/>
         <source>Prop Mode</source>
         <translation>Modo de propagación</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1884"/>
+        <location filename="../utilities.cpp" line="1883"/>
         <source>Public Key</source>
         <translation>Clave pública</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1886"/>
+        <location filename="../utilities.cpp" line="1885"/>
         <source>QRZcom SDate</source>
         <translation>QRZcom Fecha env</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1888"/>
+        <location filename="../utilities.cpp" line="1887"/>
         <source>QRZcom status</source>
         <translation>Estado en QRZ.com</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1890"/>
+        <location filename="../utilities.cpp" line="1889"/>
         <source>QSL msg</source>
         <translation>Mensaje QSL</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1892"/>
+        <location filename="../utilities.cpp" line="1891"/>
         <source>QSL RDate</source>
         <translation>QSL Fecha rec</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1894"/>
+        <location filename="../utilities.cpp" line="1893"/>
         <source>QSL SDate</source>
         <translation>QSL Fecha env</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1896"/>
+        <location filename="../utilities.cpp" line="1895"/>
         <source>QSL Rcvd</source>
         <translation>QSL Recibida</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1898"/>
+        <location filename="../utilities.cpp" line="1897"/>
         <source>QSL Sent</source>
         <translation>QSL Enviada</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1900"/>
+        <location filename="../utilities.cpp" line="1899"/>
         <source>QSL rcvd via</source>
         <translation>QSL rcvd via</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1902"/>
+        <location filename="../utilities.cpp" line="1901"/>
         <source>QSL sent via</source>
         <translation>QSL enviada via</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1904"/>
+        <location filename="../utilities.cpp" line="1903"/>
         <source>QSL via</source>
         <translation>QSL via</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1906"/>
+        <location filename="../utilities.cpp" line="1905"/>
         <source>QSO complete</source>
         <translation>QSO completo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1908"/>
+        <location filename="../utilities.cpp" line="1907"/>
         <source>QSO random</source>
         <translation>QSO random</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1910"/>
+        <location filename="../utilities.cpp" line="1909"/>
         <source>QTH</source>
         <translation>QTH</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1912"/>
+        <location filename="../utilities.cpp" line="1911"/>
         <source>Region</source>
         <translation>Región</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1914"/>
+        <location filename="../utilities.cpp" line="1913"/>
         <source>Rig</source>
         <translation>Equipo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1916"/>
+        <location filename="../utilities.cpp" line="1915"/>
         <source>RX Pwr</source>
         <translation>Potencia RX</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1920"/>
+        <location filename="../utilities.cpp" line="1919"/>
         <source>Sat name</source>
         <translation>Nombre de Sat</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1922"/>
+        <location filename="../utilities.cpp" line="1921"/>
         <source>SFI</source>
         <translation>SFI</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1924"/>
+        <location filename="../utilities.cpp" line="1923"/>
         <source>Sig</source>
         <translation>Sig</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1926"/>
+        <location filename="../utilities.cpp" line="1925"/>
         <source>Sig Info</source>
         <translation>Info de sig</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1928"/>
+        <location filename="../utilities.cpp" line="1927"/>
         <source>Silent key</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation>Fallecido (SK)</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1930"/>
+        <location filename="../utilities.cpp" line="1929"/>
         <source>SKCC</source>
         <translation>SKCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1932"/>
+        <location filename="../utilities.cpp" line="1931"/>
         <source>SOTA Ref</source>
         <translation>Ref SOTA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1934"/>
+        <location filename="../utilities.cpp" line="1933"/>
         <source>SRX String</source>
         <translation>SRX texto</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1936"/>
+        <location filename="../utilities.cpp" line="1935"/>
         <source>SRX</source>
         <translation>SRX</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1938"/>
+        <location filename="../utilities.cpp" line="1937"/>
         <source>STX String</source>
         <translation>STX texto</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1940"/>
+        <location filename="../utilities.cpp" line="1939"/>
         <source>State</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1944"/>
+        <location filename="../utilities.cpp" line="1943"/>
         <source>Submode</source>
         <translation>Submodo</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1948"/>
+        <location filename="../utilities.cpp" line="1947"/>
         <source>UKSMG</source>
         <translation>UKSMG</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1950"/>
+        <location filename="../utilities.cpp" line="1949"/>
         <source>USACA counties</source>
         <translation>Condados USACA</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1952"/>
+        <location filename="../utilities.cpp" line="1951"/>
         <source>VE prov</source>
         <translation>Provincias VE</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1954"/>
+        <location filename="../utilities.cpp" line="1953"/>
         <source>VUCC grids</source>
         <translation>Locators VUCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1958"/>
+        <location filename="../utilities.cpp" line="1957"/>
         <source>TX Pwr</source>
         <translation>Potencia TX</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1960"/>
+        <location filename="../utilities.cpp" line="1959"/>
         <source>Web</source>
         <translation>Web</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1962"/>
+        <location filename="../utilities.cpp" line="1961"/>
         <source>QSO Date off</source>
         <translation>Fecha fin QSO</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1964"/>
+        <location filename="../utilities.cpp" line="1963"/>
         <source>Transmitter id</source>
         <translation>Id transmisor</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1966"/>
+        <location filename="../utilities.cpp" line="1965"/>
         <source>Log number</source>
         <translation>Número de log</translation>
     </message>
@@ -5441,138 +5441,138 @@ KLog finalizará cuando pulse sobre OK.</translation>
 <context>
     <name>SetupDialog</name>
     <message>
-        <location filename="../setupdialog.cpp" line="84"/>
-        <location filename="../setupdialog.cpp" line="262"/>
+        <location filename="../setupdialog.cpp" line="80"/>
+        <location filename="../setupdialog.cpp" line="254"/>
         <source>User data</source>
         <translation>Datos de usuario</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="85"/>
-        <location filename="../setupdialog.cpp" line="274"/>
+        <location filename="../setupdialog.cpp" line="81"/>
+        <location filename="../setupdialog.cpp" line="266"/>
         <source>Bands/Modes</source>
         <translation>Bandas/modos</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="280"/>
+        <location filename="../setupdialog.cpp" line="272"/>
         <source>DX-Cluster</source>
         <translation>DX-Cluster</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="88"/>
-        <location filename="../setupdialog.cpp" line="286"/>
+        <location filename="../setupdialog.cpp" line="84"/>
+        <location filename="../setupdialog.cpp" line="278"/>
         <source>Colors</source>
         <translation>Colores</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="89"/>
-        <location filename="../setupdialog.cpp" line="292"/>
+        <location filename="../setupdialog.cpp" line="85"/>
+        <location filename="../setupdialog.cpp" line="284"/>
         <source>Misc</source>
         <translation>Varios</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="90"/>
+        <location filename="../setupdialog.cpp" line="86"/>
         <source>World Editor</source>
         <translation>Editor de entidades</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="97"/>
+        <location filename="../setupdialog.cpp" line="90"/>
         <source>Satellites</source>
         <translation>Satélites</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="98"/>
+        <location filename="../setupdialog.cpp" line="92"/>
         <source>HamLib</source>
         <translation>HamLib</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="236"/>
+        <location filename="../setupdialog.cpp" line="228"/>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
         <translation>¿Quiere añadir un log en la pestaña de Logs o salir de KLog?
 (Pulse Si para añadir un log o No para salir de KLog)</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="330"/>
+        <location filename="../setupdialog.cpp" line="322"/>
         <source>DB has not been moved to new path.</source>
         <translation>La base de datos se ha movido a un nuevo destino.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="331"/>
+        <location filename="../setupdialog.cpp" line="323"/>
         <source>Go to the Misc tab and click on Move DB
  or the DB will not be moved to the new location.</source>
         <translation>Vaya a la pestaña Varios y pulse sobre Mover BBDD
 o la base de datos no se moverá a la nueva ubicación.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="103"/>
+        <location filename="../setupdialog.cpp" line="95"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="104"/>
+        <location filename="../setupdialog.cpp" line="96"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="87"/>
+        <location filename="../setupdialog.cpp" line="83"/>
         <source>D&amp;X-Cluster</source>
         <translation>D&amp;X-Cluster</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="86"/>
+        <location filename="../setupdialog.cpp" line="82"/>
         <source>Log widget</source>
         <translation>Visor de log</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="92"/>
+        <location filename="../setupdialog.cpp" line="88"/>
         <source>eLog</source>
         <translation>eLog</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="96"/>
+        <location filename="../setupdialog.cpp" line="89"/>
         <source>WSJT-X</source>
         <translation>WSJT-X</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="121"/>
+        <location filename="../setupdialog.cpp" line="113"/>
         <source>Settings</source>
         <translation>Preferencias</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="235"/>
+        <location filename="../setupdialog.cpp" line="227"/>
         <source>You need to enter at least one log in the Logs tab.</source>
         <translation>Debe introducir al menos un log en la pestaña de Logs.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="340"/>
+        <location filename="../setupdialog.cpp" line="332"/>
         <source>You need to enter at least a valid callsign.</source>
         <translation>Debe introducir al menos un  indicativo válido.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="341"/>
+        <location filename="../setupdialog.cpp" line="333"/>
         <source>Go to the User tab and enter valid callsign.</source>
         <translation>Vaya a la pestaña Usuario e introduzca un indicativo válido.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="352"/>
+        <location filename="../setupdialog.cpp" line="344"/>
         <source>You have not selected the kind of log you want.</source>
         <translation>No ha seleccionado el tipo de log que quiere.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="353"/>
+        <location filename="../setupdialog.cpp" line="345"/>
         <source>You will be redirected to the Log tab.
 Please add and select the kind of log you want to use.</source>
         <translation>Será redirigido a la pestaña de Log.
 Añada y seleccione el tipo de log que quiere usar.</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="91"/>
-        <location filename="../setupdialog.cpp" line="268"/>
+        <location filename="../setupdialog.cpp" line="87"/>
+        <location filename="../setupdialog.cpp" line="260"/>
         <source>Logs</source>
         <translation>Logs</translation>
     </message>
     <message>
-        <location filename="../setupdialog.cpp" line="298"/>
+        <location filename="../setupdialog.cpp" line="290"/>
         <source>World</source>
         <translation>Entidades</translation>
     </message>
@@ -6094,239 +6094,239 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
 <context>
     <name>SetupPageHamLib</name>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="167"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="153"/>
         <source>Activate HamLib</source>
         <translation>Activar HamLib</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="168"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="154"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
         <translation>Activa el soporte de hamlib que habilitará la conexión a una radio.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="169"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="155"/>
         <source>Read-Only mode</source>
         <translation>Modo solo lectura</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="170"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="156"/>
         <source>If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio.</source>
         <translation>Si se habilita, KLog leerá la frecuencia y modo de la radio pero nunca enviará ningún comando a la radio.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="196"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="181"/>
         <source>Radio</source>
         <translation>Radio</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="198"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="183"/>
         <source>Select your rig.</source>
         <translation>Seleccionar equipo.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="203"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="188"/>
         <source>Defines the interval to poll the radio in msecs.</source>
         <translation>Define el intervalo con el que se consulta a la radio en milisegundos.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="208"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="193"/>
         <source>Poll interval</source>
         <translation>Intervalo de actualización</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="229"/>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="310"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="214"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="296"/>
         <source>Port</source>
         <translation>Puerto</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="230"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="215"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
         <translation>Seleccione el puerto serie. Solo se muestran los puertos que se pueden detectar.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="232"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="217"/>
         <source>Scan</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="233"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="218"/>
         <source>Click to identify the serial ports available in your computer.</source>
         <translation>Pulsar para identificar los puertos disponibles en el ordenador.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="223"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="208"/>
         <source>Bauds</source>
         <translation>Baudios</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="108"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="95"/>
         <source>Test: OK</source>
         <translation>Test: OK</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="115"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="102"/>
         <source>Test: NOK</source>
         <translation>Test: NOK</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="171"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="157"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="172"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="158"/>
         <source>Click to test the connection to the radio</source>
         <translation>Pulse para probar la conexión a la radio</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="174"/>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="306"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="160"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="292"/>
         <source>Enter the hostname or address of the radio.</source>
         <translation>Introduzca el nombre de máquina o dirección de la radio.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="175"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="161"/>
         <source>Set de network port of the radio.</source>
         <translation>Define el puerto de red de la radio.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="177"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="163"/>
         <source>Serial radio</source>
         <translation>Radio serie</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="178"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="164"/>
         <source>Network radio</source>
         <translation>Radio en red</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="225"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="210"/>
         <source>Select the serial port speed.</source>
         <translation>Seleccionar la velocidad del puerto serie.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="243"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="228"/>
         <source>5 bits</source>
         <translation>5 bits</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="243"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="228"/>
         <source>6 bits</source>
         <translation>6 bits</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="243"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="228"/>
         <source>7 bits</source>
         <translation>7 bits</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="243"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="228"/>
         <source>8 bits</source>
         <translation>8 bits</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="245"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="230"/>
         <source>Data bits</source>
         <translation>Bits de datos</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="247"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="232"/>
         <source>Select the serial data bits.</source>
         <translation>Seleccionar los bits de datos.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="253"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="238"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="253"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="238"/>
         <source>Hardware</source>
         <translation>Hardware</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="253"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="238"/>
         <source>Software XON/XOFF</source>
         <translation>Software XON/XOFF</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="255"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="240"/>
         <source>Flow control</source>
         <translation>Control de flujo</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="257"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="242"/>
         <source>Select the serial flow control</source>
         <translation>Seleccione el contrl de flujo del puerto serie.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="248"/>
         <source>No parity</source>
         <translation>Sin paridad</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="248"/>
         <source>Even</source>
         <translation>Par</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="248"/>
         <source>Odd</source>
         <translation>Impar</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="248"/>
         <source>Space</source>
         <translation>Espacio</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="248"/>
         <source>Mark</source>
         <translation>Marca</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="265"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="250"/>
         <source>Parity</source>
         <translation>Paridad</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="267"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="252"/>
         <source>Select the serial parity.</source>
         <translation>Seleccione la paridad del puerto serie.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="273"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
         <source>1 bit</source>
         <translation>1 bit</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="273"/>
-        <source>1.5 bits</source>
-        <translation>1.5 bits</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="273"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
         <source>2 bits</source>
         <translation>2 bits</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="275"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
+        <source>Default</source>
+        <translation type="unfinished">Predeterminado</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="261"/>
         <source>Stop bits</source>
         <translation>Bits de parada</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="277"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
         <source>Select the serial stop bits.</source>
         <translation>Seleccionar los bits de parada.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="304"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="290"/>
         <source>Host/Address</source>
         <translation>Servidor/Dirección</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="312"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="298"/>
         <source>Enter the port of the radio.</source>
         <translation>Introduzca el puerto de la radio.</translation>
     </message>
