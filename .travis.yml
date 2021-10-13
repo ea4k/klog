@@ -1,4 +1,4 @@
-Language: cpp
+language: c++
 git:
   depth: 10000
 branches:
