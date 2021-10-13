@@ -124,7 +124,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     }
     //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
-
+    hamlibPage->slotTestHamlib ();
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();

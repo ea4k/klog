@@ -86,6 +86,7 @@ public:
     void clean();
     void checkErrorCountAndStop();
 
+    double getFrequency();
     //bool openSerialPort();
     //bool closeSerialPort();
 

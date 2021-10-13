@@ -49,7 +49,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 
     scanSerialPortButton = new QPushButton();
     testHamlibPushButton = new QPushButton();
-
+    dataFromRigLineEdit = new QLineEdit;
     serialPort = new QLineEdit;
 
     //qDebug() << Q_FUNC_INFO << ": 07" << QT_ENDL;
@@ -64,9 +64,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 void SetupPageHamLib::slotTestHamlib()
 {
     //qDebug() << Q_FUNC_INFO;
-    QPalette pal = testHamlibPushButton->palette();
-
-    //hamlib->stop ();
+    hamlib->stop ();
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
         hamlib->setNetworkPort (portQSpinBox->value ());
@@ -78,34 +76,46 @@ void SetupPageHamLib::slotTestHamlib()
         hamlib->setSpeed ((serialBaudsComboBox->currentText()).toInt());
         hamlib->setParity(getParity ());
         hamlib->setFlow(getFlowControl ());
-        //qDebug() << Q_FUNC_INFO << ": StopBits: " << QString::number(getStopBits());
+        qDebug() << Q_FUNC_INFO << ": StopBits: " << QString::number(getStopBits());
         hamlib->setStop(getStopBits ());
-        //qDebug() << Q_FUNC_INFO << " - 50";
+        qDebug() << Q_FUNC_INFO << " - 50";
         hamlib->setDataBits(getDataBits ());
-        //qDebug() << Q_FUNC_INFO << " - 51";
+        qDebug() << Q_FUNC_INFO << " - 51";
     }
 
     hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
     hamlib->setPoll (2000);
+    qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
+    setTestResult (hamlib->init(true));
 
+    qDebug() << Q_FUNC_INFO << " - END";
+}
 
-   if (hamlib->init(true))
-   {
-       //qDebug() << Q_FUNC_INFO << " - Tested OK";
-       testHamlibPushButton->setText (tr("Test: OK"));
-       pal.setColor(QPalette::Button, QColor(Qt::green));
-       hamlib->stop();
-   }
-   else
-   {
-       //qDebug() << Q_FUNC_INFO << " - Tested NOK";
-       testHamlibPushButton->setText (tr("Test: NOK"));
-       pal.setColor(QPalette::Button, QColor(Qt::red));
-   }
+void SetupPageHamLib::setTestResult(const bool _ok)
+{
+    qDebug() << Q_FUNC_INFO ;
+    QPalette pal = testHamlibPushButton->palette();
 
-   testHamlibPushButton->setPalette(pal);
-   testHamlibPushButton->update();
-   //qDebug() << Q_FUNC_INFO << " - END";
+    if (_ok )
+    {
+        qDebug() << Q_FUNC_INFO << " - OK";
+        testHamlibPushButton->setText (tr("Test: OK"));
+        pal.setColor(QPalette::Button, QColor(Qt::green));
+        //qDebug() << Q_FUNC_INFO << " - before reading freq";
+        //double freq = hamlib->getFrequency ();
+        //qDebug() << Q_FUNC_INFO << " - after reading freq";
+        //dataFromRigLineEdit->setText (QString::number(freq));
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - NOK";
+        testHamlibPushButton->setText (tr("Test: NOK"));
+        pal.setColor(QPalette::Button, QColor(Qt::red));
+    }
+
+    testHamlibPushButton->setPalette(pal);
+    testHamlibPushButton->update();
+    qDebug() << Q_FUNC_INFO << " - NOK END";
 }
 
 void SetupPageHamLib::fillSerialPortsComboBox()
@@ -144,6 +154,7 @@ void SetupPageHamLib::slotRadioComboBoxChanged(QString _r)
         networkGroup->setEnabled (false);
         networkRadio = false;
     }
+    setTestResult(false);
 }
 
 void SetupPageHamLib::createUI()
@@ -270,6 +281,7 @@ void SetupPageHamLib::createUI()
     radioLayout->addWidget (rigTypeComboBox);
     radioLayout->addLayout (pollIntervalLayout);
     radioLayout->addWidget (testHamlibPushButton);
+    radioLayout->addWidget (dataFromRigLineEdit);
 
     QGridLayout *serialLayout = new QGridLayout;
     serialLayout->addWidget(serialPortLabel, 1, 0);
@@ -321,6 +333,15 @@ void SetupPageHamLib::createUI()
 
     //qDebug() << Q_FUNC_INFO << " - 199";
     setLayout(mLayout);
+
+
+    connect(serialPortComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotSerialPortChanged(QString) ));
+    connect(serialBaudsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSerialSpeedChanged (int) ));
+    connect(stopBitsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSerialStopBitChanged (int) ));
+    connect(dataBitsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSerialDataBitsChanged (int) ));
+
+    connect(flowControlComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotSerialFlowControlChanged (QString)));
+    connect(parityComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotSerialParityChanged (QString)));
 
     connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
     connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
@@ -374,6 +395,7 @@ void SetupPageHamLib::setDefaults()
     parityComboBox->setCurrentIndex(0);
     stopBitsComboBox->setCurrentIndex(0);
     pollIntervalQSpinBox->setValue(300);
+    setTestResult(false);
 
     //RTSCheckBox->setChecked(false);
     //DTRCheckBox->setChecked(false);
@@ -427,8 +449,7 @@ QString SetupPageHamLib::getData()
 
 bool SetupPageHamLib::setRigType(const QString &_radio)
 {
-      //qDebug() << "SetupPageHamLib::setRig: " << _radio << QT_ENDL;
-
+    //qDebug() << "SetupPageHamLib::setRig: " << _radio << QT_ENDL;
     int _index = rigTypeComboBox->findText(hamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
       //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << QT_ENDL;
     if (_index >= 0)
@@ -710,4 +731,33 @@ void SetupPageHamLib::setRadioNetworkPort(const int _p)
     }
 }
 
+void SetupPageHamLib::slotSerialPortChanged (QString _r)
+{
+    setTestResult (false);
+}
+
+void SetupPageHamLib::slotSerialSpeedChanged (int _s)
+{
+    setTestResult (false);
+}
+
+void SetupPageHamLib::slotSerialDataBitsChanged (int _s)
+{
+    setTestResult (false);
+}
+
+void SetupPageHamLib::slotSerialStopBitChanged (int _s)
+{
+    setTestResult (false);
+}
+
+void SetupPageHamLib::slotSerialFlowControlChanged (QString _r)
+{
+    setTestResult (false);
+}
+
+void SetupPageHamLib::slotSerialParityChanged (QString _r)
+{
+    setTestResult (false);
+}
 

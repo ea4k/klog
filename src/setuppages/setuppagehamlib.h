@@ -62,12 +62,19 @@ public slots:
     void slotScanPorts();
     void slotRadioComboBoxChanged(QString _r);
     void slotTestHamlib();
+    void slotSerialPortChanged (QString _r);
+    void slotSerialSpeedChanged (int _s);
+    void slotSerialDataBitsChanged (int _s);
+    void slotSerialStopBitChanged (int _s);
+    void slotSerialFlowControlChanged (QString _r);
+    void slotSerialParityChanged (QString _r);
 
 private:
     void createUI();
     void setRig();
     void setDefaults();
     void fillSerialPortsComboBox();
+    void setTestResult(const bool _ok);
     //static int addRigToList(const struct rig_caps* caps, void* data);
     QStringList getAvailableSerialPorts();
 
@@ -90,7 +97,7 @@ StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
     QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
                 *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
     //QSpinBox *serialBaudsSpinBox;
-
+    QLineEdit *dataFromRigLineEdit;
     QLineEdit *serialPort, *hostAddressLineEdit;
     QSpinBox *pollIntervalQSpinBox, *portQSpinBox;
     int pollMin, pollMax, rigctlport;
