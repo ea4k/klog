@@ -1,6 +1,6 @@
 Language: cpp
 git:
-  depth: 150
+  depth: 1000
 branches:
   only:
     - master
