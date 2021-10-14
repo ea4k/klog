@@ -29,7 +29,7 @@
 
 FileManager::FileManager(DataProxy_SQLite *dp)
 {
-       //qDebug() << "FileManager::FileManager()-1" << QT_ENDL;
+    qDebug() << "FileManager::FileManager()-1" << QT_ENDL;
     constrid = 1;
     dataProxy = dp;
     dbCreated = false;
