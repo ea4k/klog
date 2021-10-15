@@ -19,7 +19,6 @@ addons:
     notification_email: jaime@robles.es
     build_command_prepend: "cov-configure --gcc"
     build_command: "make"
-    branch_pattern: coverity_scan
 
 matrix:
   include:
