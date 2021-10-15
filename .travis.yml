@@ -1,6 +1,6 @@
 language: c++
 git:
-  depth: false
+  depth: 9999999
 branches:
   only:
     - master
