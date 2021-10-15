@@ -34,3 +34,4 @@ matrix:
     script:
       - qmake KLog.pro
       - make
+
