@@ -1,23 +1,16 @@
-language: c++
-git:
-  depth: 9999999
+language: cpp
 branches:
-  only:
-    - master
-matrix:
-  include:
-  - os: linux
-    arch: amd64
-    dist: focal
-    before_install:
-      - apt-get update
-      - apt-get -y install qtbase5-dev libsqlite3-dev
-      - apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
-      - pip install --user cpp-coveralls
-    compiler:
-      - gcc
-    script:
-      - qmake KLog.pro
-      - make
-     after_success:
-      - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
+  - master
+linux:
+  arch: amd64
+  dist: focal
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install qtbase5-dev libsqlite3-dev
+  - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
+compiler:
+  - gcc
+script:
+  - qmake KLog.pro
+  - make
+  - make
