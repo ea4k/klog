@@ -1,23 +1,38 @@
-language: c++
-git:
-  depth: false
+language: cpp
 branches:
   only:
     - master
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "dQV+A1h5+5LBA9j51zKpt/Unedhd8LU8AClcGLn68axUOrXXWW9uB44n10Taun4n3+R0HktJnKbs33gFDxdi4mBz69G51K2vr/yzvKoa2nLVPWeF40autWdMYnRLsl3Hg/zl1ULggp65+3cOVSw2/utidVRw8mstO5YSZsUlWzBwLddXR7vwIbj3dOPhPP9PbI4NEPqIa0GCha2x5gt4P4OSe6Usp/9AAQdCm0bx1Y4wcd9nhEJS3TbB9+mdbqDqHtgwrouLfewytkHkosbYh5TSHa5wSFVo7ovylIZq/JEF7HZnpkUZaFnkNNUSEyJDpYLxmtyj5/PJ2tsUczhKe55Py1rliPVs3kyikMB094ybONYXAGNn8aGXgP4BCXBKsxnaDLrNNZSVoIhwXuN3VZwrWHR/Ro6pw4BYCgIN0NRCcRHuWKQnzt7AYFdteXgoBQU7nF6ACZElTvqSLi8IDbWPpYlNyX0MgZyIHWR6ko0Jtc/NcIUOvadZElyzMTyhl/gkTNh7uY4E58eiESlKy/QEbK7S62mKDFEor9lvgq0HN7wLMbVckN/0Db0QbBgf++EJjsI2p0fZFiV3UHozZe4NmE5XLZCPl/+etpWPenI+YS9qF9vftluq1GfUlVfNpKHxIUfOqbZte5vnTwhqXCP4pC5O+KRshAXYcs8BkrU="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "ea4k/klog"
+      description: "Build submitted via Travis-CI. KLog is a multiplatform free hamradio logger."
+    notification_email: jaime@robles.es
+    build_command_prepend: "cov-configure --gcc"
+    build_command: "make"
+    branch_pattern: coverity_scan
+
 matrix:
   include:
   - os: linux
     arch: amd64
     dist: focal
     before_install:
-      - apt-get update
-      - apt-get -y install qtbase5-dev libsqlite3-dev
-      - apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
-      - pip install --user cpp-coveralls
+      - sudo apt-get update
+      - sudo apt-get -y install qtbase5-dev libsqlite3-dev
+      - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
     compiler:
       - gcc
     script:
       - qmake KLog.pro
       - make
-     after_success:
-      - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
+
