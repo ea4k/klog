@@ -158,7 +158,6 @@ QString ADIFForField::getADIFForAge(const QString &_data)
         return QString();
     if (!( (num>=0.0) && (num<=120.0)  ))
         return QString();
-
     return getADIFPair("AGE", _data);
 }
 
@@ -194,7 +193,6 @@ QString ADIFForField::getADIFForAnt_az(const QString &_data)
     float num = _data.toFloat(&ok);
     if (!ok)
         return QString();
-
     return getADIFPair("ANT_AZ", QString::number(num));
 }
 
@@ -229,6 +227,81 @@ QString ADIFForField::getADIFForARRL_sect(const QString &_data)
     return getADIFPair("ARRL_SECT", _data);
 }
 
+QString ADIFForField::getADIFForGridSquare(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    //TODO: Ensure the exported data is a valid ARRL SECT
+    if (!util->isValidGrid (_data))
+        return QString();
+    return getADIFPair("GRIDSQUARE", _data);
+}
+QString ADIFForField::getADIFForMyGridSquare(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    //TODO: Ensure the exported data is a valid ARRL SECT
+    if (!util->isValidGrid (_data))
+        return QString();
+    return getADIFPair("MY_GRIDSQUARE", _data);
+}
+
+QString ADIFForField::getADIFForQSODateOff(const QString &_data, ExportMode _em)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+    QString aux, result;
+    result.clear ();
+    QDateTime tDateTime;
+    tDateTime = util->getDateTimeFromSQLiteString(_data);
+    if (tDateTime.isValid())
+    {
+        aux = util->getADIFDateFromQDateTime(tDateTime);
+        result = getADIFPair("QSO_DATE_OFF", aux);
+        aux = util->getADIFTimeFromQDateTime(tDateTime);
+        if (_em == ModeEQSL)
+        {
+            aux.chop(2);
+        }
+        //qDebug() << Q_FUNC_INFO << ": " << result;
+        result = result + getADIFPair("TIME_OFF", aux);
+    }
+    //qDebug() << Q_FUNC_INFO << ": " << result;
+    return result;
+}
+
+QString ADIFForField::getADIFForFreq(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    //TODO: Normalize to 0-360
+    bool ok;
+    float num = _data.toFloat(&ok);
+    if (!ok)
+        return QString();
+    if (num<0)
+    {
+        return QString();
+    }
+    return getADIFPair("FREQ", QString::number(num));
+}
+
+QString ADIFForField::getADIFForStationCallsign(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    QString result;
+    result.clear ();
+    if (util->isValidCall(_data))
+    {
+        result = getADIFPair("STATION_CALLSIGN", _data);
+    }
+    else
+    {
+        if (showInvalidCallMessage(_data))
+        {
+             result = getADIFPair("STATION_CALLSIGN", _data);
+        }
+    }
+    return result;
+}
 
 QString ADIFForField::getADIFPair(const QString &_field, const QString &_data)
 {
