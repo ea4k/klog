@@ -176,19 +176,62 @@ void tst_ADIFForField::test_getADIFForAddress()
 void tst_ADIFForField::test_getADIFForAge()
 {
     QVERIFY2(adifForField->getADIFForAge ("37") == "<AGE:2>37 ", "Age not properly exported 37");
-    QVERIFY2(adifForField->getADIFForAge ("500") == QString(), "Bad Age not properly exported 50");
-    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForAge ("CW");
+    QVERIFY2(adifForField->getADIFForAge ("500") == QString(), "Bad Age not properly exported 500");
     QVERIFY2(adifForField->getADIFForAge ("CW") == QString(), "Bad String Age not properly exported CW");
     QVERIFY2(adifForField->getADIFForAge ("") == QString(), "Empty Age not properly exported");
 }
 
-void tst_ADIFForField::test_getADIFForCNTY(){}
-void tst_ADIFForField::test_getADIFForComment(){}
-void tst_ADIFForField::test_getADIFForA_Index(){}
-void tst_ADIFForField::test_getADIFForAnt_az(){}
-void tst_ADIFForField::test_getADIFForAnt_el(){}
-void tst_ADIFForField::test_getADIFForAnt_path(){}
-void tst_ADIFForField::test_getADIFForARRL_sect(){}
+void tst_ADIFForField::test_getADIFForCNTY()
+{
+    QVERIFY2(adifForField->getADIFForCNTY ("AK,Aleutians East") == "<CNTY:17>AK,Aleutians East ", "CNTY not properly exported 37");
+    QVERIFY2(adifForField->getADIFForCNTY ("") == QString(), "Empty CNTY not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForComment()
+{
+    QVERIFY2(adifForField->getADIFForComment ("My comment") == "<COMMENT:10>My comment ", "COMMENT not properly exported");
+    QVERIFY2(adifForField->getADIFForComment ("") == QString(), "Empty COMMENT not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForA_Index()
+{
+    QVERIFY2(adifForField->getADIFForA_Index ("37") == "<A_INDEX:2>37 ", "A_Index not properly exported 37");
+    QVERIFY2(adifForField->getADIFForA_Index ("500") == QString(), "Bad A_Index not properly exported 500");
+    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForA_Index ("CW");
+    QVERIFY2(adifForField->getADIFForA_Index ("CW") == QString(), "Bad String A_Index not properly exported CW");
+    QVERIFY2(adifForField->getADIFForA_Index ("") == QString(), "Empty A_Index not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForAnt_az()
+{
+    QVERIFY2(adifForField->getADIFForAnt_az ("37") == "<ANT_AZ:2>37 ", "Ant_az not properly exported 37");
+    //QVERIFY2(adifForField->getADIFForAnt_az ("500") == QString(), "Bad Ant_az not properly exported 500");
+    QVERIFY2(adifForField->getADIFForAnt_az ("CW") == QString(), "Bad String Ant_az not properly exported CW");
+    QVERIFY2(adifForField->getADIFForAnt_az ("") == QString(), "Empty Ant_az not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForAnt_el()
+{
+    QVERIFY2(adifForField->getADIFForAnt_el ("37") == "<ANT_EL:2>37 ", "Ant_el not properly exported 37");
+    //QVERIFY2(adifForField->getADIFForAnt_el ("500") == QString(), "Bad Ant_el not properly exported 500");
+    QVERIFY2(adifForField->getADIFForAnt_el ("CW") == QString(), "Bad String Ant_el not properly exported CW");
+    QVERIFY2(adifForField->getADIFForAnt_el ("") == QString(), "Empty Ant_el not properly exported");
+}
+void tst_ADIFForField::test_getADIFForAnt_path()
+{
+    QVERIFY2(adifForField->getADIFForAnt_path ("G") == "<ANT_PATH:1>G ", "Ant_Path not properly exported G");
+    QVERIFY2(adifForField->getADIFForAnt_path ("O") == "<ANT_PATH:1>O ", "Ant_Path not properly exported O");
+    QVERIFY2(adifForField->getADIFForAnt_path ("S") == "<ANT_PATH:1>S ", "Ant_Path not properly exported S");
+    QVERIFY2(adifForField->getADIFForAnt_path ("L") == "<ANT_PATH:1>L ", "Ant_Path not properly exported L");
+    QVERIFY2(adifForField->getADIFForAnt_path ("T") == QString(), "Bad Ant_Path not properly exported T");
+    QVERIFY2(adifForField->getADIFForAnt_path ("CW") == QString(), "Bad String Ant_Path not properly exported CW");
+    QVERIFY2(adifForField->getADIFForAnt_path ("") == QString(), "Empty Ant_Path not properly exported");
+}
+void tst_ADIFForField::test_getADIFForARRL_sect()
+{
+    QVERIFY2(adifForField->getADIFForARRL_sect("AL") == "<ARRL_SECT:2>AL ", "ARRL_SECT not properly exported AL");
+    QVERIFY2(adifForField->getADIFForAnt_path ("") == QString(), "Empty ARRL_SECT not properly exported");
+}
 
 QTEST_APPLESS_MAIN(tst_ADIFForField)
 

@@ -177,7 +177,11 @@ QString ADIFForField::getADIFForComment(const QString &_data)
 QString ADIFForField::getADIFForA_Index(const QString &_data)
 {
     qDebug() << Q_FUNC_INFO;
-    if (!((_data.toFloat()>=0) && (_data.toFloat()<=400)))
+    bool ok;
+    float num = _data.toFloat(&ok);
+    if (!ok)
+        return QString();
+    if (!( (num>=0.0) && (num<=400.0)  ))
         return QString();
     return getADIFPair("A_INDEX", _data);
 }
