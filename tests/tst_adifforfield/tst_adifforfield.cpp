@@ -63,6 +63,12 @@ private slots:
     void test_getADIFForAnt_path();
     void test_getADIFForARRL_sect();
 
+    void test_getADIFForGridSquare();
+    void test_getADIFForMyGridSquare();
+    void test_getADIFForQSODateOff();
+    void test_getADIFForFreq();
+    void test_getADIFForStationCallsign();
+
 private:
     ADIFForField *adifForField;
 
@@ -227,10 +233,52 @@ void tst_ADIFForField::test_getADIFForAnt_path()
     QVERIFY2(adifForField->getADIFForAnt_path ("CW") == QString(), "Bad String Ant_Path not properly exported CW");
     QVERIFY2(adifForField->getADIFForAnt_path ("") == QString(), "Empty Ant_Path not properly exported");
 }
+
 void tst_ADIFForField::test_getADIFForARRL_sect()
 {
     QVERIFY2(adifForField->getADIFForARRL_sect("AL") == "<ARRL_SECT:2>AL ", "ARRL_SECT not properly exported AL");
     QVERIFY2(adifForField->getADIFForAnt_path ("") == QString(), "Empty ARRL_SECT not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForGridSquare()
+{
+    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForGridSquare ("IN80");
+    QVERIFY2(adifForField->getADIFForGridSquare ("IN80") == "<GRIDSQUARE:4>IN80 ", "GRIDSQUARE not properly exported IN80");
+    QVERIFY2(adifForField->getADIFForGridSquare ("IN80AA") == "<GRIDSQUARE:6>IN80AA ", "GRIDSQUARE not properly exported IN80AA");
+    QVERIFY2(adifForField->getADIFForGridSquare ("EEE") == QString(), "Bad GRIDSQUARE not properly exported IN80");
+    QVERIFY2(adifForField->getADIFForGridSquare ("") == QString(), "Empty GRIDSQUARE not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForMyGridSquare()
+{
+    QVERIFY2(adifForField->getADIFForMyGridSquare ("IN80") == "<MY_GRIDSQUARE:4>IN80 ", "MY_GRIDSQUARE not properly exported IN80");
+
+    QVERIFY2(adifForField->getADIFForMyGridSquare ("IN80AA") == "<MY_GRIDSQUARE:6>IN80AA ", "MY_GRIDSQUARE not properly exported IN80AA");
+    QVERIFY2(adifForField->getADIFForMyGridSquare ("EEE") == QString(), "Bad MY_GRIDSQUARE not properly exported IN80");
+    QVERIFY2(adifForField->getADIFForMyGridSquare ("") == QString(), "Empty MY_GRIDSQUARE not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForQSODateOff()
+{
+    qDebug() << adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12");
+    QVERIFY2(adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12") == "<QSO_DATE_OFF:8>20211017 <TIME_OFF:6>125212 ", "Date not properly exported");
+    QVERIFY2(adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12", ModeEQSL) == "<QSO_DATE_OFF:8>20211017 <TIME_OFF:4>1252 ", "Date not properly exported - EM");
+    QVERIFY2(adifForField->getADIFForQSODateOff ("BAD date") == QString(), "Bad Date_off not properly exported");
+    QVERIFY2(adifForField->getADIFForQSODateOff ("BAD date", ModeEQSL) == QString(), "Bad Date_off not properly exported - EM");
+}
+
+void tst_ADIFForField::test_getADIFForFreq()
+{
+    QVERIFY2(adifForField->getADIFForFreq ("14") == "<FREQ:2>14 ", "FREQ not properly exported 14");
+    QVERIFY2(adifForField->getADIFForFreq ("14.195") == "<FREQ:6>14.195 ", "FREQ not properly exported 14.195");
+    QVERIFY2(adifForField->getADIFForAnt_el ("CW") == QString(), "Bad String FREQ not properly exported CW");
+    QVERIFY2(adifForField->getADIFForAnt_el ("") == QString(), "Empty FREQ not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForStationCallsign()
+{
+    QVERIFY2(adifForField->getADIFForStationCallsign ("EA4K") == "<STATION_CALLSIGN:4>EA4K ", "StationCallsign not properly exported");
+    QVERIFY2(adifForField->getADIFForStationCallsign("") == QString(), "Empty StationCallsign  not properly exported");
 }
 
 QTEST_APPLESS_MAIN(tst_ADIFForField)

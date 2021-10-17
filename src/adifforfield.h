@@ -58,20 +58,30 @@ public:
     QString getADIFForAnt_el(const QString &_data);
     QString getADIFForAnt_path(const QString &_data);
     QString getADIFForARRL_sect(const QString &_data);
+
+    QString getADIFForGridSquare(const QString &_data);
+    QString getADIFForMyGridSquare(const QString &_data);
+    QString getADIFForQSODateOff(const QString &_data, ExportMode _em = ModeADIF);
+    QString getADIFForFreq(const QString &_data);
+    QString getADIFForStationCallsign(const QString &_data);
+
+
 /*
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
-    QString getADIFFor(const QString &_data);
+    QString getADIFForAward_Submitted(const QString &_data);
+    QString getADIFForAward_Granted(const QString &_data);
+    QString getADIFForBandRX(const QString &_data);
+    QString getADIFForCheckContest(const QString &_data);
+    QString getADIFForClass(const QString &_data);
+    QString getADIFForClubLogQSOUploadDate(const QString &_data);
+    QString getADIFForClubLogQSOUploadStatus(const QString &_data);
+    QString getADIFForCont(const QString &_data);
+    QString getADIFForContactedOp(const QString &_data);
+    QString getADIFForContestId(const QString &_data);
+    QString getADIFForCountry(const QString &_data);
+    QString getADIFForCreditSubmitted(const QString &_data);
+    QString getADIFForCreditGranted(const QString &_data);
+    QString getADIFForDark_doc(const QString &_data);
+    QString getADIFForDistance(const QString &_data);
     QString getADIFFor(const QString &_data);
     QString getADIFFor(const QString &_data);
     QString getADIFFor(const QString &_data);
