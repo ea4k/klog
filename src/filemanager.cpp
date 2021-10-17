@@ -29,7 +29,7 @@
 
 FileManager::FileManager(DataProxy_SQLite *dp)
 {
-       //qDebug() << "FileManager::FileManager()-1" << QT_ENDL;
+    //qDebug() << "FileManager::FileManager()-1" << QT_ENDL;
     constrid = 1;
     dataProxy = dp;
     dbCreated = false;
@@ -48,6 +48,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
     usePreviousStationCallsignAnswerAlways = false;
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
+    adifForField = new ADIFForField;
     hashLogs.clear();
     //qDebug() << "FileManager::FileManager()-1  - END" << QT_ENDL;
 }
@@ -57,6 +58,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
 //FileManager::FileManager(const QString &_klogDir, const QString &_softVersion, DataBase _db)
 {
        //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << QT_ENDL;
+    adifForField = new ADIFForField;
     constrid = 2;
     dataProxy = dp;
     util = new Utilities;
@@ -5054,7 +5056,29 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     out << "<EOR>" << QT_ENDL;
 }
 
+QString FileManager::getADIFForField(const QString &_field, const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    /*
+    if (_data.length ()<1)
+    {
+        return QString();
+    }
+    if (!ADIFFields.contains (_field))
+    {
+        return QString();
+    }
 
+    if (_field == "qso_date")
+        return getADIFforQSODate(_value);
+    else if (_field == "call")
+        return getADIFforCall(_value);
+    else
+        return QString();
+    */
+    return QString();
+    qDebug() << Q_FUNC_INFO << " - END";
+}
 
 
 

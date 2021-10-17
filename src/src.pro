@@ -63,6 +63,7 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 
 HEADERS += setupdialog.h \
     aboutdialog.h \
+    adifforfield.h \
     awardswidget.h \     \
     charts/statsfieldperbandwidget.h \
     global.h \
@@ -154,6 +155,7 @@ message(Sources)
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
+    adifforfield.cpp \
     awardswidget.cpp \
     charts/statsfieldperbandwidget.cpp \
     elogqrzlog.cpp \
