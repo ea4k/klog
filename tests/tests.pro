@@ -1,5 +1,6 @@
 TEMPLATE=subdirs
 SUBDIRS=\
+   tst_adifforfield \
    utilities \
    mainqsoentrywidget \
    mainwindowsattab \

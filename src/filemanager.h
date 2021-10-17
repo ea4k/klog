@@ -46,6 +46,7 @@
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
 #include "qso.h"
+#include "adifforfield.h"
 
 
 /*
@@ -87,7 +88,12 @@ public:
     void setDuplicatedQSOSlot (const int _secs);
 
 
-private:    
+signals:
+    void addQSOToList(QStringList _qso);
+    void queryError(QString _functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+
+
+private:
 
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
     //bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
@@ -117,6 +123,7 @@ private:
 
     void writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
+    QString getADIFForField(const QString &_field, const QString &_data);
 
     bool dbCreated;
     DataBase *db;
@@ -152,11 +159,8 @@ private:
     QSqlQuery preparedQuery;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
-
-
-signals:
-    void addQSOToList(QStringList _qso);
-    void queryError(QString _functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    ADIFForField *adifForField;
+    //QList<QString> ADIFFields;
 
 };
 #endif // FILEMANAGER_H
