@@ -2,6 +2,7 @@ language: cpp
 branches:
   only:
     - master
+    - coverity_scan
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
@@ -18,7 +19,7 @@ addons:
       description: "Build submitted via Travis-CI. KLog is a multiplatform free hamradio logger."
     notification_email: jaime@robles.es
     build_command_prepend: "cov-configure --comptype gcc --compiler gcc-4.8"
-    build_command: "make"
+    build_command: make
     branch_pattern: coverity_scan
 
 matrix:
@@ -26,13 +27,17 @@ matrix:
   - os: linux
     arch: amd64
     dist: focal
+    
     before_install:
       - sudo apt-get update
       - sudo apt-get -y install qtbase5-dev libsqlite3-dev
       - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
+    
     compiler:
       - gcc
-    script:
+      
+    before_script:
       - qmake KLog.pro
+    
+    script:
       - make
-
