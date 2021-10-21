@@ -19,7 +19,7 @@ addons:
     notification_email: jaime@robles.es
     build_command_prepend: "cov-configure --comptype gcc --compiler gcc-4.8"
     build_command: "make"
-    branch_pattern: coverity_scan
+    branch_pattern: master
 
 matrix:
   include:
