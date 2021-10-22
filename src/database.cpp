@@ -27,12 +27,13 @@
 #include "database.h"
 //#include <qDebug>
 
+/*
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 {
        //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName << QT_ENDL;
     constrid = 1;
     created = false;
-
+    latestReaded = 0.0f;
     util = new Utilities();
     softVersion = util->getVersion();
     dbName = _DBName;
@@ -49,6 +50,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     insertQueryFields.clear();
        //qDebug() << "DataBase::DataBase: PLAIN: - END" << QT_ENDL;
 }
+*/
 
 DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
 {
@@ -60,7 +62,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
     latestReaded = 0.0f;
-    util = new Utilities();
+    util = new Utilities;
     util->setVersion(softVersion);
 
     dbName = _DBName;
@@ -1767,6 +1769,47 @@ int DataBase::getSubModeIDFromName2(const QString &b)
 
     return getModeIdFromSubMode(b);
 }
+
+QList<int> DataBase::getModeIdsFromModeNames(const QStringList _m)
+{
+    qDebug() << Q_FUNC_INFO;
+    QList<int> ids;
+    ids.clear ();
+    if (_m.length ()<1)
+    {
+        return ids;
+    }
+
+    QString modes, aux;
+    modes.clear ();
+    foreach (aux, _m)
+    {
+        modes = modes + QString("'%1', ").arg(aux);
+    }
+    modes.chop (2);
+
+    QSqlQuery query;
+    QString queryString = QString("SELECT id FROM mode WHERE submode IN (%1)").arg(modes);
+
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                ids.append (query.value(0).toInt ());
+            }
+        }
+    }
+    else
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    }
+    query.finish();
+    return ids;
+}
+
 
 QString DataBase::getBandNameFromID2(const int _i)
 {

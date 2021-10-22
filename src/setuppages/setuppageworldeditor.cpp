@@ -32,7 +32,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent
     //worldPanel = new QWidget;
     dataProxy = dp;
     world = new World(dataProxy, Q_FUNC_INFO);
-    util = new Utilities();
+    util = new Utilities;
 
     setupEntityDialog = new SetupEntityDialog();
 

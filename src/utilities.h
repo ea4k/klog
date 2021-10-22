@@ -102,7 +102,7 @@ public:
     bool isValidComment(const QString &_b);
     bool isValidName(const QString &_b);
     bool isValidADIFField(const QString &_b);
-    bool isValidQSL_Rcvd(const QString &c);
+    bool isValidQSL_Rcvd(const QString &c, bool rcvd=true); // If receiving is true, If creating the ADIF is false
     bool isValidQSL_Sent(const QString &c);
     bool isValidUpload_Status(const QString &c);
 

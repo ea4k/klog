@@ -41,7 +41,7 @@ class StatsWorkedSentPieChartWidget : public StatsGeneralChartWidget
     Q_OBJECT
 public:
     StatsWorkedSentPieChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    StatsWorkedSentPieChartWidget();
+    //StatsWorkedSentPieChartWidget();
     void prepareChart(const int _log=-1);
 
 signals:

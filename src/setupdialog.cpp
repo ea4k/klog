@@ -73,7 +73,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     //qDebug() << Q_FUNC_INFO << ": 01.90" << QT_ENDL;
     satsPage = new SetupPageSats(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 01.100" << QT_ENDL;
-    hamlibPage = new SetupPageHamLib(dataProxy, this);
+    hamlibPage = new SetupPageHamLib(this);
     logViewPage = new SetupPageLogView(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 02" << QT_ENDL;
 
