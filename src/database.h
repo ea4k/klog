@@ -34,6 +34,7 @@
 #include <QSqlQuery>
 #include <QtSql>
 #include <QString>
+#include <QStringList>
 #include <QDateTime>
 #include <QInputDialog>
 #include <QProgressDialog>
@@ -67,8 +68,7 @@ class DataBase //: public QObject
    // Q_OBJECT
 
 public:
-    DataBase(const QString &_parentClass, const QString &_DBName);
-    //DataBase(const QString &_softVersion, bool  inmemoryonly = false);
+    //DataBase(const QString &_parentClass, const QString &_DBName);
     DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName);
     //virtual ~DataBase();
     ~DataBase();
@@ -101,10 +101,12 @@ public:
     int getBandIDFromName2(const QString &b);
     int getModeIDFromName2(const QString &b);
     int getSubModeIDFromName2(const QString &b);
+    QList<int> getModeIdsFromModeNames(const QStringList _m);
 
     QString getBandNameFromID2(const int _i);
     QString getModeNameFromID2(const int _i);
     QString getSubModeNameFromID2(const int _i);
+
 
     int getBandIdFromFreq(const QString &fr); //Freq should be in MHz
     bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz

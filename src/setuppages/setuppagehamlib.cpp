@@ -25,7 +25,7 @@
  *****************************************************************************/
 #include "setuppages/setuppagehamlib.h"
 
-SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
+SetupPageHamLib::SetupPageHamLib(QWidget *parent) : QWidget(parent)
 {
     //qDebug() << Q_FUNC_INFO << QT_ENDL;
     hamlibTestOK = false;
@@ -51,11 +51,10 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     testHamlibPushButton = new QPushButton();
     dataFromRigLineEdit = new QLineEdit;
     serialPort = new QLineEdit;
-
     //qDebug() << Q_FUNC_INFO << ": 07" << QT_ENDL;
-    createUI();
-    //qDebug() << Q_FUNC_INFO << ": 08" << QT_ENDL;
     setDefaults();
+    //qDebug() << Q_FUNC_INFO << ": 08" << QT_ENDL;
+    createUI();
     //qDebug() << Q_FUNC_INFO << ": 10" << QT_ENDL;
     //slotTestHamlib();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;

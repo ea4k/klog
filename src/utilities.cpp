@@ -37,9 +37,7 @@ Utilities::Utilities()
     //qDebug() << "Utilities::Utilities - END"  ;
 }
 
-Utilities::~Utilities()
-{
-}
+Utilities::~Utilities(){}
 
 void Utilities::init()
 {
@@ -61,7 +59,7 @@ QString Utilities::getVersion()
 
 double Utilities::getVersionDouble()
 {
-       //qDebug() << "Utilities::getVersionDouble: " << softwareVersion ;
+    //qDebug() << "Utilities::getVersionDouble: " << softwareVersion ;
     if (softwareVersion.count('.')>1)
     {
         QString first = softwareVersion.section('.', 0, 0);
@@ -1296,15 +1294,16 @@ bool Utilities::isValidADIFField(const QString &_b)
     return true;
 }
 
-bool Utilities::isValidQSL_Rcvd(const QString &c)
+bool Utilities::isValidQSL_Rcvd(const QString &c, bool rcvd)
 {
-    if ((c == "Y") || (c == "N") || (c == "R") || (c == "I") || (c == "V"))
+    QStringList validData;
+    validData.clear ();
+    validData << "Y" << "N" << "R" << "I";
+    if (rcvd)
     {
-        return true;
+        validData << "V";
     }
-    else {
-        return false;
-    }
+    return validData.contains (c);
 }
 
 bool Utilities::isValidQSL_Sent(const QString &c)

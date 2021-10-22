@@ -25,7 +25,6 @@
  *****************************************************************************/
 
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
 //#include <QDebug>
 
 DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
@@ -39,7 +38,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << QT_ENDL;
 
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << QT_ENDL;
-    util = new Utilities();
+    util = new Utilities;
     util->setVersion(_softVersion);
     qso = new QSO;
 
@@ -3698,7 +3697,6 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
     return qsoList;
 }
 
-
 QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate)
 {
     //qDebug() << Q_FUNC_INFO << ": Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
@@ -3743,6 +3741,85 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
 
     bool sqlOK = query.exec(queryString);
     //qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << QT_ENDL;
+
+    if (sqlOK)
+    {
+       // //qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << QT_ENDL;
+
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                aux.clear();
+                aux = (query.value(1)).toString() ;
+                tmpDate = util->getDateFromSQliteString(aux);
+                //qDebug() << Q_FUNC_INFO << ": QSO Date: " << aux << "/" << tmpDate.toString("yyyy-MM-dd") << QT_ENDL;
+                //tmpDate = QDate::fromString(aux, "yyyy-MM-dd");
+                if ((_startDate<=tmpDate) && _endDate>=tmpDate)
+                {
+                    qsoList.append((query.value(0)).toInt());
+                }
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        qsoList.clear();
+        return qsoList;
+    }
+    query.finish();
+    qs.sort();
+    return qsoList;
+}
+
+QList<int> DataProxy_SQLite::getQSOsListToBeExportedForWSJTX(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate)
+{
+    //qDebug() << Q_FUNC_INFO << ": Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
+    QList <int> qsoList;
+    qsoList.clear();
+    QDate tmpDate;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString;
+
+    QString _queryST_string;
+    if (util->isValidCall(_stationCallsign))
+    {
+        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
+    }
+    else if (_stationCallsign == "ALL")
+    {
+        _queryST_string = QString("station_callsign!='ALL'");
+    }
+    else
+    {
+        _queryST_string = QString("station_callsign=''");
+    }
+
+    QStringList wsjtxModes;
+    wsjtxModes.clear ();
+    wsjtxModes << "FST4" << "FT4" << "FT8" << "JT4" << "JT9" << "JT65" << "Q65" << "MSK144" << "FST4W" << "WSPR";
+    QList<int> ids;
+    ids.clear();
+    ids.append (db->getModeIdsFromModeNames (wsjtxModes));
+    QString modes;
+    modes.clear ();
+    int i;
+    foreach (i, ids)
+    {
+        QString mode = QString::number(i);
+        modes = modes + QString("'%1', ").arg(mode);
+    }
+    modes.chop (2);
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + QString(" AND modeid IN (%1)").arg(modes);
+
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+    qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << QT_ENDL;
 
     if (sqlOK)
     {
@@ -3865,8 +3942,6 @@ QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCalls
     qs.sort();
     return qsoList;
 }
-
-
 
 QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
 { //Returns QRZ << date+time << Band (txt) << mode (txt)
@@ -8319,7 +8394,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( ((aux.length())==1)  && (util->isValidUpload_Status(aux)) )
         {
             ADIFqso.append("<HRDLOG_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
@@ -8498,7 +8573,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( ((aux.length())==1)  && (util->isValidUpload_Status(aux)) )
         {
             ADIFqso.append("<CLUBLOG_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
@@ -8518,7 +8593,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( ((aux.length())==1)  && (util->isValidUpload_Status(aux)) )
         {
             ADIFqso.append("<QRZCOM_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
         }

@@ -59,7 +59,7 @@ QString ADIFForField::getADIFForQSODate(const QString &_data, ExportMode _em)
 
 QString ADIFForField::getADIFForCall(const QString &_data)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ": " << _data;
     QString result;
     result.clear ();
     if (util->isValidCall(_data))
@@ -305,7 +305,7 @@ QString ADIFForField::getADIFForStationCallsign(const QString &_data)
 
 QString ADIFForField::getADIFPair(const QString &_field, const QString &_data)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ": " << _field << "/" << _data;
     int length = _data.length ();
     if (length<1)
     {
@@ -350,3 +350,80 @@ bool ADIFForField::showInvalidCallMessage(const QString &_call){
         return false;
     }
 }
+
+QString ADIFForField::getADIFForBandRX(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    return getADIFPair("BAND_RX", _data);
+}
+
+QString ADIFForField::getADIFForFreq_rx(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    //TODO: Normalize to 0-360
+    bool ok;
+    float num = _data.toFloat(&ok);
+    if (!ok)
+        return QString();
+    if (num<0)
+    {
+        return QString();
+    }
+    return getADIFPair("FREQ_RX", QString::number(num));
+}
+
+QString ADIFForField::getADIFForQSLRDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("QSLRDATE", aux);
+      }
+    //qDebug() << Q_FUNC_INFO << ": " << result;
+    return result;
+}
+
+QString ADIFForField::getADIFForQSLSDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("QSLSDATE", aux);
+      }
+    //qDebug() << Q_FUNC_INFO << ": " << result;
+    return result;
+}
+
+QString ADIFForField::getADIFForQSLRcvd(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (!util->isValidQSL_Rcvd (_data, false))
+         return QString();
+    return getADIFPair("QSL_RCVD", _data);
+}
+
+QString ADIFForField::getADIFForQSLSent(const QString &_data)
+{
+    if (!util->isValidQSL_Sent (_data))
+         return QString();
+    return getADIFPair("QSL_SENT", _data);
+}
+

@@ -29,6 +29,7 @@
 #include <QString>
 #include <QStringList>
 #include <QObject>
+#include "utilities.h"
 #include "database.h"
 #include "qso.h"
 #include "klogdefinitions.h"
@@ -178,6 +179,7 @@ public:
     QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListToBeExported(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate);
+    QList<int> getQSOsListToBeExportedForWSJTX(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);

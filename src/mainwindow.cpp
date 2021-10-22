@@ -47,7 +47,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
-
+    configured = false;
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -632,7 +632,7 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
-    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
+    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode, QList<int>)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode, QList<int>)) );
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
@@ -2688,7 +2688,7 @@ void MainWindow::slotSearchBoxTextChanged()
 
 void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 {
-     //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << QT_ENDL;
+    //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << QT_ENDL;
     if (_id.length()<1)
     {
         return; // NO QSO TO EXPORT
@@ -3748,9 +3748,14 @@ void MainWindow::createMenusCommon()
 
     ADIFExportAll = new QAction(tr("Export all logs to ADIF ..."), this);
     fileMenu->addAction(ADIFExportAll);
-    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
     ADIFExportAll->setToolTip(tr("Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."));
+
+    ADIFExportWSJTX = new QAction(tr("Export log for WSJTX ..."), this);
+    fileMenu->addAction(ADIFExportWSJTX);
+    connect(ADIFExportWSJTX, SIGNAL(triggered()), this, SLOT(slotADIFExportWSJTX()));
+    ADIFExportWSJTX->setToolTip(tr("Export the current log to an ADIF logfile to be imported in WSJTX, with a reduced set of ADIF fields."));
+
 
     fileMenu->addSeparator();
 
@@ -5838,30 +5843,66 @@ void MainWindow::fileExportADIF(const QString &_st, const QDate &_startDate, con
       //qDebug() << "MainWindow::fileExportADIF - END" << QT_ENDL;
 }
 
+void MainWindow::fileExportADIFWSJTX(QList<int> _qsos)
+{
+    qDebug() << Q_FUNC_INFO;
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    /*
+    filemanager->adifQSOsExport(fileName, _id);
+     //qDebug() << "MainWindow::slotQSOsExportToADIF-3" << QT_ENDL;
+    showNumberOfSavedQSO(fileName, _id.count());
+*/
+
+    bool ok = filemanager->adifQSOsExportWSJTX (fileName, _qsos);
+
+    showNumberOfSavedQSO(fileName, _qsos.count());
+
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+
+QString MainWindow::getADIFFileName()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+
+    if (fileName.length()<1)
+    {
+        return QString();
+    }
+    if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
+    {
+        fileName = fileName +  ".adi";
+    }
+    return fileName;
+}
+
 void MainWindow::slotADIFExportAll()
 {
       //qDebug() << "MainWindow::slotADIFExportAll " << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     QString _callToUse = "ALL";
-
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    QString fileName = getADIFFileName ();
       //qDebug() << "MainWindow::slotADIFExportAll: " << fileName << QT_ENDL;
     if (fileName.length()<1)
     {
         return;
     }
-    if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
-    {
-         //qDebug() << "MainWindow::slotADIFExportAll: Adding the .adi to the file" << fileName << QT_ENDL;
-        fileName = fileName +  ".adi";
-    }
+
      //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName << QT_ENDL;
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
      //qDebug() << "MainWindow::slotADIFExportAll-3" << QT_ENDL;
     showNumberOfSavedQSO(fileName, qsos.count());
 
     //filemanager->adifLogExport(fileName, 0);
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::slotADIFExportWSJTX()
+{
+    qDebug() << Q_FUNC_INFO;
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    adifLoTWExportWidget->setExportMode(ModeWSJTX);
+    adifLoTWExportWidget->show();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -6060,7 +6101,8 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
       //qDebug() << "MainWindow::fileExportEQSL -END " << QT_ENDL;
 }
 
-void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
+
+void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM,QList<int> _qsos)
 {
       //qDebug() << "MainWindow::slotADIFExportSelection  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
@@ -6081,6 +6123,11 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_start
     case ModeEQSL:         // General eQSL
           //qDebug() << "MainWindow::slotADIFExportSelection  - eQSL" << QT_ENDL;
         fileExportEQSL(_st, _startDate, _endDate);
+        break;
+    case ModeWSJTX:         // WSJTXL
+        qDebug() << "MainWindow::slotADIFExportSelection  - WJTX" << QT_ENDL;
+       fileExportADIFWSJTX (_qsos);
+
         break;
     case ModeQRZ:         // General eQSL
           //qDebug() << "MainWindow::slotADIFExportSelection  - QRZ.com" << QT_ENDL;

@@ -76,8 +76,11 @@ public:
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
 
     bool adifQSOsExport(const QString& _fileName, QList<int> _qsos);
+    bool adifQSOsExportWSJTX(const QString& _fileName, QList<int> _qsos);
     QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
     bool adifLogExport(const QString& _fileName, const int _logN);
+    QList<int> adifLogExportWSJTX(const QString& _fileName, const QString &_stationcallsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
+
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
     //bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
@@ -123,7 +126,7 @@ private:
 
     void writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
-    QString getADIFForField(const QString &_field, const QString &_data);
+    QString getADIFForField(const QString &_field, const QString &_data, ExportMode _em = ModeADIF);
 
     bool dbCreated;
     DataBase *db;

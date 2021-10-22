@@ -212,8 +212,9 @@ private slots:
     void slotLoTWExport();
     void slotLoTWDownload();
     void slotLoTWFullDownload();
-    void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
+    void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM, QList<int> _qsos);
 
+    void slotADIFExportWSJTX();
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
@@ -344,8 +345,11 @@ private:
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportADIFWSJTX(QList<int> _qsos);
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
+    QString getADIFFileName();
+
     //QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
@@ -530,6 +534,7 @@ private:
     QAction *scoreeWinAct;
     QAction *ADIFExport;
     QAction *ADIFExportAll;
+    QAction *ADIFExportWSJTX;
     QAction *ADIFImport;
     //QAction *LoTWExport;
     QAction *LoTWImport;
