@@ -42,3 +42,4 @@ matrix:
     
     script:
       - make
+      
