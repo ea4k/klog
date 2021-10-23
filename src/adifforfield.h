@@ -79,15 +79,19 @@ public:
 
     QString getADIFForClubLogQSOUploadDate(const QString &_data);
     QString getADIFForClubLogQSOUploadStatus(const QString &_data);
-
-
- /*
-
-    QString getADIFForHRDLogQSOUploadStatus(const QString &_data);
     QString getADIFForHRDLogQSOUploadDate(const QString &_data);
     QString getADIFForHRDLogQSOUploadStatus(const QString &_data);
     QString getADIFForQRZCOMQSOUploadDate(const QString &_data);
     QString getADIFForQRZCOMQSOUploadStatus(const QString &_data);
+
+
+ /*
+
+    QString getADIFForHRDLogQSOUploadDate(const QString &_data);
+    QString getADIFForHRDLogQSOUploadStatus(const QString &_data);
+    QString getADIFForQRZCOMQSOUploadDate(const QString &_data);
+    QString getADIFForQRZCOMQSOUploadStatus(const QString &_data);
+
     QString getADIFForAward_Submitted(const QString &_data);
     QString getADIFForAward_Granted(const QString &_data);
 

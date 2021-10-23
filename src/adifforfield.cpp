@@ -504,3 +504,55 @@ QString ADIFForField::getADIFForClubLogQSOUploadStatus(const QString &_data)
          return QString();
     return getADIFPair("CLUBLOG_QSO_UPLOAD_STATUS", _data);
 }
+
+QString ADIFForField::getADIFForHRDLogQSOUploadDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("HRDLOG_QSO_UPLOAD_DATE", aux);
+      }
+    return result;
+}
+
+QString ADIFForField::getADIFForHRDLogQSOUploadStatus(const QString &_data)
+{
+    if (!util->isValidUpload_Status (_data))
+         return QString();
+    return getADIFPair("HRDLOG_QSO_UPLOAD_STATUS", _data);
+}
+
+QString ADIFForField::getADIFForQRZCOMQSOUploadDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("QRZCOM_QSO_UPLOAD_DATE", aux);
+      }
+    return result;
+}
+
+QString ADIFForField::getADIFForQRZCOMQSOUploadStatus(const QString &_data)
+{
+    if (!util->isValidUpload_Status (_data))
+         return QString();
+    return getADIFPair("QRZCOM_QSO_UPLOAD_STATUS", _data);
+}

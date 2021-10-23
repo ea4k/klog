@@ -5155,6 +5155,28 @@ QString FileManager::getADIFForField(const QString &_field, const QString &_data
         return adifForField->getADIFForAnt_path (_data);
     else if (_field == "arrl_sect")
         return adifForField->getADIFForARRL_sect (_data);
+    else if (_field == "lotw_qslrdate")
+        return adifForField->getADIFForLoTWRDate (_data);
+    else if (_field == "lotw_qslsdate")
+        return adifForField->getADIFForLoTWSDate (_data);
+    else if (_field == "lotw_qsl_rcvd")
+        return adifForField->getADIFForLoTWQSLRcvd (_data);
+    else if (_field == "lotw_qsl_sent")
+        return adifForField->getADIFForLoTWQSLSent (_data);
+    else if (_field == "clublog_qso_upload_date")
+        return adifForField->getADIFForClubLogQSOUploadDate (_data);
+    else if (_field == "clublog_qso_upload_status")
+        return adifForField->getADIFForClubLogQSOUploadStatus (_data);
+    else if (_field == "hrdlog_qso_upload_date")
+        return adifForField->getADIFForHRDLogQSOUploadDate (_data);
+    else if (_field == "hrdlog_qso_upload_status")
+        return adifForField->getADIFForHRDLogQSOUploadStatus (_data);
+    else if (_field == "qrzcom_qso_upload_date")
+        return adifForField->getADIFForQRZCOMQSOUploadDate (_data);
+    else if (_field == "qrzcom_qso_upload_status")
+        return adifForField->getADIFForQRZCOMQSOUploadStatus(_data);
+
+
     else
         return QString("NOT_IMPLEMENTED-%1-%2 ").arg(_field).arg(_data);
 
