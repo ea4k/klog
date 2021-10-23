@@ -556,3 +556,17 @@ QString ADIFForField::getADIFForQRZCOMQSOUploadStatus(const QString &_data)
          return QString();
     return getADIFPair("QRZCOM_QSO_UPLOAD_STATUS", _data);
 }
+
+QString ADIFForField::getADIFForAward_Submitted(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("AWARD_SUBMITTED", _data);
+}
+
+QString ADIFForField::getADIFForAward_Granted(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("AWARD_GRANTED", _data);
+}

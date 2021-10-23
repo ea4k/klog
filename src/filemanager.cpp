@@ -5175,13 +5175,14 @@ QString FileManager::getADIFForField(const QString &_field, const QString &_data
         return adifForField->getADIFForQRZCOMQSOUploadDate (_data);
     else if (_field == "qrzcom_qso_upload_status")
         return adifForField->getADIFForQRZCOMQSOUploadStatus(_data);
-
-
+    else if (_field == "award_granted")
+        return adifForField->getADIFForAward_Granted (_data);
+    else if (_field == "award_submitted")
+        return adifForField->getADIFForAward_Submitted (_data);
     else
         return QString("NOT_IMPLEMENTED-%1-%2 ").arg(_field).arg(_data);
 
     return QString("DEFAULT-ADIF");
-    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 

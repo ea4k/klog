@@ -87,6 +87,8 @@ private slots:
     void test_getADIFForQRZCOMQSOUploadDate();
     void test_getADIFForQRZCOMQSOUploadStatus();
 
+    void test_getADIFForAward_Submitted();
+    void test_getADIFForAward_Granted();
 
 private:
     ADIFForField *adifForField;
@@ -404,7 +406,7 @@ void tst_ADIFForField::test_getADIFForClubLogQSOUploadStatus()
 {
     QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("Y") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>Y ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported Y");
     QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("N") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>N ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported N");
-    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("M") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>R ", "LOTW_QSL_SENT not properly exported R");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("M") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>M ", "LOTW_QSL_SENT not properly exported R");
     QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("I") == QString(), "Bad CLUBLOG_QSO_UPLOAD_STATUS not properly exported H");
     QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("CW") == QString(), "Bad String CLUBLOG_QSO_UPLOAD_STATUS not properly exported CW");
     QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus(QString()) == QString(), "Empty CLUBLOG_QSO_UPLOAD_STATUS not properly exported");
@@ -421,7 +423,7 @@ void tst_ADIFForField::test_getADIFForHRDLogQSOUploadStatus()
 {
     QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus ("Y") == "<HRDLOG_QSO_UPLOAD_STATUS:1>Y ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported Y");
     QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus ("N") == "<HRDLOG_QSO_UPLOAD_STATUS:1>N ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported N");
-    QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus ("M") == "<HRDLOG_QSO_UPLOAD_STATUS:1>R ", "LOTW_QSL_SENT not properly exported R");
+    QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus ("M") == "<HRDLOG_QSO_UPLOAD_STATUS:1>M ", "LOTW_QSL_SENT not properly exported R");
     QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus ("I") == QString(), "Bad HRDLOG_QSO_UPLOAD_STATUS not properly exported H");
     QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus ("CW") == QString(), "Bad String HRDLOG_QSO_UPLOAD_STATUS not properly exported CW");
     QVERIFY2(adifForField->getADIFForHRDLogQSOUploadStatus(QString()) == QString(), "Empty HRDLOG_QSO_UPLOAD_STATUS not properly exported");
@@ -437,10 +439,20 @@ void tst_ADIFForField::test_getADIFForQRZCOMQSOUploadStatus()
 {
     QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus ("Y") == "<QRZCOM_QSO_UPLOAD_STATUS:1>Y ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported Y");
     QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus ("N") == "<QRZCOM_QSO_UPLOAD_STATUS:1>N ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported N");
-    QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus ("M") == "<QRZCOM_QSO_UPLOAD_STATUS:1>R ", "LOTW_QSL_SENT not properly exported R");
+    QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus ("M") == "<QRZCOM_QSO_UPLOAD_STATUS:1>M ", "LOTW_QSL_SENT not properly exported M");
     QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus ("I") == QString(), "Bad QRZCOM_QSO_UPLOAD_STATUS not properly exported H");
     QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus ("CW") == QString(), "Bad String QRZCOM_QSO_UPLOAD_STATUS not properly exported CW");
     QVERIFY2(adifForField->getADIFForQRZCOMQSOUploadStatus(QString()) == QString(), "Empty QRZCOM_QSO_UPLOAD_STATUS not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForAward_Submitted()
+{
+    QVERIFY2(adifForField->getADIFForAward_Submitted ("ADIF_CENTURY_BASIC") == "<AWARD_SUBMITTED:18>ADIF_CENTURY_BASIC ", "AWARD_SUBMITTED not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForAward_Granted()
+{
+    QVERIFY2(adifForField->getADIFForAward_Granted ("ADIF_CENTURY_BASIC") == "<AWARD_GRANTED:18>ADIF_CENTURY_BASIC ", "AWARD_SUBMITTED not properly exported");
 }
 
 QTEST_APPLESS_MAIN(tst_ADIFForField)
