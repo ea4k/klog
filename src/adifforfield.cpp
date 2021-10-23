@@ -427,3 +427,80 @@ QString ADIFForField::getADIFForQSLSent(const QString &_data)
     return getADIFPair("QSL_SENT", _data);
 }
 
+QString ADIFForField::getADIFForLoTWRDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("LOTW_QSLRDATE", aux);
+      }
+    return result;
+}
+QString ADIFForField::getADIFForLoTWSDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("LOTW_QSLSDATE", aux);
+      }
+    return result;
+}
+
+QString ADIFForField::getADIFForLoTWQSLRcvd(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (!util->isValidQSL_Rcvd (_data, false))
+         return QString();
+    return getADIFPair("LOTW_QSL_RCVD", _data);
+}
+
+QString ADIFForField::getADIFForLoTWQSLSent(const QString &_data)
+{
+    if (!util->isValidQSL_Sent (_data))
+         return QString();
+    return getADIFPair("LOTW_QSL_SENT", _data);
+}
+
+QString ADIFForField::getADIFForClubLogQSOUploadDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("CLUBLOG_QSO_UPLOAD_DATE", aux);
+      }
+    return result;
+}
+
+QString ADIFForField::getADIFForClubLogQSOUploadStatus(const QString &_data)
+{
+    if (!util->isValidUpload_Status (_data))
+         return QString();
+    return getADIFPair("CLUBLOG_QSO_UPLOAD_STATUS", _data);
+}

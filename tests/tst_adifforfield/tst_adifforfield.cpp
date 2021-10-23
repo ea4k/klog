@@ -75,6 +75,13 @@ private slots:
     void test_getADIFForQSLRcvd();
     void test_getADIFForQSLSent();
 
+    void test_getADIFForLoTWRDate();
+    void test_getADIFForLoTWSDate();
+    void test_getADIFForLoTWQSLRcvd();
+    void test_getADIFForLoTWQSLSent();
+    void test_getADIFForClubLogQSOUploadDate();
+    void test_getADIFForClubLogQSOUploadStatus();
+
 private:
     ADIFForField *adifForField;
 
@@ -339,6 +346,62 @@ void tst_ADIFForField::test_getADIFForQSLSent()
     QVERIFY2(adifForField->getADIFForQSLSent("H") == QString(), "Bad QSL_SENT not properly exported H");
     QVERIFY2(adifForField->getADIFForQSLSent ("CW") == QString(), "Bad String QSL_SENT not properly exported CW");
     QVERIFY2(adifForField->getADIFForQSLSent (QString()) == QString(), "Empty QSL_SENT not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForLoTWRDate()
+{
+    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForLoTWRDate ("2021-10-17");
+    QVERIFY2(adifForField->getADIFForLoTWRDate ("2021-10-17") == "<LOTW_QSLRDATE:8>20211017 ", "Date not properly exported");
+    QVERIFY2(adifForField->getADIFForLoTWRDate ("BAD date") == QString(), "Bad LOTW_QSLRDATE not properly exported");
+    QVERIFY2(adifForField->getADIFForLoTWRDate (QString()) == QString(), "Empty LOTW_QSLRDATE  not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForLoTWSDate()
+{
+    QVERIFY2(adifForField->getADIFForLoTWSDate ("2021-10-17") == "<LOTW_QSLSDATE:8>20211017 ", "Date not properly exported");
+    QVERIFY2(adifForField->getADIFForLoTWSDate ("BAD date") == QString(), "Bad LOTW_QSLSDATE not properly exported");
+    QVERIFY2(adifForField->getADIFForLoTWSDate (QString()) == QString(), "Empty LOTW_QSLSDATE  not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForLoTWQSLRcvd()
+{
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd ("Y") == "<LOTW_QSL_RCVD:1>Y ", "LOTW_QSL_RCVD not properly exported Y");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd ("N") == "<LOTW_QSL_RCVD:1>N ", "LOTW_QSL_RCVD not properly exported N");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd ("R") == "<LOTW_QSL_RCVD:1>R ", "LOTW_QSL_RCVD not properly exported R");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd ("I") == "<LOTW_QSL_RCVD:1>I ", "LOTW_QSL_RCVD not properly exported I");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd ("V") == QString(), "Bad LOTW_QSL_RCVD not properly exported V");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd("H") == QString(), "Bad LOTW_QSL_RCVD not properly exported H");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd ("CW") == QString(), "Bad String LOTW_QSL_RCVD not properly exported CW");
+    QVERIFY2(adifForField->getADIFForLoTWQSLRcvd (QString()) == QString(), "Empty LOTW_QSL_RCVD not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForLoTWQSLSent()
+{
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("Y") == "<LOTW_QSL_SENT:1>Y ", "LOTW_QSL_SENT not properly exported Y");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("N") == "<LOTW_QSL_SENT:1>N ", "LOTW_QSL_SENT not properly exported N");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("R") == "<LOTW_QSL_SENT:1>R ", "LOTW_QSL_SENT not properly exported R");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("I") == "<LOTW_QSL_SENT:1>I ", "LOTW_QSL_SENT not properly exported I");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("Q") == "<LOTW_QSL_SENT:1>Q ", "LOTW_QSL_SENT not properly exported Q");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("H") == QString(), "Bad LOTW_QSL_SENT not properly exported H");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent ("CW") == QString(), "Bad String LOTW_QSL_SENT not properly exported CW");
+    QVERIFY2(adifForField->getADIFForLoTWQSLSent (QString()) == QString(), "Empty LOTW_QSL_SENT not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForClubLogQSOUploadDate()
+{
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadDate ("2021-10-17") == "<CLUBLOG_QSO_UPLOAD_DATE:8>20211017 ", "CLUBLOG_QSO_UPLOAD_DATE not properly exported");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadDate ("BAD date") == QString(), "Bad CLUBLOG_QSO_UPLOAD_DATE not properly exported");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadDate (QString()) == QString(), "Empty CLUBLOG_QSO_UPLOAD_DATE  not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForClubLogQSOUploadStatus()
+{
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("Y") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>Y ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported Y");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("N") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>N ", "CLUBLOG_QSO_UPLOAD_STATUS not properly exported N");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("M") == "<CLUBLOG_QSO_UPLOAD_STATUS:1>R ", "LOTW_QSL_SENT not properly exported R");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("I") == QString(), "Bad CLUBLOG_QSO_UPLOAD_STATUS not properly exported H");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus ("CW") == QString(), "Bad String CLUBLOG_QSO_UPLOAD_STATUS not properly exported CW");
+    QVERIFY2(adifForField->getADIFForClubLogQSOUploadStatus(QString()) == QString(), "Empty CLUBLOG_QSO_UPLOAD_STATUS not properly exported");
 }
 
 QTEST_APPLESS_MAIN(tst_ADIFForField)
