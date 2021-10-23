@@ -84,6 +84,11 @@ public:
     QString getADIFForQRZCOMQSOUploadDate(const QString &_data);
     QString getADIFForQRZCOMQSOUploadStatus(const QString &_data);
 
+    QString getADIFForEQSL_QSLRDate(const QString &_data);
+    QString getADIFForEQSL_QSLSDate(const QString &_data);
+    QString getADIFForEQSL_QSLRCVD(const QString &_data);
+    QString getADIFForEQSL_QSLSent(const QString &_data);
+
     QString getADIFForAward_Submitted(const QString &_data);
     QString getADIFForAward_Granted(const QString &_data);
 
@@ -104,10 +109,7 @@ public:
     QString getADIFForDistance(const QString &_data);
     QString getADIFForEmail(const QString &_data);
     QString getADIFForEQ_Call(const QString &_data);
-    QString getADIFForEQSL_QSLRDate(const QString &_data);
-    QString getADIFForEQSL_QSLSDate(const QString &_data);
-    QString getADIFForEQSL_QSLRCVD(const QString &_data);
-    QString getADIFForEQSL_QSLSent(const QString &_data);
+
     QString getADIFForFists(const QString &_data);
     QString getADIFForFist_cc(const QString &_data);
     QString getADIFForForce_init(const QString &_data);

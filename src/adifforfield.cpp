@@ -445,6 +445,7 @@ QString ADIFForField::getADIFForLoTWRDate(const QString &_data)
       }
     return result;
 }
+
 QString ADIFForField::getADIFForLoTWSDate(const QString &_data)
 {
     qDebug() << Q_FUNC_INFO;
@@ -569,4 +570,57 @@ QString ADIFForField::getADIFForAward_Granted(const QString &_data)
     if (_data.length ()<1)
          return QString();
     return getADIFPair("AWARD_GRANTED", _data);
+}
+
+QString ADIFForField::getADIFForEQSL_QSLRDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("EQSL_QSLRDATE", aux);
+      }
+    return result;
+}
+
+QString ADIFForField::getADIFForEQSL_QSLSDate(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (_data.length ()<1)
+        return QString();
+
+    QString aux, result;
+    result.clear ();
+    QDate tDate;
+    tDate = util->getDateFromSQliteString(_data);
+
+    if (tDate.isValid())
+    {
+        aux = util->getADIFDateFromQDate (tDate);
+        result = getADIFPair("EQSL_QSLSDATE", aux);
+      }
+    return result;
+}
+
+QString ADIFForField::getADIFForEQSL_QSLRCVD(const QString &_data)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (!util->isValidQSL_Rcvd (_data, false))
+         return QString();
+    return getADIFPair("EQSL_QSL_RCVD", _data);
+}
+
+QString ADIFForField::getADIFForEQSL_QSLSent(const QString &_data)
+{
+    if (!util->isValidQSL_Sent (_data))
+         return QString();
+    return getADIFPair("EQSL_QSL_SENT", _data);
 }

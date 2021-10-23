@@ -90,6 +90,11 @@ private slots:
     void test_getADIFForAward_Submitted();
     void test_getADIFForAward_Granted();
 
+    void test_getADIFForEQSL_QSLRDate();
+    void test_getADIFForEQSL_QSLSDate();
+    void test_getADIFForEQSL_QSLRCVD();
+    void test_getADIFForEQSL_QSLSent();
+
 private:
     ADIFForField *adifForField;
 
@@ -453,6 +458,44 @@ void tst_ADIFForField::test_getADIFForAward_Submitted()
 void tst_ADIFForField::test_getADIFForAward_Granted()
 {
     QVERIFY2(adifForField->getADIFForAward_Granted ("ADIF_CENTURY_BASIC") == "<AWARD_GRANTED:18>ADIF_CENTURY_BASIC ", "AWARD_SUBMITTED not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForEQSL_QSLRDate()
+{
+    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForLoTWRDate ("2021-10-17");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRDate ("2021-10-17") == "<EQSL_QSLRDATE:8>20211017 ", "Date not properly exported");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRDate ("BAD date") == QString(), "Bad EQSL_QSLRDATE not properly exported");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRDate (QString()) == QString(), "Empty EQSL_QSLRDATE  not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForEQSL_QSLSDate()
+{
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSDate ("2021-10-17") == "<EQSL_QSLSDATE:8>20211017 ", "Date not properly exported");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSDate ("BAD date") == QString(), "Bad EQSL_QSLSDATE not properly exported");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSDate (QString()) == QString(), "Empty EQSL_QSLSDATE  not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForEQSL_QSLRCVD()
+{
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD ("Y") == "<EQSL_QSL_RCVD:1>Y ", "EQSL_QSL_RCVD not properly exported Y");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD ("N") == "<EQSL_QSL_RCVD:1>N ", "EQSL_QSL_RCVD not properly exported N");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD ("R") == "<EQSL_QSL_RCVD:1>R ", "EQSL_QSL_RCVD not properly exported R");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD ("I") == "<EQSL_QSL_RCVD:1>I ", "EQSL_QSL_RCVD not properly exported I");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD ("V") == QString(), "Bad EQSL_QSL_RCVD not properly exported V");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD("H") == QString(), "Bad EQSL_QSL_RCVD not properly exported H");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD ("CW") == QString(), "Bad String EQSL_QSL_RCVD not properly exported CW");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLRCVD (QString()) == QString(), "Empty EQSL_QSL_RCVD not properly exported");
+}
+void tst_ADIFForField::test_getADIFForEQSL_QSLSent()
+{
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("Y") == "<EQSL_QSL_SENT:1>Y ", "EQSL_QSL_SENT not properly exported Y");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("N") == "<EQSL_QSL_SENT:1>N ", "EQSL_QSL_SENT not properly exported N");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("R") == "<EQSL_QSL_SENT:1>R ", "EQSL_QSL_SENT not properly exported R");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("I") == "<EQSL_QSL_SENT:1>I ", "EQSL_QSL_SENT not properly exported I");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("Q") == "<EQSL_QSL_SENT:1>Q ", "EQSL_QSL_SENT not properly exported Q");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("H") == QString(), "Bad EQSL_QSL_SENT not properly exported H");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("CW") == QString(), "Bad String EQSL_QSL_SENT not properly exported CW");
+    QVERIFY2(adifForField->getADIFForEQSL_QSLSent (QString()) == QString(), "Empty EQSL_QSL_SENT not properly exported");
 }
 
 QTEST_APPLESS_MAIN(tst_ADIFForField)
