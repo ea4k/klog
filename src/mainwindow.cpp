@@ -3234,8 +3234,8 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << QT_ENDL;
         if (_d.contains("Not found: "))
         {
-            //cleanQRZCOMreceivedDataFromUI();
-             //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
+            cleanQRZCOMreceivedDataFromUI();
+            //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
             slotUpdateStatusBar(tr("Call not found in QRZ.com"));
             return;
         }
@@ -3402,7 +3402,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_CQz = -1;
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
-    //cleanQRZCOMreceivedDataFromUI();
+    cleanQRZCOMreceivedDataFromUI();
     qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
     qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
