@@ -80,11 +80,15 @@ void MainQSOEntryWidget::createUI()
     realtimeCheckBox->setToolTip(tr("KLog will show real time if enabled."));
     realtimeCheckBox->setText (tr("Real time"));
     //realtimeButton->setToolTip(tr("KLog will show real time if enabled."));
+    manualModeCheckBox->setToolTip(tr("Stop wsjt-x and hamlib from automatically updating QSO information."));
+    manualModeCheckBox->setText (tr("Manual Mode"));
+
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);
     //TimeLayout->addWidget(realtimeButton);
     TimeLayout->addWidget(realtimeCheckBox);
+    TimeLayout->addWidget(manualModeCheckBox);
     TimeLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
     QHBoxLayout *BandModeLayout = new QHBoxLayout;
