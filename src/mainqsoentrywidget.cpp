@@ -49,6 +49,8 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     duplicatedQSOSlotInSecs = 0;
     delayInputTimer = new QTimer;
 
+    hamlib = new HamLibClass();
+
 
     createUI();
     setInitialData();
@@ -138,6 +140,7 @@ void MainQSOEntryWidget::createUI()
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
     connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
+    connect(manualModeCheckBox, SIGNAL(clicked()), this, SLOT(slotManualModeCheckBoxClicked()));
       //qDebug()<< "MainQSOEntryWidget::createUI-END" << QT_ENDL;
 
     QWidget::setTabOrder (qrzLineEdit, dateEdit);
@@ -172,6 +175,22 @@ void MainQSOEntryWidget::slotCheckBoxClicked()
         realTime = false;
         //realtimeButton->setIcon(QIcon(":/img/stop.svg"));
         timeEdit->setBackgroundRole(QPalette::BrightText);
+    }
+}
+
+void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
+{
+   //qDebug() << Q_FUNC_INFO;
+    if (manualModeCheckBox->isChecked())
+    {
+        slotClearButtonClicked();
+        hamlib->stop();
+        //stop hamlib and wsjt-x communication;
+    }
+    else
+    {
+        hamlib->initClass();
+        //start hamlib and wsjt-x communication;
     }
 }
 
