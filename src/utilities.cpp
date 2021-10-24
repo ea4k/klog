@@ -899,7 +899,7 @@ bool Utilities::isValidCall(const QString &_c)
 
 QString Utilities::getPrefixFromCall(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c ;
+    //qDebug() << Q_FUNC_INFO << ": " << _c ;
     QString call = _c;
     call.replace('\\', '/');
 
@@ -920,26 +920,26 @@ QString Utilities::getPrefixFromCall(const QString &_c)
         parts << call.split ('/');
         if (parts.at(0).length ()<parts.at(1).length ())
         { // First one is shorter
-            qDebug() << Q_FUNC_INFO << ": First one is shorter: " ;
+            //qDebug() << Q_FUNC_INFO << ": First one is shorter: " ;
             int pref = isAPrefix (parts.at(0));
             if (pref>0)
             {
-                qDebug() << Q_FUNC_INFO << ": R1=" << call.left (pref) ;
+                //qDebug() << Q_FUNC_INFO << ": R1=" << call.left (pref) ;
                 return parts.at(0);
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": EMPTY-2"  ;
+                //qDebug() << Q_FUNC_INFO << ": EMPTY-2"  ;
                 return QString();
             }
         }
         else if(parts.at(0).length ()>parts.at(1).length ())
         { // Second one is shorter
-            qDebug() << Q_FUNC_INFO << ": Second one is shorter: " ;
+            //qDebug() << Q_FUNC_INFO << ": Second one is shorter: " ;
             pref = isAPrefix (parts.at(1));
             if (pref>0)
             {
-                qDebug() << Q_FUNC_INFO << ": R2=" << parts.at(1) ;
+                //qDebug() << Q_FUNC_INFO << ": R2=" << parts.at(1) ;
                 return parts.at(1);
             }
             else
@@ -947,28 +947,28 @@ QString Utilities::getPrefixFromCall(const QString &_c)
                 pref = isAPrefix (parts.at(0));
                 if (pref>0)
                 {
-                    qDebug() << Q_FUNC_INFO << ": R3=" << parts.at(0).left(pref) ;
+                    //qDebug() << Q_FUNC_INFO << ": R3=" << parts.at(0).left(pref) ;
                     return parts.at(0).left (pref);
                 }
                 else
                 {
-                    qDebug() << Q_FUNC_INFO << ": EMPTY-3"  ;
+                    //qDebug() << Q_FUNC_INFO << ": EMPTY-3"  ;
                     return QString();
                 }
             }
         }
         else
         { //Both lenght are just the same, we need to check both parts and return true if one is valid
-            qDebug() << Q_FUNC_INFO << ": Same length, we shoudl consider the first one if valid, if not the second one " ;
+            //qDebug() << Q_FUNC_INFO << ": Same length, we shoudl consider the first one if valid, if not the second one " ;
         }
     }
     pref = isAPrefix (call);
     if (pref>0)
     {
-        qDebug() << Q_FUNC_INFO << ": R4=" << call.left (pref) ;
+        //qDebug() << Q_FUNC_INFO << ": R4=" << call.left (pref) ;
         return call.left (pref);
     }
-    qDebug() << Q_FUNC_INFO << ": EMPTY-4"  ;
+    //qDebug() << Q_FUNC_INFO << ": EMPTY-4"  ;
     return QString();
 }
 

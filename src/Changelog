@@ -1,4 +1,4 @@
-TBD - 1.8.6
+Oct 2021 - 1.8.6
 - Bugfix: Net rig & FLRig hamlib connections were not working propertly. (Closes #339) (TNX W5PNY)
 - Bugfix: Serial Hamlib rigs were not properly working. (TNX W5PNY)
 - Bugfix: QRZ.com was disabled if user was not subscribed. (TNX EA5WA)
