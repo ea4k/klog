@@ -110,25 +110,34 @@ QString ADIFForField::getADIFForSubMode(const QString &_data)
 QString ADIFForField::getADIFForCQz(const QString &_data)
 {
     qDebug() << Q_FUNC_INFO;
-    QString result;
-    result.clear ();
-    if ( (0 < _data.toInt()) && (_data.toInt() < CQZones+1) )
+
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
     {
-        return getADIFPair("CQZ", _data);
+        return QString();
     }
-    return result;
+    if (!util->isValidCQ (i))
+    {
+        return QString();
+    }
+    return getADIFPair("CQZ", _data);
 }
 
 QString ADIFForField::getADIFForITUz(const QString &_data)
 {
     qDebug() << Q_FUNC_INFO;
-    QString result;
-    result.clear ();
-    if ( (0 < _data.toInt()) && (_data.toInt() < ITUZones+1) )
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
     {
-        return getADIFPair("ITUZ", _data);
+        return QString();
     }
-    return result;
+    if (!util->isValidITU (i))
+    {
+        return QString();
+    }
+    return getADIFPair("ITUZ", _data);
 }
 
 QString ADIFForField::getADIFForDXCC(const QString &_data)
@@ -153,11 +162,15 @@ QString ADIFForField::getADIFForAge(const QString &_data)
 {
     qDebug() << Q_FUNC_INFO;
     bool ok;
-    float num = _data.toFloat(&ok);
+    int i = _data.toInt(&ok);
     if (!ok)
+    {
         return QString();
-    if (!( (num>=0.0) && (num<=120.0)  ))
+    }
+    if (!util->isValidAge (i))
+    {
         return QString();
+    }
     return getADIFPair("AGE", _data);
 }
 
@@ -179,9 +192,13 @@ QString ADIFForField::getADIFForA_Index(const QString &_data)
     bool ok;
     float num = _data.toFloat(&ok);
     if (!ok)
+    {
         return QString();
+    }
     if (!( (num>=0.0) && (num<=400.0)  ))
+    {
         return QString();
+    }
     return getADIFPair("A_INDEX", _data);
 }
 
@@ -623,4 +640,137 @@ QString ADIFForField::getADIFForEQSL_QSLSent(const QString &_data)
     if (!util->isValidQSL_Sent (_data))
          return QString();
     return getADIFPair("EQSL_QSL_SENT", _data);
+}
+
+QString ADIFForField::getADIFForContestId(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("CONTEST_ID", _data);
+}
+
+QString ADIFForField::getADIFForName(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("NAME", _data);
+}
+
+QString ADIFForField::getADIFForOperator(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("OPERATOR", _data);
+}
+
+QString ADIFForField::getADIFForPfx(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("PFX", _data);
+}
+
+QString ADIFForField::getADIFForCont(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("CONT", _data);
+}
+
+QString ADIFForField::getADIFForSRx_String(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("SRX_STRING", _data);
+}
+
+QString ADIFForField::getADIFForSTx_String(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("STX_STRING", _data);
+}
+
+QString ADIFForField::getADIFForSRx(const QString &_data)
+{
+    bool ok;
+    _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    return getADIFPair("SRX", _data);
+}
+
+QString ADIFForField::getADIFForSTx(const QString &_data)
+{
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    return getADIFPair("STX", QString::number(i));
+}
+
+QString ADIFForField::getADIFForQTH(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("QTH", _data);
+}
+
+QString ADIFForField::getADIFForRX_Pwr(const QString &_data)
+{
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    return getADIFPair("RX_PWR", QString::number(i));
+}
+
+QString ADIFForField::getADIFForTX_Pwr(const QString &_data)
+{
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    return getADIFPair("TX_PWR", QString::number(i));;
+}
+
+QString ADIFForField::getADIFForMy_CQz(const QString &_data)
+{
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    if (!util->isValidCQ (i))
+        return QString();
+
+    return getADIFPair("MY_CQ_ZONE", QString::number(i));
+}
+
+QString ADIFForField::getADIFForMy_Ituz(const QString &_data)
+{
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    if (!util->isValidITU (i))
+        return QString();
+    return getADIFPair("MY_ITU_ZONE", _data);
+}
+
+QString ADIFForField::getADIFForPrecedence(const QString &_data)
+{
+    if (_data.length ()<1)
+         return QString();
+    return getADIFPair("PRECEDENCE", _data);
+}
+
+QString ADIFForField::getADIFForPoints(const QString &_data)
+{
+    bool ok;
+    int i = _data.toInt(&ok);
+    if (!ok)
+         return QString();
+    if (i>0)
+        return QString();
+    return getADIFPair("APP_KLOG_POINTS", _data);
 }

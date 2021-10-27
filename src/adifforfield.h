@@ -93,15 +93,34 @@ public:
     QString getADIFForAward_Granted(const QString &_data);
 
 
- /*
+    QString getADIFForContestId(const QString &_data);
+    QString getADIFForName(const QString &_data);
+    QString getADIFForOperator(const QString &_data);
+    QString getADIFForPfx(const QString &_data);
+    QString getADIFForCont(const QString &_data);
+    QString getADIFForSRx_String(const QString &_data);
+    QString getADIFForSTx_String(const QString &_data);
+    QString getADIFForSRx(const QString &_data);
+    QString getADIFForSTx(const QString &_data);
+    QString getADIFForQTH(const QString &_data);
+    QString getADIFForRX_Pwr(const QString &_data);
+    QString getADIFForTX_Pwr(const QString &_data);
+    QString getADIFForPoints(const QString &_data);
+    QString getADIFForMy_CQz(const QString &_data);
+    QString getADIFForMy_Ituz(const QString &_data);
+    QString getADIFForPrecedence(const QString &_data);
 
+
+ /*
+APP_KLOG_MULTIPLIER
+APP_KLOG_TRX
 
     QString getADIFForCheckContest(const QString &_data);
     QString getADIFForClass(const QString &_data);
 
-    QString getADIFForCont(const QString &_data);
+
     QString getADIFForContactedOp(const QString &_data);
-    QString getADIFForContestId(const QString &_data);
+
     QString getADIFForCountry(const QString &_data);
     QString getADIFForCreditSubmitted(const QString &_data);
     QString getADIFForCreditGranted(const QString &_data);
@@ -129,10 +148,8 @@ public:
     QString getADIFForMy_City(const QString &_data);
     QString getADIFForMy_Cnty(const QString &_data);
     QString getADIFForMy_Country(const QString &_data);
-    QString getADIFForMy_CQz(const QString &_data);
     QString getADIFForMy_DXCC(const QString &_data);
     QString getADIFForMy_Fists(const QString &_data);
-    QString getADIFForMy_Ituz(const QString &_data);
     QString getADIFForMy_Lat(const QString &_data);
     QString getADIFForMy_Lon(const QString &_data);
     QString getADIFForMy_Name(const QString &_data);
@@ -150,15 +167,13 @@ public:
     QString getADIFForUSACA_Counties(const QString &_data);
     QString getADIFForMy_VUCC_Grids(const QString &_data);
     QString getADIFForVUCC_Grids(const QString &_data);
-    QString getADIFForName(const QString &_data);
+
     QString getADIFForNotes(const QString &_data);
     QString getADIFForNr_Bursts(const QString &_data);
     QString getADIFForNr_pings(const QString &_data);
-    QString getADIFForOperator(const QString &_data);
+
     QString getADIFForOwner_Callsign(const QString &_data);
-    QString getADIFForPfx(const QString &_data);
-    QString getADIFForPoints(const QString &_data);
-    QString getADIFForPrecedence(const QString &_data);
+
     QString getADIFForProp_Mode(const QString &_data);
     QString getADIFForPublic_key(const QString &_data);
     QString getADIFForQSLMsg(const QString &_data);
@@ -168,23 +183,14 @@ public:
     QString getADIFForQSLVia(const QString &_data);
     QString getADIFForQSO_Complete(const QString &_data);
     QString getADIFForQSO_Random(const QString &_data);
-    QString getADIFForQTH(const QString &_data);
     QString getADIFForRegion(const QString &_data);
     QString getADIFForRig(const QString &_data);
-    QString getADIFForRX_Pwr(const QString &_data);
-    QString getADIFForTX_Pwr(const QString &_data);
     QString getADIFForSat_Mode(const QString &_data);
     QString getADIFForSfi(const QString &_data);
 
     QString getADIFForSilentKey(const QString &_data);
     QString getADIFForSKCC(const QString &_data);
 
-
-    QString getADIFForSRx_String(const QString &_data);
-    QString getADIFForSTx_String(const QString &_data);
-
-    QString getADIFForSRx(const QString &_data);
-    QString getADIFForSTx(const QString &_data);
     QString getADIFForState(const QString &_data);
 
     QString getADIFForSWL(const QString &_data);
@@ -193,7 +199,7 @@ public:
     QString getADIFForTenTen(const QString &_data);
     QString getADIFForWeb(const QString &_data);
     QString getADIFForTransmiterId(const QString &_data);
-    QString getADIFForLogNumber(const QString &_data);
+    QString getADIFForLogNumber(const QString &_data); APP_KLOG_LOGN
 
   */
 

@@ -523,6 +523,14 @@ QDate Utilities::getDefaultDate()
     return QDate::currentDate();
 }
 
+bool Utilities::isValidContinent(const QString &c)
+{
+    QStringList continents;
+    continents.clear ();
+    continents << "NA" << "SA"  << "EU" << "AF" << "OC" << "AS" << "AN";
+    return continents.contains (c.toUpper ());
+}
+
 bool Utilities::isValidDate(const QDate _d)
 {
       //qDebug() << "Utilities::isValidDate: " << _d.toString("yyyyMMdd") ;
@@ -600,6 +608,33 @@ bool Utilities::isValidSubCall(const QString &_c)
     }
     //qDebug() << "Utilities::isValidSubCall: true" ;
     return true;
+}
+
+bool Utilities::isValidCQ(const int _cq)
+{
+    if ((_cq>0) && (_cq<(CQZones+1)))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Utilities::isValidITU(const int _itu)
+{
+    if ((_itu>0) && (_itu<(ITUZones+1)))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Utilities::isValidAge(const int _age)
+{
+    if ((_age>0) && (_age<120))
+    {
+        return true;
+    }
+    return false;
 }
 
 int Utilities::isAPrefix (const QString &_c)

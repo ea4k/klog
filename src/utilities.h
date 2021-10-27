@@ -105,7 +105,7 @@ public:
     bool isValidQSL_Rcvd(const QString &c, bool rcvd=true); // If receiving is true, If creating the ADIF is false
     bool isValidQSL_Sent(const QString &c);
     bool isValidUpload_Status(const QString &c);
-
+    bool isValidContinent(const QString &c);
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
     bool isValidDateTimeFromString(const QString &_s);
@@ -144,6 +144,9 @@ public:
     QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
     QString getOnlineServiceName(OnLineProvider _service);
+    bool isValidCQ(const int _cq);
+    bool isValidITU(const int _itu);
+    bool isValidAge(const int _age);
     //QPalette getPalete(bool _ok);
 private:
     void init();
@@ -151,6 +154,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
+
     //QPair<QString, QString> getCallParts(const QString &_c);
 
     bool darkMode, callValidation;

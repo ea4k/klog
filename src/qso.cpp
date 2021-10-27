@@ -87,6 +87,7 @@ void QSO::clear()
     dxcc = -1;
     propMode = QString();
     iota = QString();
+    address.clear();
 
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
@@ -94,9 +95,23 @@ void QSO::clear()
     lotwUpdating = false;
     realTime = false;
 
+    contestId = QString();
+    pfx = QString();
+    continent = QString();
+    srx_string = QString();
+    stx_string = QString();
+    precedence = QString();
+    srx = 0;
+    stx = 0;
+    points = 0;
+
     comment = QString();
     satName = QString();
     satMode = QString();
+    cqz = 0;
+    myCQz = 0;
+    ituz = 0;
+    myITUz = 0;
     keepComment = false;
     keepMyData = false;
     keepOther = false;
@@ -141,6 +156,193 @@ bool QSO::setQSOid(const int _i)
 int QSO::getQSOid()
 {
     return qsoId;
+}
+
+bool QSO::setContestId(const QString &_c)
+{
+   contestId = _c;
+   return true;
+}
+
+QString QSO::getContestId()
+{
+    return contestId;
+}
+
+bool QSO::setPfx(const QString &_c)
+{
+    pfx = _c;
+    return true;
+}
+
+QString QSO::getPfx()
+{
+    return pfx;
+}
+
+bool QSO::setCont(const QString &_c)
+{
+    if (!util->isValidContinent (_c))
+    {
+        return false;
+    }
+    continent = _c;
+    return true;
+}
+
+QString QSO::getCont()
+{
+    return continent;
+}
+
+bool QSO::setSRx(const int _c)
+{
+    srx = _c;
+    return true;
+}
+
+int QSO::getSRx()
+{
+    return srx;
+}
+
+bool QSO::setSTx(const int _c)
+{
+    stx = _c;
+    return true;
+}
+
+int QSO::getSTx()
+{
+    return stx;
+}
+
+bool QSO::setSRx_string(const QString &_c)
+{
+    srx_string = _c;
+    return true;
+}
+
+QString QSO::getSRx_string()
+{
+    return srx_string;
+}
+
+bool QSO::setSTx_string(const QString &_c)
+{
+    stx_string = _c;
+    return true;
+}
+
+QString QSO::getSTx_string()
+{
+    return stx_string;
+}
+
+bool QSO::setPoints(const int _c)
+{
+    points = _c;
+    return true;
+}
+
+int QSO::getPoints()
+{
+    return points;
+}
+
+bool QSO::setPrecedence(const QString &_c)
+{
+    precedence = _c;
+    return true;
+}
+
+QString QSO::getPrecedence()
+{
+    return precedence;
+}
+
+
+QString QSO::getADIF()
+{
+    QString adif;
+    adif.clear ();
+    ADIFForField adifForField;
+
+    adif = adifForField.getADIFForQSODate(util->getDateTimeSQLiteStringFromDateTime (getDateTimeOn ()));
+    adif = adif + adifForField.getADIFForCall(getCall ());
+    adif = adif + adifForField.getADIFForRSTSent(getRSTTX ());
+    adif = adif + adifForField.getADIFForRSTRcvd(getRSTRX ());
+    adif = adif + adifForField.getADIFForBand(getBand ());
+    adif = adif + adifForField.getADIFForMode(getMode ());
+    //adif = adif + adifForField.getADIFForSubMode();
+    adif = adif + adifForField.getADIFForCQz(QString::number(getCQz ()));
+    adif = adif + adifForField.getADIFForITUz(QString::number(getITUz ()));
+    adif = adif + adifForField.getADIFForDXCC(QString::number(getDXCC ()));
+    adif = adif + adifForField.getADIFForAddress(getAddress ());
+    adif = adif + adifForField.getADIFForAge(QString::number(getAge ()));
+    adif = adif + adifForField.getADIFForMy_CQz(QString::number(getMyCQz ()));
+    adif = adif + adifForField.getADIFForMy_Ituz(QString::number(getMyITUz ()));
+    adif = adif + adifForField.getADIFForName(getName ());
+    adif = adif + adifForField.getADIFForOperator(getOperatorCallsign ());
+    adif = adif + adifForField.getADIFForRX_Pwr(QString::number(getRXPwr ()));
+    adif = adif + adifForField.getADIFForTX_Pwr(QString::number(getTXPwr ()));
+
+    adif = adif + adifForField.getADIFForContestId(getContestId ());
+    adif = adif + adifForField.getADIFForPfx(getPfx ());
+    adif = adif + adifForField.getADIFForCont(getCont ());
+    adif = adif + adifForField.getADIFForSRx_String(getSRx_string ());
+    adif = adif + adifForField.getADIFForSTx_String(getSTx_string ());
+    adif = adif + adifForField.getADIFForSRx(QString::number(getSRx ()));
+    adif = adif + adifForField.getADIFForSTx(QString::number(getSTx ()));
+    adif = adif + adifForField.getADIFForQTH(getQTH ());
+    adif = adif + adifForField.getADIFForPoints(QString::number(getPoints()));
+    adif = adif + adifForField.getADIFForPrecedence(getPrecedence ());
+
+ /*
+    adif = adif + adifForField.getADIFForCNTY(const QString &_data);
+    adif = adif + adifForField.getADIFForComment(const QString &_data);
+    adif = adif + adifForField.getADIFForA_Index(const QString &_data);
+    adif = adif + adifForField.getADIFForAnt_az(const QString &_data);
+    adif = adif + adifForField.getADIFForAnt_el(const QString &_data);
+    adif = adif + adifForField.getADIFForAnt_path(const QString &_data);
+    adif = adif + adifForField.getADIFForARRL_sect(const QString &_data);
+    adif = adif + adifForField.getADIFForGridSquare(const QString &_data);
+    adif = adif + adifForField.getADIFForMyGridSquare(const QString &_data);
+    adif = adif + adifForField.getADIFForQSODateOff(const QString &_data, ExportMode _em = ModeADIF);
+    adif = adif + adifForField.getADIFForFreq(const QString &_data);
+    adif = adif + adifForField.getADIFForStationCallsign(const QString &_data);
+
+    adif = adif + adifForField.getADIFForBandRX(const QString &_data);
+    adif = adif + adifForField.getADIFForFreq_rx(const QString &_data);
+
+    adif = adif + adifForField.getADIFForQSLRDate(const QString &_data);
+    adif = adif + adifForField.getADIFForQSLSDate(const QString &_data);
+    adif = adif + adifForField.getADIFForQSLRcvd(const QString &_data);
+    adif = adif + adifForField.getADIFForQSLSent(const QString &_data);
+
+    adif = adif + adifForField.getADIFForLoTWRDate(const QString &_data);
+    adif = adif + adifForField.getADIFForLoTWSDate(const QString &_data);
+    adif = adif + adifForField.getADIFForLoTWQSLRcvd(const QString &_data);
+    adif = adif + adifForField.getADIFForLoTWQSLSent(const QString &_data);
+
+    adif = adif + adifForField.getADIFForClubLogQSOUploadDate(const QString &_data);
+    adif = adif + adifForField.getADIFForClubLogQSOUploadStatus(const QString &_data);
+    adif = adif + adifForField.getADIFForHRDLogQSOUploadDate(const QString &_data);
+    adif = adif + adifForField.getADIFForHRDLogQSOUploadStatus(const QString &_data);
+    adif = adif + adifForField.getADIFForQRZCOMQSOUploadDate(const QString &_data);
+    adif = adif + adifForField.getADIFForQRZCOMQSOUploadStatus(const QString &_data);
+
+    adif = adif + adifForField.getADIFForEQSL_QSLRDate(const QString &_data);
+    adif = adif + adifForField.getADIFForEQSL_QSLSDate(const QString &_data);
+    adif = adif + adifForField.getADIFForEQSL_QSLRCVD(const QString &_data);
+    adif = adif + adifForField.getADIFForEQSL_QSLSent(const QString &_data);
+
+    adif = adif + adifForField.getADIFForAward_Submitted(const QString &_data);
+    adif = adif + adifForField.getADIFForAward_Granted(const QString &_data);
+
+*/
+
+    return adif;
 }
 
 bool QSO::setLogId(const int _i)
@@ -1200,6 +1402,92 @@ bool QSO::setKeepSatTab(bool _k)
 bool QSO::getKeepSatTab()
 {
     return keepSat;
+}
+
+bool QSO::setCQz(const int _i)
+{
+    if (util->isValidCQ (_i))
+    {
+        cqz = _i;
+        return true;
+    }
+    else
+    {
+        cqz = 0;
+    }
+    return false;
+}
+
+int QSO::getCQz()
+{
+    return cqz;
+}
+
+bool QSO::setMyCQz(const int _i)
+{
+    if (util->isValidCQ (_i))
+    {
+        myCQz = _i;
+        return true;
+    }
+    else
+    {
+        myCQz = 0;
+    }
+    return false;
+}
+
+int QSO::getMyCQz()
+{
+    return myCQz;
+}
+
+bool QSO::setITUz(const int _i)
+{
+    if (util->isValidITU (_i))
+    {
+        ituz = _i;
+        return true;
+    }
+    else
+    {
+        ituz = 0;
+    }
+    return false;
+}
+
+int QSO::getITUz()
+{
+    return ituz;
+}
+
+bool QSO::setMyITUz(const int _i)
+{
+    if (util->isValidITU (_i))
+    {
+        myITUz = _i;
+        return true;
+    }
+    else
+    {
+        myITUz = 0;
+    }
+    return false;
+}
+
+int QSO::getMyITUz()
+{
+    return myITUz;
+}
+
+bool QSO::setAddress(const QString &_c)
+{
+    address = _c;
+}
+
+QString QSO::getAddress()
+{
+    return address;
 }
 
 // SET DATA

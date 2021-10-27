@@ -95,6 +95,22 @@ private slots:
     void test_getADIFForEQSL_QSLRCVD();
     void test_getADIFForEQSL_QSLSent();
 
+    void test_getADIFForContestId();
+    void test_getADIFForName();
+    void test_getADIFForOperator();
+    void test_getADIFForPfx();
+    void test_getADIFForCont();
+    void test_getADIFForSRx_String();
+    void test_getADIFForSTx_String();
+    void test_getADIFForSRx();
+    void test_getADIFForSTx();
+    void test_getADIFForQTH();
+    void test_getADIFForRX_Pwr();
+    void test_getADIFForTX_Pwr();
+    void test_getADIFForMy_CQz();
+    void test_getADIFForMy_Ituz();
+    void test_getADIFForPrecedence();
+
 private:
     ADIFForField *adifForField;
 
@@ -497,6 +513,96 @@ void tst_ADIFForField::test_getADIFForEQSL_QSLSent()
     QVERIFY2(adifForField->getADIFForEQSL_QSLSent ("CW") == QString(), "Bad String EQSL_QSL_SENT not properly exported CW");
     QVERIFY2(adifForField->getADIFForEQSL_QSLSent (QString()) == QString(), "Empty EQSL_QSL_SENT not properly exported");
 }
+
+void tst_ADIFForField::test_getADIFForContestId()
+{
+    QVERIFY2(adifForField->getADIFForContestId ("CQ-WW-SSB") == "<CONTEST_ID:9>CQ-WW-SSB ", "CONTEST_ID not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForName()
+{
+  QVERIFY2(adifForField->getADIFForName ("myName") == "<NAME:6>myName ", "CONTEST_ID not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForOperator()
+{
+  QVERIFY2(adifForField->getADIFForOperator ("EA4K") == "<OPERATOR:4>EA4K ", "OPERATOR not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForPfx()
+{
+  QVERIFY2(adifForField->getADIFForPfx ("EA") == "<PFX:2>EA ", "PFX not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForCont()
+{
+  QVERIFY2(adifForField->getADIFForCont ("EU") == "<CONT:2>EU ", "CONT not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForSRx_String()
+{
+  QVERIFY2(adifForField->getADIFForSRx_String ("test") == "<SRX_STRING:4>test ", "SRX_STRING not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForSTx_String()
+{
+  QVERIFY2(adifForField->getADIFForSTx_String ("test") == "<STX_STRING:4>test ", "STX_STRING not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForSRx()
+{
+  QVERIFY2(adifForField->getADIFForSRx ("2") == "<SRX:1>2 ", "SRX not properly exported");
+  QVERIFY2(adifForField->getADIFForSRx ("22") == "<SRX:2>22 ", "SRX not properly exported");
+  QVERIFY2(adifForField->getADIFForSRx ("nondig") == QString(), "SRX bad format not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForSTx()
+{
+    QVERIFY2(adifForField->getADIFForSTx ("2") == "<STX:1>2 ", "STX not properly exported");
+    QVERIFY2(adifForField->getADIFForSTx ("22") == "<STX:2>22 ", "STX not properly exported");
+    QVERIFY2(adifForField->getADIFForSTx ("nondig") == QString(), "STX bad format not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForQTH()
+{
+    QVERIFY2(adifForField->getADIFForQTH ("Madrid") == "<QTH:6>Madrid ", "QTH not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForRX_Pwr()
+{
+    QVERIFY2(adifForField->getADIFForRX_Pwr ("2") == "<RX_PWR:1>2 ", "RX_PWR not properly exported");
+    QVERIFY2(adifForField->getADIFForRX_Pwr ("22") == "<RX_PWR:2>22 ", "RX_PWR not properly exported");
+    QVERIFY2(adifForField->getADIFForRX_Pwr ("nondig") == QString(), "RX_PWR bad format not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForTX_Pwr()
+{
+    QVERIFY2(adifForField->getADIFForTX_Pwr ("2") == "<TX_PWR:1>2 ", "TX_PWR not properly exported");
+    QVERIFY2(adifForField->getADIFForTX_Pwr ("22") == "<TX_PWR:2>22 ", "TX_PWR not properly exported");
+    QVERIFY2(adifForField->getADIFForTX_Pwr ("nondig") == QString(), "TX_PWR bad format not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForMy_CQz()
+{
+    QVERIFY2(adifForField->getADIFForMy_CQz ("14") == "<MY_CQ_ZONE:2>14 ", "MY_CQ_ZONE not properly exported 14");
+    QVERIFY2(adifForField->getADIFForMy_CQz ("50") == QString(), "Bad MY_CQ_ZONE not properly exported 50");
+    QVERIFY2(adifForField->getADIFForMy_CQz ("CW") == QString(), "Bad MY_CQ_ZONE not properly exported CW");
+    QVERIFY2(adifForField->getADIFForMy_CQz (QString()) == QString(), "Empty MY_CQ_ZONE not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForMy_Ituz()
+{
+    QVERIFY2(adifForField->getADIFForMy_Ituz ("14") == "<MY_ITU_ZONE:2>14 ", "MY_ITU_ZONE not properly exported 14");
+    QVERIFY2(adifForField->getADIFForMy_Ituz ("91") == QString(), "Bad MY_ITU_ZONE not properly exported 50");
+    QVERIFY2(adifForField->getADIFForMy_Ituz ("CW") == QString(), "Bad MY_ITU_ZONE not properly exported CW");
+    QVERIFY2(adifForField->getADIFForMy_Ituz (QString()) == QString(), "Empty MY_ITU_ZONE not properly exported");
+}
+
+void tst_ADIFForField::test_getADIFForPrecedence()
+{
+    QVERIFY2(adifForField->getADIFForPrecedence ("Test") == "<PRECEDENCE:4>Test ", "PRECEDENCE not properly exported");
+}
+
 
 QTEST_APPLESS_MAIN(tst_ADIFForField)
 

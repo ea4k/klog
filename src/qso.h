@@ -30,6 +30,7 @@
 #include <QDate>
 #include <QTime>
 #include <QDebug>
+#include "adifforfield.h"
 #include "utilities.h"
 
 class QSO : public QObject
@@ -74,10 +75,8 @@ public:
     bool setLogId(const int _i);
     int getLogId();
 
-
     bool setBandRX(const QString &_c);
     QString getBandRX();
-
 
     bool setRSTTX(const QString &_c);
     QString getRSTTX();
@@ -197,18 +196,50 @@ public:
     bool setKeepSatTab(bool _k);
     bool getKeepSatTab();
 
+    bool setCQz(const int _i);
+    int getCQz();
+    bool setMyCQz(const int _i);
+    int getMyCQz();
 
+    bool setITUz(const int _i);
+    int getITUz();
+    bool setMyITUz(const int _i);
+    int getMyITUz();
 
+    bool setAddress(const QString &_c);
+    QString getAddress();
 
-    bool add();
+    bool setContestId(const QString &_c);
+    QString getContestId();
+    bool setPfx(const QString &_c);
+    QString getPfx();
+    bool setCont(const QString &_c);
+    QString getCont();
+    bool setSRx(const int _c);
+    int getSRx();
+    bool setSTx(const int _c);
+    int getSTx();
+    bool setSRx_string(const QString &_c);
+    QString getSRx_string();
+    bool setSTx_string(const QString &_c);
+    QString getSTx_string();
+    bool setPoints(const int _c);
+    int getPoints();
+    bool setPrecedence(const QString &_c);
+    QString getPrecedence();
+
+    QString getADIF();
 
 
 private:
 
+    QString contestId, pfx, continent, srx_string, stx_string, precedence;
+    int srx, stx, points;
 
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
     int qsoId, logId, dxcc;
+    int cqz, myCQz, ituz, myITUz;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
@@ -221,8 +252,9 @@ private:
     QDate eQSLRDate, eQSLSDate;
     QString QRZCom_status;
     QDate QRZComDate;
-    QString comment;
+    QString comment, address;
     bool keepComment, keepOther, keepMyData, keepSat, modifying;
+
 
     QString iota;
 
