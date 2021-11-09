@@ -84,6 +84,7 @@ void QSO::clear()
     dxcc = -1;
     propMode = QString();
     iota = QString();
+    cnty = QString();
     address.clear();
 
     QSLLoTWRDate = QDate();
@@ -109,6 +110,9 @@ void QSO::clear()
     myCQz = 0;
     ituz = 0;
     myITUz = 0;
+    a_index = 0;
+    ant_el = 0;
+    ant_az = 0;
     keepComment = false;
     keepMyData = false;
     keepOther = false;
@@ -258,6 +262,18 @@ QString QSO::getPrecedence()
     return precedence;
 }
 
+bool QSO::setCNTY(const QString &_c)
+{
+   if (_c.length ()>1)
+   {// TODO Check proper CNTY
+       cnty = _c;
+   }
+}
+
+QString QSO::getCNTY()
+{
+    return cnty;
+}
 
 QString QSO::getADIF()
 {
@@ -294,14 +310,15 @@ QString QSO::getADIF()
     adif = adif + adifForField.getADIFForQTH(getQTH ());
     adif = adif + adifForField.getADIFForPoints(QString::number(getPoints()));
     adif = adif + adifForField.getADIFForPrecedence(getPrecedence ());
+    adif = adif + adifForField.getADIFForA_Index(QString::number(getA_Index ()));
+    adif = adif + adifForField.getADIFForAnt_az(QString::number(getAnt_Az ()));
+    adif = adif + adifForField.getADIFForAnt_el(QString::number(getAnt_El ()));
+    adif = adif + adifForField.getADIFForCNTY(getCNTY ());
+    adif = adif + adifForField.getADIFForComment(getComment());
+    adif = adif + adifForField.getADIFForAnt_path(getAntPath());
+    /*
 
- /*
-    adif = adif + adifForField.getADIFForCNTY(const QString &_data);
-    adif = adif + adifForField.getADIFForComment(const QString &_data);
-    adif = adif + adifForField.getADIFForA_Index(const QString &_data);
-    adif = adif + adifForField.getADIFForAnt_az(const QString &_data);
-    adif = adif + adifForField.getADIFForAnt_el(const QString &_data);
-    adif = adif + adifForField.getADIFForAnt_path(const QString &_data);
+
     adif = adif + adifForField.getADIFForARRL_sect(const QString &_data);
     adif = adif + adifForField.getADIFForGridSquare(const QString &_data);
     adif = adif + adifForField.getADIFForMyGridSquare(const QString &_data);
@@ -1483,6 +1500,50 @@ bool QSO::setAddress(const QString &_c)
 QString QSO::getAddress()
 {
     return address;
+}
+
+bool QSO::setA_Index(const double _c)
+{
+    if ((0 <= _c) && (_c <= 120))
+    {
+        a_index = _c;
+        return true;
+    }
+    return false;
+}
+
+double QSO::getA_Index()
+{
+    return a_index;
+}
+bool QSO::setAnt_El(const double _c)
+{
+    if ((0 <= -90) && (_c <= 90))
+    {
+        ant_el = _c;
+        return true;
+    }
+    return false;
+}
+
+double QSO::getAnt_El()
+{
+    return ant_el;
+}
+
+bool QSO::setAnt_Az(const double _c)
+{
+    if ((0 <= _c) && (_c <= 360))
+    {
+        ant_az = _c;
+        return true;
+    }
+    return false;
+}
+
+double QSO::getAnt_Az()
+{
+    return ant_az;
 }
 
 // SET DATA

@@ -111,6 +111,7 @@ private slots:
     void test_getADIFForMy_Ituz();
     void test_getADIFForPrecedence();
 
+
 private:
     ADIFForField *adifForField;
 

@@ -36,6 +36,7 @@ enum OnlineErrorCode {Ok, Fail};
 enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
 enum DebugLogLevel {Info, Debug};
 enum ValidFieldsForStats {DXCC, GridSquare};
+enum AntPaths {G, O, S, L}
 
 struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
   int dxcc;

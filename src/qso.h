@@ -227,6 +227,16 @@ public:
     bool setPrecedence(const QString &_c);
     QString getPrecedence();
 
+    bool setCNTY(const QString &_c);
+    QString getCNTY();
+
+    bool setA_Index(const double _c);
+    double getA_Index();
+    bool setAnt_El(const double _c);
+    double getAnt_El();
+    bool setAnt_Az(const double _c);
+    double getAnt_Az();
+
     QString getADIF();
 
 
@@ -241,7 +251,7 @@ private:
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, a_index, ant_el, ant_az;
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
     QString clublog_status;
@@ -254,7 +264,7 @@ private:
     bool keepComment, keepOther, keepMyData, keepSat, modifying;
 
 
-    QString iota;
+    QString iota, cnty;
 
     Utilities *util;
 
@@ -264,7 +274,7 @@ private:
 
 
    /*
-   ADDRESS,  ADDRESS_INTL,  AGE,  A_INDEX,  ANT_AZ,  ANT_EL,  ANT_PATH,  ARRL_SECT,  AWARD_GRANTED,  AWARD_SUBMITTED,
+   ANT_PATH,  ARRL_SECT,  AWARD_GRANTED,  AWARD_SUBMITTED,
    BAND,  BAND_RX,
    CALL,  CHECK,  CLASS,  CLUBLOG_QSO_UPLOAD_DATE,  CLUBLOG_QSO_UPLOAD_STATUS,  CNTY,  COMMENT,  COMMENT_INTL,  CONT,  CONTACTED_OP,  CONTEST_ID,  COUNTRY,  COUNTRY_INTL,  CQZ,  CREDIT_SUBMITTED,  CREDIT_GRANTED,
    DARC_DOK,  DISTANCE,  DXCC,
