@@ -30,10 +30,7 @@ QSO::QSO()
     clear();
 }
 
-QSO::~QSO()
-{
-    clear();
-}
+QSO::~QSO() {}
 
 void QSO::clear()
 {
@@ -339,7 +336,6 @@ QString QSO::getADIF()
 
     adif = adif + adifForField.getADIFForAward_Submitted(const QString &_data);
     adif = adif + adifForField.getADIFForAward_Granted(const QString &_data);
-
 */
 
     return adif;
@@ -531,7 +527,6 @@ bool QSO::getRealTime()
 {
     return realTime;
 }
-
 
 double QSO::setFreqTX(const double _f)
 {
@@ -1127,7 +1122,6 @@ QString QSO::getPropMode()
     return propMode;
 }
 
-
 bool QSO::setSOTA_REF(const QString &_c)
 {
     if (_c.length ()>1)
@@ -1483,6 +1477,7 @@ int QSO::getMyITUz()
 bool QSO::setAddress(const QString &_c)
 {
     address = _c;
+    return true;
 }
 
 QString QSO::getAddress()

@@ -31,6 +31,8 @@ ADIFForField::ADIFForField()
     util = new Utilities;
 }
 
+ADIFForField::~ADIFForField() {}
+
 QString ADIFForField::getADIFForQSODate(const QString &_data, ExportMode _em)
 {
     qDebug() << Q_FUNC_INFO;

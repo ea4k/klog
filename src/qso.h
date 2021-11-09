@@ -167,7 +167,6 @@ public:
     bool setVUCCGrids(const QString &_c);
     QString getVUCCGrids();
 
-
     // My data Tab
     bool setTXPwr(const double _f);
     double getTXPwr();
@@ -235,7 +234,6 @@ private:
 
     QString contestId, pfx, continent, srx_string, stx_string, precedence;
     int srx, stx, points;
-
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
     int qsoId, logId, dxcc;

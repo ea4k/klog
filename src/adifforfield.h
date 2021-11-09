@@ -31,14 +31,15 @@
 #include "klogdefinitions.h"
 #include "utilities.h"
 
-class ADIFForField: public QObject {
+class ADIFForField: public QObject
+{
     Q_OBJECT
     // TODO:
     //      Add checks for all the data (maybe adding the dataProxy to check helps
     //      but may slow down the process as queries will be executed.
 public:
     ADIFForField();
-
+    ~ADIFForField();
     QString getADIFForQSODate(const QString &_data, ExportMode _em = ModeADIF);
     QString getADIFForCall(const QString &_data);
     QString getADIFForRSTSent(const QString &_data);
