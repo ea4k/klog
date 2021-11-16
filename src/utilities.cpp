@@ -604,6 +604,14 @@ bool Utilities::isValidSubCall(const QString &_c)
     return true;
 }
 
+bool Utilities::isCountrySuffix (const QString &_c)
+{
+    qDebug() << Q_FUNC_INFO << _c;
+
+    QStringList validSuffixes = {"P", "M", "MM", "QRP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+    return !validSuffixes.contains (_c);
+}
+
 int Utilities::isAPrefix (const QString &_c)
 {
     // Returns -1 if it is not a prefix or valid call.
@@ -918,7 +926,8 @@ QString Utilities::getPrefixFromCall(const QString &_c)
         QStringList parts;
         parts.clear();
         parts << call.split ('/');
-        if (parts.at(0).length ()<parts.at(1).length ())
+        bool secondPartIsCountryPrefix = isCountrySuffix (parts.at(1));
+        if ((parts.at(0).length ()<parts.at(1).length ()) || (!secondPartIsCountryPrefix))
         { // First one is shorter
             //qDebug() << Q_FUNC_INFO << ": First one is shorter: " ;
             int pref = isAPrefix (parts.at(0));
@@ -936,6 +945,10 @@ QString Utilities::getPrefixFromCall(const QString &_c)
         else if(parts.at(0).length ()>parts.at(1).length ())
         { // Second one is shorter
             //qDebug() << Q_FUNC_INFO << ": Second one is shorter: " ;
+            if (isCountrySuffix (parts.at(1)))
+            {
+
+            }
             pref = isAPrefix (parts.at(1));
             if (pref>0)
             {
