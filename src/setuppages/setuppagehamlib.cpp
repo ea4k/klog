@@ -76,29 +76,29 @@ void SetupPageHamLib::slotTestHamlib()
         hamlib->setSpeed ((serialBaudsComboBox->currentText()).toInt());
         hamlib->setParity(getParity ());
         hamlib->setFlow(getFlowControl ());
-        qDebug() << Q_FUNC_INFO << ": StopBits: " << QString::number(getStopBits());
+        //qDebug() << Q_FUNC_INFO << ": StopBits: " << QString::number(getStopBits());
         hamlib->setStop(getStopBits ());
-        qDebug() << Q_FUNC_INFO << " - 50";
+        //qDebug() << Q_FUNC_INFO << " - 50";
         hamlib->setDataBits(getDataBits ());
-        qDebug() << Q_FUNC_INFO << " - 51";
+        //qDebug() << Q_FUNC_INFO << " - 51";
     }
 
     hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
     hamlib->setPoll (2000);
-    qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
+    //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
     setTestResult (hamlib->init(true));
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageHamLib::setTestResult(const bool _ok)
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QPalette pal = testHamlibPushButton->palette();
 
     if (_ok )
     {
-        qDebug() << Q_FUNC_INFO << " - OK";
+        //qDebug() << Q_FUNC_INFO << " - OK";
         testHamlibPushButton->setText (tr("Test: OK"));
         pal.setColor(QPalette::Button, QColor(Qt::green));
         //qDebug() << Q_FUNC_INFO << " - before reading freq";
@@ -108,14 +108,14 @@ void SetupPageHamLib::setTestResult(const bool _ok)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - NOK";
+        //qDebug() << Q_FUNC_INFO << " - NOK";
         testHamlibPushButton->setText (tr("Test: NOK"));
         pal.setColor(QPalette::Button, QColor(Qt::red));
     }
 
     testHamlibPushButton->setPalette(pal);
     testHamlibPushButton->update();
-    qDebug() << Q_FUNC_INFO << " - NOK END";
+    //qDebug() << Q_FUNC_INFO << " - NOK END";
 }
 
 void SetupPageHamLib::fillSerialPortsComboBox()

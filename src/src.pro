@@ -29,7 +29,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.8.5
+VERSION = 1.8.6
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog
@@ -349,16 +349,14 @@ win32: {
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-
-}
-
-win32:contains(QMAKE_HOST.arch, x86_64) {
-    message(win64)
-    LIBS += -L"$$PWD/../../libs/hamlib-w64-4.2/lib/gcc" -lhamlib
-    LIBS += -L"$$PWD/../../libs/hamlib-w64-4.2/bin"
-    INCLUDEPATH += "$$PWD/../../libs/hamlib-w64-4.2/include/"
-} else {
-    message(win32)
+#}
+#win32:contains(QMAKE_HOST.arch, x86_64) {
+#    message(win64)
+#    LIBS += -L"$$PWD/../../libs/hamlib-w64-4.2/lib/gcc" -lhamlib
+#    LIBS += -L"$$PWD/../../libs/hamlib-w64-4.2/bin"
+#    INCLUDEPATH += "$$PWD/../../libs/hamlib-w64-4.2/include/"
+#} else {
+#    message(win32)
   #LIBS += -L$$PWD/Path/To/Library_32Bit/ -lTheLibrary
   LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
   LIBS += -L"$$PWD/../../libs/hamlib/bin"
