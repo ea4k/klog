@@ -5,7 +5,15 @@ extraction:
   cpp:
     prepare:    # Customizable step used by all languages.
       packages:
-        - g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
+        - g++
+        - make
+        - qt5-qmake
+        - qtbase5-dev
+        - qttools5-dev
+        - libqt5charts5-dev
+        - libqt5sql5-sqlite
+        - libhamlib-dev 
+        - libqt5serialport5-dev
     after_prepare:    # Customizable step used by all languages.
       - export GNU_MAKE=make
       - export GIT=true
