@@ -11,8 +11,6 @@
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ea4k/klog.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ea4k/klog/context:cpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/4hfa3npj88v2reqs/branch/master?svg=true)](https://ci.appveyor.com/project/ea4k/klog/branch/master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/23857/badge.svg)](https://scan.coverity.com/projects/ea4k-klog)
-[![Spanish translations POEditor](https://img.shields.io/poeditor/progress/452963/es?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
-
 
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
 
