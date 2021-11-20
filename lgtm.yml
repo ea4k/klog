@@ -22,5 +22,5 @@ extraction:
         - qmake KLog.pro
     index:    # Customizable step used by all languages.
       build_command:
-        - make
+        - "$GNU_MAKE -j8"
         
