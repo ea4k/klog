@@ -12,7 +12,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/4hfa3npj88v2reqs/branch/master?svg=true)](https://ci.appveyor.com/project/ea4k/klog/branch/master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/23857/badge.svg)](https://scan.coverity.com/projects/ea4k-klog)
 [![Catalan translations POEditor](https://img.shields.io/poeditor/progress/452963/ca?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
-[![Czech translations POEditor](https://img.shields.io/poeditor/progress/452963/cz?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
+[![Czech translations POEditor](https://img.shields.io/poeditor/progress/452963/cs?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Danish translations POEditor](https://img.shields.io/poeditor/progress/452963/da?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![German translations POEditor](https://img.shields.io/poeditor/progress/452963/de?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Spanish translations POEditor](https://img.shields.io/poeditor/progress/452963/es?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
