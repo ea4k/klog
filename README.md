@@ -21,7 +21,7 @@
 [![Croatian translations POEditor](https://img.shields.io/poeditor/progress/452963/hr?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Italian translations POEditor](https://img.shields.io/poeditor/progress/452963/it?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Japanese translations POEditor](https://img.shields.io/poeditor/progress/452963/ja?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
-[![Polish translations POEditor](https://img.shields.io/poeditor/progress/452963/po?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
+[![Polish translations POEditor](https://img.shields.io/poeditor/progress/452963/pl?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 
 
 ![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
