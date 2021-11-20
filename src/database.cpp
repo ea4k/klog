@@ -88,6 +88,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 
 DataBase::~DataBase()
 {
+    free (util);
          //qDebug() << "DataBase::~DataBase"  << QT_ENDL;
 }
 

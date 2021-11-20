@@ -69,7 +69,12 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentF
       //qDebug() << "DXCCStatusWidget::DXCCStatusWidget - END" << QT_ENDL;
 }
 
-DXCCStatusWidget::~DXCCStatusWidget(){}
+DXCCStatusWidget::~DXCCStatusWidget()
+{
+    free (locator);
+    free (world);
+    free (awards);
+}
 
 void DXCCStatusWidget::createUI()
 {
