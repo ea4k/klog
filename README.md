@@ -15,6 +15,7 @@
 [![Czech translations POEditor](https://img.shields.io/poeditor/progress/452963/cs?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Danish translations POEditor](https://img.shields.io/poeditor/progress/452963/da?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![German translations POEditor](https://img.shields.io/poeditor/progress/452963/de?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
+[![English translations POEditor](https://img.shields.io/poeditor/progress/452963/en?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Spanish translations POEditor](https://img.shields.io/poeditor/progress/452963/es?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![French translations POEditor](https://img.shields.io/poeditor/progress/452963/fr?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
 [![Finnish translations POEditor](https://img.shields.io/poeditor/progress/452963/fi?token=25bfa0876166b133b3b1c3de1fce7c3a)](https://poeditor.com/join/project?hash=9dPBvZRJAr)
