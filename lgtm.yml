@@ -12,7 +12,6 @@ extraction:
     configure:    # Customizable step used only by C/C++ extraction.
       command:
         - qmake KLog.pro
-    before_index:    # Customizable step used by all languages.
     index:    # Customizable step used by all languages.
       build_command:
         - $GNU_MAKE -j2 -s 
