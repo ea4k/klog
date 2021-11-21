@@ -50,7 +50,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
 }
 AdifLoTWExportWidget::~AdifLoTWExportWidget()
 {
-    free (util) ;
+    delete(util) ;
 }
 
 void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)

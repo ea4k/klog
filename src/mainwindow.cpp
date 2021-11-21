@@ -217,15 +217,15 @@ MainWindow::~MainWindow()
         hamlib->stop();
     }
 
-    free(showErrorDialog);
-    free(lotwUtilities);
-    free(eqslUtilities);
-    free(elogQRZcom);
-    free(downloadcty);
-    free(world);
-    free(locator);
-    free (qso);
-    free (debugFile);
+    delete(showErrorDialog);
+    delete(lotwUtilities);
+    delete(eqslUtilities);
+    delete(elogQRZcom);
+    delete(downloadcty);
+    delete(world);
+    delete(locator);
+    delete(qso);
+    delete(debugFile);
     logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
 

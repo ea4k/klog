@@ -71,9 +71,9 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentF
 
 DXCCStatusWidget::~DXCCStatusWidget()
 {
-    free (locator);
-    free (world);
-    free (awards);
+    delete(locator);
+    delete(world);
+    delete(awards);
 }
 
 void DXCCStatusWidget::createUI()

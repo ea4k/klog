@@ -97,6 +97,11 @@ void StatsDXCCOnSatsWidget::createUI()
 
 }
 
+StatsDXCCOnSatsWidget::~StatsDXCCOnSatsWidget()
+{
+    delete(util);
+}
+
 void StatsDXCCOnSatsWidget::prepareChart(const int _log)
 {
     //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << QT_ENDL;
