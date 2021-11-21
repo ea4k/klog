@@ -12,7 +12,7 @@ extraction:
         - qttools5-dev
         - libqt5charts5-dev
         - libqt5sql5-sqlite
-        - libhamlib-dev 
+        - libhamlib-dev
         - libqt5serialport5-dev
     after_prepare:    # Customizable step used by all languages.
       - export GNU_MAKE=make

@@ -18,7 +18,7 @@ addons:
       name: "ea4k/klog"
       description: "Build submitted via Travis-CI. KLog is a multiplatform free hamradio logger."
     notification_email: jaime@robles.es
-    build_command_prepend: cov-configure --list-compiler-types
+    #build_command_prepend: cov-configure --list-compiler-types
     build_command_prepend: "cov-configure --gcc"
     build_command: make
     branch_pattern: coverity_scan
