@@ -161,132 +161,132 @@ msgctxt "AboutDialog|"
 msgid "Privacy"
 msgstr "Prywatność"
 
-#: ../widgets/adiflotwexportwidget.cpp:62
+#: ../widgets/adiflotwexportwidget.cpp:67
 msgctxt "AdifLoTWExportWidget|"
 msgid "Select the Station Callsign that you want to use to upload the log."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:65
+#: ../widgets/adiflotwexportwidget.cpp:70
 msgctxt "AdifLoTWExportWidget|"
 msgid ""
 "Select the start date to export the QSOs. The default date is the date of "
 "the first QSO with this station callsign."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:70
+#: ../widgets/adiflotwexportwidget.cpp:75
 msgctxt "AdifLoTWExportWidget|"
 msgid ""
 "Select the end date to export the QSOs. The default date is the date of the "
 "last QSO with this station callsign."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:74
+#: ../widgets/adiflotwexportwidget.cpp:79
 msgctxt "AdifLoTWExportWidget|"
 msgid "Station callsign"
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:77
+#: ../widgets/adiflotwexportwidget.cpp:82
 msgctxt "AdifLoTWExportWidget|"
 msgid "Start date"
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:80
+#: ../widgets/adiflotwexportwidget.cpp:85
 msgctxt "AdifLoTWExportWidget|"
 msgid "End date"
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:82
+#: ../widgets/adiflotwexportwidget.cpp:87
 #, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "Ok"
 msgstr "OK"
 
-#: ../widgets/adiflotwexportwidget.cpp:83
+#: ../widgets/adiflotwexportwidget.cpp:88
 #, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../widgets/adiflotwexportwidget.cpp:93
+#: ../widgets/adiflotwexportwidget.cpp:98
 msgctxt "AdifLoTWExportWidget|"
 msgid "DX"
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:93
+#: ../widgets/adiflotwexportwidget.cpp:98
 #, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "Date/Time"
 msgstr "Data/Czas"
 
-#: ../widgets/adiflotwexportwidget.cpp:93
+#: ../widgets/adiflotwexportwidget.cpp:98
 #, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "Band"
 msgstr "Pasmo"
 
-#: ../widgets/adiflotwexportwidget.cpp:93
+#: ../widgets/adiflotwexportwidget.cpp:98
 #, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../widgets/adiflotwexportwidget.cpp:136
+#: ../widgets/adiflotwexportwidget.cpp:141
 msgctxt "AdifLoTWExportWidget|"
 msgid "Not defined"
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:141
+#: ../widgets/adiflotwexportwidget.cpp:146
 #, fuzzy
 msgctxt "AdifLoTWExportWidget|"
 msgid "All"
 msgstr "Wszystko"
 
-#: ../widgets/adiflotwexportwidget.cpp:241
+#: ../widgets/adiflotwexportwidget.cpp:246
 msgctxt "AdifLoTWExportWidget|"
 msgid "QSOs: "
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:365
+#: ../widgets/adiflotwexportwidget.cpp:370
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to LoTW."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:366
+#: ../widgets/adiflotwexportwidget.cpp:371
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to LoTW."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:370
+#: ../widgets/adiflotwexportwidget.cpp:375
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to ClubLog."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:371
+#: ../widgets/adiflotwexportwidget.cpp:376
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to ClubLog."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:375
+#: ../widgets/adiflotwexportwidget.cpp:380
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to eQSL.cc."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:376
+#: ../widgets/adiflotwexportwidget.cpp:381
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to eQSL.cc."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:380
+#: ../widgets/adiflotwexportwidget.cpp:385
 msgctxt "AdifLoTWExportWidget|"
 msgid "KLog - QSOs to be uploaded to QRZ.com."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:381
+#: ../widgets/adiflotwexportwidget.cpp:386
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be sent to QRZ.com."
 msgstr ""
 
-#: ../widgets/adiflotwexportwidget.cpp:386
+#: ../widgets/adiflotwexportwidget.cpp:391
 msgctxt "AdifLoTWExportWidget|"
 msgid "This table shows the QSOs that will be exported to ADIF."
 msgstr ""
@@ -469,54 +469,54 @@ msgstr ""
 "spróbować ponownie\n"
 "Czy chciałbyś spróbować ponownie?"
 
-#: ../dxccstatuswidget.cpp:85
+#: ../dxccstatuswidget.cpp:90
 msgctxt "DXCCStatusWidget|"
 msgid "Update"
 msgstr "Aktualizacja"
 
-#: ../dxccstatuswidget.cpp:134
+#: ../dxccstatuswidget.cpp:139
 msgctxt "DXCCStatusWidget|"
 msgid ""
 "It seems that the DXCC status in your database is not updated and KLog can't "
 "find any dxcc information. You can try to fix this by updating the log."
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:135
+#: ../dxccstatuswidget.cpp:140
 msgctxt "DXCCStatusWidget|"
 msgid "Do you want to update your DXCC status?"
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:540
+#: ../dxccstatuswidget.cpp:545
 msgctxt "DXCCStatusWidget|"
 msgid "Entity"
 msgstr "Jednostka"
 
-#: ../dxccstatuswidget.cpp:540
+#: ../dxccstatuswidget.cpp:545
 msgctxt "DXCCStatusWidget|"
 msgid "Prefix"
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:658
+#: ../dxccstatuswidget.cpp:663
 msgctxt "DXCCStatusWidget|"
 msgid "Pref: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:659
+#: ../dxccstatuswidget.cpp:664
 msgctxt "DXCCStatusWidget|"
 msgid "CQ: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:660
+#: ../dxccstatuswidget.cpp:665
 msgctxt "DXCCStatusWidget|"
 msgid "ITU: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:662
+#: ../dxccstatuswidget.cpp:667
 msgctxt "DXCCStatusWidget|"
 msgid "Beam: "
 msgstr ""
 
-#: ../dxccstatuswidget.cpp:669
+#: ../dxccstatuswidget.cpp:674
 msgctxt "DXCCStatusWidget|"
 msgid "Entity not worked in this band."
 msgstr ""
@@ -642,197 +642,197 @@ msgid ""
 "DX-Cluster activity will not be saved!"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:126
+#: ../dataproxy_sqlite.cpp:127
 msgctxt "DataProxy_SQLite|"
 msgid "Software version in DB is null"
 msgstr "Wersja oprogramowania w DB jest zero"
 
-#: ../dataproxy_sqlite.cpp:4540
+#: ../dataproxy_sqlite.cpp:4541
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4544
+#: ../dataproxy_sqlite.cpp:4545
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4548
+#: ../dataproxy_sqlite.cpp:4549
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4552
+#: ../dataproxy_sqlite.cpp:4553
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4556
+#: ../dataproxy_sqlite.cpp:4557
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4560
+#: ../dataproxy_sqlite.cpp:4561
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4572
+#: ../dataproxy_sqlite.cpp:4573
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4576
+#: ../dataproxy_sqlite.cpp:4577
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4580
+#: ../dataproxy_sqlite.cpp:4581
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4584
+#: ../dataproxy_sqlite.cpp:4585
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4588
+#: ../dataproxy_sqlite.cpp:4589
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4592
+#: ../dataproxy_sqlite.cpp:4593
 #, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../dataproxy_sqlite.cpp:5297
+#: ../dataproxy_sqlite.cpp:5298
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5309
+#: ../dataproxy_sqlite.cpp:5310
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6133
+#: ../dataproxy_sqlite.cpp:6134
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4564
+#: ../dataproxy_sqlite.cpp:4565
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:126
+#: ../dataproxy_sqlite.cpp:127
 msgctxt "DataProxy_SQLite|"
 msgid "Query didn't failed"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4568
+#: ../dataproxy_sqlite.cpp:4569
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4596
+#: ../dataproxy_sqlite.cpp:4597
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4600
+#: ../dataproxy_sqlite.cpp:4601
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5124 ../dataproxy_sqlite.cpp:5184
+#: ../dataproxy_sqlite.cpp:5125 ../dataproxy_sqlite.cpp:5185
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5128 ../dataproxy_sqlite.cpp:5188
+#: ../dataproxy_sqlite.cpp:5129 ../dataproxy_sqlite.cpp:5189
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5132 ../dataproxy_sqlite.cpp:5192
+#: ../dataproxy_sqlite.cpp:5133 ../dataproxy_sqlite.cpp:5193
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5136 ../dataproxy_sqlite.cpp:5200
+#: ../dataproxy_sqlite.cpp:5137 ../dataproxy_sqlite.cpp:5201
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5140
+#: ../dataproxy_sqlite.cpp:5141
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5196
+#: ../dataproxy_sqlite.cpp:5197
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5244
+#: ../dataproxy_sqlite.cpp:5245
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5248
+#: ../dataproxy_sqlite.cpp:5249
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5252
+#: ../dataproxy_sqlite.cpp:5253
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5301
+#: ../dataproxy_sqlite.cpp:5302
 #, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../dataproxy_sqlite.cpp:5305
+#: ../dataproxy_sqlite.cpp:5306
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6132
+#: ../dataproxy_sqlite.cpp:6133
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
 
-#: ../dataproxy_sqlite.cpp:9040
+#: ../dataproxy_sqlite.cpp:9041
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9046
+#: ../dataproxy_sqlite.cpp:9047
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported ADIF record?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9050
+#: ../dataproxy_sqlite.cpp:9051
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -840,7 +840,7 @@ msgid ""
 "callsign anyway (click on Yes) or remove the call from the exported log?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9054
+#: ../dataproxy_sqlite.cpp:9055
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -919,17 +919,17 @@ msgctxt "FileAwardManager|"
 msgid "KLog - %1"
 msgstr ""
 
-#: ../filemanager.cpp:325 ../filemanager.cpp:454 ../filemanager.cpp:651
+#: ../filemanager.cpp:330 ../filemanager.cpp:459 ../filemanager.cpp:656
 msgctxt "FileManager|"
 msgid "Writing ADIF file..."
 msgstr "Zapisywanie pliku ADIF..."
 
-#: ../filemanager.cpp:325 ../filemanager.cpp:454 ../filemanager.cpp:651
+#: ../filemanager.cpp:330 ../filemanager.cpp:459 ../filemanager.cpp:656
 msgctxt "FileManager|"
 msgid "Abort writing"
 msgstr "Przerwij zapisywanie"
 
-#: ../filemanager.cpp:478 ../filemanager.cpp:675
+#: ../filemanager.cpp:483 ../filemanager.cpp:680
 msgctxt "FileManager|"
 msgid ""
 "Writing ADIF file...\n"
@@ -938,7 +938,7 @@ msgstr ""
 "Zapisywanie pliku ADIF...\n"
 "QSO: "
 
-#: ../filemanager.cpp:1804
+#: ../filemanager.cpp:1809
 msgctxt "FileManager|"
 msgid ""
 "It seems that there are some duplicated QSOs in the ADIF file you are "
@@ -948,7 +948,7 @@ msgstr ""
 "zduplikowanych QSO. Czy nadal chcesz kontynuować? ( Zduplikowane QSO nie "
 "będą zaimportowane )"
 
-#: ../filemanager.cpp:383 ../filemanager.cpp:487 ../filemanager.cpp:685
+#: ../filemanager.cpp:388 ../filemanager.cpp:492 ../filemanager.cpp:690
 msgctxt "FileManager|"
 msgid ""
 "You have canceled the file export. The file will be removed and no data will "
@@ -957,104 +957,104 @@ msgstr ""
 "Eksport pliku zosał anulowany. Plik zostanie usunięty oraz żadne dane "
 "wyeksportowane. "
 
-#: ../filemanager.cpp:383 ../filemanager.cpp:487 ../filemanager.cpp:685
-#: ../filemanager.cpp:918 ../filemanager.cpp:1409 ../filemanager.cpp:1876
+#: ../filemanager.cpp:388 ../filemanager.cpp:492 ../filemanager.cpp:690
+#: ../filemanager.cpp:923 ../filemanager.cpp:1414 ../filemanager.cpp:1881
 msgctxt "FileManager|"
 msgid "Do you still want to cancel?"
 msgstr "Czy nadal chcesz anulować?"
 
-#: ../filemanager.cpp:1491
+#: ../filemanager.cpp:1496
 msgctxt "FileManager|"
 msgid "There is more than one log in this logfile."
 msgstr "W tym pliku logu znajduje się więcej niż jeden log."
 
-#: ../filemanager.cpp:1491
+#: ../filemanager.cpp:1496
 msgctxt "FileManager|"
 msgid "All logs will be imported into the current log."
 msgstr "Wszystkie logi zostaną zaimportowane do bierzącego logu."
 
-#: ../filemanager.cpp:1491
+#: ../filemanager.cpp:1496
 msgctxt "FileManager|"
 msgid "Do you want to continue?"
 msgstr "Czy nadal chcesz kontynuować?"
 
-#: ../filemanager.cpp:1777
+#: ../filemanager.cpp:1782
 msgctxt "FileManager|"
 msgid "Importing ADIF file..."
 msgstr "Importowanie pliku ADIF..."
 
-#: ../filemanager.cpp:1393 ../filemanager.cpp:1777
+#: ../filemanager.cpp:1398 ../filemanager.cpp:1782
 msgctxt "FileManager|"
 msgid " QSO: "
 msgstr "QSO:"
 
-#: ../filemanager.cpp:2956
+#: ../filemanager.cpp:2961
 msgctxt "FileManager|"
 msgid "This QSO had:"
 msgstr "To QSO miało:"
 
-#: ../filemanager.cpp:2973
+#: ../filemanager.cpp:2978
 msgctxt "FileManager|"
 msgid "Do you want to continue with the current file?"
 msgstr "Czy nadal chcesz kontynuować z obecnym plikiem?"
 
-#: ../filemanager.cpp:1015
+#: ../filemanager.cpp:1020
 msgctxt "FileManager|"
 msgid "Reading LoTW file..."
 msgstr "Wczytywanie pliku LOTW..."
 
-#: ../filemanager.cpp:1535
+#: ../filemanager.cpp:1540
 msgctxt "FileManager|"
 msgid "Reading ADIF file..."
 msgstr "Wczytywanie pliku ADIF..."
 
-#: ../filemanager.cpp:165
+#: ../filemanager.cpp:170
 msgctxt "FileManager|"
 msgid "KLog - Error"
 msgstr ""
 
-#: ../filemanager.cpp:191
+#: ../filemanager.cpp:196
 msgctxt "FileManager|"
 msgid "The selected log does not exist, please check it again."
 msgstr ""
 
-#: ../filemanager.cpp:247
+#: ../filemanager.cpp:252
 #, qt-format
 msgctxt "FileManager|"
 msgid "The file %1 can't be opened."
 msgstr ""
 
-#: ../filemanager.cpp:801
+#: ../filemanager.cpp:806
 msgctxt "FileManager|"
 msgid "Processing LoTW ADIF file..."
 msgstr ""
 
-#: ../filemanager.cpp:801
+#: ../filemanager.cpp:806
 msgctxt "FileManager|"
 msgid "Abort processing"
 msgstr ""
 
-#: ../filemanager.cpp:805
+#: ../filemanager.cpp:810
 msgctxt "FileManager|"
 msgid "LoTW reading"
 msgstr ""
 
-#: ../filemanager.cpp:846 ../filemanager.cpp:1703
+#: ../filemanager.cpp:851 ../filemanager.cpp:1708
 msgctxt "FileManager|"
 msgid "KLog - Add new QSOs?"
 msgstr ""
 
-#: ../filemanager.cpp:847
+#: ../filemanager.cpp:852
 msgctxt "FileManager|"
 msgid "Do you want to add non existing QSOs to your local log?"
 msgstr ""
 
-#: ../filemanager.cpp:849
+#: ../filemanager.cpp:854
 msgctxt "FileManager|"
 msgid "There are some QSOs in the LoTW log that are not in your local log."
 msgstr ""
 
-#: ../filemanager.cpp:909
+#: ../filemanager.cpp:914
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1062,26 +1062,26 @@ msgid ""
 " QSO: %1 / %2 "
 msgstr ""
 
-#: ../filemanager.cpp:918
+#: ../filemanager.cpp:923
 msgctxt "FileManager|"
 msgid ""
 "You have canceled the LoTW processing. The process will be stopped and your "
 "log may not be completely updated."
 msgstr ""
 
-#: ../filemanager.cpp:1704
+#: ../filemanager.cpp:1709
 msgctxt "FileManager|"
 msgid "Do you want to add dupe QSOs to your local log?"
 msgstr ""
 
-#: ../filemanager.cpp:1706
+#: ../filemanager.cpp:1711
 msgctxt "FileManager|"
 msgid ""
 "There are some QSOs in this logfile that may be dupes as they have same "
 "call, band & mode and a very close date."
 msgstr ""
 
-#: ../filemanager.cpp:3002 ../filemanager.cpp:3025
+#: ../filemanager.cpp:3007 ../filemanager.cpp:3030
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1089,24 +1089,24 @@ msgid ""
 "problem."
 msgstr ""
 
-#: ../filemanager.cpp:3622
+#: ../filemanager.cpp:3627
 msgctxt "FileManager|"
 msgid "KLog - Don't ask again"
 msgstr ""
 
-#: ../filemanager.cpp:3624
+#: ../filemanager.cpp:3629
 msgctxt "FileManager|"
 msgid "Do you want to reuse your answer?"
 msgstr ""
 
-#: ../filemanager.cpp:3625
+#: ../filemanager.cpp:3630
 msgctxt "FileManager|"
 msgid ""
 "KLog will use automatically your previous answer for any other similar "
 "ocurrence, if any, without asking you again."
 msgstr ""
 
-#: ../filemanager.cpp:3647
+#: ../filemanager.cpp:3652
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1114,19 +1114,19 @@ msgid ""
 "%3</li><li>Mode: %4</li></ul>"
 msgstr ""
 
-#: ../filemanager.cpp:3651
+#: ../filemanager.cpp:3656
 msgctxt "FileManager|"
 msgid "KLog - QSO not found"
 msgstr ""
 
-#: ../filemanager.cpp:3653
+#: ../filemanager.cpp:3658
 msgctxt "FileManager|"
 msgid ""
 "Do you want to add this QSO to the log?:\n"
 "\n"
 msgstr ""
 
-#: ../filemanager.cpp:3654
+#: ../filemanager.cpp:3659
 msgctxt "FileManager|"
 msgid ""
 "We have found a QSO coming from LoTW that is not in your local log.\n"
@@ -1134,19 +1134,19 @@ msgid ""
 "Do you want KLog to add this QSO to the log?"
 msgstr ""
 
-#: ../filemanager.cpp:3676
+#: ../filemanager.cpp:3681
 msgctxt "FileManager|"
 msgid "KLog - Invalid call detected"
 msgstr ""
 
-#: ../filemanager.cpp:3682
+#: ../filemanager.cpp:3687
 msgctxt "FileManager|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported log file?"
 msgstr ""
 
-#: ../filemanager.cpp:3686
+#: ../filemanager.cpp:3691
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1154,7 +1154,7 @@ msgid ""
 "callsign anyway (click on Yes) or remove the call from the exported log file?"
 msgstr ""
 
-#: ../filemanager.cpp:3689
+#: ../filemanager.cpp:3694
 msgctxt "FileManager|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -1163,13 +1163,13 @@ msgid ""
 "ADIF file once the export process is finished."
 msgstr ""
 
-#: ../filemanager.cpp:382 ../filemanager.cpp:486 ../filemanager.cpp:684
-#: ../filemanager.cpp:917 ../filemanager.cpp:1408 ../filemanager.cpp:1875
+#: ../filemanager.cpp:387 ../filemanager.cpp:491 ../filemanager.cpp:689
+#: ../filemanager.cpp:922 ../filemanager.cpp:1413 ../filemanager.cpp:1880
 msgctxt "FileManager|"
 msgid "KLog - User cancelled"
 msgstr ""
 
-#: ../filemanager.cpp:182
+#: ../filemanager.cpp:187
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1177,12 +1177,12 @@ msgid ""
 "log."
 msgstr ""
 
-#: ../filemanager.cpp:1490
+#: ../filemanager.cpp:1495
 msgctxt "FileManager|"
 msgid "KLog - Log selection"
 msgstr ""
 
-#: ../filemanager.cpp:3152
+#: ../filemanager.cpp:3157
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1191,7 +1191,7 @@ msgid ""
 "Enter the Station Callsign that was used to do this QSO with %1 on %2:"
 msgstr ""
 
-#: ../filemanager.cpp:3159
+#: ../filemanager.cpp:3164
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1200,45 +1200,45 @@ msgid ""
 "Enter the Station Callsign that was used to do this QSO on %1:"
 msgstr ""
 
-#: ../filemanager.cpp:2956
+#: ../filemanager.cpp:2961
 msgctxt "FileManager|"
 msgid "Please edit the ADIF file and make sure that it include at least:"
 msgstr ""
 "Proszę o sprawdzenie pliku ADIF oraz upewnienie się że zawiera przynajmniej:"
 
-#: ../filemanager.cpp:2956
+#: ../filemanager.cpp:2961
 msgctxt "FileManager|"
 msgid "and"
 msgstr "oraz"
 
-#: ../filemanager.cpp:1015 ../filemanager.cpp:1535
+#: ../filemanager.cpp:1020 ../filemanager.cpp:1540
 msgctxt "FileManager|"
 msgid "Abort reading"
 msgstr "Przerwij wczytywanie"
 
-#: ../filemanager.cpp:1803
+#: ../filemanager.cpp:1808
 msgctxt "FileManager|"
 msgid "KLog - Duplicated QSOs"
 msgstr ""
 
-#: ../filemanager.cpp:1409 ../filemanager.cpp:1876
+#: ../filemanager.cpp:1414 ../filemanager.cpp:1881
 msgctxt "FileManager|"
 msgid ""
 "You have canceled the file import. The file will be removed and no data will "
 "be imported."
 msgstr ""
 
-#: ../filemanager.cpp:314
+#: ../filemanager.cpp:319
 msgctxt "FileManager|"
 msgid "There are no QSOs pending to be exported with that station callsign."
 msgstr ""
 
-#: ../filemanager.cpp:329
+#: ../filemanager.cpp:334
 msgctxt "FileManager|"
 msgid "Export"
 msgstr ""
 
-#: ../filemanager.cpp:373
+#: ../filemanager.cpp:378
 #, qt-format
 msgctxt "FileManager|"
 msgid ""
@@ -1246,100 +1246,100 @@ msgid ""
 " QSO: %1 / %2 "
 msgstr ""
 
-#: ../filemanager.cpp:457 ../filemanager.cpp:654
+#: ../filemanager.cpp:462 ../filemanager.cpp:659
 msgctxt "FileManager|"
 msgid "Export progress"
 msgstr ""
 
-#: ../filemanager.cpp:764 ../filemanager.cpp:965
+#: ../filemanager.cpp:769 ../filemanager.cpp:970
 msgctxt "FileManager|"
 msgid "KLog - File not opened"
 msgstr ""
 
-#: ../filemanager.cpp:765 ../filemanager.cpp:966
+#: ../filemanager.cpp:770 ../filemanager.cpp:971
 #, qt-format
 msgctxt "FileManager|"
 msgid "It was not possible to open the file %1 for reading."
 msgstr ""
 
-#: ../filemanager.cpp:766 ../filemanager.cpp:967
+#: ../filemanager.cpp:771 ../filemanager.cpp:972
 msgctxt "FileManager|"
 msgid "KLog was not able to read the LoTW file"
 msgstr ""
 
-#: ../filemanager.cpp:1393
+#: ../filemanager.cpp:1398
 msgctxt "FileManager|"
 msgid "Importing LoTW ADIF file..."
 msgstr ""
 
-#: ../filemanager.cpp:2956
+#: ../filemanager.cpp:2961
 msgctxt "FileManager|"
 msgid "This QSO is not including the minimum data to consider a QSO as valid!"
 msgstr ""
 
-#: ../filemanager.cpp:2959
+#: ../filemanager.cpp:2964
 msgctxt "FileManager|"
 msgid " - The band missing and the following call: "
 msgstr " - Brakuje pasma w wybranym QSO: "
 
-#: ../filemanager.cpp:2963
+#: ../filemanager.cpp:2968
 msgctxt "FileManager|"
 msgid " - The mode missing and the following call: "
 msgstr " - Brakuje emisji dla wybranego znaku: "
 
-#: ../filemanager.cpp:2967
+#: ../filemanager.cpp:2972
 msgctxt "FileManager|"
 msgid " - The date missing and the following call: "
 msgstr "- Brakuje daty dla wybranego znaku: "
 
-#: ../filemanager.cpp:2971
+#: ../filemanager.cpp:2976
 msgctxt "FileManager|"
 msgid " - The time missing and the following call: "
 msgstr "- Brakuje czasu dla wybranego znaku: "
 
-#: ../filemanager.cpp:2977
+#: ../filemanager.cpp:2982
 msgctxt "FileManager|"
 msgid "KLog: Not all required data found!"
 msgstr "KLog: Nie wszystkie wymagane dane zostały znalezione!"
 
-#: ../filemanager.cpp:3002
+#: ../filemanager.cpp:3007
 #, qt-format
 msgctxt "FileManager|"
 msgid "Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information."
 msgstr ""
 
-#: ../filemanager.cpp:3002 ../filemanager.cpp:3025
+#: ../filemanager.cpp:3007 ../filemanager.cpp:3030
 msgctxt "FileManager|"
 msgid "If you select NO, maybe the QSO will not be imported."
 msgstr ""
 
-#: ../filemanager.cpp:3025
+#: ../filemanager.cpp:3030
 #, qt-format
 msgctxt "FileManager|"
 msgid "Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information."
 msgstr ""
 
-#: ../filemanager.cpp:3091
+#: ../filemanager.cpp:3096
 msgctxt "FileManager|"
 msgid "KLog - Apply to all QSOs in this log?"
 msgstr ""
 
-#: ../filemanager.cpp:3003
+#: ../filemanager.cpp:3008
 msgctxt "FileManager|"
 msgid "KLog: No RST TX found!"
 msgstr "Klog: Nie znaleziono RST-TX!"
 
-#: ../filemanager.cpp:3027
+#: ../filemanager.cpp:3032
 msgctxt "FileManager|"
 msgid "KLog: No RST RX found!"
 msgstr "Klog: Nie znaleziono odebranych raportów RST-RX!"
 
-#: ../filemanager.cpp:3065 ../filemanager.cpp:3076
+#: ../filemanager.cpp:3070 ../filemanager.cpp:3081
 msgctxt "FileManager|"
 msgid "KLog - No Station callsign entered."
 msgstr ""
 
-#: ../filemanager.cpp:3153 ../filemanager.cpp:3158
+#: ../filemanager.cpp:3158 ../filemanager.cpp:3163
 msgctxt "FileManager|"
 msgid "KLog - QSO without Station Callsign"
 msgstr ""
@@ -4268,17 +4268,17 @@ msgctxt "QObject|"
 msgid "Not identified"
 msgstr "Nie zidetyfikowany"
 
-#: ../database.cpp:212 ../database.cpp:272
+#: ../database.cpp:213 ../database.cpp:273
 msgctxt "QObject|"
 msgid "Database Error"
 msgstr "Błąd bazy dancyh"
 
-#: ../database.cpp:1437
+#: ../database.cpp:1438
 msgctxt "QObject|"
 msgid "KLog DB needs to be upgraded."
 msgstr "Baza danych KLog musi zostać zaktualizowana."
 
-#: ../database.cpp:1974
+#: ../database.cpp:1975
 msgctxt "QObject|"
 msgid ""
 "The process to upgrade is:\n"
@@ -4290,13 +4290,13 @@ msgid ""
 "KLog will finish when you click on OK."
 msgstr ""
 
-#: ../database.cpp:2107 ../database.cpp:3758 ../database.cpp:3928
-#: ../database.cpp:4121 ../database.cpp:4323
+#: ../database.cpp:2108 ../database.cpp:3759 ../database.cpp:3929
+#: ../database.cpp:4122 ../database.cpp:4324
 msgctxt "QObject|"
 msgid "KLog - DB update"
 msgstr ""
 
-#: ../database.cpp:2165
+#: ../database.cpp:2166
 msgctxt "QObject|"
 msgid ""
 "KLog has detected a previous log in the DB. All data will be migrated to a "
@@ -4305,29 +4305,29 @@ msgstr ""
 "KLog wykrył poprzedni LOG w bazie dancy. Wszystkie dane zostaną dla Ciebie "
 "zaimportowane do nowo utworzonego Logu."
 
-#: ../database.cpp:2181
+#: ../database.cpp:2182
 msgctxt "QObject|"
 msgid "KLog: Enter Station callsign"
 msgstr "KLog: Wprowadź znak stacji"
 
-#: ../database.cpp:2182
+#: ../database.cpp:2183
 msgctxt "QObject|"
 msgid "Enter the station callsign used in this log"
 msgstr "Wprowadź znak używany w KLog"
 
-#: ../database.cpp:2183 ../utilities.cpp:1953
+#: ../database.cpp:2184 ../utilities.cpp:1953
 msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "Znak Stacji"
 
-#: ../database.cpp:3692 ../database.cpp:3865 ../database.cpp:6500
-#: ../database.cpp:6730 ../dataproxy_sqlite.cpp:6115
+#: ../database.cpp:3693 ../database.cpp:3866 ../database.cpp:6501
+#: ../database.cpp:6731 ../dataproxy_sqlite.cpp:6116
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
 
-#: ../database.cpp:3759 ../database.cpp:3929 ../database.cpp:4122
-#: ../database.cpp:4324
+#: ../database.cpp:3760 ../database.cpp:3930 ../database.cpp:4123
+#: ../database.cpp:4325
 msgctxt "QObject|"
 msgid ""
 "Canceling this update will cause data inconsistencies and possibly data "
@@ -4336,119 +4336,119 @@ msgstr ""
 "Przerwanie tej aktualizjacji może grozić utratą danych, Czy napewno chcesz "
 "przerwać?"
 
-#: ../database.cpp:4058 ../database.cpp:4254
+#: ../database.cpp:4059 ../database.cpp:4255
 msgctxt "QObject|"
 msgid "Progress: "
 msgstr "Postęp: "
 
-#: ../database.cpp:3673 ../database.cpp:3692
+#: ../database.cpp:3674 ../database.cpp:3693
 msgctxt "QObject|"
 msgid "Updating mode information..."
 msgstr "Updating mode information..."
 
-#: ../database.cpp:1438
+#: ../database.cpp:1439
 msgctxt "QObject|"
 msgid "Do you want to upgrade it now?"
 msgstr "Czy chcesz aktualizować teraz?"
 
-#: ../database.cpp:1438
+#: ../database.cpp:1439
 msgctxt "QObject|"
 msgid "If DB is not upgraded KLog may not work properly."
 msgstr "Jeśli DB nie zostanie zauktualizowana KLog może nie działać poprawnie."
 
-#: ../database.cpp:1475
+#: ../database.cpp:1476
 msgctxt "QObject|"
 msgid ""
 "Upgrading software may potentially cause problems. Backing up your DB, "
 "before upgrading, is always a good idea."
 msgstr ""
 
-#: ../database.cpp:1476
+#: ../database.cpp:1477
 msgctxt "QObject|"
 msgid "Do you want to backup your DB now?"
 msgstr ""
 
-#: ../database.cpp:1517
+#: ../database.cpp:1518
 msgctxt "QObject|"
 msgid "The backup finished successfully."
 msgstr ""
 
-#: ../database.cpp:1518
+#: ../database.cpp:1519
 #, qt-format
 msgctxt "QObject|"
 msgid "You can find the backup in this file: %1"
 msgstr ""
 
-#: ../database.cpp:1527
+#: ../database.cpp:1528
 msgctxt "QObject|"
 msgid "The backup was not properly done."
 msgstr ""
 
-#: ../database.cpp:1528
+#: ../database.cpp:1529
 msgctxt "QObject|"
 msgid "You will be sent back to the starting point."
 msgstr ""
 
-#: ../database.cpp:1972
+#: ../database.cpp:1973
 msgctxt "QObject|"
 msgid "KLog - DB can't be updated automatically"
 msgstr ""
 
-#: ../database.cpp:1973
+#: ../database.cpp:1974
 msgctxt "QObject|"
 msgid ""
 "You are upgrading from a too old KLog version and this upgrade can't be "
 "upgraded automatically from that version."
 msgstr ""
 
-#: ../database.cpp:2225
+#: ../database.cpp:2226
 msgctxt "QObject|"
 msgid ""
 "All the data was migrated correctly. You should now go to "
 "Setup->Preferences->Logs to check that everything is okay."
 msgstr ""
 
-#: ../database.cpp:3673 ../database.cpp:3846 ../database.cpp:4036
-#: ../database.cpp:4231 ../database.cpp:6412 ../database.cpp:6644
-#: ../dataproxy_sqlite.cpp:6070
+#: ../database.cpp:3674 ../database.cpp:3847 ../database.cpp:4037
+#: ../database.cpp:4232 ../database.cpp:6413 ../database.cpp:6645
+#: ../dataproxy_sqlite.cpp:6071
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Przerwij aktualizowanie"
 
-#: ../database.cpp:3846 ../database.cpp:3865 ../database.cpp:4058
-#: ../database.cpp:4254
+#: ../database.cpp:3847 ../database.cpp:3866 ../database.cpp:4059
+#: ../database.cpp:4255
 msgctxt "QObject|"
 msgid "Updating bands information..."
 msgstr "Aktualizowanie informacjo o pasmach..."
 
-#: ../database.cpp:4034
+#: ../database.cpp:4035
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating bands information in %1 status..."
 msgstr "Updating bands information in %1 status..."
 
-#: ../database.cpp:4229
+#: ../database.cpp:4230
 #, qt-format
 msgctxt "QObject|"
 msgid "Updating mode information in %1 status..."
 msgstr "Updating mode information in %1 status..."
 
-#: ../database.cpp:6412
+#: ../database.cpp:6413
 msgctxt "QObject|"
 msgid "Updating DXCC award information..."
 msgstr ""
 
-#: ../database.cpp:6500
+#: ../database.cpp:6501
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
 msgstr ""
 
-#: ../database.cpp:6644
+#: ../database.cpp:6645
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
 msgstr ""
 
-#: ../database.cpp:6730
+#: ../database.cpp:6731
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr ""
@@ -4506,12 +4506,12 @@ msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "Dziękujemy za korzystanie z KLog!"
 
-#: ../dataproxy_sqlite.cpp:6070
+#: ../dataproxy_sqlite.cpp:6071
 msgctxt "QObject|"
 msgid "Updating information..."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6115
+#: ../dataproxy_sqlite.cpp:6116
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr ""
