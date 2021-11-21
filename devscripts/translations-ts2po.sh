@@ -36,7 +36,7 @@ lupdate -no-obsolete $SOURCES/src.pro
 for file in $TRANSLATIONS/*.ts
  do
   echo Exporting "$file"
-  NEWNAME=echo $("$file" |sed 's:^../ts/::')
+  NEWNAME=echo $($file |sed 's:^../ts/::')
   #NEWNAME=`echo "$file" |sed 's:^../ts/::'`
   echo "$NEWNAME"
   lconvert -if ts -of po -i "$file" -o ${NEWNAME%.ts}.po
