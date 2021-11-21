@@ -350,7 +350,7 @@ msgctxt "AwardsWidget|"
 msgid "Score"
 msgstr ""
 
-#: ../awardswidget.cpp:188 ../awardswidget.cpp:415
+#: ../awardswidget.cpp:188 ../awardswidget.cpp:408
 msgctxt "AwardsWidget|"
 msgid "Annual"
 msgstr ""
@@ -405,7 +405,7 @@ msgctxt "AwardsWidget|"
 msgid "Score for the DXMarathon in the selected year."
 msgstr ""
 
-#: ../awardswidget.cpp:408
+#: ../awardswidget.cpp:401
 msgctxt "AwardsWidget|"
 msgid "DX-Marathon"
 msgstr ""
@@ -1753,182 +1753,182 @@ msgctxt "LoTWUtilities|"
 msgid "Now KLog will process the downloaded QSO and update your local log."
 msgstr ""
 
-#: ../logwindow.cpp:289
+#: ../logwindow.cpp:291
 msgctxt "LogWindow|"
 msgid "QSL Send"
 msgstr "QSL wysłane"
 
-#: ../logwindow.cpp:301
+#: ../logwindow.cpp:303
 msgctxt "LogWindow|"
 msgid "QSL Rcvd"
 msgstr "QSL Otrzymane"
 
-#: ../logwindow.cpp:350
+#: ../logwindow.cpp:352
 msgctxt "LogWindow|"
 msgid "&Delete"
 msgstr "&Delete"
 
-#: ../logwindow.cpp:352
+#: ../logwindow.cpp:354
 msgctxt "LogWindow|"
 msgid "Delete a QSO"
 msgstr "Usuń QSO"
 
-#: ../logwindow.cpp:355
+#: ../logwindow.cpp:357
 msgctxt "LogWindow|"
 msgid "&Edit QSO"
 msgstr "&Edit QSO"
 
-#: ../logwindow.cpp:357
+#: ../logwindow.cpp:359
 msgctxt "LogWindow|"
 msgid "Edit this QSO"
 msgstr "Edytuj QSO"
 
-#: ../logwindow.cpp:360
+#: ../logwindow.cpp:362
 msgctxt "LogWindow|"
 msgid "Via &bureau"
 msgstr "Via &bureau"
 
-#: ../logwindow.cpp:362
+#: ../logwindow.cpp:364
 msgctxt "LogWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Wyśłij QSL przez biuro"
 
-#: ../logwindow.cpp:365
+#: ../logwindow.cpp:367
 msgctxt "LogWindow|"
 msgid "D&irect"
 msgstr "D&irect"
 
-#: ../logwindow.cpp:367
+#: ../logwindow.cpp:369
 msgctxt "LogWindow|"
 msgid "Send this QSL via direct"
 msgstr "Wyślij QSL direktem"
 
-#: ../logwindow.cpp:370 ../logwindow.cpp:416 ../logwindow.cpp:424
+#: ../logwindow.cpp:372 ../logwindow.cpp:418 ../logwindow.cpp:426
 msgctxt "LogWindow|"
 msgid "Via bureau"
 msgstr "Przez biuro"
 
-#: ../logwindow.cpp:372
+#: ../logwindow.cpp:374
 msgctxt "LogWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &received via bureau"
 
-#: ../logwindow.cpp:375 ../logwindow.cpp:420 ../logwindow.cpp:428
+#: ../logwindow.cpp:377 ../logwindow.cpp:422 ../logwindow.cpp:430
 msgctxt "LogWindow|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../logwindow.cpp:377
+#: ../logwindow.cpp:379
 msgctxt "LogWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL odebrane przez direct&t"
 
-#: ../logwindow.cpp:380
+#: ../logwindow.cpp:382
 msgctxt "LogWindow|"
 msgid "Check in QRZ.com"
 msgstr ""
 
-#: ../logwindow.cpp:382
+#: ../logwindow.cpp:384
 msgctxt "LogWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr ""
 
-#: ../logwindow.cpp:385
+#: ../logwindow.cpp:387
 msgctxt "LogWindow|"
 msgid "Check in DXHeat.com"
 msgstr ""
 
-#: ../logwindow.cpp:387
+#: ../logwindow.cpp:389
 msgctxt "LogWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr ""
 
-#: ../logwindow.cpp:390
+#: ../logwindow.cpp:392
 msgctxt "LogWindow|"
 msgid "Delete selected QSOs"
 msgstr ""
 
-#: ../logwindow.cpp:392
+#: ../logwindow.cpp:394
 msgctxt "LogWindow|"
 msgid "Delete the selected QSOs"
 msgstr ""
 
-#: ../logwindow.cpp:395
+#: ../logwindow.cpp:397
 msgctxt "LogWindow|"
 msgid "Export to ADIF"
 msgstr ""
 
-#: ../logwindow.cpp:396
+#: ../logwindow.cpp:398
 msgctxt "LogWindow|"
 msgid "Export the selected QSOs to an ADIF file."
 msgstr ""
 
-#: ../logwindow.cpp:404
+#: ../logwindow.cpp:406
 msgctxt "LogWindow|"
 msgid "Upload to LoTW"
 msgstr ""
 
-#: ../logwindow.cpp:405
+#: ../logwindow.cpp:407
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to LoTW"
 msgstr ""
 
-#: ../logwindow.cpp:408
+#: ../logwindow.cpp:410
 msgctxt "LogWindow|"
 msgid "Upload to ClubLog"
 msgstr ""
 
-#: ../logwindow.cpp:409
+#: ../logwindow.cpp:411
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to ClubLog"
 msgstr ""
 
-#: ../logwindow.cpp:412
+#: ../logwindow.cpp:414
 msgctxt "LogWindow|"
 msgid "Upload to eQSL.cc"
 msgstr ""
 
-#: ../logwindow.cpp:413
+#: ../logwindow.cpp:415
 msgctxt "LogWindow|"
 msgid "Upload the selected QSOs to eQSL.cc"
 msgstr ""
 
-#: ../logwindow.cpp:417
+#: ../logwindow.cpp:419
 msgctxt "LogWindow|"
 msgid "Send these QSLs via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:421
+#: ../logwindow.cpp:423
 msgctxt "LogWindow|"
 msgid "Send these QSLs via direct"
 msgstr ""
 
-#: ../logwindow.cpp:425
+#: ../logwindow.cpp:427
 msgctxt "LogWindow|"
 msgid "QSLs received via bureau"
 msgstr ""
 
-#: ../logwindow.cpp:429
+#: ../logwindow.cpp:431
 msgctxt "LogWindow|"
 msgid "QSLs received via direc&t"
 msgstr ""
 
-#: ../logwindow.cpp:432
+#: ../logwindow.cpp:434
 msgctxt "LogWindow|"
 msgid "Select none"
 msgstr ""
 
-#: ../logwindow.cpp:433
+#: ../logwindow.cpp:435
 msgctxt "LogWindow|"
 msgid "Remove all selections"
 msgstr ""
 
-#: ../logwindow.cpp:436
+#: ../logwindow.cpp:438
 msgctxt "LogWindow|"
 msgid "Select all"
 msgstr ""
 
-#: ../logwindow.cpp:437
+#: ../logwindow.cpp:439
 msgctxt "LogWindow|"
 msgid "Select all the QSOs"
 msgstr ""
@@ -3892,126 +3892,126 @@ msgctxt "MainWindowInputQSL|"
 msgid "QSL via information."
 msgstr "Info o sposobie wysłania QSL."
 
-#: ../inputwidgets/mainwindowinputqso.cpp:68
+#: ../inputwidgets/mainwindowinputqso.cpp:71
 msgctxt "MainWindowInputQSO|"
 msgid "TX RST."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:69
+#: ../inputwidgets/mainwindowinputqso.cpp:72
 msgctxt "MainWindowInputQSO|"
 msgid "RX RST."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:70
-#: ../inputwidgets/mainwindowinputqso.cpp:559
+#: ../inputwidgets/mainwindowinputqso.cpp:73
+#: ../inputwidgets/mainwindowinputqso.cpp:562
 msgctxt "MainWindowInputQSO|"
 msgid "TX Frequency in MHz."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:71
-#: ../inputwidgets/mainwindowinputqso.cpp:612
+#: ../inputwidgets/mainwindowinputqso.cpp:74
+#: ../inputwidgets/mainwindowinputqso.cpp:615
 msgctxt "MainWindowInputQSO|"
 msgid "RX Frequency in MHz."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:72
+#: ../inputwidgets/mainwindowinputqso.cpp:75
 msgctxt "MainWindowInputQSO|"
 msgid "Power used by the contacted station."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:73
+#: ../inputwidgets/mainwindowinputqso.cpp:76
 msgctxt "MainWindowInputQSO|"
 msgid "Name of the contacted operator."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:74
+#: ../inputwidgets/mainwindowinputqso.cpp:77
 msgctxt "MainWindowInputQSO|"
 msgid "QTH of the contacted station."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:75
+#: ../inputwidgets/mainwindowinputqso.cpp:78
 msgctxt "MainWindowInputQSO|"
 msgid "Locator of the contacted station."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:79
+#: ../inputwidgets/mainwindowinputqso.cpp:82
 msgctxt "MainWindowInputQSO|"
 msgid "Watts"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:83
-#: ../inputwidgets/mainwindowinputqso.cpp:87
+#: ../inputwidgets/mainwindowinputqso.cpp:86
+#: ../inputwidgets/mainwindowinputqso.cpp:90
 #, fuzzy
 msgctxt "MainWindowInputQSO|"
 msgid "MHz"
 msgstr "MHz"
 
-#: ../inputwidgets/mainwindowinputqso.cpp:89
+#: ../inputwidgets/mainwindowinputqso.cpp:92
 msgctxt ""
 "MainWindowInputQSO|Translator: Split is a common hamradio term. Do not "
 "translate unless you are sure."
 msgid "Split"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:93
+#: ../inputwidgets/mainwindowinputqso.cpp:96
 msgctxt "MainWindowInputQSO|"
 msgid "Name"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:97
+#: ../inputwidgets/mainwindowinputqso.cpp:100
 msgctxt "MainWindowInputQSO|"
 msgid "QTH"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:101
+#: ../inputwidgets/mainwindowinputqso.cpp:104
 msgctxt "MainWindowInputQSO|"
 msgid "DX Locator"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:105
+#: ../inputwidgets/mainwindowinputqso.cpp:108
 msgctxt "MainWindowInputQSO|"
 msgid "Power(rx)"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:109
+#: ../inputwidgets/mainwindowinputqso.cpp:112
 msgctxt "MainWindowInputQSO|"
 msgid "RST(tx)"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:113
+#: ../inputwidgets/mainwindowinputqso.cpp:116
 msgctxt "MainWindowInputQSO|"
 msgid "RST(rx)"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:131
+#: ../inputwidgets/mainwindowinputqso.cpp:134
 msgctxt "MainWindowInputQSO|"
 msgid "Freq TX"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:136
+#: ../inputwidgets/mainwindowinputqso.cpp:139
 msgctxt "MainWindowInputQSO|"
 msgid "Freq RX"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:282
+#: ../inputwidgets/mainwindowinputqso.cpp:285
 msgctxt "MainWindowInputQSO|"
 msgid "DX QTH locator."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:290
+#: ../inputwidgets/mainwindowinputqso.cpp:293
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:573
+#: ../inputwidgets/mainwindowinputqso.cpp:576
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowinputqso.cpp:617
+#: ../inputwidgets/mainwindowinputqso.cpp:620
 msgctxt "MainWindowInputQSO|"
 msgid ""
 "RX Frequency in MHz.\n"
@@ -4242,28 +4242,28 @@ msgctxt "OnlineMessageWidget|"
 msgid "Not identified"
 msgstr "Nie zidetyfikowany"
 
-#: ../awards.cpp:820
+#: ../awards.cpp:825
 msgctxt "QObject|"
 msgid "New One, work it!"
 msgstr "New One, work it!"
 
-#: ../awards.cpp:824 ../awards.cpp:828 ../awards.cpp:834 ../awards.cpp:837
-#: ../awards.cpp:840 ../awards.cpp:843 ../awards.cpp:849 ../awards.cpp:855
+#: ../awards.cpp:829 ../awards.cpp:833 ../awards.cpp:839 ../awards.cpp:842
+#: ../awards.cpp:845 ../awards.cpp:848 ../awards.cpp:854 ../awards.cpp:860
 msgctxt "QObject|"
 msgid "Needed, work it!"
 msgstr "Potrzebny, zrób QSO!"
 
-#: ../awards.cpp:831 ../awards.cpp:846 ../awards.cpp:852 ../awards.cpp:858
+#: ../awards.cpp:836 ../awards.cpp:851 ../awards.cpp:857 ../awards.cpp:863
 msgctxt "QObject|"
 msgid "Worked but not confirmed"
 msgstr "Zrobione, ale nie potwierdzone"
 
-#: ../awards.cpp:861
+#: ../awards.cpp:866
 msgctxt "QObject|"
 msgid "Confirmed"
 msgstr "Potwierdzone"
 
-#: ../awards.cpp:865
+#: ../awards.cpp:870
 msgctxt "QObject|"
 msgid "Not identified"
 msgstr "Nie zidetyfikowany"
@@ -4320,8 +4320,8 @@ msgctxt "QObject|"
 msgid "Station Callsign"
 msgstr "Znak Stacji"
 
-#: ../database.cpp:3693 ../database.cpp:3866 ../database.cpp:6501
-#: ../database.cpp:6731 ../dataproxy_sqlite.cpp:6116
+#: ../database.cpp:3693 ../database.cpp:3866 ../database.cpp:6499
+#: ../database.cpp:6729 ../dataproxy_sqlite.cpp:6116
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
@@ -4409,7 +4409,7 @@ msgid ""
 msgstr ""
 
 #: ../database.cpp:3674 ../database.cpp:3847 ../database.cpp:4037
-#: ../database.cpp:4232 ../database.cpp:6413 ../database.cpp:6645
+#: ../database.cpp:4232 ../database.cpp:6413 ../database.cpp:6643
 #: ../dataproxy_sqlite.cpp:6071
 msgctxt "QObject|"
 msgid "Abort updating"
@@ -4438,17 +4438,17 @@ msgctxt "QObject|"
 msgid "Updating DXCC award information..."
 msgstr ""
 
-#: ../database.cpp:6501
+#: ../database.cpp:6499
 msgctxt "QObject|"
 msgid "Updating DXCC Award information..."
 msgstr ""
 
-#: ../database.cpp:6645
+#: ../database.cpp:6643
 msgctxt "QObject|"
 msgid "Updating WAZ award information..."
 msgstr ""
 
-#: ../database.cpp:6731
+#: ../database.cpp:6729
 msgctxt "QObject|"
 msgid "Updating WAZ Award information..."
 msgstr ""
@@ -7732,37 +7732,37 @@ msgctxt "SetupPageWorldEditor|"
 msgid "Entities information has not been updated."
 msgstr "Informacje o jednostkach DXCC nie zostały zaktualizowane."
 
-#: ../widgets/showadifimportwidget.cpp:45
+#: ../widgets/showadifimportwidget.cpp:48
 msgctxt "ShowAdifImportWidget|"
 msgid ""
 "The following QSOs are those QSOs that you have received the LoTW "
 "confirmation."
 msgstr ""
 
-#: ../widgets/showadifimportwidget.cpp:46
+#: ../widgets/showadifimportwidget.cpp:49
 #, fuzzy
 msgctxt "ShowAdifImportWidget|"
 msgid "Ok"
 msgstr "OK"
 
-#: ../widgets/showadifimportwidget.cpp:56
+#: ../widgets/showadifimportwidget.cpp:59
 msgctxt "ShowAdifImportWidget|"
 msgid "DX"
 msgstr ""
 
-#: ../widgets/showadifimportwidget.cpp:56
+#: ../widgets/showadifimportwidget.cpp:59
 #, fuzzy
 msgctxt "ShowAdifImportWidget|"
 msgid "Date/Time"
 msgstr "Data/Czas"
 
-#: ../widgets/showadifimportwidget.cpp:56
+#: ../widgets/showadifimportwidget.cpp:59
 #, fuzzy
 msgctxt "ShowAdifImportWidget|"
 msgid "Band"
 msgstr "Pasmo"
 
-#: ../widgets/showadifimportwidget.cpp:56
+#: ../widgets/showadifimportwidget.cpp:59
 #, fuzzy
 msgctxt "ShowAdifImportWidget|"
 msgid "Mode"
@@ -7959,49 +7959,49 @@ msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Number"
 msgstr ""
 
-#: ../charts/statsdxccsonsatswidget.cpp:113
+#: ../charts/statsdxccsonsatswidget.cpp:118
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Callsign"
 msgstr "Znak wywoławczy"
 
-#: ../charts/statsdxccsonsatswidget.cpp:114
+#: ../charts/statsdxccsonsatswidget.cpp:119
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Date"
 msgstr "Data"
 
-#: ../charts/statsdxccsonsatswidget.cpp:115
+#: ../charts/statsdxccsonsatswidget.cpp:120
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Band"
 msgstr "Pasmo"
 
-#: ../charts/statsdxccsonsatswidget.cpp:116
+#: ../charts/statsdxccsonsatswidget.cpp:121
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../charts/statsdxccsonsatswidget.cpp:117
+#: ../charts/statsdxccsonsatswidget.cpp:122
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../charts/statsdxccsonsatswidget.cpp:118
+#: ../charts/statsdxccsonsatswidget.cpp:123
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../charts/statsdxccsonsatswidget.cpp:119
+#: ../charts/statsdxccsonsatswidget.cpp:124
 #, fuzzy
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "Confirmed"
 msgstr "Potwierdzone"
 
-#: ../charts/statsdxccsonsatswidget.cpp:148
+#: ../charts/statsdxccsonsatswidget.cpp:153
 msgctxt "StatsDXCCOnSatsWidget|"
 msgid "No"
 msgstr ""
