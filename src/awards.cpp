@@ -1585,9 +1585,7 @@ int Awards::getDXMarathonCQ(const int _year, const int _logNumber)
 int Awards::getDXMarathonScore(const int _year, const int _logNumber)
 {
        //qDebug() << "Awards::getDXMarathonScore: " << QString::number(_year) << QT_ENDL;
-
     return dxMarathon->getDXMarathonScore(_year, _logNumber);
-
 }
 
 bool Awards::isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, const int _logNumber)

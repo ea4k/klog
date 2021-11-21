@@ -6461,10 +6461,10 @@ bool DataBase::updateAwardDXCCTable()
                             {
                                 query2.finish();
                                 stringQuery = QString ("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
-                                if (execQuery(Q_FUNC_INFO, stringQuery))
+                                if (!execQuery(Q_FUNC_INFO, stringQuery))
                                 {
+                                    return false;
                                 }
-
                             }
                             else
                             {
