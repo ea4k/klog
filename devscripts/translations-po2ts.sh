@@ -35,7 +35,7 @@ export QT_SELECT="qt5"
 for file in $POFILES/*.po
  do
   echo Checking "$file"
-  NEWNAME=echo $("$file" |sed 's:^../po/::')
+  NEWNAME=echo $($file |sed 's:^../po/::')
   #NEWNAME=`echo "$file" |sed 's:^../po/::'`
   echo $NEWNAME
   msgfmt -o /dev/null --statistics $file
