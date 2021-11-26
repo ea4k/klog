@@ -40,6 +40,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     timeEdit = new QTimeEdit;
     realtimeCheckBox = new QCheckBox;
     enabledCR = realtimeCheckBox->backgroundRole();
+    manualModeCheckBox = new QCheckBox;
 
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
