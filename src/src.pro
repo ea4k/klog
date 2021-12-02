@@ -67,6 +67,8 @@ HEADERS += setupdialog.h \
     charts/statsfieldperbandwidget.h \
     global.h \
     klogdefinitions.h \
+    setuppages/hamlibnetworkconfigwidget.h \
+    setuppages/hamlibserialconfigwidget.h \
     setuppages/setuppagelogview.h \
     widgets/showkloglogwidget.h \
     elogqrzlog.h \
@@ -172,6 +174,8 @@ SOURCES += main.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
+    setuppages/hamlibnetworkconfigwidget.cpp \
+    setuppages/hamlibserialconfigwidget.cpp \
     setuppages/setuppageelog.cpp \
     setuppages/setuppagelogview.cpp \
     setuppages/setuppagesubdivisionnew.cpp \

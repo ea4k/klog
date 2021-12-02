@@ -34,12 +34,13 @@
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
-     //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << QT_ENDL;
     timer = new QTimer(this);
-    my_rig = rig_init (RIG_DUMMY);
+    //my_rig = rig_init (RIG_DUMMY);
+    //my_rig = rig_init (RIG_MODEL_DUMMY);
     retcode = -1;
 
-    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
 HamLibClass::~HamLibClass()
@@ -472,11 +473,6 @@ bool HamLibClass::init(bool _active)
     {
         //qDebug()<< Q_FUNC_INFO << ": Already init"  << QT_ENDL;
         return true;
-    }
-    if (myrig_model < 0)
-    {
-        //qDebug()<< Q_FUNC_INFO << ": Rig Model not valid"  << QT_ENDL;
-        return false;
     }
 
     rig_set_debug(RIG_DEBUG_NONE);
