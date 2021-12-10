@@ -327,6 +327,7 @@ private slots:
 
 private:
     //void setWidgetsOrder();
+    int firstTime;
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);

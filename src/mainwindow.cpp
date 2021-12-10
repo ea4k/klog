@@ -48,6 +48,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
 
+    firstTime = -1;
+
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -3084,22 +3086,20 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_b)
     {
-
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
-        msgBox.setText(tr("QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled."));
-        msgBox.setDetailedText(tr("Please check your QRZ.com subcription or credentials."));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-
-
-        qrzcomActive = false;
-        setupDialog->setQRZCOMAutoCheckActive (false);
-        filemanager->modifySetupFile(configFileName, "QRZcomActive", "False");
-    }
+        if (firstTime < 0)
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
+            msgBox.setText(tr("QRZ.com has returned a non-subcribed error. Without a subscription you can only get Name and QTH"));
+            msgBox.setDetailedText(tr("Please check your QRZ.com subcription or credentials."));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+        }
+    firstTime++;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+    }
 }
 
 void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos)
@@ -3234,7 +3234,7 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << QT_ENDL;
         if (_d.contains("Not found: "))
         {
-            //cleanQRZCOMreceivedDataFromUI();
+            cleanQRZCOMreceivedDataFromUI();
              //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
             slotUpdateStatusBar(tr("Call not found in QRZ.com"));
             return;
@@ -3402,7 +3402,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_CQz = -1;
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
-    //cleanQRZCOMreceivedDataFromUI();
+    cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
     //qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
