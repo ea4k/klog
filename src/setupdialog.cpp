@@ -594,6 +594,15 @@ void SetupDialog::slotOkButtonClicked()
                  stream << "QRZcomPass=" << tmp << ";" <<  QT_ENDL;
             }
 
+            if (eLogPage->getQRZCOMSubscriber())
+            {
+                 stream << "QRZcomSubscriber=True;" << QT_ENDL;
+            }
+            else
+            {
+                stream << "QRZcomSubscriber=False;" <<  QT_ENDL;
+            }
+
             if (eLogPage->getQRZCOMAutoCheck())
             {
                  stream << "QRZcomAuto=True;" << QT_ENDL;
@@ -1073,6 +1082,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if(tab =="QRZCOMACTIVE"){
         //eQSLPage->setActive(value);
         eLogPage->setQRZCOMActive(value);
+    }
+    else if(tab =="QRZCOMSUBSCRIBER"){
+        eLogPage->setQRZCOMSubscriber(value);
     }
     else if(tab =="QRZCOMUSER"){
         eLogPage->setQRZCOMUser(value);

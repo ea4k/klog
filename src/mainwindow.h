@@ -327,7 +327,6 @@ private slots:
 
 private:
     //void setWidgetsOrder();
-    int firstTime;
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
@@ -715,6 +714,7 @@ private:
     //</CLUBLOG>
     // QRZ.com
     bool qrzcomActive;
+    bool qrzcomSubscriber;
     eLogQrzLog *elogQRZcom;
     QString qrzcomUser, qrzcomPass;
     // QRz.com - END

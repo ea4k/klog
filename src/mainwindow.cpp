@@ -47,9 +47,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
-
-    firstTime = -1;
-
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -372,6 +369,7 @@ void MainWindow::init()
     eQSLUseQSOStationCallSign = false;
     qrzcomActive = false;
     lotwActive = false;
+    qrzcomSubscriber = false;
 
     qrzcomUser = QString();
     qrzcomPass = QString();
@@ -3086,18 +3084,17 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_b)
     {
-        if (firstTime < 0)
+        if (qrzcomSubscriber)
         {
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
-            msgBox.setText(tr("QRZ.com has returned a non-subcribed error. Without a subscription you can only get Name and QTH"));
+            msgBox.setText(tr("QRZ.com has returned a non-subcribed error"));
             msgBox.setDetailedText(tr("Please check your QRZ.com subcription or credentials."));
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
         }
-    firstTime++;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     }
 }
@@ -5350,6 +5347,10 @@ bool MainWindow::processConfigLine(const QString &_line){
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
         //slotElogQRZCOMAutoCheck();
+    }
+    else if(field=="QRZCOMSUBSCRIBER")
+    {
+        qrzcomSubscriber= util->trueOrFalse(value);
     }
     else if(field =="QRZCOMAUTO")
     {
