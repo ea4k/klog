@@ -36,6 +36,7 @@ class ShowAdifImportWidget : public QWidget
 
 public:
     explicit ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
+    ~ShowAdifImportWidget();
     void addQSOToTheList(const QStringList _qso);
     void clear();
 
@@ -54,7 +55,7 @@ signals:
 
 private:
     void createUI();
-    void fillTable();    
+    void fillTable();
     void addQSO(const QStringList &_qso);
 
     QList<QStringList> qsosList;

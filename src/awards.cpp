@@ -62,7 +62,12 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
        //qDebug() << "Awards::Awards - END"  << QT_ENDL;
 }
 
-Awards::~Awards() {}
+Awards::~Awards()
+{
+    delete(world);
+    delete(dxMarathon);
+    delete(util);
+}
 
 void Awards::setAwardDXCC(const int _qsoId)
 {
@@ -1142,43 +1147,27 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     {
         defaultColor.setNamedColor(_default.toUpper());
     }
-    else
-    {
-    }
 
     if (neededColor.isValid())
     {
         neededColor.setNamedColor(_needed.toUpper());
     }
-    else
-    {
-    }
-
 
     if (confirmedColor.isValid())
     {
         confirmedColor.setNamedColor(_confirmed.toUpper());
-    }
-    else
-    {
     }
 
     if (newOneColor.isValid())
     {
         newOneColor.setNamedColor(_newOne.toUpper());
     }
-    else
-    {
-    }
 
     if (workedColor.isValid())
     {
         workedColor.setNamedColor(_worked.toUpper());
     }
-    else
-    {
-           //qDebug() << "Awards::setColors: Worked NOT VALID" << QT_ENDL;
-    }
+
 }
 
 QColor Awards::getDefaultColor()
@@ -1596,9 +1585,7 @@ int Awards::getDXMarathonCQ(const int _year, const int _logNumber)
 int Awards::getDXMarathonScore(const int _year, const int _logNumber)
 {
        //qDebug() << "Awards::getDXMarathonScore: " << QString::number(_year) << QT_ENDL;
-
     return dxMarathon->getDXMarathonScore(_year, _logNumber);
-
 }
 
 bool Awards::isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, const int _logNumber)

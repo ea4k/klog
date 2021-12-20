@@ -38,7 +38,10 @@ ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &
     setWindowTitle("ShowAdif");
     createUI();
 }
-
+ShowAdifImportWidget::~ShowAdifImportWidget()
+{
+    delete(util);
+}
 void ShowAdifImportWidget::createUI()
 {
     QLabel *msgLabel = new QLabel;

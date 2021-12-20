@@ -947,9 +947,13 @@ QString Utilities::getPrefixFromCall(const QString &_c)
             //qDebug() << Q_FUNC_INFO << ": Second one is shorter: " ;
             if (isCountrySuffix (parts.at(1)))
             {
-
+                pref = isAPrefix (parts.at(1));
             }
-            pref = isAPrefix (parts.at(1));
+            else
+            {
+                pref = isAPrefix (parts.at(0));
+            }
+
             if (pref>0)
             {
                 //qDebug() << Q_FUNC_INFO << ": R2=" << parts.at(1) ;
