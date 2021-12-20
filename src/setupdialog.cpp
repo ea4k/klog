@@ -1084,7 +1084,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         eLogPage->setQRZCOMActive(value);
     }
     else if(tab =="QRZCOMSUBSCRIBER"){
-        eLogPage->setQRZCOMSubscriber(value);
+        eLogPage->setQRZCOMSubscriber(util->trueOrFalse (value));
     }
     else if(tab =="QRZCOMUSER"){
         eLogPage->setQRZCOMUser(value);

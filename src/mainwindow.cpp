@@ -3082,20 +3082,21 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (_b)
+    if ((_b) && (elogQRZcom->getSubscription ()))
     {
-        if (qrzcomSubscriber)
-        {
-            QMessageBox msgBox;
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
-            msgBox.setText(tr("QRZ.com has returned a non-subcribed error"));
-            msgBox.setDetailedText(tr("Please check your QRZ.com subcription or credentials."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
-        }
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
+        msgBox.setText(tr("QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled."));
+        msgBox.setDetailedText(tr("Please check your QRZ.com subcription or credentials."));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+
+        qrzcomActive = false;
+        setupDialog->setQRZCOMAutoCheckActive (false);
+        filemanager->modifySetupFile(configFileName, "QRZcomActive", "False");
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4811,6 +4812,7 @@ void MainWindow::readConfigData()
     }
     file.close ();
 
+
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //defineStationCallsign(mainQRZ);
 
@@ -4864,6 +4866,7 @@ void MainWindow::readConfigData()
     {
         //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
+        elogQRZcom->login ();
         //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
         //elogQRZcom->login();
         //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -5351,7 +5354,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if(field=="QRZCOMSUBSCRIBER")
     {
-        qrzcomSubscriber= util->trueOrFalse(value);
+        qrzcomSubscriber = util->trueOrFalse(value);
+        elogQRZcom->setSubcription (util->trueOrFalse(value));
     }
     else if(field =="QRZCOMAUTO")
     {

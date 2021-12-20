@@ -86,7 +86,7 @@ public:
     bool getQRZCOMAutoCheck();
 
     bool getQRZCOMSubscriber();
-    void setQRZCOMSubscriber(const QString &_s);
+    void setQRZCOMSubscriber(const bool _s);
 
 
 private slots:
@@ -144,7 +144,7 @@ private:
     QLabel *QRZCOMPasswordLabel, *QRZCOMUserLabel, *QRZLogBookKeyLabel;
     QCheckBox *QRZCOMActiveCheckBox, *QRZCOMAutoCheckCheckBox, *QRZCOMSubscriberCheckBox;
 
-    bool qrzcomActive, qrzcomAutoFill, qrzcomSubscriber;
+    bool qrzcomActive, qrzcomAutoFill;
     QString qrzComUser, qrzcomPass, qrcomLogbookKey;
 
     Utilities *util;

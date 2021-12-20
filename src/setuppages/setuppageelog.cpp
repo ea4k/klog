@@ -585,18 +585,18 @@ bool SetupPageELog::SetupPageELog::getQRZCOMActive()
     //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << QT_ENDL;
 }
 
-void SetupPageELog::setQRZCOMSubscriber(const QString &_s)
+void SetupPageELog::setQRZCOMSubscriber(const bool _s)
 {
     //qDebug() << "SetupPageELog::setQRZCOMActive " << QT_ENDL;
-    qrzcomSubscriber = util->trueOrFalse(_s);
-    QRZCOMSubscriberCheckBox->setChecked(qrzcomSubscriber);
+    //qrzcomSubscriber = util->trueOrFalse(_s);
+    QRZCOMSubscriberCheckBox->setChecked(_s);
 }
 
 bool SetupPageELog::SetupPageELog::getQRZCOMSubscriber()
 {
     //qDebug() << "SetupPageELog::getQRZCOMActive :" << QT_ENDL;
-    qrzcomSubscriber = QRZCOMSubscriberCheckBox->isChecked();
-    return qrzcomSubscriber;
+    return QRZCOMSubscriberCheckBox->isChecked();
+    //return qrzcomSubscriber;
     //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << QT_ENDL;
 }
 

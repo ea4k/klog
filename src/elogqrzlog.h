@@ -55,6 +55,8 @@ public:
     int sendQSOs(QList<int> _qsos);
     void checkQRZ(const QString &_qrz);
     void fetchData();
+    void setSubcription(const bool _ok);
+    bool getSubscription();
     //int deleteQSOid(const int _qsoId);
     //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
 
@@ -62,6 +64,7 @@ public:
 
 
 private:
+    void showDebugLog(const QString &_func, const QString &_log);
     //QString getClubLogAdif(const QStringList _q);
     //int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
     int sendDataParams(const QUrlQuery &_params);
@@ -76,6 +79,7 @@ private:
     bool errorWhileSendingLog;
     bool sendingQSO;
     bool lastQSO;
+    bool subscriptionOK;
     QString sessionkey, logbookkey;
     QString user, pass;
     QString klogVersion;
