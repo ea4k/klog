@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "hamlibclass.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -101,6 +102,7 @@ private slots:
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
     //void slotRealTimeButtonResize();
+    void slotManualModeCheckBoxClicked();
 
 
 private:
@@ -121,7 +123,7 @@ private:
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
-    QCheckBox *realtimeCheckBox;
+    QCheckBox *realtimeCheckBox, *manualModeCheckBox;
     //QPushButton *realtimeButton;
     //DebugLogLevel logSeverity;
     bool cleaning;
@@ -147,6 +149,8 @@ private:
     QTimer *delayInputTimer;
     QString lastQrz;
     double freqTX, freqRX, bottomBandLimit, upperBandLimit;
+
+    HamLibClass *hamlib;
 
 };
 

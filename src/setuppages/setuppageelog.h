@@ -85,6 +85,9 @@ public:
     bool getQRZCOMActive();
     bool getQRZCOMAutoCheck();
 
+    bool getQRZCOMSubscriber();
+    void setQRZCOMSubscriber(const bool _s);
+
 
 private slots:
 
@@ -101,6 +104,7 @@ private slots:
     void slotClubLogEmailDefineColor();
     void slotLoTWEmailDefineColor();
     void sloteQSLCallTextChanged();
+
 signals:
     void enterKey();
     void qrzcomAuto(bool _s);
@@ -138,7 +142,7 @@ private:
     //QLineEdit *QRZCOMAPILineEdit;
     QLineEdit *QRZCOMUserLineEdit, *QRZCOMPasswordLineEdit, *QRZCOMLogBookKEYLineEdit;
     QLabel *QRZCOMPasswordLabel, *QRZCOMUserLabel, *QRZLogBookKeyLabel;
-    QCheckBox *QRZCOMActiveCheckBox, *QRZCOMAutoCheckCheckBox;
+    QCheckBox *QRZCOMActiveCheckBox, *QRZCOMAutoCheckCheckBox, *QRZCOMSubscriberCheckBox;
 
     bool qrzcomActive, qrzcomAutoFill;
     QString qrzComUser, qrzcomPass, qrcomLogbookKey;
