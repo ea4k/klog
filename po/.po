@@ -2089,18 +2089,6 @@ msgctxt "MainWindow|"
 msgid "Ready"
 msgstr ""
 
-#: ../mainwindow.cpp:756
-#, qt-format
-msgctxt "MainWindow|"
-msgid "KLog-%1 - Logbook of %2 - QSOs: %3"
-msgstr ""
-
-#: ../mainwindow.cpp:760
-#, qt-format
-msgctxt "MainWindow|"
-msgid "KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4"
-msgstr ""
-
 #: ../mainwindow.cpp:941
 msgctxt "MainWindow|"
 msgid ""
@@ -2834,6 +2822,18 @@ msgstr ""
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog"
 msgstr "Klog -ClubLog"
+
+#: ../mainwindow.cpp:756
+#, qt-format
+msgctxt "MainWindow|"
+msgid "KLog-%1 - Logbook of %2 - QSOs: %3"
+msgstr ""
+
+#: ../mainwindow.cpp:760
+#, qt-format
+msgctxt "MainWindow|"
+msgid "KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4"
+msgstr ""
 
 #: ../mainwindow.cpp:2916
 msgctxt "MainWindow|"

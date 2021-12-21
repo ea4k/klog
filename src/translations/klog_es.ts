@@ -448,12 +448,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation>Parece que el estado de DXCC en la base de datos no está actualizado y KLog no puede encontrar información de DXCC. Puede intentar arreglarlo actualizando el log.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
         <source>Do you want to update your DXCC status?</source>
-        <translation>¿Quiere actualizar el estado de DXCC?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="545"/>
@@ -2773,16 +2773,6 @@ Do you want KLog to remove that file?</source>
         <translation>KLog error de QRZ.com</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="756"/>
-        <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
-        <translation>KLog-%1 - Log de %2 - QSOs: %3</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="760"/>
-        <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
-        <translation>KLog-%1 - Log de %2 - Estación: %3 - QSOs: %4</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3245"/>
         <source>KLog has received an error from QRZ.com.</source>
         <translation>KLog ha recibido un error de QRZ.com.</translation>
@@ -3286,19 +3276,29 @@ Do you want KLog to remove that file?</source>
         <translation>KLog - LoTW</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="756"/>
+        <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="760"/>
+        <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="3090"/>
         <source>KLog - QRZ.com warning</source>
-        <translation>KLog - Atención QRZ.com</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3091"/>
         <source>QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled.</source>
-        <translation>QRZ.com ha devuelto un error de fallo de subscripción y las consultas a QRZ.com se deshabilitarán.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3092"/>
         <source>Please check your QRZ.com subcription or credentials.</source>
-        <translation>Compruebe su subscripción a QRZ.com o las credenciales.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3772"/>
@@ -4683,7 +4683,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1795"/>
         <source>Force Init</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1797"/>
@@ -6574,7 +6574,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="126"/>
         <source>If you disable this checkbox KLog will not check callsigns to identify wrong callsigns.</source>
-        <translation>Si deshabilita este cuadro, KLog no comprobará si los indicativos son correctos.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="132"/>
@@ -6634,7 +6634,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="37"/>
         <source>Check non-valid calls</source>
-        <translation>Comprobar indicativos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="52"/>
@@ -8747,7 +8747,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../elogqrzlog.cpp" line="268"/>
         <source>You are not subscribed to QRZ.com.</source>
-        <translation>No está subcrito a QRZ.com.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="552"/>

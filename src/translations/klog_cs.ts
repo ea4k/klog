@@ -2107,16 +2107,6 @@ KLog vám připomene, abyste zálohovali každý měsíc.
         <translation>Připraven</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="756"/>
-        <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="760"/>
-        <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="777"/>
         <location filename="../mainwindow.cpp" line="4606"/>
         <source>KLog</source>
@@ -2919,6 +2909,16 @@ Přejete si smazat tento soubor?</translation>
         <location filename="../mainwindow.cpp" line="4329"/>
         <source>There was a problem to mark all queued QSOs of this log as sent to LoTW!</source>
         <translation>Nastal problém s označením zafrontovaných QSO jako odeslaných do LoTW!</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="756"/>
+        <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="760"/>
+        <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4050"/>
@@ -7063,7 +7063,7 @@ Log nebude otevřen.</translation>
     <message>
         <location filename="../setuppages/setuppagesubdivisions.cpp" line="123"/>
         <source>KLog</source>
-        <translation></translation>
+        <translation type="unfinished">KLog</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesubdivisions.cpp" line="124"/>
@@ -8138,7 +8138,7 @@ Log nebude otevřen.</translation>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="77"/>
         <source>Reading data ... </source>
-        <translation></translation>
+        <translation type="unfinished">Čtení dat .... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="77"/>
@@ -8247,7 +8247,7 @@ Log nebude otevřen.</translation>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="81"/>
         <source>QSOs</source>
-        <translation></translation>
+        <translation type="unfinished">QSO</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="93"/>
