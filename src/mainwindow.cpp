@@ -227,7 +227,7 @@ MainWindow::~MainWindow()
     delete(qso);
     delete(debugFile);
     delete(dateTime);
-    delete(dateTimetemp);
+    delete(dateTimeTemp);
     delete(awards);
     delete(softUpdate);
     delete(filemanager);
