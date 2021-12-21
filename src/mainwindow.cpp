@@ -220,11 +220,18 @@ MainWindow::~MainWindow()
     delete(lotwUtilities);
     delete(eqslUtilities);
     delete(elogQRZcom);
+    delete(elogClublog);
     delete(downloadcty);
     delete(world);
     delete(locator);
     delete(qso);
     delete(debugFile);
+    delete(dateTime);
+    delete(dateTimetemp);
+    delete(awards);
+    delete(softUpdate);
+    delete(filemanager);
+    delete(fileAwardManager);
     logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
 
