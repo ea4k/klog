@@ -61,6 +61,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
 DataProxy_SQLite::~DataProxy_SQLite()
 {
     delete(util);
+    delete(qso);
          //qDebug() << "DataProxy_SQLite::~DataProxy_SQLite" << QT_ENDL;
 }
 
