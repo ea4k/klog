@@ -577,7 +577,7 @@ void SetupPageELog::setQRZCOMActive(const QString &_s)
     QRZCOMAutoCheckCheckBox->setEnabled(qrzcomActive);
 }
 
-bool SetupPageELog::SetupPageELog::getQRZCOMActive()
+bool SetupPageELog::getQRZCOMActive()
 {
     //qDebug() << "SetupPageELog::getQRZCOMActive :" << QT_ENDL;
     qrzcomActive = QRZCOMActiveCheckBox->isChecked();

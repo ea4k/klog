@@ -354,7 +354,7 @@ win32: {
 
 win32:contains(QMAKE_HOST.arch, x86_64) {
     message(win64)
-    LIBS += -L"$$PWD/../../libs/hamliblib/gcc" -lhamlib
+    LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
     LIBS += -L"$$PWD/../../libs/hamlib/bin"
     INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
 } else {
