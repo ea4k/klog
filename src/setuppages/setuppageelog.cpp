@@ -113,6 +113,8 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QRZCOMAutoCheckCheckBox = new QCheckBox(tr("Check automatically"), this);
     QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all Calls as they are entered"));
     //qDebug() << "SetupPageELog::SetupPageELog - 00050" << QT_ENDL;
+    QRZCOMSubscriberCheckBox = new QCheckBox(tr("Paying Subscriber"), this);
+    QRZCOMSubscriberCheckBox->setToolTip(tr("Check it if you are paying for a qrz.com subscription"));
 
     QRZLogBookKeyLabel = new QLabel(tr("LogBook Key"));
     QRZCOMLogBookKEYLineEdit = new QLineEdit;
@@ -124,14 +126,19 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     q1layout->addWidget(QRZCOMPasswordLabel, 1, 0);
     q1layout->addWidget(QRZCOMUserLineEdit, 0, 1);
     q1layout->addWidget(QRZCOMPasswordLineEdit, 1, 1);
+    q1layout->addWidget(QRZCOMSubscriberCheckBox,0,2);
 
     QHBoxLayout *qrzcomKeyLayout = new QHBoxLayout;
     qrzcomKeyLayout->addWidget(QRZLogBookKeyLabel);
     qrzcomKeyLayout->addWidget(QRZCOMLogBookKEYLineEdit);
 
+    QHBoxLayout *qrzcomActive = new QHBoxLayout;
+    qrzcomActive->addWidget(QRZCOMActiveCheckBox);
+    //qrzcomActive->addWidget(QRZCOMSubscriberCheckBox);
+
     //qDebug() << "SetupPageELog::SetupPageELog - 00070" << QT_ENDL;
     QVBoxLayout *qrzLayout = new QVBoxLayout;
-    qrzLayout->addWidget(QRZCOMActiveCheckBox);
+    qrzLayout->addLayout(qrzcomActive);
     qrzLayout->addLayout(q1layout);
     qrzLayout->addWidget(QRZCOMAutoCheckCheckBox);
     qrzLayout->addLayout(qrzcomKeyLayout);
@@ -575,6 +582,21 @@ bool SetupPageELog::SetupPageELog::getQRZCOMActive()
     //qDebug() << "SetupPageELog::getQRZCOMActive :" << QT_ENDL;
     qrzcomActive = QRZCOMActiveCheckBox->isChecked();
     return qrzcomActive;
+    //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << QT_ENDL;
+}
+
+void SetupPageELog::setQRZCOMSubscriber(const bool _s)
+{
+    //qDebug() << "SetupPageELog::setQRZCOMActive " << QT_ENDL;
+    //qrzcomSubscriber = util->trueOrFalse(_s);
+    QRZCOMSubscriberCheckBox->setChecked(_s);
+}
+
+bool SetupPageELog::SetupPageELog::getQRZCOMSubscriber()
+{
+    //qDebug() << "SetupPageELog::getQRZCOMActive :" << QT_ENDL;
+    return QRZCOMSubscriberCheckBox->isChecked();
+    //return qrzcomSubscriber;
     //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << QT_ENDL;
 }
 

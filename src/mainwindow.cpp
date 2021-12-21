@@ -47,7 +47,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
-
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -370,6 +369,7 @@ void MainWindow::init()
     eQSLUseQSOStationCallSign = false;
     qrzcomActive = false;
     lotwActive = false;
+    qrzcomSubscriber = false;
 
     qrzcomUser = QString();
     qrzcomPass = QString();
@@ -3082,7 +3082,7 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (_b)
+    if ((_b) && (elogQRZcom->getSubscription ()))
     {
 
         QMessageBox msgBox;
@@ -3093,7 +3093,6 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
-
 
         qrzcomActive = false;
         setupDialog->setQRZCOMAutoCheckActive (false);
@@ -4813,6 +4812,7 @@ void MainWindow::readConfigData()
     }
     file.close ();
 
+
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //defineStationCallsign(mainQRZ);
 
@@ -4866,6 +4866,7 @@ void MainWindow::readConfigData()
     {
         //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
+        elogQRZcom->login ();
         //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
         //elogQRZcom->login();
         //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -5350,6 +5351,11 @@ bool MainWindow::processConfigLine(const QString &_line){
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
         //slotElogQRZCOMAutoCheck();
+    }
+    else if(field=="QRZCOMSUBSCRIBER")
+    {
+        qrzcomSubscriber = util->trueOrFalse(value);
+        elogQRZcom->setSubcription (util->trueOrFalse(value));
     }
     else if(field =="QRZCOMAUTO")
     {
