@@ -3305,10 +3305,10 @@ void MainWindow::slotElogQRZCOMAutoCheckFromSetup(const bool _s)
     {
         QRZCOMAutoCheckAct->setEnabled(_s);
     }
-    else
-    {
-      showMessageToEnableTheOnlineService(QRZ);
-    }
+//    else
+//    {
+//      showMessageToEnableTheOnlineService(QRZ);
+//    }
 
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
