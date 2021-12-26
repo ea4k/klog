@@ -473,12 +473,13 @@ bool HamLibClass::init(bool _active)
         //qDebug()<< Q_FUNC_INFO << ": Already init"  << QT_ENDL;
         return true;
     }
+    /*
     if (myrig_model < 0)
     {
         //qDebug()<< Q_FUNC_INFO << ": Rig Model not valid"  << QT_ENDL;
         return false;
     }
-
+    */
     rig_set_debug(RIG_DEBUG_NONE);
     //qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
     my_rig = rig_init(myrig_model);

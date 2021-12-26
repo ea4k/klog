@@ -50,7 +50,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     duplicatedQSOSlotInSecs = 0;
     delayInputTimer = new QTimer;
 
-    hamlib = new HamLibClass();
+    //hamlib = new HamLibClass();
 
 
     createUI();
@@ -185,12 +185,14 @@ void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
     if (manualModeCheckBox->isChecked())
     {
         slotClearButtonClicked();
-        hamlib->stop();
+        emit hamlibSetActiveSignal(false);
+        //hamlib->stop();
         //stop hamlib and wsjt-x communication;
     }
     else
     {
-        hamlib->initClass();
+        //hamlib->initClass();
+        emit hamlibSetActiveSignal(true);
         //start hamlib and wsjt-x communication;
     }
 }

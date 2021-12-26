@@ -252,6 +252,7 @@ private slots:
     void slotShowInfoLabel(const QString &_m);
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
+    void slotActiveHamlib(bool _enable);
 
     // MyDataTab
     void slotMyLocatorTextChanged(const QString &_loc);

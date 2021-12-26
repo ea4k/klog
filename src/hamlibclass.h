@@ -31,7 +31,8 @@
 #include <QTimer>
 #include <QMap>
 #include <QDebug>
-#include <QSerialPort>
+//#include <QSerialPort>
+#include <QtSerialPort/QSerialPort>
 #include <hamlib/rig.h>
 #include <stdio.h>
 #include <unistd.h>

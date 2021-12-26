@@ -30,7 +30,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
-#include "hamlibclass.h"
+//#include "hamlibclass.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -88,6 +88,7 @@ signals:
     void OKClicked();
     void validBands(QStringList _bands);
     void handOverFocusSignal();
+    void hamlibSetActiveSignal(bool _active);
 
 private slots:
     void slotUpdateTime();
@@ -150,8 +151,7 @@ private:
     QString lastQrz;
     double freqTX, freqRX, bottomBandLimit, upperBandLimit;
 
-    HamLibClass *hamlib;
-
+    //HamLibClass *hamlib;
 };
 
 #endif // MAINQSOENTRYWIDGET_H

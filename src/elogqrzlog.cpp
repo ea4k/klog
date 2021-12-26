@@ -72,7 +72,6 @@ void eLogQrzLog::showDebugLog(const QString &_func, const QString &_log)
   qDebug() << _func << ": " << _log;
 #else
 #endif
-  delete(util);
 }
 
 void eLogQrzLog::setLogBookKey(const QString &_key)
