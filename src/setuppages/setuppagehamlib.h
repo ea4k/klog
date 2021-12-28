@@ -85,8 +85,8 @@ private:
     QString getParity();
     int getStopBits();
 
-    QString getPollInterval();
-    QString getNetworkSettings();
+    //QString getPollInterval();
+    //QString getNetworkSettings();
 
     QTabWidget *tabWidget;
     HamLibSerialConfigWidget *serialConfigWidget;

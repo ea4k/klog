@@ -24,7 +24,6 @@
  *                                                                           *
  *****************************************************************************/
 #include "setuppages/setuppagehamlib.h"
-
 SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
     qDebug() << Q_FUNC_INFO ;
@@ -57,15 +56,17 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 
 void SetupPageHamLib::slotTestHamlib()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     hamlib->stop ();
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
+        qDebug() << Q_FUNC_INFO << " - FLRig/NetRig";
         hamlib->setNetworkPort (networkConfigWidget->getPort ());
         hamlib->setNetworkAddress (networkConfigWidget->getAddress ());
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << " - Serial rig";
         hamlib->setPort (serialConfigWidget->getSerialPort ());
         hamlib->setSpeed (serialConfigWidget->getSerialBauds ());
         hamlib->setParity(serialConfigWidget->getParity ());
@@ -79,10 +80,10 @@ void SetupPageHamLib::slotTestHamlib()
 
     hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
     hamlib->setPoll (2000);
-    //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
+    qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
     setTestResult (hamlib->init(true));
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageHamLib::setTestResult(const bool _ok)
@@ -165,9 +166,9 @@ void SetupPageHamLib::createUI()
     qDebug() << Q_FUNC_INFO << " - 12";
     pollIntervalQSpinBox->setToolTip(pollTip);
     qDebug() << Q_FUNC_INFO << " - 13";
-    pollIntervalQSpinBox->setMinimum(pollMin);
+     //showDebugLog->setMinimum(pollMin);
     qDebug() << Q_FUNC_INFO << " - 14";
-    pollIntervalQSpinBox->setMaximum(pollMax);
+     //showDebugLog->setMaximum(pollMax);
     qDebug() << Q_FUNC_INFO << " - 15";
     QLabel *pollIntervalLabel = new QLabel(tr("Poll interval"));
     pollIntervalLabel->setBuddy(rigTypeComboBox);
@@ -257,7 +258,7 @@ void SetupPageHamLib::setDefaults()
 
     rigTypeComboBox->setCurrentIndex(0);
 
-    pollIntervalQSpinBox->setValue(300);
+     //showDebugLog->setValue(300);
     setTestResult(false);
 
     //RTSCheckBox->setChecked(false);
@@ -292,7 +293,7 @@ QString SetupPageHamLib::getData()
     }
 
     _output = _output + "HamLibRigType=" + QString::number(hamlib->getModelIdFromName(_rigType)) + ";\n";
-    _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value()) + ";\n";
+    _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value ()) + ";\n";
     _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
     _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
     _output = _output + "HamLibSerialDataBits=" + QString::number(getDataBits()) + ";\n";
