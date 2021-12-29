@@ -5,6 +5,7 @@ TBD - 1.8.6
 - Bugfix: QRZ.com was disabled if user was not subscribed. (TNX EA5WA)
 - Bugfix: QRZ.com data was not updated if the boxes were already filled. (TNX EA5WA)
 - Improvement: RTS & DTR are defined to OFF by default in hamlib.
+- Improvement:KLog differenciates QRZ.com subcribed users from non subscribed. (TNX EA5WA)
 
 Oct 2021 - 1.8.5
 - Bugfix: Station callsign was not shown on window title. (Closes #347)

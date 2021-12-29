@@ -82,7 +82,12 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
        //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << QT_ENDL;
 }
 
-FileManager::~FileManager(){}
+FileManager::~FileManager()
+{
+    delete(db);
+    delete(awards);
+    delete(world);
+}
 
 void FileManager::setDuplicatedQSOSlot (const int _secs)
 {

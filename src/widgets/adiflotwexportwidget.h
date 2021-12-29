@@ -38,6 +38,7 @@ class AdifLoTWExportWidget : public QWidget
 
 public:
     explicit AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
+    ~AdifLoTWExportWidget();
     void setExportMode(const ExportMode _EMode);
     void setLogNumber(const int _logN);
     void setDefaultStationCallsign(const QString &_st);

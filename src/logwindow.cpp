@@ -54,6 +54,8 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 
 LogWindow::~LogWindow()
 {
+    delete(util);
+    delete(awards);
 //    emit clearError();
 }
 

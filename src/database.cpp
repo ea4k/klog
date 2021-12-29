@@ -88,6 +88,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 
 DataBase::~DataBase()
 {
+    delete(util);
          //qDebug() << "DataBase::~DataBase"  << QT_ENDL;
 }
 
@@ -6460,11 +6461,9 @@ bool DataBase::updateAwardDXCCTable()
                             {
                                 query2.finish();
                                 stringQuery = QString ("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
-                                if (execQuery(Q_FUNC_INFO, stringQuery))                                {
-                                }
-                                else
+                                if (!execQuery(Q_FUNC_INFO, stringQuery))
                                 {
-                                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
+                                    return false;
                                 }
                             }
                             else

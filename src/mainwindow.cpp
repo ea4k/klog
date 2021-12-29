@@ -47,7 +47,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
-
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -216,16 +215,23 @@ MainWindow::~MainWindow()
     {
         hamlib->stop();
     }
-    //delete qso;
-    //delete debugFile;
-    //delete showErrorDialog;
-    //delete lotwUtilities;
-    //delete eqslUtilities;
-    //delete elogQRZcom;
-    //delete downloadcty;
-    //delete world;
-    //delete locator;
 
+    delete(showErrorDialog);
+    delete(lotwUtilities);
+    delete(eqslUtilities);
+    delete(elogQRZcom);
+    delete(elogClublog);
+    delete(downloadcty);
+    delete(world);
+    delete(locator);
+    delete(qso);
+    delete(debugFile);
+    delete(dateTime);
+    delete(dateTimeTemp);
+    delete(awards);
+    delete(softUpdate);
+    delete(filemanager);
+    delete(fileAwardManager);
     logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
 
@@ -370,6 +376,7 @@ void MainWindow::init()
     eQSLUseQSOStationCallSign = false;
     qrzcomActive = false;
     lotwActive = false;
+    qrzcomSubscriber = false;
 
     qrzcomUser = QString();
     qrzcomPass = QString();
@@ -520,6 +527,9 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(validBands(QStringList)), this, SLOT(slotValidBandsReceived(QStringList) ) );
+    connect(mainQSOEntryWidget, SIGNAL(hamlibSetActiveSignal(bool)), this, SLOT(slotActiveHamlib(bool) ) );
+
+
 
     // LOGVIEW
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
@@ -553,7 +563,7 @@ void MainWindow::createActionsCommon(){
     connect (elogQRZcom, SIGNAL (showMessage(QString)), this, SLOT (slotElogQRZCOMShowMessage(QString)));
     connect (elogQRZcom, SIGNAL (dataFoundSignal(QString, QString)), this, SLOT (slotElogQRZCOMFoundData(QString, QString)));
     connect (elogQRZcom, SIGNAL (signalLogUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogQRZCOMLogUploaded(QNetworkReply::NetworkError, QList<int>)));
-    connect (elogQRZcom, SIGNAL (disableQRZAction(bool)), this, SLOT (slotElogQRZCOMDisable(bool)));
+    //connect (elogQRZcom, SIGNAL (disableQRZAction(bool)), this, SLOT (slotElogQRZCOMDisable(bool)));
 
     // SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
@@ -3082,7 +3092,7 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (_b)
+    if ((_b) && (elogQRZcom->getSubscription ()))
     {
 
         QMessageBox msgBox;
@@ -3093,7 +3103,6 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
-
 
         qrzcomActive = false;
         setupDialog->setQRZCOMAutoCheckActive (false);
@@ -3234,8 +3243,8 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << QT_ENDL;
         if (_d.contains("Not found: "))
         {
-            //cleanQRZCOMreceivedDataFromUI();
-             //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
+            cleanQRZCOMreceivedDataFromUI();
+            //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
             slotUpdateStatusBar(tr("Call not found in QRZ.com"));
             return;
         }
@@ -4813,6 +4822,7 @@ void MainWindow::readConfigData()
     }
     file.close ();
 
+
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //defineStationCallsign(mainQRZ);
 
@@ -4864,9 +4874,11 @@ void MainWindow::readConfigData()
     //qDebug() << Q_FUNC_INFO << ": QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     if (qrzcomActive)
     {
-        //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
-        //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        qDebug() << "MainWindow::readConfigData: QRZcom credentials"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        elogQRZcom->login();
+        qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
         //elogQRZcom->login();
         //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     }
@@ -5350,6 +5362,11 @@ bool MainWindow::processConfigLine(const QString &_line){
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
         //slotElogQRZCOMAutoCheck();
+    }
+    else if(field=="QRZCOMSUBSCRIBER")
+    {
+        qrzcomSubscriber = util->trueOrFalse(value);
+        elogQRZcom->setSubcription (util->trueOrFalse(value));
     }
     else if(field =="QRZCOMAUTO")
     {
@@ -8308,6 +8325,18 @@ void MainWindow::slotAwardsWidgetSetLog()
 void MainWindow::slotAwardsWidgetSetYear()
 {
     awardsWidget->setYear(selectedYear);
+}
+
+void MainWindow::slotActiveHamlib(bool _enable)
+{
+    if (_enable)
+    {
+        hamlib->initClass();
+    }
+    else
+    {
+        hamlib->stop();
+    }
 }
 
 void MainWindow::backupCurrentQSO()
