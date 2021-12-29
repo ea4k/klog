@@ -68,6 +68,14 @@ HEADERS += setupdialog.h \
     awardswidget.h \
     charts/barchartstats.h \
     charts/statsfieldperbandwidget.h \
+
+    global.h \
+ 
+    setuppages/hamlibnetworkconfigwidget.h \
+    setuppages/hamlibserialconfigwidget.h \
+    setuppages/setuppagelogview.h \
+    widgets/showkloglogwidget.h \
+
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
     charts/statsqsosperyearbarchartwidget.h \
@@ -88,9 +96,10 @@ HEADERS += setupdialog.h \
     downloadcty.h \
     dxcluster.h \
     dxccstatuswidget.h \
+
     elogqrzlog.h \
     eqslutilities.h \
-    global.h \
+   
     hamlibclass.h \
     inputwidgets/mainwindowinputqso.h \
     inputwidgets/mainwindowinputcomment.h \
@@ -172,6 +181,8 @@ SOURCES += main.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
+    setuppages/hamlibnetworkconfigwidget.cpp \
+    setuppages/hamlibserialconfigwidget.cpp \
     setuppages/setuppageelog.cpp \
     setuppages/setuppagelogview.cpp \
     setuppages/setuppagesubdivisionnew.cpp \

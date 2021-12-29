@@ -76,8 +76,6 @@ public:
     bool isModeADIFMode(const QString &_m);
     void setNetworkAddress(const QString &_address);
     void setNetworkPort(const int _port);
-   // bool isModeExisting(const QString &_m);
-
 
     bool init(bool _active);
     bool stop();
@@ -88,6 +86,7 @@ public:
     void checkErrorCountAndStop();
 
     double getFrequency();
+    //void showDebugLog(const QString &_func, const QString &_log);
     //bool openSerialPort();
     //bool closeSerialPort();
 
@@ -126,8 +125,6 @@ private:
     pbwidth_t width;
     //vfo_t vfo;              /* vfo selection */
     //int strength;           /* S-Meter level */
-
-
 
     int bauds;                  // default 9600
     int dataBits;               // default 8
