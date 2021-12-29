@@ -28,29 +28,22 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 {
     qDebug() << Q_FUNC_INFO ;
     hamlibTestOK = false;
-    qDebug() << Q_FUNC_INFO << ": 01";
     hamlib = new HamLibClass();
-    qDebug() << Q_FUNC_INFO << ": 10" ;
     activateHamlibCheckBox = new QCheckBox();
     readOnlyModeCheckBox = new QCheckBox();
-    qDebug() << Q_FUNC_INFO << ": 20" ;
+
     tabWidget = new QTabWidget;
-    qDebug() << Q_FUNC_INFO << ": 21" ;
-    serialConfigWidget = new HamLibSerialConfigWidget;
-    qDebug() << Q_FUNC_INFO << ": 22" ;
+    serialConfigWidget = new HamLibSerialConfigWidget;    
     networkConfigWidget = new HamLibNetworkConfigWidget;
-    qDebug() << Q_FUNC_INFO << ": 23" ;
+
     testHamlibPushButton = new QPushButton();
-    //dataFromRigLineEdit = new QLineEdit;
 
     rigTypeComboBox = new QComboBox;
     pollIntervalQSpinBox = new QSpinBox;
-    qDebug() << Q_FUNC_INFO << ": 30" ;
+
     createUI();
-    qDebug() << Q_FUNC_INFO << ": 31" ;
     setDefaults();
-    //qDebug() << Q_FUNC_INFO << ": 10";
-    //slotTestHamlib();
+
     qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
@@ -249,10 +242,7 @@ void SetupPageHamLib::setDefaults()
 {
     qDebug() << Q_FUNC_INFO;
     hamlib->initClass();
-    //strings.clear();
-    //strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
-    pollMax = 5000;
-    pollMin = 10;
+
     rigctlport = 4532;
     networkRadio = false;
 
@@ -351,7 +341,7 @@ void SetupPageHamLib::setActive(const QString &_active)
 }
 
 void SetupPageHamLib::setReadOnly(const QString &_m)
-{
+{    
     if (_m.toUpper() == "TRUE")
     {
         readOnlyModeCheckBox->setChecked(true);
@@ -362,10 +352,8 @@ void SetupPageHamLib::setReadOnly(const QString &_m)
     }
 }
 
-//DataBits { Data5, Data6, Data7, Data8, UnknownDataBits }
 int SetupPageHamLib::getDataBits()
 {
-      //qDebug() << "SetupPageHamLib::getDataBits"  << QT_ENDL;
     return serialConfigWidget->getDataBits ();
 }
 
@@ -374,7 +362,6 @@ void SetupPageHamLib::setDataBits(const int _st)
     serialConfigWidget->setDataBits (_st);
 }
 
-//FlowControl { NoFlowControl, HardwareControl, SoftwareControl, UnknownFlowControl }
 QString SetupPageHamLib::getFlowControl()
 {
     return serialConfigWidget->getFlowControl ();
@@ -385,20 +372,19 @@ void SetupPageHamLib::setFlowControl(const QString &_st)
     serialConfigWidget->setFlowControl (_st);
 }
 
-//Parity { NoParity, EvenParity, OddParity, SpaceParity, MarkParity, UnknownParity }
 QString SetupPageHamLib::getParity()
 {
     return serialConfigWidget->getParity ();
 }
+
 void SetupPageHamLib::setParity(const QString &_st)
 {
     serialConfigWidget->setParity(_st);
 }
 
-//StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 int SetupPageHamLib::getStopBits()
 {
-  return serialConfigWidget->getStopBits ();
+    return serialConfigWidget->getStopBits ();
 }
 
 void SetupPageHamLib::setStopBits(const QString &_st)
@@ -408,10 +394,7 @@ void SetupPageHamLib::setStopBits(const QString &_st)
 
 void SetupPageHamLib::setPollingInterval(const int _msecs)
 {
-    if ((_msecs>=pollMin) && (_msecs<=pollMax))
-    {
-        pollIntervalQSpinBox->setValue(_msecs);
-    }
+    pollIntervalQSpinBox->setValue(_msecs);
 }
 
 void SetupPageHamLib::setRadioNetworkAddress(const QString &_m)
@@ -424,10 +407,7 @@ void SetupPageHamLib::setRadioNetworkAddress(const QString &_m)
 
 void SetupPageHamLib::setRadioNetworkPort(const int _p)
 {
-    if ((_p>0) && (_p<65535))
-    {
-        networkConfigWidget->setPort (_p);
-    }
+    networkConfigWidget->setPort (_p);
 }
 
 

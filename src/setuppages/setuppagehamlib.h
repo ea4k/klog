@@ -58,26 +58,17 @@ public:
     void setRadioNetworkAddress(const QString &_m);
     void setRadioNetworkPort(const int _p);
 
-signals:
-
 public slots:
     //void slotScanPorts();
     void slotRadioComboBoxChanged(QString _r);
     void slotTestHamlib();
-    //void slotSerialPortChanged (QString _r);
-    //void slotSerialSpeedChanged (int _s);
-    //void slotSerialDataBitsChanged (int _s);
-    //void slotSerialStopBitChanged (int _s);
-    //void slotSerialFlowControlChanged (QString _r);
-    //void slotSerialParityChanged (QString _r);
 
 private:
     void createUI();
     void setRig();
     void setDefaults();
-    //void fillSerialPortsComboBox();
     void setTestResult(const bool _ok);
-    //static int addRigToList(const struct rig_caps* caps, void* data);
+
     QStringList getAvailableSerialPorts();
 
     int getDataBits();
@@ -85,36 +76,21 @@ private:
     QString getParity();
     int getStopBits();
 
-    //QString getPollInterval();
-    //QString getNetworkSettings();
 
     QTabWidget *tabWidget;
     HamLibSerialConfigWidget *serialConfigWidget;
     HamLibNetworkConfigWidget *networkConfigWidget;
     QComboBox *rigTypeComboBox;
-/*
 
-DataBits { Data5, Data6, Data7, Data8, UnknownDataBits }
-FlowControl { NoFlowControl, HardwareControl, SoftwareControl, UnknownFlowControl }
-Parity { NoParity, EvenParity, OddParity, SpaceParity, MarkParity, UnknownParity }
-StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
-
-*/
     QPushButton  *testHamlibPushButton;
 
-
-
     QSpinBox *pollIntervalQSpinBox;
-    int pollMin, pollMax, rigctlport;
+    int rigctlport;
 
     HamLibClass *hamlib;
 
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
     bool networkRadio, hamlibTestOK;
-
-    QGroupBox *networkGroup;
-
-    //int defaultPortSpeed;
 };
 
 #endif // SETUPPAGEHAMLIB_H
