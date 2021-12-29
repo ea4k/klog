@@ -141,7 +141,6 @@ void SetupPageHamLib::createUI()
     pollMax = 10000;
     pollMin = 10;
     pollIntervalQSpinBox->setRange(pollMin, pollMax);
-    Ajustar el tamaño del poll
     qDebug() << Q_FUNC_INFO << " - 0";
     serialConfigWidget->createUI();
     qDebug() << Q_FUNC_INFO << " - 1";

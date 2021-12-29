@@ -68,14 +68,10 @@ HEADERS += setupdialog.h \
     awardswidget.h \
     charts/barchartstats.h \
     charts/statsfieldperbandwidget.h \
-
-    global.h \
- 
     setuppages/hamlibnetworkconfigwidget.h \
     setuppages/hamlibserialconfigwidget.h \
     setuppages/setuppagelogview.h \
     widgets/showkloglogwidget.h \
-
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
     charts/statsqsosperyearbarchartwidget.h \
@@ -96,10 +92,9 @@ HEADERS += setupdialog.h \
     downloadcty.h \
     dxcluster.h \
     dxccstatuswidget.h \
-
     elogqrzlog.h \
     eqslutilities.h \
-   
+    global.h \
     hamlibclass.h \
     inputwidgets/mainwindowinputqso.h \
     inputwidgets/mainwindowinputcomment.h \
@@ -109,16 +104,12 @@ HEADERS += setupdialog.h \
     inputwidgets/mainwindowinputqsl.h \
     inputwidgets/mainwindowsattab.h\
     klogdefinitions.h \
-    setuppages/setuppagelogview.h \
     lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     qso.h \
     searchmodel.h \
     searchwindow.h \
-    setuppages/setuppageelog.h \
-    setuppages/setuppagesubdivisionnew.h \
-    setuppages/setuppagesubdivisions.h \
     #widgets/advancedsearch/advancedsearchmodel.h \
     #widgets/advancedsearch/advancedsearchwidget.h \
     #widgets/advancedsearch/advancedsearchwindow.h \
@@ -135,11 +126,9 @@ HEADERS += setupdialog.h \
     searchwidget.h \
     infowidget.h \
     showerrordialog.h \
-    udpserver.h \
     statisticswidget.h \
-    updatesatsdata.h \
-    tipsdialog.h \
     setuppages/setuppagemisc.h \
+    setuppages/setuppagelogview.h \
     setuppages/setuppageuserdata.h \
     setuppages/setuppagedxcluster.h \
     setuppages/setuppagecolors.h \
@@ -152,6 +141,12 @@ HEADERS += setupdialog.h \
     setuppages/setuppagebandmode.h \
     setuppages/setupentitydialog.h \
     setuppages/setuppageudp.h \
+    setuppages/setuppageelog.h \
+    setuppages/setuppagesubdivisionnew.h \
+    setuppages/setuppagesubdivisions.h \
+    tipsdialog.h \
+    udpserver.h \
+    updatesatsdata.h \
     widgets/adiflotwexportwidget.h \
     widgets/showkloglogwidget.h \
     widgets/onlinemessagewidget.h \
