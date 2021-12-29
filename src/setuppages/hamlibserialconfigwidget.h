@@ -2,8 +2,9 @@
 #define HAMLIBSERIALCONFIGWIDGET_H
 
 #include <QtWidgets>
+
 #include <QSerialPortInfo>
-#include "klogdefinitions.h"
+#include "../klogdefinitions.h"
 
 class HamLibSerialConfigWidget : public QWidget
 {
@@ -20,21 +21,17 @@ public:
     QString getParity();
     void setStopBits(const QString &_st);
     int getStopBits();
-    bool setSerialSpeed(const int _speed );
+    bool setSerialBauds(const int _speed );
     bool setSerialPort(const QString &_port);
 
     QString getSerialPort();
     int getSerialBauds();
-
-signals:
 
 private slots:
     void slotScanPorts();
 
 private:
 
-    void setRig();
-    void setDefaults();
     QStringList getAvailableSerialPorts();
     void fillSerialPortsComboBox();
 
@@ -43,7 +40,6 @@ private:
     QLineEdit *dataFromRigLineEdit;
     QLineEdit *serialPort;
     QStringList serialPorts;
-
 };
 
 #endif // HAMLIBSERIALCONFIGWIDGET_H

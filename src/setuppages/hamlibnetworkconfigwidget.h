@@ -2,7 +2,7 @@
 #define HAMLIBNETWORKCONFIGWIDGET_H
 
 #include <QtWidgets>
-#include "klogdefinitions.h"
+#include "../klogdefinitions.h"
 
 class HamLibNetworkConfigWidget : public QWidget
 {
@@ -15,11 +15,9 @@ public:
     QString getAddress();
     void setAddress(const QString &_st);
 
-signals:
-
 private:
     QLineEdit*hostAddressLineEdit;
-    QSpinBox *pollIntervalQSpinBox, *portQSpinBox;
+    QSpinBox *portQSpinBox;
 };
 
 #endif // HAMLIBNETWORKCONFIGWIDGET_H

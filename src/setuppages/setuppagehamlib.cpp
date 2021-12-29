@@ -333,7 +333,7 @@ bool SetupPageHamLib::setSerialPort(const QString &_port)
 
 bool SetupPageHamLib::setSerialSpeed(const int _speed )
 {
-    return serialConfigWidget->setSerialSpeed (_speed);
+    return serialConfigWidget->setSerialBauds (_speed);
 }
 
 void SetupPageHamLib::setActive(const QString &_active)

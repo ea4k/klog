@@ -109,15 +109,6 @@ void HamLibSerialConfigWidget::createUI()
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void HamLibSerialConfigWidget::setRig()
-{
-
-}
-
-void HamLibSerialConfigWidget::setDefaults()
-{
-
-}
 
 QStringList HamLibSerialConfigWidget::getAvailableSerialPorts()
 {
@@ -150,7 +141,7 @@ void HamLibSerialConfigWidget::slotScanPorts()
 
 int HamLibSerialConfigWidget::getDataBits()
 {
-    return dataBitsComboBox->currentText ().toInt ();
+    return ((dataBitsComboBox->currentText()).left(1)).toInt();
 }
 
 void HamLibSerialConfigWidget::setDataBits (const int _b)
@@ -245,6 +236,7 @@ QString HamLibSerialConfigWidget::getParity()
     }
     return output;
 }
+
 void HamLibSerialConfigWidget::setParity(const QString &_st)
 {
     QString _s = _st.toUpper();
@@ -323,7 +315,7 @@ bool HamLibSerialConfigWidget::setSerialPort(const QString &_port)
     return false;
 }
 
-bool HamLibSerialConfigWidget::setSerialSpeed(const int _speed )
+bool HamLibSerialConfigWidget::setSerialBauds(const int _speed )
 {
     int _index = serialBaudsComboBox->findText(QString::number(_speed), Qt::MatchFlag::MatchExactly);
     if (_index >= 0)
@@ -347,34 +339,5 @@ int HamLibSerialConfigWidget::getSerialBauds()
 {
     return (serialBaudsComboBox->currentText ()).toInt ();
 }
-/*
-oid SetupPageHamLib::slotSerialPortChanged (QString _r)
-{
-    setTestResult (false);
-}
 
-void SetupPageHamLib::slotSerialSpeedChanged (int _s)
-{
-    setTestResult (false);
-}
 
-void SetupPageHamLib::slotSerialDataBitsChanged (int _s)
-{
-    setTestResult (false);
-}
-
-void SetupPageHamLib::slotSerialStopBitChanged (int _s)
-{
-    setTestResult (false);
-}
-
-void SetupPageHamLib::slotSerialFlowControlChanged (QString _r)
-{
-    setTestResult (false);
-}
-
-void SetupPageHamLib::slotSerialParityChanged (QString _r)
-{
-    setTestResult (false);
-}
-*/

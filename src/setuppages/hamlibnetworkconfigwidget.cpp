@@ -48,6 +48,10 @@ int HamLibNetworkConfigWidget::getPort()
 
 void HamLibNetworkConfigWidget::setPort (const int _b)
 {//TODO: Check that
+    if ((_b<0) || (_b>65535))
+    {
+        return;
+    }
     portQSpinBox->setValue (_b);
 }
 
