@@ -138,6 +138,10 @@ void SetupPageHamLib::slotRadioComboBoxChanged(QString _r)
 
 void SetupPageHamLib::createUI()
 {
+    pollMax = 10000;
+    pollMin = 10;
+    pollIntervalQSpinBox->setRange(pollMin, pollMax);
+    Ajustar el tamaño del poll
     qDebug() << Q_FUNC_INFO << " - 0";
     serialConfigWidget->createUI();
     qDebug() << Q_FUNC_INFO << " - 1";
@@ -150,13 +154,10 @@ void SetupPageHamLib::createUI()
     testHamlibPushButton->setText (tr("Test"));
     testHamlibPushButton->setToolTip (tr("Click to test the connection to the radio"));
 
-    //rigTypeComboBox->clear();
-    //strings.clear();
-    qDebug() << Q_FUNC_INFO << " - 10";
     setRig();
-    qDebug() << Q_FUNC_INFO << " - 11";
+
     QString pollTip = QString(tr("Defines the interval to poll the radio in msecs."));
-    qDebug() << Q_FUNC_INFO << " - 12";
+
     pollIntervalQSpinBox->setToolTip(pollTip);
     qDebug() << Q_FUNC_INFO << " - 13";
      //showDebugLog->setMinimum(pollMin);
@@ -168,7 +169,7 @@ void SetupPageHamLib::createUI()
     pollIntervalLabel->setToolTip(pollTip);
     pollIntervalLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     pollIntervalLabel->setEnabled(true);
-    qDebug() << Q_FUNC_INFO << " - 20";
+
     QHBoxLayout *pollIntervalLayout = new QHBoxLayout;
     pollIntervalLayout->addWidget(pollIntervalLabel);
     pollIntervalLayout->addWidget(pollIntervalQSpinBox);

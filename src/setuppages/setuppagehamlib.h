@@ -85,7 +85,7 @@ private:
     QPushButton  *testHamlibPushButton;
 
     QSpinBox *pollIntervalQSpinBox;
-    int rigctlport;
+    int pollMin, pollMax, rigctlport;
 
     HamLibClass *hamlib;
 
