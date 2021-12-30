@@ -78,15 +78,9 @@ tst_SetupHamLibSerialWidget::tst_SetupHamLibSerialWidget()
     serialHamLibWidget->createUI();
 }
 
-tst_SetupHamLibSerialWidget::~tst_SetupHamLibSerialWidget()
-{
+tst_SetupHamLibSerialWidget::~tst_SetupHamLibSerialWidget(){}
 
-}
-
-void tst_SetupHamLibSerialWidget::initTestCase()
-{
-
-}
+void tst_SetupHamLibSerialWidget::initTestCase(){}
 
 void tst_SetupHamLibSerialWidget::cleanupTestCase()
 {

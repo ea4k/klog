@@ -113,6 +113,7 @@ double HamLibClass::getFrequency()
     }
     reading = true;
     qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
+    //retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
     retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
     if (retcode == RIG_OK)
@@ -139,54 +140,54 @@ bool HamLibClass::readRadio(bool _forceRead)
 bool HamLibClass::readRadioInternal(bool _forceRead)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << QT_ENDL;
     if (!isRunning())
     {
-        //qDebug() << Q_FUNC_INFO << ": isn't running" << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": isn't running" << QT_ENDL;
         return false;
     }
     if (reading)
     {
-        //qDebug() << Q_FUNC_INFO << ": Exiting, I was already reading ... " << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": Exiting, I was already reading ... " << QT_ENDL;
         return false;
     }
     reading = true;
-    //qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
     retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
     if (retcode == RIG_OK)
     {
-        //qDebug() << Q_FUNC_INFO << ": RIG OK for Freq" << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": RIG OK for Freq" << QT_ENDL;
         errorCount = 0;
-        //qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(freq) << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(freq) << QT_ENDL;
         if ((freq_old > freq) || (freq_old < freq) || (_forceRead == true))
         {
             emit freqChanged(freq/1000000);
             freq_old = freq;
-            //qDebug() << Q_FUNC_INFO << ": EMITING; " << QString::number(freq) << QT_ENDL;
+            qDebug() << Q_FUNC_INFO << ": EMITING; " << QString::number(freq) << QT_ENDL;
         }
-        //qDebug() << Q_FUNC_INFO << ":  read: " << QString::number(freq) << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ":  read: " << QString::number(freq) << QT_ENDL;
     }
     else
     {
         reading = false;
-        //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
-        return errorManage(retcode);
+        qDebug() << Q_FUNC_INFO << " error on readFreq - END";
+        return errorManage(Q_FUNC_INFO, retcode);
     }
 
     retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
     if (retcode == RIG_OK)
     {
-        //qDebug() << Q_FUNC_INFO << ": RIG OK for Mode" << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": RIG OK for Mode" << QT_ENDL;
         errorCount = 0;
-        //qDebug() << Q_FUNC_INFO << ": Mode: " << hamlibMode2Mode(rmode) << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": Mode: " << hamlibMode2Mode(rmode) << QT_ENDL;
         if ((mode_old != rmode) || (_forceRead == true))
         {
             if (justEmitted)
             {
                 justEmitted = false;
                 reading = false;
-                //qDebug() << Q_FUNC_INFO << " - justEmitted END";
+                qDebug() << Q_FUNC_INFO << " - justEmitted END";
                 return true;
             }
             mode_old = rmode;
@@ -196,11 +197,11 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - Error on readMode END";
+        qDebug() << Q_FUNC_INFO << " - Error on readMode END";
         reading = false;
-        return errorManage (retcode);
+        return errorManage(Q_FUNC_INFO,  retcode);
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
     reading = false;
     return true;
 }
@@ -232,7 +233,7 @@ void HamLibClass::setMode(const QString &_m)
     if (RIG_OK != retcode)
     {
         //qDebug() << "HamLibClass::setMode: ERROR: Could not get mode: " << QT_ENDL;
-        errorManage (retcode);
+        errorManage(Q_FUNC_INFO,  retcode);
     }
     QString currentMode = hamlibMode2Mode(rmode);
     if (_m == currentMode)
@@ -245,7 +246,7 @@ void HamLibClass::setMode(const QString &_m)
     if (RIG_OK != retcode)
     {
         //qDebug() << "HamLibClass::setMode: ERROR: Could not set mode: " << _m << QT_ENDL;
-        errorManage (retcode);
+        errorManage(Q_FUNC_INFO,  retcode);
     }
 
     errorCount = 0;
@@ -449,7 +450,7 @@ bool HamLibClass::stop()
         }
         else
         {
-            //return errorManage (retcode);
+            //return errorManage(Q_FUNC_INFO,  retcode);
             errorCount++;
             //qDebug() << Q_FUNC_INFO << " rig_cleanup NOK: " << QString::number(errorCode) << QT_ENDL;
         }
@@ -482,12 +483,12 @@ bool HamLibClass::init(bool _active)
 
     if (rigLaunched)
     {
-        //qDebug()<< Q_FUNC_INFO << ": Already init"  << QT_ENDL;
+        qDebug()<< Q_FUNC_INFO << ": Already init"  << QT_ENDL;
         return true;
     }
 
     rig_set_debug(RIG_DEBUG_NONE);
-    //qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
+    qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
     my_rig = rig_init(myrig_model);
     //qDebug()<< Q_FUNC_INFO << ": set after init"  << QT_ENDL;
     if (my_rig == nullptr)
@@ -550,7 +551,7 @@ bool HamLibClass::init(bool _active)
     {
         qDebug()<< Q_FUNC_INFO << ": Can't open: " << rigerror(retcode) << QT_ENDL;
         rig_cleanup(my_rig);
-        return errorManage (retcode);
+        return errorManage(Q_FUNC_INFO,  retcode);
     }
 
     //qDebug()<< Q_FUNC_INFO << ": Rig open!"  << QT_ENDL;
@@ -744,7 +745,7 @@ void HamLibClass::setFreq(const double _fr)
     int retcode = rig_set_freq(my_rig, RIG_VFO_CURR, freq);
     if (retcode != RIG_OK)
     {
-        errorManage (retcode);
+        errorManage(Q_FUNC_INFO,  retcode);
     }
     else
     {
@@ -758,7 +759,7 @@ void HamLibClass::setFreq(const double _fr)
         }
         else
         {
-            errorManage (retcode);
+            errorManage(Q_FUNC_INFO,  retcode);
         }
         return;
     }
@@ -836,10 +837,10 @@ void HamLibClass::setNetworkPort(const int _port)
     rigLaunched = false;
 }
 
-bool HamLibClass::errorManage(const int _errorcode)
+bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    //qDebug() << Q_FUNC_INFO << ": error: " << QString::number(_errorcode);
+    qDebug() << Q_FUNC_INFO << ": " << _func << ": error: " << QString::number(_errorcode);
 
     if (RIG_OK == _errorcode)
     {

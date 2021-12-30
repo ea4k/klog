@@ -3094,7 +3094,6 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if ((_b) && (elogQRZcom->getSubscription ()))
     {
-
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
