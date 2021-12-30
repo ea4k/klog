@@ -518,7 +518,7 @@ void MainWindowSatTab::setDefaultBands()
 
 void MainWindowSatTab::slotSatBandRXComboBoxChanged()
 {
-    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged" << QT_ENDL;
+    qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged" << QT_ENDL;
     if (updatingBands || modifying)
     {
         return;
@@ -528,13 +528,15 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
     { // If the freq does not belong to the current band, we need to update the band
         rxFreqSpinBox->setValue(dataProxy->getLowLimitBandFromBandName(satBandRXComboBox->currentText()));
     }
-    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END" << QT_ENDL;
+    qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END" << QT_ENDL;
     autofillSatMode();
 }
 
 void MainWindowSatTab::slotSatFreqRXChanged(const double _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(rxFreqSpinBox->value()) << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": spingBox: " << QString::number(rxFreqSpinBox->value()) << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": f: " << QString::number(_f) << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": freqRx:" << QString::number(freqRX) << QT_ENDL;
     if (util->isSameFreq (freqRX, _f))
     {
         return;
@@ -586,7 +588,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText()  << QT_ENDL;
-       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()))  << QT_ENDL;
+        qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()))  << QT_ENDL;
         txFreqSpinBox->setValue(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
         //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
     }
@@ -634,8 +636,8 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
         bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(txFreqSpinBox->value()));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
-            //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: If the freq does not belong to the current band, we need to update the band" << QT_ENDL;
-            //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: We define UoLink to: " << dataProxy->getBandNameFromFreq(txFreqSpinBox->value()) << QT_ENDL;
+            qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: If the freq does not belong to the current band, we need to update the band" << QT_ENDL;
+            qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: We define UoLink to: " << dataProxy->getBandNameFromFreq(txFreqSpinBox->value()) << QT_ENDL;
             satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()), Qt::MatchCaseSensitive));
             //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
         }
@@ -706,9 +708,10 @@ double MainWindowSatTab::getRXFreq()
 
 void MainWindowSatTab::setDownLinkFreq(const double _t)
 {
-    //qDebug() << "MainWindowsatTab::setDownLinkFreq: " << QString::number(_t) << QT_ENDL;
+    qDebug() << "MainWindowsatTab::setDownLinkFreq: " << QString::number(_t) << QT_ENDL;
     if (util->isSameFreq (freqRX, _t))
     {
+        qDebug() << Q_FUNC_INFO << " - I same freq";
         return;
     }
 
@@ -721,7 +724,7 @@ void MainWindowSatTab::setDownLinkFreq(const double _t)
         satBandRXComboBox->setCurrentIndex(index);
     }
 
-    //qDebug() << "MainWindowsatTab::setDownLinkFreq END" << QT_ENDL;
+    qDebug() << "MainWindowsatTab::setDownLinkFreq END" << QT_ENDL;
 }
 
 void MainWindowSatTab::setBandsOfSat(const QString &_p)
@@ -841,6 +844,7 @@ void MainWindowSatTab::autofillSatMode()
 
 QString MainWindowSatTab::bandToLetter(const QString &_band)
 {
+    qDebug() << Q_FUNC_INFO << ": " << _band;
    QString letter = "";
 
    if (_band == "15M")

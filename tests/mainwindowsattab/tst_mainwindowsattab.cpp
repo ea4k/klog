@@ -90,12 +90,17 @@ void tst_MainQSOEntryWidget::test_SatMode()
     mainWindowSattab->setDownLinkFreq(freq);
     //qDebug() << mainWindowSattab->getSatMode() << endl;
     QVERIFY2(mainWindowSattab->getSatMode() == "A/A", "10m Mode not A");
-
+    qDebug() << Q_FUNC_INFO << " - 1";
     freq = dataProxy->getLowLimitBandFromBandName("15M");
-    mainWindowSattab->setUpLinkFreq(freq);
+    qDebug() << Q_FUNC_INFO << " - 2";
     mainWindowSattab->setDownLinkFreq(freq);
-    //qDebug() << mainWindowSattab->getSatMode() << endl;
-    QVERIFY2(mainWindowSattab->getSatMode() == "H/H", "15m Mode not H");
+    qDebug() << Q_FUNC_INFO << " - 3";
+    //freq = dataProxy->getLowLimitBandFromBandName("10M");
+    qDebug() << Q_FUNC_INFO << " - 4";
+    mainWindowSattab->setUpLinkFreq(freq);
+    qDebug() << Q_FUNC_INFO << " - 5";
+    qDebug() << mainWindowSattab->getSatMode();
+    QVERIFY2(mainWindowSattab->getSatMode() == "H/A", "15m/10m Mode not OK");
 
     freq = dataProxy->getLowLimitBandFromBandName("2M");
     mainWindowSattab->setUpLinkFreq(freq);
