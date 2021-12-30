@@ -250,9 +250,6 @@ void SetupPageHamLib::setDefaults()
 
      //showDebugLog->setValue(300);
     setTestResult(false);
-
-    //RTSCheckBox->setChecked(false);
-    //DTRCheckBox->setChecked(false);
     qDebug()  << Q_FUNC_INFO << " - END";
 }
 

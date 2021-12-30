@@ -83,56 +83,63 @@ void tst_MainQSOEntryWidget::test_SatMode()
 {
     //void setUpLinkFreq(const double _t);
     //void setDownLinkFreq(const double _t);
+    QStringList _bands;
+    _bands.clear();
+    _bands << "2M" << "70CM" << "23CM" << "13CM" << "6CM" << "3CM" << "1.25CM";
+    mainWindowSattab->addBands(_bands);
+
     mainWindowSattab->setSatName ("Other");
     double freq;
-    freq = dataProxy->getLowLimitBandFromBandName("10M");
+    /*
+    freq = dataProxy->getLowLimitBandFromBandName("15M");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     //qDebug() << mainWindowSattab->getSatMode() << endl;
     QVERIFY2(mainWindowSattab->getSatMode() == "A/A", "10m Mode not A");
     qDebug() << Q_FUNC_INFO << " - 1";
     freq = dataProxy->getLowLimitBandFromBandName("15M");
-    qDebug() << Q_FUNC_INFO << " - 2";
     mainWindowSattab->setDownLinkFreq(freq);
-    qDebug() << Q_FUNC_INFO << " - 3";
-    //freq = dataProxy->getLowLimitBandFromBandName("10M");
-    qDebug() << Q_FUNC_INFO << " - 4";
     mainWindowSattab->setUpLinkFreq(freq);
-    qDebug() << Q_FUNC_INFO << " - 5";
-    qDebug() << mainWindowSattab->getSatMode();
     QVERIFY2(mainWindowSattab->getSatMode() == "H/A", "15m/10m Mode not OK");
-
+*/
+    qDebug() << Q_FUNC_INFO << ": 2m" ;
     freq = dataProxy->getLowLimitBandFromBandName("2M");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     //qDebug() << mainWindowSattab->getSatMode() << endl;
     QVERIFY2(mainWindowSattab->getSatMode() == "V/V", "2m Mode not V");
 
+    qDebug() << Q_FUNC_INFO << ": 70cm";
     freq = dataProxy->getLowLimitBandFromBandName("70CM");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     QVERIFY2(mainWindowSattab->getSatMode() == "U/U", "70cm Mode not U");
 
+    qDebug() << Q_FUNC_INFO << ": 23cm";
     freq = dataProxy->getLowLimitBandFromBandName("23CM");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     QVERIFY2(mainWindowSattab->getSatMode() == "L/L", "23cm Mode not L");
 
+    qDebug() << Q_FUNC_INFO << ": 13cm" ;
     freq = dataProxy->getLowLimitBandFromBandName("13CM");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     QVERIFY2(mainWindowSattab->getSatMode() == "S/S", "13cm Mode not S");
 
+    qDebug() << Q_FUNC_INFO << ": 6cm" ;
     freq = dataProxy->getLowLimitBandFromBandName("6CM");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     QVERIFY2(mainWindowSattab->getSatMode() == "C/C", "23cm Mode not C");
 
+    qDebug() << Q_FUNC_INFO << ": 3cm" ;
     freq = dataProxy->getLowLimitBandFromBandName("3CM");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
     QVERIFY2(mainWindowSattab->getSatMode() == "X/X", "3cm Mode not X");
 
+    qDebug() << Q_FUNC_INFO << ": 1.25cm";
     freq = dataProxy->getLowLimitBandFromBandName("1.25CM");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);

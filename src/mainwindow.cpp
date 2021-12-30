@@ -41,7 +41,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     g_callsignCheck  = true;
+
     showKLogLogWidget = new ShowKLogLogWidget;
+    showErrorDialog = new ShowErrorDialog();
+    UDPLogServer = new UDPServer();
+    util = new Utilities;
+    qso = new QSO;
+
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = Info;
@@ -50,50 +56,21 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
-    util = new Utilities;
-    qso = new QSO;
+
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
-    QString debugName = util->getDebugLogFile();
-    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << QT_ENDL;
-    debugFile = new QFile(debugName);
 
+    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() << QT_ENDL;
+    debugFile = new QFile(util->getDebugLogFile());
 
-    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - File not open"));
-        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-    }
-    else
-    {
-        debugFileOpen = true;
-        logEvent(Q_FUNC_INFO, "KLog started!", Info);
-    }
-
-    //QTime start;
-    //start = QTime::currentTime();
-    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-
-    showErrorDialog = new ShowErrorDialog();
-    UDPLogServer = new UDPServer();
     //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     hamlib = new HamLibClass();
-    //pstRotator = new PSTRotatorSupport(this);
-    //rotatorWidget = new RotatorWidget;
-     //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
-
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
-
 
     //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -130,9 +107,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
 
-    configFileName = util->getCfgFile();
-    ctyDatFile = util->getCTYFile();
-
     downloadcty = new DownLoadCTY(klogDir, softwareVersion);
 
     statusBarMessage = tr("Starting KLog");
@@ -149,7 +123,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-
+    configFileName = util->getCfgFile();
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
@@ -270,8 +244,25 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init()
 {
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - File not open"));
+        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
+        msgBox.setText(aux);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    else
+    {
+        debugFileOpen = true;
+        logEvent(Q_FUNC_INFO, "KLog started!", Info);
+    }
+
     logEvents = true;
-    debugFileOpen = false;
+
     hamlib->initClass();
     util->setCallValidation (true);
     infoLabel1T = QString();
@@ -404,6 +395,7 @@ void MainWindow::init()
     newOneColor.setNamedColor("green");
     //qDebug() << "MainWindow::init - 60" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     bool existingData = QFile::exists(util->getKLogDBFile());
+    ctyDatFile = util->getCTYFile();
     if (!existingData)
     {
         //qDebug() << "MainWindow::init - 61" << QT_ENDL;
