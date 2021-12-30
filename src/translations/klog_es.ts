@@ -1306,6 +1306,183 @@ Do you want KLog to add this QSO to the log?</source>
     </message>
 </context>
 <context>
+    <name>HamLibNetworkConfigWidget</name>
+    <message>
+        <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="16"/>
+        <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="22"/>
+        <source>Enter the hostname or address of the radio.</source>
+        <translation type="unfinished">Introduzca el nombre de máquina o dirección de la radio.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="17"/>
+        <source>Set de network port of the radio.</source>
+        <translation type="unfinished">Define el puerto de red de la radio.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="20"/>
+        <source>Host/Address</source>
+        <translation type="unfinished">Servidor/Dirección</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="26"/>
+        <source>Port</source>
+        <translation type="unfinished">Puerto</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="28"/>
+        <source>Enter the port of the radio.</source>
+        <translation type="unfinished">Introduzca el puerto de la radio.</translation>
+    </message>
+</context>
+<context>
+    <name>HamLibSerialConfigWidget</name>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="24"/>
+        <source>Bauds</source>
+        <translation type="unfinished">Baudios</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="26"/>
+        <source>Select the serial port speed.</source>
+        <translation type="unfinished">Seleccionar la velocidad del puerto serie.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="30"/>
+        <source>Port</source>
+        <translation type="unfinished">Puerto</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="32"/>
+        <source>Select the serial port. Only the serial ports that are detected are shown.</source>
+        <translation type="unfinished">Seleccione el puerto serie. Solo se muestran los puertos que se pueden detectar.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="36"/>
+        <source>Scan</source>
+        <translation type="unfinished">Buscar</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="38"/>
+        <source>Click to identify the serial ports available in your computer.</source>
+        <translation type="unfinished">Pulsar para identificar los puertos disponibles en el ordenador.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
+        <source>5 bits</source>
+        <translation type="unfinished">5 bits</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
+        <source>6 bits</source>
+        <translation type="unfinished">6 bits</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
+        <source>7 bits</source>
+        <translation type="unfinished">7 bits</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
+        <source>8 bits</source>
+        <translation type="unfinished">8 bits</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="51"/>
+        <source>Data bits</source>
+        <translation type="unfinished">Bits de datos</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="53"/>
+        <source>Select the serial data bits.</source>
+        <translation type="unfinished">Seleccionar los bits de datos.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
+        <source>None</source>
+        <translation type="unfinished">Ninguno</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
+        <source>Hardware</source>
+        <translation type="unfinished">Hardware</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
+        <source>Software XON/XOFF</source>
+        <translation type="unfinished">Software XON/XOFF</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="61"/>
+        <source>Flow control</source>
+        <translation type="unfinished">Control de flujo</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="63"/>
+        <source>Select the serial flow control</source>
+        <translation type="unfinished">Seleccione el contrl de flujo del puerto serie.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
+        <source>No parity</source>
+        <translation type="unfinished">Sin paridad</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
+        <source>Even</source>
+        <translation type="unfinished">Par</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
+        <source>Odd</source>
+        <translation type="unfinished">Impar</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
+        <source>Space</source>
+        <translation type="unfinished">Espacio</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
+        <source>Mark</source>
+        <translation type="unfinished">Marca</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="72"/>
+        <source>Parity</source>
+        <translation type="unfinished">Paridad</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="74"/>
+        <source>Select the serial parity.</source>
+        <translation type="unfinished">Seleccione la paridad del puerto serie.</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
+        <source>Default</source>
+        <translation type="unfinished">Predeterminado</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
+        <source>1 bit</source>
+        <translation type="unfinished">1 bit</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
+        <source>2 bits</source>
+        <translation type="unfinished">2 bits</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="83"/>
+        <source>Stop bits</source>
+        <translation type="unfinished">Bits de parada</translation>
+    </message>
+    <message>
+        <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="85"/>
+        <source>Select the serial stop bits.</source>
+        <translation type="unfinished">Seleccionar los bits de parada.</translation>
+    </message>
+</context>
+<context>
     <name>InfoWidget</name>
     <message>
         <location filename="../infowidget.cpp" line="74"/>
@@ -6114,241 +6291,74 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
 <context>
     <name>SetupPageHamLib</name>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="164"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="149"/>
         <source>Activate HamLib</source>
         <translation>Activar HamLib</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="165"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="150"/>
         <source>Activates the hamlib support that will enable the connection to a radio.</source>
         <translation>Activa el soporte de hamlib que habilitará la conexión a una radio.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="166"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="151"/>
         <source>Read-Only mode</source>
         <translation>Modo solo lectura</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="167"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="152"/>
         <source>If enabled, the KLog will read Freq/Mode from the radio but will never send any command to the radio.</source>
         <translation>Si se habilita, KLog leerá la frecuencia y modo de la radio pero nunca enviará ningún comando a la radio.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="192"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="178"/>
         <source>Radio</source>
         <translation>Radio</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="194"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="180"/>
         <source>Select your rig.</source>
         <translation>Seleccionar equipo.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="199"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="195"/>
+        <source>Serial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="196"/>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="158"/>
         <source>Defines the interval to poll the radio in msecs.</source>
         <translation>Define el intervalo con el que se consulta a la radio en milisegundos.</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="204"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="166"/>
         <source>Poll interval</source>
         <translation>Intervalo de actualización</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="225"/>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="308"/>
-        <source>Port</source>
-        <translation>Puerto</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="226"/>
-        <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation>Seleccione el puerto serie. Solo se muestran los puertos que se pueden detectar.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="228"/>
-        <source>Scan</source>
-        <translation>Buscar</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="229"/>
-        <source>Click to identify the serial ports available in your computer.</source>
-        <translation>Pulsar para identificar los puertos disponibles en el ordenador.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="219"/>
-        <source>Bauds</source>
-        <translation>Baudios</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="102"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="90"/>
         <source>Test: OK</source>
         <translation>Test: OK</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="112"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="100"/>
         <source>Test: NOK</source>
         <translation>Test: NOK</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="168"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="153"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="169"/>
+        <location filename="../setuppages/setuppagehamlib.cpp" line="154"/>
         <source>Click to test the connection to the radio</source>
         <translation>Pulse para probar la conexión a la radio</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="171"/>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="304"/>
-        <source>Enter the hostname or address of the radio.</source>
-        <translation>Introduzca el nombre de máquina o dirección de la radio.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="172"/>
-        <source>Set de network port of the radio.</source>
-        <translation>Define el puerto de red de la radio.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="174"/>
-        <source>Serial radio</source>
-        <translation>Radio serie</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="175"/>
-        <source>Network radio</source>
-        <translation>Radio en red</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="221"/>
-        <source>Select the serial port speed.</source>
-        <translation>Seleccionar la velocidad del puerto serie.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="239"/>
-        <source>5 bits</source>
-        <translation>5 bits</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="239"/>
-        <source>6 bits</source>
-        <translation>6 bits</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="239"/>
-        <source>7 bits</source>
-        <translation>7 bits</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="239"/>
-        <source>8 bits</source>
-        <translation>8 bits</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="241"/>
-        <source>Data bits</source>
-        <translation>Bits de datos</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="243"/>
-        <source>Select the serial data bits.</source>
-        <translation>Seleccionar los bits de datos.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="249"/>
-        <source>None</source>
-        <translation>Ninguno</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="249"/>
-        <source>Hardware</source>
-        <translation>Hardware</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="249"/>
-        <source>Software XON/XOFF</source>
-        <translation>Software XON/XOFF</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="251"/>
-        <source>Flow control</source>
-        <translation>Control de flujo</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="253"/>
-        <source>Select the serial flow control</source>
-        <translation>Seleccione el contrl de flujo del puerto serie.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
-        <source>No parity</source>
-        <translation>Sin paridad</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
-        <source>Even</source>
-        <translation>Par</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
-        <source>Odd</source>
-        <translation>Impar</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
-        <source>Space</source>
-        <translation>Espacio</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="259"/>
-        <source>Mark</source>
-        <translation>Marca</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="261"/>
-        <source>Parity</source>
-        <translation>Paridad</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="263"/>
-        <source>Select the serial parity.</source>
-        <translation>Seleccione la paridad del puerto serie.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="270"/>
-        <source>1 bit</source>
-        <translation>1 bit</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="270"/>
-        <source>2 bits</source>
-        <translation>2 bits</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="270"/>
-        <source>Default</source>
-        <translation type="unfinished">Predeterminado</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="272"/>
-        <source>Stop bits</source>
-        <translation>Bits de parada</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="274"/>
-        <source>Select the serial stop bits.</source>
-        <translation>Seleccionar los bits de parada.</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="302"/>
-        <source>Host/Address</source>
-        <translation>Servidor/Dirección</translation>
-    </message>
-    <message>
-        <location filename="../setuppages/setuppagehamlib.cpp" line="310"/>
-        <source>Enter the port of the radio.</source>
-        <translation>Introduzca el puerto de la radio.</translation>
     </message>
 </context>
 <context>

@@ -1344,6 +1344,179 @@ msgctxt "FileManager|"
 msgid "KLog - QSO without Station Callsign"
 msgstr ""
 
+#: ../setuppages/hamlibnetworkconfigwidget.cpp:16
+#: ../setuppages/hamlibnetworkconfigwidget.cpp:22
+msgctxt "HamLibNetworkConfigWidget|"
+msgid "Enter the hostname or address of the radio."
+msgstr ""
+
+#: ../setuppages/hamlibnetworkconfigwidget.cpp:17
+msgctxt "HamLibNetworkConfigWidget|"
+msgid "Set de network port of the radio."
+msgstr ""
+
+#: ../setuppages/hamlibnetworkconfigwidget.cpp:20
+msgctxt "HamLibNetworkConfigWidget|"
+msgid "Host/Address"
+msgstr ""
+
+#: ../setuppages/hamlibnetworkconfigwidget.cpp:26
+msgctxt "HamLibNetworkConfigWidget|"
+msgid "Port"
+msgstr ""
+
+#: ../setuppages/hamlibnetworkconfigwidget.cpp:28
+msgctxt "HamLibNetworkConfigWidget|"
+msgid "Enter the port of the radio."
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:24
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Bauds"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:26
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Select the serial port speed."
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:30
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Port"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:32
+msgctxt "HamLibSerialConfigWidget|"
+msgid ""
+"Select the serial port. Only the serial ports that are detected are shown."
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:36
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Scan"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:38
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Click to identify the serial ports available in your computer."
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:49
+msgctxt "HamLibSerialConfigWidget|"
+msgid "5 bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:49
+msgctxt "HamLibSerialConfigWidget|"
+msgid "6 bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:49
+msgctxt "HamLibSerialConfigWidget|"
+msgid "7 bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:49
+msgctxt "HamLibSerialConfigWidget|"
+msgid "8 bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:51
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Data bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:53
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Select the serial data bits."
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:59
+msgctxt "HamLibSerialConfigWidget|"
+msgid "None"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:59
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Hardware"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:59
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Software XON/XOFF"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:61
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Flow control"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:63
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Select the serial flow control"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:70
+msgctxt "HamLibSerialConfigWidget|"
+msgid "No parity"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:70
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Even"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:70
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Odd"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:70
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Space"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:70
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Mark"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:72
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Parity"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:74
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Select the serial parity."
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:81
+#, fuzzy
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Default"
+msgstr "Domyślny"
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:81
+msgctxt "HamLibSerialConfigWidget|"
+msgid "1 bit"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:81
+msgctxt "HamLibSerialConfigWidget|"
+msgid "2 bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:83
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Stop bits"
+msgstr ""
+
+#: ../setuppages/hamlibserialconfigwidget.cpp:85
+msgctxt "HamLibSerialConfigWidget|"
+msgid "Select the serial stop bits."
+msgstr ""
+
 #: ../infowidget.cpp:74
 msgctxt "InfoWidget|"
 msgid "10M"
@@ -6213,244 +6386,77 @@ msgctxt "SetupPageELog|"
 msgid "Select File"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:164
+#: ../setuppages/setuppagehamlib.cpp:149
 msgctxt "SetupPageHamLib|"
 msgid "Activate HamLib"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:165
+#: ../setuppages/setuppagehamlib.cpp:150
 msgctxt "SetupPageHamLib|"
 msgid ""
 "Activates the hamlib support that will enable the connection to a radio."
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:166
+#: ../setuppages/setuppagehamlib.cpp:151
 msgctxt "SetupPageHamLib|"
 msgid "Read-Only mode"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:167
+#: ../setuppages/setuppagehamlib.cpp:152
 msgctxt "SetupPageHamLib|"
 msgid ""
 "If enabled, the KLog will read Freq/Mode from the radio but will never send "
 "any command to the radio."
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:192
+#: ../setuppages/setuppagehamlib.cpp:178
 msgctxt "SetupPageHamLib|"
 msgid "Radio"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:194
+#: ../setuppages/setuppagehamlib.cpp:180
 msgctxt "SetupPageHamLib|"
 msgid "Select your rig."
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:199
+#: ../setuppages/setuppagehamlib.cpp:195
+msgctxt "SetupPageHamLib|"
+msgid "Serial"
+msgstr ""
+
+#: ../setuppages/setuppagehamlib.cpp:196
+msgctxt "SetupPageHamLib|"
+msgid "Network"
+msgstr ""
+
+#: ../setuppages/setuppagehamlib.cpp:158
 msgctxt "SetupPageHamLib|"
 msgid "Defines the interval to poll the radio in msecs."
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:204
+#: ../setuppages/setuppagehamlib.cpp:166
 msgctxt "SetupPageHamLib|"
 msgid "Poll interval"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:225 ../setuppages/setuppagehamlib.cpp:308
-msgctxt "SetupPageHamLib|"
-msgid "Port"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:226
-msgctxt "SetupPageHamLib|"
-msgid ""
-"Select the serial port. Only the serial ports that are detected are shown."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:228
-msgctxt "SetupPageHamLib|"
-msgid "Scan"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:229
-msgctxt "SetupPageHamLib|"
-msgid "Click to identify the serial ports available in your computer."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:219
-msgctxt "SetupPageHamLib|"
-msgid "Bauds"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:102
+#: ../setuppages/setuppagehamlib.cpp:90
 msgctxt "SetupPageHamLib|"
 msgid "Test: OK"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:112
+#: ../setuppages/setuppagehamlib.cpp:100
 msgctxt "SetupPageHamLib|"
 msgid "Test: NOK"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:168
+#: ../setuppages/setuppagehamlib.cpp:153
 msgctxt "SetupPageHamLib|"
 msgid "Test"
 msgstr ""
 
-#: ../setuppages/setuppagehamlib.cpp:169
+#: ../setuppages/setuppagehamlib.cpp:154
 msgctxt "SetupPageHamLib|"
 msgid "Click to test the connection to the radio"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:171 ../setuppages/setuppagehamlib.cpp:304
-msgctxt "SetupPageHamLib|"
-msgid "Enter the hostname or address of the radio."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:172
-msgctxt "SetupPageHamLib|"
-msgid "Set de network port of the radio."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:174
-msgctxt "SetupPageHamLib|"
-msgid "Serial radio"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:175
-msgctxt "SetupPageHamLib|"
-msgid "Network radio"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:221
-msgctxt "SetupPageHamLib|"
-msgid "Select the serial port speed."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:239
-msgctxt "SetupPageHamLib|"
-msgid "5 bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:239
-msgctxt "SetupPageHamLib|"
-msgid "6 bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:239
-msgctxt "SetupPageHamLib|"
-msgid "7 bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:239
-msgctxt "SetupPageHamLib|"
-msgid "8 bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:241
-msgctxt "SetupPageHamLib|"
-msgid "Data bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:243
-msgctxt "SetupPageHamLib|"
-msgid "Select the serial data bits."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:249
-msgctxt "SetupPageHamLib|"
-msgid "None"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:249
-msgctxt "SetupPageHamLib|"
-msgid "Hardware"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:249
-msgctxt "SetupPageHamLib|"
-msgid "Software XON/XOFF"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:251
-msgctxt "SetupPageHamLib|"
-msgid "Flow control"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:253
-msgctxt "SetupPageHamLib|"
-msgid "Select the serial flow control"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:259
-msgctxt "SetupPageHamLib|"
-msgid "No parity"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:259
-msgctxt "SetupPageHamLib|"
-msgid "Even"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:259
-msgctxt "SetupPageHamLib|"
-msgid "Odd"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:259
-msgctxt "SetupPageHamLib|"
-msgid "Space"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:259
-msgctxt "SetupPageHamLib|"
-msgid "Mark"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:261
-msgctxt "SetupPageHamLib|"
-msgid "Parity"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:263
-msgctxt "SetupPageHamLib|"
-msgid "Select the serial parity."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:270
-msgctxt "SetupPageHamLib|"
-msgid "1 bit"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:270
-msgctxt "SetupPageHamLib|"
-msgid "2 bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:270
-#, fuzzy
-msgctxt "SetupPageHamLib|"
-msgid "Default"
-msgstr "Domyślny"
-
-#: ../setuppages/setuppagehamlib.cpp:272
-msgctxt "SetupPageHamLib|"
-msgid "Stop bits"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:274
-msgctxt "SetupPageHamLib|"
-msgid "Select the serial stop bits."
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:302
-msgctxt "SetupPageHamLib|"
-msgid "Host/Address"
-msgstr ""
-
-#: ../setuppages/setuppagehamlib.cpp:310
-msgctxt "SetupPageHamLib|"
-msgid "Enter the port of the radio."
 msgstr ""
 
 #: ../setuppages/setuppagelogview.cpp:41
