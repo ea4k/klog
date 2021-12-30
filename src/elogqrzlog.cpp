@@ -800,7 +800,7 @@ void eLogQrzLog::sendSignal(QNetworkReply::NetworkError _error, QList<int> _qsos
 
 void eLogQrzLog::setSubcription(const bool _ok)
 {
-    showDebugLog (Q_FUNC_INFO, util->boolToQString (_ok));
+    //showDebugLog (Q_FUNC_INFO, util->boolToQString (_ok));
     subscriptionOK = _ok;
 }
 
