@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+//#include "hamlibclass.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -40,11 +41,12 @@ public:
     void setModes(const QStringList _modes);
 
     bool setBand(const QString &_band);
+    bool setFreq(const double _f, bool isRX = false);
 
     bool setMode(const QString &_mode);
     bool setQRZ(const QString &_qrz);
     void setCurrentQRZ(const QString &_qrz);
-    bool setDate(const QDateTime _date);
+    bool setDateTime(const QDateTime _date);
     bool setTime(const QTime _time);
     void setCleaning (const bool _c);
     bool isModeExisting(const QString &_m);
@@ -59,19 +61,22 @@ public:
     QDateTime getDateTime();
 
     void setRealTime(const bool _realTime);
+    bool getRealTime();
     void toggleRealTime();
     void setUTC(const bool _utc);
     void setModify(const bool _modify);
+    bool getModifying();
     void setUpAndRunning(const bool _u);
     void selectDefaultBand(const bool _init = false);
     void selectDefaultMode(const bool _init = false);
 
     void setDuplicatedQSOSlot (const int _secs);
-
+    void setFocusToOK();
     void clear();
 
 protected:
-   // void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
+    //void resizeEvent(QResizeEvent *event) override;
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -81,28 +86,37 @@ signals:
     void bandChanged(QString _band);
     void modeChanged(QString _mode);
     void OKClicked();
+    void validBands(QStringList _bands);
+    void handOverFocusSignal();
+    void hamlibSetActiveSignal(bool _active);
 
 private slots:
     void slotUpdateTime();
     void slotQRZTextChanged();
-    void slotBandComboBoxChanged();
-    void slotModeComboBoxChanged();
+    void slotBandComboBoxChanged(const QString &_b);
+    void slotModeComboBoxChanged(const QString &_m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
+    //void slotRealtimeButtonClicked();
     void slotCheckBoxClicked();
     //void slotRealTimeCheckBoxChanged();
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
+    //void slotRealTimeButtonResize();
+    void slotManualModeCheckBoxClicked();
 
 
 private:
+    bool eventFilter(QObject *object, QEvent *event);
     void createUI();
     void setInitialData();
 
     bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
     void checkIfDupe(const QString &_func);
-
+    void setDateAndTimeInternally();
+    bool updateBandComboBox(const QString &_band); // If a new band arrives, we add it if possible to KLog
+    bool newBandNeededForFreq(const double _f);
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
     QLineEdit *qrzLineEdit;
@@ -110,13 +124,15 @@ private:
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton;
-    QCheckBox *realtimeCheckBox;
+    QCheckBox *realtimeCheckBox, *manualModeCheckBox;
+    //QPushButton *realtimeButton;
     //DebugLogLevel logSeverity;
     bool cleaning;
     bool qrzAutoChanging;
     bool InValidCharsInPrevCall;
     bool qrzSmallModDontCalculate;
     bool upAndRunning;
+    bool getDarkMode();
 
     QString previousQRZ;
     QString currentQrz;
@@ -126,14 +142,16 @@ private:
 
     QTimer *timer;
     bool UTCTime, modify, realTime;
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Utilities *util;
     QPalette::ColorRole enabledCR, disabledCR;
 
     int duplicatedQSOSlotInSecs;
     QTimer *delayInputTimer;
     QString lastQrz;
+    double freqTX, freqRX, bottomBandLimit, upperBandLimit;
 
+    //HamLibClass *hamlib;
 };
 
 #endif // MAINQSOENTRYWIDGET_H

@@ -31,10 +31,10 @@
 //      instead. It is easy to change but the code would not be so clear... Think about this. :-)
 
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
-       //qDebug() << "SetupPageMisc::SetupPageMisc" << endl;
+       //qDebug() << "SetupPageMisc::SetupPageMisc" << QT_ENDL;
 
     util = new Utilities;
-
+    checkCallsCheckBox = new QCheckBox(tr("Check non-valid calls"), this);
     imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
     realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);
     UTCCheckbox = new QCheckBox(tr("&Time in UTC"), this);
@@ -42,7 +42,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     useDefaultName = new QCheckBox(tr("Use this &default filename"), this);
     sendQSLWhenRecCheckBox = new QCheckBox(tr("Mark &QSO to send QSL when QSL is received"), this);
     completeWithPreviousCheckBox = new QCheckBox(tr("Complete QSO with previous data"));
-    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);  
+    showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);
     //keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
@@ -74,27 +74,27 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     {
         moveDBPushButton->setEnabled(true);
     }
-       //qDebug() << "SetupPageMisc::SetupPageMisc - END" << endl;
+       //qDebug() << "SetupPageMisc::SetupPageMisc - END" << QT_ENDL;
 }
 
 SetupPageMisc::~SetupPageMisc(){
-       //qDebug() << "SetupPageMisc::~SetupPageMisc" << endl;
+       //qDebug() << "SetupPageMisc::~SetupPageMisc" << QT_ENDL;
 }
 
 void SetupPageMisc::createUI()
 {
     dupeTimeLineEdit->setInputMask("0000000");
-    dupeTimeLineEdit->setToolTip("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered.");
+    dupeTimeLineEdit->setToolTip(tr("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered."));
     palWrong.setColor(QPalette::Text, Qt::red);
     palRight.setColor(QPalette::Text, Qt::black);
 
     //TODO: To be removed when the defaultDir is saved in the config file
     #ifdef Q_OS_WIN
-       //qDebug() << "WINDOWS DETECTED!"  << endl;
+       //qDebug() << "WINDOWS DETECTED!"  << QT_ENDL;
     klogDir = util->getHomeDir();  // We create the \klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #else
-       //qDebug() << "NO WINDOWS DETECTED!"  << endl;
+       //qDebug() << "NO WINDOWS DETECTED!"  << QT_ENDL;
     klogDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #endif
@@ -108,11 +108,6 @@ void SetupPageMisc::createUI()
     dbPathLineEdit->setReadOnly(false);
     dbPathLineEdit->setText(dbDirCurrent);
     dbPathLineEdit->setEnabled(true);
-    
-    //UDPServerCheckBox->setChecked(true);
-    //UDPServerPortSpinBox->setEnabled(true);
-    //UDPServerCheckBox->setEnabled(false);
-    //UDPServerPortSpinBox->setEnabled(false);
 
     useDefaultName->setChecked(true);
     alwaysADIFCheckBox->setChecked(true);
@@ -126,6 +121,9 @@ void SetupPageMisc::createUI()
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
     dupeTimeLineEdit->setText("300");
+    checkCallsCheckBox->setEnabled (true);
+    checkCallsCheckBox->setChecked (true);
+    checkCallsCheckBox->setToolTip (tr("If you disable this checkbox KLog will not check callsigns to identify wrong callsigns."));
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
     //keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
@@ -134,7 +132,7 @@ void SetupPageMisc::createUI()
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometers)."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
-    alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));    
+    alwaysADIFCheckBox->setToolTip(tr("Select if you want to save to ADIF on exit."));
     useDefaultName->setToolTip(tr("Select to use the following name for the logfile without being asked for it again."));
     completeWithPreviousCheckBox->setToolTip(tr("Complete the current QSO with previous QSO data."));
     useDxMarathonCheckBox->setToolTip(tr("Select if you want to manage DX-Marathon."));
@@ -183,6 +181,7 @@ void SetupPageMisc::createUI()
     //mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
     mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
     mainLayou1->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
+    mainLayou1->addWidget (checkCallsCheckBox, 9, 0, 1, 1);
 
     setLayout(mainLayou1);
 
@@ -191,13 +190,13 @@ void SetupPageMisc::createUI()
 void SetupPageMisc::createActions(){
 //void	itemDoubleClicked ( QListWidgetItem * item )
 
-    connect(fileNameButton, SIGNAL(clicked () ), this, SLOT(slotOpenFileButtonClicked() ) );
-    connect(useDefaultName, SIGNAL(stateChanged (int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
+    connect(fileNameButton, SIGNAL(clicked() ), this, SLOT(slotOpenFileButtonClicked() ) );
+    connect(useDefaultName, SIGNAL(stateChanged(int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
     connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
-    connect(checkNewVersionCheckBox, SIGNAL(clicked () ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
-    connect(dbPushButton, SIGNAL(clicked () ), this, SLOT(slotDBButtonClicked() ) );
+    connect(checkNewVersionCheckBox, SIGNAL(clicked() ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
+    connect(dbPushButton, SIGNAL(clicked() ), this, SLOT(slotDBButtonClicked() ) );
     connect(dbPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDBLineEditChanged() ) );
-    connect(moveDBPushButton, SIGNAL(clicked () ), this, SLOT(slotMoveDBButtonClicked() ) );
+    connect(moveDBPushButton, SIGNAL(clicked() ), this, SLOT(slotMoveDBButtonClicked() ) );
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 
 }
@@ -205,7 +204,7 @@ void SetupPageMisc::createActions(){
 void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
 
     deleteAlwaysAdiFileCheckBox->setChecked(_t);
-    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << endl;
+    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t << QT_ENDL;
 }
 
 QString SetupPageMisc::getDeleteAlwaysAdiFile(){
@@ -260,7 +259,7 @@ QString SetupPageMisc::getDefaultFileName()
 }
 void SetupPageMisc::setDefaultFileName(const QString &_t)
 {
-       //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t << endl;
+       //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t << QT_ENDL;
     defaultFileName = _t;
     defaultFileNameLineEdit->setText(defaultFileName);
 }
@@ -301,7 +300,7 @@ void SetupPageMisc::setImperial(const QString &_t)
 
 void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
 {
-       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged" << endl;
+       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged" << QT_ENDL;
 
     if (state)
     {
@@ -395,7 +394,7 @@ void SetupPageMisc::setReportInfo(const QString &_t)
 }
 
 QString SetupPageMisc::getDefaultDBPath()
-{    
+{
     return dbDirCurrent;
 }
 
@@ -457,7 +456,7 @@ void SetupPageMisc::slotDBButtonClicked()
 
 void SetupPageMisc::slotDBLineEditChanged()
 {
-       //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << endl;
+       //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text() << QT_ENDL;
     QString aux;
     aux = dbPathLineEdit->text();
 
@@ -492,15 +491,15 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - Move DB"));
 
-       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << endl;
-       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << endl;
+       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source << QT_ENDL;
+       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target << QT_ENDL;
     if ( QFile::exists(dbDirNew) )
     {
         //dbDirCurrent
         //dbDir
         if (QFile::exists(target))
         {
-            //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+            //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << QT_ENDL;
         }
         if (QFile::copy(source, target))
         {
@@ -536,7 +535,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 
             if (QFile::exists(target))
             {
-                //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << endl;
+                //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target << QT_ENDL;
 
                 msgBox.setText(tr("File already exist."));
                 msgBox.setDetailedText(tr("The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file."));
@@ -581,4 +580,14 @@ void SetupPageMisc::setDupeTime(const int _t)
 int SetupPageMisc::getDupeTime()
 {
     return dupeTimeLineEdit->text().toInt();
+}
+
+bool SetupPageMisc::getCheckCalls()
+{
+    return checkCallsCheckBox->isChecked ();
+}
+
+void SetupPageMisc::setCheckCalls(const bool &_t)
+{
+    checkCallsCheckBox->setChecked (_t);
 }

@@ -119,8 +119,8 @@ signals:
     bool downloadCTYFile();
 
     QLabel *topLabel;
-    QRadioButton *memoryRadioButton;
-    QRadioButton *fileRadioButton;
+    QCheckBox *memoryQCheckbox;
+    QCheckBox *fileQCheckbox;
 
 
     bool runInMemory;

@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include <QDialog>
 #include <QPalette>
+#include "../klogdefinitions.h"
 
 
 class SetupEntityDialog : public QDialog
@@ -86,7 +87,7 @@ private:
     QLineEdit *utcLineEdit, *mprefLineEdit, *arrlidLineEdit;
     QLineEdit *deletedLineEdit, *prefLineEdit;
     QDateEdit *delQDateEdit;
-    QRadioButton *delRbutton;
+    QCheckBox *delRbutton;
 
     QStringList entityData;
     //QPalette *paletteOrig, *paletteWrong;

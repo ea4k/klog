@@ -32,8 +32,9 @@
 #include <QSerialPortInfo>
 #include "hamlibclass.h"
 #include "dataproxy_sqlite.h"
+#include "hamlibserialconfigwidget.h"
+#include "hamlibnetworkconfigwidget.h"
 #include <hamlib/rig.h>
-
 
 class SetupPageHamLib : public QWidget
 {
@@ -44,66 +45,52 @@ public:
     bool setRigType(const QString &_radio);
     void setPollingInterval(const int _msecs);
     bool setSerialPort(const QString &_port);
-    bool setSerialSpeed(const QString &_speed );
+    bool setSerialSpeed(const int _speed );
     void setActive(const QString &_active);
     //void setRTS(const QString &_state);
     //void setDTR(const QString &_state);
-    void setDataBits(const QString &_st);
+    void setDataBits(const int _st);
     void setFlowControl(const QString &_st);
     void setParity(const QString &_st);
     void setStopBits(const QString &_st);
     //void setPollInterval(const QString &_st);
     void setReadOnly(const QString &_m);
-
-
-
-signals:
+    void setRadioNetworkAddress(const QString &_m);
+    void setRadioNetworkPort(const int _p);
 
 public slots:
-    void slotScanPorts();
+    //void slotScanPorts();
+    void slotRadioComboBoxChanged(QString _r);
+    void slotTestHamlib();
 
 private:
     void createUI();
     void setRig();
     void setDefaults();
-    void fillSerialPortsComboBox();
-    //static int addRigToList(const struct rig_caps* caps, void* data);
+    void setTestResult(const bool _ok);
+
     QStringList getAvailableSerialPorts();
 
-    QString getDataBits();
+    int getDataBits();
     QString getFlowControl();
     QString getParity();
-    QString getStopBits();
-    QString getPollInterval();
+    int getStopBits();
 
-/*
 
-DataBits { Data5, Data6, Data7, Data8, UnknownDataBits }
-FlowControl { NoFlowControl, HardwareControl, SoftwareControl, UnknownFlowControl }
-Parity { NoParity, EvenParity, OddParity, SpaceParity, MarkParity, UnknownParity }
-StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
+    QTabWidget *tabWidget;
+    HamLibSerialConfigWidget *serialConfigWidget;
+    HamLibNetworkConfigWidget *networkConfigWidget;
+    QComboBox *rigTypeComboBox;
 
-*/
+    QPushButton  *testHamlibPushButton;
 
-    QPushButton *scanSerialPortButton;
-    QComboBox *rigTypeComboBox, *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox,
-                *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
-    //QSpinBox *serialBaudsSpinBox;
-    QLineEdit *serialPort;
     QSpinBox *pollIntervalQSpinBox;
-    int pollMin, pollMax;
+    int pollMin, pollMax, rigctlport;
 
     HamLibClass *hamlib;
 
-    //RIG *my_rig;            // handle to rig (instance)
-    //freq_t freq;
-    //rig_model_t myrig_model;
-
-    QStringList strings, serialPorts;
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
-
-
-    //int defaultPortSpeed;
+    bool networkRadio, hamlibTestOK;
 };
 
 #endif // SETUPPAGEHAMLIB_H

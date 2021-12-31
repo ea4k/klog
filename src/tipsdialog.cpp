@@ -34,7 +34,7 @@
 
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
-      //qDebug() << "TipsDialog::TipsDialog" << endl;
+      //qDebug() << "TipsDialog::TipsDialog" << QT_ENDL;
     logSeverity = Info;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
     tipTextQLabel = new QLabel;
@@ -42,7 +42,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     //tipTextEdit->setReadOnly(true);
     //tipTextEdit->setWordWrapMode(QTextOption::WordWrap);
     tipId = 1;
-    tipMax = 20;
+    tipMax = 19;
 
     //QPixmap pixmap(":/img/klog_256x256.png");
 
@@ -71,7 +71,8 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     buttonBox->addButton(prevButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::ActionRole));
     buttonBox->addButton(nextButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::ActionRole));
 
-    connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
+    //connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject())) ;
     connect(prevButton, SIGNAL(clicked()), this, SLOT(slotPrevButtonClicked() ) );
     connect(nextButton, SIGNAL(clicked()), this, SLOT(slotNextButtonClicked() ) );
     connect(tipTextQLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotLinkActivated(QString)));
@@ -93,7 +94,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     setLayout(layout);
 
 
-       //qDebug() << "TipsDialog::TipsDialog - END" << endl;
+       //qDebug() << "TipsDialog::TipsDialog - END" << QT_ENDL;
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
@@ -154,9 +155,9 @@ void TipsDialog::setTip(const int _t)
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
         description = tr("<b>Tip #1:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");
     break;
-    case 2:
+   case 2:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in DXCC data
-        description = tr("<b>Tip #2:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInDXCC\">Tools->Fill in DXCC data</a> to automatically read the full log to fill the DXCC QSO data?");
+      description = tr("<b>Tip #2:</b><br>Do you know...<br>You can find the QSLs that you still need to send with <a href=\"#ToolsSendPendingQSL\">Tools->QSL tools...->Find My-QSLs pending to send</a>.<bR>This tool will list you in the search box all the QSOs with the QSL-Sent marked as <i>Requested</i>.");
     break;
     case 3:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->QSL tools...->Find QSO to QSL
@@ -164,20 +165,20 @@ void TipsDialog::setTip(const int _t)
     break;
     case 4:
         //: Translator: Please make sure that the name of the link is coherent with the menu File->Export Requested QSL to ADIF...
-        description = tr("<b>Tip #4:</b><br>Do you know...<br>You can export your QSO marked as QSL requested with <a href=\"#FileExportQSLADIFToPrint\">File->Export Requested QSL to ADIF...</a> to create an ADIF file that you will be able to import into a QSL tag creation program to print tags for your QSL cards?");
+        description = tr("<b>Tip #4:</b><br>Do you know...<br>You can enter a '*' in the search box, in the search window to search for all the QSOs done with one specific station callsign?");
     break;
     case 5:
-        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can enter a '*' in the search box, in the search window to search for all the QSOs done with one specific station callsign?");
-    break;
-    case 6:
-        //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
-        description = tr("<b>Tip #6:</b><br>Do you know...<br>You can find the file containing all your log and other information in the logbook.dat "
+        description = tr("<b>Tip #5:</b><br>Do you know...<br>You can find the file containing all your log and other information in the logbook.dat "
                          "file and the klogrc file, containing the KLog config file in the KLog folder by opening the"
                          " <a href=\"#FileOpenKLogFolder\">File->KLog folder</a> menu?");
     break;
+    case 6:
+        //: Translator: Please make sure that the name of the link is coherent with the menu File->KLog folder
+        description = tr("<b>Tip #6:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->LoTW tools ...->Sends the log to LoTW calling TQSL.</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
+    break;
     case 7:
         //: Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find My-QSLs pending to send
-        description = tr("<b>Tip #7:</b><br>Do you know...<br>You can find the QSLs that you still need to send with <a href=\"#ToolsSendPendingQSL\">Tools->QSL tools...->Find My-QSLs pending to send</a>.<bR>This tool will list you in the search box all the QSOs with the QSL-Sent marked as <i>Requested</i>.");
+        description = tr("<b>Tip #7:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
     break;
     case 8:
         //: Translator: Please make sure that the name of the link is coherent with the menu QSL tools...->Find DX-QSLs pending to receive
@@ -194,7 +195,7 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #11:</b><br>Do you know...<br>You can subscribe to the <a href=https://t.me/KLogES>Spanish Telegram group</a> to discuss about KLog in Spanish?");
     break;
     case 12:
-        description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=https://lists.nongnu.org/mailman/listinfo/klog-users>KLog-users mailing list</a> to discuss via email about KLog in English?");
+        description = tr("<b>Tip #12:</b><br>Do you know...<br>You can subscribe to <a href=https://groups.io/g/klog>KLog mailing list</a> to discuss via email about KLog in English?");
     break;
     case 13:
         description = tr("<b>Tip #13:</b><br>Do you know...<br>You can <a href=https://twitter.com/_ea4k>follow EA4K on twitter</a> to get updates about KLog?");
@@ -217,13 +218,6 @@ void TipsDialog::setTip(const int _t)
     case 19:
         description = tr("<b>Tip #19:</b><br>Do you know...<br>You can right-click on a QSO and select <i>Check in QRZ.com</i> to check that callsign in QRZ.com?");
     break;
-    case 20:
-        description = tr("<b>Tip #20:</b><br>Do you know...<br>You can see the QSO that confirms one specific DXCC entity in one specific band by poiting your mouse over that band in the DXCC widget?");
-    break;
-    case 21:
-        //: Translator: Please make sure that the name of the link is coherent with the menu File->Export ADIF for LoTW...
-        description = tr("<b>Tip #21:</b><br>Do you know...<br>You can upload your QSO marked as queued to LoTW via TQSL with <a href=\"#ToolsUploadLoTW\">Tools->Upload to LoTW...</a> ?<br><br>You have to configure TQSL in the preferences to be able to use this functionality.");
-    break;
     default:
         //description = tr("TIP-Default: Text");
         description = "";
@@ -234,14 +228,14 @@ void TipsDialog::setTip(const int _t)
     tipTextQLabel->setText(description);
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "TipsDialog::setTip: END"  << endl;
+      //qDebug() << "TipsDialog::setTip: END"  << QT_ENDL;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 
-      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << endl;
+      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << QT_ENDL;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
     {

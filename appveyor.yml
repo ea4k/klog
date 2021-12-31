@@ -1,0 +1,11 @@
+version: build{build}
+
+image:
+  - Ubuntu2004
+
+install:
+  - sh: sudo apt-get -qq update
+  - sh: sudo apt install -qqy g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
+build_script:
+  - qmake KLog.pro
+  - make

@@ -43,6 +43,7 @@
 #include "awarddxmarathon.h"
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "klogdefinitions.h"
 
 class QProgressDialog;
 
@@ -69,7 +70,7 @@ public:
     int getDXCCConfirmed(const int _logNumber);
     int getWAZWorked(const int _logNumber);
     int getWAZConfirmed(const int _logNumber);
-
+    bool updateDXCCBandsStatus(const int _logNumber=0);
 
 
     int getQSOsInLog(const int _logNumber);
@@ -80,12 +81,13 @@ public:
     QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 
     int getEntityDXStatus (const int _enti, const int _bandid, int _modeid = -1, int _log = -1);
-    QString getQSOofAward (const int _enti, const int _bandid);
-    int getQSOIdofAward (const int _enti, const int _bandid);
+    QString getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
+    int getQSOIdofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
 
     int getDXStatus (const QStringList &_qs);
     QString getDXStatusString (const int &_status); // Needs to be called with the output of getDXStatus
-    QString getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
+    QString getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
+    QString getDXCCStatusBand(const int _dxcc, const int _band); // Returns -, W or C (Not worked, worked, Confirmed)
 
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
     QColor getQRZDXStatusColor(const QStringList &_qs); // Receives Entity, band, mode & log
@@ -113,7 +115,7 @@ public:
 private:
 
     void setAwardDXCC(const int _qsoId);
-    //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString _workedOrConfirmed, const int _logNumber, const int _qsoId);
+    //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
 
     int setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid); // Changes the status of a DXCC from worked to confirmed
@@ -135,7 +137,7 @@ private:
     /**/
 
     void setAwardWAZ(const int _qsoId);
-    //bool setAwardWAZ(const int _cqz, const int _band, const int _mode, const QString _workedOrConfirmed, const int _logNumber, const int _qsoId);
+    //bool setAwardWAZ(const int _cqz, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
     /*
     _confirmed = 0     Set as Worked
@@ -160,8 +162,10 @@ private:
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
     bool manageModes;
 
+    QList<EntityBandStatus> dxccStatusList;
+
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void awardDXCCUpdated();
 
 };

@@ -75,6 +75,8 @@ public:
     void setSetEQSLByDefault(const QString &_t);
     void setDeleteAlwaysAdiFile(const bool &_t);
     QString getDeleteAlwaysAdiFile();
+    bool getCheckCalls();
+    void setCheckCalls(const bool &_t);
 
     void setDupeTime(const int _t);
     int getDupeTime();
@@ -100,7 +102,7 @@ private:
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
-    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox;
+    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox, *checkCallsCheckBox;
     //QCheckBox *logSortCheckBox;
     QCheckBox *sendEQSLByDefaultSearchCheckBox, *deleteAlwaysAdiFileCheckBox;
     QString defaultFileName;

@@ -29,7 +29,7 @@
 AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-      //qDebug() << "AwardsWidget::AwardsWidget"   << endl;
+      //qDebug() << "AwardsWidget::AwardsWidget"   << QT_ENDL;
     manageDXMarathon = false;
     logSeverity = Info;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
@@ -64,18 +64,18 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
     clear();
     createUI();
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-       //qDebug() << "AwardsWidget::AwardsWidget - END"   << endl;
+       //qDebug() << "AwardsWidget::AwardsWidget - END"   << QT_ENDL;
 }
 
 AwardsWidget::~AwardsWidget()
 {
-
+    delete(awards);
 }
 
 void AwardsWidget::clear()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-      //qDebug() << "AwardsWidget::clear"   << endl;
+      //qDebug() << "AwardsWidget::clear"   << QT_ENDL;
     /*
     searchBoxLineEdit->clear();
     searchResultsTreeWidget->clear();
@@ -84,14 +84,14 @@ void AwardsWidget::clear()
     */
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "AwardsWidget::clear-END"   << endl;
+      //qDebug() << "AwardsWidget::clear-END"   << QT_ENDL;
 }
 
 
 void AwardsWidget::createUI()
 {
     //searchBoxClearButton->setToolTip(tr("Clear the searches."));
-      //qDebug() << "AwardsWidget::createUI"   << endl;
+      //qDebug() << "AwardsWidget::createUI"   << QT_ENDL;
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
@@ -131,7 +131,7 @@ void AwardsWidget::createUI()
 
 
 #ifdef Q_OS_WIN
-          //qDebug() << "AwardsWidget::createUIDX - WINDOWS DETECTED!"  << endl;
+          //qDebug() << "AwardsWidget::createUIDX - WINDOWS DETECTED!"  << QT_ENDL;
 
     qsoNLabelN->setFrameShadow(QFrame::Raised);
     qsoNLabelN->setFrameStyle(QFrame::StyledPanel);
@@ -164,7 +164,7 @@ void AwardsWidget::createUI()
 
 
 #else
-      //qDebug() << "AwardsWidget::createUIDX - NO WINDOWS DETECTED!"  << endl;
+      //qDebug() << "AwardsWidget::createUIDX - NO WINDOWS DETECTED!"  << QT_ENDL;
 
     //localLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     qsoNLabelN->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -182,12 +182,12 @@ void AwardsWidget::createUI()
 
 #endif
 
-      //qDebug() << "AwardsWidget::createUI-125"   << endl;
+      //qDebug() << "AwardsWidget::createUI-125"   << QT_ENDL;
     //reconfigureyearlyUI(manageyearly);
     yearlyScoreLabelN->setText(tr("Score"));
     yearlyLabelN->setText(tr("Annual"));
 
-      //qDebug() << "AwardsWidget::createUI-135"   << endl;
+      //qDebug() << "AwardsWidget::createUI-135"   << QT_ENDL;
     QGridLayout *yearlyDLayout = new QGridLayout;
 
     yearlyDLayout->addWidget(yearlyQSOsLabelN, 0, 0);
@@ -197,51 +197,51 @@ void AwardsWidget::createUI()
     yearlyDLayout->addWidget(yearlyDXCCQLCDNumber, 1, 1);
     yearlyDLayout->addWidget(yearlyCQQLCDNumber, 1, 2);
 
-      //qDebug() << "AwardsWidget::createUI-145"   << endl;
+      //qDebug() << "AwardsWidget::createUI-145"   << QT_ENDL;
     QVBoxLayout *yearlyTLayout = new QVBoxLayout;
     yearlyTLayout->addWidget(yearlyLabelN);
     yearlyTLayout->addWidget(operatingYearsComboBox);
 
-      //qDebug() << "AwardsWidget::createUI-150"   << endl;
+      //qDebug() << "AwardsWidget::createUI-150"   << QT_ENDL;
     QGridLayout *dxUpRightAwardsTabLayout = new QGridLayout;
-      //qDebug() << "AwardsWidget::createUI-151"   << endl;
+      //qDebug() << "AwardsWidget::createUI-151"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(awardLabelN, 0, 0);
-      //qDebug() << "AwardsWidget::createUI-152"   << endl;
+      //qDebug() << "AwardsWidget::createUI-152"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(workedLabelN, 0, 1);
-      //qDebug() << "AwardsWidget::createUI-153"   << endl;
+      //qDebug() << "AwardsWidget::createUI-153"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(confirmedLabelN, 0, 2);
-      //qDebug() << "AwardsWidget::createUI-154"   << endl;
+      //qDebug() << "AwardsWidget::createUI-154"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(dxccLabelN, 1, 0);
-      //qDebug() << "AwardsWidget::createUI-155"   << endl;
+      //qDebug() << "AwardsWidget::createUI-155"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(dxccWorkedQLCDNumber, 1, 1);
-      //qDebug() << "AwardsWidget::createUI-156"   << endl;
+      //qDebug() << "AwardsWidget::createUI-156"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(dxccConfirmedQLCDNumber, 1, 2);
-      //qDebug() << "AwardsWidget::createUI-157"   << endl;
+      //qDebug() << "AwardsWidget::createUI-157"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(wazLabelN, 2, 0);
-      //qDebug() << "AwardsWidget::createUI-158"   << endl;
+      //qDebug() << "AwardsWidget::createUI-158"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(wazWorkedQLCDNumber, 2, 1);
-      //qDebug() << "AwardsWidget::createUI-159"   << endl;
+      //qDebug() << "AwardsWidget::createUI-159"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(wazConfirmedQLCDNumber, 2, 2);
-      //qDebug() << "AwardsWidget::createUI-160"   << endl;
+      //qDebug() << "AwardsWidget::createUI-160"   << QT_ENDL;
     //dxUpRightAwardsTabLayout->addWidget(localLabelN, 3, 0);
-      //qDebug() << "AwardsWidget::createUI-161"   << endl;
+      //qDebug() << "AwardsWidget::createUI-161"   << QT_ENDL;
     //dxUpRightAwardsTabLayout->addWidget(localWorkedQLCDNumber, 3, 1);
-      //qDebug() << "AwardsWidget::createUI-162"   << endl;
+      //qDebug() << "AwardsWidget::createUI-162"   << QT_ENDL;
     //dxUpRightAwardsTabLayout->addWidget(localConfirmedQLCDNumber, 3, 2);
-      //qDebug() << "AwardsWidget::createUI-163"   << endl;
+      //qDebug() << "AwardsWidget::createUI-163"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(qsoNLabelN, 4, 0);
-      //qDebug() << "AwardsWidget::createUI-164"   << endl;
+      //qDebug() << "AwardsWidget::createUI-164"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(qsoWorkedQLCDNumber, 4, 1);
-      //qDebug() << "AwardsWidget::createUI-165"   << endl;
+      //qDebug() << "AwardsWidget::createUI-165"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(qsoConfirmedQLCDNumber, 4, 2);
-      //qDebug() << "AwardsWidget::createUI-166"   << endl;
+      //qDebug() << "AwardsWidget::createUI-166"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addLayout(yearlyTLayout, 5, 0);
-      //qDebug() << "AwardsWidget::createUI-167"   << endl;
+      //qDebug() << "AwardsWidget::createUI-167"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addLayout(yearlyDLayout, 5, 1, 1, -1);
-      //qDebug() << "AwardsWidget::createUI-168"   << endl;
+      //qDebug() << "AwardsWidget::createUI-168"   << QT_ENDL;
     dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 6, 1);
 
-      //qDebug() << "AwardsWidget::createUI-200"   << endl;
+      //qDebug() << "AwardsWidget::createUI-200"   << QT_ENDL;
     setLayout(dxUpRightAwardsTabLayout);
 
     //connect(dataProxy, SIGNAL(qsoFound(QStringList)), this, SLOT(slotQsoFound(QStringList)) );
@@ -253,7 +253,7 @@ void AwardsWidget::createUI()
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "AwardsWidget::createUI-END"   << endl;
+      //qDebug() << "AwardsWidget::createUI-END"   << QT_ENDL;
 }
 
 void AwardsWidget::setManageDXMarathon(const bool _dx)
@@ -267,7 +267,7 @@ void AwardsWidget::setManageDXMarathon(const bool _dx)
 /*
 void AwardsWidget::slotSearchClearButtonClicked()
 {
-       //qDebug() << "SearchWidget::slotSearchClearButtonClicked: " << endl;
+       //qDebug() << "SearchWidget::slotSearchClearButtonClicked: " << QT_ENDL;
     searchResultsTreeWidget->clear();
     searchBoxLineEdit->clear();
     searchSelectAllClicked = false;
@@ -315,7 +315,7 @@ void AwardsWidget::slotOperatingYearComboBoxChanged()
 
 void AwardsWidget::showAwards()
 { // Updates and show all the award status tab.
-      //qDebug() << "AwardsWidget::showAwards" << endl;
+      //qDebug() << "AwardsWidget::showAwards" << QT_ENDL;
 /*
   WAZ
   Local
@@ -349,41 +349,35 @@ void AwardsWidget::showAwards()
     }
 
     qsoConfirmedQLCDNumber->display(_num);
-    _num = 0;
+    //_num = 0;
 
-    dxccWorkedQLCDNumber->display(awards->getDXCCWorked(currentLog));
-    _num = 0;
-
-    dxccConfirmedQLCDNumber->display(awards->getDXCCConfirmed(currentLog));
-    _num = 0;
-
+    dxccWorkedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", false, "ALL", currentLog));
+    dxccConfirmedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", currentLog));
     wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog));
-    _num = 0;
-
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
 
     showDXMarathon(selectedYear);
     emit debugLog(Q_FUNC_INFO, "END", logSeverity);
-       //qDebug() << "AwardsWidget::showAwards - END" << endl;
+       //qDebug() << "AwardsWidget::showAwards - END" << QT_ENDL;
 }
 
 void AwardsWidget::showDXMarathon(const int _year)
 {
-          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Year: " << QString::number(_year) << endl;
+          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Year: " << QString::number(_year) << QT_ENDL;
     emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
     int i = 0;
 
     i = awards->getDXMarathonQSO(_year, currentLog);
-          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: QSO: " << QString::number(i) << endl;
+          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: QSO: " << QString::number(i) << QT_ENDL;
     yearlyQSOLCDNumber->display(i);
 
     i = awards->getDXMarathonDXCC(_year, currentLog);
-          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: DXCC: " << QString::number(i) << endl;
+          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: DXCC: " << QString::number(i) << QT_ENDL;
     yearlyDXCCQLCDNumber->display(i);
 
     i = awards->getDXMarathonCQ(_year, currentLog);
     yearlyCQQLCDNumber->display(i);
-          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: CQ: " << QString::number(i) << endl;
+          //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: CQ: " << QString::number(i) << QT_ENDL;
 
     if (manageDXMarathon)
     {
@@ -395,7 +389,7 @@ void AwardsWidget::showDXMarathon(const int _year)
     }
     yearlyScoreQLCDNumber->display(i);
     emit debugLog(Q_FUNC_INFO, "End", logSeverity);
-      //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Score: " << QString::number(i) << endl;
+      //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Score: " << QString::number(i) << QT_ENDL;
 }
 
 void AwardsWidget::reconfigureDXMarathonUI(const bool _dxM)
@@ -480,27 +474,27 @@ void AwardsWidget::fillOperatingYears()
 
     if (dataProxy->getLastQSOid()<=1)
     {
-          //qDebug() << "AwardsWidget::AwardsWidget: 18.4" << endl;
+          //qDebug() << "AwardsWidget::AwardsWidget: 18.4" << QT_ENDL;
         operatingYearsComboBox->addItem(QString::number(selectedYear));
     }
     else
     {
-           //qDebug() << "AwardsWidget::AwardsWidget: 18.5 - currentLog: " << QString::number(currentLog) << endl;
+           //qDebug() << "AwardsWidget::AwardsWidget: 18.5 - currentLog: " << QString::number(currentLog) << QT_ENDL;
         operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
-           //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1 - currentLog: " << QString::number(currentLog) << endl;
+           //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1 - currentLog: " << QString::number(currentLog) << QT_ENDL;
 
         QStringList a;
         a.clear();
         a << dataProxy->getOperatingYears(currentLog);
-           //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1.1 - currentLog: " << QString::number(currentLog) << endl;
+           //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1.1 - currentLog: " << QString::number(currentLog) << QT_ENDL;
         if (!a.isEmpty())
         {
-               //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1.2 - currentLog: " << QString::number(currentLog) << endl;
+               //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1.2 - currentLog: " << QString::number(currentLog) << QT_ENDL;
             operatingYearsComboBox->setCurrentIndex(operatingYearsComboBox->findText(a.last(), Qt::MatchCaseSensitive));
-               //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1.3 - currentLog: " << QString::number(currentLog) << endl;
+               //qDebug() << "AwardsWidget::AwardsWidget: 18.5.1.3 - currentLog: " << QString::number(currentLog) << QT_ENDL;
         }
 
-           //qDebug() << "AwardsWidget::AwardsWidget: 18.5.2" << endl;
+           //qDebug() << "AwardsWidget::AwardsWidget: 18.5.2" << QT_ENDL;
     }
     emit debugLog(Q_FUNC_INFO, "End", logSeverity);
 }

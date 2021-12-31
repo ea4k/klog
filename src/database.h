@@ -40,7 +40,7 @@
 #include "utilities.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.021f; // This is the latest version of the DB.
+const float DBVersionf = 0.023f; // This is the latest version of the DB.
 
 
 struct AwarddxccEntry
@@ -68,7 +68,7 @@ class DataBase //: public QObject
 
 public:
     DataBase(const QString &_parentClass, const QString &_DBName);
-    //DataBase(const QString _softVersion, bool  inmemoryonly = false);
+    //DataBase(const QString &_softVersion, bool  inmemoryonly = false);
     DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName);
     //virtual ~DataBase();
     ~DataBase();
@@ -79,9 +79,9 @@ public:
 
     bool createConnection(const QString &function, bool newDB=false);    // If true that means that we are creating the DB,
                                                 // not just connecting to an existing one.
-                                                // That will be done in the default path
+                                               // That will be done in the default path
     bool reConnect(const QString &_DBName);
-    //bool setDir(const QString _dir);
+    //bool setDir(const QString &_dir);
     QStringList getColumnNamesFromTable(const QString &_tableName);
 
 
@@ -120,16 +120,11 @@ public:
     void logBackup();
     void compress();
 
-
+    QMultiMap<QString, int> fillCountryCodes();
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
 
-    //bool queryAddField(const QString &_field, const QString &value);
-    //bool queryPrepare();
-    //bool queryExec();
 
-    //bool queryPrepare(const QString &_query);
-    //bool queryBind(const QString _field, const QString value);
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
@@ -141,7 +136,7 @@ private:
     //bool beginTransaction();
     //bool commitTransaction();
     bool execQuery(const QString &function, const QString &stringQuery);
-
+    bool updateEntity (const QString &_codeString, const int _code);
     bool createDataBase();
     bool isTheDBCreated();
     bool isTheTableExisting(const QString &_tableName);
@@ -165,8 +160,10 @@ private:
     bool updateTo017(); // Merges the qso_date & time_on fields
     bool updateTo018(); // Creates Subdivision
     bool updateTo019(); // Adds FTS4 and FST4W modes and RS-44 satellite
-    bool updateTo020(); // Adds Q65 mode
+    //bool updateTo020(); // Adds Q65 mode
     bool updateTo021(); // Adds 5M & 8M bands
+    bool updateTo022(); // Recovers the 020 that was not executed and adds the Q65 mode
+    bool updateTo023(); // Fixes the cabrillo fields in the table band
 
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);
@@ -229,7 +226,7 @@ private:
     bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
 
-    void queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
 
 
 
@@ -262,7 +259,7 @@ private:
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
 //signals:
-    //void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    //void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     //void debugLog(QString functionFailed, QString errorCode, int level); // emitted when a function retuns false due to an error
 
 

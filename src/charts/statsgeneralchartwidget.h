@@ -40,6 +40,7 @@ public:
 
 private:
     virtual void createUI();
+
 };
 
 #endif // GENERALCHARTWIDGET_H

@@ -1,4 +1,4 @@
-#***************************************************************************	
+#***************************************************************************
 #                         KLog.pro
 #						  -------------------
 #    begin                : jan 2021
@@ -23,9 +23,13 @@
 # *                                                                           *
 # *****************************************************************************/
 TEMPLATE = subdirs
-
 SUBDIRS += src
 
 CONFIG(debug, debug) {
         SUBDIRS += tests
 }
+message (Compiling)
+
+#QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+#QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage
+#LIBS += -lgcov

@@ -29,7 +29,7 @@
 // This class implements the Dialog to add a new satellite
 //
 #include "dataproxy_sqlite.h"
-
+#include "utilities.h"
 #include <QDialog>
 #include <QtWidgets>
 #include <QSqlQuery>
@@ -74,7 +74,7 @@ private:
     //bool isThereAnyNotManagedSat();
     void createUI();
     void gatherAndSend();
-    bool isItAFreq(const QString _st);
+    bool isItAFreq(const QString &_st);
 
     //void fillWithType(const int _n);
     //void updateAllCats();
@@ -84,6 +84,7 @@ private:
 
 
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
 
     QLineEdit *shortNameLineEdit, *nameLineEdit;
     QLineEdit *uplinkLineEdit, *downlinkLineEdit;

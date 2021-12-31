@@ -29,9 +29,8 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.6
-DEFINES += APP_VERSION="$$VERSION"
-
+VERSION = 1.8.6
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog
 DEFINES += APP_NAME="$$APP_NAME"
@@ -55,8 +54,6 @@ QT += core \
     serialport \
     printsupport \
     charts \
-    quickwidgets \
-    positioning \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
@@ -66,74 +63,15 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 
 HEADERS += setupdialog.h \
     aboutdialog.h \
-    awardswidget.h \     \
-    klogdefinitions.h \
-    widgets/mapwidget.h \
-    widgets/showkloglogwidget.h \
-    elogqrzlog.h \
-    eqslutilities.h \
-    lotwutilities.h \
-    mainqsoentrywidget.h \
-    mainwindow.h \
-    qso.h \
-    searchmodel.h \
-    searchwindow.h \
-    setuppages/setuppageelog.h \
-    setuppages/setuppagesubdivisionnew.h \
-    setuppages/setuppagesubdivisions.h \
-    widgets/adiflotwexportwidget.h \
-    #widgets/advancedsearch/advancedsearchmodel.h \
-    #widgets/advancedsearch/advancedsearchwidget.h \
-    #widgets/advancedsearch/advancedsearchwindow.h \
-    widgets/onlinemessagewidget.h \
-    widgets/showadifimportwidget.h \
-    world.h \
-    logwindow.h \
-    filemanager.h \
-    fileawardmanager.h \
-    database.h \
-    locator.h \
-    dxcluster.h \
-    awards.h \
-    startwizard.h \
-    downloadcty.h \
-    dataproxy_sqlite.h \
-    mainwindowsattab.h \
     awarddxmarathon.h \
-    elogclublog.h \
-    softwareupdate.h \
-    softwareupdatedialog.h \
-    utilities.h \
-    dxccstatuswidget.h \
-    mainwindowmydatatab.h \
-    mainwindowinputcomment.h \
-    mainwindowinputothers.h \
-    mainwindowinputeqsl.h \
-    mainwindowinputqsl.h \
-    logmodel.h \
-    searchwidget.h \
-    infowidget.h \
-    showerrordialog.h \
-    udpserver.h \
-    statisticswidget.h \
+    awards.h \
+    awardswidget.h \
     charts/barchartstats.h \
-    updatesatsdata.h \
-    hamlibclass.h \
-    tipsdialog.h \
-    worldmapwidget.h \
-    setuppages/setuppagemisc.h \
-    setuppages/setuppageuserdata.h \
-    setuppages/setuppagedxcluster.h \
-    setuppages/setuppagecolors.h \
-    setuppages/setuppagelogs.h \
-    setuppages/setuppageworldeditor.h \
-    setuppages/setuppagesats.h \
-    setuppages/setuppagesatsnew.h \
-    setuppages/setuppagehamlib.h \
-    setuppages/setuppagelogsnew.h \
-    setuppages/setuppagebandmode.h \
-    setuppages/setupentitydialog.h \
-    setuppages/setuppageudp.h \
+    charts/statsfieldperbandwidget.h \
+    setuppages/hamlibnetworkconfigwidget.h \
+    setuppages/hamlibserialconfigwidget.h \
+    setuppages/setuppagelogview.h \
+    widgets/showkloglogwidget.h \
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
     charts/statsqsosperyearbarchartwidget.h \
@@ -148,30 +86,106 @@ HEADERS += setupdialog.h \
     charts/statsworkedconfirmedpiechartwidget.h \
     charts/statsworkedsentpiechartwidget.h \
     charts/statsgridsonsatswidget.h \
-    charts/statssentconfirmedpiechartwidget.h
+    charts/statssentconfirmedpiechartwidget.h \
+    database.h \
+    dataproxy_sqlite.h \
+    downloadcty.h \
+    dxcluster.h \
+    dxccstatuswidget.h \
+    elogqrzlog.h \
+    eqslutilities.h \
+    global.h \
+    hamlibclass.h \
+    inputwidgets/mainwindowinputqso.h \
+    inputwidgets/mainwindowinputcomment.h \
+    inputwidgets/mainwindowmydatatab.h \
+    inputwidgets/mainwindowinputothers.h \
+    inputwidgets/mainwindowinputeqsl.h \
+    inputwidgets/mainwindowinputqsl.h \
+    inputwidgets/mainwindowsattab.h\
+    klogdefinitions.h \
+    lotwutilities.h \
+    mainqsoentrywidget.h \
+    mainwindow.h \
+    qso.h \
+    searchmodel.h \
+    searchwindow.h \
+    #widgets/advancedsearch/advancedsearchmodel.h \
+    #widgets/advancedsearch/advancedsearchwidget.h \
+    #widgets/advancedsearch/advancedsearchwindow.h \
+    logwindow.h \
+    filemanager.h \
+    fileawardmanager.h \
+    locator.h \
+    startwizard.h \
+    elogclublog.h \
+    softwareupdate.h \
+    softwareupdatedialog.h \
+    utilities.h \
+    logmodel.h \
+    searchwidget.h \
+    infowidget.h \
+    showerrordialog.h \
+    statisticswidget.h \
+    setuppages/setuppagemisc.h \
+    setuppages/setuppagelogview.h \
+    setuppages/setuppageuserdata.h \
+    setuppages/setuppagedxcluster.h \
+    setuppages/setuppagecolors.h \
+    setuppages/setuppagelogs.h \
+    setuppages/setuppageworldeditor.h \
+    setuppages/setuppagesats.h \
+    setuppages/setuppagesatsnew.h \
+    setuppages/setuppagehamlib.h \
+    setuppages/setuppagelogsnew.h \
+    setuppages/setuppagebandmode.h \
+    setuppages/setupentitydialog.h \
+    setuppages/setuppageudp.h \
+    setuppages/setuppageelog.h \
+    setuppages/setuppagesubdivisionnew.h \
+    setuppages/setuppagesubdivisions.h \
+    tipsdialog.h \
+    udpserver.h \
+    updatesatsdata.h \
+    widgets/adiflotwexportwidget.h \
+    widgets/showkloglogwidget.h \
+    widgets/onlinemessagewidget.h \
+    widgets/showadifimportwidget.h \
+    world.h \
+    worldmapwidget.h
 
 message(Sources)
 
 SOURCES += main.cpp \
     aboutdialog.cpp \
     awardswidget.cpp \
+    charts/statsfieldperbandwidget.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
+    inputwidgets/mainwindowinputqso.cpp \
+    inputwidgets/mainwindowinputcomment.cpp \
+    inputwidgets/mainwindowmydatatab.cpp \
+    inputwidgets/mainwindowinputothers.cpp \
+    inputwidgets/mainwindowinputeqsl.cpp \
+    inputwidgets/mainwindowinputqsl.cpp \
+    inputwidgets/mainwindowsattab.cpp\
     qso.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
+    setuppages/hamlibnetworkconfigwidget.cpp \
+    setuppages/hamlibserialconfigwidget.cpp \
     setuppages/setuppageelog.cpp \
+    setuppages/setuppagelogview.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
     setuppages/setuppagesubdivisions.cpp \
     widgets/adiflotwexportwidget.cpp \
     #widgets/advancedsearch/advancedsearchmodel.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
-    widgets/mapwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     widgets/showkloglogwidget.cpp \
@@ -199,18 +213,12 @@ SOURCES += main.cpp \
     setuppages/setuppagehamlib.cpp \
     setuppages/setupentitydialog.cpp \
     startwizard.cpp \
-    mainwindowsattab.cpp \
     awarddxmarathon.cpp \
     elogclublog.cpp \
     softwareupdate.cpp \
     softwareupdatedialog.cpp \
     utilities.cpp \
     dxccstatuswidget.cpp \
-    mainwindowmydatatab.cpp \
-    mainwindowinputcomment.cpp \
-    mainwindowinputothers.cpp \
-    mainwindowinputeqsl.cpp \
-    mainwindowinputqsl.cpp \
     logmodel.cpp \
     searchwidget.cpp \
     infowidget.cpp \
@@ -273,14 +281,15 @@ message (Translations)
 
 TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ca.ts \
+    translations/klog_cs.ts \
     translations/klog_da.ts \
     translations/klog_de.ts \
     translations/klog_fi.ts \
     translations/klog_fr.ts \
     translations/klog_hr.ts \
     translations/klog_it.ts \
-    translations/klog_pl.ts \
-    translations/klog_ja.ts
+    translations/klog_ja.ts \
+    translations/klog_pl.ts
 
 message(End of translations...)
 
@@ -302,12 +311,14 @@ QMAKE_EXTRA_COMPILERS += updateqm
 
 
 # deploy
-DISTFILES += Changelog COPYING \
-    qml/mapqmlfile.qml
+DISTFILES += Changelog COPYING
 
 unix:!mac {
+    message(unix:!mac)
     DEFINES += APP_LINUX
     CONFIG  += c++11
+    #QMAKE_CXXFLAGS += --coverage
+   #LIBS += -lgcov
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
@@ -328,6 +339,7 @@ unix:!mac {
 }
 
 macx: {
+    message(macx)
     ICON = klog.icns
     TARGET = KLog
     CONFIG += c++11
@@ -336,20 +348,14 @@ macx: {
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
 }
+
 win32: {
+    message(windows)
     RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
     LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
+    LIBS += -L"$$PWD/../../libs/hamlib/bin"
     INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
-    #LIBS += -L"$$PWD/../../libs/hamlib-w32-4.0rc2/lib/gcc" -lhamlib
-    #INCLUDEPATH += "$$PWD/../../libs/hamlib-w32-4.0rc2/include/"
 }
-
-
-else:
-{
-    TARGET = klog
-}
-

@@ -1,0 +1,26 @@
+path_classifiers:
+  test:
+    - test
+extraction:
+  cpp:
+    prepare:    # Customizable step used by all languages.
+      packages:
+        - g++
+        - make
+        - qt5-qmake
+        - qtbase5-dev
+        - qttools5-dev
+        - libqt5charts5-dev
+        - libqt5sql5-sqlite
+        - libhamlib-dev
+        - libqt5serialport5-dev
+    after_prepare:    # Customizable step used by all languages.
+      - export GNU_MAKE=make
+      - export GIT=true
+    configure:    # Customizable step used only by C/C++ extraction.
+      command:
+        - qmake KLog.pro
+    index:    # Customizable step used by all languages.
+      build_command:
+        - "$GNU_MAKE -j8"
+        

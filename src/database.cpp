@@ -29,7 +29,7 @@
 
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 {
-       //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName << endl;
+       //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName << QT_ENDL;
     constrid = 1;
     created = false;
 
@@ -37,25 +37,22 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     softVersion = util->getVersion();
     dbName = _DBName;
     //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
-
-
-       //qDebug() << "DataBase::DataBase1: dbName: " << dbName << endl;
+    //qDebug() << "DataBase::DataBase1: dbName: " << dbName << QT_ENDL;
 
     //db = QSqlDatabase::database();
 
     dbVersion = DBVersionf;
     createConnection(QString(Q_FUNC_INFO)+"1");
-       //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << endl;
-       //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << endl;
+       //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName << QT_ENDL;
+       //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() << QT_ENDL;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
-
-       //qDebug() << "DataBase::DataBase: PLAIN: - END" << endl;
+       //qDebug() << "DataBase::DataBase: PLAIN: - END" << QT_ENDL;
 }
 
 DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
 {
-       //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName << endl;
+    //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName << QT_ENDL;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     constrid = 2;
     created = false;
@@ -69,9 +66,9 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     dbName = _DBName;
     //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
 
-       //qDebug() << "DataBase::DataBase2: dbName: " << dbName << endl;
+       //qDebug() << "DataBase::DataBase2: dbName: " << dbName << QT_ENDL;
     //dbDir = dbName;
-       //qDebug() << "DataBase::DataBase: DB(string): " << dbName << endl;
+       //qDebug() << "DataBase::DataBase: DB(string): " << dbName << QT_ENDL;
 
     //db = QSqlDatabase::database();
 
@@ -79,29 +76,27 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     //db = QSqlDatabase::removeDatabase("QSQLITE");
     if (util->getVersionDouble()>0)
     {
-
         createConnection(QString(Q_FUNC_INFO)+"2");
-
     }
-       //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << endl;
-       //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << endl;
+       //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName << QT_ENDL;
+       //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() << QT_ENDL;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
-
-       //qDebug() << "DataBase::DataBase2: END"  << endl;
+       //qDebug() << "DataBase::DataBase2: END"  << QT_ENDL;
 }
 
 
 DataBase::~DataBase()
 {
-         //qDebug() << "DataBase::~DataBase"  << endl;
+    delete(util);
+         //qDebug() << "DataBase::~DataBase"  << QT_ENDL;
 }
 
 //void DataBase::slotPrintErrors(QString _func, QString _msg, int _level)
 //{
-    //qDebug() << "DataBase::slotPrintErrors: FUNC: " << _func << endl;
-    //qDebug() << "DataBase::slotPrintErrors: MSG: " << _msg << endl;
-    //qDebug() << "DataBase::slotPrintErrors: LEVEL: " << QString::number(_level) << endl;
+    //qDebug() << "DataBase::slotPrintErrors: FUNC: " << _func << QT_ENDL;
+    //qDebug() << "DataBase::slotPrintErrors: MSG: " << _msg << QT_ENDL;
+    //qDebug() << "DataBase::slotPrintErrors: LEVEL: " << QString::number(_level) << QT_ENDL;
 //}
 
 QString DataBase::getSoftVersion()
@@ -110,7 +105,6 @@ QString DataBase::getSoftVersion()
 
     QString stringQuery ("SELECT MAX (softversion) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
-
 
     if (sqlOK)
     {
@@ -127,12 +121,10 @@ QString DataBase::getSoftVersion()
     }
     else
     { //ERROR in Query execution
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         return QString();
     }
-    //return QString();
-
 }
 
 QString DataBase::getDBVersion()
@@ -141,7 +133,6 @@ QString DataBase::getDBVersion()
 
     QString stringQuery ("SELECT MAX (dbversion) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
-
 
     if (sqlOK)
     {
@@ -158,15 +149,14 @@ QString DataBase::getDBVersion()
     }
     else
     { //ERROR in Query execution
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         return QString();
     }
-    //return QString();
 }
 
 /*
- bool DataBase::setDir(const QString _dir)
+ bool DataBase::setDir(const QString &_dir)
 {
     dbDir = _dir;
     return true;
@@ -180,8 +170,7 @@ QString DataBase::getDBName()
 
 QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 {
-
-      //qDebug() << "DataBase::getColumnNamesFromTable: " << _tableName << endl;
+      //qDebug() << "DataBase::getColumnNamesFromTable: " << _tableName << QT_ENDL;
    QSqlQuery query;
 
    QString queryString = QString("PRAGMA table_info('%1')").arg(_tableName);
@@ -192,7 +181,7 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
     QString aux;
    if (sqlOK)
    {
-          //qDebug() << "DataBase::getColumnNamesFromTable: OK" << endl;
+          //qDebug() << "DataBase::getColumnNamesFromTable: OK" << QT_ENDL;
        while(query.next())
        {
            if (query.isValid())
@@ -201,7 +190,7 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
                if (( aux.toUpper() != "ID" ) && (aux.length()>0))
                {
                    list << aux;
-                      //qDebug() << "DataBase::getColumnNamesFromTable: " << (query.value(1)).toString() << endl;
+                      //qDebug() << "DataBase::getColumnNamesFromTable: " << (query.value(1)).toString() << QT_ENDL;
                }
            }
        }
@@ -209,20 +198,18 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
     }
     else
     {
-       queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+       queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
     query.finish();
-       //qDebug() << "DataBase::getColumnNamesFromTable: " << QString::number(list.size()) << endl;
+       //qDebug() << "DataBase::getColumnNamesFromTable: " << QString::number(list.size()) << QT_ENDL;
     return list;
-
 }
 
 void DataBase::compress()
 {
-         //qDebug() << "DataBase::compress " << endl;
-
+    //qDebug() << "DataBase::compress " << QT_ENDL;
     //QSqlDatabase db = QSqlDatabase::database();
-    if (!db.open()) {
+    if (!db.open()) { /* Flawfinder: ignore */
         QMessageBox::warning(nullptr, QObject::tr("Database Error"),
                              db.lastError().text());
     }
@@ -230,80 +217,76 @@ void DataBase::compress()
     {
         db.exec("VACUUM;");
     }
-
 }
 
 bool DataBase::reConnect(const QString &_DBName)
 {
-       //qDebug() << "DataBase::reConnect:"  << endl;
+       //qDebug() << "DataBase::reConnect:"  << QT_ENDL;
     db.close();
     dbName = _DBName;
-        //qDebug() << "DataBase::reConnect: DB closed"  << endl;
-        //qDebug() << "DataBase::reConnect: DB: " << dbDir  << endl;
+        //qDebug() << "DataBase::reConnect: DB closed"  << QT_ENDL;
+        //qDebug() << "DataBase::reConnect: DB: " << dbDir  << QT_ENDL;
     bool sqlOK =  createConnection(Q_FUNC_INFO);
     if (!sqlOK)
     {
    //// emit debugLog(Q_FUNC_INFO, "1", 7);
     }
     return sqlOK;
-        //qDebug() << "DataBase::reConnect: END"  << endl;
-
+        //qDebug() << "DataBase::reConnect: END"  << QT_ENDL;
 }
 
 bool DataBase::createConnection(const QString &function, bool newDB)
 {
-   //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << endl;
+   //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion << QT_ENDL;
     QString stringQuery;
     QSqlQuery query;
 
-
     if (!db.isOpen())
     {
-       //qDebug() << "DataBase::createConnection: DB NOT Opened" << endl;
-
+       //qDebug() << "DataBase::createConnection: DB NOT Opened" << QT_ENDL;
         if (db.isValid())
         {
-            //qDebug() << "DataBase::createConnection: DB is Valid"  << endl;
+            //qDebug() << "DataBase::createConnection: DB is Valid"  << QT_ENDL;
         }
         else
         {
-           //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << endl;
+           //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  << QT_ENDL;
             if (db.isOpen())
             {
-             //qDebug() << "DataBase::createConnection: DB is already open"  << endl;
+             //qDebug() << "DataBase::createConnection: DB is already open"  << QT_ENDL;
             }
             else
             {
-               //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< endl;
+               //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName()<< QT_ENDL;
                 QSqlDatabase::removeDatabase("qt_sql_default_connection");
                 db = QSqlDatabase::addDatabase("QSQLITE");
             }
 
-           //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << endl;
+           //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  << QT_ENDL;
             db.setDatabaseName(dbName);
-           //qDebug() << "DataBase::createConnection: end of not valid"  << endl;
+           //qDebug() << "DataBase::createConnection: end of not valid"  << QT_ENDL;
         }
-       //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << endl;
-        if (!db.open())
+       //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  << QT_ENDL;
+        if (!db.open()) /* Flawfinder: ignore */
         {
-        //qDebug() << "DataBase::createConnection:Not open "  << endl;
+        //qDebug() << "DataBase::createConnection:Not open "  << QT_ENDL;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
-              //qDebug() << "DataBase::createConnection: DB creation ERROR"  << endl;
+              //qDebug() << "DataBase::createConnection: DB creation ERROR"  << QT_ENDL;
            //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         else
         {
-           //qDebug() << "DataBase::createConnection: created and opened after the creation" << endl;
+           //qDebug() << "DataBase::createConnection: created and opened after the creation" << QT_ENDL;
             if (isTheDBCreated())
             {
-           //qDebug() << "DataBase::createConnection: DB Exists"  << endl;
+           //qDebug() << "DataBase::createConnection: DB Exists"  << QT_ENDL;
             }
             else
             {
-           //qDebug() << "DataBase::createConnection: DB does not exist"  << endl;
+           //qDebug() << "DataBase::createConnection: DB does not exist"  << QT_ENDL;
                 createDataBase();
-           //qDebug() << "DataBase::createConnection: After creation"  << endl;
+           //qDebug() << "DataBase::createConnection: After creation"  << QT_ENDL;
                 stringQuery ="PRAGMA main.page_size = 4096;";
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
@@ -329,57 +312,52 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     else
     {
-      //qDebug() << "DataBase::createConnection: No Error, DB is open" << endl;
+      //qDebug() << "DataBase::createConnection: No Error, DB is open" << QT_ENDL;
     }
-
-
-     //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << endl;
+     //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " << QT_ENDL;
 
     if (createBandModeMaps())
     {
-         //qDebug() << "DataBase::createConnection: createBandModeMaps true" << endl;
+         //qDebug() << "DataBase::createConnection: createBandModeMaps true" << QT_ENDL;
     }
     else
     {
-          //qDebug() << "DataBase::createConnection: createBandModeMaps false SSSSSSSSSSSSSSSTOOOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPPPPP" << endl;
+          //qDebug() << "DataBase::createConnection: createBandModeMaps false Stop" << QT_ENDL;
     }
-
     //created = true;
-   //qDebug() << "DataBase::createConnection -------------------------------------------- END" << endl;
+   //qDebug() << "DataBase::createConnection -------------------------------------------- END" << QT_ENDL;
+
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << endl;
-
+    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  << QT_ENDL;
     QSqlQuery query;
     int _num = 0;
 
     QString stringQuery ("SELECT count(id) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
 
-
     if (sqlOK)
     {
-           //qDebug() << "DataBase::isTheDBCreated - SQL OK"  << endl;
+           //qDebug() << "DataBase::isTheDBCreated - SQL OK"  << QT_ENDL;
         query.next();
         if (query.isValid())
         {
-
-                //qDebug() << "DataBase::isTheDBCreated - valid"  << endl;
+                //qDebug() << "DataBase::isTheDBCreated - valid"  << QT_ENDL;
             _num = (query.value(0)).toInt();
             if (_num > 0)
             {
-                //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << endl;
-                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << endl;
+                //qDebug() << "DataBase::isTheDBCreated - DB Exists"  << QT_ENDL;
+                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END TRUE" << QT_ENDL;
                  query.finish();
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << endl;
-                    //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << endl;
+                    //qDebug() << "DataBase::isTheDBCreated - DB does not Exist"  << QT_ENDL;
+                    //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-1" << QT_ENDL;
                  query.finish();
                 //// emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
@@ -387,9 +365,8 @@ bool DataBase::isTheDBCreated()
         }
         else
         {
-
-                //qDebug() << "DataBase::isTheDBCreated - not valid"  << endl;
-                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << endl;
+                //qDebug() << "DataBase::isTheDBCreated - not valid"  << QT_ENDL;
+                //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" << QT_ENDL;
              query.finish();
             //// emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
@@ -397,25 +374,24 @@ bool DataBase::isTheDBCreated()
     }
     else
     { //ERROR in Query execution
-           //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------ ERROR IN QUERY EXECUTION" << endl;
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+           //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------ ERROR IN QUERY EXECUTION" << QT_ENDL;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //query.finish();
-       //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << endl;
+       //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-X" << QT_ENDL;
     //return false;
-
 }
 
 bool DataBase::recreateTableLog()
 {
-    //qDebug() << "DataBase::recreateTableLog" << endl;
+    //qDebug() << "DataBase::recreateTableLog" << QT_ENDL;
 
     if (!createTableLog(false))         // Create modetemp
     {
-        //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << endl;
+        //qDebug() << "DataBase::recreateTableLog: CreateTableLog returned false" << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
@@ -425,7 +401,6 @@ bool DataBase::recreateTableLog()
     QStringList columns;
     columns.clear();
     columns << getColumnNamesFromTable("log");
-
 
     queryString =  columns.first();
 
@@ -439,7 +414,6 @@ bool DataBase::recreateTableLog()
 
     queryString = "INSERT INTO logtemp (" + queryString + ", " + columns.last() + ") SELECT " + queryString + ", " + columns.last() + " FROM log";
 
-
     if (execQuery(Q_FUNC_INFO, queryString))
     {
         if (execQuery(Q_FUNC_INFO, "DROP table log"))
@@ -450,44 +424,39 @@ bool DataBase::recreateTableLog()
             }
             else
             {
-                //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << endl;
+                //qDebug() << "recreateTableLog ERROR - logTemp not renamed" << QT_ENDL;
                //// emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
         else
         {
-            //qDebug() << "recreateTableLog ERROR - log table not dropped" << endl;
+            //qDebug() << "recreateTableLog ERROR - log table not dropped" << QT_ENDL;
         }
     }
     else
     {
-        //qDebug() << "recreateTableLog ERROR - Data not moved" << endl;
+        //qDebug() << "recreateTableLog ERROR - Data not moved" << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
-       //qDebug() << "recreateTableLog END" << endl;
+       //qDebug() << "recreateTableLog END" << QT_ENDL;
     return true;
 }
 
 bool DataBase::createTableLog(bool temp)
 { //Creates a temporal table or the normal one.
-
-    //QString logToCreate = "log";
-
-    QSqlQuery query;
     QString stringQuery = QString();
     if (temp)
     {
         stringQuery = "CREATE TABLE log" ;
-            //qDebug() << "DataBase::createTableLog: log"  << endl;
+            //qDebug() << "DataBase::createTableLog: log"  << QT_ENDL;
     }
     else
     {
         stringQuery = "CREATE TABLE logtemp" ;
-            //qDebug() << "DataBase::createTableLog: logtemp"  << endl;
+            //qDebug() << "DataBase::createTableLog: logtemp"  << QT_ENDL;
     }
-
              stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
              "qso_date DATETIME NOT NULL, " // 2020-01-01 10:12:01
              "call VARCHAR(40) NOT NULL, "
@@ -650,7 +619,7 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (dxcc) REFERENCES entity, "
              "FOREIGN KEY (bandid) REFERENCES band)");
 
-         //qDebug() << "DataBase::createTableLog: " << stringQuery  << endl;
+         //qDebug() << "DataBase::createTableLog: " << stringQuery  << QT_ENDL;
 
     if (execQuery(Q_FUNC_INFO, stringQuery))
     {
@@ -659,8 +628,6 @@ bool DataBase::createTableLog(bool temp)
     else
     {
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
-
-
         return false;
     }
 /*
@@ -674,7 +641,7 @@ bool DataBase::createTableLog(bool temp)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return false;
     }
 */
@@ -682,8 +649,8 @@ bool DataBase::createTableLog(bool temp)
 
 bool DataBase::createDataBase()
 {
-    //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << endl;
-    QSqlQuery query;
+    //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  << QT_ENDL;
+    //QSqlQuery query;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists log");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists band");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists mode");
@@ -818,7 +785,6 @@ bool DataBase::createDataBase()
       populateContestData();
       populatePropagationModes();
 
-
     execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
     execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
     execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
@@ -845,15 +811,13 @@ bool DataBase::createDataBase()
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
-   //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << endl;
+   //qDebug() << "DataBase::createDataBase ------------------------------------- END"  << QT_ENDL;
     return true;
-
 }
 
 bool DataBase::recreateTableDXCC()
 {
-    QSqlQuery query;
-
+    //QSqlQuery query;
     if (execQuery(Q_FUNC_INFO, "DROP TABLE awarddxcc"))
     {
         return createTableAwardDXCC();
@@ -886,7 +850,7 @@ bool DataBase::createTableAwardDXCC()
 
 bool DataBase::recreateTableWAZ()
 {
-    QSqlQuery query;
+    //QSqlQuery query;
 
     if (execQuery(Q_FUNC_INFO, "DROP TABLE awardwaz"))
     {
@@ -897,7 +861,6 @@ bool DataBase::recreateTableWAZ()
 
 bool DataBase::createTableAwardWAZ()
 {
-
     return execQuery(Q_FUNC_INFO, "CREATE TABLE awardwaz ("
                            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                            "cqz INTEGER NOT NULL,"
@@ -921,10 +884,9 @@ bool DataBase::createTableAwardWAZ()
 
 bool DataBase::createTableSubdivision(const bool NoTmp)
 {
-    //qDebug() << "DataBase::createTableSubdivisions" << endl;
+    //qDebug() << "DataBase::createTableSubdivisions" << QT_ENDL;
     // NoTmp = false => TMP data table to operate and be deleted afterwards
-
-    //qDebug() << "DataBase::createTableSubdivisions" << endl;
+    //qDebug() << "DataBase::createTableSubdivisions" << QT_ENDL;
 
     QString stringQuery = QString();
     QString table = QString();
@@ -959,16 +921,16 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
     QString delS = QString();
     delS = "DROP TABLE IF exists " + table;
     execQuery(Q_FUNC_INFO, delS);
-    //qDebug() << "DataBase::createTableSubdivision - END" << endl;
+    //qDebug() << "DataBase::createTableSubdivision - END" << QT_ENDL;
     return execQuery(Q_FUNC_INFO, stringQuery);
 
-    //qDebug() << "DataBase::createTableSubdivision - END" << endl;
+    //qDebug() << "DataBase::createTableSubdivision - END" << QT_ENDL;
 }
 
 
 int DataBase::getBandIdFromName(const QString &b)
 {
-    //qDebug() << "DataBase::getBandIdFromName: " << b << endl;
+    //qDebug() << "DataBase::getBandIdFromName: " << b << QT_ENDL;
     QString band = b.toUpper();
     QSqlQuery query;
     if (isValidBand(band))
@@ -982,44 +944,43 @@ int DataBase::getBandIdFromName(const QString &b)
             query.next();
             if ( query.isValid() )
             {
-                //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+                //qDebug() << "DataBase::getBandIdFromName: OK" << QString::number((query.value(0)).toInt()) << QT_ENDL;
                 int v = (query.value(0)).toInt();
                 query.finish();
                 return v;
-
             }
             else
             {
-                //qDebug() << "DataBase::getBandIdFromName: NOK 1" << endl;
+                //qDebug() << "DataBase::getBandIdFromName: NOK 1" << QT_ENDL;
                 query.finish();
                 return -1;
             }
         }
         else
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             query.finish();
             return -2;
         }
-        //qDebug() << "DataBase::getBandIdFromName: NOK 3" << endl;
+        //qDebug() << "DataBase::getBandIdFromName: NOK 3" << QT_ENDL;
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << band << endl;
+           //qDebug() << "DataBase::getBandIdFromName: BAND NOT VALID: " << band << QT_ENDL;
     }
-    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << band << endl;
+    //qDebug() << "DataBase::getBandIdFromName: Will return -3 from: " << band << QT_ENDL;
     query.finish();
     return -3;
 }
 
 int DataBase::getModeIdFromName(const QString &b)
 {
-       //qDebug() << "DataBase::getModeIdFromName: " << b << endl;
+       //qDebug() << "DataBase::getModeIdFromName: " << b << QT_ENDL;
     QSqlQuery query;
     if (isValidMode(b, false))
     {
         QString queryString = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
-            //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << endl;
+            //qDebug() << "DataBase::getModeIdFromName: queryString: " << queryString << QT_ENDL;
         bool sqlOK = query.exec(queryString);
 
         if (sqlOK)
@@ -1027,26 +988,23 @@ int DataBase::getModeIdFromName(const QString &b)
             query.next();
             if ( query.isValid() )
             {
-                    //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << endl;
+                    //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) << QT_ENDL;
                 return (query.value(0)).toInt();
-
             }
             else
             {
-                    //qDebug() << "DataBase::getModeIdFromName: NOK 1" << endl;
+                    //qDebug() << "DataBase::getModeIdFromName: NOK 1" << QT_ENDL;
                 query.finish();
                 return -1;
             }
         }
         else
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             query.finish();
         }
     }
-
-
-        //qDebug() << "DataBase::getModeIdFromName: NOK 3" << endl;
+        //qDebug() << "DataBase::getModeIdFromName: NOK 3" << QT_ENDL;
     query.finish();
     return -1;
 }
@@ -1054,7 +1012,7 @@ int DataBase::getModeIdFromName(const QString &b)
 
 int DataBase::getModeIdFromSubMode(const QString &b)
 {
-        //qDebug() << "DataBase::getModeIdFromSubMode: " << b << endl;
+     //qDebug() << "DataBase::getModeIdFromSubMode: " << b << QT_ENDL;
      QSqlQuery query;
      QString queryString = QString("SELECT id FROM mode WHERE submode='%1'").arg(b);
 /*
@@ -1069,39 +1027,36 @@ int DataBase::getModeIdFromSubMode(const QString &b)
 */
      bool sqlOK = query.exec(queryString);
 
-
      if (sqlOK)
      {
          query.next();
          if (query.isValid())
          {
-                  //qDebug() << "DataBase::getModeIdFromName: OK - Mode: " << b << " - " << (query.value(0)).toString() << endl;
+                  //qDebug() << "DataBase::getModeIdFromName: OK - Mode: " << b << " - " << (query.value(0)).toString() << QT_ENDL;
              return (query.value(0)).toInt();
          }
          else
          {
-                  //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< endl;
+                  //qDebug() << "DataBase::getModeIdFromName: NOK 1" << "-------- END"<< QT_ENDL;
              query.finish();
              return -1;
          }
      }
      else
      {
-              //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< endl;
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+              //qDebug() << "DataBase::getModeIdFromName: NOK 2" << "-------- END"<< QT_ENDL;
+         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
          query.finish();
          return -1;
      }
-
-
-         //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< endl;
+         //qDebug() << "DataBase::getModeIdFromName: NOK 3" << "-------- END"<< QT_ENDL;
      //query.finish();
      //return -1;
 }
 
 QString DataBase::getBandNameFromNumber(const int _n)
 {
-       //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << endl;
+    //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) << QT_ENDL;
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
 
@@ -1114,30 +1069,29 @@ QString DataBase::getBandNameFromNumber(const int _n)
         {
             if ( isValidBand((query.value(0)).toString())  )
             {
-                    //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << endl;
+                    //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" << QT_ENDL;
                 return (query.value(0)).toString();
             }
             else
             {
-                   //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << endl;
+                   //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" << QT_ENDL;
                 query.finish();
                 return QString();
             }
         }
         else
         {
-                //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << endl;
+            //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" << QT_ENDL;
             query.finish();
             return QString();
         }
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
     query.finish();
     return QString();
-
 }
 
 
@@ -1145,7 +1099,7 @@ QString DataBase::getBandNameFromNumber(const int _n)
 QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 {
     //TODO May fail to identify the sumbode(mode/modetemp... (Review STEP-2 o 3)
-        //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) << endl;
+        //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) << QT_ENDL;
     QSqlQuery query;
     QString queryString;
     if (_tmp)
@@ -1162,34 +1116,34 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
     }
     query.next();
-         //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) <<" - " <<  isValidMode((query.value(0)).toString(), _tmp) << endl;
+         //qDebug() << "DataBase::getModeNameFromNumber: " << QString::number(_n) <<" - " <<  isValidMode((query.value(0)).toString(), _tmp) << QT_ENDL;
     if ( query.isValid() )
     {
-            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-1" << endl;
+            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-1" << QT_ENDL;
         return (query.value(0)).toString();
         /* In a version when I change the mode table to include submode, this comparison may need to be checked in both versions
          * at once, failing the query as old version was not having the column submode
          *
         if ( isValidMode((query.value(0)).toString(), _tmp))
         {
-                 //qDebug() << "DataBase::getModeNameFromNumber - Found: " << (query.value(0)).toString() << endl;
+                 //qDebug() << "DataBase::getModeNameFromNumber - Found: " << (query.value(0)).toString() << QT_ENDL;
             return (query.value(0)).toString();
         }
         else
         {
-                 //qDebug() << "DataBase::getModeNameFromNumber - Not Valid Mode: " << (query.value(0)).toString()  << endl;
+                 //qDebug() << "DataBase::getModeNameFromNumber - Not Valid Mode: " << (query.value(0)).toString()  << QT_ENDL;
             return QString();
         }
         */
     }
     else
     {
-             //qDebug() << "DataBase::getModeNameFromNumber - Not Valid record"  << endl;
-            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-2" << endl;
+             //qDebug() << "DataBase::getModeNameFromNumber - Not Valid record"  << QT_ENDL;
+            //qDebug() << "DataBase::getModeNameFromNumber: ------ END-2" << QT_ENDL;
         query.finish();
         return QString();
     }
@@ -1197,7 +1151,7 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 
 QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 {
-       //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) << endl;
+       //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) << QT_ENDL;
     QSqlQuery query;
     QString queryString;
     if (_tmp)
@@ -1209,10 +1163,9 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
         queryString = QString("SELECT submode FROM mode WHERE id='%1'").arg(_n);
     }
 
-
     bool sqlOk = query.exec(queryString);
 
-         //qDebug() << "DataBase::getSubModeNameFromNumber - query: " << query.lastQuery() << endl;
+   //qDebug() << "DataBase::getSubModeNameFromNumber - query: " << query.lastQuery() << QT_ENDL;
 
     if (sqlOk)
     {
@@ -1222,48 +1175,45 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
             {
                 if ( isValidMode((query.value(0)).toString(), _tmp)  )
                 {
-                        //qDebug() << "DataBase::getSubModeNameFromNumber: RETURN: " << (query.value(0)).toString() << endl;
+                        //qDebug() << "DataBase::getSubModeNameFromNumber: RETURN: " << (query.value(0)).toString() << QT_ENDL;
                     return (query.value(0)).toString();
                 }
                 else
                 {
-                        //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" << endl;
+                        //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" << QT_ENDL;
                     query.finish();
                     return QString();
                 }
             }
             else
             {
-                    //qDebug() << "DataBase::getSubModeNameFromNumber: query not valid - END" << endl;
+                    //qDebug() << "DataBase::getSubModeNameFromNumber: query not valid - END" << QT_ENDL;
                 query.finish();
                 return QString();
             }
-
         }
         else
         {
-                //qDebug() << "DataBase::getSubModeNameFromNumber: query not next - END" << endl;
+                //qDebug() << "DataBase::getSubModeNameFromNumber: query not next - END" << QT_ENDL;
             query.finish();
             return QString();
         }
-
-
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" << QT_ENDL;
         query.finish();
         return QString();
     }
-        //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << endl;
+    //qDebug() << "DataBase::getSubModeNameFromNumber: - END-X" << QT_ENDL;
     //query.finish();
     //return QString();
 }
 
 bool DataBase::isValidBand (const QString &b)
 {
-        //qDebug() << "DataBase::isValidBand: " << b << endl;
+    //qDebug() << "DataBase::isValidBand: " << b << QT_ENDL;
     if (b.length()<1)
     {
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -1288,11 +1238,10 @@ bool DataBase::isValidBand (const QString &b)
            //// emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
-
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
     }
    //emit debugLog(Q_FUNC_INFO, "3", 7);
@@ -1301,12 +1250,12 @@ bool DataBase::isValidBand (const QString &b)
 
 bool DataBase::isValidMode (const QString &b, const bool _tmp)
 {
-        //qDebug() << "DataBase::isValidMode: " << b << endl;
+        //qDebug() << "DataBase::isValidMode: " << b << QT_ENDL;
     QString stringQuery;
     if (b.length()<2)
     {
-             //qDebug() << "DataBase::isValidMode: (length<2) FALSE"  << endl;
-       //// emit debugLog(Q_FUNC_INFO, "1", 7);
+       //qDebug() << "DataBase::isValidMode: (length<2) FALSE"  << QT_ENDL;
+       //emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
 
@@ -1325,7 +1274,7 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
 
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
     }
     query.next();
@@ -1334,67 +1283,64 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
 
 bool DataBase::isValidBandNumber (const int b)
 {
-        //qDebug() << "DataBase::isValidBandNumber: " << QString::number(b)<< endl;
+        //qDebug() << "DataBase::isValidBandNumber: " << QString::number(b)<< QT_ENDL;
     return isValidBand(getBandNameFromNumber(b));
-
 }
 
 bool DataBase::isValidModeNumber (const int b)
 {
-        //qDebug() << "DataBase::isValidModeNumber: " << QString::number(b)<< endl;
+        //qDebug() << "DataBase::isValidModeNumber: " << QString::number(b)<< QT_ENDL;
     return isValidMode(getModeNameFromNumber(b, false), false);
 }
 
 int DataBase::getBandIdFromFreq(const QString &fr)
 {
-        //qDebug() << "DataBase::getBandIdFromFreq: " << fr << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: " << fr << QT_ENDL;
     //Freq should be in MHz
 
-    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr).arg(fr);
+    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr, fr);
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
 
-        //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << endl;
+        //qDebug() << "DataBase::getBandIdFromFreq: Query: " << query.lastQuery() << QT_ENDL;
     if (sqlOK)
     {
-           //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << endl;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query OK" << QT_ENDL;
         query.next();
 
 
         if (query.isValid())
         {
-                //qDebug() << "DataBase::getBandIdFromFreq: Query OK - END" << endl;
+                //qDebug() << "DataBase::getBandIdFromFreq: Query OK - END" << QT_ENDL;
             return (query.value(0)).toInt();
         }
         else
         {
-                //qDebug() << "DataBase::getBandIdFromFreq: Valid NOK - END" << endl;
+                //qDebug() << "DataBase::getBandIdFromFreq: Valid NOK - END" << QT_ENDL;
             query.finish();
             return -1;
         }
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << endl;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() << endl;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().nativeErrorCode() << endl;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" << QT_ENDL;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() << QT_ENDL;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().nativeErrorCode() << QT_ENDL;
         if (query.lastError().isValid())
         {
-               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" << endl;
+               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error NOT-VALID" << endl;
+               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error NOT-VALID" << QT_ENDL;
         }
-
-
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().number(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        return -2;
     }
-        //qDebug() << "DataBase::getBandIdFromFreq: END-X" << endl;
+    //qDebug() << "DataBase::getBandIdFromFreq: END-X" << QT_ENDL;
     //query.finish();
     //return -3;
 }
@@ -1402,34 +1348,34 @@ int DataBase::getBandIdFromFreq(const QString &fr)
 
 bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
 {//Freq should be in MHz
-    //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << endl;
+    //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr << QT_ENDL;
     if (b.length()<2)
     {
-        //qDebug() << "DataBase::isThisFreqInBand returning false" << endl;
+        //qDebug() << "DataBase::isThisFreqInBand returning false" << QT_ENDL;
         return false;
     }
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIDFromName2(b);
-       //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << endl;
+       //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) << QT_ENDL;
     if (bandNf == bandN)
     {
-           //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << endl;
+           //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr << QT_ENDL;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << endl;
+           //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr << QT_ENDL;
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
-        //qDebug() << "DataBase::isThisFreqInBand: END" << endl;
+        //qDebug() << "DataBase::isThisFreqInBand: END" << QT_ENDL;
     //return false;
 }
 
 
 bool DataBase::unMarkAllQSO()
 {
-       //qDebug() << "DataBase::unMarkAllQSO" << endl;
+       //qDebug() << "DataBase::unMarkAllQSO" << QT_ENDL;
     QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
     return execQuery(Q_FUNC_INFO, stringQuery);
 }
@@ -1437,8 +1383,7 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
-
-     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << endl;
+     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) << QT_ENDL;
 
 
     /**************************************************************************************
@@ -1464,7 +1409,7 @@ bool DataBase::updateIfNeeded()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
@@ -1475,26 +1420,19 @@ bool DataBase::updateIfNeeded()
     //query.next();
     //latestReaded = (query.value(0)).toFloat();
     query.finish();
-
-      //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << endl;
-
-
-
+      //qDebug() << "DataBase::updateIfNeeded - LatestReaded: " << QString::number(latestReaded) << QT_ENDL;
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
-
-          //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << endl;
+          //qDebug() << "DataBase::updateIfNeeded - DB updated (no need to update anything!) " << QT_ENDL;
 
         //toBeUpdated = false;
-          //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << endl;
+          //qDebug() << "DataBase::updateIfNeeded - TRUE - END "  << QT_ENDL;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
-
-          //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << endl;
-
+          //qDebug() << "DataBase::updateIfNeeded - DB outdated... upgrade starts now! " << QT_ENDL;
         QMessageBox msgBox;
         msgBox.setWindowTitle("KLog");
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
@@ -1519,22 +1457,20 @@ bool DataBase::updateIfNeeded()
             break;
             default:
             // should never be reached
-               //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
+               //qDebug() << "DataBase::updateIfNeeded - FALSE - CHECK IF SEEN, shoud not be here! - END "  << QT_ENDL;
            //// emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             //break;
         }
     }
-
     // If the DB needs to be updated... we update it! :-)
-
-     //qDebug() << "DataBase::updateIfNeeded - END!" << endl;
+     //qDebug() << "DataBase::updateIfNeeded - END!" << QT_ENDL;
     return true;
 }
 
 void DataBase::backupB4Update()
 {
-    //qDebug() << "DataBase::backupB4Update - Start" << endl;
+    //qDebug() << "DataBase::backupB4Update - Start" << QT_ENDL;
     QMessageBox msgBox;
     msgBox.setWindowTitle("KLog backup");
     msgBox.setText( QObject::tr("Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea."));
@@ -1553,25 +1489,23 @@ void DataBase::backupB4Update()
         case QMessageBox::Yes:
         // Save was clicked
             logBackup();
-
         break;
         case QMessageBox::No:
         // NO backup was selected
             updateToLatest();
         break;
     }
-
-    //qDebug() << "DataBase::backupB4Update - END" << endl;
+    //qDebug() << "DataBase::backupB4Update - END" << QT_ENDL;
 }
 
 void DataBase::logBackup()
 {
-    //qDebug() << "DataBase::logBackup - Start" << endl;
+    //qDebug() << "DataBase::logBackup - Start" << QT_ENDL;
 
     QFile DBFile(util->getKLogDBFile());
     QString newFile = util->getKLogDBBackupFile();
     bool copied = DBFile.copy(newFile);
-    //qDebug() << "DataBase::logBackup copy: " << newFile << endl;
+    //qDebug() << "DataBase::logBackup copy: " << newFile << QT_ENDL;
     QMessageBox msgBox;
     msgBox.setWindowTitle("KLog DB backup");
     msgBox.setWindowFlags(Qt::WindowStaysOnTopHint|Qt::Popup);
@@ -1580,25 +1514,21 @@ void DataBase::logBackup()
 
     if (copied)
     {
-        //qDebug() << "DataBase::logBackup - DB backup was OK"  << endl;
-
+        //qDebug() << "DataBase::logBackup - DB backup was OK"  << QT_ENDL;
         msgBox.setText( QObject::tr("The backup finished successfully."));
         msgBox.setInformativeText( QObject::tr("You can find the backup in this file: %1").arg(newFile) );
         msgBox.setIcon(QMessageBox::Information);
         msgBox.raise();
-
         msgBox.exec();
         updateToLatest();
     }
     else
     {
-        //qDebug() << "DataBase::logBackup - DB backup was NOK"  << endl;
+        //qDebug() << "DataBase::logBackup - DB backup was NOK"  << QT_ENDL;
         msgBox.setText( QObject::tr("The backup was not properly done."));
         msgBox.setInformativeText( QObject::tr("You will be sent back to the starting point."));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.raise();
-
-
         msgBox.exec();
         updateIfNeeded();
     }
@@ -1637,12 +1567,12 @@ void DataBase::logBackup()
         break;
         default:
         // should never be reached
-            //qDebug() << "DataBase::backupB4Update - FALSE - CHECK IF SEEN, shoud not be here! - END "  << endl;
+            //qDebug() << "DataBase::backupB4Update - FALSE - CHECK IF SEEN, shoud not be here! - END "  << QT_ENDL;
             //lse;
         //break;
     }
 */
-    //qDebug() << "DataBase::logBackup - END" << endl;
+    //qDebug() << "DataBase::logBackup - END" << QT_ENDL;
 }
 
 bool DataBase::createTheBandQuickReference()
@@ -1656,9 +1586,7 @@ bool DataBase::createTheBandQuickReference()
     QHash<int, QString> freqBandIdHash;
 
 */
-
-        //qDebug() << "DataBase::createTheBandQuickReference: " << endl;
-
+        //qDebug() << "DataBase::createTheBandQuickReference: " << QT_ENDL;
     QString st = "NULL";
     int in = 0;
 
@@ -1671,7 +1599,7 @@ bool DataBase::createTheBandQuickReference()
 
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        //// emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
@@ -1679,7 +1607,6 @@ bool DataBase::createTheBandQuickReference()
 
     while (query.next())
     {
-
         if (query.isValid())
         {
             st = (query.value(1)).toString();
@@ -1688,46 +1615,41 @@ bool DataBase::createTheBandQuickReference()
             bandIDHash.insert(st, in );
             IDBandHash.insert(in, st);
             freqBandIdHash.insert(in, fr);
-
-                 //qDebug() << "DataBase::createTheBandQuickReference: " << st <<"/" << QString::number(in)<< endl;
+                 //qDebug() << "DataBase::createTheBandQuickReference: " << st <<"/" << QString::number(in)<< QT_ENDL;
         }
         else
         {
-              //qDebug() << "DataBase::createTheBandQuickReference: Query not valid -'RETURN FALSE - END" << endl;
-
+          //qDebug() << "DataBase::createTheBandQuickReference: Query not valid -'RETURN FALSE - END" << QT_ENDL;
           // QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheBandQuickReference)"),
           //                      query.lastError().text());
             query.finish();
            //// emit debugLog(Q_FUNC_INFO, "2", 7);
            return false;
            //TODO: Manage this error, in case the query is NOK.
-
         }
-              //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << endl;
+              //qDebug() << "DataBase::createTheBandQuickReference: Go for the next one!" << QT_ENDL;
     }
     query.finish();
-        //qDebug() << "DataBase::createTheBandQuickReference: END" << endl;
+        //qDebug() << "DataBase::createTheBandQuickReference: END" << QT_ENDL;
     return true;
 }
 
 
 bool DataBase::createTheModeQuickReference()
 {
-
     /*
               KEY      Value
         QHash<QString, int> modeIDHash;
         QHash<int, QString> IDModeHash
 
     */
-          //qDebug() << "DataBase::createTheModeQuickReference: " << endl;
+          //qDebug() << "DataBase::createTheModeQuickReference: " << QT_ENDL;
 
     if (getDBVersion().toFloat()<0.01f)
     {
         // If the version is not updated we don't create the reference
         return true;
     }
-
         QString st = QString();
         QString sm = QString();
         int in = 0;
@@ -1742,14 +1664,13 @@ bool DataBase::createTheModeQuickReference()
 
         if (!sqlOK)
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             query.finish();
            //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         while (query.next())
         {
-
             if (query.isValid())
             {
                 in = (query.value(0)).toInt();
@@ -1760,11 +1681,11 @@ bool DataBase::createTheModeQuickReference()
                 IDModeHash.insert(in, st);
                 subModeIDHash.insert(sm, in );
                 IDSubModeHash.insert(in, sm);
-                     //qDebug() << "DataBase::createTheModeQuickReference: " << st <<"/" << QString::number(in)<< endl;
+                     //qDebug() << "DataBase::createTheModeQuickReference: " << st <<"/" << QString::number(in)<< QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::createTheModeQuickReference: Query not valid - END" << endl;
+                   //qDebug() << "DataBase::createTheModeQuickReference: Query not valid - END" << QT_ENDL;
 
                //QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheModeQuickReference)"),
                //                     query.lastError().text());
@@ -1772,11 +1693,10 @@ bool DataBase::createTheModeQuickReference()
                //// emit debugLog(Q_FUNC_INFO, "2", 7);
                return false;
                //TODO: Manage this error, in case the query is NOK.
-
             }
         }
         query.finish();
-            //qDebug() << "DataBase::createTheModeQuickReference: END" << endl;
+            //qDebug() << "DataBase::createTheModeQuickReference: END" << QT_ENDL;
         return true;
 }
 
@@ -1791,11 +1711,10 @@ int DataBase::getBandIDFromName2(const QString &b)
     QHash<int, QString> IDBandHash;
     QHash<int, QString> IDModeHash
     */
-
-        //qDebug() << "DataBase::getBandIDFromName2: " << b << endl;
-        //qDebug() << "DataBase::getBandIDFromName2: This line should be the last one... "  << endl;
+        //qDebug() << "DataBase::getBandIDFromName2: " << b << QT_ENDL;
+        //qDebug() << "DataBase::getBandIDFromName2: This line should be the last one... "  << QT_ENDL;
     return getBandIdFromName(b);
-        //qDebug() << "DataBase::getBandIDFromName2: CHECK IF THIS LINE IS SEEN"  << endl;
+        //qDebug() << "DataBase::getBandIDFromName2: CHECK IF THIS LINE IS SEEN"  << QT_ENDL;
     /*
 
     if (b.length()<1)
@@ -1805,141 +1724,115 @@ int DataBase::getBandIDFromName2(const QString &b)
 
     if (bandIDHash.contains(b))
     {
-             //qDebug() << "DataBase::getBandIDFromName2: " << b << ":" <<  bandIDHash.value(b) << endl;
+             //qDebug() << "DataBase::getBandIDFromName2: " << b << ":" <<  bandIDHash.value(b) << QT_ENDL;
         return bandIDHash.value(b);
     }
     else
     {
-            //qDebug() << "DataBase::getBandIDFromName2: Contains - False" << endl;
+            //qDebug() << "DataBase::getBandIDFromName2: Contains - False" << QT_ENDL;
         return -1;
     }
-         //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << endl;
+         //qDebug() << "DataBase::getBandIDFromName2: Safety exit" << QT_ENDL;
     */
-
 }
 
 int DataBase::getModeIDFromName2(const QString &b)
 {
-      //qDebug() << "DataBase::getModeIDFromName2: " << b << endl;
+      //qDebug() << "DataBase::getModeIDFromName2: " << b << QT_ENDL;
     return getModeIdFromSubMode(b);
     /*
     if (b.length()<2)
     {
-            //qDebug() << "DataBase::getModeIDFromName2: END -3" << endl;
+            //qDebug() << "DataBase::getModeIDFromName2: END -3" << QT_ENDL;
         return -3;
     }
 
     if (modeIDHash.contains(b))
     {
-           //qDebug() << "DataBase::getModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << endl;
+           //qDebug() << "DataBase::getModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << QT_ENDL;
         return modeIDHash.value(b);
     }
     else
     {
-           //qDebug() << "DataBase::getModeIDFromName2: Contains - False - END" << endl;
+           //qDebug() << "DataBase::getModeIDFromName2: Contains - False - END" << QT_ENDL;
         return -1;
     }
-        //qDebug() << "DataBase::getModeIDFromName2: Safety exit - END" << endl;
+        //qDebug() << "DataBase::getModeIDFromName2: Safety exit - END" << QT_ENDL;
     */
 }
 
 
 int DataBase::getSubModeIDFromName2(const QString &b)
 {
-       //qDebug() << "DataBase::getSubModeIDFromName2: " << b << endl;
-
+       //qDebug() << "DataBase::getSubModeIDFromName2: " << b << QT_ENDL;
 
     return getModeIdFromSubMode(b);
-    /*
-    //return getModeIdFromName(b);
-
-    if (b.length()<2)
-    {
-            //qDebug() << "DataBase::getSubModeIDFromName2: END -3" << endl;
-        return -3;
-    }
-
-    if (subModeIDHash.contains(b))
-    {
-           //qDebug() << "DataBase::getSubModeIDFromName2: END - " << b << ":" <<  modeIDHash.value(b) << endl;
-        return subModeIDHash.value(b);
-    }
-    else
-    {
-           //qDebug() << "DataBase::getSubModeIDFromName2: Contains - False - END" << endl;
-        return -1;
-    }
-        //qDebug() << "DataBase::getSubModeIDFromName2: Safety exit - END" << endl;
-    return -2;
-    */
-
 }
 
 QString DataBase::getBandNameFromID2(const int _i)
 {
-       //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << endl;
+       //qDebug() << "DataBase::getBandNameFromid2: " << QString::number(_i) << QT_ENDL;
     return getBandNameFromNumber(_i);
     /*
     if (IDBandHash.contains(_i))
     {
-            //qDebug() << "DataBase::getBandNameFromid2: END OK"  << endl;
+            //qDebug() << "DataBase::getBandNameFromid2: END OK"  << QT_ENDL;
         return IDBandHash.value(_i);
     }
     else
     {
-            //qDebug() << "DataBase::getBandNameFromid2: END-1"  << endl;
+            //qDebug() << "DataBase::getBandNameFromid2: END-1"  << QT_ENDL;
         return "-1";
     }
     */
-        //qDebug() << "DataBase::getBandNameFromid2: END-2"  << endl;
+        //qDebug() << "DataBase::getBandNameFromid2: END-2"  << QT_ENDL;
     //return "-2";
-
 }
+
 QString DataBase::getModeNameFromID2(const int _i)
 {
-         //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << endl;
+         //qDebug() << "DataBase::getModeNameFromId2: " << QString::number(_i) << QT_ENDL;
     return getSubModeNameFromNumber(_i);
 /*
     if (IDModeHash.contains(_i))
     {
-            //qDebug() << "DataBase::getModeNameFromId2: END OK - " << IDModeHash.value(_i) << endl;
+            //qDebug() << "DataBase::getModeNameFromId2: END OK - " << IDModeHash.value(_i) << QT_ENDL;
         return IDModeHash.value(_i);
     }
     else
     {
-             //qDebug() << "DataBase::getModeNameFromId2: END-1" << endl;
+             //qDebug() << "DataBase::getModeNameFromId2: END-1" << QT_ENDL;
         return "-1";
     }
     */
-         //qDebug() << "DataBase::getModeNameFromId2: END-2" << endl;
+         //qDebug() << "DataBase::getModeNameFromId2: END-2" << QT_ENDL;
     //return "-2";
 }
 
 QString DataBase::getSubModeNameFromID2(const int _i)
 {
-         //qDebug() << "DataBase::getSubModeNameFromId2: " << QString::number(_i) << endl;
+         //qDebug() << "DataBase::getSubModeNameFromId2: " << QString::number(_i) << QT_ENDL;
     return getSubModeNameFromNumber(_i);
     /*
     if (IDSubModeHash.contains(_i))
     {
-            //qDebug() << "DataBase::getSubModeNameFromId2: END OK - " << IDModeHash.value(_i) << endl;
+            //qDebug() << "DataBase::getSubModeNameFromId2: END OK - " << IDModeHash.value(_i) << QT_ENDL;
         return IDSubModeHash.value(_i);
     }
     else
     {
-             //qDebug() << "DataBase::getSubModeNameFromId2: END-1" << endl;
+             //qDebug() << "DataBase::getSubModeNameFromId2: END-1" << QT_ENDL;
         return "-1";
     }
-         //qDebug() << "DataBase::getSubModeNameFromId2: END-2" << endl;
+         //qDebug() << "DataBase::getSubModeNameFromId2: END-2" << QT_ENDL;
     */
 }
 
 bool DataBase::createBandModeMaps()
 {
-    //qDebug() << "DataBase::createBandModeMaps" << endl;
+    //qDebug() << "DataBase::createBandModeMaps" << QT_ENDL;
     bool b = false;
     bool m = false;
-
 
      //return (b && m);
     if (isTheDBCreated())
@@ -1947,7 +1840,7 @@ bool DataBase::createBandModeMaps()
         b = createTheBandQuickReference();
         m = createTheModeQuickReference();
 
-             //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << endl;
+             //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated TRUE" << QT_ENDL;
         if (!b)
         {
            //emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -1956,41 +1849,41 @@ bool DataBase::createBandModeMaps()
         {
            //emit debugLog(Q_FUNC_INFO, "2", 7);
         }
-        //qDebug() << "DataBase::createBandModeMaps END 1" << endl;
+        //qDebug() << "DataBase::createBandModeMaps END 1" << QT_ENDL;
         return (b && m);
     }
     else
     {
-        //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << endl;
+        //qDebug() << "DataBase::createBandModeMaps - isTheDbCreated FALSE" << QT_ENDL;
        //emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
     //return false;
-    //qDebug() << "DataBase::createBandModeMaps END" << endl;
+    //qDebug() << "DataBase::createBandModeMaps END" << QT_ENDL;
 }
 
 QString DataBase::getFreqFromBandId(const int _i)
 {
-    //qDebug() << "DataBase::getFreqFromBandId" << endl;
+    //qDebug() << "DataBase::getFreqFromBandId" << QT_ENDL;
 
     if (freqBandIdHash.contains(_i))
     {
-        //qDebug() << "DataBase::getFreqFromBandId OK END" << endl;
+        //qDebug() << "DataBase::getFreqFromBandId OK END" << QT_ENDL;
         return freqBandIdHash.value(_i);
     }
     else
     {
-        //qDebug() << "DataBase::getFreqFromBandId END-1" << endl;
+        //qDebug() << "DataBase::getFreqFromBandId END-1" << QT_ENDL;
         return "-1.0";
     }
-        //qDebug() << "DataBase::getFreqFromBandId END-2" << endl;
+        //qDebug() << "DataBase::getFreqFromBandId END-2" << QT_ENDL;
     //return "-2.0";
 }
 
 /*
 int DataBase::getLogTypeNumber(const QString &_logType)
 {
-        //qDebug() << "DataBase::getLogTypeNumber: " << _logType << endl;
+        //qDebug() << "DataBase::getLogTypeNumber: " << _logType << QT_ENDL;
      QSqlQuery query;
      QString queryString = QString("SELECT id FROM supportedcontests WHERE name='%1'").arg(_logType);
 
@@ -1999,7 +1892,7 @@ int DataBase::getLogTypeNumber(const QString &_logType)
 
      if(!sqlOK)
      {
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
          query.finish();
      }
      query.next();
@@ -2018,14 +1911,14 @@ int DataBase::getLogTypeNumber(const QString &_logType)
 
 QString DataBase::getLogTypeName(const int _logType)
 {
-         //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) << endl;
+         //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) << QT_ENDL;
      QSqlQuery query;
      QString queryString = QString("SELECT name FROM supportedcontests WHERE id='%1'").arg(_logType);
      bool sqlOK = query.exec(queryString);
 
      if(!sqlOK)
      {
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
          query.finish();
      }
      query.next();
@@ -2049,18 +1942,16 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-
-      //qDebug() << "DataBase::updateToLatest " << endl;
-
+      //qDebug() << "DataBase::updateToLatest " << QT_ENDL;
     if (requiresManualUpgrade())
     {
-        //qDebug() << "DataBase::updateToLatest requires" << endl;
+        //qDebug() << "DataBase::updateToLatest requires" << QT_ENDL;
         exit(1);
         //return false;
     }
-    return updateTo021();
-
+    return updateTo023();
 }
+
 
 bool DataBase::requiresManualUpgrade()
 {
@@ -2069,15 +1960,15 @@ bool DataBase::requiresManualUpgrade()
     // Install new KLog version
     // import ADIF file
     float ver = getDBVersion().toFloat();
-    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << QString::number(ver) << endl;
+    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << QString::number(ver) << QT_ENDL;
     if (ver >= 0.007f)
     {
-        //qDebug() << "DataBase::requiresManualUpgrade false" << endl;
+        //qDebug() << "DataBase::requiresManualUpgrade false" << QT_ENDL;
         return false;
     }
     else
     {
-        //qDebug() << "DataBase::requiresManualUpgrade true" << endl;
+        //qDebug() << "DataBase::requiresManualUpgrade true" << QT_ENDL;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setWindowTitle(QObject::tr("KLog - DB can't be updated automatically"));
@@ -2090,7 +1981,6 @@ bool DataBase::requiresManualUpgrade()
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
     }
-
     return true;
 }
 
@@ -2106,7 +1996,7 @@ bool DataBase::updateTo003()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-       //qDebug() << "DataBase::updateTo003: latestRead: " << QString::number(latestReaded) << endl;
+       //qDebug() << "DataBase::updateTo003: latestRead: " << QString::number(latestReaded) << QT_ENDL;
     bool IAmIn003 = false;
     bool IAmIn002 = false;
     bool ErrorUpdating = false;
@@ -2121,7 +2011,6 @@ bool DataBase::updateTo003()
     {
         IAmIn003 = false;
     }
-
 
     while (!IAmIn003 && !ErrorUpdating)
     {
@@ -2142,10 +2031,9 @@ bool DataBase::updateTo003()
 }
 
 bool DataBase::updateTo004()
-{// Updates the DB to 0.0.4
-
-       //qDebug() << "DataBase::updateTo004: latestRead: " << getDBVersion() << endl;
-       //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) << endl;
+{// Updates the DB to 0.0.41
+       //qDebug() << "DataBase::updateTo004: latestRead: " << getDBVersion() << QT_ENDL;
+       //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) << QT_ENDL;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
     bool ErrorUpdating = false;
@@ -2156,21 +2044,21 @@ bool DataBase::updateTo004()
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= 0.004f)
     {
-            //qDebug() << "DataBase::updateTo004: - I am in 004" << endl;
+            //qDebug() << "DataBase::updateTo004: - I am in 004" << QT_ENDL;
         return true;
     }
     else
     {
-            //qDebug() << "DataBase::updateTo004: - I am not in 004" << endl;
+            //qDebug() << "DataBase::updateTo004: - I am not in 004" << QT_ENDL;
         IAmIn004 = false;
     }
 
     while (!IAmIn004 && !ErrorUpdating)
     {
-           //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" << endl;
+           //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" << QT_ENDL;
         while (!IAmIn003 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo004: - And I am not in 003" << endl;
+               //qDebug() << "DataBase::updateTo004: - And I am not in 003" << QT_ENDL;
             //IAmIn002 = updateTo002();
             IAmIn003 = true;
         }
@@ -2179,40 +2067,39 @@ bool DataBase::updateTo004()
            //// emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
-           //qDebug() << "DataBase::updateTo004: - And I am in 003" << endl;
+           //qDebug() << "DataBase::updateTo004: - And I am in 003" << QT_ENDL;
         sqlOk = updateDBVersion(softVersion, "0.004");
-           //qDebug() << "DataBase::updateTo004: - Update Version" << endl;
+           //qDebug() << "DataBase::updateTo004: - Update Version" << QT_ENDL;
         if (sqlOk)
         { // Version updated
-               //qDebug() << "DataBase::updateTo004: - Update OK" << endl;
+               //qDebug() << "DataBase::updateTo004: - Update OK" << QT_ENDL;
             sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE award_enumeration");
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo004: - Update NOK" << endl;
+               //qDebug() << "DataBase::updateTo004: - Update NOK" << QT_ENDL;
         }
         //DO ALL THE TASKS TO BE IN 0.004 from 0.003 HERE and set ErrorUpdating if it is not possible.
-           //qDebug() << "DataBase::updateTo004: - IAmIn004 = true" << endl;
+           //qDebug() << "DataBase::updateTo004: - IAmIn004 = true" << QT_ENDL;
         IAmIn004 = true;
     }
 
     if (IAmIn004)
     {
-           //qDebug() << "DataBase::updateTo004: - Return... TRUE" << endl;
+           //qDebug() << "DataBase::updateTo004: - Return... TRUE" << QT_ENDL;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo004: - Return... FALSE" << endl;
+           //qDebug() << "DataBase::updateTo004: - Return... FALSE" << QT_ENDL;
     }
-       //qDebug() << "DataBase::updateTo004: UPDATED OK!" << endl;
+       //qDebug() << "DataBase::updateTo004: UPDATED OK!" << QT_ENDL;
     return IAmIn004;
 }
 
 
 bool DataBase::updateTo005()
 {// Updates the DB to 0.0.5
-
-          //qDebug() << "DataBase::updateTo005: latestRead: " << getDBVersion() << endl;
+          //qDebug() << "DataBase::updateTo005: latestRead: " << getDBVersion() << QT_ENDL;
        bool IAmIn005 = false;
        bool IAmIn004 = false;
        bool ErrorUpdating = false;
@@ -2228,28 +2115,28 @@ bool DataBase::updateTo005()
 
        if (latestReaded >= 0.005f)
        {
-                //qDebug() << "DataBase::updateTo005 - Already in 005" << endl;
+                //qDebug() << "DataBase::updateTo005 - Already in 005" << QT_ENDL;
            return true;
        }
        else
        {
-                //qDebug() << "DataBase::updateTo005 - 005 update false" << endl;
+                //qDebug() << "DataBase::updateTo005 - 005 update false" << QT_ENDL;
            IAmIn005 = false;
        }
 
 
        while (!IAmIn005 && !ErrorUpdating)
        {
-                 //qDebug() << "DataBase::updateTo005 - I am not in 005" << endl;
+                 //qDebug() << "DataBase::updateTo005 - I am not in 005" << QT_ENDL;
            while (!IAmIn004 && !ErrorUpdating)
            {
-                    //qDebug() << "DataBase::updateTo005 - I am not in 004" << endl;
+                    //qDebug() << "DataBase::updateTo005 - I am not in 004" << QT_ENDL;
                IAmIn004 = updateTo004();
            }
-              //qDebug() << "DataBase::updateTo005 - I am in 004" << endl;
+              //qDebug() << "DataBase::updateTo005 - I am in 004" << QT_ENDL;
            if (ErrorUpdating)
            {
-                  //qDebug() << "DataBase::updateTo005 - 005 update false2" << endl;
+                  //qDebug() << "DataBase::updateTo005 - 005 update false2" << QT_ENDL;
               //// emit debugLog(Q_FUNC_INFO, "1", 7);
                return false;
            }
@@ -2259,15 +2146,15 @@ bool DataBase::updateTo005()
            { // Version updated
                if (recreateContestData())
                {
-                        //qDebug() << "DataBase::updateTo005 - recreateContestData OK" << endl;
+                        //qDebug() << "DataBase::updateTo005 - recreateContestData OK" << QT_ENDL;
 
                    sqlOk = execQuery(Q_FUNC_INFO, "DROP table logs");
 
                    sqlOk = createTableLogs(true);
                     if (!sqlOk)
                     {
-                        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                            //qDebug() << "DataBase::updateTo005 - logs table do not created" << endl;
+                        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                            //qDebug() << "DataBase::updateTo005 - logs table do not created" << QT_ENDL;
                     }
 
 
@@ -2280,13 +2167,11 @@ bool DataBase::updateTo005()
                        msgBox.setText(QObject::tr("KLog has detected a previous log in the DB. All data will be migrated to a newly created DX type log for you."));
                        msgBox.exec();
 
-                        if (execQuery(Q_FUNC_INFO, "UPDATE log SET lognumber='1' WHERE lognumber='0'"))
-                        {}
-                        else
+                        if (!execQuery(Q_FUNC_INFO, "UPDATE log SET lognumber='1' WHERE lognumber='0'"))
                         {
-                            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                          //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                             //showError(QObject::tr("QSOs not updated to main log"));
-                                 //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << endl;
+                                 //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" << QT_ENDL;
                         }
 
                         QString dateString = (QDate::currentDate()).toString("yyyy-MM-dd");
@@ -2312,38 +2197,29 @@ bool DataBase::updateTo005()
                         sqlOk = execQuery(Q_FUNC_INFO, stringQuery);
 
 
-                        if (sqlOk)
+                        if (!sqlOk)
                         {
-
-                        }
-                        else
-                        {
-                            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                             //showError(QObject::tr("New Log not created"));
-                                 //qDebug() << "DataBase::updateTo005 - New Log not created" << endl;
-                                 //qDebug() << "DataBase::clearLog: Log deleted FAILED" << endl;
+                                 //qDebug() << "DataBase::updateTo005 - New Log not created" << QT_ENDL;
+                                 //qDebug() << "DataBase::clearLog: Log deleted FAILED" << QT_ENDL;
                         }
                    }
-                   else
-                   {
-
-                   }
-
                    IAmIn005 = true;
                }
                else
                {
-                        //qDebug() << "DataBase::updateTo005 - recreateContestData FAILED" << endl;
+                        //qDebug() << "DataBase::updateTo005 - recreateContestData FAILED" << QT_ENDL;
                    ErrorUpdating = true;
                }
            }
            else
            { // Version not updated
-                    //qDebug() << "DataBase::updateTo005 - 005 update false6" << endl;
+                    //qDebug() << "DataBase::updateTo005 - 005 update false6" << QT_ENDL;
                 ErrorUpdating = true;
            }
        }
-            //qDebug() << "DataBase::updateTo005 - 005 updated 3" << endl;
+            //qDebug() << "DataBase::updateTo005 - 005 updated 3" << QT_ENDL;
 
        //TODO: Delete the table and recreate it
        if (IAmIn005)
@@ -2355,14 +2231,14 @@ bool DataBase::updateTo005()
         {
           //// emit debugLog(Q_FUNC_INFO, "2", 7);
         }
-             //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << endl;
-          //qDebug() << "DataBase::updateTo005: UPDATED OK!" << endl;
+             //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " << QT_ENDL;
+          //qDebug() << "DataBase::updateTo005: UPDATED OK!" << QT_ENDL;
        return IAmIn005;
 }
 
 bool DataBase::recreateSatelliteData()
 {
-       //qDebug() << "DataBase::recreateSatelliteData"  << endl;
+       //qDebug() << "DataBase::recreateSatelliteData"  << QT_ENDL;
     QSqlQuery query;
 
     if (isTheTableExisting("satellites"))
@@ -2371,41 +2247,39 @@ bool DataBase::recreateSatelliteData()
         {
             if (createTableSatellites(true))
             {
-                    //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << endl;
+                    //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << QT_ENDL;
                 return populateTableSatellites(true);
             }
             else
             {
-                     //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << endl;
+                     //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << QT_ENDL;
             }
         }
         else
         {
-               //qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  << endl;
+               //qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  << QT_ENDL;
         }
-
     }
     else
     {
         if (createTableSatellites(true))
         {
-                //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << endl;
+                //qDebug() << "DataBase::recreateSatelliteData SAT table created"  << QT_ENDL;
             return populateTableSatellites(true);
         }
         else
         {
-                 //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << endl;
+                 //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  << QT_ENDL;
         }
-
     }
 
-       //qDebug() << "DataBase::recreateSatelliteData END FALSE"  << endl;
+       //qDebug() << "DataBase::recreateSatelliteData END FALSE"  << QT_ENDL;
     return false;
 }
 
 bool DataBase::recreateContestData()
 {
-        //qDebug() << "DataBase::recreateContestData"  << endl;
+        //qDebug() << "DataBase::recreateContestData"  << QT_ENDL;
     if (isTheTableExisting("contest"))
     {
         QSqlQuery query;
@@ -2431,7 +2305,7 @@ bool DataBase::recreateContestData()
 
 bool DataBase::recreateSupportedContest()
 {
-       //qDebug() << "DataBase::recreateSupportedContest"  << endl;
+       //qDebug() << "DataBase::recreateSupportedContest"  << QT_ENDL;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
 
     if (isTheTableExisting("supportedcontests"))
@@ -2441,105 +2315,104 @@ bool DataBase::recreateSupportedContest()
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE supportedcontests");
         if (sqlOk)
         {
-                //qDebug() << "DataBase::recreateSupportedContest SQLOK"  << endl;
+                //qDebug() << "DataBase::recreateSupportedContest SQLOK"  << QT_ENDL;
             if (createTableSupportedContest())
             {
-                    //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << endl;
+                    //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << QT_ENDL;
                 return populateTableSupportedContest();
             }
             else
             {
-                    //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << endl;
+                    //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << QT_ENDL;
                 return false;
             }
         }
         else
         {
-            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         }
     }
     else
     {
         if (createTableSupportedContest())
         {
-                //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << endl;
+                //qDebug() << "DataBase::recreateSupportedContest - createTable OK"  << QT_ENDL;
             return populateTableSupportedContest();
         }
         else
         {
-                //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << endl;
+                //qDebug() << "DataBase::recreateSupportedContest createTableSupportContest FALSE"  << QT_ENDL;
             return false;
         }
     }
-        //qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << endl;
+        //qDebug() << "DataBase::recreateSupportedContest - FALSE end"  << QT_ENDL;
     return false;
 }
 
 
 bool DataBase::recreatePropModes()
 {
-       //qDebug() << "DataBase::recreatePropModes"  << endl;
+       //qDebug() << "DataBase::recreatePropModes"  << QT_ENDL;
     if (isTheTableExisting("prop_mode_enumeration"))
     {
-           //qDebug() << "DataBase::recreatePropModes: Table Exist"  << endl;
+           //qDebug() << "DataBase::recreatePropModes: Table Exist"  << QT_ENDL;
         bool sqlOk = false;
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE prop_mode_enumeration");
 
         if (sqlOk)
         {
-               //qDebug() << "DataBase::recreatePropModes SQLOK"  << endl;
+               //qDebug() << "DataBase::recreatePropModes SQLOK"  << QT_ENDL;
             if (createTablePropModes())
             {
-                   //qDebug() << "DataBase::recreatePropModes - createTable OK"  << endl;
+                   //qDebug() << "DataBase::recreatePropModes - createTable OK"  << QT_ENDL;
                 if (populatePropagationModes())
                 {
-                       //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << endl;
+                       //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << QT_ENDL;
                     return true;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << endl;
+                       //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << QT_ENDL;
                     return false;
                 }
             }
             else
             {
-                     //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-1"  << endl;
+                     //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-1"  << QT_ENDL;
                   return false;
             }
         }
         else
         {
-            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                 //qDebug() << "DataBase::recreatePropModes - prop_mode_enumeration table has not been dropped"  << endl;
-                 //qDebug() << "DataBase::recreatePropModes : Table creation FAILED" << endl;
+            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                 //qDebug() << "DataBase::recreatePropModes - prop_mode_enumeration table has not been dropped"  << QT_ENDL;
+                 //qDebug() << "DataBase::recreatePropModes : Table creation FAILED" << QT_ENDL;
         }
-
     }
     else
     {
-           //qDebug() << "DataBase::recreatePropModes: Table does NOT Exist"  << endl;
+           //qDebug() << "DataBase::recreatePropModes: Table does NOT Exist"  << QT_ENDL;
         if (createTablePropModes())
         {
-               //qDebug() << "DataBase::recreatePropModes - createTable OK"  << endl;
+               //qDebug() << "DataBase::recreatePropModes - createTable OK"  << QT_ENDL;
             if (populatePropagationModes())
             {
-                   //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << endl;
+                   //qDebug() << "DataBase::recreatePropModes - populatePropModes OK"  << QT_ENDL;
                 return true;
             }
             else
             {
-                   //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << endl;
+                   //qDebug() << "DataBase::recreatePropModes - populatePropModes NOK"  << QT_ENDL;
                 return false;
             }
         }
         else
         {
-                 //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-2"  << endl;
+                 //qDebug() << "DataBase::recreatePropModes createTableSupportContest FALSE-2"  << QT_ENDL;
         }
     }
 
-        //qDebug() << "DataBase::recreatePropModes - FALSE end"  << endl;
+        //qDebug() << "DataBase::recreatePropModes - FALSE end"  << QT_ENDL;
     return false;
 }
 
@@ -2548,18 +2421,18 @@ bool DataBase::createTableLogs(const bool real)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-        //qDebug() << "DataBase::createTableLogs" << endl;
+        //qDebug() << "DataBase::createTableLogs" << QT_ENDL;
 
     QString stringQuery = QString();
     //QSqlQuery query;
     if (real)
     {
-            //qDebug() << "DataBase::createTableLogs - logs" << endl;
+            //qDebug() << "DataBase::createTableLogs - logs" << QT_ENDL;
         stringQuery = "CREATE TABLE logs" ;
     }
     else
     {
-            //qDebug() << "DataBase::createTableLogs - logstemp" << endl;
+            //qDebug() << "DataBase::createTableLogs - logstemp" << QT_ENDL;
         stringQuery = "CREATE TABLE logstemp" ;
     }
 
@@ -2575,27 +2448,23 @@ bool DataBase::createTableLogs(const bool real)
 
 
 
-            //qDebug() << "DataBase::createTableLogs - END" << endl;
+            //qDebug() << "DataBase::createTableLogs - END" << QT_ENDL;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
-
-
 }
 
 
 bool DataBase::createTablePropModes()
 {
-       //qDebug() << "DataBase::createTablePropModes" << endl;
+       //qDebug() << "DataBase::createTablePropModes" << QT_ENDL;
 
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists prop_mode_enumeration");
     return execQuery(Q_FUNC_INFO, "CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )");
-
 }
 
 bool DataBase::createTableSupportedContest()
 {
-         //qDebug() << "DataBase::createTableSupportedContest" << endl;
-
+         //qDebug() << "DataBase::createTableSupportedContest" << QT_ENDL;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
 
     QString st = QString("CREATE TABLE supportedcontests ("
@@ -2607,7 +2476,7 @@ bool DataBase::createTableSupportedContest()
 
 bool DataBase::createTableContest()
 {
-        //qDebug() << "DataBase::createTableContest" << endl;
+        //qDebug() << "DataBase::createTableContest" << QT_ENDL;
     //QSqlQuery query;
 
     createTableSupportedContest();
@@ -2688,17 +2557,15 @@ bool DataBase::createTableContest()
     execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('2', 'CW')");
     execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('3', 'MIXED')");
 
-         //qDebug() << "DataBase::createTableContest END" << endl;
+         //qDebug() << "DataBase::createTableContest END" << QT_ENDL;
     return true;
-
 }
 
 bool DataBase::populateTableSupportedContest()
 {
-        //qDebug() << "DataBase::populateTableSupportedContest" << endl;
+        //qDebug() << "DataBase::populateTableSupportedContest" << QT_ENDL;
     // ADDING ALL THE CATEGORIES OPTIONS
     return execQuery(Q_FUNC_INFO, "INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
-
 }
 
 bool DataBase::createTableQSL_Via_enumeration()
@@ -2723,8 +2590,7 @@ bool DataBase::populateTableQSL_Via_enumeration()
 
 bool DataBase::createTableMode(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
-
-        //qDebug() << "DataBase::createTableMode" << endl;
+        //qDebug() << "DataBase::createTableMode" << QT_ENDL;
     QString stringQuery = QString();
     QSqlQuery query;
     if (NoTmp)
@@ -2742,15 +2608,14 @@ bool DataBase::createTableMode(const bool NoTmp)
                                              "submode VARCHAR(40) NOT NULL, "
                                              "deprecated VARCHAR(1) NOT NULL)");
 
-            //qDebug() << "DataBase::createTableMode END" << endl;
+            //qDebug() << "DataBase::createTableMode END" << QT_ENDL;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
-
 }
 
 bool DataBase::populateTableMode(const bool NoTmp)
 {
-         //qDebug() << "DataBase::populateTableMode" << endl;
+         //qDebug() << "DataBase::populateTableMode" << QT_ENDL;
     //QSqlQuery query;
     QString tableName = QString();
     QString squery = QString();
@@ -2769,14 +2634,13 @@ bool DataBase::populateTableMode(const bool NoTmp)
     //int errorCode = -1;
     if (!sqlOK)
     {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-             //qDebug() << "DataBase::populateTableMode: Mode table population FAILED" << endl;
-        //errorCode = query.lastError().number();
-
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+             //qDebug() << "DataBase::populateTableMode: Mode table population FAILED" << QT_ENDL;
+        //errorCode = query.lastError().nativeErrorCode();
     }
     else
     {
-             //qDebug() << "DataBase::populateTableMode: Mode table population  OK" << endl;
+             //qDebug() << "DataBase::populateTableMode: Mode table population  OK" << QT_ENDL;
     }
 
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ARDOP', 'ARDOP', 'NO', '0')").arg(tableName));
@@ -2930,7 +2794,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
 
 
     createTheModeQuickReference();
-         //qDebug() << "DataBase::populateTableMode END" << endl;
+         //qDebug() << "DataBase::populateTableMode END" << QT_ENDL;
     return true;
 }
 
@@ -2939,7 +2803,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-       //qDebug() << "DataBase::createTableSatellites" << endl;
+       //qDebug() << "DataBase::createTableSatellites" << QT_ENDL;
 
     // The satmode column has the following format: {Up/down-mode;Up/down-mode}
     // this way we can implement several freqs/modes per sat
@@ -2987,25 +2851,13 @@ bool DataBase::createTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, delS);
 
     return execQuery(Q_FUNC_INFO, stringQuery);
-/*
-    bool sqlOK = query.exec(stringQuery);
-
-    if (!sqlOK)
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-    }
-*/
-
-        //qDebug() << "DataBase::createTableSatellites END" << endl;
-    //return sqlOK;
-
 }
 
 bool DataBase::populateTableSatellites(const bool NoTmp)
 {
     // Data must come from:
     // https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
-       //qDebug() << "DataBase::populateTableSatellites" << endl;
+       //qDebug() << "DataBase::populateTableSatellites" << QT_ENDL;
 
     //QSqlQuery query;
     QString tableName = QString();
@@ -3097,13 +2949,13 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('QO-100', 'Es''hail-2', '2400.050-2409.500', '10489.550-10499.000', 'SSB,CW')").arg(tableName));
 
 
-       //qDebug() << "DataBase::populateTableSatellites - END" << endl;
+       //qDebug() << "DataBase::populateTableSatellites - END" << QT_ENDL;
     return true;
 }
 
 bool DataBase::createTableEntity(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
-        //qDebug() << "DataBase::createTableEntity" << endl;
+        //qDebug() << "DataBase::createTableEntity" << QT_ENDL;
 
     QString stringQuery = QString();
     //QSqlQuery query;
@@ -3133,19 +2985,15 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "UNIQUE (dxcc, mainprefix), "
                                              "FOREIGN KEY (continent) REFERENCES continent(shortname) )");
 
-         //qDebug() << "DataBase::createTableEntity END" << endl;
+         //qDebug() << "DataBase::createTableEntity END" << QT_ENDL;
     return execQuery(Q_FUNC_INFO, stringQuery);
-
-
     //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
-
 }
 
 
 bool DataBase::createTableBand(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
-
-        //qDebug() << "DataBase::createTableBand" << endl;
+        //qDebug() << "DataBase::createTableBand" << QT_ENDL;
     QString stringQuery = QString();
     //QSqlQuery query;
     if (NoTmp)
@@ -3156,7 +3004,6 @@ bool DataBase::createTableBand(const bool NoTmp)
     {
         stringQuery = "CREATE TABLE bandtemp" ;
     }
-
         stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
                                             "lower REAL NOT NULL, "
                                             "upper REAL NOT NULL, "
@@ -3164,14 +3011,13 @@ bool DataBase::createTableBand(const bool NoTmp)
                                             "name VARCHAR(40) NOT NULL, "
                                             "UNIQUE (lower, upper, cabrillo, name) )");
 
-        //qDebug() << "DataBase::createTableBand END" << endl;
+        //qDebug() << "DataBase::createTableBand END" << QT_ENDL;
     return execQuery(Q_FUNC_INFO, stringQuery);
-
 }
 
 bool DataBase::syncLogQSOsOnBandTableChange()
 {
-    //qDebug() << Q_FUNC_INFO << endl;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
     QString stringQuery;
     QSqlQuery query;
 
@@ -3179,7 +3025,7 @@ bool DataBase::syncLogQSOsOnBandTableChange()
 
     if (!query.exec(stringQuery))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         return false;
     }
@@ -3197,7 +3043,6 @@ bool DataBase::syncLogQSOsOnBandTableChange()
         bandid = (query.value(0)).toInt();
         if (bandid>0)
         {
-
             bandIDs.append (bandid);
             bandid = -1;
         }
@@ -3208,7 +3053,7 @@ bool DataBase::syncLogQSOsOnBandTableChange()
         foreach(int i, bandIDs)
         {
             stringQuery = QString("UPDATE log SET bandid = (SELECT DISTINCT bandtemp.id FROM bandtemp INNER JOIN band ON band.name = bandtemp.name WHERE band.id='%1') WHERE log.bandid='%1'").arg(i);
-            //qDebug() << Q_FUNC_INFO << ": " << stringQuery << endl;
+            //qDebug() << Q_FUNC_INFO << ": " << stringQuery << QT_ENDL;
             if (!query.exec(stringQuery))
             {
                 query.finish();
@@ -3218,7 +3063,7 @@ bool DataBase::syncLogQSOsOnBandTableChange()
     }
     query.finish ();
 
-    //qDebug() << Q_FUNC_INFO << " - END" << endl;
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
     return true;
 }
 
@@ -3226,7 +3071,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 {
     // Cabrillo definition: http://wwrof.org/cabrillo/cabrillo-specification-v3/
 
-        //qDebug() << "DataBase::populateTableBand" << endl;
+        //qDebug() << "DataBase::populateTableBand" << QT_ENDL;
 
 
     QString tableName = QString();
@@ -3257,36 +3102,35 @@ bool DataBase::populateTableBand(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('33CM', '902', '928', '902')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('70CM', '420', '450', '432')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1.25M', '222', '225', '222')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2M', '144', '148', '2M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4M', '70', '71', '4M')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2M', '144', '148', '144')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('4M', '70', '71', '70')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('5M', '54.000001', '69.9', '5M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6M', '50', '54', '6M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('8M', '40', '45', '8M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('10M', '28.0', '29.7', '10M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('12M', '24.89', '24.99', '12M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('15M', '21.0', '21.45', '15M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('17M', '18.068', '18.168', '17M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('20M', '14.0', '14.35', '20M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('30M', '10.0', '10.15', '40M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('40M', '7.0', '7.3', '40M')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('6M', '50', '54', '50')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('8M', '40', '45', '40')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('10M', '28.0', '29.7', '28000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('12M', '24.89', '24.99', '24900')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('15M', '21.0', '21.45', '21000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('17M', '18.068', '18.168', '18100')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('20M', '14.0', '14.35', '14000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('30M', '10.0', '10.15', '10000')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('40M', '7.0', '7.3', '7000')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('60M', '5.102', '5.404', '60M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('80M', '3.5', '4.0', '80M')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '160M')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('80M', '3.5', '4.0', '3500')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('160M', '1.8', '2.0', '1800')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('560M', '0.501', '0.504', '560M')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.1357', '0.1378', '2190M')").arg(tableName));
 
     createTheBandQuickReference();
 
-        //qDebug() << "DataBase::populateTableBand END" << endl;
+        //qDebug() << "DataBase::populateTableBand END" << QT_ENDL;
     return true;
 }
 
 
 bool DataBase::populatePropagationModes()
 {
-
-        //qDebug() << "DataBase::populatePropagationModes" << endl;
+        //qDebug() << "DataBase::populatePropagationModes" << QT_ENDL;
     //QSqlQuery query;
 
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')"));
@@ -3308,14 +3152,14 @@ bool DataBase::populatePropagationModes()
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TEP', 'Trans-equatorial')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TR', 'Tropospheric ducting')"));
 
-       //qDebug() << "DataBase::populatePropagationModes END" << endl;
+       //qDebug() << "DataBase::populatePropagationModes END" << QT_ENDL;
     return true;
 }
 
 
 bool DataBase::populateContestData()
 {
-        //qDebug() << "DataBase::populateContestData" << endl;
+        //qDebug() << "DataBase::populateContestData" << QT_ENDL;
 
 
 
@@ -3376,13 +3220,13 @@ bool DataBase::populateContestData()
     // CQ WW DX SSB END
 */
 
-        //qDebug() << "DataBase::populateContestData END" << endl;
+        //qDebug() << "DataBase::populateContestData END" << QT_ENDL;
     return true;
 }
 
 bool DataBase::howManyQSOsInLog(const int i)
 {
-        //qDebug() << "DataBase::howManyQSOsInLog" << endl;
+        //qDebug() << "DataBase::howManyQSOsInLog" << QT_ENDL;
 
     QSqlQuery query;
     QString sqlQueryString = QString("SELECT COUNT(id) from log WHERE lognumber='%1'").arg(i);
@@ -3393,21 +3237,21 @@ bool DataBase::howManyQSOsInLog(const int i)
         query.next();
         if (query.isValid())
         {
-                //qDebug() << "DataBase::howManyQSOsInLog OK END" << endl;
+                //qDebug() << "DataBase::howManyQSOsInLog OK END" << QT_ENDL;
             return (query.value(0)).toInt();
         }
         else
         {
-                //qDebug() << "DataBase::howManyQSOsInLog END-1" << endl;
+                //qDebug() << "DataBase::howManyQSOsInLog END-1" << QT_ENDL;
             query.finish();
             return false;
         }
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::howManyQSOsInLog END-2" << endl;
+            //qDebug() << "DataBase::howManyQSOsInLog END-2" << QT_ENDL;
         return false;
     }
     //query.finish();
@@ -3416,8 +3260,7 @@ bool DataBase::howManyQSOsInLog(const int i)
 
 bool DataBase::updateTo006()
 {// Updates the DB to 0.0.6
-
-       //qDebug() << "DataBase::updateTo006: latestRead: " << getDBVersion() << endl;
+       //qDebug() << "DataBase::updateTo006: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn006 = false;
     bool IAmIn005 = false;
     bool ErrorUpdating = false;
@@ -3436,16 +3279,16 @@ bool DataBase::updateTo006()
 
     while (!IAmIn006 && !ErrorUpdating)
     {
-             //qDebug() << "DataBase::updateTo006: - Still not in 006" << endl;
+             //qDebug() << "DataBase::updateTo006: - Still not in 006" << QT_ENDL;
         while (!IAmIn005 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo006: - And still not in 005" << endl;
+               //qDebug() << "DataBase::updateTo006: - And still not in 005" << QT_ENDL;
             IAmIn005 = updateTo005();
         }
-           //qDebug() << "DataBase::updateTo006: - Already in 005" << endl;
+           //qDebug() << "DataBase::updateTo006: - Already in 005" << QT_ENDL;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(0)" << endl;
+               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(0)" << QT_ENDL;
             return false;
         }
 
@@ -3453,31 +3296,31 @@ bool DataBase::updateTo006()
 
         if(sqlOk)
         {
-               //qDebug() << "DataBase::updateTo006: - DB Updated" << endl;
+               //qDebug() << "DataBase::updateTo006: - DB Updated" << QT_ENDL;
             sqlOk = recreatePropModes();
 
             if(sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - recreatePropModes OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - recreatePropModes OK" << QT_ENDL;
                 sqlOk = updateTableLog(6); // We copy the log into logtemp
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: - recreatePropModes NOK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - recreatePropModes NOK" << QT_ENDL;
                 ErrorUpdating = true;
                 IAmIn006 = false;
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(1)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(1)" << QT_ENDL;
                 return false;
             }
 
             sqlOk = createTableBand(false);             // We create the bandTemp
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - createTableBand OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - createTableBand OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(2)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(2)" << QT_ENDL;
                 ErrorUpdating = true;
                 //return false;
             }
@@ -3485,44 +3328,44 @@ bool DataBase::updateTo006()
             sqlOk = populateTableBand(false);           // Populate the bandTemp
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - populateTableBand OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - populateTableBand OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(3)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(3)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateBandIdTableLogToNewOnes();
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableLogToNewOnes OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableLogToNewOnes OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(4)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(4)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateBandIdTableAward(1); // DXCC
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 1 OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 1 OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(5)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(5)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateBandIdTableAward(2); // WAZ
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 2 OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - updateBandIdTableAward 2 OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(6)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(6)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
@@ -3531,73 +3374,71 @@ bool DataBase::updateTo006()
             {
                 if (execQuery(Q_FUNC_INFO, "ALTER TABLE bandtemp RENAME TO band"))
                 {
-                       //qDebug() << "DataBase::updateTo006 - bandtemp renamed" << endl;
+                       //qDebug() << "DataBase::updateTo006 - bandtemp renamed" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << endl;
+                       //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not renamed" << QT_ENDL;
                     ErrorUpdating = true;
-                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(7)" << endl;
+                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(7)" << QT_ENDL;
                 }
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << endl;
+                   //qDebug() << "DataBase::updateTo006 - ERROR - bandtemp not dropped" << QT_ENDL;
                 ErrorUpdating = true;
                 IAmIn006 = false;
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(8)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(8)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = updateTheModeTableAndSyncLog();
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - updateTheModeTableAndSyncLog OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - updateTheModeTableAndSyncLog OK" << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(9)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(9)" << QT_ENDL;
                 ErrorUpdating = true;
             }
 
             sqlOk = createTableClubLogStatus();
             if (sqlOk)
             {
-                   //qDebug() << "DataBase::updateTo006: - createTableClubLogStatus OK" << endl;
+                   //qDebug() << "DataBase::updateTo006: - createTableClubLogStatus OK" << QT_ENDL;
                 sqlOk = populateTableClubLogStatus();
                 if (sqlOk)
                 {
-                       //qDebug() << "DataBase::updateTo006: - populateTableClubLogStatus OK" << endl;
+                       //qDebug() << "DataBase::updateTo006: - populateTableClubLogStatus OK" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(10)" << endl;
+                       //qDebug() << "DataBase::updateTo006: UPDATED NOK!(10)" << QT_ENDL;
                     ErrorUpdating = true;
                 }
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(11)" << endl;
+                   //qDebug() << "DataBase::updateTo006: UPDATED NOK!(11)" << QT_ENDL;
                 ErrorUpdating = true;
             }
-
         }
         else
         {// Version not updated
-               //qDebug() << "DataBase::updateTo006: - DB NOT Updated" << endl;
+               //qDebug() << "DataBase::updateTo006: - DB NOT Updated" << QT_ENDL;
             ErrorUpdating = true;
             IAmIn006 = false;
-               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(12)" << endl;
+               //qDebug() << "DataBase::updateTo006: UPDATED NOK!(12)" << QT_ENDL;
             ErrorUpdating = true;
         }
-           //qDebug() << "DataBase::updateTo006: - IAmIn006 = TRUE" << endl;
+           //qDebug() << "DataBase::updateTo006: - IAmIn006 = TRUE" << QT_ENDL;
         IAmIn006 = true;
-
     }
         //DO ALL THE TASKS TO BE IN 0.006 from 0.005 HERE and set ErrorUpdating if it is not possible.
-             //qDebug() << "DataBase::updateTo006 - I am in 006 " << endl;
-         //qDebug() << "DataBase::updateTo006 - END " << endl;
-       //qDebug() << "DataBase::updateTo006: UPDATED OK!" << endl;
+             //qDebug() << "DataBase::updateTo006 - I am in 006 " << QT_ENDL;
+         //qDebug() << "DataBase::updateTo006 - END " << QT_ENDL;
+       //qDebug() << "DataBase::updateTo006: UPDATED OK!" << QT_ENDL;
     if (!IAmIn006)
      {
        // emit debugLog(Q_FUNC_INFO, "2", 7);
@@ -3607,7 +3448,7 @@ bool DataBase::updateTo006()
 
 bool DataBase::updateTableLog(const int _v)
 {
-       //qDebug() << "DataBase::updateTableLog " << endl;
+       //qDebug() << "DataBase::updateTableLog " << QT_ENDL;
     createTableLog(false);
     QString queryString;
     switch (_v)
@@ -3617,47 +3458,47 @@ bool DataBase::updateTableLog(const int _v)
         queryString = QString ("INSERT INTO logtemp (qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, transmiterid, marked, lognumber) SELECT qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, points, multiplier, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, transmiterid, marked, lognumber FROM log");
     break;
     default:
-            //qDebug() << "DataBase::updateTableLog FALSE END" << endl;
+            //qDebug() << "DataBase::updateTableLog FALSE END" << QT_ENDL;
         return false;
     //break;
     }
 
     if (execQuery(Q_FUNC_INFO, queryString))
     {
-            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Query executed" << endl;
+            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Query executed" << QT_ENDL;
         queryString = "DROP TABLE log";
         if (execQuery(Q_FUNC_INFO, queryString))
         {
-                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log dropped" << endl;
+                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log dropped" << QT_ENDL;
 
             queryString = "ALTER TABLE logtemp RENAME TO log" ;
             if (execQuery(Q_FUNC_INFO, queryString))
             {
-                   //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - tmp renamed - END" << endl;
+                   //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - tmp renamed - END" << QT_ENDL;
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Renaming failed" << endl;
+                    //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Renaming failed" << QT_ENDL;
             }
         }
         else
         {
-                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log Not dropped" << endl;
+                //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - Table log Not dropped" << QT_ENDL;
         }
     }
     else
     {
-            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - query failed" << endl;
+            //qDebug() << "DataBase::updateTableLog: " << QString::number(_v) << " - query failed" << QT_ENDL;
     }
-        //qDebug() << "DataBase::updateTableLog END" << endl;
+        //qDebug() << "DataBase::updateTableLog END" << QT_ENDL;
     return false;
 }
 
 
 bool DataBase::createTableClubLogStatus()
 {
-        //qDebug() << "createTableClubLogStatus" << endl;
+        //qDebug() << "createTableClubLogStatus" << QT_ENDL;
 
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists clublog_status");
     QString queryString = QString("CREATE TABLE clublog_status ("
@@ -3666,12 +3507,11 @@ bool DataBase::createTableClubLogStatus()
                "name VARCHAR(15) NOT NULL)");
 
     return execQuery(Q_FUNC_INFO, queryString);
-
 }
 
 bool DataBase::populateTableClubLogStatus()
 {
-        //qDebug() << "populateTableClubLogStatus" << endl;
+        //qDebug() << "populateTableClubLogStatus" << QT_ENDL;
 
     QString queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('Y', 'Uploaded')";
 
@@ -3682,24 +3522,17 @@ bool DataBase::populateTableClubLogStatus()
         if (execQuery(Q_FUNC_INFO, queryString))
         {
             queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
-                //qDebug() << "populateTableClubLogStatus END" << endl;
+                //qDebug() << "populateTableClubLogStatus END" << QT_ENDL;
             return execQuery(Q_FUNC_INFO, queryString);
         }
-
     }
-        //qDebug() << "populateTableClubLogStatus FALSE END" << endl;
+        //qDebug() << "populateTableClubLogStatus FALSE END" << QT_ENDL;
     return false;
 }
-/*
-bool DataBase::moveFromModeIdToSubmodeId()
-{
-    return false;
-}
-*/
 
 bool DataBase::updateTableEntity()
 {
-        //qDebug() << "DataBase::updateTableEntity" << endl;
+        //qDebug() << "DataBase::updateTableEntity" << QT_ENDL;
     bool result = false;
     QString stringQuery;
     bool sqlOk;
@@ -3707,7 +3540,7 @@ bool DataBase::updateTableEntity()
     result = createTableEntity(false);  // Now we have a temp entity table with the correct format
     if (result)
     {
-            //qDebug() << "DataBase::updateTableEntity: Table entitytemp created!" << endl;
+            //qDebug() << "DataBase::updateTableEntity: Table entitytemp created!" << QT_ENDL;
         // Now we need to move all the data from the old to the temp entity table.
 
         stringQuery = QString("INSERT INTO entitytemp (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) SELECT name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate FROM entity");
@@ -3716,32 +3549,29 @@ bool DataBase::updateTableEntity()
 
         if (sqlOk)
         {
-                //qDebug() << "DataBase::updateTableEntity: Data copied from entity to entitytemp!" << endl;
+                //qDebug() << "DataBase::updateTableEntity: Data copied from entity to entitytemp!" << QT_ENDL;
             stringQuery = "DROP TABLE entity";
             if (execQuery(Q_FUNC_INFO, stringQuery))
             {
-                    //qDebug() << "DataBase::updateTableEntity: Table entity DELETED" << endl;
+                    //qDebug() << "DataBase::updateTableEntity: Table entity DELETED" << QT_ENDL;
                 stringQuery = "ALTER TABLE entitytemp RENAME TO entity";
                 return execQuery(Q_FUNC_INFO, stringQuery);
-
             }
             else
             {
                return false;
             }
-
         }
         else
         {
-                //qDebug() << "DataBase::updateTableEntity: Data NOT copied from entity to entitytemp!" << endl;
+                //qDebug() << "DataBase::updateTableEntity: Data NOT copied from entity to entitytemp!" << QT_ENDL;
             //TODO: If it fails, we should manage errors...
             return false;
         }
-
     }
     else
     {
-            //qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT created!" << endl;
+            //qDebug() << "DataBase::updateTableEntity: Table entitytemp NOT created!" << QT_ENDL;
         return false;
     }
 
@@ -3750,7 +3580,7 @@ bool DataBase::updateTableEntity()
 
 bool DataBase::updateTableLogs()
 {
-        //qDebug() << "DataBase::updateTableLogs" << endl;
+        //qDebug() << "DataBase::updateTableLogs" << QT_ENDL;
     bool result = false;
     QString stringQuery;
     bool sqlOk;
@@ -3759,7 +3589,7 @@ bool DataBase::updateTableLogs()
 
     if (result)
     {
-            //qDebug() << "DataBase::updateTableLogs: Table logstemp created!" << endl;
+            //qDebug() << "DataBase::updateTableLogs: Table logstemp created!" << QT_ENDL;
         // Now we need to move all the data from the old to the temp logs table.
 
         stringQuery = QString("INSERT INTO logstemp (logdate, stationcall, comment, logtype, logtypen) SELECT logdate, stationcall, comment, logtype, logtypen FROM logs");
@@ -3768,38 +3598,36 @@ bool DataBase::updateTableLogs()
 
         if (sqlOk)
         {
-                //qDebug() << "DataBase::updateTableLogs: data copied" << endl;
+                //qDebug() << "DataBase::updateTableLogs: data copied" << QT_ENDL;
 
             stringQuery = "DROP TABLE logs";
             if (execQuery(Q_FUNC_INFO, stringQuery))
             {
-                    //qDebug() << "DataBase::updateTableLogs: Table logs DELETED" << endl;
+                    //qDebug() << "DataBase::updateTableLogs: Table logs DELETED" << QT_ENDL;
                 stringQuery = "ALTER TABLE logstemp RENAME TO logs";
                 return execQuery(Q_FUNC_INFO, stringQuery);
             }
             else
             {
-                   //qDebug() << "DataBase::updateTableLogs: Table logs NOT DELETED" << endl;
+                   //qDebug() << "DataBase::updateTableLogs: Table logs NOT DELETED" << QT_ENDL;
                return false;
             }
-
         }
         else
         {
-            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-                //qDebug() << "DataBase::updateTableLogs: data NOT copied" << endl;
+            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                //qDebug() << "DataBase::updateTableLogs: data NOT copied" << QT_ENDL;
             //TODO: If it fails, we should manage errors...
             return false;
         }
-
     }
     else
     {
-            //qDebug() << "DataBase::updateTableLogs: Table logstemp NOT created!" << endl;
+            //qDebug() << "DataBase::updateTableLogs: Table logstemp NOT created!" << QT_ENDL;
         return false;
     }
 
-        //qDebug() << "DataBase::updateTableLogs: END" << endl;
+        //qDebug() << "DataBase::updateTableLogs: END" << QT_ENDL;
     //return false;
 }
 
@@ -3811,7 +3639,7 @@ bool DataBase::updateModeIdFromSubModeId()
     // STEP-4: Updates the new ID in the QSO in the log
     //TODO: Optimize this function
 
-         //qDebug() << "DataBase::updateModeIdFromSubModeId: "  << endl;
+         //qDebug() << "DataBase::updateModeIdFromSubModeId: "  << QT_ENDL;
     bool cancel = false;
     bool alreadyCancelled = false;
     QString modetxt = QString();
@@ -3836,9 +3664,9 @@ bool DataBase::updateModeIdFromSubModeId()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-             //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END"  << endl;
+             //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END"  << QT_ENDL;
         return false;
     }
 
@@ -3852,7 +3680,6 @@ bool DataBase::updateModeIdFromSubModeId()
 
     if (sqlOk)
     {
-
         while (query.next())
         {
             modetxt = QString();
@@ -3860,7 +3687,6 @@ bool DataBase::updateModeIdFromSubModeId()
 
             if (query.isValid())
             {
-
                 i++;
 
                 if (( (i % step )== 0) )
@@ -3872,11 +3698,11 @@ bool DataBase::updateModeIdFromSubModeId()
 
                 modeFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
-                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-1) modeFound (numb): " << QString::number(modeFound) << endl;
+                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-1) modeFound (numb): " << QString::number(modeFound) << QT_ENDL;
 
                 modetxt = getModeNameFromNumber(modeFound, false);                                                      //STEP-2
 
-                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-2) mode found (txt): " << modetxt << endl;
+                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-2) mode found (txt): " << modetxt << QT_ENDL;
 
                 //TODO The following query can be executed in: getModeIdFromSubMode()
 
@@ -3885,8 +3711,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
                 if (sqlOk2)
                 {
-
-                         //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) sqlOK2 TRUE" << endl;
+                         //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) sqlOK2 TRUE" << QT_ENDL;
                     if (query2.next())
                     {
                         if (query2.isValid())
@@ -3898,42 +3723,36 @@ bool DataBase::updateModeIdFromSubModeId()
 
                             if (sqlOk3)
                             {
-                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << endl;
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt << QT_ENDL;
                             }
                             else
                             {
-                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
-                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  << endl;
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
+                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
                             }
                         }
                         else
                         {
                             query2.finish();
-                                 //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) query2 not valid "   << endl;
+                                 //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-3) query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not next "   << endl;
+                          //qDebug() << "DataBase::updateModeIdFromSubModeId: query2 not next "   << QT_ENDL;
                     }
-
                 }
                 else
                 {
-                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                         //qDebug() << "DataBase::updateModeIdFromSubModeId: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
-
             }
 
             if ( progress.wasCanceled() )
             {
-                if (alreadyCancelled)
-                {
-
-                }
-                else
+                if (!alreadyCancelled)
                 {
                     alreadyCancelled = true;
 
@@ -3962,30 +3781,28 @@ bool DataBase::updateModeIdFromSubModeId()
                     }
                 }
             }
-
-
         }
         query.finish();
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 2"  << endl;
+                //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 2"  << QT_ENDL;
             query.finish();
             return false;
         }
 
-            //qDebug() << "DataBase::updateModeIdFromSubModeId: END"  << endl;
+            //qDebug() << "DataBase::updateModeIdFromSubModeId: END"  << QT_ENDL;
 
         query.finish();
         return true;
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 3"  << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::updateModeIdFromSubModeId: FALSE END 3"  << QT_ENDL;
         query.finish();
         return false;
     }
-        //qDebug() << "DataBase::updateModeIdFromSubModeId: CHECK IF this is seen - END"  << endl;
+        //qDebug() << "DataBase::updateModeIdFromSubModeId: CHECK IF this is seen - END"  << QT_ENDL;
     //query.finish();
    //return false;
 }
@@ -3993,7 +3810,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
 bool DataBase::updateBandIdTableLogToNewOnes()
 {
-       //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  << endl;
+       //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  << QT_ENDL;
 
     QString bandtxt = QString();
 
@@ -4020,8 +3837,8 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  << QT_ENDL;
         query.finish();
         return false;
     }
@@ -4057,7 +3874,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << endl;
+                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4075,43 +3892,37 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
-                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
-                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
-                                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" << endl;
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
+                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" << QT_ENDL;
                             }
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   << endl;
+                                 //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   << endl;
+                          //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   << QT_ENDL;
                     }
                     query2.finish();
-
                 }
                 else
                 {
-                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
-
             }
 
             if ( progress.wasCanceled() )
             {
-                if (alreadyCancelled)
-                {
-
-                }
-                else
+                if (!alreadyCancelled)
                 {
                     alreadyCancelled = true;
 
@@ -4140,30 +3951,28 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                     }
                 }
             }
-
         }
         query.finish();
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 2"  << endl;
+                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 2"  << QT_ENDL;
             return false;
         }
-            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: END OK"  << endl;
+            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: END OK"  << QT_ENDL;
         return true;
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  << endl;
+            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  << QT_ENDL;
         return false;
     }
-
 }
 
 bool DataBase::updateBandIdTableAward(const int _db)
 {
-       //qDebug() << "DataBase::updateBandIdTableAward: "  << endl;
+       //qDebug() << "DataBase::updateBandIdTableAward: "  << QT_ENDL;
 
     QString table = QString();
     QString field = QString();
@@ -4182,7 +3991,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
             awardSelected = "WAZ";
           break;
       default:
-                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END"  << endl;
+                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END"  << QT_ENDL;
             return false;
           //break;
     }
@@ -4217,9 +4026,9 @@ bool DataBase::updateBandIdTableAward(const int _db)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-2"  << endl;
+            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-2"  << QT_ENDL;
         return false;
     }
 
@@ -4258,7 +4067,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << endl;
+                     //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4276,44 +4085,37 @@ bool DataBase::updateBandIdTableAward(const int _db)
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                                     //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
-                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
-                                    //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
+                                    //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
 
-                                    //qDebug() << "DataBase::updateBandIdTableAward - QSOs not updated to main log" << endl;
+                                    //qDebug() << "DataBase::updateBandIdTableAward - QSOs not updated to main log" << QT_ENDL;
                             }
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateBandIdTableAward: query2 not valid "   << endl;
+                                 //qDebug() << "DataBase::updateBandIdTableAward: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateBandIdTableAward: query2 not next "   << endl;
+                          //qDebug() << "DataBase::updateBandIdTableAward: query2 not next "   << QT_ENDL;
                     }
                     query2.finish();
-
                 }
                 else
                 {
-                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                         //qDebug() << "DataBase::updateBandIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
-
             }
-
             if ( progress.wasCanceled() )
             {
-                if (alreadyCancelled)
-                {
-
-                }
-                else
+                if (!alreadyCancelled)
                 {
                     alreadyCancelled = true;
 
@@ -4345,29 +4147,29 @@ bool DataBase::updateBandIdTableAward(const int _db)
         }
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-3"  << endl;
+                //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-3"  << QT_ENDL;
             query.finish();
             return false;
         }
-           //qDebug() << "DataBase::updateBandIdTableAward: END OK"  << endl;
+           //qDebug() << "DataBase::updateBandIdTableAward: END OK"  << QT_ENDL;
         query.finish();
         return true;
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  << QT_ENDL;
         query.finish();
         return false;
     }
-         //qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << endl;
+         //qDebug() << "DataBase::updateBandIdTableAward: CHECK IF SEEN END"  << QT_ENDL;
     //query.finish();
     //return false;
 }
 
 bool DataBase::updateModeIdTableAward(const int _db)
 {
-       //qDebug() << "DataBase::updateModeIdTableAward: " << QString::number(_db)  << endl;
+       //qDebug() << "DataBase::updateModeIdTableAward: " << QString::number(_db)  << QT_ENDL;
 
     QString table = QString();
     QString field = "mode";
@@ -4384,7 +4186,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
             awardSelected = "WAZ";
           break;
       default:
-                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END"   << endl;
+                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END"   << QT_ENDL;
             return false;
           //break;
     }
@@ -4419,8 +4221,8 @@ bool DataBase::updateModeIdTableAward(const int _db)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-2"   << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-2"   << QT_ENDL;
         query.finish();
         return false;
     }
@@ -4437,7 +4239,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
     sqlOk = query.exec(sq);
 
-          //qDebug() << "DataBase::updateModeIdTableAward (query): " << query.lastQuery()  << endl;
+          //qDebug() << "DataBase::updateModeIdTableAward (query): " << query.lastQuery()  << QT_ENDL;
     if (sqlOk)
     {
         while (query.next() && (!cancel) )
@@ -4459,18 +4261,18 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
-                     //qDebug() << "DataBase::updateModeIdTableAward: bandfound: "  << QString::number(bandFound) << endl;
-                     //qDebug() << "DataBase::updateModeIdTableAward: id: "  << QString::number(id) << endl;
+                     //qDebug() << "DataBase::updateModeIdTableAward: bandfound: "  << QString::number(bandFound) << QT_ENDL;
+                     //qDebug() << "DataBase::updateModeIdTableAward: id: "  << QString::number(id) << QT_ENDL;
 
                 bandtxt = getSubModeNameFromNumber(bandFound, true);
 
-                     //qDebug() << "DataBase::updateModeIdTableAward: mode found: " << bandtxt << "/" << QString::number(bandFound) << endl;
+                     //qDebug() << "DataBase::updateModeIdTableAward: mode found: " << bandtxt << "/" << QString::number(bandFound) << QT_ENDL;
 
                 sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
 
 
-                     //qDebug() << "DataBase::updateModeIdTableAward (query2): " << query2.lastQuery()  << endl;
+                     //qDebug() << "DataBase::updateModeIdTableAward (query2): " << query2.lastQuery()  << QT_ENDL;
                 if (sqlOk2)
                 {
                     if (query2.next())
@@ -4485,44 +4287,37 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                                     //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
-                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().number(), query3.lastQuery());
-                                    //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << endl;
+                                //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
+                                    //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
 
-                                    //qDebug() << "DataBase::updateModeIdTableAward - QSOs not updated to main log" << endl;
+                                    //qDebug() << "DataBase::updateModeIdTableAward - QSOs not updated to main log" << QT_ENDL;
                             }
-
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateModeIdTableAward: query2 not valid "   << endl;
+                                 //qDebug() << "DataBase::updateModeIdTableAward: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateModeIdTableAward: query2 not next "   << endl;
+                          //qDebug() << "DataBase::updateModeIdTableAward: query2 not next "   << QT_ENDL;
                     }
-
                 }
                 else
                 {
-                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                         //qDebug() << "DataBase::updateModeIdTableAward: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
-
             }
 
             if ( progress.wasCanceled() )
             {
-                if (alreadyCancelled)
-                {
-
-                }
-                else
+                if (!alreadyCancelled)
                 {
                     alreadyCancelled = true;
 
@@ -4554,22 +4349,22 @@ bool DataBase::updateModeIdTableAward(const int _db)
         }
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-3"   << endl;
+                //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-3"   << QT_ENDL;
             query.finish();
             return false;
         }
-           //qDebug() << "DataBase::updateModeIdTableAward: END OK"  << endl;
+           //qDebug() << "DataBase::updateModeIdTableAward: END OK"  << QT_ENDL;
         query.finish();
         return true;
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-4"   << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-4"   << QT_ENDL;
         query.finish();
         return false;
     }
-        //qDebug() << "DataBase::updateModeIdTableAward: Checkif seen END"   << endl;
+        //qDebug() << "DataBase::updateModeIdTableAward: Checkif seen END"   << QT_ENDL;
     //query.finish();
     //return false;
 }
@@ -4578,7 +4373,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
 bool DataBase::updateModeIdTableLogToNewOnes()
 {
-        //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: "  << endl;
+        //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: "  << QT_ENDL;
 
     QString bandtxt = QString();
 
@@ -4636,7 +4431,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
                 id = (query.value(1)).toInt();
                 bandtxt = getModeNameFromNumber(bandFound, false);
 
-                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: mode found: " << bandtxt << endl;
+                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: mode found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM modetemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4652,36 +4447,36 @@ bool DataBase::updateModeIdTableLogToNewOnes()
                             sqlOk3 = query3.exec(sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << endl;
+                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt << QT_ENDL;
                             }
                             else
                             {
-                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - QSOs not updated to main log" << endl;
-                                errorCode = query3.lastError().number();
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - query error: " << QString::number(errorCode) << endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastQuery: " << query3.lastQuery()  << endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-data: " << query3.lastError().databaseText()  << endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-driver: " << query3.lastError().driverText()  << endl;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-n: " << QString::number(query3.lastError().number() ) << endl;
+                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - QSOs not updated to main log" << QT_ENDL;
+                                errorCode = query3.lastError().nativeErrorCode();
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - query error: " << QString::number(errorCode) << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastQuery: " << query3.lastQuery()  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-data: " << query3.lastError().databaseText()  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-driver: " << query3.lastError().driverText()  << QT_ENDL;
+                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-n: " << QString::number(query3.lastError().nativeErrorCode() ) << QT_ENDL;
 
                             }
 
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not valid "   << endl;
+                                 //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not valid "   << QT_ENDL;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not next "   << endl;
+                          //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not next "   << QT_ENDL;
                     }
 
                 }
                 else
                 {
-                         //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << endl;
+                         //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  << QT_ENDL;
                 }
 
             }
@@ -4726,7 +4521,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
         {
             return false;
         }
-             //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: FINISHED OK"  << endl;
+             //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: FINISHED OK"  << QT_ENDL;
         return true;
     }
     else
@@ -4739,8 +4534,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
 
 bool DataBase::updateTo007()
 {// Updates the DB to 0.0.7
-
-       //qDebug() << "DataBase::updateTo007: latestRead: " << getDBVersion() << endl;
+       //qDebug() << "DataBase::updateTo007: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn007 = false;
     bool IAmIn006 = false;
     bool ErrorUpdating = false;
@@ -4752,12 +4546,12 @@ bool DataBase::updateTo007()
 
     if (latestReaded >= 0.007f)
     {
-             //qDebug() << "DataBase::updateTo007: - I am in 007" << endl;
+             //qDebug() << "DataBase::updateTo007: - I am in 007" << QT_ENDL;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo007: - I am not in 007" << endl;
+             //qDebug() << "DataBase::updateTo007: - I am not in 007" << QT_ENDL;
         IAmIn007 = false;
     }
 
@@ -4766,15 +4560,13 @@ bool DataBase::updateTo007()
     {
         while (!IAmIn006 && !ErrorUpdating)
         {
-                //qDebug() << "DataBase::updateTo007: - And I am not in 006" << endl;
+                //qDebug() << "DataBase::updateTo007: - And I am not in 006" << QT_ENDL;
             IAmIn006 = updateTo006();
-
-
         }
-           //qDebug() << "DataBase::updateTo007: - And I am in 006!!!!" << endl;
+           //qDebug() << "DataBase::updateTo007: - And I am in 006!!!!" << QT_ENDL;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo007: NOK-1" << endl;
+               //qDebug() << "DataBase::updateTo007: NOK-1" << QT_ENDL;
              // emit debugLog(Q_FUNC_INFO, "1", 7);
 
             return false;
@@ -4787,7 +4579,7 @@ bool DataBase::updateTo007()
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo007: NOK-2" << endl;
+               //qDebug() << "DataBase::updateTo007: NOK-2" << QT_ENDL;
               // emit debugLog(Q_FUNC_INFO, "2", 7);
 
             return false;
@@ -4795,7 +4587,7 @@ bool DataBase::updateTo007()
         //DO ALL THE TASKS TO BE IN 0.007 from 0.006 HERE and set ErrorUpdating if it is not possible.
         IAmIn007 = true;
     }
-       //qDebug() << "DataBase::updateTo007: END" << endl;
+       //qDebug() << "DataBase::updateTo007: END" << QT_ENDL;
     if (!IAmIn007)
     {
        // emit debugLog(Q_FUNC_INFO, "3", 7);
@@ -4807,8 +4599,7 @@ bool DataBase::updateTo007()
 
 bool DataBase::updateTo008()
 {// Updates the DB to 0.0.8
-
-    //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << endl;
+    //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
     bool ErrorUpdating = false;
@@ -4816,12 +4607,12 @@ bool DataBase::updateTo008()
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= 0.008f)
     {
-          //qDebug() << "DataBase::updateTo008: - I am in 008" << endl;
+          //qDebug() << "DataBase::updateTo008: - I am in 008" << QT_ENDL;
         return true;
     }
     else
     {
-          //qDebug() << "DataBase::updateTo008: - I am not in 008" << endl;
+          //qDebug() << "DataBase::updateTo008: - I am not in 008" << QT_ENDL;
         IAmIn008 = false;
     }
 
@@ -4830,14 +4621,13 @@ bool DataBase::updateTo008()
     {
         while (!IAmIn007 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo008: - And I am not in 007" << endl;
+               //qDebug() << "DataBase::updateTo008: - And I am not in 007" << QT_ENDL;
             IAmIn007 = updateTo007();
-
         }
-           //qDebug() << "DataBase::updateTo008: - I am in 007" << endl;
+           //qDebug() << "DataBase::updateTo008: - I am in 007" << QT_ENDL;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo008: - NOK-1" << endl;
+               //qDebug() << "DataBase::updateTo008: - NOK-1" << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -4850,27 +4640,25 @@ bool DataBase::updateTo008()
             bool sqlOk = updateDBVersion(softVersion, "0.008");
             if (sqlOk)
             { // Version updated
-                   //qDebug() << "DataBase::updateTo008: - OK" << endl;
+                   //qDebug() << "DataBase::updateTo008: - OK" << QT_ENDL;
             }
             else
             { // Version not updated
-                   //qDebug() << "DataBase::updateTo008: - NOK-3" << endl;
+                   //qDebug() << "DataBase::updateTo008: - NOK-3" << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
         else
         {
-               //qDebug() << "DataBase::updateTo008: - NOK-2" << endl;
+               //qDebug() << "DataBase::updateTo008: - NOK-2" << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
-
     }
-       //qDebug() << "DataBase::updateTo008: - END" << endl;
+       //qDebug() << "DataBase::updateTo008: - END" << QT_ENDL;
     if (!IAmIn008)
     {/*emit debugLog(Q_FUNC_INFO, "4", 7);*/
-
     }
     return IAmIn008;
 }
@@ -4878,36 +4666,34 @@ bool DataBase::updateTo008()
 
 bool DataBase::updateTo009()
 {// Updates the DB to 0.0.9 - We add the Satellite tables
-
-       //qDebug() << "DataBase::updateTo009: latestRead: " << getDBVersion() << endl;
+       //qDebug() << "DataBase::updateTo009: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn009 = false;
     bool IAmIn008 = false;
     bool ErrorUpdating = false;
 
-    //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< endl;
+    //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009)<< QT_ENDL;
     latestReaded = getDBVersion().toFloat();
    if (latestReaded >= 0.009f)
     //if ((latestReaded = 0.009) || (latestReaded > 0.009))
     {
-            //qDebug() << "DataBase::updateTo009: - I am in 009" << endl;
+            //qDebug() << "DataBase::updateTo009: - I am in 009" << QT_ENDL;
         //IAmIn009 = true;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< endl;
+             //qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded)<< QT_ENDL;
         IAmIn009 = false;
     }
-        //qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << endl;
+        //qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) << QT_ENDL;
     while (!IAmIn009 && !ErrorUpdating)
     {
         while (!IAmIn008 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo009: - And I am not in 008" << endl;
+               //qDebug() << "DataBase::updateTo009: - And I am not in 008" << QT_ENDL;
             IAmIn008 = updateTo008();
-
         }
-           //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << endl;
+           //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" << QT_ENDL;
         if (ErrorUpdating)
         {
            // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -4917,43 +4703,43 @@ bool DataBase::updateTo009()
 
         if (sqlOk)
         { // Version updated
-               //qDebug() << "DataBase::updateTo009: - version updated" << endl;
+               //qDebug() << "DataBase::updateTo009: - version updated" << QT_ENDL;
             //IAmIn009 = updateTableLog(6);
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo009: - version not updated" << endl;
+               //qDebug() << "DataBase::updateTo009: - version not updated" << QT_ENDL;
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
         if (recreateSatelliteData())
         //if (createTableSatellites(true))
         {
-               //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << endl;
+               //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" << QT_ENDL;
             //if (populateTableSatellites(true))
 
             if (updateTableEntity())
             {
-                  //qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << endl;
+                  //qDebug() << "DataBase::updateTo009: - updateTableEntity OK" << QT_ENDL;
                if (updateTheEntityTableISONames())
                {
-                     //qDebug() << "DataBase::updateTo009: - isonames updated" << endl;
+                     //qDebug() << "DataBase::updateTo009: - isonames updated" << QT_ENDL;
                   // Now I need to update the logs table
 
                   if (updateTableLogs())
                   {
-                         //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << endl;
+                         //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" << QT_ENDL;
                       IAmIn009 = true;
                   }
                   else
                   {
-                         //qDebug() << "DataBase::updateTo009: - logs NOT updated" << endl;
+                         //qDebug() << "DataBase::updateTo009: - logs NOT updated" << QT_ENDL;
                       IAmIn009 = false;
                       ErrorUpdating = true;
                   }
                }
                else
                {
-                     //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << endl;
+                     //qDebug() << "DataBase::updateTo009: - isonames NOT updated" << QT_ENDL;
                   IAmIn009 = false;
                   ErrorUpdating = true;
                }
@@ -4966,13 +4752,13 @@ bool DataBase::updateTo009()
         }
         else
         {
-               //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << endl;
+               //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" << QT_ENDL;
             ErrorUpdating = true;
             IAmIn009 = false;
         }
     }
 
-         //qDebug() << "DataBase::updateTo009: - END" << endl;
+         //qDebug() << "DataBase::updateTo009: - END" << QT_ENDL;
     if (!IAmIn009)
     {
        // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -4986,7 +4772,7 @@ bool DataBase::updateTo010()
     // We add FT8 mode and
     // AS Propagation
 
-       //qDebug() << "DataBase::updateTo010: latestRead: " << getDBVersion() << endl;
+       //qDebug() << "DataBase::updateTo010: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn010 = false;
     bool IAmIn009 = false;
     bool ErrorUpdating = false;
@@ -4994,52 +4780,51 @@ bool DataBase::updateTo010()
     QSqlQuery query;
 
     latestReaded = getDBVersion().toFloat();
-        //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
+        //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.010f)
     {
-           //qDebug() << "DataBase::updateTo010: - I am in 010" << endl;
+           //qDebug() << "DataBase::updateTo010: - I am in 010" << QT_ENDL;
         IAmIn010 = true;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo010: - I am not in 010 I am in: " << QString::number(latestReaded)<< endl;
+             //qDebug() << "DataBase::updateTo010: - I am not in 010 I am in: " << QString::number(latestReaded)<< QT_ENDL;
 
         while (!IAmIn009 && !ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo010: - Check if I am in 009: !" << endl;
+                 //qDebug() << "DataBase::updateTo010: - Check if I am in 009: !" << QT_ENDL;
             IAmIn009 = updateTo009();
 
             if (IAmIn009)
             {
-                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned TRUE - I am in 0.009: " << QString::number(latestReaded) << endl;
+                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned TRUE - I am in 0.009: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned FALSE - I am NOT in 0.009: " << QString::number(latestReaded) << endl;
+                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned FALSE - I am NOT in 0.009: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
 
         if (ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo010: - I Could not update to: " << QString::number(dbVersion) << endl;
+                 //qDebug() << "DataBase::updateTo010: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
-
     }
 
 
     bool sqlOk = execQuery(Q_FUNC_INFO, "UPDATE band SET lower = '0.1357', upper = '0.1378' WHERE name='2190M'");
     if (sqlOk)
     {
-             //qDebug() << "DataBase::updateTo010: - Band update OK" << endl;
+             //qDebug() << "DataBase::updateTo010: - Band update OK" << QT_ENDL;
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-             //qDebug() << "DataBase::updateTo010: - Band update NOK" << endl;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+             //qDebug() << "DataBase::updateTo010: - Band update NOK" << QT_ENDL;
     }
 
 
@@ -5049,26 +4834,25 @@ bool DataBase::updateTo010()
 
     if (updateDBVersion(softVersion, "0.010"))
     {
-             //qDebug() << "DataBase::updateTo010: - We are in 010! " << endl;
+             //qDebug() << "DataBase::updateTo010: - We are in 010! " << QT_ENDL;
         IAmIn010 = true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo010: - Failed to go to 010! " << endl;
+             //qDebug() << "DataBase::updateTo010: - Failed to go to 010! " << QT_ENDL;
         IAmIn010 = false;
        // emit debugLog(Q_FUNC_INFO, "1", 7);
     }
 
-         //qDebug() << "DataBase::updateTo010: - END" << endl;
+         //qDebug() << "DataBase::updateTo010: - END" << QT_ENDL;
     return IAmIn010;
 }
 
 bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 {
-
     QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
 
-       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << endl;
+       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << QT_ENDL;
     QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
     bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
@@ -5081,7 +4865,7 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 
 bool DataBase::updateTheModeTableAndSyncLog()
 {
-         //qDebug() << "DataBase::updateTheModeTableAndSyncLog" << endl;
+         //qDebug() << "DataBase::updateTheModeTableAndSyncLog" << QT_ENDL;
     QSqlQuery query;
 
     createTableMode(false);         // Create modetemp
@@ -5097,7 +4881,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
     if (sqlOK)
     {
         //QSqlDatabase::database().commit();
-             //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" << endl;
+             //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" << QT_ENDL;
 
         sqlOK = execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
         if (!sqlOK)
@@ -5105,22 +4889,21 @@ bool DataBase::updateTheModeTableAndSyncLog()
            // emit debugLog(Q_FUNC_INFO, "1", 7);
         }
         return sqlOK;
-
     }
     else
     {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << endl;
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-         //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << endl;
+         //qDebug() << "DataBase::updateTheModeTableAndSyncLog END" << QT_ENDL;
     //return true;
 }
 
 bool DataBase::recreateTableBand()
 {
-        //qDebug() << "DataBase::recreateTableBand" << endl;
+    //qDebug() << "DataBase::recreateTableBand" << QT_ENDL;
     QSqlQuery query;
 
     createTableBand(false);         // Create modetemp
@@ -5134,1795 +4917,422 @@ bool DataBase::recreateTableBand()
     }
     else
     {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-            //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" << endl;
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-        //qDebug() << "DataBase::recreateTableBand END" << endl;
+        //qDebug() << "DataBase::recreateTableBand END" << QT_ENDL;
+}
+
+QMultiMap<QString, int> DataBase::fillCountryCodes()
+{
+    //qDebug() << Q_FUNC_INFO;
+    QMultiMap<QString, int> countryCodes;
+    countryCodes.clear ();
+    countryCodes.insert ("mt", 246);
+    countryCodes.insert ("un", 247);
+    countryCodes.insert ("mc", 260);
+    countryCodes.insert ("mu", 4);
+    countryCodes.insert ("mu", 165);
+    countryCodes.insert ("mu", 207);
+    countryCodes.insert ("gq", 49);
+    countryCodes.insert ("gq", 195);
+    countryCodes.insert ("fj", 176);
+    countryCodes.insert ("fj", 489);
+    countryCodes.insert ("fj", 460);
+    countryCodes.insert ("sz", 468);
+    countryCodes.insert ("tn", 474);
+    countryCodes.insert ("vn", 293);
+    countryCodes.insert ("gn", 107);
+    countryCodes.insert ("bv", 24);
+    countryCodes.insert ("no", 199);
+    countryCodes.insert ("az", 18);
+    countryCodes.insert ("ge", 75);
+    countryCodes.insert ("me", 514);
+    countryCodes.insert ("lk", 315);
+    countryCodes.insert ("ch", 177);  // ITU HQ
+    countryCodes.insert ("us", 289);  // UN HQ
+    countryCodes.insert ("tl", 511);  // Timor Leste
+    countryCodes.insert ("il", 336);  // Israel
+    countryCodes.insert ("ly", 436);  // Libya
+    countryCodes.insert ("cy", 215);  // Cyprus
+    countryCodes.insert ("tz", 470);  // Tanzania
+    countryCodes.insert ("ng", 450);  // Nigeria
+    countryCodes.insert ("mg", 438);  // Madagascar
+    countryCodes.insert ("mr", 444);  // Mauritania
+    countryCodes.insert ("ne", 187);  // Niger
+    countryCodes.insert ("tg", 484);  // Togo
+    countryCodes.insert ("ws", 190);  // Samoa
+    countryCodes.insert ("ug", 286);  // Uganda
+    countryCodes.insert ("ke", 430);  // Kenya
+    countryCodes.insert ("sn", 456);  // Senegal
+    countryCodes.insert ("jm", 82);   // Jamaica
+    countryCodes.insert ("es", 281);  // Spain
+    countryCodes.insert ("ls", 432);  // Lesotho
+    countryCodes.insert ("mw", 440);  // Malawi
+    countryCodes.insert ("dz", 400);  // Algeria
+    countryCodes.insert ("ye", 492);  // Yemen
+    countryCodes.insert ("bb", 62);   // Barbados
+    countryCodes.insert ("mv", 159);  // Maldives
+    countryCodes.insert ("gy", 129);  // Guyana
+    countryCodes.insert ("hr", 497);  // Croatia
+    countryCodes.insert ("gh", 424);  // Ghana
+    countryCodes.insert ("mt", 257);  // Malta
+    countryCodes.insert ("zm", 482);  // Zambia
+    countryCodes.insert ("kw", 348);  // Kuwait
+    countryCodes.insert ("sl", 458);  //Sierra Leone
+    countryCodes.insert ("my", 299);  // West Malaysia
+    countryCodes.insert ("my", 46);   // East Malaysia
+    countryCodes.insert ("np", 369);  // Nepal
+    countryCodes.insert ("cd", 414);  // Dem Rep Congo
+    countryCodes.insert ("bi", 404);  // Burundi
+    countryCodes.insert ("sg", 381);  // Singapore
+    countryCodes.insert ("rw", 454);  // Rwanda
+    countryCodes.insert ("tt", 90);   // Trinidad & Tobago
+    countryCodes.insert ("bw", 402);
+    countryCodes.insert ("to", 160);
+    countryCodes.insert ("om", 370);
+    countryCodes.insert ("bt", 306);  // Bhutan
+    countryCodes.insert ("ae", 391);  // Un Arab Emirates
+    countryCodes.insert ("qa", 376);  // Qatar
+    countryCodes.insert ("bh", 304);  // Bahrain
+    countryCodes.insert ("pk", 372);  // Pakistan
+    countryCodes.insert ("tw", 386);  // Taiwan
+    countryCodes.insert ("tw", 505);  // Pratas Is
+    countryCodes.insert ("cn", 318);  // China
+    countryCodes.insert ("nr", 157);  //  Nauru
+    countryCodes.insert ("ad", 203);  // Andorra
+    countryCodes.insert ("gm", 422);  // Gambia
+    countryCodes.insert ("bs", 60);
+    countryCodes.insert ("mz", 181);  // Mozambique
+    countryCodes.insert ("cl", 112);  // Chile
+    countryCodes.insert ("cl", 217);  // San Felix
+    countryCodes.insert ("cl", 47);   // Easter Is
+    countryCodes.insert ("cl", 125);  //  Juan Fernandez is
+    countryCodes.insert ("cu", 70);   // Cuba
+    countryCodes.insert ("ma", 446);  // Morocco
+    countryCodes.insert ("bo", 104);  // Bolivia
+    countryCodes.insert ("pt", 272);  // Portugal
+    countryCodes.insert ("pt", 256);  // Madeira
+    countryCodes.insert ("pt", 149);  // Azores
+    countryCodes.insert ("uy", 144);  // Uruguay
+    countryCodes.insert ("ca", 211);  // Sable Is
+    countryCodes.insert ("ca", 252);  // St Paul is
+    countryCodes.insert ("ao", 401);  // Angola
+    countryCodes.insert ("cv", 409);  // Cape Verde
+    countryCodes.insert ("km", 411);  // Comoros
+    countryCodes.insert ("de", 203);  // Fed Rep Germany
+    countryCodes.insert ("ph", 375);  //Philippines
+    countryCodes.insert ("er", 51);   // Eritrea
+    countryCodes.insert ("ps", 510);  // Palestine
+    countryCodes.insert ("ck", 191);  // North Cook
+    countryCodes.insert ("ck", 234);  // South Cook
+    countryCodes.insert ("nu", 188);  // Niue
+    countryCodes.insert ("ba", 501);  // Bosnia
+    countryCodes.insert ("balear", 21); // Balearic is
+    countryCodes.insert ("canary", 29); // Canary Is
+    countryCodes.insert ("ceuta", 32);  // Ceuta & Melilla //TODO: Fix the flag
+    countryCodes.insert ("ie", 245); // Ireland
+    countryCodes.insert ("am", 14);
+    countryCodes.insert ("lr", 434);
+    countryCodes.insert ("ir",330);  // Iran
+    countryCodes.insert ("mv", 179); // Moldova
+    countryCodes.insert ("ee", 52);  //  Estonia
+    countryCodes.insert ("et", 53);  // Ethiopia
+    countryCodes.insert ("by", 27);  // Belarus
+    countryCodes.insert ("kg", 135); // Kyrgyzstan
+    countryCodes.insert ("tm", 280); // Turkmenistan
+    countryCodes.insert ("tj", 262); // Tajikistan
+    countryCodes.insert ("fr", 227); // France
+    countryCodes.insert ("fr", 79);  // Guadeloupe
+    countryCodes.insert ("yt", 169); // Mayotte
+    countryCodes.insert ("fr", 516); // St Barthelemy
+    countryCodes.insert ("fr", 36);  // Clipperton Is
+    countryCodes.insert ("nc", 162);  // New Caledonia
+    countryCodes.insert ("nc", 512);  // Chesterfield Is
+    countryCodes.insert ("mq", 84);   // Martinique
+    countryCodes.insert ("pf", 175);  // French Polynesia
+    countryCodes.insert ("pf", 508);  // Austral Is
+    countryCodes.insert ("pm", 277);  //  St Pierre & Miquelon
+    countryCodes.insert ("re", 453);  //Reunion Is
+    countryCodes.insert ("fr", 213); // St Marteen
+    countryCodes.insert ("fr", 99);  // Glorioso is
+    countryCodes.insert ("fr", 124); // Juan de nova, Europa
+    countryCodes.insert ("fr", 276);  //  Tromelin - TODO: Add the wikipedia flag
+    countryCodes.insert ("fr", 41);  // Crozet
+    countryCodes.insert ("fr", 131);  // Kerguelen
+    //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
+    countryCodes.insert ("fr", 10);  //Amsterdam & St Paul is
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("wf", 298);  // Wallis & Futuna is
+    countryCodes.insert ("gf", 63);  // French Guiana
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("england", 223);  // England
+    countryCodes.insert ("gb", 114); //Isle of Man
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("northernireland", 265); // Northern Ireland
+    countryCodes.insert ("gb", 122);  // Jersey
+    countryCodes.insert ("scotland", 279);  //  Scotland
+    countryCodes.insert ("scotland", 1279);  //  Shetland is (Scotland)
+    countryCodes.insert ("gb", 106);  // Guernsey
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("wales", 294);  // Wales
+    countryCodes.insert ("sb", 185); // Solomon
+    countryCodes.insert ("sb", 507);  // Temotu Province
+    countryCodes.insert ("hu", 239);  // Hungary
+    countryCodes.insert ("ch", 287);  // Switzerland
+    countryCodes.insert ("li", 251); // Liechtenstein
+    countryCodes.insert ("ec", 120);  // Ecuador
+    countryCodes.insert ("ec", 71);  // Galapagos Is
+    countryCodes.insert ("ht", 78);  // Haiti
+    countryCodes.insert ("do", 72);  // Dominican Rep
+    countryCodes.insert ("co", 116);  // Colombia
+    countryCodes.insert ("co", 216);  // San Andres & Providencia
+    countryCodes.insert ("co", 161);  // Malpelo
+    countryCodes.insert ("kr", 137);  // Rep Korea
+    countryCodes.insert ("pa", 88);  // Panama
+    countryCodes.insert ("hn", 80); // Honduras
+    countryCodes.insert ("th", 387);  // Thailand
+    countryCodes.insert ("va", 295);
+    countryCodes.insert ("sa", 378); // Saudi Arabia
+    countryCodes.insert ("it", 248);  // Italy
+    countryCodes.insert ("it", 1248);  // African Italy
+    countryCodes.insert ("it", 2248); // Sicily
+    countryCodes.insert ("it", 225);  // Sardinia
+    countryCodes.insert ("dj", 382);  // Djibouti
+    countryCodes.insert ("gd", 77);  // Grenada
+    countryCodes.insert ("gw", 109);  // Guinea-Bissau
+    countryCodes.insert ("lc", 97);  // St Lucia
+    countryCodes.insert ("dm", 95);  // Dominica
+    countryCodes.insert ("vc", 98);  // St Vicent
+    countryCodes.insert ("jp", 339);  // Japan
+    countryCodes.insert ("jp", 177);  // Minami Torishima
+    countryCodes.insert ("jp", 192);  // Ogasawara
+    countryCodes.insert ("mn", 363);  // Mongolia
+    countryCodes.insert ("sj", 259);  // Svalbard
+    countryCodes.insert ("sj", 1259);  // Svalbard
+    countryCodes.insert ("sj", 118);  // Jan Mayen
+    countryCodes.insert ("jo", 342);
+    countryCodes.insert ("us", 291);
+    countryCodes.insert ("us", 105);
+    countryCodes.insert ("mp", 166);
+    countryCodes.insert ("us", 20);
+    countryCodes.insert ("gu", 103);
+    countryCodes.insert ("us", 123);
+    countryCodes.insert ("us", 174);
+    countryCodes.insert ("us", 197);
+    countryCodes.insert ("us", 134);
+    countryCodes.insert ("us", 110);  // Hawaii
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("us", 138);  // Kure is
+    countryCodes.insert ("as", 9);  // American Samoa
+    countryCodes.insert ("as", 515);  // Swains is
+    countryCodes.insert ("us", 297);  // Wake is
+    countryCodes.insert ("us", 6); // Alaska
+    countryCodes.insert ("us", 182);  // Navassa Is
+    countryCodes.insert ("vi", 285);  // Us Virgin is
+    countryCodes.insert ("pr", 202);  // Puerto Rico
+    countryCodes.insert ("us", 43);  // Desecheo Is
+    countryCodes.insert ("no", 266);  // Norway
+    countryCodes.insert ("ar", 100);  // Argentina
+    countryCodes.insert ("lu", 254);  // Luxembourg
+    countryCodes.insert ("lt", 146);  // Lithuania
+    countryCodes.insert ("bg", 212);  // Bulgaria
+    countryCodes.insert ("pe", 136);  // Peru
+    countryCodes.insert ("lb", 354);  // Lebanon
+    countryCodes.insert ("at", 206);  // Austria & Viena Intl HQ
+    countryCodes.insert ("fi", 224);  // Findland
+    countryCodes.insert ("fi", 5); // Aland is
+    countryCodes.insert ("fi", 167);  // Market Reef
+    countryCodes.insert ("cz", 503);  // Czech Rep
+    countryCodes.insert ("sk", 504);  // Slovak Rep
+    countryCodes.insert ("be", 209);  // Belgium
+    countryCodes.insert ("gl", 237);  // Greenland
+    countryCodes.insert ("dk", 222); // Faroe is
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("dk", 221);  // Denmark
+    countryCodes.insert ("pg", 163);  // Papua New Guinea
+    countryCodes.insert ("aw", 91);  // Aruba
+    countryCodes.insert ("kp", 344);  //Dpr Korea
+    countryCodes.insert ("nl", 263); // Netherlands
+    countryCodes.insert ("cw", 517);  // Curacao
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("bq", 520);  // Bonaire
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("nl", 519);  // Saba & St Eustatius
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("shm", 518);  // Sint Marteen
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("br", 108);  // Brazil
+    countryCodes.insert ("br", 56);  // Fernando de Noronha
+    countryCodes.insert ("br", 253);  //  St Peter & St Paul
+    countryCodes.insert ("br", 273);  // Trindade & Martim Vaz
+    countryCodes.insert ("sr", 140);  // Suriname
+    countryCodes.insert ("ru", 61);  // Franz Josef Land
+    countryCodes.insert ("eh", 302); // Western Sahara
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("bd", 305);  // Bangladesh
+    countryCodes.insert ("si", 499);  // Slovenia
+    countryCodes.insert ("sc", 379);  // Seychelles
+    countryCodes.insert ("st", 219);  // Sao Tome & Principe
+    countryCodes.insert ("se", 284);  // Sweden
+    countryCodes.insert ("pl", 269);  // Poland
+    countryCodes.insert ("sd", 466);  // Sudan
+    countryCodes.insert ("eg", 478);  // Egypt
+    countryCodes.insert ("gr", 236);  // Greece
+    countryCodes.insert ("gr", 180);  // Mount Athos
+    countryCodes.insert ("gr", 45);  // Dodecanese
+    countryCodes.insert ("gr", 40);  // Crete
+    countryCodes.insert ("tv", 282); // Tuvalu
+    countryCodes.insert ("ki", 301); // Western Kiribati
+    countryCodes.insert ("ki", 31);  // Central Kiribati
+    countryCodes.insert ("ki", 48); // Eastern Kiribati
+    countryCodes.insert ("ki", 490); // Banaba is
+    countryCodes.insert ("so", 232);  // Somalia
+    countryCodes.insert ("sm", 278); // San Marino
+    countryCodes.insert ("pw", 22);  // Palau
+    countryCodes.insert ("tr", 390);  // Turkey
+    countryCodes.insert ("tr", 1390);  // European Turkey
+    countryCodes.insert ("is", 242); // Iceland
+    countryCodes.insert ("gt", 76); // Guatemala
+    //TODO: Add the wikipedia flag
+    countryCodes.insert ("cr", 308);  // Costa Rica
+    countryCodes.insert ("cr", 37); // Coco is
+    countryCodes.insert ("cm", 406);  // Cameroon
+    countryCodes.insert ("fr", 214);  // Corsica
+    // TODO: Add the wikipedia flag
+    countryCodes.insert ("cf", 408);  // Central African Rep
+    countryCodes.insert ("cg", 412);  // Rep of Congo
+    countryCodes.insert ("ga", 420);  // Gabon
+    countryCodes.insert ("td", 410);  // Chad
+    countryCodes.insert ("ci", 428);  // Cote d'Ivoire
+    countryCodes.insert ("bj", 416); // Benin
+    countryCodes.insert ("ml", 442);  // Mali
+    countryCodes.insert ("ru", 54); // European Russia
+    countryCodes.insert ("ru", 15);  // Asiatic Russia
+    countryCodes.insert ("ru", 126);  // Kaliningrad
+    countryCodes.insert ("uz", 292);  // Uzbekistan
+    countryCodes.insert ("kz", 130);  // Kazakhstan
+    countryCodes.insert ("ua", 288);  // Ukraine
+    countryCodes.insert ("ag", 94);  // Antigua & Barbuda
+    countryCodes.insert ("bz", 66);  // Belize
+    countryCodes.insert ("kn", 249);  // St Kitts & Nevis
+    countryCodes.insert ("na", 464);  // Namibia
+    countryCodes.insert ("fm", 173);  // Micronesia
+    countryCodes.insert ("fm", 168);  // Marshall Is
+    countryCodes.insert ("bn", 345); // Brunei Darusalam
+    countryCodes.insert ("ca", 1);  // Canada
+    countryCodes.insert ("au", 150);  // Australia
+    countryCodes.insert ("hm", 111);  // Heard Is
+    countryCodes.insert ("au", 153);  // Macquarie is
+    countryCodes.insert ("cc", 38);  //  Cocos / Keeling is
+    countryCodes.insert ("au", 147); //  Lord Howe is
+    countryCodes.insert ("au", 171); // Mellish Reed
+    countryCodes.insert ("nf", 189); // Norkfolk is
+    countryCodes.insert ("au", 303);  // Willis Is
+    countryCodes.insert ("cx", 35);  // Christmas is
+    countryCodes.insert ("ai", 12); //  Anguilla
+    countryCodes.insert ("ms", 96);  // Montserrat
+    countryCodes.insert ("vg", 65);  // British is
+    countryCodes.insert ("tc", 89);  // Turks & Caicos is
+    countryCodes.insert ("pn", 172);  // Pitcairn
+    countryCodes.insert ("gb", 513);  // Ducie is
+    countryCodes.insert ("fk", 141);  // Falkland is
+    countryCodes.insert ("gs", 235);  // South Georgia is
+    countryCodes.insert ("southbritish", 241);  // South Shetland is
+    countryCodes.insert ("un", 238);  // South Orkney is
+    countryCodes.insert ("gs", 240);  // South Sandwich Is
+    countryCodes.insert ("bm", 64);  // Bermuda
+    countryCodes.insert ("io", 33);  // Chagos is
+    countryCodes.insert ("hk", 321);  // Hong Kong
+    countryCodes.insert ("in", 324);  // India
+    countryCodes.insert ("in", 11);  // Andaman & Nicobar
+    countryCodes.insert ("in", 142);  // Lakshadweep Is
+    countryCodes.insert ("mx", 50);  // Mexico
+    countryCodes.insert ("mx", 204);  // Revilagigedo
+    countryCodes.insert ("bf", 480);  // Burkina Faso
+    countryCodes.insert ("kh", 312); //  Cambodia
+    countryCodes.insert ("la", 143);  // Laos
+    countryCodes.insert ("mo", 152); // Macao
+    countryCodes.insert ("mm", 309);  // Myanmar
+    countryCodes.insert ("af", 3);  // Afganistan
+    countryCodes.insert ("id", 327);  // Indonesia
+    countryCodes.insert ("iq", 333);  // Iraq
+    countryCodes.insert ("vu", 158);  // Vanuatu
+    countryCodes.insert ("sy", 384); // Syria
+    countryCodes.insert ("lv", 145);  // Latvia
+    countryCodes.insert ("ni", 86);  //  Nicaragua
+    countryCodes.insert ("ro", 275); // Romania
+    countryCodes.insert ("sv", 74);  // El Salvador
+    countryCodes.insert ("rs", 296); // Serbia
+    countryCodes.insert ("ve", 148);  // Venezuela
+    countryCodes.insert ("ve", 17); // Aves Is
+    countryCodes.insert ("zw", 452);  // Zimbabwe
+    countryCodes.insert ("mk", 502);  // Macedonia
+    countryCodes.insert ("ss", 521);  //Rep South Sudan
+    countryCodes.insert ("al", 7);  // Albania
+    countryCodes.insert ("gi", 233);  // Gibraltar
+    countryCodes.insert ("gb", 283);  // UK Base Aereas Cyprus
+    countryCodes.insert ("sh", 250); // St Helena
+    countryCodes.insert ("sh", 205);  // Ascension is
+    countryCodes.insert ("sh", 274);  // Tristan da Cunha & Gough is
+    countryCodes.insert ("ky", 69); // Cayman Is
+    countryCodes.insert ("tk", 270);  // Tokelau Is
+    countryCodes.insert ("marquesas", 509);  // Marquesas Is
+    countryCodes.insert ("nz", 170);  // New Zeland
+    countryCodes.insert ("nz", 34);  // Chatham Is
+    countryCodes.insert ("nz", 133);  // Kermadec is
+    countryCodes.insert ("nz", 16);  // Auckland & Campbell is
+    countryCodes.insert ("py", 132);  // Paraguay
+    countryCodes.insert ("za", 462);  // South Africa
+    countryCodes.insert ("za", 201);  // Pr Edward & Marion Is
+    countryCodes.insert ("xk", 522);  // Kosovo
+    // Countries without flag or controversial - Data is added just to keep the DB filled-up
+    countryCodes.insert ("un", 506);  // Scarboroug Reef
+    countryCodes.insert ("un", 13); //  Antartica
+
+    return countryCodes;
 }
 
 bool DataBase::updateTheEntityTableISONames()
 {
-       //qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
+    //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
     QSqlQuery query;
     QString sq;
 
     //First of all we will check if the entity table does contain data. We can't update something non existent!
     if (!hasTheTableData("entity"))
     {
-            //qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << endl;
+            //qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
+    QMultiMap<QString, int> countryCodes;
+    countryCodes.clear ();
 
-        //qDebug() << "DataBase::updateTheEntityTableISONames-1" << endl;
-    sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='246'");  //Sovereign Order of Malta
+    countryCodes = fillCountryCodes ();
 
-    bool sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-       // emit debugLog(Q_FUNC_INFO, "2", 7);
-        return false;
-    }
-        //qDebug() << "DataBase::updateTheEntityTableISONames-2" << endl;
+    foreach (const QString &str, countryCodes.uniqueKeys()) {
+        foreach (int i, countryCodes.values(str))
+        {
+            if (!updateEntity (str, i))
+                return false;
 
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='247'");  //Spratly
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-       // emit debugLog(Q_FUNC_INFO, "3", 7);
-        return false;
+            //qDebug() << str << ':' << i;
+        }
     }
 
-    sq = QString ("UPDATE entity SET isoname='mc' WHERE dxcc='260'");  //Monaco
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "4", 7); */return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='4'");  // Agalega
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "5", 7); */return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='165'");  //Mauricio
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "6", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mu' WHERE dxcc='207'");  //Rodriguez
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "7", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='49'");  // Equatorial Guinea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "8", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='176'");  //Fidji
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "9", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gq' WHERE dxcc='195'");  //Annobon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "10", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='489'");  // Conway reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "11", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fj' WHERE dxcc='460'");  // Rotuma
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "12", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sz' WHERE dxcc='468'");  // Swaziland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tn' WHERE dxcc='474'");  // Tunisia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "14", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vn' WHERE dxcc='293'");  // Vietnam
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "15", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gn' WHERE dxcc='107'");  // Guinea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "16", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bv' WHERE dxcc='24'");  // Bouvet
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "17", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='199'");  // Peter 1 Is"
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "18", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='az' WHERE dxcc='18'");  // Azerbaijan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "19", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ge' WHERE dxcc='75'");  // Georgia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='me' WHERE dxcc='514'");  // Montenegro
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lk' WHERE dxcc='315'");  // Sri lanka
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='117'");  // ITU HQ
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='289'");  // UN HQ
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tl' WHERE dxcc='511'");  // Timor Leste
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='il' WHERE dxcc='336'");  // Israel
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ly' WHERE dxcc='436'");  // Libya
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cy' WHERE dxcc='215'");  // Cyprus
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tz' WHERE dxcc='470'");  // Tanzania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ng' WHERE dxcc='450'");  // Nigeria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mg' WHERE dxcc='438'");  // Madagascar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mr' WHERE dxcc='444'");  // Mauritania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ne' WHERE dxcc='187'");  // Niger
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tg' WHERE dxcc='483'");  // Togo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ws' WHERE dxcc='190'");  // Samoa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ug' WHERE dxcc='286'");  // Uganda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ke' WHERE dxcc='430'");  // Kenya
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sn' WHERE dxcc='456'");  // Senegal
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jm' WHERE dxcc='82'");  // Jamaica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='es' WHERE dxcc='281'");  // Spain
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ls' WHERE dxcc='432'");  //Lesotho
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mw' WHERE dxcc='440'");  // Malawi
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dz' WHERE dxcc='400'");  // Algeria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ye' WHERE dxcc='492'");  // Yemen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bb' WHERE dxcc='62'");  // Barbados
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='159'");  // Maldives
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gy' WHERE dxcc='129'");  // Guyana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hr' WHERE dxcc='497'");  // Croatia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gh' WHERE dxcc='424'");  // Ghana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mt' WHERE dxcc='257'");  // Malta
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='zm' WHERE dxcc='482'");  // Zambia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kw' WHERE dxcc='348'");  // Kuwait
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sl' WHERE dxcc='458'");  // Sierra Leone
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='299'");  // West Malaysia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='my' WHERE dxcc='46'");  // East Malaysia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='np' WHERE dxcc='369'");  // Nepal
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cd' WHERE dxcc='414'");  // Dem Rep Congo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bi' WHERE dxcc='404'");  // Burundi
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sg' WHERE dxcc='381'");  // Singapore
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='rw' WHERE dxcc='454'");  // Rwanda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tt' WHERE dxcc='90'");  // Trinidad & Tobago
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bw' WHERE dxcc='402'");  // Botswana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='to' WHERE dxcc='160'");  //  Tonga
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='om' WHERE dxcc='370'");  // Oman
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bt' WHERE dxcc='306'");  // Bhutan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ae' WHERE dxcc='391'");  // Un Arab Emirates
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='qa' WHERE dxcc='376'");  // Qatar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bh' WHERE dxcc='304'");  // Bahrain
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pk' WHERE dxcc='372'");  // Pakistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='386'");  // Taiwan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tw' WHERE dxcc='505'");  // Pratas Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cn' WHERE dxcc='318'");  // China
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nr' WHERE dxcc='157'");  //  Nauru
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ad' WHERE dxcc='203'");  // Andorra
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gm' WHERE dxcc='422'");  // Gambia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bs' WHERE dxcc='60'");  // Bahamas
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mz' WHERE dxcc='181'");  // Mozambique
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='112'");  // Chile
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='217'");  // San Felix
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='47'");  // Easter Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cl' WHERE dxcc='125'");  //  Juan Fernandez is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cu' WHERE dxcc='70'");  // Cuba
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ma' WHERE dxcc='446'");  // Morocco
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bo' WHERE dxcc='104'");  // Bolivia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='272'");  // Portugal
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='256'");  // Madeira
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pt' WHERE dxcc='149'");  // Azores
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='uy' WHERE dxcc='144'");  // Uruguay
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='211'");  // Sable Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='252'");  // St Paul is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ao' WHERE dxcc='401'");  // Angola
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cv' WHERE dxcc='409'");  // Cape Verde
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='km' WHERE dxcc='411'");  // Comoros
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='de' WHERE dxcc='230'");  // Fed Rep Germany
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ph' WHERE dxcc='375'");  //Philippines
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='er' WHERE dxcc='51'");  // Eritrea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ps' WHERE dxcc='510'");  // Palestine
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='191'");  // North Cook
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ck' WHERE dxcc='234'");  // South Cook
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nu' WHERE dxcc='188'");  // Niue
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ba' WHERE dxcc='501'");  // Bosnia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='balear' WHERE dxcc='21'");  // Balearic is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='canary' WHERE dxcc='29'");  // Canary Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ceuta' WHERE dxcc='32'");  // Ceuta & Melilla //TODO: Fix the flag
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ie' WHERE dxcc='245'");  // Ireland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='am' WHERE dxcc='14'");  // Armenia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lr' WHERE dxcc='434'");  // Liberia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ir' WHERE dxcc='330'");  // Iran
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mv' WHERE dxcc='179'");  // Moldova
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ee' WHERE dxcc='52'");  //  Estonia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='et' WHERE dxcc='53'");  // Ethiopia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='by' WHERE dxcc='27'");  // Belarus
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kg' WHERE dxcc='135'");  // Kyrgyzstan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tm' WHERE dxcc='280'");  // Turkmenistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tj' WHERE dxcc='262'");  // Turkmenistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='227'");  // France
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='79'");  // Guadeloupe
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='yt' WHERE dxcc='169'");  // Mayotte
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='516'");  // St Barthelemy
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='36'");  // Clipperton Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='162'");  // New Caledonia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nc' WHERE dxcc='512'");  // Chesterfield Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mq' WHERE dxcc='84'");  // Martinique
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='175'");  // French Polynesia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pf' WHERE dxcc='508'");  // Austral Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pm' WHERE dxcc='277'");  //  St Pierre & Miquelon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='re' WHERE dxcc='453'");  //Reunion Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='213'");  // St Marteen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='99'");  // Glorioso is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='124'");  // Juan de nova, Europa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='276'");  //  Tromelin - TODO: Add the wikipedia flag
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='41'");  // Crozet
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='131'");  // Kerguelen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag http://es.wikipedia.org/wiki/Tierras_Australes_y_Ant%C3%A1rticas_Francesas
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='10'");  //Amsterdam & St Paul is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='wf' WHERE dxcc='298'");  // Wallis & Futuna is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gf' WHERE dxcc='63'");  // French Guiana
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='england' WHERE dxcc='223'");  // England
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='114'");  //Isle of Man
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='northernireland' WHERE dxcc='265'");  // Northern Ireland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='122'");  // Jersey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='279'");  //  Scotland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='scotland' WHERE dxcc='1279'");  //  Shetland is (Scotland)
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='106'");  // Guernsey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='wales' WHERE dxcc='294'");  // Wales
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='185'");  // Solomon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sb' WHERE dxcc='507'");  // Temotu Province
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hu' WHERE dxcc='239'");  // Hungary
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ch' WHERE dxcc='287'");  // Switzerland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='li' WHERE dxcc='251'");   // Liechtenstein
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='120'");  // Ecuador
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ec' WHERE dxcc='71'");  // Galapagos Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ht' WHERE dxcc='78'");  // Haiti
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='do' WHERE dxcc='72'");  // Dominican Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='116'");  // Colombia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='216'");  // San Andres & Providencia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='co' WHERE dxcc='161'");  // Malpelo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kr' WHERE dxcc='137'");  // Rep Korea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pa' WHERE dxcc='88'");  // Panama
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hn' WHERE dxcc='80'");  // Honduras
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='th' WHERE dxcc='387'");  // Thailand
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='va' WHERE dxcc='295'");  // Vatican City
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sa' WHERE dxcc='378'");  // Saudi Arabia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='248'");  // Italy
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='1248'");  // African Italy
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='2248'");  // Sicily
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='it' WHERE dxcc='225'");  // Sardinia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dj' WHERE dxcc='382'");  // Djibouti
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gd' WHERE dxcc='77'");  // Grenada
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gw' WHERE dxcc='109'");  // Guinea-Bissau
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lc' WHERE dxcc='97'");  // St Lucia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dm' WHERE dxcc='95'");  // Dominica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vc' WHERE dxcc='98'");  // St Vicent
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='339'");  // Japan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='177'");  // Minami Torishima
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jp' WHERE dxcc='192'");  // Ogasawara
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mn' WHERE dxcc='363'");  // Mongolia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='259'");  // Svalbard
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='1259'");  // Svalbard
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sj' WHERE dxcc='118'");  // Jan Mayen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='jo' WHERE dxcc='342'");  // Jordan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='291'");  // United States
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='105'");  // Guantanamo Bay
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mp' WHERE dxcc='166'");  //  Mariana is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='20'");  // Baker & Howland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gu' WHERE dxcc='103'");  // Guam
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='123'");  // Johnston is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='174'");  // Midway is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='197'");  // Palmyra & Jarbis is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='134'");  // Kingman Reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='110'");  // Hawaii
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='138'");  // Kure is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='9'");  // American Samoa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='as' WHERE dxcc='515'");  // Swains is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='297'");  // Wake is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='6'");  // Alaska
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='182'");  // Navassa Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vi' WHERE dxcc='285'");  // Us Virgin is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pr' WHERE dxcc='202'");  // Puerto Rico
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='us' WHERE dxcc='43'");  // Desecheo Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='no' WHERE dxcc='266'");  // Norway
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ar' WHERE dxcc='100'");  // Argentina
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lu' WHERE dxcc='254'");  // Luxembourg
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lt' WHERE dxcc='146'");  // Lithuania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bg' WHERE dxcc='212'");  // Bulgaria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pe' WHERE dxcc='136'");  // Peru
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lb' WHERE dxcc='354'");  // Lebanon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='at' WHERE dxcc='206'");  // Austria & Viena Intl HQ
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='224'");  // Findland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='5'");  // Aland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fi' WHERE dxcc='167'");  // Market Reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cz' WHERE dxcc='503'");  // Czech Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sk' WHERE dxcc='504'");  // Slovak Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='be' WHERE dxcc='209'");  // Belgium
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gl' WHERE dxcc='237'");  // Greenland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='222'");  // Faroe is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='dk' WHERE dxcc='221'");  // Denmark
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pg' WHERE dxcc='163'");  // Papua New Guinea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='aw' WHERE dxcc='91'");  // Aruba
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kp' WHERE dxcc='344'");  //Dpr Korea
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='263'");  // Netherlands
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cw' WHERE dxcc='517'");  // Curacao
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='bq' WHERE dxcc='520'");  // Bonaire
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='nl' WHERE dxcc='519'");  // Saba & St Eustatius
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='shm' WHERE dxcc='518'");  // Sint Marteen
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='108'");  // Brazil
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='56'");  // Fernando de Noronha
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='253'");  //  St Peter & St Paul
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='br' WHERE dxcc='273'");  // Trindade & Martim Vaz
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sr' WHERE dxcc='140'");  // Suriname
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='61'");  // Franz Josef Land
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='eh' WHERE dxcc='302'");  // Western Sahara
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='bd' WHERE dxcc='305'");  // Bangladesh
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='si' WHERE dxcc='499'");  // Slovenia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sc' WHERE dxcc='379'");  // Seychelles
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='st' WHERE dxcc='219'");  // Sao Tome & Principe
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='se' WHERE dxcc='284'");  // Sweden
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pl' WHERE dxcc='269'");  // Poland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sd' WHERE dxcc='466'");  // Sudan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='eg' WHERE dxcc='478'");  // Egypt
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='236'");  // Greece
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='180'");  // Mount Athos
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='45'");  // Dodecanese
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gr' WHERE dxcc='40'");  // Crete
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tv' WHERE dxcc='282'");  // Tuvalu
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='301'");  // Western Kiribati
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='31'");  // Central Kiribati
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='48'");  // Eastern Kiribati
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ki' WHERE dxcc='490'");  // Banaba is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='so' WHERE dxcc='232'");  // Somalia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sm' WHERE dxcc='278'");  // San Marino
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pw' WHERE dxcc='22'");  // Palau
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='390'");  // Turkey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tr' WHERE dxcc='1390'");  // European Turkey
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='is' WHERE dxcc='242'");  // Iceland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gt' WHERE dxcc='76'");  // Guatemala
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    //TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='308'");  // Costa Rica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cr' WHERE dxcc='37'");  // Coco is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cm' WHERE dxcc='406'");  // Cameroon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fr' WHERE dxcc='214'");  // Corsica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-    // TODO: Add the wikipedia flag
-
-    sq = QString ("UPDATE entity SET isoname='cf' WHERE dxcc='408'");  // Central African Rep
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cg' WHERE dxcc='412'");  // Rep of Congo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='ga' WHERE dxcc='420'");  // Gabon
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='td' WHERE dxcc='410'");  // Chad
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ci' WHERE dxcc='428'");  // Cote d'Ivoire
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bj' WHERE dxcc='416'");  // Benin
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ml' WHERE dxcc='442'");  // Mali
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='54'");  // European Russia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Russia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='126'");  // Kaliningrad
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-
-    sq = QString ("UPDATE entity SET isoname='ru' WHERE dxcc='15'");  // Asiatic Rusia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='uz' WHERE dxcc='292'");  // Uzbekistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kz' WHERE dxcc='130'");  // Kazakhstan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ua' WHERE dxcc='288'");  // Ukraine
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ag' WHERE dxcc='94'");  // Antigua & Barbuda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bz' WHERE dxcc='66'");  // Belize
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kn' WHERE dxcc='249'");  // St Kitts & Nevis
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='na' WHERE dxcc='464'");  // Namibia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='173'");  // Micronesia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fm' WHERE dxcc='168'");  // Marshall Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bn' WHERE dxcc='345'");  // Brunei Darusalam
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ca' WHERE dxcc='1'");  // Canada
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='150'");  // Australia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hm' WHERE dxcc='111'");  // Heard Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='153'");  // Macquarie is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cc' WHERE dxcc='38'");  //  Cocos / Keeling is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='147'");  //  Lord Howe is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='171'");  // Mellish Reed
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nf' WHERE dxcc='189'");  // Norkfolk is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='au' WHERE dxcc='303'");  // Willis Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='cx' WHERE dxcc='35'");  // Christmas is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ai' WHERE dxcc='12'");  //  Anguilla
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ms' WHERE dxcc='96'");  // Montserrat
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vg' WHERE dxcc='65'");  // British is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tc' WHERE dxcc='89'");  // Turks & Caicos is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='pn' WHERE dxcc='172'");  // Pitcairn
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='513'");  // Ducie is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='fk' WHERE dxcc='141'");  // Falkland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='235'");  // South Georgia is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='southbritish' WHERE dxcc='241'");  // South Shetland is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='238'");  // South Orkney is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gs' WHERE dxcc='240'");  // South Sandwich Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bm' WHERE dxcc='64'");  // Bermuda
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='io' WHERE dxcc='33'");  // Chagos is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='hk' WHERE dxcc='321'");  // Hong Kong
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='324'");  // India
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='11'");  // Andaman & Nicobar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='in' WHERE dxcc='142'");  // Lakshadweep Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='50'");  // Mexico
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mx' WHERE dxcc='204'");  // Revilagigedo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='bf' WHERE dxcc='480'");  // Burkina Faso
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='kh' WHERE dxcc='312'");  //  Cambodia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='la' WHERE dxcc='143'");  // Laos
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mo' WHERE dxcc='152'");  // Macao
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mm' WHERE dxcc='309'");  // Myanmar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='af' WHERE dxcc='3'");  // Afganistan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='id' WHERE dxcc='327'");  // Indonesia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='iq' WHERE dxcc='333'");  // Iraq
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='vu' WHERE dxcc='158'");  // Vanuatu
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sy' WHERE dxcc='384'");  // Syria
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='lv' WHERE dxcc='145'");  // Latvia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ni' WHERE dxcc='86'");  //  Nicaragua
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ro' WHERE dxcc='275'");  // Romania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sv' WHERE dxcc='74'");  // El Salvador
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='rs' WHERE dxcc='296'");  // Serbia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='148'");  // Venezuela
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ve' WHERE dxcc='17'");  // Aves Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='zw' WHERE dxcc='452'");  // Zimbabwe
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='mk' WHERE dxcc='502'");  // Macedonia
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ss' WHERE dxcc='521'");  //Rep South Sudan
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='al' WHERE dxcc='7'");  // Albania
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gi' WHERE dxcc='233'");  // Gibraltar
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='gb' WHERE dxcc='283'");  // UK Base Aereas Cyprus
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='250'");  // St Helena
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='205'");  // Ascension is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='sh' WHERE dxcc='274'");  // Tristan da Cunha & Gough is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='ky' WHERE dxcc='69'");  // Cayman Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='tk' WHERE dxcc='270'");  // Tokelau Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='marquesas' WHERE dxcc='509'");  // Marquesas Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='170'");  // New Zeland
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='34'");  // Chatham Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='133'");  // Kermadec is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='nz' WHERE dxcc='16'");  // Auckland & Campbell is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='py' WHERE dxcc='132'");  // Paraguay
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='462'");  // South Africa
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='za' WHERE dxcc='201'");  // Pr Edward & Marion Is
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-    sq = QString ("UPDATE entity SET isoname='xk' WHERE dxcc='522'");  // Kosovo
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-// Countries without flag or controversial - Data is added just to keep the DB filled-up
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='506'");  // Scarboroug Reef
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-
-    sq = QString ("UPDATE entity SET isoname='un' WHERE dxcc='13'");  //  Antartica
-    sqlOK = execQuery(Q_FUNC_INFO, sq);
-    if (!sqlOK)
-    {/*emit debugLog(Q_FUNC_INFO, "0", 7);*/return false;}
-
-        //qDebug() << "DataBase::updateTheEntityTableISONames-END" << endl;
+    //qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
     return true;
+}
+
+bool DataBase::updateEntity (const QString &_codeString, const int _code)
+{
+    //qDebug() << Q_FUNC_INFO << "ISOCode: " << _codeString << " - int: " << QString::number(_code);
+    QString sq = QString ("UPDATE entity SET isoname='%1' WHERE dxcc='%2'").arg(_codeString).arg(_code);
+    //TODO Capture and manage the error
+    return execQuery(Q_FUNC_INFO, sq);
 }
 
 bool DataBase::isTheTableExisting(const QString &_tableName)
@@ -6941,12 +5351,12 @@ bool DataBase::isTheTableExisting(const QString &_tableName)
                 query.finish();
                 if (_n > 0)
                 {
-                        //qDebug() << "DataBase::isTheTableExisting - Table Exists"  << endl;
+                        //qDebug() << "DataBase::isTheTableExisting - Table Exists"  << QT_ENDL;
                     return true;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::isTheTableExisting - Table does not Exist"  << endl;
+                        //qDebug() << "DataBase::isTheTableExisting - Table does not Exist"  << QT_ENDL;
                    // emit debugLog(Q_FUNC_INFO, "1", 7);
                     return false;
                 }
@@ -6966,7 +5376,7 @@ bool DataBase::isTheTableExisting(const QString &_tableName)
 
 bool DataBase::hasTheTableData(const QString &_tableName)
 {
-       //qDebug() << "DataBase::hasTheTableData" << _tableName << endl;
+       //qDebug() << "DataBase::hasTheTableData" << _tableName << QT_ENDL;
     QSqlQuery query;
 
 
@@ -6978,24 +5388,24 @@ bool DataBase::hasTheTableData(const QString &_tableName)
         query.next();
         if (query.isValid())
         {
-                //qDebug() << "DataBase::hasTheTableData - valid"  << endl;
+            //qDebug() << "DataBase::hasTheTableData - valid"  << QT_ENDL;
             int _num = (query.value(0)).toInt();
             query.finish();
             if (_num > 0)
             {
-                    //qDebug() << "DataBase::hasTheTableData - DB Exists"  << endl;
+                //qDebug() << "DataBase::hasTheTableData - DB Exists"  << QT_ENDL;
                 return true;
             }
             else
             {
-                    //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << endl;
+               //qDebug() << "DataBase::hasTheTableData - DB does not Exist"  << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
         }
         else
         {
-                //qDebug() << "DataBase::hasTheTableData - not valid"  << endl;
+                //qDebug() << "DataBase::hasTheTableData - not valid"  << QT_ENDL;
             query.finish();
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
@@ -7003,18 +5413,18 @@ bool DataBase::hasTheTableData(const QString &_tableName)
     }
     else
     {
-            //qDebug() << "DataBase::hasTheTableData: LastQuery: " << query.lastQuery()  << endl;
-            //qDebug() << "DataBase::hasTheTableData: LastError-data: " << query.lastError().databaseText()  << endl;
-            //qDebug() << "DataBase::hasTheTableData: LastError-driver: " << query.lastError().driverText()  << endl;
-            //qDebug() << "DataBase::hasTheTableData LastError-n: " << QString::number(query.lastError().number() ) << endl;
-            //qDebug() << "DataBase::updateTheEntityTableISONames" << endl;
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+            //qDebug() << "DataBase::hasTheTableData: LastQuery: " << query.lastQuery()  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData: LastError-data: " << query.lastError().databaseText()  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData: LastError-driver: " << query.lastError().driverText()  << QT_ENDL;
+            //qDebug() << "DataBase::hasTheTableData LastError-n: " << QString::number(query.lastError().nativeErrorCode() ) << QT_ENDL;
+            //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
-        //qDebug() << "DataBase::isTheDBCreated: END FALSE" << endl;
+    //qDebug() << "DataBase::isTheDBCreated: END FALSE" << QT_ENDL;
     //query.finish();
     //return false;
 }
@@ -7025,7 +5435,7 @@ bool DataBase::updateTo011()
     // AS Propagation
 
 
-       //qDebug() << "DataBase::updateTo011: latestRead: " << getDBVersion() << endl;
+       //qDebug() << "DataBase::updateTo011: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn011 = false;
     bool IAmIn010 = false;
 
@@ -7034,66 +5444,65 @@ bool DataBase::updateTo011()
 
     //bool sqlOk = false;
     latestReaded = getDBVersion().toFloat();
-       //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << endl;
+       //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.011f)
     {
-           //qDebug() << "DataBase::updateTo011: - I am in 011" << endl;
+           //qDebug() << "DataBase::updateTo011: - I am in 011" << QT_ENDL;
         IAmIn011 = true;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo011: - I am not in 0.012 I am in: " << QString::number(latestReaded)<< endl;
+           //qDebug() << "DataBase::updateTo011: - I am not in 0.012 I am in: " << QString::number(latestReaded)<< QT_ENDL;
         bool ErrorUpdating = false;
         while (!IAmIn010 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo011: - Check if I am in 010: !" << endl;
+               //qDebug() << "DataBase::updateTo011: - Check if I am in 010: !" << QT_ENDL;
             IAmIn010 = updateTo010();
 
             if (IAmIn010)
             {
-                     //qDebug() << "DataBase::updateTo011: - updateTo010 returned TRUE - I am in 0.010: " << QString::number(latestReaded) << endl;
+                     //qDebug() << "DataBase::updateTo011: - updateTo010 returned TRUE - I am in 0.010: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo011: - updateTo009 returned FALSE - I am NOT in 0.010: " << QString::number(latestReaded) << endl;
+                   //qDebug() << "DataBase::updateTo011: - updateTo009 returned FALSE - I am NOT in 0.010: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
 
         if (ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo011: - I Could not update to: " << QString::number(dbVersion) << endl;
+                 //qDebug() << "DataBase::updateTo011: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
-
     }
 
     if (!recreateSatelliteData())
     {
-           //qDebug() << "DataBase::updateTo011: - Sats update NOK " << endl;
+           //qDebug() << "DataBase::updateTo011: - Sats update NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
     if (!recreateTableDXCC())
     {
-           //qDebug() << "DataBase::updateTo011: - recreateTableDXCC NOK " << endl;
+           //qDebug() << "DataBase::updateTo011: - recreateTableDXCC NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
 
     if (!recreateTableWAZ())
     {
-           //qDebug() << "DataBase::updateTo011: - recreateTableWAZ NOK " << endl;
+           //qDebug() << "DataBase::updateTo011: - recreateTableWAZ NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "4", 7);
         return false;
     }
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
-           //qDebug() << "DataBase::updateTo011: - MSK NOK " << endl;
+           //qDebug() << "DataBase::updateTo011: - MSK NOK " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "5", 7);
         return false;
     }
@@ -7101,38 +5510,36 @@ bool DataBase::updateTo011()
 
     if (!recreateTableLog())
     {
-           //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " << endl;
+           //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "6", 7);
         return false;
     }
 
     if (updateDBVersion(softVersion, "0.011"))
     {
-           //qDebug() << "DataBase::updateTo011: - We are in 011! " << endl;
+           //qDebug() << "DataBase::updateTo011: - We are in 011! " << QT_ENDL;
         IAmIn011 = true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo011: - Failed to go to 011! " << endl;
+           //qDebug() << "DataBase::updateTo011: - Failed to go to 011! " << QT_ENDL;
         IAmIn011 = false;
     }
 
 
     if (!updateAwardDXCCTable())
     {
-         //qDebug() << "DataBase::updateTo011: - updateAwardDXCCTable NOK " << endl;
+         //qDebug() << "DataBase::updateTo011: - updateAwardDXCCTable NOK " << QT_ENDL;
       IAmIn011 = false;
      // emit debugLog(Q_FUNC_INFO, "7", 7);
       return false;
     }
     if (!updateAwardWAZTable())
     {
-           //qDebug() << "DataBase::updateTo011: - updateAwardWAZTable NOK " << endl;
+           //qDebug() << "DataBase::updateTo011: - updateAwardWAZTable NOK " << QT_ENDL;
         IAmIn011 = false;
-
     }
-
-       //qDebug() << "DataBase::updateTo011: - END" << endl;
+       //qDebug() << "DataBase::updateTo011: - END" << QT_ENDL;
     if (!IAmIn011)
     {// emit debugLog(Q_FUNC_INFO, "8", 7);
     }
@@ -7147,37 +5554,37 @@ bool DataBase::updateTo012()
     // Solve the supportedContest table missing bug in some deployments
 
 
-           //qDebug() << "DataBase::updateTo012: latestRead: " << getDBVersion() << endl;
+           //qDebug() << "DataBase::updateTo012: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn011 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateTo012: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+           //qDebug() << "DataBase::updateTo012: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.012f)
         {
-               //qDebug() << "DataBase::updateTo012: - I am in 012" << endl;
+               //qDebug() << "DataBase::updateTo012: - I am in 012" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo012: - I am not in 0.012 I am in: " << getDBVersion() << endl;
+               //qDebug() << "DataBase::updateTo012: - I am not in 0.012 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn011 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateTo012: - Check if I am in 011: !" << endl;
+                   //qDebug() << "DataBase::updateTo012: - Check if I am in 011: !" << QT_ENDL;
                 IAmIn011 = updateTo011();
 
                 if (IAmIn011)
                 {
-                         //qDebug() << "DataBase::updateTo012: - updateTo011 returned TRUE - I am in 0.011: " << QString::number(latestReaded) << endl;
+                         //qDebug() << "DataBase::updateTo012: - updateTo011 returned TRUE - I am in 0.011: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateTo012: - updateTo011 returned FALSE - I am NOT in 0.011: " << QString::number(latestReaded) << endl;
+                        //qDebug() << "DataBase::updateTo012: - updateTo011 returned FALSE - I am NOT in 0.011: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateTo012: - I Could not update to: " << QString::number(dbVersion) << endl;
+                    //qDebug() << "DataBase::updateTo012: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                 // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7197,7 +5604,7 @@ bool DataBase::updateTo012()
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo012: UPDATED NOK-1!" << endl;
+                       //qDebug() << "DataBase::updateTo012: UPDATED NOK-1!" << QT_ENDL;
                    // emit debugLog(Q_FUNC_INFO, "2", 7);
                    return false;
                 }
@@ -7209,7 +5616,7 @@ bool DataBase::updateTo012()
             {
                if (!recreateSupportedContest())
                {
-                      //qDebug() << "DataBase::updateTo012: UPDATED NOK-2!" << endl;
+                      //qDebug() << "DataBase::updateTo012: UPDATED NOK-2!" << QT_ENDL;
                   // emit debugLog(Q_FUNC_INFO, "3", 7);
                    return false;
                }
@@ -7218,18 +5625,17 @@ bool DataBase::updateTo012()
 
         if (updateDBVersion(softVersion, "0.012"))
         {
-               //qDebug() << "DataBase::updateTo012: - We are in 012! " << endl;
+               //qDebug() << "DataBase::updateTo012: - We are in 012! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo011: - Failed to go to 012! " << endl;
+               //qDebug() << "DataBase::updateTo011: - Failed to go to 012! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "4", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo012: UPDATED OK!" << endl;
+           //qDebug() << "DataBase::updateTo012: UPDATED OK!" << QT_ENDL;
         return true;
-
 }
 
 bool DataBase::updateTo013()
@@ -7239,37 +5645,37 @@ bool DataBase::updateTo013()
     // Solve the supportedContest table missing bug in some deployments
 
 
-           //qDebug() << "DataBase::updateTo013: latestRead: " << getDBVersion() << endl;
+           //qDebug() << "DataBase::updateTo013: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn012 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+           //qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.013f)
         {
-               //qDebug() << "DataBase::updateTo013: - I am in 013" << endl;
+               //qDebug() << "DataBase::updateTo013: - I am in 013" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo013: - I am not in 0.013 I am in: " << getDBVersion() << endl;
+               //qDebug() << "DataBase::updateTo013: - I am not in 0.013 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn012 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateTo013: - Check if I am in 012: !" << endl;
+                   //qDebug() << "DataBase::updateTo013: - Check if I am in 012: !" << QT_ENDL;
                 IAmIn012 = updateTo012();
 
                 if (IAmIn012)
                 {
-                         //qDebug() << "DataBase::updateTo013: - updateTo012 returned TRUE - I am in 0.012: " << QString::number(latestReaded) << endl;
+                         //qDebug() << "DataBase::updateTo013: - updateTo012 returned TRUE - I am in 0.012: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateTo013: - updateTo011 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) << endl;
+                        //qDebug() << "DataBase::updateTo013: - updateTo011 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) << endl;
+                    //qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7287,11 +5693,7 @@ bool DataBase::updateTo013()
          execQuery(Q_FUNC_INFO, "DROP TABLE IF exists qsl_via");
          if (createTableQSL_Via_enumeration())
          {
-             if (populateTableQSL_Via_enumeration())
-             {
-
-             }
-             else
+             if (!populateTableQSL_Via_enumeration())
              {
                 // emit debugLog(Q_FUNC_INFO, "3", 7);
                  return false;
@@ -7302,22 +5704,19 @@ bool DataBase::updateTo013()
             // emit debugLog(Q_FUNC_INFO, "4", 7);
              return false;
          }
-
-
         if (updateDBVersion(softVersion, "0.013"))
         {
-               //qDebug() << "DataBase::updateTo013: - We are in 013! " << endl;
+               //qDebug() << "DataBase::updateTo013: - We are in 013! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo013: - Failed to go to 013! " << endl;
+               //qDebug() << "DataBase::updateTo013: - Failed to go to 013! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "5", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo013: UPDATED OK!" << endl;
+           //qDebug() << "DataBase::updateTo013: UPDATED OK!" << QT_ENDL;
         return true;
-
 }
 
 
@@ -7327,37 +5726,37 @@ bool DataBase::updateTo014()
     // Updates the Satellite DB
 
 
-           //qDebug() << "DataBase::updateto014: latestRead: " << getDBVersion() << endl;
+           //qDebug() << "DataBase::updateto014: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn013 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+           //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.014f)
         {
-               //qDebug() << "DataBase::updateto014: - I am in 013" << endl;
+               //qDebug() << "DataBase::updateto014: - I am in 013" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - I am not in 0.013 I am in: " << getDBVersion() << endl;
+               //qDebug() << "DataBase::updateto014: - I am not in 0.013 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn013 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateto014: - Check if I am in 013: !" << endl;
+                   //qDebug() << "DataBase::updateto014: - Check if I am in 013: !" << QT_ENDL;
                 IAmIn013 = updateTo013();
 
                 if (IAmIn013)
                 {
-                         //qDebug() << "DataBase::updateto014: - updateTo012 returned TRUE - I am in 0.013: " << QString::number(latestReaded) << endl;
+                         //qDebug() << "DataBase::updateto014: - updateTo012 returned TRUE - I am in 0.013: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateto014: - updateTo011 returned FALSE - I am NOT in 0.013: " << QString::number(latestReaded) << endl;
+                        //qDebug() << "DataBase::updateto014: - updateTo011 returned FALSE - I am NOT in 0.013: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateto014: - I Could not update to: " << QString::number(dbVersion) << endl;
+                    //qDebug() << "DataBase::updateto014: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7368,7 +5767,7 @@ bool DataBase::updateTo014()
 
         if (!recreateSatelliteData())
         {
-               //qDebug() << "DataBase::updateTo014: - Sats update NOK " << endl;
+               //qDebug() << "DataBase::updateTo014: - Sats update NOK " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
@@ -7376,16 +5775,16 @@ bool DataBase::updateTo014()
 
         if (updateDBVersion(softVersion, "0.014"))
         {
-               //qDebug() << "DataBase::updateto014: - We are in 013! " << endl;
+               //qDebug() << "DataBase::updateto014: - We are in 013! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - Failed to go to 013! " << endl;
+               //qDebug() << "DataBase::updateto014: - Failed to go to 013! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo014: UPDATED OK!" << endl;
+           //qDebug() << "DataBase::updateTo014: UPDATED OK!" << QT_ENDL;
         return true;
 }
 
@@ -7395,36 +5794,36 @@ bool DataBase::updateTo015()
     // Updates the DB to 0.015:
     // Adds the FT4 mode
 
-    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << endl;
+    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn014 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-      //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+      //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.015f)
     {
-          //qDebug() << "DataBase::updateto015: - I am in 013" << endl;
+          //qDebug() << "DataBase::updateto015: - I am in 013" << QT_ENDL;
         return true;
     }
     else
     {
-          //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() << endl;
+          //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() << QT_ENDL;
         while (!IAmIn014 && !ErrorUpdating)
         {
-              //qDebug() << "DataBase::updateto015: - Check if I am in 014: !" << endl;
+              //qDebug() << "DataBase::updateto015: - Check if I am in 014: !" << QT_ENDL;
             IAmIn014 = updateTo014();
             if (IAmIn014)
             {
-                  //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) << endl;
+                  //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                  //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) << endl;
+                  //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-              //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) << endl;
+              //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7435,29 +5834,27 @@ bool DataBase::updateTo015()
 
     if (updateTheModeTableAndSyncLog())
     {
-          //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" << endl;
+          //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" << QT_ENDL;
     }
     else
     {
-          //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" << endl;
+          //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" << QT_ENDL;
         //ErrorUpdating = true;
     }
 
 
     if (updateDBVersion(softVersion, "0.015"))
     {
-          //qDebug() << "DataBase::updateto015: - We are in 015! " << endl;
+          //qDebug() << "DataBase::updateto015: - We are in 015! " << QT_ENDL;
     }
     else
     {
-          //qDebug() << "DataBase::updateto015: - Failed to go to 014! " << endl;
+          //qDebug() << "DataBase::updateto015: - Failed to go to 014! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-
-      //qDebug() << "DataBase::updateTo015: UPDATED OK!" << endl;
+      //qDebug() << "DataBase::updateTo015: UPDATED OK!" << QT_ENDL;
     return true;
-
 }
 
 
@@ -7467,37 +5864,37 @@ bool DataBase::updateTo016()
     // Updates the Satellite DB
 
 
-           //qDebug() << "DataBase::updateto016: latestRead: " << getDBVersion() << endl;
+           //qDebug() << "DataBase::updateto016: latestRead: " << getDBVersion() << QT_ENDL;
         bool IAmIn015 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion().toFloat();
-           //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+           //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
         if (latestReaded >= 0.016f)
         {
-               //qDebug() << "DataBase::updateto016: - I am in 015" << endl;
+               //qDebug() << "DataBase::updateto016: - I am in 015" << QT_ENDL;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateto016: - I am not in 0.015 I am in: " << getDBVersion() << endl;
+               //qDebug() << "DataBase::updateto016: - I am not in 0.015 I am in: " << getDBVersion() << QT_ENDL;
             while (!IAmIn015 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateto014: - Check if I am in 015: !" << endl;
+                   //qDebug() << "DataBase::updateto014: - Check if I am in 015: !" << QT_ENDL;
                 IAmIn015 = updateTo015();
 
                 if (IAmIn015)
                 {
-                         //qDebug() << "DataBase::updateto016: - updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) << endl;
+                         //qDebug() << "DataBase::updateto016: - updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) << QT_ENDL;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateto016: - updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) << endl;
+                        //qDebug() << "DataBase::updateto016: - updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) << QT_ENDL;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) << endl;
+                    //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -7507,21 +5904,21 @@ bool DataBase::updateTo016()
 
         if (!recreateSatelliteData())
         {
-               //qDebug() << "DataBase::updateTo016: - Sats update NOK " << endl;
+               //qDebug() << "DataBase::updateTo016: - Sats update NOK " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
         if (updateDBVersion(softVersion, "0.016"))
         {
-               //qDebug() << "DataBase::updateto014: - We are in 016! " << endl;
+               //qDebug() << "DataBase::updateto014: - We are in 016! " << QT_ENDL;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - Failed to go to 016! " << endl;
+               //qDebug() << "DataBase::updateto014: - Failed to go to 016! " << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
-           //qDebug() << "DataBase::updateTo016: UPDATED OK!" << endl;
+           //qDebug() << "DataBase::updateTo016: UPDATED OK!" << QT_ENDL;
         return true;
 }
 
@@ -7530,36 +5927,36 @@ bool DataBase::updateTo017()
     // Updates the DB to 0.017:
     // Updates the Satellite DB
 
-    //qDebug() << "DataBase::updateto017: latestRead: " << getDBVersion() << endl;
+    //qDebug() << "DataBase::updateto017: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn016 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-    //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.017f)
     {
-        //qDebug() << "DataBase::updateto017: - I am in 017" << endl;
+        //qDebug() << "DataBase::updateto017: - I am in 017" << QT_ENDL;
         return true;
     }
     else
     {
-        //qDebug() << "DataBase::updateto017: - I am not in 0.017 I am in: " << getDBVersion() << endl;
+        //qDebug() << "DataBase::updateto017: - I am not in 0.017 I am in: " << getDBVersion() << QT_ENDL;
         while (!IAmIn016 && !ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - Check if I am in 016: !" << endl;
+            //qDebug() << "DataBase::updateto017: - Check if I am in 016: !" << QT_ENDL;
             IAmIn016 = updateTo016();
             if (IAmIn016)
             {
-                //qDebug() << "DataBase::updateto017: - updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) << endl;
+                //qDebug() << "DataBase::updateto017: - updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                //qDebug() << "DataBase::updateto017: - updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) << endl;
+                //qDebug() << "DataBase::updateto017: - updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) << endl;
+            //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7651,17 +6048,17 @@ bool DataBase::updateTo017()
     {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
     if (!recreateTableLog())
     {
-        //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << endl;
+        //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "14", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo017: - Recreated Table Log " << endl;
+    //qDebug() << "DataBase::updateTo017: - Recreated Table Log " << QT_ENDL;
 
     /*
 
     else
     {
-        //qDebug() << "DataBase::updateTo017: - Table log recreated OK" << endl;
+        //qDebug() << "DataBase::updateTo017: - Table log recreated OK" << QT_ENDL;
     }
     */
 
@@ -7671,15 +6068,15 @@ bool DataBase::updateTo017()
     // If everything went OK, we update the DB number.
     if (updateDBVersion(softVersion, "0.017"))
     {
-        //qDebug() << "DataBase::updateto017: - We are in 017! " << endl;
+        //qDebug() << "DataBase::updateto017: - We are in 017! " << QT_ENDL;
     }
     else
     {
-        //qDebug() << "DataBase::updateto017: - Failed to go to 017! " << endl;
+        //qDebug() << "DataBase::updateto017: - Failed to go to 017! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo017: UPDATED OK!" << endl;
+    //qDebug() << "DataBase::updateTo017: UPDATED OK!" << QT_ENDL;
     return true;
 }
 
@@ -7688,36 +6085,36 @@ bool DataBase::updateTo018()
     // Updates the DB to 0.018:
     // Adds the Subdivisions
 
-    //qDebug() << "DataBase::updateto018: latestRead: " << getDBVersion() << endl;
+    //qDebug() << "DataBase::updateto018: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn017 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-    //qDebug() << "DataBase::updateto018: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    //qDebug() << "DataBase::updateto018: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.018f)
     {
-        //qDebug() << "DataBase::updateto018: - I am in 018" << endl;
+        //qDebug() << "DataBase::updateto018: - I am in 018" << QT_ENDL;
         return true;
     }
     else
     {
-        //qDebug() << "DataBase::updateto018: - I am not in 0.018 I am in: " << getDBVersion() << endl;
+        //qDebug() << "DataBase::updateto018: - I am not in 0.018 I am in: " << getDBVersion() << QT_ENDL;
         while (!IAmIn017 && !ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - Check if I am in 017: !" << endl;
+            //qDebug() << "DataBase::updateto017: - Check if I am in 017: !" << QT_ENDL;
             IAmIn017 = updateTo017();
             if (IAmIn017)
             {
-                //qDebug() << "DataBase::updateto018: - updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) << endl;
+                //qDebug() << "DataBase::updateto018: - updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) << QT_ENDL;
             }
             else
             {
-                //qDebug() << "DataBase::updateto017: - updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) << endl;
+                //qDebug() << "DataBase::updateto017: - updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) << QT_ENDL;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto018: - I Could not update to: " << QString::number(dbVersion) << endl;
+            //qDebug() << "DataBase::updateto018: - I Could not update to: " << QString::number(dbVersion) << QT_ENDL;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -7737,41 +6134,37 @@ bool DataBase::updateTo018()
     // If everything went OK, we update the DB number.
     if (updateDBVersion(softVersion, "0.018"))
     {
-        //qDebug() << "DataBase::updateto018: - We are in 018! " << endl;
+        //qDebug() << "DataBase::updateto018: - We are in 018! " << QT_ENDL;
     }
     else
     {
-        //qDebug() << "DataBase::updateto018: - Failed to go to 018! " << endl;
+        //qDebug() << "DataBase::updateto018: - Failed to go to 018! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo018: UPDATED OK!" << endl;
+    //qDebug() << "DataBase::updateTo018: UPDATED OK!" << QT_ENDL;
     return true;
 }
 
 bool DataBase::updateTo019()
 {// Adds FTS4 and FST4W modes
  // Adds RS-44 sat
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IAmIn018 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= 0.019f)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
+       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << QT_ENDL;
         return true;
     }
     else
     {
         while (!IAmIn018 && !ErrorUpdating)
         {
-
             IAmIn018 = updateTo018();
-            if (IAmIn018)
-            {
-            }
-            else
+            if (!IAmIn018)
             {
                 ErrorUpdating = false;
             }
@@ -7788,45 +6181,84 @@ bool DataBase::updateTo019()
 
     if (updateTheModeTableAndSyncLog() && recreateSatelliteData())
     {
-          //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+          //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " : UPDATED NOK!(9)" << endl;
+         //qDebug() << Q_FUNC_INFO << " : UPDATED NOK!(9)" << QT_ENDL;
         return false;
     }
 
 
     if (updateDBVersion(softVersion, "0.019"))
     {
-          //qDebug() << Q_FUNC_INFO << " : - We are in 019! " << endl;
+          //qDebug() << Q_FUNC_INFO << " : - We are in 019! " << QT_ENDL;
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " : - Failed to go to 018! " << endl;
+       //qDebug() << Q_FUNC_INFO << " : - Failed to go to 018! " << QT_ENDL;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
-   //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
+   //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
     return true;
 }
 
-bool DataBase::updateTo020()
-{// Adds Q65 mode
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
+bool DataBase::updateTo023()
+{// Recreates the table band
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
     if (latestReaded >= dbVersion)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
+       //qDebug() << Q_FUNC_INFO << " : - I am in 023" << QT_ENDL;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
     {
-        IamInPreviousVersion = updateTo019();
+        IamInPreviousVersion = updateTo022();
+        if (!IamInPreviousVersion)
+        {
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!recreateTableBand())
+    {
+        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
+        return false;
+    }
+
+    if (!updateDBVersion(softVersion, QString::number(0.023)))
+    {
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
+        return false;
+    }
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
+    return true;
+}
+
+bool DataBase::updateTo022()
+{// Adds Q65 mode
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+    bool IamInPreviousVersion = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
+    if (latestReaded >= dbVersion)
+    {
+       //qDebug() << Q_FUNC_INFO << " : - I am in 022" << QT_ENDL;
+        return true;
+    }
+    while (!IamInPreviousVersion && !ErrorUpdating)
+    {
+        IamInPreviousVersion = updateTo021();
         if (!IamInPreviousVersion)
         {
             return false;
@@ -7837,31 +6269,30 @@ bool DataBase::updateTo020()
 
     if (!updateTheModeTableAndSyncLog() )
     {
-        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
         return false;
     }
 
-    if (!updateDBVersion(softVersion, QString::number(0.020)))
+    if (!updateDBVersion(softVersion, QString::number(0.022)))
     {
-        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
         return false;
-
     }
-    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << endl;
-    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
     return true;
 }
 
 bool DataBase::updateTo021()
 {// Adds 5M & 8M bands
-    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << endl;
+    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
      bool IamInPreviousVersion = false;
      bool ErrorUpdating = false;
      latestReaded = getDBVersion().toFloat();
-    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << endl;
+    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
      if (latestReaded >= dbVersion)
      {
-        //qDebug() << Q_FUNC_INFO << " : - I am in 019" << endl;
+        //qDebug() << Q_FUNC_INFO << " : - I am in 019" << QT_ENDL;
          return true;
      }
      while (!IamInPreviousVersion && !ErrorUpdating)
@@ -7877,25 +6308,23 @@ bool DataBase::updateTo021()
 
      if (!recreateTableBand ())
      {
-         //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << endl;
+         //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" << QT_ENDL;
          return false;
      }
 
      if (!updateDBVersion(softVersion, QString::number(0.021)))
      {
-         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << endl;
+         //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
          return false;
-
      }
-     //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << endl;
-     //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << endl;
+     //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
      return true;
 }
 
 bool DataBase::updateAwardDXCCTable()
 {
-    /*
-       //qDebug() << "DataBase::updateAwardDXCCTable" << endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable" << QT_ENDL;
 
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
@@ -7909,12 +6338,6 @@ bool DataBase::updateAwardDXCCTable()
     awardEntry.logNumber = QString();
     awardEntry.qsoID = QString();
 
-    //AwarddxccEntryCheck awardEntryCheck;
-    //awardEntryCheck.dxcc = QString();
-    //awardEntryCheck.band = QString();
-    //awardEntryCheck.status = QString();
-
-
     QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY dxcc");
     QSqlQuery query;//, query2;
 
@@ -7922,15 +6345,14 @@ bool DataBase::updateAwardDXCCTable()
     QSqlRecord rec = query.record();
     if (!sqlOK)
     {
-
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
     else
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable SELECT when OK" << endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable SELECT when OK" << QT_ENDL;
     }
     QStringList dxccStatus = QStringList(); //dxcc, band, mode, confirmed, lognumber, qsoid (per award set)
     QStringList dxccStatusCheck = QStringList(); //dxcc, band, mode, confirmed, lognumber (per award set) just to check
@@ -7938,20 +6360,20 @@ bool DataBase::updateAwardDXCCTable()
 
     QString _aux = QString();
 
-       //qDebug() << "DataBase::updateAwardDXCCTable before the while" << endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable before the while" << QT_ENDL;
     while (query.next())
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable IN the while" << endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable IN the while" << QT_ENDL;
         if (query.isValid())
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable VALID" << endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable VALID" << QT_ENDL;
             awardEntry.dxcc.clear();
             awardEntry.band.clear();
             awardEntry.status.clear();
             awardEntry.logNumber.clear();
             awardEntry.qsoID.clear();
 
-               //qDebug() << "DataBase::updateAwardDXCCTable in the while" << endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable in the while" << QT_ENDL;
             nameCol = rec.indexOf("qsl_rcvd");
             bool qsl = false;
 
@@ -7976,11 +6398,9 @@ bool DataBase::updateAwardDXCCTable()
                 awardEntry.status = "0";
             }
 
-
-               //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status << QT_ENDL;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
-
                 nameCol = rec.indexOf("dxcc");
                 awardEntry.dxcc = (query.value(nameCol)).toString();
 
@@ -7998,20 +6418,19 @@ bool DataBase::updateAwardDXCCTable()
                     nameCol = rec.indexOf("lognumber");
                     awardEntry.logNumber = (query.value(nameCol)).toString();
 
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << endl;
+                       //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << QT_ENDL;
                     dxccStatusList.append(awardEntry);
-
                 }
             } // END OF IF VALID
         }
     } // END OF  WHILE
 
-       //qDebug() << "DataBase::updateAwardDXCCTable - END OF WHILE" << endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable - END OF WHILE" << QT_ENDL;
 
     query.finish();
 
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: Log analized... let's clean the table!" << endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: Log analized... let's clean the table!" << QT_ENDL;
 
     stringQuery = QString("DELETE FROM awarddxcc");
 
@@ -8020,11 +6439,10 @@ bool DataBase::updateAwardDXCCTable()
     {return false;}
     else
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" << QT_ENDL;
     }
 
-
-       //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" << QT_ENDL;
 
     //int i = 0;
     _aux.clear();
@@ -8036,28 +6454,26 @@ bool DataBase::updateAwardDXCCTable()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: INSERTING: " << QString::number(qsos) << " QSOS..." << endl;
+       //qDebug() << "DataBase::updateAwardDXCCTable: INSERTING: " << QString::number(qsos) << " QSOS..." << QT_ENDL;
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
-
         stringQuery = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode).arg(dxccStatusList.at(j).status).arg(dxccStatusList.at(j).logNumber).arg(dxccStatusList.at(j).qsoID);
         //sqlOK = query.exec(Q_FUNC_INFO, stringQuery);
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-
-               //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().number()) << endl;
-            if (query.lastError().number() == 19)
+               //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << QT_ENDL;
+            if (query.lastError().nativeErrorCode() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
                 { // If tne new status is not confirmed, no change. DO NOTHING
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << endl;
+                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but NOW is confirmed!!!" << endl;
+                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but NOW is confirmed!!!" << QT_ENDL;
                     stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
                     QSqlQuery query2;//, query2;
 
@@ -8065,7 +6481,7 @@ bool DataBase::updateAwardDXCCTable()
                     QSqlRecord rec = query2.record();
                     if (!sqlOK)
                     {
-                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                         query2.finish();
                        // emit debugLog(Q_FUNC_INFO, "3", 7);
                         return false;
@@ -8085,33 +6501,27 @@ bool DataBase::updateAwardDXCCTable()
                             {
                                 query2.finish();
                                 stringQuery = QString ("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
-                                if (execQuery(Q_FUNC_INFO, stringQuery))
+                                if (!execQuery(Q_FUNC_INFO, stringQuery))
                                 {
-
+                                    return false;
                                 }
-                                else
-                                {
-                                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE IS NOT DONE" << endl;
-                                }
-
                             }
                             else
                             {
-                                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE NOT NEEDED" << endl;
+                                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE NOT NEEDED" << QT_ENDL;
                             }
                         }
                         else
                         {
-                               //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" << endl;
+                               //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" << QT_ENDL;
                         }
                     }
                 }
-
-                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << endl;
+                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" << QT_ENDL;
             }
             else
             {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                 query.finish();
                // emit debugLog(Q_FUNC_INFO, "4", 7);
                 return false;
@@ -8119,11 +6529,11 @@ bool DataBase::updateAwardDXCCTable()
         }
         else
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable: INSERT OK: " << endl;
+               //qDebug() << "DataBase::updateAwardDXCCTable: INSERT OK: " << QT_ENDL;
         }
 
         query.finish();
-           //qDebug() << "DataBase::updateAwardDXCCTable: Checking steps " << endl;
+           //qDebug() << "DataBase::updateAwardDXCCTable: Checking steps " << QT_ENDL;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
             _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
@@ -8132,21 +6542,20 @@ bool DataBase::updateAwardDXCCTable()
         }
         if ( progress.wasCanceled() )
         {
-                  //qDebug() << "DataBase::updateAwardDXCCTable: progress canceled" << endl;
+                  //qDebug() << "DataBase::updateAwardDXCCTable: progress canceled" << QT_ENDL;
             return true;
         }
     }
 
     progress.setValue(qsos);
-       //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << endl;
-    */
+       //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " << QT_ENDL;
+
     return true;
 }
 
 bool DataBase::updateAwardWAZTable()
 {
-    /*
-       //qDebug() << "DataBase::updateAwardWAZTable" << endl;
+       //qDebug() << "DataBase::updateAwardWAZTable" << QT_ENDL;
     QList<AwarddxccEntry> dxccStatusList;
     //QList<AwarddxccEntryCheck> dxccStatusListCheck;
     dxccStatusList.clear();
@@ -8166,14 +6575,14 @@ bool DataBase::updateAwardWAZTable()
     QSqlRecord rec = query.record();
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
     else
     {
-           //qDebug() << "DataBase::updateAwardWAZTable SELECT when OK" << endl;
+           //qDebug() << "DataBase::updateAwardWAZTable SELECT when OK" << QT_ENDL;
     }
     QStringList dxccStatus = QStringList(); //cqz, band, mode, confirmed, lognumber, qsoid (per award set)
     QStringList dxccStatusCheck = QStringList(); //cqz, band, mode, confirmed, lognumber (per award set) just to check
@@ -8181,20 +6590,20 @@ bool DataBase::updateAwardWAZTable()
 
     QString _aux = QString();
 
-       //qDebug() << "DataBase::updateAwardWAZTable before the while" << endl;
+       //qDebug() << "DataBase::updateAwardWAZTable before the while" << QT_ENDL;
     while (query.next())
     {
-           //qDebug() << "DataBase::updateAwardWAZTable IN the while" << endl;
+           //qDebug() << "DataBase::updateAwardWAZTable IN the while" << QT_ENDL;
         if (query.isValid())
         {
-               //qDebug() << "DataBase::updateAwardWAZTable VALID" << endl;
+               //qDebug() << "DataBase::updateAwardWAZTable VALID" << QT_ENDL;
             awardEntry.dxcc.clear();
             awardEntry.band.clear();
             awardEntry.status.clear();
             awardEntry.logNumber.clear();
             awardEntry.qsoID.clear();
 
-               //qDebug() << "DataBase::updateAwardWAZTable in the while" << endl;
+               //qDebug() << "DataBase::updateAwardWAZTable in the while" << QT_ENDL;
             nameCol = rec.indexOf("qsl_rcvd");
             bool qsl = false;
 
@@ -8218,10 +6627,9 @@ bool DataBase::updateAwardWAZTable()
             {
                 awardEntry.status = "0";
             }
-               //qDebug() << "DataBase::updateAwardWAZTable - status" << awardEntry.status << endl;
+               //qDebug() << "DataBase::updateAwardWAZTable - status" << awardEntry.status << QT_ENDL;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
-
                 nameCol = rec.indexOf("cqz");
                 awardEntry.dxcc = (query.value(nameCol)).toString();
 
@@ -8239,20 +6647,19 @@ bool DataBase::updateAwardWAZTable()
                     nameCol = rec.indexOf("lognumber");
                     awardEntry.logNumber = (query.value(nameCol)).toString();
 
-                       //qDebug() << "DataBase::updateAwardWAZTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << endl;
+                       //qDebug() << "DataBase::updateAwardWAZTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID << QT_ENDL;
                     dxccStatusList.append(awardEntry);
-
                 }
             } // END OF IF VALID
         }
     } // END OF  WHILE
 
-       //qDebug() << "DataBase::updateAwardWAZTable - END OF WHILE" << endl;
+       //qDebug() << "DataBase::updateAwardWAZTable - END OF WHILE" << QT_ENDL;
 
     query.finish();
 
 
-       //qDebug() << "DataBase::updateAwardWAZTable: Log analized... let's clean the table!" << endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: Log analized... let's clean the table!" << QT_ENDL;
 
     stringQuery = QString("DELETE FROM awardwaz");
 
@@ -8261,11 +6668,11 @@ bool DataBase::updateAwardWAZTable()
     {return false;}
     else
     {
-           //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << endl;
+           //qDebug() << "DataBase::updateAwardWAZTable: awardwaz table DELETED" << QT_ENDL;
     }
 
 
-       //qDebug() << "DataBase::updateAwardWAZTable: Now we start writing the table!!" << endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: Now we start writing the table!!" << QT_ENDL;
 
     //int i = 0;
     _aux.clear();
@@ -8277,28 +6684,26 @@ bool DataBase::updateAwardWAZTable()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "DataBase::updateAwardWAZTable: INSERTING: " << QString::number(qsos) << " QSOS..." << endl;
+       //qDebug() << "DataBase::updateAwardWAZTable: INSERTING: " << QString::number(qsos) << " QSOS..." << QT_ENDL;
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
-
         stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) VALUES ('%1', '%2', '%3', '%4', '%5', '%6') ").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode).arg(dxccStatusList.at(j).status).arg(dxccStatusList.at(j).logNumber).arg(dxccStatusList.at(j).qsoID);
         //sqlOK = query.exec(Q_FUNC_INFO, stringQuery);
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-
-               //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().number()) << endl;
-            if (query.lastError().number() == 19)
+               //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) << QT_ENDL;
+            if (query.lastError().nativeErrorCode() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
                 { // If tne new status is not confirmed, no change. DO NOTHING
-                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << endl;
+                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" << QT_ENDL;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but NOW is confirmed!!!" << endl;
+                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but NOW is confirmed!!!" << QT_ENDL;
                     stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awardwaz WHERE cqz='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
                     QSqlQuery query2;//, query2;
 
@@ -8306,7 +6711,7 @@ bool DataBase::updateAwardWAZTable()
                     QSqlRecord rec = query2.record();
                     if (!sqlOK)
                     {
-                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().number(), query2.lastQuery());
+                        queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                         query2.finish();
                        // emit debugLog(Q_FUNC_INFO, "3", 7);
                         return false;
@@ -8326,33 +6731,27 @@ bool DataBase::updateAwardWAZTable()
                             {
                                 query2.finish();
                                 stringQuery = QString ("UPDATE awardwaz SET confirmed = '1', qsoid = '%1' WHERE qsoid='%2'").arg(dxccStatusList.at(j).qsoID).arg(_qsoid);
-                                if (execQuery(Q_FUNC_INFO, stringQuery))
+                                if (!execQuery(Q_FUNC_INFO, stringQuery))
                                 {
-
+                                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << QT_ENDL;
                                 }
-                                else
-                                {
-                                       //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE IS NOT DONE" << endl;
-                                }
-
                             }
                             else
                             {
-                                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE NOT NEEDED" << endl;
+                                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated but UPDATE NOT NEEDED" << QT_ENDL;
                             }
                         }
                         else
                         {
-                               //qDebug() << "DataBase::updateAwardWAZTable: Duplicated SELECT query is not Valid" << endl;
+                               //qDebug() << "DataBase::updateAwardWAZTable: Duplicated SELECT query is not Valid" << QT_ENDL;
                         }
                     }
                 }
-
-                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated!" << endl;
+                   //qDebug() << "DataBase::updateAwardWAZTable: Duplicated!" << QT_ENDL;
             }
             else
             {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                 query.finish();
                // emit debugLog(Q_FUNC_INFO, "5", 7);
                 return false;
@@ -8360,11 +6759,11 @@ bool DataBase::updateAwardWAZTable()
         }
         else
         {
-               //qDebug() << "DataBase::updateAwardWAZTable: INSERT OK: " << endl;
+               //qDebug() << "DataBase::updateAwardWAZTable: INSERT OK: " << QT_ENDL;
         }
 
         query.finish();
-           //qDebug() << "DataBase::updateAwardWAZTable: Checking steps " << endl;
+           //qDebug() << "DataBase::updateAwardWAZTable: Checking steps " << QT_ENDL;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
             _aux = QObject::tr("Updating WAZ Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
@@ -8373,18 +6772,14 @@ bool DataBase::updateAwardWAZTable()
         }
         if ( progress.wasCanceled() )
         {
-                  //qDebug() << "DataBase::updateAwardWAZTable: progress canceled" << endl;
+                  //qDebug() << "DataBase::updateAwardWAZTable: progress canceled" << QT_ENDL;
             return true;
         }
     }
 
     progress.setValue(qsos);
-       //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << endl;
-    */
+       //qDebug() << "DataBase::updateAwardWAZTable: LAST END OK " << QT_ENDL;
     return true;
-
-
-
 }
 
 
@@ -8411,26 +6806,25 @@ int DataBase::getNumberOfQsos(const int _logNumber)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
-
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
     query.finish();
     return qsos;
 }
 
-void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery)
+void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
 {
-       //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) << endl;
-       //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << endl;
-       //qDebug() << "DataBase::queryErrorManagement: Error N#: " << QString::number(errorCodeN) << endl;
-       //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << endl;
-       //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << endl;
+       //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Function: " << functionFailed << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Error: " << functionFailed << errorCodeS << QT_ENDL;
+       //qDebug() << "DataBase::queryErrorManagement: Query failed: " << failedQuery << QT_ENDL;
 }
 
 /*
  bool DataBase::beginTransaction()
  {
-        //qDebug() << "DataBase::beginTransaction: " << endl;
+        //qDebug() << "DataBase::beginTransaction: " << QT_ENDL;
      QSqlDatabase db = QSqlDatabase::database();
      db.setDatabaseName(dbName);
      return execQuery(Q_FUNC_INFO, "BEGIN IMMEDIATE TRANSACTION");
@@ -8439,7 +6833,7 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
 
  bool DataBase::commitTransaction()
  {
-        //qDebug() << "DataBase::commitTransaction: " << endl;
+        //qDebug() << "DataBase::commitTransaction: " << QT_ENDL;
      return db.commit();
  }
 
@@ -8447,25 +6841,22 @@ void DataBase::queryErrorManagement(QString functionFailed, QString errorCodeS, 
 
  bool DataBase::execQuery(const QString &function, const QString &stringQuery)
  {
-    //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << endl;
+    //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery << QT_ENDL;
     QSqlQuery query;
-
-
 
     if (query.exec(stringQuery))
     {
         while (query.isActive())
         {
-               //qDebug() << "DataBase::execQuery: Still active... " << endl;
+               //qDebug() << "DataBase::execQuery: Still active... " << QT_ENDL;
             query.finish();
         }
-    //qDebug() << "DataBase::execQuery: No longer active... " << endl;
+    //qDebug() << "DataBase::execQuery: No longer active... " << QT_ENDL;
         return true;
     }
     else
     {
-
-        queryErrorManagement(function, query.lastError().databaseText(), query.lastError().number(), query.lastQuery());
+        queryErrorManagement(function, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;

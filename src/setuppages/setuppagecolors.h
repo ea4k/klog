@@ -29,6 +29,7 @@
 //#include <QtWidgets>
 //#include <QPalette>
 #include <QtWidgets>
+#include "utilities.h"
 
 class SetupPageColors : public QWidget {
     Q_OBJECT
@@ -42,12 +43,14 @@ public:
     QString getWorkedColor();
     QString getConfirmedColor();
     QString getDefaultColor();
+    QString getDarkMode();
 
-    void setNewOneColor(const QString c);
-    void setNeededColor(const QString c);
-    void setWorkedColor(const QString c);
-    void setConfirmedColor(const QString c);
-    void setDefaultColor(const QString c);
+    void setNewOneColor(const QString &_c);
+    void setNeededColor(const QString &_c);
+    void setWorkedColor(const QString &_c);
+    void setConfirmedColor(const QString &_c);
+    void setDefaultColor(const QString &_c);
+    void setDarkMode(const QString &_dm);
 
 
 
@@ -57,16 +60,17 @@ private slots:
     void slotWorkedColorButtonClicked();
     void slotNeededColorButtonClicked();
     void slotDefaultColorButtonClicked();
-
     void slotWSJTXButtonClicked();
     void slotKLogButtonClicked();
+    void slotSetDarkMode();
 
 
 private:
+    Utilities *util;
+    bool darkMode;
     void setDefaultColors();
     void setWSJTXColors();
     QColor giveColor (QColor c);
-
     QPalette palette;
 
     QPushButton *newOneColorButton;     // In ANY band
@@ -76,6 +80,7 @@ private:
     QPushButton *defaultColorButton;  // In this band
     QPushButton *wsjtxColorButton;  // In this band
     QPushButton *klogColorButton;  // In this band
+    QPushButton *darkModeButton;
 
     QColor color;
 /*

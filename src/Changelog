@@ -1,3 +1,97 @@
+TBD - 1.8.6
+- Bugfix: Net rig & FLRig hamlib connections were not working propertly. (Closes #339) (TNX W5PNY)
+- Bugfix: Some prefixes were not properly detected. (Closes #371) (Closes #367).
+- Bugfix: Serial Hamlib rigs were not properly working. (TNX W5PNY)
+- Bugfix: QRZ.com was disabled if user was not subscribed. (TNX EA5WA)
+- Bugfix: QRZ.com data was not updated if the boxes were already filled. (TNX EA5WA)
+- Improvement: RTS & DTR are defined to OFF by default in hamlib.
+- Improvement:KLog differenciates QRZ.com subcribed users from non subscribed. (TNX EA5WA)
+
+Oct 2021 - 1.8.5
+- Bugfix: Station callsign was not shown on window title. (Closes #347)
+- Bugfix: Received QSOs from LoTW were shown as to be sent. (Closes #358)
+- Bugfix: Log was not properly ordered. (Closes #346) (TNX EA5WA)
+- Improvement: Message of the mainwindow has been updated. (Closes #361)
+- Improvement: Logs to be uploaded to LoTW are only shown from the current log. (Closes #362)
+- Improvement: Logs to be uploaded to ClubLog are only shown from the current log. (Closes #363)
+- New feature: It is now possible to enable/disable the callsign check. (Closes #186)
+- Removed dead & commented code.
+- Improved how mainCallsign & Station callsigns are used.
+- QRZ.com queries are disabled if QRZ.com returns a non-subscribed user answer.
+
+Aug 2021 - 1.8.4
+- Bugfix: In some situations callsigns were always shown as to be worked. (Closes #345)
+- Bugfix: Double click on DXCC widget was not sending the DXCC QSOs to the search widget.
+- Bugfix: Queued LoTW  were not properly selected for upload. (Closes #354) (TNX EA5WA)
+- Improvement: KLog start is optimized.
+
+Aug 2021 - 1.8.3
+- Added some backport code so systems without Qt 5.15.2 can compile and use KLog.
+- Bugfix: Selecting File->Export to ADIF was not showing all the possible QSOs to be exported.
+
+Aug 2021 - 1.8.2
+- Bugfix: Updated the openSSL libraries for Windows users that was causing TLS errors on some connections. (Closes #342)
+- Bugfix: Spanish typo (TNX EA5WA) (Closes #341)
+- Bugfix: Statistics were showing wrong numbers on DXCC/Grid per band (Closes #344)
+
+Aug 2021 - 1.8.1
+- Bugfix: QSOs comming from WSJTX and other sources where not shown, depending on logview configuration. (Closes  #338)
+
+Aug 2021 - 1.8
+- Bugfix: Some recently added ADIF fields where not properly imported from ADIF.
+- Improvement: Code updated to Qt 5.15.2. (Closes #323)
+- Improvement: VUCC_GRIDS & MY_VUCC_GRIDS are also managed in the UI. (Closes #319)
+- Improvement: LogView fields to be shown can be selected in the prerefences. (Closes #23)
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU) & Spanish (EA4K).
+
+July 2021 - 1.7
+- Bugfix: RealTime remained checked when editing.
+- Bugfix: Some Hamlib parameters were not properly stored.
+- Bugfix: Coredump when no entity (Closes #302)
+- Bugfix: Colors are now properly defined. (Closes #275) (Closes #40)
+- Bugfix: Station callsign is read from the settings. (Closes #307)
+- Bugfix: The right setup dialog tab is open on first start. (Closes #311)
+- Improvement: DarkMode added. (TNX EA5WA) (Closes #56)
+- Improvement: DXCC & WAZ management optimization.
+- Improvement: Current UI data is saved before going to edit a QSO and restore after editing.
+- Improvement: Order of widgets when tab is pressed has been improved. (Working on #265)
+- Statistics: Added the Grids & DXCC per band statistic. (Closes #312), (Closes #313), (Closes #314)
+- UI: The Setup menu has been moved to Settings into the File menu.
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU) & Spanish (EA4K).
+
+June 2021 - 1.6
+- Optimization: Isolated the QSO tab to an independent widget.
+- Bugfix: When starting KLog for the first time, it crashed.
+- Bugfix: Hamlib was not properly started on KLog start (closes #126) (TNX G4MKT)
+- Bugfix: SAT_MODE was being added to non SAT QSOs.
+- Bugfix: DXCC status was not being properly updated.
+- Improvement: Added user selectable ADIF fields in the Other and My Data tabs. (Closes #4)
+- Improvement: Enhanced how the UDP server is started on KLog start.
+- Improvement: Added some basic SQL Injection protection to the UI. (Closes #95)
+- Improvement: UI data is saved before entering the Setup and restored after setup is done. (Closes #188)
+- Improvement: Only one instance of KLog is allowed to run simultaneously. (Closes #250) (TNX foldynl)
+- Commented some Flawfinder false positives.
+- Translations: Catalan (TNX Txema), Czech (TNX OK1MLG), Italian (TNX IU5HIU) & Spanish (EA4K).
+
+May 2021 - 1.5.3
+- Bugfix: Fixes the DataBase update process to add the Q65 mode.
+- Bugfix: Unexpected Setup dialog behavior. (Closes issue #178) (TNX foldynl)
+- Bugfix: Time is not in UTC when "Log in real time" is uncheck. (Closes issue #179) (TNX foldynl)
+- Bugfix: Missing translation in SoftwareUpdateDialog. (Closes issue #180) (TNX foldynl)
+- Bugfix: Inconsistency text in Tip#2. (Closes issue #182) (TNX foldynl)
+- Bugfix: Missing Translation string in SetupPageMisc::createUI. (Closes issue #185) (TNX foldynl)
+- Bugfix: When LoTW service was no enabled, KLog insisted to show the QSOs to be exported.
+- Bugfix: Setup->Satellites did not show a correct Short name. (Closes issue #192) (TNX foldynl)
+- Bugfix: Removal DX Cluster unexpected disconnection. (TNX foldynl)
+- Bugfix: Tip #21 was not shown. (Closes issue #184) (TNX foldynl)
+- Bugfix: TQSL was not properly found on macOS. (Closes issue #195) (TNX K0JM)
+- Enhancement: Improved the readability of the DX Cluster window. (TNX foldynl)
+- Updated the KLog tips.
+- Translation: Czech (TNX OK1MLG), Spanish.
+
+May 2021 - 1.5.2
+- Bugfix: Complex calls like K/EA4K/P were identified as wrong calls. (Closes issue #177) (TNX PA3FNT)
+
 April 2021 - 1.5.1
 - Added the GitHub repository to find new releases due to the issue with savannah.nongnu.org
 - New feature: F4 toggles the real time status (on/off).

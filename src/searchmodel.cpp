@@ -28,7 +28,7 @@
 
 SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-    //qDebug() << "SearchModel::SearchModel "  << endl;
+    //qDebug() << "SearchModel::SearchModel "  << QT_ENDL;
     dataProxy = dp;
     stationCallsignInHeader = true;
     setTable("log");
@@ -40,8 +40,8 @@ SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTa
 
     award = new Awards(dataProxy, Q_FUNC_INFO);
 
-    //qDebug() << "SearchModel::SearchModel: Rows obtained: " << QString::number(rowCount())  << endl;
-    //qDebug() << "SearchModel::SearchModel - END"  << endl;
+    //qDebug() << "SearchModel::SearchModel: Rows obtained: " << QString::number(rowCount())  << QT_ENDL;
+    //qDebug() << "SearchModel::SearchModel - END"  << QT_ENDL;
 }
 
 void SearchModel::setDXCCColumn(const int _i)
@@ -89,7 +89,7 @@ the view should present the city's name field to the user.
 This should be coherent with the treeview
 */
 
-      //qDebug() << "SearchModel::createSearchModel: log: " << QString::number(_i) << endl;
+      //qDebug() << "SearchModel::createSearchModel: log: " << QString::number(_i) << QT_ENDL;
 
    //QString contestMode = dataProxy->getLogTypeOfUserLog(_i);
 
@@ -105,13 +105,12 @@ This should be coherent with the treeview
 void SearchModel::setStationCallsignInHeader(const bool _s)
 {
     stationCallsignInHeader = _s;
-
 }
 
 /*
  void SearchModel::setColumnsToDX()
  {
-        //qDebug() << "SearchModel::setColumnsToDX"  << endl;
+        //qDebug() << "SearchModel::setColumnsToDX"  << QT_ENDL;
 
      QSqlQuery q;
 
@@ -125,13 +124,13 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
      bool sqlOK = q.exec(stringQuery);
      if (!sqlOK)
      {
-         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().number(), q.lastQuery());
+         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().nativeErrorCode(), q.lastQuery());
 
      }
     q.next();
     rec = q.record(); // Number of columns
-    //qDebug() << "SearchModel::createSearchModel - query: " << q.lastQuery() << endl;
-    //qDebug() << "SearchModel::createSearchModel - columns: " << QString::number(rec.count()) << endl;
+    //qDebug() << "SearchModel::createSearchModel - query: " << q.lastQuery() << QT_ENDL;
+    //qDebug() << "SearchModel::createSearchModel - columns: " << QString::number(rec.count()) << QT_ENDL;
 
      nameCol = rec.indexOf("bandid");
      setRelation(nameCol, QSqlRelation("band", "id", "name"));
@@ -170,9 +169,11 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 */
  void SearchModel::setFilterString(const QString &_st)
  {
-    //qDebug() << "SearchModel::setFilterString: " << _st << endl;
-     setFilter(_st);
-     select();
+    //qDebug() << "SearchModel::setFilterString: " << _st << QT_ENDL;
+    setFilter(_st);
+    select();
+    //qDebug() << "SearchModel::setFilterString: SelectStatement: " << selectStatement () << QT_ENDL;
+
  }
 
  void SearchModel::update()
@@ -182,7 +183,7 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 
  void SearchModel::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
  {
-        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << endl;
+        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << QT_ENDL;
      // Just to pass the colors to the awards class
      award->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
  }
@@ -196,12 +197,10 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
              //QString _qrz = data(index, Qt::DisplayRole).toString();
              //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
 
-
              QString _dxcc = index.siblingAtColumn(dxcc).data().toString();
              QString _bandid = index.siblingAtColumn(bandid).data().toString();
              QString _modeid = index.siblingAtColumn(modeid).data().toString();
              QString _log = index.siblingAtColumn(logn).data().toString();
-
 
              QStringList qs;
              qs.clear();
@@ -209,8 +208,6 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
 
              //spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
              //qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
-
-
 
             return QVariant( award->getQRZDXStatusColor(qs) );
             // return QVariant( QColor( Qt::red ) );

@@ -44,6 +44,10 @@ class Utilities
 public:
     Utilities();
     ~Utilities();
+    void setDarkMode(const QString &_dm);
+    bool isDarkMode();
+    void setCallValidation(const bool _b);
+
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
     QChar boolToCharToSQLite(const bool _b);
@@ -71,13 +75,15 @@ public:
     QString getClubLogFile();
     QString getEQSLFile();
     QString getLoTWAdifFile();
-
+    QString getClearSQLi(QString _s);
     void setVersion(const QString &_v);
     QString getVersion();
     double getVersionDouble();
 
     QDate getDefaultDate();
     QString getDefaultRST(const QString &_m);
+    QStringList getDefaultLogFields();
+
     int getNormalizedDXCCValue(const int _dxcc);
 
     // Validations
@@ -85,11 +91,12 @@ public:
     bool isValidDateTime(const QString &_d);
     bool isValidCall(const QString &_c);
 
-
+    bool isSameFreq(const double fr1, const double fr2);
     bool isValidBandId(const int _b);
     bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);
     bool isValidGrid(const QString &_b);
+    bool isValidVUCCGrids(const QString &_b);
     bool isValidRST(const QString &_b);
     bool isValidPower(const QString &_b);
     bool isValidComment(const QString &_b);
@@ -97,6 +104,7 @@ public:
     bool isValidADIFField(const QString &_b);
     bool isValidQSL_Rcvd(const QString &c);
     bool isValidQSL_Sent(const QString &c);
+    bool isValidUpload_Status(const QString &c);
 
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
@@ -116,6 +124,8 @@ public:
     QTime getTimeFromSQLiteString(const QString &_s);
     QDate getDateFromSQliteString(const QString &_s);
 
+    // Translate the LOG table fields into human readable
+    QString getLogColumnName(const QString &_column);
 
     // Creates the ADIF DATE & TIME formats
     QString getADIFDateFromQDateTime(const QDateTime &_d);  // Will produce the ADIF DATE format: "YYYYMMDD"
@@ -136,13 +146,15 @@ public:
     QString getOnlineServiceName(OnLineProvider _service);
     //QPalette getPalete(bool _ok);
 private:
+    void init();
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
+    bool isCountrySuffix (const QString &_c);
     int isAPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
-
+    bool darkMode, callValidation;
     QString dbPath;
     QString softwareVersion;
     //QPalette palRed, palBlack;

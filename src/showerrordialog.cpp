@@ -28,7 +28,7 @@
 
 ShowErrorDialog::ShowErrorDialog()
 {
-       //qDebug() << "ShowErrorDialog::ShowErrorDialog"  << endl;
+       //qDebug() << "ShowErrorDialog::ShowErrorDialog"  << QT_ENDL;
     text.clear();
 
 
@@ -47,9 +47,9 @@ ShowErrorDialog::ShowErrorDialog()
     QPushButton *closeButton = buttonBox->button(QDialogButtonBox::Close);
 
     buttonBox->addButton(closeButton, QDialogButtonBox::ButtonRole(QDialogButtonBox::RejectRole | QDialogButtonBox::AcceptRole));
-    connect(buttonBox , &QDialogButtonBox::rejected, this, &QDialog::reject);
+    //connect(buttonBox, SIGNAL(rejected()), this, &QDialog::reject);
 
-
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject())) ;
     txtLabel->setFrameShadow(QFrame::Raised);
     txtLabel->setFrameStyle(QFrame::StyledPanel);
 
@@ -61,12 +61,12 @@ ShowErrorDialog::ShowErrorDialog()
     layout->addLayout(buttonsLayout);
 
     setLayout(layout);
-       //qDebug() << "ShowErrorDialog::ShowErrorDialog - END"  << endl;
+       //qDebug() << "ShowErrorDialog::ShowErrorDialog - END"  << QT_ENDL;
 }
 
 void ShowErrorDialog::setText(const QString txt)
 {
-      //qDebug() << "ShowErrorDialog::setVersion: " << txt << endl;
+      //qDebug() << "ShowErrorDialog::setVersion: " << txt << QT_ENDL;
 
     text = txt;
     txtLabel->setText(txt);
@@ -76,12 +76,12 @@ void ShowErrorDialog::setText(const QString txt)
 
 ShowErrorDialog::~ShowErrorDialog()
 {
-       //qDebug() << "ShowErrorDialog::~ShowErrorDialog"  << endl;
+       //qDebug() << "ShowErrorDialog::~ShowErrorDialog"  << QT_ENDL;
 }
 
 void ShowErrorDialog::slotAcceptButtonClicked()
 {
-       //qDebug() << "ShowErrorDialog::slotAcceptButtonClicked"  << endl;
+       //qDebug() << "ShowErrorDialog::slotAcceptButtonClicked"  << QT_ENDL;
     accept();
 }
 

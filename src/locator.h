@@ -29,8 +29,7 @@
 #include <math.h>
 #include <QString>
 #include <QRegularExpression>
-// Description of the Locator system:
-// https://www.qrz.ru/vhf/qth_h.pdf
+
 
 
 const double PI = 3.141592654; //http://en.wikipedia.org/wiki/Pi
@@ -63,7 +62,7 @@ public:
   //double dmsTodeg (int deg, int min, int sec);
 
   bool checkCoords(const double lon1, const double lat1);
-  QList<double> getTopLeftCoordinate(const QString& tlocator);  // Returns the top left coordinate of a Maidenhead locator
+
 
 private:
   //bool valid;

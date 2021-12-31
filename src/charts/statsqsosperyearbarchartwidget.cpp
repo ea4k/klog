@@ -31,7 +31,7 @@ StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(){}
 
 StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget" << endl;
+      //qDebug() << "StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget" << QT_ENDL;
 
     dataProxy = dp;
     chart = new QChart();
@@ -63,7 +63,7 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX= 0;
     chart->removeAllSeries();
     categoriesTitle = QString();
     categoriesElem = QString();
@@ -84,13 +84,13 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), _log);
-           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << endl;
+        int numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), _log);
+           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << QT_ENDL;
         *set0 << numberPerX;
-        numberPerX = 0;
-           //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << endl;
+        //numberPerX = 0;
+           //qDebug() << "StatsQSOsPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << QT_ENDL;
 
-        aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
+        aux = tr("Reading data ...") + "\n" + tr("QSO: %1/%2").arg(QString::number(i), QString::number(categories.count()));
         progress.setLabelText(aux);
         progress.setValue(i);
 

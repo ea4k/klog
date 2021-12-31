@@ -6,7 +6,7 @@
     email                : jaime@robles.es
  ***************************************************************************/
 
-/*****************************************************************************
+/****************************************************************************
  * This file is part of Testing suite of KLog.                               *
  *                                                                           *
  *    KLog is free software: you can redistribute it and/or modify           *
@@ -146,6 +146,7 @@ void tst_Utilities::test_isValidCall()
     // and  a  single  digit,
     // followed  by  a  group  of  not  more  than  four  characters,
     // the last of which shall be a letter,
+    util->setCallValidation (true);
     //qDebug() << Q_FUNC_INFO << " 1 Letter" << endl;
     QVERIFY2(util->isValidCall("B1A") == true, "B1A");
     QVERIFY2(util->isValidCall("B1AA") == true, "B1AA");
@@ -181,6 +182,7 @@ void tst_Utilities::test_isValidCall()
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
     //qDebug() << Q_FUNC_INFO << " Complex" << endl;
     QVERIFY2(util->isValidCall("EA4K/P") == true, "EA4K/P");
+    QVERIFY2(util->isValidCall("K/EA4K/P") == true, "EA4K/P");
     QVERIFY2(util->isValidCall("EA4K/F") == true, "EA4K/F");
     QVERIFY2(util->isValidCall("EA4K/1") == true, "EA4K/1");
     QVERIFY2(util->isValidCall("EA4K/K1") == true, "EA4K/K1");
@@ -195,6 +197,12 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("EAK4") == false, "EAK4");
     QVERIFY2(util->isValidCall("QQQ/EA4K") == false, "QQQ/EA4K");
 
+    util->setCallValidation (false);
+    QVERIFY2(util->isValidCall("EA") == true, "Should be true: EA");
+    QVERIFY2(util->isValidCall("EA4") == true, "Should be true: EA4");
+    QVERIFY2(util->isValidCall("-") == true, "Should be true: EAK4");
+    QVERIFY2(util->isValidCall("EA4K") == true, "Should be true: QQQ/EA4K");
+    util->setCallValidation (true);
 }
 
 void tst_Utilities::test_isValidFreq()

@@ -26,16 +26,17 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
-SOURCES="src" 
+#SOURCES="src" 
 TRANSLATIONS="src/translations"
 POFILES="po"
-QT_SELECT="qt5"
+export QT_SELECT="qt5"
 
 
 for file in $POFILES/*.po
  do
-  echo Checking $file
-  NEWNAME=`echo $file |sed 's:^../po/::'`
+  echo Checking "$file"
+  NEWNAME=$($file |sed 's:^../po/::')
+  #NEWNAME=`echo "$file" |sed 's:^../po/::'`
   echo $NEWNAME
   msgfmt -o /dev/null --statistics $file
   
@@ -59,10 +60,10 @@ echo "ja: "; msgfmt -o /dev/null --statistics $POFILES/klog_ja.po
 #lconvert -if po -of ts -i $POFILES/klog_ja.ts -o $TRANSLATIONS/klog_ja.po
 for file in $POFILES/*.po
 do
- echo Importing $file
+ echo Importing "$file"
  #echo "../po/klog_es.po" | sed 's:^\.\./po/::'
- NEWNAME=`echo $file |sed 's:^po/::' `
+ NEWNAME=`echo "$file" |sed 's:^po/::' `
  echo $NEWNAME
- lconvert -if po -of ts -i $file -o $TRANSLATIONS/${NEWNAME%.po}.ts
+ lconvert -if po -of ts -i "$file" -o "$TRANSLATIONS"/${NEWNAME%.po}.ts
 done
  

@@ -44,7 +44,7 @@ class QSslError;
 class DownLoadCTY : public QObject {
     Q_OBJECT
 public:
-    explicit DownLoadCTY(const QString _klogDir, const QString _klogVersion);
+    explicit DownLoadCTY(const QString &_klogDir, const QString &_klogVersion);
     ~DownLoadCTY();
     int download();
 

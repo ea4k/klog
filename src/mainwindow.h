@@ -53,12 +53,13 @@
 #include "locator.h"
 #include "dxcluster.h"
 #include "awards.h"
-#include "mainwindowsattab.h"
-#include "mainwindowmydatatab.h"
-#include "mainwindowinputcomment.h"
-#include "mainwindowinputothers.h"
-#include "mainwindowinputeqsl.h"
-#include "mainwindowinputqsl.h"
+#include "inputwidgets/mainwindowsattab.h"
+#include "inputwidgets/mainwindowmydatatab.h"
+#include "inputwidgets/mainwindowinputcomment.h"
+#include "inputwidgets/mainwindowinputothers.h"
+#include "inputwidgets/mainwindowinputeqsl.h"
+#include "inputwidgets/mainwindowinputqsl.h"
+#include "inputwidgets/mainwindowinputqso.h"
 #include "mainqsoentrywidget.h"
 #include "elogclublog.h"
 #include "utilities.h"
@@ -83,9 +84,9 @@
 #include "widgets/showadifimportwidget.h"
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
 //#include "worldmapwidget.h"
-#include "widgets/mapwidget.h"
 #include "widgets/showkloglogwidget.h"
-
+#include "qso.h"
+#include "klogdefinitions.h"
 
 class QTimer;
 class QDateTime;
@@ -108,10 +109,6 @@ class QGroupBox;
 class QTabWidget;
 class QFrame;
 class QTableView;
-
-
-
-
 class QLabel;
 
 
@@ -152,23 +149,23 @@ public:
     void init();
 
 private slots:
-    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery);
+    //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
     void slotOpenWiki();
     void slotAWAImport();
     void slotClearNoMorErrorShown();
-    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, int errorCodeN, QString queryFailed);
+    void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed);
     void slotQRZReturnPressed();
     //void slotQRZSpacePressed();
     void slotQRZTextChanged(QString _qrz);
     //void slotSRXTextChanged();
     //void slotSTXTextChanged();
     void slotUpdateLocator(QString _loc);
-    void slotLocatorTextChanged();
+    void slotLocatorTextChanged(const QString &_loc);
     //void slotMyLocatorTextChanged();
-    void slotFreqTXChanged();
-    void slotFreqRXChanged();
-    void slotSplitCLicked();
+    void slotFreqTXChanged(const double _fr);
+    void slotFreqRXChanged(const double _fr);
+    //void slotSplitCLicked();
 
     void slotSearchBoxTextChanged();
     //void slotCloseStats(bool _vis);
@@ -185,50 +182,43 @@ private slots:
     void slotClubLogLogUpload();
     void sloteQSLLogUpload();
     void slotElogEQSLModifyCurrentLog();
-    //void slotModeComboBoxChanged();
-    //void slotBandComboBoxChanged();
-    //void slotIOTAComboBoxChanged();
-    //void slotOperatingYearComboBoxChanged();
+
     void slotOKButtonClicked();
-    //void slotSpotItButtonClicked();
+
     void slotClearButtonClicked();
     void slotBandChanged (const QString &_b);
     void slotModeChanged (const QString &_m);
+    void slotValidBandsReceived(const QStringList &_b);
+
     void slotRefreshDXCCWidget();
-    //void slotUpdateTime();
+
     void slotLogWinShow();
     void slotLogRefresh();
-    //void slotScoreWinShow();
+
     void slotQSODelete(const int _id);
     void slotQSOsDelete(QList<int> _id);
     void slotQSOsExportToADIF(QList<int> _id);
     void slotQRZcomUpload(QList<int> _id);
     void slotQRZCOMLogUpload();
-
+    void slotElogQRZCOMDisable(const bool _b);
 
     void slotShowAwards();
     void slotUpdateStatusBar(const QString &statusm);
-    void setMainWindowTitle(const QString _s);
+    void setMainWindowTitle();
     void slotSetup(const int _page=0);
 
-    //void slotrstTXTextChanged();
-    //void slotrstRXTextChanged();
     void slotADIFExport();
-    //void slotLoTWImport();
-    //void slotLoTWExport();
 
     void slotLoTWExport();
     void slotLoTWDownload();
     void slotLoTWFullDownload();
     void slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
-    //void slotADIFExportPeriod(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
 
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
     void slotReceiveQSOListToShowFromFile(QStringList _qs);
-    //void slotCabrilloExport();
-    //void slotQSLViaTextChanged();
+
     void slotTimeOutInfoBars(); // Clears the infoLabels when the timeout emits the signal
 
     void slotSetPropModeFromOther(const QString &_p);
@@ -237,27 +227,21 @@ private slots:
     void slotUpdateCTYDAT();
     void slotUpdateSATSDAT();
     void slotShowStats();
-    //void slotShowDXCCSummary();
+
     void slotWorldReload(const bool _b);
 
     void slotExitFromSlotDialog(const int exitID);
     void slotSetupDialogFinished (const int _s);
     void exitQuestion();
 
-    //void slotDownloadFinished(QNetworkReply *reply);
 
     void fillQSOData();
 
-    //void newFile();
-    //void openFile();
-    //bool saveFile(const QString &_fileName);
-    //bool saveFileAs();
     bool slotOpenKLogFolder();
 
     void slotFilePrint();
     void slotFileClose();
 
-    //void slotHelpHelpAction();
     void slotHelpAboutAction();
     void slotHelpCheckUpdatesAction();
     void slotAboutQt();
@@ -265,15 +249,13 @@ private slots:
     void slotDebugAction();
 
     // MainQSOEntryWidget
-    void slotShowInfoLabel(const QString _m);
-    //void slotClearForNextQSO();
-    // To support AwardsWidget
-    //void slotRecalculateAwardsButtonClicked();
+    void slotShowInfoLabel(const QString &_m);
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
+    void slotActiveHamlib(bool _enable);
 
     // MyDataTab
-    void slotMyLocatorTextChanged(const QString _loc);
+    void slotMyLocatorTextChanged(const QString &_loc);
 
     // logpanel
     //void slotRighButtonFromLog( const QPoint& pos);
@@ -311,12 +293,8 @@ private slots:
     void slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // QRZCOM
     //SATELLITE
-    //void slotSatBandTXComboBoxChanged(const QString _q);
+    //void slotSatBandTXComboBoxChanged(const QString &_q);
     void slotDefineNewBands (const QStringList _bands);
-    void slotSatTXFreqNeeded(const double _f);
-    void slotSatRXFreqNeeded(const double _f);
-    void slotSatChangeRXFreq(const double _f);
-    void slotSatChangeTXFreq(const double _f);
 
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
@@ -327,8 +305,6 @@ private slots:
     //void slotRotatorShow();
     // WORLD MAP
     //void slotWorldMapShow();
-    void slotShowMap();         // Shows a Map
-
 
     //DXCCWIDGET
     //void slotShowQSOFromDXCCWidget(const int _q);
@@ -344,30 +320,27 @@ private slots:
                      const QString &_comment, const QString &_stationcallsign, const QString &_name,
                      const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
-    //void slotWSJTXClear();
-    //void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &band, const double _freq,
-    //                 const QString &mygrid, const QString &dxgrid, const QString &rstTX, const QString &rstRX, const QString &comment, const QString &stationcallsign,
-    //                 const QDateTime &datetime, const QDateTime &datetime_off);
-
-
-
-    //void slotTipsFindQSL2QSO();
-    //void slotTipsFillInDXCC();
-    //void slotsTipsFillQSO();
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
+    //void slotTakeOverFocus(int _id);
+    void slotTakeOverFocusToQSOTabWidget();
+    void slotTakeOverFocusToMainQSOInput();
+
 private:
     //void setWidgetsOrder();
+    void startServices();
+    void backupCurrentQSO();
+    void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
     void cleanQRZCOMreceivedDataFromUI();
     void saveWindowsSize();
-    void setWindowsSize(const int _width, const int _height);
+    void setWindowSize(const QSize &_size);
     bool maybeSave();
     void setCleaning(const bool _c);
-
+    bool setHamlib(const bool _b);
+    bool setUDPServer(const bool _b);
     void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
     void setSeverity(const DebugLogLevel _sev);
-    void updateBandComboBox(const QString &_band);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
@@ -379,6 +352,8 @@ private:
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
+    QSO *qso;
+
     bool hamlibActive;
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;
@@ -392,7 +367,6 @@ private:
     //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
-    MapWidget *mapWidget;
     void createStatusBar();
     void createUI();
     void createUIDX();
@@ -407,8 +381,8 @@ private:
 
     bool readCtyFile();
 
-    bool isQSLReceived(const int _qsoId);
-    bool isQSLSent(const int _qsoId);
+    //bool isQSLReceived(const int _qsoId);
+    //bool isQSLSent(const int _qsoId);
 
     //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
@@ -416,7 +390,7 @@ private:
     QString readDataFromUIDXModifying();
     void actionsJustAfterAddingOneQSO();
     //void clearForNextQSO();
-    void clearUIDX(bool full=false); //full= false leaves some data to allow pileup or normal Dx in same band; full removes freqs and everything
+    void clearUIDX(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 
     void setAwardDXCC(const int _qsoId, bool modifying); // Adds or modify the status of a DXCC entity
     // data << dxcc(id) << band(id) << mode(id) << confirmed(0/1) << qsoid(id) << modify(0/1);
@@ -431,7 +405,7 @@ private:
     void openSetup(const int _page=0);
     bool processConfigLine(const QString &_line);
     void readConfigData();
-    void defineStationCallsign();
+    void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();
 
     void checkIfNewBandOrMode();
@@ -451,8 +425,8 @@ private:
     //void showAwards();
     //void showDXMarathon(const int _year);
     void updateQSLRecAndSent();
-    double checkFreqRanges(double _f);
-    void setRSTToMode(const QString &_m);
+    //double checkFreqRanges(double _f);
+    //void setRSTToMode(const QString &_m);
 
 
     // CLUSTER
@@ -510,10 +484,9 @@ private:
 
 
     // <UI>
-    QGroupBox *gridGroupBox, *qrzgroupBox;//, *searchgroupBox;
+    //QGroupBox *gridGroupBox;//, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
 
-    QLineEdit *nameLineEdit, *qthLineEdit, *locatorLineEdit;
     //QComboBox *bandComboBox, *modeComboBox;
     //QDateEdit *dateEdit;
     //QTimeEdit *timeEdit;
@@ -532,11 +505,10 @@ private:
     //QMenu *lotwMarkAllAsQueuedMenu;
     //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
-    QMenu *setupMenu;
+    //QMenu *setupMenu;
     QMenu *helpMenu;
 
     //QAction *TestAct;       // Action for testing purposes only
-    QAction *mapAct;            // Shows a Map
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;
@@ -618,9 +590,6 @@ private:
     //QAction *qslRecViaDirectFromSearchAct;
     //QAction *qslRecViaBureauMarkReqFromSearchAct;
     //QAction *qslRecViaDirectMarkReqFromSearchAct;
-
-    QLineEdit *rstTXLineEdit;
-    QLineEdit *rstRXLineEdit;
     //QLineEdit *STXLineEdit;
     //QLineEdit *SRXLineEdit;
     //QPushButton *OKButton, *spotItButton, *clearButton;
@@ -642,29 +611,11 @@ private:
 
     //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
 
-    QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
-    QTextEdit *notesTextEdit;
-    QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox; //*myPowerSpinBox,
-    QCheckBox *splitCheckBox;
-    QLCDNumber *freqQLCDNumber;
+    //QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
+    //QTextEdit *notesTextEdit;
+    //QDoubleSpinBox *rxPowerSpinBox;//  *txFreqSpinBox, *rxFreqSpinBox, *myPowerSpinBox,
 
     QString lotwTQSLpath;
-
-    //eQSL
-    //QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox;
-    //QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit;
-
-    //QComboBox *qslSentComboBox, *qslRecComboBox, *qslSentViaComboBox, *qslRecViaComboBox;
-    //QDateEdit *qslSentQDateEdit, *qslRecQDateEdit;
-    //QTextEdit *qslmsgTextEdit;
-    //QLineEdit *qslViaLineEdit;
-
-
-    //QLineEdit *searchBoxLineEdit;
-    //QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
-    //QRadioButton *searchAllRadioButton;
-    //QPushButton *recalculateAwardsButton;
-    //bool searchSelectAllClicked, stationCallSignShownInSearch;
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
     bool logEvents;                     // Should KLog log the events for debugging
@@ -672,7 +623,7 @@ private:
     QFile *debugFile;
     DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
 
-    bool txFreqBeingChanged, rxFreqBeingChanged, updatingBands;            // When the freqs is being modified it is defined to true to prevent other automated to change.
+    bool txFreqBeingChanged,  updatingBands; //rxFreqBeingChanged  // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
@@ -684,6 +635,7 @@ private:
     MainWindowInputOthers *othersTabWidget;
     MainWindowInputEQSL *eQSLTabWidget;
     MainWindowInputQSL *QSLTabWidget;
+    MainWindowInputQSO *QSOTabWidget;
     MainQSOEntryWidget *mainQSOEntryWidget;
 
     AwardsWidget *awardsWidget;
@@ -718,12 +670,6 @@ private:
     bool itIsANewversion;
     int dupeSlotInSeconds;
 
-
-
-
-    //QString currentQrz;
-    //QString previousQrz;
-
     QString stx;
     QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
@@ -735,8 +681,8 @@ private:
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
     //bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
-    QString mainQRZ, stationQRZ, operatorQRZ, dxLocator;
-    QString lastOperatorQRZ, lastStationQRZ, lastMyLocator;
+    QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
+
     double myPower, lastPower;
 
     int my_CQz, my_ITUz, defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
@@ -756,6 +702,8 @@ private:
     QColor confirmedColor;
     QColor newOneColor;
 
+    QSize windowSize;
+
     //<CLUBLOG>
     bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
     QString clublogPass, clublogEmail; //clublogUser,
@@ -767,6 +715,7 @@ private:
     //</CLUBLOG>
     // QRZ.com
     bool qrzcomActive;
+    bool qrzcomSubscriber;
     eLogQrzLog *elogQRZcom;
     QString qrzcomUser, qrzcomPass;
     // QRz.com - END
@@ -796,15 +745,14 @@ private:
     //QString bandOld, modeOld;
     //LOGVIEW
 
-
-
 signals:
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 };
 

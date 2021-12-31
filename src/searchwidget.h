@@ -44,14 +44,14 @@ public:
     explicit SearchWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~SearchWidget();
     void setCurrentLog(const int _log);
-    //void setColors (const QString _newOne, const QString _needed, const QString _worked, const QString _confirmed, const QString _default);
-    void setVersion (const QString _version); // Defines the KLog version to be written in the exported logs
+    //void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void setVersion (const QString &_version); // Defines the KLog version to be written in the exported logs
     void setShowCallInSearch(const bool _sh);
     void clear();
     void showQSO(const int _q);
     void showQSOs(QList<int> qsoIdList);
     void setStationCallsign(const QString &_st);
-    void setCallToSearch (const QString _st);
+    void setCallToSearch (const QString &_st);
 
     void searchToolNeededQSLToSend();
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
@@ -92,7 +92,7 @@ private slots:
     //void qslRecViaBureauMarkReq(const int _qsoId);
 //    void qslRecViaDirectMarkReq(const int _qsoId);
     void slotStationCallsignChanged();
-    void slotRadioButtonToggled();
+    void slotQCheckboxToggled();
 
     void slotStartDelayInputTimer();
     void slotDelayInputTimedOut();
@@ -106,7 +106,7 @@ signals:
     void toStatusBar(const QString statusm);
     void requestBeingShown();
     void actionQSODelete(const int _qsoid);
-    void queryError(QString functionFailed, QString errorCodeS, int errorCodeN, QString failedQuery); // To alert about any failed query execution
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 
 private:
@@ -116,15 +116,15 @@ private:
     void fillStationCallsignComboBox();
     void setModelFilter();
     // The following  function is adding a line to the search list
-    //void addQSOToSearchList(const QString _call, const QString _dateTime, const QString _band, const QString _mode, const QString _qslrx, const QString _qsltx, const QString _stationcallsign, const QString _id, const QColor _color);
-    bool fillTheList(const QString _query);
+    //void addQSOToSearchList(const QString &_call, const QString &_dateTime, const QString &_band, const QString &_mode, const QString &_qslrx, const QString &_qsltx, const QString &_stationcallsign, const QString &_id, const QColor _color);
+    bool fillTheList(const QString &_query);
 
 //    void addQSOToTheList(const int _id);
 
     QString callFilter, stationCallsignFilter, currentLogFilter;
     QLineEdit *searchBoxLineEdit;
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
-    QRadioButton *searchAllRadioButton;
+    QCheckBox *searchAllQCheckbox;
     //QTreeWidget *searchResultsTreeWidget;
     QComboBox *stationCallsignComboBox;
 

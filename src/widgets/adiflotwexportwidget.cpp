@@ -28,6 +28,11 @@
 
 AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
+#ifdef QT_DEBUG
+  //qDebug() << ": " << _parentFunction;
+#else
+#endif
+
     dataProxy = dp;
     util = new Utilities;
     stationCallsignComboBox = new QComboBox;
@@ -43,6 +48,11 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
 
     createUI();
 }
+AdifLoTWExportWidget::~AdifLoTWExportWidget()
+{
+    delete(util) ;
+}
+
 void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
 {
     if (util->isValidCall(_st))
@@ -105,7 +115,7 @@ void AdifLoTWExportWidget::createUI()
     setLayout(mainLayout);
     connect(startDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged())) ;
     connect(endDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged() ));
-    connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
+    connect(stationCallsignComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotStationCallsignChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
 }
@@ -124,21 +134,21 @@ void AdifLoTWExportWidget::setDefaultStationComboBox()
 
 void AdifLoTWExportWidget::fillStationCallsignComboBox()
 {
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox" << endl;
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox: " << QString::number(stationCallsignComboBox->count()) << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox" << QT_ENDL;
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox: " << QString::number(stationCallsignComboBox->count()) << QT_ENDL;
     stationCallsignComboBox->clear();
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-1" << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-1" << QT_ENDL;
     stationCallsignComboBox->addItem(tr("Not defined"));
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-2" << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-2" << QT_ENDL;
     if (currentExportMode == ModeADIF)
     {
-         //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-3" << endl;
+         //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-3" << QT_ENDL;
         stationCallsignComboBox->addItem(tr("All"));
-         //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-4" << endl;
+         //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-4" << QT_ENDL;
     }
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-99" << endl;
-    stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(-1));
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-99" << QT_ENDL;
+    stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(logNumber));
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-END" << QT_ENDL;
 }
 
 void AdifLoTWExportWidget::setTopLabel(const QString &_t)
@@ -148,7 +158,7 @@ void AdifLoTWExportWidget::setTopLabel(const QString &_t)
 
 void AdifLoTWExportWidget::fillTable()
 {
-    //qDebug() << "AdifLoTWExportWidget::fillTable " << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillTable " << QT_ENDL;
     QList<int> qsos;
        qsos.clear();
        bool justQueued = true;
@@ -156,68 +166,79 @@ void AdifLoTWExportWidget::fillTable()
        {
            case ModeADIF:
            justQueued = false;
-           //qDebug() << "AdifLoTWExportWidget::fillTable ADIF" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable ADIF" << QT_ENDL;
+
            break;
        case ModeLotW:
-           //qDebug() << "AdifLoTWExportWidget::fillTable LoTW" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable LoTW" << QT_ENDL;
            justQueued = true;
 
            break;
        case ModeClubLog:
-           //qDebug() << "AdifLoTWExportWidget::fillTable ClubLog" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable ClubLog" << QT_ENDL;
            //justQueued = true;
 
            break;
        case ModeEQSL:
-           //qDebug() << "AdifLoTWExportWidget::fillTable EQSL" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable EQSL" << QT_ENDL;
            justQueued = true;
            break;
        case ModeQRZ:
-           //qDebug() << "AdifLoTWExportWidget::fillTable QRZ" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable QRZ" << QT_ENDL;
            justQueued = true;
            break;
        }
 
        if (stationCallsignComboBox->currentIndex() == 0)
        { // Not defined station_callsign (blank)
-           qsos.append(dataProxy->getQSOsListLoTWNotSent(QString(), startDate->date(), endDate->date(), justQueued));
+           //qDebug() << "AdifLoTWExportWidget::fillTable blank station callsign " << QT_ENDL;
+           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), startDate->date(), endDate->date(), justQueued, logNumber));
        }
        else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
        { // ALL stations, no matter the station.
-           qsos.append(dataProxy->getQSOsListLoTWNotSent("ALL", startDate->date(), endDate->date(), justQueued));
+           //qDebug() << "AdifLoTWExportWidget::fillTable ALL station callsign " << QT_ENDL;
+           qsos.append(dataProxy->getQSOsListLoTWToSend("ALL", startDate->date(), endDate->date(), justQueued, logNumber));
        }
        else
        {
+           //qDebug() << "AdifLoTWExportWidget::fillTable OTHER station callsign " << QT_ENDL;
            if (currentExportMode == ModeClubLog)
            {
-               qsos.append(dataProxy->getQSOsListClubLogToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+               //qDebug() << "AdifLoTWExportWidget::fillTable Mode ClubLog" << QT_ENDL;
+               qsos.append(dataProxy->getQSOsListClubLogToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
            }
            else if (currentExportMode == ModeEQSL)
            {
+               //qDebug() << "AdifLoTWExportWidget::fillTable Mode eQSL" << QT_ENDL;
               qsos.append(dataProxy->getQSOsListEQSLToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else if (currentExportMode == ModeQRZ)
            {
+               //qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
               qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
-           else
+           else if (currentExportMode == ModeLotW)
            {
-                qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), justQueued));
+               //qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
+                qsos.append(dataProxy->getQSOsListLoTWToSend (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
+              //qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+           }
+           else
+           {//(currentExportMode == ModeADIF)
+               //qDebug() << "AdifLoTWExportWidget::fillTable Mode LoTW" << QT_ENDL;
+               qsos.append(dataProxy->getQSOsListToBeExported(stationCallsignComboBox->currentText(), startDate->date(), endDate->date()));
            }
        }
-       //qsos.append(dataProxy->getQSOsListLoTWNotSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
-       //qDebug() << "AdifLoTWExportWidget::fillTable QSOS: " << QString::number(qsos.length()) << endl;
 
-       QString aux, prefix;
-       //qDebug() << "AdifLoTWExportWidget::fillTable: -3"  << endl;
+       //qDebug() << "AdifLoTWExportWidget::fillTable: -3"  << QT_ENDL;
        tableWidget->clearContents();
        tableWidget->setRowCount(0);
        if (tableWidget->columnCount()>0)
        {
-          //qDebug() << "AdifLoTWExportWidget::fillTable pre FOR" << endl;
+          //qDebug() << "AdifLoTWExportWidget::fillTable pre FOR" << QT_ENDL;
            for (int i=0; i<qsos.length(); i++)
            {
-               //qDebug() << "AdifLoTWExportWidget::fillTable in FOR " << QString::number(i) << endl;
+               //qDebug() << "AdifLoTWExportWidget::fillTable in FOR " << QString::number(i) << QT_ENDL;
                addQSO(qsos.at(i));
            }
        }
@@ -225,28 +246,28 @@ void AdifLoTWExportWidget::fillTable()
        numberLabel->setText(tr("QSOs: ") + QString::number(qsos.count()));
        if (qsos.count()>0)
        {
-           //qDebug() << "AdifLoTWExportWidget::fillTable Enable OKButton" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable Enable OKButton" << QT_ENDL;
            okButton->setEnabled(true);
        }
        else
        {
-           //qDebug() << "AdifLoTWExportWidget::fillTable Disable OKButton" << endl;
+           //qDebug() << "AdifLoTWExportWidget::fillTable Disable OKButton" << QT_ENDL;
            okButton->setEnabled(false);
        }
-    //qDebug() << "AdifLoTWExportWidget::fillTable END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::fillTable END" << QT_ENDL;
 }
 
 void AdifLoTWExportWidget::addQSO(const int _qsoID)
 {
-    //qDebug() << "AdifLoTWExportWidget::addQSO: " << QString::number(_qsoID) << endl;
+    //qDebug() << "AdifLoTWExportWidget::addQSO: " << QString::number(_qsoID) << QT_ENDL;
 
 
     QStringList qsoToAdd;
     qsoToAdd.clear();
     qsoToAdd << dataProxy->getQSODetailsForLoTWDownload(_qsoID);
 
-    //qDebug() << "AdifLoTWExportWidget::addQSO: Columns: " << QString::number(tableWidget->columnCount()) << endl;
-    //qDebug() << "AdifLoTWExportWidget::addQSO: qsoToAdd-length: " << QString::number(qsoToAdd.length()) << endl;
+    //qDebug() << "AdifLoTWExportWidget::addQSO: Columns: " << QString::number(tableWidget->columnCount()) << QT_ENDL;
+    //qDebug() << "AdifLoTWExportWidget::addQSO: qsoToAdd-length: " << QString::number(qsoToAdd.length()) << QT_ENDL;
 
     if (qsoToAdd.length() == tableWidget->columnCount())
     {
@@ -254,7 +275,7 @@ void AdifLoTWExportWidget::addQSO(const int _qsoID)
 
         for (int i = 0; i<qsoToAdd.length(); i++)
         {
-            //qDebug() << "AdifLoTWExportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i) << endl;
+            //qDebug() << "AdifLoTWExportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i) << QT_ENDL;
             QTableWidgetItem *newItemID = new QTableWidgetItem(qsoToAdd.at(i));
             newItemID->setTextAlignment(Qt::AlignCenter);
             newItemID->setFlags(Qt::NoItemFlags);
@@ -263,24 +284,24 @@ void AdifLoTWExportWidget::addQSO(const int _qsoID)
 
     }
 
-    //qDebug() << "AdifLoTWExportWidget::addQSO: - END"  << endl;
+    //qDebug() << "AdifLoTWExportWidget::addQSO: - END"  << QT_ENDL;
 }
 
 void AdifLoTWExportWidget::slotStationCallsignChanged()
 {
-    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged"  << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged"  << QT_ENDL;
     if (stationCallsignComboBox->count()<1)
     {
-        //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged count <1 "  << endl;
+        //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged count <1 "  << QT_ENDL;
         return;
     }
-    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-01"  << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-01"  << QT_ENDL;
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
-    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-02"  << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-02"  << QT_ENDL;
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
-    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-03"  << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-03"  << QT_ENDL;
     fillTable();
-    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged - END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged - END" << QT_ENDL;
 }
 
 void AdifLoTWExportWidget::slotDateChanged()
@@ -291,7 +312,7 @@ void AdifLoTWExportWidget::slotDateChanged()
 
 void AdifLoTWExportWidget::slotOKPushButtonClicked()
 {
-    //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked" << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked" << QT_ENDL;
     this->hide();
     if (stationCallsignComboBox->currentIndex() == 0)
     {
@@ -312,37 +333,37 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
     {
         emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
     }
-    //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked - END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked - END" << QT_ENDL;
     close();
 }
 
 void AdifLoTWExportWidget::slotCancelPushButtonClicked()
 {
-     //qDebug() << "AdifLoTWExportWidget::slotCancelPushButtonClicked" << endl;
+     //qDebug() << "AdifLoTWExportWidget::slotCancelPushButtonClicked" << QT_ENDL;
      close();
 }
 
 void AdifLoTWExportWidget::closeEvent(QCloseEvent *event)
 {
-    //qDebug() << "AdifLoTWExportWidget::closeEvent" << endl;
+    //qDebug() << "AdifLoTWExportWidget::closeEvent" << QT_ENDL;
     event->accept();
 }
 
 void AdifLoTWExportWidget::showEvent(QShowEvent *event)
 {
-    //qDebug() << "AdifLoTWExportWidget::showEvent" << endl;
+    //qDebug() << "AdifLoTWExportWidget::showEvent" << QT_ENDL;
 
     startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
     setDefaultStationComboBox();
 
     event->accept();
-    //qDebug() << "AdifLoTWExportWidget::showEvent - END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::showEvent - END" << QT_ENDL;
 }
 
 void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
 {
-    //qDebug() << "AdifLoTWExportWidget::setExportMode" << endl;
+    //qDebug() << "AdifLoTWExportWidget::setExportMode" << QT_ENDL;
     currentExportMode = _EMode;
     if (currentExportMode == ModeLotW)
     {
@@ -370,5 +391,17 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
         topLabel->setText(tr("This table shows the QSOs that will be exported to ADIF."));
     }
     fillStationCallsignComboBox();
-    //qDebug() << "AdifLoTWExportWidget::setExportMode-END" << endl;
+    //qDebug() << "AdifLoTWExportWidget::setExportMode-END" << QT_ENDL;
+}
+
+void AdifLoTWExportWidget::setLogNumber(const int _logN)
+{
+    if (dataProxy->doesThisLogExist (_logN))
+    {
+        logNumber = _logN;
+    }
+    else
+    {
+        logNumber = -1;
+    }
 }

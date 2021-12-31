@@ -27,18 +27,42 @@
  *****************************************************************************/
 
 #include <QString>
+
+using namespace std;
+
 enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
 enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
 enum OnlineErrorCode {Ok, Fail};
 enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
 enum DebugLogLevel {Info, Debug};
+enum ValidFieldsForStats {DXCC, GridSquare};
 
 struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
   int dxcc;
   QString mainprefix;
   QString name;
   QString isoname;
+};
 
-} ;
+struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstatuswidget
+  int dxcc;
+  int bandid;
+  bool confirmed;
+};
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
+#define QT_SKIP Qt::SkipEmptyParts
+#define QT_ENDL Qt::endl
+#define QT_RETURNBYVALUE Qt::ReturnByValue
+#else
+#define QT_SKIP QString::SkipEmptyParts
+#define QT_ENDL endl
+#define QT_RETURNBYVALUE
+ #endif
+
+
+//#if QT_VERSION>=0x041502
+//#else
+//#endif
 
 #endif // KLOGDEFINITIONS_H

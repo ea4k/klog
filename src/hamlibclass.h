@@ -31,11 +31,23 @@
 #include <QTimer>
 #include <QMap>
 #include <QDebug>
-#include <QSerialPort>
+//#include <QSerialPort>
+#include <QtSerialPort/QSerialPort>
 #include <hamlib/rig.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "klogdefinitions.h"
+
+// Potential fix of hamlib 4.2 migration
+#ifndef HAMLIB_FILPATHLEN
+#define HAMLIB_FILPATHLEN FILEPATHLEN
+#endif
+
+#ifndef FILPATHLEN
+#define FILPATHLEN 100
+#endif
+
 
 class HamLibClass : public QObject
 {
@@ -50,11 +62,11 @@ public:
     void setPort(const QString &_port);
     void setPoll(const int _milsecs);
 
-    void setData(const QString &_data);
-    void setStop(const QString &_stop);
+    void setDataBits(const int data);
+    void setStop(const int _stop);
     void setFlow(const QString &_flow);
     void setParity(const QString &_parity);
-    void setSpeed(const QString &_speed);
+    void setSpeed(const int _speed);
     void setRTS(const QString &_state);
     void setDTR(const QString &_state);
 
@@ -62,17 +74,19 @@ public:
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
     bool isModeADIFMode(const QString &_m);
+    void setNetworkAddress(const QString &_address);
+    void setNetworkPort(const int _port);
 
-   // bool isModeExisting(const QString &_m);
-
-
-    void init(bool _active);
-    void stop();
-    void readRadio(bool _forceRead);
+    bool init(bool _active);
+    bool stop();
+    bool readRadio(bool _forceRead);
     bool isRunning();
+    void initClass();
     void clean();
     void checkErrorCountAndStop();
 
+    double getFrequency();
+    //void showDebugLog(const QString &_func, const QString &_log);
     //bool openSerialPort();
     //bool closeSerialPort();
 
@@ -85,10 +99,11 @@ public slots:
     void slotTimer();
 
 private:
-    void readRadioInternal(bool _forceRead);
+    bool readRadioInternal(bool _forceRead);
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
-    rmode_t mode2HamlibMode(const QString &_m);
+    bool errorManage(const QString &_func, const int _errorcode);
+    //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;
     QMap<QString, rig_model_t> rigName2RigId;
@@ -101,7 +116,6 @@ private:
     serial_handshake_e shandshake;
     serial_control_state_e srts, sdtr;
 
-
     int retcode;                // generic return code from functions
 
     rig_model_t myrig_model;    // Integer radio model
@@ -109,10 +123,8 @@ private:
 
 
     pbwidth_t width;
-    vfo_t vfo;              /* vfo selection */
-    int strength;           /* S-Meter level */
-
-
+    //vfo_t vfo;              /* vfo selection */
+    //int strength;           /* S-Meter level */
 
     int bauds;                  // default 9600
     int dataBits;               // default 8
@@ -120,11 +132,14 @@ private:
     QString flowControl;            // default QSerialPort::NoFLowControl
     QString parity;                 // default QSerialPort::NoParity
     QString serialPort;
+    QString networkAddress;
+    int networkPort;
     int pollInterval;           // Poll interval in mSecs
     int errorCount;            // Number of times that the rig has returned an error since last time OK.
     bool rigLaunched;
     bool readOnlyMode;          // If true, KLog will not modify any parameter (freq/mode...) in the radio. KLog just will follow the radio.
     bool justEmitted;
+    bool reading;   // Just a semaphore to prevent several readings
     //bool active;
 
     //QSerialPort *m_serial;
