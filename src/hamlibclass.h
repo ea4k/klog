@@ -31,7 +31,8 @@
 #include <QTimer>
 #include <QMap>
 #include <QDebug>
-#include <QSerialPort>
+//#include <QSerialPort>
+#include <QtSerialPort/QSerialPort>
 #include <hamlib/rig.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -75,8 +76,6 @@ public:
     bool isModeADIFMode(const QString &_m);
     void setNetworkAddress(const QString &_address);
     void setNetworkPort(const int _port);
-   // bool isModeExisting(const QString &_m);
-
 
     bool init(bool _active);
     bool stop();
@@ -87,6 +86,7 @@ public:
     void checkErrorCountAndStop();
 
     double getFrequency();
+    //void showDebugLog(const QString &_func, const QString &_log);
     //bool openSerialPort();
     //bool closeSerialPort();
 
@@ -102,7 +102,7 @@ private:
     bool readRadioInternal(bool _forceRead);
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
-    bool errorManage(const int _errorcode);
+    bool errorManage(const QString &_func, const int _errorcode);
     //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;
@@ -125,8 +125,6 @@ private:
     pbwidth_t width;
     //vfo_t vfo;              /* vfo selection */
     //int strength;           /* S-Meter level */
-
-
 
     int bauds;                  // default 9600
     int dataBits;               // default 8

@@ -33,10 +33,8 @@
 
 eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)
 {
-
 #ifdef QT_DEBUG
   //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
-#else
 #endif
 
     klogVersion = _klogVersion;
@@ -44,6 +42,7 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
     errorWhileSendingLog = false;
     sendingQSO = false;
     lastQSO = false;
+    subscriptionOK = true;
 
     qsos.clear();
     sessionkey = QString();
@@ -64,21 +63,32 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
 
 eLogQrzLog::~eLogQrzLog()
 {
-        //qDebug()<< "eLogQrzLog::~eLogQrzLog"  << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "END");
+}
+
+void eLogQrzLog::showDebugLog(const QString &_func, const QString &_log)
+{
+#ifdef QT_DEBUG
+  qDebug() << _func << ": " << _log;
+#else
+#endif
 }
 
 void eLogQrzLog::setLogBookKey(const QString &_key)
 {
     //qDebug()<< "eLogQrzLog::setLogBookKey: " << _key  << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start: key: " + _key);
     if (_key.length()>0)
     {
         logbookkey = _key;
     }
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
 {
 
+    showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(_error));
     QString text;
     switch (_error) {
         case QNetworkReply::NoError:
@@ -100,11 +110,13 @@ void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
                                               text,
                                            QMessageBox::Ok);
 
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
 {
     //qDebug()<< "eLogQrzLog::slotLogManagerFinished"  << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start");
     sendingQSO = false;
     result = data->error();
     //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << QT_ENDL;
@@ -120,6 +132,7 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
         QString dataReply(sdata);
         //parseAppAnswer(1, dataReply);
         parseAppAnswer(dataReply);
+        showDebugLog (Q_FUNC_INFO, "No error");
        //qDebug()<< "eLogQrzLog::slotManageLogFinished - NO ERROR" << QT_ENDL;
     }
     else {
@@ -136,13 +149,15 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
 
     //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result = " << QString::number(result) << QT_ENDL;
     //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result Text = " << text << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Text: " + text);
     emit showMessage(text);
-
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
 {
     //qDebug() << Q_FUNC_INFO << xml.text();
+    showDebugLog (Q_FUNC_INFO, "Start: " + xml.text());
     QString tdata = QString();
 
     while (!xml.atEnd())
@@ -262,11 +277,13 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 }
                 continue;
             }
-            else if (xml.readElementText() == "non-subscriber")
+            else if ((xml.readElementText() == "non-subscriber") && (subscriptionOK))
             {
                 //qDebug() << Q_FUNC_INFO << " - Not Subscribed QRZ.com user";
+                showDebugLog (Q_FUNC_INFO, "Non Subscribed");
                 emit showMessage(tr("You are not subscribed to QRZ.com."));
-                emit disableQRZAction(true);
+                //emit disableQRZAction(true);
+                subscriptionOK = false;
             }
             else
             {
@@ -276,6 +293,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
     }
     if (xml.hasError())
     {
+        showDebugLog (Q_FUNC_INFO, "Error: " + xml.errorString());
         //qDebug() << Q_FUNC_INFO << " - ERROR: " << xml.errorString()  << QT_ENDL;
     }
     else if (xml.atEnd())
@@ -416,12 +434,13 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
      */
     //qDebug() << "eLogQrzLog::parseXMLAnswer: END of token while" << QT_ENDL;
     //qDebug() << Q_FUNC_INFO << " - NO ERROR" ;
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
 {
     //qDebug() << Q_FUNC_INFO;
-
+    showDebugLog (Q_FUNC_INFO, "Start");
     result = data->error();
     //qDebug() << Q_FUNC_INFO << " - Result = " << QString::number(result) << QT_ENDL;
 
@@ -447,19 +466,23 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
     //qDebug() << Q_FUNC_INFO << " - Result Text = " << text << QT_ENDL;
 
     emit showMessage(text);
+    showDebugLog (Q_FUNC_INFO, "Text: " + text);
+    showDebugLog (Q_FUNC_INFO, "END");
 
 }
 
 void eLogQrzLog::downloadProgress(qint64 received, qint64 total) {
        //qDebug()<< "eLogQrzLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << QT_ENDL;
-
+    showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(received) +"/"+QString::number(total));
        //qDebug()<< received << total;
     emit actionShowProgres(received, total);
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
        //qDebug()<< "eLogQrzLog::slotErrorManagement: " << QString::number(networkError) << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(networkError));
     result = networkError;
 
     if (result == QNetworkReply::NoError)
@@ -475,11 +498,12 @@ void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
     }
 
     //actionError(result);
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 bool eLogQrzLog::canConnect()
 {
-   //qDebug() << Q_FUNC_INFO;
+   showDebugLog (Q_FUNC_INFO, "Start");
    if (!logged)
    {
        //qDebug() << Q_FUNC_INFO << " - 10";
@@ -487,49 +511,53 @@ bool eLogQrzLog::canConnect()
        if (!logged)
        {
             //qDebug() << Q_FUNC_INFO << " - Not logged";
+           showDebugLog (Q_FUNC_INFO, "END-false-1");
             return false;
        }
    }
    if (sessionkey.length()<1)
    {
        //qDebug() << Q_FUNC_INFO << " - API not valid";
+       showDebugLog (Q_FUNC_INFO, "END-false-2");
        return false;
    }
-   //qDebug() << Q_FUNC_INFO << " - END";
+   showDebugLog (Q_FUNC_INFO, "END-true");
    return true;
 }
 
 void eLogQrzLog::fetchData()
 {
     //qDebug() << Q_FUNC_INFO;
+    showDebugLog (Q_FUNC_INFO, "Start");
     if (!canConnect())
     {
+        showDebugLog (Q_FUNC_INFO, "END- can't connect");
         return;
     }
-   //qDebug()<< "eLogQrzLog::checkQRZ: Preparing the query"  << QT_ENDL;
     QUrlQuery params;
-
 
     params.addQueryItem("action", "fetch");
     params.addQueryItem("option", "all");
     params.addQueryItem("agent", util->getGlobalAgent(klogVersion));
 
     sendDataParams(params);
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::checkQRZ(const QString &_qrz)
 {
-    //qDebug()<< "eLogQrzLog::checkQRZ: " << _qrz << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start: " + _qrz);
     if (!util->isValidCall(_qrz))
     {
         //qDebug()<< "eLogQrzLog::checkQRZ: CALL not valid"  << QT_ENDL;
+        showDebugLog (Q_FUNC_INFO, "CALL not valid");
         return;
     }
     serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
 
     if (!canConnect())
     {
-        //qDebug() << Q_FUNC_INFO << " - can't connect";
+        showDebugLog (Q_FUNC_INFO, "END-can't connect");
         return;
     }
 
@@ -539,11 +567,13 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
     params.addQueryItem("callsign", _qrz);
     params.addQueryItem("agent", util->getGlobalAgent(klogVersion));
     sendDataParams(params);
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 int eLogQrzLog::sendQSOs(QList<int> _qsos)
 {
     //qDebug()<< "eLogQrzLog::sendQSOs: QSOs: " << QString::number(_qsos.length()) << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start");
     errorWhileSendingLog = false;
     if (logbookkey.length()<1)
     {
@@ -552,6 +582,7 @@ int eLogQrzLog::sendQSOs(QList<int> _qsos)
                                        tr("Not valid KEY found") + "\n" +
                                           tr("Please configure your QRZ.com API key. You will find it in your QRZ.com Logbook settings webpage.\nYou need a QRZ.com subscription to use this feature."),
                                        QMessageBox::Ok);
+        showDebugLog (Q_FUNC_INFO, "END-2");
         return -2;
     }
     qsos.clear();
@@ -565,13 +596,14 @@ int eLogQrzLog::sendQSOs(QList<int> _qsos)
             lastQSO = true;
         }
     }
+    showDebugLog (Q_FUNC_INFO, "END");
     return 1;
 }
 
 int eLogQrzLog::sendQSO(const int _qsoID)
 {
     //qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID) << QT_ENDL;
-
+    showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(_qsoID));
     QString adifQSO = dataProxy->getADIFQSO(_qsoID);
 
     //qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO << QT_ENDL;
@@ -591,6 +623,7 @@ int eLogQrzLog::sendQSO(const int _qsoID)
 
     QNetworkRequest requestLog(QUrl("https://logbook.qrz.com/api"));
     requestLog.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    showDebugLog (Q_FUNC_INFO, "postData: " + QString(postData));
 
     //qDebug()<< "eLogQrzLog::sendQSO: postData: " << postData << QT_ENDL;
     while (sendingQSO)
@@ -598,16 +631,20 @@ int eLogQrzLog::sendQSO(const int _qsoID)
         //qDebug() << "eLogQrzLog::sendQSO: sending QSO... just wait!" << QT_ENDL;
     }
     managerLog->post(requestLog, postData);
+    showDebugLog (Q_FUNC_INFO, "END");
     return 1;
 }
 bool eLogQrzLog::hasLogBookKey()
 {
+    showDebugLog (Q_FUNC_INFO, "Start");
     if (logbookkey.length()>0)
     {
+        showDebugLog (Q_FUNC_INFO, "END-true");
         return true;
     }
     else
     {
+        showDebugLog (Q_FUNC_INFO, "END-false");
      return false;
     }
 }
@@ -616,9 +653,11 @@ bool eLogQrzLog::hasLogBookKey()
 void eLogQrzLog::login()
 {
     //qDebug()<< "eLogQrzLog::login"  << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start");
     if (logged)
     {
         //qDebug()<< "eLogQrzLog::login Already logged!"  << QT_ENDL;
+        showDebugLog (Q_FUNC_INFO, "END-1");
         return;
     }
 
@@ -632,6 +671,7 @@ void eLogQrzLog::login()
         if (!ok)
         {
              //qDebug() << "eLogQrzLog::login - END 1" <<  QT_ENDL;
+            showDebugLog (Q_FUNC_INFO, "END-2");
             return;
         }
     }
@@ -659,12 +699,14 @@ void eLogQrzLog::login()
     //        pass = QString();
     //}
     //qDebug()<< "eLogQrzLog::login - END"  << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "END");
 
 }
 
 int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
 {
     //qDebug()<< "eLogQrzLog::sendDataParams: Params: " << _params.query(QUrl::FullyEncoded).toUtf8() << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start");
 
     QByteArray postData;
 
@@ -682,19 +724,23 @@ int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
     //qDebug()<< "eLogQrzLog::sendDataParams: postData: " << postData << QT_ENDL;
     manager->post(request, postData);
      //qDebug()<< "eLogQrzLog::sendDataParams - END" << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "END");
     return -1;
 }
 
 void eLogQrzLog::setCredentials(const QString &_user, const QString &_pass)
 {
     //qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass  << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start: " + _user + "/" + _pass);
     user = _user;
     pass = _pass;
+    showDebugLog (Q_FUNC_INFO, "END");
 }
 
 QString eLogQrzLog::prepareToTranslate(const QString &_m)
 {
        //qDebug()<< "eLogQrzLog:: = prepareToTranslate" << _m << QT_ENDL;
+    showDebugLog (Q_FUNC_INFO, "Start: " + _m);
     if (_m == "Callsign missing")
     {
         return tr("Callsign missing");
@@ -708,7 +754,7 @@ QString eLogQrzLog::prepareToTranslate(const QString &_m)
 void eLogQrzLog::parseAppAnswer (const QString &_m)
 {
     //qDebug()<< "eLogQrzLog::parseAppAnswer: " << _m  << QT_ENDL;
-
+    showDebugLog (Q_FUNC_INFO, "Start: " + _m);
     QStringList response;
     response.clear();
     response << _m.split('&');
@@ -746,9 +792,20 @@ void eLogQrzLog::parseAppAnswer (const QString &_m)
 
 void eLogQrzLog::sendSignal(QNetworkReply::NetworkError _error, QList<int> _qsos)
 {
+    showDebugLog (Q_FUNC_INFO, "Error: " + QString::number(_error) + " - List: " + QString::number(_qsos.length ()));
     errorWhileSendingLog = false;
     emit signalLogUploaded(_error, _qsos);
 }
 
 
+void eLogQrzLog::setSubcription(const bool _ok)
+{
+    showDebugLog (Q_FUNC_INFO, util->boolToQString (_ok));
+    subscriptionOK = _ok;
+}
 
+bool eLogQrzLog::getSubscription()
+{
+    showDebugLog (Q_FUNC_INFO, util->boolToQString (subscriptionOK));
+    return subscriptionOK;
+}

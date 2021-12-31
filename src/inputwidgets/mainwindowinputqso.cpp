@@ -56,7 +56,10 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 
 }
 
-MainWindowInputQSO::~MainWindowInputQSO(){}
+MainWindowInputQSO::~MainWindowInputQSO()
+{
+    delete(locator);
+}
 
 void MainWindowInputQSO::setModifying(const bool _m)
 {

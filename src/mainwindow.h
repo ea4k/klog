@@ -253,6 +253,7 @@ private slots:
     void slotShowInfoLabel(const QString &_m);
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
+    void slotActiveHamlib(bool _enable);
 
     // MyDataTab
     void slotMyLocatorTextChanged(const QString &_loc);
@@ -719,6 +720,7 @@ private:
     //</CLUBLOG>
     // QRZ.com
     bool qrzcomActive;
+    bool qrzcomSubscriber;
     eLogQrzLog *elogQRZcom;
     QString qrzcomUser, qrzcomPass;
     // QRz.com - END

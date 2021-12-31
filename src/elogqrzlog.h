@@ -55,13 +55,33 @@ public:
     int sendQSOs(QList<int> _qsos);
     void checkQRZ(const QString &_qrz);
     void fetchData();
+    void setSubcription(const bool _ok);
+    bool getSubscription();
     //int deleteQSOid(const int _qsoId);
     //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
 
     //void sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite);
 
+private slots:
+    void slotManagerFinished(QNetworkReply* data);
+    void slotManagerLogFinished(QNetworkReply* data);
+    //void slotFileUploadFinished(QNetworkReply* data);
+    void downloadProgress(qint64 received, qint64 total);
+    void slotErrorManagement(QNetworkReply::NetworkError networkError);
+
+
+signals:
+    void actionReturnDownload(const int _i, const int _qsoId);
+    void done();
+    void actionShowProgres(qint64 received, qint64 total);
+    void actionError(const int _i);
+    void showMessage(const QString &_t);
+    void disableQRZAction(const bool _b);
+    void signalLogUploaded(QNetworkReply::NetworkError, QList<int>);
+    void dataFoundSignal(const QString &_type, const QString &_data);
 
 private:
+    void showDebugLog(const QString &_func, const QString &_log);
     //QString getClubLogAdif(const QStringList _q);
     //int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
     int sendDataParams(const QUrlQuery &_params);
@@ -76,6 +96,7 @@ private:
     bool errorWhileSendingLog;
     bool sendingQSO;
     bool lastQSO;
+    bool subscriptionOK;
     QString sessionkey, logbookkey;
     QString user, pass;
     QString klogVersion;
@@ -95,24 +116,6 @@ private:
 
     OnlineMessageWidget *onlineMessage;
     //bool useQSOStationCallsign;
-
-private slots:
-    void slotManagerFinished(QNetworkReply* data);
-    void slotManagerLogFinished(QNetworkReply* data);
-    //void slotFileUploadFinished(QNetworkReply* data);
-    void downloadProgress(qint64 received, qint64 total);
-    void slotErrorManagement(QNetworkReply::NetworkError networkError);
-
-
-signals:
-    void actionReturnDownload(const int _i, const int _qsoId);
-    void done();
-    void actionShowProgres(qint64 received, qint64 total);
-    void actionError(const int _i);
-    void showMessage(const QString &_t);
-    void disableQRZAction(const bool _b);
-    void signalLogUploaded(QNetworkReply::NetworkError, QList<int>);
-    void dataFoundSignal(const QString &_type, const QString &_data);
 
 };
 #endif // DOWNLOADCTY_H

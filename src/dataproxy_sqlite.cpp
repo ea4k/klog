@@ -59,6 +59,8 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
 
 DataProxy_SQLite::~DataProxy_SQLite()
 {
+    delete(util);
+    delete(qso);
          //qDebug() << "DataProxy_SQLite::~DataProxy_SQLite" << QT_ENDL;
 }
 
@@ -444,9 +446,10 @@ QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 {
-         //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << _sm << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << _sm << QT_ENDL;
     if (_sm.length ()<2)
     {
+        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: length <2" << QT_ENDL;
         return -1.0;
     }
     QSqlQuery query;
@@ -458,38 +461,35 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
         query.next();
         if (query.isValid())
         {
-            if ( (query.value(0)).toDouble()<0 )
+            double fr = (query.value(0)).toDouble();
+            query.finish();
+            if ( fr < 0 )
             {
-                     //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-1" << QT_ENDL;
-                query.finish();
+                //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-1" << QT_ENDL;
                 return -1.0;
             }
             else
             {
-                     //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName(else): " << QString::number((query.value(0)).toDouble()) << QT_ENDL;
-                double v = (query.value(0)).toDouble();
-                query.finish();
-                return v;
+                //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName(value found): " << QString::number(fr) << QT_ENDL;
+                return fr;
             }
         }
         else
         {
-                 //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-2" << QT_ENDL;
+            //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-2" << QT_ENDL;
             query.finish();
             return -1.0;
         }
-
-             //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-3" << QT_ENDL;
-        //query.finish();
-        //return -1.0;
+        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-3" << QT_ENDL;
     }
     else
     {
+        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: SQL Error" << QT_ENDL;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         return -1.0;
     }
-    //return -1.0;
+    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-5" << QT_ENDL;
 }
 
 

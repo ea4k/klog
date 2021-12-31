@@ -41,60 +41,36 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     g_callsignCheck  = true;
+
     showKLogLogWidget = new ShowKLogLogWidget;
+    showErrorDialog = new ShowErrorDialog();
+    UDPLogServer = new UDPServer();
+    util = new Utilities;
+    qso = new QSO;
+
     softwareVersion = tversion;
     klogDir = _klogDir;
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 0;
-    configured = false;
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
-    util = new Utilities;
-    qso = new QSO;
+
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
-    QString debugName = util->getDebugLogFile();
-    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  debugName << QT_ENDL;
-    debugFile = new QFile(debugName);
 
+    //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() << QT_ENDL;
+    debugFile = new QFile(util->getDebugLogFile());
 
-    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - File not open"));
-        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-    }
-    else
-    {
-        debugFileOpen = true;
-        logEvent(Q_FUNC_INFO, "KLog started!", Info);
-    }
-
-    //QTime start;
-    //start = QTime::currentTime();
-    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-
-    showErrorDialog = new ShowErrorDialog();
-    UDPLogServer = new UDPServer();
     //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     hamlib = new HamLibClass();
-    //pstRotator = new PSTRotatorSupport(this);
-    //rotatorWidget = new RotatorWidget;
-     //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
-
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
-
 
     //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -131,9 +107,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
 
-    configFileName = util->getCfgFile();
-    ctyDatFile = util->getCTYFile();
-
     downloadcty = new DownLoadCTY(klogDir, softwareVersion);
 
     statusBarMessage = tr("Starting KLog");
@@ -150,7 +123,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-
+    configFileName = util->getCfgFile();
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
@@ -216,16 +189,23 @@ MainWindow::~MainWindow()
     {
         hamlib->stop();
     }
-    //delete qso;
-    //delete debugFile;
-    //delete showErrorDialog;
-    //delete lotwUtilities;
-    //delete eqslUtilities;
-    //delete elogQRZcom;
-    //delete downloadcty;
-    //delete world;
-    //delete locator;
 
+    delete(showErrorDialog);
+    delete(lotwUtilities);
+    delete(eqslUtilities);
+    delete(elogQRZcom);
+    delete(elogClublog);
+    delete(downloadcty);
+    delete(world);
+    delete(locator);
+    delete(qso);
+    delete(debugFile);
+    delete(dateTime);
+    delete(dateTimeTemp);
+    delete(awards);
+    delete(softUpdate);
+    delete(filemanager);
+    delete(fileAwardManager);
     logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
 
@@ -264,8 +244,25 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init()
 {
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - File not open"));
+        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
+        msgBox.setText(aux);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    else
+    {
+        debugFileOpen = true;
+        logEvent(Q_FUNC_INFO, "KLog started!", Info);
+    }
+
     logEvents = true;
-    debugFileOpen = false;
+
     hamlib->initClass();
     util->setCallValidation (true);
     infoLabel1T = QString();
@@ -370,6 +367,7 @@ void MainWindow::init()
     eQSLUseQSOStationCallSign = false;
     qrzcomActive = false;
     lotwActive = false;
+    qrzcomSubscriber = false;
 
     qrzcomUser = QString();
     qrzcomPass = QString();
@@ -397,6 +395,7 @@ void MainWindow::init()
     newOneColor.setNamedColor("green");
     //qDebug() << "MainWindow::init - 60" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     bool existingData = QFile::exists(util->getKLogDBFile());
+    ctyDatFile = util->getCTYFile();
     if (!existingData)
     {
         //qDebug() << "MainWindow::init - 61" << QT_ENDL;
@@ -520,6 +519,9 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(validBands(QStringList)), this, SLOT(slotValidBandsReceived(QStringList) ) );
+    connect(mainQSOEntryWidget, SIGNAL(hamlibSetActiveSignal(bool)), this, SLOT(slotActiveHamlib(bool) ) );
+
+
 
     // LOGVIEW
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
@@ -553,7 +555,7 @@ void MainWindow::createActionsCommon(){
     connect (elogQRZcom, SIGNAL (showMessage(QString)), this, SLOT (slotElogQRZCOMShowMessage(QString)));
     connect (elogQRZcom, SIGNAL (dataFoundSignal(QString, QString)), this, SLOT (slotElogQRZCOMFoundData(QString, QString)));
     connect (elogQRZcom, SIGNAL (signalLogUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogQRZCOMLogUploaded(QNetworkReply::NetworkError, QList<int>)));
-    connect (elogQRZcom, SIGNAL (disableQRZAction(bool)), this, SLOT (slotElogQRZCOMDisable(bool)));
+    //connect (elogQRZcom, SIGNAL (disableQRZAction(bool)), this, SLOT (slotElogQRZCOMDisable(bool)));
 
     // SATELLITE TAB
     //connect (satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
@@ -632,7 +634,7 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
-    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode, QList<int>)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode, QList<int>)) );
+    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
@@ -2688,7 +2690,7 @@ void MainWindow::slotSearchBoxTextChanged()
 
 void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 {
-    //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << QT_ENDL;
+     //qDebug() << "MainWindow::slotQSOsExportToADIF " << QString::number(_id.length())  << QT_ENDL;
     if (_id.length()<1)
     {
         return; // NO QSO TO EXPORT
@@ -3082,9 +3084,8 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (_b)
+    if ((_b) && (elogQRZcom->getSubscription ()))
     {
-
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
@@ -3093,7 +3094,6 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
-
 
         qrzcomActive = false;
         setupDialog->setQRZCOMAutoCheckActive (false);
@@ -3234,8 +3234,8 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
         //qDebug() << "MainWindow::slotElogQRZCOMFoundData: ERROR" << _t << "/" << _d << QT_ENDL;
         if (_d.contains("Not found: "))
         {
-            //cleanQRZCOMreceivedDataFromUI();
-             //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
+            cleanQRZCOMreceivedDataFromUI();
+            //qDebug() << "MainWindow::slotElogQRZCOMFoundData: call Not found" << QT_ENDL;
             slotUpdateStatusBar(tr("Call not found in QRZ.com"));
             return;
         }
@@ -3358,12 +3358,12 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    qDebug()<< Q_FUNC_INFO << ": " << _qrz << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": " << _qrz << QT_ENDL;
 
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (_qrz.length()<1)
     {
-       qDebug()<< Q_FUNC_INFO << ": Empty... " << QT_ENDL;
+       //qDebug()<< Q_FUNC_INFO << ": Empty... " << QT_ENDL;
         infoLabel1->clear();
         infoLabel2->clear();
         //qDebug() << Q_FUNC_INFO;
@@ -3371,11 +3371,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
-    qDebug()<< Q_FUNC_INFO << ": cursor position: " << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": cursor position: " << QT_ENDL;
 
     if (cleaning)
     {
-        qDebug()<< Q_FUNC_INFO << ": Cleaning" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": Cleaning" << QT_ENDL;
         logEvent(Q_FUNC_INFO, "END-2", logSeverity);
         return;
     }
@@ -3385,17 +3385,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
 
-    qDebug()<< Q_FUNC_INFO << ": checking for modify or length<1" << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": checking for modify or length<1" << QT_ENDL;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-        qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" << QT_ENDL;
         qrzSmallModDontCalculate=false;
         logEvent(Q_FUNC_INFO, "END-6", logSeverity);
         return;
     }
 
-    qDebug()<< Q_FUNC_INFO << ": running ..." << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": running ..." << QT_ENDL;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -3403,9 +3403,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
     //cleanQRZCOMreceivedDataFromUI();
-    qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
-    qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
 
     if (pref.length ()>0)
     {
@@ -3419,17 +3419,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
     //currentEntity = world->getQRZARRLId(_qrz);
     //selectCorrectComboBoxEntity(currentEntity);
-    qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
     othersTabWidget->setEntity(currentEntity);
 
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
     dx_ITUz = world->getQRZItuz(_qrz);
     dxE_ITUz = world->getEntityItuz(currentEntity);
-    qDebug()<< Q_FUNC_INFO << ": CQ: " << QString::number(dx_CQz) << QT_ENDL;
-    qDebug()<< Q_FUNC_INFO << ": CQe: " << QString::number(dxE_CQz) << QT_ENDL;
-    qDebug()<< Q_FUNC_INFO << ": ITU: " << QString::number(dx_ITUz) << QT_ENDL;
-    qDebug()<< Q_FUNC_INFO << ": ITUe: " << QString::number(dxE_ITUz) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": CQ: " << QString::number(dx_CQz) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": CQe: " << QString::number(dxE_CQz) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": ITU: " << QString::number(dx_ITUz) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": ITUe: " << QString::number(dxE_ITUz) << QT_ENDL;
 
     if (dx_CQz == dxE_CQz)
     {
@@ -3444,7 +3444,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
-    qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
@@ -3454,36 +3454,36 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         dxLocator = world->getLocator(currentEntity);
     }
 
-    qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" << QT_ENDL;
-    qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) << QT_ENDL;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
-            qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << QT_ENDL;
+            //qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  << QT_ENDL;
             previousEntity = currentEntity;
             InValidCharsInPrevCall = false;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-            qDebug()<< Q_FUNC_INFO << ": calling showStatusOfDXCC-03 " << QT_ENDL;
+            //qDebug()<< Q_FUNC_INFO << ": calling showStatusOfDXCC-03 " << QT_ENDL;
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
         {
-            qDebug()<< Q_FUNC_INFO << ": 000" << QT_ENDL;
+            //qDebug()<< Q_FUNC_INFO << ": 000" << QT_ENDL;
             //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
-           qDebug()<< Q_FUNC_INFO << ": Default: else" << QT_ENDL;
+           //qDebug()<< Q_FUNC_INFO << ": Default: else" << QT_ENDL;
         }
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    qDebug()<< Q_FUNC_INFO << ": cursorP at the end : "  << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": cursorP at the end : "  << QT_ENDL;
 
   if (completeWithPrevious)
   {
@@ -3496,17 +3496,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
         if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
-            qDebug()<< Q_FUNC_INFO << ": Checking QRZ.com";
+            //qDebug()<< Q_FUNC_INFO << ": Checking QRZ.com";
             elogQRZcom->checkQRZ(_qrz);
         }
         else
         {
-            qDebug()<< Q_FUNC_INFO << ": NOT checking QRZ.com";
+            //qDebug()<< Q_FUNC_INFO << ": NOT checking QRZ.com";
         }
     }
    //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-    qDebug()<< Q_FUNC_INFO << ": END" << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": END" << QT_ENDL;
 }
 
 void MainWindow::setCleaning(const bool _c)
@@ -3748,14 +3748,9 @@ void MainWindow::createMenusCommon()
 
     ADIFExportAll = new QAction(tr("Export all logs to ADIF ..."), this);
     fileMenu->addAction(ADIFExportAll);
+    //ADIFExport->setMenuRole(QAction::ApplicationSpecificRole);
     connect(ADIFExportAll, SIGNAL(triggered()), this, SLOT(slotADIFExportAll()));
     ADIFExportAll->setToolTip(tr("Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."));
-
-    ADIFExportWSJTX = new QAction(tr("Export log for WSJTX ..."), this);
-    fileMenu->addAction(ADIFExportWSJTX);
-    connect(ADIFExportWSJTX, SIGNAL(triggered()), this, SLOT(slotADIFExportWSJTX()));
-    ADIFExportWSJTX->setToolTip(tr("Export the current log to an ADIF logfile to be imported in WSJTX, with a reduced set of ADIF fields."));
-
 
     fileMenu->addSeparator();
 
@@ -4818,6 +4813,7 @@ void MainWindow::readConfigData()
     }
     file.close ();
 
+
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //defineStationCallsign(mainQRZ);
 
@@ -4869,9 +4865,11 @@ void MainWindow::readConfigData()
     //qDebug() << Q_FUNC_INFO << ": QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     if (qrzcomActive)
     {
-        //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
-        //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        qDebug() << "MainWindow::readConfigData: QRZcom credentials"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        elogQRZcom->login();
+        qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
         //elogQRZcom->login();
         //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     }
@@ -5355,6 +5353,11 @@ bool MainWindow::processConfigLine(const QString &_line){
         qrzcomActive = util->trueOrFalse(value);
         setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
         //slotElogQRZCOMAutoCheck();
+    }
+    else if(field=="QRZCOMSUBSCRIBER")
+    {
+        qrzcomSubscriber = util->trueOrFalse(value);
+        elogQRZcom->setSubcription (util->trueOrFalse(value));
     }
     else if(field =="QRZCOMAUTO")
     {
@@ -5843,66 +5846,30 @@ void MainWindow::fileExportADIF(const QString &_st, const QDate &_startDate, con
       //qDebug() << "MainWindow::fileExportADIF - END" << QT_ENDL;
 }
 
-void MainWindow::fileExportADIFWSJTX(QList<int> _qsos)
-{
-    qDebug() << Q_FUNC_INFO;
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    /*
-    filemanager->adifQSOsExport(fileName, _id);
-     //qDebug() << "MainWindow::slotQSOsExportToADIF-3" << QT_ENDL;
-    showNumberOfSavedQSO(fileName, _id.count());
-*/
-
-    bool ok = filemanager->adifQSOsExportWSJTX (fileName, _qsos);
-
-    showNumberOfSavedQSO(fileName, _qsos.count());
-
-    qDebug() << Q_FUNC_INFO << " - END";
-}
-
-QString MainWindow::getADIFFileName()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-
-    if (fileName.length()<1)
-    {
-        return QString();
-    }
-    if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
-    {
-        fileName = fileName +  ".adi";
-    }
-    return fileName;
-}
-
 void MainWindow::slotADIFExportAll()
 {
       //qDebug() << "MainWindow::slotADIFExportAll " << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     QString _callToUse = "ALL";
-    QString fileName = getADIFFileName ();
+
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
       //qDebug() << "MainWindow::slotADIFExportAll: " << fileName << QT_ENDL;
     if (fileName.length()<1)
     {
         return;
     }
-
+    if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
+    {
+         //qDebug() << "MainWindow::slotADIFExportAll: Adding the .adi to the file" << fileName << QT_ENDL;
+        fileName = fileName +  ".adi";
+    }
      //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName << QT_ENDL;
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
      //qDebug() << "MainWindow::slotADIFExportAll-3" << QT_ENDL;
     showNumberOfSavedQSO(fileName, qsos.count());
 
     //filemanager->adifLogExport(fileName, 0);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-}
-
-void MainWindow::slotADIFExportWSJTX()
-{
-    qDebug() << Q_FUNC_INFO;
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    adifLoTWExportWidget->setExportMode(ModeWSJTX);
-    adifLoTWExportWidget->show();
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
@@ -6101,8 +6068,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
       //qDebug() << "MainWindow::fileExportEQSL -END " << QT_ENDL;
 }
 
-
-void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM,QList<int> _qsos)
+void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
 {
       //qDebug() << "MainWindow::slotADIFExportSelection  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
@@ -6123,11 +6089,6 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_start
     case ModeEQSL:         // General eQSL
           //qDebug() << "MainWindow::slotADIFExportSelection  - eQSL" << QT_ENDL;
         fileExportEQSL(_st, _startDate, _endDate);
-        break;
-    case ModeWSJTX:         // WSJTXL
-        qDebug() << "MainWindow::slotADIFExportSelection  - WJTX" << QT_ENDL;
-       fileExportADIFWSJTX (_qsos);
-
         break;
     case ModeQRZ:         // General eQSL
           //qDebug() << "MainWindow::slotADIFExportSelection  - QRZ.com" << QT_ENDL;
@@ -8355,6 +8316,18 @@ void MainWindow::slotAwardsWidgetSetLog()
 void MainWindow::slotAwardsWidgetSetYear()
 {
     awardsWidget->setYear(selectedYear);
+}
+
+void MainWindow::slotActiveHamlib(bool _enable)
+{
+    if (_enable)
+    {
+        hamlib->initClass();
+    }
+    else
+    {
+        hamlib->stop();
+    }
 }
 
 void MainWindow::backupCurrentQSO()

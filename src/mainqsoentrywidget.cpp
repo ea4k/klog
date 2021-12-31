@@ -40,6 +40,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     timeEdit = new QTimeEdit;
     realtimeCheckBox = new QCheckBox;
     enabledCR = realtimeCheckBox->backgroundRole();
+    manualModeCheckBox = new QCheckBox;
 
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
@@ -48,6 +49,8 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     realTime = true;
     duplicatedQSOSlotInSecs = 0;
     delayInputTimer = new QTimer;
+
+    //hamlib = new HamLibClass();
 
 
     createUI();
@@ -80,11 +83,15 @@ void MainQSOEntryWidget::createUI()
     realtimeCheckBox->setToolTip(tr("KLog will show real time if enabled."));
     realtimeCheckBox->setText (tr("Real time"));
     //realtimeButton->setToolTip(tr("KLog will show real time if enabled."));
+    manualModeCheckBox->setToolTip(tr("Stop wsjt-x and hamlib from automatically updating QSO information."));
+    manualModeCheckBox->setText (tr("Manual Mode"));
+
     QHBoxLayout *TimeLayout = new QHBoxLayout;
     TimeLayout->addWidget(dateEdit);
     TimeLayout->addWidget(timeEdit);
     //TimeLayout->addWidget(realtimeButton);
     TimeLayout->addWidget(realtimeCheckBox);
+    TimeLayout->addWidget(manualModeCheckBox);
     TimeLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
     QHBoxLayout *BandModeLayout = new QHBoxLayout;
@@ -134,6 +141,7 @@ void MainQSOEntryWidget::createUI()
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
     connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
+    connect(manualModeCheckBox, SIGNAL(clicked()), this, SLOT(slotManualModeCheckBoxClicked()));
       //qDebug()<< "MainQSOEntryWidget::createUI-END" << QT_ENDL;
 
     QWidget::setTabOrder (qrzLineEdit, dateEdit);
@@ -168,6 +176,24 @@ void MainQSOEntryWidget::slotCheckBoxClicked()
         realTime = false;
         //realtimeButton->setIcon(QIcon(":/img/stop.svg"));
         timeEdit->setBackgroundRole(QPalette::BrightText);
+    }
+}
+
+void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
+{
+   //qDebug() << Q_FUNC_INFO;
+    if (manualModeCheckBox->isChecked())
+    {
+        slotClearButtonClicked();
+        emit hamlibSetActiveSignal(false);
+        //hamlib->stop();
+        //stop hamlib and wsjt-x communication;
+    }
+    else
+    {
+        //hamlib->initClass();
+        emit hamlibSetActiveSignal(true);
+        //start hamlib and wsjt-x communication;
     }
 }
 

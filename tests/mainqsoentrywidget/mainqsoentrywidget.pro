@@ -27,8 +27,6 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/database.cpp
 
 
-
-
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
     else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease

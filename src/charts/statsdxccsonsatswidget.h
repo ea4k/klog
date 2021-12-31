@@ -42,6 +42,7 @@ class StatsDXCCOnSatsWidget : public StatsGeneralChartWidget
 public:
     StatsDXCCOnSatsWidget();
     StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    ~StatsDXCCOnSatsWidget();
     void prepareChart(const int _log=-1) override;
 
 
