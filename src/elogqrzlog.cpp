@@ -69,7 +69,7 @@ eLogQrzLog::~eLogQrzLog()
 void eLogQrzLog::showDebugLog(const QString &_func, const QString &_log)
 {
 #ifdef QT_DEBUG
-  qDebug() << _func << ": " << _log;
+  //qDebug() << _func << ": " << _log;
 #else
 #endif
 }

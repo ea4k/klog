@@ -448,12 +448,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Parece que el estado de DXCC no está actualizado y KLog no puede encontrar ninguna información de DXCC. Podemos intentar solucionar esto actualizando el log.</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
         <source>Do you want to update your DXCC status?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quiere actualizar el estado de DXCC?</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="545"/>
@@ -1311,27 +1311,27 @@ Do you want KLog to add this QSO to the log?</source>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="16"/>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="22"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished">Introduzca el nombre de máquina o dirección de la radio.</translation>
+        <translation>Introduzca el nombre de máquina o dirección de la radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="17"/>
         <source>Set de network port of the radio.</source>
-        <translation type="unfinished">Define el puerto de red de la radio.</translation>
+        <translation>Define el puerto de red de la radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="20"/>
         <source>Host/Address</source>
-        <translation type="unfinished">Servidor/Dirección</translation>
+        <translation>Servidor/Dirección</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="26"/>
         <source>Port</source>
-        <translation type="unfinished">Puerto</translation>
+        <translation>Puerto</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="28"/>
         <source>Enter the port of the radio.</source>
-        <translation type="unfinished">Introduzca el puerto de la radio.</translation>
+        <translation>Introduzca el puerto de la radio.</translation>
     </message>
 </context>
 <context>
@@ -1339,147 +1339,147 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="24"/>
         <source>Bauds</source>
-        <translation type="unfinished">Baudios</translation>
+        <translation>Baudios</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="26"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished">Seleccionar la velocidad del puerto serie.</translation>
+        <translation>Seleccionar la velocidad del puerto serie.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="30"/>
         <source>Port</source>
-        <translation type="unfinished">Puerto</translation>
+        <translation>Puerto</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="32"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished">Seleccione el puerto serie. Solo se muestran los puertos que se pueden detectar.</translation>
+        <translation>Seleccione el puerto serie. Sólo se muestran los puertos que se pueden detectar.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="36"/>
         <source>Scan</source>
-        <translation type="unfinished">Buscar</translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="38"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished">Pulsar para identificar los puertos disponibles en el ordenador.</translation>
+        <translation>Pulsar para identificar los puertos disponibles en el ordenador.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>5 bits</source>
-        <translation type="unfinished">5 bits</translation>
+        <translation>5 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>6 bits</source>
-        <translation type="unfinished">6 bits</translation>
+        <translation>6 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>7 bits</source>
-        <translation type="unfinished">7 bits</translation>
+        <translation>7 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>8 bits</source>
-        <translation type="unfinished">8 bits</translation>
+        <translation>8 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="51"/>
         <source>Data bits</source>
-        <translation type="unfinished">Bits de datos</translation>
+        <translation>Bits de datos</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="53"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished">Seleccionar los bits de datos.</translation>
+        <translation>Seleccionar los bits de datos.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>Hardware</source>
-        <translation type="unfinished">Hardware</translation>
+        <translation>Hardware</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished">Software XON/XOFF</translation>
+        <translation>Software XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="61"/>
         <source>Flow control</source>
-        <translation type="unfinished">Control de flujo</translation>
+        <translation>Control de flujo</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="63"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished">Seleccione el contrl de flujo del puerto serie.</translation>
+        <translation>Seleccione el control de flujo del puerto serie.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>No parity</source>
-        <translation type="unfinished">Sin paridad</translation>
+        <translation>Sin paridad</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Even</source>
-        <translation type="unfinished">Par</translation>
+        <translation>Par</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Odd</source>
-        <translation type="unfinished">Impar</translation>
+        <translation>Impar</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Space</source>
-        <translation type="unfinished">Espacio</translation>
+        <translation>Espacio</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Mark</source>
-        <translation type="unfinished">Marca</translation>
+        <translation>Marca</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="72"/>
         <source>Parity</source>
-        <translation type="unfinished">Paridad</translation>
+        <translation>Paridad</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="74"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished">Seleccione la paridad del puerto serie.</translation>
+        <translation>Seleccione la paridad del puerto serie.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
         <source>Default</source>
-        <translation type="unfinished">Predeterminado</translation>
+        <translation>Predeterminado</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
         <source>1 bit</source>
-        <translation type="unfinished">1 bit</translation>
+        <translation>1 bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
         <source>2 bits</source>
-        <translation type="unfinished">2 bits</translation>
+        <translation>2 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="83"/>
         <source>Stop bits</source>
-        <translation type="unfinished">Bits de parada</translation>
+        <translation>Bits de parada</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="85"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished">Seleccionar los bits de parada.</translation>
+        <translation>Seleccionar los bits de parada.</translation>
     </message>
 </context>
 <context>
@@ -2133,12 +2133,12 @@ Error: #2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="86"/>
         <source>Stop wsjt-x and hamlib from automatically updating QSO information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Evita que WSJT-X o Hamlib  actualicen información de QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="87"/>
         <source>Manual Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Manual</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="105"/>
@@ -3465,27 +3465,27 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="758"/>
         <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog-%1 - Log de %2 - QSOs: %3</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="762"/>
         <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog-%1 - Log de %2 - Estación: %3 - QSOs: %4</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3091"/>
         <source>KLog - QRZ.com warning</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Aviso de QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3092"/>
         <source>QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ.com ha devuelto un error de &quot;sin subscripción&quot; por lo que las consultas a QRZ.com se deshabilitarán.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3093"/>
         <source>Please check your QRZ.com subcription or credentials.</source>
-        <translation type="unfinished"></translation>
+        <translation>Revise su subscripción o credenciales de QRZ.com.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3772"/>
@@ -4870,7 +4870,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1795"/>
         <source>Force Init</source>
-        <translation type="unfinished"></translation>
+        <translation>Forzar inicialización</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1797"/>
@@ -6210,12 +6210,12 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="116"/>
         <source>Paying Subscriber</source>
-        <translation type="unfinished"></translation>
+        <translation>Subscriptor de pago</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="117"/>
         <source>Check it if you are paying for a qrz.com subscription</source>
-        <translation type="unfinished"></translation>
+        <translation>Marque aqui si está pagando una subcripción a QRZ.com</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="119"/>
@@ -6323,12 +6323,12 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="195"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serie</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="196"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Red</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="158"/>
@@ -6604,7 +6604,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="126"/>
         <source>If you disable this checkbox KLog will not check callsigns to identify wrong callsigns.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si deshabilita este cuadro, KLog no revisará si los indicativos son correctos o no.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="132"/>
@@ -6664,7 +6664,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="37"/>
         <source>Check non-valid calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar indicativos válidos</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="52"/>
@@ -8777,7 +8777,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../elogqrzlog.cpp" line="284"/>
         <source>You are not subscribed to QRZ.com.</source>
-        <translation type="unfinished"></translation>
+        <translation>No está subscrito a QRZ.com.</translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="582"/>

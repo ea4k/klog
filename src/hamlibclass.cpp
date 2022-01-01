@@ -34,13 +34,13 @@
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
-    qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
     timer = new QTimer(this);
     //my_rig = rig_init (RIG_DUMMY);
     //my_rig = rig_init (RIG_MODEL_DUMMY);
     retcode = -1;
 
-    qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
 HamLibClass::~HamLibClass()
@@ -100,25 +100,25 @@ void HamLibClass::setPoll(const int _milsecs)
 double HamLibClass::getFrequency()
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
     if (!isRunning())
     {
-        qDebug() << Q_FUNC_INFO << ": isn't running" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": isn't running" << QT_ENDL;
         return 0.0;
     }
     if (reading)
     {
-        qDebug() << Q_FUNC_INFO << ": Exiting, I was already reading ... " << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Exiting, I was already reading ... " << QT_ENDL;
         return 0.0;
     }
     reading = true;
-    qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
     //retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
     retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
     if (retcode == RIG_OK)
     {
-        qDebug() << Q_FUNC_INFO << ": RIG OK for Freq: " << QString::number(freq) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": RIG OK for Freq: " << QString::number(freq) << QT_ENDL;
         errorCount = 0;
         reading = false;
         return freq/1000000;
@@ -126,7 +126,7 @@ double HamLibClass::getFrequency()
     else
     {
         reading = false;
-        qDebug() << Q_FUNC_INFO << " error on readFreq - END";
+        //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
         return 0.0;
     }
 }
@@ -140,54 +140,54 @@ bool HamLibClass::readRadio(bool _forceRead)
 bool HamLibClass::readRadioInternal(bool _forceRead)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << QT_ENDL;
     if (!isRunning())
     {
-        qDebug() << Q_FUNC_INFO << ": isn't running" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": isn't running" << QT_ENDL;
         return false;
     }
     if (reading)
     {
-        qDebug() << Q_FUNC_INFO << ": Exiting, I was already reading ... " << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Exiting, I was already reading ... " << QT_ENDL;
         return false;
     }
     reading = true;
-    qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Reading ... " << QT_ENDL;
     retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
 
     if (retcode == RIG_OK)
     {
-        qDebug() << Q_FUNC_INFO << ": RIG OK for Freq" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": RIG OK for Freq" << QT_ENDL;
         errorCount = 0;
-        qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(freq) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(freq) << QT_ENDL;
         if ((freq_old > freq) || (freq_old < freq) || (_forceRead == true))
         {
             emit freqChanged(freq/1000000);
             freq_old = freq;
-            qDebug() << Q_FUNC_INFO << ": EMITING; " << QString::number(freq) << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": EMITING; " << QString::number(freq) << QT_ENDL;
         }
-        qDebug() << Q_FUNC_INFO << ":  read: " << QString::number(freq) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ":  read: " << QString::number(freq) << QT_ENDL;
     }
     else
     {
         reading = false;
-        qDebug() << Q_FUNC_INFO << " error on readFreq - END";
+        //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
         return errorManage(Q_FUNC_INFO, retcode);
     }
 
     retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
     if (retcode == RIG_OK)
     {
-        qDebug() << Q_FUNC_INFO << ": RIG OK for Mode" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": RIG OK for Mode" << QT_ENDL;
         errorCount = 0;
-        qDebug() << Q_FUNC_INFO << ": Mode: " << hamlibMode2Mode(rmode) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Mode: " << hamlibMode2Mode(rmode) << QT_ENDL;
         if ((mode_old != rmode) || (_forceRead == true))
         {
             if (justEmitted)
             {
                 justEmitted = false;
                 reading = false;
-                qDebug() << Q_FUNC_INFO << " - justEmitted END";
+                //qDebug() << Q_FUNC_INFO << " - justEmitted END";
                 return true;
             }
             mode_old = rmode;
@@ -197,11 +197,11 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Error on readMode END";
+        //qDebug() << Q_FUNC_INFO << " - Error on readMode END";
         reading = false;
         return errorManage(Q_FUNC_INFO,  retcode);
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     reading = false;
     return true;
 }
@@ -466,44 +466,44 @@ bool HamLibClass::stop()
 
 bool HamLibClass::init(bool _active)
 {
-    qDebug()<< Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model) << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model) << QT_ENDL;
     if (!_active)
     {
-        qDebug()<< Q_FUNC_INFO << ": not active, exiting" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": not active, exiting" << QT_ENDL;
         rigLaunched = false;
         stop();
         return false;
     }
     if ((getNameFromModelId(myrig_model)).length ()<1)
     {
-        qDebug()<< Q_FUNC_INFO << ": no rig model!" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": no rig model!" << QT_ENDL;
         rigLaunched = false;
         return false;
     }
 
     if (rigLaunched)
     {
-        qDebug()<< Q_FUNC_INFO << ": Already init"  << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": Already init"  << QT_ENDL;
         return true;
     }
 
     rig_set_debug(RIG_DEBUG_NONE);
-    qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
     my_rig = rig_init(myrig_model);
     //qDebug()<< Q_FUNC_INFO << ": set after init"  << QT_ENDL;
     if (my_rig == nullptr)
     {
-       qDebug()<< Q_FUNC_INFO << ": Init failed, hamlib returned fail!" << QT_ENDL;
+       //qDebug()<< Q_FUNC_INFO << ": Init failed, hamlib returned fail!" << QT_ENDL;
        return false;
     }
     else
     {
-        qDebug()<< Q_FUNC_INFO << ": rig_init went OK!" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": rig_init went OK!" << QT_ENDL;
     }
     // Code of DG1VS (Thank you!)
     if (myrig_model == RIG_MODEL_NETRIGCTL)
     {
-        qDebug()<< Q_FUNC_INFO << ": RIG_PORT_NETWORK" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_NETWORK" << QT_ENDL;
         // network based communication
         my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
         QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
@@ -512,7 +512,7 @@ bool HamLibClass::init(bool _active)
     }
     else if (myrig_model == RIG_MODEL_FLRIG)
     {
-        qDebug()<< Q_FUNC_INFO << ": RIG_PORT_RPC" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_RPC" << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_RPC;
         //my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
         QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
@@ -521,8 +521,8 @@ bool HamLibClass::init(bool _active)
     }
     else
     {
-        qDebug()<< Q_FUNC_INFO << ": !RIG_PORT_NETWORK" << QT_ENDL;
-        qDebug()<< Q_FUNC_INFO << ": serialport2: " << serialPort.toLocal8Bit() << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": !RIG_PORT_NETWORK" << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": serialport2: " << serialPort.toLocal8Bit() << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
         //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
         qstrncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
@@ -538,18 +538,18 @@ bool HamLibClass::init(bool _active)
         my_rig->state.rigport.parm.serial.parity = sparity;
         //qDebug()<< Q_FUNC_INFO << ": handshake before"  << QT_ENDL;
         my_rig->state.rigport.parm.serial.handshake = shandshake;
-        qDebug()<< Q_FUNC_INFO << ": after handshake "  << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": after handshake "  << QT_ENDL;
         // Config done
     }
 
-    qDebug()<< Q_FUNC_INFO << ": Rig model config "  << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": Rig model config "  << QT_ENDL;
     // Config done
     retcode = rig_open(my_rig);
-    qDebug()<< Q_FUNC_INFO << ": retcode: " << QString::number(retcode)  << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": retcode: " << QString::number(retcode)  << QT_ENDL;
 
     if (retcode != RIG_OK)
     {
-        qDebug()<< Q_FUNC_INFO << ": Can't open: " << rigerror(retcode) << QT_ENDL;
+        //qDebug()<< Q_FUNC_INFO << ": Can't open: " << rigerror(retcode) << QT_ENDL;
         rig_cleanup(my_rig);
         return errorManage(Q_FUNC_INFO,  retcode);
     }
@@ -560,7 +560,7 @@ bool HamLibClass::init(bool _active)
     freq_old = 0.0;
     timer->start(pollInterval);
 
-    qDebug()<< Q_FUNC_INFO << ": END TRUE" << QT_ENDL;
+    //qDebug()<< Q_FUNC_INFO << ": END TRUE" << QT_ENDL;
     return true;
 }
 
@@ -840,7 +840,7 @@ void HamLibClass::setNetworkPort(const int _port)
 bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    qDebug() << Q_FUNC_INFO << ": " << _func << ": error: " << QString::number(_errorcode);
+    //qDebug() << Q_FUNC_INFO << ": " << _func << ": error: " << QString::number(_errorcode);
 
     if (RIG_OK == _errorcode)
     {
@@ -926,7 +926,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 /*void HamLibClass::showDebugLog(const QString &_func, const QString &_log)
 {
 #ifdef QT_DEBUG
-  qDebug() << _func << ": " << _log;
+  //qDebug() << _func << ": " << _log;
 #else
 #endif
 }

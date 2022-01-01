@@ -4865,11 +4865,11 @@ void MainWindow::readConfigData()
     //qDebug() << Q_FUNC_INFO << ": QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     if (qrzcomActive)
     {
-        qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
-        qDebug() << "MainWindow::readConfigData: QRZcom credentials"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        //qDebug() << "MainWindow::readConfigData: QRZcom credentials"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->login();
-        qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
         //elogQRZcom->login();
         //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     }

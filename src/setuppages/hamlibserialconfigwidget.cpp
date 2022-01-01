@@ -2,7 +2,7 @@
 
 HamLibSerialConfigWidget::HamLibSerialConfigWidget(QWidget *parent) : QWidget(parent)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     serialBaudsComboBox = new QComboBox();
     serialPortComboBox = new QComboBox();
     dataBitsComboBox = new QComboBox();
@@ -10,14 +10,14 @@ HamLibSerialConfigWidget::HamLibSerialConfigWidget(QWidget *parent) : QWidget(pa
     parityComboBox = new QComboBox();
     stopBitsComboBox = new QComboBox();
     scanSerialPortButton = new QPushButton;
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void HamLibSerialConfigWidget::createUI()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QLabel *serialPortLabel = new QLabel();
-    qDebug() << Q_FUNC_INFO << " - 10";
+    //qDebug() << Q_FUNC_INFO << " - 10";
     serialPortComboBox->addItems(serialPorts);
     serialPortLabel->setBuddy(serialPortComboBox);
     serialPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
@@ -25,18 +25,18 @@ void HamLibSerialConfigWidget::createUI()
     serialBaudsLabel->setBuddy(serialBaudsComboBox);
     serialBaudsLabel->setToolTip(tr("Select the serial port speed."));
     serialBaudsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    qDebug() << Q_FUNC_INFO << " - 50";
+    //qDebug() << Q_FUNC_INFO << " - 50";
 
     serialPortLabel->setText (tr("Port"));
-    qDebug() << Q_FUNC_INFO << " - 52";
+    //qDebug() << Q_FUNC_INFO << " - 52";
     serialPortLabel->setToolTip(tr("Select the serial port. Only the serial ports that are detected are shown."));
-    qDebug() << Q_FUNC_INFO << " - 53";
+    //qDebug() << Q_FUNC_INFO << " - 53";
     serialPortLabel->setEnabled(true);
-    qDebug() << Q_FUNC_INFO << " - 54";
+    //qDebug() << Q_FUNC_INFO << " - 54";
     scanSerialPortButton->setText(tr("Scan"));
-    qDebug() << Q_FUNC_INFO << " - 55";
+    //qDebug() << Q_FUNC_INFO << " - 55";
     scanSerialPortButton->setToolTip(tr("Click to identify the serial ports available in your computer."));
-    qDebug() << Q_FUNC_INFO << " - 56";
+    //qDebug() << Q_FUNC_INFO << " - 56";
     QStringList strings;
     strings.clear();
     strings << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
@@ -64,7 +64,7 @@ void HamLibSerialConfigWidget::createUI()
     flowControlLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     flowControlLabel->setEnabled(true);
 
-    qDebug() << Q_FUNC_INFO << " - 80";
+    //qDebug() << Q_FUNC_INFO << " - 80";
 
     strings.clear();
     strings << tr("No parity") << tr("Even") << tr("Odd") << tr("Space") << tr("Mark") ;
@@ -85,7 +85,7 @@ void HamLibSerialConfigWidget::createUI()
     stopBitsLabel->setToolTip(tr("Select the serial stop bits."));
     stopBitsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     stopBitsLabel->setEnabled(true);
-    qDebug() << Q_FUNC_INFO << " - 100";
+    //qDebug() << Q_FUNC_INFO << " - 100";
 
     QGridLayout *serialLayout = new QGridLayout;
     serialLayout->addWidget(serialPortLabel, 1, 0);
@@ -106,13 +106,13 @@ void HamLibSerialConfigWidget::createUI()
     fillSerialPortsComboBox();
 
     connect(scanSerialPortButton, SIGNAL(clicked(bool)), this, SLOT(slotScanPorts()) );
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 QStringList HamLibSerialConfigWidget::getAvailableSerialPorts()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QStringList st;
     st.clear();
     const auto infos = QSerialPortInfo::availablePorts();
@@ -121,13 +121,13 @@ QStringList HamLibSerialConfigWidget::getAvailableSerialPorts()
         //st << info.portName();
         st << info.systemLocation();
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return st;
 }
 
 void HamLibSerialConfigWidget::fillSerialPortsComboBox()
 {
-    qDebug() << "SetupPageHamLib::fillSerialPortsComboBox" ;
+    //qDebug() << "SetupPageHamLib::fillSerialPortsComboBox" ;
     serialPortComboBox->clear();
     serialPortComboBox->addItems(getAvailableSerialPorts());
     serialPortComboBox->setCurrentIndex(0);
@@ -135,7 +135,7 @@ void HamLibSerialConfigWidget::fillSerialPortsComboBox()
 
 void HamLibSerialConfigWidget::slotScanPorts()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     fillSerialPortsComboBox();
 }
 

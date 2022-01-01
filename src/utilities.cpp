@@ -606,7 +606,7 @@ bool Utilities::isValidSubCall(const QString &_c)
 
 bool Utilities::isCountrySuffix (const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << _c;
+    //qDebug() << Q_FUNC_INFO << _c;
 
     QStringList validSuffixes = {"P", "M", "MM", "QRP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     return !validSuffixes.contains (_c);
