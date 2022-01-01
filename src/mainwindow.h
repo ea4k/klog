@@ -87,6 +87,7 @@
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
 #include "klogdefinitions.h"
+#include "widgets/mapwidget.h"
 
 class QTimer;
 class QDateTime;
@@ -304,7 +305,8 @@ private slots:
     // PST Rotator
     //void slotRotatorShow();
     // WORLD MAP
-    //void slotWorldMapShow();
+    void slotWorldMapShow();
+    //void slotShowMap();
 
     //DXCCWIDGET
     //void slotShowQSOFromDXCCWidget(const int _q);
@@ -367,6 +369,7 @@ private:
     //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
     //WorldMapWidget *worldMapWidget;
+    MapWidget *mapWidget;
     void createStatusBar();
     void createUI();
     void createUIDX();
@@ -509,6 +512,7 @@ private:
     QMenu *helpMenu;
 
     //QAction *TestAct;       // Action for testing purposes only
+    QAction *mapAct;            // Shows a Map
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;

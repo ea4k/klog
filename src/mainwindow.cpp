@@ -41,7 +41,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     g_callsignCheck  = true;
-
+    mapWidget = new MapWidget();
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
@@ -738,14 +738,16 @@ void MainWindow::createStatusBar()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-/*
 void MainWindow::slotWorldMapShow()
 {
-    //worldMapWidget->resize(500,300);
-    //worldMapWidget->loadMap();
-    worldMapWidget->show();
+    qDebug() << Q_FUNC_INFO;
+    mapWidget->show();
+    //QString myGrid = myDataTabWidget->getMyLocator();
+    //mapWidget->setCenter (locator->getLat(myGrid), locator->getLon (myGrid));
+    //mapWidget->addLocator(locator->getLat ("IN80DE"), locator->getLon ("IN80DE"), locator->getLat ("JN10"), locator->getLon ("JN10"));
+    qDebug() << Q_FUNC_INFO << " - END";
 }
-*/
+
 void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
@@ -3928,6 +3930,10 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
+    mapAct = new QAction(tr("Show map ..."), this);
+    toolMenu->addAction(mapAct);
+    connect(mapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
+    mapAct->setToolTip(tr("Show a map. You need to be online!"));
     //qDebug() << "MainWindow::createMenusCommon before" << QT_ENDL;
     //toolMenu->addSeparator();
     //showRotatorAct = new QAction (tr("Rotator"), this);

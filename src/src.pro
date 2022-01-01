@@ -54,6 +54,8 @@ QT += core \
     serialport \
     printsupport \
     charts \
+    quickwidgets \
+    positioning \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
@@ -71,6 +73,7 @@ HEADERS += setupdialog.h \
     setuppages/hamlibnetworkconfigwidget.h \
     setuppages/hamlibserialconfigwidget.h \
     setuppages/setuppagelogview.h \
+    widgets/mapwidget.h \
     widgets/showkloglogwidget.h \
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
@@ -186,6 +189,7 @@ SOURCES += main.cpp \
     #widgets/advancedsearch/advancedsearchmodel.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
+    widgets/mapwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     widgets/showkloglogwidget.cpp \
@@ -309,9 +313,9 @@ updateqm.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN} -qm $$DESTDIR/translations
 updateqm.CONFIG += no_link target_predeps
 QMAKE_EXTRA_COMPILERS += updateqm
 
-
 # deploy
-DISTFILES += Changelog COPYING
+DISTFILES += Changelog COPYING \
+    qml/mapqmlfile.qml
 
 unix:!mac {
     message(unix:!mac)

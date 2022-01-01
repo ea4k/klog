@@ -32,18 +32,18 @@
 
 MapWidget::MapWidget()
 {
+    qDebug() << Q_FUNC_INFO;
     testButton = new QPushButton;
     testButton->setText ("Push");
     lat = 0.0;
     lon = 0.0;
-
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
     roles[CoordinateRole] = QByteArray("coordinate");
     model.setItemRoleNames(roles);
-    //qmlView.rootContext()->setContextProperty("circle_model", &model);
+
     qmlView.rootContext()->setContextProperty("rectangle_model", &model);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -53,16 +53,16 @@ MapWidget::MapWidget()
 
     setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
     connect(testButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::setCenter(const double lat, const double lon)
 {
-
     QObject *object = qmlView.rootObject ();
     //object->setProperty ("zoom", 1);
     object->setProperty ("lat", lat);
     object->setProperty ("lon", lon);
-
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::addLocator(const double lat1, const double lon1, const double lat2, const double lon2)
@@ -73,11 +73,12 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     object->setProperty ("locLon1", lon1);
     object->setProperty ("locLat2", lat2);
     object->setProperty ("locLon2", lon2);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::slotButtonClicked ()
 {
-    qDebug() << "MapWidget::slotButtonClicked " << endl;
+    qDebug() << "MapWidget::slotButtonClicked ";
     lat = lat+10.0;
     lon = lon+10.0;
 
@@ -105,4 +106,5 @@ void MapWidget::slotButtonClicked ()
        qDebug() << "QML function returned:" << returnedValue.toString();
 
 */
+    qDebug() << Q_FUNC_INFO << " - END";
 }

@@ -360,7 +360,7 @@ QString MainWindowSatTab::getSatMode()
 
 void MainWindowSatTab::setSatMode(const QString &_t)
 {
-    qDebug() << "MainWindowSatTab::setSatMode: " << _t ;
+    //qDebug() << "MainWindowSatTab::setSatMode: " << _t ;
     if (_t == "-CLEAR-")
     {
         satModeLineEdit->clear();
@@ -837,7 +837,7 @@ void MainWindowSatTab::slotSatKeepThisDataClicked()
 
 void MainWindowSatTab::autofillSatMode()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QString downLinkBand = bandToLetter(dataProxy->getBandNameFromFreq(rxFreqSpinBox->value()));
     QString upLinkBand = bandToLetter(dataProxy->getBandNameFromFreq(txFreqSpinBox->value()));
     satModeLineEdit->setText(upLinkBand + "/" + downLinkBand);
@@ -888,7 +888,7 @@ QString MainWindowSatTab::bandToLetter(const QString &_band)
    {
        letter = "-";
    }
-   qDebug() << Q_FUNC_INFO << ": " << _band << " -> " << letter;
+   //qDebug() << Q_FUNC_INFO << ": " << _band << " -> " << letter;
    return letter;
 }
 
