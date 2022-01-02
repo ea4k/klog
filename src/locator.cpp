@@ -104,9 +104,9 @@ Wikipedia:
 
 
 double Locator::getLat(const QString& tlocator){
-      //qDebug() << "Locator::getLat: " << tlocator;
-// Read formula from: https://unclassified.software/files/source/MaidenheadLocator.cs
-//Revisar las formulas porque salen distancias erroneas
+    //qDebug() << "Locator::getLat: " << tlocator;
+    // Read formula from: https://unclassified.software/files/source/MaidenheadLocator.cs
+    //Revisar las formulas porque salen distancias erroneas
     if (!isValidLocator(tlocator))
     {
         return 0.0;
@@ -145,7 +145,6 @@ double Locator::getLat(const QString& tlocator){
     {
         return 0.0;
     }
-
 }
 
 double Locator::getLon(const QString& tlocator)
@@ -237,7 +236,6 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
   /* Convert to degrees */
 
   return int(bearing);
-
 }
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem){
@@ -318,8 +316,6 @@ QString Locator::getLocator(const double lon1, const double lat1) const{
 //   locat.at(4)=QChar(elo+'A');
 //   locat.at(5)=QChar(fla+'A');
 
-
-
 return locat;
 }
 
@@ -358,9 +354,7 @@ int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tl
         double lat2 = getLat(tlocator2);
 
         return getBeam(lon1, lat1, lon2, lat2);
-
     }
-
 }
 
 int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString& tlocator2, const bool _imperialSystem)
@@ -378,6 +372,5 @@ int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString
 
         return getDistance(lon1, lat1, lon2, lat2, _imperialSystem);
         //return getBeam(lon1, lat1, lon2, lat2);
-
     }
 }

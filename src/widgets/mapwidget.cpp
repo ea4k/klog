@@ -37,14 +37,16 @@ MapWidget::MapWidget()
     testButton->setText ("Push");
     lat = 0.0;
     lon = 0.0;
-    qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
-    qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
+
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
     roles[CoordinateRole] = QByteArray("coordinate");
     model.setItemRoleNames(roles);
 
+    qmlView.rootContext()->setContextProperty("circle_model", &model);
     qmlView.rootContext()->setContextProperty("rectangle_model", &model);
+    qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
+    qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget (testButton);
@@ -79,8 +81,9 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 void MapWidget::slotButtonClicked ()
 {
     qDebug() << "MapWidget::slotButtonClicked ";
-    lat = lat+10.0;
-    lon = lon+10.0;
+    lat = locator.getLat("IN80");
+    lon = locator.getLon("IN80");
+    qDebug() << "MapWidget::slotButtonClicked: " << QString::number(lat) << "/" << QString::number(lon);
 
     double lat2 = lat-15.0;
     double lon2 = lon+20.0;
@@ -90,7 +93,7 @@ void MapWidget::slotButtonClicked ()
     //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
     //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
 
-    item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(lat, lon), 10.0, 20.0)), CoordinateRole);
+    item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(locator.getLat("IN80"), locator.getLon("IN80")), 1, 0.5)), CoordinateRole);
     model.appendRow(item);
     //Read:
     //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model

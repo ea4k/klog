@@ -81,13 +81,13 @@ Rectangle {
             hoverEnabled: true
             anchors.fill: parent
 
-            onPositionChanged:
-            {
-                Qt.point(mouseX, mouseY)
-                var coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
-                console.log("Mouse Position (", mouseX, ", ", mouseY, ")");
-                console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
-            }
+            //onPositionChanged:
+            //{
+            //    Qt.point(mouseX, mouseY)
+            //    var coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+            //    console.log("Mouse Position (", mouseX, ", ", mouseY, ")");
+            //    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
+            //}
         }
         MapItemView{
                       model: rectangle_model
