@@ -3106,7 +3106,9 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 {
      //qDebug() << "MainWindow::slotElogQRZCOMLogUploaded: " << QString::number(_error) << QT_ENDL;
 
-   QMessageBox msgBox;
+   if (qrzcomSubscriber)
+   {
+       QMessageBox msgBox;
    if (_error != QNetworkReply::NoError)
    {
        msgBox.setIcon(QMessageBox::Warning);
@@ -3163,6 +3165,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
    msgBox.exec();
 
      //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << QT_ENDL;
+   }
 }
 
 void MainWindow::slotElogQRZCOMShowMessage(const QString &_s)
@@ -3402,7 +3405,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_CQz = -1;
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
-    //cleanQRZCOMreceivedDataFromUI();
+    cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
     //qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
