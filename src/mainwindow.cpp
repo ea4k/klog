@@ -475,7 +475,8 @@ void MainWindow::init()
     slotClearButtonClicked();
 
     infoWidget->showInfo(-1);
-
+    QString myLocator = myDataTabWidget->getMyLocator();
+    mapWidget->setCenter(locator->getLat(myLocator), locator->getLon(myLocator) );
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
