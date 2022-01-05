@@ -475,8 +475,7 @@ void MainWindow::init()
     slotClearButtonClicked();
 
     infoWidget->showInfo(-1);
-    QString myLocator = myDataTabWidget->getMyLocator();
-    mapWidget->setCenter(locator->getLat(myLocator), locator->getLon(myLocator) );
+
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
@@ -4898,8 +4897,9 @@ void MainWindow::readConfigData()
 
     satTabWidget->refreshData();
     adifLoTWExportWidget->setLogNumber (currentLog);
-    QString aux;
-    QString errorMSG;
+    QString myLocator = myDataTabWidget->getMyLocator();
+    mapWidget->setCenter(locator->getLat(myLocator), locator->getLon(myLocator) );
+
     if (upAndRunning)
     {
         startServices();
