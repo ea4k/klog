@@ -32,6 +32,7 @@
 
 MapWidget::MapWidget()
 {
+
     qDebug() << Q_FUNC_INFO;
     testButton = new QPushButton;
     testButton->setText ("Push");
@@ -41,10 +42,11 @@ MapWidget::MapWidget()
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
     roles[CoordinateRole] = QByteArray("coordinate");
-    model.setItemRoleNames(roles);
+    modelCircle.setItemRoleNames(roles);
+    modelRectangle.setItemRoleNames(roles);
 
-    qmlView.rootContext()->setContextProperty("circle_model", &model);
-    //qmlView.rootContext()->setContextProperty("rectangle_model", &model);
+    qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
+    qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
 
@@ -89,12 +91,12 @@ void MapWidget::slotButtonClicked ()
     double lon2 = lon+20.0;
 
     QStandardItem *item = new QStandardItem;
-    item->setData(QVariant::fromValue(QGeoCoordinate(43.2, -4.8)), CoordinateRole);
+
     //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
     //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
 
     //item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(lat, lon), 1, 0.5)), CoordinateRole);
-    model.appendRow(item);
+    modelRectangle.appendRow(item);
     //Read:
     //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model
  /*
@@ -121,5 +123,5 @@ void MapWidget::addQSO(const QString &_loc)
     }
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
-    model.appendRow(item);
+    modelCircle.appendRow(item);
 }

@@ -47,7 +47,7 @@ private slots:
 private:
     QQuickView qmlView;
 
-    QStandardItemModel model;
+    QStandardItemModel modelCircle, modelRectangle;
     QHash<int, QByteArray> roles;
 
     int CoordinateRole = Qt::UserRole + 1000;

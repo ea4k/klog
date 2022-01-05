@@ -46,7 +46,6 @@ Rectangle {
     //property alias locLon2: locR.bottomRight.longitude
 
 
-
     Location {
             // Define location that will be "center" of map
             id: mapCenter
@@ -89,18 +88,55 @@ Rectangle {
             //    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
             //}
         }
+/*
+    MapRectangle {
+
+        color: 'green'
+        border.width: 2
+        topLeft {
+            latitude: -27
+            longitude: 153
+        }
+        bottomRight {
+            latitude: -28
+            longitude: 153.5
+        }
+    }
+*/
+
         /*
         MapItemView{
                       model: rectangle_model
-                      delegate: MapRectangle{
+                      delegate: MapRectangle
+                      {
                            topLeft     : QtPositioning.coordinate(model.coordinate.latitude, model.coordinate.longitude)
-                           bottomRight : QtPositioning.coordinate(model.coordinate.latitude2, model.coordinate.longitude)
+                           bottomRight : QtPositioning.coordinate(model.coordinate.latitude2, model.coordinate.longitude2)
                            color: 'blue'
-                           border.width: 100
+                           border.width: 10
                       }
         }
         */
-        MapItemView{
+
+    MapItemView{
+                  model: rectangle_model
+                  delegate: MapRectangle
+                  {
+                    color: 'green'
+                    border.width: 2
+                    topLeft {
+                        latitude: -27
+                        longitude: 153
+                    }
+                    bottomRight {
+                        latitude: -28
+                        longitude: 153.5
+                    }
+                  }
+    }
+
+
+        MapItemView
+        {
               model: circle_model
               delegate: MapCircle{
                     center: model.coordinate
@@ -110,5 +146,4 @@ Rectangle {
               }
           }
     }
-
 }
