@@ -613,6 +613,10 @@ void SetupPageELog::slotQRZCOMActive(bool _s)
     QRZCOMPasswordLineEdit->setEnabled(_s);
     QRZCOMAutoCheckCheckBox->setEnabled(_s);
     //qDebug() << "SetupPageELog::slotQRZCOMActive - END" << QT_ENDL;
+    if (!QRZCOMActiveCheckBox->isChecked())
+    {
+        QRZCOMAutoCheckCheckBox->setChecked(false);
+    }
 }
 
 void SetupPageELog::slotQRZCOMAuto(const bool _s)
