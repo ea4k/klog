@@ -89,6 +89,7 @@ Rectangle {
             //    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
             //}
         }
+        /*
         MapItemView{
                       model: rectangle_model
                       delegate: MapRectangle{
@@ -98,18 +99,16 @@ Rectangle {
                            border.width: 100
                       }
         }
+        */
         MapItemView{
               model: circle_model
               delegate: MapCircle{
-                    //topLeft     : QtPositioning.coordinate(model.lat+100, model.lon-100)
-                    //bottomRight : QtPositioning.coordinate(model.lat-100, model.lon+100)
                     center: model.coordinate
-                    radius: 500000.0
+                    radius: 5000.0
                     color: 'green'
-                    border.width: 100
+                    border.width: 10
               }
           }
-
     }
 
 }

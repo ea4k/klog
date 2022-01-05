@@ -979,6 +979,8 @@ void MainWindow::slotQRZReturnPressed()
     yearChangedDuringModification = false;
     readingTheUI = false;
     //qDebug() << Q_FUNC_INFO;
+    QString lastLocator = dataProxy->getLocatorFromQRZ(dataProxy->getCallFromId(dataProxy->getLastQSOid()));
+    mapWidget->addQSO(lastLocator);
     slotClearButtonClicked();
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);

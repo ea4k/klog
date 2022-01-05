@@ -44,7 +44,7 @@ MapWidget::MapWidget()
     model.setItemRoleNames(roles);
 
     qmlView.rootContext()->setContextProperty("circle_model", &model);
-    qmlView.rootContext()->setContextProperty("rectangle_model", &model);
+    //qmlView.rootContext()->setContextProperty("rectangle_model", &model);
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
 
@@ -89,11 +89,11 @@ void MapWidget::slotButtonClicked ()
     double lon2 = lon+20.0;
 
     QStandardItem *item = new QStandardItem;
-    //item->setData(QVariant::fromValue(QGeoCoordinate(lat, lon)), CoordinateRole);
+    item->setData(QVariant::fromValue(QGeoCoordinate(43.2, -4.8)), CoordinateRole);
     //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
     //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
 
-    item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(locator.getLat("IN80"), locator.getLon("IN80")), 1, 0.5)), CoordinateRole);
+    //item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(lat, lon), 1, 0.5)), CoordinateRole);
     model.appendRow(item);
     //Read:
     //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model
@@ -110,4 +110,16 @@ void MapWidget::slotButtonClicked ()
 
 */
     qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void MapWidget::addQSO(const QString &_loc)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _loc;
+    if (!locator.isValidLocator(_loc))
+    {
+        return;
+    }
+    QStandardItem *item = new QStandardItem;
+    item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
+    model.appendRow(item);
 }
