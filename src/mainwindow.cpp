@@ -2990,7 +2990,8 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
 void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos)
 {
       //qDebug() << "MainWindow::slotElogEQSLFileUploaded: " << QString::number(_error) << QT_ENDL;
-
+  if (qrzcomSubscriber)
+  {
     QMessageBox msgBox;
     if (_error != QNetworkReply::NoError)
     {
@@ -3078,6 +3079,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
         QFile::remove(fileName);
     }
       //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << QT_ENDL;
+  }
 }
 
 void MainWindow::slotElogQRZCOMDisable(const bool _b)
