@@ -246,6 +246,7 @@ void MainWindow::init()
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
+        debugFileOpen = false;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not open"));
@@ -8552,7 +8553,10 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
    //    return;
    // }
     //Criticality
-
+    if (!debugFileOpen)
+    {
+        return;
+    }
     QTextStream out(debugFile);
     out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << QT_ENDL;
 }
