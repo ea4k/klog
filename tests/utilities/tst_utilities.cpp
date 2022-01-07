@@ -146,13 +146,13 @@ void tst_Utilities::test_isValidCall()
     // and  a  single  digit,
     // followed  by  a  group  of  not  more  than  four  characters,
     // the last of which shall be a letter,
-    util->setCallValidation (true);
+    util->setCallValidation(true);
     //qDebug() << Q_FUNC_INFO << " 1 Letter" << endl;
-    QVERIFY2(util->isValidCall("B1A") == true, "B1A");
-    QVERIFY2(util->isValidCall("B1AA") == true, "B1AA");
-    QVERIFY2(util->isValidCall("B1AAA") == true, "B1AAA");
-    QVERIFY2(util->isValidCall("B1AAAA") == true, "B1AAAA");
-    QVERIFY2(util->isValidCall("B11") == false, "B11");
+    QVERIFY2(util->isValidCall("B1A"), "B1A");
+    QVERIFY2(util->isValidCall("B1AA"), "B1AA");
+    QVERIFY2(util->isValidCall("B1AAA"), "B1AAA");
+    QVERIFY2(util->isValidCall("B1AAAA"), "B1AAAA");
+    QVERIFY2(!util->isValidCall("B11"), "B11");
     // TODO: FIX the isValidCall to cover these cases
     //QVERIFY(util->isValidCall("B1A1") == false);
     //QVERIFY(util->isValidCall("B1AA1") == false);
@@ -168,40 +168,40 @@ void tst_Utilities::test_isValidCall()
     //2) or–two characters and a single digit,
     // followed by a group of not more than four characters, the last of which shall be a letter.
     //qDebug() << Q_FUNC_INFO << " 2 Letters" << endl;
-    QVERIFY2(util->isValidCall("EA4K") == true, "EA4K");
-    QVERIFY2(util->isValidCall("EA4KK") == true, "EA4KK");
-    QVERIFY2(util->isValidCall("EA4KKK") == true, "EA4KKK");
-    QVERIFY2(util->isValidCall("EA4KKKK") == true, "EA4KKKK");
-    QVERIFY2(util->isValidCall("AM500MMM") == true, "AM500MMM");
+    QVERIFY2(util->isValidCall("EA4K"), "EA4K");
+    QVERIFY2(util->isValidCall("EA4KK"), "EA4KK");
+    QVERIFY2(util->isValidCall("EA4KKK"), "EA4KKK");
+    QVERIFY2(util->isValidCall("EA4KKKK"), "EA4KKKK");
+    QVERIFY2(util->isValidCall("AM500MMM"), "AM500MMM");
 
-    QVERIFY2(util->isValidCall("2E1A") == true, "2E1A");
-    QVERIFY2(util->isValidCall("E33E") == true, "E33E");
-    QVERIFY2(util->isValidCall("EA5666K") == true, "EA5666K");
+    QVERIFY2(util->isValidCall("2E1A"), "2E1A");
+    QVERIFY2(util->isValidCall("E33E"), "E33E");
+    QVERIFY2(util->isValidCall("EA5666K"), "EA5666K");
 
     // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
     //qDebug() << Q_FUNC_INFO << " Complex" << endl;
-    QVERIFY2(util->isValidCall("EA4K/P") == true, "EA4K/P");
-    QVERIFY2(util->isValidCall("K/EA4K/P") == true, "EA4K/P");
-    QVERIFY2(util->isValidCall("EA4K/F") == true, "EA4K/F");
-    QVERIFY2(util->isValidCall("EA4K/1") == true, "EA4K/1");
-    QVERIFY2(util->isValidCall("EA4K/K1") == true, "EA4K/K1");
-    QVERIFY2(util->isValidCall("K1/EA4K") == true, "K1/EA4K");
-    QVERIFY2(util->isValidCall("K/EA4K") == true, "K/EA4K");
+    QVERIFY2(util->isValidCall("EA4K/P"), "EA4K/P");
+    QVERIFY2(util->isValidCall("K/EA4K/P"), "EA4K/P");
+    QVERIFY2(util->isValidCall("EA4K/F"), "EA4K/F");
+    QVERIFY2(util->isValidCall("EA4K/1"), "EA4K/1");
+    QVERIFY2(util->isValidCall("EA4K/K1"), "EA4K/K1");
+    QVERIFY2(util->isValidCall("K1/EA4K"), "K1/EA4K");
+    QVERIFY2(util->isValidCall("K/EA4K"), "K/EA4K");
     // TODO: FIX the isValidCall to cover this case
     //QVERIFY(util->isValidCall("1/EA4K") == false);
     //qDebug() << Q_FUNC_INFO << " Wrong calls" << endl;
-    QVERIFY2(util->isValidCall("EA") == false, "EA");
-    QVERIFY2(util->isValidCall("EA4") == false, "EA4");
-    QVERIFY2(util->isValidCall("-") == false, "-");
-    QVERIFY2(util->isValidCall("EAK4") == false, "EAK4");
-    QVERIFY2(util->isValidCall("QQQ/EA4K") == false, "QQQ/EA4K");
+    QVERIFY2(!util->isValidCall("EA"), "EA");
+    QVERIFY2(!util->isValidCall("EA4"), "EA4");
+    QVERIFY2(!util->isValidCall("-"), "-");
+    QVERIFY2(!util->isValidCall("EAK4"), "EAK4");
+    QVERIFY2(!util->isValidCall("QQQ/EA4K"), "QQQ/EA4K");
 
     util->setCallValidation (false);
-    QVERIFY2(util->isValidCall("EA") == true, "Should be true: EA");
-    QVERIFY2(util->isValidCall("EA4") == true, "Should be true: EA4");
-    QVERIFY2(util->isValidCall("-") == true, "Should be true: EAK4");
-    QVERIFY2(util->isValidCall("EA4K") == true, "Should be true: QQQ/EA4K");
+    QVERIFY2(util->isValidCall("EA"), "Should be true: EA");
+    QVERIFY2(util->isValidCall("EA4"), "Should be true: EA4");
+    QVERIFY2(util->isValidCall("-"), "Should be true: EAK4");
+    QVERIFY2(util->isValidCall("EA4K"), "Should be true: QQQ/EA4K");
     util->setCallValidation (true);
 }
 

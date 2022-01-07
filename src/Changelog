@@ -4,6 +4,7 @@ Jan 2022 - 1.8.6
 - Bugfix: Serial Hamlib rigs were not properly working. (TNX W5PNY)
 - Bugfix: QRZ.com was disabled if user was not subscribed. (TNX EA5WA)
 - Bugfix: QRZ.com data was not updated if the boxes were already filled. (TNX EA5WA)
+- Bugfix: Callsigns formet were not always properly checked.
 - Improvement: Hamlib 4.4 in binary packages (macOS & Windows) tested also in Linux.
 - Improvement: RTS & DTR are defined to OFF by default in hamlib.
 - Improvement:KLog differenciates QRZ.com subcribed users from non subscribed. (TNX EA5WA)

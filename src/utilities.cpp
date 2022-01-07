@@ -45,7 +45,8 @@ void Utilities::init()
 {
     softwareVersion = "0.0";
     darkMode = false;
-    callValidation = true;
+    //callValidation = true;
+
 }
 
 void Utilities::setVersion(const QString &_v)
@@ -577,6 +578,7 @@ bool Utilities::isValidSubCall(const QString &_c)
         if (!_c.at(i).isLetterOrNumber ())
         {
             // Non valid chars
+            //qDebug() << "Utilities::isValidSubCall: FALSE-1.2: " << _c ;
             return false;
         }
     }
@@ -584,7 +586,7 @@ bool Utilities::isValidSubCall(const QString &_c)
     int prefixLength = isAPrefix (_c);
     if (prefixLength<1)
     {
-        //qDebug() << "Utilities::isValidSubCall: FALSE-1.2: " << _c ;
+        //qDebug() << "Utilities::isValidSubCall: FALSE-1.3: " << _c ;
         return false;
     }
 
@@ -595,7 +597,7 @@ bool Utilities::isValidSubCall(const QString &_c)
     {
         if (!((_c.at(i).isLetter()) ))
         {
-            //qDebug() << "Utilities::isValidSubCall: FALSE-1.3: " << _c ;
+            //qDebug() << "Utilities::isValidSubCall: FALSE-1.4: " << _c ;
             return false;
         }
         i++;
@@ -840,7 +842,8 @@ int Utilities::isAPrefix (const QString &_c)
 
 void Utilities::setCallValidation(const bool _b)
 {
-    callValidation = _b;
+    //callValidation = _b;
+    g_callsignCheck = _b;
 }
 
 bool Utilities::isValidCall(const QString &_c)
