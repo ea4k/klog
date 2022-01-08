@@ -325,7 +325,7 @@ bool HamLibSerialConfigWidget::setSerialBauds(const int _speed )
     }
     else
     {
-        serialPortComboBox->setCurrentIndex(0);
+        serialBaudsComboBox->setCurrentIndex(0);
     }
     return false;
 }
