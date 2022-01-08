@@ -35,7 +35,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
+    qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
 
     logSeverity = Info;
     constrid = 2;
@@ -47,35 +47,36 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     version = _softwareVersion;
     pageRequested = _page;
     int logsPageTabN=-1;
-    //qDebug() << Q_FUNC_INFO << ": 01" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01" << QT_ENDL;
 
     locator = new Locator();
 
     tabWidget = new QTabWidget;
-    //qDebug() << Q_FUNC_INFO << ": 01.0" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.0" << QT_ENDL;
     userDataPage = new SetupPageUserDataPage(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 01.10" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.10" << QT_ENDL;
     bandModePage = new SetupPageBandMode(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.20" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.20" << QT_ENDL;
     dxClusterPage = new SetupPageDxCluster(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.30" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.30" << QT_ENDL;
     colorsPage = new SetupPageColors(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.40" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.40" << QT_ENDL;
     miscPage = new SetupPageMisc(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.50" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.50" << QT_ENDL;
     worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.60" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.60" << QT_ENDL;
     logsPage = new SetupPageLogs(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.70" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.70" << QT_ENDL;
     eLogPage = new SetupPageELog(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.80" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.80" << QT_ENDL;
     UDPPage = new SetupPageUDP(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.90" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.90" << QT_ENDL;
     satsPage = new SetupPageSats(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.100" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 01.100" << QT_ENDL;
     hamlibPage = new SetupPageHamLib(dataProxy, this);
+    qDebug() << Q_FUNC_INFO << ": 01.101" << QT_ENDL;
     logViewPage = new SetupPageLogView(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 02" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 02" << QT_ENDL;
 
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -88,9 +89,9 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     tabWidget->addTab(eLogPage, tr("eLog"));
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
-    //qDebug() << Q_FUNC_INFO << ": 02.100" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 02.100" << QT_ENDL;
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
-    //qDebug() << "SetupDialog::SetupDialog 03" << QT_ENDL;
+    qDebug() << "SetupDialog::SetupDialog 03" << QT_ENDL;
 
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     okButton = new QPushButton(tr("OK"));
@@ -107,28 +108,28 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
-    //qDebug() << Q_FUNC_INFO << ": 04" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 04" << QT_ENDL;
 
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
 
-    //qDebug() << Q_FUNC_INFO << ": 05" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 05" << QT_ENDL;
 
     slotReadConfigData();
-    //qDebug() << Q_FUNC_INFO << ": 05.1" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 05.1" << QT_ENDL;
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
-        //qDebug() << Q_FUNC_INFO << ": 5.2" << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << ": 5.2" << QT_ENDL;
         tabWidget->setCurrentIndex(logsPageTabN);
     }
-    //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
-    hamlibPage->slotTestHamlib ();
+    //hamlibPage->slotTestHamlib ();
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
-    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
 SetupDialog::~SetupDialog()
@@ -1419,7 +1420,7 @@ void SetupDialog::slotFocusOK()
 
 void SetupDialog::showEvent(QShowEvent *event)
 {
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << QT_ENDL;
     //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog()) << QT_ENDL;
     QWidget::showEvent(event);
     userDataPage->setStationFocus();
