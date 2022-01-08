@@ -3114,8 +3114,11 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 {
      //qDebug() << "MainWindow::slotElogQRZCOMLogUploaded: " << QString::number(_error) << QT_ENDL;
 
-   if (qrzcomSubscriber)
+   if (!qrzcomSubscriber)
    {
+        return;
+   }
+
        QMessageBox msgBox;
    if (_error != QNetworkReply::NoError)
    {
@@ -3173,7 +3176,6 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
    msgBox.exec();
 
      //qDebug() << "MainWindow::slotElogEQSLFileUploaded - END"  << QT_ENDL;
-   }
 }
 
 void MainWindow::slotElogQRZCOMShowMessage(const QString &_s)
