@@ -33,7 +33,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     readOnlyModeCheckBox = new QCheckBox();
 
     tabWidget = new QTabWidget;
-    serialConfigWidget = new HamLibSerialConfigWidget;    
+    serialConfigWidget = new HamLibSerialConfigWidget;
     networkConfigWidget = new HamLibNetworkConfigWidget;
 
     testHamlibPushButton = new QPushButton();
@@ -258,11 +258,11 @@ QString SetupPageHamLib::getData()
       //qDebug() << "SetupPageHamLib::getData" << QT_ENDL;
     QString _output;
     _output.clear();
-    QString _rigType, _serialPort, _baudsSpeed;//, dataBits, stopBits, handshake, flowControlLine;
+    QString _rigType, _serialPort;//, dataBits, stopBits, handshake, flowControlLine;
 
     _rigType = rigTypeComboBox->currentText ();
     _serialPort = serialConfigWidget->getSerialPort ();
-    _baudsSpeed = serialConfigWidget->getSerialBauds ();
+    //_baudsSpeed = serialConfigWidget->getSerialBauds ();
 
     _output.clear();
     if (activateHamlibCheckBox->isChecked())
@@ -282,7 +282,7 @@ QString SetupPageHamLib::getData()
     _output = _output + "HamLibRigType=" + QString::number(hamlib->getModelIdFromName(_rigType)) + ";\n";
     _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value ()) + ";\n";
     _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
-    _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
+    _output = _output + "HamlibSerialBauds=" + QString::number(serialConfigWidget->getSerialBauds ()) + ";\n";
     _output = _output + "HamLibSerialDataBits=" + QString::number(getDataBits()) + ";\n";
     _output = _output + "HamLibSerialStopBits=" + QString::number(getStopBits()) + ";\n";
 
@@ -338,7 +338,7 @@ void SetupPageHamLib::setActive(const QString &_active)
 }
 
 void SetupPageHamLib::setReadOnly(const QString &_m)
-{    
+{
     if (_m.toUpper() == "TRUE")
     {
         readOnlyModeCheckBox->setChecked(true);

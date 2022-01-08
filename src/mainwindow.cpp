@@ -8239,17 +8239,25 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     if (upAndRunning)
     {
         if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
         {
-            //qDebug() << Q_FUNC_INFO << ": Updating the freq... " << QT_ENDL;
+            qDebug() << Q_FUNC_INFO << ": Updating the freq... " << QT_ENDL;
             QSOTabWidget->setTXFreq (_f);
         }
+        else
+        {
+           qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not updating Freq" << QT_ENDL;
+        }
     }
-    //qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " << QT_ENDL;
+    else
+    {
+        qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not Up&Running" << QT_ENDL;
+    }
+    qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " << QT_ENDL;
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
