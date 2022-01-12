@@ -341,6 +341,10 @@ void MainWindowSatTab::setSatName(const QString &_t)
      //TODO: Check that the format is OK
     //qDebug() << "MainWindowSatTab::setSatName: " << _t << QT_ENDL;
     //satNameLineEdit->setText(_t);
+    if (_t =="")
+    {
+        return;
+    }
     if (getSatIndex(_t) > 0)
     {
         setSatelliteCombo(_t);
