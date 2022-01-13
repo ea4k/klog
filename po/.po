@@ -4269,7 +4269,7 @@ msgid "Keep this data"
 msgstr "Zachowaj te dane"
 
 #: ../inputwidgets/mainwindowsattab.cpp:95
-#: ../inputwidgets/mainwindowsattab.cpp:419
+#: ../inputwidgets/mainwindowsattab.cpp:423
 msgctxt "MainWindowSatTab|"
 msgid "Other - Sat not in the list"
 msgstr "Inne - Satelita nie jest na liście"
@@ -4359,12 +4359,12 @@ msgid ""
 "characters."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:418
+#: ../inputwidgets/mainwindowsattab.cpp:422
 msgctxt "MainWindowSatTab|"
 msgid "Not Sat QSO"
 msgstr "QSO nie przez SAT"
 
-#: ../inputwidgets/mainwindowsattab.cpp:455
+#: ../inputwidgets/mainwindowsattab.cpp:459
 msgctxt "MainWindowSatTab|"
 msgid ""
 "KLog has detected a satellite name that it does not recognise. If it should "
@@ -4377,38 +4377,38 @@ msgstr ""
 "Ewentualnie, proszę o kontak z twórcami programu aby satelita mógł zostać do "
 "listy w kolejnych wydaniach."
 
-#: ../inputwidgets/mainwindowsattab.cpp:456
+#: ../inputwidgets/mainwindowsattab.cpp:460
 msgctxt "MainWindowSatTab|"
 msgid "The satellite you have in your QSO is: "
 msgstr "Satelita w Twoim QSO to: "
 
-#: ../inputwidgets/mainwindowsattab.cpp:456
+#: ../inputwidgets/mainwindowsattab.cpp:460
 msgctxt "MainWindowSatTab|"
 msgid ""
 "Please be aware that the satellite name will not be saved if it is not in "
 "the list, so that information may be lost!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:564
+#: ../inputwidgets/mainwindowsattab.cpp:568
 msgctxt "MainWindowSatTab|"
 msgid ""
 "RX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:569
+#: ../inputwidgets/mainwindowsattab.cpp:573
 msgctxt "MainWindowSatTab|"
 msgid "RX Frequency in MHz."
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:630
+#: ../inputwidgets/mainwindowsattab.cpp:634
 msgctxt "MainWindowSatTab|"
 msgid ""
 "TX Frequency in MHz.\n"
 "Frequency is not in a hamradio band!"
 msgstr ""
 
-#: ../inputwidgets/mainwindowsattab.cpp:635
+#: ../inputwidgets/mainwindowsattab.cpp:639
 msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr ""

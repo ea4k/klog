@@ -4152,7 +4152,7 @@ La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translati
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="423"/>
         <source>Other - Sat not in the list</source>
         <translation>Autre - Sat n&apos;est pas dans la liste</translation>
     </message>
@@ -4235,46 +4235,46 @@ La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translati
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="418"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="422"/>
         <source>Not Sat QSO</source>
         <translation>QSO non Sat</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="455"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="459"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog a détecté un nom de satellite qu&apos;il ne reconnaît pas. Si vous préférez utiliser l&apos;un des noms de satellites connus à la place, veuillez le choisir dans la liste. Sinon, veuillez contacter l&apos;équipe de développement pour ajouter le nouveau nom de satellite.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="460"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Le satellite que vous avez dans votre QSO est : </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="460"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="564"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="568"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Fréquence de réception en MHz.
 La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="569"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="573"/>
         <source>RX Frequency in MHz.</source>
         <translation>Fréquence RX en MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="630"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="634"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Fréquence d&apos;émission en MHz.
 La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="635"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="639"/>
         <source>TX Frequency in MHz.</source>
         <translation>Fréquence TX en MHz</translation>
     </message>

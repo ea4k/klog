@@ -4244,47 +4244,47 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="418"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="422"/>
         <source>Not Sat QSO</source>
         <translation>衛星QSOではない</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="455"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="459"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>識別不可能な衛星の名称が入力されているのを発見しました. 別の名称でも呼ばれており、その名称がリストにあるならば、その名称を使ってください. もしくは開発チームにこの新しい衛星の名称を加えるよう連絡してください.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="460"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>リストにない場合は衛星名が保存されないため、情報が失われる可能性がありますのでご注意ください。</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="564"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="568"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RXの周波数（MHz）です。
 周波数はハムラジオのバンドではありません。</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="569"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="573"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX周波数（MHz）。</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="630"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="634"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TXの周波数（MHz）です。
 周波数はハムラジオのバンドではありません。</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="635"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="639"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX周波数（MHz）。</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="423"/>
         <source>Other - Sat not in the list</source>
         <translation>その他、リストにない衛星</translation>
     </message>
@@ -4295,7 +4295,7 @@ Frequency is not in a hamradio band!</source>
         <translation>このタブで入力したデータは、次のQSOにコピーされます。</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="460"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>QSO情報に記録された衛星の名称は以下のものです: </translation>
     </message>

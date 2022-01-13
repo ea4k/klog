@@ -4184,7 +4184,7 @@ Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="419"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="423"/>
         <source>Other - Sat not in the list</source>
         <translation>Jiný - Sat není v seznamu</translation>
     </message>
@@ -4261,46 +4261,46 @@ Frekvence je mimo radioamatérké pásmo!</translation>
         <translation>Lokátor DX stanice. Formát má být IN70AA nanejvýš však 10 znaků.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="418"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="422"/>
         <source>Not Sat QSO</source>
         <translation>Není Sat QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="455"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="459"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>Jméno satelity nebylo rozpoznáno. Pokud má být použito jedno ze jmen známých satelitů, vyberte jej ze seznamu. Případně kontaktujte vývojový tým a přidejte nový název satelitu.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="460"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satelit použit pro: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="456"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="460"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Pamatujte, že název satelitu nebude uložen, pokud není v seznamu, takže může dojít ke ztrátě informací!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="564"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="568"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>RX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="569"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="573"/>
         <source>RX Frequency in MHz.</source>
         <translation>RX Frekvence v MHz.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="630"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="634"/>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>TX Frekvence v MHz.
 Frekvence je mimo radioamatérké pásmo!</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="635"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="639"/>
         <source>TX Frequency in MHz.</source>
         <translation>TX Frekvence v MHz.</translation>
     </message>
