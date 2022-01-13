@@ -63,7 +63,7 @@ public:
     void setPoll(const int _milsecs);
 
     void setDataBits(const int data);
-    void setStop(const int _stop);
+    void setStop(const QString &_stop);
     void setFlow(const QString &_flow);
     void setParity(const QString &_parity);
     void setSpeed(const int _speed);
@@ -100,8 +100,10 @@ public slots:
 
 private:
     bool readRadioInternal(bool _forceRead);
+    void fillRigsList();
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
+    rmode_t mode2HamlibMode (const QString &_mode);
     bool errorManage(const QString &_func, const int _errorcode);
     //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;

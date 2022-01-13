@@ -397,21 +397,21 @@ int main(int argc, char *argv[])
         //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.showMessage ("Creating window...");
         MainWindow mw(klogDir, version);
-        qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.showMessage ("Initializing window...");
         mw.init();
-        qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.showMessage ("Cheching for new versions...");
         mw.checkIfNewVersion();
         splash.showMessage ("Checking if backup is needed...");
-        qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         mw.recommendBackupIfNeeded();
         splash.showMessage ("Showing window...");
-        qDebug() << "KLog Main-104" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-104" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         mw.show();
-        qDebug() << "KLog Main-105" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-105" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.finish(&mw);
-        qDebug() << "KLog Main-106" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+        //qDebug() << "KLog Main-106" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         return app.exec();
         //qDebug() << "KLog Main-107" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }

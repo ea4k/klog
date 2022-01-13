@@ -74,7 +74,7 @@ private:
     int getDataBits();
     QString getFlowControl();
     QString getParity();
-    int getStopBits();
+    //int getStopBits();
 
 
     QTabWidget *tabWidget;

@@ -186,12 +186,10 @@ void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
     {
         slotClearButtonClicked();
         emit hamlibSetActiveSignal(false);
-        //hamlib->stop();
         //stop hamlib and wsjt-x communication;
     }
     else
     {
-        //hamlib->initClass();
         emit hamlibSetActiveSignal(true);
         //start hamlib and wsjt-x communication;
     }
@@ -610,17 +608,19 @@ bool MainQSOEntryWidget::setBand(const QString &_band)
 bool MainQSOEntryWidget::setMode(const QString &_mode)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "MainQSOEntryWidget::setMode: " << _mode << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::setMode: " << _mode;
     if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
     {
+        //qDebug() << "MainQSOEntryWidget::setMode NOT found";
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
     else
     {
+        //qDebug() << "MainQSOEntryWidget::setMode Updated";
         modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
         emit debugLog(Q_FUNC_INFO, "END", Debug);
-       return true;
+        return true;
     }
 }
 

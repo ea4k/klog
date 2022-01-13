@@ -379,7 +379,7 @@ private:
 
 
 
-    bool readCtyFile();
+    //bool readCtyFile();
 
     //bool isQSLReceived(const int _qsoId);
     //bool isQSLSent(const int _qsoId);
