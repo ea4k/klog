@@ -37,6 +37,7 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
     //qDebug() << Q_FUNC_INFO;
     timer = new QTimer(this);
     //my_rig = rig_init (RIG_DUMMY);
+    rig_set_debug(RIG_DEBUG_NONE);
     my_rig = rig_init (RIG_MODEL_DUMMY);
     retcode = -1;
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -439,7 +440,7 @@ bool HamLibClass::init(bool _active)
         return true;
     }
 
-    rig_set_debug(RIG_DEBUG_NONE);
+    //rig_set_debug(RIG_DEBUG_NONE);
     //qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
     my_rig = rig_init(myrig_model);
     //qDebug()<< Q_FUNC_INFO << ": set after init"  << QT_ENDL;
@@ -531,7 +532,7 @@ void HamLibClass::fillRigsList()
     //qDebug()<< "HamLibClass::getRigList: StringsList before filling it: " << QT_ENDL;
   // Rutine to fill the rig combo boxes
   // Do not display debug codes when load the rig's
-  rig_set_debug (RIG_DEBUG_NONE);
+  //rig_set_debug (RIG_DEBUG_NONE);
      //qDebug() << "HamLibClass::getRigList-01" << QT_ENDL;
   // and continue...
 
