@@ -148,6 +148,8 @@ public:
     bool setQRZCOMDate(const QDate &_c);
     QDate getQRZCOMDate();
 
+    void setDefaultEQSLSentServices(const bool _send);
+
     // Comment Tab
     bool setComment(const QString &_c);
     QString getComment();

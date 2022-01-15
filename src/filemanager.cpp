@@ -66,6 +66,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
     rstTXDefault  = false;
     rstRXDefault = false;
     duplicatedQSOSlotInSecs = 0;
+    sendEQSLByDefault = false;
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 
     klogVersion = _softVersion;
@@ -174,6 +175,11 @@ void FileManager::showError (const QString &_txt)
     msgBox.setText(aux);
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
+}
+
+void FileManager::setSendQSLByDefault (const bool _send)
+{
+    sendEQSLByDefault = _send;
 }
 
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
@@ -870,7 +876,8 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                     }
                     if ((dupeQsos.length()<1) && (addNewQSOs))
                     {
-                        //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << QT_ENDL;
+                        qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << QT_ENDL;
+                        qso.setDefaultEQSLSentServices (sendEQSLByDefault);
                         int lastId = dataProxy->addQSO(qso);
                         if (lastId>0)
                         {
@@ -2907,6 +2914,29 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
             }
         }
     }
+
+    if (sendEQSLByDefault)
+    {
+        if (!hasLotwQslSent)
+        {
+            preparedQuery.bindValue( ":lotw_qsl_sent","Q");
+        }
+
+        if (!hasEqslQslSent)
+        {
+            preparedQuery.bindValue( ":eqsl_qsl_sent","Q");
+        }
+        if (!hasClublogQslSent)
+        {
+            preparedQuery.bindValue( ":clublog_qso_upload_status","M");
+        }
+
+        if (!hasQrzQslSent)
+        {
+            preparedQuery.bindValue( ":qrzcom_qso_upload_status","M");
+        }
+    }
+
     if ( haveCall && haveDate && haveTime && haveBand && haveMode)
     {
         QList<int> _dupeQSOs;
@@ -3114,25 +3144,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
         if ((hasStationCall) || (util->isValidCall(defaultStationCallsign)))
         {
             preparedQuery.bindValue( ":station_callsign", defaultStationCallsign );
-        }
-        if (!hasLotwQslSent)
-        {
-            preparedQuery.bindValue( ":lotw_qsl_sent","Q");
-        }
-
-        if (!hasEqslQslSent)
-        {
-            preparedQuery.bindValue( ":eqsl_qsl_sent","Q");
-        }
-
-        if (!hasClublogQslSent)
-        {
-            preparedQuery.bindValue( ":clublog_qso_upload_status","M");
-        }
-
-        if (!hasQrzQslSent)
-        {
-            preparedQuery.bindValue( ":qrzcom_qso_upload_status","M");
         }
     }
 

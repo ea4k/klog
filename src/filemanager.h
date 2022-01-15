@@ -85,9 +85,9 @@ public:
     QDateTime getDateTimeOfLastBackup();
     void setStationCallSign(const QString& _st);
     void setDuplicatedQSOSlot (const int _secs);
+    void setSendQSLByDefault (const bool _send);
 
-
-private:    
+private:
 
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);
     //bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
@@ -141,6 +141,8 @@ private:
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
     bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
     bool noMoreQso;
+    bool sendEQSLByDefault;  // When importing a log, if the QSO does not bring info about eQSL
+                            // KLog sets or not a default value
     int duplicatedQSOSlotInSecs;
 
     World *world;

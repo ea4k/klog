@@ -761,6 +761,30 @@ void QSO::setLoTWUpdating(bool _lotw)
     lotwUpdating = _lotw;
 }
 
+void QSO::setDefaultEQSLSentServices(const bool _send)
+{
+    if (_send)
+    {
+        if ((getLoTWQSL_SENT()).isEmpty())
+        {
+            setLoTWQSL_SENT ("Q");
+        }
+        if ((getClubLogStatus ()).isEmpty())
+        {
+            setClubLogStatus ("M");
+        }
+        if ((getEQSLQSL_SENT ()).isEmpty())
+        {
+            setEQSLQSL_SENT ("Q");
+        }
+        if ((getQRZCOMStatus ()).isEmpty())
+        {
+            setQRZCOMStatus ("M");
+        }
+        if (!hasQrzQslSent)
+    }
+}
+
 bool QSO::setGridSquare(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _c;
