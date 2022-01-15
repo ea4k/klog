@@ -1014,6 +1014,8 @@ void MainWindow::actionsJustAfterAddingOneQSO()
                           //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) << QT_ENDL;
            }
            awards->setAwards(modifyingQSO);   //Update the DXCC award status
+           setCleaning(true);
+           setModifying(false);
        }
        // CHECK WHAT WAS THE QSOID to add the awards, if needed
     }
@@ -3183,7 +3185,15 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
     //qDebug() << Q_FUNC_INFO;
     if (!modify)
     {
-        QSOTabWidget->cleanQRZCOM(qrzAutoChanging);
+//        if (qrzcomSubscriber)
+//        {
+//            qrzAutoChanging = false;
+//        }
+//        else
+//        {
+//            qrzAutoChanging = true;
+//        }
+        QSOTabWidget->cleanQRZCOM(!qrzcomSubscriber);
         completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
