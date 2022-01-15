@@ -781,7 +781,6 @@ void QSO::setDefaultEQSLSentServices(const bool _send)
         {
             setQRZCOMStatus ("M");
         }
-        if (!hasQrzQslSent)
     }
 }
 
