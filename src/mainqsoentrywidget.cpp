@@ -185,12 +185,12 @@ void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
     if (manualModeCheckBox->isChecked())
     {
         slotClearButtonClicked();
-        emit hamlibSetActiveSignal(false);
+        emit manualModeSignal(false);
         //stop hamlib and wsjt-x communication;
     }
     else
     {
-        emit hamlibSetActiveSignal(true);
+        emit manualModeSignal(true);
         //start hamlib and wsjt-x communication;
     }
 }
@@ -775,20 +775,22 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
 
     realTime = _realTime;
     realtimeCheckBox->setChecked(realTime);
-    /*
-     * if (_realTime)
-    {
-        realtimeButton->setIcon(QIcon(":/img/play.svg"));
-    }
-    else
-    {
-        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
-    }
-    */
-    //realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainQSOEntryWidget::setManualMode(const bool _manualMode)
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    manualModeCheckBox->setChecked (_manualMode);
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
+
+bool MainQSOEntryWidget::getManualMode()
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    return manualModeCheckBox->isChecked ();
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
 
 void MainQSOEntryWidget::setUTC(const bool _utc)
 {

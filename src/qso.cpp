@@ -93,6 +93,7 @@ void QSO::clear()
     qso_dateTime = QDateTime();
     lotwUpdating = false;
     realTime = false;
+    manualMode = false;
 
     comment = QString();
     satName = QString();
@@ -328,6 +329,16 @@ void QSO::setRealTime(const bool _rt)
 bool QSO::getRealTime()
 {
     return realTime;
+}
+
+void QSO::setManualMode(const bool _rt)
+{
+    manualMode = _rt;
+}
+
+bool QSO::getManualMode()
+{
+    return manualMode;
 }
 
 

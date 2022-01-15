@@ -198,6 +198,33 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 }
                 continue;
             }
+            else if (name == "Callsign")
+            { // TEMP
+                tdata = xml.readElementText();
+                if (tdata.length()>0)
+                {
+                   //qDebug() << Q_FUNC_INFO << " - CALLSIGN: " << tdata << QT_ENDL;
+                }
+                continue;
+            }
+            else if (name == "name")
+            { // TEMP
+                tdata = xml.readElementText();
+                if (tdata.length()>0)
+                {
+                    //qDebug() << Q_FUNC_INFO << " - Name: " << tdata << QT_ENDL;
+                }
+                continue;
+            }
+            else if (name == "country")
+            { // TEMP
+                tdata = xml.readElementText();
+                if (tdata.length()>0)
+                {
+                    //qDebug() << Q_FUNC_INFO << " - Country: " << tdata << QT_ENDL;
+                }
+                continue;
+            }
             else if (name == "Error")
             {
                 tdata = xml.readElementText();
@@ -223,7 +250,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 if (tdata.length()>0)
                 {
                     emit dataFoundSignal("name", tdata);
-                    //qDebug() << Q_FUNC_INFO << " - Name: " << tdata << QT_ENDL;
+                    //qDebug() << Q_FUNC_INFO << " - FName: " << tdata << QT_ENDL;
                 }
                 continue;
             }

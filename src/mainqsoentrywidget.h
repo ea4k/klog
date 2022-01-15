@@ -62,6 +62,9 @@ public:
 
     void setRealTime(const bool _realTime);
     bool getRealTime();
+    void setManualMode(const bool _manualMode);
+    bool getManualMode();
+
     void toggleRealTime();
     void setUTC(const bool _utc);
     void setModify(const bool _modify);
@@ -88,7 +91,7 @@ signals:
     void OKClicked();
     void validBands(QStringList _bands);
     void handOverFocusSignal();
-    void hamlibSetActiveSignal(bool _active);
+    void manualModeSignal(bool _active);
 
 private slots:
     void slotUpdateTime();

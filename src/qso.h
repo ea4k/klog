@@ -65,8 +65,10 @@ public:
     QDateTime getDateTimeOn();
     bool setDateTimeOn(const QDateTime &_c);
 
-    void setRealTime(const bool _rt);
+    void setRealTime(const bool _rt);   // Not QSO info but KLog status
     bool getRealTime();
+    void setManualMode(const bool _rt); // Not QSO info but KLog status
+    bool getManualMode();
 
     bool setQSOid(const int _i);
     int getQSOid();
@@ -228,7 +230,7 @@ private:
 
     Utilities *util;
 
-    bool lotwUpdating, realTime;
+    bool lotwUpdating, realTime, manualMode;
     bool backup;
    // DataProxy_SQLite *dataProxy;
 

@@ -260,7 +260,10 @@ void MainWindow::init()
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
-
+    qrzAutoChanging = false;
+    //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
+    QRZCOMAutoCheckAct->setCheckable(true);
+    QRZCOMAutoCheckAct->setChecked(false);
     logEvents = true;
     hamlib->initClass();
     util->setCallValidation (true);
@@ -421,6 +424,7 @@ void MainWindow::init()
         }
         //qDebug() << "MainWindow::init - 69" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }
+
     //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     readConfigData();
 
@@ -515,9 +519,7 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(validBands(QStringList)), this, SLOT(slotValidBandsReceived(QStringList) ) );
-    connect(mainQSOEntryWidget, SIGNAL(hamlibSetActiveSignal(bool)), this, SLOT(slotActiveHamlib(bool) ) );
-
-
+    connect(mainQSOEntryWidget, SIGNAL(manualModeSignal(bool)), this, SLOT(slotManualMode(bool) ) );
 
     // LOGVIEW
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
@@ -3181,7 +3183,7 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
     //qDebug() << Q_FUNC_INFO;
     if (!modify)
     {
-        QSOTabWidget->cleanQRZCOM();
+        QSOTabWidget->cleanQRZCOM(qrzAutoChanging);
         completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
@@ -3190,12 +3192,14 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
 
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
 {
-  //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << QT_ENDL;
+    //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << QT_ENDL;
    if (_t == "name")
    {
        if (QSOTabWidget->getName().length()<1)
        {
+           qrzAutoChanging = true;
            QSOTabWidget->setName(_d);
+           qrzAutoChanging = false;
        }
    }
    else if (_t == "grid")
@@ -3203,7 +3207,9 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
        //qDebug() << Q_FUNC_INFO << " Grid found: " << _d;
        if ((QSOTabWidget->getDXLocator()).length()<1)
        {
+           qrzAutoChanging = true;
            QSOTabWidget->setDXLocator(_d);
+           qrzAutoChanging = false;
        }
        else
        {
@@ -3214,7 +3220,9 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    {
        if (QSOTabWidget->getQTH().length()<1)
        {
+           qrzAutoChanging = true;
            QSOTabWidget->setQTH(_d);
+           qrzAutoChanging = false;
        }
    }
    else if (_t == "qslmgr")
@@ -3497,6 +3505,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
   if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
+        //qDebug() << Q_FUNC_INFO << " qrz.length>2: " << _qrz;
+        //qDebug() << Q_FUNC_INFO << " qrzcomActive: " << util->boolToQString (qrzcomActive);
+        //qDebug() << Q_FUNC_INFO << " QRZCOMAutoCheckAct: " << util->boolToQString (QRZCOMAutoCheckAct->isChecked());
 
         if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
@@ -3897,8 +3908,6 @@ void MainWindow::createMenusCommon()
     connect(QRZCOMCheckThisCallAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMCheckThisCall()));
     QRZCOMCheckThisCallAct->setToolTip("Checks the current callsign in QRZ.com.");
 
-    QRZCOMAutoCheckAct->setCheckable(true);
-    QRZCOMAutoCheckAct->setChecked(false);
     QRZCOMAutoCheckAct->setText(tr("Check always the current callsign in QRZ.com"));
     QRZCOMToolMenu->addAction(QRZCOMAutoCheckAct);
     connect(QRZCOMAutoCheckAct, SIGNAL(triggered()), this, SLOT( slotElogQRZCOMAutoCheck()));
@@ -4503,7 +4512,7 @@ void MainWindow::slotSetup(const int _page)
      //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     configured = false;
-    backupCurrentQSO ();
+    backupCurrentQSO();
     openSetup(_page);
      //qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -4705,7 +4714,6 @@ bool MainWindow::setUDPServer(const bool _b)
 
 bool MainWindow::setHamlib(const bool _b)
 {
-    //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << QT_ENDL;
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << QT_ENDL;
     if (!upAndRunning)
     {
@@ -4893,6 +4901,7 @@ void MainWindow::readConfigData()
 
 void MainWindow::startServices()
 {
+    //qDebug() << Q_FUNC_INFO;
     setWindowSize (windowSize);
     setHamlib(hamlibActive);
     setUDPServer(UDPServerStart);
@@ -5355,8 +5364,11 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
          //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto: " << value << QT_ENDL;
          //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto was: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = " << value;
 
         QRZCOMAutoCheckAct->setChecked(util->trueOrFalse(value));
+
+         //qDebug() << Q_FUNC_INFO << " - Reading QRZCOMAutoCheckAct = " << util->boolToQString (QRZCOMAutoCheckAct->isChecked ());
         setupDialog->setQRZCOMAutoCheckActive(util->trueOrFalse(value));
          //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto is: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << QT_ENDL;
     }
@@ -8343,25 +8355,23 @@ void MainWindow::slotAwardsWidgetSetYear()
     awardsWidget->setYear(selectedYear);
 }
 
-void MainWindow::slotActiveHamlib(bool _enable)
+void MainWindow::slotManualMode(bool _enable)
 {
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_enable);
     hamlib->init(_enable);
-    /*
     if (_enable)
     {
-        hamlib->init(_enable);
+        UDPLogServer->start();
     }
     else
     {
-        hamlib->stop();
+        UDPLogServer->stop();
     }
-    */
 }
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-     //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
@@ -8377,6 +8387,7 @@ void MainWindow::backupCurrentQSO()
     qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
      //qDebug() << Q_FUNC_INFO << " - 014";
     qso->setRealTime (mainQSOEntryWidget->getRealTime ());
+    qso->setManualMode (mainQSOEntryWidget->getManualMode ());
      //qDebug() << Q_FUNC_INFO << " - 020";
     //  MainWindowInputQSO
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
@@ -8385,8 +8396,8 @@ void MainWindow::backupCurrentQSO()
     qso->setFreqRX (QSOTabWidget->getRXFreq ());
     qso->setGridSquare (QSOTabWidget->getDXLocator ());
     qso->setName (QSOTabWidget->getName ());
-    qso->setQTH (QSOTabWidget->getQTH ());
-    qso->setRXPwr (QSOTabWidget->getRXPwr ());
+    qso->setQTH(QSOTabWidget->getQTH ());
+    qso->setRXPwr(QSOTabWidget->getRXPwr ());
      //qDebug() << Q_FUNC_INFO << " - 030";
     // MainWindowInputQSL
     qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus ());
@@ -8457,11 +8468,8 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     if (restoreConfig)
     {
         //qDebug << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
-        mainQSOEntryWidget->setRealTime (qso->getRealTime ());
-    }
-    else
-    {
-        //qDebug << Q_FUNC_INFO << ": NO restoring config";
+        mainQSOEntryWidget->setRealTime (qso->getRealTime());
+        mainQSOEntryWidget->setManualMode (qso->getManualMode());
     }
 
     //  MainWindowInputQSO

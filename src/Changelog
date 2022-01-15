@@ -3,9 +3,9 @@ TBD - 1.8.7
 - Bugfix: Serial speed was not saved to config file.
 - Bugfix: eQSL Uploads problem solved (Closes #406).
 - Bugfix: Connection to the radios were not being done properly (Closes #407) (Closes #379).
-TBD: - LoTW was asking for a station callsign even if LoTW was not activated.
 - Bugfix: SplitCheckBox was checked when coming from Setup (Closes #377).
-
+- Bugfix: Entering a QRZ cleared the DX Gridsquare if it was prviously entered (Closes #357).
+- New feature: Added a Manual Mode checkbox to disable quickly hamlib & wsjtx integration.
 
 Jan 2022 - 1.8.6
 - Bugfix: Net rig & FLRig hamlib connections were not working propertly. (Closes #339) (TNX W5PNY)
