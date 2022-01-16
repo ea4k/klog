@@ -867,7 +867,10 @@ void MainWindow::slotBandChanged (const QString &_b)
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
 
      //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " << QT_ENDL;
+    if (currentEntity>0)
+    {
     showStatusOfDXCC(_qs);
+    }
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotBandChanged: END" << QT_ENDL;
