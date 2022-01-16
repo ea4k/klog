@@ -3183,23 +3183,11 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
     //qDebug() << Q_FUNC_INFO;
     if (!modify)
     {
-<<<<<<< HEAD
         QSOTabWidget->cleanQRZCOM(true);
-=======
-//        if (qrzcomSubscriber)
-//        {
-//            qrzAutoChanging = false;
-//        }
-//        else
-//        {
-//            qrzAutoChanging = true;
-//        }
-        QSOTabWidget->cleanQRZCOM(!qrzcomSubscriber);
->>>>>>> master
+    }
         completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
-    }
 }
 
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
