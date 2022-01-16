@@ -3183,7 +3183,7 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
     //qDebug() << Q_FUNC_INFO;
     if (!modify)
     {
-        QSOTabWidget->cleanQRZCOM(qrzAutoChanging);
+        QSOTabWidget->cleanQRZCOM(true);
         completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
@@ -3425,6 +3425,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     else
     {
+
         currentEntity = world->getQRZARRLId(_qrz);
     }
 
@@ -3541,6 +3542,7 @@ void MainWindow::slotClearButtonClicked()
     yearChangedDuringModification = false;
     setModifying(false);
 
+    currentEntity = -1;
     dateTimeTemp = dateTime;
     modifyingQSO = -1;
 
