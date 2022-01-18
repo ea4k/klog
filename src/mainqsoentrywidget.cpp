@@ -1,3 +1,4 @@
+
 /***************************************************************************tv
                           mainqsoentrywidget.cpp  -  description
                              -------------------
@@ -185,12 +186,12 @@ void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
     if (manualModeCheckBox->isChecked())
     {
         slotClearButtonClicked();
-        emit manualModeSignal(false);
+        emit manualModeSignal(true);
         //stop hamlib and wsjt-x communication;
     }
     else
     {
-        emit manualModeSignal(true);
+        emit manualModeSignal(false);
         //start hamlib and wsjt-x communication;
     }
 }

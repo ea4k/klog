@@ -76,7 +76,6 @@ void SetupPageHamLib::slotTestHamlib()
     hamlib->setPoll (2000);
     //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
     setTestResult (hamlib->init(true));
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

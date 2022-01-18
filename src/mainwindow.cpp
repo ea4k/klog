@@ -260,6 +260,7 @@ void MainWindow::init()
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
+    manualMode = false;
     qrzAutoChanging = false;
     //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
     QRZCOMAutoCheckAct->setCheckable(true);
@@ -797,7 +798,7 @@ void MainWindow::slotTimeOutInfoBars()
 void MainWindow::setModeFromFreq()
 {
     //TODO: define frequency ranges for the different modes
-    if (hamlibActive)
+    if (hamlibActive && !manualMode)
     {
         if (QSOTabWidget->getTXFreq () >= dataProxy->getLowLimitBandFromBandName("20M"))
         {
@@ -899,7 +900,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
 
     //QString _modeSeen = mainQSOEntryWidget->getMode();
-    if (hamlibActive)
+    if (hamlibActive && !manualMode)
     {
         hamlib->setMode (mainQSOEntryWidget->getMode());
     }
@@ -3540,6 +3541,10 @@ void MainWindow::slotClearButtonClicked()
 {
     //qDebug() << "MainWindow::slotClearButtonClicked - START" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     bool needToRecover = modify;
     setCleaning(true);
     yearChangedDuringModification = false;
@@ -4591,7 +4596,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
         //qDebug() << "MainWindow::openSetup: after db->reConnect" << QT_ENDL;
 
-        if (hamlibActive)
+        if (hamlibActive&& !manualMode)
         {
              //qDebug() << "MainWindow::slotSetupDialogFinished: Hamlib is active, let's read the VFO Freq/Mode" << QT_ENDL;
         }
@@ -7797,7 +7802,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     QSOTabWidget->setTXFreq (_fr);
     mainQSOEntryWidget->setFreq (_fr);
     satTabWidget->setUpLinkFreq(_fr);
-    if (hamlibActive)
+    if (hamlibActive && !manualMode)
     {
         hamlib->setFreq(_fr);
     }
@@ -8095,6 +8100,10 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
                                              const QString &_dx_grid, const QString &_sub_mode)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     if (modify)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
@@ -8264,6 +8273,10 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     if (upAndRunning)
     {
         if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
@@ -8288,6 +8301,10 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
 void MainWindow::slotHamlibModeChanged(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     if (_m.length()<2)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
@@ -8363,7 +8380,9 @@ void MainWindow::slotAwardsWidgetSetYear()
 void MainWindow::slotManualMode(bool _enable)
 {
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_enable);
-    hamlib->init(_enable);
+    manualMode = _enable;
+    /*
+    hamlib->init(!_enable);
     if (_enable)
     {
         UDPLogServer->start();
@@ -8372,6 +8391,7 @@ void MainWindow::slotManualMode(bool _enable)
     {
         UDPLogServer->stop();
     }
+    */
 }
 
 void MainWindow::backupCurrentQSO()

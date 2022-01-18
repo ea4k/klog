@@ -598,6 +598,7 @@ private:
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
     bool noMoreModeErrorShown;          // If true, the non-valid modes received from WSJT-x will not be showed to the user
     bool wsjtxAutoLog;                  // If true, logged QSO are automatically logged into the log when sent from WSJTX
+    bool manualMode;                    // If true, hamlib and WSJTX are not updatind the interface
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;

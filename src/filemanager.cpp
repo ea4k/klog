@@ -876,7 +876,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                     }
                     if ((dupeQsos.length()<1) && (addNewQSOs))
                     {
-                        qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << QT_ENDL;
+                        //qDebug() << "FileManager::adifLoTWReadLog2 -  New QSO ... adding ..."   << QT_ENDL;
                         qso.setDefaultEQSLSentServices (sendEQSLByDefault);
                         int lastId = dataProxy->addQSO(qso);
                         if (lastId>0)
