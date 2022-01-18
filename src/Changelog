@@ -4,8 +4,9 @@ TBD - 1.8.7
 - Bugfix: eQSL Uploads problem solved (Closes #406).
 - Bugfix: Connection to the radios were not being done properly (Closes #407) (Closes #379).
 - Bugfix: SplitCheckBox was checked when coming from Setup (Closes #377).
-- Bugfix: Entering a QRZ cleared the DX Gridsquare if it was prviously entered (Closes #357).
+- Bugfix: Entering a QRZ cleared the DX Gridsquare if it was previously entered (Closes #357).
 - Bugfix: Imported QSOs add the default electronic QSL send info if configured.
+- Bugfix: DXCC widget shows last Entity status after modifying a QSO (Closes #412)
 - New feature: Added a Manual Mode checkbox to disable quickly hamlib & wsjtx integration.
 
 Jan 2022 - 1.8.6
