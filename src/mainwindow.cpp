@@ -472,7 +472,7 @@ void MainWindow::init()
     createUI();
     //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     //qDebug() << Q_FUNC_INFO << " - 100";
-    slotClearButtonClicked();
+    slotClearButtonClicked(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
     //qDebug() << Q_FUNC_INFO << " - 120";
@@ -515,7 +515,7 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
-    connect(mainQSOEntryWidget, SIGNAL(clearForNextQSOSignal()), this, SLOT(slotClearButtonClicked()) );
+    connect(mainQSOEntryWidget, SIGNAL(clearForNextQSOSignal(QString)), this, SLOT(slotClearButtonClicked(QString)) );
     connect(mainQSOEntryWidget, SIGNAL(OKClicked()), this, SLOT(slotQRZReturnPressed() ) );
     connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
@@ -596,7 +596,7 @@ void MainWindow::createActionsCommon(){
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
    connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString) ) );
 
-   connect(UDPLogServer, SIGNAL(clearSignal()), this, SLOT(slotClearButtonClicked() ) );
+   connect(UDPLogServer, SIGNAL(clearSignal(QString)), this, SLOT(slotClearButtonClicked(QString) ) );
 
    connect(this, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
    connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -968,7 +968,6 @@ void MainWindow::slotQRZReturnPressed()
                 //ret = true;
                   //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << QT_ENDL;
                 actionsJustAfterAddingOneQSO();
-                //slotClearButtonClicked();
             }
         }
     else   // The QUERY string is NULL
@@ -981,8 +980,8 @@ void MainWindow::slotQRZReturnPressed()
 
     yearChangedDuringModification = false;
     readingTheUI = false;
-    //qDebug() << Q_FUNC_INFO;
-    slotClearButtonClicked();
+    //qDebug() << Q_FUNC_INFO << "Just before cleaning";
+    slotClearButtonClicked(Q_FUNC_INFO);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -3383,7 +3382,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         infoLabel1->clear();
         infoLabel2->clear();
         //qDebug() << Q_FUNC_INFO;
-        slotClearButtonClicked();
+        slotClearButtonClicked(Q_FUNC_INFO);
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
@@ -3537,14 +3536,11 @@ void MainWindow::setCleaning(const bool _c)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotClearButtonClicked()
+void MainWindow::slotClearButtonClicked(const QString &_func)
 {
-    //qDebug() << "MainWindow::slotClearButtonClicked - START" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _func << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    if (manualMode)
-    {
-        return;
-    }
+
     bool needToRecover = modify;
     setCleaning(true);
     yearChangedDuringModification = false;
@@ -3555,7 +3551,7 @@ void MainWindow::slotClearButtonClicked()
     modifyingQSO = -1;
 
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
-
+    //qDebug() << Q_FUNC_INFO << " - 10" << QT_ENDL;
     if (currentBand < 0)
     {
         currentBand = defaultBand;
@@ -3565,33 +3561,33 @@ void MainWindow::slotClearButtonClicked()
         currentMode = defaultMode;
         //qDebug() << "MainWindow::MainWindow: 12b - currentMode: " << QString::number(currentMode) << QT_ENDL;
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 20" << QT_ENDL;
     clublogAnswer = -1;
     clublogPrevQSO.clear();
     //qDebug() << "MainWindow::slotClearButtonClicked: - 11"  << QT_ENDL;
 
     setCleaning(false);
-
+    //qDebug() << Q_FUNC_INFO << " - 25" << QT_ENDL;
     //qDebug() << "MainWindow::slotClearButtonClicked: Log: " << QString::number(currentLog) << QT_ENDL;
     setMainWindowTitle();
+    //qDebug() <<  Q_FUNC_INFO << " - 27" << QT_ENDL;
     if (needToRecover)
     {
+        //qDebug() << Q_FUNC_INFO << " - 28" << QT_ENDL;
         //qDebug() << Q_FUNC_INFO << ": Recovening the previous status...";
         restoreCurrentQSO(true);
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - 40" << QT_ENDL;
         //qDebug() << Q_FUNC_INFO;
         clearUIDX();
         statusBar()->clearMessage();
-
         //qDebug() << Q_FUNC_INFO << ": NOT recovening the previous status...";
     }
-
-    //qDebug() << "MainWindow::slotClearButtonClicked: " << mainQSOEntryWidget->getMode() << QT_ENDL;
     //qDebug() << "MainWindow::slotClearButtonClicked - currentMode = " << QString::number(currentMode) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-            //qDebug() << "MainWindow::slotClearButtonClicked - END" << QT_ENDL;
+    //qDebug() << "MainWindow::slotClearButtonClicked - END" << QT_ENDL;
 }
 
 void MainWindow::clearUIDX(bool _full)
@@ -6440,14 +6436,11 @@ void MainWindow::qsoToEdit (const int _qso)
     double testValueDouble; // Variable just to test if the value is in the appropriate range
 
     setModifying(true);
-
     modifyingQSO = _qso;
 
     //TODO: Optimize the following query. Maybe the * is not needed.
     QString stringQuery = QString("SELECT * FROM log WHERE id ='%1' AND lognumber='%2'").arg(_qso).arg(currentLog);
                 //qDebug() << "MainWindow::qsoToEdit: " << stringQuery << QT_ENDL;
-
-
 
     QSqlQuery query(stringQuery);
     bool sqlOK = query.exec();
@@ -6466,6 +6459,8 @@ void MainWindow::qsoToEdit (const int _qso)
 
         QSqlRecord rec = query.record();
 
+        manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
+        mainQSOEntryWidget->setManualMode (manualMode);
 
     // ADD THE DATA THAT IS PRESENT IN ALL THE MODES
 
@@ -6506,7 +6501,7 @@ void MainWindow::qsoToEdit (const int _qso)
     QString currentQrz = aux1;
     currentEntity = world->getQRZARRLId(currentQrz);
 
-               //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) << QT_ENDL;
+    //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) << QT_ENDL;
 
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
@@ -8023,7 +8018,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
                 //actionsJustAfterAddingOneQSO();
                 //qDebug() << Q_FUNC_INFO;
-                slotClearButtonClicked();
+                slotClearButtonClicked(Q_FUNC_INFO);
                 //UDPLogServer->start();
 
                 if (clublogActive && clublogRealTime)
@@ -8380,7 +8375,16 @@ void MainWindow::slotAwardsWidgetSetYear()
 void MainWindow::slotManualMode(bool _enable)
 {
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_enable);
+    //bool _updateTheRadio = false;
+    //if (!manualMode && hamlibActive)
+    //{
+    //    _updateTheRadio = true;
+    //}
     manualMode = _enable;
+    //if (_updateTheRadio)
+    //{
+
+    //}
     /*
     hamlib->init(!_enable);
     if (_enable)
@@ -8400,6 +8404,8 @@ void MainWindow::backupCurrentQSO()
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
+    qso->setRealTime (mainQSOEntryWidget->getRealTime());
+    qso->setManualMode (mainQSOEntryWidget->getManualMode());
     qso->setLogId (currentLog);
      //qDebug() << Q_FUNC_INFO << " - 010";
     // MainQSOEntryWidget
@@ -8410,9 +8416,7 @@ void MainWindow::backupCurrentQSO()
     qso->setMode (mainQSOEntryWidget->getMode ());
      //qDebug() << Q_FUNC_INFO << " - 013";
     qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
-     //qDebug() << Q_FUNC_INFO << " - 014";
-    qso->setRealTime (mainQSOEntryWidget->getRealTime ());
-    qso->setManualMode (mainQSOEntryWidget->getManualMode ());
+
      //qDebug() << Q_FUNC_INFO << " - 020";
     //  MainWindowInputQSO
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
@@ -8480,7 +8484,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
-    clearUIDX ();
+    clearUIDX();
     if (qso->getModifying())
     {
         mainQSOEntryWidget->setModify(true);
@@ -8490,11 +8494,12 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     mainQSOEntryWidget->setMode (qso->getMode ());
     mainQSOEntryWidget->setDateTime (qso->getDateTimeOn ());
 
+    //qDebug() << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (restoreConfig);
     if (restoreConfig)
     {
-        //qDebug << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
         mainQSOEntryWidget->setRealTime (qso->getRealTime());
-        mainQSOEntryWidget->setManualMode (qso->getManualMode());
+        manualMode = qso->getManualMode();
+        mainQSOEntryWidget->setManualMode (manualMode);
     }
 
     //  MainWindowInputQSO

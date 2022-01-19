@@ -7,6 +7,7 @@ TBD - 1.8.7
 - Bugfix: Entering a QRZ cleared the DX Gridsquare if it was previously entered (Closes #357).
 - Bugfix: Imported QSOs add the default electronic QSL send info if configured.
 - Bugfix: DXCC widget shows last Entity status after modifying a QSO (Closes #412)
+- Bugfix: Hamlib is now stopped while editing a QSO (Closes #414)
 - New feature: Added a Manual Mode checkbox to disable quickly hamlib & wsjtx integration.
 
 Jan 2022 - 1.8.6

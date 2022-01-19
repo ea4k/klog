@@ -85,7 +85,7 @@ signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void showInfoLabel(QString _msg);
     void currentQRZSignal(QString _msg);
-    void clearForNextQSOSignal();
+    void clearForNextQSOSignal(QString _func);
     void bandChanged(QString _band);
     void modeChanged(QString _mode);
     void OKClicked();

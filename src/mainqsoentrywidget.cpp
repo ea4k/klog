@@ -182,9 +182,10 @@ void MainQSOEntryWidget::slotCheckBoxClicked()
 
 void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
 {
-   //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     if (manualModeCheckBox->isChecked())
     {
+        //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked();
         emit manualModeSignal(true);
         //stop hamlib and wsjt-x communication;
@@ -231,7 +232,6 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     if ((qrzLineEdit->text()).length()<1)
     {
-        //emit clearForNextQSOSignal();
         //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked();
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
@@ -401,12 +401,14 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
-    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked: "  << QT_ENDL;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    setCleaning (true);
     clear();
-    emit clearForNextQSOSignal();
-    setModify(false);
+    emit clearForNextQSOSignal(Q_FUNC_INFO);
+    //setModify(false);
     checkIfDupe(Q_FUNC_INFO);
+    setCleaning (false);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 

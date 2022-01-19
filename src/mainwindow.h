@@ -185,7 +185,7 @@ private slots:
 
     void slotOKButtonClicked();
 
-    void slotClearButtonClicked();
+    void slotClearButtonClicked(const QString &_func);
     void slotBandChanged (const QString &_b);
     void slotModeChanged (const QString &_m);
     void slotValidBandsReceived(const QStringList &_b);
