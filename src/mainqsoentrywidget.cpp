@@ -809,7 +809,7 @@ void MainQSOEntryWidget::setModify(const bool _modify)
     modify = _modify;
     if (modify)
     {
-        OKButton->setText(tr("&Modify"));
+        OKButton->setText(tr("&Save"));
         clearButton->setText(tr("&Cancel"));
         realtimeCheckBox->setChecked (false);
     }
