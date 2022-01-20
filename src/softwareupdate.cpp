@@ -64,7 +64,7 @@ void SoftwareUpdate::findOS(const int _os)
         // should never be reached
         break;
     }
-    qDebug() << Q_FUNC_INFO << " - END"
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 SoftwareUpdate::~SoftwareUpdate(){}
@@ -85,7 +85,7 @@ void SoftwareUpdate::slotReadyRead()
 
 void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 {
-    qDebug() << Q_FUNC_INFO << " - Start "
+    qDebug() << Q_FUNC_INFO << " - Start ";
 
     QUrl url = reply->url();
     if (url.toString().length()< QString("https://api.github.com/repos/ea4k/klog/releases/latest").length())
