@@ -8206,7 +8206,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     // TODO: An error on DB has been detected.
     // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
 
-    QString aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog-devel@nongnu.org>klog-devel@nongnu.org</a>)" + tr("for analysis:") + "<br>";
+    QString aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog@groups.io>klog@groups.io</a>)" + tr("for analysis:") + "<br>";
     QString errorMSG =  "<ul>"
                         "<li><b>" + tr("Error in function") + ":</b> " + functionFailed + "</li>" +
                         "<li><b>" + tr("Native Error") +":</b> " + nativeError + "</li>" +
