@@ -2076,12 +2076,13 @@ Error: #2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="46"/>
         <location filename="../mainqsoentrywidget.cpp" line="423"/>
-        <location filename="../mainqsoentrywidget.cpp" line="817"/>
+        <location filename="../mainqsoentrywidget.cpp" line="818"/>
         <source>&amp;Add</source>
         <translation>&amp;Añadir</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="47"/>
+        <location filename="../mainqsoentrywidget.cpp" line="819"/>
         <source>&amp;Clear</source>
         <translation>&amp;Limpiar</translation>
     </message>
@@ -2142,20 +2143,25 @@ Error: #2</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="106"/>
-        <location filename="../mainqsoentrywidget.cpp" line="985"/>
+        <location filename="../mainqsoentrywidget.cpp" line="987"/>
         <source>Callsign</source>
         <translation>Indicativo</translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="990"/>
+        <location filename="../mainqsoentrywidget.cpp" line="812"/>
+        <source>&amp;Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainqsoentrywidget.cpp" line="813"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../mainqsoentrywidget.cpp" line="992"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>
-    </message>
-    <message>
-        <location filename="../mainqsoentrywidget.cpp" line="812"/>
-        <source>&amp;Modify</source>
-        <translation>&amp;Modificar</translation>
     </message>
 </context>
 <context>

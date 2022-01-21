@@ -2069,12 +2069,13 @@ Error returned: %2</source>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="46"/>
         <location filename="../mainqsoentrywidget.cpp" line="423"/>
-        <location filename="../mainqsoentrywidget.cpp" line="817"/>
+        <location filename="../mainqsoentrywidget.cpp" line="818"/>
         <source>&amp;Add</source>
         <translation>追加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="47"/>
+        <location filename="../mainqsoentrywidget.cpp" line="819"/>
         <source>&amp;Clear</source>
         <translation type="unfinished">クリア(&amp;C)</translation>
     </message>
@@ -2135,17 +2136,22 @@ Error returned: %2</source>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="106"/>
-        <location filename="../mainqsoentrywidget.cpp" line="985"/>
+        <location filename="../mainqsoentrywidget.cpp" line="987"/>
         <source>Callsign</source>
         <translation>コールサイン</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="812"/>
-        <source>&amp;Modify</source>
-        <translation>モディファイ</translation>
+        <source>&amp;Save</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainqsoentrywidget.cpp" line="990"/>
+        <location filename="../mainqsoentrywidget.cpp" line="813"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">キャンセル(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="../mainqsoentrywidget.cpp" line="992"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
         <translation>DUPE</translation>

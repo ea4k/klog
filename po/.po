@@ -2106,12 +2106,12 @@ msgid "Select all the QSOs"
 msgstr ""
 
 #: ../mainqsoentrywidget.cpp:46 ../mainqsoentrywidget.cpp:423
-#: ../mainqsoentrywidget.cpp:817
+#: ../mainqsoentrywidget.cpp:818
 msgctxt "MainQSOEntryWidget|"
 msgid "&Add"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:47
+#: ../mainqsoentrywidget.cpp:47 ../mainqsoentrywidget.cpp:819
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "&Clear"
@@ -2172,7 +2172,7 @@ msgctxt "MainQSOEntryWidget|"
 msgid "Manual Mode"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:106 ../mainqsoentrywidget.cpp:985
+#: ../mainqsoentrywidget.cpp:106 ../mainqsoentrywidget.cpp:987
 #, fuzzy
 msgctxt "MainQSOEntryWidget|"
 msgid "Callsign"
@@ -2180,10 +2180,16 @@ msgstr "Znak wywoławczy"
 
 #: ../mainqsoentrywidget.cpp:812
 msgctxt "MainQSOEntryWidget|"
-msgid "&Modify"
+msgid "&Save"
 msgstr ""
 
-#: ../mainqsoentrywidget.cpp:990
+#: ../mainqsoentrywidget.cpp:813
+#, fuzzy
+msgctxt "MainQSOEntryWidget|"
+msgid "&Cancel"
+msgstr "&Cancel"
+
+#: ../mainqsoentrywidget.cpp:992
 msgctxt ""
 "MainQSOEntryWidget|Translator: DUPE is a common world for hams. Do not "
 "translate of not sure"
