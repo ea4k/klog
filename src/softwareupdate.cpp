@@ -48,7 +48,7 @@ SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion) : QObject(nullptr)
 
 void SoftwareUpdate::findOS(const int _os)
 {
-     qDebug() << Q_FUNC_INFO << ": " << QString::number(_os)  << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_os)  << QT_ENDL;
     switch (_os)
     {
         case QOperatingSystemVersion::MacOS:
@@ -64,14 +64,14 @@ void SoftwareUpdate::findOS(const int _os)
         // should never be reached
         break;
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 SoftwareUpdate::~SoftwareUpdate(){}
 
 void SoftwareUpdate::setVersion(const QString &_klogVersion)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _klogVersion << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << _klogVersion << QT_ENDL;
     klogVersion = _klogVersion;
     latestVersion = klogVersion;
     setHeader();
@@ -85,19 +85,19 @@ void SoftwareUpdate::slotReadyRead()
 
 void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
 {
-    qDebug() << Q_FUNC_INFO << " - Start ";
+    //qDebug() << Q_FUNC_INFO << " - Start ";
 
     QUrl url = reply->url();
     if (url.toString().length()< QString("https://api.github.com/repos/ea4k/klog/releases/latest").length())
     {
-        qDebug() << Q_FUNC_INFO << ": URL too short"  << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": URL too short"  << QT_ENDL;
         return;
     }
     QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
     if (reply->error())
     {
-          qDebug() << Q_FUNC_INFO << ": reply error: " << QString::number(reply->error())  << QT_ENDL;
+          //qDebug() << Q_FUNC_INFO << ": reply error: " << QString::number(reply->error())  << QT_ENDL;
     }
     else if (!redirectionTarget.isNull())
     {
@@ -286,7 +286,7 @@ void SoftwareUpdate::connectToURL(const QString &_url)
 
 void SoftwareUpdate::setHeader()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QString ver = util->getAgent(klogVersion);
     //qDebug() << "SoftwareUpdate::setHeader - ver: " << ver << QT_ENDL;
     if (callsign.length()>2)

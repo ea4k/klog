@@ -1,3 +1,0 @@
-files:
-  - source: /src/translations/
-    translation: /src/translations/klog_%two_letters_code%.ts

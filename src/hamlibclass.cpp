@@ -440,11 +440,10 @@ bool HamLibClass::init(bool _active)
         return true;
     }
 
-    //rig_set_debug(RIG_DEBUG_NONE);
-    //qDebug()<< Q_FUNC_INFO << ": set Debug NONE"  << QT_ENDL;
     my_rig = rig_init(myrig_model);
     //qDebug()<< Q_FUNC_INFO << ": set after init"  << QT_ENDL;
-    if (my_rig == nullptr)
+    //if (my_rig == nullptr)
+    if (!my_rig)
     {
        //qDebug()<< Q_FUNC_INFO << ": Init failed, hamlib returned fail!" << QT_ENDL;
        return false;
@@ -482,8 +481,6 @@ bool HamLibClass::init(bool _active)
         QByteArray portStr = aux.toByteArray();
         const char* port = portStr.constData();
         strncpy(my_rig->state.rigport.pathname, port, FILPATHLEN - 1);
-
-
         //qDebug()<< Q_FUNC_INFO << ": rigport: " << my_rig->state.rigport.pathname ;
         my_rig->state.rigport.parm.serial.rate = bauds;
         //qDebug()<< Q_FUNC_INFO << ": serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) ;

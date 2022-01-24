@@ -4568,12 +4568,12 @@ void MainWindow::openSetup(const int _page)
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
-
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
+    bool restoreQSOConfig = false;
     if (_s == QDialog::Accepted)
     {
         //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
@@ -4591,26 +4591,22 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         dataProxy->reconnectDB();
         logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
         //qDebug() << "MainWindow::openSetup: after db->reConnect" << QT_ENDL;
-
-        if (hamlibActive&& !manualMode)
-        {
-             //qDebug() << "MainWindow::slotSetupDialogFinished: Hamlib is active, let's read the VFO Freq/Mode" << QT_ENDL;
-        }
     }
     else
     {
          //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
     }
 
-    if (qso->getBackup ())
+    if (qso->getBackup())
     {
         //qDebug() << Q_FUNC_INFO << ": Restoring..." << QT_ENDL;
         restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << QT_ENDL;
+        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring QSO..." << QT_ENDL;
     }
+   setHamlib(hamlibActive);
     //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -8499,6 +8495,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     {
         mainQSOEntryWidget->setRealTime (qso->getRealTime());
         manualMode = qso->getManualMode();
+        //qDebug() << Q_FUNC_INFO << ": manualMode: " << util->boolToQString (manualMode);
         mainQSOEntryWidget->setManualMode (manualMode);
     }
 
@@ -8572,7 +8569,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     satTabWidget->setSatName (qso->getSatName ());
     satTabWidget->setSatMode (qso->getSatMode ());
     satTabWidget->setKeep (qso->getKeepSatTab ());
-
+    qso->setBackup (false);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

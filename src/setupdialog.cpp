@@ -241,6 +241,7 @@ void SetupDialog::slotCancelButtonClicked()
             }
         }
     }
+    hamlibPage->stopHamlib();
     QDialog::reject ();
     close();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -669,7 +670,7 @@ void SetupDialog::slotOkButtonClicked()
             stream << "LatestBackup=" << latestBackup << ";" << QT_ENDL;
         }
         file.close ();
-
+    hamlibPage->stopHamlib();
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << QT_ENDL;
     QDialog::accept();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);

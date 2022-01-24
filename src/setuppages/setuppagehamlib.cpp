@@ -48,6 +48,11 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
+void SetupPageHamLib::stopHamlib ()
+{
+    hamlib->stop();
+}
+
 void SetupPageHamLib::slotTestHamlib()
 {
     //qDebug() << Q_FUNC_INFO;
