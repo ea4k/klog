@@ -9,6 +9,7 @@ TBD - 1.8.7
 - Bugfix: DXCC widget shows last Entity status after modifying a QSO (Closes #412).
 - Bugfix: Hamlib is now stopped while editing a QSO (Closes #414).
 - Bugfix: Hamlib on serial devices works ok. (Closes #355).
+- Bugfix: RST is not changed on mode change when editing. (Closes #423).
 - New feature: Added a Manual Mode checkbox to disable quickly hamlib & wsjtx integration.
 - New feature: Added "Save" and "Cancel" button when editing a recorded QSO.
 Update: Developers mailing list address changed to klog@groups.io (Closes #421).

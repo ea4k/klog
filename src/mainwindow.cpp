@@ -897,7 +897,10 @@ void MainWindow::slotModeChanged (const QString &_m)
     //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " << QT_ENDL;
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
-    QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
+    if (!modify)
+    {
+        QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
+    }
 
     //QString _modeSeen = mainQSOEntryWidget->getMode();
     if (hamlibActive && !manualMode)
