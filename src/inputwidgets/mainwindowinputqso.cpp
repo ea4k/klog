@@ -268,7 +268,11 @@ void MainWindowInputQSO::slotReturnPressed()
 
 void MainWindowInputQSO::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-    //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << QT_ENDL;
+    qDebug() << "Lat: " << QString::number(locator->getLat (locatorLineEdit->text())) << " / Lon: " << QString::number(locator->getLon (locatorLineEdit->text()));
+    Coordinate pos = locator->getLocatorCorner (locatorLineEdit->text());
+    pos = locator->getLocatorCorner (locatorLineEdit->text(), false);
+
     int cursorP = locatorLineEdit->cursorPosition();
 
     locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
