@@ -87,15 +87,28 @@ void MapWidget::slotButtonClicked ()
     lon = locator.getLon("IN80");
     qDebug() << "MapWidget::slotButtonClicked: " << QString::number(lat) << "/" << QString::number(lon);
 
-    double lat2 = lat-15.0;
-    double lon2 = lon+20.0;
-
+    double lat2 = locator.getLat("IM99");
+    double lon2 = locator.getLon("IM99");
     QStandardItem *item = new QStandardItem;
 
     //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
     //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
+    QGeoRectangle rect;
+    rect.setTopLeft (QGeoCoordinate(lat, lon));
+    rect.setBottomRight (QGeoCoordinate(lat2, lon2) );
 
-    //item->setData(QVariant::fromValue(QGeoRectangle(QGeoCoordinate(lat, lon), 1, 0.5)), CoordinateRole);
+
+    if (rect.isValid ())
+    {
+        qDebug() << Q_FUNC_INFO << " Rectangle OK";
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " Rectangle NOK";
+    }
+
+
+    item->setData(QVariant::fromValue(rect), CoordinateRole);
     modelRectangle.appendRow(item);
     //Read:
     //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model

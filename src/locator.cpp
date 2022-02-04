@@ -105,11 +105,13 @@ Wikipedia:
 Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
 {
     qDebug() << Q_FUNC_INFO << ": " << tlocator;
-    Coordinate _position;
+    Coordinate _position, _north, _south;
     _position.lat = 0.0;
     _position.lon = 0.0;
 
     Coordinate _positionC = _position;
+    _north = _position;
+    _south = _position;
 
     if (!isValidLocator(tlocator))
     {
@@ -117,59 +119,39 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
        return _position;
     }
 
+    _positionC.lat = getLat (tlocator);
+    _positionC.lon = getLon (tlocator);
+
     if (tlocator.length() == 2)
     {
-        _positionC.lat = getLat (tlocator);
-        _positionC.lon = getLon (tlocator);
+        _north.lat = _positionC.lat + 5;
+        _north.lon = _positionC.lon - 20;
 
-        if (northWest)
-        {
-            _position.lat = _positionC.lat + 10;
-            _position.lon = _positionC.lon + 10;
-        }
-        else
-        {
-            _position.lat = _positionC.lat;
-            _position.lon = _positionC.lon;
-        }
+        _south.lat = _positionC.lat - 5;
+        _north.lon = _positionC.lon + 2
+                -0;
     }
     else if (tlocator.length() == 4)
     {
-        _positionC.lat = getLat (tlocator);
-        _positionC.lon = getLon (tlocator);
+        _north.lat = _positionC.lat + 5 + 0.5;
+        _north.lon = _positionC.lon - 10 -1;
 
-        if (northWest)
-        {
-            _position.lat = _positionC.lat + 10 + 0.5;
-            _position.lon = _positionC.lon - 10 - 1;
-        }
-        else
-        {
-            _position.lat = _positionC.lat -5 - 0.5;
-            _position.lon = _positionC.lon + 10 + 1;
-        }
+        _south.lat = _positionC.lat - 5 - 0.5;
+        _north.lon = _positionC.lon + 10 -1;
     }
     else if (tlocator.length() == 6)
     {
-        _positionC.lat = getLat (tlocator);
-        _positionC.lon = getLon (tlocator);
 
-        if (northWest)
-        {
-            _position.lat = _positionC.lat + 10 + 0.5 + (2.5/60/2);
-            _position.lon = _positionC.lon - 10 - 1 - (5/60/2);
-        }
-        else
-        {
-            _position.lat = _positionC.lat -5 - 0.5 - (2.5/60/2);
-            _position.lon = _positionC.lon + 10 + 1 + (5/60/2)/2;
-        }
+        _north.lat = _positionC.lat + 5 + 0.5 + 0.50208333333333333; //(2.5/60/2);
+        _north.lon = _positionC.lon - 10 -1 - 0.0416666666666667;//(5/60/2);
+
+        _south.lat = _positionC.lat - 5 - 0.5 - 0.50208333333333333; //(2.5/60/2);
+        _north.lon = _positionC.lon + 10 -1 + 0.0416666666666667;//(5/60/2);
 
     }
     else if (tlocator.length() == 8)
     {
-        _positionC.lat = getLat (tlocator);
-        _positionC.lon = getLon (tlocator);
+
     }
     else
     {
@@ -178,6 +160,8 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     }
     qDebug() << Q_FUNC_INFO;
     qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);
+    qDebug() << QString ("North : %1, %2").arg(_north.lat).arg(_north.lon);
+    qDebug() << QString ("South : %1, %2").arg(_south.lat).arg(_south.lon);
     if (northWest)
     {
         //qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
@@ -186,8 +170,6 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     {
         //qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
     }
-
-
     return _position;
 }
 
@@ -219,7 +201,7 @@ double Locator::getLat(const QString& tlocator){
     }
     if (tlocator.length()== 10)
     {
-        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.0) / 240 + ((tlocator.at(9)).toLatin1() - 'A' + 0.5) / 240 / 24 - 90;
+        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.0) / 240 + static_cast<double>((tlocator.at(9)).toLatin1() - 'A' + 0.5) / 240 / 24 - 90;
     }
     else
     {
@@ -239,25 +221,27 @@ double Locator::getLon(const QString& tlocator)
 
     if  (tlocator.length() == 2)
     {
-        return (((tlocator.at(0)).toLatin1() - 'A') * 20) - 170;
+        return (((tlocator.at(0)).toLatin1() - 'A') * 20) + 10 - 180;
     }
 
     if (tlocator.length() == 4)
     {
-        return ((tlocator.at(0)).toLatin1()  - 'A') * 20 + ((tlocator.at(2)).toLatin1()  - '0' + 0.5) * 2 - 180;
+        return ((tlocator.at(0)).toLatin1()  - 'A') * 20 + 10 + (((tlocator.at(2)).digitValue () ) * 2)  + 0.0416666666666667 - 180;
     }
     if (tlocator.length()== 6)
     {
-    return (((tlocator.at(0)).toLatin1()  - 'A') * 20) +  (((tlocator.at(2)).toLatin1()  - '0' ) * 2) + (((tlocator.at(4)).toLatin1() - 'A') * (5/60)) + (0.5 * 5 / 60) - 180;
+    //qDebug() << QString("%1 + %2 + %3 + %4 - 180 = %5").arg((((tlocator.at(0)).toLatin1()  - 'A') * 20)).arg((((tlocator.at(2)).digitValue () ) * 2)).arg((((tlocator.at(4)).toLatin1() - 'A')/12 )).arg(0.0416666666666667).arg((((tlocator.at(0)).toLatin1()  - 'A') * 20) +  (((tlocator.at(2)).digitValue () ) * 2) + (static_cast<double>((tlocator.at(4)).toLatin1() - 'A')/12 ) + 0.0416666666666667 - 180);
 
 
-    //return (((tlocator.at(0)).toLatin1() - 'A') * 20) + (((tlocator.at(2)).digitValue () - '0') * 2) + (((tlocator.at(4)).toLatin1() - 'A') * (5/60))  - 180;
-        //return (((tlocator.at(0)).toLatin1() - 65) * 20) + (((tlocator.at(2)).toLatin1() - 48) * 2) + (((tlocator.at(4)).toLatin1() - 65 + 0.5) / 12) - 180;
+    return (((tlocator.at(0)).toLatin1()  - 'A') * 20) +
+            (((tlocator.at(2)).digitValue () ) * 2) +
+            (static_cast<double>((tlocator.at(4)).toLatin1() - 'A')/12 ) +
+            0.0416666666666667 - 180;
+
     }
     if (tlocator.length()== 8)
     {
-          //qDebug() << "Locator::getLon: " << QString::number(((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180) << QT_ENDL;
-        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180;
+        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).digitValue()) * 2 + static_cast<double>((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + static_cast<double>((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180;
     }
     //else if (tlocator.length()== 10)
     //{

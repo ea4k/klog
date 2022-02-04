@@ -104,19 +104,19 @@ Rectangle {
     }
 */
 
-        /*
+
         MapItemView{
                       model: rectangle_model
                       delegate: MapRectangle
                       {
                            topLeft     : QtPositioning.coordinate(model.coordinate.latitude, model.coordinate.longitude)
-                           bottomRight : QtPositioning.coordinate(model.coordinate.latitude2, model.coordinate.longitude2)
+                           bottomRight : QtPositioning.coordinate(model.coordinate.latitude, model.coordinate.longitude)
                            color: 'blue'
                            border.width: 10
                       }
         }
-        */
 
+/*
     MapItemView{
                   model: rectangle_model
                   delegate: MapRectangle
@@ -133,7 +133,7 @@ Rectangle {
                     }
                   }
     }
-
+*/
 
         MapItemView
         {

@@ -63,7 +63,7 @@ public:
   //double dmsTodeg (int deg, int min, int sec);
 
     Coordinate getLocatorCorner (const QString& tlocator, bool northWest = true); //northWest = returns the Noth West corner, false implies South East
-  bool checkCoords(const double lon1, const double lat1);
+    bool checkCoords(const double lon1, const double lat1);
 
 
 private:
