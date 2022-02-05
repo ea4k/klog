@@ -5411,20 +5411,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         eQSLUseQSOStationCallSign = util->trueOrFalse(value);
     }
     else if(field =="LOTWACTIVE"){
-                //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << QT_ENDL;
-        if (util->trueOrFalse(value))
-        {
-            lotwActive = true;
-            lotwCallTQSL->setEnabled(true);
-            lotwCallTQSL->setWhatsThis(tr("Sends the log to LoTW calling TQSL."));
-        }
-        else
-        {
-            lotwActive = false;
-            lotwCallTQSL->setEnabled(false);
-            lotwCallTQSL->setWhatsThis(tr("This function is disabled. Go to the Setup->LoTW tab to enable it."));
-        }
-                //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << QT_ENDL;
+         //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << QT_ENDL;
+        lotwActive = util->trueOrFalse(value);
+         //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << QT_ENDL;
     }
     else if(field =="LOTWPATH"){
           //qDebug() << "MainWindow::processConfigLine - LOTWPATH" << QT_ENDL;
