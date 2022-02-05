@@ -485,7 +485,7 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
     }
     else
     {
-        sendSignal(result, qsos);
+        //sendSignal(result, qsos);
         //parseNetworkError(result);
     }
 
