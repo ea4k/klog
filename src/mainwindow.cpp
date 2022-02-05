@@ -3113,10 +3113,10 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 {
      //qDebug() << "MainWindow::slotElogQRZCOMLogUploaded: " << QString::number(_error) << QT_ENDL;
 
-   if (!qrzcomSubscriber)
-   {
-        return;
-   }
+//   if (!qrzcomSubscriber)
+//   {
+//        return;
+//   }
 
        QMessageBox msgBox;
    if (_error != QNetworkReply::NoError)
