@@ -115,8 +115,8 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
 
     if (!isValidLocator(tlocator))
     {
-         qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
-       return _position;
+        //qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
+        return _position;
     }
 
     _positionC.lat = getLat (tlocator);
@@ -125,29 +125,26 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     if (tlocator.length() == 2)
     {
         _north.lat = _positionC.lat + 5;
-        _north.lon = _positionC.lon - 20;
+        _north.lon = _positionC.lon - 10;
 
         _south.lat = _positionC.lat - 5;
-        _north.lon = _positionC.lon + 2
-                -0;
+        _south.lon = _positionC.lon + 10;
     }
     else if (tlocator.length() == 4)
     {
-        _north.lat = _positionC.lat + 5 + 0.5;
-        _north.lon = _positionC.lon - 10 -1;
+        _north.lat = _positionC.lat + 0.5;
+        _north.lon = _positionC.lon -1;
 
-        _south.lat = _positionC.lat - 5 - 0.5;
-        _north.lon = _positionC.lon + 10 -1;
+        _south.lat = _positionC.lat - 0.5;
+        _south.lon = _positionC.lon + 1;
     }
     else if (tlocator.length() == 6)
     {
+        _north.lat = _positionC.lat + 0.50208333333333333; //(2.5/60/2);
+        _north.lon = _positionC.lon - 0.0416666666666667;//(5/60/2);
 
-        _north.lat = _positionC.lat + 5 + 0.5 + 0.50208333333333333; //(2.5/60/2);
-        _north.lon = _positionC.lon - 10 -1 - 0.0416666666666667;//(5/60/2);
-
-        _south.lat = _positionC.lat - 5 - 0.5 - 0.50208333333333333; //(2.5/60/2);
-        _north.lon = _positionC.lon + 10 -1 + 0.0416666666666667;//(5/60/2);
-
+        _south.lat = _positionC.lat - 0.50208333333333333; //(2.5/60/2);
+        _south.lon = _positionC.lon + 0.0416666666666667;//(5/60/2);
     }
     else if (tlocator.length() == 8)
     {
@@ -155,22 +152,23 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     }
     else
     {
-         qDebug() << Q_FUNC_INFO << ": Exiting" ;
+         //qDebug() << Q_FUNC_INFO << ": Exiting" ;
         return _position;
     }
-    qDebug() << Q_FUNC_INFO;
-    qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);
-    qDebug() << QString ("North : %1, %2").arg(_north.lat).arg(_north.lon);
-    qDebug() << QString ("South : %1, %2").arg(_south.lat).arg(_south.lon);
+    //qDebug() << Q_FUNC_INFO;
+    //qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);
+    //qDebug() << QString ("North : %1, %2").arg(_north.lat).arg(_north.lon);
+    //qDebug() << QString ("South : %1, %2").arg(_south.lat).arg(_south.lon);
     if (northWest)
     {
+        return _north;
         //qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
     }
     else
     {
+        return _south;
         //qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
     }
-    return _position;
 }
 
 double Locator::getLat(const QString& tlocator){
@@ -181,27 +179,31 @@ double Locator::getLat(const QString& tlocator){
     {
         return 0.0;
     }
+    QString aux = tlocator.toUpper();
 
-    if (tlocator.length() == 2)
+    if (aux.length() == 2)
     {
-        return (((tlocator.at(1)).toLatin1() - 'A') * 10) - 85;
+        return (((aux.at(1)).toLatin1() - 'A') * 10) - 85;
     }
-    if (tlocator.length() == 4)
+    if (aux.length() == 4)
     {
-        //return (((tlocator.at(1)).toLatin1() - 'A') * 10) + ((tlocator.at(3)).toLatin1() - '0' * 1) - 85;
-        return (((tlocator.at(1)).toLatin1() - 'A') * 10) + ((tlocator.at(3)).digitValue() + 0.5) - 90;
+        //return (((aux.at(1)).toLatin1() - 'A') * 10) + ((aux.at(3)).toLatin1() - '0' * 1) - 85;
+        return (((aux.at(1)).toLatin1() - 'A') * 10) + ((aux.at(3)).digitValue() + 0.5) - 90;
     }
-    if (tlocator.length()== 6)
+    if (aux.length() == 6)
     {
-        return (((tlocator.at(1)).toLatin1() - 'A') * 10 ) + (tlocator.at(3).digitValue()) + (((tlocator.at(5)).toLatin1() - 'A') * (2.5/60)) + (2.5/60)/2 - 90;
+        double result = (((aux.at(1)).toLatin1() - 'A') * 10 ) + (aux.at(3).digitValue()) + (((aux.at(5)).toLatin1() - 'A') * (2.5/60)) + (static_cast<double>(2.5/60))/2.0 - 90;
+
+        //qDebug() << QString("%1: Locator/Latitude: %2/%3").arg(Q_FUNC_INFO).arg(aux).arg(result);
+        return result;
     }
-    if (tlocator.length()== 8)
+    if (aux.length()== 8)
     {
-        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).digitValue() * 1) + (((tlocator.at(5)).toLatin1() - 'A') * (2.5/60))  + ((tlocator.at(7)).toLatin1() - '0' * 0.5) / 240 - 90;
+        return ((aux.at(1)).toLatin1() - 'A') * 10 + ((aux.at(3)).digitValue() * 1) + (((aux.at(5)).toLatin1() - 'A') * (2.5/60))  + ((aux.at(7)).toLatin1() - '0' * 0.5) / 240 - 90;
     }
-    if (tlocator.length()== 10)
+    if (aux.length()== 10)
     {
-        return ((tlocator.at(1)).toLatin1() - 'A') * 10 + ((tlocator.at(3)).toLatin1() - '0') + ((tlocator.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((tlocator.at(7)).toLatin1() - '0' + 0.0) / 240 + static_cast<double>((tlocator.at(9)).toLatin1() - 'A' + 0.5) / 240 / 24 - 90;
+        return ((aux.at(1)).toLatin1() - 'A') * 10 + ((aux.at(3)).toLatin1() - '0') + ((aux.at(5)).toLatin1() - 'A' + 0.0) / 24 + ((aux.at(7)).toLatin1() - '0' + 0.0) / 240 + static_cast<double>((aux.at(9)).toLatin1() - 'A' + 0.5) / 240 / 24 - 90;
     }
     else
     {
@@ -217,35 +219,43 @@ double Locator::getLon(const QString& tlocator)
     {
         return 0.0;
     }
+    QString aux = tlocator.toUpper ();
 
-
-    if  (tlocator.length() == 2)
+    if  (aux.length() == 2)
     {
-        return (((tlocator.at(0)).toLatin1() - 'A') * 20) + 10 - 180;
+        return (((aux.at(0)).toLatin1() - 'A') * 20) + 10 - 180;
     }
 
-    if (tlocator.length() == 4)
+    if (aux.length() == 4)
     {
-        return ((tlocator.at(0)).toLatin1()  - 'A') * 20 + 10 + (((tlocator.at(2)).digitValue () ) * 2)  + 0.0416666666666667 - 180;
+            //qDebug() << QString("%1 + %2 + %3 - 180 = %4")
+            //            .arg((((aux.at(0)).toLatin1()  - 'A') * 20))
+            //            .arg((((aux.at(2)).digitValue () ) * 2))
+            //            .arg(1)
+            //            .arg((((aux.at(0)).toLatin1()  - 'A') * 20) + (((aux.at(2)).digitValue () ) * 2)  +1 - 180);
+
+       // return ((aux.at(0)).toLatin1()  - 'A') * 20 + 10 + (((aux.at(2)).digitValue () ) * 2)  + 0.0416666666666667 - 180;
+
+        return (((aux.at(0)).toLatin1()  - 'A') * 20) +
+                (((aux.at(2)).digitValue () ) * 2) + 1 - 180;
     }
-    if (tlocator.length()== 6)
+    if (aux.length() == 6)
     {
-    //qDebug() << QString("%1 + %2 + %3 + %4 - 180 = %5").arg((((tlocator.at(0)).toLatin1()  - 'A') * 20)).arg((((tlocator.at(2)).digitValue () ) * 2)).arg((((tlocator.at(4)).toLatin1() - 'A')/12 )).arg(0.0416666666666667).arg((((tlocator.at(0)).toLatin1()  - 'A') * 20) +  (((tlocator.at(2)).digitValue () ) * 2) + (static_cast<double>((tlocator.at(4)).toLatin1() - 'A')/12 ) + 0.0416666666666667 - 180);
+        //qDebug() << QString("%1 + %2 + %3 + %4 - 180 = %5").arg((((aux.at(0)).toLatin1()  - 'A') * 20)).arg((((aux.at(2)).digitValue () ) * 2)).arg((((aux.at(4)).toLatin1() - 'A')/12 )).arg(0.0416666666666667).arg((((aux.at(0)).toLatin1()  - 'A') * 20) +  (((aux.at(2)).digitValue () ) * 2) + (static_cast<double>((aux.at(4)).toLatin1() - 'A')/12.0 ) + 0.0416666666666667 - 180);
 
 
-    return (((tlocator.at(0)).toLatin1()  - 'A') * 20) +
-            (((tlocator.at(2)).digitValue () ) * 2) +
-            (static_cast<double>((tlocator.at(4)).toLatin1() - 'A')/12 ) +
+    return (((aux.at(0)).toLatin1()  - 'A') * 20) +
+            (((aux.at(2)).digitValue () ) * 2) +
+            (static_cast<double>(((aux.at(4)).toLatin1()) - 'A')/12.0 ) +
             0.0416666666666667 - 180;
-
     }
-    if (tlocator.length()== 8)
+    if (aux.length()== 8)
     {
-        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).digitValue()) * 2 + static_cast<double>((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + static_cast<double>((tlocator.at(6)).toLatin1() - '0' + 0.5) / 120 - 180;
+        return ((aux.at(0)).toLatin1() - 'A') * 20 + ((aux.at(2)).digitValue()) * 2 + static_cast<double>((aux.at(4)).toLatin1() - 'A' + 0.0) / 12 + static_cast<double>((aux.at(6)).toLatin1() - '0' + 0.5) / 120 - 180;
     }
-    //else if (tlocator.length()== 10)
+    //else if (aux.length()== 10)
     //{
-    //        return ((tlocator.at(0)).toLatin1() - 'A') * 20 + ((tlocator.at(2)).toLatin1() - '0') * 2 + ((tlocator.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((tlocator.at(6)).toLatin1() - '0' + 0.0) / 120 + ((tlocator.at(8)).toLatin1() - 'A' + 0.5) / 120 / 24 - 180;
+    //        return ((aux.at(0)).toLatin1() - 'A') * 20 + ((aux.at(2)).toLatin1() - '0') * 2 + ((aux.at(4)).toLatin1() - 'A' + 0.0) / 12 + ((aux.at(6)).toLatin1() - '0' + 0.0) / 120 + ((aux.at(8)).toLatin1() - 'A' + 0.5) / 120 / 24 - 180;
     //    }
     else
     {

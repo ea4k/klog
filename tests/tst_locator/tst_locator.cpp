@@ -42,6 +42,7 @@ private slots:
     void cleanupTestCase();
     void test_Constructor();
     void test_isValid();
+    void test_Coordinates();
 
 private:
     Locator *locator;
@@ -97,8 +98,42 @@ void tst_Locator::test_isValid()
     QVERIFY2(!locator->isValidLocator ("IN80ya"), "IN80sa tested true");
 }
 
+void tst_Locator::test_Coordinates()
+{
+    double delta = 0.005;
+    //QString loc = "IN80AA";
+    //qDebug() << Q_FUNC_INFO << QString(": %1=> Lat/long = %2/%3").arg(loc).arg(locator->getLat(loc)).arg(locator->getLon(loc));
+
+    //qDebug() << Q_FUNC_INFO << ": Lat: "  << QString("%1").arg(locator->getLat ("IN80aa"));
+    //qDebug() << Q_FUNC_INFO << ": Lon: "  << QString("%1").arg(locator->getLon ("IN80aa"));
+    //qDebug() << Q_FUNC_INFO << ": Lat: "  << QString("%1").arg(locator->getLat ("IO"));
+    //qDebug() << Q_FUNC_INFO << ": Lon: "  << QString("%1").arg(locator->getLon ("IO"));
+    //qDebug() << Q_FUNC_INFO << ": Lat: "  << QString("%1").arg(locator->getLat ("IO93"));
+    //qDebug() << Q_FUNC_INFO << ": Lon: "  << QString("%1").arg(locator->getLon ("IO93"));
+    //qDebug() << Q_FUNC_INFO << ": Lat: "  << QString("%1").arg(locator->getLat ("IO93ob"));
+    //qDebug() << Q_FUNC_INFO << ": Lon: "  << QString("%1").arg(locator->getLon ("IO93ob"));
+
+    QVERIFY2(locator->getLat ("IN") == 45, "Lat failed for IN");
+    QVERIFY2(locator->getLon ("IN") == -10, "Lon failed for IN");
+    QVERIFY2(locator->getLat ("IN80") == 40.5, "Lat failed for IN80");
+    QVERIFY2(locator->getLon ("IN80") == -3.0, "Lon failed for IN80");
+    //qDebug() << QString::number(static_cast<double>(locator->getLat("IN80AA")) - 40.0208);
+    QVERIFY2(abs(abs(static_cast<double>(locator->getLat("IN80AA"))) - 40.0208) <= delta, "Lat failed for IN80AA");
+    QVERIFY2(abs(abs(static_cast<double>(locator->getLon("IN80AA"))) - abs(-3.95833)) <= delta, "Lon failed for IN80AA");
+
+    // Test the
+    //Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
+    QString loc = "QG20";
+    Coordinate corner;
+    qDebug() << "Center: " << QString::number(locator->getLat (loc)) << "," << QString::number(locator->getLon (loc));
+    corner = locator->getLocatorCorner (loc, true);
+    qDebug() << "North: " << QString::number(corner.lat) << "," << QString::number(corner.lon);
+    corner = locator->getLocatorCorner (loc, false);
+    qDebug() << "South: " << QString::number(corner.lat) << "," << QString::number(corner.lon);
+
+}
+
 /*
-  bool isValidLocator(const QString& tlocator);
   double getLat(const QString& tlocator);
   double getLon(const QString& tlocator);
   QString getLocator(const double lon1, const double lat1) const;
