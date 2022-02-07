@@ -53,7 +53,7 @@ public:
   bool isValidLocator(const QString& tlocator);
   double getLat(const QString& tlocator);
   double getLon(const QString& tlocator);
-  QString getLocator(const double lon1, const double lat1) const;
+  QString getLocator(const double lon1, const double lat1, int length=6) const; //IN80aa is the default length
   int getBeam(const double lon1, const double lat1, const double lon2, const double lat2);
   int getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2);
   int getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem);

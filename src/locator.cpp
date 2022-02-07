@@ -140,21 +140,17 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     }
     else if (tlocator.length() == 6)
     {
-        _north.lat = _positionC.lat + 0.50208333333333333; //(2.5/60/2);
+        _north.lat = _positionC.lat ;//+ 0.020833333333333; //(2.5/60/2);
         _north.lon = _positionC.lon - 0.0416666666666667;//(5/60/2);
 
-        _south.lat = _positionC.lat - 0.50208333333333333; //(2.5/60/2);
+        _south.lat = _positionC.lat - (2*0.020833333333333); //(2.5/60/2);
         _south.lon = _positionC.lon + 0.0416666666666667;//(5/60/2);
     }
     else if (tlocator.length() == 8)
     {
 
     }
-    else
-    {
-         //qDebug() << Q_FUNC_INFO << ": Exiting" ;
-        return _position;
-    }
+
     //qDebug() << Q_FUNC_INFO;
     //qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);
     //qDebug() << QString ("North : %1, %2").arg(_north.lat).arg(_north.lon);
@@ -162,12 +158,12 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     if (northWest)
     {
         return _north;
-        //qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
+        qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
     }
     else
     {
         return _south;
-        //qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
+        qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
     }
 }
 
@@ -192,7 +188,7 @@ double Locator::getLat(const QString& tlocator){
     }
     if (aux.length() == 6)
     {
-        double result = (((aux.at(1)).toLatin1() - 'A') * 10 ) + (aux.at(3).digitValue()) + (((aux.at(5)).toLatin1() - 'A') * (2.5/60)) + (static_cast<double>(2.5/60))/2.0 - 90;
+        double result = (((aux.at(1)).toLatin1() - 'A') * 10 ) + (aux.at(3).digitValue()) + (((aux.at(5)).toLatin1() - 'A') * (2.5/60)) + (static_cast<double>(2.5/60)) - 90;
 
         //qDebug() << QString("%1: Locator/Latitude: %2/%3").arg(Q_FUNC_INFO).arg(aux).arg(result);
         return result;
@@ -347,72 +343,58 @@ bool Locator::checkCoords(const double lon1, const double lat1){
   }
 }
 
-QString Locator::getLocator(const double lon1, const double lat1) const{
+QString Locator::getLocator(const double lon1, const double lat1, int length) const{
 /* -------------- Subroutine -----------------------
    Calculate locator from longitude and latitude
    Input : lon = Longitude in decimal degrees (+ = West;  - = East).
            lat = Latitude in decimal degrees (+ = North; - = South).
    Output: locator = 6 characters world wide locator.
    ------------------------------------------------- */
-   //qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")" << QT_ENDL;
-  QString locat = ""; //NO locator
+    qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")" << QT_ENDL;
+    QString locat = ""; //NO locator
 
-  double lo, la;
-  int alo,bla,clo,dla,elo,fla;
+    double lo, la;
+    int alo,bla,clo,dla,elo,fla;
 
-  lo=(-lon1+180)/20;
-  la = (lat1+90)/10;
+    lo = (lon1+180)/20;
+    la = (lat1+90)/10;
 
-  alo=int(floor(lo));
-  bla=int(floor(la));
-  lo=(lo-(double(alo)))*10;
-  la=(la-(double(bla)))*10;
+    alo=int(floor(lo));
+    bla=int(floor(la));
 
-  clo = int(floor(lo));
-  dla = int(floor(la));
+    locat = locat + QChar(alo+'A');
+    locat = locat + QChar(bla+'A');
+    qDebug() << Q_FUNC_INFO << ": " << locat;
+    if (length == 2)
+    {
+        return locat;
+    }
 
-  elo = int(floor((lo-double(clo) ) * 24 )) ;
-  fla = int(floor((la-double(dla) ) * 24 ));
+    lo=(lo-(double(alo)))*10;
+    la=(la-(double(bla)))*10;
 
-//TODO: Test if locators are calculated correctly.
-// generation function has been changed because of the QT4 migration
-  locat = locat + QChar(alo+'A');
-  locat = locat + QChar(bla+'A');
-  locat = locat + QChar(clo+'0');
-  locat = locat + QChar(dla+'0');
-  locat = locat + QChar(elo+'A');
-  locat = locat + QChar(fla+'A');
+    clo = int(floor(lo));
+    dla = int(floor(la));
+    locat = locat + QChar(clo+'0');
+    locat = locat + QChar(dla+'0');
 
-//   locat.at(0)=QChar(alo+'A');
+    qDebug() << Q_FUNC_INFO << ": " << locat;
+    if (length == 4)
+    {
+        return locat;
+    }
 
-//   locat.at(1)=QChar(bla+'A');
-//   locat.at(2)=QChar(clo+'0');
-//   locat.at(3)=QChar(dla+'0');
-//   locat.at(4)=QChar(elo+'A');
-//   locat.at(5)=QChar(fla+'A');
+    elo = int(floor((lo-double(clo) ) * 24 )) ;
+    fla = int(floor((la-double(dla) ) * 24 ));
 
-return locat;
+    locat = locat + QChar(clo+'0');
+    locat = locat + QChar(dla+'0');
+
+  //locat = locat + QChar(elo+'A');
+  //locat = locat + QChar(fla+'A');
+    qDebug() << Q_FUNC_INFO << ": " << locat;
+    return locat;
 }
-
-/*
-void Locator::degTodms(const double deg){
-  double temp;
-  double ddeg;
-  ddeg = 0;
-  ddeg += 1.0/7200.0; // Round-up to 0.5 sec
-  int ideg = (int)ddeg;
-  temp = ( deg - (double)ideg ) * 60.0;
-  int imin = (int)temp;
-  temp = ( temp - (double)imin ) * 60.0;
-  int isec = (int)(temp);
-}
-
-
-double Locator::dmsTodeg (int deg, int min, int sec)
-{
-    return (double)deg + (double)min/60.0 + (double)sec/3600.0;
-}
-*/
 
 int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2)
 {
@@ -446,6 +428,5 @@ int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString
         double lat2 = getLat(tlocator2);
 
         return getDistance(lon1, lat1, lon2, lat2, _imperialSystem);
-        //return getBeam(lon1, lat1, lon2, lat2);
     }
 }
