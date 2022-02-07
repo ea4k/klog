@@ -2249,6 +2249,44 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
     }
 }
 
+QStringList DataProxy_SQLite::getFilteredLocators()
+{
+    QStringList grids = QStringList();
+    QSqlQuery query;
+    QString queryString;
+    bool sqlOK;
+    queryString = QString("SELECT DISTINCT gridsquare from log ORDER BY id ASC");
+
+    sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        while(query.next())
+        {
+            if (query.isValid())
+            {
+                queryString = (query.value(0)).toString();
+                //qDebug() << Q_FUNC_INFO << queryString  << QT_ENDL;
+                grids.append(queryString);
+            }
+            else
+            {
+                query.finish();
+                return QStringList();
+            }
+        }
+        query.finish();
+        grids.sort();
+        return grids;
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        return QStringList();
+    }
+}
+
 bool DataProxy_SQLite::updateAwardDXCC()
 {
        //qDebug() << "DataProxy_SQLite::updateAwardDXCC" << QT_ENDL;

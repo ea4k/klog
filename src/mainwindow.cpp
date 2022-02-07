@@ -742,6 +742,7 @@ void MainWindow::slotWorldMapShow()
 {
     qDebug() << Q_FUNC_INFO;
     mapWidget->show();
+    showOnMapLocators();
     //QString myGrid = myDataTabWidget->getMyLocator();
     //mapWidget->setCenter (locator->getLat(myGrid), locator->getLon (myGrid));
     //mapWidget->addLocator(locator->getLat ("IN80DE"), locator->getLon ("IN80DE"), locator->getLat ("JN10"), locator->getLon ("JN10"));
@@ -987,6 +988,17 @@ void MainWindow::slotQRZReturnPressed()
     slotClearButtonClicked();
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+void MainWindow::showOnMapLocators()
+{
+    QStringList grids;
+    grids.clear();
+    grids << dataProxy->getFilteredLocators();
+    foreach(QString i, grids)
+    {
+        mapWidget->addWorkedLocator(i);
+    }
+
 }
 
 void MainWindow::actionsJustAfterAddingOneQSO()

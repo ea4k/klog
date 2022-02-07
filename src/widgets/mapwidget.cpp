@@ -153,6 +153,7 @@ void MapWidget::addWorkedLocator(const QString &_loc)
         item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
         item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
         modelRectangle.appendRow(item);
+        qDebug() << Q_FUNC_INFO << " Rectangle OK";
     }
     else
     {

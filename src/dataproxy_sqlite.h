@@ -154,6 +154,7 @@ public:
     QString getQSLViaFromQRZ(const QString &_call);
     // /Complete with previous
 
+    QStringList getFilteredLocators();
 
     bool updateAwardDXCC();
     bool updateAwardWAZ();

@@ -349,6 +349,7 @@ private:
     void fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
+    void showOnMapLocators();
     //QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
