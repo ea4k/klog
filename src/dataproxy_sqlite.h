@@ -149,9 +149,11 @@ public:
     QString getNameFromQRZ(const QString &_call);
     QString getQTHFromQRZ(const QString &_call);
     QString getLocatorFromQRZ(const QString &_call);
+    QString getLocatorFromId (const int _id);
     QString getIOTAFromQRZ(const QString &_call);
     QString getQSLViaFromQRZ(const QString &_call);
     // /Complete with previous
+
 
     bool updateAwardDXCC();
     bool updateAwardWAZ();

@@ -2139,6 +2139,42 @@ QString DataProxy_SQLite::getLocatorFromQRZ(const QString &_call)
     }
 }
 
+QString DataProxy_SQLite::getLocatorFromId (const int _id)
+{
+    if (_id <= 0)
+    {
+        return QString();
+    }
+    QSqlQuery query;
+    QString queryString = QString("SELECT gridsquare FROM log WHERE id='%0'").arg(_id);
+
+    bool sqlOk = query.exec(queryString);
+
+    if (sqlOk)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                if (((query.value(0)).toString()).length()>0)
+                {
+                    QString v = (query.value(0)).toString();
+                    query.finish();
+                    return v;
+                }
+            }
+        }
+        query.finish();
+        return QString();
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        return QString();
+    }
+}
+
 
 QString DataProxy_SQLite::getIOTAFromQRZ(const QString &_call)
 {

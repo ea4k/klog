@@ -44,11 +44,14 @@ MapWidget::MapWidget()
     roles[CoordinateRole] = QByteArray("coordinate");
     roles[NorthRole] = QByteArray("north");
     roles[SouthRole] = QByteArray("south");
+    roles[ColorRole] = QByteArray("color");
+
     modelCircle.setItemRoleNames(roles);
     modelRectangle.setItemRoleNames(roles);
 
-    //qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
+
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+    qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
 
@@ -89,10 +92,6 @@ void MapWidget::slotButtonClicked ()
     _north = locator.getLocatorCorner("IN80", true);
     _south = locator.getLocatorCorner("IN80", false);
 
-
-
-    //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
-    //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
     QGeoRectangle rect;
     rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
     rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon) );
@@ -109,27 +108,9 @@ void MapWidget::slotButtonClicked ()
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
     item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
+    //item->setData(QVariant::fromValue(Qt::blue), ColorRole);
     modelRectangle.appendRow(item);
 
-/*
-    QStandardItem *item = new QStandardItem;
-    item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
-    modelCircle.appendRow(item);
-*/
-    //Read:
-    //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model
- /*
-    double latitude = 43.2;
-    double longitude = -4.816669;
-
-    QVariant returnedValue;
-    QObject *object = qmlView.rootObject ();
-    QMetaObject::invokeMethod(object, "addLoc",
-           Q_RETURN_ARG(QVariant, returnedValue),
-           Q_ARG(QVariant, latitude), Q_ARG(QVariant, longitude));
-       qDebug() << "QML function returned:" << returnedValue.toString();
-
-*/
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -140,7 +121,41 @@ void MapWidget::addQSO(const QString &_loc)
     {
         return;
     }
+    qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
+    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
     modelCircle.appendRow(item);
+}
+
+void MapWidget::addWorkedLocator(const QString &_loc)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _loc;
+    if (!locator.isValidLocator(_loc))
+    {
+        return;
+    }
+    qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
+
+    Coordinate _north, _south;
+    _north = locator.getLocatorCorner(_loc, true);
+    _south = locator.getLocatorCorner(_loc, false);
+
+    QGeoRectangle rect;
+    rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
+    rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon) );
+
+
+    if (rect.isValid ())
+    {
+        QStandardItem *item = new QStandardItem;
+        item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
+        item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
+        modelRectangle.appendRow(item);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " Rectangle NOK";
+    }
 }

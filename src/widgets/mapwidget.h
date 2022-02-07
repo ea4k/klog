@@ -40,6 +40,7 @@ public:
     void setCenter(const double lat, const double lon);
     void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
     void addQSO(const QString &_loc);
+    void addWorkedLocator(const QString &_loc);
 
 private slots:
     void slotButtonClicked();
@@ -53,6 +54,7 @@ private:
     int CoordinateRole = Qt::UserRole + 1000;
     int NorthRole = Qt::UserRole + 1000;
     int SouthRole = Qt::UserRole + 1001;
+    int ColorRole = Qt::UserRole + 1002;
     Locator locator;
     QPushButton *testButton;
     double lat, lon;

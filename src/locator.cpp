@@ -104,7 +104,7 @@ Wikipedia:
 
 Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
 {
-    qDebug() << Q_FUNC_INFO << ": " << tlocator;
+    //qDebug() << Q_FUNC_INFO << ": " << tlocator;
     Coordinate _position, _north, _south;
     _position.lat = 0.0;
     _position.lon = 0.0;
@@ -158,12 +158,12 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
     if (northWest)
     {
         return _north;
-        qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
+        //qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
     }
     else
     {
         return _south;
-        qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
+        //qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
     }
 }
 
@@ -350,7 +350,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
            lat = Latitude in decimal degrees (+ = North; - = South).
    Output: locator = 6 characters world wide locator.
    ------------------------------------------------- */
-    qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")" << QT_ENDL;
+    //qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")" << QT_ENDL;
     QString locat = ""; //NO locator
 
     double lo, la;
@@ -364,7 +364,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
 
     locat = locat + QChar(alo+'A');
     locat = locat + QChar(bla+'A');
-    qDebug() << Q_FUNC_INFO << ": " << locat;
+    //qDebug() << Q_FUNC_INFO << ": " << locat;
     if (length == 2)
     {
         return locat;
@@ -378,7 +378,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
     locat = locat + QChar(clo+'0');
     locat = locat + QChar(dla+'0');
 
-    qDebug() << Q_FUNC_INFO << ": " << locat;
+    //qDebug() << Q_FUNC_INFO << ": " << locat;
     if (length == 4)
     {
         return locat;
@@ -392,7 +392,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
 
   //locat = locat + QChar(elo+'A');
   //locat = locat + QChar(fla+'A');
-    qDebug() << Q_FUNC_INFO << ": " << locat;
+    //qDebug() << Q_FUNC_INFO << ": " << locat;
     return locat;
 }
 

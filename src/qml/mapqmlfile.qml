@@ -70,10 +70,10 @@ Rectangle {
         plugin: mapPlugin
         center: mapCenter.coordinate
 
-        onCenterChanged:
-        {
-            console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
-        }
+        //onCenterChanged:
+        //{
+        //    console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
+        //}
         zoomLevel: 14
         MouseArea
         {
@@ -114,10 +114,11 @@ Rectangle {
     model: rectangle_model
     delegate: MapRectangle
     {
-      color: 'green'
+      //color: 'green'
       border.width: 2
       topLeft       : model.north
       bottomRight   : model.south
+      color         : model.color
     }
 }
 /*
