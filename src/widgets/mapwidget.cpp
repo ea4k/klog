@@ -42,10 +42,12 @@ MapWidget::MapWidget()
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
     roles[CoordinateRole] = QByteArray("coordinate");
+    roles[NorthRole] = QByteArray("north");
+    roles[SouthRole] = QByteArray("south");
     modelCircle.setItemRoleNames(roles);
     modelRectangle.setItemRoleNames(roles);
 
-    qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
+    //qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
@@ -83,19 +85,17 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 void MapWidget::slotButtonClicked ()
 {
     qDebug() << "MapWidget::slotButtonClicked ";
-    lat = locator.getLat("IN80");
-    lon = locator.getLon("IN80");
-    qDebug() << "MapWidget::slotButtonClicked: " << QString::number(lat) << "/" << QString::number(lon);
+    Coordinate _north, _south;
+    _north = locator.getLocatorCorner("IN80", true);
+    _south = locator.getLocatorCorner("IN80", false);
 
-    double lat2 = locator.getLat("IM99");
-    double lon2 = locator.getLon("IM99");
-    QStandardItem *item = new QStandardItem;
+
 
     //item->setData(QVariant::fromValue(QGeoCoordinate(lat2, lon2)), CoordinateRole);
     //QGeoRectangle(const QGeoCoordinate &center, double degreesWidth, double degreesHeight)
     QGeoRectangle rect;
-    rect.setTopLeft (QGeoCoordinate(lat, lon));
-    rect.setBottomRight (QGeoCoordinate(lat2, lon2) );
+    rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
+    rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon) );
 
 
     if (rect.isValid ())
@@ -106,10 +106,16 @@ void MapWidget::slotButtonClicked ()
     {
         qDebug() << Q_FUNC_INFO << " Rectangle NOK";
     }
-
-
-    item->setData(QVariant::fromValue(rect), CoordinateRole);
+    QStandardItem *item = new QStandardItem;
+    item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
+    item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
     modelRectangle.appendRow(item);
+
+/*
+    QStandardItem *item = new QStandardItem;
+    item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
+    modelCircle.appendRow(item);
+*/
     //Read:
     //https://stackoverflow.com/questions/51428077/qml-mappolygon-from-c-model
  /*

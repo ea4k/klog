@@ -51,6 +51,8 @@ private:
     QHash<int, QByteArray> roles;
 
     int CoordinateRole = Qt::UserRole + 1000;
+    int NorthRole = Qt::UserRole + 1000;
+    int SouthRole = Qt::UserRole + 1001;
     Locator locator;
     QPushButton *testButton;
     double lat, lon;

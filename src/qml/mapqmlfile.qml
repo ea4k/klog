@@ -89,33 +89,37 @@ Rectangle {
             //}
         }
 /*
-    MapRectangle {
+        MapItemView
+        {
+            model: rectangle_model
+            delegate: MapRectangle
+            {
+                topLeft     : model.coordinate
+                bottomRight : model.coordinate
+                color: 'green'
+                border.width: 10
+            }
+        }
 
-        color: 'green'
-        border.width: 2
-        topLeft {
-            latitude: -27
-            longitude: 153
-        }
-        bottomRight {
-            latitude: -28
-            longitude: 153.5
-        }
-    }
 */
-
-
-        MapItemView{
-                      model: rectangle_model
-                      delegate: MapRectangle
-                      {
-                           topLeft     : QtPositioning.coordinate(model.coordinate.latitude, model.coordinate.longitude)
-                           bottomRight : QtPositioning.coordinate(model.coordinate.latitude, model.coordinate.longitude)
-                           color: 'blue'
-                           border.width: 10
-                      }
-        }
-
+        /*
+    //North
+    cornerManual.lat = 41.0;
+    cornerManual.lon = -4.0;
+    //South
+    cornerManual.lat = 40.0;
+    cornerManual.lon = -2.0;
+*/
+    MapItemView{
+    model: rectangle_model
+    delegate: MapRectangle
+    {
+      color: 'green'
+      border.width: 2
+      topLeft       : model.north
+      bottomRight   : model.south
+    }
+}
 /*
     MapItemView{
                   model: rectangle_model
@@ -124,16 +128,18 @@ Rectangle {
                     color: 'green'
                     border.width: 2
                     topLeft {
-                        latitude: -27
-                        longitude: 153
+                        latitude: 41.0
+                        longitude: -4.0
                     }
-                    bottomRight {
-                        latitude: -28
-                        longitude: 153.5
+                    bottomRight
+                    {
+                        latitude: 40.0
+                        longitude: -2.0
                     }
                   }
     }
-*/
+    */
+
 
         MapItemView
         {
