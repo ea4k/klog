@@ -2251,12 +2251,18 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
 
 QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed)
 {
+    qDebug() << Q_FUNC_INFO << ": " << _band;
+    qDebug() << Q_FUNC_INFO << ": " << _mode;
+    qDebug() << Q_FUNC_INFO << ": " << _prop;
+    qDebug() << Q_FUNC_INFO << ": " << _sat;
+
     QStringList grids = QStringList();
     QSqlQuery query;
     QString queryString;
 
     QString bandString = QString();
     int bandId = getIdFromBandName(_band);
+
     if (util->isValidBandId(bandId))
     {
         bandString = QString("bandid = '%1'").arg(bandId);
@@ -2265,6 +2271,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     {
         bandString = QString("bandid <> ''");
     }
+
 
     QString modeString = QString();
     int modeId = getIdFromModeName(_band);
@@ -2280,7 +2287,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     QString propString = QString();
     if (isValidPropMode(_prop))
     {
-        propString = QString("AND prop_mode = '%1'").arg(modeId);
+        propString = QString("AND prop_mode = '%1'").arg(_prop);
     }
     else
     {
@@ -2315,6 +2322,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
 
     if (sqlOK)
     {
+        qDebug() << Q_FUNC_INFO << queryString  << QT_ENDL;
         while(query.next())
         {
             if (query.isValid())
@@ -4645,7 +4653,7 @@ QStringList DataProxy_SQLite::getContestOverlays()
 bool DataProxy_SQLite::isValidPropMode(const QString &_prop)
 {
     QSqlQuery query;
-    QString queryString = QString("SELECT shortname FROM prop_mode_enumeration WHERE id='%1'").arg(_prop);
+    QString queryString = QString("SELECT shortname FROM prop_mode_enumeration WHERE shortname='%1'").arg(_prop);
     bool sqlOK = query.exec(queryString);
     if (sqlOK)
     {

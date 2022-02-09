@@ -61,6 +61,8 @@ private:
     void setPropModes();
     void setSatNames();
     void showFiltered();
+    QString getPropModeFromComboBox();
+
     DataProxy_SQLite *dataProxy;
     MapWidget *mapWidget;
     QComboBox *propComboBox, *bandComboBox, *modeComboBox, *satNameComboBox;

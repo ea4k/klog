@@ -43,6 +43,7 @@ public:
     void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
     void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
+    void clearMap();
 
 private slots:
 

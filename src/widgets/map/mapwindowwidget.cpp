@@ -159,8 +159,27 @@ void MapWindowWidget::showFiltered()
     QStringList locators;
     locators.clear();
 
-    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), propComboBox->currentText(), satNameComboBox->currentText(), confirmedCheckBox->isChecked());
-    addLocators(locators);
+    QStringList shortLocators;
+    shortLocators.clear();
+
+    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satNameComboBox->currentText(), confirmedCheckBox->isChecked());
+    foreach(QString i, locators)
+    {
+        if (i.length() == 4)
+        {
+            shortLocators << i;
+        }
+        else if (i.length()>4)
+        {
+            QString a =  i;
+            a.truncate(4);
+            shortLocators << a;
+        }
+    }
+    shortLocators << locators;
+    shortLocators.sort();
+
+    addLocators(shortLocators);
 }
 
 void MapWindowWidget::slotBandsComboBoxChanged(const QString &_c)
@@ -180,6 +199,17 @@ void MapWindowWidget::slotModesComboBoxChanged(const QString &_c)
 void MapWindowWidget::slotPropComboBoxChanged(const QString &_c)
 {
     qDebug() << Q_FUNC_INFO;
+
+    if (propComboBox->currentIndex() > 0)
+    {
+        satNameComboBox->setCurrentIndex(0);
+        satNameComboBox->setEnabled(true);
+    }
+    else
+    {
+        satNameComboBox->setCurrentIndex(0);
+        satNameComboBox->setEnabled(false);
+    }
     showFiltered();
     qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -235,4 +265,19 @@ void MapWindowWidget::addLocators(const QStringList &_locators)
         //mapWidget->addLocator(i, confirmedColor);
         mapWidget->addLocator(i, QColor(255, 0, 0, 127));
     }
+}
+
+QString MapWindowWidget::getPropModeFromComboBox()
+{
+    QString _pm = QString();
+     qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText() << QT_ENDL;
+    _pm = (((propComboBox->currentText()).split('-')).at(1)).simplified();
+    QString _n = (((propComboBox->currentText()).split('-')).at(0)).simplified();
+    qDebug() << Q_FUNC_INFO << ": " << _pm << QT_ENDL;
+
+    if (_n == "00")
+    {
+        return QString();
+    }
+    return _pm;
 }

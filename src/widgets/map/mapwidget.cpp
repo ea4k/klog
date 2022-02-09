@@ -33,10 +33,10 @@
 MapWidget::MapWidget()
 {
 
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::init()
@@ -74,6 +74,10 @@ void MapWidget::createUI()
     //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
 }
 
+void MapWidget::clearMap()
+{
+
+}
 
 void MapWidget::setCenter(const double lat, const double lon)
 {
@@ -81,7 +85,7 @@ void MapWidget::setCenter(const double lat, const double lon)
     //object->setProperty ("zoom", 1);
     object->setProperty ("lat", lat);
     object->setProperty ("lon", lon);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::addLocator(const double lat1, const double lon1, const double lat2, const double lon2)
@@ -92,12 +96,12 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     object->setProperty ("locLon1", lon1);
     object->setProperty ("locLat2", lat2);
     object->setProperty ("locLon2", lon2);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::addQSO(const QString &_loc)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _loc;
+    //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))
     {
         return;
@@ -111,7 +115,7 @@ void MapWidget::addQSO(const QString &_loc)
 
 void MapWidget::addLocator(const QString &_loc, const QColor &_color)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _loc;
+    //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))
     {
         return;
@@ -133,10 +137,10 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
         item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
         item->setData(QVariant::fromValue(_color), ColorRole);
         modelRectangle.appendRow(item);
-        qDebug() << Q_FUNC_INFO << " Rectangle OK";
+        //qDebug() << Q_FUNC_INFO << " Rectangle OK";
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " Rectangle NOK";
+        //qDebug() << Q_FUNC_INFO << " Rectangle NOK";
     }
 }
