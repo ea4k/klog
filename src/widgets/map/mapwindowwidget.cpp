@@ -188,7 +188,9 @@ void MapWindowWidget::showFiltered()
         }
     }
     shortLocators << locators;
+    shortLocators.removeDuplicates();
     shortLocators.sort();
+
 
     addLocators(shortLocators, color);
 }
@@ -273,6 +275,7 @@ void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
 
 void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_color)
 {
+    mapWidget->clearMap();
     foreach(QString i, _locators)
     {
         //mapWidget->addLocator(i, confirmedColor);

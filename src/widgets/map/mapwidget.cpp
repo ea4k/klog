@@ -76,7 +76,7 @@ void MapWidget::createUI()
 
 void MapWidget::clearMap()
 {
-
+    modelRectangle.clear();
 }
 
 void MapWidget::setCenter(const double lat, const double lon)

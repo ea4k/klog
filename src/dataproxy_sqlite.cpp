@@ -2274,7 +2274,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
 
 
     QString modeString = QString();
-    int modeId = getIdFromModeName(_band);
+    int modeId = getIdFromModeName(_mode);
     if (util->isValidModeId(modeId))
     {
         modeString = QString("AND modeid = '%1'").arg(modeId);
