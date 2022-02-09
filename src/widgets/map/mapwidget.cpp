@@ -35,7 +35,6 @@ MapWidget::MapWidget()
 
     //qDebug() << Q_FUNC_INFO;
 
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -79,12 +78,12 @@ void MapWidget::clearMap()
     modelRectangle.clear();
 }
 
-void MapWidget::setCenter(const double lat, const double lon)
+void MapWidget::setCenter(const Coordinate &_c)
 {
     QObject *object = qmlView.rootObject ();
-    //object->setProperty ("zoom", 1);
-    object->setProperty ("lat", lat);
-    object->setProperty ("lon", lon);
+    object->setProperty ("zoom", 8.0);
+    object->setProperty ("lat", _c.lat);
+    object->setProperty ("lon", _c.lon);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

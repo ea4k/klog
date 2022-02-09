@@ -745,7 +745,12 @@ void MainWindow::createStatusBar()
 void MainWindow::slotWorldMapShow()
 {
     qDebug() << Q_FUNC_INFO;
+    QString loc = world->getQRZLocator(stationCallsign);
+    qDebug() << Q_FUNC_INFO << ": locator: " << loc;
+    Coordinate c = locator->getLocatorCoordinate(loc);
+    mapWindow->setCenter(c);
     mapWindow->show();
+
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -989,19 +994,7 @@ void MainWindow::slotQRZReturnPressed()
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
-void MainWindow::showOnMapLocators()
-{
-    /*
-     QStringList grids;
-    grids.clear();
-    grids << dataProxy->getFilteredLocators("10M");
-    foreach(QString i, grids)
-    {
-        mapWindow->addLocator(i, confirmedColor);
-    }
-    */
 
-}
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
@@ -4910,8 +4903,7 @@ void MainWindow::readConfigData()
     satTabWidget->refreshData();
     adifLoTWExportWidget->setLogNumber (currentLog);
     QString myLocator = myDataTabWidget->getMyLocator();
-
-    mapWindow->setCenter(myLocator);
+    //mapWindow->setCenter(locator->getLocatorCoordinate(myLocator));
 
     if (upAndRunning)
     {

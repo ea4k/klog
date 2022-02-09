@@ -114,6 +114,12 @@ void tst_Locator::test_Coordinates()
     //qDebug() << Q_FUNC_INFO << ": Lon: "  << QString("%1").arg(locator->getLon ("IO93"));
     //qDebug() << Q_FUNC_INFO << ": Lat: "  << QString("%1").arg(locator->getLat ("IO93ob"));
     //qDebug() << Q_FUNC_INFO << ": Lon: "  << QString("%1").arg(locator->getLon ("IO93ob"));
+    Coordinate testCord;
+    testCord.lat = 0.0;
+    testCord.lon = 0.0;
+    testCord = locator->getLocatorCoordinate("IN80");
+    QVERIFY2(testCord.lat == 40.5, "Lat failed for Coordinate");
+    QVERIFY2(testCord.lon == -3.0, "Lon failed for Coordinate");
 
     QVERIFY2(locator->getLat ("IN") == 45, "Lat failed for IN");
     QVERIFY2(locator->getLon ("IN") == -10, "Lon failed for IN");
@@ -187,7 +193,7 @@ void tst_Locator::test_LocatorCorners()
      cornerManual.lat = 40.0;
      cornerManual.lon = -3.9166667;
      cornerTest = locator->getLocatorCorner (_loc, false);
-      qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
+      //qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
      QVERIFY2(abs(abs(static_cast<double>(cornerManual.lat)) - abs(cornerTest.lat)) <= delta, "Corner South: Lat failed for IN80AA");
      QVERIFY2(abs(abs(static_cast<double>(cornerManual.lon)) - abs(cornerTest.lon)) <= delta, "Corner South: Lon failed for IN80AA");
 
@@ -211,7 +217,7 @@ void tst_Locator::test_LocatorCorners()
      cornerManual.lat = 56.250;
      cornerManual.lon = 107.8333333;
      cornerTest = locator->getLocatorCorner (_loc, false);
-      qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
+      //qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
      QVERIFY2(abs(abs(static_cast<double>(cornerManual.lat)) - abs(cornerTest.lat)) <= delta, "Corner South: Lat failed for OO36vg");
      QVERIFY2(abs(abs(static_cast<double>(cornerManual.lon)) - abs(cornerTest.lon)) <= delta, "Corner South: Lon failed for OO36vg");
 
@@ -235,7 +241,7 @@ void tst_Locator::test_LocatorCorners()
      cornerManual.lat = -26.1666667;
      cornerManual.lon = 135.9166667;
      cornerTest = locator->getLocatorCorner (_loc, false);
-      qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
+      //qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
      QVERIFY2(abs(abs(static_cast<double>(cornerManual.lat)) - abs(cornerTest.lat)) <= delta, "Corner South: Lat failed for PG73wu");
      QVERIFY2(abs(abs(static_cast<double>(cornerManual.lon)) - abs(cornerTest.lon)) <= delta, "Corner South: Lon failed for PG73wu");
 }

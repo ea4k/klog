@@ -37,9 +37,15 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     modeComboBox = new QComboBox;
     satNameComboBox = new QComboBox;
     confirmedCheckBox = new QCheckBox;
-    locatorsCheckBox = new QCheckBox;
+    //locatorsCheckBox = new QCheckBox;
 
     qDebug() << Q_FUNC_INFO << " - END";
+}
+
+MapWindowWidget::~MapWindowWidget()
+{
+    delete(dataProxy);
+    delete(mapWidget);
 }
 
 void MapWindowWidget::init()
@@ -57,8 +63,8 @@ void MapWindowWidget::createUI()
     confirmedCheckBox->setText(tr("Only confirmed"));
 
     confirmedCheckBox->setToolTip(tr("Select only confirmed QSOs."));
-    locatorsCheckBox->setText(tr("Show Locators"));
-    locatorsCheckBox->setToolTip(tr("Show Locators or QSO positons."));
+    //locatorsCheckBox->setText(tr("Show Locators"));
+    //locatorsCheckBox->setToolTip(tr("Show Locators or QSO positons."));
 
     QGridLayout *buttonsLayout = new QGridLayout;
     buttonsLayout->addWidget(bandComboBox, 0, 0);
@@ -67,7 +73,7 @@ void MapWindowWidget::createUI()
     buttonsLayout->addWidget(satNameComboBox, 1, 1);
     //buttonsLayout->addWidget(okButton, 1, 2);
     buttonsLayout->addWidget(confirmedCheckBox, 0, 2);
-    buttonsLayout->addWidget(locatorsCheckBox, 1, 2);
+    //buttonsLayout->addWidget(locatorsCheckBox, 1, 2);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addLayout(buttonsLayout);
@@ -85,12 +91,12 @@ void MapWindowWidget::createUI()
     connect(satNameComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotSatsComboBoxChanged(QString)));
 
     connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
-    connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
+    //connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
 }
 
-void MapWindowWidget::setCenter(const QString _grid)
+void MapWindowWidget::setCenter(const Coordinate &_c)
 {
-
+    mapWidget->setCenter(_c);
 }
 
 void MapWindowWidget::setBands(const QStringList _bands)
@@ -191,7 +197,6 @@ void MapWindowWidget::showFiltered()
     shortLocators.removeDuplicates();
     shortLocators.sort();
 
-
     addLocators(shortLocators, color);
 }
 
@@ -242,15 +247,6 @@ void MapWindowWidget::slotConfirmedCheckBoxChanged()
     showFiltered();
     qDebug() << Q_FUNC_INFO << " - END";
 }
-
-void MapWindowWidget::slotLocatorsCheckBoxChanged()
-{
-    qDebug() << Q_FUNC_INFO;
-
-
-    qDebug() << Q_FUNC_INFO << " - END";
-}
-
 
 
 void MapWindowWidget::addQSO(const QString &_loc)

@@ -102,6 +102,22 @@ Wikipedia:
     }
 }
 
+Coordinate Locator::getLocatorCoordinate(const QString _tlocator)
+{
+    Coordinate _position;
+    _position.lat = 0.0;
+    _position.lon = 0.0;
+    if (!isValidLocator(_tlocator))
+    {
+        //qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
+        return _position;
+    }
+    _position.lat = getLat (_tlocator);
+    _position.lon = getLon (_tlocator);
+    return _position;
+
+}
+
 Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
 {
     //qDebug() << Q_FUNC_INFO << ": " << tlocator;
@@ -118,6 +134,7 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
         //qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
         return _position;
     }
+
 
     _positionC.lat = getLat (tlocator);
     _positionC.lon = getLon (tlocator);
@@ -378,7 +395,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
     locat = locat + QChar(clo+'0');
     locat = locat + QChar(dla+'0');
 
-    //qDebug() << Q_FUNC_INFO << ": " << locat;
+    qDebug() << Q_FUNC_INFO << ": " << locat;
     if (length == 4)
     {
         return locat;
@@ -387,9 +404,9 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
     elo = int(floor((lo-double(clo) ) * 24 )) ;
     fla = int(floor((la-double(dla) ) * 24 ));
 
-    locat = locat + QChar(clo+'0');
-    locat = locat + QChar(dla+'0');
-
+    locat = locat + QChar(elo+'A');
+    locat = locat + QChar(elo+'A');
+    qDebug() << Q_FUNC_INFO << ": " << locat;
   //locat = locat + QChar(elo+'A');
   //locat = locat + QChar(fla+'A');
     //qDebug() << Q_FUNC_INFO << ": " << locat;

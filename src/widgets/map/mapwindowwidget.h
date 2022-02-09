@@ -38,11 +38,11 @@ class MapWindowWidget : public QWidget
 
 public:
     explicit MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    //MapWindowWidget();
+    ~MapWindowWidget();
     void init();
     void setBands(QStringList _bands);
     void setModes(QStringList _modes);
-    void setCenter(const QString _grid);
+    void setCenter(const Coordinate &_c);
     void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
     void addLocators(const QStringList &_locators, const QColor &_color);
@@ -54,7 +54,7 @@ private slots:
     void slotPropComboBoxChanged(const QString &_c);
     void slotSatsComboBoxChanged(const QString &_c);
     void slotConfirmedCheckBoxChanged();
-    void slotLocatorsCheckBoxChanged();
+    //void slotLocatorsCheckBoxChanged();
 
 private:
     void createUI();
@@ -66,7 +66,7 @@ private:
     DataProxy_SQLite *dataProxy;
     MapWidget *mapWidget;
     QComboBox *propComboBox, *bandComboBox, *modeComboBox, *satNameComboBox;
-    QCheckBox *confirmedCheckBox, *locatorsCheckBox;
+    QCheckBox *confirmedCheckBox;//, *locatorsCheckBox;
     //QPushButton *okButton;
 
 };

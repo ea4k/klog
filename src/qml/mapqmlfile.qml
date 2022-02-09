@@ -49,10 +49,10 @@ Rectangle {
     Location {
             // Define location that will be "center" of map
             id: mapCenter
-            coordinate {
-                latitude: 43.2
-                longitude: -4.816669
-            }
+            //coordinate {
+              //  latitude: 43.2
+            //    longitude: -4.816669
+            //}
     }
 
     FocusScope
