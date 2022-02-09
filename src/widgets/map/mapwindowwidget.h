@@ -45,7 +45,7 @@ public:
     void setCenter(const QString _grid);
     void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
-    void addLocators(const QStringList &_locators);
+    void addLocators(const QStringList &_locators, const QColor &_color);
 
 
 private slots:

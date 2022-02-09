@@ -162,6 +162,17 @@ void MapWindowWidget::showFiltered()
     QStringList shortLocators;
     shortLocators.clear();
 
+    QColor color;
+    if (confirmedCheckBox->isChecked())
+    {
+        color = QColor(Qt::red);
+    }
+    else
+    {
+        color = QColor(Qt::green);
+    }
+    color.setAlpha(127);    // Little Transparent
+
     locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satNameComboBox->currentText(), confirmedCheckBox->isChecked());
     foreach(QString i, locators)
     {
@@ -179,7 +190,7 @@ void MapWindowWidget::showFiltered()
     shortLocators << locators;
     shortLocators.sort();
 
-    addLocators(shortLocators);
+    addLocators(shortLocators, color);
 }
 
 void MapWindowWidget::slotBandsComboBoxChanged(const QString &_c)
@@ -200,13 +211,15 @@ void MapWindowWidget::slotPropComboBoxChanged(const QString &_c)
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (propComboBox->currentIndex() > 0)
+    if (getPropModeFromComboBox() == "SAT")
     {
+        qDebug() << Q_FUNC_INFO << ": SAT";
         satNameComboBox->setCurrentIndex(0);
         satNameComboBox->setEnabled(true);
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << ": NO SAT";
         satNameComboBox->setCurrentIndex(0);
         satNameComboBox->setEnabled(false);
     }
@@ -258,12 +271,12 @@ void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
 
 }
 
-void MapWindowWidget::addLocators(const QStringList &_locators)
+void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_color)
 {
     foreach(QString i, _locators)
     {
         //mapWidget->addLocator(i, confirmedColor);
-        mapWidget->addLocator(i, QColor(255, 0, 0, 127));
+        mapWidget->addLocator(i, _color);
     }
 }
 
