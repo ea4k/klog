@@ -1,10 +1,10 @@
-#ifndef MAPWIDGET_H
-#define MAPWIDGET_H
+#ifndef MAPWINDOWWIDGET_H
+#define MAPWINDOWWIDGET_H
 /***************************************************************************
-                          mapwidget.h  -  description
+                          mapwindowwidget.h  -  description
                              -------------------
-    begin                : May 2021
-    copyright            : (C) 2021 by Jaime Robles
+    begin                : Feb 2022
+    copyright            : (C) 2022 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -27,38 +27,46 @@
  *****************************************************************************/
 #include <QObject>
 #include <QtWidgets>
-#include <QQuickView>
-#include <QQuickItem>
-#include "locator.h"
+//#include <QWidget>
+#include "klogdefinitions.h"
+#include "mapwidget.h"
+#include "dataproxy_sqlite.h"
 
-class MapWidget : public QWidget
+class MapWindowWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    MapWidget();
-    void setCenter(const double lat, const double lon);
-    void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
+    explicit MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    //MapWindowWidget();
+    void init();
+    void setBands(QStringList _bands);
+    void setModes(QStringList _modes);
+    void setCenter(const QString _grid);
     void addQSO(const QString &_loc);
-    void addWorkedLocator(const QString &_loc);
+    void addLocator(const QString &_loc, const QColor &_color);
+    void addLocators(const QStringList &_locators);
+
 
 private slots:
-    void slotButtonClicked();
+    void slotBandsComboBoxChanged(const QString &_c);
+    void slotModesComboBoxChanged(const QString &_c);
+    void slotPropComboBoxChanged(const QString &_c);
+    void slotSatsComboBoxChanged(const QString &_c);
+    void slotConfirmedCheckBoxChanged();
+    void slotLocatorsCheckBoxChanged();
 
 private:
-    QQuickView qmlView;
-
-    QStandardItemModel modelCircle, modelRectangle;
-    QHash<int, QByteArray> roles;
-
-    int CoordinateRole = Qt::UserRole + 1000;
-    int NorthRole = Qt::UserRole + 1000;
-    int SouthRole = Qt::UserRole + 1001;
-    int ColorRole = Qt::UserRole + 1002;
-    Locator locator;
-    QPushButton *testButton;
-    double lat, lon;
+    void createUI();
+    void setPropModes();
+    void setSatNames();
+    void showFiltered();
+    DataProxy_SQLite *dataProxy;
+    MapWidget *mapWidget;
+    QComboBox *propComboBox, *bandComboBox, *modeComboBox, *satNameComboBox;
+    QCheckBox *confirmedCheckBox, *locatorsCheckBox;
+    //QPushButton *okButton;
 
 };
 
-#endif // MAPWIDGET_H
+#endif // MAPWINDOWWIDGET_H

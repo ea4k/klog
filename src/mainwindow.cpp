@@ -41,7 +41,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     g_callsignCheck  = true;
-    mapWidget = new MapWidget();
+
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
@@ -69,6 +69,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
+    mapWindow = new MapWindowWidget (dataProxy, this);
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
 
@@ -476,9 +477,12 @@ void MainWindow::init()
 
     infoWidget->showInfo(-1);
 
+    mapWindow->init();
+
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
+
     startServices();
 
     //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -741,11 +745,7 @@ void MainWindow::createStatusBar()
 void MainWindow::slotWorldMapShow()
 {
     qDebug() << Q_FUNC_INFO;
-    mapWidget->show();
-    showOnMapLocators();
-    //QString myGrid = myDataTabWidget->getMyLocator();
-    //mapWidget->setCenter (locator->getLat(myGrid), locator->getLon (myGrid));
-    //mapWidget->addLocator(locator->getLat ("IN80DE"), locator->getLon ("IN80DE"), locator->getLat ("JN10"), locator->getLon ("JN10"));
+    mapWindow->show();
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -983,21 +983,23 @@ void MainWindow::slotQRZReturnPressed()
     //QString lastLocator = dataProxy->getLocatorFromQRZ(dataProxy->getCallFromId(dataProxy->getLastQSOid()));
     QString lastLocator = dataProxy->getLocatorFromId(dataProxy->getLastQSOid());
     qDebug() << Q_FUNC_INFO << ": Locator: " << lastLocator;
-    mapWidget->addQSO(lastLocator);
-    mapWidget->addWorkedLocator(lastLocator);
+
+    mapWindow->addLocator(lastLocator, workedColor);
     slotClearButtonClicked();
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 void MainWindow::showOnMapLocators()
 {
-    QStringList grids;
+    /*
+     QStringList grids;
     grids.clear();
-    grids << dataProxy->getFilteredLocators();
+    grids << dataProxy->getFilteredLocators("10M");
     foreach(QString i, grids)
     {
-        mapWidget->addWorkedLocator(i);
+        mapWindow->addLocator(i, confirmedColor);
     }
+    */
 
 }
 
@@ -3959,11 +3961,6 @@ void MainWindow::createMenusCommon()
     //showRotatorAct->setToolTip(tr("Show the rotator controller."));
     //qDebug() << "MainWindow::createMenusCommon after" << QT_ENDL;
 
-    //showWorldMapAct = new QAction(tr("CQ zones world map"), this);
-    //toolMenu->addAction(showWorldMapAct);
-    //connect(showWorldMapAct, SIGNAL(triggered()), this, SLOT(slotWorldMapShow()));
-    //showWorldMapAct->setToolTip(tr("Show a world map with your radio activity."));
-
     //toolMenu->addSeparator();
 
     //setupMenu = menuBar()->addMenu(tr("Setup"));
@@ -4913,7 +4910,8 @@ void MainWindow::readConfigData()
     satTabWidget->refreshData();
     adifLoTWExportWidget->setLogNumber (currentLog);
     QString myLocator = myDataTabWidget->getMyLocator();
-    mapWidget->setCenter(locator->getLat(myLocator), locator->getLon(myLocator) );
+
+    mapWindow->setCenter(myLocator);
 
     if (upAndRunning)
     {
@@ -5526,10 +5524,12 @@ void MainWindow::checkIfNewBandOrMode()
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setBands(bands);
+    mapWindow->setBands(bands);
     satTabWidget->addBands(bands);
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setModes(modes);
+    mapWindow->setModes(modes);
 
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -7768,6 +7768,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
     //qDebug() << Q_FUNC_INFO << QT_ENDL;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
+    mapWindow->setBands(_b);
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -8155,6 +8156,7 @@ void MainWindow::addNewValidMode(const QString &_mode)
 
     readActiveModes (_newM);
     mainQSOEntryWidget->setModes(modes);
+    mapWindow->setModes(modes);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
       //qDebug() << "MainWindow::addNewValidMode: END"  << QT_ENDL;
@@ -8244,7 +8246,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     bands.clear();
     bands = qsTemp;
     mainQSOEntryWidget->setBands(bands);
-
+    mapWindow->setBands(bands);
     satTabWidget->addBands(bands);
         //qDebug() << "MainWindow::defineNewBands - END"  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);

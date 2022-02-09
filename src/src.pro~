@@ -189,7 +189,7 @@ SOURCES += main.cpp \
     #widgets/advancedsearch/advancedsearchmodel.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
-    widgets/map/mapwidget.cpp \
+    widgets/mapwidget.cpp \
     widgets/map/mapwindowwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \

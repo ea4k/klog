@@ -2249,15 +2249,69 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
     }
 }
 
-QStringList DataProxy_SQLite::getFilteredLocators()
+QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed)
 {
     QStringList grids = QStringList();
     QSqlQuery query;
     QString queryString;
-    bool sqlOK;
-    queryString = QString("SELECT DISTINCT gridsquare from log ORDER BY id ASC");
 
-    sqlOK = query.exec(queryString);
+    QString bandString = QString();
+    int bandId = getIdFromBandName(_band);
+    if (util->isValidBandId(bandId))
+    {
+        bandString = QString("bandid = '%1'").arg(bandId);
+    }
+    else
+    {
+        bandString = QString("bandid <> ''");
+    }
+
+    QString modeString = QString();
+    int modeId = getIdFromModeName(_band);
+    if (util->isValidModeId(modeId))
+    {
+        modeString = QString("AND modeid = '%1'").arg(modeId);
+    }
+    else
+    {
+        modeString = QString("AND modeid <> '' ");
+    }
+
+    QString propString = QString();
+    if (isValidPropMode(_prop))
+    {
+        propString = QString("AND prop_mode = '%1'").arg(modeId);
+    }
+    else
+    {
+        propString = QString("AND prop_mode <> 'x' ");
+    }
+
+    QString confirmedString = QString();
+    if (_confirmed)
+    {
+        confirmedString = QString("AND ((qsl_rcvd = 'Y') OR (lotw_qsl_rcvd = 'Y'))");
+    }
+    else
+    {
+        confirmedString = QString("AND qsl_rcvd <> 'x' ");
+    }
+
+
+    QString satsString = QString();
+    if (getDBSatId(_sat)>0)
+    {
+        satsString = QString("AND sat_name = '%1'").arg(_sat);
+    }
+    else
+    {
+        satsString = QString("AND sat_name <> 'x' ");
+    }
+
+    queryString = QString("SELECT DISTINCT gridsquare from log WHERE %1 %2 %3 %4 %5 ORDER BY id ASC").arg(bandString).arg(modeString).arg(propString).arg(satsString).arg(confirmedString);
+
+
+    bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
     {
@@ -4586,6 +4640,23 @@ QStringList DataProxy_SQLite::getContestOverlays()
         query.finish();
         return QStringList();
     }
+}
+
+bool DataProxy_SQLite::isValidPropMode(const QString &_prop)
+{
+    QSqlQuery query;
+    QString queryString = QString("SELECT shortname FROM prop_mode_enumeration WHERE id='%1'").arg(_prop);
+    bool sqlOK = query.exec(queryString);
+    if (sqlOK)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            query.finish();
+            return true;
+        }
+    }
+    return false;
 }
 
 QStringList DataProxy_SQLite::getPropModeList()

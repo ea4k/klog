@@ -83,11 +83,10 @@
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
-//#include "worldmapwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
 #include "klogdefinitions.h"
-#include "widgets/mapwidget.h"
+#include "widgets/map/mapwindowwidget.h"
 
 class QTimer;
 class QDateTime;
@@ -369,8 +368,7 @@ private:
     //bool usePSTRotator;
     //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
-    //WorldMapWidget *worldMapWidget;
-    MapWidget *mapWidget;
+    MapWindowWidget *mapWindow;
     void createStatusBar();
     void createUI();
     void createUIDX();
@@ -582,8 +580,6 @@ private:
 */
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
-
-    //QAction *showWorldMapAct;
 
     //QAction *delQSOFromSearchAct;
     //QAction *qsoToEditFromSearchAct;

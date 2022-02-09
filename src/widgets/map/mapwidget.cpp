@@ -34,20 +34,30 @@ MapWidget::MapWidget()
 {
 
     qDebug() << Q_FUNC_INFO;
-    testButton = new QPushButton;
-    testButton->setText ("Push");
+
+
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void MapWidget::init()
+{
+    createUI();
+}
+
+void MapWidget::createUI()
+{
     lat = 0.0;
     lon = 0.0;
 
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
-    roles[CoordinateRole] = QByteArray("coordinate");
-    roles[NorthRole] = QByteArray("north");
-    roles[SouthRole] = QByteArray("south");
-    roles[ColorRole] = QByteArray("color");
+    circleRoles[CoordinateRole] = QByteArray("coordinate");
+    rectangleRoles[NorthRole] = QByteArray("north");
+    rectangleRoles[SouthRole] = QByteArray("south");
+    rectangleRoles[ColorRole] = QByteArray("color");
 
-    modelCircle.setItemRoleNames(roles);
-    modelRectangle.setItemRoleNames(roles);
+    modelCircle.setItemRoleNames(circleRoles);
+    modelRectangle.setItemRoleNames(rectangleRoles);
 
 
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
@@ -56,14 +66,14 @@ MapWidget::MapWidget()
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget (testButton);
+
     layout->addWidget(container);
     setLayout (layout);
 
     setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
-    connect(testButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
-    qDebug() << Q_FUNC_INFO << " - END";
+    //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
 }
+
 
 void MapWidget::setCenter(const double lat, const double lon)
 {
@@ -85,35 +95,6 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MapWidget::slotButtonClicked ()
-{
-    qDebug() << "MapWidget::slotButtonClicked ";
-    Coordinate _north, _south;
-    _north = locator.getLocatorCorner("IN80", true);
-    _south = locator.getLocatorCorner("IN80", false);
-
-    QGeoRectangle rect;
-    rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
-    rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon) );
-
-
-    if (rect.isValid ())
-    {
-        qDebug() << Q_FUNC_INFO << " Rectangle OK";
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << " Rectangle NOK";
-    }
-    QStandardItem *item = new QStandardItem;
-    item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
-    item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
-    //item->setData(QVariant::fromValue(Qt::blue), ColorRole);
-    modelRectangle.appendRow(item);
-
-    qDebug() << Q_FUNC_INFO << " - END";
-}
-
 void MapWidget::addQSO(const QString &_loc)
 {
     qDebug() << Q_FUNC_INFO << ": " << _loc;
@@ -128,7 +109,7 @@ void MapWidget::addQSO(const QString &_loc)
     modelCircle.appendRow(item);
 }
 
-void MapWidget::addWorkedLocator(const QString &_loc)
+void MapWidget::addLocator(const QString &_loc, const QColor &_color)
 {
     qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))
@@ -136,7 +117,6 @@ void MapWidget::addWorkedLocator(const QString &_loc)
         return;
     }
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
-    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
 
     Coordinate _north, _south;
     _north = locator.getLocatorCorner(_loc, true);
@@ -146,12 +126,12 @@ void MapWidget::addWorkedLocator(const QString &_loc)
     rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
     rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon) );
 
-
     if (rect.isValid ())
     {
         QStandardItem *item = new QStandardItem;
         item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
         item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
+        item->setData(QVariant::fromValue(_color), ColorRole);
         modelRectangle.appendRow(item);
         qDebug() << Q_FUNC_INFO << " Rectangle OK";
     }
