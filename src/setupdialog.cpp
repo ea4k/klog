@@ -35,7 +35,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
+    //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime);
 
     logSeverity = Info;
     constrid = 2;
@@ -74,6 +74,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     satsPage = new SetupPageSats(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 01.100" << QT_ENDL;
     hamlibPage = new SetupPageHamLib(dataProxy, this);
+    //qDebug() << Q_FUNC_INFO << ": 01.101" << QT_ENDL;
     logViewPage = new SetupPageLogView(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 02" << QT_ENDL;
 
@@ -124,7 +125,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     }
     //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
-    hamlibPage->slotTestHamlib ();
+    //hamlibPage->slotTestHamlib ();
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
@@ -240,6 +241,7 @@ void SetupDialog::slotCancelButtonClicked()
             }
         }
     }
+    hamlibPage->stopHamlib();
     QDialog::reject ();
     close();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -668,7 +670,7 @@ void SetupDialog::slotOkButtonClicked()
             stream << "LatestBackup=" << latestBackup << ";" << QT_ENDL;
         }
         file.close ();
-
+    hamlibPage->stopHamlib();
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << QT_ENDL;
     QDialog::accept();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);

@@ -29,11 +29,12 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     //qDebug() << Q_FUNC_INFO ;
     hamlibTestOK = false;
     hamlib = new HamLibClass();
+
     activateHamlibCheckBox = new QCheckBox();
     readOnlyModeCheckBox = new QCheckBox();
 
     tabWidget = new QTabWidget;
-    serialConfigWidget = new HamLibSerialConfigWidget;    
+    serialConfigWidget = new HamLibSerialConfigWidget;
     networkConfigWidget = new HamLibNetworkConfigWidget;
 
     testHamlibPushButton = new QPushButton();
@@ -45,6 +46,11 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     setDefaults();
 
     //qDebug() << Q_FUNC_INFO << " - END" ;
+}
+
+void SetupPageHamLib::stopHamlib ()
+{
+    hamlib->stop();
 }
 
 void SetupPageHamLib::slotTestHamlib()
@@ -75,7 +81,6 @@ void SetupPageHamLib::slotTestHamlib()
     hamlib->setPoll (2000);
     //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
     setTestResult (hamlib->init(true));
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -227,6 +232,7 @@ void SetupPageHamLib::setRig()
     QStringList rigs;
     rigs.clear();
     //qDebug() << Q_FUNC_INFO << " - 10" << QT_ENDL;
+    hamlib->initClass();
     rigs << hamlib->getRigList();
     //qDebug() << Q_FUNC_INFO << " - rigs: " << QString::number(rigs.length())<< QT_ENDL;
     rigTypeComboBox->clear ();
@@ -258,11 +264,11 @@ QString SetupPageHamLib::getData()
       //qDebug() << "SetupPageHamLib::getData" << QT_ENDL;
     QString _output;
     _output.clear();
-    QString _rigType, _serialPort, _baudsSpeed;//, dataBits, stopBits, handshake, flowControlLine;
+    QString _rigType, _serialPort;//, dataBits, stopBits, handshake, flowControlLine;
 
     _rigType = rigTypeComboBox->currentText ();
     _serialPort = serialConfigWidget->getSerialPort ();
-    _baudsSpeed = serialConfigWidget->getSerialBauds ();
+    //_baudsSpeed = serialConfigWidget->getSerialBauds ();
 
     _output.clear();
     if (activateHamlibCheckBox->isChecked())
@@ -282,9 +288,9 @@ QString SetupPageHamLib::getData()
     _output = _output + "HamLibRigType=" + QString::number(hamlib->getModelIdFromName(_rigType)) + ";\n";
     _output = _output + "HamlibRigPollRate=" + QString::number(pollIntervalQSpinBox->value ()) + ";\n";
     _output = _output + "HamlibSerialPort=" + _serialPort + ";\n";
-    _output = _output + "HamlibSerialBauds=" + _baudsSpeed + ";\n";
+    _output = _output + "HamlibSerialBauds=" + QString::number(serialConfigWidget->getSerialBauds ()) + ";\n";
     _output = _output + "HamLibSerialDataBits=" + QString::number(getDataBits()) + ";\n";
-    _output = _output + "HamLibSerialStopBits=" + QString::number(getStopBits()) + ";\n";
+    _output = _output + "HamLibSerialStopBits=" + serialConfigWidget->getStopBits() + ";\n";
 
     _output = _output + getFlowControl() + ";\n";
     _output = _output + getParity() + ";\n";
@@ -338,7 +344,7 @@ void SetupPageHamLib::setActive(const QString &_active)
 }
 
 void SetupPageHamLib::setReadOnly(const QString &_m)
-{    
+{
     if (_m.toUpper() == "TRUE")
     {
         readOnlyModeCheckBox->setChecked(true);
@@ -377,11 +383,6 @@ QString SetupPageHamLib::getParity()
 void SetupPageHamLib::setParity(const QString &_st)
 {
     serialConfigWidget->setParity(_st);
-}
-
-int SetupPageHamLib::getStopBits()
-{
-    return serialConfigWidget->getStopBits ();
 }
 
 void SetupPageHamLib::setStopBits(const QString &_st)

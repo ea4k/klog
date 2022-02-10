@@ -83,10 +83,10 @@
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
+#include "widgets/map/mapwindowwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
 #include "klogdefinitions.h"
-#include "widgets/map/mapwindowwidget.h"
 
 class QTimer;
 class QDateTime;
@@ -185,7 +185,7 @@ private slots:
 
     void slotOKButtonClicked();
 
-    void slotClearButtonClicked();
+    void slotClearButtonClicked(const QString &_func);
     void slotBandChanged (const QString &_b);
     void slotModeChanged (const QString &_m);
     void slotValidBandsReceived(const QStringList &_b);
@@ -252,7 +252,7 @@ private slots:
     void slotShowInfoLabel(const QString &_m);
     void slotAwardsWidgetSetLog();
     void slotAwardsWidgetSetYear();
-    void slotActiveHamlib(bool _enable);
+    void slotManualMode(bool _enable);
 
     // MyDataTab
     void slotMyLocatorTextChanged(const QString &_loc);
@@ -304,8 +304,7 @@ private slots:
     // PST Rotator
     //void slotRotatorShow();
     // WORLD MAP
-    void slotWorldMapShow();
-    //void slotShowMap();
+    void slotShowMap();
 
     //DXCCWIDGET
     //void slotShowQSOFromDXCCWidget(const int _q);
@@ -362,12 +361,13 @@ private:
     bool sendQSLByDefault;
     bool deleteAlwaysAdiFile;
 
+    MapWindowWidget *mapWindow;
+
     // PST Rotator
     //PSTRotatorSupport *pstRotator;
     //bool usePSTRotator;
     //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
-    MapWindowWidget *mapWindow;
     void createStatusBar();
     void createUI();
     void createUIDX();
@@ -378,9 +378,7 @@ private:
     void createMenusCommon();
     void createActionsCommon();
 
-
-
-    bool readCtyFile();
+    //bool readCtyFile();
 
     //bool isQSLReceived(const int _qsoId);
     //bool isQSLSent(const int _qsoId);
@@ -483,7 +481,6 @@ private:
 
     ShowErrorDialog *showErrorDialog;
 
-
     // <UI>
     //QGroupBox *gridGroupBox;//, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
@@ -510,7 +507,6 @@ private:
     QMenu *helpMenu;
 
     //QAction *TestAct;       // Action for testing purposes only
-    QAction *mapAct;            // Shows a Map
     QAction *awardAddAct;
     QAction *klogFolderAct;
     //QAction *openAct;
@@ -579,20 +575,8 @@ private:
 */
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
+    QAction *showMapAct;
 
-    //QAction *delQSOFromSearchAct;
-    //QAction *qsoToEditFromSearchAct;
-    //QAction *qslSentViaBureauFromSearchAct;
-    //QAction *qslSentViaDirectFromSearchAct;
-    //QAction *qslSentViaDirectMarkRcvReqFromSearchAct;
-    //QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
-    //QAction *qslRecViaBureauFromSearchAct;
-    //QAction *qslRecViaDirectFromSearchAct;
-    //QAction *qslRecViaBureauMarkReqFromSearchAct;
-    //QAction *qslRecViaDirectMarkReqFromSearchAct;
-    //QLineEdit *STXLineEdit;
-    //QLineEdit *SRXLineEdit;
-    //QPushButton *OKButton, *spotItButton, *clearButton;
     QStringList bands;
     QStringList modes;
     QStringList entitiesList, propModeList;
@@ -600,20 +584,6 @@ private:
     // UI DX
     //QLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
     QLabel *infoLabel1, *infoLabel2, *dxMarathonLabelN, *dxMarathonTopScoreLabelN;
-
-    //QPushButton *flagIcon; // To paint a flag of the worked entity
-    //QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
-    //QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;
-    //QLabel *bandLabel9, *bandLabel10, *bandLabel11, *bandLabel12;
-    //QLabel *continentLabel, *prefixLabel, *cqzLabel, *ituzLabel;
-    //QLabel *gradShortLabel, *distShortLabel;
-    //QLabel *gradLongLabel, *distLongLabel;
-
-    //QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
-
-    //QLineEdit *operatorLineEdit, *stationCallSignLineEdit;//, *commentLineEdit, *iotaNumberLineEdit;
-    //QTextEdit *notesTextEdit;
-    //QDoubleSpinBox *rxPowerSpinBox;//  *txFreqSpinBox, *rxFreqSpinBox, *myPowerSpinBox,
 
     QString lotwTQSLpath;
 
@@ -629,6 +599,7 @@ private:
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
     bool noMoreModeErrorShown;          // If true, the non-valid modes received from WSJT-x will not be showed to the user
     bool wsjtxAutoLog;                  // If true, logged QSO are automatically logged into the log when sent from WSJTX
+    bool manualMode;                    // If true, hamlib and WSJTX are not updatind the interface
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
     MainWindowInputComment *commentTabWidget;
@@ -652,10 +623,6 @@ private:
     // <CLUSTER>
     DXClusterWidget *dxClusterWidget;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
-    //QWidget *dxClusterWidget;
-    //QListWidget *dxClusterListWidget;
-    //QPushButton *sendDXClusterButton;
-    //QLineEdit *inputDXClusterLineEdit;
     // </CLUSTER>
 
     // </UI>
@@ -680,7 +647,7 @@ private:
     // Station Setup
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
-    //bool qrzAutoChanging; //To stop executing the slotQRZTextChanged just because KLog uppercase a letter
+    bool qrzAutoChanging; //To remove the data coming from QRZ.com only when data is coming.
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
 
     double myPower, lastPower;

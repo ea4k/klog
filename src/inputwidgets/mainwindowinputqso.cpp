@@ -237,12 +237,15 @@ void MainWindowInputQSO::clear()
     modify = false;
 }
 
-void MainWindowInputQSO::cleanQRZCOM()
+void MainWindowInputQSO::cleanQRZCOM(const bool _dataFromQRZCOM)
 {
     //qDebug() << Q_FUNC_INFO ;
-    qthLineEdit->clear();
-    nameLineEdit->clear();
-    locatorLineEdit->clear();
+    if (_dataFromQRZCOM)
+    {
+        qthLineEdit->clear();
+        nameLineEdit->clear();
+        locatorLineEdit->clear();
+    }
 }
 
 void MainWindowInputQSO::clearName()
@@ -268,11 +271,7 @@ void MainWindowInputQSO::slotReturnPressed()
 
 void MainWindowInputQSO::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-    qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << QT_ENDL;
-    qDebug() << "Lat: " << QString::number(locator->getLat (locatorLineEdit->text())) << " / Lon: " << QString::number(locator->getLon (locatorLineEdit->text()));
-    Coordinate pos = locator->getLocatorCorner (locatorLineEdit->text());
-    pos = locator->getLocatorCorner (locatorLineEdit->text(), false);
-
+    //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << QT_ENDL;
     int cursorP = locatorLineEdit->cursorPosition();
 
     locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());

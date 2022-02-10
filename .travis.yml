@@ -2,32 +2,44 @@ language: cpp
 branches:
   only:
     - master
+    - coverity_scan
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "R6Znl1/0h1vI9UBrkKO9aI1EjCUTwVm9T41mO+3d7pEgTLj2p0HM+xcoYjkjGavNZx5+Dn6Rg0Yzygsd9Sqmy5RtAfyyOvMpVEWoWwZz+TqvTwaDaLefKPa+1W1pRmY2vbVq5/vMtOfRRBqCULwgYetcp2qyXCfjkIIvIQtN3903ORUQuX44Efiy9/wlAAR0eX/fk610HZWA2EsY7gT9AeSrSjpOkJ9eDLw0yYPf8Pwaeb25FQKOMKMRQXeJ96cyWBpTC/5E9SiobxKOqTePViY9MyS9iwIto/w3bGW4keV2xJTnP6MbMyM691TO62q9aKJwu9A+w9ZYGHKNqhJ38mWvqj5ytgdXh/eM7KA735d/TlS5XIoUEPROgHEyLm5pJK+rQLSf4HzJefm3oRojzwlyNmOyooPCE1oPvP8JAg71d9ERH99KacLseiCkQZMBogcBgLaDNskohcovLuIglc4fldYpJzlJnv5yeJcUVQ86khbYgIPmbx0qInrWIxdRwTInsjlsPllZEWvXB7HLEKY4/M0ujsjHqlsiQdOBKBMpC8YfLDtjyi+T8YfLsxOI9e8kqRnO66sXlXtCfs5dDDKvjs/wPqAJgmZDcmYn2ZvIPzS7QFF/HM9Fhurb724gMxo5TBaVgKoDvFZgFSw4PN1saurXbJhqgwPDO77evJY="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "ea4k/klog"
+      description: "Build submitted via Travis-CI. KLog is a multiplatform free hamradio logger."
+    notification_email: jaime@robles.es
+    #build_command_prepend: cov-configure --list-compiler-types
+    build_command_prepend: "cov-configure --gcc"
+    build_command: make
+    branch_pattern: coverity_scan
+
 matrix:
   include:
   - os: linux
     arch: amd64
-    sudo: required
     dist: focal
+    
     before_install:
       - sudo apt-get update
       - sudo apt-get -y install qtbase5-dev libsqlite3-dev
       - sudo apt-get -y install libhamlib++-dev libqt5serialport5-dev libqt5charts5-dev qt5-default qttools5-dev-tools
+    
     compiler:
       - gcc
-    script:
-      - qmake -project
+      
+    before_script:
       - qmake KLog.pro
-      - make  
-  - os: osx
-    osx_image: xcode11.2
-    before_install:
-      - brew install qt5
-      - brew link qt5 --force
-      - brew install hamlib
-      - brew link hamlib --force
+    
     script:
-      - qmake KLog.pro
       - make
-   
-
-
+      

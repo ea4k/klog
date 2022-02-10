@@ -1,3 +1,4 @@
+
 /***************************************************************************tv
                           mainqsoentrywidget.cpp  -  description
                              -------------------
@@ -181,18 +182,17 @@ void MainQSOEntryWidget::slotCheckBoxClicked()
 
 void MainQSOEntryWidget::slotManualModeCheckBoxClicked()
 {
-   //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     if (manualModeCheckBox->isChecked())
     {
+        //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked();
-        emit hamlibSetActiveSignal(false);
-        //hamlib->stop();
+        emit manualModeSignal(true);
         //stop hamlib and wsjt-x communication;
     }
     else
     {
-        //hamlib->initClass();
-        emit hamlibSetActiveSignal(true);
+        emit manualModeSignal(false);
         //start hamlib and wsjt-x communication;
     }
 }
@@ -232,7 +232,6 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     if ((qrzLineEdit->text()).length()<1)
     {
-        //emit clearForNextQSOSignal();
         //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked();
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
@@ -402,12 +401,14 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
-    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked" << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked: "  << QT_ENDL;
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    setCleaning (true);
     clear();
-    emit clearForNextQSOSignal();
-    setModify(false);
+    emit clearForNextQSOSignal(Q_FUNC_INFO);
+    //setModify(false);
     checkIfDupe(Q_FUNC_INFO);
+    setCleaning (false);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -610,17 +611,19 @@ bool MainQSOEntryWidget::setBand(const QString &_band)
 bool MainQSOEntryWidget::setMode(const QString &_mode)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "MainQSOEntryWidget::setMode: " << _mode << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::setMode: " << _mode;
     if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
     {
+        //qDebug() << "MainQSOEntryWidget::setMode NOT found";
         emit debugLog(Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
     else
     {
+        //qDebug() << "MainQSOEntryWidget::setMode Updated";
         modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
         emit debugLog(Q_FUNC_INFO, "END", Debug);
-       return true;
+        return true;
     }
 }
 
@@ -775,20 +778,22 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
 
     realTime = _realTime;
     realtimeCheckBox->setChecked(realTime);
-    /*
-     * if (_realTime)
-    {
-        realtimeButton->setIcon(QIcon(":/img/play.svg"));
-    }
-    else
-    {
-        realtimeButton->setIcon(QIcon(":/img/stop.svg"));
-    }
-    */
-    //realTime = _realTime;
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainQSOEntryWidget::setManualMode(const bool _manualMode)
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    manualModeCheckBox->setChecked (_manualMode);
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
+
+bool MainQSOEntryWidget::getManualMode()
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    return manualModeCheckBox->isChecked ();
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
 
 void MainQSOEntryWidget::setUTC(const bool _utc)
 {
@@ -804,12 +809,14 @@ void MainQSOEntryWidget::setModify(const bool _modify)
     modify = _modify;
     if (modify)
     {
-        OKButton->setText(tr("&Modify"));
+        OKButton->setText(tr("&Save"));
+        clearButton->setText(tr("&Cancel"));
         realtimeCheckBox->setChecked (false);
     }
     else
     {
         OKButton->setText(tr("&Add"));
+        clearButton->setText(tr("&Clear"));
     }
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }

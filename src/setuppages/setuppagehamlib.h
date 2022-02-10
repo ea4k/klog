@@ -57,6 +57,7 @@ public:
     void setReadOnly(const QString &_m);
     void setRadioNetworkAddress(const QString &_m);
     void setRadioNetworkPort(const int _p);
+    void stopHamlib();
 
 public slots:
     //void slotScanPorts();
@@ -74,7 +75,7 @@ private:
     int getDataBits();
     QString getFlowControl();
     QString getParity();
-    int getStopBits();
+    //int getStopBits();
 
 
     QTabWidget *tabWidget;

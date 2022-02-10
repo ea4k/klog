@@ -12,3 +12,4 @@ KLog.app
 
 *.autosave
 src/macOSDeploy.sh
+*.pro~

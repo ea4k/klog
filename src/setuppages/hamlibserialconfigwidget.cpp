@@ -77,8 +77,8 @@ void HamLibSerialConfigWidget::createUI()
 
     //qDebug() << Q_FUNC_INFO << " - 90";
     strings.clear();
-    //strings << tr("1 bit") << tr("1.5 bits") << tr("2 bits");
-    strings << tr("Default") << tr("1 bit") << tr("2 bits");
+
+    strings << tr("1 bit") << tr("1.5 bits") << tr("2 bits");
     stopBitsComboBox->addItems(strings);
     QLabel *stopBitsLabel = new QLabel(tr("Stop bits"));
     stopBitsLabel->setBuddy(stopBitsComboBox);
@@ -263,40 +263,51 @@ void HamLibSerialConfigWidget::setParity(const QString &_st)
 }
 
 //StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
-int HamLibSerialConfigWidget::getStopBits()
+QString HamLibSerialConfigWidget::getStopBits()
 {
-    int ret = stopBitsComboBox->currentIndex();
+
+   int ret = stopBitsComboBox->currentIndex();
     switch (ret)
     {
         case 0:
-            return 0;
+            return "OneStop";
+            //return QSerialPort::OneStop;
         break;
         case 1:
-            return 1;
+            return "OneAndHalfStop";
+            //return QSerialPort::OneAndHalfStop;
             break;
         case 2:
-            return 2;
+            return "TwoStop";
+            //return QSerialPort::TwoStop;
             break;
-        default:
+          default:
         // should never be reached
-            return 2;
+            return "UnknownStopBits";
         break;
     }
+
 }
 
 void HamLibSerialConfigWidget::setStopBits(const QString &_st)
 {
-    if (_st == "Default")
+
+
+    if (_st == "OneStop")
     {
         stopBitsComboBox->setCurrentIndex(0);
     }
-    else if (_st == "1")
+    else if (_st == "OneAndHalfStop")
     {
         stopBitsComboBox->setCurrentIndex(1);
     }
-    else
+    else if (_st == "TwoStop")
     {
         stopBitsComboBox->setCurrentIndex(2);
+    }
+    else
+    {
+       stopBitsComboBox->setCurrentIndex(0);
     }
 }
 
@@ -325,7 +336,7 @@ bool HamLibSerialConfigWidget::setSerialBauds(const int _speed )
     }
     else
     {
-        serialPortComboBox->setCurrentIndex(0);
+        serialBaudsComboBox->setCurrentIndex(0);
     }
     return false;
 }

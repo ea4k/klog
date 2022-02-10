@@ -35,16 +35,6 @@ Rectangle {
     property alias zoom: map.zoomLevel
     property alias lat: map.center.latitude
     property alias lon: map.center.longitude
-    //property alias locator: map.loca
-    /*topLeft {
-    latitude: -27
-    longitude: 153
-}*/
-    //property alias locLat1: locR.topLeft.latitude
-    //property alias locLon1: locR.topLeft.longitude
-    //property alias locLat2: locR.bottomRight.latitude
-    //property alias locLon2: locR.bottomRight.longitude
-
 
     Location {
             // Define location that will be "center" of map
@@ -88,60 +78,18 @@ Rectangle {
             //    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
             //}
         }
-/*
+
         MapItemView
         {
             model: rectangle_model
             delegate: MapRectangle
             {
-                topLeft     : model.coordinate
-                bottomRight : model.coordinate
-                color: 'green'
-                border.width: 10
+                border.width: 2
+                topLeft       : model.north
+                bottomRight   : model.south
+                color         : model.color
             }
         }
-
-*/
-        /*
-    //North
-    cornerManual.lat = 41.0;
-    cornerManual.lon = -4.0;
-    //South
-    cornerManual.lat = 40.0;
-    cornerManual.lon = -2.0;
-*/
-    MapItemView{
-    model: rectangle_model
-    delegate: MapRectangle
-    {
-      //color: 'green'
-      border.width: 2
-      topLeft       : model.north
-      bottomRight   : model.south
-      color         : model.color
-    }
-}
-/*
-    MapItemView{
-                  model: rectangle_model
-                  delegate: MapRectangle
-                  {
-                    color: 'green'
-                    border.width: 2
-                    topLeft {
-                        latitude: 41.0
-                        longitude: -4.0
-                    }
-                    bottomRight
-                    {
-                        latitude: 40.0
-                        longitude: -2.0
-                    }
-                  }
-    }
-    */
-
-
         MapItemView
         {
               model: circle_model
