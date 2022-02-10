@@ -51,6 +51,12 @@ struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstat
   bool confirmed;
 };
 
+
+struct Coordinate {
+    double lat;
+    double lon;
+};
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
 #define QT_SKIP Qt::SkipEmptyParts
 #define QT_ENDL Qt::endl

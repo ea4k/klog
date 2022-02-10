@@ -49,7 +49,7 @@ private slots:
 private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
-    World *world;
+    //World *world;
     QString version;
 };
 

@@ -64,6 +64,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
+    mapWindow = new MapWindowWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -477,6 +478,7 @@ void MainWindow::init()
     infoWidget->showInfo(-1);
     //qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
+    mapWindow->init();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     //qDebug() << Q_FUNC_INFO << " - 130";
@@ -736,14 +738,13 @@ void MainWindow::createStatusBar()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-/*
-void MainWindow::slotWorldMapShow()
+void MainWindow::slotShowMap()
 {
-    //worldMapWidget->resize(500,300);
-    //worldMapWidget->loadMap();
-    worldMapWidget->show();
+    Coordinate center = locator->getLocatorCoordinate(world->getQRZLocator(stationCallsign));
+    mapWindow->setCenter(center);
+    mapWindow->show();
 }
-*/
+
 void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
@@ -983,6 +984,10 @@ void MainWindow::slotQRZReturnPressed()
 
     yearChangedDuringModification = false;
     readingTheUI = false;
+    QString lastLocator = dataProxy->getLocatorFromId(dataProxy->getLastQSOid());
+    //qDebug() << Q_FUNC_INFO << ": Locator: " << lastLocator;
+    mapWindow->addLocator(lastLocator, workedColor);
+
     //qDebug() << Q_FUNC_INFO << "Just before cleaning";
     slotClearButtonClicked(Q_FUNC_INFO);
 
@@ -3952,6 +3957,11 @@ void MainWindow::createMenusCommon()
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
 
+    showMapAct = new QAction (tr("Show Map"), this);
+    toolMenu->addAction(showMapAct);
+    connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
+    showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
+
     //qDebug() << "MainWindow::createMenusCommon before" << QT_ENDL;
     //toolMenu->addSeparator();
     //showRotatorAct = new QAction (tr("Rotator"), this);
@@ -5512,9 +5522,11 @@ void MainWindow::checkIfNewBandOrMode()
     //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setBands(bands);
     satTabWidget->addBands(bands);
+    mapWindow->setBands(bands);
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setModes(modes);
+    mapWindow->setModes(modes);
 
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -7757,6 +7769,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
     //qDebug() << Q_FUNC_INFO << QT_ENDL;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
+    mapWindow->setBands(_b);
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -8168,6 +8181,7 @@ void MainWindow::addNewValidMode(const QString &_mode)
 
     readActiveModes (_newM);
     mainQSOEntryWidget->setModes(modes);
+    mapWindow->setModes(modes);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
       //qDebug() << "MainWindow::addNewValidMode: END"  << QT_ENDL;
@@ -8257,6 +8271,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     bands.clear();
     bands = qsTemp;
     mainQSOEntryWidget->setBands(bands);
+    mapWindow->setBands(bands);
 
     satTabWidget->addBands(bands);
         //qDebug() << "MainWindow::defineNewBands - END"  << QT_ENDL;

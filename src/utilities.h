@@ -154,7 +154,7 @@ private:
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
-    bool darkMode;//, callValidation;
+    bool darkMode, callValidation;
     QString dbPath;
     QString softwareVersion;
     //QPalette palRed, palBlack;

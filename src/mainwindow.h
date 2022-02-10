@@ -83,7 +83,7 @@
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
 //#include "widgets/advancedsearch/advancedsearchwidget.h"
-//#include "worldmapwidget.h"
+#include "widgets/map/mapwindowwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
 #include "klogdefinitions.h"
@@ -304,7 +304,7 @@ private slots:
     // PST Rotator
     //void slotRotatorShow();
     // WORLD MAP
-    //void slotWorldMapShow();
+    void slotShowMap();
 
     //DXCCWIDGET
     //void slotShowQSOFromDXCCWidget(const int _q);
@@ -361,12 +361,13 @@ private:
     bool sendQSLByDefault;
     bool deleteAlwaysAdiFile;
 
+    MapWindowWidget *mapWindow;
+
     // PST Rotator
     //PSTRotatorSupport *pstRotator;
     //bool usePSTRotator;
     //RotatorWidget *rotatorWidget;
     //</UPDATE CTY.DAT>
-    //WorldMapWidget *worldMapWidget;
     void createStatusBar();
     void createUI();
     void createUIDX();
@@ -574,7 +575,7 @@ private:
 */
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
-    //QAction *showWorldMapAct;
+    QAction *showMapAct;
 
     QStringList bands;
     QStringList modes;

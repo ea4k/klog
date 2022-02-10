@@ -149,9 +149,12 @@ public:
     QString getNameFromQRZ(const QString &_call);
     QString getQTHFromQRZ(const QString &_call);
     QString getLocatorFromQRZ(const QString &_call);
+    QString getLocatorFromId (const int _id);
     QString getIOTAFromQRZ(const QString &_call);
     QString getQSLViaFromQRZ(const QString &_call);
     // /Complete with previous
+
+    QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
 
     bool updateAwardDXCC();
     bool updateAwardWAZ();
@@ -258,6 +261,7 @@ public:
 
     QStringList getBandNames();
     QStringList getPropModeList();
+    bool isValidPropMode(const QString &_prop);
 
     bool clearSatList();
     bool addSatellite(const QString &_arrlId, const QString &_name, const QString &_downLink, const QString &_upLink, const QString &_mode, int id = -1);

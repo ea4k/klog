@@ -1,11 +1,10 @@
-#ifndef WORLDMAPWIDGET_H
-#define WORLDMAPWIDGET_H
-
+#ifndef MAPWIDGET_H
+#define MAPWIDGET_H
 /***************************************************************************
-                          worldmapwidget.h  -  description
+                          mapwidget.h  -  description
                              -------------------
-    begin                : oct 2019
-    copyright            : (C) 2019 by Jaime Robles
+    begin                : May 2021
+    copyright            : (C) 2021 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -26,63 +25,44 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
+#include <QObject>
 #include <QtWidgets>
-#include <QWidget>
-//#include <QTextBrowser>
-#include "klogdefinitions.h"
+#include <QQuickView>
+#include <QQuickItem>
+#include "locator.h"
 
-class QMenu;
-class QScrollArea;
-class QScrollBar;
-class QAction;
-class QLabel;
-
-class WorldMapWidget: public QMainWindow
+class MapWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    WorldMapWidget();
-    ~WorldMapWidget();
-    void loadMap();
-    //void setText(const QString txt);
+    MapWidget();
+    void init();
+
+    void setCenter(const Coordinate &_c);
+    void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
+    void addQSO(const QString &_loc);
+    void addLocator(const QString &_loc, const QColor &_color);
+    void clearMap();
 
 private slots:
-    //void slotAcceptButtonClicked();
-    void slotZoomIn();
-    void slotZoomOut();
-    void slotNormalSize();
-    void slotFitToWindow();
 
 private:
-    //void loadMap();
-    void drawLocators();
-    void drawLocator(const int _x, const int _y, const int _width,const int _height, const bool _confirmed);
-    void drawLocatorText (const int _x, const int _y, const QString &loc, const bool _confirmed);
-    void drawLines(const int _x, const int _y);
-    void setImage (const QImage &newImage);
-    void updateActions();
-    void createActions();
-    void scaleImage(double factor);
-    void adjustScrollBar(QScrollBar *scrollbar, double factor);
-    QRect getScreenResolution();
-    void mapNormalizeSize();
-    //void keyPressEvent(QKeyEvent *event);
-     //QTextBrowser *textBrowser;
-     //QString text;
-    QScrollArea *scrollArea;
-    QLabel *mapLabel;
-    QImage *mapQImage;
-    int width, height;
-    double scaleFactor;
+    void createUI();
+    QQuickView qmlView;
 
-    QAction *zoomInAct;
-    QAction *zoomOutAct;
-    QAction *fitToWindowAct;
-    QAction *normalSizeAct;
+    QStandardItemModel modelCircle, modelRectangle;
+    QHash<int, QByteArray> circleRoles;
+    QHash<int, QByteArray> rectangleRoles;
 
+
+    int CoordinateRole = Qt::UserRole + 1000;
+    int NorthRole = Qt::UserRole + 1000;
+    int SouthRole = Qt::UserRole + 1001;
+    int ColorRole = Qt::UserRole + 1002;
+    Locator locator;
+    double lat, lon;
 
 };
 
-
-#endif // WorldMapWidget_H
+#endif // MAPWIDGET_H
