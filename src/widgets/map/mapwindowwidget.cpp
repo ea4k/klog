@@ -179,7 +179,10 @@ void MapWindowWidget::showFiltered()
     }
     color.setAlpha(127);    // Little Transparent
 
-    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satNameComboBox->currentText(), confirmedCheckBox->isChecked());
+    QString satName = satNameComboBox->currentText();
+
+
+    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), confirmedCheckBox->isChecked());
     foreach(QString i, locators)
     {
         if (i.length() == 4)

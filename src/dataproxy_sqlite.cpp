@@ -2251,10 +2251,10 @@ QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
 
 QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _band;
-    qDebug() << Q_FUNC_INFO << ": " << _mode;
-    qDebug() << Q_FUNC_INFO << ": " << _prop;
-    qDebug() << Q_FUNC_INFO << ": " << _sat;
+    //qDebug() << Q_FUNC_INFO << ": " << _band;
+    //qDebug() << Q_FUNC_INFO << ": " << _mode;
+    //qDebug() << Q_FUNC_INFO << ": " << _prop;
+    //qDebug() << Q_FUNC_INFO << ": " << _sat;
 
     QStringList grids = QStringList();
     QSqlQuery query;
@@ -2285,9 +2285,23 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     }
 
     QString propString = QString();
+    QString satsString = QString();
+
     if (isValidPropMode(_prop))
     {
         propString = QString("AND prop_mode = '%1'").arg(_prop);
+        if (_prop == "SAT")
+        {
+            qDebug() << Q_FUNC_INFO  << ": SAT: " << _sat;
+            if (getDBSatId(_sat)>0)
+            {
+                satsString = QString("AND sat_name = '%1'").arg(_sat);
+            }
+            else
+            {
+                satsString = QString("AND sat_name <> 'x' ");
+            }
+        }
     }
     else
     {
@@ -2305,15 +2319,8 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     }
 
 
-    QString satsString = QString();
-    if (getDBSatId(_sat)>0)
-    {
-        satsString = QString("AND sat_name = '%1'").arg(_sat);
-    }
-    else
-    {
-        satsString = QString("AND sat_name <> 'x' ");
-    }
+
+
 
     queryString = QString("SELECT DISTINCT gridsquare from log WHERE %1 %2 %3 %4 %5 ORDER BY id ASC").arg(bandString).arg(modeString).arg(propString).arg(satsString).arg(confirmedString);
 
@@ -4837,9 +4844,9 @@ bool DataProxy_SQLite::addSatellite(const QString &_arrlId, const QString &_name
 
 int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
 {
-      //qDebug()  << "DataProxy_SQLite::getDBSatId: " << _arrlId << QT_ENDL;
- int aux = -1;
- QString queryString = QString("SELECT id FROM satellites WHERE satarrlid='%1'").arg(_arrlId);
+    qDebug()  << "DataProxy_SQLite::getDBSatId: " << _arrlId << QT_ENDL;
+    int aux = -1;
+    QString queryString = QString("SELECT id FROM satellites WHERE satarrlid='%1'").arg(_arrlId);
  QSqlQuery query;
 
  bool sqlOK = query.exec(queryString);
@@ -4853,7 +4860,7 @@ int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
      }
      else
      {
-              //qDebug()  << "DataProxy_SQLite::getDBSatId:  query not valid"  << QT_ENDL;
+            qDebug()  << "DataProxy_SQLite::getDBSatId:  query not valid"  << QT_ENDL;
          query.finish();
      }
  }
@@ -4864,9 +4871,9 @@ int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
      query.finish();
  }
 
-      //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: final: " << aux << QT_ENDL;
- query.finish();
- return aux;
+    qDebug()  << "DataProxy_SQLite::getSatelliteUplink: final: " << aux ;
+    query.finish();
+    return aux;
 }
 
 QStringList DataProxy_SQLite::getSatellitesList()
