@@ -69,7 +69,7 @@ void MapWidget::createUI()
     layout->addWidget(container);
     setLayout (layout);
 
-    setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
+    //setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
     //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
 }
 

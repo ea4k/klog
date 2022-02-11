@@ -742,8 +742,13 @@ void MainWindow::slotShowMap()
 {
     Coordinate center = locator->getLocatorCoordinate(world->getQRZLocator(stationCallsign));
     mapWindow->setCenter(center);
+
+    QSize size = this->size();
+    qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
+    size = size/2;
+    qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
+    mapWindow->resize(size);
     mapWindow->show();
-    mapWindow->resize((this->size())/=2);
 }
 
 void MainWindow::setMainWindowTitle()
