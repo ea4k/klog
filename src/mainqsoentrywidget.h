@@ -67,6 +67,7 @@ public:
 
     void toggleRealTime();
     void setUTC(const bool _utc);
+    bool getUTC();
     void setModify(const bool _modify);
     bool getModifying();
     void setUpAndRunning(const bool _u);

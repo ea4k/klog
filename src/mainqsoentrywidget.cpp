@@ -803,6 +803,13 @@ void MainQSOEntryWidget::setUTC(const bool _utc)
     emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
+bool MainQSOEntryWidget::getUTC()
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    return UTCTime;
+    emit debugLog(Q_FUNC_INFO, "END", Debug);
+}
+
 void MainQSOEntryWidget::setModify(const bool _modify)
 {
     emit debugLog(Q_FUNC_INFO, "Start", Debug);

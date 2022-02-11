@@ -481,6 +481,7 @@ void MainWindow::init()
     mapWindow->init();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
+    checkUTC();
     //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
 
@@ -8628,6 +8629,37 @@ void MainWindow::slotTakeOverFocusToMainQSOInput()
     mainQSOEntryWidget->raise();
     mainQSOEntryWidget->setFocus ();
     mainQSOEntryWidget->setFocusToOK ();
+}
+
+void MainWindow::checkUTC()
+{
+    qDebug() << Q_FUNC_INFO;
+    if (mainQSOEntryWidget->getUTC())
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog - UTC Configuration"));
+        msgBox.setText(tr("KLog is configured to use local time."));
+        msgBox.setDetailedText(tr("ADIF requires time to be stored in UTC and KLog is configured to use local time.\n"
+"If your QSOs are stored in local time, KLog can update all your log to UTC.\n"
+"Please be aware that this operation may change the time of all your QSOs."));
+        msgBox.setInformativeText(tr("Do you want to do it now?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
+
+        switch (ret)
+        {
+            case QMessageBox::Yes :
+
+            break;
+        default:
+            break;
+        }
+
+
+    }
+
 }
 
 void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
