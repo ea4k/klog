@@ -89,9 +89,10 @@ void MapWindowWidget::createUI()
     connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
     connect(propComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
     connect(satNameComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
-
     connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
     //connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
+
+    satNameComboBox->setEnabled(false); // Starts disable until propagation = SAT
 }
 
 void MapWindowWidget::setCenter(const Coordinate &_c)

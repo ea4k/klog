@@ -2302,6 +2302,10 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
                 satsString = QString("AND sat_name <> 'x' ");
             }
         }
+        else
+        {
+            satsString = QString("AND sat_name = '' ");
+        }
     }
     else
     {
@@ -2335,7 +2339,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
             if (query.isValid())
             {
                 queryString = (query.value(0)).toString();
-                //qDebug() << Q_FUNC_INFO << queryString  << QT_ENDL;
+                qDebug() << Q_FUNC_INFO << queryString  << QT_ENDL;
                 grids.append(queryString);
             }
             else
