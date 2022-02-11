@@ -62,7 +62,8 @@ void StatsGridsOnSatsWidget::createUI()
     tableWidget->setColumnCount(7);
 
     tableWidget->resizeRowsToContents();
-    tableWidget->sortByColumn(2, Qt::AscendingOrder);
+    //tableWidget->sortByColumn(4, Qt::AscendingOrder);
+    //void QTableWidget::sortItems(int column, Qt::SortOrder order = Qt::AscendingOrder)
     tableWidget->horizontalHeader()->setStretchLastSection(true);
     //logView->sortByColumn(1, Qt::AscendingOrder);
 
@@ -175,6 +176,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
         }
         numberLabel->setText(QString::number(number));
     }
+    tableWidget->sortItems(4, Qt::AscendingOrder);
 }
 
 void StatsGridsOnSatsWidget::slotConfirmedClicked()
