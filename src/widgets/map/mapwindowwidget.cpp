@@ -260,10 +260,6 @@ void MapWindowWidget::slotConfirmedCheckBoxChanged()
 void MapWindowWidget::addQSO(const QString &_loc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    //if (!locator.isValidLocator(_loc))
-    //{
-    //    return;
-    //}
 }
 
 void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
@@ -273,8 +269,7 @@ void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
     //{
     //    return;
     //}
-    mapWidget->addLocator(_loc, QColor(255, 0, 0, 127));
-
+    mapWidget->addLocator(_loc, _color);
 }
 
 void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_color)
@@ -300,4 +295,9 @@ QString MapWindowWidget::getPropModeFromComboBox()
         return QString();
     }
     return _pm;
+}
+
+void MapWindowWidget::paintGlobalGrid()
+{
+
 }

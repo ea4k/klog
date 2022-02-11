@@ -749,6 +749,13 @@ void MainWindow::slotShowMap()
     //qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
     mapWindow->resize(size);
     mapWindow->show();
+    //QStringList a;
+    //a.clear();
+    //a << locator->getAll();
+    //foreach (QString ai, a) {
+    //    qDebug() << ai;
+    //}
+    //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
 void MainWindow::setMainWindowTitle()

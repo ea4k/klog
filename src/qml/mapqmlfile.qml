@@ -69,7 +69,6 @@ Rectangle {
         {
             hoverEnabled: true
             anchors.fill: parent
-
             //onPositionChanged:
             //{
             //    Qt.point(mouseX, mouseY)
@@ -78,7 +77,6 @@ Rectangle {
             //    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
             //}
         }
-
         MapItemView
         {
             model: rectangle_model
@@ -87,7 +85,7 @@ Rectangle {
                 border.width: 2
                 topLeft       : model.north
                 bottomRight   : model.south
-                color         : model.color
+                color         : model.color                
             }
         }
         MapItemView

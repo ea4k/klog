@@ -58,6 +58,7 @@ private slots:
 
 private:
     void createUI();
+    void paintGlobalGrid();
     void setPropModes();
     void setSatNames();
     void showFiltered();

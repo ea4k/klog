@@ -447,3 +447,75 @@ int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString
         return getDistance(lon1, lat1, lon2, lat2, _imperialSystem);
     }
 }
+
+QStringList Locator::getAll(int _length)
+{
+    qDebug() << Q_FUNC_INFO << QString(" - %1").arg(_length);
+
+    QStringList list;
+    list.clear();
+    QString locator;
+    QChar letter1, letter2, letter3, letter4, num1, num2;
+    for (int i = 0; i<18; i++)
+    {
+        letter1 = 'A' + i;
+        for (int j = 0; j<18; j++)
+        {
+            letter2 = 'A' + j;
+            if (_length<=2)
+            {
+                locator.append(letter1);
+                locator.append(letter2);
+                list.append(locator);
+                //qDebug() << Q_FUNC_INFO << locator ;
+                locator.clear();
+            }
+            else
+            {
+                for (int k = 0; k<10; k++)
+                {
+                    num1 = '0' + k;
+                    for (int l = 0; l<10; l++)
+                    {
+                        num2 = '0' + l;
+                        if (_length<=4)
+                        {
+                            locator.append(letter1);
+                            locator.append(letter2);
+                            locator.append(num1);
+                            locator.append(num2);
+                            list.append(locator);
+                            //qDebug() << Q_FUNC_INFO << locator ;
+                            locator.clear();
+                        }
+                        else
+                        {
+                            for (int m = 0; m<24; m++)
+                            {
+                                letter3 = 'a' + m;
+                                for (int n = 0; n<24; n++)
+                                {
+                                    letter4 = 'a' + n;
+                                    if (_length<=6)
+                                    {
+                                        locator.append(letter1);
+                                        locator.append(letter2);
+                                        locator.append(num1);
+                                        locator.append(num2);
+                                        locator.append(letter3);
+                                        locator.append(letter4);
+                                        list.append(locator);
+                                        //qDebug() << Q_FUNC_INFO << locator ;
+                                        locator.clear();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+    return list;
+}
