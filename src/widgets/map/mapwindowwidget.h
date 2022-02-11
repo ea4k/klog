@@ -46,7 +46,7 @@ public:
     void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
     void addLocators(const QStringList &_locators, const QColor &_color);
-
+    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
 
 private slots:
     void slotBandsComboBoxChanged();
@@ -68,7 +68,12 @@ private:
     MapWidget *mapWidget;
     QComboBox *propComboBox, *bandComboBox, *modeComboBox, *satNameComboBox;
     QCheckBox *confirmedCheckBox;//, *locatorsCheckBox;
-    //QPushButton *okButton;
+
+    QColor newOneColor;     //
+    QColor neededColor;     //
+    QColor workedColor;     //
+    QColor confirmedColor;  //
+    QColor defaultColor;
 
 };
 

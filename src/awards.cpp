@@ -1167,7 +1167,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     {
         workedColor.setNamedColor(_worked.toUpper());
     }
-
 }
 
 QColor Awards::getDefaultColor()

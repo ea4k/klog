@@ -37,6 +37,8 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     modeComboBox = new QComboBox;
     satNameComboBox = new QComboBox;
     confirmedCheckBox = new QCheckBox;
+
+
     //locatorsCheckBox = new QCheckBox;
 
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -50,6 +52,11 @@ MapWindowWidget::~MapWindowWidget()
 
 void MapWindowWidget::init()
 {
+    newOneColor = Qt::black;
+    neededColor = Qt::black;
+    workedColor = Qt::black;
+    confirmedColor = Qt::black;
+    defaultColor = Qt::black;
     createUI();
 }
 
@@ -172,11 +179,11 @@ void MapWindowWidget::showFiltered()
     QColor color;
     if (confirmedCheckBox->isChecked())
     {
-        color = QColor(Qt::red);
+        color = confirmedColor;
     }
     else
     {
-        color = QColor(Qt::green);
+        color = workedColor;
     }
     color.setAlpha(127);    // Little Transparent
 
@@ -300,4 +307,14 @@ QString MapWindowWidget::getPropModeFromComboBox()
 void MapWindowWidget::paintGlobalGrid()
 {
 
+}
+
+void MapWindowWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+{
+       //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << QT_ENDL;
+    defaultColor = _default;
+    neededColor = _needed;
+    workedColor = _worked;
+    confirmedColor = _confirmed;
+    newOneColor = _newOne;
 }
