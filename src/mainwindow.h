@@ -591,6 +591,7 @@ private:
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
     bool logEvents;                     // Should KLog log the events for debugging
     bool debugFileOpen;                 //Is the debugFile open?
+    bool logConvertedToUTC;             // True means that the log was in local but has been converted to UTC
     QFile *debugFile;
     DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
 

@@ -364,6 +364,7 @@ void MainWindow::init()
     clublogEmail = QString();
     clublogActive = false;
     clublogRealTime = false;
+    logConvertedToUTC = false; // On start this should be false and check reading
 
     //clublogUseStationCallSign = false;
     eQSLActive = false;
@@ -4996,6 +4997,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         my_CQz = value.toInt();
     }else if (field=="ITUZ"){
         my_ITUz = value.toInt();
+    }else if (field=="LOGUTCCONVERTED"){
+                    //qDebug() << "MainWindow::processConfigLine: CONTEST: " << QT_ENDL;
+        logConvertedToUTC = util->trueOrFalse(value);
     }else if (field=="CONTEST"){
                     //qDebug() << "MainWindow::processConfigLine: CONTEST: " << QT_ENDL;
         contestMode = value;
@@ -8634,7 +8638,7 @@ void MainWindow::slotTakeOverFocusToMainQSOInput()
 void MainWindow::checkUTC()
 {
     qDebug() << Q_FUNC_INFO;
-    if (mainQSOEntryWidget->getUTC())
+    if ((!mainQSOEntryWidget->getUTC()) && (!logConvertedToUTC))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
@@ -8651,15 +8655,13 @@ void MainWindow::checkUTC()
         switch (ret)
         {
             case QMessageBox::Yes :
+            filemanager->modifySetupFile(configFileName, "LogUTCConverted", "True");
 
             break;
         default:
             break;
         }
-
-
     }
-
 }
 
 void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
