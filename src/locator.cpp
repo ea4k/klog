@@ -450,7 +450,7 @@ int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString
 
 QStringList Locator::getAll(int _length)
 {
-    qDebug() << Q_FUNC_INFO << QString(" - %1").arg(_length);
+    //qDebug() << Q_FUNC_INFO << QString(" - %1").arg(_length);
 
     QStringList list;
     list.clear();

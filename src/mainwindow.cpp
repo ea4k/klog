@@ -753,7 +753,7 @@ void MainWindow::slotShowMap()
     //a.clear();
     //a << locator->getAll();
     //foreach (QString ai, a) {
-    //    qDebug() << ai;
+    //    //qDebug() << ai;
     //}
     //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
