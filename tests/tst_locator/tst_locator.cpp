@@ -155,6 +155,7 @@ void tst_Locator::test_LocatorCorners()
     cornerTest = locator->getLocatorCorner (_loc, false);
      //qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
     QVERIFY2(cornerManual.lat == cornerTest.lat, "getLocator Corner South Lat failed for IN");
+    QVERIFY2(cornerManual.lon == cornerTest.lon, "getLocator Corner South Lon failed for IN");
 
     _loc = "IN80";
     //North
@@ -175,6 +176,8 @@ void tst_Locator::test_LocatorCorners()
     cornerTest = locator->getLocatorCorner (_loc, false);
      //qDebug() << QString("CornerManual (lat/lon)=(%1/%2) - CornetTest (lat/lon)=(%3/%4)").arg(cornerManual.lat).arg(cornerManual.lon).arg(cornerTest.lat).arg(cornerTest.lon);
      QVERIFY2(cornerManual.lat == cornerTest.lat, "getLocator Corner South Lat failed for IN80");
+     QVERIFY2(cornerManual.lon == cornerTest.lon, "getLocator Corner South Lon failed for IN80");
+
 
      _loc = "IN80AA";
      //North
