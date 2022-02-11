@@ -743,6 +743,7 @@ void MainWindow::slotShowMap()
     Coordinate center = locator->getLocatorCoordinate(world->getQRZLocator(stationCallsign));
     mapWindow->setCenter(center);
     mapWindow->show();
+    mapWindow->resize((this->size())/=2);
 }
 
 void MainWindow::setMainWindowTitle()
