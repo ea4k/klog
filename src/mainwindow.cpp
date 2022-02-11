@@ -3131,11 +3131,6 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 {
      //qDebug() << "MainWindow::slotElogQRZCOMLogUploaded: " << QString::number(_error) << QT_ENDL;
 
-   if (!qrzcomSubscriber)
-   {
-        return;
-   }
-
        QMessageBox msgBox;
    if (_error != QNetworkReply::NoError)
    {
@@ -5434,20 +5429,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         eQSLUseQSOStationCallSign = util->trueOrFalse(value);
     }
     else if(field =="LOTWACTIVE"){
-                //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << QT_ENDL;
-        if (util->trueOrFalse(value))
-        {
-            lotwActive = true;
-            lotwCallTQSL->setEnabled(true);
-            lotwCallTQSL->setWhatsThis(tr("Sends the log to LoTW calling TQSL."));
-        }
-        else
-        {
-            lotwActive = false;
-            lotwCallTQSL->setEnabled(false);
-            lotwCallTQSL->setWhatsThis(tr("This function is disabled. Go to the Setup->LoTW tab to enable it."));
-        }
-                //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << QT_ENDL;
+         //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << QT_ENDL;
+        lotwActive = util->trueOrFalse(value);
+         //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << QT_ENDL;
     }
     else if(field =="LOTWPATH"){
           //qDebug() << "MainWindow::processConfigLine - LOTWPATH" << QT_ENDL;
@@ -6364,6 +6348,17 @@ void MainWindow::slotQRZCOMLogUpload()
     if (!qrzcomActive)
     {
         showMessageToEnableTheOnlineService(QRZ)  ;
+        //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+        return;
+    }
+
+    if (!qrzcomSubscriber)
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - QRZ.com"));
+        msgBox.setText(tr("To upload QSOs you need a qrz.com subscription. If you have one, go to Setup->QRZ.com tab to enable it.") );
+        msgBox.exec();
         //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
         return;
     }
