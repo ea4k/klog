@@ -8408,6 +8408,10 @@ void MainWindow::slotManualMode(bool _enable)
     //    _updateTheRadio = true;
     //}
     manualMode = _enable;
+    if ((manualMode) && (hamlibActive))
+    {
+        hamlib->readRadio(true);
+    }
     //if (_updateTheRadio)
     //{
 
