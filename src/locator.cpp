@@ -405,7 +405,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
     fla = int(floor((la-double(dla) ) * 24 ));
 
     locat = locat + QChar(elo+'A');
-    locat = locat + QChar(elo+'A');
+    locat = locat + QChar(fla+'A');
     //qDebug() << Q_FUNC_INFO << ": " << locat;
   //locat = locat + QChar(elo+'A');
   //locat = locat + QChar(fla+'A');

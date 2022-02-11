@@ -85,10 +85,10 @@ void MapWindowWidget::createUI()
 
     mapWidget->init();
 
-    connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandsComboBoxChanged(QString)));
-    connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModesComboBoxChanged(QString)));
-    connect(propComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotPropComboBoxChanged(QString)));
-    connect(satNameComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotSatsComboBoxChanged(QString)));
+    connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandsComboBoxChanged()));
+    connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
+    connect(propComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
+    connect(satNameComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
 
     connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
     //connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
@@ -203,7 +203,7 @@ void MapWindowWidget::showFiltered()
     addLocators(shortLocators, color);
 }
 
-void MapWindowWidget::slotBandsComboBoxChanged(const QString &_c)
+void MapWindowWidget::slotBandsComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO;
    showFiltered();
@@ -211,7 +211,7 @@ void MapWindowWidget::slotBandsComboBoxChanged(const QString &_c)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MapWindowWidget::slotModesComboBoxChanged(const QString &_c)
+void MapWindowWidget::slotModesComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO;
     showFiltered();
@@ -219,7 +219,7 @@ void MapWindowWidget::slotModesComboBoxChanged(const QString &_c)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MapWindowWidget::slotPropComboBoxChanged(const QString &_c)
+void MapWindowWidget::slotPropComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO;
 
@@ -240,7 +240,7 @@ void MapWindowWidget::slotPropComboBoxChanged(const QString &_c)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MapWindowWidget::slotSatsComboBoxChanged(const QString &_c)
+void MapWindowWidget::slotSatsComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO;
     showFiltered();

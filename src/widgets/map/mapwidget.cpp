@@ -45,8 +45,8 @@ void MapWidget::init()
 
 void MapWidget::createUI()
 {
-    lat = 0.0;
-    lon = 0.0;
+    //lat = 0.0;
+    //lon = 0.0;
 
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 

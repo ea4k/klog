@@ -61,7 +61,7 @@ private:
     int SouthRole = Qt::UserRole + 1001;
     int ColorRole = Qt::UserRole + 1002;
     Locator locator;
-    double lat, lon;
+    //double lat, lon;
 
 };
 

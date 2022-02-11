@@ -49,10 +49,10 @@ public:
 
 
 private slots:
-    void slotBandsComboBoxChanged(const QString &_c);
-    void slotModesComboBoxChanged(const QString &_c);
-    void slotPropComboBoxChanged(const QString &_c);
-    void slotSatsComboBoxChanged(const QString &_c);
+    void slotBandsComboBoxChanged();
+    void slotModesComboBoxChanged();
+    void slotPropComboBoxChanged();
+    void slotSatsComboBoxChanged();
     void slotConfirmedCheckBoxChanged();
     //void slotLocatorsCheckBoxChanged();
 
