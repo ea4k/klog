@@ -311,13 +311,21 @@ void SearchWindow::rightButtonFromLogMenu(const int row)
         {
             QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
             menuRecQsl->addAction(qslRecViaBureauFromLogAct);
-            menuRecQsl->addAction(qslRecViaBureauMarkReqFromSearchAct);
+            if (!qslSent)
+            {
+               menuRecQsl->addAction(qslRecViaBureauMarkReqFromSearchAct);
+            }
             menuRecQsl->addAction(qslRecViaDirectFromLogAct);
-            menuRecQsl->addAction(qslRecViaDirectMarkReqFromSearchAct);
+            if (!qslSent)
+            {
+                menuRecQsl->addAction(qslRecViaDirectMarkReqFromSearchAct);
+            }
+
             menuRecQsl->addAction(qslRecRequestedAct);
             qslRecViaBureauFromLogAct->setData(row);
             qslRecViaBureauMarkReqFromSearchAct->setData(row);
             qslRecViaDirectFromLogAct->setData(row);
+
             qslRecViaDirectMarkReqFromSearchAct->setData(row);
             qslRecRequestedAct->setData(row);
         }
