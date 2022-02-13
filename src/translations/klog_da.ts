@@ -4293,52 +4293,52 @@ Frekvens er ikke i et amatørradiobånd!</translation>
 <context>
     <name>MapWindowWidget</name>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="59"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="66"/>
         <source>Select QSOs in this band.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="60"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="67"/>
         <source>Select QSOs in this mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="61"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="68"/>
         <source>Select QSOs in this propagation mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="62"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="69"/>
         <source>Select QSOs using this Satellite.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="63"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="70"/>
         <source>Only confirmed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="65"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="72"/>
         <source>Select only confirmed QSOs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="111"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="118"/>
         <source>All bands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="122"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="129"/>
         <source>All modes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="134"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="141"/>
         <source>All propagation modes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/map/mapwindowwidget.cpp" line="144"/>
+        <location filename="../widgets/map/mapwindowwidget.cpp" line="151"/>
         <source>All satellites</source>
         <translation type="unfinished"></translation>
     </message>

@@ -647,90 +647,90 @@ msgctxt "DataProxy_SQLite|"
 msgid "Software version in DB is null"
 msgstr "Wersja oprogramowania w DB jest zero"
 
-#: ../dataproxy_sqlite.cpp:4700
+#: ../dataproxy_sqlite.cpp:4701
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Aircraft Scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4704
+#: ../dataproxy_sqlite.cpp:4705
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4708
+#: ../dataproxy_sqlite.cpp:4709
 msgctxt "DataProxy_SQLite|"
 msgid "Aurora-E"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4712
+#: ../dataproxy_sqlite.cpp:4713
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Back scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4716
+#: ../dataproxy_sqlite.cpp:4717
 msgctxt "DataProxy_SQLite|"
 msgid "Earth-Moon-Earth"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4720
+#: ../dataproxy_sqlite.cpp:4721
 msgctxt "DataProxy_SQLite|"
 msgid "Sporadic E"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4732
+#: ../dataproxy_sqlite.cpp:4733
 msgctxt "DataProxy_SQLite|"
 msgid "Internet-assisted"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4736
+#: ../dataproxy_sqlite.cpp:4737
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Ionoscatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4740
+#: ../dataproxy_sqlite.cpp:4741
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Meteor scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4744
+#: ../dataproxy_sqlite.cpp:4745
 msgctxt "DataProxy_SQLite|"
 msgid "Terrestrial or atmospheric repeater or transponder"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4748
+#: ../dataproxy_sqlite.cpp:4749
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Rain scatter"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4752
+#: ../dataproxy_sqlite.cpp:4753
 #, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../dataproxy_sqlite.cpp:5457
+#: ../dataproxy_sqlite.cpp:5458
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Bureau"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5469
+#: ../dataproxy_sqlite.cpp:5470
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Manager"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6293
+#: ../dataproxy_sqlite.cpp:6294
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4724
+#: ../dataproxy_sqlite.cpp:4725
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Field Aligned Irregularities"
@@ -741,98 +741,98 @@ msgctxt "DataProxy_SQLite|"
 msgid "Query didn't failed"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4728
+#: ../dataproxy_sqlite.cpp:4729
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "F2 Reflection"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4756
+#: ../dataproxy_sqlite.cpp:4757
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Trans-equatorial"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:4760
+#: ../dataproxy_sqlite.cpp:4761
 msgctxt ""
 "DataProxy_SQLite|Common term in hamradio, do not translate if not sure"
 msgid "Tropospheric ducting"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5284 ../dataproxy_sqlite.cpp:5344
+#: ../dataproxy_sqlite.cpp:5285 ../dataproxy_sqlite.cpp:5345
 msgctxt "DataProxy_SQLite|"
 msgid "Yes"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5288 ../dataproxy_sqlite.cpp:5348
+#: ../dataproxy_sqlite.cpp:5289 ../dataproxy_sqlite.cpp:5349
 msgctxt "DataProxy_SQLite|"
 msgid "No"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5292 ../dataproxy_sqlite.cpp:5352
+#: ../dataproxy_sqlite.cpp:5293 ../dataproxy_sqlite.cpp:5353
 msgctxt "DataProxy_SQLite|"
 msgid "Requested"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5296 ../dataproxy_sqlite.cpp:5360
+#: ../dataproxy_sqlite.cpp:5297 ../dataproxy_sqlite.cpp:5361
 msgctxt "DataProxy_SQLite|"
 msgid "Ignore/Invalid"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5300
+#: ../dataproxy_sqlite.cpp:5301
 msgctxt "DataProxy_SQLite|"
 msgid "Validated"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5356
+#: ../dataproxy_sqlite.cpp:5357
 msgctxt "DataProxy_SQLite|"
 msgid "Queued"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5404
+#: ../dataproxy_sqlite.cpp:5405
 msgctxt "DataProxy_SQLite|"
 msgid "Uploaded"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5408
+#: ../dataproxy_sqlite.cpp:5409
 msgctxt "DataProxy_SQLite|"
 msgid "Do not upload"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5412
+#: ../dataproxy_sqlite.cpp:5413
 msgctxt "DataProxy_SQLite|"
 msgid "Modified"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:5461
+#: ../dataproxy_sqlite.cpp:5462
 #, fuzzy
 msgctxt "DataProxy_SQLite|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../dataproxy_sqlite.cpp:5465
+#: ../dataproxy_sqlite.cpp:5466
 msgctxt "DataProxy_SQLite|"
 msgid "Electronic"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6292
+#: ../dataproxy_sqlite.cpp:6293
 msgctxt "DataProxy_SQLite|"
 msgid "KLog DXCC"
 msgstr "KLog DXCC"
 
-#: ../dataproxy_sqlite.cpp:9200
+#: ../dataproxy_sqlite.cpp:9201
 msgctxt "DataProxy_SQLite|"
 msgid "KLog - Invalid call detected"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9206
+#: ../dataproxy_sqlite.cpp:9207
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "An empty callsign has been detected. Do you want to export this QSO anyway "
 "(click on Yes) or remove the field from the exported ADIF record?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9210
+#: ../dataproxy_sqlite.cpp:9211
 #, qt-format
 msgctxt "DataProxy_SQLite|"
 msgid ""
@@ -840,7 +840,7 @@ msgid ""
 "callsign anyway (click on Yes) or remove the call from the exported log?"
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:9214
+#: ../dataproxy_sqlite.cpp:9215
 msgctxt "DataProxy_SQLite|"
 msgid ""
 "Exporting wrong calls may create problems in the applications you are "
@@ -2211,7 +2211,7 @@ msgctxt "MainWindow|"
 msgid "&Log Window"
 msgstr ""
 
-#: ../mainwindow.cpp:778 ../mainwindow.cpp:4636
+#: ../mainwindow.cpp:791 ../mainwindow.cpp:4649
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "KLog"
@@ -2277,209 +2277,209 @@ msgctxt "MainWindow|"
 msgid "Ready"
 msgstr ""
 
-#: ../mainwindow.cpp:952
+#: ../mainwindow.cpp:965
 msgctxt "MainWindow|"
 msgid ""
 "An unexpected error ocurred when trying to add the QSO to your log. If the "
 "problem persists, please contact the developer for analysis: "
 msgstr ""
 
-#: ../mainwindow.cpp:1092
+#: ../mainwindow.cpp:1105
 msgctxt "MainWindow|"
 msgid "KLog - Not valid call"
 msgstr ""
 
-#: ../mainwindow.cpp:1095 ../mainwindow.cpp:1862
+#: ../mainwindow.cpp:1108 ../mainwindow.cpp:1875
 msgctxt "MainWindow|"
 msgid ""
 "Adding non-valid calls to the log may create problems when applying for "
 "awards, exporting ADIF files to other systems or applications."
 msgstr ""
 
-#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1948
+#: ../mainwindow.cpp:1167 ../mainwindow.cpp:1961
 msgctxt "MainWindow|"
 msgid "You have selected an entity:"
 msgstr ""
 
-#: ../mainwindow.cpp:1154 ../mainwindow.cpp:1948
+#: ../mainwindow.cpp:1167 ../mainwindow.cpp:1961
 msgctxt "MainWindow|"
 msgid "that is different from the KLog proposed entity:"
 msgstr ""
 
-#: ../mainwindow.cpp:1155
+#: ../mainwindow.cpp:1168
 msgctxt "MainWindow|"
 msgid ""
 "Click on the prefix of the correct entity or Cancel to edit the QSO again."
 msgstr ""
 
-#: ../mainwindow.cpp:1924 ../mainwindow.cpp:1936
+#: ../mainwindow.cpp:1937 ../mainwindow.cpp:1949
 msgctxt "MainWindow|"
 msgid "No DXCC"
 msgstr ""
 
-#: ../mainwindow.cpp:1925 ../mainwindow.cpp:1937
+#: ../mainwindow.cpp:1938 ../mainwindow.cpp:1950
 msgctxt "MainWindow|"
 msgid "None"
 msgstr ""
 
-#: ../mainwindow.cpp:1949
+#: ../mainwindow.cpp:1962
 msgctxt "MainWindow|"
 msgid "Click on the prefix of the right entity or Cancel to correct."
 msgstr ""
 
-#: ../mainwindow.cpp:2892
+#: ../mainwindow.cpp:2905
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog error"
 msgstr ""
 
-#: ../mainwindow.cpp:3010
+#: ../mainwindow.cpp:3023
 msgctxt "MainWindow|"
 msgid "KLog - eQSL error"
 msgstr ""
 
-#: ../mainwindow.cpp:3300
+#: ../mainwindow.cpp:3313
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog - %1"
 msgstr ""
 
-#: ../mainwindow.cpp:3801
+#: ../mainwindow.cpp:3814
 msgctxt "MainWindow|"
 msgid "Settings ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3879
+#: ../mainwindow.cpp:3892
 msgctxt "MainWindow|"
 msgid "Download from LoTW ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3884
+#: ../mainwindow.cpp:3897
 msgctxt "MainWindow|"
 msgid "Download the full log from LoTW ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3889
+#: ../mainwindow.cpp:3902
 msgctxt "MainWindow|"
 msgid "ClubLog tools ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3896
+#: ../mainwindow.cpp:3909
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to ClubLog ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3902
+#: ../mainwindow.cpp:3915
 msgctxt "MainWindow|"
 msgid "eQSL tools ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3909
+#: ../mainwindow.cpp:3922
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to eQSL.cc ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3915
+#: ../mainwindow.cpp:3928
 msgctxt "MainWindow|"
 msgid "QRZ.com tools ..."
 msgstr ""
 
-#: ../mainwindow.cpp:4084
+#: ../mainwindow.cpp:4097
 msgctxt "MainWindow|"
 msgid ""
 "Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be "
 "done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:4132
+#: ../mainwindow.cpp:4145
 msgctxt "MainWindow|"
 msgid "Your log has been updated with the LoTW downloaded QSOs."
 msgstr ""
 
-#: ../mainwindow.cpp:4133
+#: ../mainwindow.cpp:4146
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog has updated %1 QSOs from LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:4161
+#: ../mainwindow.cpp:4174
 msgctxt "MainWindow|"
 msgid ""
 "Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done "
 "ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:4179
+#: ../mainwindow.cpp:4192
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all pending QSOs as queued for LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4358
+#: ../mainwindow.cpp:4371
 msgctxt "MainWindow|"
 msgid "All queued QSOs of this log has been marked as sent to LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4388
+#: ../mainwindow.cpp:4401
 msgctxt "MainWindow|"
 msgid "There was a problem to mark all queued QSOs as sent to LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:5846
+#: ../mainwindow.cpp:5859
 msgctxt "MainWindow|"
 msgid "No QSOs have been exported to ADIF."
 msgstr ""
 
-#: ../mainwindow.cpp:5850
+#: ../mainwindow.cpp:5863
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog has exported %1 QSOs to the ADIF file: %2"
 msgstr ""
 
-#: ../mainwindow.cpp:5911
+#: ../mainwindow.cpp:5924
 msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:5958
+#: ../mainwindow.cpp:5971
 msgctxt "MainWindow|"
 msgid "There was an error while updating to Yes the LoTW QSL sent information."
 msgstr ""
 
-#: ../mainwindow.cpp:6151 ../mainwindow.cpp:6194
+#: ../mainwindow.cpp:6164 ../mainwindow.cpp:6207
 msgctxt "MainWindow|"
 msgid "KLog - Select the Station Callsign."
 msgstr ""
 
-#: ../mainwindow.cpp:6303
+#: ../mainwindow.cpp:6316
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to QRZ.com."
 msgstr ""
 
-#: ../mainwindow.cpp:6304
+#: ../mainwindow.cpp:6317
 msgctxt "MainWindow|"
 msgid ""
 "All the QSOs in this log has been marked as Modified in the QRZ.com status "
 "field"
 msgstr ""
 
-#: ../mainwindow.cpp:6309
+#: ../mainwindow.cpp:6322
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to QRZ.com"
 msgstr ""
 
-#: ../mainwindow.cpp:7312
+#: ../mainwindow.cpp:7325
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "RSTrx"
 msgstr "RSTrx"
 
-#: ../mainwindow.cpp:7310
+#: ../mainwindow.cpp:7323
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "RSTtx"
 msgstr "RSTtx"
 
-#: ../mainwindow.cpp:3361
+#: ../mainwindow.cpp:3374
 msgctxt "MainWindow|"
 msgid "Do you really want to exit KLog?"
 msgstr ""
@@ -2489,126 +2489,126 @@ msgctxt "MainWindow|"
 msgid "KLog - File not open"
 msgstr ""
 
-#: ../mainwindow.cpp:950
+#: ../mainwindow.cpp:963
 msgctxt "MainWindow|"
 msgid "KLog - Unexpected error"
 msgstr ""
 
-#: ../mainwindow.cpp:1153 ../mainwindow.cpp:1947
+#: ../mainwindow.cpp:1166 ../mainwindow.cpp:1960
 msgctxt "MainWindow|"
 msgid "KLog - Select correct entity"
 msgstr ""
 
-#: ../mainwindow.cpp:3360
+#: ../mainwindow.cpp:3373
 msgctxt "MainWindow|"
 msgid "KLog - Exit"
 msgstr ""
 
-#: ../mainwindow.cpp:3748
+#: ../mainwindow.cpp:3761
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr ""
 
-#: ../mainwindow.cpp:3762
+#: ../mainwindow.cpp:3775
 msgctxt "MainWindow|"
 msgid "Import an ADIF file into the current log."
 msgstr ""
 
-#: ../mainwindow.cpp:3776
+#: ../mainwindow.cpp:3789
 msgctxt "MainWindow|"
 msgid "Export the current log to an ADIF logfile."
 msgstr ""
 
-#: ../mainwindow.cpp:3782
+#: ../mainwindow.cpp:3795
 msgctxt "MainWindow|"
 msgid "Export ALL the QSOs into one ADIF file, merging QSOs from all the logs."
 msgstr ""
 
-#: ../mainwindow.cpp:3789
+#: ../mainwindow.cpp:3802
 msgctxt "MainWindow|"
 msgid "Print your log."
 msgstr ""
 
-#: ../mainwindow.cpp:3794
+#: ../mainwindow.cpp:3807
 msgctxt "MainWindow|"
 msgid "KLog folder"
 msgstr ""
 
-#: ../mainwindow.cpp:3796
+#: ../mainwindow.cpp:3809
 msgctxt "MainWindow|"
 msgid "Opens the data folder of KLog."
 msgstr ""
 
-#: ../mainwindow.cpp:3808
+#: ../mainwindow.cpp:3821
 msgctxt "MainWindow|"
 msgid "E&xit"
 msgstr ""
 
-#: ../mainwindow.cpp:3815
+#: ../mainwindow.cpp:3828
 msgctxt "MainWindow|"
 msgid "&Tools"
 msgstr ""
 
-#: ../mainwindow.cpp:3817
+#: ../mainwindow.cpp:3830
 msgctxt "MainWindow|"
 msgid "Fill in QSO data"
 msgstr ""
 
-#: ../mainwindow.cpp:3821
+#: ../mainwindow.cpp:3834
 msgctxt "MainWindow|"
 msgid ""
 "Go through the log reusing previous QSOs to fill missing information in "
 "other QSOs."
 msgstr ""
 
-#: ../mainwindow.cpp:3829
+#: ../mainwindow.cpp:3842
 msgctxt "MainWindow|"
 msgid "Shows QSOs for which you should send your QSL and request the DX QSL."
 msgstr ""
 
-#: ../mainwindow.cpp:3831
+#: ../mainwindow.cpp:3844
 msgctxt "MainWindow|"
 msgid "Find My-QSLs pending to send"
 msgstr ""
 
-#: ../mainwindow.cpp:3835
+#: ../mainwindow.cpp:3848
 msgctxt "MainWindow|"
 msgid ""
 "Shows the QSOs with pending requests to send QSLs. You should keep this "
 "queue empty!"
 msgstr ""
 
-#: ../mainwindow.cpp:3865
+#: ../mainwindow.cpp:3878
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs in this log as sent to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:3870
+#: ../mainwindow.cpp:3883
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs as sent to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:5429
+#: ../mainwindow.cpp:5442
 msgctxt "MainWindow|"
 msgid "Sends the log to LoTW calling TQSL."
 msgstr ""
 
-#: ../mainwindow.cpp:3946 ../mainwindow.cpp:3951
+#: ../mainwindow.cpp:3959 ../mainwindow.cpp:3964
 msgctxt "MainWindow|"
 msgid "For updated DX-Entity data, update cty.csv."
 msgstr ""
 
-#: ../mainwindow.cpp:3955
+#: ../mainwindow.cpp:3968
 msgctxt "MainWindow|"
 msgid "Stats"
 msgstr ""
 
-#: ../mainwindow.cpp:3958 ../mainwindow.cpp:3963
+#: ../mainwindow.cpp:3971 ../mainwindow.cpp:3976
 msgctxt "MainWindow|"
 msgid "Show the statistics of your radio activity."
 msgstr ""
 
-#: ../mainwindow.cpp:3985
+#: ../mainwindow.cpp:3998
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr ""
@@ -2623,145 +2623,145 @@ msgctxt "MainWindow|"
 msgid "KLog needs to update the Entities database."
 msgstr ""
 
-#: ../mainwindow.cpp:2746
+#: ../mainwindow.cpp:2759
 msgctxt "MainWindow|"
 msgid ""
 "This operation shall remove definitely all the selected QSO and associated "
 "data and you will not be able to recover it again."
 msgstr ""
 
-#: ../mainwindow.cpp:3131
+#: ../mainwindow.cpp:3144
 msgctxt "MainWindow|"
 msgid ""
 "The QRZ.com upload process has finished with an error and the log was "
 "possibly not uploaded."
 msgstr ""
 
-#: ../mainwindow.cpp:3151
+#: ../mainwindow.cpp:3164
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to QRZ.com?"
 msgstr ""
 
-#: ../mainwindow.cpp:3150 ../mainwindow.cpp:3165 ../mainwindow.cpp:3176
-#: ../mainwindow.cpp:6362
+#: ../mainwindow.cpp:3163 ../mainwindow.cpp:3178 ../mainwindow.cpp:3189
+#: ../mainwindow.cpp:6375
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com"
 msgstr ""
 
-#: ../mainwindow.cpp:3167
+#: ../mainwindow.cpp:3180
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the QRZ.com QSO upload information."
 msgstr ""
 
-#: ../mainwindow.cpp:3177
+#: ../mainwindow.cpp:3190
 msgctxt "MainWindow|"
 msgid "The QRZ.com upload process has finished successfully"
 msgstr ""
 
-#: ../mainwindow.cpp:3262
+#: ../mainwindow.cpp:3275
 msgctxt "MainWindow|"
 msgid "Call not found in QRZ.com"
 msgstr ""
 
-#: ../mainwindow.cpp:3130 ../mainwindow.cpp:3267
+#: ../mainwindow.cpp:3143 ../mainwindow.cpp:3280
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com error"
 msgstr ""
 
-#: ../mainwindow.cpp:3268
+#: ../mainwindow.cpp:3281
 msgctxt "MainWindow|"
 msgid "KLog has received an error from QRZ.com."
 msgstr ""
 
-#: ../mainwindow.cpp:3891 ../mainwindow.cpp:3904
+#: ../mainwindow.cpp:3904 ../mainwindow.cpp:3917
 msgctxt "MainWindow|"
 msgid "Queue all the QSOs to be uploaded"
 msgstr ""
 
-#: ../mainwindow.cpp:3918
+#: ../mainwindow.cpp:3931
 msgctxt "MainWindow|"
 msgid "Queue all the QSO to be uploaded"
 msgstr ""
 
-#: ../mainwindow.cpp:4199
+#: ../mainwindow.cpp:4212
 msgctxt "MainWindow|"
 msgid "KLog - TQSL"
 msgstr ""
 
-#: ../mainwindow.cpp:4203
+#: ../mainwindow.cpp:4216
 msgctxt "MainWindow|"
 msgid ""
 "TQSL is not installed or KLog can't find it. Please check the configuration."
 msgstr ""
 
-#: ../mainwindow.cpp:4222
+#: ../mainwindow.cpp:4235
 msgctxt "MainWindow|"
 msgid ""
 "Error #1: The process was cancelled by the user or TQSL was not configured. "
 "No QSOs were uploaded."
 msgstr ""
 
-#: ../mainwindow.cpp:4226
+#: ../mainwindow.cpp:4239
 msgctxt "MainWindow|"
 msgid "Error #2: Upload was rejected by LoTW, please check your data."
 msgstr ""
 
-#: ../mainwindow.cpp:4230
+#: ../mainwindow.cpp:4243
 msgctxt "MainWindow|"
 msgid "Error #3: The TQSL server returned an unexpected response."
 msgstr ""
 
-#: ../mainwindow.cpp:4234
+#: ../mainwindow.cpp:4247
 msgctxt "MainWindow|"
 msgid "Error #4: There was a TQSL error."
 msgstr ""
 
-#: ../mainwindow.cpp:4238
+#: ../mainwindow.cpp:4251
 msgctxt "MainWindow|"
 msgid "Error #5: There was a TQSLLib error."
 msgstr ""
 
-#: ../mainwindow.cpp:4242
+#: ../mainwindow.cpp:4255
 msgctxt "MainWindow|"
 msgid "Error #6: It was not possible to open the input file."
 msgstr ""
 
-#: ../mainwindow.cpp:4246
+#: ../mainwindow.cpp:4259
 msgctxt "MainWindow|"
 msgid "Error #7: It was not possible to open the ouput file."
 msgstr ""
 
-#: ../mainwindow.cpp:4250
+#: ../mainwindow.cpp:4263
 msgctxt "MainWindow|"
 msgid ""
 "Error #8: No QSOs were processed since some QSOs were duplicates or out of "
 "date range."
 msgstr ""
 
-#: ../mainwindow.cpp:4254
+#: ../mainwindow.cpp:4267
 msgctxt "MainWindow|"
 msgid ""
 "Error #9: Some QSOs were processed, and some QSOs were ignored because they "
 "were duplicates or out of date range."
 msgstr ""
 
-#: ../mainwindow.cpp:4258
+#: ../mainwindow.cpp:4271
 msgctxt "MainWindow|"
 msgid "Error #10: Command syntax error. KLog sent a bad syntax command."
 msgstr ""
 
-#: ../mainwindow.cpp:4262
+#: ../mainwindow.cpp:4275
 msgctxt "MainWindow|"
 msgid "Error #11: LoTW Connection error (no network or LoTW is unreachable)."
 msgstr ""
 
-#: ../mainwindow.cpp:4265
+#: ../mainwindow.cpp:4278
 msgctxt "MainWindow|"
 msgid "Error #00: Unexpected error. Please contact the development team."
 msgstr ""
 
-#: ../mainwindow.cpp:4297
+#: ../mainwindow.cpp:4310
 #, fuzzy
 msgctxt "MainWindow|"
 msgid ""
@@ -2769,24 +2769,24 @@ msgid ""
 msgstr ""
 "Log który właśnie został zaznaczony zawiera więcej niż jeden znak stacji."
 
-#: ../mainwindow.cpp:4297
+#: ../mainwindow.cpp:4310
 msgctxt "MainWindow|"
 msgid "Please select the station callsign you want to mark as sent to LoTW:"
 msgstr ""
 
-#: ../mainwindow.cpp:4300
+#: ../mainwindow.cpp:4313
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Station Callsign:"
 msgstr "Znak Stacji:"
 
-#: ../mainwindow.cpp:4311
+#: ../mainwindow.cpp:4324
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Define Station Callsign"
 msgstr "Zdefinuj Znak Stacji"
 
-#: ../mainwindow.cpp:4312
+#: ../mainwindow.cpp:4325
 #, fuzzy
 msgctxt "MainWindow|"
 msgid ""
@@ -2796,59 +2796,59 @@ msgstr ""
 "Wprowadż znak stacji aby używać go z tym Logiem, lub pozostaw puste miejsce "
 "dlaQSO bez znaku:"
 
-#: ../mainwindow.cpp:4312
+#: ../mainwindow.cpp:4325
 msgctxt "MainWindow|"
 msgid ""
 "You have selected no callsign. KLog will complete the QSOs without a station "
 "callsign defined and those with the callsign you are entering here."
 msgstr ""
 
-#: ../mainwindow.cpp:4327
+#: ../mainwindow.cpp:4340
 msgctxt "MainWindow|"
 msgid "KLog - No station selected"
 msgstr ""
 
-#: ../mainwindow.cpp:4328
+#: ../mainwindow.cpp:4341
 msgctxt "MainWindow|"
 msgid ""
 "No station callsign has been selected and therefore no log will be marked"
 msgstr ""
 
-#: ../mainwindow.cpp:4498
+#: ../mainwindow.cpp:4511
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Congratulations!"
 msgstr "Gratulacje!"
 
-#: ../mainwindow.cpp:4498
+#: ../mainwindow.cpp:4511
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "You already have the latest version."
 msgstr "Już posiadasz najnowszą wersję."
 
-#: ../mainwindow.cpp:4634
+#: ../mainwindow.cpp:4647
 msgctxt "MainWindow|"
 msgid "You can find the KLog data folder here: "
 msgstr ""
 
-#: ../mainwindow.cpp:4685
+#: ../mainwindow.cpp:4698
 msgctxt "MainWindow|"
 msgid "start"
 msgstr ""
 
-#: ../mainwindow.cpp:4710
+#: ../mainwindow.cpp:4723
 msgctxt "MainWindow|"
 msgid "stop"
 msgstr ""
 
-#: ../mainwindow.cpp:5325
+#: ../mainwindow.cpp:5338
 msgctxt "MainWindow|"
 msgid ""
 "If you are sure that the database contains QSOs and KLog is not able to find "
 "them, please contact the developers (see About KLog) for help."
 msgstr ""
 
-#: ../mainwindow.cpp:5945
+#: ../mainwindow.cpp:5958
 msgctxt "MainWindow|"
 msgid ""
 "TQSL finished with no error.\n"
@@ -2856,7 +2856,7 @@ msgid ""
 "Do you want to mark as Sent all the QSOs uploaded to LoTW?"
 msgstr ""
 
-#: ../mainwindow.cpp:6232 ../mainwindow.cpp:6263 ../mainwindow.cpp:6293
+#: ../mainwindow.cpp:6245 ../mainwindow.cpp:6276 ../mainwindow.cpp:6306
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2864,28 +2864,28 @@ msgid ""
 "IF THIS IS YOUR FIRST TIME uploading QSOs to %1"
 msgstr ""
 
-#: ../mainwindow.cpp:6232
+#: ../mainwindow.cpp:6245
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "ClubLog"
 msgstr "ClubLog"
 
-#: ../mainwindow.cpp:6292
+#: ../mainwindow.cpp:6305
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.COM"
 msgstr ""
 
-#: ../mainwindow.cpp:6293
+#: ../mainwindow.cpp:6306
 msgctxt "MainWindow|"
 msgid "QRZ.COM"
 msgstr ""
 
-#: ../mainwindow.cpp:7906
+#: ../mainwindow.cpp:7919
 msgctxt "MainWindow|"
 msgid "KLog - QSO received"
 msgstr ""
 
-#: ../mainwindow.cpp:7988
+#: ../mainwindow.cpp:8001
 msgctxt "MainWindow|"
 msgid ""
 "Duplicated QSOs have to match another existing QSO with the same call, band, "
@@ -2893,7 +2893,7 @@ msgid ""
 "the settings."
 msgstr ""
 
-#: ../mainwindow.cpp:8025
+#: ../mainwindow.cpp:8038
 msgctxt "MainWindow|"
 msgid "QSO logged from WSJT-X:"
 msgstr ""
@@ -2908,19 +2908,19 @@ msgctxt "MainWindow|"
 msgid "The setup will be open to allow you to do any new setup you may need."
 msgstr ""
 
-#: ../mainwindow.cpp:2797
+#: ../mainwindow.cpp:2810
 #, qt-format
 msgctxt "MainWindow|"
 msgid "You have requested to delete the QSO with: %1"
 msgstr ""
 
-#: ../mainwindow.cpp:2747 ../mainwindow.cpp:2802
+#: ../mainwindow.cpp:2760 ../mainwindow.cpp:2815
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Are you sure?"
 msgstr "Czy jesteś pewien?"
 
-#: ../mainwindow.cpp:55 ../mainwindow.cpp:3925
+#: ../mainwindow.cpp:55 ../mainwindow.cpp:3938
 msgctxt "MainWindow|"
 msgid "Check always the current callsign in QRZ.com"
 msgstr ""
@@ -2957,7 +2957,7 @@ msgid ""
 "corruption of your log."
 msgstr ""
 
-#: ../mainwindow.cpp:1093
+#: ../mainwindow.cpp:1106
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2965,12 +2965,12 @@ msgid ""
 "to the log?"
 msgstr ""
 
-#: ../mainwindow.cpp:1859
+#: ../mainwindow.cpp:1872
 msgctxt "MainWindow|"
 msgid "KLog - Not valid callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:1860
+#: ../mainwindow.cpp:1873
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2978,19 +2978,19 @@ msgid ""
 "callsign to the log?"
 msgstr ""
 
-#: ../mainwindow.cpp:2742
+#: ../mainwindow.cpp:2755
 msgctxt "MainWindow|"
 msgid "You have requested to delete several QSOs "
 msgstr ""
 
-#: ../mainwindow.cpp:2893
+#: ../mainwindow.cpp:2906
 msgctxt "MainWindow|"
 msgid ""
 "The ClubLog upload process has finished with an error and the log was "
 "possibly not uploaded."
 msgstr ""
 
-#: ../mainwindow.cpp:2894
+#: ../mainwindow.cpp:2907
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -2998,38 +2998,38 @@ msgid ""
 "account. The received error code was: %1"
 msgstr ""
 
-#: ../mainwindow.cpp:2914
+#: ../mainwindow.cpp:2927
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?"
 msgstr ""
 
-#: ../mainwindow.cpp:2913 ../mainwindow.cpp:2928 ../mainwindow.cpp:2939
-#: ../mainwindow.cpp:2949 ../mainwindow.cpp:2959 ../mainwindow.cpp:6000
-#: ../mainwindow.cpp:6026 ../mainwindow.cpp:6231
+#: ../mainwindow.cpp:2926 ../mainwindow.cpp:2941 ../mainwindow.cpp:2952
+#: ../mainwindow.cpp:2962 ../mainwindow.cpp:2972 ../mainwindow.cpp:6013
+#: ../mainwindow.cpp:6039 ../mainwindow.cpp:6244
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "KLog - ClubLog"
 msgstr "Klog -ClubLog"
 
-#: ../mainwindow.cpp:757
+#: ../mainwindow.cpp:770
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog-%1 - Logbook of %2 - QSOs: %3"
 msgstr ""
 
-#: ../mainwindow.cpp:761
+#: ../mainwindow.cpp:774
 #, qt-format
 msgctxt "MainWindow|"
 msgid "KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4"
 msgstr ""
 
-#: ../mainwindow.cpp:2930
+#: ../mainwindow.cpp:2943
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the ClubLog QSO upload information."
 msgstr ""
 
-#: ../mainwindow.cpp:2940
+#: ../mainwindow.cpp:2953
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3039,12 +3039,12 @@ msgid ""
 "Do you want KLog to remove that file?"
 msgstr ""
 
-#: ../mainwindow.cpp:2960 ../mainwindow.cpp:3078
+#: ../mainwindow.cpp:2973 ../mainwindow.cpp:3091
 msgctxt "MainWindow|"
 msgid "The file has not been removed."
 msgstr ""
 
-#: ../mainwindow.cpp:2961 ../mainwindow.cpp:3079
+#: ../mainwindow.cpp:2974 ../mainwindow.cpp:3092
 msgctxt "MainWindow|"
 msgid ""
 "It seems that there was something that prevented KLog from removing the "
@@ -3052,14 +3052,14 @@ msgid ""
 "You can remove it manually."
 msgstr ""
 
-#: ../mainwindow.cpp:3011
+#: ../mainwindow.cpp:3024
 msgctxt "MainWindow|"
 msgid ""
 "The eQSL upload process has finished with an error and the log was possibly "
 "not uploaded."
 msgstr ""
 
-#: ../mainwindow.cpp:3012 ../mainwindow.cpp:3132
+#: ../mainwindow.cpp:3025 ../mainwindow.cpp:3145
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3067,18 +3067,18 @@ msgid ""
 "account. The received error code was: %1"
 msgstr ""
 
-#: ../mainwindow.cpp:3031
+#: ../mainwindow.cpp:3044
 msgctxt "MainWindow|"
 msgid "Do you want to mark as Uploaded all the QSOs uploaded to eQSL?"
 msgstr ""
 
-#: ../mainwindow.cpp:3047
+#: ../mainwindow.cpp:3060
 msgctxt "MainWindow|"
 msgid ""
 "There was an error while updating to Yes the eQSL QSO upload information."
 msgstr ""
 
-#: ../mainwindow.cpp:3058
+#: ../mainwindow.cpp:3071
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3088,254 +3088,254 @@ msgid ""
 "Do you want KLog to remove that file?"
 msgstr ""
 
-#: ../mainwindow.cpp:3103
+#: ../mainwindow.cpp:3116
 msgctxt "MainWindow|"
 msgid "KLog - QRZ.com warning"
 msgstr ""
 
-#: ../mainwindow.cpp:3104
+#: ../mainwindow.cpp:3117
 msgctxt "MainWindow|"
 msgid ""
 "QRZ.com has returned a non-subcribed error and queries to QRZ.com will be "
 "disabled."
 msgstr ""
 
-#: ../mainwindow.cpp:3105
+#: ../mainwindow.cpp:3118
 msgctxt "MainWindow|"
 msgid "Please check your QRZ.com subcription or credentials."
 msgstr ""
 
-#: ../mainwindow.cpp:3301
+#: ../mainwindow.cpp:3314
 #, qt-format
 msgctxt "MainWindow|"
 msgid "You need to activate the %1 service in the eLog preferences."
 msgstr ""
 
-#: ../mainwindow.cpp:3670
+#: ../mainwindow.cpp:3683
 msgctxt "MainWindow|"
 msgid "The logfile has been modified."
 msgstr ""
 
-#: ../mainwindow.cpp:3670
+#: ../mainwindow.cpp:3683
 msgctxt "MainWindow|"
 msgid "Do you want to save your changes?"
 msgstr ""
 
-#: ../mainwindow.cpp:3689 ../mainwindow.cpp:5843
+#: ../mainwindow.cpp:3702 ../mainwindow.cpp:5856
 msgctxt "MainWindow|"
 msgid "KLog - ADIF export"
 msgstr ""
 
-#: ../mainwindow.cpp:3690
+#: ../mainwindow.cpp:3703
 msgctxt "MainWindow|"
 msgid "It is important to export to ADIF and save a copy as a backup."
 msgstr ""
 
-#: ../mainwindow.cpp:3694
+#: ../mainwindow.cpp:3707
 msgctxt "MainWindow|"
 msgid "Saving the log was done successfully."
 msgstr ""
 
-#: ../mainwindow.cpp:3702
+#: ../mainwindow.cpp:3715
 msgctxt "MainWindow|"
 msgid "The ADIF export was not properly done."
 msgstr ""
 
-#: ../mainwindow.cpp:3759
+#: ../mainwindow.cpp:3772
 msgctxt "MainWindow|"
 msgid "&Import from ADIF ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3772
+#: ../mainwindow.cpp:3785
 msgctxt "MainWindow|"
 msgid "Export to ADIF ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3778
+#: ../mainwindow.cpp:3791
 msgctxt "MainWindow|"
 msgid "Export all logs to ADIF ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3786
+#: ../mainwindow.cpp:3799
 msgctxt "MainWindow|"
 msgid "&Print Log ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3824
+#: ../mainwindow.cpp:3837
 msgctxt "MainWindow|"
 msgid "QSL tools ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3826
+#: ../mainwindow.cpp:3839
 msgctxt "MainWindow|"
 msgid "Find QSO to QSL"
 msgstr ""
 
-#: ../mainwindow.cpp:3837
+#: ../mainwindow.cpp:3850
 msgctxt "MainWindow|"
 msgid "Find DX-QSLs pending to receive"
 msgstr ""
 
-#: ../mainwindow.cpp:3840
+#: ../mainwindow.cpp:3853
 msgctxt "MainWindow|"
 msgid "Shows DX-QSLs for which requests or QSLs have been sent with no answer."
 msgstr ""
 
-#: ../mainwindow.cpp:3842
+#: ../mainwindow.cpp:3855
 msgctxt "MainWindow|"
 msgid "Find requested pending to receive"
 msgstr ""
 
-#: ../mainwindow.cpp:3845
+#: ../mainwindow.cpp:3858
 msgctxt "MainWindow|"
 msgid "Shows the DX-QSLs that have been requested."
 msgstr ""
 
-#: ../mainwindow.cpp:3848
+#: ../mainwindow.cpp:3861
 msgctxt "MainWindow|"
 msgid "LoTW tools ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3850
+#: ../mainwindow.cpp:3863
 msgctxt "MainWindow|"
 msgid "Queue all QSLs from this log to be sent"
 msgstr ""
 
-#: ../mainwindow.cpp:3853
+#: ../mainwindow.cpp:3866
 msgctxt "MainWindow|"
 msgid "Mark all non-sent QSOs in this log as queued to be uploaded."
 msgstr ""
 
-#: ../mainwindow.cpp:3855
+#: ../mainwindow.cpp:3868
 msgctxt "MainWindow|"
 msgid "Queue all QSLs to be sent"
 msgstr ""
 
-#: ../mainwindow.cpp:3858
+#: ../mainwindow.cpp:3871
 msgctxt "MainWindow|"
 msgid "Put all the non-sent QSOs in the queue to be uploaded."
 msgstr ""
 
-#: ../mainwindow.cpp:3862
+#: ../mainwindow.cpp:3875
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs from this log as sent"
 msgstr ""
 
-#: ../mainwindow.cpp:3867
+#: ../mainwindow.cpp:3880
 msgctxt "MainWindow|"
 msgid "Mark all queued QSOs as sent"
 msgstr ""
 
-#: ../mainwindow.cpp:3917
+#: ../mainwindow.cpp:3930
 msgctxt "MainWindow|"
 msgid "Check the current callsign in QRZ.com"
 msgstr ""
 
-#: ../mainwindow.cpp:3919
+#: ../mainwindow.cpp:3932
 msgctxt "MainWindow|"
 msgid "Upload the queued QSOs to QRZ.com ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3942
+#: ../mainwindow.cpp:3955
 msgctxt "MainWindow|"
 msgid "Update cty.csv"
 msgstr ""
 
-#: ../mainwindow.cpp:3948
+#: ../mainwindow.cpp:3961
 msgctxt "MainWindow|"
 msgid "Update Satellite Data"
 msgstr ""
 
-#: ../mainwindow.cpp:3960
+#: ../mainwindow.cpp:3973
 msgctxt "MainWindow|"
 msgid "Show Map"
 msgstr ""
 
-#: ../mainwindow.cpp:3988
+#: ../mainwindow.cpp:4001
 msgctxt "MainWindow|"
 msgid "Online manual (F1) ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3993
+#: ../mainwindow.cpp:4006
 msgctxt "MainWindow|"
 msgid "&Tips ..."
 msgstr ""
 
-#: ../mainwindow.cpp:3999
+#: ../mainwindow.cpp:4012
 msgctxt "MainWindow|"
 msgid "&Debug ..."
 msgstr ""
 
-#: ../mainwindow.cpp:4004
+#: ../mainwindow.cpp:4017
 msgctxt "MainWindow|"
 msgid "&About ..."
 msgstr ""
 
-#: ../mainwindow.cpp:4011
+#: ../mainwindow.cpp:4024
 msgctxt "MainWindow|"
 msgid "About Qt ..."
 msgstr ""
 
-#: ../mainwindow.cpp:4019
+#: ../mainwindow.cpp:4032
 msgctxt "MainWindow|"
 msgid "Check updates ..."
 msgstr ""
 
-#: ../mainwindow.cpp:4096
+#: ../mainwindow.cpp:4109
 msgctxt "MainWindow|"
 msgid "All pending QSOs of this log has been marked as queued for LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4096 ../mainwindow.cpp:4174
+#: ../mainwindow.cpp:4109 ../mainwindow.cpp:4187
 msgctxt "MainWindow|"
 msgid "Now you can upload them to LoTW."
 msgstr ""
 
-#: ../mainwindow.cpp:4102
+#: ../mainwindow.cpp:4115
 msgctxt "MainWindow|"
 msgid ""
 "There was a problem to mark all pending QSOs of this log as queued for LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4143
+#: ../mainwindow.cpp:4156
 msgctxt "MainWindow|"
 msgid "Your log has not been updated."
 msgstr ""
 
-#: ../mainwindow.cpp:4144
+#: ../mainwindow.cpp:4157
 msgctxt "MainWindow|"
 msgid ""
 "No QSO was updated with the data coming from LoTW. This may be because of "
 "errors in the logfile or simply because your log was already updated."
 msgstr ""
 
-#: ../mainwindow.cpp:4174
+#: ../mainwindow.cpp:4187
 msgctxt "MainWindow|"
 msgid "All pending QSOs has been marked as queued for LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4383
+#: ../mainwindow.cpp:4396
 msgctxt "MainWindow|"
 msgid "All queued QSOs has been marked as sent to LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4363
+#: ../mainwindow.cpp:4376
 msgctxt "MainWindow|"
 msgid ""
 "There was a problem to mark all queued QSOs of this log as sent to LoTW!"
 msgstr ""
 
-#: ../mainwindow.cpp:4441
+#: ../mainwindow.cpp:4454
 msgctxt "MainWindow|"
 msgid "About ..."
 msgstr ""
 
-#: ../mainwindow.cpp:4497
+#: ../mainwindow.cpp:4510
 msgctxt "MainWindow|"
 msgid "KLog - Update checking result"
 msgstr ""
 
-#: ../mainwindow.cpp:4686 ../mainwindow.cpp:4711
+#: ../mainwindow.cpp:4699 ../mainwindow.cpp:4724
 #, qt-format
 msgctxt "MainWindow|start or stop"
 msgid ""
@@ -3343,277 +3343,277 @@ msgid ""
 "The UDP server failed to %1."
 msgstr ""
 
-#: ../mainwindow.cpp:5325
+#: ../mainwindow.cpp:5338
 msgctxt "MainWindow|"
 msgid "It seems that there are no QSOs in the database."
 msgstr ""
 
-#: ../mainwindow.cpp:5435
+#: ../mainwindow.cpp:5448
 msgctxt "MainWindow|"
 msgid "This function is disabled. Go to the Setup->LoTW tab to enable it."
 msgstr ""
 
-#: ../mainwindow.cpp:5725
+#: ../mainwindow.cpp:5738
 msgctxt "MainWindow|"
 msgid "Status of the DX entity."
 msgstr ""
 
-#: ../mainwindow.cpp:5727
+#: ../mainwindow.cpp:5740
 msgctxt "MainWindow|"
 msgid "Name of the DX entity."
 msgstr ""
 
-#: ../mainwindow.cpp:5745
+#: ../mainwindow.cpp:5758
 msgctxt "MainWindow|"
 msgid "QSO"
 msgstr ""
 
-#: ../mainwindow.cpp:5746
+#: ../mainwindow.cpp:5759
 msgctxt "MainWindow|"
 msgid "QSL"
 msgstr ""
 
-#: ../mainwindow.cpp:5747 ../mainwindow.cpp:6263
+#: ../mainwindow.cpp:5760 ../mainwindow.cpp:6276
 msgctxt "MainWindow|"
 msgid "eQSL"
 msgstr ""
 
-#: ../mainwindow.cpp:5748 ../mainwindow.cpp:7318 ../mainwindow.cpp:7934
+#: ../mainwindow.cpp:5761 ../mainwindow.cpp:7331 ../mainwindow.cpp:7947
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Comment"
 msgstr "Komentarz"
 
-#: ../mainwindow.cpp:5751
+#: ../mainwindow.cpp:5764
 msgctxt "MainWindow|"
 msgid "Others"
 msgstr ""
 
-#: ../mainwindow.cpp:5753
+#: ../mainwindow.cpp:5766
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "My Data"
 msgstr "Moje dane"
 
-#: ../mainwindow.cpp:5754
+#: ../mainwindow.cpp:5767
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../mainwindow.cpp:6002
+#: ../mainwindow.cpp:6015
 msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to "
 "ClubLog."
 msgstr ""
 
-#: ../mainwindow.cpp:6028
+#: ../mainwindow.cpp:6041
 msgctxt "MainWindow|"
 msgid "Do you want to add this QSOs to your ClubLog existing log?"
 msgstr ""
 
-#: ../mainwindow.cpp:6030
+#: ../mainwindow.cpp:6043
 msgctxt "MainWindow|"
 msgid ""
 "If you don't agree, this upload will overwrite your current ClubLog existing "
 "log."
 msgstr ""
 
-#: ../mainwindow.cpp:3030 ../mainwindow.cpp:3045 ../mainwindow.cpp:3057
-#: ../mainwindow.cpp:3067 ../mainwindow.cpp:3077 ../mainwindow.cpp:6062
-#: ../mainwindow.cpp:6262
+#: ../mainwindow.cpp:3043 ../mainwindow.cpp:3058 ../mainwindow.cpp:3070
+#: ../mainwindow.cpp:3080 ../mainwindow.cpp:3090 ../mainwindow.cpp:6075
+#: ../mainwindow.cpp:6275
 msgctxt "MainWindow|"
 msgid "KLog - eQSL"
 msgstr ""
 
-#: ../mainwindow.cpp:6064
+#: ../mainwindow.cpp:6077
 msgctxt "MainWindow|"
 msgid ""
 "You need to select one station callsign to be able to send your log to "
 "eQSL.cc."
 msgstr ""
 
-#: ../mainwindow.cpp:6152 ../mainwindow.cpp:6195
+#: ../mainwindow.cpp:6165 ../mainwindow.cpp:6208
 msgctxt "MainWindow|"
 msgid "Select the Station Callsign to use when quering LoTW:"
 msgstr ""
 
-#: ../mainwindow.cpp:6170 ../mainwindow.cpp:6213
+#: ../mainwindow.cpp:6183 ../mainwindow.cpp:6226
 msgctxt "MainWindow|"
 msgid "Please check the LoTW setup"
 msgstr ""
 
-#: ../mainwindow.cpp:6171 ../mainwindow.cpp:6214
+#: ../mainwindow.cpp:6184 ../mainwindow.cpp:6227
 msgctxt "MainWindow|"
 msgid ""
 "You have not defined a LoTW user or a proper Station Callsign.\n"
 "Open the LoTW tab in the Setup and configure your LoTW connection."
 msgstr ""
 
-#: ../mainwindow.cpp:6242
+#: ../mainwindow.cpp:6255
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to ClubLog."
 msgstr ""
 
-#: ../mainwindow.cpp:6243
+#: ../mainwindow.cpp:6256
 msgctxt "MainWindow|"
 msgid ""
 "All the QSOs in this log has been marked as Modified in the ClubLog status "
 "field"
 msgstr ""
 
-#: ../mainwindow.cpp:6248
+#: ../mainwindow.cpp:6261
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to ClubLog"
 msgstr ""
 
-#: ../mainwindow.cpp:6249 ../mainwindow.cpp:6280 ../mainwindow.cpp:6310
+#: ../mainwindow.cpp:6262 ../mainwindow.cpp:6293 ../mainwindow.cpp:6323
 msgctxt "MainWindow|"
 msgid ""
 "Something prevented KLog from marking the QSOs as modified. Restart KLog and "
 "try again before contacting the KLog developers."
 msgstr ""
 
-#: ../mainwindow.cpp:6273
+#: ../mainwindow.cpp:6286
 msgctxt "MainWindow|"
 msgid "The log is ready to be uploaded to eQSL.cc."
 msgstr ""
 
-#: ../mainwindow.cpp:6274
+#: ../mainwindow.cpp:6287
 msgctxt "MainWindow|"
 msgid ""
 "All the QSOs in this log has been marked as Modified in the eQSL.cc status "
 "field"
 msgstr ""
 
-#: ../mainwindow.cpp:6279
+#: ../mainwindow.cpp:6292
 msgctxt "MainWindow|"
 msgid "KLog could not mark the full log to be sent to eQSL"
 msgstr ""
 
-#: ../mainwindow.cpp:6363
+#: ../mainwindow.cpp:6376
 msgctxt "MainWindow|"
 msgid ""
 "You need to define a proper API Key for your QRZ.com logbook in the eLog "
 "preferences."
 msgstr ""
 
-#: ../mainwindow.cpp:7102
+#: ../mainwindow.cpp:7115
 msgctxt "MainWindow|"
 msgid "Filling QSOs ..."
 msgstr ""
 
-#: ../mainwindow.cpp:7306
+#: ../mainwindow.cpp:7319
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Date/Time"
 msgstr "Data/Czas"
 
-#: ../mainwindow.cpp:7308 ../mainwindow.cpp:7914
+#: ../mainwindow.cpp:7321 ../mainwindow.cpp:7927
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Callsign"
 msgstr "Znak wywoławczy"
 
-#: ../mainwindow.cpp:7336
+#: ../mainwindow.cpp:7349
 msgctxt "MainWindow|"
 msgid "Printing the log ..."
 msgstr ""
 
-#: ../mainwindow.cpp:7943
+#: ../mainwindow.cpp:7956
 msgctxt "MainWindow|"
 msgid "Station Callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:7946
+#: ../mainwindow.cpp:7959
 msgctxt "MainWindow|"
 msgid "Operator Callsign"
 msgstr ""
 
-#: ../mainwindow.cpp:7983
+#: ../mainwindow.cpp:7996
 msgctxt "MainWindow|"
 msgid "KLog - WSJTX Dupe QSO"
 msgstr ""
 
-#: ../mainwindow.cpp:7986
+#: ../mainwindow.cpp:7999
 msgctxt "MainWindow|"
 msgid "This QSO seems to be duplicated. Do you want to save or discard it?"
 msgstr ""
 
-#: ../mainwindow.cpp:8068
+#: ../mainwindow.cpp:8081
 msgctxt "MainWindow|"
 msgid "KLog - Non-supported mode"
 msgstr ""
 
-#: ../mainwindow.cpp:8071
+#: ../mainwindow.cpp:8084
 msgctxt "MainWindow|"
 msgid ""
 "A new mode not supported by KLog has been received from an external program "
 "or radio:"
 msgstr ""
 
-#: ../mainwindow.cpp:8071
+#: ../mainwindow.cpp:8084
 msgctxt "MainWindow|"
 msgid ""
 "Do you want to keep receiving these alerts? (disabling these alerts will "
 "prevent non-valid modes being detected)"
 msgstr ""
 
-#: ../mainwindow.cpp:8225
+#: ../mainwindow.cpp:8238
 msgctxt "MainWindow|"
 msgid "Native Error"
 msgstr ""
 
-#: ../mainwindow.cpp:8229
+#: ../mainwindow.cpp:8242
 msgctxt "MainWindow|"
 msgid "Recommendation:"
 msgstr ""
 
-#: ../mainwindow.cpp:8229
+#: ../mainwindow.cpp:8242
 msgctxt "MainWindow|"
 msgid "Periodically export your data to ADIF to prevent a potential data loss."
 msgstr ""
 
-#: ../mainwindow.cpp:5782
+#: ../mainwindow.cpp:5795
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "DXCC"
 msgstr "DXCC"
 
-#: ../mainwindow.cpp:5771
+#: ../mainwindow.cpp:5784
 msgctxt "MainWindow|"
 msgid "Info"
 msgstr ""
 
-#: ../mainwindow.cpp:5777
+#: ../mainwindow.cpp:5790
 msgctxt "MainWindow|"
 msgid "Awards"
 msgstr ""
 
-#: ../mainwindow.cpp:5778
+#: ../mainwindow.cpp:5791
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr ""
 
-#: ../mainwindow.cpp:5780
+#: ../mainwindow.cpp:5793
 msgctxt "MainWindow|"
 msgid "Log"
 msgstr ""
 
-#: ../mainwindow.cpp:5781
+#: ../mainwindow.cpp:5794
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "DX-Cluster"
 msgstr "DX-Klaster"
 
-#: ../mainwindow.cpp:2711 ../mainwindow.cpp:5863 ../mainwindow.cpp:5878
-#: ../mainwindow.cpp:6377
+#: ../mainwindow.cpp:2724 ../mainwindow.cpp:5876 ../mainwindow.cpp:5891
+#: ../mainwindow.cpp:6390
 msgctxt "MainWindow|"
 msgid "Save ADIF File"
 msgstr ""
 
-#: ../mainwindow.cpp:5968
+#: ../mainwindow.cpp:5981
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -3623,185 +3623,185 @@ msgid ""
 "Do you want KLog to remove that file?"
 msgstr ""
 
-#: ../mainwindow.cpp:2950 ../mainwindow.cpp:3068 ../mainwindow.cpp:5978
+#: ../mainwindow.cpp:2963 ../mainwindow.cpp:3081 ../mainwindow.cpp:5991
 msgctxt "MainWindow|"
 msgid "The file has been removed."
 msgstr ""
 
-#: ../mainwindow.cpp:4083 ../mainwindow.cpp:4092 ../mainwindow.cpp:4127
-#: ../mainwindow.cpp:4160 ../mainwindow.cpp:4169 ../mainwindow.cpp:4353
-#: ../mainwindow.cpp:4378 ../mainwindow.cpp:5909 ../mainwindow.cpp:5944
-#: ../mainwindow.cpp:5956 ../mainwindow.cpp:5967 ../mainwindow.cpp:5977
-#: ../mainwindow.cpp:6168 ../mainwindow.cpp:6211
+#: ../mainwindow.cpp:4096 ../mainwindow.cpp:4105 ../mainwindow.cpp:4140
+#: ../mainwindow.cpp:4173 ../mainwindow.cpp:4182 ../mainwindow.cpp:4366
+#: ../mainwindow.cpp:4391 ../mainwindow.cpp:5922 ../mainwindow.cpp:5957
+#: ../mainwindow.cpp:5969 ../mainwindow.cpp:5980 ../mainwindow.cpp:5990
+#: ../mainwindow.cpp:6181 ../mainwindow.cpp:6224
 msgctxt "MainWindow|"
 msgid "KLog - LoTW"
 msgstr ""
 
-#: ../mainwindow.cpp:6390
+#: ../mainwindow.cpp:6403
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Open File"
 msgstr "Otwórz plik"
 
-#: ../mainwindow.cpp:7047
+#: ../mainwindow.cpp:7060
 msgctxt "MainWindow|"
 msgid " - Needed for DXMarathon"
 msgstr ""
 
-#: ../mainwindow.cpp:7102
+#: ../mainwindow.cpp:7115
 msgctxt "MainWindow|"
 msgid "Abort filling"
 msgstr ""
 
-#: ../mainwindow.cpp:7215
+#: ../mainwindow.cpp:7228
 msgctxt "MainWindow|"
 msgid ""
 "Filling DXCC, CQz, ITUz, Continent in QSOs...\n"
 " QSO: "
 msgstr ""
 
-#: ../mainwindow.cpp:7304
+#: ../mainwindow.cpp:7317
 msgctxt "MainWindow|"
 msgid "Number"
 msgstr ""
 
-#: ../mainwindow.cpp:7314
+#: ../mainwindow.cpp:7327
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Band"
 msgstr "Pasmo"
 
-#: ../mainwindow.cpp:7316 ../mainwindow.cpp:7920
+#: ../mainwindow.cpp:7329 ../mainwindow.cpp:7933
 #, fuzzy
 msgctxt "MainWindow|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../mainwindow.cpp:7331
+#: ../mainwindow.cpp:7344
 msgctxt "MainWindow|"
 msgid "Print Log"
 msgstr ""
 
-#: ../mainwindow.cpp:7336
+#: ../mainwindow.cpp:7349
 msgctxt "MainWindow|"
 msgid "Abort printing"
 msgstr ""
 
-#: ../mainwindow.cpp:7352 ../mainwindow.cpp:7366
+#: ../mainwindow.cpp:7365 ../mainwindow.cpp:7379
 msgctxt "MainWindow|"
 msgid ""
 "Printing the log...\n"
 " QSO: "
 msgstr ""
 
-#: ../mainwindow.cpp:7911
+#: ../mainwindow.cpp:7924
 msgctxt "MainWindow|"
 msgid "The following QSO data has been received from WSJT-X to be logged:"
 msgstr ""
 
-#: ../mainwindow.cpp:7917
+#: ../mainwindow.cpp:7930
 msgctxt "MainWindow|"
 msgid "Freq"
 msgstr ""
 
-#: ../mainwindow.cpp:7924
+#: ../mainwindow.cpp:7937
 msgctxt "MainWindow|"
 msgid "Time On"
 msgstr ""
 
-#: ../mainwindow.cpp:7928
+#: ../mainwindow.cpp:7941
 msgctxt "MainWindow|"
 msgid "Time Off"
 msgstr ""
 
-#: ../mainwindow.cpp:7931
+#: ../mainwindow.cpp:7944
 msgctxt "MainWindow|"
 msgid "RST TX"
 msgstr ""
 
-#: ../mainwindow.cpp:7931
+#: ../mainwindow.cpp:7944
 msgctxt "MainWindow|"
 msgid "RST RX"
 msgstr ""
 
-#: ../mainwindow.cpp:7937
+#: ../mainwindow.cpp:7950
 msgctxt "MainWindow|"
 msgid "DX-Grid"
 msgstr ""
 
-#: ../mainwindow.cpp:7940
+#: ../mainwindow.cpp:7953
 msgctxt "MainWindow|"
 msgid "Local-Grid"
 msgstr ""
 
-#: ../mainwindow.cpp:8071
+#: ../mainwindow.cpp:8084
 msgctxt "MainWindow|"
 msgid ""
 "If the received mode is correct, please contact KLog development team and "
 "request support for that mode"
 msgstr ""
 
-#: ../mainwindow.cpp:8213
+#: ../mainwindow.cpp:8226
 msgctxt "MainWindow|"
 msgid "KLog - Duplicated satellite"
 msgstr ""
 
-#: ../mainwindow.cpp:8215
+#: ../mainwindow.cpp:8228
 msgctxt "MainWindow|"
 msgid ""
 "A duplicated satellite has been detected in the file and will not be "
 "imported."
 msgstr ""
 
-#: ../mainwindow.cpp:8216
+#: ../mainwindow.cpp:8229
 msgctxt "MainWindow|"
 msgid ""
 "Please check the satellite information file and ensure it is properly "
 "populated."
 msgstr ""
 
-#: ../mainwindow.cpp:8216
+#: ../mainwindow.cpp:8229
 msgctxt "MainWindow|"
 msgid ""
 "Now you will see a more detailed error that can be used for debugging..."
 msgstr ""
 
-#: ../mainwindow.cpp:8222
+#: ../mainwindow.cpp:8235
 msgctxt "MainWindow|"
 msgid "An unexpected error ocurred!!"
 msgstr ""
 
-#: ../mainwindow.cpp:8222
+#: ../mainwindow.cpp:8235
 msgctxt "MainWindow|"
 msgid "If the problem persists, please contact the developers"
 msgstr ""
 
-#: ../mainwindow.cpp:8222
+#: ../mainwindow.cpp:8235
 msgctxt "MainWindow|"
 msgid "for analysis:"
 msgstr ""
 
-#: ../mainwindow.cpp:8224
+#: ../mainwindow.cpp:8237
 msgctxt "MainWindow|"
 msgid "Error in function"
 msgstr ""
 
-#: ../mainwindow.cpp:8226
+#: ../mainwindow.cpp:8239
 msgctxt "MainWindow|"
 msgid "Error text"
 msgstr ""
 
-#: ../mainwindow.cpp:8227
+#: ../mainwindow.cpp:8240
 msgctxt "MainWindow|"
 msgid "Failed query"
 msgstr ""
 
-#: ../mainwindow.cpp:8236
+#: ../mainwindow.cpp:8249
 msgctxt "MainWindow|"
 msgid "KLog - Show errors"
 msgstr ""
 
-#: ../mainwindow.cpp:8238
+#: ../mainwindow.cpp:8251
 msgctxt "MainWindow|"
 msgid "Do you want to keep showing errors?"
 msgstr ""
@@ -4423,52 +4423,52 @@ msgctxt "MainWindowSatTab|"
 msgid "TX Frequency in MHz."
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:59
+#: ../widgets/map/mapwindowwidget.cpp:66
 msgctxt "MapWindowWidget|"
 msgid "Select QSOs in this band."
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:60
+#: ../widgets/map/mapwindowwidget.cpp:67
 msgctxt "MapWindowWidget|"
 msgid "Select QSOs in this mode."
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:61
+#: ../widgets/map/mapwindowwidget.cpp:68
 msgctxt "MapWindowWidget|"
 msgid "Select QSOs in this propagation mode."
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:62
+#: ../widgets/map/mapwindowwidget.cpp:69
 msgctxt "MapWindowWidget|"
 msgid "Select QSOs using this Satellite."
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:63
+#: ../widgets/map/mapwindowwidget.cpp:70
 msgctxt "MapWindowWidget|"
 msgid "Only confirmed"
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:65
+#: ../widgets/map/mapwindowwidget.cpp:72
 msgctxt "MapWindowWidget|"
 msgid "Select only confirmed QSOs."
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:110
+#: ../widgets/map/mapwindowwidget.cpp:118
 msgctxt "MapWindowWidget|"
 msgid "All bands"
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:121
+#: ../widgets/map/mapwindowwidget.cpp:129
 msgctxt "MapWindowWidget|"
 msgid "All modes"
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:133
+#: ../widgets/map/mapwindowwidget.cpp:141
 msgctxt "MapWindowWidget|"
 msgid "All propagation modes"
 msgstr ""
 
-#: ../widgets/map/mapwindowwidget.cpp:143
+#: ../widgets/map/mapwindowwidget.cpp:151
 msgctxt "MapWindowWidget|"
 msgid "All satellites"
 msgstr ""
@@ -4564,7 +4564,7 @@ msgid "Station Callsign"
 msgstr "Znak Stacji"
 
 #: ../database.cpp:3694 ../database.cpp:3867 ../database.cpp:6539
-#: ../database.cpp:6769 ../dataproxy_sqlite.cpp:6275
+#: ../database.cpp:6769 ../dataproxy_sqlite.cpp:6276
 msgctxt "QObject|"
 msgid "QSO: "
 msgstr "QSO: "
@@ -4653,7 +4653,7 @@ msgstr ""
 
 #: ../database.cpp:3675 ../database.cpp:3848 ../database.cpp:4038
 #: ../database.cpp:4233 ../database.cpp:6453 ../database.cpp:6683
-#: ../dataproxy_sqlite.cpp:6230
+#: ../dataproxy_sqlite.cpp:6231
 msgctxt "QObject|"
 msgid "Abort updating"
 msgstr "Przerwij aktualizowanie"
@@ -4749,12 +4749,12 @@ msgctxt "QObject|"
 msgid "Thank you for running KLog!"
 msgstr "Dziękujemy za korzystanie z KLog!"
 
-#: ../dataproxy_sqlite.cpp:6230
+#: ../dataproxy_sqlite.cpp:6231
 msgctxt "QObject|"
 msgid "Updating information..."
 msgstr ""
 
-#: ../dataproxy_sqlite.cpp:6275
+#: ../dataproxy_sqlite.cpp:6276
 msgctxt "QObject|"
 msgid "Updating DXCC and Continent information..."
 msgstr ""
@@ -5617,175 +5617,175 @@ msgctxt "SearchWindow|"
 msgid "QSL Send"
 msgstr "QSL wysłane"
 
-#: ../searchwindow.cpp:365
+#: ../searchwindow.cpp:373
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Delete"
 msgstr "&Delete"
 
-#: ../searchwindow.cpp:366
+#: ../searchwindow.cpp:374
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Delete a QSO"
 msgstr "Usuń QSO"
 
-#: ../searchwindow.cpp:369
+#: ../searchwindow.cpp:377
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Edit QSO"
 msgstr "&Edit QSO"
 
-#: ../searchwindow.cpp:370
+#: ../searchwindow.cpp:378
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Edit this QSO"
 msgstr "Edytuj QSO"
 
-#: ../searchwindow.cpp:373
+#: ../searchwindow.cpp:381
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via &bureau"
 msgstr "Via &bureau"
 
-#: ../searchwindow.cpp:374
+#: ../searchwindow.cpp:382
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau"
 msgstr "Wyśłij QSL przez biuro"
 
-#: ../searchwindow.cpp:377
+#: ../searchwindow.cpp:385
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "D&irect"
 msgstr "D&irect"
 
-#: ../searchwindow.cpp:378
+#: ../searchwindow.cpp:386
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct"
 msgstr "Wyślij QSL direktem"
 
-#: ../searchwindow.cpp:381
+#: ../searchwindow.cpp:389
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Via bureau"
 msgstr "Przez biuro"
 
-#: ../searchwindow.cpp:382
+#: ../searchwindow.cpp:390
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL &received via bureau"
 msgstr "QSL &received via bureau"
 
-#: ../searchwindow.cpp:385
+#: ../searchwindow.cpp:393
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Direct"
 msgstr "Direct"
 
-#: ../searchwindow.cpp:386
+#: ../searchwindow.cpp:394
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "QSL received via direc&t"
 msgstr "QSL odebrane przez direct&t"
 
-#: ../searchwindow.cpp:389
+#: ../searchwindow.cpp:397
 msgctxt "SearchWindow|"
 msgid "Check in QRZ.com"
 msgstr ""
 
-#: ../searchwindow.cpp:390
+#: ../searchwindow.cpp:398
 msgctxt "SearchWindow|"
 msgid "Check this callsign in QRZ.com"
 msgstr ""
 
-#: ../searchwindow.cpp:393
+#: ../searchwindow.cpp:401
 msgctxt "SearchWindow|"
 msgid "Check in DXHeat.com"
 msgstr ""
 
-#: ../searchwindow.cpp:394
+#: ../searchwindow.cpp:402
 msgctxt "SearchWindow|"
 msgid "Check this callsign in DXHeat.com"
 msgstr ""
 
-#: ../searchwindow.cpp:397
+#: ../searchwindow.cpp:405
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Request my QSL"
 msgstr "&Request my QSL"
 
-#: ../searchwindow.cpp:398
+#: ../searchwindow.cpp:406
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mark my QSL as requested"
 msgstr "Zaznacz moje QSL jako oczekiwane"
 
-#: ../searchwindow.cpp:401
+#: ../searchwindow.cpp:409
 msgctxt "SearchWindow|"
 msgid "Via Direct and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:402
+#: ../searchwindow.cpp:410
 msgctxt "SearchWindow|"
 msgid "Send this QSL via direct and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:405
+#: ../searchwindow.cpp:413
 msgctxt "SearchWindow|"
 msgid "Via Bureau and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:406
+#: ../searchwindow.cpp:414
 msgctxt "SearchWindow|"
 msgid "Send this QSL via bureau and mark DX QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:409
+#: ../searchwindow.cpp:417
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "&Request the QSL"
 msgstr "&Request the QSL"
 
-#: ../searchwindow.cpp:410
+#: ../searchwindow.cpp:418
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Mark the QSL as requested"
 msgstr "Zaznacz to QSL jako oczekiwane"
 
-#: ../searchwindow.cpp:413
+#: ../searchwindow.cpp:421
 msgctxt "SearchWindow|"
 msgid "Via bureau and mark my QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:414
+#: ../searchwindow.cpp:422
 msgctxt "SearchWindow|"
 msgid "QSL received via bureau and mark my QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:417
+#: ../searchwindow.cpp:425
 msgctxt "SearchWindow|"
 msgid "Direc&t and mark as my QSL requested"
 msgstr ""
 
-#: ../searchwindow.cpp:418
+#: ../searchwindow.cpp:426
 msgctxt "SearchWindow|"
 msgid "QSL received via direct and mark my QSL as requested"
 msgstr ""
 
-#: ../searchwindow.cpp:641
+#: ../searchwindow.cpp:649
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "Needed QSO to send the QSL"
 msgstr "QSO wymagne aby wysłać QSL"
 
-#: ../searchwindow.cpp:649
+#: ../searchwindow.cpp:657
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "My QSL requested to be sent"
 msgstr "Moje QSL jako oczekiwane"
 
-#: ../searchwindow.cpp:654 ../searchwindow.cpp:659
+#: ../searchwindow.cpp:662 ../searchwindow.cpp:667
 #, fuzzy
 msgctxt "SearchWindow|"
 msgid "DX QSL pending to be received"
@@ -8169,53 +8169,53 @@ msgctxt ""
 msgid "Only LEO sats"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:73
+#: ../charts/statsgridsonsatswidget.cpp:74
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Number"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:110
+#: ../charts/statsgridsonsatswidget.cpp:111
 #, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Callsign"
 msgstr "Znak wywoławczy"
 
-#: ../charts/statsgridsonsatswidget.cpp:111
+#: ../charts/statsgridsonsatswidget.cpp:112
 #, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Date"
 msgstr "Data"
 
-#: ../charts/statsgridsonsatswidget.cpp:112
+#: ../charts/statsgridsonsatswidget.cpp:113
 #, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Band"
 msgstr "Pasmo"
 
-#: ../charts/statsgridsonsatswidget.cpp:113
+#: ../charts/statsgridsonsatswidget.cpp:114
 #, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Mode"
 msgstr "Emisja"
 
-#: ../charts/statsgridsonsatswidget.cpp:114
+#: ../charts/statsgridsonsatswidget.cpp:115
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Grid"
 msgstr ""
 
-#: ../charts/statsgridsonsatswidget.cpp:115
+#: ../charts/statsgridsonsatswidget.cpp:116
 #, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Satellite"
 msgstr "Satelita"
 
-#: ../charts/statsgridsonsatswidget.cpp:116
+#: ../charts/statsgridsonsatswidget.cpp:117
 #, fuzzy
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "Confirmed"
 msgstr "Potwierdzone"
 
-#: ../charts/statsgridsonsatswidget.cpp:145
+#: ../charts/statsgridsonsatswidget.cpp:146
 msgctxt "StatsGridsOnSatsWidget|"
 msgid "No"
 msgstr ""
