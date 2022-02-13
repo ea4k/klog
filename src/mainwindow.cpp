@@ -6370,6 +6370,17 @@ void MainWindow::slotQRZCOMLogUpload()
         return;
     }
 
+    if (!qrzcomSubscriber)
+     {
+         QMessageBox msgBox;
+         msgBox.setIcon(QMessageBox::Warning);
+         msgBox.setWindowTitle(tr("KLog - QRZ.com"));
+         msgBox.setText(tr("To upload QSOs you need a qrz.com subscription. If you have one, go to Setup->QRZ.com tab to enable it.") );
+         msgBox.exec();
+         //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+         return;
+     }
+
     if (!elogQRZcom->hasLogBookKey())
     {
         QMessageBox msgBox;
