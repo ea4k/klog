@@ -519,3 +519,25 @@ QStringList Locator::getAll(int _length)
     }
     return list;
 }
+
+QStringList Locator::getShortLocators(const QStringList &locators, const int _length)
+{
+    QStringList shortLocators;
+    shortLocators.clear ();
+    foreach(QString i, locators)
+    {
+        if (i.length() == _length)
+        {
+            shortLocators << i;
+        }
+        else if (i.length()>_length)
+        {
+            QString a =  i;
+            a.truncate(4);
+            shortLocators << a;
+        }
+    }
+    shortLocators.removeDuplicates();
+    shortLocators.sort();
+    return shortLocators;
+}

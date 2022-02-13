@@ -31,6 +31,7 @@
 #include "klogdefinitions.h"
 #include "mapwidget.h"
 #include "dataproxy_sqlite.h"
+#include "locator.h"
 
 class MapWindowWidget : public QWidget
 {
@@ -46,7 +47,8 @@ public:
     void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
     void addLocators(const QStringList &_locators, const QColor &_color);
-    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
+    void appendLocators(const QStringList &_locators, const QColor &_color);
+    void setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default);
 
 private slots:
     void slotBandsComboBoxChanged();
@@ -62,6 +64,7 @@ private:
     void setPropModes();
     void setSatNames();
     void showFiltered();
+    QString getShortLocators (const int _length);
     QString getPropModeFromComboBox();
 
     DataProxy_SQLite *dataProxy;
@@ -69,10 +72,8 @@ private:
     QComboBox *propComboBox, *bandComboBox, *modeComboBox, *satNameComboBox;
     QCheckBox *confirmedCheckBox;//, *locatorsCheckBox;
 
-    QColor newOneColor;     //
-    QColor neededColor;     //
-    QColor workedColor;     //
-    QColor confirmedColor;  //
+    QColor workedColor;
+    QColor confirmedColor;
     QColor defaultColor;
 
 };

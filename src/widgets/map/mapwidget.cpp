@@ -119,6 +119,7 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
     {
         return;
     }
+
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
 
     Coordinate _north, _south;

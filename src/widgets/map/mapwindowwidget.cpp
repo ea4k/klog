@@ -52,8 +52,6 @@ MapWindowWidget::~MapWindowWidget()
 
 void MapWindowWidget::init()
 {
-    newOneColor = Qt::black;
-    neededColor = Qt::black;
     workedColor = Qt::black;
     confirmedColor = Qt::black;
     defaultColor = Qt::black;
@@ -62,7 +60,6 @@ void MapWindowWidget::init()
 
 void MapWindowWidget::createUI()
 {
-
     bandComboBox->setToolTip(tr("Select QSOs in this band."));
     modeComboBox->setToolTip(tr("Select QSOs in this mode."));
     propComboBox->setToolTip(tr("Select QSOs in this propagation mode."));
@@ -185,31 +182,54 @@ void MapWindowWidget::showFiltered()
     {
         color = workedColor;
     }
-    color.setAlpha(127);    // Little Transparent
+    color.setAlpha(127);// The alpha gives some transparency
 
     QString satName = satNameComboBox->currentText();
 
 
-    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), confirmedCheckBox->isChecked());
-    foreach(QString i, locators)
-    {
-        if (i.length() == 4)
-        {
-            shortLocators << i;
-        }
-        else if (i.length()>4)
-        {
-            QString a =  i;
-            a.truncate(4);
-            shortLocators << a;
-        }
-    }
+    // Get Confirmed Locators
+    // Print Confirmed
+        // !only confirmed
+        // Get worked locators
+        // Remove confirmed from worked
+        // Print Worked
+
+    //locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), confirmedCheckBox->isChecked());
+
+    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), true);
+    Locator locator;
+    shortLocators << locator.getShortLocators (locators);
+
     shortLocators << locators;
     shortLocators.removeDuplicates();
     shortLocators.sort();
+    addLocators(shortLocators, confirmedColor);
 
-    addLocators(shortLocators, color);
+    if (!confirmedCheckBox->isChecked ())
+    {
+        QStringList wLocators;
+        wLocators.clear ();
+        wLocators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), false);
+        QStringList workedLocators;
+        workedLocators.clear ();
+
+        foreach (QString loc, wLocators)
+        {
+            if (!shortLocators.contains (loc))
+            {
+                workedLocators.append (loc);
+            }
+        }
+        shortLocators.clear();
+        shortLocators << locator.getShortLocators (workedLocators);
+
+        shortLocators << workedLocators;
+        shortLocators.removeDuplicates();
+        shortLocators.sort();
+        appendLocators(shortLocators, workedColor);
+    }
 }
+
 
 void MapWindowWidget::slotBandsComboBoxChanged()
 {
@@ -289,6 +309,15 @@ void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_c
     }
 }
 
+void MapWindowWidget::appendLocators(const QStringList &_locators, const QColor &_color)
+{
+    foreach(QString i, _locators)
+    {
+        //mapWidget->addLocator(i, confirmedColor);
+        mapWidget->addLocator(i, _color);
+    }
+}
+
 QString MapWindowWidget::getPropModeFromComboBox()
 {
     QString _pm = QString();
@@ -309,12 +338,9 @@ void MapWindowWidget::paintGlobalGrid()
 
 }
 
-void MapWindowWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+void MapWindowWidget::setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-       //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << QT_ENDL;
     defaultColor = _default;
-    neededColor = _needed;
     workedColor = _worked;
     confirmedColor = _confirmed;
-    newOneColor = _newOne;
 }

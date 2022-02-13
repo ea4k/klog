@@ -65,6 +65,7 @@ public:
     Coordinate getLocatorCorner (const QString& tlocator, bool northWest = true); //northWest = returns the Noth West corner, false implies South East
     bool checkCoords(const double lon1, const double lat1);
     QStringList getAll(int _length = 4); // Returns the list of All locators of the requested size, 4 as default
+    QStringList getShortLocators(const QStringList &locators, const int _length=4);
 
 private:
   //bool valid;
