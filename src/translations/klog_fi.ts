@@ -2301,10 +2301,6 @@ Error returned: %2</source>
         <translation>Merkitse kaikki jonossa olevat QSO:t lähetetyiksi LoTW:iin.</translation>
     </message>
     <message>
-        <source>Sends the log to LoTW calling TQSL.</source>
-        <translation type="vanished">Lähettää lokin LoTW:iin, käyttäen TQSL:ää.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3955"/>
         <location filename="../mainwindow.cpp" line="3960"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
@@ -3346,10 +3342,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="5335"/>
         <source>It seems that there are no QSOs in the database.</source>
         <translation>Näyttää siltä ettei tietokannassa ole yhtään QSO:ta.</translation>
-    </message>
-    <message>
-        <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
-        <translation type="vanished">Tämä ominaisuus ei ole käytössä. Mene Asetukset-&gt;LoTW välilehdelle ottaaksesi sen käyttöön.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5957"/>

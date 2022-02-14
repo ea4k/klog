@@ -2407,10 +2407,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <translation>Marca tots els QSO posats en cua com a enviats al LoTW.</translation>
     </message>
     <message>
-        <source>Sends the log to LoTW calling TQSL.</source>
-        <translation type="vanished">Envia el registre al LoTW cridant el TQSL.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3955"/>
         <location filename="../mainwindow.cpp" line="3960"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
@@ -3194,10 +3190,6 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <location filename="../mainwindow.cpp" line="5335"/>
         <source>It seems that there are no QSOs in the database.</source>
         <translation>Sembla que no hi ha cap QSO a la base de dades.</translation>
-    </message>
-    <message>
-        <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
-        <translation type="vanished">Aquesta funció està desactivada. Aneu a la Configuració -&gt; Pestanya LoTW per activar-la.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5776"/>

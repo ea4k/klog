@@ -2544,10 +2544,6 @@ KLogは毎月バックアップを取るように促してくれます。
         <translation>キューに入っているすべてのQSOを、LoTWへの送信としてマークします。</translation>
     </message>
     <message>
-        <source>Sends the log to LoTW calling TQSL.</source>
-        <translation type="vanished">TQSLを呼んでいるLoTWにログを送信します。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3955"/>
         <location filename="../mainwindow.cpp" line="3960"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
@@ -3253,10 +3249,6 @@ UDP サーバが %1 に失敗しました。</translation>
         <location filename="../mainwindow.cpp" line="5335"/>
         <source>It seems that there are no QSOs in the database.</source>
         <translation>データベースにQSOが登録されていないようです。</translation>
-    </message>
-    <message>
-        <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
-        <translation type="vanished">この機能は無効になっています。セットアップ-&gt;LoTWタブで有効にしてください。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5724"/>

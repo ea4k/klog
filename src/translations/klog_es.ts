@@ -2351,10 +2351,6 @@ Error: #2</translation>
         <translation>KLog - Resultado de la comprobación de actualizaciones de KLog</translation>
     </message>
     <message>
-        <source>Sends the log to LoTW calling TQSL.</source>
-        <translation type="vanished">Envía el log a LoTW a través de TQSL.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="3955"/>
         <location filename="../mainwindow.cpp" line="3960"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
@@ -2495,10 +2491,6 @@ Error: #2</translation>
         <location filename="../mainwindow.cpp" line="5335"/>
         <source>It seems that there are no QSOs in the database.</source>
         <translation>Parece que no hay QSOs en la base de datos.</translation>
-    </message>
-    <message>
-        <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
-        <translation type="vanished">Esta función está deshabilitada. Vaya a Preferencias-&gt;LoTW para habilitarla.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5957"/>
