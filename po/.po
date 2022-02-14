@@ -1498,12 +1498,12 @@ msgstr ""
 
 #: ../setuppages/hamlibserialconfigwidget.cpp:81
 msgctxt "HamLibSerialConfigWidget|"
-msgid "2 bits"
+msgid "1.5 bits"
 msgstr ""
 
 #: ../setuppages/hamlibserialconfigwidget.cpp:81
 msgctxt "HamLibSerialConfigWidget|"
-msgid "1.5 bits"
+msgid "2 bits"
 msgstr ""
 
 #: ../setuppages/hamlibserialconfigwidget.cpp:83
