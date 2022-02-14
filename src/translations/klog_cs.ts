@@ -3206,14 +3206,6 @@ Serveru UDP se nepovedlo %1.</translation>
         <translation>Kontaktujte KLog vývojový tým, pokud databáze obsahuje nějaká QSO a KLog je nemůže najít (Nápověda-&gt;O aplikaci).</translation>
     </message>
     <message>
-        <source>Sends the log to LoTW calling TQSL.</source>
-        <translation type="vanished">Odeslání logu to LoTW pomocí TQSL.</translation>
-    </message>
-    <message>
-        <source>This function is disabled. Go to the Setup-&gt;LoTW tab to enable it.</source>
-        <translation type="vanished">Tato funkce je deaktivována. Aktivace v Nastavení-&gt;Nastavení-&gt;LoTW.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="5724"/>
         <source>Status of the DX entity.</source>
         <translation>Status DX země.</translation>
