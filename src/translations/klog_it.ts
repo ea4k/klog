@@ -448,12 +448,12 @@ Vuoi riprovare?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembra che lo stato DXCC nel tuo database non sia aggiornato e qundi KLog non riesce a trovare alcuna informazione dxcc. Puoi provare a risolvere questo problema aggiornando il lof.</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
         <source>Do you want to update your DXCC status?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi aggiornare ul tuo status DXCC?</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="545"/>
@@ -1308,27 +1308,27 @@ Scegli il nominativo di stazione per questo QSO su %1:</translation>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="16"/>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="22"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished">Inserisci l&apos;hostname o l&apos;indirizzo della radio.</translation>
+        <translation>Inserisci l&apos;hostname o l&apos;indirizzo della radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="17"/>
         <source>Set de network port of the radio.</source>
-        <translation type="unfinished">Imposta la porta di rete della radio.</translation>
+        <translation>Imposta la porta di rete della radio.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="20"/>
         <source>Host/Address</source>
-        <translation type="unfinished">Host/Indirizzo</translation>
+        <translation>Host/Indirizzo</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="26"/>
         <source>Port</source>
-        <translation type="unfinished">Porta</translation>
+        <translation>Porta</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="28"/>
         <source>Enter the port of the radio.</source>
-        <translation type="unfinished">Inserisci la porta della radio.</translation>
+        <translation>Inserisci la porta della radio.</translation>
     </message>
 </context>
 <context>
@@ -1336,147 +1336,147 @@ Scegli il nominativo di stazione per questo QSO su %1:</translation>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="24"/>
         <source>Bauds</source>
-        <translation type="unfinished">Bauds</translation>
+        <translation>Bauds</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="26"/>
         <source>Select the serial port speed.</source>
-        <translation type="unfinished">Seleziona la velocità di comunicazione con la porta seriale.</translation>
+        <translation>Seleziona la velocità di comunicazione con la porta seriale.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="30"/>
         <source>Port</source>
-        <translation type="unfinished">Porta</translation>
+        <translation>Porta</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="32"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation type="unfinished">Seleziona la porta seriale. Solo le porte seriali realmente trovate sono in elenco.</translation>
+        <translation>Seleziona la porta seriale. Solo le porte seriali realmente trovate sono in elenco.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="36"/>
         <source>Scan</source>
-        <translation type="unfinished">Scansione</translation>
+        <translation>Scansione</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="38"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation type="unfinished">Clicca per cercare quali porte seriali sono disponibili sul tuo computer.</translation>
+        <translation>Clicca per cercare quali porte seriali sono disponibili sul tuo computer.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>5 bits</source>
-        <translation type="unfinished">5 bit</translation>
+        <translation>5 bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>6 bits</source>
-        <translation type="unfinished">6 bit</translation>
+        <translation>6 bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>7 bits</source>
-        <translation type="unfinished">7 bit</translation>
+        <translation>7 bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="49"/>
         <source>8 bits</source>
-        <translation type="unfinished">8 bit</translation>
+        <translation>8 bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="51"/>
         <source>Data bits</source>
-        <translation type="unfinished">Data Bit</translation>
+        <translation>Data Bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="53"/>
         <source>Select the serial data bits.</source>
-        <translation type="unfinished">Seleziona il numero di bit usati nella comunicazione via seriale.</translation>
+        <translation>Seleziona il numero di bit usati nella comunicazione via seriale.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>None</source>
-        <translation type="unfinished">Vuoto</translation>
+        <translation>Vuoto</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>Hardware</source>
-        <translation type="unfinished">Hardware</translation>
+        <translation>Hardware</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>Software XON/XOFF</source>
-        <translation type="unfinished">Software XON/XOFF</translation>
+        <translation>Software XON/XOFF</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="61"/>
         <source>Flow control</source>
-        <translation type="unfinished">Controllo di flusso (flow control)</translation>
+        <translation>Controllo di flusso (flow control)</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="63"/>
         <source>Select the serial flow control</source>
-        <translation type="unfinished">Seleziona il tipo di controllo di flusso</translation>
+        <translation>Seleziona il tipo di controllo di flusso</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>No parity</source>
-        <translation type="unfinished">Nessuna parità</translation>
+        <translation>Nessuna parità</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Even</source>
-        <translation type="unfinished">Even</translation>
+        <translation>Even</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Odd</source>
-        <translation type="unfinished">Odd</translation>
+        <translation>Odd</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Space</source>
-        <translation type="unfinished">Spazio</translation>
+        <translation>Spazio</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="70"/>
         <source>Mark</source>
-        <translation type="unfinished">Mark</translation>
+        <translation>Mark</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="72"/>
         <source>Parity</source>
-        <translation type="unfinished">Parità</translation>
+        <translation>Parità</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="74"/>
         <source>Select the serial parity.</source>
-        <translation type="unfinished">Scegli il bit di parità sulla seriale.</translation>
+        <translation>Scegli il bit di parità sulla seriale.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
         <source>1 bit</source>
-        <translation type="unfinished">1 bit</translation>
+        <translation>1 bit</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
         <source>1.5 bits</source>
-        <translation type="unfinished">1,5 bits</translation>
+        <translation>1,5 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="81"/>
         <source>2 bits</source>
-        <translation type="unfinished">2 bits</translation>
+        <translation>2 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="83"/>
         <source>Stop bits</source>
-        <translation type="unfinished">Bit di stop</translation>
+        <translation>Bit di stop</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="85"/>
         <source>Select the serial stop bits.</source>
-        <translation type="unfinished">Seleziona il numero di bit di stop della seriale.</translation>
+        <translation>Seleziona il numero di bit di stop della seriale.</translation>
     </message>
 </context>
 <context>
@@ -2130,12 +2130,12 @@ Codice di errore restituito: %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="87"/>
         <source>Stop wsjt-x and hamlib from automatically updating QSO information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arresta wsjt e hamlib perl&apos;aggiornamento automatico dei dati sui QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="88"/>
         <source>Manual Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità manuale</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="106"/>
@@ -2146,12 +2146,12 @@ Codice di errore restituito: %2</translation>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="812"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Salva</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="813"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Annulla</translation>
+        <translation>&amp;Annulla</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="992"/>
@@ -3409,27 +3409,27 @@ Vuoi cancellare il file?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="771"/>
         <source>KLog-%1 - Logbook of %2 - QSOs: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog-%1 - Logbook of %2 - QSOs: %3</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="775"/>
         <source>KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog-%1 - Logbook of %2 - Nominativo stazione: %3 - QSOs: %4</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3117"/>
         <source>KLog - QRZ.com warning</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QRZ.com warning</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3118"/>
         <source>QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>QRZ.com ha restituito l&apos;errore di non iscrizione e qundi non sarà possibile  interpellare QRZ.com.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3119"/>
         <source>Please check your QRZ.com subcription or credentials.</source>
-        <translation type="unfinished"></translation>
+        <translation>Per favore controlla la tua iscrizione al servizio QRZ.com.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3810"/>
@@ -3439,7 +3439,7 @@ Vuoi cancellare il file?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3969"/>
         <source>Show Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra mappa</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4093"/>
@@ -3515,7 +3515,7 @@ Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="6362"/>
         <source>To upload QSOs you need a qrz.com subscription. If you have one, go to Setup-&gt;QRZ.com tab to enable it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Per poter trasferire QSO a QRZ.com è necessario essere iscritti al servizio. Se sei iscritto vai alal pagina Setup-&gt; QRZ.com per abilitare la funzionalità.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6373"/>
@@ -4318,52 +4318,52 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="63"/>
         <source>Select QSOs in this band.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli i QSO di questa banda.</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="64"/>
         <source>Select QSOs in this mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli i QSO in questa modalità.</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="65"/>
         <source>Select QSOs in this propagation mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli i QSO in questa modalità di propagazione.</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="66"/>
         <source>Select QSOs using this Satellite.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli i QSO che utilzizano questo satellite.</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="67"/>
         <source>Only confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo conferma</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="69"/>
         <source>Select only confirmed QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli solo i QSO confermati.</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="115"/>
         <source>All bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Tute le bande</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="126"/>
         <source>All modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutte le modalità</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="138"/>
         <source>All propagation modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutti i modi di propagazione</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="148"/>
         <source>All satellites</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutti i satelliti</translation>
     </message>
 </context>
 <context>
@@ -4839,54 +4839,54 @@ KLog terminerà appena cliccherai su OK.</translation>
         <location filename="../utilities.cpp" line="1778"/>
         <source>Dark Dok</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">Dark-Dok</translation>
+        <translation>Dark-Dok</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1794"/>
         <source>Fists</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">Prime</translation>
+        <translation>Fists</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1796"/>
         <source>Fists CC</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">Prime CC</translation>
+        <translation>Fists CC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1848"/>
         <source>My Fists</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">Mie prime</translation>
+        <translation>My Fists</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1886"/>
         <source>Nr bursts</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">Nr. bursts</translation>
+        <translation>Nr bursts</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1888"/>
         <source>Nr pings</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">Nr. pings</translation>
+        <translation>Nr pings</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1936"/>
         <source>Sat mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo Sat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1964"/>
         <source>SWL</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished">SWL</translation>
+        <translation>SWL</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1974"/>
         <source>Ten-Ten</source>
         <comment>Do not translate, it is a hamradio group name.</comment>
-        <translation type="unfinished">Ten-Ten</translation>
+        <translation>Ten-Ten</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1780"/>
@@ -6253,12 +6253,12 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="116"/>
         <source>Paying Subscriber</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagamento Sottoscrizione</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="117"/>
         <source>Check it if you are paying for a qrz.com subscription</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlla di stare pagando per la sottoscrizione a QRZ.com</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="119"/>
@@ -6366,12 +6366,12 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="200"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Seriale</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="201"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Rete</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="163"/>
@@ -6751,7 +6751,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="37"/>
         <source>Check non-valid calls</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllo nominativi non validi</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="49"/>
@@ -6776,7 +6776,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="126"/>
         <source>If you disable this checkbox KLog will not check callsigns to identify wrong callsigns.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se disattivi la spunta di questa opzione KLog non controllerà i nomiantivi sbagliati.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="127"/>
@@ -7803,7 +7803,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../statisticswidget.cpp" line="119"/>
         <source>Satellite DXCC status</source>
-        <translation type="unfinished"></translation>
+        <translation>Satellite DXCC status</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="120"/>
@@ -7867,7 +7867,7 @@ Il log non sarà aperto.</translation>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="60"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
-        <translation type="unfinished"></translation>
+        <translation>Only LEO sats</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="76"/>
@@ -7987,13 +7987,13 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="55"/>
         <source>Show confirmed only</source>
-        <translation type="unfinished">Mostra solo i confermati</translation>
+        <translation>Mostra solo i confermati</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="57"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
-        <translation type="unfinished"></translation>
+        <translation>Only LEO sats</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="74"/>
@@ -8773,7 +8773,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../elogqrzlog.cpp" line="311"/>
         <source>You are not subscribed to QRZ.com.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non sei iscritto a QRZ.com.</translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="609"/>
