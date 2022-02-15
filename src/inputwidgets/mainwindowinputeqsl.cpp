@@ -53,6 +53,12 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) 
        //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL - END"   << QT_ENDL;
 }
 
+MainWindowInputEQSL::~MainWindowInputEQSL()
+{
+    delete(util);
+    delete(dataProxy);
+}
+
 void MainWindowInputEQSL::createUI()
 {
     qslSentStatusList.clear();

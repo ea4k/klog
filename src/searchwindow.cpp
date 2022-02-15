@@ -56,6 +56,8 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
 SearchWindow::~SearchWindow()
 {
 //    emit clearError();
+    delete(dataProxy);
+    delete(util);
 }
 
 

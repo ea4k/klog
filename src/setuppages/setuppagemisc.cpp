@@ -78,6 +78,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
 }
 
 SetupPageMisc::~SetupPageMisc(){
+    delete(util);
        //qDebug() << "SetupPageMisc::~SetupPageMisc" << QT_ENDL;
 }
 

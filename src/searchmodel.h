@@ -39,6 +39,7 @@ class SearchModel : public QSqlRelationalTableModel
     Q_OBJECT
 public:
     SearchModel(DataProxy_SQLite *dp, QObject *parent);
+    ~SearchModel();
     void createSearchModel(const int _i);
     void setFilterString(const QString &_st);
     void setStationCallsignInHeader(const bool _s);

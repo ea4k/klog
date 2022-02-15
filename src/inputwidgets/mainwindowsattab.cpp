@@ -66,7 +66,11 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
        //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"   << QT_ENDL;
 }
 
-MainWindowSatTab::~MainWindowSatTab(){}
+MainWindowSatTab::~MainWindowSatTab(){
+    delete(locator);
+    delete(util);
+    delete(dataProxy);
+}
 
 void MainWindowSatTab::createUI()
 {

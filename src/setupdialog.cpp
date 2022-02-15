@@ -135,6 +135,19 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
 SetupDialog::~SetupDialog()
 {
     //qDebug() << Q_FUNC_INFO  << QT_ENDL;
+    delete(locator);
+    delete(userDataPage);
+    delete(bandModePage);
+    delete(dxClusterPage);
+    delete(miscPage);
+    delete(worldEditorPage);
+    delete(logsPage);
+    delete(eLogPage);
+    delete(colorsPage);
+    delete(UDPPage);
+    delete(satsPage);
+    delete(hamlibPage);
+    delete(logViewPage);
 }
 
 void SetupDialog::connectActions()

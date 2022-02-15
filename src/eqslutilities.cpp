@@ -31,8 +31,6 @@
 #include <QFile>
 //#include <QDebug>
 
-
-
 eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 {
     //qDebug()<< "eQSLUtilities::eQSLUtilities"  << QT_ENDL;
@@ -40,7 +38,6 @@ eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
   //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #else
 #endif
-
     user = QString();
     pass = QString();
     qsos.clear();
@@ -56,7 +53,8 @@ eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 
 eQSLUtilities::~eQSLUtilities()
 {
-        //qDebug()<< "eQSLUtilities::~eQSLUtilities"  << QT_ENDL;
+    delete(util);
+    //qDebug()<< "eQSLUtilities::~eQSLUtilities"  << QT_ENDL;
 }
 
 void eQSLUtilities::setUser(const QString &_call)

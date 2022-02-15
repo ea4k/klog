@@ -67,7 +67,12 @@ void SoftwareUpdate::findOS(const int _os)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-SoftwareUpdate::~SoftwareUpdate(){}
+SoftwareUpdate::~SoftwareUpdate()
+{
+    delete(updateDialog);
+    delete(util);
+    delete(url);
+}
 
 void SoftwareUpdate::setVersion(const QString &_klogVersion)
 {

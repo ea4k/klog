@@ -32,12 +32,12 @@
 #include "dataproxy_sqlite.h"
 #include "world.h"
 
-
 class FileAwardManager : public QWidget
 {
     Q_OBJECT
 public:
     explicit FileAwardManager(DataProxy_SQLite *dp, const QString &_parentFunction);
+    ~FileAwardManager();
     bool importNewAwardFile();
 
 signals:

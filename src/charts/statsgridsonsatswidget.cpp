@@ -50,6 +50,12 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
     //prepareChart();
 }
 
+StatsGridsOnSatsWidget::~StatsGridsOnSatsWidget()
+{
+    delete(util);
+    delete(dataProxy);
+}
+
 void StatsGridsOnSatsWidget::createUI()
 {
     confirmedOnlyCheckBox->setText(tr("Show confirmed only"));

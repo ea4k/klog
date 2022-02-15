@@ -53,17 +53,6 @@ SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *
     operators = QString();
     comment = QString();
     dateString = QString();
-    //typeContest = 0;
-    //contestCatMode = 0;
-    //contestCatOperators = 0;
-    //contestCatAssisted = 0;
-    //contestCatPower = 0;
-    //contestCatBands = 0;
-    //contestBands = 0;
-    //contestCatOverlay = 0;
-    //typeContestSelected = 0;
-    //typeConteststr = QString();
-
 
     stationCallsignLineEdit = new QLineEdit;
     operatorsLineEdit = new QLineEdit;
@@ -71,26 +60,7 @@ SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *
     dateEdit = new QDateEdit;
     dateEdit->setDate(QDate::currentDate ());
     commentLineEdit = new QLineEdit;
-    /*
-    typeComboBox = new QComboBox;
-    contestCatModeComboBox = new QComboBox;
-    contestCatOperatorsComboBox = new QComboBox;
-    contestCatAssistedComboBox = new QComboBox;
-    contestCatPowerComboBox = new QComboBox;
-    contestCatBandsComboBox = new QComboBox;
-    contestBandsComboBox = new QComboBox;
-    contestCatOverlayComboBox = new QComboBox;
-    contestCatModeComboBox = new QComboBox;
 
-    catAsLabel = new QLabel();
-    typeLabel = new QLabel();
-    catOpLabel = new QLabel();
-    catModeLabel = new QLabel();
-    catPowerLabel = new QLabel();
-    catBandsLabel = new QLabel();
-    overlayLabel = new QLabel();
-    validCats = new QLabel();
-    */
     dateLabel = new QLabel(tr("&Date"));
     stationCallsignLabel = new QLabel(tr("&Station Callsign"));
     operatorsLabel = new QLabel(tr("&Operators"));
@@ -104,6 +74,11 @@ SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *
     okButton->setEnabled(false);
 
        //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew - END"   << QT_ENDL;
+}
+
+SetupPageSubdivisionNew::~SetupPageSubdivisionNew()
+{
+    delete(dataProxy);
 }
 
 void SetupPageSubdivisionNew::clear()

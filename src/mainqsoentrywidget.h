@@ -37,6 +37,7 @@ class MainQSOEntryWidget : public QWidget
     Q_OBJECT
 public:
     explicit MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    ~MainQSOEntryWidget();
     void setBands(const QStringList _bands);
     void setModes(const QStringList _modes);
 

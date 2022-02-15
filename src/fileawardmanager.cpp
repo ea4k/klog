@@ -32,6 +32,12 @@ FileAwardManager::FileAwardManager(DataProxy_SQLite *dp, const QString &_parentF
     util = new Utilities;
     world = new World(dataProxy, Q_FUNC_INFO);
 }
+FileAwardManager::~FileAwardManager()
+{
+    delete(dataProxy);
+    delete(util);
+    delete(world);
+}
 
 bool FileAwardManager::importNewAwardFile()
 {

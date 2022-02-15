@@ -43,6 +43,7 @@ class InfoWidget : public QWidget
     Q_OBJECT
 public:
     InfoWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
+    ~InfoWidget();
     void createUI();
     void clear();
     void setCurrentLog(const int _log);

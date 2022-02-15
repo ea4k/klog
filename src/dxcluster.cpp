@@ -108,6 +108,15 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToC
 
 }
 
+DXClusterWidget::~DXClusterWidget()
+{
+    delete(dataProxy);
+    delete(awards);
+    delete(world);
+    delete(util);
+    delete(saveSpotsFile);
+}
+
 void DXClusterWidget::initClass()
 {
     dxClusterConnected = false;

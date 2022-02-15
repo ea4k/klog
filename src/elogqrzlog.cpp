@@ -63,6 +63,7 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
 
 eLogQrzLog::~eLogQrzLog()
 {
+    delete(util);
     showDebugLog (Q_FUNC_INFO, "END");
 }
 

@@ -60,6 +60,10 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     emit debugLog(Q_FUNC_INFO, "END", Debug);
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << QT_ENDL;
 }
+MainQSOEntryWidget::~MainQSOEntryWidget()
+{
+    delete(util);
+}
 
 /*
 void MainQSOEntryWidget::slotRealTimeButtonResize()

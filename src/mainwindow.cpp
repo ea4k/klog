@@ -6943,13 +6943,14 @@ void MainWindow::qsoToEdit (const int _qso)
                             //qDebug() << "MainWindow::qsoToEdit: - in default - 105"  << QT_ENDL;
                             //qDebug() << "MainWindow::qsoToEdit: - just after de IOTA"  << QT_ENDL;
     }
-    else if (contestMode == "CQ-WW-SSB")
+    /*else if (contestMode == "CQ-WW-SSB")
     {
     }
     else
     {
         //TODO: Manage the else... is it a DX or show a message?
     }
+    */
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 106"  << QT_ENDL;
     } //Closes the next.isValid
                 //qDebug() << "MainWindow::qsoToEdit: - in default - END"  << QT_ENDL;

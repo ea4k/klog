@@ -107,6 +107,8 @@ SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
 
 SetupPageSats::~SetupPageSats(){
        //qDebug() << "SetupPageSats::~SetupPageSats" << QT_ENDL;
+    delete(util);
+    delete(newSat);
 }
 
 
