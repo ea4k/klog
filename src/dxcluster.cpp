@@ -169,12 +169,6 @@ void DXClusterWidget::addData()
 
 }
 
-DXClusterWidget::~DXClusterWidget()
-{
-       //qDebug() << "DXClusterWidget::~DXClusterWidget" << QT_ENDL;
-}
-
-
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
       //qDebug() << "DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked: " << item->text() << QT_ENDL;
