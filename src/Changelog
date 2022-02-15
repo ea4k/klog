@@ -3,7 +3,7 @@ TBD - 1.9
 - Bugfix: Mark QSL to be sent is not shown if QSL is sent on right click menu in the search widget. (Closes #387).
 - Improvement: Query the radio after leaving manual mode (Closes #416).
 - Improvement: Grids are now sorted on Grid stats for satellites. (Closes #424).
-- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU).
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU), Japanese (TNX JJ1TGT).
 
 Jan 2022 - 1.8.7
 - Bugfix: Removed the hamlib test from the KLog start that was causing big delays.
