@@ -1398,7 +1398,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sense</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>

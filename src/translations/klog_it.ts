@@ -1396,7 +1396,7 @@ Scegli il nominativo di stazione per questo QSO su %1:</translation>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vuoto</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>

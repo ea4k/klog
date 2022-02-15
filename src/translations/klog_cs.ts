@@ -1396,7 +1396,7 @@ Přejete si přidat toto spojení?</translation>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Žádný</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="59"/>
