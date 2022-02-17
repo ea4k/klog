@@ -23,7 +23,7 @@ The dependencies to build KLog are:
 In Debian it is done with: apt-get install g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev
 
 The dependencies to run KLog once installed are:
-        - libqt5sql5-sqlite, qml-module-qutquick-window2, qml-module-qtlocation, qml-module-qtpositioning & qml-module-qtquick2
+        - libqt5sql5-sqlite, qml-module-qtquick-window2, qml-module-qtlocation, qml-module-qtpositioning & qml-module-qtquick2
 
 If your are using the Debian KLog package the dependencies to run KLog will be automatically installed when installing the KLog package.
 
