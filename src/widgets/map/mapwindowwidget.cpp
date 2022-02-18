@@ -203,7 +203,7 @@ void MapWindowWidget::showFiltered()
     shortLocators << locators;
     shortLocators.removeDuplicates();
     shortLocators.sort();
-    addLocators(shortLocators, confirmedColor);
+    addLocators(shortLocators, color);
 
     if (!confirmedCheckBox->isChecked ())
     {
@@ -226,7 +226,7 @@ void MapWindowWidget::showFiltered()
         shortLocators << workedLocators;
         shortLocators.removeDuplicates();
         shortLocators.sort();
-        appendLocators(shortLocators, workedColor);
+        appendLocators(shortLocators, color);
     }
 }
 
