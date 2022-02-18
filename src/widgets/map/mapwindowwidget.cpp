@@ -167,22 +167,11 @@ void MapWindowWidget::setSatNames()
 
 void MapWindowWidget::showFiltered()
 {
-    QStringList locators;
-    locators.clear();
+    QStringList confirmedLocators;
 
-    QStringList shortLocators;
+    QStringList shortLocators, confirmedShortLocators;
     shortLocators.clear();
-
-    QColor color;
-    if (confirmedCheckBox->isChecked())
-    {
-        color = confirmedColor;
-    }
-    else
-    {
-        color = workedColor;
-    }
-    color.setAlpha(127);// The alpha gives some transparency
+    confirmedShortLocators.clear ();
 
     QString satName = satNameComboBox->currentText();
 
@@ -196,14 +185,17 @@ void MapWindowWidget::showFiltered()
 
     //locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), confirmedCheckBox->isChecked());
 
-    locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), true);
+    confirmedLocators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), true);
+    QColor color;
     Locator locator;
-    shortLocators << locator.getShortLocators (locators);
+    confirmedShortLocators << locator.getShortLocators (confirmedLocators);
 
-    shortLocators << locators;
-    shortLocators.removeDuplicates();
-    shortLocators.sort();
-    addLocators(shortLocators, color);
+    confirmedShortLocators << confirmedLocators;
+    confirmedShortLocators.removeDuplicates();
+    confirmedShortLocators.sort();
+    color = confirmedColor;
+    color.setAlpha (127);
+    addLocators(confirmedShortLocators, color);// The alpha gives some transparency
 
     if (!confirmedCheckBox->isChecked ())
     {
@@ -215,18 +207,30 @@ void MapWindowWidget::showFiltered()
 
         foreach (QString loc, wLocators)
         {
-            if (!shortLocators.contains (loc))
+            if (!confirmedShortLocators.contains (loc))
             {
                 workedLocators.append (loc);
             }
         }
+
         shortLocators.clear();
         shortLocators << locator.getShortLocators (workedLocators);
-
         shortLocators << workedLocators;
         shortLocators.removeDuplicates();
-        shortLocators.sort();
-        appendLocators(shortLocators, color);
+        workedLocators.clear ();
+        foreach (QString loc, shortLocators)
+        {
+            if (!confirmedShortLocators.contains (loc))
+            {
+                workedLocators.append (loc);
+            }
+        }
+
+
+        workedLocators.sort();
+        color = workedColor;
+        color.setAlpha (127);// The alpha gives some transparency
+        appendLocators(workedLocators, color);
     }
 }
 
