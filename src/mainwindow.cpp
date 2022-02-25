@@ -33,6 +33,48 @@
 #include "database.h"
 #include "mainwindow.h"
 
+void MainWindow::showNotWar()
+{
+    int callDXCC = world->getQRZARRLId(mainQRZ);
+    //int callDXCC = world->getQRZARRLId(stationCallsign);
+    int EURusId = 54;   // ADIF code Eu Russia
+    int ASRusId = 15;   // ADIF code As Russia
+    int KaRusId = 126;  // Kaliningrad
+    int UkrId = 288;    // UKraine
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setWindowTitle(tr("KLog - Stop the war in Ukraine!"));
+    QString aux;
+    aux.clear();
+    #if defined(Q_OS_OSX)
+    aux = tr("KLog - Stop the war in Ukraine!\n\n");
+    #endif
+
+    qDebug() << "DXCC: " << QString::number(callDXCC);
+    if ((callDXCC == EURusId) || (callDXCC == ASRusId) || (callDXCC == KaRusId))
+    {
+        //qDebug() << "RUSSIA";
+        aux = aux + QString(tr("You are using a Russian call (%1).\n\nYou can probably help to stop the Russian war, people are dying.\n\nPlease call your leaders to stop the war.")).arg(mainQRZ);
+    }
+    else if (callDXCC == UkrId)
+    {
+        //qDebug() << "UKRAINE";
+        aux = aux + tr("You are using an Ukranian call.\n\nPlease take care and protect yourself and your family. \n\nThe KLog developers wish you the best of luck in this very difficult moment.");
+    }
+    else
+    {
+        //qDebug() << "Other";
+        aux = aux + tr("People are dying in the war of Russia against Ukraine.\n\nYou can help to stop the Russian war against Ukraine.\n\nPlease show your disagreement to your leaders, or in your social network to stop the war.");
+    }
+
+    msgBox.setText(aux);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+
+}
+
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -484,6 +526,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
+    showNotWar();
 
     //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
 }

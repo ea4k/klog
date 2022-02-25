@@ -1,3 +1,8 @@
+Feb 2022 - 2.0
+- Stop the Ukranian war release.
+  This KLog release is showing my request to stop the war in Ukraine.
+  No other feature of bugfix will be done in this release.
+
 Feb 2022 - 1.9
 - New feature: Map showing locators. (Closes #168)
 - Bugfix: Mark QSL to be sent is not shown if QSL is sent on right click menu in the search widget. (Closes #387).
