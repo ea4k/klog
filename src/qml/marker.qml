@@ -1,7 +1,5 @@
-#ifndef MAPWIDGET_H
-#define MAPWIDGET_H
 /***************************************************************************
-                          mapwidget.h  -  description
+                          mapqmlfile.qml  -  description
                              -------------------
     begin                : May 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -25,48 +23,17 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QObject>
-#include <QtWidgets>
-#include <QQuickView>
-#include <QQuickItem>
-#include "locator.h"
+import QtQuick 2.0
+import QtLocation 5.12
 
-class MapWidget : public QWidget
-{
-    Q_OBJECT
-
-public:
-    MapWidget(QWidget *parent = nullptr);
-    void init();
-
-    void setCenter(const Coordinate &_c);
-    void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
-    void addQSO(const QString &_loc);
-    void addMarker(const Coordinate _coord);
-    void addLocator(const QString &_loc, const QColor &_color);
-    void clearMap();
-    //void setLocale (const QString _locale);
-
-signals:
-      void doAddMarker(double latitude, double longitude);
-
-private slots:
-
-private:
-    void createUI();
-    QQuickView qmlView;
-
-    QStandardItemModel modelCircle, modelRectangle;
-    QHash<int, QByteArray> circleRoles;
-    QHash<int, QByteArray> rectangleRoles;
-
-    int CoordinateRole = Qt::UserRole + 1000;
-    int NorthRole = Qt::UserRole + 1000;
-    int SouthRole = Qt::UserRole + 1001;
-    int ColorRole = Qt::UserRole + 1002;
-    Locator locator;
-    //double lat, lon;
-
-};
-
-#endif // MAPWIDGET_H
+MapQuickItem{
+    id: marker
+    anchorPoint.x: marker.width / 4
+    anchorPoint.y: marker.height
+    sourceItem: Image{
+        id: icon
+        source: "../img/marker.png"
+        sourceSize.width: 40
+        sourceSize.height: 40
+    }
+}

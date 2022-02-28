@@ -51,7 +51,7 @@ void MainWindow::showNotWar()
     aux = tr("KLog - Stop the war in Ukraine!\n\n");
     #endif
 
-    qDebug() << "DXCC: " << QString::number(callDXCC);
+    //qDebug() << "DXCC: " << QString::number(callDXCC);
     if ((callDXCC == EURusId) || (callDXCC == ASRusId) || (callDXCC == KaRusId))
     {
         //qDebug() << "RUSSIA";
@@ -793,13 +793,16 @@ void MainWindow::slotShowMap()
     //qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
     mapWindow->resize(size);
     mapWindow->show();
-    //QStringList a;
-    //a.clear();
+    QStringList a;
+    a.clear();
+    a << dataProxy->getFilteredLocators("All", "All", "All", "All");
     //a << locator->getAll();
-    //foreach (QString ai, a) {
-    //    //qDebug() << ai;
-    //}
-    //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
+    foreach (QString ai, a)
+    {
+        mapWindow->addMarker (locator->getLocatorCoordinate (ai));
+        //qDebug() << ai;
+    }
+    mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
 void MainWindow::setMainWindowTitle()

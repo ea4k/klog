@@ -30,10 +30,10 @@
 #include <QQmlContext>
 #include <QStandardItemModel>
 
-MapWidget::MapWidget()
+MapWidget::MapWidget(QWidget *parent)
 {
 
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
 
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -41,6 +41,7 @@ MapWidget::MapWidget()
 void MapWidget::init()
 {
     createUI();
+
 }
 
 void MapWidget::createUI()
@@ -58,9 +59,9 @@ void MapWidget::createUI()
     modelCircle.setItemRoleNames(circleRoles);
     modelRectangle.setItemRoleNames(rectangleRoles);
 
-
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
+
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
 
@@ -68,6 +69,7 @@ void MapWidget::createUI()
 
     layout->addWidget(container);
     setLayout (layout);
+    //addMarker(latitude, longitude)
 
     //setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
     //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
@@ -98,6 +100,18 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void MapWidget::addMarker(const Coordinate _coord)
+{
+    //qDebug() << Q_FUNC_INFO;
+    QObject *object = qmlView.rootObject ();
+    QMetaObject::invokeMethod(object, "addMarker",
+            Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));
+//    QMetaObject::invokeMethod(object, "addMarker",
+//            Q_RETURN_ARG(QString, returnedValue),
+//            Q_ARG(double, 40.5), Q_ARG(double, -3.5));
+
+}
+
 void MapWidget::addQSO(const QString &_loc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _loc;
@@ -114,6 +128,10 @@ void MapWidget::addQSO(const QString &_loc)
 
 void MapWidget::addLocator(const QString &_loc, const QColor &_color)
 {
+    if (_loc.contains ("IN99"))
+    {
+        qDebug() << Q_FUNC_INFO << ": " << _loc;
+    }
     //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))
     {

@@ -317,7 +317,8 @@ QMAKE_EXTRA_COMPILERS += updateqm
 
 # deploy
 DISTFILES += Changelog COPYING \
-    qml/mapqmlfile.qml
+    qml/mapqmlfile.qml \
+    qml/marker.qml
 
 unix:!mac {
     message(unix:!mac)

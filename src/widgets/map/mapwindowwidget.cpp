@@ -21,23 +21,22 @@
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
- *                                                                           *
+ *                                                                          *
  *****************************************************************************/
 #include "mapwindowwidget.h"
 
 MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
 
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
-    mapWidget = new MapWidget;
+    mapWidget = new MapWidget(this);
 
     propComboBox = new QComboBox;
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
     satNameComboBox = new QComboBox;
     confirmedCheckBox = new QCheckBox;
-
 
     //locatorsCheckBox = new QCheckBox;
 
@@ -56,6 +55,11 @@ void MapWindowWidget::init()
     confirmedColor = Qt::black;
     defaultColor = Qt::black;
     createUI();
+}
+
+void MapWindowWidget::addMarker(const Coordinate _coord)
+{
+    mapWidget->addMarker (_coord);
 }
 
 void MapWindowWidget::createUI()
@@ -308,7 +312,10 @@ void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_c
     mapWidget->clearMap();
     foreach(QString i, _locators)
     {
-        //mapWidget->addLocator(i, confirmedColor);
+        if (i.contains ("IN99"))
+        {
+            qDebug() << Q_FUNC_INFO << ": " << i;
+        }
         mapWidget->addLocator(i, _color);
     }
 }

@@ -2323,9 +2323,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
         confirmedString = QString("AND qsl_rcvd <> 'x' ");
     }
 
-
     queryString = QString("SELECT DISTINCT gridsquare from log WHERE %1 %2 %3 %4 %5 ORDER BY id ASC").arg(bandString).arg(modeString).arg(propString).arg(satsString).arg(confirmedString);
-
 
     bool sqlOK = query.exec(queryString);
 
@@ -2338,6 +2336,10 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
             {
                 queryString = (query.value(0)).toString();
                 grids.append(queryString);
+                if (grids.contains ("IN99"))
+                {
+                    qDebug() << Q_FUNC_INFO << ": " << queryString ;
+                }
             }
             else
             {
