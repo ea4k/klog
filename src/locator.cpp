@@ -115,7 +115,6 @@ Coordinate Locator::getLocatorCoordinate(const QString _tlocator)
     _position.lat = getLat (_tlocator);
     _position.lon = getLon (_tlocator);
     return _position;
-
 }
 
 Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)

@@ -522,6 +522,8 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  QT_ENDL;
         stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  QT_ENDL;
         stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterSendToMap=" << dxClusterPage->getSendSpotsToMap()<< ";" <<  QT_ENDL;
+
 
         stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  QT_ENDL;
         stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  QT_ENDL;
@@ -995,6 +997,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if (tab  =="DXCLUSTERSAVE"){
         dxClusterPage->setSaveActivityQCheckbox(value);
+    }
+    else if (tab  =="DXCLUSTERSENDTOMAP"){
+        dxClusterPage->setSendSpotstoMap(value);
     }
     else if(tab =="NEWONECOLOR"){
         colorsPage->setNewOneColor(value);

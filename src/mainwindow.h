@@ -268,6 +268,7 @@ private slots:
 
     // CLUSTER
     void slotAnalyzeDxClusterSignal(const QStringList _qs);
+    void slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq);
 
     // CLUSTER
     //CLUBLOG
@@ -434,6 +435,7 @@ private:
     QStringList dxclusterServersList;
     QString dxclusterServerToConnect;
     int dxclusterServerPort;
+    bool dxclusterSendSpotsToMap;
     // CLUSTER
 
     //LOTW

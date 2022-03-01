@@ -398,6 +398,7 @@ void MainWindow::init()
     dxClusterShowAnn=true;
     dxClusterShowWWV=true;
     dxClusterShowWCY=true;
+    dxclusterSendSpotsToMap = false;
 
     keepSatPage = false;
     //qDebug() << "MainWindow::init - 40" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -584,6 +585,7 @@ void MainWindow::createActionsCommon(){
     //void clusterSpotToLog(const QStringList _qs);
     //SIGNAL dxspotclicked(const QStringList _qs)
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, QString, double) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -793,16 +795,16 @@ void MainWindow::slotShowMap()
     //qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
     mapWindow->resize(size);
     mapWindow->show();
-    QStringList a;
-    a.clear();
-    a << dataProxy->getFilteredLocators("All", "All", "All", "All");
+    //QStringList a;
+    //a.clear();
+    //a << dataProxy->getFilteredLocators("All", "All", "All", "All");
     //a << locator->getAll();
-    foreach (QString ai, a)
-    {
-        mapWindow->addMarker (locator->getLocatorCoordinate (ai));
+    //foreach (QString ai, a)
+    //{
+    //    mapWindow->addMarker (locator->getLocatorCoordinate (ai));
         //qDebug() << ai;
-    }
-    mapWindow->addLocators(a, QColor(0, 0, 255, 127));
+    //}
+    //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
 void MainWindow::setMainWindowTitle()
@@ -5068,7 +5070,6 @@ bool MainWindow::processConfigLine(const QString &_line){
         }
         dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);
     }
-
     else if(field=="POWER")
     {
         if (value.toFloat()>0.0f)
@@ -5197,7 +5198,10 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         dxClusterShowWCY = util->trueOrFalse(value);
     }
-
+    else if (field  =="DXCLUSTERSENDTOMAP")
+    {
+       dxclusterSendSpotsToMap = util->trueOrFalse(value);
+    }
     else if (field=="DEFAULTADIFFILE")
     {
         defaultADIFLogFile = value.toLower();
@@ -7547,6 +7551,21 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     //else
     //{ // Signal was not properly emited
     //}
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
+void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
+    if (!dxclusterSendSpotsToMap)
+    {
+        return;
+    }
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    Coordinate coord = locator->getLocatorCoordinate (_dxGrid);
+    //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(_dxCall).arg(_dxGrid).arg(coord.lat).arg(coord.lon);
+    //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
+    mapWindow->addMarker(coord);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

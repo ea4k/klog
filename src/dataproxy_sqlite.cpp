@@ -2338,7 +2338,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
                 grids.append(queryString);
                 if (grids.contains ("IN99"))
                 {
-                    qDebug() << Q_FUNC_INFO << ": " << queryString ;
+                    //qDebug() << Q_FUNC_INFO << ": " << queryString ;
                 }
             }
             else
@@ -7512,7 +7512,7 @@ double DataProxy_SQLite::getLongitudeFromEntity(const int _e)
         else
         {   double v = (query.value(0)).toDouble();
             query.finish();
-            return v;
+            return -v;
         }
     }
 }
@@ -7527,6 +7527,7 @@ double DataProxy_SQLite::getLatitudeFromEntity(const int _e)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+
         return 0.0;
     }
     else

@@ -33,7 +33,7 @@
 MapWidget::MapWidget(QWidget *parent)
 {
 
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -130,7 +130,7 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
 {
     if (_loc.contains ("IN99"))
     {
-        qDebug() << Q_FUNC_INFO << ": " << _loc;
+        //qDebug() << Q_FUNC_INFO << ": " << _loc;
     }
     //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))

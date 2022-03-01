@@ -28,7 +28,7 @@
 MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
 
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
     mapWidget = new MapWidget(this);
 
@@ -117,6 +117,7 @@ void MapWindowWidget::setBands(const QStringList _bands)
     //bands = dataProxy->sortBandNamesBottonUp(bands);
     bandComboBox->clear();
     bands.prepend("All - " + tr("All bands"));
+    bands.prepend("None - " + tr("Show nothing"));
     bandComboBox->addItems(bands);
 }
 
@@ -171,6 +172,11 @@ void MapWindowWidget::setSatNames()
 
 void MapWindowWidget::showFiltered()
 {
+    if (bandComboBox->currentIndex () == 0)
+    {
+        mapWidget->clearMap();
+        return;
+    }
     QStringList confirmedLocators;
 
     QStringList shortLocators, confirmedShortLocators;
@@ -314,7 +320,7 @@ void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_c
     {
         if (i.contains ("IN99"))
         {
-            qDebug() << Q_FUNC_INFO << ": " << i;
+            //qDebug() << Q_FUNC_INFO << ": " << i;
         }
         mapWidget->addLocator(i, _color);
     }
