@@ -26,16 +26,10 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
-if [ $# -ne 1 ]; then
-	echo "You must include the version of KLog you want to deploy as a single parameter"
-	echo ""
-	echo "example: deployOSX.sh 0.9.2 "
-	echo ""
-	echo ""
-	exit 1
- fi
 export CXXFLAGS=-std=c++11
-KLOG_VERSION="$1"
+#KLOG_VERSION="$1"
+KLOG_VERSION=$(grep "VERSION =" src.pro |awk '{print $3}')
+echo "Packaging KLog-$KLOG_VERSION"
 KLOG_SOURCES="../src"
 QTDIRi=$HOME"/Qt/5.15.2/clang_64"
 rm -Rf KLog.app
