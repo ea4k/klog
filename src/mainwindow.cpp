@@ -7565,7 +7565,7 @@ void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _
     Coordinate coord = locator->getLocatorCoordinate (_dxGrid);
     //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(_dxCall).arg(_dxGrid).arg(coord.lat).arg(coord.lon);
     //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
-    mapWindow->addMarker(coord);
+    mapWindow->addMarker(coord, _dxGrid);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

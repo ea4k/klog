@@ -49,7 +49,7 @@ public:
     void addLocators(const QStringList &_locators, const QColor &_color);
     void appendLocators(const QStringList &_locators, const QColor &_color);
     void setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default);
-    void addMarker(const Coordinate _coord);
+    void addMarker(const Coordinate _coord, const QString _loc);
 
 private slots:
     void slotBandsComboBoxChanged();

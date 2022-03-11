@@ -30,8 +30,9 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
 
     //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
+    //qDebug() << Q_FUNC_INFO << "1";
     mapWidget = new MapWidget(this);
-
+    //qDebug() << Q_FUNC_INFO << "2";
     propComboBox = new QComboBox;
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
@@ -57,9 +58,10 @@ void MapWindowWidget::init()
     createUI();
 }
 
-void MapWindowWidget::addMarker(const Coordinate _coord)
+void MapWindowWidget::addMarker(const Coordinate _coord, const QString _loc)
 {
-    mapWidget->addMarker (_coord);
+    //qDebug() << Q_FUNC_INFO << QString(" %1 = %2/%3(lat/lon)").arg(_loc).arg(_coord.lat).arg(_coord.lon);
+    mapWidget->addMarker(_coord);
 }
 
 void MapWindowWidget::createUI()
@@ -90,17 +92,20 @@ void MapWindowWidget::createUI()
 
     setPropModes();
     setSatNames();
-
+    //qDebug() << Q_FUNC_INFO << "3";
     mapWidget->init();
+    //qDebug() << Q_FUNC_INFO << "4";
 
     connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandsComboBoxChanged()));
     connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
     connect(propComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
     connect(satNameComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
     connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
+
     //connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
 
     satNameComboBox->setEnabled(false); // Starts disable until propagation = SAT
+    //qDebug() << Q_FUNC_INFO << "-END";
 }
 
 void MapWindowWidget::setCenter(const Coordinate &_c)

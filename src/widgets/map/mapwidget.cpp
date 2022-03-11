@@ -46,25 +46,22 @@ void MapWidget::init()
 
 void MapWidget::createUI()
 {
-    //lat = 0.0;
-    //lon = 0.0;
-
+    //qDebug() << Q_FUNC_INFO << "Start";
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
     circleRoles[CoordinateRole] = QByteArray("coordinate");
     rectangleRoles[NorthRole] = QByteArray("north");
     rectangleRoles[SouthRole] = QByteArray("south");
     rectangleRoles[ColorRole] = QByteArray("color");
-
     modelCircle.setItemRoleNames(circleRoles);
     modelRectangle.setItemRoleNames(rectangleRoles);
 
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-
+    //qDebug() << Q_FUNC_INFO << "13";
     qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
+    //qDebug() << Q_FUNC_INFO << "14";
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
-
     QVBoxLayout *layout = new QVBoxLayout(this);
 
     layout->addWidget(container);
@@ -73,6 +70,7 @@ void MapWidget::createUI()
 
     //setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
     //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
+    //qDebug() << Q_FUNC_INFO << "-END";
 }
 
 void MapWidget::clearMap()
@@ -102,7 +100,7 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 
 void MapWidget::addMarker(const Coordinate _coord)
 {
-    //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO << QString("Lat/Lon = %1/%2").arg(_coord.lat).arg(_coord.lon);
     QObject *object = qmlView.rootObject ();
     QMetaObject::invokeMethod(object, "addMarker",
             Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));

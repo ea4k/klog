@@ -43,15 +43,22 @@ Rectangle {
             // Define location that will be "center" of map
             id: mapCenter
     }
+    //function addMarker(latitude: double, longitude: double, locatorText: String)
     function addMarker(latitude: double, longitude: double)
         {
             var Component = Qt.createComponent("qrc:qml/marker.qml")
-            var item = Component.createObject(Rectangle, {
-                                                  coordinate: QtPositioning.coordinate(latitude, longitude)
-                                              })
+            //var item = Component.createObject(Rectangle, {
+            //                                      coordinate: QtPositioning.coordinate(latitude, longitude), text: locatorText
+            //                                  })
+        var item = Component.createObject(Rectangle, {
+                                              coordinate: QtPositioning.coordinate(latitude, longitude)
+                                          })
+        //if (zoom>5)
+        //{
+        //    console.log("Zoom>5: ", zoom);
+        //}
             map.addMapItem(item)
         }
-
 
     FocusScope
     {
@@ -72,9 +79,9 @@ Rectangle {
         plugin: mapPlugin
         center: mapCenter.coordinate
         Plugin {
-            locales: "en_US"
+           //locales: "en_US"
         }
-        Component.onCompleted:addMarker(40.18, -3.649)
+        //Component.onCompleted:addMarker(40.18, -3.649, "OOO")
         //onCenterChanged:
         //{
         //    console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
@@ -84,11 +91,11 @@ Rectangle {
         {
             hoverEnabled: true
             anchors.fill: parent
-            acceptedButtons: Qt.LeftButton
-            onClicked:
-            {
-                         console.log("left button clicked!")
-            }
+            //acceptedButtons: Qt.LeftButton
+            //onClicked:
+            //{
+            //             console.log("left button clicked!")
+            //}
             //onPositionChanged:
             //{
             //    Qt.point(mouseX, mouseY)
@@ -101,16 +108,16 @@ Rectangle {
         {
             hoverEnabled: true
             anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            onClicked:
-            {
-                 console.log("right button clicked!")
-                contextMenu.popup()
-            }
-            Menu {
-                id: contextMenu
-                MenuItem {text: "Show QSOs"}
-            }
+            //acceptedButtons: Qt.RightButton
+            //onClicked:
+            //{
+            //     console.log("right button clicked!")
+            //    contextMenu.popup()
+            //}
+            //Menu {
+            //    id: contextMenu
+            //    MenuItem {text: "Show QSOs"}
+            //}
         }
 
         Rectangle {
@@ -139,8 +146,6 @@ Rectangle {
                 onClicked: {
                     oldZoom = zoom
                     zoom = oldZoom - 1
-                    //buttonText.text = qsTr("Clicked");
-                    //buttonText.color = "black";
                 }
             }
         }
