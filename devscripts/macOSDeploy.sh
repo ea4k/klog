@@ -48,6 +48,6 @@ cp /usr/local/lib/libhamlib.4.dylib KLog.app/Contents/MacOS/
 chmod +w KLog.app/Contents/MacOS/libhamlib.4.dylib
 install_name_tool -id @executable_path/libhamlib.4.dylib KLog.app/Contents/MacOS/libhamlib.4.dylib
 install_name_tool -change /usr/local/lib/libhamlib.4.dylib @executable_path/libhamlib.4.dylib KLog.app/Contents/MacOS/klog
-"$QTDIRi"/bin/macdeployqt KLog.app/ -dmg
+"$QTDIRi"/bin/macdeployqt KLog.app/ -qmldir=./qml/ -dmg
 mv KLog.dmg KLog-"$KLOG_VERSION".dmg
 echo "You can find the dmg file in this folder... enjoy KLog!"
