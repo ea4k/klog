@@ -3463,14 +3463,14 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="47"/>
         <source>KLog - Stop the war in Ukraine!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Paremos la guerra de Ucrania!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="51"/>
         <source>KLog - Stop the war in Ukraine!
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Paremos la guerra de Ucrania!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="58"/>
@@ -3479,7 +3479,11 @@ Do you want KLog to remove that file?</source>
 You can probably help to stop the Russian war, people are dying.
 
 Please call your leaders to stop the war.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiene un indicativo ruso (%1).
+
+Probablemente pueda ayudarnos a parar la guerra de Rusia, la gente está muriendo.
+
+Por favor haga un llamamiento a sus líderes para parar la guerra.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="63"/>
@@ -3488,7 +3492,11 @@ Please call your leaders to stop the war.</source>
 Please take care and protect yourself and your family. 
 
 The KLog developers wish you the best of luck in this very difficult moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiene un inficativo ucraniano.
+
+Tenga cuidado y protéjase usted y su familia.
+
+Los desarrolladores de KLog le desean la mejor de las suertes en este momento tan difícil.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="68"/>
@@ -3497,7 +3505,11 @@ The KLog developers wish you the best of luck in this very difficult moment.</so
 You can help to stop the Russian war against Ukraine.
 
 Please show your disagreement to your leaders, or in your social network to stop the war.</source>
-        <translation type="unfinished"></translation>
+        <translation>La gente está muriendo en la guerra de Rusia contra Ucrania.
+
+Puede ayudar a parar la guerra de Rusia contra Ucrania.
+
+Muestre su descontento a sus líderes o a través de redes sociales para parar la guerra.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="819"/>
@@ -4396,7 +4408,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="125"/>
         <source>Show nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar nada</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="136"/>
@@ -6164,12 +6176,12 @@ Añada y seleccione el tipo de log que quiere usar.</translation>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="90"/>
         <source>Send DX Spots to the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar avisos de DX al mapa</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="91"/>
         <source>Sends the received DX Spots to the map to know where is the activity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envia los avisos de DX al mapa para saber dónde está la actividad.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="93"/>

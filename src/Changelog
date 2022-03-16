@@ -3,6 +3,7 @@ Feb 2022 - 2.1
 - Improvement: Added two buttons to the map to change the zoom level.
 - New feature: DX Spots coming from DXCluster can be sent to the map.
 - Bugfix: Longitude was not properly calculated from a callsign.
+- Translations: Spanish (EA4K).
 
 Feb 2022 - 2.0
 - Stop the Ukranian war release.
