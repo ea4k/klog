@@ -37,8 +37,13 @@ public:
     ~tst_Utilities();
 
 private slots:
-    void initTestCase();
-    void cleanupTestCase();
+    void initTestCase(); //will be called before the first test function is executed.
+
+    //void initTestCase_data(); // will be called to create a global test data table.
+    void cleanupTestCase(); //will be called after the last test function was executed.
+    //void init(); //will be called before each test function is executed.
+    //void cleanup(); // will be called after every test function.
+
     void test_Constructor();
     void test_getProgresStepForDialog();
     void test_trueOrFalse();
@@ -72,12 +77,12 @@ tst_Utilities::~tst_Utilities()
 
 void tst_Utilities::initTestCase()
 {
-
+    qDebug("Called before everything else.");
 }
 
 void tst_Utilities::cleanupTestCase()
 {
-
+    qDebug("Called after last test.");
 }
 
 void tst_Utilities::test_Constructor()

@@ -41,6 +41,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_Constructor();
+    void test_modes_data();
     void test_modes();
     void test_bands();
     //void test_getProgresStepForDialog();
@@ -80,9 +81,9 @@ void tst_DataProxy::test_Constructor()
     //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
 }
 
+/*
 void tst_DataProxy::test_modes()
 {
-
     QVERIFY2(dataProxy->getIdFromModeName("FT8") == dataProxy->getSubModeIdFromSubMode ("FT8"), "FT8 mode/Submode failed");
     QVERIFY2(dataProxy->getNameFromSubMode ("Q65") == "MFSK", "Q65 mode/Submode failed");
     QVERIFY2(dataProxy->getNameFromSubMode ("FT8") == "FT8", "FT8 mode/Submode failed");
@@ -92,7 +93,27 @@ void tst_DataProxy::test_modes()
     QVERIFY2(dataProxy->getNameFromSubMode ("CW") == "CW", "CW mode/Submode failed");
     QVERIFY2(dataProxy->getSubModeFromId (dataProxy->getIdFromModeName ("FT8")) == "FT8", "Submode from Id failed");
 }
+*/
 
+void tst_DataProxy::test_modes_data()
+{
+    QTest::addColumn<QString>("string");
+    QTest::addColumn<QString>("result");
+
+    QTest::newRow("FT8") << "FT8" << "FT8";
+    QTest::newRow("Q65") << "Q65" << "MFSK";
+    QTest::newRow("USB") << "USB" << "SSB";
+    QTest::newRow("LSB") << "LSB" << "SSB";
+    QTest::newRow("JT9C") << "JT9C" << "JT9";
+    QTest::newRow("CW") << "CW" << "CW";
+}
+
+void tst_DataProxy::test_modes()
+{
+        QFETCH(QString, string);
+        QFETCH(QString, result);
+        QCOMPARE(dataProxy->getNameFromSubMode(string), result);
+}
 
 void tst_DataProxy::test_bands()
 {

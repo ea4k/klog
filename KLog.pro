@@ -29,7 +29,7 @@ CONFIG(debug, debug) {
         SUBDIRS += tests
 }
 message (Compiling)
-
+CONFIG += no_testcase_installs
 #QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
 #QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage
 #LIBS += -lgcov
