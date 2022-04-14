@@ -352,7 +352,7 @@ void UDPServer::parse(const QByteArray &msg)
         break;
         case Clear:
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Clear" << QT_ENDL;
-            emit clearSignal();
+            emit clearSignal(Q_FUNC_INFO);
         break;
         case Reply:
             //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay " << QT_ENDL;

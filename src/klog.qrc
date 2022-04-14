@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>qml/mapqmlfile.qml</file>
         <file>img/klog_512x512.png</file>
         <file>img/klog_256x256.png</file>
         <file>img/klog_logo.png</file>
@@ -265,5 +266,7 @@
         <file>flags/zm.png</file>
         <file>flags/zw.png</file>
         <file>flags/shm.png</file>
+        <file>img/marker.png</file>
+        <file>qml/marker.qml</file>
     </qresource>
 </RCC>

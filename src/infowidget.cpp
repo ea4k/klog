@@ -69,6 +69,13 @@ InfoWidget::InfoWidget(DataProxy_SQLite *dp, QWidget *parent) :
        //qDebug() << "InfoWidget::InfoWidget: - END"   << QT_ENDL;
 }
 
+InfoWidget::~InfoWidget()
+{
+    delete(awards);
+    delete(locator);
+    delete(world);
+}
+
 void InfoWidget::createUI()
 {
     bandLabel1->setText(tr("10M"));

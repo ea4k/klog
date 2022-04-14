@@ -29,7 +29,9 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-VERSION = 1.8.6
+
+VERSION = 2.1
+
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog
@@ -54,6 +56,8 @@ QT += core \
     serialport \
     printsupport \
     charts \
+    quickwidgets \
+    positioning \
     widgets
 
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
@@ -71,6 +75,8 @@ HEADERS += setupdialog.h \
     setuppages/hamlibnetworkconfigwidget.h \
     setuppages/hamlibserialconfigwidget.h \
     setuppages/setuppagelogview.h \
+    widgets/map/mapwidget.h \
+    widgets/map/mapwindowwidget.h \
     widgets/showkloglogwidget.h \
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
@@ -151,8 +157,7 @@ HEADERS += setupdialog.h \
     widgets/showkloglogwidget.h \
     widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
-    world.h \
-    worldmapwidget.h
+    world.h
 
 message(Sources)
 
@@ -186,10 +191,11 @@ SOURCES += main.cpp \
     #widgets/advancedsearch/advancedsearchmodel.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
+    widgets/map/mapwidget.cpp \
+    widgets/map/mapwindowwidget.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     widgets/showkloglogwidget.cpp \
-    world.cpp \
     logwindow.cpp \
     filemanager.cpp \
     fileawardmanager.cpp \
@@ -244,7 +250,7 @@ SOURCES += main.cpp \
     charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
-    worldmapwidget.cpp
+    world.cpp
 
 
 message (Other files)
@@ -309,9 +315,10 @@ updateqm.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN} -qm $$DESTDIR/translations
 updateqm.CONFIG += no_link target_predeps
 QMAKE_EXTRA_COMPILERS += updateqm
 
-
 # deploy
-DISTFILES += Changelog COPYING
+DISTFILES += Changelog COPYING \
+    qml/mapqmlfile.qml \
+    qml/marker.qml
 
 unix:!mac {
     message(unix:!mac)

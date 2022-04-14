@@ -35,7 +35,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime) << endl ;
+    //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime);
 
     logSeverity = Info;
     constrid = 2;
@@ -73,7 +73,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     //qDebug() << Q_FUNC_INFO << ": 01.90" << QT_ENDL;
     satsPage = new SetupPageSats(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 01.100" << QT_ENDL;
-    hamlibPage = new SetupPageHamLib(this);
+    hamlibPage = new SetupPageHamLib(dataProxy, this);
+    //qDebug() << Q_FUNC_INFO << ": 01.101" << QT_ENDL;
     logViewPage = new SetupPageLogView(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 02" << QT_ENDL;
 
@@ -124,7 +125,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     }
     //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
-    hamlibPage->slotTestHamlib ();
+    //hamlibPage->slotTestHamlib ();
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
@@ -134,6 +135,19 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
 SetupDialog::~SetupDialog()
 {
     //qDebug() << Q_FUNC_INFO  << QT_ENDL;
+    delete(locator);
+    delete(userDataPage);
+    delete(bandModePage);
+    delete(dxClusterPage);
+    delete(miscPage);
+    delete(worldEditorPage);
+    delete(logsPage);
+    delete(eLogPage);
+    delete(colorsPage);
+    delete(UDPPage);
+    delete(satsPage);
+    delete(hamlibPage);
+    delete(logViewPage);
 }
 
 void SetupDialog::connectActions()
@@ -240,6 +254,7 @@ void SetupDialog::slotCancelButtonClicked()
             }
         }
     }
+    hamlibPage->stopHamlib();
     QDialog::reject ();
     close();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -507,6 +522,8 @@ void SetupDialog::slotOkButtonClicked()
         stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  QT_ENDL;
         stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  QT_ENDL;
         stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  QT_ENDL;
+        stream << "DXClusterSendToMap=" << dxClusterPage->getSendSpotsToMap()<< ";" <<  QT_ENDL;
+
 
         stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  QT_ENDL;
         stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  QT_ENDL;
@@ -668,7 +685,7 @@ void SetupDialog::slotOkButtonClicked()
             stream << "LatestBackup=" << latestBackup << ";" << QT_ENDL;
         }
         file.close ();
-
+    hamlibPage->stopHamlib();
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving" << QT_ENDL;
     QDialog::accept();
     emit debugLog (Q_FUNC_INFO, "END", logSeverity);
@@ -980,6 +997,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if (tab  =="DXCLUSTERSAVE"){
         dxClusterPage->setSaveActivityQCheckbox(value);
+    }
+    else if (tab  =="DXCLUSTERSENDTOMAP"){
+        dxClusterPage->setSendSpotstoMap(value);
     }
     else if(tab =="NEWONECOLOR"){
         colorsPage->setNewOneColor(value);

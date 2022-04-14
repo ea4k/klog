@@ -174,7 +174,7 @@ void tst_MainWindowInputQSO::test_Cleaners()
     mainWindowInputQSO->setQTH ("Neverland");
     mainWindowInputQSO->setDXLocator ("IN80");
     mainWindowInputQSO->setRXPwr (1.0);
-    mainWindowInputQSO->cleanQRZCOM ();
+    mainWindowInputQSO->cleanQRZCOM (true);
     QVERIFY2(mainWindowInputQSO->getQTH () == "", "Wrong cleanQRZCOM: Not removed QTH");
     QVERIFY2(mainWindowInputQSO->getDXLocator () == "", "Wrong cleanQRZCOM: Not removed Locator");
     QVERIFY2(util->isSameFreq (mainWindowInputQSO->getRXPwr (), 1.0), "Wrong cleanQRZCOM: Removed RX Power");

@@ -37,13 +37,16 @@ Utilities::Utilities()
     //qDebug() << "Utilities::Utilities - END"  ;
 }
 
-Utilities::~Utilities(){}
+Utilities::~Utilities()
+{
+}
 
 void Utilities::init()
 {
     softwareVersion = "0.0";
     darkMode = false;
-    callValidation = true;
+    //callValidation = true;
+
 }
 
 void Utilities::setVersion(const QString &_v)
@@ -59,7 +62,7 @@ QString Utilities::getVersion()
 
 double Utilities::getVersionDouble()
 {
-    //qDebug() << "Utilities::getVersionDouble: " << softwareVersion ;
+       //qDebug() << "Utilities::getVersionDouble: " << softwareVersion ;
     if (softwareVersion.count('.')>1)
     {
         QString first = softwareVersion.section('.', 0, 0);
@@ -98,7 +101,7 @@ int Utilities::getProgresStepForDialog(int totalSteps)
 
 bool Utilities::trueOrFalse(const QString &_s)
 {// reads a String and return true if s.upper()== TRUE :-)
-         //qDebug() << "Utilities::trueOrFalse: " << _s ;
+    //qDebug() << "Utilities::trueOrFalse: " << _s ;
 
     if ( (_s.toUpper()) == "TRUE")
     {
@@ -575,6 +578,7 @@ bool Utilities::isValidSubCall(const QString &_c)
         if (!_c.at(i).isLetterOrNumber ())
         {
             // Non valid chars
+            //qDebug() << "Utilities::isValidSubCall: FALSE-1.2: " << _c ;
             return false;
         }
     }
@@ -582,7 +586,7 @@ bool Utilities::isValidSubCall(const QString &_c)
     int prefixLength = isAPrefix (_c);
     if (prefixLength<1)
     {
-        //qDebug() << "Utilities::isValidSubCall: FALSE-1.2: " << _c ;
+        //qDebug() << "Utilities::isValidSubCall: FALSE-1.3: " << _c ;
         return false;
     }
 
@@ -593,7 +597,7 @@ bool Utilities::isValidSubCall(const QString &_c)
     {
         if (!((_c.at(i).isLetter()) ))
         {
-            //qDebug() << "Utilities::isValidSubCall: FALSE-1.3: " << _c ;
+            //qDebug() << "Utilities::isValidSubCall: FALSE-1.4: " << _c ;
             return false;
         }
         i++;
@@ -604,7 +608,7 @@ bool Utilities::isValidSubCall(const QString &_c)
 
 bool Utilities::isCountrySuffix (const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << _c;
+    //qDebug() << Q_FUNC_INFO << _c;
 
     QStringList validSuffixes = {"P", "M", "MM", "QRP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     return !validSuffixes.contains (_c);
@@ -838,7 +842,8 @@ int Utilities::isAPrefix (const QString &_c)
 
 void Utilities::setCallValidation(const bool _b)
 {
-    callValidation = _b;
+    //callValidation = _b;
+    g_callsignCheck = _b;
 }
 
 bool Utilities::isValidCall(const QString &_c)
@@ -1311,16 +1316,15 @@ bool Utilities::isValidADIFField(const QString &_b)
     return true;
 }
 
-bool Utilities::isValidQSL_Rcvd(const QString &c, bool rcvd)
+bool Utilities::isValidQSL_Rcvd(const QString &c)
 {
-    QStringList validData;
-    validData.clear ();
-    validData << "Y" << "N" << "R" << "I";
-    if (rcvd)
+    if ((c == "Y") || (c == "N") || (c == "R") || (c == "I") || (c == "V"))
     {
-        validData << "V";
+        return true;
     }
-    return validData.contains (c);
+    else {
+        return false;
+    }
 }
 
 bool Utilities::isValidQSL_Sent(const QString &c)

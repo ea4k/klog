@@ -29,13 +29,19 @@
 #include <QString>
 #include <QStringList>
 #include <QObject>
-#include "utilities.h"
 #include "database.h"
 #include "qso.h"
 #include "klogdefinitions.h"
 //#include "regionalaward.h"
 
 //Class QSO;
+
+enum
+{
+    CQZones = 40,
+    ITUZones = 90,
+    DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
+};
 
 class DataProxy_SQLite : public QObject
 {
@@ -143,9 +149,12 @@ public:
     QString getNameFromQRZ(const QString &_call);
     QString getQTHFromQRZ(const QString &_call);
     QString getLocatorFromQRZ(const QString &_call);
+    QString getLocatorFromId (const int _id);
     QString getIOTAFromQRZ(const QString &_call);
     QString getQSLViaFromQRZ(const QString &_call);
     // /Complete with previous
+
+    QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
 
     bool updateAwardDXCC();
     bool updateAwardWAZ();
@@ -179,7 +188,6 @@ public:
     QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
     QList<int> getQSOsListToBeExported(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate);
-    QList<int> getQSOsListToBeExportedForWSJTX(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate);
 
     int getContinentIdFromContinentShortName(const QString &_n);
     QString getContinentShortNameFromEntity(const int _n);
@@ -253,6 +261,7 @@ public:
 
     QStringList getBandNames();
     QStringList getPropModeList();
+    bool isValidPropMode(const QString &_prop);
 
     bool clearSatList();
     bool addSatellite(const QString &_arrlId, const QString &_name, const QString &_downLink, const QString &_upLink, const QString &_mode, int id = -1);

@@ -39,7 +39,6 @@ class UpdateSatsData : public QObject
 
 public:
     explicit UpdateSatsData(DataProxy_SQLite *dp, QObject *parent = nullptr);
-    ~UpdateSatsData();
     bool readSatDataFile();
     bool satDataFileRead(const QString& tfileName);
 

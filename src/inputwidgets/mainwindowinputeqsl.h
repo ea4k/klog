@@ -39,7 +39,7 @@ class MainWindowInputEQSL : public QWidget
     Q_OBJECT
 public:
     explicit MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    //~MainWindowInputEQSL();
+    ~MainWindowInputEQSL();
 
     //void setData(const QString &_comment);
     //QString getComment();

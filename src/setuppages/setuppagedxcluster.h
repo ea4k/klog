@@ -30,6 +30,7 @@
 //#include <QSqlQuery>
 //#include <QStringList>
 //#include <QListWidget>
+#include "utilities.h"
 #include <QtWidgets>
 
 
@@ -54,8 +55,9 @@ public:
     QString getShowWWVQCheckbox();
     QString getShowWCYQCheckbox();
     QString getSaveActivityQCheckbox();
+    QString getSendSpotsToMap();
 
-
+    void setSendSpotstoMap(const QString t);
     void setShowHFQCheckbox(const QString t);
     void setShowVHFQCheckbox(const QString t);
     void setShowWARCQCheckbox(const QString t);
@@ -89,9 +91,11 @@ private:
     QCheckBox *showANNQCheckbox;
     QCheckBox *showWWVQCheckbox;
     QCheckBox *showWCYQCheckbox;
+    QCheckBox *sendSpotsToMapCheckbox;
 
     QCheckBox *saveAllDXClusterDataQCheckbox;
 
+    Utilities *util;
     //QStringList dxClusterServers;
 
 };

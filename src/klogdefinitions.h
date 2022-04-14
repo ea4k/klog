@@ -30,12 +30,13 @@
 
 using namespace std;
 
-enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ, ModeWSJTX};
+enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
 enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
 enum OnlineErrorCode {Ok, Fail};
 enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
 enum DebugLogLevel {Info, Debug};
 enum ValidFieldsForStats {DXCC, GridSquare};
+enum FilesToDownload {CTY, Sats};
 
 struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
   int dxcc;
@@ -50,11 +51,10 @@ struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstat
   bool confirmed;
 };
 
-enum
-{
-    CQZones = 40,
-    ITUZones = 90,
-    DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
+
+struct Coordinate {
+    double lat;
+    double lon;
 };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))

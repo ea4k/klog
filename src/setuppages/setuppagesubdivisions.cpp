@@ -33,7 +33,7 @@ SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions" << QT_ENDL;
     dataProxy = dp;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
-    //util = new Utilities;
+    //util = new Utilities();
     selectedLog = -1;
     currentLogs = new QComboBox();
     logsAvailable.clear();
@@ -103,7 +103,7 @@ void SetupPageSubdivisions::slotEditButtonClicked()
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
     newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
-    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());
+    //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());    
     int result = newLog->exec();
     if (result == QDialog::Accepted)
     {

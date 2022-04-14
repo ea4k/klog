@@ -46,7 +46,7 @@ class DXClusterWidget : public QWidget
  public:
     DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent );
     DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
-
+    ~DXClusterWidget();
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
@@ -56,10 +56,6 @@ class DXClusterWidget : public QWidget
     void setDXMarathon (const bool _enable);
     void setSaveSpots (const bool _enable);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
-
-
-    ~DXClusterWidget();
-
 
 private slots:
     void slotClusterDisplayError(QAbstractSocket::SocketError socketError);
@@ -76,6 +72,7 @@ private slots:
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
+    void dxspotArrived(const QString &_call, const QString &_text, const double _freq);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:

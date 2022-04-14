@@ -45,7 +45,7 @@ DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) :
     request->setUrl(QUrl("https://www.country-files.com/bigcty/cty.csv"));
     QString ver = "KLog"+_klogVersion;
     QByteArray str;
-    str.clear();    
+    str.clear();
     str.append(util->getAgent(_klogVersion).toUtf8());
 
     request->setRawHeader("User-Agent", str);
@@ -59,6 +59,11 @@ DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) :
 
 DownLoadCTY::~DownLoadCTY()
 {
+    delete(util);
+    delete(request);
+    delete(manager);
+    delete(url);
+
    //qDebug() << "DownLoadCTY::~DownLoadCTY"  << QT_ENDL;
 }
 

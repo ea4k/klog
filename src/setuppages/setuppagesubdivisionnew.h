@@ -44,6 +44,7 @@ class SetupPageSubdivisionNew : public QDialog
 public:
     //SetupPageLogsNew(QWidget *parent = 0);
     SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    ~SetupPageSubdivisionNew();
 
     void setEditing(const bool b);
     void setStationCallSign(const QString &_st);

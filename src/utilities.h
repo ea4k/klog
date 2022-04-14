@@ -102,7 +102,7 @@ public:
     bool isValidComment(const QString &_b);
     bool isValidName(const QString &_b);
     bool isValidADIFField(const QString &_b);
-    bool isValidQSL_Rcvd(const QString &c, bool rcvd=true); // If receiving is true, If creating the ADIF is false
+    bool isValidQSL_Rcvd(const QString &c);
     bool isValidQSL_Sent(const QString &c);
     bool isValidUpload_Status(const QString &c);
 
@@ -154,7 +154,7 @@ private:
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
-    bool darkMode, callValidation;
+    bool darkMode;
     QString dbPath;
     QString softwareVersion;
     //QPalette palRed, palBlack;

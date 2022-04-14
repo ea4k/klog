@@ -96,8 +96,10 @@ void tst_MainQSOEntryWidget::test_InitialData()
     modes.clear();
     bands.clear();
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
-    modes << "SSB" << "CW" << "RTTY";
-    QVERIFY(mainQSOEntryWidget->getModes().length ()== modes.length ());
+    modes << "SSB" << "CW" << "RTTY" << "USB" << "LSB";
+    mainQSOEntryWidget->setModes (modes);
+    mainQSOEntryWidget->setBands (bands);
+    QVERIFY(mainQSOEntryWidget->getModes().length() == modes.length ());
     QVERIFY(mainQSOEntryWidget->getDate()== QDate::currentDate());
     //qDebug() << mainQSOEntryWidget->getBand(-1) << endl;
     //QVERIFY(mainQSOEntryWidget->getBand(-1) == "20M");
@@ -110,9 +112,10 @@ void tst_MainQSOEntryWidget::test_InitialData()
     //QVERIFY(mainQSOEntryWidget->getBand(6) == "");
     QVERIFY(mainQSOEntryWidget->getMode(-1) == mode);
     QVERIFY(mainQSOEntryWidget->getMode(0) == "CW");
-    QVERIFY(mainQSOEntryWidget->getMode(1) == "RTTY");
-    QVERIFY(mainQSOEntryWidget->getMode(2) == "SSB");
-    QVERIFY(mainQSOEntryWidget->getMode(3) == "");
+    QVERIFY(mainQSOEntryWidget->getMode(1) == "LSB");
+    QVERIFY(mainQSOEntryWidget->getMode(2) == "RTTY");
+    QVERIFY(mainQSOEntryWidget->getMode(3) == "SSB");
+    QVERIFY(mainQSOEntryWidget->getMode(4) == "USB");
 
 }
 
@@ -150,7 +153,6 @@ void tst_MainQSOEntryWidget::test_Modes()
     QVERIFY (mainQSOEntryWidget->isModeExisting ("SSB") == true);
     QVERIFY (mainQSOEntryWidget->isModeExisting ("PSK") == false);
 }
-
 
 QTEST_MAIN(tst_MainQSOEntryWidget)
 

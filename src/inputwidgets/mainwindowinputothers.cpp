@@ -63,7 +63,10 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END" << QT_ENDL;
 }
 
-MainWindowInputOthers::~MainWindowInputOthers(){}
+MainWindowInputOthers::~MainWindowInputOthers()
+{
+    delete(util);
+}
 
 void MainWindowInputOthers::createUI()
 {

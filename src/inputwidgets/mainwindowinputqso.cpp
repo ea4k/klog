@@ -237,12 +237,15 @@ void MainWindowInputQSO::clear()
     modify = false;
 }
 
-void MainWindowInputQSO::cleanQRZCOM()
+void MainWindowInputQSO::cleanQRZCOM(const bool _dataFromQRZCOM)
 {
     //qDebug() << Q_FUNC_INFO ;
-    qthLineEdit->clear();
-    nameLineEdit->clear();
-    locatorLineEdit->clear();
+    if (_dataFromQRZCOM)
+    {
+        qthLineEdit->clear();
+        nameLineEdit->clear();
+        locatorLineEdit->clear();
+    }
 }
 
 void MainWindowInputQSO::clearName()

@@ -63,6 +63,12 @@ SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
        //qDebug() << "SetupPageSatsNew::SetupPageSatsNew - END"   << QT_ENDL;
 }
 
+SetupPageSatsNew::~SetupPageSatsNew()
+{
+    delete(dataProxy);
+    delete(util);
+}
+
 void SetupPageSatsNew::clear()
 {
     shortName = QString();
