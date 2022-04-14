@@ -29,12 +29,7 @@
 UpdateSatsData::UpdateSatsData(DataProxy_SQLite *dp, QObject *parent) : QObject(parent)
 {
     util = new Utilities;
-    dataProxy = dp;
-}
-
-UpdateSatsData::~UpdateSatsData()
-{
-    delete(util);
+     dataProxy = dp;
 }
 
 bool UpdateSatsData::satDataFileRead(const QString& tfileName)
@@ -249,6 +244,8 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
       //qDebug() << "UpdateSatsData::satDataFileRead: END "  << QT_ENDL;
     return true;
 }
+
+
 
 
 bool UpdateSatsData::readSatDataFile()

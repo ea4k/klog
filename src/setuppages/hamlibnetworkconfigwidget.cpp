@@ -4,7 +4,7 @@ HamLibNetworkConfigWidget::HamLibNetworkConfigWidget(QWidget *parent) : QWidget(
 {
     //qDebug() << Q_FUNC_INFO;
     hostAddressLineEdit = new QLineEdit();
-    portQSpinBox = new QSpinBox();
+    portQSpinBox = new QSpinBox;
     //qDebug() << Q_FUNC_INFO << " - END";
 
 }

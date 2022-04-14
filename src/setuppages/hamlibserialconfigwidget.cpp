@@ -9,7 +9,7 @@ HamLibSerialConfigWidget::HamLibSerialConfigWidget(QWidget *parent) : QWidget(pa
     flowControlComboBox = new QComboBox();
     parityComboBox = new QComboBox();
     stopBitsComboBox = new QComboBox();
-    scanSerialPortButton = new QPushButton();
+    scanSerialPortButton = new QPushButton;
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

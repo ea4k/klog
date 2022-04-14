@@ -26,6 +26,8 @@
 #include "charts/statsqsospercontinentbarchartwidget.h"
 
 
+StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(){}
+
 StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget" << QT_ENDL;
@@ -36,13 +38,6 @@ StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataPro
 
     createUI();
     //prepareChart();
-}
-
-StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
 }
 
 void StatsQSOsPerContinentBarChartWidget::createUI()
