@@ -8709,7 +8709,8 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
    //    return;
    // }
     //Criticality
-    if (!debugFileOpen)
+    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    //if (!debugFileOpen)
     {
         return;
     }
