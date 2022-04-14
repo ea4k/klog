@@ -31,6 +31,7 @@ UpdateSatsData::UpdateSatsData(DataProxy_SQLite *dp, QObject *parent) : QObject(
     util = new Utilities;
     dataProxy = dp;
 }
+
 UpdateSatsData::~UpdateSatsData()
 {
     delete(util);

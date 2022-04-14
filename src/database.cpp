@@ -4000,8 +4000,6 @@ bool DataBase::updateBandIdTableAward(const int _db)
 
     bool cancel = false;
     bool alreadyCancelled = false;
-    //int errorCode = -1;
-
 
     QString sq = QString();
     bool sqlOk2 = false;
@@ -4012,7 +4010,6 @@ bool DataBase::updateBandIdTableAward(const int _db)
     int i = 0;
     QString aux;
     QSqlQuery query, query2;
-
 
     sq = QString("SELECT COUNT (*) FROM %1").arg(table);
 
@@ -4062,12 +4059,11 @@ bool DataBase::updateBandIdTableAward(const int _db)
                     progress.setValue(i);
                 }
 
-
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << QT_ENDL;
+                //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
