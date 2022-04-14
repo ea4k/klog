@@ -154,6 +154,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     setupDialog = new SetupDialog(dataProxy, this);
+
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -186,6 +187,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
      //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
     dxClusterWidget = new DXClusterWidget(dataProxy, this);
+
      //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -200,7 +202,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     softUpdate = new SoftwareUpdate(softwareVersion);
      //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+
     filemanager = new FileManager(dataProxy);
+
      //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
@@ -314,6 +318,7 @@ void MainWindow::init()
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
+
     configFileName = util->getCfgFile();
     setupDialog->init(configFileName, softwareVersion, 0, !configured);
     filemanager->init();
@@ -8725,8 +8730,10 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
    //    return;
    // }
     //Criticality
+
     if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     //if (!debugFileOpen)
+
     {
         return;
     }

@@ -141,6 +141,11 @@ void SetupDialog::init(const QString &_configFile, const QString &_softwareVersi
     }
     //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
+    connectActions();
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+
 }
 
 SetupDialog::~SetupDialog()
