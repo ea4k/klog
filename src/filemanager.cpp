@@ -62,19 +62,8 @@ void FileManager::init()
     dbCreated = false;
     rstTXDefault  = false;
     rstRXDefault = false;
-    duplicatedQSOSlotInSecs = 0;
-    sendEQSLByDefault = false;
-    db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
-
-    klogVersion = _softVersion;
-    //dataProxyPrepared = new DataProxy_SQLite(klogVersion);
-
-    klogDir = _klogDir;
-    ignoreUnknownAlways = false;
-    usePreviousStationCallsignAnswerAlways = false;
-    world = new World(dataProxy, klogDir, Q_FUNC_INFO);
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
-
+    
+    
     noMoreQso = false;
     hashLogs.clear();
     util->setVersion(klogVersion);
