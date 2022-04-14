@@ -36,7 +36,7 @@ private:
 
     QPushButton *scanSerialPortButton;
     QComboBox *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox, *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
-    QLineEdit *dataFromRigLineEdit;
+    //QLineEdit *dataFromRigLineEdit;
     QLineEdit *serialPort;
     QStringList serialPorts;
 };

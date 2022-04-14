@@ -159,9 +159,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    configFileName = util->getCfgFile();
+
     //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
+    setupDialog = new SetupDialog(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -248,7 +248,6 @@ MainWindow::~MainWindow()
     delete(softUpdate);
     delete(filemanager);
     delete(fileAwardManager);
-    logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
 
 void MainWindow::saveWindowsSize()
@@ -303,6 +302,9 @@ void MainWindow::init()
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
+    configFileName = util->getCfgFile();
+    setupDialog->init(configFileName, softwareVersion, 0, !configured);
+
     manualMode = false;
     qrzAutoChanging = false;
     //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";

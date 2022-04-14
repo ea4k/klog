@@ -60,8 +60,9 @@ class SetupDialog : public QDialog
 
 public:
     //SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true, QWidget *parent = nullptr);
-    SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true, QWidget *parent = nullptr);
+    SetupDialog(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~SetupDialog();
+    void init(const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
 
     void setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
@@ -69,6 +70,7 @@ public:
     void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
     void setSeverity(const DebugLogLevel _sev);
+
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
@@ -115,7 +117,7 @@ private:
     QString dxClusterServerToUse;
     QStringList dxClusterServers;
 
-    QPushButton *okButton;
+    QPushButton *okButton, *closeButton;
     QTabWidget *tabWidget;
     int logsPageTabN;
 
