@@ -135,7 +135,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     infoWidget = new InfoWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    logEvent(Q_FUNC_INFO, "Creating AwardsWidget", Debug);
+    //logEvent(Q_FUNC_INFO, "Creating AwardsWidget", Debug);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -8709,7 +8709,8 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
    //    return;
    // }
     //Criticality
-    if (!debugFileOpen)
+    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text))
+    //if (!debugFileOpen)
     {
         return;
     }

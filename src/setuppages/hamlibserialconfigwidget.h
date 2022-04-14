@@ -2,7 +2,6 @@
 #define HAMLIBSERIALCONFIGWIDGET_H
 
 #include <QtWidgets>
-
 #include <QSerialPortInfo>
 #include "../klogdefinitions.h"
 

@@ -27,7 +27,10 @@
 #include "charts/statscqzperyearbarchartwidget.h"
 
 
-StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(){}
+StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+}
 
 StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

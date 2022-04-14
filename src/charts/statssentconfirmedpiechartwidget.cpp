@@ -26,7 +26,12 @@
 
 #include "charts/statssentconfirmedpiechartwidget.h"
 
-StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(){}
+StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

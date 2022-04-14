@@ -48,7 +48,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
     usePreviousStationCallsignAnswerAlways = false;
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    hashLogs.clear();
+    //hashLogs.clear();
     //qDebug() << "FileManager::FileManager()-1  - END" << QT_ENDL;
 }
 
