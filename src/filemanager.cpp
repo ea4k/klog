@@ -4326,7 +4326,9 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        //TODO: Add a isValidUploadStatus
+
+        if ( util->isValidUpload_Status(aux))
         {
             out << "<HRDLOG_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4510,7 +4512,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( util->isValidUpload_Status(aux) )
         {
             out << "<CLUBLOG_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4530,7 +4532,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( util->isValidUpload_Status(aux) )
         {
             out << "<QRZCOM_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }

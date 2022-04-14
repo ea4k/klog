@@ -2039,7 +2039,7 @@ bool DataBase::updateTo004()
        //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) << QT_ENDL;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
-    bool ErrorUpdating = false;
+
     QString stringQuery = QString();
     QSqlQuery query;
 
@@ -2056,19 +2056,14 @@ bool DataBase::updateTo004()
         IAmIn004 = false;
     }
 
-    while (!IAmIn004 && !ErrorUpdating)
+    while (!IAmIn004)
     {
            //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" << QT_ENDL;
-        while (!IAmIn003 && !ErrorUpdating)
+        while (!IAmIn003)
         {
                //qDebug() << "DataBase::updateTo004: - And I am not in 003" << QT_ENDL;
             //IAmIn002 = updateTo002();
             IAmIn003 = true;
-        }
-        if (ErrorUpdating)
-        {
-           //// emit debugLog(Q_FUNC_INFO, "1", 7);
-            return false;
         }
            //qDebug() << "DataBase::updateTo004: - And I am in 003" << QT_ENDL;
         sqlOk = updateDBVersion(softVersion, "0.004");
@@ -4601,7 +4596,6 @@ bool DataBase::updateTo008()
     //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
-    bool ErrorUpdating = false;
 
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= 0.008f)
@@ -4616,20 +4610,15 @@ bool DataBase::updateTo008()
     }
 
 
-    while (!IAmIn008 && !ErrorUpdating)
+    while (!IAmIn008)
     {
-        while (!IAmIn007 && !ErrorUpdating)
+        while (!IAmIn007 )
         {
                //qDebug() << "DataBase::updateTo008: - And I am not in 007" << QT_ENDL;
             IAmIn007 = updateTo007();
         }
            //qDebug() << "DataBase::updateTo008: - I am in 007" << QT_ENDL;
-        if (ErrorUpdating)
-        {
-               //qDebug() << "DataBase::updateTo008: - NOK-1" << QT_ENDL;
-           // emit debugLog(Q_FUNC_INFO, "1", 7);
-            return false;
-        }
+
 
         //DO ALL THE TASKS TO BE IN 0.008 from 0.007 HERE and set ErrorUpdating if it is not possible.
 
