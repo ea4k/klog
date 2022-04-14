@@ -60,7 +60,7 @@ tst_World::tst_World()
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
     util = new Utilities;
-    //world = new World(dataProxy, util->getHomeDir(), version, Q_FUNC_INFO);
+    //world = new World(dataProxy, Q_FUNC_INFO);
 
     //ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);

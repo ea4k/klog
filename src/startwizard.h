@@ -56,16 +56,16 @@ class CTYPage;
 
  private slots:
     void slotCancelWizard();
-    void slotRunInMemory(bool checked);
+    //void slotRunInMemory(bool checked);
     void slotButtonFinishedClicked();
 
 
  private:
 
-   FileOrMemoryPage *fileOrMemoryPage;
+   //FileOrMemoryPage *fileOrMemoryPage;
    CTYPage *ctyPage;
    QString version;
-   bool inMemory;
+   //bool inMemory;
    QString klogDir;
 
 };
@@ -155,13 +155,13 @@ signals:
 
 
   private:
-    bool prepareTheDownload();
-    bool doTheDownload();
+    //bool prepareTheDownload();
+    //bool doTheDownload();
     //bool isComplete();
-    bool downloadCTYFile, CTYFileDownloaded;
-    int downloadValueResult;
+    //bool CTYFileDownloaded;
+    //int downloadValueResult;
     //QString klogDir;
-    int total;
+    //int total;
     //bool completed;
 
    DownLoadCTY *dl;

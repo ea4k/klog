@@ -156,7 +156,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     }
 
     //qDebug() << Q_FUNC_INFO << ": 40: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
