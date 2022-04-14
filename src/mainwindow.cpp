@@ -184,7 +184,8 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     loggWinAct = new QAction(tr("&Log Window"), this);
 
      //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
+    //dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
+    dxClusterWidget = new DXClusterWidget(dataProxy, this);
      //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -343,8 +344,10 @@ void MainWindow::init()
 
     setCleaning(false);
     //qDebug() << "MainWindow::init - 10" << QT_ENDL;
-    dxclusterServerToConnect = "dxfun.com";
-    dxclusterServerPort = 8000;
+    dxClusterWidget->init();
+    //dxclusterServerToConnect = "dxfun.com";
+    //dxclusterServerPort = 8000;
+    //dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);
     contestMode = "DX";
     infoTimeout = 2000; // default timeout
 

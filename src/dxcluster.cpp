@@ -25,7 +25,7 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include <QFont>
 #include "dxcluster.h"
-
+/*
 DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
           : QWidget(parent)
 {
@@ -35,34 +35,23 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities;
     saveSpotsFile = new QFile();
-
-
-    initClass();
+    //initClass();
        //qDebug() << "DXClusterWidget::DXClusterWidget - END" << QT_ENDL;
 }
-
-DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
+*/
+DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
           : QWidget(parent)
+//DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
+//          : QWidget(parent)
 {
       //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect) << QT_ENDL;
-   constrid = 2;
-   util = new Utilities;
-   saveSpotsFile = new QFile();
 
-    initClass();
-    server = clusterToConnect;
-    port = quint16(portToConnect);
+    util = new Utilities;
+    saveSpotsFile = new QFile();
 
-    dxSpotColor.setNamedColor("slategrey");
-    //defaultColor.setNamedColor("slategrey");
-    //neededColor.setNamedColor("slategrey");
-    //workedColor.setNamedColor("slategrey");
-    //confirmedColor.setNamedColor("slategrey");
-    //newOneColor.setNamedColor("slategrey");
     dataProxy = dp;
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-
 
     tcpSocket = new QTcpSocket(this);
 
@@ -98,10 +87,6 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToC
     connect(dxClusterListWidget, SIGNAL(itemEntered ( QListWidgetItem *)), this, SLOT(slotClusterDXClusterWidgetItemEntered( QListWidgetItem * )) );
     connect(dxClusterListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotClusterDXClusterWidgetItemSelected() ) );
 
-//void QListWidget::itemDoubleClicked ( QListWidgetItem * item ) [signal]
-
-    // TO BE DELETED
-    addData();
 
      //TESTADDSPOT();
        //qDebug() << "DXClusterWidget::DXClusterWidget2 - END"  << QT_ENDL;
@@ -117,8 +102,10 @@ DXClusterWidget::~DXClusterWidget()
     delete(saveSpotsFile);
 }
 
-void DXClusterWidget::initClass()
+void DXClusterWidget::init()
 {
+
+    dxSpotColor.setNamedColor("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     showDxMarathon = false;
@@ -134,7 +121,11 @@ void DXClusterWidget::initClass()
     saveSpots = false;
     myQrz = QString();
     currentLog = 0;
+    server = "dxfun.com";
+    port = quint16(8000);
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
+
+    dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
 }
 
 void DXClusterWidget::setMyQRZ(const QString &_qrz)
