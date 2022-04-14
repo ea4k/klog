@@ -29,6 +29,7 @@
 #include <math.h>
 #include <QString>
 #include <QRegularExpression>
+#include "klogdefinitions.h"
 
 
 
@@ -46,23 +47,25 @@ class Locator{
 
 public:
 
-  Locator();
-  ~Locator();
+    Locator();
+    ~Locator();
 
-  bool isValidLocator(const QString& tlocator);
-  double getLat(const QString& tlocator);
-  double getLon(const QString& tlocator);
-  QString getLocator(const double lon1, const double lat1) const;
-  int getBeam(const double lon1, const double lat1, const double lon2, const double lat2);
-  int getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2);
-  int getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem);
-  int getDistanceBetweenLocators (const QString& tlocator1, const QString& tlocator2, const bool _imperialSystem);
-  //int getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2);
-  //void degTodms(const double deg);
-  //double dmsTodeg (int deg, int min, int sec);
-
-  bool checkCoords(const double lon1, const double lat1);
-
+    bool isValidLocator(const QString& tlocator);
+    double getLat(const QString& tlocator);
+    double getLon(const QString& tlocator);
+    QString getLocator(const double lon1, const double lat1, int length=6) const; //IN80aa is the default length
+    int getBeam(const double lon1, const double lat1, const double lon2, const double lat2);
+    int getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2);
+    int getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem);
+    int getDistanceBetweenLocators (const QString& tlocator1, const QString& tlocator2, const bool _imperialSystem);
+    //int getDistanceMilles(const double lon1, const double lat1, const double lon2, const double lat2);
+    //void degTodms(const double deg);
+    //double dmsTodeg (int deg, int min, int sec);
+    Coordinate getLocatorCoordinate(const QString _tlocator);
+    Coordinate getLocatorCorner (const QString& tlocator, bool northWest = true); //northWest = returns the Noth West corner, false implies South East
+    bool checkCoords(const double lon1, const double lat1);
+    QStringList getAll(int _length = 4); // Returns the list of All locators of the requested size, 4 as default
+    QStringList getShortLocators(const QStringList &locators, const int _length=4);
 
 private:
   //bool valid;

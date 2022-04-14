@@ -20,7 +20,7 @@ public:
     void setParity(const QString &_st);
     QString getParity();
     void setStopBits(const QString &_st);
-    int getStopBits();
+    QString getStopBits();
     bool setSerialBauds(const int _speed );
     bool setSerialPort(const QString &_port);
 

@@ -40,6 +40,11 @@ public:
     QSO();
     ~QSO();
 
+    void setRealTime(const bool _rt);   // Not QSO info but KLog status
+    bool getRealTime();
+    void setManualMode(const bool _rt); // Not QSO info but KLog status
+    bool getManualMode();
+
     void setBackup(const bool _rt);
     bool getBackup();
 
@@ -64,9 +69,6 @@ public:
     QTime getTimeOn();
     QDateTime getDateTimeOn();
     bool setDateTimeOn(const QDateTime &_c);
-
-    void setRealTime(const bool _rt);
-    bool getRealTime();
 
     bool setQSOid(const int _i);
     int getQSOid();
@@ -145,6 +147,8 @@ public:
     QString getQRZCOMStatus();
     bool setQRZCOMDate(const QDate &_c);
     QDate getQRZCOMDate();
+
+    void setDefaultEQSLSentServices(const bool _send);
 
     // Comment Tab
     bool setComment(const QString &_c);
@@ -228,7 +232,7 @@ private:
 
     Utilities *util;
 
-    bool lotwUpdating, realTime;
+    bool lotwUpdating, realTime, manualMode;
     bool backup;
    // DataProxy_SQLite *dataProxy;
 

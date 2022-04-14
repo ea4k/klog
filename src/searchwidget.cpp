@@ -62,7 +62,12 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
 SearchWidget::~SearchWidget()
 {
-
+    delete(dataProxy);
+    delete(searchWindow);
+    delete(awards);
+    delete(util);
+    delete(filemanager);
+    delete(world);
 }
 
 void SearchWidget::clear()

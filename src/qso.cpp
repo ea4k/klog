@@ -93,6 +93,7 @@ void QSO::clear()
     qso_dateTime = QDateTime();
     lotwUpdating = false;
     realTime = false;
+    manualMode = false;
 
     comment = QString();
     satName = QString();
@@ -328,6 +329,16 @@ void QSO::setRealTime(const bool _rt)
 bool QSO::getRealTime()
 {
     return realTime;
+}
+
+void QSO::setManualMode(const bool _rt)
+{
+    manualMode = _rt;
+}
+
+bool QSO::getManualMode()
+{
+    return manualMode;
 }
 
 
@@ -748,6 +759,29 @@ QString QSO::getQSLMsg()
 void QSO::setLoTWUpdating(bool _lotw)
 {
     lotwUpdating = _lotw;
+}
+
+void QSO::setDefaultEQSLSentServices(const bool _send)
+{
+    if (_send)
+    {
+        if ((getLoTWQSL_SENT()).isEmpty())
+        {
+            setLoTWQSL_SENT ("Q");
+        }
+        if ((getClubLogStatus ()).isEmpty())
+        {
+            setClubLogStatus ("M");
+        }
+        if ((getEQSLQSL_SENT ()).isEmpty())
+        {
+            setEQSLQSL_SENT ("Q");
+        }
+        if ((getQRZCOMStatus ()).isEmpty())
+        {
+            setQRZCOMStatus ("M");
+        }
+    }
 }
 
 bool QSO::setGridSquare(const QString &_c)

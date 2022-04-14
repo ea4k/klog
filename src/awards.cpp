@@ -36,7 +36,7 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
        //qDebug() << "Awards::Awards - Before DXMarathon"  << QT_ENDL;
     dxMarathon = new DXMarathon(dataProxy);
        //qDebug() << "Awards::Awards - After DXMarathon"  << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities();
     //world->create();
 /*
     newOneColor.setNamedColor("#ff0000");
@@ -1167,7 +1167,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     {
         workedColor.setNamedColor(_worked.toUpper());
     }
-
 }
 
 QColor Awards::getDefaultColor()

@@ -54,7 +54,7 @@ private slots:
     void slotDateChanged();
 
 signals:
-    void selection(QString _st, QDate _startD, QDate _endD, ExportMode _exportMode, QList<int> _qsos);
+    void selection(QString _st, QDate _startD, QDate _endD, ExportMode _exportMode);
 
 private:
     void createUI();
@@ -80,7 +80,6 @@ private:
     int logNumber;
 
     QString defaultStationCallsign;
-    QList<int> qsos;
 
 };
 

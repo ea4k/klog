@@ -77,7 +77,7 @@ public:
     void receiveFocus();
 
     void clear();
-    void cleanQRZCOM();
+    void cleanQRZCOM(const bool _dataFromQRZCOM);
     void clearName();
     void clearQTH();
     void clearDXLocator();

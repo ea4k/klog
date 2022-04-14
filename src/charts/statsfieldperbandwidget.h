@@ -45,6 +45,7 @@ class StatsFieldPerBandWidget : public StatsGeneralChartWidget
 public:
     StatsFieldPerBandWidget();
     StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent = nullptr);
+    ~StatsFieldPerBandWidget();
     void prepareChart(const int _log=-1);
 
 

@@ -5,7 +5,7 @@ image:
 
 install:
   - sh: sudo apt-get -qq update
-  - sh: sudo apt install -qqy g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
+  - sh: sudo apt install -qqy g++ make qttools5-dev-tools qtchooser qtbase5-dev libqt5charts5-dev libqt5serialport5-dev libhamlib++-dev qt5-qmake qttools5-dev libqt5sql5-sqlite qtdeclarative5-dev qtpositioning5-dev libhamlib-dev
 build_script:
   - qmake KLog.pro
   - make

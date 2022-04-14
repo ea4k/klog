@@ -32,10 +32,48 @@
 #include <QNetworkRequest>
 #include "database.h"
 #include "mainwindow.h"
-//using namespace G_callsignCheck;
-//#include <qDebug>
 
-//extern bool g_callsignCheck;
+void MainWindow::showNotWar()
+{
+    int callDXCC = world->getQRZARRLId(mainQRZ);
+    //int callDXCC = world->getQRZARRLId(stationCallsign);
+    int EURusId = 54;   // ADIF code Eu Russia
+    int ASRusId = 15;   // ADIF code As Russia
+    int KaRusId = 126;  // Kaliningrad
+    int UkrId = 288;    // UKraine
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setWindowTitle(tr("KLog - Stop the war in Ukraine!"));
+    QString aux;
+    aux.clear();
+    #if defined(Q_OS_OSX)
+    aux = tr("KLog - Stop the war in Ukraine!\n\n");
+    #endif
+
+    //qDebug() << "DXCC: " << QString::number(callDXCC);
+    if ((callDXCC == EURusId) || (callDXCC == ASRusId) || (callDXCC == KaRusId))
+    {
+        //qDebug() << "RUSSIA";
+        aux = aux + QString(tr("You are using a Russian call (%1).\n\nYou can probably help to stop the Russian war, people are dying.\n\nPlease call your leaders to stop the war.")).arg(mainQRZ);
+    }
+    else if (callDXCC == UkrId)
+    {
+        //qDebug() << "UKRAINE";
+        aux = aux + tr("You are using an Ukranian call.\n\nPlease take care and protect yourself and your family. \n\nThe KLog developers wish you the best of luck in this very difficult moment.");
+    }
+    else
+    {
+        //qDebug() << "Other";
+        aux = aux + tr("People are dying in the war of Russia against Ukraine.\n\nYou can help to stop the Russian war against Ukraine.\n\nPlease show your disagreement to your leaders, or in your social network to stop the war.");
+    }
+
+    msgBox.setText(aux);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+
+}
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
@@ -56,10 +94,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
-
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
-    QRZCOMAutoCheckAct->setCheckable(true);
-    QRZCOMAutoCheckAct->setChecked(false);
 
     //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() << QT_ENDL;
     debugFile = new QFile(util->getDebugLogFile());
@@ -71,6 +106,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
     lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
+    mapWindow = new MapWindowWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -88,7 +124,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
-     //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     logWindow = new LogWindow(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 00087: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
@@ -102,7 +138,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     logEvent(Q_FUNC_INFO, "Creating AwardsWidget", Debug);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
-     //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
@@ -124,24 +160,30 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     configFileName = util->getCfgFile();
+    //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
-
+    //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
+    //qDebug() << Q_FUNC_INFO << ": 53: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     myDataTabWidget = new MainWindowMyDataTab();
+    //qDebug() << Q_FUNC_INFO << ": 54: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     commentTabWidget = new MainWindowInputComment();
+    //qDebug() << Q_FUNC_INFO << ": 55: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     othersTabWidget = new MainWindowInputOthers(dataProxy);
+    //qDebug() << Q_FUNC_INFO << ": 56: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
+    //qDebug() << Q_FUNC_INFO << ": 57: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
+    //qDebug() << Q_FUNC_INFO << ": 58: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
 
-   //qDebug() << Q_FUNC_INFO << ": locator to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": locator to be created 59" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     locator = new Locator();
 
     mainWidget = new QWidget(this);
-    setCentralWidget(mainWidget);
-   //qDebug() << Q_FUNC_INFO << ": 8 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": 60 " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
     dateTime = new QDateTime();
     dateTimeTemp = new QDateTime();
@@ -149,11 +191,11 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     infoLabel2 = new QLabel(tr("DX Entity"));
     loggWinAct = new QAction(tr("&Log Window"), this);
 
-    //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     // </UI>
 
 
@@ -164,13 +206,13 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     softUpdate = new SoftwareUpdate(softwareVersion);
-    //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
-    //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
     lotwCallTQSL = new QAction(tr("Upload the queued QSOs to LoTW"), this);
-    //qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << ": ShowAdifImportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
@@ -246,6 +288,7 @@ void MainWindow::init()
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
+        debugFileOpen = false;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not open"));
@@ -260,9 +303,12 @@ void MainWindow::init()
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
-
+    manualMode = false;
+    qrzAutoChanging = false;
+    //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
+    QRZCOMAutoCheckAct->setCheckable(true);
+    QRZCOMAutoCheckAct->setChecked(false);
     logEvents = true;
-
     hamlib->initClass();
     util->setCallValidation (true);
     infoLabel1T = QString();
@@ -352,6 +398,7 @@ void MainWindow::init()
     dxClusterShowAnn=true;
     dxClusterShowWWV=true;
     dxClusterShowWCY=true;
+    dxclusterSendSpotsToMap = false;
 
     keepSatPage = false;
     //qDebug() << "MainWindow::init - 40" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -381,10 +428,6 @@ void MainWindow::init()
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
-
-
-    // Check date & time and set them in the UI at the begining
-    //dateTime->currentDateTime();
 
     clublogAnswer = -1;
 
@@ -426,7 +469,9 @@ void MainWindow::init()
         }
         //qDebug() << "MainWindow::init - 69" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }
+
     //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    mapWindow->init();
     readConfigData();
 
     //qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -471,15 +516,18 @@ void MainWindow::init()
     //qDebug() << "MainWindow::init: Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     createUI();
     //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
-    //qDebug() << Q_FUNC_INFO;
-    slotClearButtonClicked();
-
+    //qDebug() << Q_FUNC_INFO << " - 100";
+    slotClearButtonClicked(Q_FUNC_INFO);
+    //qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
-
+    //qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
+
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
+    //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
+    showNotWar();
 
     //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
 }
@@ -514,14 +562,12 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
-    connect(mainQSOEntryWidget, SIGNAL(clearForNextQSOSignal()), this, SLOT(slotClearButtonClicked()) );
+    connect(mainQSOEntryWidget, SIGNAL(clearForNextQSOSignal(QString)), this, SLOT(slotClearButtonClicked(QString)) );
     connect(mainQSOEntryWidget, SIGNAL(OKClicked()), this, SLOT(slotQRZReturnPressed() ) );
     connect(mainQSOEntryWidget, SIGNAL(bandChanged(QString)), this, SLOT(slotBandChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(modeChanged(QString)), this, SLOT(slotModeChanged(QString) ) );
     connect(mainQSOEntryWidget, SIGNAL(validBands(QStringList)), this, SLOT(slotValidBandsReceived(QStringList) ) );
-    connect(mainQSOEntryWidget, SIGNAL(hamlibSetActiveSignal(bool)), this, SLOT(slotActiveHamlib(bool) ) );
-
-
+    connect(mainQSOEntryWidget, SIGNAL(manualModeSignal(bool)), this, SLOT(slotManualMode(bool) ) );
 
     // LOGVIEW
     connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
@@ -539,6 +585,7 @@ void MainWindow::createActionsCommon(){
     //void clusterSpotToLog(const QStringList _qs);
     //SIGNAL dxspotclicked(const QStringList _qs)
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, QString, double) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -597,7 +644,7 @@ void MainWindow::createActionsCommon(){
    connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
    connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString) ) );
 
-   connect(UDPLogServer, SIGNAL(clearSignal()), this, SLOT(slotClearButtonClicked() ) );
+   connect(UDPLogServer, SIGNAL(clearSignal(QString)), this, SLOT(slotClearButtonClicked(QString) ) );
 
    connect(this, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
    connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -645,7 +692,7 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::recommendBackupIfNeeded()
 {
-    //qDebug() << "MainWindow::recommendBackupIfNeeded" << QT_ENDL;
+    //qDebug() << "MainWindow::recommendBackupIfNeeded" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     if (dataProxy->getHowManyQSOInLog(-1)<1)
     {
         return;
@@ -653,7 +700,7 @@ void MainWindow::recommendBackupIfNeeded()
     QDateTime lastBackupDate;
     lastBackupDate = QDateTime();
     lastBackupDate = filemanager->getDateTimeOfLastBackup();
-    //qDebug() << "MainWindow::recommendBackupIfNeeded lastDate: " << util->getDateTimeSQLiteStringFromDateTime(lastBackupDate) << QT_ENDL;
+    //qDebug() << "MainWindow::recommendBackupIfNeeded lastDate: " << util->getDateTimeSQLiteStringFromDateTime(lastBackupDate) << (QTime::currentTime()).toString(" HH:mm:ss")  << QT_ENDL;
     bool backupNeeded = false;
     QString msg;
     if (lastBackupDate == QDateTime())
@@ -663,14 +710,14 @@ void MainWindow::recommendBackupIfNeeded()
     }
     else if (lastBackupDate.addMonths(1) < QDateTime::currentDateTime())
     {
-        //qDebug() << "MainWindow::recommendBackupIfNeeded More than a month"  << QT_ENDL;
+        //qDebug() << "MainWindow::recommendBackupIfNeeded More than a month" << (QTime::currentTime()).toString(" HH:mm:ss")   << QT_ENDL;
         backupNeeded = true;
         msg = tr("It seems that the latest backup you did is older than one month.");
     }
 
     if (backupNeeded)
     {
-        //qDebug() << "MainWindow::recommendBackupIfNeeded We need to backup"  << QT_ENDL;
+        //qDebug() << "MainWindow::recommendBackupIfNeeded We need to backup"  << (QTime::currentTime()).toString(" HH:mm:ss")  << QT_ENDL;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
 
@@ -690,9 +737,8 @@ void MainWindow::recommendBackupIfNeeded()
         switch (ret)
         {
             case QMessageBox::Yes:
-            //QString filename = (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmm") + "-klogbackup.adi";
             QString filename = util->getBackupADIFile();
-            //qDebug() << "MainWindow::recommendBackupIfNeeded: Backup to: " << filename  << QT_ENDL;
+            //qDebug() << "MainWindow::recommendBackupIfNeeded: Backup to: " << filename << (QTime::currentTime()).toString(" HH:mm:ss")   << QT_ENDL;
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("KLog - Backup"));
             if (filemanager->adifLogExport(filename, 0)) // 0 will save ALL the logs)
@@ -711,7 +757,7 @@ void MainWindow::recommendBackupIfNeeded()
             break;
         }
     }
-    //qDebug() << "MainWindow::recommendBackupIfNeeded - END"  << QT_ENDL;
+    //qDebug() << "MainWindow::recommendBackupIfNeeded - END"  << (QTime::currentTime()).toString(" HH:mm:ss")  << QT_ENDL;
 }
 
 void MainWindow::checkIfNewVersion()
@@ -738,14 +784,29 @@ void MainWindow::createStatusBar()
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-/*
-void MainWindow::slotWorldMapShow()
+void MainWindow::slotShowMap()
 {
-    //worldMapWidget->resize(500,300);
-    //worldMapWidget->loadMap();
-    worldMapWidget->show();
+    Coordinate center = locator->getLocatorCoordinate(world->getQRZLocator(stationCallsign));
+    mapWindow->setCenter(center);
+
+    QSize size = this->size();
+    //qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
+    size = size/2;
+    //qDebug() << Q_FUNC_INFO << QString(" - Size: %1x%2").arg(size.width()).arg(size.height());
+    mapWindow->resize(size);
+    mapWindow->show();
+    //QStringList a;
+    //a.clear();
+    //a << dataProxy->getFilteredLocators("All", "All", "All", "All");
+    //a << locator->getAll();
+    //foreach (QString ai, a)
+    //{
+    //    mapWindow->addMarker (locator->getLocatorCoordinate (ai));
+        //qDebug() << ai;
+    //}
+    //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
-*/
+
 void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
@@ -800,7 +861,7 @@ void MainWindow::slotTimeOutInfoBars()
 void MainWindow::setModeFromFreq()
 {
     //TODO: define frequency ranges for the different modes
-    if (hamlibActive)
+    if (hamlibActive && !manualMode)
     {
         if (QSOTabWidget->getTXFreq () >= dataProxy->getLowLimitBandFromBandName("20M"))
         {
@@ -870,7 +931,10 @@ void MainWindow::slotBandChanged (const QString &_b)
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
 
      //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " << QT_ENDL;
+    if (currentEntity>0)
+    {
     showStatusOfDXCC(_qs);
+    }
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotBandChanged: END" << QT_ENDL;
@@ -883,27 +947,34 @@ void MainWindow::slotModeChanged (const QString &_m)
     {
         return;
     }
-            //qDebug() << "MainWindow::slotModeChanged: " << _m << QT_ENDL;
+    //qDebug() << "MainWindow::slotModeChanged: " << _m << QT_ENDL;
 
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-             //qDebug() << "MainWindow::slotModeComboBoxChanged: currentBandShown2: " << QString::number(currentBandShown) << QT_ENDL;
+    //qDebug() << "MainWindow::slotModeComboBoxChanged: currentBandShown2: " << QString::number(currentBandShown) << QT_ENDL;
     currentModeShown = dataProxy->getIdFromModeName(_m);
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
-            //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " << QT_ENDL;
+    //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " << QT_ENDL;
     _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
     showStatusOfDXCC(_qs);
-    QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
+    if (!modify)
+    {
+        QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
+    }
 
-    QString _modeSeen = mainQSOEntryWidget->getMode();
-    if (_modeSeen == "SSB")
+    //QString _modeSeen = mainQSOEntryWidget->getMode();
+    if (hamlibActive && !manualMode)
+    {
+        hamlib->setMode (mainQSOEntryWidget->getMode());
+    }
+/*    if (_modeSeen == "SSB")
     {
         setModeFromFreq();
     }
-
+*/
     logEvent(Q_FUNC_INFO, "END", logSeverity);
             //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << mainQSOEntryWidget->getMode() << QT_ENDL;
 }
@@ -963,7 +1034,6 @@ void MainWindow::slotQRZReturnPressed()
                 //ret = true;
                   //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " << QT_ENDL;
                 actionsJustAfterAddingOneQSO();
-                //slotClearButtonClicked();
             }
         }
     else   // The QUERY string is NULL
@@ -976,8 +1046,12 @@ void MainWindow::slotQRZReturnPressed()
 
     yearChangedDuringModification = false;
     readingTheUI = false;
-    //qDebug() << Q_FUNC_INFO;
-    slotClearButtonClicked();
+    QString lastLocator = dataProxy->getLocatorFromId(dataProxy->getLastQSOid());
+    //qDebug() << Q_FUNC_INFO << ": Locator: " << lastLocator;
+    mapWindow->addLocator(lastLocator, workedColor);
+
+    //qDebug() << Q_FUNC_INFO << "Just before cleaning";
+    slotClearButtonClicked(Q_FUNC_INFO);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -3106,7 +3180,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 {
      //qDebug() << "MainWindow::slotElogQRZCOMLogUploaded: " << QString::number(_error) << QT_ENDL;
 
-   QMessageBox msgBox;
+       QMessageBox msgBox;
    if (_error != QNetworkReply::NoError)
    {
        msgBox.setIcon(QMessageBox::Warning);
@@ -3177,21 +3251,23 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
     //qDebug() << Q_FUNC_INFO;
     if (!modify)
     {
-        QSOTabWidget->cleanQRZCOM();
+        QSOTabWidget->cleanQRZCOM(true);
+    }
         completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
-    }
 }
 
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
 {
-  //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << QT_ENDL;
+    //qDebug() << "MainWindow::slotElogQRZCOMFoundData: " << _t << "/" << _d << QT_ENDL;
    if (_t == "name")
    {
        if (QSOTabWidget->getName().length()<1)
        {
+           qrzAutoChanging = true;
            QSOTabWidget->setName(_d);
+           qrzAutoChanging = false;
        }
    }
    else if (_t == "grid")
@@ -3199,7 +3275,9 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
        //qDebug() << Q_FUNC_INFO << " Grid found: " << _d;
        if ((QSOTabWidget->getDXLocator()).length()<1)
        {
+           qrzAutoChanging = true;
            QSOTabWidget->setDXLocator(_d);
+           qrzAutoChanging = false;
        }
        else
        {
@@ -3210,7 +3288,9 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    {
        if (QSOTabWidget->getQTH().length()<1)
        {
+           qrzAutoChanging = true;
            QSOTabWidget->setQTH(_d);
+           qrzAutoChanging = false;
        }
    }
    else if (_t == "qslmgr")
@@ -3299,10 +3379,10 @@ void MainWindow::slotElogQRZCOMAutoCheckFromSetup(const bool _s)
     {
         QRZCOMAutoCheckAct->setEnabled(_s);
     }
-    else
-    {
-      showMessageToEnableTheOnlineService(QRZ);
-    }
+//    else
+//    {
+//      showMessageToEnableTheOnlineService(QRZ);
+//    }
 
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
@@ -3367,7 +3447,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         infoLabel1->clear();
         infoLabel2->clear();
         //qDebug() << Q_FUNC_INFO;
-        slotClearButtonClicked();
+        slotClearButtonClicked(Q_FUNC_INFO);
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
@@ -3402,7 +3482,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_CQz = -1;
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
-    //cleanQRZCOMreceivedDataFromUI();
+    cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
     QString pref = util->getPrefixFromCall(_qrz);
     //qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
@@ -3413,6 +3493,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     else
     {
+
         currentEntity = world->getQRZARRLId(_qrz);
     }
 
@@ -3493,6 +3574,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
   if (!modify)
     {
         searchWidget->setCallToSearch(_qrz);
+        //qDebug() << Q_FUNC_INFO << " qrz.length>2: " << _qrz;
+        //qDebug() << Q_FUNC_INFO << " qrzcomActive: " << util->boolToQString (qrzcomActive);
+        //qDebug() << Q_FUNC_INFO << " QRZCOMAutoCheckAct: " << util->boolToQString (QRZCOMAutoCheckAct->isChecked());
 
         if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
@@ -3517,20 +3601,22 @@ void MainWindow::setCleaning(const bool _c)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
-void MainWindow::slotClearButtonClicked()
+void MainWindow::slotClearButtonClicked(const QString &_func)
 {
-    //qDebug() << "MainWindow::slotClearButtonClicked - START" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _func << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+
     bool needToRecover = modify;
     setCleaning(true);
     yearChangedDuringModification = false;
     setModifying(false);
 
+    currentEntity = -1;
     dateTimeTemp = dateTime;
     modifyingQSO = -1;
 
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
-
+    //qDebug() << Q_FUNC_INFO << " - 10" << QT_ENDL;
     if (currentBand < 0)
     {
         currentBand = defaultBand;
@@ -3540,33 +3626,33 @@ void MainWindow::slotClearButtonClicked()
         currentMode = defaultMode;
         //qDebug() << "MainWindow::MainWindow: 12b - currentMode: " << QString::number(currentMode) << QT_ENDL;
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 20" << QT_ENDL;
     clublogAnswer = -1;
     clublogPrevQSO.clear();
     //qDebug() << "MainWindow::slotClearButtonClicked: - 11"  << QT_ENDL;
 
     setCleaning(false);
-
+    //qDebug() << Q_FUNC_INFO << " - 25" << QT_ENDL;
     //qDebug() << "MainWindow::slotClearButtonClicked: Log: " << QString::number(currentLog) << QT_ENDL;
     setMainWindowTitle();
+    //qDebug() <<  Q_FUNC_INFO << " - 27" << QT_ENDL;
     if (needToRecover)
     {
+        //qDebug() << Q_FUNC_INFO << " - 28" << QT_ENDL;
         //qDebug() << Q_FUNC_INFO << ": Recovening the previous status...";
         restoreCurrentQSO(true);
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - 40" << QT_ENDL;
         //qDebug() << Q_FUNC_INFO;
         clearUIDX();
         statusBar()->clearMessage();
-
         //qDebug() << Q_FUNC_INFO << ": NOT recovening the previous status...";
     }
-
-    //qDebug() << "MainWindow::slotClearButtonClicked: " << mainQSOEntryWidget->getMode() << QT_ENDL;
     //qDebug() << "MainWindow::slotClearButtonClicked - currentMode = " << QString::number(currentMode) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
-            //qDebug() << "MainWindow::slotClearButtonClicked - END" << QT_ENDL;
+    //qDebug() << "MainWindow::slotClearButtonClicked - END" << QT_ENDL;
 }
 
 void MainWindow::clearUIDX(bool _full)
@@ -3927,6 +4013,11 @@ void MainWindow::createMenusCommon()
     toolMenu->addAction(showStatsAct);
     connect(showStatsAct, SIGNAL(triggered()), this, SLOT(slotShowStats()));
     showStatsAct->setToolTip(tr("Show the statistics of your radio activity."));
+
+    showMapAct = new QAction (tr("Show Map"), this);
+    toolMenu->addAction(showMapAct);
+    connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
+    showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
     //qDebug() << "MainWindow::createMenusCommon before" << QT_ENDL;
     //toolMenu->addSeparator();
@@ -4497,7 +4588,7 @@ void MainWindow::slotSetup(const int _page)
      //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     configured = false;
-    backupCurrentQSO ();
+    backupCurrentQSO();
     openSetup(_page);
      //qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -4547,12 +4638,12 @@ void MainWindow::openSetup(const int _page)
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
-
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
         return;
     }
+    bool restoreQSOConfig = false;
     if (_s == QDialog::Accepted)
     {
         //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
@@ -4570,26 +4661,22 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         dataProxy->reconnectDB();
         logEvent(Q_FUNC_INFO, "after db->reConnect", logSeverity);
         //qDebug() << "MainWindow::openSetup: after db->reConnect" << QT_ENDL;
-
-        if (hamlibActive)
-        {
-             //qDebug() << "MainWindow::slotSetupDialogFinished: Hamlib is active, let's read the VFO Freq/Mode" << QT_ENDL;
-        }
     }
     else
     {
          //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
     }
 
-    if (qso->getBackup ())
+    if (qso->getBackup())
     {
         //qDebug() << Q_FUNC_INFO << ": Restoring..." << QT_ENDL;
         restoreCurrentQSO (QDialog::Accepted);
     }
     else
     {
-        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring..." << QT_ENDL;
+        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring QSO..." << QT_ENDL;
     }
+   setHamlib(hamlibActive);
     //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -4622,16 +4709,16 @@ void MainWindow::slotUpdateStatusBar(const QString &statusm)
 }
 
 
-bool MainWindow::readCtyFile()
-{
-    logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    logEvent(Q_FUNC_INFO, "END", logSeverity);
-    return false;
-}
+//bool MainWindow::readCtyFile()
+//{
+//    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+//    logEvent(Q_FUNC_INFO, "END", logSeverity);
+//    return false;
+//}
 
 void MainWindow::slotDoubleClickLog(const int _qsoID)
 {
-               //qDebug() << "MainWindow::slotDoubleClickLog: QSOid: " << QString::number(_qsoID) << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
     //int row = _qsoID.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
@@ -4699,7 +4786,6 @@ bool MainWindow::setUDPServer(const bool _b)
 
 bool MainWindow::setHamlib(const bool _b)
 {
-    //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) << QT_ENDL;
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << QT_ENDL;
     if (!upAndRunning)
     {
@@ -4716,7 +4802,7 @@ bool MainWindow::setHamlib(const bool _b)
     else
     {
         //qDebug() << Q_FUNC_INFO << ": Hamlib NOT active";
-        hamlib->stop();
+        hamlib->init(false);
         return false;
     }
 }
@@ -4725,7 +4811,7 @@ void MainWindow::showEvent(QShowEvent *event)
 {
     //qDebug() << Q_FUNC_INFO << QT_ENDL;
     setWindowSize(windowSize);
-    setHamlib (hamlibActive);
+    //setHamlib (hamlibActive);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
@@ -4829,7 +4915,6 @@ void MainWindow::readConfigData()
     }
     //qDebug() << Q_FUNC_INFO << ": 01"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     infoWidget->setImperialSystem(imperialSystem);
-
     infoLabel2->setText(world->getEntityName(currentEntity));
     //qDebug() << "MainWindow::readConfigData-89"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     infoWidget->showEntityInfo(currentEntity);
@@ -4837,6 +4922,7 @@ void MainWindow::readConfigData()
     configured = true;
     searchWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
+    mapWindow->setColors (workedColor, confirmedColor, defaultColor);
     dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
     setMainWindowTitle();
@@ -4844,38 +4930,25 @@ void MainWindow::readConfigData()
     //qDebug() << Q_FUNC_INFO << ": 97"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     checkIfNewBandOrMode();
     //qDebug() << Q_FUNC_INFO << ": 98"  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    //initialContestModeConfiguration();
-    //qDebug() << "MainWindow::readConfigData: 99" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
 
-    /*
-    if (upAndRunning)
-    { // Next actions will not be executed in the first run
-        slotClearButtonClicked();
-    }
-    */
     // I need to init the CLUBLOG
     if (clublogActive)
     {
         elogClublog->setCredentials(clublogEmail, clublogPass, stationCallsign);
     }
-    else
-    {
-       //qDebug() << "MainWindow::readConfigData: NOT Setting ClublogCredentials" << QT_ENDL;
-    }
+
     //qDebug() << Q_FUNC_INFO << ": QRZcom active????" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     if (qrzcomActive)
     {
-        qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        //qDebug() << "MainWindow::readConfigData: QRZcom active"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->setCredentials(qrzcomUser, qrzcomPass);
-        qDebug() << "MainWindow::readConfigData: QRZcom credentials"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
+        //qDebug() << "MainWindow::readConfigData: QRZcom credentials"<< QTime::currentTime().toString("hh:mm:ss")  << QT_ENDL;
         elogQRZcom->login();
-        qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        //qDebug() << "MainWindow::readConfigData: login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
         //elogQRZcom->login();
         //qDebug() << "MainWindow::readConfigData: after login" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     }
-    //qDebug() << "MainWindow::readConfigData: calling checkIfNewBandOrMode" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-
-   //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     util->setVersion(softwareVersion);
             //qDebug() << "MainWindow::readConfigData: 101" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     searchWidget->setVersion(softwareVersion);
@@ -4901,6 +4974,7 @@ void MainWindow::readConfigData()
 
 void MainWindow::startServices()
 {
+    //qDebug() << Q_FUNC_INFO;
     setWindowSize (windowSize);
     setHamlib(hamlibActive);
     setUDPServer(UDPServerStart);
@@ -4996,7 +5070,6 @@ bool MainWindow::processConfigLine(const QString &_line){
         }
         dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);
     }
-
     else if(field=="POWER")
     {
         if (value.toFloat()>0.0f)
@@ -5125,7 +5198,10 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         dxClusterShowWCY = util->trueOrFalse(value);
     }
-
+    else if (field  =="DXCLUSTERSENDTOMAP")
+    {
+       dxclusterSendSpotsToMap = util->trueOrFalse(value);
+    }
     else if (field=="DEFAULTADIFFILE")
     {
         defaultADIFLogFile = value.toLower();
@@ -5202,9 +5278,9 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field == "HAMLIBRIGTYPE" )
     {
-                //qDebug() << "MainWindow::processConfigLine: HAMLIBRIGTYPE: " << value << QT_ENDL;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIBRIGTYPE: " << value << QT_ENDL;
         hamlib->setModelId(value.toInt());
-                //qDebug() << "MainWindow::processConfigLine: HAMLIBRIGTYPE: " << value << QT_ENDL;
+
     }
     else if(field == "HAMLIBSERIALPORT")
     {
@@ -5214,16 +5290,16 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field == "HAMLIBSERIALBAUDS")
     {
-                //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
         hamlib->setSpeed(value.toInt());
-                //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
+        //qDebug() << "MainWindow::processConfigLine: HAMLIBSERIALBAUDS: " << value << QT_ENDL;
     }else if(field =="HAMLIBSERIALDATABITS"){
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
         hamlib->setDataBits(value.toInt());
         //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value << QT_ENDL;
     }else if(field =="HAMLIBSERIALSTOPBITS"){
              //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << QT_ENDL;
-        hamlib->setStop(value.toInt ());
+        hamlib->setStop(value);
              //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value << QT_ENDL;
     }else if(field =="HAMLIBSERIALFLOWCONTROL"){
              //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value << QT_ENDL;
@@ -5363,8 +5439,11 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
          //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto: " << value << QT_ENDL;
          //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto was: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = " << value;
 
         QRZCOMAutoCheckAct->setChecked(util->trueOrFalse(value));
+
+         //qDebug() << Q_FUNC_INFO << " - Reading QRZCOMAutoCheckAct = " << util->boolToQString (QRZCOMAutoCheckAct->isChecked ());
         setupDialog->setQRZCOMAutoCheckActive(util->trueOrFalse(value));
          //qDebug() << "MainWindow::processConfigLine: QRZCOMAuto is: " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) << QT_ENDL;
     }
@@ -5402,20 +5481,9 @@ bool MainWindow::processConfigLine(const QString &_line){
         eQSLUseQSOStationCallSign = util->trueOrFalse(value);
     }
     else if(field =="LOTWACTIVE"){
-                //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << QT_ENDL;
-        if (util->trueOrFalse(value))
-        {
-            lotwActive = true;
-            lotwCallTQSL->setEnabled(true);
-            lotwCallTQSL->setWhatsThis(tr("Sends the log to LoTW calling TQSL."));
-        }
-        else
-        {
-            lotwActive = false;
-            lotwCallTQSL->setEnabled(false);
-            lotwCallTQSL->setWhatsThis(tr("This function is disabled. Go to the Setup->LoTW tab to enable it."));
-        }
-                //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << QT_ENDL;
+         //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE" << QT_ENDL;
+        lotwActive = util->trueOrFalse(value);
+         //qDebug() << "MainWindow::processConfigLine - LOTWACTIVE-END" << QT_ENDL;
     }
     else if(field =="LOTWPATH"){
           //qDebug() << "MainWindow::processConfigLine - LOTWPATH" << QT_ENDL;
@@ -5503,9 +5571,11 @@ void MainWindow::checkIfNewBandOrMode()
     //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setBands(bands);
     satTabWidget->addBands(bands);
+    mapWindow->setBands(bands);
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     mainQSOEntryWidget->setModes(modes);
+    mapWindow->setModes(modes);
 
 
     //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -5796,6 +5866,7 @@ void MainWindow::createUIDX()
     infoLabel1->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
     infoLabel2->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 #endif
+    setCentralWidget(mainWidget);
     logEvent(Q_FUNC_INFO, "END", logSeverity);
             //qDebug() << "MainWindow::createUIDX-END" << QT_ENDL;
  }
@@ -6333,6 +6404,17 @@ void MainWindow::slotQRZCOMLogUpload()
         return;
     }
 
+    if (!qrzcomSubscriber)
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - QRZ.com"));
+        msgBox.setText(tr("To upload QSOs you need a qrz.com subscription. If you have one, go to Setup->QRZ.com tab to enable it.") );
+        msgBox.exec();
+        //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+        return;
+    }
+
     if (!elogQRZcom->hasLogBookKey())
     {
         QMessageBox msgBox;
@@ -6425,14 +6507,11 @@ void MainWindow::qsoToEdit (const int _qso)
     double testValueDouble; // Variable just to test if the value is in the appropriate range
 
     setModifying(true);
-
     modifyingQSO = _qso;
 
     //TODO: Optimize the following query. Maybe the * is not needed.
     QString stringQuery = QString("SELECT * FROM log WHERE id ='%1' AND lognumber='%2'").arg(_qso).arg(currentLog);
                 //qDebug() << "MainWindow::qsoToEdit: " << stringQuery << QT_ENDL;
-
-
 
     QSqlQuery query(stringQuery);
     bool sqlOK = query.exec();
@@ -6451,6 +6530,8 @@ void MainWindow::qsoToEdit (const int _qso)
 
         QSqlRecord rec = query.record();
 
+        manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
+        mainQSOEntryWidget->setManualMode (manualMode);
 
     // ADD THE DATA THAT IS PRESENT IN ALL THE MODES
 
@@ -6491,7 +6572,7 @@ void MainWindow::qsoToEdit (const int _qso)
     QString currentQrz = aux1;
     currentEntity = world->getQRZARRLId(currentQrz);
 
-               //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) << QT_ENDL;
+    //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) << QT_ENDL;
 
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value(nameCol)).toString();
@@ -6912,13 +6993,14 @@ void MainWindow::qsoToEdit (const int _qso)
                             //qDebug() << "MainWindow::qsoToEdit: - in default - 105"  << QT_ENDL;
                             //qDebug() << "MainWindow::qsoToEdit: - just after de IOTA"  << QT_ENDL;
     }
-    else if (contestMode == "CQ-WW-SSB")
+    /*else if (contestMode == "CQ-WW-SSB")
     {
     }
     else
     {
         //TODO: Manage the else... is it a DX or show a message?
     }
+    */
                 //qDebug() << "MainWindow::qsoToEdit: - in default - 106"  << QT_ENDL;
     } //Closes the next.isValid
                 //qDebug() << "MainWindow::qsoToEdit: - in default - END"  << QT_ENDL;
@@ -7472,6 +7554,21 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 
+void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
+    if (!dxclusterSendSpotsToMap)
+    {
+        return;
+    }
+    logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    Coordinate coord = locator->getLocatorCoordinate (_dxGrid);
+    //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(_dxCall).arg(_dxGrid).arg(coord.lat).arg(coord.lon);
+    //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
+    mapWindow->addMarker(coord, _dxGrid);
+    logEvent(Q_FUNC_INFO, "END", logSeverity);
+}
+
 //void MainWindow::clusterSpotToLog(const QStringList _qs)
 void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
 {
@@ -7569,12 +7666,16 @@ void MainWindow::defineStationCallsign(const QString &_call)
     }
 
      //qDebug() << "MainWindow::defineStationCallsign: " << stationCallsign  << QT_ENDL;
+
     filemanager->setStationCallSign(stationCallsign);
     //qDebug() << "MainWindow::defineStationCallsign: AFTER"  << QT_ENDL;
     myDataTabWidget->setData(myPower, stationCallsign, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     searchWidget->setStationCallsign(stationCallsign);
-    lotwUtilities->setStationCallSign(stationCallsign);
+    if (lotwActive)
+    {
+        lotwUtilities->setStationCallSign(stationCallsign);
+    }
     adifLoTWExportWidget->setDefaultStationCallsign(stationCallsign);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -7744,6 +7845,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
     //qDebug() << Q_FUNC_INFO << QT_ENDL;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
+    mapWindow->setBands(_b);
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
@@ -7783,10 +7885,30 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     QSOTabWidget->setTXFreq (_fr);
     mainQSOEntryWidget->setFreq (_fr);
     satTabWidget->setUpLinkFreq(_fr);
-    if (hamlibActive)
+    if (hamlibActive && !manualMode)
     {
         hamlib->setFreq(_fr);
     }
+    //qDebug() << Q_FUNC_INFO << " - Freq: " << QString::number (_fr);
+    if (_fr<10.0)
+    {
+        //qDebug() << Q_FUNC_INFO << " - Lower and mode: " << mainQSOEntryWidget->getMode ();
+        if (mainQSOEntryWidget->getMode() == "USB")
+        {
+            //qDebug() << Q_FUNC_INFO << " - We need to change";
+            mainQSOEntryWidget->setMode ("LSB");
+        }
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << " - Higher and mode: " << mainQSOEntryWidget->getMode ();
+        if (mainQSOEntryWidget->getMode() == "LSB")
+        {
+            //qDebug() << Q_FUNC_INFO << " - We need to change";
+            mainQSOEntryWidget->setMode ("USB");
+        }
+    }
+
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
     //qDebug() << "MainWindow::slotFreqTXChanged - END"  << QT_ENDL;
@@ -7984,7 +8106,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 
                 //actionsJustAfterAddingOneQSO();
                 //qDebug() << Q_FUNC_INFO;
-                slotClearButtonClicked();
+                slotClearButtonClicked(Q_FUNC_INFO);
                 //UDPLogServer->start();
 
                 if (clublogActive && clublogRealTime)
@@ -8061,6 +8183,10 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
                                              const QString &_dx_grid, const QString &_sub_mode)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     if (modify)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
@@ -8131,6 +8257,7 @@ void MainWindow::addNewValidMode(const QString &_mode)
 
     readActiveModes (_newM);
     mainQSOEntryWidget->setModes(modes);
+    mapWindow->setModes(modes);
 
     logEvent(Q_FUNC_INFO, "END", logSeverity);
       //qDebug() << "MainWindow::addNewValidMode: END"  << QT_ENDL;
@@ -8168,7 +8295,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     // TODO: An error on DB has been detected.
     // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
 
-    QString aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog-devel@nongnu.org>klog-devel@nongnu.org</a>)" + tr("for analysis:") + "<br>";
+    QString aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog@groups.io>klog@groups.io</a>)" + tr("for analysis:") + "<br>";
     QString errorMSG =  "<ul>"
                         "<li><b>" + tr("Error in function") + ":</b> " + functionFailed + "</li>" +
                         "<li><b>" + tr("Native Error") +":</b> " + nativeError + "</li>" +
@@ -8220,6 +8347,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     bands.clear();
     bands = qsTemp;
     mainQSOEntryWidget->setBands(bands);
+    mapWindow->setBands(bands);
 
     satTabWidget->addBands(bands);
         //qDebug() << "MainWindow::defineNewBands - END"  << QT_ENDL;
@@ -8230,6 +8358,10 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     if (upAndRunning)
     {
         if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
@@ -8237,6 +8369,14 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
             //qDebug() << Q_FUNC_INFO << ": Updating the freq... " << QT_ENDL;
             QSOTabWidget->setTXFreq (_f);
         }
+        else
+        {
+           //qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not updating Freq" << QT_ENDL;
+        }
+    }
+    else
+    {
+        //qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not Up&Running" << QT_ENDL;
     }
     //qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " << QT_ENDL;
 
@@ -8246,6 +8386,10 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
 void MainWindow::slotHamlibModeChanged(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    if (manualMode)
+    {
+        return;
+    }
     if (_m.length()<2)
     {
         logEvent(Q_FUNC_INFO, "END-1", logSeverity);
@@ -8318,24 +8462,44 @@ void MainWindow::slotAwardsWidgetSetYear()
     awardsWidget->setYear(selectedYear);
 }
 
-void MainWindow::slotActiveHamlib(bool _enable)
+void MainWindow::slotManualMode(bool _enable)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_enable);
+    //bool _updateTheRadio = false;
+    //if (!manualMode && hamlibActive)
+    //{
+    //    _updateTheRadio = true;
+    //}
+    manualMode = _enable;
+    if ((manualMode) && (hamlibActive))
+    {
+        hamlib->readRadio(true);
+    }
+    //if (_updateTheRadio)
+    //{
+
+    //}
+    /*
+    hamlib->init(!_enable);
     if (_enable)
     {
-        hamlib->initClass();
+        UDPLogServer->start();
     }
     else
     {
-        hamlib->stop();
+        UDPLogServer->stop();
     }
+    */
 }
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-     //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     qso->clear ();
     qso->setBackup (true);
     qso->setModifying (mainQSOEntryWidget->getModifying());
+    qso->setRealTime (mainQSOEntryWidget->getRealTime());
+    qso->setManualMode (mainQSOEntryWidget->getManualMode());
     qso->setLogId (currentLog);
      //qDebug() << Q_FUNC_INFO << " - 010";
     // MainQSOEntryWidget
@@ -8346,8 +8510,7 @@ void MainWindow::backupCurrentQSO()
     qso->setMode (mainQSOEntryWidget->getMode ());
      //qDebug() << Q_FUNC_INFO << " - 013";
     qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
-     //qDebug() << Q_FUNC_INFO << " - 014";
-    qso->setRealTime (mainQSOEntryWidget->getRealTime ());
+
      //qDebug() << Q_FUNC_INFO << " - 020";
     //  MainWindowInputQSO
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
@@ -8356,8 +8519,8 @@ void MainWindow::backupCurrentQSO()
     qso->setFreqRX (QSOTabWidget->getRXFreq ());
     qso->setGridSquare (QSOTabWidget->getDXLocator ());
     qso->setName (QSOTabWidget->getName ());
-    qso->setQTH (QSOTabWidget->getQTH ());
-    qso->setRXPwr (QSOTabWidget->getRXPwr ());
+    qso->setQTH(QSOTabWidget->getQTH ());
+    qso->setRXPwr(QSOTabWidget->getRXPwr ());
      //qDebug() << Q_FUNC_INFO << " - 030";
     // MainWindowInputQSL
     qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus ());
@@ -8415,7 +8578,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 { // This function restores a QSO that was backed up to the UI.
     // MainQSOEntryWidget
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (restoreConfig);
-    clearUIDX ();
+    clearUIDX();
     if (qso->getModifying())
     {
         mainQSOEntryWidget->setModify(true);
@@ -8425,14 +8588,13 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     mainQSOEntryWidget->setMode (qso->getMode ());
     mainQSOEntryWidget->setDateTime (qso->getDateTimeOn ());
 
+    //qDebug() << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (restoreConfig);
     if (restoreConfig)
     {
-        //qDebug << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (qso->getRealTime ());
-        mainQSOEntryWidget->setRealTime (qso->getRealTime ());
-    }
-    else
-    {
-        //qDebug << Q_FUNC_INFO << ": NO restoring config";
+        mainQSOEntryWidget->setRealTime (qso->getRealTime());
+        manualMode = qso->getManualMode();
+        //qDebug() << Q_FUNC_INFO << ": manualMode: " << util->boolToQString (manualMode);
+        mainQSOEntryWidget->setManualMode (manualMode);
     }
 
     //  MainWindowInputQSO
@@ -8505,7 +8667,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     satTabWidget->setSatName (qso->getSatName ());
     satTabWidget->setSatMode (qso->getSatMode ());
     satTabWidget->setKeep (qso->getKeepSatTab ());
-
+    qso->setBackup (false);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -8547,7 +8709,10 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
    //    return;
    // }
     //Criticality
-
+    if (!debugFileOpen)
+    {
+        return;
+    }
     QTextStream out(debugFile);
     out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << QT_ENDL;
 }

@@ -58,7 +58,11 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
 
 }
 
-MainWindowMyDataTab::~MainWindowMyDataTab(){}
+MainWindowMyDataTab::~MainWindowMyDataTab()
+{
+    delete(locator);
+    delete(util);
+}
 
 void MainWindowMyDataTab::createUI()
 {

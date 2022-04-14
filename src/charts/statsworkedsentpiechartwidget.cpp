@@ -26,7 +26,7 @@
 
 #include "charts/statsworkedsentpiechartwidget.h"
 
-//StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(){}
+StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(){}
 
 StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

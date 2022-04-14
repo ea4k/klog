@@ -59,6 +59,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 }
 
 SetupPageUDP::~SetupPageUDP(){
+    delete(util);
        //qDebug() << "SetupPageUDP::~SetupPageUDP" << QT_ENDL;
 }
 

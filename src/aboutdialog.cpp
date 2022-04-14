@@ -99,7 +99,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     QString translator6 = QString("<tr><td>Danish</td>")  + QString("<td>Joe Hansen</td>") + QString("<td><a href=\"mailto://debian-l10n-danish@list.debian.org\">Danish Debian translation team</a></td></tr>");
     QString translator7 = QString("<tr><td>German</td>") + QString("<td>Burhard Lück</td>") + QString("<td><a href=\"mailto://kde-i18n-de@kde.org\">KDE German translation team</a></td></tr>");
     QString translator8 = QString("<tr><td>Italian</td>")  + QString("<td>Simona Pisano</td>") + QString("<td><a href=\"https://www.qrz.com/db/iu5hiu\">IU5HIU</a></td></tr>");
-    QString translator9 = QString("<tr><td>Japanese</td>")  + QString("<td>Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
+    QString translator9 = QString("<tr><td>Japanese</td>")  + QString("<td>Nick and Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jj1tgt\">JJ1TGT</a> and <a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
     QString translator10 = QString("<tr><td>Polish</td>")  + QString("<td>Piotr Ludwig</td>") + QString("<td><a href=\"https://www.qrz.com/db/la7rra\">LA7RRA</a></td></tr>");
     QString translator11 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td></tr>");
 

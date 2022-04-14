@@ -24,12 +24,14 @@
 # *****************************************************************************/
 TEMPLATE = subdirs
 SUBDIRS += src
-
-CONFIG(debug, debug) {
-        SUBDIRS += tests
-}
+SUBDIRS += tests
+#CONFIG(debug, debug) {
+#        SUBDIRS += tests
+#}
 message (Compiling)
-
-#QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
-#QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage
-#LIBS += -lgcov
+CONFIG += no_testcase_installs
+unix:!mac {
+    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage -O0 -g
+    QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage -O0 -g
+    LIBS += -lgcov
+}

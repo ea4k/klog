@@ -67,6 +67,10 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
 
 LoTWUtilities::~LoTWUtilities()
 {
+    delete(dataProxy);
+    delete(util);
+    delete(file);
+    delete(manager);
       //qDebug() << "LoTWUtilities::~LoTWUtilities"  << QT_ENDL;
 }
 

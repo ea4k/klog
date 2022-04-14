@@ -41,7 +41,7 @@ class StatsQSOsPerContinentBarChartWidget : public StatsGeneralChartWidget
     Q_OBJECT
 public:
     StatsQSOsPerContinentBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    //StatsQSOsPerContinentBarChartWidget();
+    StatsQSOsPerContinentBarChartWidget();
     void prepareChart(const int _log=-1);
 
 signals:

@@ -63,13 +63,14 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
 
 eLogQrzLog::~eLogQrzLog()
 {
+    delete(util);
     showDebugLog (Q_FUNC_INFO, "END");
 }
 
 void eLogQrzLog::showDebugLog(const QString &_func, const QString &_log)
 {
 #ifdef QT_DEBUG
-  qDebug() << _func << ": " << _log;
+  //qDebug() << _func << ": " << _log;
 #else
 #endif
 }
@@ -198,6 +199,33 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 }
                 continue;
             }
+            else if (name == "Callsign")
+            { // TEMP
+                tdata = xml.readElementText();
+                if (tdata.length()>0)
+                {
+                   //qDebug() << Q_FUNC_INFO << " - CALLSIGN: " << tdata << QT_ENDL;
+                }
+                continue;
+            }
+            else if (name == "name")
+            { // TEMP
+                tdata = xml.readElementText();
+                if (tdata.length()>0)
+                {
+                    //qDebug() << Q_FUNC_INFO << " - Name: " << tdata << QT_ENDL;
+                }
+                continue;
+            }
+            else if (name == "country")
+            { // TEMP
+                tdata = xml.readElementText();
+                if (tdata.length()>0)
+                {
+                    //qDebug() << Q_FUNC_INFO << " - Country: " << tdata << QT_ENDL;
+                }
+                continue;
+            }
             else if (name == "Error")
             {
                 tdata = xml.readElementText();
@@ -223,7 +251,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 if (tdata.length()>0)
                 {
                     emit dataFoundSignal("name", tdata);
-                    //qDebug() << Q_FUNC_INFO << " - Name: " << tdata << QT_ENDL;
+                    //qDebug() << Q_FUNC_INFO << " - FName: " << tdata << QT_ENDL;
                 }
                 continue;
             }
@@ -458,7 +486,7 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
     }
     else
     {
-        sendSignal(result, qsos);
+        //sendSignal(result, qsos);
         //parseNetworkError(result);
     }
 
@@ -800,7 +828,7 @@ void eLogQrzLog::sendSignal(QNetworkReply::NetworkError _error, QList<int> _qsos
 
 void eLogQrzLog::setSubcription(const bool _ok)
 {
-    showDebugLog (Q_FUNC_INFO, util->boolToQString (_ok));
+    //showDebugLog (Q_FUNC_INFO, util->boolToQString (_ok));
     subscriptionOK = _ok;
 }
 

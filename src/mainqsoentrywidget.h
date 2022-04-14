@@ -37,6 +37,7 @@ class MainQSOEntryWidget : public QWidget
     Q_OBJECT
 public:
     explicit MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    ~MainQSOEntryWidget();
     void setBands(const QStringList _bands);
     void setModes(const QStringList _modes);
 
@@ -62,6 +63,9 @@ public:
 
     void setRealTime(const bool _realTime);
     bool getRealTime();
+    void setManualMode(const bool _manualMode);
+    bool getManualMode();
+
     void toggleRealTime();
     void setUTC(const bool _utc);
     void setModify(const bool _modify);
@@ -82,13 +86,13 @@ signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void showInfoLabel(QString _msg);
     void currentQRZSignal(QString _msg);
-    void clearForNextQSOSignal();
+    void clearForNextQSOSignal(QString _func);
     void bandChanged(QString _band);
     void modeChanged(QString _mode);
     void OKClicked();
     void validBands(QStringList _bands);
     void handOverFocusSignal();
-    void hamlibSetActiveSignal(bool _active);
+    void manualModeSignal(bool _active);
 
 private slots:
     void slotUpdateTime();

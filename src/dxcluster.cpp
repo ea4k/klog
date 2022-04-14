@@ -108,6 +108,15 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToC
 
 }
 
+DXClusterWidget::~DXClusterWidget()
+{
+    delete(dataProxy);
+    delete(awards);
+    delete(world);
+    delete(util);
+    delete(saveSpotsFile);
+}
+
 void DXClusterWidget::initClass()
 {
     dxClusterConnected = false;
@@ -159,12 +168,6 @@ void DXClusterWidget::addData()
 
 
 }
-
-DXClusterWidget::~DXClusterWidget()
-{
-       //qDebug() << "DXClusterWidget::~DXClusterWidget" << QT_ENDL;
-}
-
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
@@ -424,8 +427,6 @@ void DXClusterWidget::slotClusterDataArrived()
                     dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
                 }
             }
-
-
         }
         else
         {
@@ -477,6 +478,12 @@ void DXClusterWidget::slotClusterDataArrived()
         }
 */
         dxClusterListWidget->insertItem(0,item);
+        if (util->isValidCall (dxCall))
+        {
+            //void dxspotArrived(const QString &_call, const QString &_text, const double _freq);
+            QString locator = world->getLocator (dxEntity);
+            emit dxspotArrived(dxCall, locator, dxFrequency.toDouble());
+        }
 
         //dxClusterListWidget->insertItem(0,item);
         //QListWidgetItem *item = new QListWidgetItem();

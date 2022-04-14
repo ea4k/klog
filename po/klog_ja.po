@@ -760,7 +760,7 @@ msgstr "マネージャー"
 #: ../dataproxy_sqlite.cpp:6424
 msgctxt "DataProxy_SQLite|"
 msgid "All QSOs have been updated with a DXCC and the Continent."
-msgstr "全てのQSOにはDXCCと大陸が更新されています。"
+msgstr "全てのQSOはDXCCと大陸が更新されています。"
 
 #: ../dataproxy_sqlite.cpp:4713
 msgctxt ""
@@ -1301,7 +1301,9 @@ msgstr "続行しますか？"
 #: ../filemanager.cpp:1772
 msgctxt "FileManager|"
 msgid "Do you want to add dupe QSOs to your local log?"
-msgstr "自分のローカルログにデュープQSOを追加したいですか？"
+msgstr ""
+"自分のローカルログに重複\n"
+"QSOを追加したいですか？"
 
 #: ../filemanager.cpp:1774
 msgctxt "FileManager|"
@@ -1960,7 +1962,7 @@ msgstr "選んだQSOをLoTWにアップロード"
 #: ../logwindow.cpp:408
 msgctxt "LogWindow|"
 msgid "Upload to ClubLog"
-msgstr "クラブログへのアップロード"
+msgstr "Clublogへのアップロード"
 
 #: ../logwindow.cpp:409
 msgctxt "LogWindow|"
@@ -2272,7 +2274,7 @@ msgstr "LoTWからフルログをダウンロード ..."
 #: ../mainwindow.cpp:3899
 msgctxt "MainWindow|"
 msgid "ClubLog tools ..."
-msgstr "クラブログツール ..."
+msgstr "Clublogツール ..."
 
 #: ../mainwindow.cpp:3906
 msgctxt "MainWindow|"
@@ -2428,7 +2430,7 @@ msgstr "KLog - Exit"
 #: ../mainwindow.cpp:3758
 msgctxt "MainWindow|"
 msgid "&File"
-msgstr "＆ファイル"
+msgstr "&ファイル"
 
 #: ../mainwindow.cpp:3772
 msgctxt "MainWindow|"
@@ -2969,8 +2971,8 @@ msgid ""
 "The ClubLog upload process has finished with an error and the log was "
 "possibly not uploaded."
 msgstr ""
-"クラブログのアップロード処理がエラーで終了し、ログがアップロードされなかった"
-"可能性があります。"
+"Clublogのアップロード処理がエラーで終了し、ログがアップロードされなかった可能"
+"性があります。"
 
 #: ../mainwindow.cpp:2943
 #, qt-format
@@ -4659,7 +4661,7 @@ msgstr "交信すべし!"
 #: ../awards.cpp:905 ../awards.cpp:920 ../awards.cpp:926 ../awards.cpp:932
 msgctxt "QObject|"
 msgid "Worked but not confirmed"
-msgstr "交信済だけど未コンファーム"
+msgstr "交信済だが未コンファーム"
 
 #: ../awards.cpp:935
 msgctxt "QObject|"

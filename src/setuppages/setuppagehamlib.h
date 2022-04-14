@@ -40,7 +40,7 @@ class SetupPageHamLib : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SetupPageHamLib(QWidget *parent = nullptr);
+    explicit SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     QString getData();
     bool setRigType(const QString &_radio);
     void setPollingInterval(const int _msecs);
@@ -57,6 +57,7 @@ public:
     void setReadOnly(const QString &_m);
     void setRadioNetworkAddress(const QString &_m);
     void setRadioNetworkPort(const int _p);
+    void stopHamlib();
 
 public slots:
     //void slotScanPorts();
@@ -74,7 +75,7 @@ private:
     int getDataBits();
     QString getFlowControl();
     QString getParity();
-    int getStopBits();
+    //int getStopBits();
 
 
     QTabWidget *tabWidget;

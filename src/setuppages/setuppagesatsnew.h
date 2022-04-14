@@ -43,7 +43,7 @@ class SetupPageSatsNew : public QDialog
 
 public:
     SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-
+    ~SetupPageSatsNew();
     void setEditing(const bool b);
 
     void setShortName(const QString st);

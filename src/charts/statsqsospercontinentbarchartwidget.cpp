@@ -26,7 +26,7 @@
 #include "charts/statsqsospercontinentbarchartwidget.h"
 
 
-//StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(){}
+StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(){}
 
 StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

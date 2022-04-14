@@ -159,7 +159,7 @@ void AdifLoTWExportWidget::setTopLabel(const QString &_t)
 void AdifLoTWExportWidget::fillTable()
 {
     //qDebug() << "AdifLoTWExportWidget::fillTable " << QT_ENDL;
-
+    QList<int> qsos;
        qsos.clear();
        bool justQueued = true;
        switch (currentExportMode)
@@ -186,9 +186,6 @@ void AdifLoTWExportWidget::fillTable()
        case ModeQRZ:
            //qDebug() << "AdifLoTWExportWidget::fillTable QRZ" << QT_ENDL;
            justQueued = true;
-           break;
-       case ModeWSJTX:
-           justQueued = false;
            break;
        }
 
@@ -225,11 +222,6 @@ void AdifLoTWExportWidget::fillTable()
                //qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
                 qsos.append(dataProxy->getQSOsListLoTWToSend (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
               //qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
-           }
-           else if (currentExportMode == ModeWSJTX)
-           {
-               qDebug() << Q_FUNC_INFO << ": Mode WSJTX";
-                qsos.append(dataProxy->getQSOsListToBeExportedForWSJTX (stationCallsignComboBox->currentText(), startDate->date(), endDate->date()));
            }
            else
            {//(currentExportMode == ModeADIF)
@@ -324,22 +316,22 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
     this->hide();
     if (stationCallsignComboBox->currentIndex() == 0)
     {
-        emit selection("NOT", startDate->date(), endDate->date(), currentExportMode, qsos);
+        emit selection("NOT", startDate->date(), endDate->date(), currentExportMode);
     }
     else if (stationCallsignComboBox->currentIndex() == 1)
     {
         if ((currentExportMode == ModeLotW) || (currentExportMode == ModeClubLog) || (currentExportMode == ModeQRZ)|| (currentExportMode == ModeEQSL))
         {
-            emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode, qsos);
+            emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
         }
         else
         {
-            emit selection("ALL", startDate->date(), endDate->date(), currentExportMode, qsos);
+            emit selection("ALL", startDate->date(), endDate->date(), currentExportMode);
         }
     }
     else
     {
-        emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode, qsos);
+        emit selection(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
     }
     //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked - END" << QT_ENDL;
     close();
@@ -392,11 +384,6 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
     {
         setWindowTitle(tr("KLog - QSOs to be uploaded to QRZ.com."));
         topLabel->setText(tr("This table shows the QSOs that will be sent to QRZ.com."));
-    }
-    else if (currentExportMode == ModeWSJTX)
-    {
-        setWindowTitle(tr("KLog - QSOs to be exported for WSJT-X."));
-        topLabel->setText(tr("This table shows the QSOs that will be exported for WSJT-X."));
     }
     else
     {
