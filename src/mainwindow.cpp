@@ -207,7 +207,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     softUpdate = new SoftwareUpdate(softwareVersion);
      //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
+    filemanager = new FileManager(dataProxy);
      //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
@@ -299,12 +299,13 @@ void MainWindow::init()
     }
     else
     {
+        debugFile->close();
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
     configFileName = util->getCfgFile();
     setupDialog->init(configFileName, softwareVersion, 0, !configured);
-
+    filemanager->init();
     manualMode = false;
     qrzAutoChanging = false;
     //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
@@ -8718,4 +8719,5 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
     }
     QTextStream out(debugFile);
     out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << QT_ENDL;
+    debugFile->close();
 }
