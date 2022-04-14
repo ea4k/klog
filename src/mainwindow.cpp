@@ -5050,9 +5050,9 @@ bool MainWindow::processConfigLine(const QString &_line){
             mainQRZ = value;
         }
     }else if (field=="CQZ"){
-        my_CQz = value.toInt();
+        //my_CQz = value.toInt();
     }else if (field=="ITUZ"){
-        my_ITUz = value.toInt();
+        //my_ITUz = value.toInt();
     }else if (field=="CONTEST"){
                     //qDebug() << "MainWindow::processConfigLine: CONTEST: " << QT_ENDL;
         contestMode = value;

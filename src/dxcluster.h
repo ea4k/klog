@@ -98,7 +98,7 @@ private:
     bool dxClusterAlreadyConnected;
     QString server;
     quint16 port;
-    quint16 blockSize;
+    //quint16 blockSize;
 
     QColor dxSpotColor;
 
@@ -108,7 +108,7 @@ private:
     Utilities *util;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
-    bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
+    //bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     bool showDxMarathon;
 
     QString myQrz;

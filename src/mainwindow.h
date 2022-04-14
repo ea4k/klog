@@ -654,8 +654,8 @@ private:
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
 
     double myPower, lastPower;
-
-    int my_CQz, my_ITUz, defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
+    //int my_CQz, my_ITUz; Not used
+    int defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
     int currentEntity, previousEntity;
     bool InValidCharsInPrevCall;
     int currentLog; // This is to be able to manage multiple logs without showing
