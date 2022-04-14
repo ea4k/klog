@@ -210,8 +210,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
             logsModel->select();
             updateSelectedLogs();
             stringQuery = QString("DELETE FROM log WHERE lognumber='%1'").arg(selectedLog);
-            query.exec(stringQuery);
-            sqlOk = query.exec();
+            sqlOk = query.exec(stringQuery);
                //qDebug() << "SetupPageLogs::slotRemoveButtonClicked: LastQuery: " << query.lastQuery()  << QT_ENDL;
             if (sqlOk)
             {

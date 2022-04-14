@@ -667,7 +667,10 @@ bool DataBase::createDataBase()
 
     execQuery(Q_FUNC_INFO, stringQuery);
 
-    updateDBVersion(softVersion, QString::number(DBVersionf));
+    if (updateDBVersion(softVersion, QString::number(DBVersionf)))
+    { // It was not possible to save the DB version
+        return false;
+    }
 
     createTableBand(true);
     populateTableBand(true);
@@ -691,12 +694,12 @@ bool DataBase::createDataBase()
       confirmed = 1     Set as Confirmed
       */
 
-      stringQuery = QString("CREATE TABLE continent ("
+    stringQuery = QString("CREATE TABLE continent ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(2) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
     execQuery(Q_FUNC_INFO, stringQuery);
-      stringQuery = QString("CREATE TABLE ant_path_enumeration ("
+    stringQuery = QString("CREATE TABLE ant_path_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");

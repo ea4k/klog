@@ -147,14 +147,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     statusBarMessage = tr("Starting KLog");
 
-    if (!QDir::setCurrent ( klogDir )){
-        QDir d1(klogDir);
-        if (d1.mkdir(klogDir))
-        {
-            QDir::setCurrent ( klogDir );
-        }
-    }
-
     //qDebug() << Q_FUNC_INFO << ": 40: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     world = new World(dataProxy, Q_FUNC_INFO);
 
@@ -285,6 +277,24 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init()
 {
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    if (!QDir::setCurrent ( klogDir )){
+        QDir d1(klogDir);
+        if (d1.mkdir(klogDir))
+        {
+            if (!QDir::setCurrent ( klogDir ))
+            {
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
+                QString aux = tr("It was not possible to define the KLOg folder. Some functions may not work properly!");
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+        }
+    }
+
     if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
         debugFileOpen = false;
