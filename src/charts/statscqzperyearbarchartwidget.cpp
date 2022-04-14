@@ -30,6 +30,8 @@
 StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget()
 {
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
 }
 
 StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
