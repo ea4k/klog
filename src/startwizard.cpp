@@ -961,7 +961,6 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
    layout->addWidget(ctyBrowser);
    layout->addLayout(buttonLayout);
    setLayout(layout);
-
 }
 
 

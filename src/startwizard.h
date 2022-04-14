@@ -168,7 +168,7 @@ signals:
 
       QLabel *topLabel;
       QTextEdit *ctyBrowser;
-      QCheckBox *downloadCTYCheckBox;
+      //QCheckBox *downloadCTYCheckBox;
       QProgressBar *progressBar;
       QPushButton *downloadButton, *ignoreDownloadButton;
       QCheckBox *hiddenCheckBox;
