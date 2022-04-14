@@ -27,7 +27,12 @@
 #include "charts/statsqsosperdxccbarchartwidget.h"
 
 
-StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(){}
+StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

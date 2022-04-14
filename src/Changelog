@@ -1,3 +1,8 @@
+
+TBD - 2.2
+- Bugfix: Clublog QSO status export to file was not properly done.
+- Improvement: General code cleaning (coveralls.io)
+
 Feb 2022 - 2.1
 - Improvement: Changed the map provider to ESRI to be able to get Map legends in English.
 - Improvement: Added two buttons to the map to change the zoom level.

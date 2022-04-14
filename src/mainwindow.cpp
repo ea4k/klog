@@ -147,21 +147,14 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     statusBarMessage = tr("Starting KLog");
 
-    if (!QDir::setCurrent ( klogDir )){
-        QDir d1(klogDir);
-        if (d1.mkdir(klogDir))
-        {
-            QDir::setCurrent ( klogDir );
-        }
-    }
-
     //qDebug() << Q_FUNC_INFO << ": 40: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    world = new World(dataProxy, klogDir, softwareVersion, Q_FUNC_INFO);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    configFileName = util->getCfgFile();
+
     //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    setupDialog = new SetupDialog(dataProxy, configFileName, softwareVersion, 0, !configured, this);
+    setupDialog = new SetupDialog(dataProxy, this);
+
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " << QT_ENDL;
     satTabWidget = new MainWindowSatTab(dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -192,7 +185,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     loggWinAct = new QAction(tr("&Log Window"), this);
 
      //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
+    //dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
+    dxClusterWidget = new DXClusterWidget(dataProxy, this);
+
      //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -207,7 +202,9 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     softUpdate = new SoftwareUpdate(softwareVersion);
      //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    filemanager = new FileManager(dataProxy, klogDir, softwareVersion);
+
+    filemanager = new FileManager(dataProxy);
+
      //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
@@ -248,7 +245,6 @@ MainWindow::~MainWindow()
     delete(softUpdate);
     delete(filemanager);
     delete(fileAwardManager);
-    logEvent(Q_FUNC_INFO, "KLog exit", Info);
 }
 
 void MainWindow::saveWindowsSize()
@@ -286,6 +282,24 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init()
 {
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    if (!QDir::setCurrent ( klogDir )){
+        QDir d1(klogDir);
+        if (d1.mkdir(klogDir))
+        {
+            if (!QDir::setCurrent ( klogDir ))
+            {
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
+                QString aux = tr("It was not possible to define the KLOg folder. Some functions may not work properly!");
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+        }
+    }
+
     if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
         debugFileOpen = false;
@@ -300,9 +314,14 @@ void MainWindow::init()
     }
     else
     {
+        debugFile->close();
         debugFileOpen = true;
         logEvent(Q_FUNC_INFO, "KLog started!", Info);
     }
+
+    configFileName = util->getCfgFile();
+    setupDialog->init(configFileName, softwareVersion, 0, !configured);
+    filemanager->init();
     manualMode = false;
     qrzAutoChanging = false;
     //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
@@ -330,8 +349,10 @@ void MainWindow::init()
 
     setCleaning(false);
     //qDebug() << "MainWindow::init - 10" << QT_ENDL;
-    dxclusterServerToConnect = "dxfun.com";
-    dxclusterServerPort = 8000;
+    dxClusterWidget->init();
+    //dxclusterServerToConnect = "dxfun.com";
+    //dxclusterServerPort = 8000;
+    //dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);
     contestMode = "DX";
     infoTimeout = 2000; // default timeout
 
@@ -5037,9 +5058,9 @@ bool MainWindow::processConfigLine(const QString &_line){
             mainQRZ = value;
         }
     }else if (field=="CQZ"){
-        my_CQz = value.toInt();
+        //my_CQz = value.toInt();
     }else if (field=="ITUZ"){
-        my_ITUz = value.toInt();
+        //my_ITUz = value.toInt();
     }else if (field=="CONTEST"){
                     //qDebug() << "MainWindow::processConfigLine: CONTEST: " << QT_ENDL;
         contestMode = value;
@@ -8709,10 +8730,14 @@ void MainWindow::logEvent(const QString &_func, const QString &_msg, const Debug
    //    return;
    // }
     //Criticality
-    if (!debugFileOpen)
+
+    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    //if (!debugFileOpen)
+
     {
         return;
     }
     QTextStream out(debugFile);
     out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << QT_ENDL;
+    debugFile->close();
 }

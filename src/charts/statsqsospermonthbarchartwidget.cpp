@@ -27,7 +27,12 @@
 #include "charts/statsqsospermonthbarchartwidget.h"
 
 
-StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(){}
+StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

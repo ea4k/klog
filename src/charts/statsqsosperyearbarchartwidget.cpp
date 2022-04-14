@@ -27,7 +27,12 @@
 #include "charts/statsqsosperyearbarchartwidget.h"
 
 
-StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(){}
+StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

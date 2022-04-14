@@ -26,7 +26,12 @@
 
 #include "charts/statsworkedconfirmedpiechartwidget.h"
 
-StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(){}
+StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
@@ -35,8 +40,6 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
       //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget" << QT_ENDL;
 #else
 #endif
-
-
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);

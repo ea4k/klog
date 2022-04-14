@@ -64,9 +64,10 @@ class FileManager : public QWidget
 public:
     FileManager(DataProxy_SQLite *dp);
     //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
-    FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion);
+    //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
     //FileManager(DataProxy_SQLite *dp, const QString &_softVersion);
     ~FileManager();
+    void init();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog2(const QString& fileName, const int logN);
@@ -153,7 +154,7 @@ private:
 
     QSqlQuery preparedQuery;
 
-    int constrid; // Just an id for the constructor to check who is being executed at one specific time
+    //int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
 
 signals:

@@ -667,7 +667,10 @@ bool DataBase::createDataBase()
 
     execQuery(Q_FUNC_INFO, stringQuery);
 
-    updateDBVersion(softVersion, QString::number(DBVersionf));
+    if (updateDBVersion(softVersion, QString::number(DBVersionf)))
+    { // It was not possible to save the DB version
+        return false;
+    }
 
     createTableBand(true);
     populateTableBand(true);
@@ -691,12 +694,12 @@ bool DataBase::createDataBase()
       confirmed = 1     Set as Confirmed
       */
 
-      stringQuery = QString("CREATE TABLE continent ("
+    stringQuery = QString("CREATE TABLE continent ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(2) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
     execQuery(Q_FUNC_INFO, stringQuery);
-      stringQuery = QString("CREATE TABLE ant_path_enumeration ("
+    stringQuery = QString("CREATE TABLE ant_path_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(1) NOT NULL, "
                  "name VARCHAR(15) NOT NULL)");
@@ -2036,7 +2039,7 @@ bool DataBase::updateTo004()
        //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) << QT_ENDL;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
-    bool ErrorUpdating = false;
+
     QString stringQuery = QString();
     QSqlQuery query;
 
@@ -2053,19 +2056,14 @@ bool DataBase::updateTo004()
         IAmIn004 = false;
     }
 
-    while (!IAmIn004 && !ErrorUpdating)
+    while (!IAmIn004)
     {
            //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" << QT_ENDL;
-        while (!IAmIn003 && !ErrorUpdating)
+        while (!IAmIn003)
         {
                //qDebug() << "DataBase::updateTo004: - And I am not in 003" << QT_ENDL;
             //IAmIn002 = updateTo002();
             IAmIn003 = true;
-        }
-        if (ErrorUpdating)
-        {
-           //// emit debugLog(Q_FUNC_INFO, "1", 7);
-            return false;
         }
            //qDebug() << "DataBase::updateTo004: - And I am in 003" << QT_ENDL;
         sqlOk = updateDBVersion(softVersion, "0.004");
@@ -4000,8 +3998,6 @@ bool DataBase::updateBandIdTableAward(const int _db)
 
     bool cancel = false;
     bool alreadyCancelled = false;
-    //int errorCode = -1;
-
 
     QString sq = QString();
     bool sqlOk2 = false;
@@ -4012,7 +4008,6 @@ bool DataBase::updateBandIdTableAward(const int _db)
     int i = 0;
     QString aux;
     QSqlQuery query, query2;
-
 
     sq = QString("SELECT COUNT (*) FROM %1").arg(table);
 
@@ -4062,12 +4057,11 @@ bool DataBase::updateBandIdTableAward(const int _db)
                     progress.setValue(i);
                 }
 
-
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << QT_ENDL;
+                //qDebug() << "DataBase::updateBandIdTableAward: band found: " << bandtxt << QT_ENDL;
 
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -4602,7 +4596,6 @@ bool DataBase::updateTo008()
     //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() << QT_ENDL;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
-    bool ErrorUpdating = false;
 
     latestReaded = getDBVersion().toFloat();
     if (latestReaded >= 0.008f)
@@ -4617,20 +4610,15 @@ bool DataBase::updateTo008()
     }
 
 
-    while (!IAmIn008 && !ErrorUpdating)
+    while (!IAmIn008)
     {
-        while (!IAmIn007 && !ErrorUpdating)
+        while (!IAmIn007 )
         {
                //qDebug() << "DataBase::updateTo008: - And I am not in 007" << QT_ENDL;
             IAmIn007 = updateTo007();
         }
            //qDebug() << "DataBase::updateTo008: - I am in 007" << QT_ENDL;
-        if (ErrorUpdating)
-        {
-               //qDebug() << "DataBase::updateTo008: - NOK-1" << QT_ENDL;
-           // emit debugLog(Q_FUNC_INFO, "1", 7);
-            return false;
-        }
+
 
         //DO ALL THE TASKS TO BE IN 0.008 from 0.007 HERE and set ErrorUpdating if it is not possible.
 

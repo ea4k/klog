@@ -45,7 +45,8 @@ class DXClusterWidget : public QWidget
 
  public:
     DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent );
-    DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
+    //DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
+    void init();
     ~DXClusterWidget();
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
@@ -79,7 +80,7 @@ private:
 
     //void TESTADDSPOT(); // Just a test spot
 
-    void initClass();
+
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);
     bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
@@ -98,7 +99,7 @@ private:
     bool dxClusterAlreadyConnected;
     QString server;
     quint16 port;
-    quint16 blockSize;
+    //quint16 blockSize;
 
     QColor dxSpotColor;
 
@@ -108,12 +109,11 @@ private:
     Utilities *util;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
-    bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
+    //bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     bool showDxMarathon;
 
     QString myQrz;
     int currentLog;
-    int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
     QFile *saveSpotsFile;
     bool saveSpots; // write/save the spots to a file

@@ -33,19 +33,21 @@ This class calls all the othet "Setup..." to manage the configuration
 
 */
 
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime, QWidget *parent)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime);
 
     logSeverity = Info;
     constrid = 2;
     util = new Utilities;
-    firstTime = _firstTime;
+    firstTime = true;
     latestBackup = QString();
     dataProxy = dp;
-    configFileName = _configFile;
-    version = _softwareVersion;
-    pageRequested = _page;
+
+    configFileName = QString();
+    version = QString();
+    pageRequested = 0;
+
     int logsPageTabN=-1;
     //qDebug() << Q_FUNC_INFO << ": 01" << QT_ENDL;
 
@@ -93,7 +95,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
     //qDebug() << "SetupDialog::SetupDialog 03" << QT_ENDL;
 
-    QPushButton *closeButton = new QPushButton(tr("Cancel"));
+    closeButton = new QPushButton(tr("Cancel"));
     okButton = new QPushButton(tr("OK"));
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
@@ -115,6 +117,20 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
 
     //qDebug() << Q_FUNC_INFO << ": 05" << QT_ENDL;
 
+    //init();
+    //hamlibPage->slotTestHamlib ();
+
+    connectActions();
+    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+}
+
+void SetupDialog::init(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
+{
+    firstTime = _firstTime;
+    configFileName = _configFile;
+    version = _softwareVersion;
+    pageRequested = _page;
+
     slotReadConfigData();
     //qDebug() << Q_FUNC_INFO << ": 05.1" << QT_ENDL;
 
@@ -125,11 +141,11 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, const QString &_configFile, const
     }
     //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
-    //hamlibPage->slotTestHamlib ();
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connectActions();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+
 }
 
 SetupDialog::~SetupDialog()
@@ -153,6 +169,8 @@ SetupDialog::~SetupDialog()
 void SetupDialog::connectActions()
 {
     emit debugLog (Q_FUNC_INFO, "Start", logSeverity);
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
     connect(logsPage, SIGNAL(focusOK()), this, SLOT(slotFocusOK()) );
     connect (userDataPage, SIGNAL(mainCallsignSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));

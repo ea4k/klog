@@ -34,7 +34,7 @@
     //licAcepted = false;
     version = _softVersion;
     klogDir = _klogDir;
-    inMemory = true;
+    //inMemory = true;
 
     //fileOrMemoryPage = new FileOrMemoryPage();
     ctyPage = new CTYPage(klogDir, version);
@@ -98,33 +98,11 @@
      }
  }
 
- void StartWizard::slotRunInMemory(bool checked)
- {
-     if (checked)
-     {
-         inMemory = true;
-     }
-     else
-     {
-         inMemory = false;
-     }
- }
 
  void StartWizard::slotButtonFinishedClicked()
  {
         //qDebug() << "StartWizard::slotButtonFinishedClicked " << QT_ENDL;
-
-     if (inMemory)
-     {
-         setResult(1);
-            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 1 " << QT_ENDL;
-     }
-     else
-     {
-            //qDebug() << "StartWizard::slotButtonFinishedClicked: done 2 " << QT_ENDL;
-         setResult(2);
-     }
-
+    setResult(2);
  }
 
 /*
@@ -983,7 +961,6 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
    layout->addWidget(ctyBrowser);
    layout->addLayout(buttonLayout);
    setLayout(layout);
-
 }
 
 

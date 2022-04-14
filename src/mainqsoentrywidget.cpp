@@ -794,9 +794,9 @@ void MainQSOEntryWidget::setManualMode(const bool _manualMode)
 
 bool MainQSOEntryWidget::getManualMode()
 {
-    emit debugLog(Q_FUNC_INFO, "Start", Debug);
+    emit debugLog(Q_FUNC_INFO, "Start-End", Debug);
     return manualModeCheckBox->isChecked ();
-    emit debugLog(Q_FUNC_INFO, "END", Debug);
+    //emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainQSOEntryWidget::setUTC(const bool _utc)

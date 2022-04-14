@@ -27,7 +27,12 @@
 #include "charts/statsqsosperhourbarchartwidget.h"
 
 
-StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(){}
+StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

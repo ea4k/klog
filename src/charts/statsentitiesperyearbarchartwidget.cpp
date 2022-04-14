@@ -26,7 +26,12 @@
 #include "charts/statsentitiesperyearbarchartwidget.h"
 
 
-StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(){}
+StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

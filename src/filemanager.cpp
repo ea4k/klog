@@ -27,41 +27,38 @@
 //#include <QDebug>
 
 
+
 FileManager::FileManager(DataProxy_SQLite *dp)
-{
-       //qDebug() << "FileManager::FileManager()-1" << QT_ENDL;
-    constrid = 1;
-    dataProxy = dp;
-    dbCreated = false;
-    rstTXDefault  = false;
-    rstRXDefault = false;
-    ignoreUnknownAlways = false;
-    noMoreQso = false;
-    defaultStationCallsign = QString();
-    duplicatedQSOSlotInSecs = 0;
-
-    util = new Utilities;
-    //qso = new QSO;
-    klogVersion = util->getVersion();
-    db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
-
-    usePreviousStationCallsignAnswerAlways = false;
-    world = new World(dataProxy, Q_FUNC_INFO);
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
-    hashLogs.clear();
-    //qDebug() << "FileManager::FileManager()-1  - END" << QT_ENDL;
-}
-
-
-FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_softVersion)
 //FileManager::FileManager(const QString &_klogDir, const QString &_softVersion, DataBase _db)
 {
-       //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << QT_ENDL;
-    constrid = 2;
+     //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << QT_ENDL;
     dataProxy = dp;
     util = new Utilities;
-    util->setVersion(klogVersion);
+    db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
+
+    world = new World(dataProxy, Q_FUNC_INFO);
+    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << QT_ENDL;
+}
+
+FileManager::~FileManager()
+{
+    delete(db);
+    delete(awards);
+    delete(world);
+}
+
+void FileManager::init()
+{
+    klogVersion = dataProxy->getSoftVersion();
+    klogDir = util->getHomeDir();
     defaultStationCallsign = QString();
+    //constrid = 1;
+    //constrid = 2;
+    ignoreUnknownAlways = false;
+    usePreviousStationCallsignAnswerAlways = false;
+    duplicatedQSOSlotInSecs = 0;
+    sendEQSLByDefault = false;
     dbCreated = false;
     rstTXDefault  = false;
     rstRXDefault = false;
@@ -80,14 +77,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, const QString &_klogDir, const QS
 
     noMoreQso = false;
     hashLogs.clear();
-       //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << QT_ENDL;
-}
-
-FileManager::~FileManager()
-{
-    delete(db);
-    delete(awards);
-    delete(world);
+    util->setVersion(klogVersion);
 }
 
 void FileManager::setDuplicatedQSOSlot (const int _secs)
@@ -4349,7 +4339,9 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        //TODO: Add a isValidUploadStatus
+
+        if ( util->isValidUpload_Status(aux))
         {
             out << "<HRDLOG_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4533,7 +4525,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( util->isValidUpload_Status(aux) )
         {
             out << "<CLUBLOG_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4553,7 +4545,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( util->isValidUpload_Status(aux) )
         {
             out << "<QRZCOM_QSO_UPLOAD_STATUS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }

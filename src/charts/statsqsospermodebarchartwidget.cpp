@@ -27,7 +27,12 @@
 #include "charts/statsqsospermodebarchartwidget.h"
 
 
-StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(){}
+StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget()
+{
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
+    chart = new QChart();
+    chartView = new QChartView(chart);
+}
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {

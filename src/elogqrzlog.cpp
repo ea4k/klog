@@ -56,7 +56,7 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
     uploadingFile = false;
     logged = false;
     util = new Utilities;
-    serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
+   // serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
     //serviceUrl = QUrl("https://xmldata.qrz.com/xml/1.31/ ");
    //qDebug()<< "eLogQrzLog::eLogQrzLog - END"  << QT_ENDL;
 }
@@ -581,7 +581,7 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
         showDebugLog (Q_FUNC_INFO, "CALL not valid");
         return;
     }
-    serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
+    //serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
 
     if (!canConnect())
     {
@@ -745,7 +745,7 @@ int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
     params.setQuery(postData);
 
     postData = params.query(QUrl::FullyEncoded).toUtf8();
-
+    serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 

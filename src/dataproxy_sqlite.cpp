@@ -8483,7 +8483,8 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+
+        if ( util->isValidUpload_Status(aux))
         {
             ADIFqso.append("<HRDLOG_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
@@ -8662,7 +8663,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( ((aux.length())==1)  && ((aux=="Y") || (aux=="N") || (aux=="M")) )
         {
             ADIFqso.append("<CLUBLOG_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
@@ -8682,7 +8683,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && ((aux!="Y") || (aux!="N") || (aux!="M")) )
+        if ( util->isValidUpload_Status(aux))
         {
             ADIFqso.append("<QRZCOM_QSO_UPLOAD_STATUS:" + QString::number(aux.length()) + ">" + aux  + " ");
         }

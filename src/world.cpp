@@ -38,8 +38,6 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     //qDebug() << "World::World(0)" << _parentFunction << QT_ENDL;
-    constrid = 1;
-
     worldModel = new QSqlRelationalTableModel(this);
     numberOfEntities = 0;
     progressBarPosition = 0;
@@ -50,66 +48,13 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     lat = 0.0;
     lon = 0.0;
     utc = 0.0;
-    klogDir = "";
-    klogVersion = "";
+    //klogDir = "";
+    //klogVersion = "";
     locator = new Locator();
     created = false;
     dataProxy = dp;
     //awards = new Awards(Q_FUNC_INFO);
       //qDebug() << "World::World(0) - END" << QT_ENDL;
-}
-
-World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_parentFunction)
-{
-      //qDebug() << "World::World(1): Dir" << _klogDir << _parentFunction << QT_ENDL;
-    constrid = 2;
-    klogDir = _klogDir;
-    klogVersion = "";
-    worldModel = new QSqlRelationalTableModel(this);
-    numberOfEntities = 0;
-    progressBarPosition = 0;
-    created = false;
-    cqz = -1;
-    ituz = -1;
-    ret = false;
-    continentId = -1;
-    lat = 0.0;
-    lon = 0.0;
-    utc = 0.0;
-    //flagsDir=":/flags/";
-    locator = new Locator();
-    dataProxy = dp;
-      //qDebug() << "World::World(1): - END"  << QT_ENDL;
-
-}
-
-World::World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_klogVer, const QString &_parentFunction)
-{
-   //qDebug() << "World::World(2): Dir" << _klogDir << _parentFunction << QT_ENDL;
-    constrid = 3;
-    klogDir = _klogDir;
-    klogVersion = _klogVer;
-    //qDebug() << "World::World(2): 1" << QT_ENDL;
-    worldModel = new QSqlRelationalTableModel(this);
-    //qDebug() << "World::World(2): 2" << QT_ENDL;
-    numberOfEntities = 0;
-    progressBarPosition = 0;
-    created = false;
-    cqz = -1;
-    ituz = -1;
-    ret = false;
-    continentId = -1;
-    lat = 0.0;
-    lon = 0.0;
-    utc = 0.0;
-    //appDir = QString();
-    //flagsDir=":/flags/";
-      //qDebug() << "World::World(2): 2" << QT_ENDL;
-    locator = new Locator();
-      //qDebug() << "World::World(2): 3" << QT_ENDL;
-    dataProxy = dp;
-    //qDebug() << "World::World(2): - END" << QT_ENDL;
-
 }
 
 World::~World()

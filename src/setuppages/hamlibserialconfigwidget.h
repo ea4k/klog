@@ -2,7 +2,6 @@
 #define HAMLIBSERIALCONFIGWIDGET_H
 
 #include <QtWidgets>
-
 #include <QSerialPortInfo>
 #include "../klogdefinitions.h"
 
@@ -37,8 +36,8 @@ private:
 
     QPushButton *scanSerialPortButton;
     QComboBox *serialBaudsComboBox, *serialPortComboBox, *dataBitsComboBox, *flowControlComboBox, *parityComboBox, *stopBitsComboBox;
-    QLineEdit *dataFromRigLineEdit;
-    QLineEdit *serialPort;
+    //QLineEdit *dataFromRigLineEdit;
+    //QLineEdit *serialPort;
     QStringList serialPorts;
 };
 
