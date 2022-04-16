@@ -64,6 +64,7 @@ private:
     int NorthRole = Qt::UserRole + 1000;
     int SouthRole = Qt::UserRole + 1001;
     int ColorRole = Qt::UserRole + 1002;
+    int TextRole = Qt::UserRole + 1003;
     Locator locator;
     //double lat, lon;
 

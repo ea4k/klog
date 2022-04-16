@@ -352,7 +352,7 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
 bool Locator::checkCoords(const double lon1, const double lat1){
    //qDebug() << "Locator::checkCoords" ;
 // Checks if a coordinates is correct.
-  if ((lat1 > 90.0 || lat1 < -90.0) && (lon1 > 180.0 || lon1 < -180.0)){
+  if (((lat1 <= 90.0) || (lat1 >= -90.0)) && ((lon1 <= 180.0) || (lon1 >= -180.0))){
       return true;
   }else{
     return false;

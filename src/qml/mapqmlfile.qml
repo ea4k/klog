@@ -37,9 +37,24 @@ Rectangle {
     property alias lat: map.center.latitude
     property alias lon: map.center.longitude
     property double oldZoom
+    property double locatorTemplateW
+    property double locatorTemplateH
+    property int wgrid
+/*
+    if (aux.length() == 2)
+    {
+        return (((aux.at(1)).toLatin1() - 'A') * 10) - 85;
+    }
+*/
+    //function getLat(b) {
+    //        a = qth.charCodeAt(0) - 65;
+    //        return a*20
+    //}
+
     //property alias mapLocale: map.plugin.locales
 
-    Location {
+    Location
+    {
             // Define location that will be "center" of map
             id: mapCenter
     }
@@ -86,7 +101,7 @@ Rectangle {
         //{
         //    console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
         //}
-        zoomLevel: 14
+        zoomLevel: 5
         MouseArea
         {
             hoverEnabled: true
@@ -122,7 +137,6 @@ Rectangle {
 
         Rectangle {
             id: buttonout
-
             width: 30
             height: 30
             border.color: "red"
@@ -146,6 +160,7 @@ Rectangle {
                 onClicked: {
                     oldZoom = zoom
                     zoom = oldZoom - 1
+                    canvasGrid.requestPaint()
                 }
             }
         }
@@ -174,6 +189,7 @@ Rectangle {
                 onClicked: {
                     oldZoom = zoom
                     zoom = oldZoom + 1
+                    canvasGrid.requestPaint()
                     //buttonText.text = qsTr("Clicked");
                     //buttonText.color = "black";
                 }
@@ -191,6 +207,27 @@ Rectangle {
                 color         : model.color
                 //opacity       : 0.5
             }
+
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                //acceptedButtons: Qt.LeftButton
+                //onClicked:
+                //{
+                //             console.log("left button clicked!")
+                //}
+                /*
+                onPositionChanged:
+                {
+                    Qt.point(mouseX, mouseY)
+                    var coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+                    console.log("Mouse Position (", mouseX, ", ", mouseY, ")");
+                    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
+                    var posicion = map.fromCoordinate(coordinate, false);
+                    console.log("Pos (", posicion.x, ", ", posicion.y, ")");
+                }
+                */
+            }
         }
         MapItemView
         {
@@ -202,6 +239,100 @@ Rectangle {
                     border.width: 10
               }
         }
+       Canvas {
+            id: canvasGrid
+            anchors.fill : parent
+            function clear_canvas() {
+                        var ctx = getContext("2d");
+                        ctx.reset();
+                        requestPaint();
+                    }
+            onPaint: {
+
+                clear_canvas()
+                if (map.zoomLevel > 7)
+                {
+                    //wgrid = 80
+                    console.log("Zoom>7: ", zoom);
+                    console.log("wgrid: ", wgrid);
+                }
+                else
+                {
+                    //wgrid = 10
+                    console.log("Zoom<7: ", zoom);
+                    console.log("wgrid: ", wgrid);
+                }
+
+                var ctx = getContext("2d")
+                ctx.lineWidth = 1
+                ctx.strokeStyle = "black"
+                ctx.beginPath()
+                /*
+                        var posicion = map.fromCoordinate(coordinate, false);
+                        console.log("Pos (", posicion.x, ", ", posicion.y, ")");
+                */
+                //https://dxcluster.ha8tks.hu/hamgeocoding/L.Maidenhead.js
+                //wgrid = 18
+                //var nrows = height/wgrid;
+                console.log("Height: ", height);
+                console.log("Width: ", width);
+                //console.log("Rows: ", nrows);
+                var w = map.toCoordinate(Qt.point(0,0));
+                var e = map.toCoordinate(Qt.point(width,height));
+                console.log("West: ", w.latitude, ",", w.longitude);
+                console.log("East: ", e.latitude, ",", e.longitude);
+
+                //coordinate: QtPositioning.coordinate(-27.5, 153.1)
+                var nrows = 18
+                var lati = w.longitude
+                var posici
+                //center: QtPositioning.coordinate(19.997454, 73.789803)
+                var controlPoint = w
+                //var mouseGeoPos = map.toCoordinate(Qt.point(mouse.x, mouse.y));
+                //var preZoomPoint = map.fromCoordinate(mouseGeoPos, false);
+                for(var i=0; i < 10; i++){
+                    //QtPositioning.coordinate((360/filas)*i, 0)
+                    // -180 -> 180
+                    controlPoint = controlPoint + QtPositioning.coordinate(w.latitude+(10.0*i), w.longitude)
+                    //posici = map.fromCoordinate(controlPoint, true);
+
+                    lati = posici.y
+                    console.log("Y: ", lati);
+                    ctx.moveTo(0, lati);
+                    ctx.lineTo(width, lati);
+                }
+                //for(var i=0; i < nrows+1; i++){
+                //    ctx.moveTo(0, wgrid*i);
+                //    ctx.lineTo(width, wgrid*i);
+                //}
+
+                //var ncols = width/wgrid
+                //console.log("Painting ncols: ", ncols);
+                //for(var j=0; j < ncols+1; j++){
+                //    ctx.moveTo(wgrid*j, 0);
+                //    ctx.lineTo(wgrid*j, height);
+                //}
+                ctx.closePath()
+                ctx.stroke()
+            }
+        }
+
+        /*
+        Text { // text changes when button was clicked
+                id: status
+                //x: 12; y: 76
+                //width: 116; height: 26
+                text: "waiting ..."
+                //horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                //verticalAlignment: Text.AlignVCenter
+                //anchors.centerIn: parent
+            }
+        */
     }
+
+
+
 
 }

@@ -32,16 +32,13 @@
 
 MapWidget::MapWidget(QWidget *parent)
 {
-
     //qDebug() << Q_FUNC_INFO;
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::init()
 {
     createUI();
-
 }
 
 void MapWidget::createUI()
@@ -81,7 +78,7 @@ void MapWidget::clearMap()
 void MapWidget::setCenter(const Coordinate &_c)
 {
     QObject *object = qmlView.rootObject ();
-    object->setProperty ("zoom", 8.0);
+    object->setProperty ("zoom", 2.0);
     object->setProperty ("lat", _c.lat);
     object->setProperty ("lon", _c.lon);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -104,10 +101,6 @@ void MapWidget::addMarker(const Coordinate _coord)
     QObject *object = qmlView.rootObject ();
     QMetaObject::invokeMethod(object, "addMarker",
             Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));
-//    QMetaObject::invokeMethod(object, "addMarker",
-//            Q_RETURN_ARG(QString, returnedValue),
-//            Q_ARG(double, 40.5), Q_ARG(double, -3.5));
-
 }
 
 void MapWidget::addQSO(const QString &_loc)
@@ -118,7 +111,6 @@ void MapWidget::addQSO(const QString &_loc)
         return;
     }
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
     modelCircle.appendRow(item);
@@ -152,6 +144,7 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
         item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
         item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
         item->setData(QVariant::fromValue(_color), ColorRole);
+        item->setData(QVariant::fromValue(_loc), TextRole);
         modelRectangle.appendRow(item);
         //qDebug() << Q_FUNC_INFO << " Rectangle OK";
     }
