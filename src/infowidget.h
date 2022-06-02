@@ -54,6 +54,7 @@ public:
     void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
     void setLocalLocator(const QString &_loc);   //MAYBE NOT NEEDED
     void setDXLocator(const QString &_loc);      //MAYBE NOT NEEDED
+    int getDistance(bool shortPath=true);                          // Returns the distance in KM
 
 private:
     void clearBandLabels();

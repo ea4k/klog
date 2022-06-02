@@ -1270,6 +1270,13 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
+
+    if (infoWidget->getDistance ()>0)
+    {
+        stringFields = stringFields + ", distance";
+        stringData = stringData + ", '" + QString::number(infoWidget->getDistance ()) + "'";
+    }
+
     aux1 = QSOTabWidget->getDXLocator();
 
     if ( locator->isValidLocator(aux1)  )
@@ -2076,6 +2083,19 @@ QString MainWindow::readDataFromUIDXModifying()
     {
         updateString = updateString + "name = '', ";
     }
+
+
+
+    if (infoWidget->getDistance ()>0)
+    {
+        updateString = updateString + "distance = '";
+        updateString = updateString + QString::number(infoWidget->getDistance ()) + "', ";
+    }
+    else
+    {
+        updateString = updateString + "distance = '', ";
+    }
+
     aux1 = QSOTabWidget->getDXLocator ();
     if ( locator->isValidLocator(aux1)  )
     {
