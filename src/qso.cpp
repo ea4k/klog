@@ -87,6 +87,11 @@ void QSO::clear()
     dxcc = -1;
     propMode = QString();
     iota = QString();
+    a_index = -1;
+    ant_el = 0;
+    ant_az = 0;
+    ant_path = QString();
+    arrl_sect = QString();
 
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
@@ -1056,7 +1061,7 @@ QString QSO::getMyAntenna()
     return my_antenna;
 }
 
-double QSO::setAge(const double _c)
+bool QSO::setAge(const double _c)
 {
     if ((0 <= _c) && (_c <= 120))
     {
@@ -1234,6 +1239,89 @@ bool QSO::setKeepSatTab(bool _k)
 bool QSO::getKeepSatTab()
 {
     return keepSat;
+}
+
+bool QSO::setAddress(const QString &_c)
+{
+   address = _c;
+   return true;
+
+}
+
+QString QSO::getAddress()
+{
+    return address;
+}
+
+bool QSO::setA_Index(const int _i)
+{
+    if ((_i>=0) && (_i<=400))
+    {
+        a_index = _i;
+        return true;
+    }
+    return false;
+}
+
+int QSO::getA_Index()
+{
+    return a_index;
+}
+
+
+bool QSO::setAnt_az(const double _c)
+{ //TODO: Adjust number: http://www.adif.org/312/ADIF_312.htm#QSO_Field_ANT_AZ
+    if ((0 <= _c) && (_c <= 360))
+    {
+        ant_az = _c;
+        return true;
+    }
+    return false;
+}
+double QSO::getAnt_az()
+{
+    return ant_az;
+}
+
+bool QSO::setAnt_el(const double _c)
+{ //TODO: Adjust number: http://www.adif.org/312/ADIF_312.htm#QSO_Field_ANT_EL
+    if ((-90 <= _c) && (_c <= 90))
+    {
+        ant_el = _c;
+        return true;
+    }
+    return false;
+}
+
+double QSO::getAnt_el()
+{
+    return ant_el;
+}
+
+bool QSO::setAnt_Path(const QString &_c)
+{
+    if (!util->isValidAntPath (_c))
+        return false;
+    ant_path = _c;
+    return true;
+}
+
+QString QSO::getAnt_Path()
+{
+    return ant_path;
+}
+
+bool QSO::setARRL_Sect(const QString &_c)
+{
+    if (!util->isValidARRLSect (_c))
+        return false;
+    arrl_sect = _c;
+    return true;
+}
+
+QString QSO::getARRL_Sect()
+{
+    return arrl_sect;
 }
 
 // SET DATA

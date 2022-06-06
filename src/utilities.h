@@ -28,7 +28,9 @@
 /*
     This class implements general use utilities that can be used from any other class
     Anything that is not directly related with a class itself and could be used from different
-    classes should be here
+    classes should be here.
+
+    This classs hould not need to query the DB neither the DataProxy Class
 
 */
 #include <QtGlobal>
@@ -110,6 +112,8 @@ public:
     bool isValidDateFromString(const QString &_s);
     bool isValidDateTimeFromString(const QString &_s);
     bool isValidDXCC(const int _d);
+    bool isValidAntPath(const QString &_s);
+    bool isValidARRLSect(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c);
@@ -154,9 +158,13 @@ private:
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
+    void setARRLSect();
+
     bool darkMode;
     QString dbPath;
     QString softwareVersion;
+
+    QStringList ARRL_sects;
     //QPalette palRed, palBlack;
 
 };

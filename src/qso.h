@@ -163,7 +163,7 @@ public:
     QString getPropMode();
     bool setSOTA_REF(const QString &_c);
     QString getSOTA_REF();
-    double setAge(const double _c);
+    bool setAge(const double _c);
     double getAge();
     bool setIOTA(const QString &_c);
     QString getIOTA();
@@ -201,22 +201,33 @@ public:
     bool setKeepSatTab(bool _k);
     bool getKeepSatTab();
 
+    bool setAddress(const QString &_c);
+    QString getAddress();
 
+    bool setA_Index(const int _i);
+    int getA_Index();
+    bool setAnt_az(const double _c);
+    double getAnt_az();
+    bool setAnt_el(const double _c);
+    double getAnt_el();
 
+    bool setAnt_Path(const QString &_c);
+    QString getAnt_Path();
+
+    bool setARRL_Sect(const QString &_c);
+    QString getARRL_Sect();
 
     bool add();
 
 
 private:
 
-
-
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
-    int qsoId, logId, dxcc;
+    int qsoId, logId, dxcc, a_index;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az;
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
     QString clublog_status;
@@ -225,7 +236,7 @@ private:
     QDate eQSLRDate, eQSLSDate;
     QString QRZCom_status;
     QDate QRZComDate;
-    QString comment;
+    QString comment, address, ant_path, arrl_sect;
     bool keepComment, keepOther, keepMyData, keepSat, modifying;
 
     QString iota;
@@ -238,7 +249,7 @@ private:
 
 
    /*
-   ADDRESS,  ADDRESS_INTL,  AGE,  A_INDEX,  ANT_AZ,  ANT_EL,  ANT_PATH,  ARRL_SECT,  AWARD_GRANTED,  AWARD_SUBMITTED,
+   ADDRESS_INTL, AWARD_GRANTED,  AWARD_SUBMITTED,
    BAND,  BAND_RX,
    CALL,  CHECK,  CLASS,  CLUBLOG_QSO_UPLOAD_DATE,  CLUBLOG_QSO_UPLOAD_STATUS,  CNTY,  COMMENT,  COMMENT_INTL,  CONT,  CONTACTED_OP,  CONTEST_ID,  COUNTRY,  COUNTRY_INTL,  CQZ,  CREDIT_SUBMITTED,  CREDIT_GRANTED,
    DARC_DOK,  DISTANCE,  DXCC,

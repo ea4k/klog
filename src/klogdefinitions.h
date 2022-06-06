@@ -51,7 +51,6 @@ struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstat
   bool confirmed;
 };
 
-
 struct Coordinate {
     double lat;
     double lon;

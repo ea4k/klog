@@ -45,9 +45,27 @@ void Utilities::init()
 {
     softwareVersion = "0.0";
     darkMode = false;
+    setARRLSect();
     //callValidation = true;
 
 }
+
+void Utilities::setARRLSect()
+{
+    ARRL_sects.clear ();
+   //QStringList fonts = { "Arial", "Helvetica", "Times" }
+   QStringList preARRL_sects = {"AL", "AK", "AB", "AR", "AZ", "BC", "CO", "CT", "DE", "EB", "EMA", "ENY", "EPA", "EWA"
+        "GA", "GTA", "ID", "IL", "IN", "IA", "KS", "KY", "LAX", "LA",
+        "ME", "MB", "MAR", "MDC", "MI", "MN", "MS", "MO", "MT",
+        "NE", "NV", "NH", "NM", "NLI", "NL", "NC", "ND", "NTX",
+        "NFL", "NNJ", "NNY", "NT", "NWT", "OH", "OK", "ON",
+        "ONE", "ONN", "ONS", "ORG", "OR", "PAC", "PR", "QC",
+        "RI", "SV", "SDG", "SF", "SJV", "SB", "SCV", "SK", "SC", "SD",
+        "STX", "SFL", "SNJ", "TN", "VI", "UT", "VT", "VA",
+        "WCF", "WTX", "WV", "WMA", "WNY", "WPA", "WWA", "WI", "WY"};
+   ARRL_sects = preARRL_sects;
+}
+
 
 void Utilities::setVersion(const QString &_v)
 {
@@ -1514,6 +1532,21 @@ bool Utilities::isValidDXCC(const int _d)
     {
         return false;
     }
+}
+
+bool Utilities::isValidAntPath(const QString &_s)
+{
+   if ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"))
+       return true;
+   return false;
+}
+
+bool Utilities::isValidARRLSect(const QString &_s)
+{
+
+    if (ARRL_sects.contains (_s.toUpper ()))
+        return true;
+    return false;
 }
 
 QDateTime Utilities::getDateTimeFromSQLiteString(const QString &_s)
