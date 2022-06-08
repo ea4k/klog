@@ -1215,7 +1215,7 @@ bool World::readCTYCSV(const QString &_worldFile)
 
 
                     }
-                    else if (queryP.lastError().nativeErrorCode() =! QString::number(19))
+                    else if (queryP.lastError().nativeErrorCode() != QString::number(19))
                     {
                         //errorCode = queryP.lastError().nativeErrorCode();
                         emit queryError(Q_FUNC_INFO, queryP.lastError().databaseText(), queryP.lastError().nativeErrorCode(), queryP.lastQuery());
