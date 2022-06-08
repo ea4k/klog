@@ -283,10 +283,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
     checkDXHeatFromLogAct->setData(trow);
 
         menu.addSeparator();
-        if (qslSent)
-        {
-        }
-        else
+        if (!qslSent)
         {
             QMenu *menuSentQsl = menu.addMenu(tr("QSL Send"));
             menuSentQsl->addAction(qslSentViaBureauFromLogAct);
@@ -295,10 +292,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
             qslSentViaDirectFromLogAct->setData(trow);
         }
 
-        if (qslReceived)
-        {
-        }
-        else
+        if (!qslReceived)
         {
             QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
             menuRecQsl->addAction(qslRecViaBureauFromLogAct);

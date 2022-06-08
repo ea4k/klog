@@ -48,6 +48,11 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
     //prepareChart();
 }
 
+StatsWorkedConfirmedPieChartWidget::~StatsWorkedConfirmedPieChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsWorkedConfirmedPieChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

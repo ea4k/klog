@@ -601,8 +601,6 @@ void DXClusterWidget::slotClusterInputTextChanged()
         sendButton->setText(tr("Send"));
         clearButton->setText(tr("Clear"));
     }
-    else
-    {}
 }
 
 void DXClusterWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
@@ -610,7 +608,6 @@ void DXClusterWidget::setColors (const QString &_newOne, const QString &_needed,
        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default << QT_ENDL;
     // Just to pass the colors to the awards class
     awards->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
-
 }
 
 void DXClusterWidget::setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy )
@@ -641,10 +638,6 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemSelected()
         ql << "selected";
         emit dxspotclicked(ql);
     }
-    else
-    {
-    }
-
 }
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemEntered( QListWidgetItem * item )
@@ -666,14 +659,7 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemEntered( QListWidgetItem * i
             tip = world->getQRZEntityName(ql.at(0));
             item->setToolTip(tip);
         }
-        else
-        {
-        }
     }
-    else
-    {
-    }
-
 }
 
 

@@ -45,6 +45,11 @@ StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget()
     chartView = new QChartView(chart);
 }
 
+StatsQSOsPerContinentBarChartWidget::~StatsQSOsPerContinentBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsQSOsPerContinentBarChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

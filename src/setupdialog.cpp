@@ -164,6 +164,7 @@ SetupDialog::~SetupDialog()
     delete(satsPage);
     delete(hamlibPage);
     delete(logViewPage);
+    delete(util);
 }
 
 void SetupDialog::connectActions()

@@ -49,6 +49,11 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy
     //prepareChart();
 }
 
+StatsEntitiesPerYearBarChartWidget::~StatsEntitiesPerYearBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsEntitiesPerYearBarChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

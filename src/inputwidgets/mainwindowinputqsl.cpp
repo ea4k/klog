@@ -54,7 +54,10 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
 
 }
 
-MainWindowInputQSL::~MainWindowInputQSL(){}
+MainWindowInputQSL::~MainWindowInputQSL()
+{
+    delete(util);
+}
 
 void MainWindowInputQSL::createUI()
 {

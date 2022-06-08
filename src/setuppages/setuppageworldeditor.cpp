@@ -129,7 +129,8 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent
 SetupPageWorldEditor::~SetupPageWorldEditor()
 {
        //qDebug() << "SetupPageWorldEditor::~SetupPageWorldEditor"  << QT_ENDL;
-
+    delete(world);
+    delete(setupEntityDialog);
 }
 
 void SetupPageWorldEditor::createWorldPanel()

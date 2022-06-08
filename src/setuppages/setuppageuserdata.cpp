@@ -253,6 +253,11 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
 SetupPageUserDataPage::~SetupPageUserDataPage()
 {
        //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage" << QT_ENDL;
+    delete(locator);
+    delete(util);
+    delete(world);
+    delete(defaultPalette);
+    delete(wrongPalette);
 }
 
 QString SetupPageUserDataPage::getMainCallsign()

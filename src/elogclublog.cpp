@@ -210,10 +210,11 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
         //qDebug()<< "eLogClubLog::slotErrorManagement: " << QString::number(networkError) << QT_ENDL;
     result = networkError;
 
-    if (result == QNetworkReply::NoError)
+    /*if (result == QNetworkReply::NoError)
     {
     }
-    else if (result == QNetworkReply::HostNotFoundError)
+    else
+    if (result == QNetworkReply::HostNotFoundError)
     {
              //qDebug()<< "eLogClubLog::slotErrorManagement: Host not found" << QT_ENDL;
     }
@@ -221,7 +222,7 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
     {
              //qDebug()<< "eLogClubLog::slotErrorManagement: ERROR!" << QT_ENDL;
     }
-
+    */
     //actionError(result);
 }
 

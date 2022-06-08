@@ -93,10 +93,7 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
             qsos.clear();
             return;
         }
-        else
-        {
 
-        }
         //qDebug()<< sdata;
         //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - NO ERROR" << QT_ENDL;
         if (uploadingFile)
@@ -148,7 +145,7 @@ void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError
 {
        //qDebug()<< "eQSLUtilities::slotErrorManagement: " << QString::number(networkError) << QT_ENDL;
     result = networkError;
-
+    /*
     if (result == QNetworkReply::NoError)
     {
     }
@@ -161,7 +158,7 @@ void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError
             //qDebug()<< "eQSLUtilities::slotErrorManagement: ERROR!" << QT_ENDL;
     }
 
-    //actionError(result);
+    */
 }
 
 void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, const QString &_defaultStationCallsign)

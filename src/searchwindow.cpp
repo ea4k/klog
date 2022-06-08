@@ -58,6 +58,7 @@ SearchWindow::~SearchWindow()
 //    emit clearError();
     delete(dataProxy);
     delete(util);
+    delete(awards);
 }
 
 
@@ -285,10 +286,7 @@ void SearchWindow::rightButtonFromLogMenu(const int row)
     checkDXHeatFromLogAct->setData(row);
 
         menu.addSeparator();
-        if (qslSent)
-        {
-        }
-        else
+        if (!qslSent)
         {
             QMenu *menuSentQsl = menu.addMenu(tr("QSL Send"));
             menuSentQsl->addAction(qslSentViaBureauFromLogAct);
@@ -306,10 +304,7 @@ void SearchWindow::rightButtonFromLogMenu(const int row)
             qslSentRequestedAct->setData(row);
            }
 
-        if (qslReceived)
-        {
-        }
-        else
+        if (!qslReceived)
         {
             QMenu *menuRecQsl = menu.addMenu(tr("QSL Rcvd"));
             menuRecQsl->addAction(qslRecViaBureauFromLogAct);

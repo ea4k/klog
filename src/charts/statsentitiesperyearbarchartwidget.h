@@ -41,6 +41,7 @@ class StatsEntitiesPerYearBarChartWidget : public StatsGeneralChartWidget
 public:
     StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsEntitiesPerYearBarChartWidget();
+    ~StatsEntitiesPerYearBarChartWidget();
     void prepareChart(const int _log=-1);
 
 signals:

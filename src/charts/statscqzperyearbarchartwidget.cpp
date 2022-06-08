@@ -58,6 +58,11 @@ void StatsCQZPerYearBarChartWidget::createUI()
     setLayout(graphLayout);
 }
 
+StatsCQZPerYearBarChartWidget::~StatsCQZPerYearBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
 {
 

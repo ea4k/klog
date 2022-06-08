@@ -162,10 +162,6 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
         _south.lat = _positionC.lat - (2*0.020833333333333); //(2.5/60/2);
         _south.lon = _positionC.lon + 0.0416666666666667;//(5/60/2);
     }
-    else if (tlocator.length() == 8)
-    {
-
-    }
 
     //qDebug() << Q_FUNC_INFO;
     //qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);

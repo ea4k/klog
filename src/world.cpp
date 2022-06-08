@@ -60,6 +60,7 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 World::~World()
 {
       //qDebug() << "World::~World" << QT_ENDL;
+    delete(locator);
 }
 
 
@@ -1214,9 +1215,7 @@ bool World::readCTYCSV(const QString &_worldFile)
 
 
                     }
-                    else if (queryP.lastError().nativeErrorCode() == QString::number(19))
-                    {}
-                    else
+                    else if (queryP.lastError().nativeErrorCode() =! QString::number(19))
                     {
                         //errorCode = queryP.lastError().nativeErrorCode();
                         emit queryError(Q_FUNC_INFO, queryP.lastError().databaseText(), queryP.lastError().nativeErrorCode(), queryP.lastQuery());

@@ -45,7 +45,7 @@ class SetupPageLogsNew : public QDialog
 public:
     //SetupPageLogsNew(QWidget *parent = 0);
     SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-
+    ~SetupPageLogsNew();
     void setEditing(const bool b);
     void setStationCallSign(const QString &_st);
     void setOperators(const QString &_st);

@@ -42,6 +42,7 @@ class StatsCQZPerYearBarChartWidget : public StatsGeneralChartWidget
 public:
     StatsCQZPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsCQZPerYearBarChartWidget();
+    ~StatsCQZPerYearBarChartWidget();
     void prepareChart(const int _log=-1);
 
 

@@ -45,6 +45,11 @@ StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy_SQLite *d
     //prepareChart();
 }
 
+StatsWorkedSentPieChartWidget::~StatsWorkedSentPieChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsWorkedSentPieChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

@@ -292,9 +292,6 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
             newItem->setForeground (QBrush(Qt::red));
             newItem->setBackground(QBrush(Qt::yellow));
         }
-        else
-        {
-        }
 
         dxccView->setItem(dxccView->rowCount()-1, i+1, newItem);
         //qDebug() << "DXCCStatusWidget::addEntity: rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << QTime::currentTime().toString("HH:mm:ss") << QT_ENDL;
@@ -434,9 +431,6 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
 
             newItem->setForeground (QBrush(Qt::red));
             newItem->setBackground(QBrush(Qt::yellow));
-        }
-        else
-        {
         }
 
         dxccView->setItem(dxccView->rowCount()-1, i+1, newItem);

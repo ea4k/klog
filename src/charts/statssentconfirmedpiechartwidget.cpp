@@ -45,6 +45,11 @@ StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQL
     //prepareChart();
 }
 
+StatsSentConfirmedPieChartWidget::~StatsSentConfirmedPieChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsSentConfirmedPieChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

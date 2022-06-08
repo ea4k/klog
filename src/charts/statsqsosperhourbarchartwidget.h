@@ -42,6 +42,7 @@ class StatsQSOsPerHourBarChartWidget : public StatsGeneralChartWidget
 public:
     StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsQSOsPerHourBarChartWidget();
+    ~StatsQSOsPerHourBarChartWidget();
     void prepareChart(const int _log=-1);
 
 signals:

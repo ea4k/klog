@@ -1024,12 +1024,14 @@ void CTYPage::slotDownloadError(const int ret)
     int i;
     slotStopProgressBar();
     progressBar->setEnabled(false);
-
+    /*
     if(errorCode == QNetworkReply::NoError)
     {
     }
 
-    else if(errorCode == QNetworkReply::HostNotFoundError)
+    else
+    */
+    if(errorCode == QNetworkReply::HostNotFoundError)
 
     {
         i = QMessageBox::warning(this, tr("KLog"),
@@ -1045,10 +1047,12 @@ void CTYPage::slotDownloadError(const int ret)
             slotDownloadFinished(-1);
         }
     }
+    /*
     else
     {
         //TODO: Add a message showing the error that has occur. errorString()?
     }
+    */
 }
 
 void CTYPage::slotStopProgressBar()

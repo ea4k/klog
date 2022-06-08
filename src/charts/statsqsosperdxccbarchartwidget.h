@@ -42,6 +42,7 @@ class StatsQSOsPerDXCCBarChartWidget : public StatsGeneralChartWidget
 public:
     StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsQSOsPerDXCCBarChartWidget();
+    ~StatsQSOsPerDXCCBarChartWidget();
     void prepareChart(const int _log=-1);
 
 signals:

@@ -57,6 +57,11 @@ UDPServer::UDPServer(QObject *parent) :
         connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
 }
 
+UDPServer::~UDPServer()
+{
+    delete(util);
+}
+
 void UDPServer::slotReadPendingDatagrams()
 {
        //qDebug() << "UDPServer::slotReadPendingDatagrams"  << QT_ENDL;

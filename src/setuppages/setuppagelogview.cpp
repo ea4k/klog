@@ -88,9 +88,7 @@ QString SetupPageLogView::getFields()
             b = b + ", ";
         }
     }
-    if (b.size()<2)
-    {
-    }else
+    if (b.size()>=2)
     {
         b.chop(2);
     }

@@ -47,6 +47,7 @@ SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTa
 SearchModel::~SearchModel()
 {
     delete(dataProxy);
+    delete(award);
 }
 
 void SearchModel::setDXCCColumn(const int _i)

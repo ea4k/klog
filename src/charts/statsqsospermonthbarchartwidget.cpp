@@ -46,6 +46,11 @@ StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(DataProxy_SQLit
     //prepareChart();
 }
 
+StatsQSOsPerMonthBarChartWidget::~StatsQSOsPerMonthBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsQSOsPerMonthBarChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

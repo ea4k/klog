@@ -122,10 +122,8 @@ void SetupPageLogs::slotEditButtonClicked()
        //qDebug() << "SetupPageLogs::slotEditButtonClicked" << QT_ENDL;
     //QSqlQuery query;
     //int nameCol = -1;
-
     //selectedLog = getSelectedLog();
-
-    QString getStationCallSignFromLog(const int _log);
+    //QString call = getStationCallSignFromLog(const int _log);
 
     newLog->setEditing(true);
       //qDebug() << "SetupPageLogs::slotEditButtonClicked" << QT_ENDL;

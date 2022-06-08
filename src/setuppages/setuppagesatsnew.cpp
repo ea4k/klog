@@ -212,11 +212,7 @@ void SetupPageSatsNew::slotUpLinkTextChanged()
         }
         else
         { //It is just one freq
-            if (isItAFreq(aux))
-            {
-
-            }
-            else
+            if (!isItAFreq(aux))
             {
                 hasUplink = false;
             }
@@ -260,10 +256,6 @@ void SetupPageSatsNew::slotDownLinkTextChanged()
         else
         { //It is just one freq
             if (isItAFreq(aux))
-            {
-
-            }
-            else
             {
                 hasDownlink = false;
             }

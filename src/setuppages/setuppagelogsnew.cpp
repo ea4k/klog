@@ -65,6 +65,11 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
        //qDebug() << "SetupPageLogsNew::SetupPageLogsNew - END"   << QT_ENDL;
 }
 
+SetupPageLogsNew::~SetupPageLogsNew()
+{
+    delete(util);
+}
+
 void SetupPageLogsNew::clear()
 {
       //qDebug() << "SetupPageLogsNew::Clear - Start"   << QT_ENDL;
@@ -128,7 +133,6 @@ void SetupPageLogsNew::createWidget()
       //qDebug() << "SetupPageLogsNew::createWidget - End" << QT_ENDL;
 
 }
-
 
 void SetupPageLogsNew::slotOperatorsTextChanged()
 {

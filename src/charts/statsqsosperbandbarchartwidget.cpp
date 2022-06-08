@@ -46,6 +46,11 @@ StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy_SQLite 
     //prepareChart();
 }
 
+StatsQSOsPerBandBarChartWidget::~StatsQSOsPerBandBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsQSOsPerBandBarChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

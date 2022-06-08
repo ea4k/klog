@@ -61,6 +61,7 @@ class UDPServer : public QObject
 
 public:
     explicit UDPServer(QObject *parent = nullptr);
+    ~UDPServer();
     bool start();
 
     bool stop();

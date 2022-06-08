@@ -50,6 +50,11 @@ StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite 
     //prepareChart();
 }
 
+StatsQSOsPerModeBarChartWidget::~StatsQSOsPerModeBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsQSOsPerModeBarChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

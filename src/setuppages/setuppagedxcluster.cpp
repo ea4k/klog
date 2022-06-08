@@ -146,6 +146,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 SetupPageDxCluster::~SetupPageDxCluster()
 {
        //qDebug() << "SetupPageDxCluster::~SetupPageDxCluster" << QT_ENDL;
+    delete(util);
 }
 
 

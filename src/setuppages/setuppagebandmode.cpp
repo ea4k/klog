@@ -114,9 +114,7 @@ QString SetupPageBandMode::getBands()
             b = b + ", ";
         }
     }
-    if (b.size()<2)
-    {
-    }else
+    if (b.size()>=2)
     {
         b.chop(2);
     }
@@ -145,9 +143,7 @@ QString SetupPageBandMode::getModes()
         }
     }
 
-    if (b.size()<2)
-    {
-    }else
+    if (b.size()>=2)
     {
         b.chop(2);
     }

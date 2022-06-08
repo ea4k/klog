@@ -42,6 +42,7 @@ class StatsSentConfirmedPieChartWidget : public StatsGeneralChartWidget
 public:
     StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     StatsSentConfirmedPieChartWidget();
+    ~StatsSentConfirmedPieChartWidget();
     void prepareChart(const int _log=-1);
 
 signals:

@@ -512,7 +512,7 @@ void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
        //qDebug()<< "eLogQrzLog::slotErrorManagement: " << QString::number(networkError) << QT_ENDL;
     showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(networkError));
     result = networkError;
-
+    /*
     if (result == QNetworkReply::NoError)
     {
     }
@@ -525,7 +525,7 @@ void eLogQrzLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
             //qDebug()<< "eLogQrzLog::slotErrorManagement: ERROR!" << QT_ENDL;
     }
 
-    //actionError(result);
+    */
     showDebugLog (Q_FUNC_INFO, "END");
 }
 

@@ -50,6 +50,11 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite 
    // prepareChart();
 }
 
+StatsQSOsPerDXCCBarChartWidget::~StatsQSOsPerDXCCBarChartWidget()
+{
+    delete(dataProxy);
+}
+
 void StatsQSOsPerDXCCBarChartWidget::createUI()
 {
     chart->setAnimationOptions(QChart::SeriesAnimations);

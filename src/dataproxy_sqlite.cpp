@@ -3995,9 +3995,6 @@ QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCalls
                     qsoList.append((query.value(0)).toInt());
                 }
             }
-            else
-            {
-            }
         }
     }
     else
@@ -4899,9 +4896,6 @@ QStringList DataProxy_SQLite::getSatellitesList()
                  aux.clear();
                  aux = (query.value(0)).toString() + " - " + (query.value(1)).toString();
                  qs << aux;
-             }
-             else
-             {
              }
          }
      }
