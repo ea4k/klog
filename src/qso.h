@@ -217,27 +217,41 @@ public:
     bool setARRL_Sect(const QString &_c);
     QString getARRL_Sect();
 
+    bool setCheck(const QString &_c);
+    QString getCheck();
+
+    bool setClase(const QString &_c);
+    QString getClase();
+
+    bool setClublogQSOUpdateDate(const QDate &_c);
+    QDate getClublogQSOUpdateDate();
+
+    bool setContinent(const QString &_c);
+    QString getContinent();
+    bool setDistance(const int _i);
+    int getDistance();
+
     bool add();
 
 
 private:
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
-    int qsoId, logId, dxcc, a_index;
-    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
+    int qsoId, logId, dxcc, a_index, distance;
+    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg, check, clase;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
     QDateTime qso_dateTime;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az;
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
     QString clublog_status;
-    QDate clublogDate;
+    QDate clublogDate,clublogQSOUpdateDate;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
     QDate eQSLRDate, eQSLSDate;
     QString QRZCom_status;
     QDate QRZComDate;
-    QString comment, address, ant_path, arrl_sect;
-    bool keepComment, keepOther, keepMyData, keepSat, modifying;
+    QString comment, address, ant_path, arrl_sect, continent;
+    bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance;
 
     QString iota;
 
@@ -247,12 +261,10 @@ private:
     bool backup;
    // DataProxy_SQLite *dataProxy;
 
-
    /*
    ADDRESS_INTL, AWARD_GRANTED,  AWARD_SUBMITTED,
-   BAND,  BAND_RX,
-   CALL,  CHECK,  CLASS,  CLUBLOG_QSO_UPLOAD_DATE,  CLUBLOG_QSO_UPLOAD_STATUS,  CNTY,  COMMENT,  COMMENT_INTL,  CONT,  CONTACTED_OP,  CONTEST_ID,  COUNTRY,  COUNTRY_INTL,  CQZ,  CREDIT_SUBMITTED,  CREDIT_GRANTED,
-   DARC_DOK,  DISTANCE,  DXCC,
+   CNTY,  COMMENT_INTL, CONTACTED_OP,  CONTEST_ID,  COUNTRY,  COUNTRY_INTL,  CQZ,  CREDIT_SUBMITTED,  CREDIT_GRANTED,
+   DARC_DOK,
    EMAIL,  EQ_CALL,  EQSL_QSLRDATE,  EQSL_QSLSDATE,  EQSL_QSL_RCVD,  EQSL_QSL_SENT,
    FISTS,  FISTS_CC,  FORCE_INIT,  FREQ,  FREQ_RX,
    GRIDSQUARE,  GUEST_OP,
@@ -264,7 +276,7 @@ private:
    NAME,  NAME_INTL,  NOTES,  NOTES_INTL,  NR_BURSTS,  NR_PINGS,
    OPERATOR,  OWNER_CALLSIGN,
    PFX,  PRECEDENCE,  PROP_MODE,  PUBLIC_KEY,
-   QRZCOM_QSO_UPLOAD_DATE,  QRZCOM_QSO_UPLOAD_STATUS,  QSLMSG,  QSLMSG_INTL,  QSLRDATE,  QSLSDATE,  QSL_RCVD,  QSL_RCVD_VIA,  QSL_SENT,  QSL_SENT_VIA,  QSL_VIA,  QSO_COMPLETE,  QSO_DATE,  QSO_DATE_OFF,  QSO_RANDOM,  QTH,  QTH_INTL,
+   QSLMSG,  QSLMSG_INTL,  QSLRDATE,  QSLSDATE,  QSL_RCVD,  QSL_RCVD_VIA,  QSL_SENT,  QSL_SENT_VIA,  QSL_VIA,  QSO_COMPLETE,  QSO_DATE,  QSO_DATE_OFF,  QSO_RANDOM,  QTH,  QTH_INTL,
    REGION,  RIG,  RIG_INTL,  RST_RCVD,  RST_SENT,  RX_PWR,
    SAT_MODE,  SAT_NAME,  SFI,  SIG,  SIG_INTL,  SIG_INFO,  SIG_INFO_INTL,  SILENT_KEY,  SKCC,  SOTA_REF,  SRX,  SRX_STRING,  STATE,  STATION_CALLSIGN,  STX,  STX_STRING,  SUBMODE,  SWL,
    TEN_TEN,  TIME_OFF,  TIME_ON,  TX_PWR,

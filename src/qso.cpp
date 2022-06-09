@@ -59,6 +59,7 @@ void QSO::clear()
 
     clublog_status = QString();
     clublogDate = QDate();
+    clublogQSOUpdateDate = QDate();
     eqsl_qsl_sent = QString();
     eqsl_qsl_rcvd = QString();
     eQSLRDate = QDate();
@@ -108,6 +109,15 @@ void QSO::clear()
     keepOther = false;
     keepSat = false;
     modifying = false;
+
+    check = QString();
+    clase = QString();
+    continent = QString();
+    distance = -1;
+
+
+
+
 
 }
 
@@ -165,6 +175,40 @@ bool QSO::setLogId(const int _i)
 int QSO::getLogId()
 {
     return logId;
+}
+
+double QSO::setFreqTX(const double _f)
+{
+    if (_f>0)
+    {
+        freq_tx = _f;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool QSO::setFreqRX(const double _f)
+{
+    if (_f>0)
+    {
+        freq_rx = _f;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+double QSO::getFreqTX()
+{
+    return freq_tx;
+}
+
+double QSO::getFreqRX()
+{
+    return freq_rx;
 }
 
 bool QSO::isValid()
@@ -346,40 +390,6 @@ bool QSO::getManualMode()
     return manualMode;
 }
 
-
-double QSO::setFreqTX(const double _f)
-{
-    if (_f>0)
-    {
-        freq_tx = _f;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-bool QSO::setFreqRX(const double _f)
-{
-    if (_f>0)
-    {
-        freq_rx = _f;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-double QSO::getFreqTX()
-{
-    return freq_tx;
-}
-
-double QSO::getFreqRX()
-{
-    return freq_rx;
-}
 
 // eQSL Tab
 
@@ -1324,7 +1334,79 @@ QString QSO::getARRL_Sect()
     return arrl_sect;
 }
 
-// SET DATA
+bool QSO::setCheck(const QString &_c)
+{
+    check = _c;
+    return true;
+}
+
+QString QSO::getCheck()
+{
+    return check;
+}
+
+bool QSO::setClase(const QString &_c)
+{
+    clase = _c;
+    return true;
+}
+
+QString QSO::getClase()
+{
+    return clase;
+}
+
+bool QSO::setClublogQSOUpdateDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        clublogQSOUpdateDate = _c;
+        return true;
+    }
+    else
+    {
+        clublogQSOUpdateDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getClublogQSOUpdateDate()
+{
+    return clublogQSOUpdateDate;
+}
+
+bool QSO::setContinent(const QString &_c)
+{
+    if (!util->isValidContinent (_c))
+        return false;
+    continent = _c;
+    return true;
+}
+
+QString QSO::getContinent()
+{
+    return continent;
+}
+
+bool QSO::setDistance(const int _i)
+{
+    if (util->isValidDistance(_i))
+    {
+        distance = _i;
+        return true;
+    }
+    return false;
+
+}
+
+int QSO::getDistance()
+{
+    return distance;
+}
+
+
+
+// SET DATA ----------------------------------------------------------------------------------
 bool QSO::setData(const QString &_adifPair)
 {
     //qDebug() << "QSO::setData: " << _adifPair << QT_ENDL;

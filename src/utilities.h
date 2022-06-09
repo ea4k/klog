@@ -114,6 +114,7 @@ public:
     bool isValidDXCC(const int _d);
     bool isValidAntPath(const QString &_s);
     bool isValidARRLSect(const QString &_s);
+    bool isValidContinent(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c);
@@ -148,7 +149,10 @@ public:
     QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
     QString getOnlineServiceName(OnLineProvider _service);
+
+    bool isValidDistance(const int _d);
     //QPalette getPalete(bool _ok);
+
 private:
     void init();
     bool processConfigLine(const QString &_line);
@@ -160,11 +164,15 @@ private:
 
     void setARRLSect();
 
+    void setContinent();
+
+
+
     bool darkMode;
     QString dbPath;
     QString softwareVersion;
 
-    QStringList ARRL_sects;
+    QStringList ARRL_sects, continent;
     //QPalette palRed, palBlack;
 
 };

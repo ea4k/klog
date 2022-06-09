@@ -46,6 +46,7 @@ void Utilities::init()
     softwareVersion = "0.0";
     darkMode = false;
     setARRLSect();
+    setContinent();
     //callValidation = true;
 
 }
@@ -64,6 +65,13 @@ void Utilities::setARRLSect()
         "STX", "SFL", "SNJ", "TN", "VI", "UT", "VT", "VA",
         "WCF", "WTX", "WV", "WMA", "WNY", "WPA", "WWA", "WI", "WY"};
    ARRL_sects = preARRL_sects;
+}
+
+void Utilities::setContinent()
+{
+    continent = QStringList();
+    QStringList continentList = {"NA", "SA", "EU", "AF", "OC", "AS", "AN"};
+    continent = continentList;
 }
 
 
@@ -1537,8 +1545,13 @@ bool Utilities::isValidDXCC(const int _d)
 bool Utilities::isValidAntPath(const QString &_s)
 {
    if ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"))
+   {
        return true;
-   return false;
+   }
+   else
+   {
+        return false;
+   }
 }
 
 bool Utilities::isValidARRLSect(const QString &_s)
@@ -2018,5 +2031,26 @@ QString Utilities::getLogColumnName(const QString &_column)
     else
     {
         return _column;
+    }
+
+}
+
+bool Utilities::isValidContinent(const QString &_s)
+{
+    if (continent.contains (_s.toUpper ()))
+            return true;
+    else
+            return false;
+}
+
+bool Utilities::isValidDistance(const int _d)
+{
+    if (_d > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
