@@ -40,7 +40,7 @@
 #include "utilities.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.023f; // This is the latest version of the DB.
+const float DBVersionf = 0.024f; // This is the latest version of the DB.
 
 
 struct AwarddxccEntry
@@ -164,6 +164,7 @@ private:
     bool updateTo021(); // Adds 5M & 8M bands
     bool updateTo022(); // Recovers the 020 that was not executed and adds the Q65 mode
     bool updateTo023(); // Fixes the cabrillo fields in the table band
+    bool updateTo024(); // Fixes the entity table fixinf the DL id
 
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);

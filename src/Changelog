@@ -1,6 +1,8 @@
 TBD - 2.2
+- Bugfix: DL was not properly showninthe DXCC status table (Closes#460) (TNX N6PAZ)
 - Bugfix: Clublog QSO status export to file was not properly done.
 - Improvement: General code cleaning (coveralls.io)
+- Improvement: General code cleaning (lgtm.com alerts)
 - Improvement Distance is not stored for new QSO added or modified QSOs from the UI. (Closes #459).
 
 Feb 2022 - 2.1

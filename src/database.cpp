@@ -1952,7 +1952,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    return updateTo023();
+    return updateTo024();
 }
 
 
@@ -5010,7 +5010,7 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
     countryCodes.insert ("ao", 401);  // Angola
     countryCodes.insert ("cv", 409);  // Cape Verde
     countryCodes.insert ("km", 411);  // Comoros
-    countryCodes.insert ("de", 203);  // Fed Rep Germany
+    countryCodes.insert ("de", 230);  // Fed Rep Germany
     countryCodes.insert ("ph", 375);  //Philippines
     countryCodes.insert ("er", 51);   // Eritrea
     countryCodes.insert ("ps", 510);  // Palestine
@@ -5024,7 +5024,7 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
     countryCodes.insert ("ie", 245); // Ireland
     countryCodes.insert ("am", 14);
     countryCodes.insert ("lr", 434);
-    countryCodes.insert ("ir",330);  // Iran
+    countryCodes.insert ("ir", 330);  // Iran
     countryCodes.insert ("mv", 179); // Moldova
     countryCodes.insert ("ee", 52);  //  Estonia
     countryCodes.insert ("et", 53);  // Ethiopia
@@ -6192,6 +6192,45 @@ bool DataBase::updateTo019()
    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
     return true;
 }
+
+bool DataBase::updateTo024()
+{// Recreates the table band
+   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+    bool IamInPreviousVersion = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
+    if (latestReaded >= dbVersion)
+    {
+       //qDebug() << Q_FUNC_INFO << " : - I am in 024" << QT_ENDL;
+        return true;
+    }
+    while (!IamInPreviousVersion && !ErrorUpdating)
+    {
+        IamInPreviousVersion = updateTo023();
+        if (!IamInPreviousVersion)
+        {
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (updateTheEntityTableISONames())
+    {
+        return false;
+    }
+
+    if (!updateDBVersion(softVersion, QString::number(0.024)))
+    {
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
+        return false;
+    }
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
+    return true;
+}
+
 
 bool DataBase::updateTo023()
 {// Recreates the table band

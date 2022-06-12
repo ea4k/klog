@@ -110,7 +110,7 @@ void tst_ADIFForField::test_Constructor()
 void tst_ADIFForField::test_getADIFForQSODate()
 {
     //yyyy-MM-dd hh:mm:ss
-    qDebug() << adifForField->getADIFForQSODate ("2021-10-17 12:52:12");
+    //qDebug() << adifForField->getADIFForQSODate ("2021-10-17 12:52:12");
     QVERIFY2(adifForField->getADIFForQSODate ("2021-10-17 12:52:12") == "<QSO_DATE:8>20211017 <TIME_ON:6>125212 ", "Date not properly exported");
     QVERIFY2(adifForField->getADIFForQSODate ("2021-10-17 12:52:12", ModeEQSL) == "<QSO_DATE:8>20211017 <TIME_ON:4>1252 ", "Date not properly exported - EM");
     QVERIFY2(adifForField->getADIFForQSODate ("BAD date") == QString(), "Bad Date not properly exported");
@@ -216,7 +216,7 @@ void tst_ADIFForField::test_getADIFForA_Index()
 {
     QVERIFY2(adifForField->getADIFForA_Index ("37") == "<A_INDEX:2>37 ", "A_Index not properly exported 37");
     QVERIFY2(adifForField->getADIFForA_Index ("500") == QString(), "Bad A_Index not properly exported 500");
-    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForA_Index ("CW");
+    //qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForA_Index ("CW");
     QVERIFY2(adifForField->getADIFForA_Index ("CW") == QString(), "Bad String A_Index not properly exported CW");
     QVERIFY2(adifForField->getADIFForA_Index (QString()) == QString(), "Empty A_Index not properly exported");
 }
@@ -255,7 +255,7 @@ void tst_ADIFForField::test_getADIFForARRL_sect()
 
 void tst_ADIFForField::test_getADIFForGridSquare()
 {
-    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForGridSquare ("IN80");
+    //qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForGridSquare ("IN80");
     QVERIFY2(adifForField->getADIFForGridSquare ("IN80") == "<GRIDSQUARE:4>IN80 ", "GRIDSQUARE not properly exported IN80");
     QVERIFY2(adifForField->getADIFForGridSquare ("IN80AA") == "<GRIDSQUARE:6>IN80AA ", "GRIDSQUARE not properly exported IN80AA");
     QVERIFY2(adifForField->getADIFForGridSquare ("EEE") == QString(), "Bad GRIDSQUARE not properly exported IN80");
@@ -273,7 +273,7 @@ void tst_ADIFForField::test_getADIFForMyGridSquare()
 
 void tst_ADIFForField::test_getADIFForQSODateOff()
 {
-    qDebug() << adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12");
+    //qDebug() << adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12");
     QVERIFY2(adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12") == "<QSO_DATE_OFF:8>20211017 <TIME_OFF:6>125212 ", "Date not properly exported");
     QVERIFY2(adifForField->getADIFForQSODateOff ("2021-10-17 12:52:12", ModeEQSL) == "<QSO_DATE_OFF:8>20211017 <TIME_OFF:4>1252 ", "Date not properly exported - EM");
     QVERIFY2(adifForField->getADIFForQSODateOff ("BAD date") == QString(), "Bad Date_off not properly exported");
@@ -304,7 +304,7 @@ void tst_ADIFForField::test_getADIFForStationCallsign()
 
 void tst_ADIFForField::test_getADIFForQSLRdate()
 {
-    qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForQSLRDate ("2021-10-17");
+    //qDebug() << Q_FUNC_INFO << ": " << adifForField->getADIFForQSLRDate ("2021-10-17");
     QVERIFY2(adifForField->getADIFForQSLRDate ("2021-10-17") == "<QSLRDATE:8>20211017 ", "Date not properly exported");
     QVERIFY2(adifForField->getADIFForQSLRDate ("BAD date") == QString(), "Bad QSLRDATE not properly exported");
     QVERIFY2(adifForField->getADIFForQSLRDate(QString()) == QString(), "Empty QSLRDATE  not properly exported");
