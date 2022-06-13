@@ -110,10 +110,35 @@ void QSO::clear()
     keepSat = false;
     modifying = false;
 
+    address = QString();
     check = QString();
     clase = QString();
+    clublogQSOUpdateDate = QDate();
     continent = QString();
     distance = -1;
+    ownerCall = QString();
+    hrdlogUploadDate = QDate();
+    hrdlog_status = QString();
+    freq = -1.0;
+    k_index = -1;
+    qso_date_off = QDate();
+    qso_time_off = QTime();
+    rig = QString();
+    country = QString();
+    award_granted = QString();
+    award_submitted = QString();
+    county = QString();
+    contacted_op = QString();
+    contest_id = QString();
+    cqz = -1;
+    credit_granted = QString();
+    credit_submitted = QString();
+    darc_dok = QString();
+    email = QString();
+    fists = -1;
+    fists_cc = -1;
+
+
 
 
 
@@ -308,54 +333,49 @@ QString QSO::getMode()
     return mode;
 }
 
-bool QSO::setDate(const QDate &_c)
-{
-   //qDebug() << "QSO::setDate: " << util->getDateSQLiteStringFromDate(_c) << QT_ENDL;
-    if (_c.isValid())
-    {
-       //qDebug() << "QSO::setDate: VALID" << QT_ENDL;
-        qso_dateTime.setDate(_c);
-        return true;
-    }
-    else
-    {
-       //qDebug() << "QSO::setDate: NOT VALID" << QT_ENDL;
-        qso_dateTime.setDate(QDate());
-        return false;
-    }
-}
+//bool QSO::setDate(const QDate &_c)
+//{
+//   //qDebug() << "QSO::setDate: " << util->getDateSQLiteStringFromDate(_c) << QT_ENDL;
+//    if (_c.isValid())
+//    {
+//       //qDebug() << "QSO::setDate: VALID" << QT_ENDL;
+//        qso_date.setDate(_c);
+//        return true;
+//    }
+//    else
+//    {
+//       //qDebug() << "QSO::setDate: NOT VALID" << QT_ENDL;
+//        qso_date.setDate(QDate());
+//        return false;
+//    }
+//}
 
-QDate QSO::getDate()
-{
-    return qso_dateTime.date();
-}
+//QDate QSO::getDate()
+//{
+//    return qso_date.date();
+//}
 
-bool QSO::setTimeOn(const QTime &_c)
-{
-   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << QT_ENDL;
-    if (_c.isValid())
-    {
-       //qDebug() << "QSO::setQSLTime: VALID" << QT_ENDL;
-        qso_dateTime.setTime(_c);
-        return true;
-    }
-    else
-    {
-       //qDebug() << "QSO::setQSLTime: NOT VALID" << QT_ENDL;
-        qso_dateTime.setTime(QTime());
-        return false;
-    }
-}
+//bool QSO::setTimeOn(const QTime &_c)
+//{
+//   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << QT_ENDL;
+//    if (_c.isValid())
+//    {
+//       //qDebug() << "QSO::setQSLTime: VALID" << QT_ENDL;
+//        qsoTimeOn.setTime(_c);
+//        return true;
+//    }
+//    else
+//    {
+//       //qDebug() << "QSO::setQSLTime: NOT VALID" << QT_ENDL;
+//        qsoTimeOn.setTime(QTime());
+//        return false;
+//    }
+//}
 
-QTime QSO::getTimeOn()
-{
-    return qso_dateTime.time();
-}
-
-QDateTime QSO::getDateTimeOn()
-{
-    return qso_dateTime;
-}
+//QTime QSO::getTimeOn()
+//{
+//    return qsoTimeOn.time();
+//}
 
 bool QSO::setDateTimeOn(const QDateTime &_c)
 {
@@ -368,6 +388,11 @@ bool QSO::setDateTimeOn(const QDateTime &_c)
     {
         return false;
     }
+}
+
+QDateTime QSO::getDateTimeOn()
+{
+    return qso_dateTime;
 }
 
 void QSO::setRealTime(const bool _rt)
@@ -389,7 +414,6 @@ bool QSO::getManualMode()
 {
     return manualMode;
 }
-
 
 // eQSL Tab
 
@@ -1396,13 +1420,322 @@ bool QSO::setDistance(const int _i)
         return true;
     }
     return false;
-
 }
 
 int QSO::getDistance()
 {
     return distance;
 }
+
+bool QSO::setOwnerCallsign(const QString &_c)
+{
+    if (util->isValidCall(_c))
+    {
+       ownerCall = _c;
+       return true;
+    }
+    else {
+       return false;
+    }
+}
+
+QString QSO::getOwnerCallsign()
+{
+    return ownerCall;
+}
+
+bool QSO::setHRDUpdateDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        hrdlogUploadDate = _c;
+        return true;
+    }
+    else
+    {
+        hrdlogUploadDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getHRDUpdateDate()
+{
+    return hrdlogUploadDate;
+}
+
+bool QSO::setHRDLogStatus(const QString &_c)
+{
+    if (util->isValidUpload_Status (_c))
+    {
+        hrdlog_status = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getHRDLogStatus()
+{
+    return hrdlog_status;
+}
+
+bool QSO::setFreq(const double _f)
+{
+    if (_f>0)
+    {
+        freq = _f;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+double QSO::getFreq()
+{
+    return freq;
+}
+
+bool QSO::setK_Index(const int _i)
+{
+    if ((_i>=0) && (_i<=400))
+    {
+        k_index = _i;
+        return true;
+    }
+    return false;
+}
+
+int QSO::getK_Index()
+{
+    return k_index;
+}
+
+bool QSO::setDateOff(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        qso_date_off = _c;
+        return true;
+    }
+    else
+    {
+        qso_date_off = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getDateOff()
+{
+    return qso_date_off;
+}
+
+bool QSO::setTimeOff(const QTime &_c)
+{
+    if (_c.isValid())
+    {
+        qso_time_off = _c;
+        return true;
+    }
+    else
+    {
+        qso_time_off = QTime();
+        return false;
+    }
+}
+
+QTime QSO::getTimeOff()
+{
+    return qso_time_off;
+}
+
+bool QSO::setRig(const QString &_c)
+{
+    rig = _c;
+    return true;
+}
+
+QString QSO::getRig()
+{
+    return rig;
+}
+
+bool QSO::setCountry(const QString &_c)
+{
+    country = _c;
+    return true;
+}
+
+QString QSO::getCountry()
+{
+    return country;
+}
+
+bool QSO::setAwardGranted(const QString &_c)
+{
+    award_granted = _c;
+    return true;
+}
+
+QString QSO::getAwardGranted()
+{
+    return award_granted;
+}
+
+bool QSO::setAwardSubmitted(const QString &_c)
+{
+    award_submitted = _c;
+    return true;
+}
+
+QString QSO::getAwardSubmitted()
+{
+    return award_submitted;
+}
+
+bool QSO::setCounty(const QString &_c)
+{
+    county = _c;
+    return true;
+}
+
+QString QSO::getCounty()
+{
+    return county;
+}
+
+bool QSO::setContactedOperator(const QString &_c)
+{
+    if (util->isValidCall(_c))
+    {
+       contacted_op = _c;
+       return true;
+    }
+    else {
+       return false;
+    }
+}
+
+QString QSO::getContactedOperator()
+{
+    return contacted_op;
+}
+
+bool QSO::setContestID(const QString &_c)
+{
+    contest_id = _c;
+    return true;
+}
+
+QString QSO::getContestID()
+{
+    return contest_id;
+}
+
+bool QSO::setCQZone(const int _i)
+{
+    if ((_i>=0) && (_i<=40))
+    {
+        cqz = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getCQZone()
+{
+    return cqz;
+}
+
+bool QSO::setCreditGranted(const QString &_c)
+{
+    credit_granted = _c;
+    return true;
+}
+
+QString QSO::getCreditGranted()
+{
+    return credit_granted;
+}
+
+bool QSO::setCreditSubmitted(const QString &_c)
+{
+    credit_submitted = _c;
+    return true;
+}
+
+QString QSO::getCreditSubmitted()
+{
+    return credit_submitted;
+}
+
+bool QSO::setDarcDok(const QString &_c)
+{
+    darc_dok = _c;
+    return true;
+}
+
+QString QSO::getDarcDok()
+{
+    return darc_dok;
+}
+
+bool QSO::setEmail(const QString &_c)
+{
+    email = _c;
+    return true;
+}
+
+QString QSO::getEmail()
+{
+    return email;
+}
+
+bool QSO::setFists(const int _i)
+{
+    if (_i>=0)
+    {
+        fists = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getFists()
+{
+    return fists;
+}
+
+bool QSO::setFistsCC(const int _i)
+{
+    if (_i>=0)
+    {
+        fists_cc = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getFistsCC()
+{
+    return fists_cc;
+}
+
+
+
+
+
 
 
 

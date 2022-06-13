@@ -230,6 +230,52 @@ public:
     QString getContinent();
     bool setDistance(const int _i);
     int getDistance();
+    bool setOwnerCallsign(const QString &_c);
+    QString getOwnerCallsign();
+    bool setHRDUpdateDate(const QDate &_c);
+    QDate getHRDUpdateDate();
+    bool setHRDLogStatus(const QString &_c);
+    QString getHRDLogStatus();
+    bool setFreq(const double _f);
+    double getFreq();
+    bool setK_Index(const int _i);
+    int getK_Index();
+    bool setDateOff(const QDate &_c);
+    QDate getDateOff();
+    bool setTimeOff(const QTime &_c);
+    QTime getTimeOff();
+    bool setRig(const QString &_c);
+    QString getRig();
+    bool setCountry(const QString &_c);
+    QString getCountry();
+    bool setAwardGranted(const QString &_c);
+    QString getAwardGranted();
+    bool setAwardSubmitted(const QString &_c);
+    QString getAwardSubmitted();
+    bool setCounty(const QString &_c);
+    QString getCounty();
+    bool setContactedOperator(const QString &_c);
+    QString getContactedOperator();
+    bool setContestID(const QString &_c);
+    QString getContestID();
+    bool setCQZone(const int _i);
+    int getCQZone();
+    bool setCreditGranted(const QString &_c);
+    QString getCreditGranted();
+    bool setCreditSubmitted(const QString &_c);
+    QString getCreditSubmitted();
+    bool setDarcDok(const QString &_c);
+    QString getDarcDok();
+    bool setEmail(const QString &_c);
+    QString getEmail();
+    bool setFists(const int _i);
+    int getFists();
+    bool setFistsCC(const int _i);
+    int getFistsCC();
+
+
+
+
 
     bool add();
 
@@ -237,23 +283,24 @@ public:
 private:
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
-    int qsoId, logId, dxcc, a_index, distance;
+    int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg, check, clase;
-    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
+    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
+    QTime qso_time_off;
     QDateTime qso_dateTime;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq;
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
-    QString clublog_status;
-    QDate clublogDate,clublogQSOUpdateDate;
+    QString clublog_status, hrdlog_status, QRZCom_status;
+    QDate clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
     QDate eQSLRDate, eQSLSDate;
-    QString QRZCom_status;
     QDate QRZComDate;
-    QString comment, address, ant_path, arrl_sect, continent;
+    QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contest_id;
+    QString credit_granted, credit_submitted,darc_dok, email;
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance;
 
-    QString iota;
+    QString iota, ownerCall;
 
     Utilities *util;
 
@@ -262,26 +309,20 @@ private:
    // DataProxy_SQLite *dataProxy;
 
    /*
-   ADDRESS_INTL, AWARD_GRANTED,  AWARD_SUBMITTED,
-   CNTY,  COMMENT_INTL, CONTACTED_OP,  CONTEST_ID,  COUNTRY,  COUNTRY_INTL,  CQZ,  CREDIT_SUBMITTED,  CREDIT_GRANTED,
-   DARC_DOK,
-   EMAIL,  EQ_CALL,  EQSL_QSLRDATE,  EQSL_QSLSDATE,  EQSL_QSL_RCVD,  EQSL_QSL_SENT,
-   FISTS,  FISTS_CC,  FORCE_INIT,  FREQ,  FREQ_RX,
-   GRIDSQUARE,  GUEST_OP,
-   HRDLOG_QSO_UPLOAD_DATE,  HRDLOG_QSO_UPLOAD_STATUS,
-   IOTA,  IOTA_ISLAND_ID,  ITUZ,
-   K_INDEX,
-   LAT,  LON,  LOTW_QSLRDATE,  LOTW_QSLSDATE,  LOTW_QSL_RCVD,  LOTW_QSL_SENT,
-   MAX_BURSTS,  MODE,  MS_SHOWER,  MY_ANTENNA,  MY_ANTENNA_INTL,  MY_CITY,  MY_CITY_INTL,  MY_CNTY,  MY_COUNTRY,  MY_COUNTRY_INTL,  MY_CQ_ZONE,  MY_DXCC,  MY_FISTS,  MY_GRIDSQUARE,  MY_IOTA,  MY_IOTA_ISLAND_ID,  MY_ITU_ZONE,  MY_LAT,  MY_LON,  MY_NAME,  MY_NAME_INTL,  MY_POSTAL_CODE,  MY_POSTAL_CODE_INTL,  MY_RIG,  MY_RIG_INTL,  MY_SIG,  MY_SIG_INTL,  MY_SIG_INFO,  MY_SIG_INFO_INTL,  MY_SOTA_REF,  MY_STATE,  MY_STREET,  MY_STREET_INTL,  MY_USACA_COUNTIES,  MY_VUCC_GRIDS,
-   NAME,  NAME_INTL,  NOTES,  NOTES_INTL,  NR_BURSTS,  NR_PINGS,
+   FORCE_INIT,
+   GUEST_OP,
+   IOTA_ISLAND_ID, ITUZ,
+   LAT,  LON,
+   MAX_BURSTS, MODE, MS_SHOWER, MY_ANTENNA, MY_CITY,  MY_CNTY,  MY_COUNTRY,  MY_CQ_ZONE,  MY_DXCC,  MY_FISTS,  MY_GRIDSQUARE,  MY_IOTA,  MY_IOTA_ISLAND_ID,  MY_ITU_ZONE,  MY_LAT,  MY_LON,  MY_NAME,  MY_POSTAL_CODE,  MY_RIG, MY_SIG,  MY_SIG_INFO,  MY_SOTA_REF,  MY_STATE,  MY_STREET,  MY_USACA_COUNTIES,  MY_VUCC_GRIDS,
+   NOTES,  NR_BURSTS,  NR_PINGS,
    OPERATOR,  OWNER_CALLSIGN,
    PFX,  PRECEDENCE,  PROP_MODE,  PUBLIC_KEY,
-   QSLMSG,  QSLMSG_INTL,  QSLRDATE,  QSLSDATE,  QSL_RCVD,  QSL_RCVD_VIA,  QSL_SENT,  QSL_SENT_VIA,  QSL_VIA,  QSO_COMPLETE,  QSO_DATE,  QSO_DATE_OFF,  QSO_RANDOM,  QTH,  QTH_INTL,
-   REGION,  RIG,  RIG_INTL,  RST_RCVD,  RST_SENT,  RX_PWR,
-   SAT_MODE,  SAT_NAME,  SFI,  SIG,  SIG_INTL,  SIG_INFO,  SIG_INFO_INTL,  SILENT_KEY,  SKCC,  SOTA_REF,  SRX,  SRX_STRING,  STATE,  STATION_CALLSIGN,  STX,  STX_STRING,  SUBMODE,  SWL,
-   TEN_TEN,  TIME_OFF,  TIME_ON,  TX_PWR,
+   QSLMSG,  QSO_COMPLETE,  QSO_RANDOM,
+   REGION,
+   SFI,  SIG, SIG_INFO,  SILENT_KEY,  SKCC,  SOTA_REF,  SRX,  SRX_STRING,  STATE,  STATION_CALLSIGN,  STX,  STX_STRING,  SUBMODE,  SWL,
+   TEN_TEN,
    UKSMG,  USACA_COUNTIES,
-   VE_PROV,  VUCC_GRIDS,
+   VE_PROV,
    WEB
    */
 

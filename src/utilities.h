@@ -151,6 +151,8 @@ public:
     QString getOnlineServiceName(OnLineProvider _service);
 
     bool isValidDistance(const int _d);
+    bool isValidSponsor(const QString &_s);
+
     //QPalette getPalete(bool _ok);
 
 private:
@@ -163,8 +165,8 @@ private:
     //QPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
-
     void setContinent();
+    void setSponsorsList();
 
 
 
@@ -172,7 +174,7 @@ private:
     QString dbPath;
     QString softwareVersion;
 
-    QStringList ARRL_sects, continent;
+    QStringList ARRL_sects, continent, sponsorsList;
     //QPalette palRed, palBlack;
 
 };

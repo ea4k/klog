@@ -47,6 +47,7 @@ void Utilities::init()
     darkMode = false;
     setARRLSect();
     setContinent();
+    setSponsorsList();
     //callValidation = true;
 
 }
@@ -74,6 +75,12 @@ void Utilities::setContinent()
     continent = continentList;
 }
 
+void Utilities::setSponsorsList()
+{
+   sponsorsList.clear ();
+   QStringList preSponsorsList = {"ADIF_", "ARI_", "ARRL_", "CQ_", "DARC_", "EQSL_", "IARU_", "JARL_", "RSGB_", "TAG_", "WABAG_"};
+   sponsorsList = preSponsorsList;
+}
 
 void Utilities::setVersion(const QString &_v)
 {
@@ -2053,4 +2060,12 @@ bool Utilities::isValidDistance(const int _d)
     {
         return false;
     }
+}
+
+bool Utilities::isValidSponsor(const QString &_s)
+{
+    if (sponsorsList.contains (_s.toUpper ()))
+            return true;
+    else
+            return false;
 }
