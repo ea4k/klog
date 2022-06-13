@@ -291,7 +291,7 @@ void MainWindow::init()
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
                 msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
-                QString aux = tr("It was not possible to define the KLOg folder. Some functions may not work properly!");
+                QString aux = tr("It was not possible to define the KLog folder. Some functions may not work properly!");
                 msgBox.setText(aux);
                 msgBox.setStandardButtons(QMessageBox::Ok);
                 msgBox.setDefaultButton(QMessageBox::Ok);
