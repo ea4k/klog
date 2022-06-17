@@ -1928,15 +1928,15 @@ QString QSO::getQSOComplete()
     return qso_complete;
 }
 
-bool QSO::setQSOrandom(bool _k)
+bool QSO::setQSORandom(bool _k)
 {
-    QSOrandom = _k;
+    qso_random = _k;
     return true;
 }
 
-bool QSO::getQSOrandom()
+bool QSO::getQSORandom()
 {
-    return QSOrandom;
+    return qso_random;
 }
 
 bool QSO::setMyCity(const QString &_c)
