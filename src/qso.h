@@ -292,8 +292,8 @@ public:
     int getNrPings();
     bool setMsShower(const QString &_c);
     QString getMsShower();
-    bool setIsQSOrandom(bool _k);
-    bool getIsQSOrandom();
+    bool setQSORandom(bool _k);
+    bool getQSORandom();
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -311,6 +311,8 @@ public:
     QString getMyFists();
     bool setMyIOTA(const QString &_c);
     QString getMyIOTA();
+    bool setMyIotaID(const int _i);
+    int getMyIotaID();
     bool setMyITUZone(const int _i);
     int getMyITUZone();
     bool setMyLatitude(const QString &_c);
@@ -383,32 +385,32 @@ public:
 
 private:
 
-    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
     int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
-    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
-    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
-    QTime qso_time_off;
-    QDateTime qso_dateTime;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq;
-    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
 
+    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
+    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
     QString clublog_status, hrdlog_status, QRZCom_status;
-    QDate clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
-    QDate eQSLRDate, eQSLSDate;
-    QDate QRZComDate;
     QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contest_id;
     QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web;
-    bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, isQSOrandom, swl;
-
     QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
     QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties;
 
+    QTime qso_time_off;
+    QDateTime qso_dateTime;
+
+    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
+    QDate eQSLRDate, eQSLSDate, clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;;
+    QDate QRZComDate;
+
+    bool backup, lotwUpdating, realTime, manualMode, silent_key;
+    bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
+
     Utilities *util;
 
-    bool lotwUpdating, realTime, manualMode, silent_key;
-    bool backup;
    // DataProxy_SQLite *dataProxy;
 
 

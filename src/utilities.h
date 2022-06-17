@@ -62,6 +62,7 @@ public:
     void printQString(const QStringList &_qs);
     QString getKLogDBFile();
     QString getKLogDBBackupFile();
+    bool QStringToBool(const QString &_s);
 
     //QString getKLogDatabaseFile(const QString &_file);
     bool isDBFileExisting();

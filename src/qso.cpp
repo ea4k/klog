@@ -43,10 +43,12 @@ void QSO::clear()
     logId = -1;
     backup = false;
     callsign = QString();
+    name = QString();
     stationCallsign = QString();
     operatorCall = QString();
     band = QString();
     mode = QString();
+    gridsquare = QString();
 
     qsl_rcvd = QString();
     qsl_sent = QString();
@@ -55,7 +57,7 @@ void QSO::clear()
     qslSenVia = QString();
     qslRecVia = QString();
     qslVia = QString();
-    qslMsg = QString();
+    qslmsg = QString();
 
     clublog_status = QString();
     clublogDate = QDate();
@@ -66,15 +68,34 @@ void QSO::clear()
     eQSLSDate = QDate();
     QRZCom_status = QString();
     QRZComDate = QDate();
-
     lotw_qsl_sent = QString();
     lotw_qsl_rcvd = QString();
-    gridsquare = QString();
+    QSLLoTWRDate = QDate();
+    QSLLoTWSDate = QDate();
+
     myGridsquare = QString();
     my_sota_ref = QString();
     my_rig = QString();
     my_antenna = QString();
     my_vucc_grids= QString();
+    my_street = QString();
+    my_state = QString();
+    my_rig = QString();
+    my_city = QString();
+    my_country = QString();
+    my_county = QString();
+    my_cqz = -1;
+    my_dxcc = -1;
+    my_fists = QString();
+    my_iota = QString();
+    my_iota_ID = -1;
+    my_itu_zone = -1;
+    my_latitude = QString();
+    my_longitude = QString();
+    my_name = QString();
+    my_postal_code = QString();
+    my_sig_info = QString();
+
     vucc_grids= QString();
     qth = QString();
     name = QString();
@@ -83,24 +104,25 @@ void QSO::clear()
     age = -1.0;
     sota_ref = QString();
     pwr_rx = 0.0;
+    pwr_tx = 0.0;
     RST_rx = QString();
     RST_tx = QString();
     dxcc = -1;
     propMode = QString();
     iota = QString();
     a_index = -1;
+    k_index = -1;
     ant_el = 0;
     ant_az = 0;
     ant_path = QString();
     arrl_sect = QString();
+    latitude = QString();
+    longitude = QString();
 
-    QSLLoTWRDate = QDate();
-    QSLLoTWSDate = QDate();
     qso_dateTime = QDateTime();
     lotwUpdating = false;
     realTime = false;
     manualMode = false;
-
     comment = QString();
     satName = QString();
     satMode = QString();
@@ -140,25 +162,37 @@ void QSO::clear()
     forceInit = false;
     iota_ID = -1;
     itu_zone = -1;
-    latitude = QString();
-    longitude = QString();
     nr_bursts = -1;
     max_bursts = -1;
     nr_pings = -1;
     ms_shower = QString();
     qso_complete = QString();
-
-
-
-
-
-
-
-
-
-
-
-
+    qso_random = false;
+    notes = QString();
+    nr_bursts = -1;
+    nr_pings = -1;
+    qslmsg = QString();
+    QRZComDate = QDate();
+    QRZCom_status = QString();
+    prefix = QString();
+    precedence = QString();
+    sfi = -1;
+    sig = QString();
+    sig_info = QString();
+    silent_key = false;
+    skcc = QString();
+    srx = -1;
+    srx_string = QString();
+    state = QString();
+    stx = -1;
+    stx_string = QString();
+    swl = false;
+    ten_ten = -1;
+    uksmg = -1;
+    usaca_counties = QString();
+    ve_prov = QString();
+    vucc_grids = QString();
+    web = QString();
 
 
 }
@@ -798,7 +832,7 @@ bool QSO::setQSLMsg(const QString &_qs)
 {
     if (!_qs.isEmpty ())
     {
-        qslMsg = _qs;
+        qslmsg = _qs;
         return true;
     }
     else
@@ -809,7 +843,7 @@ bool QSO::setQSLMsg(const QString &_qs)
 
 QString QSO::getQSLMsg()
 {
-    return qslMsg;
+    return qslmsg;
 }
 
 void QSO::setLoTWUpdating(bool _lotw)
@@ -1894,15 +1928,15 @@ QString QSO::getQSOComplete()
     return qso_complete;
 }
 
-bool QSO::setIsQSOrandom(bool _k)
+bool QSO::setQSOrandom(bool _k)
 {
-    isQSOrandom = _k;
+    QSOrandom = _k;
     return true;
 }
 
-bool QSO::getIsQSOrandom()
+bool QSO::getQSOrandom()
 {
-    return isQSOrandom;
+    return QSOrandom;
 }
 
 bool QSO::setMyCity(const QString &_c)
@@ -2000,6 +2034,24 @@ bool QSO::setMyIOTA(const QString &_c)
 QString QSO::getMyIOTA()
 {
     return iota;
+}
+
+bool QSO::setMyIotaID(const int _i)
+{
+    if (_i>=0)
+    {
+        my_iota_ID = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getMyIotaID()
+{
+    return my_iota_ID;
 }
 
 bool QSO::setMyITUZone(const int _i)
@@ -2410,26 +2462,153 @@ bool QSO::setData(const QString &_adifPair)
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
 
-    if (field == "CALL")
+    if (field == "ADDRESS")
     {
-        setCall(data);
+        setAddress(data);
+    }
+    else if (field == "AGE")
+    {
+        setAge(data.toInt());
+    }
+    else if (field == "A_INDEX")
+    {
+        setA_Index(data.toInt());
+    }
+    else if (field == "ANT_AZ")
+    {
+        setAnt_az(data.toInt());
+    }
+    else if (field == "ANT_EL")
+    {
+        setAnt_el(data.toInt());
+    }
+    else if (field == "ANT_PATH")
+    {
+        setAnt_Path(data);
+    }
+    else if (field == "ARRL_SECT")
+    {
+        setARRL_Sect(data);
+    }
+    else if (field == "AWARD_SUBMITTED")
+    {
+        setAwardSubmitted(data);
+    }
+    else if (field == "AWARD_GRANTED")
+    {
+        setAwardGranted(data);
     }
     else if (field == "BAND")
     {
         setBand(data);
     }
-    else if (field == "MODE")
+    else if (field == "BAND_RX")
     {
-        setMode(data);
+        setBandRX(data);
     }
-    else if (field == "TIME_ON")
+    else if (field == "CALL")
     {
-        setTimeOn(util->getTimeFromADIFTimeString(data));
+        setCall(data);
     }
-    else if (field == "QSO_DATE")
+    else if (field == "CHECK")
     {
-       //qDebug() << "QSO::setData: QSO_DATE: " << data  << QT_ENDL;
-        setDate(util->getDateFromADIFDateString(data));
+        setCheck(data);
+    }
+    else if (field == "CLASS")
+    {
+        setClase(data);
+    }
+    else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
+    {
+        setClublogQSOUpdateDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "CLUBLOG_QSO_UPLOAD_STATUS")
+    {
+        setClubLogStatus(data);
+    }
+    else if (field == "CNTY")
+    {
+        setCounty(data);
+    }
+    else if (field == "COMMENT")
+    {
+        setComment(data);
+    }
+    else if (field == "CONT")
+    {
+        setContinent(data);
+    }
+    else if (field == "CONTACTED_OP")
+    {
+        setContactedOperator(data);
+    }
+    else if (field == "CONTEST_ID")
+    {
+        setContestID(data);
+    }
+    else if (field == "COUNTRY")
+    {
+        setCountry(data);
+    }
+    else if (field == "CQZ")
+    {
+        setCQZone(data.toInt());
+    }
+    else if (field == "CREDIT_SUBMITTED")
+    {
+        setCreditSubmitted(data);
+    }
+    else if (field == "CREDIT_GRANTED")
+    {
+        setCreditGranted(data);
+    }
+    else if (field == "DARC_DOK")
+    {
+        setDarcDok(data);
+    }
+    else if (field == "DISTANCE")
+    {
+        setDistance(data.toInt());
+    }
+    else if (field == "DXCC")
+    {
+        setDXCC(data.toInt());
+    }
+    else if (field == "EMAIL")
+    {
+        setEmail(data);
+    }
+    else if (field == "EQ_CALL")
+    {
+        setOwnerCallsign(data);
+    }
+    else if (field == "EQSL_QSLRDATE")
+    {
+        setEQSLQSLRDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "EQSL_QSLSDATE")
+    {
+        setEQSLQSLSDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "EQSL_QSL_RCVD")
+    {
+        setEQSLQSL_RCVD(data);
+    }
+    else if (field == "EQSL_QSL_SENT")
+    {
+        setEQSLQSL_SENT(data);
+    }
+    else if (field == "FISTS")
+    {
+        setFists(data.toInt());
+    }
+    else if (field == "FISTS_CC")
+    {
+        setFistsCC(data.toInt());
+    }
+    else if (field == "FORCE_INIT")
+    {
+        setForceInit(util->QStringToBool(data));
     }
     else if (field == "FREQ")
     {
@@ -2439,13 +2618,285 @@ bool QSO::setData(const QString &_adifPair)
     {
         setFreqRX(data.toDouble());
     }
+    else if (field == "GRIDSQUARE")
+    {
+        setGridSquare(data);
+    }
+    else if (field == "GUEST_OP")
+    {
+        setOperatorCallsign(data);
+    }
+    else if (field == "HRDLOG_QSO_UPLOAD_DATE")
+    {
+        setHRDUpdateDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "HRDLOG_QSO_UPLOAD_STATUS")
+    {
+        setHRDLogStatus(data);
+    }
+    else if (field == "IOTA")
+    {
+        setIOTA(data);
+    }
+    else if (field == "IOTA_ISLAND_ID")
+    {
+        setIotaID(data.toInt());
+    }
+    else if (field == "ITUZ")
+    {
+        setItuZone(data.toInt());
+    }
+    else if (field == "K_INDEX")
+    {
+        setK_Index(data.toInt());
+    }
+    else if (field == "LAT")
+    {
+        setLatitude(data);
+    }
+    else if (field == "LON")
+    {
+        setLongitude(data);
+    }
+    else if (field == "LOTW_QSLRDATE")
+    {
+        setLoTWQSLRDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "LOTW_QSLSDATE")
+    {
+        setLoTWQSLSDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "LOTW_QSL_RCVD")
+    {
+        setLoTWQSL_RCVD(data);
+    }
+    else if (field == "LOTW_QSL_SENT")
+    {
+        setEQSLQSL_SENT(data);
+    }
+    else if (field == "MAX_BURSTS")
+    {
+        setMaxBursts(data.toInt());
+    }
+    else if (field == "MODE")
+    {
+        setMode(data);
+    }
+    else if (field == "MS_SHOWER")
+    {
+        setMsShower(data);
+    }
+    else if (field == "MY_ANTENNA")
+    {
+        setMyAntenna(data);
+    }
+    else if (field == "MY_CITY")
+    {
+        setMyCity(data);
+    }
+    else if (field == "MY_CNTY")
+    {
+        setMyCounty(data);
+    }
+    else if (field == "MY_COUNTRY")
+    {
+        setMyCountry(data);
+    }
+    else if (field == "MY_CQ_ZONE")
+    {
+        setMyCQZone(data.toInt());
+    }
+    else if (field == "MY_DXCC")
+    {
+        setMyDXCC(data.toInt());
+    }
+    else if (field == "MY_FISTS")
+    {
+        setMyFists(data);
+    }
+    else if (field == "MY_GRIDSQUARE")
+    {
+        setMyGridSquare(data);
+    }
+    else if (field == "MY_IOTA")
+    {
+        setMyIOTA(data);
+    }
+    else if (field == "MY_IOTA_ISLAND_ID")
+    {
+        setMyIotaID(data.toInt());
+    }
+    else if (field == "MY_ITU_ZONE")
+    {
+        setMyITUZone(data.toInt());
+    }
+    else if (field == "MY_LAT")
+    {
+        setMyLatitude(data);
+    }
+    else if (field == "MY_LON")
+    {
+        setMyLongitude(data);
+    }
+    else if (field == "MY_NAME")
+    {
+        setMyName(data);
+    }
+    else if (field == "MY_POSTAL_CODE")
+    {
+        setMyPostalCode(data);
+    }
+    else if (field == "MY_RIG")
+    {
+        setMyRig(data);
+    }
+    else if (field == "MY_SIG")
+    {
+        setMySig(data);
+    }
+    else if (field == "MY_SIG_INFO")
+    {
+        setMySigInfo(data);
+    }
+    else if (field == "MY_SOTA_REF")
+    {
+        setMySOTA_REF(data);
+    }
+    else if (field == "MY_STATE")
+    {
+        setMyState(data);
+    }
+    else if (field == "MY_STREET")
+    {
+        setMyStreet(data);
+    }
+    else if (field == "MY_USACA_COUNTIES")
+    {
+        setMyUsacaCounties(data);
+    }
+    else if (field == "MY_VUCC_GRIDS")
+    {
+        setMyVUCCGrids(data);
+    }
+    else if (field == "NAME")
+    {
+        setName(data);
+    }
+    else if (field == "NOTES")
+    {
+        setNotes(data);
+    }
+    else if (field == "NR_BURSTS")
+    {
+        setNrBursts(data.toInt());
+    }
+    else if (field == "NR_PINGS")
+    {
+        setNrPings(data.toInt());
+    }
+    else if (field == "OPERATOR")
+    {
+        setOperatorCallsign(data);
+    }
+    else if (field == "OWNER_CALLSIGN")
+    {
+        setOwnerCallsign(data);
+    }
+    else if (field == "PFX")
+    {
+        setPrefix(data);
+    }
+    else if (field == "PRECEDENCE")
+    {
+        setPrecedence(data);
+    }
+    else if (field == "PROP_MODE")
+    {
+        setPropMode(data);
+    }
+    else if (field == "PUBLIC_KEY")
+    {
+        setPublicKey(data);
+    }
+    else if (field == "QRZCOM_QSO_UPLOAD_DATE")
+    {
+        setQRZCOMDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "QRZCOM_QSO_UPLOAD_STATUS")
+    {
+        setQRZCOMStatus(data);
+    }
+    else if (field == "QSLMSG")
+    {
+        setQSLMsg(data);
+    }
     else if (field == "QSLRDATE")
     {
         setQSLRDate(util->getDateFromADIFDateString(data));
     }
+    else if (field == "QSLSDATE")
+    {
+        setQSLSDate(util->getDateFromADIFDateString(data));
+    }
     else if (field == "QSL_RCVD")
     {
         setQSL_RCVD(data);
+    }
+    else if (field == "QSL_RCVD_VIA")
+    {
+        setQSLRecVia(data);
+    }
+    else if (field == "QSL_SENT")
+    {
+        setQSL_SENT(data);
+    }
+    else if (field == "QSL_SENT_VIA")
+    {
+        setQSLSenVia(data);
+    }
+    else if (field == "QSL_VIA")
+    {
+        setQSLVia(data);
+    }
+    else if (field == "QSO_COMPLETE")
+    {
+        setQSOComplete(data);
+    }
+    else if (field == "QSO_DATE")
+    {
+        setDate(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "QSO_DATE_OFF")
+    {
+        setDateOff(util->getDateFromADIFDateString(data));
+    }
+    else if (field == "QSO_RANDOM")
+    {
+        setQSORandom(util->QStringToBool(data));
+    }
+    else if (field =="QTH")
+    {
+        setQTH(data);
+    }
+    else if (field == "REGION")
+    {
+        setRegion(data);
+    }
+    else if (field == "RIG")
+    {
+        setRig(data);
+    }
+    else if (field == "RST_RCVD")
+    {
+        setRSTRX(data);
+    }
+    else if (field == "RST_SENT")
+    {
+        setRSTTX(data);
+    }
+    else if (field == "RX_PWR")
+    {
+        setRXPwr(data.toDouble());
     }
     else if (field == "SAT_MODE")
     {
@@ -2455,33 +2906,97 @@ bool QSO::setData(const QString &_adifPair)
     {
         setSatName(data);
     }
-    else if (field == "PROP_MODE")
+    else if (field == "SFI")
     {
-        setPropMode(data);
+        setSFI(data.toInt());
     }
-    else if (field == "LOTW_QSL_RCVD")
+    else if (field == "SIG")
     {
-       setLoTWQSL_RCVD(data);
+        setSig(data);
     }
-    else if (field == "LOTW_QSL_SENT")
+    else if (field == "SIG_INFO")
     {
-       setLoTWQSL_SENT(data);
+        setSigInfo(data);
+    }
+    else if (field == "SILENT_KEY")
+    {
+        setSilentKey(util->QStringToBool(data));
+    }
+    else if (field == "SKCC")
+    {
+        setSkcc(data);
+    }
+    else if (field == "SOTA_REF")
+    {
+        setSOTA_REF(data);
+    }
+    else if (field == "SRX")
+    {
+        setSrx(data.toInt());
+    }
+    else if (field == "SRX_STRING")
+    {
+        setSrxString(data);
+    }
+    else if (field == "STATE")
+    {
+        setState(data);
     }
     else if (field == "STATION_CALLSIGN")
     {
-       setStationCallsign(data);
+        setStationCallsign(data);
     }
-    else if (field == "OPERATOR")
+    else if (field == "STX")
     {
-       setOperatorCallsign (data);
+        setStx(data.toInt());
     }
-    else if (field == "GRIDSQUARE")
+    else if (field == "STX_STRING")
     {
-        setGridSquare(data);
+        setStxString(data);
     }
-    else if (field == "MYGRIDSQUARE")
+    else if (field == "SUBMODE")
     {
-        setMyGridSquare(data);
+        setSubmode(data);
+    }
+    else if (field == "SWL")
+    {
+        setSwl(util->QStringToBool(data));
+    }
+    else if (field == "TEN_TEN")
+    {
+        setTenTen(data.toInt());
+    }
+    else if (field == "TIME_OFF")
+    {
+        setTimeOff(util->getTimeFromADIFTimeString(data));
+    }
+    else if (field == "TIME_ON")
+    {
+        setTimeOn(util->getTimeFromADIFTimeString(data));
+    }
+    else if (field == "TX_PWR")
+    {
+       setTXPwr(data.toDouble());
+    }
+    else if (field == "UKSMG")
+    {
+        setUksmg(data.toInt());
+    }
+    else if (field == "USACA_COUNTIES")
+    {
+        setUsacaCounties(data);
+    }
+    else if (field == "VE_PROV")
+    {
+        setVeProv(data);
+    }
+    else if (field == "VUCC_GRIDS")
+    {
+        setVUCCGrids(data);
+    }
+    else if (field == "WEB")
+    {
+        setWeb(data);
     }
     else if (field == "APP_LOTW_RXQSL")
     {

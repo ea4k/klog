@@ -171,6 +171,19 @@ QString Utilities::boolToQString(const bool _b)
     }
 }
 
+bool Utilities::QStringToBool(const QString &_s)
+{
+
+    if ( (_s.toUpper()) == "Y")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
     //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data ;
