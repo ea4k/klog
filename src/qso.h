@@ -272,10 +272,111 @@ public:
     int getFists();
     bool setFistsCC(const int _i);
     int getFistsCC();
+    bool setForceInit(bool _k);
+    bool getForceInit();
+    bool setIotaID(const int _i);
+    int getIotaID();
+    bool setItuZone(const int _i);
+    int getItuZone();
+    bool setLatitude(const QString &_c);
+    QString getLatitude();
+    bool setLongitude(const QString &_c);
+    QString getLongitude();
+    bool setQSOComplete(const QString &_c);
+    QString getQSOComplete();
+    bool setNrBursts(const int _i);
+    int getNrBursts();
+    bool setMaxBursts(const int _i);
+    int getMaxBursts();
+    bool setNrPings(const int _i);
+    int getNrPings();
+    bool setMsShower(const QString &_c);
+    QString getMsShower();
+    bool setIsQSOrandom(bool _k);
+    bool getIsQSOrandom();
 
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
+    bool setMyCity(const QString &_c);
+    QString getMyCity();
+    bool setMyCounty(const QString &_c);
+    QString getMyCounty();
+    bool setMyCountry(const QString &_c);
+    QString getMyCountry();
+    bool setMyCQZone(const int _i);
+    int getMyCQZone();
+    bool setMyDXCC(const int _i);
+    int getMyDXCC();
+    bool setMyFists(const QString &_c);
+    QString getMyFists();
+    bool setMyIOTA(const QString &_c);
+    QString getMyIOTA();
+    bool setMyITUZone(const int _i);
+    int getMyITUZone();
+    bool setMyLatitude(const QString &_c);
+    QString getMyLatitude();
+    bool setMyLongitude(const QString &_c);
+    QString getMyLongitude();
+    bool setMyName(const QString &_c);
+    QString getMyName();
+    bool setMyPostalCode(const QString &_c);
+    QString getMyPostalCode();
+    bool setMySig(const QString &_c);
+    QString getMySig();
+    bool setMySigInfo(const QString &_c);
+    QString getMySigInfo();
+    bool setMyState(const QString &_c);
+    QString getMyState();
+    bool setMyStreet(const QString &_c);
+    QString getMyStreet();
+    bool setMyUsacaCounties(const QString &_c);
+    QString getMyUsacaCounties();
+    bool setNotes(const QString &_c);
+    QString getNotes();
+    bool setPrefix(const QString &_c);
+    QString getPrefix();
+    bool setPrecedence(const QString &_c);
+    QString getPrecedence();
+    bool setPublicKey(const QString &_c);
+    QString getPublicKey();
+    bool setQslMsg(const QString &_c);
+    QString getQslMsg();
+    bool setRegion(const QString &_c);
+    QString getRegion();
+    bool setTenTen(const int _i);
+    int getTenTen();
+    bool setSFI(const int _i);
+    int getSFI();
+    bool setSig(const QString &_c);
+    QString getSig();
+    bool setSigInfo(const QString &_c);
+    QString getSigInfo();
+    bool setSilentKey(bool _k);
+    bool getSilentKey();
+    bool setSkcc(const QString &_c);
+    QString getSkcc();
+    bool setSrx(const int _i);
+    int getSrx();
+    bool setSrxString(const QString &_c);
+    QString getSrxString();
+    bool setState(const QString &_c);
+    QString getState();
+    bool setStx(const int _i);
+    int getStx();
+    bool setStxString(const QString &_c);
+    QString getStxString();
+    bool setSubmode(const QString &_c);
+    QString getSubmode();
+    bool setSwl(bool _k);
+    bool getSwl();
+    bool setUksmg(const int _i);
+    int getUksmg();
+    bool setUsacaCounties(const QString &_c);
+    QString getUsacaCounties();
+    bool setVeProv(const QString &_c);
+    QString getVeProv();
+    bool setWeb(const QString &_c);
+    QString getWeb();
 
     bool add();
 
@@ -283,8 +384,9 @@ public:
 private:
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
-    int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc;
-    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg, check, clase;
+    int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
+    int ten_ten, sfi;
+    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
     QTime qso_time_off;
     QDateTime qso_dateTime;
@@ -297,34 +399,18 @@ private:
     QDate eQSLRDate, eQSLSDate;
     QDate QRZComDate;
     QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contest_id;
-    QString credit_granted, credit_submitted,darc_dok, email;
-    bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance;
+    QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web;
+    bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, isQSOrandom, swl;
 
-    QString iota, ownerCall;
+    QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
+    QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties;
 
     Utilities *util;
 
-    bool lotwUpdating, realTime, manualMode;
+    bool lotwUpdating, realTime, manualMode, silent_key;
     bool backup;
    // DataProxy_SQLite *dataProxy;
 
-   /*
-   FORCE_INIT,
-   GUEST_OP,
-   IOTA_ISLAND_ID, ITUZ,
-   LAT,  LON,
-   MAX_BURSTS, MODE, MS_SHOWER, MY_ANTENNA, MY_CITY,  MY_CNTY,  MY_COUNTRY,  MY_CQ_ZONE,  MY_DXCC,  MY_FISTS,  MY_GRIDSQUARE,  MY_IOTA,  MY_IOTA_ISLAND_ID,  MY_ITU_ZONE,  MY_LAT,  MY_LON,  MY_NAME,  MY_POSTAL_CODE,  MY_RIG, MY_SIG,  MY_SIG_INFO,  MY_SOTA_REF,  MY_STATE,  MY_STREET,  MY_USACA_COUNTIES,  MY_VUCC_GRIDS,
-   NOTES,  NR_BURSTS,  NR_PINGS,
-   OPERATOR,  OWNER_CALLSIGN,
-   PFX,  PRECEDENCE,  PROP_MODE,  PUBLIC_KEY,
-   QSLMSG,  QSO_COMPLETE,  QSO_RANDOM,
-   REGION,
-   SFI,  SIG, SIG_INFO,  SILENT_KEY,  SKCC,  SOTA_REF,  SRX,  SRX_STRING,  STATE,  STATION_CALLSIGN,  STX,  STX_STRING,  SUBMODE,  SWL,
-   TEN_TEN,
-   UKSMG,  USACA_COUNTIES,
-   VE_PROV,
-   WEB
-   */
 
 };
 

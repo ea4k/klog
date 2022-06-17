@@ -137,6 +137,23 @@ void QSO::clear()
     email = QString();
     fists = -1;
     fists_cc = -1;
+    forceInit = false;
+    iota_ID = -1;
+    itu_zone = -1;
+    latitude = QString();
+    longitude = QString();
+    nr_bursts = -1;
+    max_bursts = -1;
+    nr_pings = -1;
+    ms_shower = QString();
+    qso_complete = QString();
+
+
+
+
+
+
+
 
 
 
@@ -1732,8 +1749,645 @@ int QSO::getFistsCC()
     return fists_cc;
 }
 
+bool QSO::setForceInit(bool _k)
+{
+    forceInit = _k;
+    return true;
+}
 
+bool QSO::getForceInit()
+{
+    return forceInit;
+}
 
+bool QSO::setIotaID(const int _i)
+{
+    if (_i>=0)
+    {
+        iota_ID = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getIotaID()
+{
+    return iota_ID;
+}
+
+bool QSO::setItuZone(const int _i)
+{
+    if (_i>=0 && (_i<=90))
+    {
+        itu_zone = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getItuZone()
+{
+    return itu_zone;
+}
+
+bool QSO::setLatitude(const QString &_c)
+{
+    latitude = _c;
+    return true;
+}
+
+QString QSO::getLatitude()
+{
+    return latitude;
+}
+
+bool QSO::setLongitude(const QString &_c)
+{
+    longitude = _c;
+    return true;
+}
+
+QString QSO::getLongitude()
+{
+    return longitude;
+}
+
+bool QSO::setNrBursts(const int _i)
+{
+    if (_i>=0)
+    {
+        nr_bursts = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getNrBursts()
+{
+    return nr_bursts;
+}
+
+bool QSO::setMaxBursts(const int _i)
+{
+    if (_i>=0)
+    {
+        max_bursts = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getMaxBursts()
+{
+    return max_bursts;
+}
+
+bool QSO::setNrPings(const int _i)
+{
+    if (_i>=0)
+    {
+        nr_pings = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getNrPings()
+{
+    return nr_pings;
+}
+
+bool QSO::setMsShower(const QString &_c)
+{
+    ms_shower = _c;
+    return true;
+}
+
+QString QSO::getMsShower()
+{
+    return ms_shower;
+}
+
+bool QSO::setQSOComplete(const QString &_c)
+{
+    qso_complete = _c;
+    return true;
+}
+
+QString QSO::getQSOComplete()
+{
+    return qso_complete;
+}
+
+bool QSO::setIsQSOrandom(bool _k)
+{
+    isQSOrandom = _k;
+    return true;
+}
+
+bool QSO::getIsQSOrandom()
+{
+    return isQSOrandom;
+}
+
+bool QSO::setMyCity(const QString &_c)
+{
+    my_city = _c;
+    return true;
+}
+
+QString QSO::getMyCity()
+{
+    return my_city;
+}
+
+bool QSO::setMyCounty(const QString &_c)
+{
+    my_county = _c;
+    return true;
+}
+
+QString QSO::getMyCounty()
+{
+    return my_county;
+}
+
+bool QSO::setMyCountry(const QString &_c)
+{
+    my_country = _c;
+    return true;
+}
+
+QString QSO::getMyCountry()
+{
+    return my_country;
+}
+
+bool QSO::setMyCQZone(const int _i)
+{
+    if ((_i>=0) && (_i<=40))
+    {
+        my_cqz = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getMyCQZone()
+{
+    return my_cqz;
+}
+
+bool QSO::setMyDXCC(const int _i)
+{
+    if (util->isValidDXCC(_i))
+    {
+        my_dxcc = _i;
+        return true;
+    }
+    return false;
+
+}
+
+int QSO::getMyDXCC()
+{
+    return my_dxcc;
+}
+
+bool QSO::setMyFists(const QString &_c)
+{
+    my_fists = _c;
+    return true;
+}
+
+QString QSO::getMyFists()
+{
+    return my_fists;
+}
+
+bool QSO::setMyIOTA(const QString &_c)
+{
+    if (_c.length()>0)
+    {
+        my_iota = _c;
+        return true;
+    }
+    else
+    {
+        my_iota = QString();
+        return false;
+    }
+}
+
+QString QSO::getMyIOTA()
+{
+    return iota;
+}
+
+bool QSO::setMyITUZone(const int _i)
+{
+    if (_i>=0 && (_i<=90))
+    {
+        my_itu_zone = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getMyITUZone()
+{
+    return my_itu_zone;
+}
+
+bool QSO::setMyLatitude(const QString &_c)
+{
+    my_latitude = _c;
+    return true;
+}
+
+QString QSO::getMyLatitude()
+{
+    return my_latitude;
+}
+
+bool QSO::setMyLongitude(const QString &_c)
+{
+    my_longitude = _c;
+    return true;
+}
+
+QString QSO::getMyLongitude()
+{
+    return my_longitude;
+}
+
+bool QSO::setMyName(const QString &_c)
+{
+    my_name = _c;
+    return true;
+}
+
+QString QSO::getMyName()
+{
+    return my_name;
+}
+
+bool QSO::setMyPostalCode(const QString &_c)
+{
+    my_postal_code = _c;
+    return true;
+}
+
+QString QSO::getMyPostalCode()
+{
+    return my_postal_code;
+}
+
+bool QSO::setMySig(const QString &_c)
+{
+    my_sig = _c;
+    return true;
+}
+
+QString QSO::getMySig()
+{
+    return my_sig;
+}
+
+bool QSO::setMySigInfo(const QString &_c)
+{
+    my_sig_info = _c;
+    return true;
+}
+
+QString QSO::getMySigInfo()
+{
+    return my_sig_info;
+}
+
+bool QSO::setMyState(const QString &_c)
+{
+    my_state = _c;
+    return true;
+}
+
+QString QSO::getMyState()
+{
+    return my_state;
+}
+
+bool QSO::setMyStreet(const QString &_c)
+{
+    my_street = _c;
+    return true;
+}
+
+QString QSO::getMyStreet()
+{
+    return my_street;
+}
+
+bool QSO::setMyUsacaCounties(const QString &_c)
+{
+    my_usaca_counties = _c;
+    return true;
+}
+
+QString QSO::getMyUsacaCounties()
+{
+    return my_usaca_counties;
+}
+
+bool QSO::setNotes(const QString &_c)
+{
+    notes = _c;
+    return true;
+}
+
+QString QSO::getNotes()
+{
+    return notes;
+}
+
+bool QSO::setPrefix(const QString &_c)
+{
+    prefix = _c;
+    return true;
+}
+
+QString QSO::getPrefix()
+{
+    return prefix;
+}
+
+bool QSO::setPrecedence(const QString &_c)
+{
+    precedence = _c;
+    return true;
+}
+
+QString QSO::getPrecedence()
+{
+    return precedence;
+}
+
+bool QSO::setPublicKey(const QString &_c)
+{
+    public_key = _c;
+    return true;
+}
+
+QString QSO::getPublicKey()
+{
+    return public_key;
+}
+
+bool QSO::setQslMsg(const QString &_c)
+{
+    qslmsg = _c;
+    return true;
+}
+
+QString QSO::getQslMsg()
+{
+    return qslmsg;
+}
+
+bool QSO::setRegion(const QString &_c)
+{
+    region = _c;
+    return true;
+}
+
+QString QSO::getRegion()
+{
+    return region;
+}
+
+bool QSO::setTenTen(const int _i)
+{
+    if (_i>=0)
+    {
+        ten_ten = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getTenTen()
+{
+    return ten_ten;
+}
+
+bool QSO::setSFI(const int _i)
+{
+    if (_i>=0 && (_i<=300))
+    {
+        sfi = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getSFI()
+{
+    return sfi;
+}
+
+bool QSO::setSig(const QString &_c)
+{
+    sig = _c;
+    return true;
+}
+
+QString QSO::getSig()
+{
+    return sig;
+}
+
+bool QSO::setSigInfo(const QString &_c)
+{
+    sig_info = _c;
+    return true;
+}
+
+QString QSO::getSigInfo()
+{
+    return sig_info;
+}
+
+bool QSO::setSilentKey(bool _k)
+{
+    silent_key = _k;
+    return true;
+}
+
+bool QSO::getSilentKey()
+{
+    return silent_key;
+}
+
+bool QSO::setSkcc(const QString &_c)
+{
+    skcc = _c;
+    return true;
+}
+
+QString QSO::getSkcc()
+{
+    return skcc;
+}
+
+bool QSO::setSrx(const int _i)
+{
+    if (_i>=0)
+    {
+        srx = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getSrx()
+{
+    return srx;
+}
+
+bool QSO::setSrxString(const QString &_c)
+{
+    srx_string = _c;
+    return true;
+}
+
+QString QSO::getSrxString()
+{
+    return srx_string;
+}
+
+bool QSO::setStxString(const QString &_c)
+{
+    stx_string = _c;
+    return true;
+}
+
+QString QSO::getStxString()
+{
+    return stx_string;
+}
+
+bool QSO::setState(const QString &_c)
+{
+    state = _c;
+    return true;
+}
+
+QString QSO::getState()
+{
+    return state;
+}
+
+bool QSO::setSubmode(const QString &_c)
+{
+    submode = _c;
+    return true;
+}
+
+QString QSO::getSubmode()
+{
+    return submode;
+}
+
+bool QSO::setSwl(bool _k)
+{
+    swl = _k;
+    return true;
+}
+
+bool QSO::getSwl()
+{
+    return swl;
+}
+
+bool QSO::setUksmg(const int _i)
+{
+    if (_i>=0)
+    {
+        uksmg = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getUksmg()
+{
+    return uksmg;
+}
+
+bool QSO::setUsacaCounties(const QString &_c)
+{
+    usaca_counties = _c;
+    return true;
+}
+
+QString QSO::getUsacaCounties()
+{
+    return usaca_counties;
+}
+
+bool QSO::setVeProv(const QString &_c)
+{
+    ve_prov = _c;
+    return true;
+}
+
+QString QSO::getVeProv()
+{
+    return ve_prov;
+}
+
+bool QSO::setWeb(const QString &_c)
+{
+    web = _c;
+    return true;
+}
+
+QString QSO::getWeb()
+{
+    return web;
+}
 
 
 
