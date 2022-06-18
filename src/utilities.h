@@ -62,6 +62,7 @@ public:
     void printQString(const QStringList &_qs);
     QString getKLogDBFile();
     QString getKLogDBBackupFile();
+    bool QStringToBool(const QString &_s);
 
     //QString getKLogDatabaseFile(const QString &_file);
     bool isDBFileExisting();
@@ -114,6 +115,7 @@ public:
     bool isValidDXCC(const int _d);
     bool isValidAntPath(const QString &_s);
     bool isValidARRLSect(const QString &_s);
+    bool isValidContinent(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c);
@@ -148,7 +150,12 @@ public:
     QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
     QString getOnlineServiceName(OnLineProvider _service);
+
+    bool isValidDistance(const int _d);
+    bool isValidSponsor(const QString &_s);
+
     //QPalette getPalete(bool _ok);
+
 private:
     void init();
     bool processConfigLine(const QString &_line);
@@ -159,12 +166,16 @@ private:
     //QPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
+    void setContinent();
+    void setSponsorsList();
+
+
 
     bool darkMode;
     QString dbPath;
     QString softwareVersion;
 
-    QStringList ARRL_sects;
+    QStringList ARRL_sects, continent, sponsorsList;
     //QPalette palRed, palBlack;
 
 };

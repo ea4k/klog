@@ -62,13 +62,13 @@ public:
     QString getBand();
     bool setMode(const QString &_c);
     QString getMode();
+
+    bool setDateTimeOn(const QDateTime &_c);
+    QDateTime getDateTimeOn();
     bool setDate(const QDate &_c);
     QDate getDate();
-
     bool setTimeOn(const QTime &_c);
     QTime getTimeOn();
-    QDateTime getDateTimeOn();
-    bool setDateTimeOn(const QDateTime &_c);
 
     bool setQSOid(const int _i);
     int getQSOid();
@@ -190,9 +190,10 @@ public:
     QString getMyRig();
     bool setMyAntenna(const QString &_c);
     QString getMyAntenna();
+    bool setMyArrlSect(const QString &_c);
+    QString getMyArrlSect();
     bool setMyVUCCGrids(const QString &_c);
     QString getMyVUCCGrids();
-
     // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
@@ -203,75 +204,210 @@ public:
 
     bool setAddress(const QString &_c);
     QString getAddress();
-
     bool setA_Index(const int _i);
     int getA_Index();
     bool setAnt_az(const double _c);
     double getAnt_az();
     bool setAnt_el(const double _c);
     double getAnt_el();
-
     bool setAnt_Path(const QString &_c);
     QString getAnt_Path();
-
     bool setARRL_Sect(const QString &_c);
     QString getARRL_Sect();
+    bool setCheck(const QString &_c);
+    QString getCheck();
+    bool setClase(const QString &_c);
+    QString getClase();
+    bool setClublogQSOUpdateDate(const QDate &_c);
+    QDate getClublogQSOUpdateDate();
+    bool setContinent(const QString &_c);
+    QString getContinent();
+    bool setDistance(const int _i);
+    int getDistance();
+    bool setOwnerCallsign(const QString &_c);
+    QString getOwnerCallsign();
+    bool setHRDUpdateDate(const QDate &_c);
+    QDate getHRDUpdateDate();
+    bool setHRDLogStatus(const QString &_c);
+    QString getHRDLogStatus();
+    bool setFreq(const double _f);
+    double getFreq();
+    bool setK_Index(const int _i);
+    int getK_Index();
+    bool setDateOff(const QDate &_c);
+    QDate getDateOff();
+    bool setTimeOff(const QTime &_c);
+    QTime getTimeOff();
+    bool setRig(const QString &_c);
+    QString getRig();
+    bool setCountry(const QString &_c);
+    QString getCountry();
+    bool setAwardGranted(const QString &_c);
+    QString getAwardGranted();
+    bool setAwardSubmitted(const QString &_c);
+    QString getAwardSubmitted();
+    bool setCounty(const QString &_c);
+    QString getCounty();
+    bool setContactedOperator(const QString &_c);
+    QString getContactedOperator();
+    bool setContestID(const QString &_c);
+    QString getContestID();
+    bool setCQZone(const int _i);
+    int getCQZone();
+    bool setCreditGranted(const QString &_c);
+    QString getCreditGranted();
+    bool setCreditSubmitted(const QString &_c);
+    QString getCreditSubmitted();
+    bool setDarcDok(const QString &_c);
+    QString getDarcDok();
+    bool setEmail(const QString &_c);
+    QString getEmail();
+    bool setFists(const int _i);
+    int getFists();
+    bool setFistsCC(const int _i);
+    int getFistsCC();
+    bool setForceInit(bool _k);
+    bool getForceInit();
+    bool setIotaID(const int _i);
+    int getIotaID();
+    bool setItuZone(const int _i);
+    int getItuZone();
+    bool setLatitude(const QString &_c);
+    QString getLatitude();
+    bool setLongitude(const QString &_c);
+    QString getLongitude();
+    bool setQSOComplete(const QString &_c);
+    QString getQSOComplete();
+    bool setNrBursts(const int _i);
+    int getNrBursts();
+    bool setMaxBursts(const int _i);
+    int getMaxBursts();
+    bool setNrPings(const int _i);
+    int getNrPings();
+    bool setMsShower(const QString &_c);
+    QString getMsShower();
+    bool setQSORandom(bool _k);
+    bool getQSORandom();
+    bool setMyCity(const QString &_c);
+    QString getMyCity();
+    bool setMyCounty(const QString &_c);
+    QString getMyCounty();
+    bool setMyCountry(const QString &_c);
+    QString getMyCountry();
+    bool setMyCQZone(const int _i);
+    int getMyCQZone();
+    bool setMyDXCC(const int _i);
+    int getMyDXCC();
+    bool setMyFists(const QString &_c);
+    QString getMyFists();
+    bool setMyIOTA(const QString &_c);
+    QString getMyIOTA();
+    bool setMyIotaID(const int _i);
+    int getMyIotaID();
+    bool setMyITUZone(const int _i);
+    int getMyITUZone();
+    bool setMyLatitude(const QString &_c);
+    QString getMyLatitude();
+    bool setMyLongitude(const QString &_c);
+    QString getMyLongitude();
+    bool setMyName(const QString &_c);
+    QString getMyName();
+    bool setMyPostalCode(const QString &_c);
+    QString getMyPostalCode();
+    bool setMySig(const QString &_c);
+    QString getMySig();
+    bool setMySigInfo(const QString &_c);
+    QString getMySigInfo();
+    bool setMyState(const QString &_c);
+    QString getMyState();
+    bool setMyStreet(const QString &_c);
+    QString getMyStreet();
+    bool setMyUsacaCounties(const QString &_c);
+    QString getMyUsacaCounties();
+    bool setNotes(const QString &_c);
+    QString getNotes();
+    bool setPrefix(const QString &_c);
+    QString getPrefix();
+    bool setPrecedence(const QString &_c);
+    QString getPrecedence();
+    bool setPublicKey(const QString &_c);
+    QString getPublicKey();
+    bool setQslMsg(const QString &_c);
+    QString getQslMsg();
+    bool setRegion(const QString &_c);
+    QString getRegion();
+    bool setTenTen(const int _i);
+    int getTenTen();
+    bool setSFI(const int _i);
+    int getSFI();
+    bool setSig(const QString &_c);
+    QString getSig();
+    bool setSigInfo(const QString &_c);
+    QString getSigInfo();
+    bool setSilentKey(bool _k);
+    bool getSilentKey();
+    bool setSkcc(const QString &_c);
+    QString getSkcc();
+    bool setSrx(const int _i);
+    int getSrx();
+    bool setSrxString(const QString &_c);
+    QString getSrxString();
+    bool setState(const QString &_c);
+    QString getState();
+    bool setStx(const int _i);
+    int getStx();
+    bool setStxString(const QString &_c);
+    QString getStxString();
+    bool setSubmode(const QString &_c);
+    QString getSubmode();
+    bool setSwl(bool _k);
+    bool getSwl();
+    bool setUksmg(const int _i);
+    int getUksmg();
+    bool setUsacaCounties(const QString &_c);
+    QString getUsacaCounties();
+    bool setVeProv(const QString &_c);
+    QString getVeProv();
+    bool setWeb(const QString &_c);
+    QString getWeb();
+    bool setWwffRef(const QString &_c);
+    QString getWwffRef();
+    bool setMyWwffRef(const QString &_c);
+    QString getMyWwffRef();
 
     bool add();
 
 
 private:
 
-    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
-    int qsoId, logId, dxcc, a_index;
-    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, qslMsg;
-    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate;
-    QDateTime qso_dateTime;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az;
-    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
+    int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
+    int ten_ten, sfi;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq;
 
-    QString clublog_status;
-    QDate clublogDate;
+    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
+    QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_arrl_sect, vucc_grids, my_vucc_grids;
+    QString clublog_status, hrdlog_status, QRZCom_status;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
-    QDate eQSLRDate, eQSLSDate;
-    QString QRZCom_status;
-    QDate QRZComDate;
-    QString comment, address, ant_path, arrl_sect;
-    bool keepComment, keepOther, keepMyData, keepSat, modifying;
+    QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contest_id;
+    QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web, wwff_ref;
+    QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
+    QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties, my_wwff_ref;
 
-    QString iota;
+    QTime qso_time_off;
+    QDateTime qso_dateTime;
+
+    QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
+    QDate eQSLRDate, eQSLSDate, clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;;
+    QDate QRZComDate;
+
+    bool backup, lotwUpdating, realTime, manualMode, silent_key;
+    bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
 
     Utilities *util;
 
-    bool lotwUpdating, realTime, manualMode;
-    bool backup;
    // DataProxy_SQLite *dataProxy;
 
-
-   /*
-   ADDRESS_INTL, AWARD_GRANTED,  AWARD_SUBMITTED,
-   BAND,  BAND_RX,
-   CALL,  CHECK,  CLASS,  CLUBLOG_QSO_UPLOAD_DATE,  CLUBLOG_QSO_UPLOAD_STATUS,  CNTY,  COMMENT,  COMMENT_INTL,  CONT,  CONTACTED_OP,  CONTEST_ID,  COUNTRY,  COUNTRY_INTL,  CQZ,  CREDIT_SUBMITTED,  CREDIT_GRANTED,
-   DARC_DOK,  DISTANCE,  DXCC,
-   EMAIL,  EQ_CALL,  EQSL_QSLRDATE,  EQSL_QSLSDATE,  EQSL_QSL_RCVD,  EQSL_QSL_SENT,
-   FISTS,  FISTS_CC,  FORCE_INIT,  FREQ,  FREQ_RX,
-   GRIDSQUARE,  GUEST_OP,
-   HRDLOG_QSO_UPLOAD_DATE,  HRDLOG_QSO_UPLOAD_STATUS,
-   IOTA,  IOTA_ISLAND_ID,  ITUZ,
-   K_INDEX,
-   LAT,  LON,  LOTW_QSLRDATE,  LOTW_QSLSDATE,  LOTW_QSL_RCVD,  LOTW_QSL_SENT,
-   MAX_BURSTS,  MODE,  MS_SHOWER,  MY_ANTENNA,  MY_ANTENNA_INTL,  MY_CITY,  MY_CITY_INTL,  MY_CNTY,  MY_COUNTRY,  MY_COUNTRY_INTL,  MY_CQ_ZONE,  MY_DXCC,  MY_FISTS,  MY_GRIDSQUARE,  MY_IOTA,  MY_IOTA_ISLAND_ID,  MY_ITU_ZONE,  MY_LAT,  MY_LON,  MY_NAME,  MY_NAME_INTL,  MY_POSTAL_CODE,  MY_POSTAL_CODE_INTL,  MY_RIG,  MY_RIG_INTL,  MY_SIG,  MY_SIG_INTL,  MY_SIG_INFO,  MY_SIG_INFO_INTL,  MY_SOTA_REF,  MY_STATE,  MY_STREET,  MY_STREET_INTL,  MY_USACA_COUNTIES,  MY_VUCC_GRIDS,
-   NAME,  NAME_INTL,  NOTES,  NOTES_INTL,  NR_BURSTS,  NR_PINGS,
-   OPERATOR,  OWNER_CALLSIGN,
-   PFX,  PRECEDENCE,  PROP_MODE,  PUBLIC_KEY,
-   QRZCOM_QSO_UPLOAD_DATE,  QRZCOM_QSO_UPLOAD_STATUS,  QSLMSG,  QSLMSG_INTL,  QSLRDATE,  QSLSDATE,  QSL_RCVD,  QSL_RCVD_VIA,  QSL_SENT,  QSL_SENT_VIA,  QSL_VIA,  QSO_COMPLETE,  QSO_DATE,  QSO_DATE_OFF,  QSO_RANDOM,  QTH,  QTH_INTL,
-   REGION,  RIG,  RIG_INTL,  RST_RCVD,  RST_SENT,  RX_PWR,
-   SAT_MODE,  SAT_NAME,  SFI,  SIG,  SIG_INTL,  SIG_INFO,  SIG_INFO_INTL,  SILENT_KEY,  SKCC,  SOTA_REF,  SRX,  SRX_STRING,  STATE,  STATION_CALLSIGN,  STX,  STX_STRING,  SUBMODE,  SWL,
-   TEN_TEN,  TIME_OFF,  TIME_ON,  TX_PWR,
-   UKSMG,  USACA_COUNTIES,
-   VE_PROV,  VUCC_GRIDS,
-   WEB
-   */
 
 };
 

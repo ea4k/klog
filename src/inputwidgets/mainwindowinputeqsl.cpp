@@ -400,21 +400,26 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
     switch (i)
     {
         case 0:
+            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
             lotwRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
 
         break;
         case 2:
+            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
             lotwRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
+            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
         break;
         case 4:
+            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
         break;
         default: //NO
+            lotwRecQDateEdit->setVisible(false);
             lotwRecQDateEdit->setEnabled(false);
         break;
     }
@@ -436,23 +441,28 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged(){
     switch (i)
     {
         case 0:
+            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
+            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
+            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
+            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
         default: //NO
+            lotwSentQDateEdit->setVisible(false);
             lotwSentQDateEdit->setEnabled(false);
         break;
     }
@@ -474,22 +484,27 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
     switch (i)
     {
         case 0:
+            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
+            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
+            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
+            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
+            eqslRecQDateEdit->setVisible(false);
             eqslRecQDateEdit->setEnabled(false);
         break;
 
@@ -513,23 +528,28 @@ void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
     switch (i)
     {
         case 0:
+            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
+            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
+            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
+            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
         default: //NO
+            eqslSentQDateEdit->setVisible(false);
             eqslSentQDateEdit->setEnabled(false);
         break;
     }
@@ -546,14 +566,17 @@ void MainWindowInputEQSL::slotClubLogComboBoxChanged()
     switch (i)
     {
         case 0:
+            clublogQDateEdit->setVisible(true);
             clublogQDateEdit->setEnabled(true);
             clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
+            clublogQDateEdit->setVisible(true);
             clublogQDateEdit->setEnabled(true);
             clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
+            clublogQDateEdit->setVisible(false);
             clublogQDateEdit->setEnabled(false);
         break;
     }
@@ -582,14 +605,17 @@ void MainWindowInputEQSL::slotQRZCOMComboBoxChanged()
     switch (i)
     {
         case 0:
+            qrzcomQDateEdit->setVisible(true);
             qrzcomQDateEdit->setEnabled(true);
             qrzcomQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
+            qrzcomQDateEdit->setVisible(true);
             qrzcomQDateEdit->setEnabled(true);
             qrzcomQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
+            qrzcomQDateEdit->setVisible(false);
             qrzcomQDateEdit->setEnabled(false);
         break;
     }

@@ -46,6 +46,8 @@ void Utilities::init()
     softwareVersion = "0.0";
     darkMode = false;
     setARRLSect();
+    setContinent();
+    setSponsorsList();
     //callValidation = true;
 
 }
@@ -66,6 +68,19 @@ void Utilities::setARRLSect()
    ARRL_sects = preARRL_sects;
 }
 
+void Utilities::setContinent()
+{
+    continent = QStringList();
+    QStringList continentList = {"NA", "SA", "EU", "AF", "OC", "AS", "AN"};
+    continent = continentList;
+}
+
+void Utilities::setSponsorsList()
+{
+   sponsorsList.clear ();
+   QStringList preSponsorsList = {"ADIF_", "ARI_", "ARRL_", "CQ_", "DARC_", "EQSL_", "IARU_", "JARL_", "RSGB_", "TAG_", "WABAG_"};
+   sponsorsList = preSponsorsList;
+}
 
 void Utilities::setVersion(const QString &_v)
 {
@@ -153,6 +168,19 @@ QString Utilities::boolToQString(const bool _b)
     else
     {
         return "False";
+    }
+}
+
+bool Utilities::QStringToBool(const QString &_s)
+{
+
+    if ( (_s.toUpper()) == "Y")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
@@ -1537,8 +1565,13 @@ bool Utilities::isValidDXCC(const int _d)
 bool Utilities::isValidAntPath(const QString &_s)
 {
    if ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"))
+   {
        return true;
-   return false;
+   }
+   else
+   {
+        return false;
+   }
 }
 
 bool Utilities::isValidARRLSect(const QString &_s)
@@ -2019,4 +2052,33 @@ QString Utilities::getLogColumnName(const QString &_column)
     {
         return _column;
     }
+
+}
+
+bool Utilities::isValidContinent(const QString &_s)
+{
+    if (continent.contains (_s.toUpper ()))
+            return true;
+    else
+            return false;
+}
+
+bool Utilities::isValidDistance(const int _d)
+{
+    if (_d > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Utilities::isValidSponsor(const QString &_s)
+{
+    if (sponsorsList.contains (_s.toUpper ()))
+            return true;
+    else
+            return false;
 }
