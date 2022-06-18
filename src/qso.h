@@ -62,13 +62,13 @@ public:
     QString getBand();
     bool setMode(const QString &_c);
     QString getMode();
+
+    bool setDateTimeOn(const QDateTime &_c);
+    QDateTime getDateTimeOn();
     bool setDate(const QDate &_c);
     QDate getDate();
-
     bool setTimeOn(const QTime &_c);
     QTime getTimeOn();
-    QDateTime getDateTimeOn();
-    bool setDateTimeOn(const QDateTime &_c);
 
     bool setQSOid(const int _i);
     int getQSOid();
