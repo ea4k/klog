@@ -190,9 +190,10 @@ public:
     QString getMyRig();
     bool setMyAntenna(const QString &_c);
     QString getMyAntenna();
+    bool setMyArrlSect(const QString &_c);
+    QString getMyArrlSect();
     bool setMyVUCCGrids(const QString &_c);
     QString getMyVUCCGrids();
-
     // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
@@ -203,29 +204,22 @@ public:
 
     bool setAddress(const QString &_c);
     QString getAddress();
-
     bool setA_Index(const int _i);
     int getA_Index();
     bool setAnt_az(const double _c);
     double getAnt_az();
     bool setAnt_el(const double _c);
     double getAnt_el();
-
     bool setAnt_Path(const QString &_c);
     QString getAnt_Path();
-
     bool setARRL_Sect(const QString &_c);
     QString getARRL_Sect();
-
     bool setCheck(const QString &_c);
     QString getCheck();
-
     bool setClase(const QString &_c);
     QString getClase();
-
     bool setClublogQSOUpdateDate(const QDate &_c);
     QDate getClublogQSOUpdateDate();
-
     bool setContinent(const QString &_c);
     QString getContinent();
     bool setDistance(const int _i);
@@ -294,9 +288,6 @@ public:
     QString getMsShower();
     bool setQSORandom(bool _k);
     bool getQSORandom();
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
     bool setMyCity(const QString &_c);
     QString getMyCity();
     bool setMyCounty(const QString &_c);
@@ -379,6 +370,10 @@ public:
     QString getVeProv();
     bool setWeb(const QString &_c);
     QString getWeb();
+    bool setWwffRef(const QString &_c);
+    QString getWwffRef();
+    bool setMyWwffRef(const QString &_c);
+    QString getMyWwffRef();
 
     bool add();
 
@@ -389,15 +384,15 @@ private:
     int ten_ten, sfi;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq;
 
-    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, mode, gridsquare, myGridsquare, qth, name, RST_tx, RST_rx;
+    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
-    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, vucc_grids, my_vucc_grids;
+    QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_arrl_sect, vucc_grids, my_vucc_grids;
     QString clublog_status, hrdlog_status, QRZCom_status;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
     QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contest_id;
-    QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web;
+    QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web, wwff_ref;
     QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
-    QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties;
+    QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties, my_wwff_ref;
 
     QTime qso_time_off;
     QDateTime qso_dateTime;

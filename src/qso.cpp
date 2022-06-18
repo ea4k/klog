@@ -42,51 +42,84 @@ void QSO::clear()
     qsoId = -1;
     logId = -1;
     backup = false;
-    callsign = QString();
-    name = QString();
     stationCallsign = QString();
-    operatorCall = QString();
+    lotwUpdating = false;
+    realTime = false;
+    manualMode = false;
+    keepComment = false;
+    keepMyData = false;
+    keepOther = false;
+    keepSat = false;
+    modifying = false;
+
+    // VARIABLES for ADIF //////////
+    address = QString();
+    age = -1.0;
+    a_index = -1;
+    ant_az = 0;
+    ant_el = 0;
+    ant_path = QString();
+    arrl_sect = QString();
+    award_submitted = QString();
+    award_granted = QString();
     band = QString();
-    mode = QString();
-    gridsquare = QString();
-
-    qsl_rcvd = QString();
-    qsl_sent = QString();
-    QSLRDate = QDate();
-    QSLSDate = QDate();
-    qslSenVia = QString();
-    qslRecVia = QString();
-    qslVia = QString();
-    qslmsg = QString();
-
-    clublog_status = QString();
-    clublogDate = QDate();
+    band_rx = QString();
+    callsign = QString();
+    check = QString();
+    clase = QString();
     clublogQSOUpdateDate = QDate();
-    eqsl_qsl_sent = QString();
-    eqsl_qsl_rcvd = QString();
+    clublogDate = QDate();
+    clublog_status = QString();
+    county = QString();
+    comment = QString();
+    continent = QString();
+    contacted_op = QString();
+    contest_id = QString();
+    country = QString();
+    cqz = -1;
+    credit_granted = QString();
+    credit_submitted = QString();
+    darc_dok = QString();
+    distance = -1;
+    dxcc = -1;
+    email = QString();
+    ownerCall = QString();
     eQSLRDate = QDate();
     eQSLSDate = QDate();
-    QRZCom_status = QString();
-    QRZComDate = QDate();
-    lotw_qsl_sent = QString();
-    lotw_qsl_rcvd = QString();
+    eqsl_qsl_rcvd = QString();
+    eqsl_qsl_sent = QString();
+    fists = -1;
+    fists_cc = -1;
+    forceInit = false;
+    freq = -1.0;
+    freq_rx = -1.0;
+    freq_tx = -1.0;
+    gridsquare = QString();
+    operatorCall = QString();
+    hrdlogUploadDate = QDate();
+    hrdlog_status = QString();
+    iota = QString();
+    iota_ID = -1;
+    itu_zone = -1;
+    k_index = -1;
+    latitude = QString();
+    longitude = QString();
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
-
-    myGridsquare = QString();
-    my_sota_ref = QString();
-    my_rig = QString();
+    lotw_qsl_rcvd = QString();
+    lotw_qsl_sent = QString();
+    max_bursts = -1;
+    mode = QString();
+    ms_shower = QString();
     my_antenna = QString();
-    my_vucc_grids= QString();
-    my_street = QString();
-    my_state = QString();
-    my_rig = QString();
+    my_arrl_sect = QString();
     my_city = QString();
-    my_country = QString();
     my_county = QString();
+    my_country = QString();
     my_cqz = -1;
     my_dxcc = -1;
     my_fists = QString();
+    my_gridsquare = QString();
     my_iota = QString();
     my_iota_ID = -1;
     my_itu_zone = -1;
@@ -94,106 +127,69 @@ void QSO::clear()
     my_longitude = QString();
     my_name = QString();
     my_postal_code = QString();
+    my_rig = QString();
+    my_sig = QString();
     my_sig_info = QString();
-
-    vucc_grids= QString();
-    qth = QString();
+    my_sota_ref = QString();
+    my_state = QString();
+    my_street = QString();
+    my_usaca_counties = QString();
+    my_vucc_grids= QString();
+    my_wwff_ref = QString();
     name = QString();
-    freq_tx = -1.0;
-    freq_rx = -1.0;
-    age = -1.0;
-    sota_ref = QString();
-    pwr_rx = 0.0;
-    pwr_tx = 0.0;
-    RST_rx = QString();
-    RST_tx = QString();
-    dxcc = -1;
-    propMode = QString();
-    iota = QString();
-    a_index = -1;
-    k_index = -1;
-    ant_el = 0;
-    ant_az = 0;
-    ant_path = QString();
-    arrl_sect = QString();
-    latitude = QString();
-    longitude = QString();
-
-    qso_dateTime = QDateTime();
-    lotwUpdating = false;
-    realTime = false;
-    manualMode = false;
-    comment = QString();
-    satName = QString();
-    satMode = QString();
-    keepComment = false;
-    keepMyData = false;
-    keepOther = false;
-    keepSat = false;
-    modifying = false;
-
-    address = QString();
-    check = QString();
-    clase = QString();
-    clublogQSOUpdateDate = QDate();
-    continent = QString();
-    distance = -1;
-    ownerCall = QString();
-    hrdlogUploadDate = QDate();
-    hrdlog_status = QString();
-    freq = -1.0;
-    k_index = -1;
-    qso_date_off = QDate();
-    qso_time_off = QTime();
-    rig = QString();
-    country = QString();
-    award_granted = QString();
-    award_submitted = QString();
-    county = QString();
-    contacted_op = QString();
-    contest_id = QString();
-    cqz = -1;
-    credit_granted = QString();
-    credit_submitted = QString();
-    darc_dok = QString();
-    email = QString();
-    fists = -1;
-    fists_cc = -1;
-    forceInit = false;
-    iota_ID = -1;
-    itu_zone = -1;
-    nr_bursts = -1;
-    max_bursts = -1;
-    nr_pings = -1;
-    ms_shower = QString();
-    qso_complete = QString();
-    qso_random = false;
     notes = QString();
     nr_bursts = -1;
     nr_pings = -1;
-    qslmsg = QString();
-    QRZComDate = QDate();
-    QRZCom_status = QString();
+    operatorCall = QString();
+    ownerCall = QString();
     prefix = QString();
     precedence = QString();
+    propMode = QString();
+    public_key = QString();
+    QRZComDate = QDate();
+    QRZCom_status = QString();
+    qslmsg = QString();
+    QSLRDate = QDate();
+    QSLSDate = QDate();
+    qsl_rcvd = QString();
+    qsl_sent = QString();
+    qslSenVia = QString();
+    qslRecVia = QString();
+    qslVia = QString();
+    qso_complete = QString();
+    qso_dateTime = QDateTime();
+    qso_date_off = QDate();
+    qso_random = false;
+    qth = QString();
+    region = QString();
+    rig = QString();
+    RST_rx = QString();
+    RST_tx = QString();
+    pwr_rx = 0.0;
+    satMode = QString();
+    satName = QString();
     sfi = -1;
     sig = QString();
     sig_info = QString();
     silent_key = false;
     skcc = QString();
+    sota_ref = QString();
     srx = -1;
     srx_string = QString();
     state = QString();
     stx = -1;
     stx_string = QString();
+    submode = QString();
     swl = false;
     ten_ten = -1;
+    qso_time_off = QTime();
+    pwr_tx = 0.0;
     uksmg = -1;
     usaca_counties = QString();
     ve_prov = QString();
     vucc_grids = QString();
     web = QString();
-
+    wwff_ref = QString();
 
 }
 
@@ -349,12 +345,12 @@ bool QSO::setBandRX(const QString &_c)
    //qDebug() << "QSO::setBandRX: "<< _c << QT_ENDL;
     if (_c.length()>0)
     {
-        band = _c;
+        band_rx = _c;
         return true;
     }
     else
     {
-        band = QString();
+        band_rx = QString();
         return false;
     }
 }
@@ -1146,6 +1142,24 @@ QString QSO::getMyAntenna()
     return my_antenna;
 }
 
+bool QSO::setMyArrlSect(const QString &_c)
+{
+    if (!util->isValidARRLSect (_c))
+    {
+        return false;
+    }
+    else
+    {
+        my_arrl_sect = _c;
+        return true;
+    }
+}
+
+QString QSO::getMyArrlSect()
+{
+    return my_arrl_sect;
+}
+
 bool QSO::setAge(const double _c)
 {
     if ((0 <= _c) && (_c <= 120))
@@ -1247,7 +1261,7 @@ bool QSO::setMyGridSquare(const QString &_c)
 {
     if (util->isValidGrid(_c))
     {
-        myGridsquare = _c;
+        my_gridsquare = _c;
         return true;
     }
     else
@@ -1258,7 +1272,7 @@ bool QSO::setMyGridSquare(const QString &_c)
 
 QString QSO::getMyGridSquare()
 {
-    return myGridsquare;
+    return my_gridsquare;
 }
 
 bool QSO::setKeepMyData(bool _k)
@@ -2441,6 +2455,28 @@ QString QSO::getWeb()
     return web;
 }
 
+bool QSO::setWwffRef(const QString &_c)
+{
+    wwff_ref = _c;
+    return true;
+}
+
+QString QSO::getWwffRef()
+{
+    return wwff_ref;
+}
+
+bool QSO::setMyWwffRef(const QString &_c)
+{
+    my_wwff_ref = _c;
+    return true;
+}
+
+QString QSO::getMyWwffRef()
+{
+    return my_wwff_ref;
+}
+
 
 
 
@@ -2690,6 +2726,10 @@ bool QSO::setData(const QString &_adifPair)
     {
         setMyAntenna(data);
     }
+    else if (field == "MY_ARRL_SECT")
+    {
+        setMyArrlSect(data);
+    }
     else if (field == "MY_CITY")
     {
         setMyCity(data);
@@ -2777,6 +2817,10 @@ bool QSO::setData(const QString &_adifPair)
     else if (field == "MY_VUCC_GRIDS")
     {
         setMyVUCCGrids(data);
+    }
+    else if (field == "MY_WWFF_REF")
+    {
+        setMyWwffRef(data);
     }
     else if (field == "NAME")
     {
@@ -2997,6 +3041,10 @@ bool QSO::setData(const QString &_adifPair)
     else if (field == "WEB")
     {
         setWeb(data);
+    }
+    else if (field == "WWFF_REF")
+    {
+        setWwffRef(data);
     }
     else if (field == "APP_LOTW_RXQSL")
     {
