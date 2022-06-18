@@ -380,49 +380,81 @@ QString QSO::getMode()
     return mode;
 }
 
-//bool QSO::setDate(const QDate &_c)
-//{
-//   //qDebug() << "QSO::setDate: " << util->getDateSQLiteStringFromDate(_c) << QT_ENDL;
-//    if (_c.isValid())
-//    {
-//       //qDebug() << "QSO::setDate: VALID" << QT_ENDL;
-//        qso_date.setDate(_c);
-//        return true;
-//    }
-//    else
-//    {
-//       //qDebug() << "QSO::setDate: NOT VALID" << QT_ENDL;
-//        qso_date.setDate(QDate());
-//        return false;
-//    }
-//}
+bool QSO::setDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        qso_dateTime.setDate(_c);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
-//QDate QSO::getDate()
-//{
-//    return qso_date.date();
-//}
+QDate QSO::getDate()
+{
+    return qso_dateTime.date();
+}
 
-//bool QSO::setTimeOn(const QTime &_c)
-//{
-//   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << QT_ENDL;
-//    if (_c.isValid())
-//    {
-//       //qDebug() << "QSO::setQSLTime: VALID" << QT_ENDL;
-//        qsoTimeOn.setTime(_c);
-//        return true;
-//    }
-//    else
-//    {
-//       //qDebug() << "QSO::setQSLTime: NOT VALID" << QT_ENDL;
-//        qsoTimeOn.setTime(QTime());
-//        return false;
-//    }
-//}
+bool QSO::setDateOff(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        qso_date_off = _c;
+        return true;
+    }
+    else
+    {
+        qso_date_off = QDate();
+        return false;
+    }
+}
 
-//QTime QSO::getTimeOn()
-//{
-//    return qsoTimeOn.time();
-//}
+QDate QSO::getDateOff()
+{
+    return qso_date_off;
+}
+
+bool QSO::setTimeOff(const QTime &_c)
+{
+    if (_c.isValid())
+    {
+        qso_time_off = _c;
+        return true;
+    }
+    else
+    {
+        qso_time_off = QTime();
+        return false;
+    }
+}
+
+QTime QSO::getTimeOff()
+{
+    return qso_time_off;
+}
+
+bool QSO::setTimeOn(const QTime &_c)
+{
+   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << QT_ENDL;
+    if (_c.isValid())
+    {
+       //qDebug() << "QSO::setQSLTime: VALID" << QT_ENDL;
+        qso_dateTime.setTime(_c);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QTime QSO::getTimeOn()
+{
+    return qso_dateTime.time();
+}
 
 bool QSO::setDateTimeOn(const QDateTime &_c)
 {
@@ -1578,44 +1610,6 @@ int QSO::getK_Index()
     return k_index;
 }
 
-bool QSO::setDateOff(const QDate &_c)
-{
-    if (_c.isValid())
-    {
-        qso_date_off = _c;
-        return true;
-    }
-    else
-    {
-        qso_date_off = QDate();
-        return false;
-    }
-}
-
-QDate QSO::getDateOff()
-{
-    return qso_date_off;
-}
-
-bool QSO::setTimeOff(const QTime &_c)
-{
-    if (_c.isValid())
-    {
-        qso_time_off = _c;
-        return true;
-    }
-    else
-    {
-        qso_time_off = QTime();
-        return false;
-    }
-}
-
-QTime QSO::getTimeOff()
-{
-    return qso_time_off;
-}
-
 bool QSO::setRig(const QString &_c)
 {
     rig = _c;
@@ -2358,6 +2352,24 @@ bool QSO::setSrxString(const QString &_c)
 QString QSO::getSrxString()
 {
     return srx_string;
+}
+
+bool QSO::setStx(const int _i)
+{
+    if (_i>=0)
+    {
+        stx = _i;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int QSO::getStx()
+{
+    return stx;
 }
 
 bool QSO::setStxString(const QString &_c)
