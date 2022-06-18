@@ -1393,14 +1393,6 @@ bool DataBase::updateIfNeeded()
      * This function should call to bool updateToXXX () being XXX dbVersion and
      *
      */
-
-    //float aux = 0.0;
-
-    //int nameCol = -1;
-    //int errorCode = -1;
-    //bool toBeUpdated = false;
-    //bool sqlOK;
-
     QSqlQuery query;
     QString stringQuery = QString("SELECT MAX (dbversion) FROM softwarecontrol");
     bool sqlOK = query.exec(stringQuery);
@@ -4840,7 +4832,7 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 {
     QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
 
-       //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << QT_ENDL;
+    qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV << QT_ENDL;
     QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
     bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
     if (!sqlOK)
@@ -5285,14 +5277,14 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
 
 bool DataBase::updateTheEntityTableISONames()
 {
-    //qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
+    qDebug() << "DataBase::updateTheEntityTableISONames" << QT_ENDL;
     QSqlQuery query;
     QString sq;
 
     //First of all we will check if the entity table does contain data. We can't update something non existent!
     if (!hasTheTableData("entity"))
     {
-            //qDebug() << "DataBase::updateTheEntityTableISONames: Entity has NO data" << QT_ENDL;
+       qDebug() << Q_FUNC_INFO << " : Entity has NO data";
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
@@ -5305,13 +5297,15 @@ bool DataBase::updateTheEntityTableISONames()
         foreach (int i, countryCodes.values(str))
         {
             if (!updateEntity (str, i))
+            {
+                qDebug() << Q_FUNC_INFO << " : Update entity failed: " << str;
                 return false;
-
+            }
             //qDebug() << str << ':' << i;
         }
     }
 
-    //qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
+    qDebug() << "DataBase::updateTheEntityTableISONames-END" << QT_ENDL;
     return true;
 }
 
@@ -6137,7 +6131,7 @@ bool DataBase::updateTo018()
 bool DataBase::updateTo019()
 {// Adds FTS4 and FST4W modes
  // Adds RS-44 sat
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IAmIn018 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
@@ -6195,14 +6189,14 @@ bool DataBase::updateTo019()
 
 bool DataBase::updateTo024()
 {// Recreates the table band
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+   qDebug() << Q_FUNC_INFO << " " << getDBVersion() << QT_ENDL;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
-    if (latestReaded >= dbVersion)
+    qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
+    if (latestReaded >= 0.024f)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 024" << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << " : - I am in 024" << QT_ENDL;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
@@ -6210,38 +6204,41 @@ bool DataBase::updateTo024()
         IamInPreviousVersion = updateTo023();
         if (!IamInPreviousVersion)
         {
+            qDebug() << Q_FUNC_INFO << " : Update to previous version failed";
             return false;
         }
     }
 
     // Now I am in the previous version and I can update the DB.
 
-    if (updateTheEntityTableISONames())
+    if (!updateTheEntityTableISONames())
     {
+        qDebug() << Q_FUNC_INFO << " : Update of entityTableIsonames failed";
         return false;
     }
 
-    if (!updateDBVersion(softVersion, QString::number(0.024)))
+
+    if (updateDBVersion(softVersion, QString::number(dbVersion)))
     {
-        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " << QT_ENDL;
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
-    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " : UPDATED OK!" << QT_ENDL;
     return true;
 }
 
 
 bool DataBase::updateTo023()
 {// Recreates the table band
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
-    if (latestReaded >= dbVersion)
+    if (latestReaded >= 0.023f)
     {
-       //qDebug() << Q_FUNC_INFO << " : - I am in 023" << QT_ENDL;
+        qDebug() << Q_FUNC_INFO << " : - I am in 023" << QT_ENDL;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
@@ -6273,12 +6270,12 @@ bool DataBase::updateTo023()
 
 bool DataBase::updateTo022()
 {// Adds Q65 mode
-   //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
-    if (latestReaded >= dbVersion)
+    if (latestReaded >= 0.022f)
     {
        //qDebug() << Q_FUNC_INFO << " : - I am in 022" << QT_ENDL;
         return true;
@@ -6312,12 +6309,12 @@ bool DataBase::updateTo022()
 
 bool DataBase::updateTo021()
 {// Adds 5M & 8M bands
-    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
+     qDebug() << Q_FUNC_INFO << " "  << getDBVersion() << QT_ENDL;
      bool IamInPreviousVersion = false;
      bool ErrorUpdating = false;
      latestReaded = getDBVersion().toFloat();
     //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) << QT_ENDL;
-     if (latestReaded >= dbVersion)
+     if (latestReaded >= 0.021f)
      {
         //qDebug() << Q_FUNC_INFO << " : - I am in 019" << QT_ENDL;
          return true;

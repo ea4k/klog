@@ -69,7 +69,7 @@ void Utilities::setARRLSect()
 
 void Utilities::setVersion(const QString &_v)
 {
-       //qDebug() << "Utilities::setVersion: " << _v ;
+    //qDebug() << "Utilities::setVersion: " << _v ;
     softwareVersion = _v;
 }
 

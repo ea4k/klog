@@ -2409,12 +2409,13 @@ QString MainWindow::readDataFromUIDXModifying()
     else
     {
         updateString = updateString + "prop_mode = '', ";
-                   //qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 << QT_ENDL;
+    //qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 << QT_ENDL;
     }
 
     //CLUBLOG
 
     aux1 = eQSLTabWidget->getClubLogStatus(); //Y, N, M
+    qDebug() << Q_FUNC_INFO << ": ClubLogStatus" << aux1;
     if (aux1 == "Y")
     {
         updateString = updateString + "clublog_qso_upload_status = 'Y', ";
