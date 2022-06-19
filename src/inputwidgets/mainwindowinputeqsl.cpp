@@ -171,6 +171,7 @@ void MainWindowInputEQSL::setDefaultData()
     qrzcomComboBox->addItems(clubLogStatusList);
 
     queueSentByDefault = true;
+    isQRZSubscriber = false;
 
 }
 void MainWindowInputEQSL::clear()
@@ -182,14 +183,21 @@ void MainWindowInputEQSL::clear()
         clublogComboBox->setCurrentIndex( clublogComboBox->findText("M", Qt::MatchStartsWith));
         eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
         lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
-        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("M", Qt::MatchStartsWith));
     }
     else
     {
         clublogComboBox->setCurrentIndex( clublogComboBox->findText("N", Qt::MatchStartsWith));
-        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("N", Qt::MatchStartsWith));
         eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("N", Qt::MatchStartsWith));
         lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("N", Qt::MatchStartsWith));
+    }
+
+    if ((isQRZSubscriber) && (queueSentByDefault))
+    {
+        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("M", Qt::MatchStartsWith));
+    }
+    else
+    {
+        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("N", Qt::MatchStartsWith));
     }
 
     eqslRecComboBox->setCurrentIndex(eqslRecComboBox->findText("N", Qt::MatchStartsWith));
@@ -709,6 +717,11 @@ QDate MainWindowInputEQSL::getLOTWSenDate()
 void MainWindowInputEQSL::setQueueSentByDefault(const bool _b)
 {
     queueSentByDefault = _b;
+}
+
+void MainWindowInputEQSL::setSubscriber(const bool _b)
+{
+    isQRZSubscriber = _b;
 }
 
 //void MainWindowInputEQSL::clearDateEdit(QDateEdit &_c)

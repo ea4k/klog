@@ -75,6 +75,7 @@ public:
     void setLOTWSenDate(const QDate _qs);
 
     void setQueueSentByDefault(const bool _b);
+    void setSubscriber(const bool _b);
 
 
 signals:
@@ -100,7 +101,7 @@ private:
     Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;
-    bool queueSentByDefault;
+    bool queueSentByDefault, isQRZSubscriber;
 
 };
 
