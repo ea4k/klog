@@ -2,6 +2,7 @@ TBD - 2.2
 - Bugfix: Clublog QSO status export to file was not properly done.
 - Improvement: General code cleaning (coveralls.io)
 - Improvement Distance is not stored for new QSO added or modified QSOs from the UI. (Closes #459).
+- Improvement: eQSL Dates show empty value when QSO is not uploaded.
 
 Feb 2022 - 2.1
 - Improvement: Changed the map provider to ESRI to be able to get Map legends in English.
