@@ -90,6 +90,7 @@ private slots:
 private:
     void createUI();
     void setDefaultData();
+    void clearDateEdit(QDateEdit &_c);
 
     QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox, *qrzcomComboBox;
     QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit,  *qrzcomQDateEdit;
