@@ -35,6 +35,18 @@
 
 void MainWindow::showNotWar()
 {
+   //qDebug() << Q_FUNC_INFO;
+    /*
+
+#include <QtGlobal>
+#if QT_VERSION >= 0x050000
+    #include <QApplication>
+#else
+    #include <QtGui/QApplication>
+#endif
+
+*/
+   //qDebug() << QT_VERSION_STR;
     int callDXCC = world->getQRZARRLId(mainQRZ);
     //int callDXCC = world->getQRZARRLId(stationCallsign);
     int EURusId = 54;   // ADIF code Eu Russia
@@ -77,7 +89,7 @@ void MainWindow::showNotWar()
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
-    //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     g_callsignCheck  = true;
 
     showKLogLogWidget = new ShowKLogLogWidget;
@@ -823,7 +835,6 @@ void MainWindow::slotShowMap()
     //foreach (QString ai, a)
     //{
     //    mapWindow->addMarker (locator->getLocatorCoordinate (ai));
-        //qDebug() << ai;
     //}
     //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
@@ -1284,8 +1295,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringFields = stringFields + ", gridsquare";
         stringData = stringData + ", '" + aux1 + "'";
     }
-
-             //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(txFreqSpinBox->value()) << QT_ENDL;
+   //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(QSOTabWidget->getTXFreq()) << QT_ENDL;
     if ( QSOTabWidget->getTXFreq() > 0  )
     {
         aux1 = QString::number(QSOTabWidget->getTXFreq());
@@ -2415,7 +2425,7 @@ QString MainWindow::readDataFromUIDXModifying()
     //CLUBLOG
 
     aux1 = eQSLTabWidget->getClubLogStatus(); //Y, N, M
-    qDebug() << Q_FUNC_INFO << ": ClubLogStatus" << aux1;
+   //qDebug() << Q_FUNC_INFO << ": ClubLogStatus" << aux1;
     if (aux1 == "Y")
     {
         updateString = updateString + "clublog_qso_upload_status = 'Y', ";
@@ -3123,7 +3133,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
     QString fileName = util->getEQSLFile();
     if (QFile::exists(fileName))
     {
-            //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << fileName <<endl;
+            //qDebug() << "MainWindow::slotElogEQSLFileUploaded file exist" << fileName ;
     }
      else
      {
@@ -3720,12 +3730,12 @@ void MainWindow::clearUIDX(bool _full)
     completedWithPreviousQTH = false;
     completedWithPreviousLocator = false;
 
-     //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(txFreqSpinBox->value()) << QT_ENDL;
+   //qDebug() << "MainWindow::clearUIDX deciding wether to change or not the Freq: " << QString::number(QSOTabWidget->getTXFreq()) << QT_ENDL;
     if (QSOTabWidget->getTXFreq()<=0)
     {
-        //qDebug() << "MainWindow::clearUIDX Setting TX Freq from: " << QString::number(txFreqSpinBox->value()) << QT_ENDL;
+        //qDebug() << "MainWindow::clearUIDX Setting TX Freq from: " << QString::number(QSOTabWidget->getTXFreq()) << QT_ENDL;
         QSOTabWidget->setTXFreq((dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
-        //qDebug() << "MainWindow::clearUIDX Setting TX Freq to: " << QString::number(txFreqSpinBox->value()) << QT_ENDL;
+        //qDebug() << "MainWindow::clearUIDX Setting TX Freq to: " << QString::number(QSOTabWidget->getTXFreq()) << QT_ENDL;
         QSOTabWidget->setRXFreq(QSOTabWidget->getTXFreq());
     }
     logEvent(Q_FUNC_INFO, "END", logSeverity);
@@ -4801,7 +4811,7 @@ bool MainWindow::setUDPServer(const bool _b)
     }
     else
     {
-        //qDebug() << "qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") ;
         if (UDPLogServer->isStarted())
         {
             if (!UDPLogServer->stop())
@@ -5174,7 +5184,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field=="UTCTIME")
     {
-                    //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper() <<endl;
+        //qDebug() << "MainWindow::processConfigLine: UTCTIME: " << value.toUpper();
         //UTCTime = util->trueOrFalse(value);
         mainQSOEntryWidget->setUTC(util->trueOrFalse(value));
     }
@@ -5561,7 +5571,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if(field=="DELETEALWAYSADIFILE")
     {
         deleteAlwaysAdiFile = util->trueOrFalse(value);
-        //qDebug() << "Delete Aways Adif File = " << deleteAlwaysAdiFile <<endl;
+        //qDebug() << "Delete Aways Adif File = " << deleteAlwaysAdiFile ;
     }
     else if (field == "CHECKVALIDCALLS")
     {
@@ -7063,7 +7073,7 @@ void MainWindow::setModifying(const bool _m)
 
 void MainWindow::slotLocatorTextChanged(const QString &_loc)
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-      //qDebug() << "MainWindow::slotLocatorTextChanged: " << locatorLineEdit->text() << QT_ENDL;
+   //qDebug() << "MainWindow::slotLocatorTextChanged: " << _loc;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     if ( locator->isValidLocator(_loc) )
@@ -7790,10 +7800,10 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 
     aux = dataProxy->getNameFromQRZ(_call);
       //qDebug() << "MainWindow::completeWithPreviousQSO aux: " << aux << QT_ENDL;
-      //qDebug() << "MainWindow::completeWithPreviousQSO nameLineEdit: " << nameLineEdit->text() << QT_ENDL;
+      //qDebug() << "MainWindow::completeWithPreviousQSO nameLineEdit: " << QSOTabWidget->getName() << QT_ENDL;
 
       //qDebug() << "MainWindow::completeWithPreviousQSO aux length: " << QString::number(aux.length()) << QT_ENDL;
-      //qDebug() << "MainWindow::completeWithPreviousQSO nameL length: " << QString::number((nameLineEdit->text()).length()) << QT_ENDL;
+      //qDebug() << "MainWindow::completeWithPreviousQSO nameL length: " << QString::number((QSOTabWidget->getName()).length()) << QT_ENDL;
 
     if ((aux.length()>=0) && (QSOTabWidget->getName().length()<=0) )
     {
@@ -8314,9 +8324,8 @@ void MainWindow::slotClearNoMorErrorShown()
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
 {
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed << QT_ENDL;
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Error N#: " << QString::number(errorCodeN) << QT_ENDL;
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS << QT_ENDL;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed ;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS;
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
 
     if (noMoreErrorShown)
@@ -8473,9 +8482,9 @@ void MainWindow::slotRotatorShow()
 void MainWindow::slotUpdateLocator(QString _loc)
 {
     logEvent(Q_FUNC_INFO, "Start", logSeverity);
-    //qDebug() << "MainWindow::slotUpdateLocator: " << _loc << endl;
+   //qDebug() << "MainWindow::slotUpdateLocator: " << _loc;
     QSOTabWidget->setDXLocator (_loc);
-      //qDebug() << "MainWindow::slotUpdateLocator - END" << QT_ENDL;
+    //qDebug() << "MainWindow::slotUpdateLocator - END" << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", logSeverity);
 }
 

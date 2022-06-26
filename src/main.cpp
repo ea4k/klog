@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main: Start! " << QT_ENDL;
     //qDebug() << "KLog Main: " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString() << QT_ENDL;
     QT_REQUIRE_VERSION(argc, argv, "5.9")
+    //qDebug() << QT_VERSION_STR;
 
     QDir d1 = QDir();
     //QCoreApplication::setApplicationVersion(QString(APP_VERSION));

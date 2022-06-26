@@ -33,9 +33,9 @@
 MapWidget::MapWidget(QWidget *parent)
 {
 
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::init()
@@ -46,7 +46,7 @@ void MapWidget::init()
 
 void MapWidget::createUI()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    qDebug() << Q_FUNC_INFO << "Start";
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
     circleRoles[CoordinateRole] = QByteArray("coordinate");
@@ -58,9 +58,13 @@ void MapWidget::createUI()
 
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-    //qDebug() << Q_FUNC_INFO << "13";
-    qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
-    //qDebug() << Q_FUNC_INFO << "14";
+    qDebug() << Q_FUNC_INFO << "13";
+    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
+    //qmlView.setSource(QUrl::fromLocalFile("qrc:qml/mapqmlfile.qml"));
+     qmlView.setSource(QUrl("qrc:qml/mapqmlfile.qml"));
+
+
+    qDebug() << Q_FUNC_INFO << "14";
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
     QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -70,7 +74,7 @@ void MapWidget::createUI()
 
     //setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
     //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
-    //qDebug() << Q_FUNC_INFO << "-END";
+    qDebug() << Q_FUNC_INFO << "-END";
 }
 
 void MapWidget::clearMap()

@@ -1917,7 +1917,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 if (aux.length()<1)
                 {
                     query.finish();
-                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-4: " << aux<< endl;
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-4: " << aux;
                     return QStringList();
                 }
                //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId Time_on: " << aux << QT_ENDL;
@@ -1948,7 +1948,7 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 if (aux.length()<1)
                 {
                     query.finish();
-                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-6: " << aux<< endl;
+                    //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: ERROR-6: " << aux;
                     return QStringList();
                 }
                 dataC << aux;
