@@ -15,3 +15,4 @@ KLog.app
 *.dmg
 src/macOSDeploy.sh
 src/klog_resource.rc
+*.pro~
