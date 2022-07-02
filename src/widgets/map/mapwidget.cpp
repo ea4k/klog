@@ -33,16 +33,13 @@
 
 MapWidget::MapWidget(QWidget *parent)
 {
-
     //qDebug() << Q_FUNC_INFO;
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::init()
 {
     createUI();
-
 }
 
 void MapWidget::createUI()
@@ -112,7 +109,6 @@ void MapWidget::addMarker(const Coordinate _coord)
 //    QMetaObject::invokeMethod(object, "addMarker",
 //            Q_RETURN_ARG(QString, returnedValue),
 //            Q_ARG(double, 40.5), Q_ARG(double, -3.5));
-
 }
 
 void MapWidget::addQSO(const QString &_loc)
@@ -159,9 +155,5 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
         item->setData(QVariant::fromValue(_color), ColorRole);
         modelRectangle.appendRow(item);
         //qDebug() << Q_FUNC_INFO << " Rectangle OK";
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << " Rectangle NOK";
     }
 }

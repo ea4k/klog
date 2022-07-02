@@ -83,6 +83,9 @@
 #include "../../src/qso.h"
 #include "../../src/world.h"
 
+
+// http://blog.davidecoppola.com/2018/01/gui-unit-testing-with-qt-test-introduction/
+// http://blog.davidecoppola.com/2018/01/gui-unit-testing-with-qt-test-advanced/
 class tst_MainWindow : public QObject
 {
     Q_OBJECT
@@ -94,10 +97,15 @@ public:
 private slots:
     void initTestCase();
     void cleanupTestCase();
+
     void test_Constructor();
 
 private:
     MainWindow *mainWindow;
+    //QWidget *testCandidate;
+
+public slots:
+    void slotTimeOut();
 
 };
 
@@ -123,9 +131,48 @@ void tst_MainWindow::cleanupTestCase()
 
 }
 
+void tst_MainWindow::slotTimeOut()
+{
+    qDebug() << Q_FUNC_INFO;
+    QWidget *modalWidget = QApplication::activeModalWidget();
+    //QWidget *toplevelWidget = mainWindow->window();
+    if (modalWidget->inherits("QMessageBox"))
+    {
+        qDebug() << Q_FUNC_INFO << " Inherits QmessageBox";
+                QMessageBox *mb = qobject_cast<QMessageBox *>(modalWidget);
+                QTest::keyClick(mb, Qt::Key_Enter);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "Does NOT Inherits QmssageBox";
+    }
+}
+
 void tst_MainWindow::test_Constructor()
 {
+    QVERIFY2(mainWindow->showKLogLogWidget, "showKLogLogWidget not created");
+    QVERIFY2(mainWindow->showErrorDialog, "showErrorDialog not created");
+    QVERIFY2(mainWindow->UDPLogServer, "UDPLogServer not created");
+    QVERIFY2(mainWindow->util, "util not created");
+    QVERIFY2(mainWindow->qso, "qso not created");
 
+    //QTimer::singleShot(500, this, SLOT(slotTimeOut()));
+    mainWindow->init();
+
+    //aWidget->window()->setWindowTitle("New Window Title");
+
+
+
+    //QTest::keyClick(&mainWindow, Qt::Key_Tab);
+   // QTest::keyClick(toplevelWidget, Qt::Key_Space); // To close the showWar button
+    //mainWindow->show();
+    //QTest::mouseClick(toplevelWidget. , Qt::LeftButton);
+
+    /*
+    QLineEdit lineEdit;
+    QTest::keyClicks(&lineEdit, "hello world");
+    QCOMPARE(lineEdit.text(), QString("hello world"));
+*/
 }
 
 QTEST_MAIN(tst_MainWindow)

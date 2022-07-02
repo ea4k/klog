@@ -285,19 +285,7 @@ int main(int argc, char *argv[])
             {
                     //qDebug() << "MAIN:  KLogDir has just been created and pointed " << QT_ENDL;
             }
-            else
-            {
-                    //qDebug() << "MAIN:  KLogDir has just been created and pointed FAILED! " << QT_ENDL;
-            }
         }
-        else
-        {
-                //qDebug() << "MAIN:  KLogDir can not be created?? " << QT_ENDL;
-        }
-    }
-    else
-    {
-        //qDebug() << "MAIN:  KLogDir already existed!! " << QT_ENDL;
     }
     //qDebug() << "KLog Main: Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
 
@@ -312,12 +300,13 @@ int main(int argc, char *argv[])
 
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
-        int inMemory = wizard->exec();
+        //int inMemory = wizard->exec();
+        wizard->exec();
         //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory) << QT_ENDL;
-        inMemory = 1;
+        //inMemory = 1;
 
-        if (inMemory == 1)
-        {
+        //if (inMemory == 1)
+        //{
             //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory " << QT_ENDL;
             MainWindow mw(klogDir, version);
             mw.init();
@@ -326,8 +315,8 @@ int main(int argc, char *argv[])
             //mw.recommendBackupIfNeeded();
             mw.show();
             return app.exec();
-        }
-
+        //}
+        /*
         else
         {
                //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close " << QT_ENDL;
@@ -372,8 +361,8 @@ int main(int argc, char *argv[])
             }
             return 0;
         }
+        */
     }
-
     else
     {
         //qDebug() << "Main: Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -417,8 +406,6 @@ int main(int argc, char *argv[])
         //qDebug() << "KLog Main-107" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     }
         //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss")  << QT_ENDL;
-
-    //return app.exec();
 }
 
 

@@ -84,7 +84,6 @@ void MainWindow::showNotWar()
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
-
 }
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
@@ -561,8 +560,7 @@ void MainWindow::init()
     //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
     showNotWar();
-
-    //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
 }
 
 

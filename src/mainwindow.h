@@ -130,6 +130,7 @@ enum
 class MainWindow : public  QMainWindow
 {
     Q_OBJECT
+    friend class tst_MainWindow;
 
 public:
     MainWindow(const QString &_klogDir, const QString &tversion);
