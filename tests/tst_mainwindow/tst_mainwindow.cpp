@@ -35,7 +35,6 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-
 #include "../../src/setupdialog.h"
 #include "../../src/setuppages/setuppagemisc.h"
 #include "../../src/aboutdialog.h"
@@ -100,7 +99,6 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_Constructor();
-    void test_InitialData();
 
 private:
     //DataProxy_SQLite *dataProxy;
@@ -137,8 +135,6 @@ void tst_MainWindow::test_Constructor()
 {
 
 }
-
-
 
 QTEST_MAIN(tst_MainWindow)
 

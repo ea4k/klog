@@ -45,8 +45,6 @@
 #include "statsgridsonsatswidget.h"
 #include "statsdxccsonsatswidget.h"
 #include "statsfieldperbandwidget.h"
-//#include "statspiechartwidget.h"
-
 
 class BarChartStats : public QWidget
 {

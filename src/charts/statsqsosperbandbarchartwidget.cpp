@@ -24,8 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "charts/statsqsosperbandbarchartwidget.h"
-
+#include "statsqsosperbandbarchartwidget.h"
 
 StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget()
 {

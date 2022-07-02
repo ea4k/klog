@@ -32,7 +32,7 @@
 #include <QtCharts>
 #include <QtDebug>
 #include "../dataproxy_sqlite.h"
-#include "../charts/statsgeneralchartwidget.h"
+#include "statsgeneralchartwidget.h"
 
 
 

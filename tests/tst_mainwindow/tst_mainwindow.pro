@@ -30,7 +30,6 @@ HEADERS += \
     ../../src/setuppages/setuppagelogview.h \
     ../../src/setuppages/setuppagemisc.h \
     ../../src/setuppages/setuppagesats.h \
-    ../../src/setuppages/setuppagesatseditor.h \
     ../../src/setuppages/setuppagesatsnew.h \
     ../../src/setuppages/setuppagesubdivisionnew.h \
     ../../src/setuppages/setuppagesubdivisions.h \
@@ -58,6 +57,7 @@ HEADERS += \
     ../../src/dxccstatuswidget.h \
     ../../src/awardswidget.h \
     ../../src/softwareupdate.h \
+    ../../src/softwareupdatedialog.h \
     ../../src/logmodel.h \
     ../../src/logwindow.h \
     ../../src/searchwidget.h \
@@ -74,9 +74,10 @@ HEADERS += \
     ../../src/eqslutilities.h \
     ../../src/widgets/adiflotwexportwidget.h \
     ../../src/widgets/showadifimportwidget.h \
+    ../../src/widgets/onlinemessagewidget.h \
+    ../../src/widgets/showkloglogwidget.h \
     ../../src/widgets/map/mapwindowwidget.h \
     ../../src/widgets/map/mapwidget.h \
-    ../../src/widgets/showkloglogwidget.h \
     ../../src/mainwindow.h \
     ../../src/mainqsoentrywidget.h \
     ../../src/dataproxy_sqlite.h \
@@ -85,6 +86,23 @@ HEADERS += \
     ../../src/setupdialog.h \
     ../../src/utilities.h \
     ../../src/qso.h \
+    ../../src/charts/barchartstats.h \
+    ../../src/charts/statsqsosperdxccbarchartwidget.h \
+    ../../src/charts/statscqzperyearbarchartwidget.h \
+    ../../src/charts/statsqsosperhourbarchartwidget.h \
+    ../../src/charts/statsdxccsonsatswidget.h \
+    ../../src/charts/statsqsospermodebarchartwidget.h \
+    ../../src/charts/statsentitiesperyearbarchartwidget.h \
+    ../../src/charts/statsqsospermonthbarchartwidget.h \
+    ../../src/charts/statsfieldperbandwidget.h \
+    ../../src/charts/statsqsosperyearbarchartwidget.h \
+    ../../src/charts/statsgeneralchartwidget.h \
+    ../../src/charts/statssentconfirmedpiechartwidget.h \
+    ../../src/charts/statsgridsonsatswidget.h \
+    ../../src/charts/statsworkedconfirmedpiechartwidget.h \
+    ../../src/charts/statsqsosperbandbarchartwidget.h \
+    ../../src/charts/statsworkedsentpiechartwidget.h \
+    ../../src/charts/statsqsospercontinentbarchartwidget.h \
     ../../src/world.h
 
 
@@ -111,6 +129,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/dxccstatuswidget.cpp \
     ../../src/awardswidget.cpp \
     ../../src/softwareupdate.cpp \
+    ../../src/softwareupdatedialog.cpp \
     ../../src/logmodel.cpp \
     ../../src/logwindow.cpp \
     ../../src/searchwidget.cpp \
@@ -127,9 +146,10 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/eqslutilities.cpp \
     ../../src/widgets/adiflotwexportwidget.cpp \
     ../../src/widgets/showadifimportwidget.cpp \
+    ../../src/widgets/onlinemessagewidget.cpp \
+    ../../src/widgets/showkloglogwidget.cpp \
     ../../src/widgets/map/mapwindowwidget.cpp \
     ../../src/widgets/map/mapwidget.cpp \
-    ../../src/widgets/showkloglogwidget.cpp \
     ../../src/mainwindow.cpp \
     ../../src/mainqsoentrywidget.cpp \
     ../../src/dataproxy_sqlite.cpp \
@@ -148,7 +168,6 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/setuppages/setuppagelogview.cpp \
     ../../src/setuppages/setuppagemisc.cpp \
     ../../src/setuppages/setuppagesats.cpp \
-    ../../src/setuppages/setuppagesatseditor.cpp \
     ../../src/setuppages/setuppagesatsnew.cpp \
     ../../src/setuppages/setuppagesubdivisionnew.cpp \
     ../../src/setuppages/setuppagesubdivisions.cpp \
@@ -157,6 +176,23 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/setuppages/setuppageworldeditor.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
+    ../../src/charts/barchartstats.cpp \
+    ../../src/charts/statsqsosperdxccbarchartwidget.cpp \
+    ../../src/charts/statscqzperyearbarchartwidget.cpp \
+    ../../src/charts/statsqsosperhourbarchartwidget.cpp \
+    ../../src/charts/statsdxccsonsatswidget.cpp \
+    ../../src/charts/statsqsospermodebarchartwidget.cpp \
+    ../../src/charts/statsentitiesperyearbarchartwidget.cpp \
+    ../../src/charts/statsqsospermonthbarchartwidget.cpp \
+    ../../src/charts/statsfieldperbandwidget.cpp \
+    ../../src/charts/statsqsosperyearbarchartwidget.cpp \
+    ../../src/charts/statsgeneralchartwidget.cpp \
+    ../../src/charts/statssentconfirmedpiechartwidget.cpp \
+    ../../src/charts/statsgridsonsatswidget.cpp \
+    ../../src/charts/statsworkedconfirmedpiechartwidget.cpp \
+    ../../src/charts/statsqsosperbandbarchartwidget.cpp \
+    ../../src/charts/statsworkedsentpiechartwidget.cpp \
+    ../../src/charts/statsqsospercontinentbarchartwidget.cpp \
     ../../src/world.cpp
 
 macx: {

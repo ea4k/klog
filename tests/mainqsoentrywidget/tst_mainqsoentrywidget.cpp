@@ -116,7 +116,6 @@ void tst_MainQSOEntryWidget::test_InitialData()
     QVERIFY(mainQSOEntryWidget->getMode(2) == "RTTY");
     QVERIFY(mainQSOEntryWidget->getMode(3) == "SSB");
     QVERIFY(mainQSOEntryWidget->getMode(4) == "USB");
-
 }
 
 void tst_MainQSOEntryWidget::test_Bands()
