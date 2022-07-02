@@ -29,7 +29,7 @@
 #include <QWidget>
 #include <QMessageBox>
 #include <QNetworkReply>
-#include "utilities.h"
+#include "../utilities.h"
 
 class OnlineMessageWidget : public QWidget
 {

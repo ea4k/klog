@@ -30,8 +30,8 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QSerialPortInfo>
-#include "hamlibclass.h"
-#include "dataproxy_sqlite.h"
+#include "../hamlibclass.h"
+#include "../dataproxy_sqlite.h"
 #include "hamlibserialconfigwidget.h"
 #include "hamlibnetworkconfigwidget.h"
 #include <hamlib/rig.h>

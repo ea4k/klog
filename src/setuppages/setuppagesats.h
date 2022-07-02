@@ -30,10 +30,10 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QSqlQuery>
-#include "updatesatsdata.h"
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
-#include "setuppages/setuppagesatsnew.h"
+#include "../updatesatsdata.h"
+#include "../dataproxy_sqlite.h"
+#include "../utilities.h"
+#include "../setuppages/setuppagesatsnew.h"
 
 
 

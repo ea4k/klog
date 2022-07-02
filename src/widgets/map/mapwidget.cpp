@@ -23,12 +23,13 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "mapwidget.h"
+
 #include <QQuickView>
 #include <QGeoCoordinate>
 #include <QGeoRectangle>
 #include <QQmlContext>
 #include <QStandardItemModel>
+#include "mapwidget.h"
 
 MapWidget::MapWidget(QWidget *parent)
 {

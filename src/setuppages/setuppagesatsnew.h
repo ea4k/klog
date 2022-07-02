@@ -28,11 +28,11 @@
 //
 // This class implements the Dialog to add a new satellite
 //
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
 #include <QDialog>
 #include <QtWidgets>
 #include <QSqlQuery>
+#include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 
 //TODO: Read the data when the user clicks the OK button
 //TODO: Fill the data from the list of sats when the user wants to edit a sat

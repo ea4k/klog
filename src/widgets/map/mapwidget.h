@@ -29,7 +29,7 @@
 #include <QtWidgets>
 #include <QQuickView>
 #include <QQuickItem>
-#include "locator.h"
+#include "../../locator.h"
 
 class MapWidget : public QWidget
 {

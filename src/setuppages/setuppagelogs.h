@@ -30,8 +30,8 @@
 #include <QtWidgets>
 #include <QtSql>
 #include <QSqlQuery>
-#include "dataproxy_sqlite.h"
-#include "setuppages/setuppagelogsnew.h"
+#include "../dataproxy_sqlite.h"
+#include "../setuppages/setuppagelogsnew.h"
 
 
 //const int CONTEST_DX = 0;

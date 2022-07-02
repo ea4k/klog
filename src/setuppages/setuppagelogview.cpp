@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "setuppages/setuppagelogview.h"
+#include "setuppagelogview.h"
 
 SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {

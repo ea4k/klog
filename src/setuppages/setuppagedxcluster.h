@@ -26,13 +26,8 @@
  *                                                                           *
  *****************************************************************************/
 
-//#include <QtWidgets>
-//#include <QSqlQuery>
-//#include <QStringList>
-//#include <QListWidget>
-#include "utilities.h"
 #include <QtWidgets>
-
+#include "../utilities.h"
 
 class SetupPageDxCluster : public QWidget {
     Q_OBJECT

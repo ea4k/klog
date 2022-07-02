@@ -325,7 +325,7 @@ unix:!mac {
     DEFINES += APP_LINUX
     CONFIG  += c++11
     #QMAKE_CXXFLAGS += --coverage
-   #LIBS += -lgcov
+    #LIBS += -lgcov
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
@@ -342,7 +342,6 @@ unix:!mac {
     INSTALLS += translations
     INSTALLS += datafiles
     LIBS += -lhamlib
-
 }
 
 macx: {

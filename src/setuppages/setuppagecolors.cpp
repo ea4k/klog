@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppagecolors.h"
+#include "setuppagecolors.h"
 
 
 SetupPageColors::SetupPageColors(QWidget *parent) : QWidget(parent)

@@ -102,7 +102,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     klogDir = _klogDir;
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
-    dupeSlotInSeconds = 0;
+    dupeSlotInSeconds = 15;
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 

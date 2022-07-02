@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppagesats.h"
+#include "setuppagesats.h"
 
 SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
        //qDebug() << "SetupPageSats::SetupPageSats" << QT_ENDL;

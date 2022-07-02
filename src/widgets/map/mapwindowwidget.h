@@ -28,10 +28,10 @@
 #include <QObject>
 #include <QtWidgets>
 //#include <QWidget>
-#include "klogdefinitions.h"
 #include "mapwidget.h"
-#include "dataproxy_sqlite.h"
-#include "locator.h"
+#include "../../klogdefinitions.h"
+#include "../../dataproxy_sqlite.h"
+#include "../../locator.h"
 
 class MapWindowWidget : public QWidget
 {

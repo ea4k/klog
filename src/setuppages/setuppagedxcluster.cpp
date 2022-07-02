@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppagedxcluster.h"
+#include "setuppagedxcluster.h"
 
 
 SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)

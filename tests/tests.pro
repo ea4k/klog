@@ -3,6 +3,7 @@ SUBDIRS=\
    utilities \
    mainqsoentrywidget \
    mainwindowsattab \
+   tst_mainwindow \
    tst_dataproxy \
    tst_locator \
    tst_mainwindowinputqso \

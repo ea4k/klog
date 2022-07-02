@@ -48,7 +48,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     timer = new QTimer(this);
     util = new Utilities;
     realTime = true;
-    duplicatedQSOSlotInSecs = 0;
+    duplicatedQSOSlotInSecs = 15;
     delayInputTimer = new QTimer;
 
     //hamlib = new HamLibClass();

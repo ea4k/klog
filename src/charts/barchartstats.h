@@ -28,24 +28,24 @@
 #include <QObject>
 #include <QWidget>
 #include <QtCharts>
-#include "dataproxy_sqlite.h"
-#include "charts/statsgeneralchartwidget.h"
-#include "charts/statsqsosperyearbarchartwidget.h"
-#include "charts/statsqsosperbandbarchartwidget.h"
-#include "charts/statsqsospermodebarchartwidget.h"
-#include "charts/statsentitiesperyearbarchartwidget.h"
-#include "charts/statscqzperyearbarchartwidget.h"
-#include "charts/statsqsosperdxccbarchartwidget.h"
-#include "charts/statsqsospercontinentbarchartwidget.h"
-#include "charts/statsqsosperhourbarchartwidget.h"
-#include "charts/statsqsospermonthbarchartwidget.h"
-#include "charts/statsworkedconfirmedpiechartwidget.h"
-#include "charts/statsworkedsentpiechartwidget.h"
-#include "charts/statssentconfirmedpiechartwidget.h"
-#include "charts/statsgridsonsatswidget.h"
-#include "charts/statsdxccsonsatswidget.h"
-#include "charts/statsfieldperbandwidget.h"
-//#include "charts/statspiechartwidget.h"
+#include "../dataproxy_sqlite.h"
+#include "statsgeneralchartwidget.h"
+#include "statsqsosperyearbarchartwidget.h"
+#include "statsqsosperbandbarchartwidget.h"
+#include "statsqsospermodebarchartwidget.h"
+#include "statsentitiesperyearbarchartwidget.h"
+#include "statscqzperyearbarchartwidget.h"
+#include "statsqsosperdxccbarchartwidget.h"
+#include "statsqsospercontinentbarchartwidget.h"
+#include "statsqsosperhourbarchartwidget.h"
+#include "statsqsospermonthbarchartwidget.h"
+#include "statsworkedconfirmedpiechartwidget.h"
+#include "statsworkedsentpiechartwidget.h"
+#include "statssentconfirmedpiechartwidget.h"
+#include "statsgridsonsatswidget.h"
+#include "statsdxccsonsatswidget.h"
+#include "statsfieldperbandwidget.h"
+//#include "statspiechartwidget.h"
 
 
 class BarChartStats : public QWidget
@@ -66,16 +66,9 @@ private:
     void cleanLayout();
     DataProxy_SQLite *dataProxy;
 
-
-    //QChart *chart;
-    //QChartView *chartView;
-
     QWidget *mainWidget;
     StatsGeneralChartWidget *genchart;
     QVBoxLayout *mLayout;
-
-    //QBarCategoryAxis *axis;
-
 };
 
 #endif // BARCHARTSTATS_H
