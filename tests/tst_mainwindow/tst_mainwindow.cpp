@@ -1,5 +1,5 @@
 /***************************************************************************
-                          tst_mainqsoentrywidget.h  -  description
+                          tst_mainwindow.h  -  description
                              -------------------
     begin                : Jan 2021
     copyright            : (C) 2021 by Jaime Robles
@@ -35,8 +35,6 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-#include "../../src/setupdialog.h"
-#include "../../src/setuppages/setuppagemisc.h"
 #include "../../src/aboutdialog.h"
 #include "../../src/tipsdialog.h"
 #include "../../src/filemanager.h"
@@ -75,12 +73,12 @@
 #include "../../src/widgets/map/mapwindowwidget.h"
 #include "../../src/widgets/showkloglogwidget.h"
 #include "../../src/mainwindow.h"
-#include "../../src/mainqsoentrywidget.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/database.h"
 #include "../../src/klogdefinitions.h"
 #include "../../src/setupdialog.h"
 #include "../../src/setuppages/setuppageuserdata.h"
+#include "../../src/setuppages/setuppagemisc.h"
 #include "../../src/utilities.h"
 #include "../../src/qso.h"
 #include "../../src/world.h"
@@ -101,8 +99,6 @@ private slots:
     void test_Constructor();
 
 private:
-    //DataProxy_SQLite *dataProxy;
-    //MainQSOEntryWidget *mainQSOEntryWidget;
     MainWindow *mainWindow;
 
 };
@@ -112,8 +108,6 @@ tst_MainWindow::tst_MainWindow()
     //MainWindow mw(klogDir, version);
     Utilities util;
     mainWindow = new MainWindow(util.getHomeDir(), "2.2");
-    //dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    //mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
 }
 
 tst_MainWindow::~tst_MainWindow()

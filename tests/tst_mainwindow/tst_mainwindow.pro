@@ -83,7 +83,6 @@ HEADERS += \
     ../../src/dataproxy_sqlite.h \
     ../../src/database.h \
     ../../src/klogdefinitions.h \
-    ../../src/setupdialog.h \
     ../../src/utilities.h \
     ../../src/qso.h \
     ../../src/charts/barchartstats.h \
@@ -151,10 +150,8 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/widgets/map/mapwindowwidget.cpp \
     ../../src/widgets/map/mapwidget.cpp \
     ../../src/mainwindow.cpp \
-    ../../src/mainqsoentrywidget.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/database.cpp \
-    ../../src/setupdialog.cpp \
     ../../src/setuppages/hamlibnetworkconfigwidget.cpp \
     ../../src/setuppages/hamlibserialconfigwidget.cpp \
     ../../src/setuppages/setupentitydialog.cpp \

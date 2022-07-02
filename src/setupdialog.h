@@ -35,16 +35,12 @@
 #include "setuppages/setuppagecolors.h"
 #include "setuppages/setuppagelogs.h"
 #include "setuppages/setuppageworldeditor.h"
-//#include "setuppages/setuppageclublog.h"
 #include "setuppages/setuppageelog.h"
-//#include "setuppages/setuppageeqsl.h"
-//#include "setuppages/setuppagelotw.h"
 #include "setuppages/setuppageudp.h"
 #include "setuppages/setuppagesats.h"
 #include "setuppages/setuppagehamlib.h"
 #include "setuppages/setuppagesubdivisions.h"
 #include "setuppages/setuppagelogview.h"
-//#include "setuppages/setuppageinterfaceswindows.h"
 #include "utilities.h"
 #include "locator.h"
 #include "klogdefinitions.h"
@@ -157,6 +153,5 @@ private:
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
     DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log
 };
-
 
 #endif // SETUPDIALOG_H

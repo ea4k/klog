@@ -29,25 +29,18 @@
 #include <QtWidgets>
 #include <QPrinter>
 #include <QPrintDialog>
-
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QtAlgorithms>
 #include <QDesktopServices>
 #include <QUrl>
 
-//#include "database.h"
 #include "setupdialog.h"
-#include "setuppages/setuppagemisc.h"
-//#include "helpaboutdialog.h"
 #include "aboutdialog.h"
-//#include "dxccsummarydialog.h"
 #include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
 #include "fileawardmanager.h"
-//#include "contest.h"
-//#include "contest_cqwwdxssb.h"
 #include "dataproxy_sqlite.h"
 #include "dataproxy_sqlite.h"
 #include "locator.h"
@@ -67,7 +60,6 @@
 #include "dxccstatuswidget.h"
 #include "awardswidget.h"
 #include "softwareupdate.h"
-#include "logmodel.h"
 #include "logwindow.h"
 #include "searchwidget.h"
 #include "infowidget.h"
@@ -77,12 +69,10 @@
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
 #include "elogqrzlog.h"
-//#include "pstrotatorsupport.h"
 #include "lotwutilities.h"
 #include "eqslutilities.h"
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
-//#include "widgets/advancedsearch/advancedsearchwidget.h"
 #include "widgets/map/mapwindowwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
@@ -451,7 +441,7 @@ private:
     Locator *locator;
     Awards *awards;
     Utilities *util;
-    SetupPageMisc *miscPage;
+    //SetupPageMisc *miscPage;
 
 
     //WorldEditorWidget *worldEditor;
@@ -461,37 +451,18 @@ private:
     AboutDialog *aboutDialog;
     TipsDialog *tipsDialog;
     ShowKLogLogWidget * showKLogLogWidget;
-    //DXCCSummaryDialog *dxccSummaryDialog;
-
-
-    //QPushButton *addButton;
-    //QLabel *distShortLabelN;
-    //QLabel *distLongLabelN;
     StatisticsWidget *statsWidget;
     DXCCStatusWidget *dxccStatusWidget;
-    //QSqlRelationalTableModel *logModel;
-    //QWidget *logPanel;
-    //QTableView *logView;
-    //QTreeWidget *searchResultsTreeWidget;
     QLabel *logLabel;
 
-    //QWidget *scoreWindow; //, dxWindow;
-    //QTextEdit *scoreTextEdit;
-
-    LogModel *logModel;
+    //LogModel *logModel;
     LogWindow *logWindow;
     UDPServer *UDPLogServer;
 
     ShowErrorDialog *showErrorDialog;
 
     // <UI>
-    //QGroupBox *gridGroupBox;//, *qrzgroupBox;//, *searchgroupBox;
     QFrame *dxUpLeftInputFrame;//, *dxUpRightOutputFrame;
-
-    //QComboBox *bandComboBox, *modeComboBox;
-    //QDateEdit *dateEdit;
-    //QTimeEdit *timeEdit;
-    //QStatusBar *statusBar, *qsoStatusBar;
     QString statusBarMessage;
 
     QTabWidget *dxBottonTab, *dxUpLeftTab, *dxUpRightTab;

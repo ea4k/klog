@@ -30,7 +30,6 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
-//#include "hamlibclass.h"
 
 class MainQSOEntryWidget : public QWidget
 {

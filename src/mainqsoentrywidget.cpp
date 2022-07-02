@@ -51,15 +51,13 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     duplicatedQSOSlotInSecs = 15;
     delayInputTimer = new QTimer;
 
-    //hamlib = new HamLibClass();
-
-
     createUI();
     setInitialData();
     //installEventFilter (this);
     emit debugLog(Q_FUNC_INFO, "END", Debug);
       //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << QT_ENDL;
 }
+
 MainQSOEntryWidget::~MainQSOEntryWidget()
 {
     delete(util);
