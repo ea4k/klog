@@ -101,7 +101,7 @@ DataBase::~DataBase()
 
 QString DataBase::getSoftVersion()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QSqlQuery query;
 
     QString stringQuery ("SELECT MAX (softversion) FROM softwarecontrol");
@@ -130,7 +130,7 @@ QString DataBase::getSoftVersion()
 
 QString DataBase::getDBVersion()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QSqlQuery query;
 
     QString stringQuery ("SELECT MAX (dbversion) FROM softwarecontrol");
@@ -239,48 +239,48 @@ bool DataBase::reConnect(const QString &_DBName)
 
 bool DataBase::createConnection(const QString &function, bool newDB)
 {
-    qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion ;
+    //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion ;
     QString stringQuery;
     QSqlQuery query;
 
     if (!db.isOpen())
     {
-        qDebug() << "DataBase::createConnection: DB NOT Opened" ;
+        //qDebug() << "DataBase::createConnection: DB NOT Opened" ;
         if (!db.isValid())
         {
-            qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  ;
+            //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  ;
             if (!db.isOpen())
             {                
-                qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName();
+                //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName();
                 QSqlDatabase::removeDatabase("qt_sql_default_connection");
                 db = QSqlDatabase::addDatabase("QSQLITE");
             }
 
-            qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  ;
+            //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  ;
             db.setDatabaseName(dbName);
-            qDebug() << "DataBase::createConnection: end of not valid"  ;
+            //qDebug() << "DataBase::createConnection: end of not valid"  ;
         }
-        qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  ;
+        //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  ;
         if (!db.open()) /* Flawfinder: ignore */
         {
-            qDebug() << "DataBase::createConnection:Not open "  ;
+            //qDebug() << "DataBase::createConnection:Not open "  ;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
-            qDebug() << "DataBase::createConnection: DB creation ERROR"  ;
+            //qDebug() << "DataBase::createConnection: DB creation ERROR"  ;
             // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
         else
         {
-            qDebug() << "DataBase::createConnection: created and opened after the creation" ;
+            //qDebug() << "DataBase::createConnection: created and opened after the creation" ;
             if (!isTheDBCreated())
             {
-                qDebug() << "DataBase::createConnection: DB is still not created"  ;
+                //qDebug() << "DataBase::createConnection: DB is still not created"  ;
                 if (!createDataBase())
                 {
-                    qDebug() << "DataBase::createConnection: DB creation failed!!"  ;
+                    //qDebug() << "DataBase::createConnection: DB creation failed!!"  ;
                     return false;
                 }
-                qDebug() << "DataBase::createConnection: After creation"  ;
+                //qDebug() << "DataBase::createConnection: After creation"  ;
                 stringQuery ="PRAGMA main.page_size = 4096;";
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
@@ -306,22 +306,22 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     else
     {
-        qDebug() << "DataBase::createConnection: No Error, DB is open";
+        //qDebug() << "DataBase::createConnection: No Error, DB is open";
     }
-    qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " ;
+    //qDebug() << "DataBase::createConnection: Going to run - createBandModeMaps " ;
 
     if (!createBandModeMaps())
     {
-        qDebug() << "DataBase::createConnection: createBandModeMaps false Stop";
+        //qDebug() << "DataBase::createConnection: createBandModeMaps false Stop";
         return false;
     }
-   qDebug() << "DataBase::createConnection -------------------------------------------- END" ;
+   //qDebug() << "DataBase::createConnection -------------------------------------------- END" ;
     return unMarkAllQSO();
 }
 
 bool DataBase::isTheDBCreated()
 {
-    qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  ;
+    //qDebug() << "DataBase::isTheDBCreated: Called from: " << QString::number(constrid)  ;
     QSqlQuery query;
     int _num = 0;
     //QString stringQuery ("SELECT name FROM sqlite_sequence WHERE name='softwarecontrol'");
@@ -637,7 +637,7 @@ bool DataBase::createTableLog(bool temp)
 
 bool DataBase::createDataBase()
 {
-    qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  ;
+    //qDebug() << "DataBase::createDataBase ------------------------------------- START" << QString::number(constrid)  ;
     //QSqlQuery query;
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists log");
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists band");
@@ -657,55 +657,55 @@ bool DataBase::createDataBase()
 
     if (!createTableBand(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the bands table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the bands table";
         return false;
     }
     if (!populateTableBand(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate the bands table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the bands table";
         return false;
     }
 
     if (!createTableMode(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the modes table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the modes table";
         return false;
     }
 
     if (!populateTableMode(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate the modes table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the modes table";
         return false;
     }
 
     if (!createTableSatellites(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the satellites table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the satellites table";
         return false;
     }
 
 
     if (!populateTableSatellites(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate the satellites table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the satellites table";
         return false;
     }
 
     if (!createTableLog(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the log table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the log table";
         return false;
     }
 
     if (!createTableEntity(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the entity table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the entity table";
         return false;
     }
 
     if (!createTableSubdivision(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the subdivision table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the subdivision table";
         return false;
     }
 
@@ -779,34 +779,34 @@ bool DataBase::createDataBase()
 
     if (!createTableQSL_Via_enumeration())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the qsl_via_enumeration table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the qsl_via_enumeration table";
         return false;
     }
 
     if (!populateTableQSL_Via_enumeration())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate the qsl_via_enumeration table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the qsl_via_enumeration table";
         return false;
     }
 
     if (!createTablePropModes())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the propModes table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the propModes table";
         return false;
     }
     if (!createTableLogs(true))
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the logs table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the logs table";
         return false;
     }
     if (!createTableClubLogStatus())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to create the clublogstatus table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to create the clublogstatus table";
         return false;
     }
     if (!populateTableClubLogStatus())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate clublog status table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate clublog status table";
         return false;
     }
 
@@ -834,12 +834,12 @@ bool DataBase::createDataBase()
 
     if (!populateContestData())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate contestData table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate contestData table";
         return false;
     }
     if (!populatePropagationModes())
     {
-        qDebug() << Q_FUNC_INFO << ": Not possible to populate propagation modes table";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate propagation modes table";
         return false;
     }
     execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
@@ -870,11 +870,11 @@ bool DataBase::createDataBase()
 
     if (updateDBVersion(softVersion, QString::number(DBVersionf)))
     { // It was not possible to save the DB version
-        qDebug() << Q_FUNC_INFO << ": Not possible to update the DB version";
+        //qDebug() << Q_FUNC_INFO << ": Not possible to update the DB version";
         return false;
     }
 
-    qDebug() << "DataBase::createDataBase ------------------------------------- END"  ;
+    //qDebug() << "DataBase::createDataBase ------------------------------------- END"  ;
     return true;
 }
 
@@ -1446,7 +1446,7 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
-     qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) ;
+     //qDebug() << "DataBase::updateIfNeeded - Version: " << QString::number(dbVersion) ;
 
 
     /**************************************************************************************
@@ -4885,7 +4885,7 @@ bool DataBase::updateTo010()
 bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 {
     QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
-    qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV ;
+    //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV ;
     QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
     return execQuery(Q_FUNC_INFO, stringQuery);
 }
@@ -5325,14 +5325,14 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
 
 bool DataBase::updateTheEntityTableISONames()
 {
-    qDebug() << "DataBase::updateTheEntityTableISONames" ;
+    //qDebug() << "DataBase::updateTheEntityTableISONames" ;
     QSqlQuery query;
     QString sq;
 
     //First of all we will check if the entity table does contain data. We can't update something non existent!
     if (!hasTheTableData("entity"))
     {
-       qDebug() << Q_FUNC_INFO << " : Entity has NO data";
+       //qDebug() << Q_FUNC_INFO << " : Entity has NO data";
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
@@ -5346,14 +5346,14 @@ bool DataBase::updateTheEntityTableISONames()
         {
             if (!updateEntity (str, i))
             {
-                qDebug() << Q_FUNC_INFO << " : Update entity failed: " << str;
+                //qDebug() << Q_FUNC_INFO << " : Update entity failed: " << str;
                 return false;
             }
             //qDebug() << str << ':' << i;
         }
     }
 
-    qDebug() << "DataBase::updateTheEntityTableISONames-END" ;
+    //qDebug() << "DataBase::updateTheEntityTableISONames-END" ;
     return true;
 }
 
@@ -6179,7 +6179,7 @@ bool DataBase::updateTo018()
 bool DataBase::updateTo019()
 {// Adds FTS4 and FST4W modes
  // Adds RS-44 sat
-    qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
+    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
     bool IAmIn018 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
@@ -6237,14 +6237,14 @@ bool DataBase::updateTo019()
 
 bool DataBase::updateTo024()
 {// Recreates the table band
-   qDebug() << Q_FUNC_INFO << " " << getDBVersion() ;
+   //qDebug() << Q_FUNC_INFO << " " << getDBVersion() ;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
-    qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.024f)
     {
-        qDebug() << Q_FUNC_INFO << " : - I am in 024" ;
+        //qDebug() << Q_FUNC_INFO << " : - I am in 024" ;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
@@ -6252,7 +6252,7 @@ bool DataBase::updateTo024()
         IamInPreviousVersion = updateTo023();
         if (!IamInPreviousVersion)
         {
-            qDebug() << Q_FUNC_INFO << " : Update to previous version failed";
+            //qDebug() << Q_FUNC_INFO << " : Update to previous version failed";
             return false;
         }
     }
@@ -6261,32 +6261,32 @@ bool DataBase::updateTo024()
 
     if (!updateTheEntityTableISONames())
     {
-        qDebug() << Q_FUNC_INFO << " : Update of entityTableIsonames failed";
+        //qDebug() << Q_FUNC_INFO << " : Update of entityTableIsonames failed";
         return false;
     }
 
 
     if (updateDBVersion(softVersion, QString::number(dbVersion)))
     {
-        qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " ;
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " ;
         return false;
     }
-    qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
-    qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
     return true;
 }
 
 
 bool DataBase::updateTo023()
 {// Recreates the table band
-    qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
+    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.023f)
     {
-        qDebug() << Q_FUNC_INFO << " : - I am in 023" ;
+        //qDebug() << Q_FUNC_INFO << " : - I am in 023" ;
         return true;
     }
     while (!IamInPreviousVersion && !ErrorUpdating)
@@ -6318,7 +6318,7 @@ bool DataBase::updateTo023()
 
 bool DataBase::updateTo022()
 {// Adds Q65 mode
-    qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
+    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
     bool IamInPreviousVersion = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion().toFloat();
@@ -6357,7 +6357,7 @@ bool DataBase::updateTo022()
 
 bool DataBase::updateTo021()
 {// Adds 5M & 8M bands
-     qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
+     //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
      bool IamInPreviousVersion = false;
      bool ErrorUpdating = false;
      latestReaded = getDBVersion().toFloat();
@@ -6886,11 +6886,11 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
 void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
 {
-       qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) ;
-       qDebug() << "DataBase::queryErrorManagement: Function: " << _functionFailed ;
-       qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError ;
-       qDebug() << "DataBase::queryErrorManagement: Error: " << _functionFailed << errorCodeS ;
-       qDebug() << "DataBase::queryErrorManagement: Query failed: " << _failedQuery ;
+       //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) ;
+       //qDebug() << "DataBase::queryErrorManagement: Function: " << _functionFailed ;
+       //qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError ;
+       //qDebug() << "DataBase::queryErrorManagement: Error: " << _functionFailed << errorCodeS ;
+       //qDebug() << "DataBase::queryErrorManagement: Query failed: " << _failedQuery ;
 }
 
 /*

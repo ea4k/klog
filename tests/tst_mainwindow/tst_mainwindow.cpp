@@ -83,8 +83,6 @@
 #include "../../src/qso.h"
 #include "../../src/world.h"
 
-
-
 class tst_MainWindow : public QObject
 {
     Q_OBJECT

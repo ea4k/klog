@@ -378,17 +378,17 @@ int main(int argc, char *argv[])
     {
         //qDebug() << "Main: Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-        qDebug() << "Main: After Start of DB Activities" << QT_ENDL;
+        //qDebug() << "Main: After Start of DB Activities" << QT_ENDL;
         if (!db->createConnection(Q_FUNC_INFO))
         {
-            qDebug() << "Main: Conection not created" << QT_ENDL;
+            //qDebug() << "Main: Conection not created" << QT_ENDL;
             return -1; // Exits with an error; no DB has been created
         }
         else
         {
-            qDebug() << "Main: DB to be updated" << QT_ENDL;
+            //qDebug() << "Main: DB to be updated" << QT_ENDL;
             db->updateIfNeeded(); // Check if we need to update the DB
-            qDebug() << "Main: DB Updated" << QT_ENDL;
+            //qDebug() << "Main: DB Updated" << QT_ENDL;
         }
         //qDebug() << "Main: DB Updated" << QT_ENDL;
         //qDebug() << "KLog Main-98" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
