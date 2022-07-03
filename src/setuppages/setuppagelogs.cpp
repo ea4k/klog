@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppagelogs.h"
+#include "setuppagelogs.h"
 
 SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
     //qDebug() << "SetupPageLogs::SetupPageLogs" << QT_ENDL;

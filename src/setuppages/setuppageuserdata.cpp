@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "setuppages/setuppageuserdata.h"
+#include "setuppageuserdata.h"
 
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << QT_ENDL;

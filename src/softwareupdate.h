@@ -32,12 +32,7 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QOperatingSystemVersion>
-
-//#include <QFile>
-//#include <QDirIterator>
-//#include <QList>
 #include <QRegularExpression>
-//#include <QDebug>
 #include "utilities.h"
 #include "softwareupdatedialog.h"
 

@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "setuppages/setuppagebandmode.h"
+#include "../setuppages/setuppagebandmode.h"
 
 SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {

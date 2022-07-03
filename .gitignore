@@ -16,3 +16,11 @@ KLog.app
 src/macOSDeploy.sh
 src/klog_resource.rc
 *.pro~
+*.stash
+*.o
+tests/tst_mainwindow/macOSDeploy.sh
+tests/tst_mainwindow/Makefile
+*.tmp
+tests/tst_mainwindow/moc_predefs.h
+tests/tst_mainwindow/target_wrapper.sh
+*.moc

@@ -26,8 +26,8 @@
  *                                                                           *
  *****************************************************************************/
 #include <QtWidgets>
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 
 
 class ShowAdifImportWidget : public QWidget

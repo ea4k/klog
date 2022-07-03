@@ -57,7 +57,7 @@ void FileManager::init()
     //constrid = 2;
     ignoreUnknownAlways = false;
     usePreviousStationCallsignAnswerAlways = false;
-    duplicatedQSOSlotInSecs = 0;
+    duplicatedQSOSlotInSecs = 15;
     sendEQSLByDefault = false;
     dbCreated = false;
     rstTXDefault  = false;

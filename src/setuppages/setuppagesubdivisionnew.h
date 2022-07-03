@@ -28,11 +28,10 @@
 //
 // This class implements the Dialog to add a new log
 //
-#include "dataproxy_sqlite.h"
-
 #include <QDialog>
 #include <QtWidgets>
 #include <QSqlQuery>
+#include "../dataproxy_sqlite.h"
 
 //TODO: Read the data when the user clicks the OK button
 //TODO: Fill the data from the list of logs when the user wants to edit a log

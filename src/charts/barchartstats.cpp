@@ -23,7 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "charts/barchartstats.h"
+#include "barchartstats.h"
 
 BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {

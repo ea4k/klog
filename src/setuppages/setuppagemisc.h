@@ -28,7 +28,7 @@
 
 //#include <QtWidgets>
 #include <QtWidgets>
-#include "utilities.h"
+#include "../utilities.h"
 
 class SetupPageMisc : public QWidget {
     Q_OBJECT

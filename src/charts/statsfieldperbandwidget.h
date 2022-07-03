@@ -31,11 +31,11 @@
 #include <QtCharts>
 #include <QtDebug>
 #include <QTableWidget>
-#include "dataproxy_sqlite.h"
-#include "qso.h"
-#include "utilities.h"
-#include "charts/statsgeneralchartwidget.h"
-#include "klogdefinitions.h"
+#include "../dataproxy_sqlite.h"
+#include "../qso.h"
+#include "../utilities.h"
+#include "../charts/statsgeneralchartwidget.h"
+#include "../klogdefinitions.h"
 
 
 

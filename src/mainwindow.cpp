@@ -84,7 +84,6 @@ void MainWindow::showNotWar()
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
-
 }
 
 MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
@@ -102,7 +101,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     klogDir = _klogDir;
     logSeverity = Info;
     sendQSLByDefault = true; // This must be before reading the config
-    dupeSlotInSeconds = 0;
+    dupeSlotInSeconds = 15;
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -561,8 +560,7 @@ void MainWindow::init()
     //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
     showNotWar();
-
-    //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
 }
 
 

@@ -25,7 +25,6 @@
  *****************************************************************************/
 
 #include "setupdialog.h"
-#include "setuppages/setuppagemisc.h"
 //#include <QDebug>
 
 /*

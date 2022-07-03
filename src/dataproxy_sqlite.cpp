@@ -3051,7 +3051,7 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_callingFunc, co
     QString queryString;
     QList<int> dupeQsos;
     dupeQsos.clear();
-    int validityPeriod = 15 * 60;
+    int validityPeriod = _secs * 60;
     QString initTime = util->getDateTimeSQLiteStringFromDateTime(_dateTime.addSecs(-validityPeriod));
     QString endTime = util->getDateTimeSQLiteStringFromDateTime(_dateTime.addSecs(validityPeriod));
 

@@ -25,7 +25,6 @@
  *****************************************************************************/
 
 #include "softwareupdate.h"
-//#include <QDebug>
 
 SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion) : QObject(nullptr)
 {

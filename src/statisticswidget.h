@@ -28,10 +28,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
-//#include <QtCharts>
 #include "charts/barchartstats.h"
-//#include "charts/donutchartstats.h"
-
 
 class StatisticsWidget : public QWidget
 {

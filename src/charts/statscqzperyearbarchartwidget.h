@@ -31,8 +31,8 @@
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtDebug>
-#include "dataproxy_sqlite.h"
-#include "charts/statsgeneralchartwidget.h"
+#include "../dataproxy_sqlite.h"
+#include "statsgeneralchartwidget.h"
 
 
 

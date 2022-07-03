@@ -26,7 +26,7 @@
 
 //#include <QDebug>
 
-#include "setuppages/setuppageelog.h"
+#include "setuppageelog.h"
 
 
 SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
