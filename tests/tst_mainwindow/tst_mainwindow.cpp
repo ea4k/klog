@@ -97,7 +97,6 @@ public:
 private slots:
     void initTestCase();
     void cleanupTestCase();
-
     void test_Constructor();
 
 private:
@@ -106,7 +105,6 @@ private:
 
 public slots:
     void slotTimeOut();
-
 };
 
 tst_MainWindow::tst_MainWindow()
@@ -116,20 +114,11 @@ tst_MainWindow::tst_MainWindow()
     mainWindow = new MainWindow(util.getHomeDir(), "2.2");
 }
 
-tst_MainWindow::~tst_MainWindow()
-{
+tst_MainWindow::~tst_MainWindow(){}
 
-}
+void tst_MainWindow::initTestCase(){}
 
-void tst_MainWindow::initTestCase()
-{
-
-}
-
-void tst_MainWindow::cleanupTestCase()
-{
-
-}
+void tst_MainWindow::cleanupTestCase(){}
 
 void tst_MainWindow::slotTimeOut()
 {
@@ -161,13 +150,10 @@ void tst_MainWindow::test_Constructor()
 
     //aWidget->window()->setWindowTitle("New Window Title");
 
-
-
     //QTest::keyClick(&mainWindow, Qt::Key_Tab);
    // QTest::keyClick(toplevelWidget, Qt::Key_Space); // To close the showWar button
     //mainWindow->show();
     //QTest::mouseClick(toplevelWidget. , Qt::LeftButton);
-
     /*
     QLineEdit lineEdit;
     QTest::keyClicks(&lineEdit, "hello world");
