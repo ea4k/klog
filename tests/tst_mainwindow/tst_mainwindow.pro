@@ -193,12 +193,26 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/charts/statsqsospercontinentbarchartwidget.cpp \
     ../../src/world.cpp
 
+unix:!mac {
+    message(unix:!mac)
+    CONFIG  += c++11
+    LIBS += -lhamlib
+}
+
 macx: {
     message(macx)
     CONFIG += c++11
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
 }
+
+win32: {
+    message(windows)
+    LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
+    LIBS += -L"$$PWD/../../libs/hamlib/bin"
+    INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
+}
+
 
 
 isEmpty(QMAKE_LRELEASE) {
