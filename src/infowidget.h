@@ -41,6 +41,8 @@
 class InfoWidget : public QWidget
 {
     Q_OBJECT
+    friend class tst_MainWindow;
+
 public:
     InfoWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
     ~InfoWidget();

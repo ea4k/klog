@@ -34,6 +34,8 @@
 class MainQSOEntryWidget : public QWidget
 {
     Q_OBJECT
+    friend class tst_MainWindow;
+
 public:
     explicit MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainQSOEntryWidget();

@@ -667,59 +667,95 @@ int Utilities::isAPrefix (const QString &_c)
     // The length would be including the number, if possible EA4 or;
     // including just the country prefix: EA if the number is not included.
 
-    //qDebug() << "Utilities::isAPrefix: " << _c ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: " << _c ;
     // Prefixes are at least 1 chars (like in K1K)
     int length = _c.length ();
 
     if (length < 1)
     {
-        //qDebug() << "Utilities::isAPrefix: TOO short prefix - false - END \n";
+       //-TEST-qDebug() << "Utilities::isAPrefix: TOO short prefix - false - END \n";
         return -1;
     }
 
     QString call = _c;
-    //qDebug() << "Utilities::isAPrefix: -10: " << call.at(0) ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: -10: " << call.at(0) ;
     QChar firstChar = call.at(0);
     QList<QChar> validFirstLettersOnly = {'B', 'F', 'G', 'I', 'K', 'M', 'N', 'R', 'W'};
 
     if (length == 1)
     {
+       //-TEST-qDebug() << Q_FUNC_INFO << ": Length = 1";
         if (validFirstLettersOnly.contains (firstChar))
         {
-            //qDebug() << "Utilities::isAPrefix: VALID 1 letter" ;
+           //-TEST-qDebug() << "Utilities::isAPrefix: VALID 1 letter" ;
             return 1;
         }
         else
         {
-            //qDebug() << "Utilities::isAPrefix: NOT VALID 1 letter" ;
+           //-TEST-qDebug() << "Utilities::isAPrefix: NOT VALID 1 letter" ;
             return -1;
         }
     }
 
+    if (length>2)
+    { // Looking for EA6, CE0X, T30 ...
+       //-TEST-qDebug() << Q_FUNC_INFO << ": Length>2 ... looking for EA6, CE0X, ...";
+        int iaux = isALongCountryPrefix (_c);
+        if (iaux>0)
+        {
+            return iaux;
+        }
+    }
+
+
     QChar secondChar = call.at(1);
-    //qDebug() << "Utilities::isAPrefix: SecondChar: " << secondChar ;
+
+   //-TEST-qDebug() << "Utilities::isAPrefix: SecondChar: " << secondChar ;
     int pref = -1;
     if (call.count(QRegularExpression("\\d")) >0) // Does it has any digit?
     {
-        //qDebug() << "Utilities::isAPrefix: It has digits: " << call ;
+       //-TEST-qDebug() << "Utilities::isAPrefix: It has digits: " << call ;
         bool done = false;
         int i = -1;
         while ((i < length-1) && !done)
         {
-            //qDebug() << "Utilities::isAPrefix: in the while: " << QString::number(i) ;
+           //-TEST-qDebug() << "Utilities::isAPrefix: in the while: " << QString::number(i) ;
             i++;
             if (call.at(i).isLetter ())
             {
-                //qDebug() << "Utilities::isAPrefix: in the while: is a Letter: " << call.at(i) ;
+               //-TEST-qDebug() << "Utilities::isAPrefix: in the while: is a Letter: " << call.at(i) ;
                 if (pref>0)
                 {
-                    pref = i;
+                    QString aaux = call;
+                    aaux.truncate (i);
+                    QString aauxl = call;
+
+                    if (call.length ()>i)
+                    {
+                        aauxl.truncate (i+1);
+                    }
+
+                    aauxl.truncate (i+1);
+                    int iaux = isALongCountryPrefix (aaux);
+                    if (iaux>3)
+                    {
+                        pref = iaux;
+                    }
+                    else if (aauxl.length () == (i+1))
+                    {
+                        iaux = isALongCountryPrefix (aauxl);
+                        pref = i+1;
+                    }
+                    else
+                    {
+                        pref = i;
+                    }
                     done = true;
                 }
             }
             else
             {
-                //qDebug() << "Utilities::isAPrefix: in the while: is NOT a Letter: " << call.at(i) ;
+               //-TEST-qDebug() << "Utilities::isAPrefix: in the while: is NOT a Letter: " << call.at(i) ;
                 if (i > 0)
                 {
                     pref = i;
@@ -728,18 +764,18 @@ int Utilities::isAPrefix (const QString &_c)
         } // end of while
     }
 
-    //qDebug() << "Utilities::isAPrefix: After the while: " << QString::number(pref) ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: After the while: " << QString::number(pref) ;
 
     QString prefix;
     if (pref>0)
     {
-         //qDebug() << "Utilities::isAPrefix: pref>0 =>: " << call.left (pref) ;
+       //-TEST-qDebug() << "Utilities::isAPrefix: pref>0 =>: " << call.left (pref) ;
         prefix = call.left (pref);
     }
     else
     {
         prefix = call;
-        //qDebug() << "Utilities::isAPrefix: pref<=0 =>: " << call ;
+       //-TEST-qDebug() << "Utilities::isAPrefix: pref<=0 =>: " << call ;
     }
 
     length = prefix.length();
@@ -750,25 +786,25 @@ int Utilities::isAPrefix (const QString &_c)
         thirdChar = prefix.at(2);
     }
 
-    //qDebug() << "Utilities::isAPrefix: -50 "  ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: -50 "  ;
     // The first two characters shall be two letters or a letter followed
     // by a digit or a digit followed by a letter. The first two characters or in certain cases
     // the first character of a call sign constitute the nationality identification
 
     if (firstChar.isDigit() && secondChar.isDigit())
     {
-        //qDebug() << "Utilities::isAPrefix: FALSE-6: " << prefix ;
+       //-TEST-qDebug() << "Utilities::isAPrefix: FALSE-6: " << prefix ;
         return -1;
     }
 
-    //qDebug() << "Utilities::isAPrefix: -60 "  ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: -60 "  ;
     if (firstChar.isLetter() && secondChar.isLetter() && thirdChar.isLetter())
     {
-        //qDebug() << "Utilities::isAPrefix: FALSE-6: " << prefix ;
+       //-TEST-qDebug() << "Utilities::isAPrefix: FALSE-6: " << prefix ;
         return -1;
     }
 
-    //qDebug() << "Utilities::isAPrefix: -70 "  ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: -70 "  ;
 
     QList<QChar> validFirstLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T' ,'U', 'V', 'W', 'Z'};
 
@@ -776,7 +812,7 @@ int Utilities::isAPrefix (const QString &_c)
     {
         if (!validFirstLetters.contains (firstChar))
         {
-            //qDebug() << "Utilities::isAPrefix: NOT VALID 1 letter not valid" ;
+           //-TEST-qDebug() << "Utilities::isAPrefix: NOT VALID 1 letter not valid" ;
             return -1;
         }
     }
@@ -871,19 +907,32 @@ int Utilities::isAPrefix (const QString &_c)
         //qDebug() << "Utilities::isAPrefix: 1-Letter + number prefix valid: " << prefix ;
     }
     */
-    //qDebug() << "Utilities::isAPrefix: After the if's"  ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: After the if's"  ;
     // It seems to be a valid prefix, let's count how many chars belong to the prefix, first letter after the digit
     // should be the suffix starting point
 
-    //qDebug() << "Utilities::isAPrefix: Prefix length: " << QString::number(pref) << "/" << prefix ;
+   //-TEST-qDebug() << "Utilities::isAPrefix: Prefix length: " << QString::number(pref) << "/" << prefix ;
     if (pref>0)
     {
         return pref;
     }
     else
     {
-        return prefix.length ();
+        return prefix.length();
     }
+}
+
+int Utilities::isALongCountryPrefix(const QString &_c)
+{
+   //-TEST-qDebug() << Q_FUNC_INFO << ": " << _c;
+    QStringList validPrefixes = {"EA6", "EA8", "EA9", "VP2E", "VP2M", "VP2V", "VP5", "VP6", "VP8", "VP9", "VQ9", "XF4", "YV0", "ZD7", "ZD8", "ZD9", "ZC4",
+                                "ZL7", "ZL8", "ZL9", "ZS8", "UA2", "UA0", "UA9", "TI9", "T30", "T31", "T32", "T33",
+                                "CE0X", "CE0Y", "CE0Z", "PY0F", "PY0S", "PY0T", "R1FJ", "VK0H", "VK0M", "VK9M", "VK9N", "VK9W", "VK9X"};
+    if (!validPrefixes.contains (_c))
+    {
+        return -1;
+    }
+    return _c.length ();
 }
 
 void Utilities::setCallValidation(const bool _b)
@@ -956,7 +1005,7 @@ bool Utilities::isValidCall(const QString &_c)
 
 QString Utilities::getPrefixFromCall(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c ;
+   //-TEST-qDebug() << Q_FUNC_INFO << ": " << _c ;
     QString call = _c;
     call.replace('\\', '/');
 

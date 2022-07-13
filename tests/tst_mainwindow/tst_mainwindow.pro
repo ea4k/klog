@@ -208,9 +208,13 @@ macx: {
 
 win32: {
     message(windows)
-    LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
-    LIBS += -L"$$PWD/../../libs/hamlib/bin"
-    INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
+    DESTDIR = build/target/
+    OBJECTS_DIR = build/obj/
+    MOC_DIR = build/moc/
+    RCC_DIR = build/rcc/
+    LIBS += -L"$$PWD/../../../../libs/hamlib/lib/gcc" -lhamlib
+    LIBS += -L"$$PWD/../../../../libs/hamlib/bin"
+    INCLUDEPATH += "$$PWD/../../../../libs/hamlib/include/"
 }
 
 

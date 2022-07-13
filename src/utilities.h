@@ -162,6 +162,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     bool isCountrySuffix (const QString &_c);
     int isAPrefix(const QString &_c);
+    int isALongCountryPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
