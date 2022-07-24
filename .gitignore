@@ -24,3 +24,4 @@ tests/tst_mainwindow/Makefile
 tests/tst_mainwindow/moc_predefs.h
 tests/tst_mainwindow/target_wrapper.sh
 *.moc
+tests/tst_mainwindow/moc_*.cpp
