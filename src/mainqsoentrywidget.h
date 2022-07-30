@@ -77,6 +77,7 @@ public:
 
     void setDuplicatedQSOSlot (const int _secs);
     void setFocusToOK();
+    void setLogging (const bool _b);
     void clear();
 
 protected:
@@ -110,8 +111,8 @@ private slots:
     //void slotRealTimeButtonResize();
     void slotManualModeCheckBoxClicked();
 
-
 private:
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
     bool eventFilter(QObject *object, QEvent *event);
     void createUI();
     void setInitialData();
@@ -155,7 +156,7 @@ private:
     QTimer *delayInputTimer;
     QString lastQrz;
     double freqTX, freqRX, bottomBandLimit, upperBandLimit;
-
+    bool logging;
     //HamLibClass *hamlib;
 };
 

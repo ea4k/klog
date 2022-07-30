@@ -34,7 +34,7 @@ enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
 enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
 enum OnlineErrorCode {Ok, Fail};
 enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
-enum DebugLogLevel {Info, Debug};
+enum DebugLogLevel {None, Info, Debug};
 enum ValidFieldsForStats {DXCC, GridSquare};
 enum FilesToDownload {CTY, Sats};
 

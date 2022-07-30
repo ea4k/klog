@@ -57,6 +57,7 @@ private slots:
     void test_isValidGrid();
     void test_isValidADIFField();
     void test_getPrefixFromCall();
+    void test_logLevels();
 
 
 
@@ -270,6 +271,14 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("EA6/EA4K/QRP") == "EA6", "Wrong prefix on complex 6" );
     //QVERIFY2(util->getPrefixFromCall("EA4K/VK9X") == "VK9X", "Wrong prefix on complex 7" );
     //QVERIFY2(util->getPrefixFromCall("VK9X/EA4K") == "VK9X", "Wrong prefix on complex 8" );
+}
+
+void tst_Utilities::test_logLevels()
+{
+    QVERIFY2(util->isValidLogLevel("None"), "None logLevel not detected");
+    QVERIFY2(util->isValidLogLevel("None"), "Info logLevel not detected");
+    QVERIFY2(util->isValidLogLevel("None"), "Debug logLevel not detected");
+    QVERIFY2(util->isValidLogLevel("Other"), "Other logLevel not detected");
 }
 
 QTEST_APPLESS_MAIN(tst_Utilities)

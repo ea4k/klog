@@ -2131,3 +2131,30 @@ bool Utilities::isValidSponsor(const QString &_s)
     else
             return false;
 }
+
+QString Utilities::debugLevelToString(DebugLogLevel _l)
+{
+    switch (_l) {
+        case None:
+            return "None";
+        break;
+        case Info:
+            return "Info";
+        break;
+        case Debug:
+            return "Debug";
+        break;
+
+        default:
+            return "Undefined";
+        break;
+    }
+}
+
+bool Utilities::isValidLogLevel(const QString &_s)
+{
+    QStringList validLogLevels;
+    validLogLevels.clear();
+    validLogLevels << "None" << "Info" << "Debug";
+    return validLogLevels.contains (_s);
+}

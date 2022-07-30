@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
+
 //#include <QDebug>
 
 DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
@@ -37,7 +37,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     #endif
 
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << QT_ENDL;
-
+    logging = true;
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << QT_ENDL;
     util = new Utilities();
     util->setVersion(_softVersion);
@@ -49,26 +49,23 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << QT_ENDL;
     searching = false;
     executionN = 0;
+    connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
-    //preparedQuery = new QSqlQuery;
-    //db = new DataBase(0);
-    //DataProxy_SQLite = new DataProxy_SQLite();
-      //qDebug() << "DataProxy_SQLite::DataProxy_SQLite  END" << QT_ENDL;
-
-    //connect(db, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotCaptureDebugLogs(QString, QString, int)) );
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 DataProxy_SQLite::~DataProxy_SQLite()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     delete(util);
     delete(qso);
-         //qDebug() << "DataProxy_SQLite::~DataProxy_SQLite" << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _logn)
 {
     //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: " << _p << "/" << QString::number(_logn) << QT_ENDL;
-
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     QString queryString;
     bool sqlOK;
@@ -92,12 +89,14 @@ int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _log
             //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: " << QString::number((query.value(0)).toInt()) << QT_ENDL;
             int v = (query.value(0)).toInt();
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return v;
         }
         else
         {
             //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropModer: 0" << QT_ENDL;
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return 0;
         }
     }
@@ -106,12 +105,15 @@ int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _log
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: Query error" << QT_ENDL;
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return 0;
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString DataProxy_SQLite::getSoftVersion()
-{ //SELECT MAX (softversion) FROM softwarecontrol
+{ //SELECT MAX (softversion) FROM softwarecontrolç
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     QString stQuery = QString("SELECT MAX (softversion) FROM softwarecontrol");
     if (query.exec(stQuery))
@@ -127,12 +129,13 @@ QString DataProxy_SQLite::getSoftVersion()
                 //The following is not a query error but if the softwareversion value is lower than 0 or empty
                 queryError(Q_FUNC_INFO, tr("Software version in DB is null"), "-1", tr("Query didn't failed")); // To alert about any failed query execution
             }
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return v;
         }
         else
         {
             query.finish();
-               //qDebug() << "DataProxy_SQLite::getSoftVersion: version empty-1"  << QT_ENDL;
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return QString();
         }
     }
@@ -140,13 +143,15 @@ QString DataProxy_SQLite::getSoftVersion()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-           //qDebug() << "DataProxy_SQLite::getSoftVersion: version empty-1 - ERROR"  << QT_ENDL;
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString DataProxy_SQLite::getDBVersion()
 { //SELECT MAX (dbversion) FROM softwarecontrol
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     QString stQuery = QString("SELECT MAX (dbversion) FROM softwarecontrol");
     if (query.exec(stQuery))
@@ -156,11 +161,13 @@ QString DataProxy_SQLite::getDBVersion()
         {
             QString v = (query.value(0)).toString();
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return v;
         }
         else
         {
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return QString();
         }
     }
@@ -168,40 +175,46 @@ QString DataProxy_SQLite::getDBVersion()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 bool DataProxy_SQLite::reconnectDB()
 {
+    logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return db->reConnect(util->getKLogDBFile());
 }
 
 void DataProxy_SQLite::createLogModel()
 {
-         //qDebug() << "DataProxy_SQLite::createLogModel" << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-END **** EMPTY FUNCTION", Debug);
 }
 
 void DataProxy_SQLite::createLogPanel(){
-         //qDebug() << "DataProxy_SQLite::createLogPanel" << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-END **** EMPTY FUNCTION", Debug);
 }
 
 int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
-      //qDebug() << "DataProxy_SQLite::getIdFromModeName: " << _modeName << "/" << QString::number(db->getModeIDFromName2(_modeName)) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_modeName.length()<2)
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -4;
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return db->getModeIDFromName2(_modeName);
 }
 
 int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
 {
-      //qDebug() << "DataProxy_SQLite::getSubModeIdFromSubMode: " << _subModeName << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
 
     if (_subModeName.length()<2)
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -3;
     }
     QSqlQuery query;
@@ -213,11 +226,13 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
         {
             int v = (query.value(0)).toInt();
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return v;
         }
         else
         {
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-3", Debug);
             return -1;
         }
     }
@@ -225,19 +240,24 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
         return -2;
     }
+    logEvent (Q_FUNC_INFO, "END-1", Debug);
 }
 
 int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
 {
+    logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return getIdFromModeName(getNameFromSubMode(getSubModeFromId(_sm)));
 }
 
 bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_sm.length()<2)
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -3;
     }
     QSqlQuery query;
@@ -250,17 +270,20 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
             if ( (query.value(0)).toInt() == 1 )
             {
                 query.finish();
-               return true;
+                logEvent (Q_FUNC_INFO, "END-2", Debug);
+                return true;
             }
             else
             {
                 query.finish();
+                logEvent (Q_FUNC_INFO, "END-3", Debug);
                 return false;
             }
         }
         else
         {
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-4", Debug);
             return false; // In case we can't check, we don't state it as deprecated
         }
     }
@@ -268,39 +291,39 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-5", Debug);
         return false;   // In case we can't check, we don't state it as deprecated
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
-    //qDebug() << "DataProxy_SQLite::getIdFromBandName: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_bandName.length()<1)
     {
-            //qDebug() << "DataProxy_SQLite::getIdFromBandName:-4: " << _bandName  << "/" << QString::number(db->getBandIDFromName2(_bandName))<< QT_ENDL;
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -4;
     }
-
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return db->getBandIDFromName2(_bandName);
 }
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 {
-    //qDebug() << "DataProxy_SQLite::getNameFromBandId: " << QString::number(_id) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return db->getBandNameFromID2(_id);
 }
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
 {
-         //qDebug() << "DataProxy_SQLite::getNameFromModeId" << QT_ENDL;
-    //return db->getModeNameFromID2(_id);
-
+    logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return db->getModeNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
 {
-        //qDebug() << "DataProxy_SQLite::getNameFromSubModeId: " << QString::number(_id) << "DB: " << db->getModeNameFromID2(_id) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return db->getSubModeNameFromID2(_id);
 
 /*
@@ -336,7 +359,7 @@ QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
 
 QString DataProxy_SQLite::getSubModeFromId (const int _id)
 {
-         //qDebug() << "DataProxy_SQLite::getSubModeFromId: " << QString::number(_id) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     QString queryString = QString("SELECT submode FROM mode WHERE id='%1'").arg(_id);
     bool sqlOK = query.exec(queryString);
@@ -348,11 +371,13 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
         {
             QString v = (query.value(0)).toString();
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return v;
         }
         else
         {
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return QString();
         }
     }
@@ -360,12 +385,15 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM mode WHERE submode='%1'").arg(_sm.toUpper());
     //QString queryString = QString("SELECT name, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
@@ -378,11 +406,13 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
         {
             QString v = (query.value(0)).toString();
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return v;
         }
         else
         {
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return QString();
         }
     }
@@ -390,21 +420,22 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
 }
 
 QString DataProxy_SQLite::getFreqFromBandId(const int _id)
 {
-    //qDebug() << "DataProxy_SQLite::getFreqFromBandId: " << QString::number(_id) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return db->getFreqFromBandId(_id);
 }
 
 int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 {
-          //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: " << QString::number(_n) << QT_ENDL;
     //Freq should be in MHz
-     bool sqlOk = false;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    bool sqlOk = false;
     QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(_n).arg(_n);
 
     QSqlQuery query(queryString);
@@ -421,11 +452,13 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
         {
             int v = (query.value(0)).toInt();
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return v;
         }
         else
         {
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
             return -1;
         }
     }
@@ -434,23 +467,23 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
              //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: Query NOK" << QT_ENDL;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return -2;
     }
-    //return -3;
 }
 
 QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 {
-       //qDebug() << "DataProxy_SQLite::getBandNameFromFreq: " << QString::number(_n) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return getNameFromBandId(getBandIdFromFreq(_n));
 }
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 {
-    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: " << _sm << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_sm.length ()<2)
     {
-        //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: length <2" << QT_ENDL;
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -1.0;
     }
     QSqlQuery query;
@@ -466,12 +499,13 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
             query.finish();
             if ( fr < 0 )
             {
-                //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-1" << QT_ENDL;
+                logEvent (Q_FUNC_INFO, "END-2", Debug);
                 return -1.0;
             }
             else
             {
                 //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName(value found): " << QString::number(fr) << QT_ENDL;
+                logEvent (Q_FUNC_INFO, "END-2", Debug);
                 return fr;
             }
         }
@@ -479,6 +513,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
         {
             //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-2" << QT_ENDL;
             query.finish();
+            logEvent (Q_FUNC_INFO, "END-3", Debug);
             return -1.0;
         }
         //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-3" << QT_ENDL;
@@ -488,9 +523,9 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
         //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: SQL Error" << QT_ENDL;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
         return -1.0;
     }
-    //qDebug() << "DataProxy_SQLite::getLowLimitBandFromBandName: -1.0-5" << QT_ENDL;
 }
 
 
@@ -7855,9 +7890,18 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
     return aux;
 }
 
-void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void DataProxy_SQLite::setLogging (const bool _b)
 {
-   emit debugLog(_func, _msg, _level);
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    logging = _b;
+    logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+void DataProxy_SQLite::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+{
+    if (!logging)
+        return;
+    emit debugLog (_func, _msg, _level);
 }
 
 QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
@@ -9753,3 +9797,7 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
     //return 1;
 }
 
+void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
+{
+    logEvent(_func, _msg, _level);
+}

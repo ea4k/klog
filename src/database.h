@@ -62,9 +62,9 @@ struct AwarddxccEntryCheck
     QString logNumber;
 };
 
-class DataBase //: public QObject
+class DataBase : public QObject
 {
-   // Q_OBJECT
+    Q_OBJECT
 
 public:
     DataBase(const QString &_parentClass, const QString &_DBName);
@@ -128,7 +128,7 @@ public:
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
-
+    void setLogging (const bool _b);
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
@@ -228,9 +228,9 @@ private:
     bool updateModeIdTableAward(const int _db);
 
     void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
 
-
-
+    bool logging;
     bool created;
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString dbConnectionName;
@@ -259,9 +259,9 @@ private:
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
-//signals:
+signals:
     //void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
-    //void debugLog(QString functionFailed, QString errorCode, int level); // emitted when a function retuns false due to an error
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 
 };

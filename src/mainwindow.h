@@ -321,6 +321,7 @@ private slots:
 private:
     //void setWidgetsOrder();
     void showNotWar();
+    void setupDebugLogging(const bool _b);
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);

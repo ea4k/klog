@@ -102,7 +102,7 @@ private:
 
     QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
-    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *debugLogCheckBox, *checkCallsCheckBox;
+    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *checkCallsCheckBox;
     //QCheckBox *logSortCheckBox;
     QCheckBox *sendEQSLByDefaultSearchCheckBox, *deleteAlwaysAdiFileCheckBox;
     QString defaultFileName;
@@ -115,6 +115,7 @@ private:
 
     bool dbPathApplied;
 
+    QComboBox *debugLogLevelCombo;
     //QWidget *bandsWidget;
 
 };

@@ -40,18 +40,20 @@ class ShowKLogLogWidget : public QWidget
     Q_OBJECT
 public:
     explicit ShowKLogLogWidget(QWidget *parent = nullptr);
-    void addLog(QString const &_func, QString const &_log, const DebugLogLevel _l);
+    void add(QString const &_func, QString const &_log, const DebugLogLevel _l);
+    void setLogLevel(const DebugLogLevel _l);
 signals:
 
 public slots:
 
 private:
     void createUI();
+    QString debugLevelToString(DebugLogLevel _l);
     QStringList list;
     QListView *logsView;
     QStringListModel *model;
     QComboBox *levelComboBox;
-
+    DebugLogLevel logLevel;
 };
 
 #endif // SHOWKLOGLOGWIDGET_H

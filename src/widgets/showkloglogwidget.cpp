@@ -56,15 +56,25 @@ void ShowKLogLogWidget::createUI()
 }
 
 
-void ShowKLogLogWidget::addLog(const QString &_func, QString const &_log, const DebugLogLevel _l)
+void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const DebugLogLevel _l)
 {
+    if (logLevel >_l)
+    {
+        return;
+    }
     QString msg;
-    msg = QDateTime::currentDateTime().toString("yyyy/MM/dd-hh:mm:ss") + "-" + _func + ": " + _log;
-    //qDebug() << Q_FUNC_INFO << ": " << msg;
-    //QModelIndex index = model->index(0, 0);
-    //model->setData(index, msg);
+    Utilities util;
+    msg = QString("%1 %2 - %3 - %4").arg(QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss")).arg(util.debugLevelToString (_l)).arg(_func).arg(_log);
+
+    qDebug() << "Debugging: " << msg;
+
     if(model->insertRow(0)) {
         QModelIndex index = model->index(0, 0);
         model->setData(index, msg);
     }
+}
+
+void ShowKLogLogWidget::setLogLevel(const DebugLogLevel _l)
+{
+    logLevel = _l;
 }

@@ -31,6 +31,7 @@
 #include <QObject>
 #include "database.h"
 #include "qso.h"
+#include "utilities.h"
 #include "klogdefinitions.h"
 //#include "regionalaward.h"
 
@@ -51,7 +52,7 @@ public:
 
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();
-
+    void setLogging (const bool _b);
     QString getSoftVersion();
     QString getDBVersion();
     bool reconnectDB();
@@ -328,10 +329,12 @@ private:
 
     int getPrefixId(const QString &_qrz);
     QString changeSlashAndFindPrefix(const QString &_qrz);
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
     QSO *qso;
     bool searching;
     int executionN;
     Utilities *util;
+    bool logging;
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:
@@ -340,7 +343,7 @@ private slots:
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
-    void debugLog(QString functionFailed, QString errorCode, DebugLogLevel level); // emitted as the KLog application log
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 };
 

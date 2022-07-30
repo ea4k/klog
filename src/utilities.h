@@ -154,6 +154,8 @@ public:
     bool isValidDistance(const int _d);
     bool isValidSponsor(const QString &_s);
 
+    QString debugLevelToString(DebugLogLevel _l);
+    bool isValidLogLevel(const QString &_s);
     //QPalette getPalete(bool _ok);
 
 private:
