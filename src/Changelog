@@ -1,4 +1,4 @@
-Jan 2022 - 2.2
+Aug 2022 - 2.2
 - Bugfix: DL was not properly showninthe DXCC status table (Closes #460) (TNX N6PAZ)
 - Bugfix: Clublog QSO status export to file was not properly done.
 - Bugfix: Removing first char in the callsign caused a crash. (Closes #455) (TNX G4MKT)
