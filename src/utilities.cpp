@@ -48,6 +48,8 @@ void Utilities::init()
     setARRLSect();
     setContinent();
     setSponsorsList();
+    logLevels.clear();
+    logLevels << "None" << "Info" << "Debug";
     //callValidation = true;
 
 }
@@ -2144,17 +2146,30 @@ QString Utilities::debugLevelToString(DebugLogLevel _l)
         case Debug:
             return "Debug";
         break;
-
         default:
             return "Undefined";
         break;
     }
 }
 
+DebugLogLevel Utilities::stringToDebugLevel(const QString &_s)
+{
+    QString aux;
+    aux = _s.toUpper();
+    if (aux == "INFO")
+        return Info;
+    else if (aux == "DEBUG")
+        return Debug;
+    else
+        return None;
+}
+
 bool Utilities::isValidLogLevel(const QString &_s)
 {
-    QStringList validLogLevels;
-    validLogLevels.clear();
-    validLogLevels << "None" << "Info" << "Debug";
-    return validLogLevels.contains (_s);
+    return logLevels.contains (_s);
+}
+
+QStringList Utilities::getDebugLevels()
+{
+    return logLevels;
 }

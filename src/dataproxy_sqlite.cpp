@@ -37,13 +37,14 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     #endif
 
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << QT_ENDL;
-    logging = true;
+    logLevel = None;
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << QT_ENDL;
     util = new Utilities();
     util->setVersion(_softVersion);
     qso = new QSO;
 
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
+
     dbCreated = db->createConnection(Q_FUNC_INFO);
     //dbCreated = db->createBandModeMaps();
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END" << QT_ENDL;
@@ -7890,18 +7891,18 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
     return aux;
 }
 
-void DataProxy_SQLite::setLogging (const bool _b)
+void DataProxy_SQLite::setLogLevel (const DebugLogLevel _b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    logging = _b;
+    logLevel = _b;
+    db->setLogLevel(logLevel);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void DataProxy_SQLite::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
 {
-    if (!logging)
-        return;
-    emit debugLog (_func, _msg, _level);
+    if (_level>logLevel)
+        emit debugLog (_func, _msg, _level);
 }
 
 QString DataProxy_SQLite::getADIFQSO(const int _qsoId)

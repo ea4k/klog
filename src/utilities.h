@@ -155,7 +155,9 @@ public:
     bool isValidSponsor(const QString &_s);
 
     QString debugLevelToString(DebugLogLevel _l);
+    DebugLogLevel stringToDebugLevel(const QString &_s);
     bool isValidLogLevel(const QString &_s);
+    QStringList getDebugLevels();
     //QPalette getPalete(bool _ok);
 
 private:
@@ -178,7 +180,7 @@ private:
     QString dbPath;
     QString softwareVersion;
 
-    QStringList ARRL_sects, continent, sponsorsList;
+    QStringList ARRL_sects, continent, sponsorsList, logLevels;
     //QPalette palRed, palBlack;
 
 };

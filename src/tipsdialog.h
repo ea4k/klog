@@ -43,7 +43,7 @@ class TipsDialog : public QDialog
 public:
     explicit TipsDialog(QWidget *parent = nullptr);
     ~TipsDialog();
-    void setSeverity(const DebugLogLevel _sev);
+    void setLogLevel(const DebugLogLevel _sev);
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -65,6 +65,7 @@ private slots:
 
 private:
     void setTip(const int _t);
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
 
     QLabel *tipTextQLabel;
     //QTextEdit *tipTextEdit;

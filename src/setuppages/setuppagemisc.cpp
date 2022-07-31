@@ -147,6 +147,8 @@ void SetupPageMisc::createUI()
     sendEQSLByDefaultSearchCheckBox->setToolTip(tr("Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the new QSO by default."));
     deleteAlwaysAdiFileCheckBox->setToolTip(tr("Delete Always the adif file created after uploading QSOs"));
 
+    fillDebugComboBox();
+
     QHBoxLayout *fileLayout = new QHBoxLayout;
     fileLayout->addWidget(useDefaultName);
     fileLayout->addWidget(defaultFileNameLineEdit);
@@ -185,7 +187,12 @@ void SetupPageMisc::createUI()
     mainLayou1->addWidget (checkCallsCheckBox, 9, 0, 1, 1);
 
     setLayout(mainLayou1);
+}
 
+void SetupPageMisc::fillDebugComboBox()
+{
+    debugLogLevelCombo->addItems(util->getDebugLevels());
+    debugLogLevelCombo->setCurrentIndex(0);
 }
 
 void SetupPageMisc::createActions(){
@@ -199,7 +206,6 @@ void SetupPageMisc::createActions(){
     connect(dbPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDBLineEditChanged() ) );
     connect(moveDBPushButton, SIGNAL(clicked() ), this, SLOT(slotMoveDBButtonClicked() ) );
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
-
 }
 
 void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
@@ -417,17 +423,18 @@ void SetupPageMisc::setDXMarathon(const QString &_t){
     useDxMarathonCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
-QString SetupPageMisc::getDebugLog()
+QString SetupPageMisc::getDebugLogLevel()
 {
     return debugLogLevelCombo->currentText ();
 }
 
-void SetupPageMisc::setDebugLog(const QString &_t)
+void SetupPageMisc::setDebugLogLevel(const QString &_t)
 {
-    debugLogLevelCombo->setCurrentIndex(debugLogLevelCombo->findText(_t, Qt::MatchCaseSensitive));
+    if (util->isValidLogLevel(_t))
+        debugLogLevelCombo->setCurrentIndex(debugLogLevelCombo->findText(_t, Qt::MatchCaseSensitive));
+    else
+        debugLogLevelCombo->setCurrentIndex(0);
 }
-
-
 
 void SetupPageMisc::slotDBButtonClicked()
 {
@@ -592,3 +599,4 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 {
     checkCallsCheckBox->setChecked (_t);
 }
+

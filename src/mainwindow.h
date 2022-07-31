@@ -317,11 +317,11 @@ private slots:
     //void slotTakeOverFocus(int _id);
     void slotTakeOverFocusToQSOTabWidget();
     void slotTakeOverFocusToMainQSOInput();
+    void slotNewLogLevel(DebugLogLevel l);
 
 private:
     //void setWidgetsOrder();
     void showNotWar();
-    void setupDebugLogging(const bool _b);
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
@@ -334,7 +334,7 @@ private:
     bool setHamlib(const bool _b);
     bool setUDPServer(const bool _b);
     void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
-    void setSeverity(const DebugLogLevel _sev);
+    void setLogLevel(const DebugLogLevel _sev);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
@@ -565,9 +565,8 @@ private:
 
     bool checkNewVersions, reportInfo; // Selected in the Setup->Misc to check if new versions and report info back to KLog's servers
     bool logEvents;                     // Should KLog log the events for debugging
-    bool debugFileOpen;                 //Is the debugFile open?
-    QFile *debugFile;
-    DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
+
+    DebugLogLevel logLevel;    // Manages as syslog, the severity of the application debug log (7 means debug, 0 emergency)
 
     bool txFreqBeingChanged,  updatingBands; //rxFreqBeingChanged  // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.

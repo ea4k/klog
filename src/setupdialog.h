@@ -65,7 +65,7 @@ public:
     void setEQSLActive(const bool _b);
     void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
-    void setSeverity(const DebugLogLevel _sev);
+    void setLogLevel(const DebugLogLevel _sev);
 
 
 signals:
@@ -107,6 +107,7 @@ private:
 
     QString checkAndFixASCIIinADIF(const QString &_data);
     bool haveAtleastOneLog();
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
 
     bool firstTime; // To know if we are calling it from the Start wizard or not
     bool nolog; // If there is no log being managed

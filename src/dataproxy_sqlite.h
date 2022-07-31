@@ -52,7 +52,7 @@ public:
 
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();
-    void setLogging (const bool _b);
+    void setLogLevel (const DebugLogLevel _b);
     QString getSoftVersion();
     QString getDBVersion();
     bool reconnectDB();
@@ -334,7 +334,7 @@ private:
     bool searching;
     int executionN;
     Utilities *util;
-    bool logging;
+    DebugLogLevel logLevel;
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:

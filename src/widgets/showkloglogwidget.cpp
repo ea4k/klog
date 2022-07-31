@@ -28,6 +28,7 @@
 
 ShowKLogLogWidget::ShowKLogLogWidget(QWidget *parent) : QWidget(parent)
 {
+    util = new Utilities;
     levelComboBox = new QComboBox;
     model = new QStringListModel();
     //QStringList list;
@@ -37,22 +38,20 @@ ShowKLogLogWidget::ShowKLogLogWidget(QWidget *parent) : QWidget(parent)
     logsView = new QListView;
     logsView->setModel(model);
     createUI();
-
 }
 
 void ShowKLogLogWidget::createUI()
 {
-    QStringList levels;
-    levels.clear();
-    //TODO: Link the Level tags to the utilities.h definition
-    levels << "1-Info" << "2-Debug";
     levelComboBox->clear();
-    levelComboBox->addItems(levels);
+    levelComboBox->addItems(util->getDebugLevels());
+    levelComboBox->setCurrentIndex(0);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(levelComboBox);
     layout->addWidget(logsView);
     setLayout(layout);
+
+    connect(levelComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotLevelComboBoxChanged(QString) ) ) ;
 }
 
 
@@ -63,18 +62,47 @@ void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const Deb
         return;
     }
     QString msg;
-    Utilities util;
-    msg = QString("%1 %2 - %3 - %4").arg(QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss")).arg(util.debugLevelToString (_l)).arg(_func).arg(_log);
 
-    qDebug() << "Debugging: " << msg;
+    msg = QString("%1 %2 - %3 - %4").arg(QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss")).arg(util->debugLevelToString (_l)).arg(_func).arg(_log);
+
+    //qDebug() << "Debugging: " << msg;
 
     if(model->insertRow(0)) {
         QModelIndex index = model->index(0, 0);
         model->setData(index, msg);
     }
+
+    // FILE
+    debugFile = new QFile(util->getDebugLogFile());
+    if (!debugFile->open(QIODevice::Append | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        //qDebug() << Q_FUNC_INFO << " Can't open the file to log - EXITING";
+        return;
+    }
+
+    QTextStream out(debugFile);
+    out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << msg << QT_ENDL;
+
+    debugFile->close();
 }
 
 void ShowKLogLogWidget::setLogLevel(const DebugLogLevel _l)
 {
+    qDebug() << Q_FUNC_INFO << " - New log Level: " << util->debugLevelToString(_l);
+    QString logString = util->debugLevelToString(_l);
+
+    if (util->isValidLogLevel(logString))
+        levelComboBox->setCurrentIndex(levelComboBox->findText(logString, Qt::MatchCaseSensitive));
+    else
+    {
+        levelComboBox->setCurrentIndex(0);
+        logLevel = util->stringToDebugLevel("None");
+        return;
+    }
     logLevel = _l;
+}
+
+void ShowKLogLogWidget::slotLevelComboBoxChanged(const QString &_l)
+{
+    emit newLogLevel(util->stringToDebugLevel(_l));
 }

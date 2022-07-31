@@ -53,7 +53,6 @@ UDPServer::UDPServer(QObject *parent) :
         util = new Utilities;
         logging = false;
         realtime = false;
-
         connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
 }
 
@@ -75,7 +74,6 @@ void UDPServer::slotReadPendingDatagrams()
         parse (datagram);
         //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram << QT_ENDL;
     }
-
 }
 
 bool UDPServer::start()
@@ -85,7 +83,6 @@ bool UDPServer::start()
     {
         //qDebug() << "UDPServer::start: calling startNow " << QT_ENDL;
         return startNow(port, groupAddress);
-
     }
     else
     {
@@ -128,7 +125,6 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
     }
     //qDebug() << "UDPServer::startNow exiting... "<< QT_ENDL;
     return  socketServer->isValid();
-
 }
 
 void UDPServer::joinMultiCastGroup()
@@ -250,7 +246,6 @@ void UDPServer::parse(const QByteArray &msg)
     QByteArray message;
     bool lowConfidence = false;
 
-
     qint32 rx_df = -1;  // Delta frequency
     qint32 tx_df = -1;  // Delta time
     QByteArray de_call;
@@ -262,9 +257,6 @@ void UDPServer::parse(const QByteArray &msg)
     quint32 freqTolerance;
     quint32 TRPeriod;
     QByteArray confName;
-
-
-    //QByteArray msgOut;
 
     QDataStream in(msg);
     //QDataStream out(msgOut, QIODevice::ReadWrite);
@@ -289,8 +281,7 @@ void UDPServer::parse(const QByteArray &msg)
     }
 
     //qDebug() << "UDPServer::parse: TYPE: " << QString::number(type)<< QT_ENDL;
-    //QDateTime dateTime, dateTimeOff;
-    //QString line;
+
     switch (type)
     {
         case Heartbeat:
@@ -300,7 +291,6 @@ void UDPServer::parse(const QByteArray &msg)
             //qDebug() << "UDPServer::parse: -   type" << QString::number(type) << " - OUT - Status" << QT_ENDL;
             // unpack message
             //in >> ch;
-
 
             if (realtime)
             {
@@ -468,13 +458,8 @@ void UDPServer::parse(const QByteArray &msg)
         default: //NO
                //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ERROR on Type" << QT_ENDL;
         break;
-
     }
-
-
-
        //qDebug() << "UDPServer::parse: - Magic: = " << QString::number(magic)<< QT_ENDL;
-
 }
 
 
@@ -520,7 +505,6 @@ void UDPServer::setNetworkInterface(const QString &_t)
                 networkInterface = i;
                 haveNetworkInterface = true;
             }
-
         }
     }
 }
@@ -557,8 +541,6 @@ void UDPServer::setRealTimeUpdate(const bool _t)
 void UDPServer::adifParse(QByteArray &msg)
 {
     //qDebug() << "UDPServer::adifParse: " << msg <<  QT_ENDL;
-
-
     QString dx_call = QString();
     QString mode = QString();
     QString band = QString();
@@ -711,7 +693,6 @@ void UDPServer::adifParse(QByteArray &msg)
                 emit logged_qso (dx_call, mode, band, freq,
                                  mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign, _name,
                                  operatorCall, datetime, datetime_off, _exchangeTX, _exchangeRX, _myPWR);
-
                 return;
             }
             else

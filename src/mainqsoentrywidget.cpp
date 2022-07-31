@@ -50,7 +50,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     realTime = true;
     duplicatedQSOSlotInSecs = 15;
     delayInputTimer = new QTimer;
-    logging = true;
+    logLevel = None;
 
     createUI();
     setInitialData();
@@ -156,10 +156,10 @@ void MainQSOEntryWidget::createUI()
     //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
-void MainQSOEntryWidget::setLogging (const bool _b)
+void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    logging = _b;
+    logLevel = _b;
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -845,18 +845,18 @@ bool MainQSOEntryWidget::getModifying()
 
 void MainQSOEntryWidget::slotUpdateTime()
 {
-    logEvent (Q_FUNC_INFO, "Start", Debug);
+    //logEvent (Q_FUNC_INFO, "Start", Debug);
     if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
         //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << QT_ENDL;
         setDateAndTimeInternally();
     }
-    logEvent (Q_FUNC_INFO, "END", Debug);
+    //logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void MainQSOEntryWidget::setDateAndTimeInternally()
 {
-    logEvent (Q_FUNC_INFO, "Start", Debug);
+    //logEvent (Q_FUNC_INFO, "Start", Debug);
     if (UTCTime)
     {
         dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
@@ -867,7 +867,7 @@ void MainQSOEntryWidget::setDateAndTimeInternally()
         dateEdit->setDate(QDateTime::currentDateTime().date());
         timeEdit->setTime(QDateTime::currentDateTime().time());
     }
-    logEvent (Q_FUNC_INFO, "END", Debug);
+    //logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
@@ -1106,7 +1106,6 @@ void MainQSOEntryWidget::setFocusToOK()
 
 void MainQSOEntryWidget::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
 {
-    if (!logging)
-        return;
-    emit debugLog (_func, _msg, _level);
+    if (_level>logLevel)
+        emit debugLog (_func, _msg, _level);
 }

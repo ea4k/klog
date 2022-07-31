@@ -101,7 +101,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 
     softwareVersion = tversion;
     klogDir = _klogDir;
-    logSeverity = Info;
+    logLevel = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 15;
     needToEnd = false;
@@ -110,7 +110,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
 
     //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() << QT_ENDL;
-    debugFile = new QFile(util->getDebugLogFile());
+
 
     //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     hamlib = new HamLibClass();
@@ -251,7 +251,6 @@ MainWindow::~MainWindow()
     delete(world);
     delete(locator);
     delete(qso);
-    delete(debugFile);
     delete(dateTime);
     delete(dateTimeTemp);
     delete(awards);
@@ -315,9 +314,9 @@ void MainWindow::init()
         }
     }
 
-    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    QFile debugFile(util->getDebugLogFile());
+    if (!debugFile.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        debugFileOpen = false;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not open"));
@@ -329,8 +328,7 @@ void MainWindow::init()
     }
     else
     {
-        debugFile->close();
-        debugFileOpen = true;
+        debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
 
@@ -720,7 +718,10 @@ void MainWindow::createActionsCommon(){
     connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+
+    connect(showKLogLogWidget, SIGNAL(newLogLevel(DebugLogLevel)), this, SLOT(slotNewLogLevel(DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
+
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5027,17 +5028,10 @@ void MainWindow::readConfigData()
 void MainWindow::startServices()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    setupDebugLogging(true);
+    //setLogLevel(None);
     setWindowSize (windowSize);
     setHamlib(hamlibActive);
     setUDPServer(UDPServerStart);
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-void MainWindow::setupDebugLogging(const bool _b)
-{
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    dataProxy->setLogging (true);
-    mainQSOEntryWidget->setLogging (true);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5180,16 +5174,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field=="DEBUGLOG")
     {
-        if (util->trueOrFalse(value))
-        {
-            logSeverity = Info;
-            logEvent(Q_FUNC_INFO, "Log enabled");
-        }
-        else
-        {
-            logEvent(Q_FUNC_INFO, "Log disabled");
-            logSeverity = Info;
-        }
+        setLogLevel(util->stringToDebugLevel(value));
     }
     else if (field=="UTCTIME")
     {
@@ -8731,10 +8716,15 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainWindow::setSeverity(const DebugLogLevel _sev)
+void MainWindow::setLogLevel(const DebugLogLevel _sev)
 {
-    logSeverity = _sev;
-    setupDialog->setSeverity(logSeverity);
+    qDebug() << "LogLevel: " << util->debugLevelToString(_sev);
+    logLevel = _sev;
+    showKLogLogWidget->setLogLevel(logLevel);
+    setupDialog->setLogLevel(logLevel);
+    tipsDialog->setLogLevel(logLevel);
+    dataProxy->setLogLevel(logLevel);
+    mainQSOEntryWidget->setLogLevel(logLevel);
 }
 
 void MainWindow::slotTakeOverFocusToQSOTabWidget()
@@ -8759,24 +8749,26 @@ void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg,
     logEvent(_func, _msg, _level);
 }
 
+
+void MainWindow::slotNewLogLevel(DebugLogLevel l)
+{
+    setLogLevel(l);
+    filemanager->modifySetupFile(configFileName, "DebugLog", util->debugLevelToString(l));
+}
+
 void MainWindow::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
 {   //This function is the only one not logging the activity
-    showKLogLogWidget->add(_func, _msg, _level);
+    qDebug() << Q_FUNC_INFO << "_level: " << util->debugLevelToString(_level);
+    qDebug() << Q_FUNC_INFO << "logLevel: " << util->debugLevelToString(logLevel);
+    qDebug() << Q_FUNC_INFO << "upAndRunning: " << util->boolToQString(upAndRunning);
 
-   // if ((!logEvents) || (!debugFileOpen) || (_level<=Debug)) // Increase to 7 show the full Debug
-   // {
-   //     //qDebug() << "MainWindow::slotCaptureDebugLogs: Not logging: " << _func << " / " << _msg << " / " << QString::number(_level) << QT_ENDL;
-   //    return;
-   // }
-    //Criticality
-
-    if (!debugFile->open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    //if (!debugFileOpen)
-
+    if (!upAndRunning)
     {
+        showKLogLogWidget->add(_func, _msg, None);
         return;
     }
-    QTextStream out(debugFile);
-    out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << _msg << QT_ENDL;
-    debugFile->close();
+
+    if (_level>logLevel)
+        return;
+    showKLogLogWidget->add(_func, _msg, _level);
 }

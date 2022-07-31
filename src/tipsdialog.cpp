@@ -36,24 +36,14 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
       //qDebug() << "TipsDialog::TipsDialog" << QT_ENDL;
     logSeverity = Info;  //7 Debug /0=emergency or no debug
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
     tipTextQLabel = new QLabel;
-    //tipTextEdit = new QTextEdit;
-    //tipTextEdit->setReadOnly(true);
-    //tipTextEdit->setWordWrapMode(QTextOption::WordWrap);
     tipId = 1;
     tipMax = 19;
-
-    //QPixmap pixmap(":/img/klog_256x256.png");
-
 
     setWindowTitle(tr("KLog tips"));
     setWindowFlags(windowFlags() & Qt::WindowContextHelpButtonHint);
 
-
-    //description = tr("KLog is a free logbook for hamradio operators.") ;
-    //tipTextEdit->setHtml(description);
-    //tipTextQLabel->setText(description);
     tipTextQLabel->setWordWrap(true);
     tipTextQLabel->setOpenExternalLinks(false);
     tipTextQLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -77,26 +67,17 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
     connect(nextButton, SIGNAL(clicked()), this, SLOT(slotNextButtonClicked() ) );
     connect(tipTextQLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotLinkActivated(QString)));
 
-    //QLabel *logoLabel = new QLabel;
-    //logoLabel->setPixmap(pixmap);
-
     tip = new QWidget;
 
     QGridLayout *layout1 = new QGridLayout;
-    //layout1->addWidget(logoLabel , 0, 0, 1, 1);
     layout1->addWidget(tipTextQLabel, 0, 1, 4, 4);
     tip->setLayout(layout1);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(tip);
     layout->addWidget(buttonBox);
-    //layout->setSizeConstraint(QLayout::SetNoConstraint);
     setLayout(layout);
-
-
-       //qDebug() << "TipsDialog::TipsDialog - END" << QT_ENDL;
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 TipsDialog::~TipsDialog(){}
@@ -104,8 +85,7 @@ TipsDialog::~TipsDialog(){}
 
 void TipsDialog::slotPrevButtonClicked()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-
+    logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (tipId>1)
     {
@@ -117,13 +97,12 @@ void TipsDialog::slotPrevButtonClicked()
     }
     setTip(tipId);
 
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
-
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void TipsDialog::slotNextButtonClicked()
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (tipId<tipMax)
     {
@@ -134,21 +113,19 @@ void TipsDialog::slotNextButtonClicked()
         tipId = 1;
     }
     setTip(tipId);
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void TipsDialog::setSeverity(const DebugLogLevel _sev)
+void TipsDialog::setLogLevel(const DebugLogLevel _sev)
 {
+    logEvent(Q_FUNC_INFO, "Start", Debug);
     logSeverity = _sev;
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void TipsDialog::setTip(const int _t)
 {
-    //QSize _size = tipTextQLabel->sizeHint();
-    //qDebug() << "TipsDialog::setTip: Height: " << QString::number(_t) <<endl;
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-
+    logEvent(Q_FUNC_INFO, "Start", Debug);
     switch (_t) {
 
     case 1:
@@ -226,14 +203,13 @@ void TipsDialog::setTip(const int _t)
     //tipTextEdit->setHtml(description);
 
     tipTextQLabel->setText(description);
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "TipsDialog::setTip: END"  << QT_ENDL;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
 
       //qDebug() << "TipsDialog::slotLinkActivated: " << _link << QT_ENDL;
     //Comprobar el enalce y activar el menu correspondiente
@@ -277,7 +253,12 @@ void TipsDialog::slotLinkActivated(const QString &_link)
     {
         emit toolsUploadLoTWSignal();
     }
-
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+
+void TipsDialog::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+{
+    if (_level>logSeverity)
+        emit debugLog (_func, _msg, _level);
+}

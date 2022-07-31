@@ -67,8 +67,8 @@ public:
     void setReportInfo(const QString &_t);
     QString getDXMarathon();
     void setDXMarathon(const QString &_t);
-    QString getDebugLog();
-    void setDebugLog(const QString &_t);
+    QString getDebugLogLevel();
+    void setDebugLogLevel(const QString &_t);
     //QString getLogSort();
     //void setLogSort(const QString &_t);
     QString getSendEQSLByDefault();
@@ -97,6 +97,7 @@ private slots:
 private:
     void createActions();
     void createUI();
+    void fillDebugComboBox();
 
     Utilities *util;
 

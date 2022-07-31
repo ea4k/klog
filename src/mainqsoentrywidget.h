@@ -77,7 +77,7 @@ public:
 
     void setDuplicatedQSOSlot (const int _secs);
     void setFocusToOK();
-    void setLogging (const bool _b);
+    void setLogLevel (const DebugLogLevel _b);
     void clear();
 
 protected:
@@ -156,7 +156,7 @@ private:
     QTimer *delayInputTimer;
     QString lastQrz;
     double freqTX, freqRX, bottomBandLimit, upperBandLimit;
-    bool logging;
+    DebugLogLevel logLevel;
     //HamLibClass *hamlib;
 };
 

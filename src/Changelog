@@ -3,6 +3,7 @@ Jan 2022 - 2.2
 - Bugfix: Clublog QSO status export to file was not properly done.
 - Bugfix: Removing first char in the callsign caused a crash. (Closes #455) (TNX G4MKT)
 - Bugfix: Database was not beig properly created in first start.
+- Improvement: The Debug logging has been improved.
 - Improvement: General code cleaning (coveralls.io)
 - Improvement: General code cleaning (lgtm.com alerts)
 - Improvement Distance is not stored for new QSO added or modified QSOs from the UI. (Closes #459).

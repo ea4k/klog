@@ -43,8 +43,10 @@ public:
     void add(QString const &_func, QString const &_log, const DebugLogLevel _l);
     void setLogLevel(const DebugLogLevel _l);
 signals:
+    void newLogLevel(DebugLogLevel level);
 
-public slots:
+private slots:
+    void slotLevelComboBoxChanged(const QString &_l);
 
 private:
     void createUI();
@@ -54,6 +56,9 @@ private:
     QStringListModel *model;
     QComboBox *levelComboBox;
     DebugLogLevel logLevel;
+    QFile *debugFile;
+
+    Utilities *util;
 };
 
 #endif // SHOWKLOGLOGWIDGET_H

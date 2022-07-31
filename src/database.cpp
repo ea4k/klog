@@ -30,7 +30,7 @@
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 {
     //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName ;
-    logging = true;
+    logLevel = None;
     constrid = 1;
     created = false;
 
@@ -55,7 +55,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 {
     //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName ;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
-    logging = true;
+    logLevel = None;
     constrid = 2;
     created = false;
     dbVersion = DBVersionf;
@@ -6964,14 +6964,13 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
 
  void DataBase::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
  {
-     if (!logging)
-         return;
-     emit debugLog (_func, _msg, _level);
+    if (_level>logLevel)
+        emit debugLog (_func, _msg, _level);
  }
 
- void DataBase::setLogging (const bool _b)
+ void DataBase::setLogLevel(const DebugLogLevel _b)
  {
      logEvent (Q_FUNC_INFO, "Start", Debug);
-     logging = _b;
+     logLevel = _b;
      logEvent (Q_FUNC_INFO, "END", Debug);
  }

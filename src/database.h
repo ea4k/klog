@@ -128,7 +128,7 @@ public:
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
-    void setLogging (const bool _b);
+    void setLogLevel (const DebugLogLevel _b);
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
@@ -230,7 +230,7 @@ private:
     void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
     void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
 
-    bool logging;
+    DebugLogLevel logLevel;
     bool created;
     float dbVersion;    // The current version of the DB. May differ from latestReaded if we are updating the DB!
     QString dbConnectionName;
