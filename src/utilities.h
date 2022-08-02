@@ -33,16 +33,17 @@
     This classs hould not need to query the DB neither the DataProxy Class
 
 */
+#include <QObject>
 #include <QtGlobal>
 #include <QString>
 #include <QtWidgets>
 #include <QPalette>
-#include "locator.h"
 #include <QtDebug>
+#include "locator.h"
 #include "klogdefinitions.h"
 
-class Utilities
-{
+class Utilities : public QObject {
+    Q_OBJECT
 public:
     Utilities();
     ~Utilities();
@@ -173,16 +174,12 @@ private:
     void setARRLSect();
     void setContinent();
     void setSponsorsList();
-
-
-
+    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
     bool darkMode;
     QString dbPath;
     QString softwareVersion;
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
-    //QPalette palRed, palBlack;
-
 };
 
 #endif // UTILITIES_H

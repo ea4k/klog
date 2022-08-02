@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     QDir d1 = QDir();
     //QCoreApplication::setApplicationVersion(QString(APP_VERSION));
     //qDebug() << "KLog Main STARTED: " << version << QT_ENDL;
-    Utilities util = Utilities();
+    Utilities util;
     QStringList arguments;
     QTextStream cout(stdout);
     //QCoreApplication::setOrganizationName("EA4K");
