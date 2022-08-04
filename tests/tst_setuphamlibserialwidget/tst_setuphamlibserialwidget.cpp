@@ -136,12 +136,14 @@ void tst_SetupHamLibSerialWidget::test_Parity()
 
 void tst_SetupHamLibSerialWidget::test_StopBits()
 {
-    serialHamLibWidget->setStopBits("Default");
-    QVERIFY2(serialHamLibWidget->getStopBits() == 0, "StopBits Default not OK");
-    serialHamLibWidget->setStopBits("1");
-    QVERIFY2(serialHamLibWidget->getStopBits() == 1, "StopBits 1 not OK");
-    serialHamLibWidget->setStopBits("2");
-    QVERIFY2(serialHamLibWidget->getStopBits() == 2, "StopBits 2 not OK");
+    serialHamLibWidget->setStopBits("OneStop");
+    QVERIFY2(serialHamLibWidget->getStopBits() == "OneStop", "StopBits 1 not OK");
+    serialHamLibWidget->setStopBits("OneAndHalfStop");
+    QVERIFY2(serialHamLibWidget->getStopBits() == "OneAndHalfStop", "StopBits 1.5 not OK");
+    serialHamLibWidget->setStopBits("TwoStop");
+    QVERIFY2(serialHamLibWidget->getStopBits() == "TwoStop", "StopBits 2 not OK");
+    serialHamLibWidget->setStopBits("AnyOtherThing");
+    QVERIFY2(serialHamLibWidget->getStopBits() == "OneStop", "StopBits Default not OK");
 }
 
 void tst_SetupHamLibSerialWidget::test_SerialSpeed()
@@ -154,8 +156,8 @@ void tst_SetupHamLibSerialWidget::test_SerialSpeed()
         serialHamLibWidget->setSerialBauds(aux.toInt());
         QVERIFY2(serialHamLibWidget->getSerialBauds() == aux.toInt(), qPrintable(QString("Serial Speed %1 not OK").arg(aux.toInt())));
     }
-    serialHamLibWidget->setSerialBauds(1);
-    QVERIFY2(serialHamLibWidget->getSerialBauds() == 115200, qPrintable(QString("Serial Speed %1 not OK").arg(1)));
+    serialHamLibWidget->setSerialBauds(1111);
+    QVERIFY2(serialHamLibWidget->getSerialBauds() == 1200, qPrintable(QString("Serial Speed default not OK")));
 }
 
 void tst_SetupHamLibSerialWidget::test_SerialPort()

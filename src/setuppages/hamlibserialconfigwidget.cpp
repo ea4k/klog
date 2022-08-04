@@ -11,7 +11,6 @@ HamLibSerialConfigWidget::HamLibSerialConfigWidget(QWidget *parent) : QWidget(pa
     stopBitsComboBox = new QComboBox();
 
     scanSerialPortButton = new QPushButton();
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -350,7 +349,7 @@ QString HamLibSerialConfigWidget::getSerialPort()
 
 int HamLibSerialConfigWidget::getSerialBauds()
 {
-    return (serialBaudsComboBox->currentText ()).toInt ();
+    return (serialBaudsComboBox->currentText ()).toInt();
 }
 
 
