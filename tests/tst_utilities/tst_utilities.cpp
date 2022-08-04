@@ -47,6 +47,7 @@ private slots:
     void test_Constructor();
     void test_getProgresStepForDialog();
     void test_trueOrFalse();
+    void test_isAPrefix();
     void test_boolToCharToSQLite();
     void test_boolToQString();
     void test_getGlobalAgent();
@@ -69,6 +70,8 @@ private:
 tst_Utilities::tst_Utilities()
 {
     util = new Utilities;
+    util->init();
+    util->setLogLevel(Devel);
 }
 
 tst_Utilities::~tst_Utilities()
@@ -91,6 +94,16 @@ void tst_Utilities::test_Constructor()
     QVERIFY(util->getVersion() == "0.0");
 }
 
+void tst_Utilities::test_isAPrefix()
+{
+    QVERIFY2(util->isAPrefix("EA") == 2, "EA");
+    QVERIFY2(util->isAPrefix("EA1") == 2, "EA1");
+    QVERIFY2(util->isAPrefix("EA6") == 3, "EA6");
+    QVERIFY2(util->isAPrefix("K") == 1, "K");
+    QVERIFY2(util->isAPrefix("K1") == 1, "K1");
+    QVERIFY2(util->isAPrefix("CE0X") == 4, "CE0X");
+    QVERIFY2(util->isAPrefix("T30") == 3, "T30");
+}
 
 void tst_Utilities::test_getProgresStepForDialog()
 {
@@ -152,6 +165,7 @@ void tst_Utilities::test_isValidCall()
     // and  a  single  digit,
     // followed  by  a  group  of  not  more  than  four  characters,
     // the last of which shall be a letter,
+    // We will check all formats shown here: https://en.wikipedia.org/wiki/Amateur_radio_call_signs
     util->setCallValidation(true);
     //qDebug() << Q_FUNC_INFO << " 1 Letter" << endl;
     QVERIFY2(util->isValidCall("B1A"), "B1A");
@@ -179,10 +193,20 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("EA4KKK"), "EA4KKK");
     QVERIFY2(util->isValidCall("EA4KKKK"), "EA4KKKK");
     QVERIFY2(util->isValidCall("AM500MMM"), "AM500MMM");
-
     QVERIFY2(util->isValidCall("2E1A"), "2E1A");
     QVERIFY2(util->isValidCall("E33E"), "E33E");
     QVERIFY2(util->isValidCall("EA5666K"), "EA5666K");
+
+    QVERIFY2(util->isValidCall("K4X"), "K4X");
+    QVERIFY2(util->isValidCall("B2AA"), "B2AA");
+    QVERIFY2(util->isValidCall("N2ASD"), "N2ASD");
+    QVERIFY2(util->isValidCall("A22A"), "A22A");
+    QVERIFY2(util->isValidCall("I20000X"), "I20000X");
+    QVERIFY2(util->isValidCall("4X4AAA"), "4X4AAA");
+    QVERIFY2(util->isValidCall("3DA0RS"), "3DA0RS");
+    QVERIFY2(util->isValidCall("GB75RD"), "GB75RD");
+    QVERIFY2(util->isValidCall("D9K"), "D9K");
+
 
     // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
@@ -209,6 +233,7 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("-"), "Should be true: EAK4");
     QVERIFY2(util->isValidCall("EA4K"), "Should be true: QQQ/EA4K");
     util->setCallValidation (true);
+
 }
 
 void tst_Utilities::test_isValidFreq()
@@ -256,20 +281,21 @@ void tst_Utilities::test_isValidADIFField()
 
 void tst_Utilities::test_getPrefixFromCall()
 {
-    //qDebug() << Q_FUNC_INFO << " - K1AA: " << util->getPrefixFromCall ("K1AA");
+
     QVERIFY2(util->getPrefixFromCall("K1AA") == "K1", "Wrong prefix 1" );
-    //QVERIFY2(util->getPrefixFromCall("EA4K") == "EA4", "Wrong prefix 2" );
-    //QVERIFY2(util->getPrefixFromCall("2E1AA") == "2E1", "Wrong prefix 2 Numb" );
-    //QVERIFY2(util->getPrefixFromCall("E73E") == "E73", "Wrong prefix 2 Letter/Numb");
-    //QVERIFY2(util->getPrefixFromCall("AM200A") == "AM200", "Wrong prefix 2 Letter/Numb");
-    //QVERIFY2(util->getPrefixFromCall("EA4K/F") == "F", "Wrong prefix on complex 1" );
-    //QVERIFY2(util->getPrefixFromCall("F/EA4K") == "F", "Wrong prefix on complex 2" );
-    //QVERIFY2(util->getPrefixFromCall("EA4K/EA6") == "EA6", "Wrong prefix on complex 3" );
-    //QVERIFY2(util->getPrefixFromCall("EA6/EA4K") == "EA6", "Wrong prefix on complex 4" );
-    //QVERIFY2(util->getPrefixFromCall("EA6/EA4K/P") == "EA6", "Wrong prefix on complex 5" );
-    //QVERIFY2(util->getPrefixFromCall("EA6/EA4K/QRP") == "EA6", "Wrong prefix on complex 6" );
-    //QVERIFY2(util->getPrefixFromCall("EA4K/VK9X") == "VK9X", "Wrong prefix on complex 7" );
-    //QVERIFY2(util->getPrefixFromCall("VK9X/EA4K") == "VK9X", "Wrong prefix on complex 8" );
+    QVERIFY2(util->getPrefixFromCall("EA4K") == "EA4", "Wrong prefix 2" );
+    QVERIFY2(util->getPrefixFromCall("2E1AA") == "2E1", "Wrong prefix 2 Numb" );
+    QVERIFY2(util->getPrefixFromCall("E73E") == "E73", "Wrong prefix 2 Letter/Numb");
+    QVERIFY2(util->getPrefixFromCall("AM200A") == "AM200", "Wrong prefix 2 Letter/Numb");
+    QVERIFY2(util->getPrefixFromCall("EA4K/F") == "F", "Wrong prefix on complex 1" );
+    QVERIFY2(util->getPrefixFromCall("F/EA4K") == "F", "Wrong prefix on complex 2" );
+    QVERIFY2(util->getPrefixFromCall("EA4K/EA6") == "EA6", "Wrong prefix on complex 3" );
+    QVERIFY2(util->getPrefixFromCall("EA6/EA4K") == "EA6", "Wrong prefix on complex 4" );
+    QVERIFY2(util->getPrefixFromCall("EA6/EA4K/P") == "EA6", "Wrong prefix on complex 5" );
+    QVERIFY2(util->getPrefixFromCall("EA6/EA4K/QRP") == "EA6", "Wrong prefix on complex 6" );
+    //qDebug() << Q_FUNC_INFO << " - EA4K/VK9X: " << util->getPrefixFromCall ("EA4K/VK9X");
+    QVERIFY2(util->getPrefixFromCall("EA4K/VK9X") == "VK9X", "Wrong prefix on complex 7" );
+    QVERIFY2(util->getPrefixFromCall("VK9X/EA4K") == "VK9X", "Wrong prefix on complex 8" );
 }
 
 void tst_Utilities::test_logLevels()

@@ -44,6 +44,8 @@
 
 class Utilities : public QObject {
     Q_OBJECT
+    friend class tst_Utilities;
+
 public:
     Utilities();
     ~Utilities();
@@ -159,7 +161,10 @@ public:
     DebugLogLevel stringToDebugLevel(const QString &_s);
     bool isValidLogLevel(const QString &_s);
     QStringList getDebugLevels();
+    void setLogLevel(DebugLogLevel _l);
     //QPalette getPalete(bool _ok);
+signals:
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 private:
     void init();
@@ -180,6 +185,7 @@ private:
     QString softwareVersion;
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
+    DebugLogLevel logLevel;
 };
 
 #endif // UTILITIES_H
