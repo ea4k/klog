@@ -246,8 +246,17 @@ void tst_MainWindow::test_QSOEntry()
 
     QList<QVariant> args = spy1.takeFirst();
     QVERIFY(args.at(0).type() == QVariant::Bool);
-    QVERIFY2(args.at(0).toBool () == true, "Manual mode  has been enabled");
-    QVERIFY2(args.at(0).toBool () == false, "Manual mode  has been disabled");
+    if (mainQSOEntryWidget->getManualMode() == true)
+    {
+        QVERIFY2(args.at(0).toBool () == true, "Manual mode  has been enabled");
+    }
+    else
+    {
+        QVERIFY2(args.at(0).toBool () == false, "Manual mode  has been disabled");
+    }
+
+
+
 
     /*
     QTest::keyClick(testWidget, Qt::Key_E);
