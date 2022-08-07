@@ -107,7 +107,7 @@ private:
 
     QString checkAndFixASCIIinADIF(const QString &_data);
     bool haveAtleastOneLog();
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
     bool firstTime; // To know if we are calling it from the Start wizard or not
     bool nolog; // If there is no log being managed
@@ -152,7 +152,7 @@ private:
     QString latestBackup;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
-    DebugLogLevel logSeverity;    // Manages as syslog, the severity of the application debug log
+    DebugLogLevel logLevel;    // Manages as syslog, the severity of the application debug log
 };
 
 #endif // SETUPDIALOG_H

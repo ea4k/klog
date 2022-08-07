@@ -86,7 +86,7 @@ private:
     bool manageDXMarathon;
     int selectedYear;
     int currentLog;
-    DebugLogLevel logSeverity;
+    DebugLogLevel logLevel;
 
     Awards *awards;
 

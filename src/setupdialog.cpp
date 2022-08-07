@@ -36,7 +36,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime);
 
-    logSeverity = None;
+    logLevel = None;
     constrid = 2;
     util = new Utilities;
     firstTime = true;
@@ -256,13 +256,13 @@ void SetupDialog::slotCancelButtonClicked()
             int ret = msgBox.exec();
             if (ret == QMessageBox::No)
             {
-                emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
+                emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
                 emit exitSignal(2);
                 return;
             }
             else
             {
-                emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
+                emit debugLog (Q_FUNC_INFO, "END-2", logLevel);
                 return;
             }
         }
@@ -350,7 +350,7 @@ void SetupDialog::slotOkButtonClicked()
         msgBox.setText(tr("DB has not been moved to new path."));
         msgBox.setInformativeText(tr("Go to the Misc tab and click on Move DB\n or the DB will not be moved to the new location."));
         msgBox.exec();
-        emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return;
     }
 
@@ -360,7 +360,7 @@ void SetupDialog::slotOkButtonClicked()
         msgBox.setText(tr("You need to enter at least a valid callsign."));
         msgBox.setInformativeText(tr("Go to the User tab and enter valid callsign."));
         msgBox.exec();
-        emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-2", logLevel);
         return;
     }
 
@@ -377,7 +377,7 @@ void SetupDialog::slotOkButtonClicked()
         logsPage->createNewLog();
         //emit newLogRequested(true); // Signal to be catched by logsPage true show new log
 
-        emit debugLog (Q_FUNC_INFO, "END-3", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-3", logLevel);
         return;
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - 10" << QT_ENDL;
@@ -729,7 +729,7 @@ void SetupDialog::slotReadConfigData()
     {
         //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName << QT_ENDL;
         //firstTime = true;
-        emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return;
     }
     //qDebug() << "SetupDialog::slotReadConfigData - 2" << QT_ENDL;
@@ -780,12 +780,12 @@ bool SetupDialog::processConfigLine(const QString &_line)
 
     if (line.startsWith('#')){
            //qDebug() << "SetupDialog::processConfigLine: Comment Line!" << QT_ENDL;
-        emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return true;
     }
     if (!( (line.contains('=')) && (line.contains(';')))){
            //qDebug() << "SetupDialog::processConfigLine: Wrong Line!" << QT_ENDL;
-        emit debugLog (Q_FUNC_INFO, "END-2", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-2", logLevel);
         return false;
     }
     QString value = values.at(1);
@@ -1352,7 +1352,7 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
 bool SetupDialog::haveAtleastOneLog()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
+    emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
     return dataProxy->haveAtLeastOneLog();
     //logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -1376,7 +1376,7 @@ void SetupDialog::setEQSLActive(const bool _b)
 
 void SetupDialog::checkIfNewBandOrMode()
 {
-      //qDebug() << "SetupDialog::checkIfNewBandOrMode: logSeverity: " << QString::number(logSeverity) << QT_ENDL;
+      //qDebug() << "SetupDialog::checkIfNewBandOrMode: logLevel: " << QString::number(logLevel) << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QStringList _items;
 
@@ -1409,7 +1409,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (_qs.length()!=2)
     {
-        emit debugLog (Q_FUNC_INFO, "END-1", logSeverity);
+        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return;
     }
     userDataPage->setMainCallsign(_qs.at(0));
@@ -1435,7 +1435,7 @@ void SetupDialog::slotSetOperators(const QString &_p)
 
 void SetupDialog::setLogLevel(const DebugLogLevel _sev)
 {
-    logSeverity = _sev;
+    logLevel = _sev;
     miscPage->setDebugLogLevel(util->debugLevelToString(_sev));
 }
 
@@ -1458,8 +1458,8 @@ void SetupDialog::showEvent(QShowEvent *event)
     userDataPage->setStationFocus();
 }
 
-void SetupDialog::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void SetupDialog::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
 {
-    if (_level<=logSeverity)
+    if (logLevel<=_level)
         emit debugLog (_func, _msg, _level);
 }

@@ -7891,17 +7891,17 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
     return aux;
 }
 
-void DataProxy_SQLite::setLogLevel (const DebugLogLevel _b)
+void DataProxy_SQLite::setLogLevel (const DebugLogLevel _l)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    logLevel = _b;
+    logLevel = _l;
     db->setLogLevel(logLevel);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void DataProxy_SQLite::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void DataProxy_SQLite::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
 {
-    if (_level>logLevel)
+    if (logLevel<=_level)
         emit debugLog (_func, _msg, _level);
 }
 
@@ -9798,7 +9798,7 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
     //return 1;
 }
 
-void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
+void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _l)
 {
-    logEvent(_func, _msg, _level);
+    logEvent(_func, _msg, _l);
 }

@@ -179,7 +179,7 @@ private:
     void setARRLSect();
     void setContinent();
     void setSponsorsList();
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     bool darkMode;
     QString dbPath;
     QString softwareVersion;

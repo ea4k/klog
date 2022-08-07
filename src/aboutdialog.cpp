@@ -84,7 +84,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
 
     QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td>") + "<td>(2002-" + tr("today") +") " +tr("Main developer") + "</td></tr>";
     QString author2 = QString("<tr><td>Juan Carlos Reig</td>")  + QString("<td><a href=\"https://www.qrz.com/db/ea5wa\">EA5WA</a></td>") + "<td>(2021-" + tr("today") + ")</td></tr>";
-    QString author3 = QString("<tr><td>Ladislav Foldyna</td>")  + QString("<td><a href=\"https://www.qrz.com/db/ok1mlg\">OK1MLG</a></td>") + "<td>(2021-" + tr("today") + ")</td></tr>";
+    QString author3 = QString("<tr><td>Ladislav Foldyna</td>")  + QString("<td><a href=\"https://www.qrz.com/db/ok1mlg\">OK1MLG</a></td>") + "<td>(2021)</td></tr>";
     QString author4 = QString("<tr><td>Akihiro Koda</td>")  + QString("<td><a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td>") + "<td>(2016-2017)</td></tr>";
     QString author5 = QString("<tr><td>Andrew Goldie</td>") + QString("<td><a href=\"https://www.qrz.com/db/zl2agc\">ZL2ACG</a></td>") + "<td>(2009-2010)</td></tr>";
 

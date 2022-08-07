@@ -690,8 +690,16 @@ bool MainQSOEntryWidget::setTime(const QTime _time)
 
 QString MainQSOEntryWidget::getQrz()
 {
-    logEvent (Q_FUNC_INFO, "Start-End", Debug);
-    return (qrzLineEdit->text()).toUpper();
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    QString aux;
+    aux = qrzLineEdit->text();
+    if(aux.length()<1)
+    {
+        logEvent(Q_FUNC_INFO, "END - Not valid", Debug);
+        return QString();
+    }
+    logEvent(Q_FUNC_INFO, "END", Debug);
+    return aux.toUpper();
 }
 
 QString MainQSOEntryWidget::getBand(const int _b)
@@ -720,7 +728,7 @@ QString MainQSOEntryWidget::getBand(const int _b)
     }
 }
 
-QString MainQSOEntryWidget::getMode(const int _m)
+QString MainQSOEntryWidget::getMode(int _m)
 {
     logEvent (Q_FUNC_INFO, "Start: " + QString::number(_m), Debug);
     if (_m<0)
@@ -926,7 +934,7 @@ void MainQSOEntryWidget::setUpAndRunning(const bool _u)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void MainQSOEntryWidget::selectDefaultBand(const bool _init)
+void MainQSOEntryWidget::selectDefaultBand(bool _init)
 {
       //qDebug() << "MainQSOEntryWidget::selectDefaultBand" << QT_ENDL;
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -951,7 +959,7 @@ void MainQSOEntryWidget::selectDefaultBand(const bool _init)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void MainQSOEntryWidget::selectDefaultMode(const bool _init)
+void MainQSOEntryWidget::selectDefaultMode(bool _init)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if ((upAndRunning) || (!_init))
@@ -1104,8 +1112,12 @@ void MainQSOEntryWidget::setFocusToOK()
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void MainQSOEntryWidget::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void MainQSOEntryWidget::logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level)
 {
-    if (_level>logLevel)
+    //qDebug() << Q_FUNC_INFO;
+    if (logLevel<=_level)
+    {
+        //qDebug() << Q_FUNC_INFO << "Emitting...";
         emit debugLog (_func, _msg, _level);
+    }
 }

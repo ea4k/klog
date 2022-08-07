@@ -40,6 +40,7 @@ class ShowKLogLogWidget : public QWidget
     Q_OBJECT
 public:
     explicit ShowKLogLogWidget(QWidget *parent = nullptr);
+    ~ShowKLogLogWidget();
     void add(QString const &_func, QString const &_log, const DebugLogLevel _l);
     void setLogLevel(const DebugLogLevel _l);
 signals:

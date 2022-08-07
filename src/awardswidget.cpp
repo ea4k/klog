@@ -31,7 +31,7 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
 {
       //qDebug() << "AwardsWidget::AwardsWidget"   << QT_ENDL;
     manageDXMarathon = false;
-    logSeverity = Info;  //7 Debug /0=emergency or no debug
+    logLevel = Info;  //7 Debug /0=emergency or no debug
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
     currentLog = -1;
 
@@ -258,10 +258,10 @@ void AwardsWidget::createUI()
 
 void AwardsWidget::setManageDXMarathon(const bool _dx)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     manageDXMarathon = _dx;
     reconfigureDXMarathonUI(manageDXMarathon);
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
 }
 
 /*
@@ -320,7 +320,7 @@ void AwardsWidget::showAwards()
   WAZ
   Local
 */
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     checkIfValidLog();
     int _num = 0;
     //QSqlQuery query;
@@ -357,14 +357,14 @@ void AwardsWidget::showAwards()
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
 
     showDXMarathon(selectedYear);
-    emit debugLog(Q_FUNC_INFO, "END", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "END", logLevel);
        //qDebug() << "AwardsWidget::showAwards - END" << QT_ENDL;
 }
 
 void AwardsWidget::showDXMarathon(const int _year)
 {
           //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Year: " << QString::number(_year) << QT_ENDL;
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     int i = 0;
 
     i = awards->getDXMarathonQSO(_year, currentLog);
@@ -388,13 +388,13 @@ void AwardsWidget::showDXMarathon(const int _year)
         i = 0;
     }
     yearlyScoreQLCDNumber->display(i);
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
       //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Score: " << QString::number(i) << QT_ENDL;
 }
 
 void AwardsWidget::reconfigureDXMarathonUI(const bool _dxM)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     //dxClusterWidget->setDXMarathon(_dxM);
     if (_dxM)
     {
@@ -420,35 +420,35 @@ void AwardsWidget::reconfigureDXMarathonUI(const bool _dxM)
             yearlyScoreQLCDNumber->display(0);
         }
     }
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
 }
 
 void AwardsWidget::checkIfValidLog()
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     if (currentLog < 1)
     {
         emit requireCurrentLogSignal();
     }
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
 }
 
 void AwardsWidget::setLog(const int _log)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     if (_log >= 1)
     {
         currentLog = _log;
     }
 
     //TODO: Define an action when the log received is NOK
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
 }
 
 
 void AwardsWidget::setYear(const int _year)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     if (_year >= 1800)
     {
         selectedYear = _year;
@@ -462,12 +462,12 @@ void AwardsWidget::setYear(const int _year)
         //TODO: Define what to do when the year is NOK
         }
     }
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
 }
 
 void AwardsWidget::fillOperatingYears()
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
     emit requireCurrentLogSignal();
     emit requireCurrentYearSignal();
     operatingYearsComboBox->clear();
@@ -496,6 +496,6 @@ void AwardsWidget::fillOperatingYears()
 
            //qDebug() << "AwardsWidget::AwardsWidget: 18.5.2" << QT_ENDL;
     }
-    emit debugLog(Q_FUNC_INFO, "End", logSeverity);
+    emit debugLog(Q_FUNC_INFO, "End", logLevel);
 }
 

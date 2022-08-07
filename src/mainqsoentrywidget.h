@@ -55,8 +55,8 @@ public:
     bool isBandExisting(const QString &_b);
 
     QString getQrz();
-    QString getBand(const int _b=-1);
-    QString getMode(const int _m=-1);
+    QString getBand(int _b=-1);
+    QString getMode(int _m=-1);
     QStringList getModes();
     QDate getDate();
     QTime getTime();
@@ -72,8 +72,8 @@ public:
     void setModify(const bool _modify);
     bool getModifying();
     void setUpAndRunning(const bool _u);
-    void selectDefaultBand(const bool _init = false);
-    void selectDefaultMode(const bool _init = false);
+    void selectDefaultBand(bool _init = false);
+    void selectDefaultMode(bool _init = false);
 
     void setDuplicatedQSOSlot (const int _secs);
     void setFocusToOK();
@@ -112,7 +112,7 @@ private slots:
     void slotManualModeCheckBoxClicked();
 
 private:
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     bool eventFilter(QObject *object, QEvent *event);
     void createUI();
     void setInitialData();
@@ -132,7 +132,7 @@ private:
     QPushButton *OKButton, *clearButton;
     QCheckBox *realtimeCheckBox, *manualModeCheckBox;
     //QPushButton *realtimeButton;
-    //DebugLogLevel logSeverity;
+    //DebugLogLevel logLevel;
     bool cleaning;
     bool qrzAutoChanging;
     bool InValidCharsInPrevCall;

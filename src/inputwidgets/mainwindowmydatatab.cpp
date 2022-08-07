@@ -193,7 +193,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
 {
     //qDebug() << Q_FUNC_INFO;
      //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << QT_ENDL;
-    //logEvent(Q_FUNC_INFO, "Start", logSeverity);
+    //logEvent(Q_FUNC_INFO, "Start", logLevel);
     int cursorP = myLocatorLineEdit->cursorPosition();
     myLocatorLineEdit->setText(util->getClearSQLi(myLocatorLineEdit->text()).toUpper());
     //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text()  << QT_ENDL;
@@ -223,13 +223,13 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
     }
     else
     {
-        //logEvent(Q_FUNC_INFO, "END-2", logSeverity);
+        //logEvent(Q_FUNC_INFO, "END-2", logLevel);
         myLocatorLineEdit->setPalette(palRed);
         myLocatorLineEdit->setToolTip(tr("My QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
         myLocatorLineEdit->setCursorPosition(cursorP);
         return;
     }
-    //logEvent(Q_FUNC_INFO, "END", logSeverity);
+    //logEvent(Q_FUNC_INFO, "END", logLevel);
 }
 
 void MainWindowMyDataTab::slotReturnPressed()

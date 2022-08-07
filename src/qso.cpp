@@ -27,18 +27,30 @@
 
 QSO::QSO()
 {
-    clear();
+    logLevel = None;
 }
 
 QSO::~QSO()
 {
-    clear();
+
+}
+
+void QSO::setLogLevel (const DebugLogLevel _b)
+{
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    logLevel = _b;
+    logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+void QSO::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
+{
+    if (logLevel<=_level)
+        emit debugLog (_func, _msg, _level);
 }
 
 void QSO::clear()
 {
-    //qDebug() << Q_FUNC_INFO;
-
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     qsoId = -1;
     logId = -1;
     backup = false;
@@ -190,7 +202,7 @@ void QSO::clear()
     vucc_grids = QString();
     web = QString();
     wwff_ref = QString();
-
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void QSO::setBackup(const bool _rt)
@@ -284,16 +296,16 @@ double QSO::getFreqRX()
 }
 
 bool QSO::isValid()
-{
-   //qDebug() << "QSO::isValid: " << callsign << QT_ENDL;
+{// Add more controls: Call, Date, Time, Band, Mode?
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if ( (callsign.length()>0))
     {
-       //qDebug() << "QSO::isValid: TRUE" << QT_ENDL;
+       logEvent (Q_FUNC_INFO, "END-true", Debug);
         return true;
     }
     else
     {
-       //qDebug() << "QSO::isValid: FALSE" << QT_ENDL;
+       logEvent (Q_FUNC_INFO, "END-false", Debug);
         return false;
     }
 
@@ -301,16 +313,23 @@ bool QSO::isValid()
 
 bool QSO::setCall(const QString &_c)
 {
-    //qDebug() << "QSO::setCall: " << _c << QT_ENDL;
-    if (util->isValidCall(_c))
+    logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
+    QString aux;
+    aux = _c;
+    if (aux.isNull())
     {
-        //qDebug() << "QSO::setCall: Valid Call"  << QT_ENDL;
-        callsign = _c;
+        logEvent(Q_FUNC_INFO, "END - False-1", Debug);
+        return false;
+    }
+    if (util->isValidCall(aux))
+    {
+        logEvent (Q_FUNC_INFO, QString("END - true"), Debug);
+        callsign = aux;
         return true;
     }
     else
     {
-        //qDebug() << "QSO::setCall: NOT valid Call"  << QT_ENDL;
+        logEvent (Q_FUNC_INFO, QString("END - false-2"), Debug);
         return false;
     }
 }
@@ -362,15 +381,24 @@ QString QSO::getBandRX()
 
 bool QSO::setMode(const QString &_c)
 {
-    //int i = dataProxy->getIdFromModeName(_c);
-    if (_c.length()>0)
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    QString aux = _c;
+    if (aux.isNull())
     {
-        mode = _c;
+        mode = QString();
+        logEvent (Q_FUNC_INFO, "END - False 1", Debug);
+        return false;
+    }
+    if (aux.length()>0)
+    {
+        mode = aux;
+        logEvent (Q_FUNC_INFO, "END - True", Debug);
         return true;
     }
     else
     {
         mode = QString();
+        logEvent (Q_FUNC_INFO, "END - False 2", Debug);
         return false;
     }
 }
@@ -1238,14 +1266,17 @@ bool QSO::getKeepOthers()
 }
 
 // My Data
-bool QSO::setTXPwr(const double _f)
+bool QSO::setTXPwr(double _f)
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_f>0)
     {
         pwr_tx = _f;
+        logEvent (Q_FUNC_INFO, "END - True", Debug);
         return true;
     }
     else {
+        logEvent (Q_FUNC_INFO, "END - False", Debug);
         return false;
     }
 }
@@ -1257,12 +1288,18 @@ double QSO::getTXPwr()
 
 bool QSO::setOperatorCallsign(const QString &_c)
 {
+    qDebug() << Q_FUNC_INFO << "Start";
+    //logEvent(Q_FUNC_INFO, "Start", Debug);
     if (util->isValidCall(_c))
     {
        operatorCall = _c;
+       qDebug() << Q_FUNC_INFO << "END - true";
+       logEvent(Q_FUNC_INFO, "END-true", Debug);
         return true;
     }
     else {
+        qDebug() << Q_FUNC_INFO << "End - false";
+        logEvent(Q_FUNC_INFO, "END-false", Debug);
         return false;
     }
 }
@@ -2496,13 +2533,14 @@ QString QSO::getMyWwffRef()
 // SET DATA ----------------------------------------------------------------------------------
 bool QSO::setData(const QString &_adifPair)
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << "QSO::setData: " << _adifPair << QT_ENDL;
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
     if (d.length()!=2)
     {
-        //qDebug() << "QSO::setData: NOT VALID ADIF: " << _adifPair << QT_ENDL;
+        logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
         return false;
     }
     //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1) << QT_ENDL;
@@ -3076,6 +3114,6 @@ bool QSO::setData(const QString &_adifPair)
         setLoTWQSL_SENT("Y");
         setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
     }
-
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }

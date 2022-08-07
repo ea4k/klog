@@ -6962,9 +6962,9 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     }
  }
 
- void DataBase::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+ void DataBase::logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level)
  {
-    if (_level>logLevel)
+    if (logLevel<=_level)
         emit debugLog (_func, _msg, _level);
  }
 

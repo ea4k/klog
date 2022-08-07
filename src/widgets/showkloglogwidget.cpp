@@ -40,6 +40,10 @@ ShowKLogLogWidget::ShowKLogLogWidget(QWidget *parent) : QWidget(parent)
     createUI();
 }
 
+ShowKLogLogWidget::~ShowKLogLogWidget()
+{
+    delete(util);
+}
 void ShowKLogLogWidget::createUI()
 {
     levelComboBox->clear();
@@ -57,6 +61,7 @@ void ShowKLogLogWidget::createUI()
 
 void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const DebugLogLevel _l)
 {
+    //qDebug() << "Debugging0: " << _func << "/" << _log << "/" << util->debugLevelToString(logLevel) << "/" << util->debugLevelToString(_l);
     if (logLevel >_l)
     {
         return;
@@ -65,7 +70,7 @@ void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const Deb
 
     msg = QString("%1 %2 - %3 - %4").arg(QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss")).arg(util->debugLevelToString (_l)).arg(_func).arg(_log);
 
-    //qDebug() << "Debugging: " << msg;
+    //qDebug() << "Debugging1: " << msg;
 
     if(model->insertRow(0)) {
         QModelIndex index = model->index(0, 0);
@@ -82,13 +87,13 @@ void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const Deb
 
     QTextStream out(debugFile);
     out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << msg << QT_ENDL;
-
+    //qDebug() << "Debugging2: " << out.string();
     debugFile->close();
 }
 
 void ShowKLogLogWidget::setLogLevel(const DebugLogLevel _l)
 {
-    qDebug() << Q_FUNC_INFO << " - New log Level: " << util->debugLevelToString(_l);
+    //qDebug() << Q_FUNC_INFO << " - New log Level: " << util->debugLevelToString(_l);
     QString logString = util->debugLevelToString(_l);
 
     if (util->isValidLogLevel(logString))

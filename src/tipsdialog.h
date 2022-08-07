@@ -65,12 +65,12 @@ private slots:
 
 private:
     void setTip(const int _t);
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
     QLabel *tipTextQLabel;
     //QTextEdit *tipTextEdit;
     QWidget *tip;
-    DebugLogLevel logSeverity;
+    DebugLogLevel logLevel;
     int tipId, tipMax;
     QString description;
 

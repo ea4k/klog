@@ -31,6 +31,7 @@
 #include <QTime>
 #include <QDebug>
 #include "utilities.h"
+#include "klogdefinitions.h"
 
 class QSO : public QObject
 {
@@ -39,7 +40,7 @@ class QSO : public QObject
 public:
     QSO();
     ~QSO();
-
+    void setLogLevel (const DebugLogLevel _b);
     void setRealTime(const bool _rt);   // Not QSO info but KLog status
     bool getRealTime();
     void setManualMode(const bool _rt); // Not QSO info but KLog status
@@ -174,7 +175,7 @@ public:
 
 
     // My data Tab
-    bool setTXPwr(const double _f);
+    bool setTXPwr(double _f);
     double getTXPwr();
     bool setOperatorCallsign(const QString &_c);
     QString getOperatorCallsign();
@@ -377,8 +378,11 @@ public:
 
     bool add();
 
+signals:
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 private:
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
     int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
@@ -405,6 +409,7 @@ private:
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
 
     Utilities *util;
+    DebugLogLevel logLevel;
 
    // DataProxy_SQLite *dataProxy;
 

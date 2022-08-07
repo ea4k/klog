@@ -100,8 +100,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     qso = new QSO;
 
     softwareVersion = tversion;
-    klogDir = _klogDir;
-    logLevel = Info;
+    klogDir = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 15;
     needToEnd = false;
@@ -148,7 +147,6 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     infoWidget = new InfoWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
-    logEvent(Q_FUNC_INFO, "Creating AwardsWidget", Debug);
     awardsWidget = new AwardsWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
@@ -257,6 +255,7 @@ MainWindow::~MainWindow()
     delete(softUpdate);
     delete(filemanager);
     delete(fileAwardManager);
+    delete(util);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -295,6 +294,7 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init()
 {
     //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
+    logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!QDir::setCurrent ( klogDir )){
         QDir d1(klogDir);
@@ -313,7 +313,6 @@ void MainWindow::init()
             }
         }
     }
-
     QFile debugFile(util->getDebugLogFile());
     if (!debugFile.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
@@ -331,7 +330,6 @@ void MainWindow::init()
         debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
-
     configFileName = util->getCfgFile();
     setupDialog->init(configFileName, softwareVersion, 0, !configured);
     filemanager->init();
@@ -561,7 +559,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
-    showNotWar();
+    //showNotWar();
     //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -572,16 +570,12 @@ void MainWindow::createActionsCommon(){
 //TODO: Reimplement the possibility to enter a QSO with enter inthe following widgets:
     //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     logEvent(Q_FUNC_INFO, "Start", Debug);
-// Return pressed = QSO ENTRY
-
-    //connect(operatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    //connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
+    qDebug() << Q_FUNC_INFO << " - Connecting QSO";
+    connect(qso, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
+    qDebug() << Q_FUNC_INFO << " - Connected QSO";
     connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
 
-    //connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)) this, SLOT(slotLocatorTextChanged(QString) ) );
-    //connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
@@ -609,15 +603,12 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
     connect(logWindow, SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
 
-    //connect(logWindow, SIGNAL(uploadToQRZcomTheseQSOs ( QList<int> ) ), this, SLOT(slotQRZcomUpload(QList<int>) ) );
 
     connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
     connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
     connect(logWindow, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     //CLUSTER
-    //void clusterSpotToLog(const QStringList _qs);
-    //SIGNAL dxspotclicked(const QStringList _qs)
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
     connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, QString, double) ) );
 
@@ -626,9 +617,6 @@ void MainWindow::createActionsCommon(){
     connect (elogClublog, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
     connect (elogClublog, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
     connect (elogClublog, SIGNAL (signalFileUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogClubLogFileUploaded(QNetworkReply::NetworkError, QList<int>)));
-
-    //connect (eqslUtilities, SIGNAL (actionReturnDownload(int, int)), this, SLOT (slotElogClubLogProcessAnswer(int, int)));
-    //connect (eqslUtilities, SIGNAL (disableClubLogAction(bool)), this, SLOT (slotElogClubLogDisable(bool)));
     connect (eqslUtilities, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
     connect (eqslUtilities, SIGNAL (signalFileUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogEQSLFileUploaded(QNetworkReply::NetworkError, QList<int>)));
 
@@ -4656,7 +4644,7 @@ void MainWindow::openSetup(const int _page)
     hamlib->stop();
     if (!needToEnd)
     {
-        logEvent(Q_FUNC_INFO, "Just before setData", Debug);
+        logEvent(Q_FUNC_INFO, "Just before setData", Devel);
          //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << QT_ENDL;
         if (upAndRunning)
         {
@@ -4668,19 +4656,19 @@ void MainWindow::openSetup(const int _page)
         }
         if ( (!configured) || (itIsANewversion) )
         {
-            logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", Debug);
+            logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", Devel);
             itIsANewversion = false;
             //setupDialog->exec();
 
             setupDialog->setModal(true);
             setupDialog->show();
             // move part of this code to slotSetupDialogFinished
-            logEvent(Q_FUNC_INFO, "Just after setupDialog->show", Debug);
+            logEvent(Q_FUNC_INFO, "Just after setupDialog->show", Devel);
              //qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << QT_ENDL;
         }
         else
         {
-            logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", Debug);
+            logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", Devel);
              //qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << QT_ENDL;
         }
     }
@@ -8539,24 +8527,30 @@ void MainWindow::slotManualMode(bool _enable)
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    //qDebug() << Q_FUNC_INFO;
+    logEvent(Q_FUNC_INFO, "Start", Debug);
     qso->clear ();
+    logEvent(Q_FUNC_INFO, "- 001", Devel);
     qso->setBackup (true);
+    logEvent(Q_FUNC_INFO, "- 002", Devel);
     qso->setModifying (mainQSOEntryWidget->getModifying());
+    logEvent(Q_FUNC_INFO, "- 003", Devel);
     qso->setRealTime (mainQSOEntryWidget->getRealTime());
+    logEvent(Q_FUNC_INFO, "- 004", Devel);
     qso->setManualMode (mainQSOEntryWidget->getManualMode());
+    logEvent(Q_FUNC_INFO, "- 005", Devel);
     qso->setLogId (currentLog);
-     //qDebug() << Q_FUNC_INFO << " - 010";
+    logEvent(Q_FUNC_INFO, "- 010", Devel);
     // MainQSOEntryWidget
     qso->setCall (mainQSOEntryWidget->getQrz ());
-     //qDebug() << Q_FUNC_INFO << " - 011";
+
+    logEvent(Q_FUNC_INFO, "- 011", Devel);
     qso->setBand (mainQSOEntryWidget->getBand ());
-     //qDebug() << Q_FUNC_INFO << " - 012";
+    logEvent(Q_FUNC_INFO, "- 012", Devel);
     qso->setMode (mainQSOEntryWidget->getMode ());
      //qDebug() << Q_FUNC_INFO << " - 013";
     qso->setDateTimeOn (mainQSOEntryWidget->getDateTime ());
+    logEvent(Q_FUNC_INFO, "- 020", Devel);
 
-     //qDebug() << Q_FUNC_INFO << " - 020";
     //  MainWindowInputQSO
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
@@ -8566,7 +8560,7 @@ void MainWindow::backupCurrentQSO()
     qso->setName (QSOTabWidget->getName ());
     qso->setQTH(QSOTabWidget->getQTH ());
     qso->setRXPwr(QSOTabWidget->getRXPwr ());
-     //qDebug() << Q_FUNC_INFO << " - 030";
+     logEvent(Q_FUNC_INFO, "- 030", Devel);
     // MainWindowInputQSL
     qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus ());
     qso->setQSL_RCVD (QSLTabWidget->getQSLRecStatus ());
@@ -8576,7 +8570,7 @@ void MainWindow::backupCurrentQSO()
     qso->setQSLRecVia (QSLTabWidget->getRecVia ());
     qso->setQSLVia (QSLTabWidget->getQSLVia ());
     qso->setQSLMsg (QSLTabWidget->getQSLMsg ());
-     //qDebug() << Q_FUNC_INFO << " - 040";
+     logEvent(Q_FUNC_INFO, "- 040", Devel);
     // MainWindowInputEQSL
     qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
     qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
@@ -8590,7 +8584,7 @@ void MainWindow::backupCurrentQSO()
     qso->setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate ());
     qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus ());
     qso->setClubLogDate (eQSLTabWidget->getClubLogDate ());
-     //qDebug() << Q_FUNC_INFO << " - 050";
+     logEvent(Q_FUNC_INFO, "- 050", Devel);
     // MainWindowInputComment
     qso->setComment (commentTabWidget->getComment ());
     qso->setKeepComment (commentTabWidget->getKeep ());
@@ -8600,22 +8594,31 @@ void MainWindow::backupCurrentQSO()
     qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
     qso->setKeepOthers (othersTabWidget->getKeep ());
     qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
-     //qDebug() << Q_FUNC_INFO << " - 060";
+     logEvent(Q_FUNC_INFO, "- 060", Devel);
     // MainWindowMyDataTab
-    qso->setTXPwr (myDataTabWidget->getMyPower ());
+    qso->setTXPwr (myDataTabWidget->getMyPower());
+    logEvent(Q_FUNC_INFO, "- 061", Devel);
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
+    logEvent(Q_FUNC_INFO, "- 062", Devel);
     qso->setStationCallsign (myDataTabWidget->getStationCallsign ());
+    logEvent(Q_FUNC_INFO, "- 063", Devel);
     qso->setMySOTA_REF (myDataTabWidget->getMySOTA ());
+    logEvent(Q_FUNC_INFO, "- 064", Devel);
     qso->setMyRig (myDataTabWidget->getMyRig());
+    logEvent(Q_FUNC_INFO, "- 065", Devel);
     qso->setMyAntenna (myDataTabWidget->getMyAntenna ());
+    logEvent(Q_FUNC_INFO, "- 066", Devel);
     qso->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
+    logEvent(Q_FUNC_INFO, "- 067", Devel);
     qso->setMyGridSquare (myDataTabWidget->getMyLocator ());
+    logEvent(Q_FUNC_INFO, "- 068", Devel);
     qso->setKeepMyData (myDataTabWidget->getKeep ());
-     //qDebug() << Q_FUNC_INFO << " - 070";
+     logEvent(Q_FUNC_INFO, "- 070", Devel);
     //MainWindowSatTab
     qso->setSatName (satTabWidget->getSatName ());
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
+    logEvent(Q_FUNC_INFO, "END", Debug);
      //qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (qso->getRealTime ());
 }
 
@@ -8718,13 +8721,17 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
 void MainWindow::setLogLevel(const DebugLogLevel _sev)
 {
-    qDebug() << "LogLevel: " << util->debugLevelToString(_sev);
+    //qDebug() << "LogLevel: " << util->debugLevelToString(_sev);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
     logLevel = _sev;
     showKLogLogWidget->setLogLevel(logLevel);
     setupDialog->setLogLevel(logLevel);
     tipsDialog->setLogLevel(logLevel);
     dataProxy->setLogLevel(logLevel);
     mainQSOEntryWidget->setLogLevel(logLevel);
+    util->setLogLevel(logLevel);
+    qso->setLogLevel(logLevel);
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotTakeOverFocusToQSOTabWidget()
@@ -8745,7 +8752,7 @@ void MainWindow::slotTakeOverFocusToMainQSOInput()
 
 void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
 {
-    //qDebug() << "MainWindow::slotCaptureDebugLogs: " << _func << "_/" << _msg << QString::number(_level) << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << _func << "/" << _msg << "/" << QString::number(_level);
     logEvent(_func, _msg, _level);
 }
 
@@ -8756,19 +8763,19 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
     filemanager->modifySetupFile(configFileName, "DebugLog", util->debugLevelToString(l));
 }
 
-void MainWindow::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void MainWindow::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
 {   //This function is the only one not logging the activity
-    qDebug() << Q_FUNC_INFO << "_level: " << util->debugLevelToString(_level);
-    qDebug() << Q_FUNC_INFO << "logLevel: " << util->debugLevelToString(logLevel);
-    qDebug() << Q_FUNC_INFO << "upAndRunning: " << util->boolToQString(upAndRunning);
+    //qDebug() << Q_FUNC_INFO << "_level: " << _func << "/" << _msg << "/" << util->debugLevelToString(_level);
+    //qDebug() << Q_FUNC_INFO << "upAndRunning: " << util->boolToQString(upAndRunning);
 
+    showKLogLogWidget->add(_func, _msg, _level);
+    return;
     if (!upAndRunning)
     {
         showKLogLogWidget->add(_func, _msg, None);
         return;
     }
 
-    if (_level>logLevel)
-        return;
-    showKLogLogWidget->add(_func, _msg, _level);
+    if (logLevel<=_level)
+        showKLogLogWidget->add(_func, _msg, _level);
 }

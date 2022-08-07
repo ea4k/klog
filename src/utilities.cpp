@@ -869,20 +869,28 @@ void Utilities::setCallValidation(const bool _b)
 
 bool Utilities::isValidCall(const QString &_c)
 {// https://life.itu.int/radioclub/rr/art19.pdf
-    logEvent (Q_FUNC_INFO, QString("Start = %1").arg(_c), Debug);
+    //logEvent (Q_FUNC_INFO, QString("Start = %1").arg(_c), Debug);
+    qDebug() << Q_FUNC_INFO << "Start: " << _c;
+
+
     // Prefixes are at least 2 chars
     if (!g_callsignCheck)
     {
         logEvent (Q_FUNC_INFO, QString("END - 009 - true"), Debug);
         return true;
     }
-    logEvent (Q_FUNC_INFO, QString("END - 010"), Devel);
     QString call = _c;
-    if (_c.length()<3)
+    if (call.length()<3)
     {
-        logEvent (Q_FUNC_INFO, QString("END - 010 - False"), Debug);
+        qDebug() << Q_FUNC_INFO << " - 011";
+        //logEvent (Q_FUNC_INFO, QString("END - 010 - False"), Debug);
         return false;
     }
+    qDebug() << Q_FUNC_INFO << " - 010";
+    logEvent (Q_FUNC_INFO, QString("END - 010"), Devel);
+
+
+    qDebug() << Q_FUNC_INFO << " - 015";
     logEvent (Q_FUNC_INFO, QString("END - 015"), Devel);
     call.replace('\\', '/');
 
@@ -2041,13 +2049,14 @@ QStringList Utilities::getDebugLevels()
     return logLevels;
 }
 
-void Utilities::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void Utilities::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
 {
-    if (_level<=logLevel)
+    /*
+    //qDebug() << Q_FUNC_INFO << _func << ": " << _level << ": " << _msg;
+    if (logLevel<=_level)
     {
     //qDebug() << _func << ": " << _level << ": " << _msg;
         emit debugLog (_func, _msg, _level);
     }
-    //qDebug() << _func << ": " << _level << ": " << _msg;
-    //    emit debugLog (_func, _msg, _level);
+    */
 }

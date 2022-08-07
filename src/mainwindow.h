@@ -313,7 +313,7 @@ private slots:
                      const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
                      const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
 
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level=Info);
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level);
     //void slotTakeOverFocus(int _id);
     void slotTakeOverFocusToQSOTabWidget();
     void slotTakeOverFocusToMainQSOInput();
@@ -333,7 +333,7 @@ private:
     void setCleaning(const bool _c);
     bool setHamlib(const bool _b);
     bool setUDPServer(const bool _b);
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     void setLogLevel(const DebugLogLevel _sev);
     void fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);

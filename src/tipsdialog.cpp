@@ -35,7 +35,7 @@
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
       //qDebug() << "TipsDialog::TipsDialog" << QT_ENDL;
-    logSeverity = Info;  //7 Debug /0=emergency or no debug
+    logLevel = Info;  //7 Debug /0=emergency or no debug
     logEvent(Q_FUNC_INFO, "Start", Debug);
     tipTextQLabel = new QLabel;
     tipId = 1;
@@ -119,7 +119,7 @@ void TipsDialog::slotNextButtonClicked()
 void TipsDialog::setLogLevel(const DebugLogLevel _sev)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    logSeverity = _sev;
+    logLevel = _sev;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -257,8 +257,8 @@ void TipsDialog::slotLinkActivated(const QString &_link)
 }
 
 
-void TipsDialog::logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level)
+void TipsDialog::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
 {
-    if (_level>logSeverity)
+    if (logLevel<=_level)
         emit debugLog (_func, _msg, _level);
 }

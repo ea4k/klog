@@ -52,7 +52,7 @@ public:
 
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();
-    void setLogLevel (const DebugLogLevel _b);
+    void setLogLevel (const DebugLogLevel _l);
     QString getSoftVersion();
     QString getDBVersion();
     bool reconnectDB();
@@ -329,7 +329,7 @@ private:
 
     int getPrefixId(const QString &_qrz);
     QString changeSlashAndFindPrefix(const QString &_qrz);
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     QSO *qso;
     bool searching;
     int executionN;
@@ -338,8 +338,7 @@ private:
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
-
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _l);
 signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution

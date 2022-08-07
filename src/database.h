@@ -228,7 +228,7 @@ private:
     bool updateModeIdTableAward(const int _db);
 
     void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
-    void logEvent(const QString &_func, const QString &_msg, const DebugLogLevel _level=Info);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
     DebugLogLevel logLevel;
     bool created;
