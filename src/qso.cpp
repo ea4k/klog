@@ -30,10 +30,7 @@ QSO::QSO()
     logLevel = None;
 }
 
-QSO::~QSO()
-{
-
-}
+QSO::~QSO() {}
 
 void QSO::setLogLevel (const DebugLogLevel _b)
 {
@@ -308,7 +305,6 @@ bool QSO::isValid()
        logEvent (Q_FUNC_INFO, "END-false", Debug);
         return false;
     }
-
 }
 
 bool QSO::setCall(const QString &_c)
@@ -1078,7 +1074,6 @@ bool QSO::setDXCC(const int _i)
         return true;
     }
     return false;
-
 }
 
 int QSO::getDXCC()
@@ -1295,7 +1290,7 @@ bool QSO::setOperatorCallsign(const QString &_c)
        operatorCall = _c;
        qDebug() << Q_FUNC_INFO << "END - true";
        logEvent(Q_FUNC_INFO, "END-true", Debug);
-        return true;
+       return true;
     }
     else {
         qDebug() << Q_FUNC_INFO << "End - false";
@@ -1314,10 +1309,10 @@ bool QSO::setStationCallsign(const QString &_c)
     if (util->isValidCall(_c))
     {
        stationCallsign = _c;
-        return true;
+       return true;
     }
     else {
-        return false;
+       return false;
     }
 }
 
@@ -1413,7 +1408,6 @@ bool QSO::setAddress(const QString &_c)
 {
    address = _c;
    return true;
-
 }
 
 QString QSO::getAddress()
@@ -2043,7 +2037,6 @@ bool QSO::setMyDXCC(const int _i)
         return true;
     }
     return false;
-
 }
 
 int QSO::getMyDXCC()
