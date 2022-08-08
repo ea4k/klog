@@ -31,15 +31,11 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     QWidget(parent)
 {
        //qDebug() << "MainWindowInputOthers::MainWindowInputOthers" << QT_ENDL;
-    entitiesList.clear();
-    propModeList.clear();
-    adifValidTypes.clear();
-    autoUpdating = false;
+    logLevel = None;
     dataProxy = dp;
-    propModeList = dataProxy->getPropModeList();
-    sota_ref = QString();
-    age = 0;
+
     util = new Utilities;
+
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
     entityPrimDivComboBox = new QComboBox();
@@ -65,12 +61,23 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
 
 MainWindowInputOthers::~MainWindowInputOthers()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     delete(util);
 }
 
 void MainWindowInputOthers::createUI()
 {
       //qDebug() << "MainWindowInputOthers::createUI" << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+
+    entitiesList.clear();
+    propModeList.clear();
+    adifValidTypes.clear();
+    autoUpdating = false;
+
+    sota_ref = QString();
+    distance = 0;
+    age = 0;
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
@@ -140,7 +147,7 @@ void MainWindowInputOthers::createUI()
         entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
         entityNameComboBox->addItems(entitiesList);
     }
-
+    propModeList = dataProxy->getPropModeList();
     if (propModeList.size()>1)
     {
         propModeList.prepend("00 - " + tr("Not - Not Identified"));
@@ -150,7 +157,7 @@ void MainWindowInputOthers::createUI()
     iotaContinentComboBox->addItems(dataProxy->getContinentShortNames());
     iotaNumberLineEdit->setInputMask("000");
     iotaNumberLineEdit->setText("000");
-
+    logEvent (Q_FUNC_INFO, "END", Debug);
 
     //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
@@ -158,10 +165,12 @@ void MainWindowInputOthers::createUI()
 void MainWindowInputOthers::clear(bool _full)
 {
       //qDebug() << "MainWindowInputOthers::clear" << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
     userDefinedADIFValueLineEdit->clear ();
     sota_ref = QString();
+    distance = 0.0;
     age = 0;
 
     iotaContinentComboBox->setCurrentIndex(0);
@@ -174,11 +183,13 @@ void MainWindowInputOthers::clear(bool _full)
     {
         keepPropCheckBox->setChecked (false);
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 {
       //qDebug() << "MainWindowInputOthers::setEntitiesList: " << QString::number(_qs.length()) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     entitiesList.clear();
     entitiesList << _qs;
     if (entitiesList.size()>1)
@@ -187,14 +198,17 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
         //entitiesList.prepend("00-Not Identified (000)");
         entityNameComboBox->addItems(entitiesList);
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
        //qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_ent<=0)
     {
         entityNameComboBox->setCurrentIndex(0);
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
     QString aux = QString();
@@ -204,22 +218,22 @@ void MainWindowInputOthers::setEntity(const int _ent)
         aux = (QString::number(_ent)).right(3);
     }
 
-    //QString pref = dataProxy->getEntityNameFromId(_ent);
-
-    //int indexC = entityNameComboBox->f
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
 
-       //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << QT_ENDL;
+    //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC) << QT_ENDL;
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
+    logEvent (Q_FUNC_INFO, "END", Debug);
 
 }
 
 int MainWindowInputOthers::getEntity()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QString aux = entityNameComboBox->currentText();
     if (!aux.contains ('('))
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -1;
     }
     //qDebug() << Q_FUNC_INFO << ": " << (aux.split('(').at(1).chopped(1));
@@ -227,12 +241,14 @@ int MainWindowInputOthers::getEntity()
     QString a = aux.split('(').at(1);
     a.chop(1);
     //qDebug() << Q_FUNC_INFO << ": " << a;
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return a.toInt ();
 }
 
 QString MainWindowInputOthers::getEntityPrefix()
 {
     //qDebug() << "MainWindowInputOthers::getEntityPrefix: " << (entityNameComboBox->currentText()).split('-').at(0) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return (entityNameComboBox->currentText()).split('-').at(0);
     //return world->getQRZARRLId(pref);
 }
@@ -240,6 +256,7 @@ QString MainWindowInputOthers::getEntityPrefix()
 void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
       //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
@@ -252,31 +269,43 @@ void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
         keepPropCheckBox->setChecked(false);
     }
     autoUpdating = false;
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString MainWindowInputOthers::getPropModeFromComboBox()
 {
+    //logEvent (Q_FUNC_INFO, "Start", Debug);
     QString _pm = QString();
-      //qDebug() << "MainWindow::getPropModeFromComboBox:" << propModeComboBox->currentText() << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
     _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
+    qDebug() << Q_FUNC_INFO << ": - 10" ;
     QString _n = (((propModeComboBox->currentText()).split('-')).at(0)).simplified();
-      //qDebug() << "MainWindow::getPropModeFromComboBox: " << _pm << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": - 11" ;
 
     if (_n == "00")
     {
+        qDebug() << Q_FUNC_INFO << ": - 12" ;
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
+        qDebug() << Q_FUNC_INFO << ": - 13" ;
         return QString();
     }
+    qDebug() << Q_FUNC_INFO << ": - 14" ;
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    qDebug() << Q_FUNC_INFO << ": - 15" ;
     return _pm;
 }
 
 bool MainWindowInputOthers::isSATPropagation()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (getPropModeFromComboBox() == "SAT")
     {
+        logEvent (Q_FUNC_INFO, "END-True", Debug);
         return true;
     }
     else
     {
+        logEvent (Q_FUNC_INFO, "END-False", Debug);
         return false;
     }
 }
@@ -284,19 +313,24 @@ bool MainWindowInputOthers::isSATPropagation()
 
 void MainWindowInputOthers::clearIOTA()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
+    logEvent (Q_FUNC_INFO, "END", Debug);
     //iotaNumberLineEdit->setPalette(palBlack);
 }
 
 bool MainWindowInputOthers::isIOTAModified()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if ((iotaContinentComboBox->currentIndex()>0) || (iotaNumberLineEdit->text()).toInt()>0)
     {
+        logEvent (Q_FUNC_INFO, "END-True", Debug);
         return true;
     }
     else
     {
+        logEvent (Q_FUNC_INFO, "END-False", Debug);
         return false;
     }
 
@@ -307,9 +341,11 @@ void MainWindowInputOthers::setIOTA(const QString &_qs)
 
     //void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
       //qDebug() << "MainWindow::setIOTA: " << _qs << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {
         iotaNumberLineEdit->setPalette(palRed);
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
     else
@@ -327,10 +363,12 @@ void MainWindowInputOthers::setIOTA(const QString &_qs)
             iotaNumberLineEdit->setPalette(palBlack);
         }
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString MainWindowInputOthers::getIOTA()
 {
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return (checkIfValidIOTA(iotaContinentComboBox->currentText() + "-" + iotaNumberLineEdit->text()));
 }
 
@@ -338,13 +376,13 @@ QString MainWindowInputOthers::getIOTA()
 void MainWindowInputOthers::setIOTAContinentFromEntity(const int _n)
 {
       //qDebug() << "MainWindow::setIOTAContinentFromEntity:" << QString::number(_n) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     setIOTAContinent(dataProxy->getContinentShortNameFromEntity(_n)) ;
 }
 
 void MainWindowInputOthers::setIOTAContinent(const QString &_qs)
 {
-       //qDebug() << "MainWindowInputOthers::setIOTAContinent: " << _qs << QT_ENDL;
-       //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index(a): " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << QT_ENDL;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if(( iotaContinentComboBox->findText(_qs, Qt::MatchContains))>0)
     {
           //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains)) << QT_ENDL;
@@ -355,6 +393,7 @@ void MainWindowInputOthers::setIOTAContinent(const QString &_qs)
            //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: 00" << QT_ENDL;
         iotaContinentComboBox->setCurrentIndex(0);
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString MainWindowInputOthers::checkIfValidIOTA(const QString &_tiota)
@@ -373,7 +412,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 
 ************************************/
       //qDebug() << "MainWindowInputOthers::checkIfValidIOTA: " << _tiota << QT_ENDL;
-    //bool _valid = false;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     QString _continent;
     QString _number;
 
@@ -385,9 +424,9 @@ Returns a valid format IOTA if possible and "" in other cases.
     }
     else
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return "";
     }
-
       //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (cont) " << _continent << QT_ENDL;
       //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (numb): " << _number << QT_ENDL;
 
@@ -399,55 +438,68 @@ Returns a valid format IOTA if possible and "" in other cases.
         {
             if ((_number.length()) == 3)
             {
+                logEvent (Q_FUNC_INFO, "END-1", Debug);
                 return _continent + "-" + _number ;
             }
             else if ((_number.length()) == 2)
             {
+                logEvent (Q_FUNC_INFO, "END-2", Debug);
                 return _continent + "-0" + QString::number((_number).toInt());
             }
             else if ((_number.length()) == 1)
             {
+                logEvent (Q_FUNC_INFO, "END-3", Debug);
                 return _continent + "-00" + QString::number((_number).toInt());
             }
             else
             {
+                logEvent (Q_FUNC_INFO, "END-4", Debug);
                 return "";
             }
         }
         else
         {
+            logEvent (Q_FUNC_INFO, "END-5", Debug);
             return "";
         }
     }
     else
     {
+        logEvent (Q_FUNC_INFO, "END", Debug);
         return QString();
     }
 }
 
 void MainWindowInputOthers::slotPropModeComboBoxChanged()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (autoUpdating)
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
     emit setPropMode(getPropModeFromComboBox());
+    logEvent (Q_FUNC_INFO, "END", Debug);
 
 }
 
 
 void MainWindowInputOthers::setKeep(const bool _b)
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     keepPropCheckBox->setChecked (_b);
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 bool MainWindowInputOthers::getKeep()
 {
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return keepPropCheckBox->isChecked ();
 }
 
 bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_value == "SOTA_REF")
     {
         userDefinedADIFComboBox->setCurrentIndex (0);
@@ -458,52 +510,67 @@ bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
     }
     else
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
 
 QString MainWindowInputOthers::getUserADIFTypeComboBox()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     int value = (((userDefinedADIFComboBox->currentText ()).split('-')).at(0)).toInt ();
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
     switch (value)
     {
     case 1:
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return "SOTA_REF";
     case 2:
+        logEvent (Q_FUNC_INFO, "END-2", Debug);
         return "AGE";
     case 3:
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
         return "VUCC_GRIDS";
+    case 4:
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
+        return "DISTANCE";
     default:
+        logEvent (Q_FUNC_INFO, "END", Debug);
         return QString();
     }
 }
 
 bool MainWindowInputOthers::setUserADIFValue(const QString &_adifValue)
 {
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     userDefinedADIFValueLineEdit->setText (_adifValue);
     return true;
 }
 
 QString MainWindowInputOthers::getUserADIFValue()
 {
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return userDefinedADIFValueLineEdit->text();
-
 }
 
 bool MainWindowInputOthers::setInitialADIFValues()
 {
-    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age") << "03-" + tr ("VUCC grids");
+    logEvent (Q_FUNC_INFO, "END-", Debug);
+    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age") << "03-" + tr ("VUCC grids")
+                   << "04-" + tr("Distance");
     userDefinedADIFComboBox->clear ();
     userDefinedADIFComboBox->addItems (adifValidTypes);
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QString currentTag = getUserADIFTypeComboBox ();
 
     setColorsForUserDefinedADIFValueLineEdit();
@@ -520,32 +587,41 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     {
         userDefinedADIFValueLineEdit->setText (vucc_grids);
     }
+    else if (currentTag == "DISTANCE")
+    {
+        userDefinedADIFValueLineEdit->setText (QString::number(distance));
+    }
 }
 
 bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (checkVUCC_GRIDS(_op))
     {
         vucc_grids = _op;
         slotUSerDefinedADIFComboBoxChanged();
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return true;
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return false;
 }
 
 bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _string;
-
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (util->isValidVUCCGrids (_string))
     {
         setColorsForUserDefinedADIFValueLineEdit();
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return true;
     }
     else
     {
         userDefinedADIFValueLineEdit->setPalette (palRed);
+        logEvent (Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
 
@@ -553,18 +629,22 @@ bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
 
 QString MainWindowInputOthers::getVUCCGrids()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (checkVUCC_GRIDS (vucc_grids))
     {
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
         return vucc_grids;
     }
     else
     {
+        logEvent (Q_FUNC_INFO, "END-2", Debug);
         return QString();
     }
 }
 
 void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (getDarkMode())
     {
         userDefinedADIFValueLineEdit->setPalette(palWhite);
@@ -573,37 +653,62 @@ void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
     {
         userDefinedADIFValueLineEdit->setPalette(palBlack);
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 
 bool MainWindowInputOthers::setSOTA(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     sota_ref = _op;
     slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
 
 QString MainWindowInputOthers::getSOTA()
 {
     //qDebug() << Q_FUNC_INFO;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return sota_ref;
 }
+
 bool MainWindowInputOthers::setAge(const double _op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     age = _op;
     slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
 
 double MainWindowInputOthers::getAge()
 {
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return age;
+}
+
+bool MainWindowInputOthers::setDistance(const double _op)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    distance = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
+double MainWindowInputOthers::getDistance()
+{
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    return distance;
 }
 
 void MainWindowInputOthers::slotSetCurrentUSerData()
 {
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     QString currentTag = getUserADIFTypeComboBox ();
 
     if (currentTag == "SOTA_REF")
@@ -616,21 +721,33 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     }
     else if (currentTag == "VUCC_GRIDS")
     {
-        //if (checkVUCC_GRIDS(userDefinedADIFValueLineEdit->text()))
-        //{}
         vucc_grids = userDefinedADIFValueLineEdit->text().toUpper();
         userDefinedADIFValueLineEdit->setText (vucc_grids);
     }
+    else if (currentTag == "DISTANCE")
+    {
+        distance = userDefinedADIFValueLineEdit->text().toDouble();
+        //userDefinedADIFValueLineEdit->setText (QString::number(distance));
+    }
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 bool MainWindowInputOthers::getDarkMode()
 {
-    if ( iotaNumberLineEdit->palette().color (QPalette::Base) == "#646464")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    return ( iotaNumberLineEdit->palette().color (QPalette::Base) == "#646464");
+}
+
+
+void MainWindowInputOthers::setLogLevel (const DebugLogLevel _l)
+{
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    logLevel = _l;
+    logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindowInputOthers::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
+{
+    if (logLevel<=_level)
+        emit debugLog (_func, _msg, _level);
 }

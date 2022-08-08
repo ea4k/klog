@@ -37,6 +37,7 @@
 class MainWindowInputOthers : public QWidget
 {
     Q_OBJECT
+    friend class tst_MainWindowInputOthers;
 
 public:
     MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent = nullptr);
@@ -60,6 +61,8 @@ public:
     QString getSOTA();
     bool setAge(const double _op);
     double getAge();
+    bool setDistance(const double _op);
+    double getDistance();
     bool setVUCCGrids(const QString &_op);
     QString getVUCCGrids();
 
@@ -74,9 +77,11 @@ public:
 
     void createUI();
     void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
+    void setLogLevel (const DebugLogLevel _l);
 
 signals:
     void setPropMode(const QString _p);
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 private slots:
     //void slotSetPropMode(const QString &_p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
@@ -90,6 +95,7 @@ private:
     bool checkVUCC_GRIDS(const QString &_string);
     bool setInitialADIFValues();
     bool getDarkMode();
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
     Utilities *util;
     DataProxy_SQLite *dataProxy;
@@ -108,7 +114,8 @@ private:
     QStringList adifValidTypes;
 
     QString sota_ref, vucc_grids;
-    double age;
+    double age, distance;
+    DebugLogLevel logLevel;
 };
 
 #endif // MAINWINDOWINPUTOTHERS_H

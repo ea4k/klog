@@ -223,8 +223,8 @@ public:
     QDate getClublogQSOUpdateDate();
     bool setContinent(const QString &_c);
     QString getContinent();
-    bool setDistance(const int _i);
-    int getDistance();
+    bool setDistance(const double _i);
+    double getDistance();
     bool setOwnerCallsign(const QString &_c);
     QString getOwnerCallsign();
     bool setHRDUpdateDate(const QDate &_c);
@@ -384,9 +384,9 @@ signals:
 private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
-    int qsoId, logId, dxcc, a_index, k_index, distance, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
+    int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq, distance;
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;

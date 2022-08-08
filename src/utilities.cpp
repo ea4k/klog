@@ -1984,16 +1984,9 @@ bool Utilities::isValidContinent(const QString &_s)
             return false;
 }
 
-bool Utilities::isValidDistance(const int _d)
+bool Utilities::isValidDistance(const double _d)
 {
-    if (_d > 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (_d>=0);
 }
 
 bool Utilities::isValidSponsor(const QString &_s)

@@ -694,9 +694,10 @@ void MainWindow::createActionsCommon(){
    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
    connect(satTabWidget, SIGNAL(setPropModeSat(QString, bool)), this, SLOT(slotSetPropModeFromSat(QString, bool)) ) ;
    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotFreqTXChanged(double)));
-   connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotFreqRXChanged(double)));
-   connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
+    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotFreqRXChanged(double)));
+    connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
 
+    connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
     connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
@@ -6964,6 +6965,12 @@ void MainWindow::qsoToEdit (const int _qso)
                 {
                     othersTabWidget->setAge (aux1.toDouble ());
                 }
+                nameCol = rec.indexOf("distance");
+                aux1 = (query.value(nameCol)).toString();
+                if (aux1.toDouble ()>0)
+                {
+                    othersTabWidget->setDistance(aux1.toDouble ());
+                }
 
                 nameCol = rec.indexOf("vucc_grids");
                 aux1 = (query.value(nameCol)).toString();
@@ -8587,12 +8594,18 @@ void MainWindow::backupCurrentQSO()
      logEvent(Q_FUNC_INFO, "- 050", Devel);
     // MainWindowInputComment
     qso->setComment (commentTabWidget->getComment ());
+    logEvent(Q_FUNC_INFO, "- 054", Devel);
     qso->setKeepComment (commentTabWidget->getKeep ());
+    logEvent(Q_FUNC_INFO, "- 055", Devel);
     // MainWindowInputOthers
     qso->setDXCC (othersTabWidget->getEntity ());
+    logEvent(Q_FUNC_INFO, "- 056", Devel);
     qso->setIOTA (othersTabWidget->getIOTA ());
-    qso->setPropMode (othersTabWidget->getPropModeFromComboBox ());
+    logEvent(Q_FUNC_INFO, "- 057", Devel);
+    qso->setPropMode (othersTabWidget->getPropModeFromComboBox());
+    logEvent(Q_FUNC_INFO, "- 058", Devel);
     qso->setKeepOthers (othersTabWidget->getKeep ());
+    logEvent(Q_FUNC_INFO, "- 059", Devel);
     qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
      logEvent(Q_FUNC_INFO, "- 060", Devel);
     // MainWindowMyDataTab
@@ -8687,6 +8700,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     othersTabWidget->setVUCCGrids (qso->getVUCCGrids ());
     othersTabWidget->setSOTA (qso->getSOTA_REF ());
     othersTabWidget->setAge(qso->getAge ());
+    othersTabWidget->setDistance(qso->getDistance());
 
     othersTabWidget->setEntity (qso->getDXCC ());
     othersTabWidget->setIOTA (qso->getIOTA ());
@@ -8731,6 +8745,7 @@ void MainWindow::setLogLevel(const DebugLogLevel _sev)
     mainQSOEntryWidget->setLogLevel(logLevel);
     util->setLogLevel(logLevel);
     qso->setLogLevel(logLevel);
+    othersTabWidget->setLogLevel(logLevel);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -8752,7 +8767,7 @@ void MainWindow::slotTakeOverFocusToMainQSOInput()
 
 void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
 {
-    qDebug() << Q_FUNC_INFO << _func << "/" << _msg << "/" << QString::number(_level);
+    //qDebug() << Q_FUNC_INFO << _func << "/" << _msg << "/" << QString::number(_level);
     logEvent(_func, _msg, _level);
 }
 

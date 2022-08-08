@@ -154,7 +154,7 @@ public:
 
     QString getOnlineServiceName(OnLineProvider _service);
 
-    bool isValidDistance(const int _d);
+    bool isValidDistance(const double _d);
     bool isValidSponsor(const QString &_s);
 
     QString debugLevelToString(DebugLogLevel _l);

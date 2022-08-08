@@ -92,7 +92,7 @@ void QSO::clear()
     credit_granted = QString();
     credit_submitted = QString();
     darc_dok = QString();
-    distance = -1;
+    distance = 0.0;
     dxcc = -1;
     email = QString();
     ownerCall = QString();
@@ -1088,7 +1088,15 @@ int QSO::getDXCC()
 
 bool QSO::setPropMode(const QString &_c)
 {
-    if (_c.length()>0)
+    qDebug() << Q_FUNC_INFO << _c;
+    QString aux;
+    aux = _c;
+    if (aux.isNull())
+    {
+        logEvent(Q_FUNC_INFO, "END - False-1", Debug);
+        return false;
+    }
+    if (aux.length()>0)
     {
         propMode = _c;
         return true;
@@ -1546,7 +1554,7 @@ QString QSO::getContinent()
     return continent;
 }
 
-bool QSO::setDistance(const int _i)
+bool QSO::setDistance(const double _i)
 {
     if (util->isValidDistance(_i))
     {
@@ -1556,7 +1564,7 @@ bool QSO::setDistance(const int _i)
     return false;
 }
 
-int QSO::getDistance()
+double QSO::getDistance()
 {
     return distance;
 }

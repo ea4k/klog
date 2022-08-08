@@ -283,5 +283,4 @@ void tst_MainWindow::test_QSOEntry()
 }
 
 QTEST_MAIN(tst_MainWindow)
-
 #include "tst_mainwindow.moc"
