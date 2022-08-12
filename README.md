@@ -21,7 +21,6 @@ KLog provides general purpose Hamradio DX logging support.
 All the mailing lists, code and releases have been removed from Savannah and they are no longer available.
 I will wait some days to see if they can be recovered before looking for another place to host all the needed services.
 
-
 ## Website
 
 Check https://www.klog.xyz for news & updates.
