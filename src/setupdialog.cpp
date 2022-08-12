@@ -38,7 +38,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 
     logLevel = None;
     constrid = 2;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     firstTime = true;
     latestBackup = QString();
     dataProxy = dp;

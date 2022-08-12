@@ -47,7 +47,7 @@ eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotQsoUploadFinished(QNetworkReply*)));
     stationCallsign = QString();
     uploadingFile = false;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     //qDebug()<< "eQSLUtilities::eQSLUtilities - END"  << QT_ENDL;
 }
 

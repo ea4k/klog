@@ -32,7 +32,7 @@
 SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 {
        //qDebug() << "SetupPageDxCluster::SetupPageDxCluster" << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
 
     dxclusterServersComboBox = new QComboBox;
     dxclusterServersComboBox->addItem("dxfun.com:8000");

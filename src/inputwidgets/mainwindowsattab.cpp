@@ -46,7 +46,7 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
 
     dataProxy = dp;
     locator = new Locator;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
 
     createUI();
     populateSatComboBox();

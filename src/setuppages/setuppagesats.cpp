@@ -38,7 +38,7 @@ SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     modes = QString();
     newSat = new SetupPageSatsNew(dataProxy, this);
 
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
 
     selectedSat = -1;
     //defaultStationCallSign.clear();

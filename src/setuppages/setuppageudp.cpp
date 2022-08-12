@@ -38,7 +38,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     miliSecsSpinBox = new QSpinBox;
     networkInterfacesComboBox = new QComboBox;
     //qDebug() << "SetupPageUDP::SetupPageUDP: 1" << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
 
     //wsjtxIPAddress = new QLineEdit(this);
     //wsjtxPortNumber = new QLineEdit(this);

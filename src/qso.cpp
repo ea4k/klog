@@ -1083,7 +1083,7 @@ int QSO::getDXCC()
 
 bool QSO::setPropMode(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << _c;
+    //qDebug() << Q_FUNC_INFO << _c;
     QString aux;
     aux = _c;
     if (aux.isNull())
@@ -1291,17 +1291,17 @@ double QSO::getTXPwr()
 
 bool QSO::setOperatorCallsign(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << "Start";
+    //qDebug() << Q_FUNC_INFO << "Start";
     //logEvent(Q_FUNC_INFO, "Start", Debug);
     if (util->isValidCall(_c))
     {
        operatorCall = _c;
-       qDebug() << Q_FUNC_INFO << "END - true";
+       //qDebug() << Q_FUNC_INFO << "END - true";
        logEvent(Q_FUNC_INFO, "END-true", Debug);
        return true;
     }
     else {
-        qDebug() << Q_FUNC_INFO << "End - false";
+        //qDebug() << Q_FUNC_INFO << "End - false";
         logEvent(Q_FUNC_INFO, "END-false", Debug);
         return false;
     }

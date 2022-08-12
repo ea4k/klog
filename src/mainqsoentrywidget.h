@@ -97,6 +97,7 @@ signals:
     void manualModeSignal(bool _active);
 
 private slots:
+    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level);
     void slotUpdateTime();
     void slotQRZTextChanged();
     void slotBandComboBoxChanged(const QString &_b);

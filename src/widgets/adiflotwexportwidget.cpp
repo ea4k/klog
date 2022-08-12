@@ -34,7 +34,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
 #endif
 
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     stationCallsignComboBox = new QComboBox;
     startDate = new QDateEdit;
     endDate = new QDateEdit;

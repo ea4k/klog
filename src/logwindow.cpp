@@ -33,7 +33,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     dataProxy = dp;
     //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     connect(logModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logView = new QTableView;
     columns.clear();

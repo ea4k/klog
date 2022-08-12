@@ -67,7 +67,7 @@ tst_MainWindowInputQSO::tst_MainWindowInputQSO()
 {
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
     mainWindowInputQSO = new MainWindowInputQSO(dataProxy);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
 }
 
 tst_MainWindowInputQSO::~tst_MainWindowInputQSO()

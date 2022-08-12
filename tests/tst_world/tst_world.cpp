@@ -59,7 +59,7 @@ tst_World::tst_World()
     version = "1.5";
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     //world = new World(dataProxy, Q_FUNC_INFO);
 
     //ctyDatFile = util->getCTYFile();

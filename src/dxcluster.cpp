@@ -33,7 +33,7 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
     dataProxy = dp;
     constrid = 1;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     saveSpotsFile = new QFile();
     //initClass();
        //qDebug() << "DXClusterWidget::DXClusterWidget - END" << QT_ENDL;
@@ -46,7 +46,7 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect) << QT_ENDL;
 
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     saveSpotsFile = new QFile();
 
     dataProxy = dp;

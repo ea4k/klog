@@ -34,7 +34,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     logLevel = None;
     dataProxy = dp;
 
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
@@ -276,22 +276,22 @@ QString MainWindowInputOthers::getPropModeFromComboBox()
 {
     //logEvent (Q_FUNC_INFO, "Start", Debug);
     QString _pm = QString();
-    qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
+    //qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
     _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
-    qDebug() << Q_FUNC_INFO << ": - 10" ;
+    //qDebug() << Q_FUNC_INFO << ": - 10" ;
     QString _n = (((propModeComboBox->currentText()).split('-')).at(0)).simplified();
-    qDebug() << Q_FUNC_INFO << ": - 11" ;
+    //qDebug() << Q_FUNC_INFO << ": - 11" ;
 
     if (_n == "00")
     {
-        qDebug() << Q_FUNC_INFO << ": - 12" ;
+        //qDebug() << Q_FUNC_INFO << ": - 12" ;
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-        qDebug() << Q_FUNC_INFO << ": - 13" ;
+        //qDebug() << Q_FUNC_INFO << ": - 13" ;
         return QString();
     }
-    qDebug() << Q_FUNC_INFO << ": - 14" ;
+    //qDebug() << Q_FUNC_INFO << ": - 14" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << ": - 15" ;
+    //qDebug() << Q_FUNC_INFO << ": - 15" ;
     return _pm;
 }
 

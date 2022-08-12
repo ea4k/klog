@@ -55,7 +55,7 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
     connect(managerLog, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotManagerLogFinished(QNetworkReply*)));
     uploadingFile = false;
     logged = false;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
    // serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
     //serviceUrl = QUrl("https://xmldata.qrz.com/xml/1.31/ ");
    //qDebug()<< "eLogQrzLog::eLogQrzLog - END"  << QT_ENDL;

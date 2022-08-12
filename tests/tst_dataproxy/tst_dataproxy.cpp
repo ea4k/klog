@@ -54,7 +54,7 @@ private:
 
 tst_DataProxy::tst_DataProxy()
 {
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     QString version = "1.5";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
 }

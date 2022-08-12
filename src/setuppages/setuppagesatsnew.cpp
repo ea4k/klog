@@ -34,7 +34,7 @@ SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
        //qDebug() << "SetupPageSatsNew::SetupPageSatsNew"   << QT_ENDL;
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     editing = false;
     //checking = false;
 

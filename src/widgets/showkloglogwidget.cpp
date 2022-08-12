@@ -28,7 +28,7 @@
 
 ShowKLogLogWidget::ShowKLogLogWidget(QWidget *parent) : QWidget(parent)
 {
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     levelComboBox = new QComboBox;
     model = new QStringListModel();
     //QStringList list;

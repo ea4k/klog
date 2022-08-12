@@ -29,7 +29,7 @@
 FileAwardManager::FileAwardManager(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     world = new World(dataProxy, Q_FUNC_INFO);
 }
 FileAwardManager::~FileAwardManager()

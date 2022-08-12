@@ -46,7 +46,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     realTime = true;
     duplicatedQSOSlotInSecs = 15;
     delayInputTimer = new QTimer;
@@ -133,6 +133,7 @@ void MainQSOEntryWidget::createUI()
     palBlack.setColor(QPalette::Text, Qt::black);
     palWhite.setColor(QPalette::Text, Qt::white);
 
+    connect(util, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
     connect(qrzLineEdit, SIGNAL(returnPressed()), this, SLOT(slotOKButtonClicked() ) );
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
     connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut() ) );
@@ -1110,6 +1111,12 @@ void MainQSOEntryWidget::setFocusToOK()
     logEvent (Q_FUNC_INFO, "Start", Debug);
     OKButton->setFocus ();
     logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+void MainQSOEntryWidget::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
+{
+    //qDebug() << Q_FUNC_INFO << _func << "/" << _msg << "/" << QString::number(_level);
+    logEvent(_func, _msg, _level);
 }
 
 void MainQSOEntryWidget::logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level)

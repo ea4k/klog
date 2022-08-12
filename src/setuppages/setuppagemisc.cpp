@@ -33,7 +33,7 @@
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
        //qDebug() << "SetupPageMisc::SetupPageMisc" << QT_ENDL;
 
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     checkCallsCheckBox = new QCheckBox(tr("Check non-valid calls"), this);
     imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
     realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);

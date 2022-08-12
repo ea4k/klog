@@ -47,7 +47,7 @@ class Utilities : public QObject {
     friend class tst_Utilities;
 
 public:
-    Utilities();
+    Utilities(const QString &_parentName);
     ~Utilities();
     void setDarkMode(const QString &_dm);
     bool isDarkMode();
@@ -121,8 +121,13 @@ public:
     bool isValidContinent(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getAValidCall (const QString &_wrongCall);
-    QString getPrefixFromCall(const QString &_c);
-    //QString getPrefixFromFullCall(const QString &_c);
+    QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
+    //QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
+    QString getPrefixFullFromCall(const QString &_c);
+    QString getPrefixCountryFromCall(const QString &_c);
+    //private
+    bool isAOneLetterPrefix(const QChar &_c);
+    QString startsWithLongPrefix(const QString &_c);
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
@@ -172,7 +177,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     bool isCountrySuffix (const QString &_c);
     int isAPrefix(const QString &_c);
-    int isALongCountryPrefix(const QString &_c);
+    bool isALongCountryPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
@@ -183,6 +188,7 @@ private:
     bool darkMode;
     QString dbPath;
     QString softwareVersion;
+    QString parentName;     // The class that instanciated this object.
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;

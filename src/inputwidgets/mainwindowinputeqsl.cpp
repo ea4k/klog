@@ -30,7 +30,7 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) 
     QWidget(parent)
 {
        //qDebug() << "MainWindowInputEQSL::MainWindowInputEQSL"   << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     dataProxy = dp;
 
     eqslSentComboBox = new QComboBox;

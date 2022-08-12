@@ -36,7 +36,7 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
        //qDebug() << "Awards::Awards - Before DXMarathon"  << QT_ENDL;
     dxMarathon = new DXMarathon(dataProxy);
        //qDebug() << "Awards::Awards - After DXMarathon"  << QT_ENDL;
-    util = new Utilities();
+    util = new Utilities(Q_FUNC_INFO);
     //world->create();
 /*
     newOneColor.setNamedColor("#ff0000");

@@ -33,7 +33,7 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
        //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
     qslSentViaComboBox = new QComboBox;

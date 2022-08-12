@@ -33,9 +33,8 @@ FileManager::FileManager(DataProxy_SQLite *dp)
 {
      //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << QT_ENDL;
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
-
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     //qDebug() << "FileManager::FileManager()-3: Dir(2) - END"  << QT_ENDL;

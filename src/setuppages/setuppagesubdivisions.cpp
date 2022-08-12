@@ -33,7 +33,7 @@ SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions" << QT_ENDL;
     dataProxy = dp;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
-    //util = new Utilities();
+    //util = new Utilities(Q_FUNC_INFO);
     selectedLog = -1;
     currentLogs = new QComboBox();
     logsAvailable.clear();

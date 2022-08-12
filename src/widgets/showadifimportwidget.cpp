@@ -30,7 +30,7 @@
 ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     okButton = new QPushButton;
     //cancelButton = new QPushButton;
     tableWidget = new QTableWidget;

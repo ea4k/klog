@@ -34,7 +34,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     constrid = 1;
     created = false;
 
-    util = new Utilities();
+    util = new Utilities(Q_FUNC_INFO);
     softVersion = util->getVersion();
     dbName = _DBName;
     //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
@@ -62,7 +62,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
     latestReaded = 0.0f;
-    util = new Utilities();
+    util = new Utilities(Q_FUNC_INFO);
     util->setVersion(softVersion);
 
     dbName = _DBName;

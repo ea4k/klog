@@ -58,7 +58,7 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
     dataProxy = dp;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
-    //util = new Utilities;
+    //util = new Utilities(Q_FUNC_INFO);
 
 
     clear();

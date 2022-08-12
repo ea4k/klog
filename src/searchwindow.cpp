@@ -35,7 +35,7 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
     showStationCallsignInHeader = true;
     //sortingThroughProxyModel = false;
     searchModel = new SearchModel(dataProxy, this);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     connect(searchModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     //logView = new QTableView;
     treeView = new QTreeView;

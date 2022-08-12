@@ -96,7 +96,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     qso = new QSO;
 
     softwareVersion = tversion;
@@ -570,9 +570,10 @@ void MainWindow::createActionsCommon(){
 //TODO: Reimplement the possibility to enter a QSO with enter inthe following widgets:
     //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Connecting QSO";
+    connect(util, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
+    //qDebug() << Q_FUNC_INFO << " - Connecting QSO";
     connect(qso, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
-    qDebug() << Q_FUNC_INFO << " - Connected QSO";
+    //qDebug() << Q_FUNC_INFO << " - Connected QSO";
     connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
 
@@ -3482,28 +3483,26 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 {
     //qDebug()<< Q_FUNC_INFO << ": " << _qrz << QT_ENDL;
 
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
     if (_qrz.length()<1)
     {
-       //qDebug()<< Q_FUNC_INFO << ": Empty... " << QT_ENDL;
         infoLabel1->clear();
         infoLabel2->clear();
-        //qDebug() << Q_FUNC_INFO;
         slotClearButtonClicked(Q_FUNC_INFO);
-        logEvent(Q_FUNC_INFO, "END-1", Debug);
+        logEvent(Q_FUNC_INFO, "END-Empty", Devel);
         return;
     }
-    //qDebug()<< Q_FUNC_INFO << ": cursor position: " << QT_ENDL;
 
     if (cleaning)
     {
         //qDebug()<< Q_FUNC_INFO << ": Cleaning" << QT_ENDL;
-        logEvent(Q_FUNC_INFO, "END-2", Debug);
+        logEvent(Q_FUNC_INFO, "END-Cleaning", Devel);
         return;
     }
 
     if (modify)
     {
+        logEvent(Q_FUNC_INFO, "END-Modify", Devel);
         return;
     }
 
@@ -3513,7 +3512,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     {
         //qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" << QT_ENDL;
         qrzSmallModDontCalculate=false;
-        logEvent(Q_FUNC_INFO, "END-6", Debug);
+        logEvent(Q_FUNC_INFO, "END-Small QRZ, don't calculate", Devel);
         return;
     }
 
@@ -3526,8 +3525,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
-    QString pref = util->getPrefixFromCall(_qrz);
-    //qDebug()<< Q_FUNC_INFO << ": pref: " << pref << QT_ENDL;
+
+    QString pref = util->getPrefixFromCall(_qrz, false);
+    logEvent(Q_FUNC_INFO, QString("Prefix: %1").arg(pref), Devel);
 
     if (pref.length ()>0)
     {
@@ -3538,13 +3538,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
         currentEntity = world->getQRZARRLId(_qrz);
     }
+    logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
-    //currentEntity = world->getQRZARRLId(util->getPrefixFromCall(_qrz));
-    //currentEntity = world->getQRZARRLId(_qrz);
-    //selectCorrectComboBoxEntity(currentEntity);
-    //qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) << QT_ENDL;
     othersTabWidget->setEntity(currentEntity);
-
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
     dx_ITUz = world->getQRZItuz(_qrz);

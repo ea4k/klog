@@ -29,7 +29,7 @@
 SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion) : QObject(nullptr)
 {
       //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     updateDialog = new SoftwareUpdateDialog();
     latestVersion = "0.0";
     repositoryFound = false;

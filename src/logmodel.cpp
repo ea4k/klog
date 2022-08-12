@@ -31,7 +31,7 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
     //qDebug() << Q_FUNC_INFO ;
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns = dataProxy->filterValidFields(util->getDefaultLogFields());
     setTable("log");

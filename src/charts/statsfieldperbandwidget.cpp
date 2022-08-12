@@ -29,7 +29,7 @@ StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFiel
 {
      //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget" << QT_ENDL;
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     selectedField = _field;
     modeComboBox = new QComboBox;
 

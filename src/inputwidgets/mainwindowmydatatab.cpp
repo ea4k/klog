@@ -48,7 +48,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     stationCallsign = QString();    // Defined in the configuration by the user, will be used if the user configured so in the setup
     operatorQRZ = QString();        // Defined in the configuration by the user, will be used if the user configured so in the setup
     myLocator = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     modify = false;
     createUI();
     setInitialADIFValues();

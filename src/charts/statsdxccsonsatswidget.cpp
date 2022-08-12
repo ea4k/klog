@@ -37,7 +37,7 @@ StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *pare
 #endif
 
     dataProxy = dp;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     confirmedOnlyCheckBox = new QCheckBox;
     onlyLEOSatCheckBox = new QCheckBox;
     numberLabel = new QLabel;

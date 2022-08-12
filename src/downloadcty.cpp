@@ -34,7 +34,7 @@
 DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) : QObject(0)
 {
     //qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir << QT_ENDL;
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     url = new QUrl;
     klogDir = _klogDir;
     result = -1;  // Error unknown

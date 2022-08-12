@@ -50,7 +50,7 @@ UDPServer::UDPServer(QObject *parent) :
             //qDebug() << "UDPServer::UDPServer - Multicast group joined NOK"  << QT_ENDL;
        }
        */
-        util = new Utilities;
+        util = new Utilities(Q_FUNC_INFO);
         logging = false;
         realtime = false;
         connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));

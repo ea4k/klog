@@ -29,7 +29,7 @@
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << QT_ENDL;
    locator = new Locator();
-   util = new Utilities;
+   util = new Utilities(Q_FUNC_INFO);
    dataProxy = dp;
    world = new World(dataProxy, Q_FUNC_INFO);
    mainCallOK = false;

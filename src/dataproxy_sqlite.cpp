@@ -39,7 +39,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction << QT_ENDL;
     logLevel = None;
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << QT_ENDL;
-    util = new Utilities();
+    util = new Utilities(Q_FUNC_INFO);
     util->setVersion(_softVersion);
     qso = new QSO;
 

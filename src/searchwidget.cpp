@@ -36,7 +36,7 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
     searchWindow = new SearchWindow(dataProxy, this);
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    util = new Utilities;
+    util = new Utilities(Q_FUNC_INFO);
     filemanager = new FileManager(dataProxy);
     filemanager->init();
 
