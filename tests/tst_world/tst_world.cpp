@@ -49,7 +49,7 @@ private slots:
 private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
-    //World *world;
+    World *world;
     QString version;
 };
 
@@ -60,7 +60,7 @@ tst_World::tst_World()
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
     util = new Utilities(Q_FUNC_INFO);
-    //world = new World(dataProxy, Q_FUNC_INFO);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
     //ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);
@@ -89,8 +89,10 @@ void tst_World::test_Constructor()
 
 void tst_World::test_WorldCreation()
 {
+    qDebug() << "Testing the world" << endl;
+    qDebug() << QString::number(world->getQRZARRLId("EA4K"));
     /*
-    //qDebug() << "Testing the world" << endl;
+    qDebug() << "Testing the world" << endl;
     QVERIFY2 (1==1, "Not OK");
     QString ctyFile = QFINDTESTDATA (util->getCTYFile());
 */

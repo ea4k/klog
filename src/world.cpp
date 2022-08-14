@@ -548,7 +548,7 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-      //qDebug() << "World::getQRZARRLId" << _qrz << QT_ENDL;
+    qDebug() << "World::getQRZARRLId" << _qrz << QT_ENDL;
 
     if (_qrz.length() < 1 )
     {

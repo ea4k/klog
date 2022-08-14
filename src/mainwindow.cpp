@@ -4623,14 +4623,14 @@ void MainWindow::slotLogWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-     qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
+     //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     configured = false;
-    qDebug() << "MainWindow::slotSetup - 010"  << QT_ENDL;
+    //qDebug() << "MainWindow::slotSetup - 010"  << QT_ENDL;
     backupCurrentQSO();
-    qDebug() << "MainWindow::slotSetup - 020"  << QT_ENDL;
+    //qDebug() << "MainWindow::slotSetup - 020"  << QT_ENDL;
     openSetup(_page);
-    qDebug() << "MainWindow::slotSetup - END" ;
+    //qDebug() << "MainWindow::slotSetup - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

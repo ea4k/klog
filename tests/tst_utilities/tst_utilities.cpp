@@ -60,7 +60,7 @@ private slots:
     void test_getPrefixFullFromCall();
     void test_getPrefixFromCall();
     void test_logLevels();
-    void test_newPrefixes();
+    void test_isValidSubCall();
 
 private:
   Utilities *util;
@@ -101,7 +101,7 @@ void tst_Utilities::test_isAPrefix()
     QVERIFY2(util->isAPrefix("EA6") == 3, "EA6");
     QVERIFY2(util->isAPrefix("K") == 1, "K");
     QVERIFY2(util->isAPrefix("K1") == 1, "K1");
-    qDebug() << QString::number(util->isAPrefix("CE0X") );
+    //qDebug() << QString::number(util->isAPrefix("CE0X") );
     QVERIFY2(util->isAPrefix("CE0X") == 4, "CE0X");
     QVERIFY2(util->isAPrefix("VK9M") == 4, "VK0M");
     QVERIFY2(util->isAPrefix("PY0F") == 4, "PY0F");
@@ -209,7 +209,8 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("I20000X"), "I20000X");
     QVERIFY2(util->isValidCall("4X4AAA"), "4X4AAA");
     QVERIFY2(util->isValidCall("3DA0RS"), "3DA0RS");
-    QVERIFY2(util->isValidCall("GB75RD"), "GB75RD");
+    QVERIFY2(util->isValidCall("VP2EE"), "VP2EE");
+
 
     //QVERIFY2(util->isValidCall("D9K"), "D9K");
 
@@ -251,8 +252,6 @@ void tst_Utilities::test_isValidCall()
 
 void tst_Utilities::test_getPrefixFullFromCall()
 {
-
-
     QVERIFY2(util->getPrefixFullFromCall("K1AA") == "K1", "Wrong prefix 1" );
     QVERIFY2(util->getPrefixFullFromCall("K1A") == "K1", "K1");
     QVERIFY2(util->getPrefixFullFromCall("G1") == "G1", "G1");
@@ -343,18 +342,7 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("B100A") == "B", "B1");
     QVERIFY2(util->getPrefixFromCall("FB1K") == "FB", "FB1-FB");
     QVERIFY2(util->getPrefixFromCall("AM4000K") == "AM", "AM4000K-AM");
-}
 
-void tst_Utilities::test_logLevels()
-{
-    QVERIFY2(util->isValidLogLevel("None"), "None logLevel not detected");
-    QVERIFY2(util->isValidLogLevel("None"), "Info logLevel not detected");
-    QVERIFY2(util->isValidLogLevel("None"), "Debug logLevel not detected");
-    QVERIFY2(!util->isValidLogLevel("Other"), "Other logLevel not detected");
-}
-
-void tst_Utilities::test_newPrefixes()
-{
     //{'B', 'F', 'G', 'I', 'K', 'M', 'N', 'R', 'W'};
     QVERIFY2(util->isAOneLetterPrefix('B'), "K");
     QVERIFY2(util->isAOneLetterPrefix('F'), "F");
@@ -375,6 +363,26 @@ void tst_Utilities::test_newPrefixes()
     QVERIFY2(util->startsWithLongPrefix("VK9M") == "VK9M", "VK9M");
     QVERIFY2(util->startsWithLongPrefix("VK9MA") == "VK9M", "VK9MA");
     QVERIFY2(util->startsWithLongPrefix("4U1ITU") == "4U1ITU", "4U1ITU");
+}
+
+void tst_Utilities::test_logLevels()
+{
+    QVERIFY2(util->isValidLogLevel("None"), "None logLevel not detected");
+    QVERIFY2(util->isValidLogLevel("None"), "Info logLevel not detected");
+    QVERIFY2(util->isValidLogLevel("None"), "Debug logLevel not detected");
+    QVERIFY2(!util->isValidLogLevel("Other"), "Other logLevel not detected");
+}
+
+void tst_Utilities::test_isValidSubCall()
+{
+   QVERIFY2(!util->isValidSubCall("EA6"), "EA6 is just a prefix");
+   QVERIFY2(util->isValidSubCall("EE6AAA"), "EE6AAA");
+   QVERIFY2(!util->isValidSubCall("VP2E"), "VP2E is just a prefix");
+   QVERIFY2(util->isValidSubCall("EA4K"), "EA4K");
+   QVERIFY2(!util->isValidSubCall("EA4K/p"), "EA4K/p");
+   QVERIFY2(!util->isValidSubCall("VK9M"), "VK9M");
+   QVERIFY2(util->isValidSubCall("VK9MA"), "VK9MA");
+   QVERIFY2(!util->isValidSubCall("XXXX"), "XXXX");
 }
 
 

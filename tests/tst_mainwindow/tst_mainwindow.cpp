@@ -133,7 +133,7 @@ void tst_MainWindow::test_focusOrder()
 
 void tst_MainWindow::test_Constructor()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QVERIFY2(mainWindow->showKLogLogWidget, "showKLogLogWidget not created");
     QVERIFY2(mainWindow->showErrorDialog, "showErrorDialog not created");
     QVERIFY2(mainWindow->UDPLogServer, "UDPLogServer not created");
@@ -158,14 +158,14 @@ void tst_MainWindow::test_Constructor()
     QVERIFY2(mainWindow->fileAwardManager, "fileAwardManager not created");
     QVERIFY2(mainWindow->qso, "qso not created");
     //QTimer::singleShot(500, this, SLOT(slotTimeOut()));
-    qDebug() << Q_FUNC_INFO << " - Init";
+    //qDebug() << Q_FUNC_INFO << " - Init";
 
     mainWindow->init();
-    qDebug() << Q_FUNC_INFO << " - Show";
+    //qDebug() << Q_FUNC_INFO << " - Show";
     mainWindow->show();
-    qDebug() << Q_FUNC_INFO << " - SlotSetup";
+    //qDebug() << Q_FUNC_INFO << " - SlotSetup";
     mainWindow->slotSetup();
-    qDebug() << Q_FUNC_INFO << " - After the SlotSetup";
+    //qDebug() << Q_FUNC_INFO << " - After the SlotSetup";
 
     //QTest::keyClick(&mainWindow, Qt::Key_Tab);
     // QTest::keyClick(toplevelWidget, Qt::Key_Space); // To close the showWar button
@@ -174,7 +174,7 @@ void tst_MainWindow::test_Constructor()
     //qDebug() << Q_FUNC_INFO << "To be showed";
     //QTest::mouseClick(toplevelWidget. , Qt::LeftButton);
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void tst_MainWindow::test_Settings()

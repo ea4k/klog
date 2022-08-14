@@ -625,6 +625,10 @@ bool Utilities::isValidSubCall(const QString &_c)
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Less than 3 chars - FALSE"), Debug);
         return false;
     }
+    if (isALongCountryPrefix(_c))
+    {
+        return false;
+    }
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 020";
     if (!(_c.at(_c.length ()-1).isLetter ()))
     {
@@ -659,11 +663,13 @@ bool Utilities::isValidSubCall(const QString &_c)
     bool hasDigit = false;
     if (prefixLength<3)
     {
+        //qDebug() << Q_FUNC_INFO << " - Prefixlength < 3";
         while (i<(_c.length()-1))
         {
-            //qDebug() << Q_FUNC_INFO << " - analyzing the call: " << _c << " - " << _c.at(i) ;
+            //qDebug() << Q_FUNC_INFO << " - analyzing the call1: " << _c << " - " << _c.at(i) ;
             if ((_c.at(i)).isDigit())
             {
+                //qDebug() << Q_FUNC_INFO << " - has digit! i=" + QString::number(i);
                 hasDigit = true;
             }
             i++;
@@ -672,9 +678,10 @@ bool Utilities::isValidSubCall(const QString &_c)
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - Prefixlength >= 3";
         while (!((_c.at(i)).isDigit()) && (i<(_c.length()-1)) )
-        {
-            //qDebug() << Q_FUNC_INFO << " - analyzing the call: " << _c << " - " << _c.at(i) ;
+        { // VP2E
+            //qDebug() << Q_FUNC_INFO << " - analyzing the call2: " << _c << " - " << _c.at(i) ;
             i++;
         }
         return !hasDigit;
@@ -823,7 +830,7 @@ bool Utilities::isValidCall(const QString &_c)
 {// https://life.itu.int/radioclub/rr/art19.pdf
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Start = %1").arg(_c), Debug);
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << "Start: " << _c;
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     // Prefixes are at least 2 chars
     if (!g_callsignCheck)
     {
@@ -831,14 +838,14 @@ bool Utilities::isValidCall(const QString &_c)
         return true;
     }
     QString call = _c;
-    qDebug() << Q_FUNC_INFO << "- 002 " << call;
+    //qDebug() << Q_FUNC_INFO << "- 002 " << call;
     if (call.length()<3)
     {
-        qDebug() << Q_FUNC_INFO << "- 003 " << call;
+        //qDebug() << Q_FUNC_INFO << "- 003 " << call;
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010 - False"), Debug);
         return false;
     }
-    qDebug() << Q_FUNC_INFO << "- 004 " << call;
+    //qDebug() << Q_FUNC_INFO << "- 004 " << call;
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010"), Devel);
     call.replace('\\', '/');
 
@@ -1079,7 +1086,7 @@ QString Utilities::getPrefixFullFromCall(const QString &_c)
     bool startsWithOneSpecialetter = isAOneLetterPrefix(_c.at(0));
 
     QString longPrefix = startsWithLongPrefix(_c);
-    if (longPrefix>2)
+    if (longPrefix.length()>2)
     {
         return longPrefix;
     }
@@ -1172,14 +1179,19 @@ QString Utilities::startsWithLongPrefix(const QString &_c)
 
     while (i < _c.length())
     {
-        aux.append(_c.at(i));
+        //qDebug() << Q_FUNC_INFO << QString(" Checking (string/i/length) - %1/%2/3").arg(aux).arg(i).arg(_c.length());
+        aux.append(_c.at(i));        
+
         //qDebug() << Q_FUNC_INFO << QString(" - %1: %2").arg(aux).arg(isALongCountryPrefix(aux));
         if (isALongCountryPrefix(aux))
         {
-            if (i+1<=_c.length())
+            //qDebug() << Q_FUNC_INFO << QString(" Is Long pref, checking if even longer - %1:").arg(aux);
+            if (i+1<_c.length())
             {
+                //qDebug() << Q_FUNC_INFO << QString(" Checking... - %1:").arg(aux);
                 QString auxLong;
-                auxLong.append(i+1);
+                auxLong = aux;
+                auxLong.append(_c.at(i+1));
                 if (isALongCountryPrefix(auxLong))
                 {
                     return auxLong;

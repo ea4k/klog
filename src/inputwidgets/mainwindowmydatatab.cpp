@@ -356,7 +356,7 @@ void MainWindowMyDataTab::setStationCallsign(const QString &_op)
 
 QString MainWindowMyDataTab::getStationCallsign()
 {
-    qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
+    //qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg((stationCallSignLineEdit->text()).toUpper()), Debug);
     return (stationCallSignLineEdit->text()).toUpper();
     //return lastStationQRZ;

@@ -606,14 +606,14 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
 
 void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
 {
-    qDebug() << Q_FUNC_INFO << QString::number(txFreqSpinBox->value());
+    //qDebug() << Q_FUNC_INFO << QString::number(txFreqSpinBox->value());
     // user changes TX Freq
     // If band is real and band is configured, bandcombo is selected
     // If band is real and not configured, we launch the band config and select the band.
     // if band is real emit the band
     if (util->isSameFreq (freqTX, _f))
     {
-        qDebug() << Q_FUNC_INFO << " - END-1";
+        //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
     freqTX = _f;
@@ -629,7 +629,7 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
 
     if (modifying)
     {
-        qDebug() << Q_FUNC_INFO << " - END-2";
+        //qDebug() << Q_FUNC_INFO << " - END-2";
         return;
     }
 
@@ -656,20 +656,20 @@ void MainWindowSatTab::slotSatFreqTXChanged(const double _f)
 
     //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Emitting: " << QString::number(txFreqSpinBox->value()) << QT_ENDL;
     emit satTxFreqChanged(txFreqSpinBox->value());
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowSatTab::setUpLink(const QString &_t)
 {
-    qDebug() << Q_FUNC_INFO << "Start: " << _t ;
+    //qDebug() << Q_FUNC_INFO << "Start: " << _t ;
     if (satBandTXComboBox->currentText () == _t)
     {
-        qDebug() << Q_FUNC_INFO << "END-1";
+        //qDebug() << Q_FUNC_INFO << "END-1";
         return;
     }
     int index = satBandTXComboBox->findText(_t, Qt::MatchCaseSensitive);
-    qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index) << QT_ENDL;
-    qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex()) << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index) << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex()) << QT_ENDL;
     int indexRX;
     if (index>=0)
     {
@@ -694,22 +694,22 @@ void MainWindowSatTab::setUpLink(const QString &_t)
              satBandRXComboBox->setCurrentIndex(indexRX);
          }
      }
-    qDebug() << Q_FUNC_INFO << "END";
+    //qDebug() << Q_FUNC_INFO << "END";
 }
 
 void MainWindowSatTab::setUpLinkFreq(const double _t)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_t);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_t);
     if (util->isSameFreq (freqTX, _t))
     {
-        qDebug() << Q_FUNC_INFO << "END-1";
+        //qDebug() << Q_FUNC_INFO << "END-1";
         return;
     }
 
     txFreqSpinBox->setValue(_t);
     setUpLink(dataProxy->getBandNameFromFreq(_t));
 
-   qDebug() << Q_FUNC_INFO << "END";
+   //qDebug() << Q_FUNC_INFO << "END";
 }
 
 double MainWindowSatTab::getRXFreq()
