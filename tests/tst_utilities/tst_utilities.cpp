@@ -57,6 +57,7 @@ private slots:
     void test_isValidFreq();
     void test_isValidGrid();
     void test_isValidADIFField();
+    void test_getPrefixFullFromCall();
     void test_getPrefixFromCall();
     void test_logLevels();
     void test_newPrefixes();
@@ -246,6 +247,29 @@ void tst_Utilities::test_isValidCall()
 */
 }
 
+void tst_Utilities::test_getPrefixFullFromCall()
+{
+
+
+    QVERIFY2(util->getPrefixFullFromCall("K1AA") == "K1", "Wrong prefix 1" );
+    QVERIFY2(util->getPrefixFullFromCall("K1A") == "K1", "K1");
+    QVERIFY2(util->getPrefixFullFromCall("G1") == "G1", "G1");
+    QVERIFY2(util->getPrefixFullFromCall("I100") == "I100", "I100");
+    QVERIFY2(util->getPrefixFullFromCall("EA4K") == "EA4", "Wrong prefix 2" );
+    QVERIFY2(util->getPrefixFullFromCall("2E1AA") == "2E1", "Wrong prefix 2 Numb" );
+    QVERIFY2(util->getPrefixFullFromCall("E73E") == "E73", "Wrong prefix 2 Letter/Numb");
+    QVERIFY2(util->getPrefixFullFromCall("AM200A") == "AM200", "Wrong prefix 2 Letter/Numb");
+    QVERIFY2(util->getPrefixFullFromCall("EA4K") == "EA4", "Wrong prefix on complex 1" );
+    QVERIFY2(util->getPrefixFullFromCall("VP2EA") == "VP2E", "Wrong prefix on VP2E" );
+    QVERIFY2(util->getPrefixFullFromCall("EA6") == "EA6", "EA6");
+    QVERIFY2(util->getPrefixFullFromCall("EA6A") == "EA6", "EA6");
+    QVERIFY2(util->getPrefixFullFromCall("EA4") == "EA4", "EA4-EA");
+    QVERIFY2(util->getPrefixFullFromCall("MB1") == "MB1", "MB1-MB");
+    QVERIFY2(util->getPrefixFullFromCall("AM4000") == "AM4000", "AM4000");
+    QVERIFY2(util->getPrefixFullFromCall("B100A") == "B100", "B1");
+    QVERIFY2(util->getPrefixFullFromCall("FB1K") == "FB1", "FB1-FB");
+}
+
 void tst_Utilities::test_isValidFreq()
 {
     QVERIFY(util->isValidFreq("14.155") == true);
@@ -316,8 +340,6 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("B100A") == "B", "B1");
     QVERIFY2(util->getPrefixFromCall("FB1K") == "FB", "FB1-FB");
     QVERIFY2(util->getPrefixFromCall("AM4000K") == "AM", "AM4000K-AM");
-
-
 
     //qDebug() << Q_FUNC_INFO << " - END";
 }

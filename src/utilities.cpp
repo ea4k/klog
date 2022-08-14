@@ -1082,6 +1082,7 @@ QString Utilities::getPrefixFullFromCall(const QString &_c)
         return QString();
     }
     bool startsWithOneSpecialetter = isAOneLetterPrefix(_c.at(0));
+
     QString longPrefix = startsWithLongPrefix(_c);
     if (longPrefix>2)
     {
@@ -1102,7 +1103,7 @@ QString Utilities::getPrefixFullFromCall(const QString &_c)
         return _c;
     }
     int i = 2;
-    if (startsWithOneSpecialetter && !((_c.at(1)).isDigit()) )
+    if (startsWithOneSpecialetter && ((_c.at(1)).isDigit()) )
     {
         i=1;
     }
@@ -1113,7 +1114,7 @@ QString Utilities::getPrefixFullFromCall(const QString &_c)
         if (!((_c.at(k)).isDigit()))
         {
             //qDebug() << Q_FUNC_INFO << QString(" - END-4: %1").arg(_c.left(k-1));
-            return _c.left(k+1);
+            return _c.left(k);
         }
     }
     //qDebug() << Q_FUNC_INFO << QString(" - END-5");
