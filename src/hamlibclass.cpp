@@ -69,6 +69,9 @@ void HamLibClass::initClass()
     justEmitted = false;
     reading = false;
     freq_old = 0.0;
+    bauds = 9600;                  // default 9600
+    dataBits = 8;               // default 8
+    stopBits = 1;               // default 1
     connect(timer, SIGNAL(timeout()), this, SLOT(slotTimer()) );
     clean();
     //qDebug() << Q_FUNC_INFO << " - END";

@@ -28,6 +28,7 @@
 QSO::QSO()
 {
     logLevel = None;
+    qsoId = -1;
 }
 
 QSO::~QSO() {}
@@ -1291,17 +1292,22 @@ double QSO::getTXPwr()
 
 bool QSO::setOperatorCallsign(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    qDebug() << Q_FUNC_INFO << "Start: " << _c;
     //logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (util->isValidCall(_c))
+    QString aux = _c;
+    if (aux.length()<3)
+        return false;
+
+
+    if (util->isValidCall(aux))
     {
-       operatorCall = _c;
-       //qDebug() << Q_FUNC_INFO << "END - true";
+       operatorCall = aux;
+       qDebug() << Q_FUNC_INFO << "END - true";
        logEvent(Q_FUNC_INFO, "END-true", Debug);
        return true;
     }
     else {
-        //qDebug() << Q_FUNC_INFO << "End - false";
+        qDebug() << Q_FUNC_INFO << "End - false";
         logEvent(Q_FUNC_INFO, "END-false", Debug);
         return false;
     }
@@ -1314,12 +1320,25 @@ QString QSO::getOperatorCallsign()
 
 bool QSO::setStationCallsign(const QString &_c)
 {
-    if (util->isValidCall(_c))
+    qDebug() << Q_FUNC_INFO << "Start: " << _c;
+    QString aux = _c;
+    if ((aux.length()<3) || (aux.isNull()))
     {
-       stationCallsign = _c;
-       return true;
+        qDebug() << Q_FUNC_INFO << " - 009";
+        return false;
     }
-    else {
+
+
+    qDebug() << Q_FUNC_INFO << " - 010";
+    if (util->isValidCall(aux))
+    {
+        qDebug() << Q_FUNC_INFO << " - True";
+        stationCallsign = aux;
+        return true;
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - False";
        return false;
     }
 }
@@ -1384,6 +1403,7 @@ QString QSO::getSatName()
 
 bool QSO::setSatMode(const QString &_c)
 {
+    qDebug() << Q_FUNC_INFO << ": " << _c;
     if (_c.length()>0)
     {
         satMode = _c;

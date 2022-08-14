@@ -32,6 +32,7 @@ BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
      mainWidget = new QWidget();
      mLayout = new QVBoxLayout;
      mainWidget->setLayout(mLayout);
+     genchart = new StatsGeneralChartWidget();
 
      QVBoxLayout *mainLayout = new QVBoxLayout;
      mainLayout->addWidget(mainWidget);

@@ -96,15 +96,16 @@ void tst_Utilities::test_Constructor()
 
 void tst_Utilities::test_isAPrefix()
 {
-    /*
     QVERIFY2(util->isAPrefix("EA") == 2, "EA");
     QVERIFY2(util->isAPrefix("EA1") == 2, "EA1");
     QVERIFY2(util->isAPrefix("EA6") == 3, "EA6");
     QVERIFY2(util->isAPrefix("K") == 1, "K");
     QVERIFY2(util->isAPrefix("K1") == 1, "K1");
+    qDebug() << QString::number(util->isAPrefix("CE0X") );
     QVERIFY2(util->isAPrefix("CE0X") == 4, "CE0X");
+    QVERIFY2(util->isAPrefix("VK9M") == 4, "VK0M");
+    QVERIFY2(util->isAPrefix("PY0F") == 4, "PY0F");
     QVERIFY2(util->isAPrefix("T30") == 3, "T30");
-    */
 }
 
 void tst_Utilities::test_getProgresStepForDialog()
@@ -199,6 +200,7 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("2E1A"), "2E1A");
     //QVERIFY2(util->isValidCall("E33E"), "E33E");
     QVERIFY2(util->isValidCall("EA5666K"), "EA5666K");
+    QVERIFY2(util->isValidCall("VK0M/ZL4DB/P"), "VK0M/ZL4DB/P");
 
     QVERIFY2(util->isValidCall("K4X"), "K4X");
     QVERIFY2(util->isValidCall("B2AA"), "B2AA");
@@ -268,6 +270,7 @@ void tst_Utilities::test_getPrefixFullFromCall()
     QVERIFY2(util->getPrefixFullFromCall("AM4000") == "AM4000", "AM4000");
     QVERIFY2(util->getPrefixFullFromCall("B100A") == "B100", "B1");
     QVERIFY2(util->getPrefixFullFromCall("FB1K") == "FB1", "FB1-FB");
+    QVERIFY2(util->getPrefixFullFromCall("VK0M/ZL4DB/P") == "VK0M", "FB1-FB");
 }
 
 void tst_Utilities::test_isValidFreq()
@@ -340,8 +343,6 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("B100A") == "B", "B1");
     QVERIFY2(util->getPrefixFromCall("FB1K") == "FB", "FB1-FB");
     QVERIFY2(util->getPrefixFromCall("AM4000K") == "AM", "AM4000K-AM");
-
-    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void tst_Utilities::test_logLevels()
@@ -374,9 +375,6 @@ void tst_Utilities::test_newPrefixes()
     QVERIFY2(util->startsWithLongPrefix("VK9M") == "VK9M", "VK9M");
     QVERIFY2(util->startsWithLongPrefix("VK9MA") == "VK9M", "VK9MA");
     QVERIFY2(util->startsWithLongPrefix("4U1ITU") == "4U1ITU", "4U1ITU");
-    //QString Utilities::getPrefixCountryFromCall(const QString &_c)
-
-
 }
 
 

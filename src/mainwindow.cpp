@@ -579,7 +579,7 @@ void MainWindow::createActionsCommon(){
 
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-
+    connect(myDataTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToMainQSOInput() ));
@@ -4623,12 +4623,14 @@ void MainWindow::slotLogWinShow()
 
 void MainWindow::slotSetup(const int _page)
 {
-     //qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
+     qDebug() << "MainWindow::slotSetup: " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     configured = false;
+    qDebug() << "MainWindow::slotSetup - 010"  << QT_ENDL;
     backupCurrentQSO();
+    qDebug() << "MainWindow::slotSetup - 020"  << QT_ENDL;
     openSetup(_page);
-     //qDebug() << "MainWindow::slotSetup - END"  << QT_ENDL;
+    qDebug() << "MainWindow::slotSetup - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -6579,7 +6581,6 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             satTabWidget->clear();
         }
-
 
         nameCol = rec.indexOf("sat_mode");
         aux1 = (query.value(nameCol)).toString();
@@ -8625,6 +8626,7 @@ void MainWindow::backupCurrentQSO()
      logEvent(Q_FUNC_INFO, "- 070", Devel);
     //MainWindowSatTab
     qso->setSatName (satTabWidget->getSatName ());
+    logEvent(Q_FUNC_INFO, "- 071", Devel);
     qso->setSatMode (satTabWidget->getSatMode ());
     qso->setKeepSatTab (satTabWidget->getKeep ());
     logEvent(Q_FUNC_INFO, "END", Debug);

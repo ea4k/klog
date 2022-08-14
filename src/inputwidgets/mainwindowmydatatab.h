@@ -32,6 +32,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "../klogdefinitions.h"
 #include "../locator.h"
 #include "../utilities.h"
 //#include "dataproxy_sqlite.h"
@@ -89,8 +90,10 @@ public:
     void setKeep(const bool _b);
     bool getKeep();
     void setModify(const bool _modify);
+    void setLogLevel (const DebugLogLevel _b);
 
 signals:
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void myLocChangedSignal(const QString &_q); // MyLocator once updated
     void returnPressed();
 
@@ -103,7 +106,7 @@ private slots:
     void slotSetCurrentMyUSerData();
 
 private:
-
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     bool setInitialADIFValues();
     void setColorsForMyUserADIFLineEdit();
     bool checkMyVUCC_GRIDS(const QString &_string);
@@ -123,6 +126,7 @@ private:
     Utilities *util;
     bool modify;
     QString my_rig, my_sota, my_antenna, my_vucc_grids;
+    DebugLogLevel logLevel;
     bool getDarkMode();
 };
 
