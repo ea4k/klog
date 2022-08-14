@@ -7619,6 +7619,41 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
     }
 }
 
+QStringList DataProxy_SQLite::getLongPrefixes()
+{//select prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')
+    qDebug() << Q_FUNC_INFO;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString = QString("SELECT prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')");
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                if (query.value(2).toInt()<1000)
+                {
+                    aux.clear();
+                    aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
+                    //result = result + ", " + (query.value(0)).toString();
+                    qs << aux;
+                }
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    }
+    query.finish();
+    qs.sort();
+    return qs;
+}
+
 QStringList DataProxy_SQLite::getEntitiesNames()
 {
          //qDebug()  << "DataProxy_SQLite::getEntitiesNames"  << QT_ENDL;
@@ -7828,13 +7863,16 @@ int DataProxy_SQLite::getPrefixId(const QString &_qrz)
        //qDebug() << "DataProxy_SQLite::getPrefixId: -" << _qrz <<"-" << QT_ENDL;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
-    if (_qrz.length() < 1)
+    QString aux = util->getMainCallFromComplexCall((_qrz).toUpper());
+    if (!util->isValidCall(aux))
+    //if (_qrz.length() < 1)
     {
         return -1;
     }
     int entityID = 0;
 
-    QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
+
+    //QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
 
     while ((entityID <= 0) && (aux.length()>=1) )
     {
@@ -7850,7 +7888,8 @@ int DataProxy_SQLite::getPrefixId(const QString &_qrz)
     return entityID;
 }
 
-QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
+/*
+ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
 {
        //qDebug() << "DataProxy_SQLite::changeSlashAndFindPrefix: -"  << _qrz <<"-" << QT_ENDL;
     int iaux1, iaux2;
@@ -7890,7 +7929,7 @@ QString DataProxy_SQLite::changeSlashAndFindPrefix(const QString &_qrz)
     }
     return aux;
 }
-
+*/
 void DataProxy_SQLite::setLogLevel (const DebugLogLevel _l)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);

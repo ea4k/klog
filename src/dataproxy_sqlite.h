@@ -213,6 +213,7 @@ public:
     double getLatitudeFromEntity(const int _e);
     int getDXCCFromPrefix(const QString &_p);
     QString getEntityPrefixes(const int _enti);
+    QStringList getLongPrefixes();
     QStringList getEntitiesNames();
     QStringList getEntitiesIds();
     int getHowManyEntities();
@@ -328,7 +329,7 @@ private:
     QStringList getColumnNamesFromTable(const QString &_tableName);
 
     int getPrefixId(const QString &_qrz);
-    QString changeSlashAndFindPrefix(const QString &_qrz);
+    //QString changeSlashAndFindPrefix(const QString &_qrz);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     QSO *qso;
     bool searching;

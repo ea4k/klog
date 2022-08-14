@@ -52,6 +52,8 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     locator = new Locator();
     created = false;
     dataProxy = dp;
+    util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -133,17 +135,15 @@ bool World::create(const QString &_worldFile)
        //qDebug() << "World::create: END"  << QT_ENDL;
     return created;
 }
-  /*
+
+/*
 void World::createWorldModel()
 {
-
     worldModel->setTable("entity");
-
     worldModel->setRelation(Entity_Continent, QSqlRelation("continent", "id", "shortname"));
     worldModel->setSort(Entity_Name, Qt::AscendingOrder);
     worldModel->setHeaderData(Entity_Name, Qt::Horizontal, tr("Entity"));
     worldModel->setHeaderData(Entity_Continent, Qt::Horizontal, tr("Continent"));
-
     worldModel->select();
 }
 */
@@ -378,7 +378,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 int World::getPrefixId(const QString &_qrz)
 {
-    //qDebug() << "World::getPrefixId: -" << _qrz <<"-" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
 
@@ -387,8 +387,23 @@ int World::getPrefixId(const QString &_qrz)
         return -1;
     }
     int entityID = 0;
-
-    QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
+    QString aux;
+    //QString pref = util->getPrefixCountryFromCall(_qrz.toUpper());
+    //QString aux = util->getMainCallFromComplexCall(_qrz.toUpper());
+    entityID = dataProxy->getDXCCFromPrefix(_qrz.toUpper());
+    qDebug() << Q_FUNC_INFO << " - call/entityID: " << _qrz.toUpper() << "/" << QString::number(entityID);
+    if (entityID>0)
+    {
+        return entityID;
+    }
+    else
+    {
+        //aux = util->getMainCallFromComplexCall(_qrz.toUpper());
+        aux = util->getPrefixCountryFromCall(_qrz.toUpper());
+        qDebug() << Q_FUNC_INFO << " - call/entityID2: " << aux << "/" << QString::number(entityID);
+        return dataProxy->getDXCCFromPrefix(aux);
+    }
+    //QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
 
     while ((entityID <= 0) && (aux.length()>=1) )
     {
@@ -554,8 +569,8 @@ int World::getQRZARRLId(const QString &_qrz)
         return -1;
     }
 
-    int prefixIdNumber = getPrefixId(_qrz);
-    return prefixIdNumber;
+    return getPrefixId(_qrz);
+    //return prefixIdNumber;
 
 }
 
@@ -1254,8 +1269,6 @@ bool World::readCTYCSV(const QString &_worldFile)
 QString World::changeSlashAndFindPrefix(const QString &_qrz)
 {
       //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-" << QT_ENDL;
-
-
     QString aux = _qrz.toUpper();
 
     if ((aux).count('\\')) // Replaces \ by / to ease operation.
@@ -1288,7 +1301,7 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
         }
         else
         {
-            aux = aux.right(iaux2 -1);
+            aux = aux.right(iaux2-1);
         }
     }
     return aux;
@@ -1297,8 +1310,8 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
 bool World::checkQRZValidFormat(const QString &_qrz)
 {
         //qDebug()  << "World::checkQRZValidFormat: -" << _qrz <<"-" << QT_ENDL;
-
-    QString aux = changeSlashAndFindPrefix(_qrz.toUpper());
+    QString aux = util->getMainCallFromComplexCall(_qrz.toUpper());
+    //QString aux = changeSlashAndFindPrefix(_qrz.toUpper());
 
     if (aux.length()<3)
     {

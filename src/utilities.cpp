@@ -45,6 +45,7 @@ Utilities::~Utilities()
 void Utilities::init()
 {
     softwareVersion = "0.0";
+    longPrefixes.clear();
     darkMode = false;
     logLevel = None;
     setARRLSect();
@@ -785,6 +786,11 @@ int Utilities::isAPrefix (const QString &_c)
     */
 }
 
+void Utilities::setLongPrefixes (QStringList _p)
+{
+    longPrefixes = _p;
+}
+
 bool Utilities::isALongCountryPrefix(const QString &_c)
 {// TODO: Complete with https://rsgb.org/main/operating/licensing-novs-visitors/international-prefixes/
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _c;
@@ -794,17 +800,24 @@ bool Utilities::isALongCountryPrefix(const QString &_c)
         return false;
     }
     //qDebug() << Q_FUNC_INFO << ": 040";
-    QStringList validPrefixes = {"AM6", "AN6", "AO6", "EA6", "EB6", "EC6", "ED6", "EE6", "EF6", "EG6",
+    QStringList validPrefixes = {"3C0",
+                                 "BM9P","BN9P","BO9P", "BP9P","BQ9P","BU9P","BV9P","BW9P","BX9P"
+                                 "AM6", "AN6", "AO6", "EA6", "EB6", "EC6", "ED6", "EE6", "EF6", "EG6",
                                  "AM8", "AN8", "AO8", "EA8", "EB8", "EC8", "ED8", "EE8", "EF8", "EG8",
                                  "AM9", "AN9", "AO9", "EA9", "EB9", "EC9", "ED9", "EE9", "EF9", "EG9",
                                  "BV9P", "BV9S",
-                                 "CE0X", "CE0Y", "CE0Z", "CE0",
-                                 "CQ3", "CR3", "CS3", "CT3", "CQ9", "CR9", "CS9", "CT9",
+                                 "CE0X", "CE0Y", "CE0Z", "CE0", "CE9",
+                                 "CQ2", "CQ3", "CR3", "CS3", "CT3", "CQ9", "CR9", "CS9", "CT9",
+                                 "CQ1", "CQ8", "CR1", "CR2", "CR8", "CS4", "CS8", "CT8",
                                  "CY9", "CY0",
                                  "FO8X",
+                                 "H40",
+                                 "HB0", "HE0",
                                  "HC8", "HD8",
-                                 "HK0", "HJ0",
-                                 "IS0",
+                                 "HK0", "HJ0", "5K0", "5J0", "HK0M", "HJ0M",
+                                 "IS0", "IG9", "IH9", "IM0", "IW0U", "IW0V", "IW0W", "IW0X", "IW0Y", "IW0Z",
+                                 "IT9", "ID9", "IE9", "IF9", "II9", "IJ9", "IO9", "IQ9", "IR9", "IT9", "IU9", "IW9", "IY9",
+                                 "JD1",
                                  "KG4", "KG6",
                                  "AH1", "AH2", "AH3", "AH4", "AH5", "AH5J", "AH5K", "AH6", "AH7", "AH8", "AH9", "AH0",
                                  "KH1", "KH2", "KH3", "KH4", "KH5", "KH5J", "KH5K", "KH6", "KH7", "KH8", "KH9", "KH0",
@@ -813,17 +826,111 @@ bool Utilities::isALongCountryPrefix(const QString &_c)
                                  "KP1", "KP2", "KP3", "KP4", "KP5", "NP1", "NP2", "NP3", "NP4", "NP5",
                                  "WP1", "WP2", "WP3", "WP4", "WP5",
                                  "KH7K",
+                                 "OF0", "OG0", "OH0", "OI0", "OJ0",
+                                 "RF1F",
+                                 "PP0F", "PP0ZF", "PQ0F", "PQ0ZF", "PR0F", "PR0ZF", "PS0F", "PS0ZF", "PT0F", "PT0ZF", "PU0F",
+                                 "PU0ZF", "PV0F", "PV0ZF", "PW0F", "PW0ZF", "PX0F", "PX0ZF", "PY0F", "PY0Z", "ZV0F",
+                                 "ZV0ZF",
+                                 "ZW0F", "ZW0ZF", "ZX0F", "ZX0ZF", "ZY0F", "ZY0Z", "ZZ0F", "ZZ0ZF", "PP0R", "PP0ZR", "PQ0R", "PQ0ZR", "PR0R", "PR0ZR",
+                                 "PS0R", "PS0ZR", "PT0R", "PT0ZR", "PU0R", "PU0ZR", "PV0R", "PV0ZR", "PW0R", "PW0ZR", "PX0R", "PX0ZR", "PY0R", "ZV0R",
+                                 "ZV0ZR", "ZW0R", "ZW0ZR", "ZX0R", "ZX0ZR", "ZY0R", "ZZ0R", "ZZ0ZR",
+                                 "PY0S", "PP0S", "PP0ZS", "PQ0S", "PQ0ZS", "PR0S", "PR0ZS", "PS0S", "PS0ZS", "PT0S", "PT0ZS", "PU0S", "PU0ZS",
+                                 "PV0S", "PV0ZS", "PW0S", "PW0ZS", "PX0S", "PX0ZS", "PY0S", "PY0ZS", "ZV0S", "ZV0ZS", "ZW0S", "ZW0ZS", "ZX0S",
+                                 "ZX0ZS", "ZY0S", "ZY0ZS", "ZZ0S", "ZZ0ZS",
+                                 "PY0T", "PP0T", "PP0ZT", "PQ0T", "PQ0ZT", "PR0T", "PR0ZT", "PS0T", "PS0ZT", "PT0T", "PT0ZT", "PU0T",
+                                 "PU0ZT", "PV0T", "PV0ZT", "PW0T", "PW0ZT", "PX0T", "PX0ZT", "PY0T", "PY0ZT", "ZV0T", "ZV0ZT", "ZW0T", "ZW0ZT",
+                                 "ZX0T", "ZX0ZT", "ZY0T", "ZY0ZT", "ZZ0T", "ZZ0ZT",
+                                 "UA0", "UA8", "UA9",
                                  "VP2E", "VP2M", "VP2V", "VP5", "VP6", "VP8", "VP9", "VQ9", "XF4", "YV0", "ZD7", "ZD8", "ZD9", "ZC4",
-                                "ZL7", "ZL8", "ZL9", "ZS8", "UA2", "UA0", "UA9", "TI9", "T30", "T31", "T32", "T33",
-                                 "PY0F", "PY0S", "PY0T", "R1FJ", "VK0H", "VK0M", "VK9M", "VK9N", "VK9W", "VK9X", "3DA0",
+                                "ZL7", "ZL8", "ZL9", "ZS8", "UA2", "UA0", "UA9", "TI9", "TE9", "T30", "T31", "T32", "T33",
+                                 "PY0F", "PY0S", "PY0T", "R1FJ", "VK0H", "VK0M", "VK9", "VK9M", "VK9N", "VK9W", "VK9X", "3DA0",
                                  "4U1ITU", "4U1SCO", "4U1UN", "4U1VC", "4U1WB"};
     //qDebug() << Q_FUNC_INFO << ": 050";
-    return validPrefixes.contains (_c);
+    return longPrefixes.contains(_c);
+    //return validPrefixes.contains (_c);
 }
 
 void Utilities::setCallValidation(const bool _b)
 {
     g_callsignCheck = _b;
+}
+
+QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
+{
+    QString call = _complexCall;
+    call.replace('\\', '/');
+
+    if (call.count('/') == 2)
+    { //Things like F/EA4K/P will become F/EA4K
+        //logEvent (Q_FUNC_INFO, QString("With 2 /"), Debug);
+        QStringList parts;
+        parts.clear();
+        parts << call.split('/');
+        call = parts.at(0) + "/" + parts.at(1);
+    }
+    //qDebug() << Q_FUNC_INFO << " - 010" ;
+    if (call.count('/') == 1)
+    {// Complex calls (like F/EA4K - EA4K/F -EA4K/P - EA4K/1 - EA4K/qrp - VK9M/EA4K - EA4K/VK9M
+     // K1B/QRP - B1A/VK9M
+        QStringList parts;
+        parts.clear();
+        parts << call.split('/');
+        QString first = parts.at(0);
+        QString second = parts.at(1);
+        // First identify normal suffixes /P, /1, /QRP...
+        bool firstCountry = isCountrySuffix(first);
+        bool secondCountry = isCountrySuffix(second);
+        //qDebug() << Q_FUNC_INFO << " - 020" ;
+        if (firstCountry && secondCountry)
+        { // EA4K/VK9M
+            //qDebug() << Q_FUNC_INFO << " - 030" ;
+            bool firstIsPrefix = isALongCountryPrefix(first);
+            bool secondIsPrefix = isALongCountryPrefix(second);
+            if (firstIsPrefix && !secondIsPrefix)
+            {
+                //qDebug() << Q_FUNC_INFO << " - 033" ;
+                return first;
+            }
+            else if (!firstIsPrefix && secondIsPrefix)
+            {
+                //qDebug() << Q_FUNC_INFO << " - 034" ;
+                return second;
+            }
+            else
+            {
+                //qDebug() << Q_FUNC_INFO << " - 035" ;
+                if (first.length()>second.length())
+                {
+                    //qDebug() << Q_FUNC_INFO << " - 036" ;
+                    call = second;
+                }
+                else
+                {
+                    //qDebug() << Q_FUNC_INFO << " - 037" ;
+                    call = first;
+                }
+                //qDebug() << Q_FUNC_INFO << " - 040" ;
+            }
+            //qDebug() << Q_FUNC_INFO << " - 041" ;
+        }
+        else if (!isCountrySuffix(first))
+        {//  1/E4AK
+            //qDebug() << Q_FUNC_INFO << " - 050" ;
+            call = second;
+        }
+        else if (!isCountrySuffix(second))
+        {//  E4AK/2
+            //qDebug() << Q_FUNC_INFO << " - 060" ;
+            call = second;
+        }
+        else
+        { // None is a normal country prefix
+            //qDebug() << Q_FUNC_INFO << " - 070" ;
+            return QString();
+        }
+        //qDebug() << Q_FUNC_INFO << " - 090" ;
+    }
+    return call;
 }
 
 bool Utilities::isValidCall(const QString &_c)
@@ -845,7 +952,10 @@ bool Utilities::isValidCall(const QString &_c)
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010 - False"), Debug);
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << "- 004 " << call;
+    //call = getMainCallFromComplexCall(call);
+    qDebug() << Q_FUNC_INFO << "- 004 :" << call;
+
+
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010"), Devel);
     call.replace('\\', '/');
 
@@ -894,13 +1004,17 @@ bool Utilities::isValidCall(const QString &_c)
     }
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - %1").arg(isValidSubCall(call)), Debug);
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - END";
+
     return isValidSubCall (call);
 }
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _c;
+
     QString call = _c;
+    call = getMainCallFromComplexCall(call);
+    /*
     call.replace('\\', '/');
 
     if (call.count('/') == 2)
@@ -974,6 +1088,7 @@ QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
         //qDebug() << Q_FUNC_INFO << " - 090" ;
     }
     //qDebug() << Q_FUNC_INFO << " - END: " << call ;
+    */
     return getPrefixCountryFromCall(call);
 }
 

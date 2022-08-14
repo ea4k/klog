@@ -40,6 +40,7 @@
 
 #include "locator.h"
 #include "dataproxy_sqlite.h"
+#include "utilities.h"
 //#include "klogdefinitions.h"
 //#include "awards.h"
 
@@ -141,12 +142,9 @@ private:
     //bool readingDataOfAnEntity;
     int nullValue;
 
-
-    //QSqlRelationalTableModel *worldModel;
-    //QProgressBar *progressBar;
-
     Locator *locator;
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
 
     //int constrid; // Just an id for the constructor to check who is being executed at one specific time
     //Awards *awards;

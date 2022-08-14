@@ -52,6 +52,7 @@ public:
     void setDarkMode(const QString &_dm);
     bool isDarkMode();
     void setCallValidation(const bool _b);
+    void setLongPrefixes (QStringList _p);
 
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
@@ -120,6 +121,7 @@ public:
     bool isValidARRLSect(const QString &_s);
     bool isValidContinent(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
+    QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
     //QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
@@ -192,6 +194,7 @@ private:
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;
+    QStringList longPrefixes;
 };
 
 #endif // UTILITIES_H
