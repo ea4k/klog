@@ -37,8 +37,9 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
-    //qDebug() << "World::World(0)" << _parentFunction << QT_ENDL;
-    worldModel = new QSqlRelationalTableModel(this);
+    qDebug() << Q_FUNC_INFO << " - Start";
+    //worldModel = new QSqlRelationalTableModel(this);
+    qDebug() << Q_FUNC_INFO << " - Start";
     numberOfEntities = 0;
     progressBarPosition = 0;
     cqz = -1;
@@ -48,13 +49,10 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     lat = 0.0;
     lon = 0.0;
     utc = 0.0;
-    //klogDir = "";
-    //klogVersion = "";
     locator = new Locator();
     created = false;
     dataProxy = dp;
-    //awards = new Awards(Q_FUNC_INFO);
-      //qDebug() << "World::World(0) - END" << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 World::~World()
@@ -135,9 +133,10 @@ bool World::create(const QString &_worldFile)
        //qDebug() << "World::create: END"  << QT_ENDL;
     return created;
 }
-
+  /*
 void World::createWorldModel()
 {
+
     worldModel->setTable("entity");
 
     worldModel->setRelation(Entity_Continent, QSqlRelation("continent", "id", "shortname"));
@@ -146,8 +145,8 @@ void World::createWorldModel()
     worldModel->setHeaderData(Entity_Continent, Qt::Horizontal, tr("Continent"));
 
     worldModel->select();
-
 }
+*/
 
 QStringList World::processLine(const QString &_line)
 {

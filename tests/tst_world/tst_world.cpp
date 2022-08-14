@@ -55,15 +55,19 @@ private:
 
 tst_World::tst_World()
 {
-    //qDebug() << "Testing ... " << endl;
+    qDebug() << Q_FUNC_INFO << "Start";
     version = "1.5";
 
+    qDebug() << Q_FUNC_INFO << "001";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
+    qDebug() << Q_FUNC_INFO << "002";
     util = new Utilities(Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << "003";
     world = new World(dataProxy, Q_FUNC_INFO);
 
     //ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);
+    qDebug() << Q_FUNC_INFO << "END";
 }
 
 tst_World::~tst_World()
@@ -89,7 +93,7 @@ void tst_World::test_Constructor()
 
 void tst_World::test_WorldCreation()
 {
-    qDebug() << "Testing the world" << endl;
+    qDebug() << "Testing the world";
     qDebug() << QString::number(world->getQRZARRLId("EA4K"));
     /*
     qDebug() << "Testing the world" << endl;

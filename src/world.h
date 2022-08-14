@@ -30,7 +30,7 @@
 #include <QString>
 #include <QFile>
 #include <QStringList>
-#include <QSqlRelationalTableModel>
+//#include <QSqlRelationalTableModel>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QProgressBar>
@@ -119,7 +119,7 @@ private:
     bool readCTYCSV(const QString &_worldFile);
     QStringList processLine(const QString &_line);
     QStringList processLineP(const QString &_line, const int _processingEntity);
-    void createWorldModel();
+    //void createWorldModel();
     QStringList readZones(const QString &pref, const int _cq, const int _itu);
     QString changeSlashAndFindPrefix(const QString &_qrz); // Changes the \ into / and find the country prefix
 
@@ -142,7 +142,7 @@ private:
     int nullValue;
 
 
-    QSqlRelationalTableModel *worldModel;
+    //QSqlRelationalTableModel *worldModel;
     //QProgressBar *progressBar;
 
     Locator *locator;
