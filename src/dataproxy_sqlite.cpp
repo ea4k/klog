@@ -7635,13 +7635,9 @@ QStringList DataProxy_SQLite::getLongPrefixes()
         while ( (query.next())) {
             if (query.isValid())
             {
-                if (query.value(2).toInt()<1000)
-                {
-                    aux.clear();
-                    aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
-                    //result = result + ", " + (query.value(0)).toString();
-                    qs << aux;
-                }
+                aux.clear();
+                aux = (query.value(0)).toString();
+                qs << aux;
             }
         }
     }

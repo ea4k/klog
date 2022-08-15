@@ -404,7 +404,7 @@ int World::getPrefixId(const QString &_qrz)
         return dataProxy->getDXCCFromPrefix(aux);
     }
     //QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
-
+    /*
     while ((entityID <= 0) && (aux.length()>=1) )
     {
         //qDebug() << "World::getPrefixId: in the while before calling dataProxy: " << aux << QT_ENDL;
@@ -423,8 +423,8 @@ int World::getPrefixId(const QString &_qrz)
         {
             aux.chop(1);
         }
-
     }
+    */
     //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID) << QT_ENDL;
     return entityID;
 }

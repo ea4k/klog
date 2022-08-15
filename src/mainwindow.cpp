@@ -4685,7 +4685,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-    bool restoreQSOConfig = false;
+    //bool restoreQSOConfig = false;
     if (_s == QDialog::Accepted)
     {
         //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
@@ -4992,7 +4992,7 @@ void MainWindow::readConfigData()
     }
     //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     util->setVersion(softwareVersion);
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
             //qDebug() << "MainWindow::readConfigData: 101" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     searchWidget->setVersion(softwareVersion);
             //qDebug() << "MainWindow::readConfigData: 102" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;

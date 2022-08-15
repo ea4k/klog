@@ -52,7 +52,7 @@ public:
     void setDarkMode(const QString &_dm);
     bool isDarkMode();
     void setCallValidation(const bool _b);
-    void setLongPrefixes (QStringList _p);
+    void setLongPrefixes (const QStringList &_p);
 
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
