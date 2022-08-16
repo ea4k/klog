@@ -175,9 +175,11 @@ signals:
 
 private:
     void init();
+    void setLogColumnNames(); // Creates the map of column Names (should be called from init() )
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
-    bool isCountrySuffix (const QString &_c);
+    //bool isCountrySuffix (const QString &_c);
+    bool isAValidOperatingSuffix (const QString &_c);
     int isAPrefix(const QString &_c);
     bool isALongCountryPrefix(const QString &_c);
     bool isValidSubCall(const QString &_c);
@@ -196,6 +198,8 @@ private:
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;
     QStringList longPrefixes;
+    QMap<QString, QString> columnNames;
+
 };
 
 #endif // UTILITIES_H

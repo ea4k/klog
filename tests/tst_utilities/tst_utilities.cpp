@@ -182,17 +182,6 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("B1AAA"), "B1AAA");
     QVERIFY2(util->isValidCall("B1AAAA"), "B1AAAA");
     QVERIFY2(!util->isValidCall("B11"), "B11");
-    // TODO: FIX the isValidCall to cover these cases
-    //QVERIFY(util->isValidCall("B1A1") == false);
-    //QVERIFY(util->isValidCall("B1AA1") == false);
-    //QVERIFY(util->isValidCall("B1AAA1") == false);
-
-    // TODO: FIX the isValidCall to cover this case
-    //QVERIFY(util->isValidCall("E1A") == false);
-    //QVERIFY(util->isValidCall("E1AA") == false);
-    //QVERIFY(util->isValidCall("E1AAA") == false);
-    //QVERIFY(util->isValidCall("E1AAAA") == false);
-    //QVERIFY(util->isValidCall("E1AAAAA") == false);
 
     //2) or–two characters and a single digit,
     // followed by a group of not more than four characters, the last of which shall be a letter.
@@ -204,7 +193,9 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("EA4KKKK"), "EA4KKKK");
     QVERIFY2(util->isValidCall("AM500MMM"), "AM500MMM");
     QVERIFY2(util->isValidCall("2E1A"), "2E1A");
-    //QVERIFY2(util->isValidCall("E33E"), "E33E");
+    QVERIFY2(util->isValidCall("2E1AA"), "2E1AA" );
+    QVERIFY2(util->isValidCall("E33E"), "E33E");
+    QVERIFY2(util->isValidCall("E73E"), "E73E");
     QVERIFY2(util->isValidCall("EA5666K"), "EA5666K");
     QVERIFY2(util->isValidCall("VK0M/ZL4DB/P"), "VK0M/ZL4DB/P");
 
@@ -216,9 +207,16 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("4X4AAA"), "4X4AAA");
     QVERIFY2(util->isValidCall("3DA0RS"), "3DA0RS");
     QVERIFY2(util->isValidCall("VP2EE"), "VP2EE");
+    QVERIFY2(util->isValidCall("EA6A"), "EA6A");
+
+    QVERIFY2(util->isValidCall("AM200A"), "AM200A");
+    QVERIFY2(util->isValidCall("VK9AA"), "VK9AA");
+    QVERIFY2(util->isValidCall("VK9MA"), "VK9MA");
+    QVERIFY2(util->isValidCall("4U2STAYHOME") , "4U2STAYHOME");
+
     // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
-    /*
+
     //qDebug() << Q_FUNC_INFO << " Complex";
     QVERIFY2(util->isValidCall("EA4K/P"), "EA4K/P");
     //qDebug() << Q_FUNC_INFO << " Complex-1";
@@ -234,9 +232,18 @@ void tst_Utilities::test_isValidCall()
     //qDebug() << Q_FUNC_INFO << " Complex-7";
     // TODO: FIX the isValidCall to cover this case
     //QVERIFY(util->isValidCall("1/EA4K") == false);
+
     //qDebug() << Q_FUNC_INFO << " Wrong calls";
+
+    QVERIFY2(!util->isValidCall("G1"), "G1");
+    QVERIFY2(!util->isValidCall("I100"), "I100");
+    QVERIFY2(util->isValidCall("B100A"), "B1");
+    QVERIFY2(util->isValidCall("I100KK"), "I100KK");
+    QVERIFY2(util->isValidCall("FB1K") , "FB1K");
+    QVERIFY2(!util->isValidCall("E"), "E");
     QVERIFY2(!util->isValidCall("EA"), "EA");
-    QVERIFY2(!util->isValidCall("EA4"), "EA4");
+    QVERIFY2(!util->isValidCall("EA4"), "EA4-EA");
+
     QVERIFY2(!util->isValidCall("-"), "-");
     QVERIFY2(!util->isValidCall("EAK4"), "EAK4");
     QVERIFY2(!util->isValidCall("QQQ/EA4K"), "QQQ/EA4K");
@@ -245,9 +252,9 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("EA"), "Should be true: EA");
     QVERIFY2(util->isValidCall("EA4"), "Should be true: EA4");
     QVERIFY2(util->isValidCall("-"), "Should be true: EAK4");
-    QVERIFY2(util->isValidCall("EA4K"), "Should be true: QQQ/EA4K");
+    QVERIFY2(util->isValidCall("QQQ/EA4K"), "Should be true: QQQ/EA4K");
     util->setCallValidation (true);
-*/
+
 }
 
 void tst_Utilities::test_getPrefixFullFromCall()
@@ -319,19 +326,19 @@ void tst_Utilities::test_isValidADIFField()
 
 void tst_Utilities::test_getPrefixFromCall2()
 {
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
+    qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
     QVERIFY2(util->getPrefixFromCall2("K1AA") == "K", "K1AA" );
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
+    qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
     QVERIFY2(util->getPrefixFromCall2("K1A") == "K", "K1A");
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
+    qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
     QVERIFY2(util->getPrefixFromCall2("G1") == "G", "G1");
     QVERIFY2(util->getPrefixFromCall2("I100") == "I", "I100");
     QVERIFY2(util->getPrefixFromCall2("B100A") == "B", "B1");
     QVERIFY2(util->getPrefixFromCall2("I100KK") == "I", "I100KK");
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("FB1K");
+    qDebug() << "Returned: " << util->getPrefixFromCall2("FB1K");
     QVERIFY2(util->getPrefixFromCall2("FB1K") == "F", "FB1K");
     QVERIFY2(util->getPrefixFromCall2("E") == "E", "E");
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("EA");
+    qDebug() << "Returned: " << util->getPrefixFromCall2("EA");
     QVERIFY2(util->getPrefixFromCall2("EA") == "EA", "EA");
     QVERIFY2(util->getPrefixFromCall2("EA4") == "EA", "EA4-EA");
     QVERIFY2(util->getPrefixFromCall2("EA4K") == "EA", "EA4K" );
@@ -342,11 +349,8 @@ void tst_Utilities::test_getPrefixFromCall2()
     QVERIFY2(util->getPrefixFromCall2("E73E") == "E7", "E73E");
     QVERIFY2(util->getPrefixFromCall2("AM200A") == "AM", "AM200A");
     QVERIFY2(util->getPrefixFromCall2("AM4000") == "AM", "AM4000");
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("VK9AA");
     QVERIFY2(util->getPrefixFromCall2("VK9AA") == "VK9AA", "VK9AA");
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("VK9MA");
     QVERIFY2(util->getPrefixFromCall2("VK9MA") == "VK9M", "VK9MA");
-    //qDebug() << "Returned: " << util->getPrefixFromCall2("4U2STAYHOME");
     QVERIFY2(util->getPrefixFromCall2("4U2STAYHOME") == "4U2STAYHOME", "4U2STAYHOME");
 
     QVERIFY2(util->getPrefixFromCall2("K1AA", true) == "K1", "K1AA-True" );
@@ -396,6 +400,7 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("AM4000") == "AM", "AM4000");
     QVERIFY2(util->getPrefixFromCall("VK9XX") == "VK9XX", "VK9XX");
     QVERIFY2(util->getPrefixFromCall("VK9MA") == "VK9M", "VK9MA");
+    */
 
     //{'B', 'F', 'G', 'I', 'K', 'M', 'N', 'R', 'W'};
     QVERIFY2(util->isAOneLetterPrefix('B'), "K");
@@ -417,7 +422,6 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->startsWithLongPrefix("VK9M") == "VK9M", "VK9M");
     QVERIFY2(util->startsWithLongPrefix("VK9MA") == "VK9M", "VK9MA");
     QVERIFY2(util->startsWithLongPrefix("4U1ITU") == "4U1ITU", "4U1ITU");
-    */
 }
 
 void tst_Utilities::test_logLevels()
@@ -430,14 +434,75 @@ void tst_Utilities::test_logLevels()
 
 void tst_Utilities::test_isValidSubCall()
 {
-   QVERIFY2(!util->isValidSubCall("EA6"), "EA6 is just a prefix");
-   QVERIFY2(util->isValidSubCall("EE6AAA"), "EE6AAA");
-   QVERIFY2(!util->isValidSubCall("VP2E"), "VP2E is just a prefix");
-   QVERIFY2(util->isValidSubCall("EA4K"), "EA4K");
-   QVERIFY2(!util->isValidSubCall("EA4K/p"), "EA4K/p");
-   QVERIFY2(!util->isValidSubCall("VK9M"), "VK9M");
-   QVERIFY2(util->isValidSubCall("VK9MA"), "VK9MA");
-   QVERIFY2(!util->isValidSubCall("XXXX"), "XXXX");
+    QVERIFY2(util->isValidSubCall("B1A"), "B1A");
+    QVERIFY2(util->isValidSubCall("B1AA"), "B1AA");
+    QVERIFY2(util->isValidSubCall("B1AAA"), "B1AAA");
+    QVERIFY2(util->isValidSubCall("B1AAAA"), "B1AAAA");
+    QVERIFY2(!util->isValidSubCall("B11"), "B11");
+
+    //2) or–two characters and a single digit,
+    // followed by a group of not more than four characters, the last of which shall be a letter.
+
+    QVERIFY2(util->isValidSubCall("EA4K"), "EA4K");
+    QVERIFY2(util->isValidSubCall("EA4KK"), "EA4KK");
+    QVERIFY2(util->isValidSubCall("EA4KKK"), "EA4KKK");
+    QVERIFY2(util->isValidSubCall("EA4KKKK"), "EA4KKKK");
+    QVERIFY2(util->isValidSubCall("AM500MMM"), "AM500MMM");
+    QVERIFY2(util->isValidSubCall("2E1A"), "2E1A");
+    QVERIFY2(util->isValidSubCall("2E1AA"), "2E1AA" );
+    QVERIFY2(util->isValidSubCall("E33E"), "E33E");
+    QVERIFY2(util->isValidSubCall("E73E"), "E73E");
+    QVERIFY2(util->isValidSubCall("EA5666K"), "EA5666K");
+    QVERIFY2(!util->isValidSubCall("VK0M/ZL4DB/P"), "VK0M/ZL4DB/P");
+
+    QVERIFY2(util->isValidSubCall("K4X"), "K4X");
+    QVERIFY2(util->isValidSubCall("B2AA"), "B2AA");
+    QVERIFY2(util->isValidSubCall("N2ASD"), "N2ASD");
+    QVERIFY2(util->isValidSubCall("A22A"), "A22A");
+    QVERIFY2(util->isValidSubCall("I20000X"), "I20000X");
+    QVERIFY2(util->isValidSubCall("4X4AAA"), "4X4AAA");
+    QVERIFY2(util->isValidSubCall("3DA0RS"), "3DA0RS");
+    QVERIFY2(util->isValidSubCall("VP2EE"), "VP2EE");
+    QVERIFY2(util->isValidSubCall("EA6A"), "EA6A");
+
+    QVERIFY2(util->isValidSubCall("AM200A"), "AM200A");
+    QVERIFY2(util->isValidSubCall("VK9AA"), "VK9AA");
+    QVERIFY2(util->isValidSubCall("VK9MA"), "VK9MA");
+    QVERIFY2(util->isValidSubCall("4U2STAYHOME") , "4U2STAYHOME");
+
+    // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
+    // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
+
+    //qDebug() << Q_FUNC_INFO << " Complex";
+    QVERIFY2(!util->isValidSubCall("EA4K/P"), "EA4K/P");
+    //qDebug() << Q_FUNC_INFO << " Complex-1";
+    QVERIFY2(!util->isValidSubCall("K/EA4K/P"), "EA4K/K");
+    //qDebug() << Q_FUNC_INFO << " Complex-2";
+    QVERIFY2(!util->isValidSubCall("K1/EA4K"), "K1/EA4K");
+    QVERIFY2(!util->isValidSubCall("K/EA4K"), "K/EA4K");
+
+    QVERIFY2(!util->isValidSubCall("G1"), "G1");
+    QVERIFY2(!util->isValidSubCall("I100"), "I100");
+    QVERIFY2(util->isValidSubCall("B100A"), "B1");
+    QVERIFY2(util->isValidSubCall("I100KK"), "I100KK");
+    QVERIFY2(util->isValidSubCall("FB1K") , "FB1K");
+    QVERIFY2(!util->isValidSubCall("E"), "E");
+    QVERIFY2(!util->isValidSubCall("EA"), "EA");
+    QVERIFY2(!util->isValidSubCall("EA4"), "EA4-EA");
+
+    QVERIFY2(!util->isValidSubCall("-"), "-");
+    QVERIFY2(!util->isValidSubCall("EAK4"), "EAK4");
+    QVERIFY2(!util->isValidSubCall("QQQ/EA4K"), "QQQ/EA4K");
+
+
+    QVERIFY2(!util->isValidSubCall("EA6"), "EA6 is just a prefix");
+    QVERIFY2(util->isValidSubCall("EE6AAA"), "EE6AAA");
+    QVERIFY2(!util->isValidSubCall("VP2E"), "VP2E is just a prefix");
+    QVERIFY2(util->isValidSubCall("EA4K"), "EA4K");
+    QVERIFY2(!util->isValidSubCall("EA4K/p"), "EA4K/p");
+    QVERIFY2(!util->isValidSubCall("VK9M"), "VK9M");
+    QVERIFY2(util->isValidSubCall("VK9MA"), "VK9MA");
+    QVERIFY2(!util->isValidSubCall("XXXX"), "XXXX");
 }
 
 

@@ -5,6 +5,7 @@ Aug 2022 - 2.2
 - Bugfix: Database was not beig properly created in first start.
 - Bugfix: Changing the statistic widget crashed KLog. (Closes #484)
 - Bugfix: Some prefixes were not properly identified.
+- Bugfix: Fixed some database column name typos.
 - Improvement: The Debug logging has been improved, still much work TBD.
 - Improvement: General code cleaning (coveralls.io)
 - Improvement: General code cleaning (lgtm.com alerts)

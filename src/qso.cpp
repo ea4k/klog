@@ -1328,7 +1328,6 @@ bool QSO::setStationCallsign(const QString &_c)
         return false;
     }
 
-
     //qDebug() << Q_FUNC_INFO << " - 010";
     if (util->isValidCall(aux))
     {

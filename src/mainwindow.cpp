@@ -6527,7 +6527,7 @@ void MainWindow::slotADIFImport(){
 
 void MainWindow::qsoToEdit (const int _qso)
 {
-    //qDebug() << "MainWindow::qsoToEdit: " << QString::number(_qso) << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!modify)
