@@ -1,5 +1,6 @@
 QT += testlib \
     gui \
+    sql \
     widgets
 
 CONFIG += qt console warn_on depend_includepath testcase
@@ -12,10 +13,17 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/utilities.h \
+    ../../src/dataproxy_sqlite.h \
+    ../../src/database.h \
+    ../../src/qso.h \
+    ../../src/klogdefinitions.h \
     ../../src/locator.h
 
 SOURCES +=  tst_utilities.cpp \
     ../../src/utilities.cpp \
+    ../../src/dataproxy_sqlite.cpp \
+    ../../src/database.cpp \
+    ../../src/qso.cpp \
     ../../src/locator.cpp
 
 

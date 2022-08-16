@@ -3526,7 +3526,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
 
-    QString pref = util->getPrefixFromCall(_qrz, false);
+    QString pref = util->getPrefixFromCall2(_qrz, false);
     logEvent(Q_FUNC_INFO, QString("Prefix: %1").arg(pref), Devel);
 
     currentEntity = world->getQRZARRLId(_qrz);

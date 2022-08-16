@@ -123,8 +123,8 @@ public:
     QStringList getValidADIFFieldAndData(const QString &_b);
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
     QString getAValidCall (const QString &_wrongCall);
+    QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
-    //QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
     QString getPrefixFullFromCall(const QString &_c);
     QString getPrefixCountryFromCall(const QString &_c);
     //private
@@ -186,6 +186,7 @@ private:
     void setARRLSect();
     void setContinent();
     void setSponsorsList();
+    QString getCheckedComplexCall(const QString &_c);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     bool darkMode;
     QString dbPath;

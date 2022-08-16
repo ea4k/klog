@@ -7621,11 +7621,12 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
 
 QStringList DataProxy_SQLite::getLongPrefixes()
 {//select prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QString aux = QString();
     QStringList qs;
     qs.clear();
-    QString queryString = QString("SELECT prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')");
+    //QString queryString = QString("SELECT prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')");
+    QString queryString = QString("SELECT prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (prefix NOT LIKE '%/%')");
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
@@ -7637,7 +7638,7 @@ QStringList DataProxy_SQLite::getLongPrefixes()
             {
                 aux.clear();
                 aux = (query.value(0)).toString();
-                qs << aux;
+                qs << aux;                
             }
         }
     }
@@ -7647,6 +7648,10 @@ QStringList DataProxy_SQLite::getLongPrefixes()
     }
     query.finish();
     qs.sort();
+    //foreach(aux, qs)
+    //{
+    //    //qDebug() << aux;
+    //}
     return qs;
 }
 

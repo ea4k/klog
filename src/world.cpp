@@ -37,9 +37,9 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //worldModel = new QSqlRelationalTableModel(this);
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     numberOfEntities = 0;
     progressBarPosition = 0;
     cqz = -1;
@@ -54,7 +54,7 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     util->setLongPrefixes(dataProxy->getLongPrefixes());
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 World::~World()
@@ -378,7 +378,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 int World::getPrefixId(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
 
@@ -391,7 +391,7 @@ int World::getPrefixId(const QString &_qrz)
     //QString pref = util->getPrefixCountryFromCall(_qrz.toUpper());
     //QString aux = util->getMainCallFromComplexCall(_qrz.toUpper());
     entityID = dataProxy->getDXCCFromPrefix(_qrz.toUpper());
-    qDebug() << Q_FUNC_INFO << " - call/entityID: " << _qrz.toUpper() << "/" << QString::number(entityID);
+    //qDebug() << Q_FUNC_INFO << " - call/entityID: " << _qrz.toUpper() << "/" << QString::number(entityID);
     if (entityID>0)
     {
         return entityID;
@@ -400,7 +400,7 @@ int World::getPrefixId(const QString &_qrz)
     {
         //aux = util->getMainCallFromComplexCall(_qrz.toUpper());
         aux = util->getPrefixCountryFromCall(_qrz.toUpper());
-        qDebug() << Q_FUNC_INFO << " - call/entityID2: " << aux << "/" << QString::number(entityID);
+        //qDebug() << Q_FUNC_INFO << " - call/entityID2: " << aux << "/" << QString::number(entityID);
         return dataProxy->getDXCCFromPrefix(aux);
     }
     //QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
@@ -562,7 +562,7 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-    qDebug() << "World::getQRZARRLId" << _qrz << QT_ENDL;
+    //qDebug() << "World::getQRZARRLId" << _qrz << QT_ENDL;
 
     if (_qrz.length() < 1 )
     {

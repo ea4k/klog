@@ -3,6 +3,7 @@ Aug 2022 - 2.2
 - Bugfix: Clublog QSO status export to file was not properly done.
 - Bugfix: Removing first char in the callsign caused a crash. (Closes #455) (TNX G4MKT)
 - Bugfix: Database was not beig properly created in first start.
+- Bugfix: Changing the statistic widget crashed KLog. (Closes #484)
 - Bugfix: Some prefixes were not properly identified.
 - Improvement: The Debug logging has been improved, still much work TBD.
 - Improvement: General code cleaning (coveralls.io)
