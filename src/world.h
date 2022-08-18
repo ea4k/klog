@@ -103,8 +103,6 @@ public:
     QString getQRZEntityPrefixes(const QString &_qrz);
     QString getEntityPrefixes(const int _enti);
 
-    bool checkQRZValidFormat(const QString &_qrz);
-
     QStringList getEntitiesNames();
     int getHowManyEntities();
     bool hasSpecialEntities();

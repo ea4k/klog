@@ -7700,7 +7700,7 @@ void MainWindow::defineStationCallsign(const QString &_call)
         logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
         //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ << QT_ENDL;
 
-        if ((world->checkQRZValidFormat(logQRZ)) && (util->isValidCall(logQRZ)))
+        if (util->isValidCall(logQRZ))
         {
             //qDebug() << "MainWindow::defineStationCallsign TRUE "  << QT_ENDL;
             stationCallsign = logQRZ;

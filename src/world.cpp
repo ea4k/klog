@@ -59,22 +59,21 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 
 World::~World()
 {
-      //qDebug() << "World::~World" << QT_ENDL;
+      //qDebug() << "World::~World";
     delete(locator);
     delete(util);
 }
 
 bool World::recreate(const QString &_worldFile)
 {
-     //qDebug() << "World::recreate: " << _worldFile << QT_ENDL;
-
+     //qDebug() << "World::recreate: " << _worldFile;
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))
     {
-          //qDebug() << "World::recreate: EMPTY entity"  << QT_ENDL;
+          //qDebug() << "World::recreate: EMPTY entity" ;
         if (query.exec("DELETE FROM prefixesofentity"))
         {
-             //qDebug() << "World::recreate: EMPTY prefixesofentity"  << QT_ENDL;
+             //qDebug() << "World::recreate: EMPTY prefixesofentity" ;
              if (create(_worldFile))
              {
                  return insertSpecialEntities ();
@@ -82,14 +81,14 @@ bool World::recreate(const QString &_worldFile)
         }
         else
         {//TODO: Manage the query error
-             //qDebug() << "World::recreate: FAILED TO EMPTY prefixesofentity"  << QT_ENDL;
+             //qDebug() << "World::recreate: FAILED TO EMPTY prefixesofentity" ;
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             return false;
         }
     }
     else
     {//TODO: Manage the query error
-         //qDebug() << "World::recreate: FAILED TO EMPTY entity"  << QT_ENDL;
+         //qDebug() << "World::recreate: FAILED TO EMPTY entity" ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return false;
     }
@@ -98,19 +97,19 @@ bool World::recreate(const QString &_worldFile)
 
 bool World::create(const QString &_worldFile)
 {
-       //qDebug() << "World::create: " << _worldFile << QT_ENDL;
+       //qDebug() << "World::create: " << _worldFile;
     //klogDir = _worldFile;
-       //qDebug() << "World::create: 2 " <<  klogDir << QT_ENDL;
+       //qDebug() << "World::create: 2 " <<  klogDir;
 
     if (readCTYCSV(_worldFile))
     {
         created = true;
-         //qDebug() << "World::create: TRUE"  << QT_ENDL;
+         //qDebug() << "World::create: TRUE" ;
 
     }else
     {
         created = false;
-         //qDebug() << "World::create: FALSE"  << QT_ENDL;
+         //qDebug() << "World::create: FALSE" ;
     }
     if (created)
     {
@@ -121,14 +120,14 @@ bool World::create(const QString &_worldFile)
         //dataProxy->updateISONames();
         if (dataProxy->updateISONames())
         {
-               //qDebug() << "World::create: updateISONames TRUE"  << QT_ENDL;
+               //qDebug() << "World::create: updateISONames TRUE" ;
         }
         else
         {
-               //qDebug() << "World::create: updateISONames FALSE"  << QT_ENDL;
+               //qDebug() << "World::create: updateISONames FALSE" ;
         }
     }
-       //qDebug() << "World::create: END"  << QT_ENDL;
+       //qDebug() << "World::create: END" ;
     return created;
 }
 
@@ -146,7 +145,7 @@ void World::createWorldModel()
 
 QStringList World::processLine(const QString &_line)
 {
-    //qDebug() << "World::processLine: received: " << _line << QT_ENDL;
+    //qDebug() << "World::processLine: received: " << _line;
     //QString queryString;
     QStringList aa;
     QString line;
@@ -156,14 +155,14 @@ QStringList World::processLine(const QString &_line)
     {
         line.replace(QChar('\''), QChar('_'));
     }
-       //qDebug() << "World::processLine: Received: " << line << QT_ENDL;
+       //qDebug() << "World::processLine: Received: " << line;
     //QSqlQuery query1;
 
     nullValue=-1;
 
     if ( (line.count(':') == 8 ) ) // First line of an Entity
     { //United States:            05:  08:  NA:   43.00:    87.90:     5.0:  K:
-           //qDebug() << "World::processLine first: " << line << QT_ENDL;
+           //qDebug() << "World::processLine first: " << line;
         numberOfEntities++;
         list.clear();
         list << line.split(':');
@@ -193,7 +192,7 @@ QStringList World::processLine(const QString &_line)
 QStringList World::processLineP(const QString &_line, const int _processingEntity){
     //Returns QStringList: prefix << dxcc << cqz << ituz OR CurrentEntity as a number
 
-       //qDebug() << "World::processLineP: Entity/received: " << QString::number(_processingEntity) << "/" << _line << QT_ENDL;
+       //qDebug() << "World::processLineP: Entity/received: " << QString::number(_processingEntity) << "/" << _line;
     //QString queryString;
     QString line;
     int currentEntity = _processingEntity;
@@ -208,7 +207,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
         line.replace(QChar('\''), QChar('_'));
     }
 
-       //qDebug() << "World::processLineP: Received: " << line << QT_ENDL;
+       //qDebug() << "World::processLineP: Received: " << line;
     //QSqlQuery _queryp;
     QStringList aa, _list;
     aa.clear();
@@ -221,7 +220,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
     }
     else if ( line.endsWith(';') ) // Last line of the Entity
     { //    =WX4TM(4),=WX5S(3)[6],=WY5I(5)[8],=WY7I(4)[7],=WY7LL(4)[7],=WZ4F(4);
-           //qDebug() << "World::processLineP last line (; detected): " << line << QT_ENDL;
+           //qDebug() << "World::processLineP last line (; detected): " << line;
         _cqz = dataProxy->getCQzFromEntity(currentEntity);
         _ituz = dataProxy->getITUzFromEntity(currentEntity);
 
@@ -240,7 +239,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
         }
         else // More than just one prefix in the final line
         {
-               //qDebug() << "World::processLineP Query (MORE one final)(line):" << line << QT_ENDL;
+               //qDebug() << "World::processLineP Query (MORE one final)(line):" << line;
             _list.clear();
             _list << line.split(',');
             aa.clear();
@@ -249,7 +248,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
             for (int i = 0; i < _list.size(); ++i)
             {
             // PROCESS THE LINE
-                   //qDebug() << "World::processLineP LastLine prefixes" << _list.at(i) << QT_ENDL;
+                   //qDebug() << "World::processLineP LastLine prefixes" << _list.at(i);
                 //readZones returns a QStringList: prefix, CQz, ITUz
                 prefixAndZones = readZones(_list.at(i), _cqz, _ituz);
                 //aa.clear();
@@ -262,7 +261,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
     }
     else // Lines of the middle...
     {  //    =W4KW(4),=W4LC(4),=W4LSC(3)[6],=W4LWW(4),=W4NBS(4),=W4NI(4),=W4NTI(4),
-           //qDebug() << "World::processLine middle (no ; detected): " << line << QT_ENDL;
+           //qDebug() << "World::processLine middle (no ; detected): " << line;
 
         _cqz = dataProxy->getCQzFromEntity(currentEntity);
         _ituz = dataProxy->getITUzFromEntity(currentEntity);
@@ -274,7 +273,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
 
         if ((line.split(',')).size() == 1) // Only one prefix in the middle line
         { // Not usual, added this check for sanity reasons only
-               //qDebug() << "World::processLine Query: (only one middle) " << QT_ENDL;
+               //qDebug() << "World::processLine Query: (only one middle) ";
             line = line.remove(',');
             prefixAndZones = readZones(line, _cqz, _ituz);
             aa.clear();
@@ -284,7 +283,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
         }
         else
         {
-               //qDebug() << "World::processLine Query: (MORE than one middle) " << QT_ENDL;
+               //qDebug() << "World::processLine Query: (MORE than one middle) ";
             list.clear();
             list << line.split(',');
 
@@ -305,46 +304,45 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
     return aa;
 }
 
-
 QStringList World::readZones (const QString &pref, const int _cq, const int _itu)
 {
     //Returns a QStringList: prefix, CQz, ITUz
-        //qDebug() << "World::readZones: (" << pref << "/" << QString::number(_cq) <<"/" << QString::number(_itu)<< ")" << QT_ENDL;
+        //qDebug() << "World::readZones: (" << pref << "/" << QString::number(_cq) <<"/" << QString::number(_itu)<< ")";
     QStringList result;
     int cq = _cq;
     int itu = _itu;
     QString azone;
     QString aux = pref;
 
-    if (aux.startsWith("=")){
+    if (aux.startsWith("="))
+    {
         aux = aux.remove(0,1);
-
     }
 
     if(aux.count('[')==1) // Check if has special CQz
     {
-           //qDebug() << "World::readZones DETECTED [ !!!!" << QT_ENDL;
+           //qDebug() << "World::readZones DETECTED [ !!!!";
         azone = (aux.midRef(aux.indexOf('[')+1)).toString();
-           //qDebug() << "World::readZones (ITU)-1: " << aux << " right of " << QString::number(aux.indexOf('[')) << " = " << azone << QT_ENDL;
+           //qDebug() << "World::readZones (ITU)-1: " << aux << " right of " << QString::number(aux.indexOf('[')) << " = " << azone;
         itu = (azone.left(azone.indexOf(']'))).toInt();
 
-           //qDebug() << "World::readZones (ITU)-2: " << azone.left(azone.indexOf(']')) << QT_ENDL;
+           //qDebug() << "World::readZones (ITU)-2: " << azone.left(azone.indexOf(']'));
         aux = aux.left(aux.indexOf('['));
-           //qDebug() << "World::readZones (ITU): "  << pref << "/" << QString::number(itu) << "/" << aux << QT_ENDL;
+           //qDebug() << "World::readZones (ITU): "  << pref << "/" << QString::number(itu) << "/" << aux;
     }
 
     if(aux.count('(')==1) // Check if has special CQz
     {
-           //qDebug() << "World::readZones DETECTED ( !!!!" << QT_ENDL;
+           //qDebug() << "World::readZones DETECTED ( !!!!";
         azone = (aux.midRef(aux.indexOf('(')+1)).toString();
         cq = (azone.left(azone.indexOf(')'))).toInt();
         aux = aux.left(aux.indexOf('('));
-           //qDebug() << "World::readZones (CQ): "  << pref << "/" << QString::number(cq) << "/" << aux << QT_ENDL;
+           //qDebug() << "World::readZones (CQ): "  << pref << "/" << QString::number(cq) << "/" << aux;
     }
-       //qDebug() << "World::readZones (Pref/CQ/ITU): "  << pref << "= " << aux <<"/" << QString::number(cq) << "/" << QString::number(itu) << QT_ENDL;
+       //qDebug() << "World::readZones (Pref/CQ/ITU): "  << pref << "= " << aux <<"/" << QString::number(cq) << "/" << QString::number(itu);
 
     result << aux << QString::number(cq) << QString::number(itu);
-       //qDebug() << "World::readZones (Pref/CQ/ITU): " << result << QT_ENDL;
+       //qDebug() << "World::readZones (Pref/CQ/ITU): " << result;
     return result;
 }
 
@@ -375,19 +373,17 @@ int World::getPrefixId(const QString &_qrz)
         //qDebug() << Q_FUNC_INFO << " - call/entityID2: " << aux << "/" << QString::number(entityID);
         return dataProxy->getDXCCFromPrefix(aux);
     }    
-    //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID) << QT_ENDL;
+    //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID);
     return entityID;
 }
 
 QString World::getQRZEntityName(const QString &_qrz)
 {
-        //qDebug() << "World::getQRZEntityName: " << _qrz << QT_ENDL;
+        //qDebug() << "World::getQRZEntityName: " << _qrz;
     if (_qrz.length() < 1 )
     {
         return QString();
     }
-    //QString queryString;
-    //QSqlQuery query;
     int prefixIDNumber = getPrefixId(_qrz);
     return getEntityName(prefixIDNumber);
 }
@@ -404,7 +400,7 @@ QString World::getEntityName(const int _entityN)
 
 int World::getQRZCqz(const QString &_qrz)
 {
-        //qDebug() << "World::getQRZCqz: " << _qrz << QT_ENDL;
+        //qDebug() << "World::getQRZCqz: " << _qrz;
      if (_qrz.length() < 1 )
      {
          return -1;
@@ -426,7 +422,7 @@ int World::getQRZCqz(const QString &_qrz)
 
 int World::getQRZItuz(const QString &_qrz)
 {
-       //qDebug() << "World::getQRZItuz: " << _qrz << QT_ENDL;
+       //qDebug() << "World::getQRZItuz: " << _qrz;
     if (_qrz.length() < 1 )
     {
         return -1;
@@ -446,17 +442,14 @@ int World::getQRZItuz(const QString &_qrz)
     return i;
 }
 
-
 int World::getEntityCqz(const int _enti)
 {
     if (_enti < 1 )
     {
         return -1;
     }
-
     return dataProxy->getCQzFromEntity(_enti);
 }
-
 
 int World::getEntityItuz(const int _enti)
 {
@@ -469,8 +462,7 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-    //qDebug() << "World::getQRZARRLId" << _qrz << QT_ENDL;
-
+    //qDebug() << "World::getQRZARRLId" << _qrz;
     if (_qrz.length() < 1 )
     {
         return -1;
@@ -490,7 +482,6 @@ QString World::getQRZEntityMainPrefix(const QString &_qrz)
     return getEntityMainPrefix(i);
 }
 
-
 QString World::getEntityMainPrefix(const int _entityN)
 {
     if (_entityN <= 0 )
@@ -500,7 +491,6 @@ QString World::getEntityMainPrefix(const int _entityN)
     }
     return dataProxy->getEntityMainPrefix(_entityN);
 }
-
 
 bool World::isNewCQz(const int _cqz)
 {
@@ -518,14 +508,13 @@ bool World::isNewEntity(const int _entityN)
 
 QString World::getQRZContinentShortName(const QString &_qrz)
 {
-        //qDebug() << "World::getQRZContinentShortName: " << _qrz << QT_ENDL;
+        //qDebug() << "World::getQRZContinentShortName: " << _qrz;
     return getContinentShortName (getQRZARRLId(_qrz));
 }
 
-
 QString World::getContinentShortName(const int _enti)
 {
-       //qDebug() << "World::getQRZContinentShortName: " << QString::number(_enti) << QT_ENDL;
+       //qDebug() << "World::getQRZContinentShortName: " << QString::number(_enti);
     if ( _enti < 0 )
     {
         return "--";
@@ -543,70 +532,23 @@ QString World::getContinentShortName(const int _enti)
 
 QString World::getQRZContinentNumber(const QString &_qrz)
 {
-       //qDebug() << "World::getQRZContinentNumber: " << _qrz << QT_ENDL;
-
+       //qDebug() << "World::getQRZContinentNumber: " << _qrz;
     int i = getQRZARRLId(_qrz);
     return QString::number(getContinentNumber(i));
 }
 
 int World::getContinentNumber(const int _enti)
 {
-       //qDebug() << "World::getQRZContinentNumber: " << QString::number(_enti) << QT_ENDL;
+       //qDebug() << "World::getQRZContinentNumber: " << QString::number(_enti);
     if (_enti <= 0)
     {
         return -1;
     }
     return dataProxy->getContinentIdFromEntity(_enti);
-/*
-    int a = -1;
-
-    QString queryString;
-    QSqlQuery query;
-    int i = _enti;
-    queryString = QString("SELECT continent FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(i);
-    //queryString = "SELECT continent FROM entity WHERE dxcc=='" + QString::number(i) +"'";
-
-
-    if (!query.exec(queryString))
-    {
-        return -1;
-    }
-    else
-    {
-        query.next();
-        if ( !(query.isValid()) )
-        {
-            return -1;
-        }else{
-            a = (query.value(0)).toInt();
-            queryString = "SELECT id FROM continent where shortname=='" + query.value(0).toString() + "'";
-            if (query.exec(queryString))
-            {
-                query.next();
-                if(query.isValid())
-                {
-                    return query.value(0).toInt();
-                }
-                else
-                { // Value not valid
-                    return -1;
-                }
-            }
-            else
-            { // Error in the query
-                return -1;
-            }
-
-        }
-        return a;
-    }
-    return -1;
-*/
 }
 
 double World::getQRZLongitude(const QString &_qrz)
 {
-
     int i = getQRZARRLId(_qrz);
     return dataProxy->getLongitudeFromEntity(i);
 }
@@ -623,7 +565,6 @@ double World::getLongitude(const int _enti)
 
 double World::getQRZLatitude(const QString &_qrz)
 {
-
     int i = getQRZARRLId(_qrz);
     return dataProxy->getLatitudeFromEntity(i);
 }
@@ -663,8 +604,7 @@ QString World::getQRZEntityPrefixes(const QString &_qrz)
 
 bool World::readCTYCSV(const QString &_worldFile)
 {
-     //qDebug() << "World::readCTYCSV(): " << _worldFile << QT_ENDL;
-
+     //qDebug() << "World::readCTYCSV(): " << _worldFile;
     QString tq;
     tq.clear();
     QString entityNumber;
@@ -677,12 +617,12 @@ bool World::readCTYCSV(const QString &_worldFile)
     QFile file( _worldFile );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
     {
-          //qDebug() << "World::readCTYCSV() File not found: END FALSE" << fileName << QT_ENDL;
+          //qDebug() << "World::readCTYCSV() File not found: END FALSE" << fileName;
         return false;
     }
     else
     {
-         //qDebug() << "World::readCTYCSV() File found: " << fileName << QT_ENDL;
+         //qDebug() << "World::readCTYCSV() File found: " << fileName;
     }
     beginingOfFile = file.pos();
 
@@ -693,10 +633,8 @@ bool World::readCTYCSV(const QString &_worldFile)
         }
         numberOfLines++;
     }
-      //qDebug() << "World::readCTYCSV() - numberOfEntities: " << QString::number(numberOfEntities) << QT_ENDL;
-
+      //qDebug() << "World::readCTYCSV() - numberOfEntities: " << QString::number(numberOfEntities);
     // The file is readed twice: 1: Main entity data; 2: prefixes.
-
 
     // Starts with main data:
     file.seek(beginingOfFile);
@@ -735,17 +673,17 @@ bool World::readCTYCSV(const QString &_worldFile)
 //    0        1        2      3      4    5     6     7      8       9
 
         tq = file.readLine();
-           //qDebug()  << "World::readCTYCSV(): Line: " << tq << QT_ENDL;
+           //qDebug()  << "World::readCTYCSV(): Line: " << tq;
         tq = tq.simplified();
-           //qDebug()  << "World::readCTYCSV(): Line simplified: " << tq << QT_ENDL;
+           //qDebug()  << "World::readCTYCSV(): Line simplified: " << tq;
         tq = tq.trimmed();
-          //qDebug()  << "World::readCTYCSV(): Line trimmed: " << tq << QT_ENDL;
+          //qDebug()  << "World::readCTYCSV(): Line trimmed: " << tq;
         tq.remove(QChar(';'), Qt::CaseInsensitive);
-          //qDebug()  << "World::readCTYCSV(): Line without ;: " << tq << QT_ENDL;
+          //qDebug()  << "World::readCTYCSV(): Line without ;: " << tq;
 
         stringList << tq.split(',');
 
-           //qDebug()  << "World::readCTYCSV(): Line stringList-0: " << stringList.at(0) << QT_ENDL;
+           //qDebug()  << "World::readCTYCSV(): Line stringList-0: " << stringList.at(0);
 
         if (( stringList.at(0)).contains(QChar('*'), Qt::CaseInsensitive))
         { // This is a special Entity. Not really an ARRL Entity but interesting for the DXer.
@@ -756,26 +694,21 @@ bool World::readCTYCSV(const QString &_worldFile)
 
             while ( (dataProxy->getEntityMainPrefix(entN)).size()>0  )
             {
-                  //qDebug()  << "World::readCTYCSV() entN: " << QString::number(entN) << QT_ENDL;
-                   //qDebug()  << "World::readCTYCSV() dataProxy->getEntityMainPrefix: " << QString::number(entN) << QT_ENDL;
+                  //qDebug()  << "World::readCTYCSV() entN: " << QString::number(entN);
+                   //qDebug()  << "World::readCTYCSV() dataProxy->getEntityMainPrefix: " << QString::number(entN);
                 entN = entN + 1000;
             }
-
-
             entityNumber = QString::number(entN);
         }
         else
         {
             entityNumber = stringList.at(2);
         }
-
-           //qDebug()  << "World::readCTYCSV(): Line stringList Length: " << QString::number(stringList.length()) << QT_ENDL;
+           //qDebug()  << "World::readCTYCSV(): Line stringList Length: " << QString::number(stringList.length());
 
         if (stringList.size()>=8 )
         {
-
         //(id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)
-
             query.addBindValue(QVariant(QVariant::Int));
             query.addBindValue(stringList.at(1)); // name
             query.addBindValue(stringList.at(4)); // CQ
@@ -787,44 +720,37 @@ bool World::readCTYCSV(const QString &_worldFile)
             //query.addBindValue(stringList.at(2)); // dxcc
             query.addBindValue(entityNumber); // dxcc
             query.addBindValue(stringList.at(0)); // Mainprefix
-
-
-               //qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2) << QT_ENDL;
-               //qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0) << QT_ENDL;
-
+               //qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1);
+               //qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4);
+               //qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5);
+               //qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3);
+               //qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6);
+               //qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7);
+               //qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8);
+               //qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2);
+               //qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0);
 
             if (query.exec())
             {
-                   //qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1)  << QT_ENDL;
+                   //qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1) ;
             }
             else if (query.lastError().nativeErrorCode() == QString::number(19))
             {
-               //qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1)  << QT_ENDL;
+               //qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1) ;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             }
             else
             {
-                //qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1)  << QT_ENDL;
+                //qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1) ;
                 emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
                 //errorCode = query.lastError().nativeErrorCode();
-
-
-                  //qDebug() << "World::readCTYCSV(): Entity data NOT added"  << QT_ENDL;
-                  //qDebug() << "World::readCTYCSV(): LastQuery: " << query.lastQuery()  << QT_ENDL;
-                  //qDebug() << "World::readCTYCSV(): LastError-data: " << query.lastError().databaseText()  << QT_ENDL;
-                  //qDebug() << "World::readCTYCSV(): LastError-driver: " << query.lastError().driverText()  << QT_ENDL;
-                  //qDebug() << "World::readCTYCSV(): LastError-n: " << QString::number(query.lastError().nativeErrorCode() ) << QT_ENDL;
-
+                  //qDebug() << "World::readCTYCSV(): Entity data NOT added" ;
+                  //qDebug() << "World::readCTYCSV(): LastQuery: " << query.lastQuery() ;
+                  //qDebug() << "World::readCTYCSV(): LastError-data: " << query.lastError().databaseText() ;
+                  //qDebug() << "World::readCTYCSV(): LastError-driver: " << query.lastError().driverText() ;
+                  //qDebug() << "World::readCTYCSV(): LastError-n: " << QString::number(query.lastError().nativeErrorCode() );
             }
-
-                //qDebug()  << "World::readCTYCSV(): Entity ADDED or NOT"  << QT_ENDL;
+                //qDebug()  << "World::readCTYCSV(): Entity ADDED or NOT" ;
             if (stringList.size()>8)
             {
                 tq = stringList.at(9);
@@ -838,7 +764,7 @@ bool World::readCTYCSV(const QString &_worldFile)
                     //queryP.prepare("INSERT INTO prefixesofentity (id, prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?, ?)");
                     //                                               0    1       2    3    4
                     //  (id, prefix, dxcc, cqz, ituz)
-                      //qDebug()  << "World::readCTYCSV(): Prefix: " << stringListPrefixes.at(i) << QT_ENDL;
+                      //qDebug()  << "World::readCTYCSV(): Prefix: " << stringListPrefixes.at(i);
                     queryP.addBindValue(QVariant(QVariant::Int));
 
 
@@ -861,33 +787,25 @@ bool World::readCTYCSV(const QString &_worldFile)
                     {// T9 is the former prefix of Bosnia and Herzegovina; it moved to E7 on 7 August 2007.
                      // YZ and 4N belonged to Yugoslavia, along with 4O (which went to successor state Montenegro)
                      // YT and YU (which went to successor state Serbia)
-                           //qDebug()  << "World::readCTYCSV(): Prefix added: " << stringListPrefixes.at(i) << QT_ENDL;
-
-
+                           //qDebug()  << "World::readCTYCSV(): Prefix added: " << stringListPrefixes.at(i);
                     }
                     else if (queryP.lastError().nativeErrorCode() != QString::number(19))
                     {
                         //errorCode = queryP.lastError().nativeErrorCode();
                         emit queryError(Q_FUNC_INFO, queryP.lastError().databaseText(), queryP.lastError().nativeErrorCode(), queryP.lastQuery());
-
-
-                          //qDebug() << "World::readCTYCSV(): Prefix data NOT added"  << QT_ENDL;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastQuery: " << query.lastQuery()  << QT_ENDL;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastError-data: " << query.lastError().databaseText()  << QT_ENDL;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastError-driver: " << query.lastError().driverText()  << QT_ENDL;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastError-n: " << QString::number(query.lastError().nativeErrorCode() ) << QT_ENDL;
+                          //qDebug() << "World::readCTYCSV(): Prefix data NOT added" ;
+                          //qDebug() << "World::readCTYCSV(): Prefix LastQuery: " << query.lastQuery() ;
+                          //qDebug() << "World::readCTYCSV(): Prefix LastError-data: " << query.lastError().databaseText() ;
+                          //qDebug() << "World::readCTYCSV(): Prefix LastError-driver: " << query.lastError().driverText() ;
+                          //qDebug() << "World::readCTYCSV(): Prefix LastError-n: " << QString::number(query.lastError().nativeErrorCode() );
                     }
-
                 }
             }
-
          }
-
-          //qDebug()  << "World::readCTYCSV() tq: " << tq << QT_ENDL;
+          //qDebug()  << "World::readCTYCSV() tq: " << tq;
         progress.setLabelText("Reading cty.csv ... \nNow reading " + currentPrefix + " data");
-          //qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition) << QT_ENDL;
+          //qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition);
     }
-
 
     QSqlDatabase::database().commit();
 
@@ -896,15 +814,13 @@ bool World::readCTYCSV(const QString &_worldFile)
     {
         dataProxy->updateISONames();
     }
-
-      //qDebug()  << "World::readCTYCSV() END TRUE "  << QT_ENDL;
+      //qDebug()  << "World::readCTYCSV() END TRUE " ;
     return true;
-
 }
 
 QString World::changeSlashAndFindPrefix(const QString &_qrz)
 {
-      //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-" << QT_ENDL;
+      //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-";
     QString aux = _qrz.toUpper();
 
     if ((aux).count('\\')) // Replaces \ by / to ease operation.
@@ -925,7 +841,7 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
             aux.remove(aux.length()-1,1);
         }
         iaux1 = aux.indexOf('/');
-            //qDebug() << "World::changeSlashAndFindPrefix: Slash found at: "  << QString::number(iaux1) << QT_ENDL;
+            //qDebug() << "World::changeSlashAndFindPrefix: Slash found at: "  << QString::number(iaux1);
 
         iaux2 = (aux.length())- iaux1; // iaux2 is the length of the second part
         if (iaux2 < 0){
@@ -943,101 +859,9 @@ QString World::changeSlashAndFindPrefix(const QString &_qrz)
     return aux;
 }
 
-bool World::checkQRZValidFormat(const QString &_qrz)
-{
-        //qDebug()  << "World::checkQRZValidFormat: -" << _qrz <<"-" << QT_ENDL;
-    QString aux = util->getMainCallFromComplexCall(_qrz.toUpper());
-    //QString aux = changeSlashAndFindPrefix(_qrz.toUpper());
-
-    if (aux.length()<3)
-    {
-        return false;
-    }
-
-    // The format of a Call is defined here:
-    // http://en.wikipedia.org/wiki/ITU_prefix_%28amateur_stations%29
-    //bool prefixEnded = false;
-    //int callLength = _qrz.length();
-
-    //int sepPos = 0;
-
-    int barPos = aux.indexOf('/');
-    // If barPos > 0 we have a complex call like F/EA0K
-
-    QCharRef c = aux[aux.length()-1];
-
-    if ( c.isDigit() && (barPos<=0)  )
-    {
-        return false;
-    }
-
-    //prefix = prefix + aux.at(0);
-
-    if ( ( aux.at(1) ).isDigit() )
-    { // W3 A6
-        if ((aux.at(2)).isDigit() )
-        { // A60
-            //prefix = prefix + aux.at(1);
-            //separator = aux.at(2);
-            //sepPos = 2;
-        }
-        else
-        { // W3A
-            //separator = aux.at(1);
-            //sepPos = 1;
-        }
-    }
-    else
-    { // EA 3D 2M
-
-        if ((aux.at(2)).isDigit() )
-        { // EA0
-
-            //prefix = prefix + aux.at(1);
-            //separator = aux.at(2);
-            //sepPos = 2;
-
-        }
-        else
-        { // 3DA
-            if (aux.length() < 4)
-            {
-                //prefix = prefix + aux.at(2);
-                return false;
-            }
-
-            if ((aux.at(3)).isDigit())
-            { // 3DA0
-                //prefix = prefix + aux.at(1);
-                //prefix = prefix + aux.at(2);
-                //separator = aux.at(3);
-                //sepPos = 3;
-                if (aux.length() < 5)
-                { // 3DA0
-                    //prefix = prefix + aux.at(3);
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    /*
-    for (int i = sepPos+1; i < aux.length(); i++)
-    {
-        suffix = suffix + aux.at(i);
-    }
-    */
-
-    return true;
-}
-
 QStringList World::getEntitiesNames()
 {
-       //qDebug()  << "World::getEntitiesNames"  << QT_ENDL;
+       //qDebug()  << "World::getEntitiesNames" ;
      return dataProxy->getEntitiesNames();
 }
 
@@ -1048,7 +872,7 @@ int World::getHowManyEntities()
 
 bool World::insertSpecialEntities()
 { //https://en.wikipedia.org/wiki/Non-ITU_prefix
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO;
     // T9 to E7
     // 4N & YZ to 4O
     int entityID = dataProxy->getEntityIdFromMainPrefix("E7");
@@ -1061,7 +885,7 @@ bool World::insertSpecialEntities()
     if (!sqlOK)
     {
         query.finish();
-        //qDebug() << Q_FUNC_INFO << " : T9 not added " << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " : T9 not added ";
         return false;
     }
     entityID = dataProxy->getEntityIdFromMainPrefix("4O");
@@ -1074,28 +898,25 @@ bool World::insertSpecialEntities()
     if (!sqlOK)
     {
         query.finish();
-        //qDebug() << Q_FUNC_INFO << " : 4N not added " << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " : 4N not added ";
         return false;
     }
     queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("YZ").arg(entityID).arg(cqz).arg(ituz);
 
     sqlOK = query.exec(queryString);
-
     if (!sqlOK)
     {
         query.finish();
-        //qDebug() << Q_FUNC_INFO << " : YZ not added " << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " : YZ not added ";
         return false;
     }
-
     return true;
-
-    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool World::hasSpecialEntities()
 { // Checks if T9 is added to the list of prefixes to validate if special prefixes have been added.
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO;
     QString queryString = QString("SELECT dxcc from prefixesofentity WHERE prefix='T9'");
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
@@ -1111,12 +932,10 @@ bool World::hasSpecialEntities()
                 return true;
             }
         }
-
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-
     }
     query.finish();
     return false;

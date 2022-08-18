@@ -394,12 +394,12 @@ void DXClusterWidget::slotClusterDataArrived()
               //qDebug() << "DXClusterWidget::slotClusterDataArrived: TO ALL" << QT_ENDL;
             dxSpotColor = awards->getDefaultColor();
         }
-        else if ( (dxClusterString.length()>=5) && (world->checkQRZValidFormat(tokens[1])) && (tokens[0]!="login:"))
+        //else if ( (dxClusterString.length()>=5) && (world->checkQRZValidFormat(tokens[1])) && (tokens[0]!="login:"))
+        else if ( (dxClusterString.length()>=5) && (util->isValidCall(tokens[1])) && (tokens[0]!="login:"))
         { // Freq / DXCall / Date // time
            //_qs << QRZ << Freq in MHz << lognumber;
              //qDebug() << "DXClusterWidget::slotClusterDataArrived: LENGTH >= 5" << QT_ENDL;
              //qDebug() << "DXClusterWidget::slotClusterDataArrived: token0=" << tokens[0] << " / token1=" << tokens[1] << QT_ENDL;
-
             //isADXSpot = true;
             dxCall = tokens[1];
             dxFrequency = tokens[0];

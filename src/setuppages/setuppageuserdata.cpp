@@ -123,7 +123,6 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
 
    personalTab->setLayout(personalLayout);
 
-
    // Station Tab
    rig1LineEdit = new QLineEdit;
    rig2LineEdit = new QLineEdit;
@@ -262,8 +261,8 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
 
 QString SetupPageUserDataPage::getMainCallsign()
 {
-    mainCallOK = world->checkQRZValidFormat(maincallsignLineEdit->text());
-    if (mainCallOK)
+    //mainCallOK = world->checkQRZValidFormat(maincallsignLineEdit->text());
+    if (util->isValidCall(maincallsignLineEdit->text()))
     {
         return maincallsignLineEdit->text();
     }
@@ -634,33 +633,16 @@ void SetupPageUserDataPage::slotOperatorsChanged()
     for (int ii = 0; ii < operators.size(); ++ii)
     {
            //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-03 - " << QString::number(ii) << QT_ENDL;
-
-        operatorsOK = world->checkQRZValidFormat(operators.at(ii));
-
-        //ent = world->getQRZARRLId(operators.at(ii));
-
-        if (operatorsOK)
-        {
-               //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: NO  VALID CALL: " <<  operators.at(ii) << QT_ENDL;
-        }
-        else
-        {
-               //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID CALL: " <<  operators.at(ii) << QT_ENDL;
-        }
+        operatorsOK = util->isValidCall(operators.at(ii));
+        //operatorsOK = world->checkQRZValidFormat(operators.at(ii));
     }
-    //          cout << fonts.at(i).toLocal8Bit().constData() << QT_ENDL;
-
        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-04" << QT_ENDL;
 
     if (operatorsOK)
     {
-           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT" << QT_ENDL;
-        //QColor defaultColor = (operatorsLineEdit->palette()).color(QPalette::WindowText);
-
+        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT" << QT_ENDL;
         operatorsLineEdit->setPalette(*defaultPalette);
-
         emit operatorsSignal(operatorsLineEdit->text());
-
     }
     else
     {
@@ -668,15 +650,6 @@ void SetupPageUserDataPage::slotOperatorsChanged()
            //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: NOT VALID FORMAT" << QT_ENDL;
     }
        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05" << QT_ENDL;
-
- /*
-    cqzLineEdit->setText(QString::number(world->getQRZCqz(maincallsignLineEdit->text())));
-    ituzLineEdit->setText(QString::number(world->getQRZItuz(maincallsignLineEdit->text())));
-    myLocatorLineEdit->setText(world->getQRZLocator(maincallsignLineEdit->text()));
-
-
-  */
-    //operatorsLineEdit->setText(_a);
     operatorsLineEdit->setCursorPosition(i);
        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-END" << QT_ENDL;
 }
@@ -710,10 +683,10 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
     QStringList _aux = _auxLine.split(',');
     for (int ii = 0; ii < _aux.size(); ++ii)
     {
-        operatorsOK = world->checkQRZValidFormat(_aux.at(ii));
+        operatorsOK = util->isValidCall(_aux.at(ii));
+        //operatorsOK = world->checkQRZValidFormat(_aux.at(ii));
         if (!operatorsOK)
             return operatorsOK;
-
     }
     return true;
 }
