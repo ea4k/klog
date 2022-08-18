@@ -29,15 +29,15 @@ Check https://jaime.robles.es for the author homepage.
 ## Mailing lists
 
 Please join the mailing list at:
-    - https://groups.io/g/klog
+    - <https://groups.io/g/klog>
 
 ## Telegram groups
 
 You can also join the Telegram chat group:
-    - https://t.me/klogchat
+    - <https://t.me/klogchat>
 
 The Telegram chat group in Spanish:
-    - https://t.me/KLogES
+    - <https://t.me/KLogES>
 
 ## Translations
 
