@@ -61,6 +61,7 @@ World::~World()
 {
       //qDebug() << "World::~World" << QT_ENDL;
     delete(locator);
+    delete(util);
 }
 
 
