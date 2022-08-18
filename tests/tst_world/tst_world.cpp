@@ -63,7 +63,7 @@ tst_World::tst_World()
     //qDebug() << Q_FUNC_INFO << "002";
     util = new Utilities(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << "003";
-    //world = new World(dataProxy, Q_FUNC_INFO);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
     //ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);

@@ -865,31 +865,6 @@ double World::getQRZLongitude(const QString &_qrz)
 
     int i = getQRZARRLId(_qrz);
     return dataProxy->getLongitudeFromEntity(i);
-/*
-    QString queryString;
-    QSqlQuery query;
-    queryString = "SELECT longitude FROM entity WHERE dxcc=='" + QString::number(i) +"'";
-
-
-    if (!query.exec(queryString))
-    {
-        return 0.0;
-    }
-    else
-    {
-        query.next();
-
-        if ( !(query.isValid()) ) {
-               //qDebug() << "World::getQRZLongitude: NO VALID"  << QT_ENDL;
-            return 0.0;
-        }else{
-               //qDebug() << "World::getQRZLongitude: VALID"  << QT_ENDL;
-            return (query.value(0)).toDouble();
-        }
-
-    }
-    return 0.0;
-*/
 }
 
 double World::getLongitude(const int _enti)
@@ -900,36 +875,6 @@ double World::getLongitude(const int _enti)
     }
 
     return dataProxy->getLongitudeFromEntity(_enti);
-
-
-/*
-
-    QString queryString;
-    QSqlQuery query;
-
-    int i = _enti;
-    queryString = "SELECT longitude FROM entity WHERE dxcc=='" + QString::number(i) +"'";
-
-
-    if (!query.exec(queryString))
-    {
-        return 0.0;
-    }
-    else
-    {
-        query.next();
-
-        if ( !(query.isValid()) ) {
-               //qDebug() << "World::getQRZLongitude: NO VALID"  << QT_ENDL;
-            return 0.0;
-        }else{
-               //qDebug() << "World::getQRZLongitude: VALID"  << QT_ENDL;
-            return (query.value(0)).toDouble();
-        }
-
-    }
-    return 0.0;
-*/
 }
 
 double World::getQRZLatitude(const QString &_qrz)
@@ -937,31 +882,6 @@ double World::getQRZLatitude(const QString &_qrz)
 
     int i = getQRZARRLId(_qrz);
     return dataProxy->getLatitudeFromEntity(i);
- /*
-    QString queryString;
-    QSqlQuery query;
-    queryString = "SELECT latitude FROM entity WHERE dxcc=='" + QString::number(i) +"'";
-
-
-    if (!query.exec(queryString))
-    {
-        return 0.0;
-    }
-    else
-    {
-        query.next();
-
-        if ( !(query.isValid()) ) {
-               //qDebug() << "World::getQRZLatitud: NO VALID"  << QT_ENDL;
-            return 0.0;
-        }else{
-               //qDebug() << "World::getQRZLatitud: VALID"  << QT_ENDL;
-            return (query.value(0)).toDouble();
-        }
-    }
-
-    return 0.0;
-*/
 }
 
 double World::getLatitude(const int _enti)
@@ -971,33 +891,6 @@ double World::getLatitude(const int _enti)
         return 0.0;
     }
     return dataProxy->getLatitudeFromEntity(_enti);
-
-/*
-    QString queryString;
-    QSqlQuery query;
-    int i = _enti;
-    queryString = "SELECT latitude FROM entity WHERE dxcc=='" + QString::number(i) +"'";
-
-
-    if (!query.exec(queryString))
-    {
-        return 0.0;
-    }
-    else
-    {
-        query.next();
-
-        if ( !(query.isValid()) ) {
-               //qDebug() << "World::getQRZLatitud: NO VALID"  << QT_ENDL;
-            return 0.0;
-        }else{
-               //qDebug() << "World::getQRZLatitud: VALID"  << QT_ENDL;
-            return (query.value(0)).toDouble();
-        }
-    }
-
-    return 0.0;
-*/
 }
 
 QString World::getQRZLocator(const QString &_qrz)
@@ -1048,8 +941,6 @@ bool World::readCTYCSV(const QString &_worldFile)
          //qDebug() << "World::readCTYCSV() File found: " << fileName << QT_ENDL;
     }
     beginingOfFile = file.pos();
-
-
 
     while (!file.atEnd()) {
         if ( (file.readLine()).contains(';')  )
