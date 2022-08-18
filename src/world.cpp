@@ -568,8 +568,9 @@ int World::getQRZARRLId(const QString &_qrz)
     {
         return -1;
     }
-
-    return getPrefixId(_qrz);
+    QString pref = util->getPrefixFromCall2(_qrz);
+    //return getPrefixId(_qrz);
+    return getPrefixId(pref);
     //return prefixIdNumber;
 
 }

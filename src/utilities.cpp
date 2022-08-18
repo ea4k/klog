@@ -51,6 +51,7 @@ void Utilities::init()
     logLevels.clear();
     logLevels << "None" << "Info" << "Debug" << "Devel";
     setLogColumnNames();
+
     //callValidation = true;
 }
 
@@ -957,7 +958,7 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
     QString call = _c;
     //qDebug() << Q_FUNC_INFO << " - 010";
     call = getMainCallFromComplexCall(call);
-    //qDebug() << Q_FUNC_INFO << " - 011";
+    //qDebug() << Q_FUNC_INFO << " - 011: " << call;
     QString call2 = call;
     QString call3 = call;
     bool keepAnalyzing  = true;
@@ -965,7 +966,9 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
     //FB1K
     while (keepAnalyzing)
     {
-        //qDebug() << Q_FUNC_INFO << ": " << call;
+        //qDebug() << Q_FUNC_INFO << " - call: " << call;
+        //qDebug() << Q_FUNC_INFO << " - call2: " << call2;
+        //qDebug() << Q_FUNC_INFO << " - call3: " << call3;
         if (isALongCountryPrefix(call))
         {
             //qDebug() << Q_FUNC_INFO << ": Found!: " << call;
@@ -974,10 +977,12 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
         }
         else if (call.length()<=2)
         {
+           //qDebug() << Q_FUNC_INFO << ": Not found & call<=2: " << call;
            keepAnalyzing = false;
         }
         else
         {
+            //qDebug() << Q_FUNC_INFO << ": else, chop: " << call;
             call3 = call2;
             call2 = call;
             call.chop(1);

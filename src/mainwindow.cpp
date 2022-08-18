@@ -3526,9 +3526,10 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
 
-    QString pref = util->getPrefixFromCall2(_qrz, false);
-    logEvent(Q_FUNC_INFO, QString("Prefix: %1").arg(pref), Devel);
-
+    //QString pref = util->getPrefixFromCall2(_qrz);
+    //logEvent(Q_FUNC_INFO, QString("Call/Prefix: %1/%2").arg(_qrz).arg(pref), Devel);
+    //currentEntity = world->getQRZARRLId(pref);
+    //validar por que no puedo tirar o usar  el prefijo directamente
     currentEntity = world->getQRZARRLId(_qrz);
     /*
     if (pref.length ()>0)
@@ -4992,7 +4993,7 @@ void MainWindow::readConfigData()
     }
     //qDebug() << "MainWindow::readConfigData: 100" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     util->setVersion(softwareVersion);
-    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    /util->setLongPrefixes(dataProxy->getLongPrefixes());
             //qDebug() << "MainWindow::readConfigData: 101" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     searchWidget->setVersion(softwareVersion);
             //qDebug() << "MainWindow::readConfigData: 102" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;

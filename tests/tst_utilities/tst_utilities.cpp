@@ -279,6 +279,7 @@ void tst_Utilities::test_getPrefixFullFromCall()
     QVERIFY2(util->getPrefixFullFromCall("FB1K") == "FB1", "FB1-FB");
     QVERIFY2(util->getPrefixFullFromCall("VK0M/ZL4DB/P") == "VK0M", "FB1-FB");
     */
+
 }
 
 void tst_Utilities::test_isValidFreq()
@@ -349,6 +350,9 @@ void tst_Utilities::test_getPrefixFromCall2()
     QVERIFY2(util->getPrefixFromCall2("E73E") == "E7", "E73E");
     QVERIFY2(util->getPrefixFromCall2("AM200A") == "AM", "AM200A");
     QVERIFY2(util->getPrefixFromCall2("AM4000") == "AM", "AM4000");
+    QVERIFY2(util->getPrefixFromCall2("VP2EE") == "VP2E", "VP2EE");
+    QVERIFY2(util->getPrefixFromCall2("VP2ME") == "VP2M", "VP2ME");
+    QVERIFY2(util->getPrefixFromCall2("VP2VE") == "VP2V", "VP2VE");
     QVERIFY2(util->getPrefixFromCall2("VK9AA") == "VK9AA", "VK9AA");
     QVERIFY2(util->getPrefixFromCall2("VK9MA") == "VK9M", "VK9MA");
     QVERIFY2(util->getPrefixFromCall2("4U2STAYHOME") == "4U2STAYHOME", "4U2STAYHOME");
