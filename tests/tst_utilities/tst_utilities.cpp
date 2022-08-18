@@ -73,7 +73,7 @@ private:
 tst_Utilities::tst_Utilities()
 {
     util = new Utilities(Q_FUNC_INFO);
-    util->init();
+    //util->init();
     QString version = "1.5";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
     util->setLongPrefixes(dataProxy->getLongPrefixes());
@@ -326,19 +326,19 @@ void tst_Utilities::test_isValidADIFField()
 
 void tst_Utilities::test_getPrefixFromCall2()
 {
-    qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
     QVERIFY2(util->getPrefixFromCall2("K1AA") == "K", "K1AA" );
-    qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
     QVERIFY2(util->getPrefixFromCall2("K1A") == "K", "K1A");
-    qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall2("K1AA");
     QVERIFY2(util->getPrefixFromCall2("G1") == "G", "G1");
     QVERIFY2(util->getPrefixFromCall2("I100") == "I", "I100");
     QVERIFY2(util->getPrefixFromCall2("B100A") == "B", "B1");
     QVERIFY2(util->getPrefixFromCall2("I100KK") == "I", "I100KK");
-    qDebug() << "Returned: " << util->getPrefixFromCall2("FB1K");
+    //qDebug() << "Returned: " << util->getPrefixFromCall2("FB1K");
     QVERIFY2(util->getPrefixFromCall2("FB1K") == "F", "FB1K");
     QVERIFY2(util->getPrefixFromCall2("E") == "E", "E");
-    qDebug() << "Returned: " << util->getPrefixFromCall2("EA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall2("EA");
     QVERIFY2(util->getPrefixFromCall2("EA") == "EA", "EA");
     QVERIFY2(util->getPrefixFromCall2("EA4") == "EA", "EA4-EA");
     QVERIFY2(util->getPrefixFromCall2("EA4K") == "EA", "EA4K" );

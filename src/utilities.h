@@ -199,6 +199,7 @@ private:
     DebugLogLevel logLevel;
     QStringList longPrefixes;
     QMap<QString, QString> columnNames;
+    bool validateCalls;
 
 };
 

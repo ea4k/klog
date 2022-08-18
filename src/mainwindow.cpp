@@ -91,7 +91,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
 {
    //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
-    g_callsignCheck  = true;
+    //g_callsignCheck  = true;
 
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
@@ -5559,8 +5559,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if (field == "CHECKVALIDCALLS")
     {
-         g_callsignCheck = util->trueOrFalse (value);
-        //util->setCallValidation (util->trueOrFalse (value));
+         //g_callsignCheck = util->trueOrFalse (value);
+         util->setCallValidation(util->trueOrFalse (value));
     }
     //else if(field=="LATESTBACKUP")
     //{
@@ -8613,7 +8613,8 @@ void MainWindow::backupCurrentQSO()
     logEvent(Q_FUNC_INFO, "- 061", Devel);
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
     logEvent(Q_FUNC_INFO, "- 062", Devel);
-    qso->setStationCallsign (myDataTabWidget->getStationCallsign ());
+    bool ok = qso->setStationCallsign (myDataTabWidget->getStationCallsign ());
+    //qDebug() << Q_FUNC_INFO << ": Previous went: " << util->boolToQString(ok);
     logEvent(Q_FUNC_INFO, "- 063", Devel);
     qso->setMySOTA_REF (myDataTabWidget->getMySOTA ());
     logEvent(Q_FUNC_INFO, "- 064", Devel);

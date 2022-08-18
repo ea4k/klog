@@ -29,6 +29,7 @@ QSO::QSO()
 {
     logLevel = None;
     qsoId = -1;
+    util = new Utilities(Q_FUNC_INFO);
 }
 
 QSO::~QSO() {}
@@ -101,7 +102,6 @@ void QSO::clear()
     fists = -1;
     fists_cc = -1;
     forceInit = false;
-    freq = -1.0;
     freq_rx = -1.0;
     freq_tx = -1.0;
     gridsquare = QString();
@@ -1337,7 +1337,7 @@ bool QSO::setStationCallsign(const QString &_c)
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - False";
+       //qDebug() << Q_FUNC_INFO << " - False";
        return false;
     }
 }
@@ -1634,23 +1634,6 @@ bool QSO::setHRDLogStatus(const QString &_c)
 QString QSO::getHRDLogStatus()
 {
     return hrdlog_status;
-}
-
-bool QSO::setFreq(const double _f)
-{
-    if (_f>0)
-    {
-        freq = _f;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-double QSO::getFreq()
-{
-    return freq;
 }
 
 bool QSO::setK_Index(const int _i)

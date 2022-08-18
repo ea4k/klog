@@ -7,6 +7,7 @@ SUBDIRS=\
    tst_dataproxy \
    tst_locator \
    tst_mainwindowinputqso \
+   tst_qso \
    tst_setuphamlibnetworkwidget \
    tst_setuphamlibserialwidget \
    tst_world

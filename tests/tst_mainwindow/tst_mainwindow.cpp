@@ -160,7 +160,7 @@ void tst_MainWindow::test_Constructor()
     //QTimer::singleShot(500, this, SLOT(slotTimeOut()));
     //qDebug() << Q_FUNC_INFO << " - Init";
 
-    mainWindow->init();
+    //mainWindow->init();
     //qDebug() << Q_FUNC_INFO << " - Show";
     mainWindow->show();
     //qDebug() << Q_FUNC_INFO << " - SlotSetup";
@@ -190,7 +190,7 @@ void tst_MainWindow::test_Settings()
     events.simulate(lineEdit);
     events.simulate(lineEdit);
 */
-    mainWindow->show();
+    //mainWindow->show();
     mainWindow->slotSetup();
     //qDebug() << Q_FUNC_INFO << " - END";
 }

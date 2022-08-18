@@ -36,6 +36,7 @@
 class QSO : public QObject
 {
     Q_OBJECT
+    friend class tst_QSO;
 
 public:
     QSO();
@@ -231,8 +232,6 @@ public:
     QDate getHRDUpdateDate();
     bool setHRDLogStatus(const QString &_c);
     QString getHRDLogStatus();
-    bool setFreq(const double _f);
-    double getFreq();
     bool setK_Index(const int _i);
     int getK_Index();
     bool setDateOff(const QDate &_c);
@@ -386,7 +385,7 @@ private:
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq, distance;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, distance;
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;

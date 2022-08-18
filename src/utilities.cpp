@@ -26,16 +26,12 @@
 #include "global.h"
 #include "utilities.h"
 
-bool g_callsignCheck;
+//bool c;
 Utilities::Utilities(const QString &_parentName)
 {
     parentName = _parentName;
     //qDebug() << "Utilities::Utilities"  ;
     init();
-
-    //palRed.setColor(QPalette::Text, Qt::red);
-    //palBlack.setColor(QPalette::Text, Qt::black);
-    //qDebug() << "Utilities::Utilities - END"  ;
 }
 
 Utilities::~Utilities()
@@ -44,6 +40,7 @@ Utilities::~Utilities()
 
 void Utilities::init()
 {
+    validateCalls = false;
     softwareVersion = "0.0";
     longPrefixes.clear();
     darkMode = false;
@@ -760,12 +757,13 @@ bool Utilities::isALongCountryPrefix(const QString &_c)
 
 void Utilities::setCallValidation(const bool _b)
 {
-    g_callsignCheck = _b;
+    //g_callsignCheck = _b;
+    validateCalls = _b;
 }
 
 QString Utilities::getCheckedComplexCall(const QString &_c)
 { // Normalices calls
-    qDebug() << Q_FUNC_INFO << " - Start: " << _c;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _c;
     QString call = _c;
 
     if (call.isNull())
@@ -795,7 +793,7 @@ QString Utilities::getCheckedComplexCall(const QString &_c)
     {
         call = parts.at(0) + "/" + parts.at(1);
     }
-    qDebug() << Q_FUNC_INFO << " - END: " << call;
+    //qDebug() << Q_FUNC_INFO << " - END: " << call;
     return call;
 }
 
@@ -806,7 +804,7 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
 
     QString call = _complexCall;
 
-    qDebug() << Q_FUNC_INFO << ": " << _complexCall;
+    //qDebug() << Q_FUNC_INFO << ": " << _complexCall;
     if (call.count('/') >1)
     { //Things like F/EA4K/P will become F/EA4K    
         //logEvent (Q_FUNC_INFO, QString("With 2 /"), Debug);  
@@ -816,9 +814,9 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
         //parts << call.split('/');
         //call = parts.at(0) + "/" + parts.at(1);
     }
-    qDebug() << Q_FUNC_INFO << ": First cut: " << call;
+    //qDebug() << Q_FUNC_INFO << ": First cut: " << call;
     call = getCheckedComplexCall(call);
-    qDebug() << Q_FUNC_INFO << ": Second cut: " << call;
+    //qDebug() << Q_FUNC_INFO << ": Second cut: " << call;
     //qDebug() << Q_FUNC_INFO << " - 010" ;
     if (call.count('/') == 1)
     {// Complex calls (like F/EA4K - EA4K/F -EA4K/P - EA4K/1 - EA4K/qrp - VK9M/EA4K - EA4K/VK9M
@@ -831,20 +829,20 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
         // First identify normal suffixes /P, /1, /QRP...
         bool firstCountry = !isAValidOperatingSuffix(first);
         bool secondCountry = !isAValidOperatingSuffix(second);
-        qDebug() << Q_FUNC_INFO << " - 020" ;
+        //qDebug() << Q_FUNC_INFO << " - 020" ;
         if (firstCountry && secondCountry)
         { // EA4K/VK9M
-            qDebug() << Q_FUNC_INFO << " - 030" ;
+            //qDebug() << Q_FUNC_INFO << " - 030" ;
             bool firstIsPrefix = isALongCountryPrefix(first);
             bool secondIsPrefix = isALongCountryPrefix(second);
             if (firstIsPrefix && !secondIsPrefix)
             {
-                qDebug() << Q_FUNC_INFO << " - 033" ;
+                //qDebug() << Q_FUNC_INFO << " - 033" ;
                 return first;
             }
             else if (!firstIsPrefix && secondIsPrefix)
             {
-                qDebug() << Q_FUNC_INFO << " - 034" ;
+                //qDebug() << Q_FUNC_INFO << " - 034" ;
                 return second;
             }
             else
@@ -883,8 +881,9 @@ bool Utilities::isValidCall(const QString &_c)
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << "Start: " << _c;
     //qDebug() << Q_FUNC_INFO << ": " << _c;
     // Prefixes are at least 2 chars
-    if (!g_callsignCheck)
+    if (!validateCalls)
     {
+        //qDebug() << Q_FUNC_INFO << "001 - Not validating calls: " << _c;
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 001 - true"), Debug);
         return true;
     }
@@ -900,13 +899,18 @@ bool Utilities::isValidCall(const QString &_c)
     //qDebug() << Q_FUNC_INFO << "- 004 :" << call;
 
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010"), Devel);
-    call.replace('\\', '/');
+    if (call.count('\\')>0)
+    {
+        call.replace('\\', '/');
+    }
+    //qDebug() << Q_FUNC_INFO << " -005";
 
     if (call.count('/')>2)
     {
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 015 - false"), Debug);
         return false;
     }
+    //qDebug() << Q_FUNC_INFO << " -006";
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 020"), Devel);
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 020";
     if (call.count('/') == 2)
@@ -918,7 +922,7 @@ bool Utilities::isValidCall(const QString &_c)
         call = parts.at(0) + "/" + parts.at(1);
     }
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString(" - 025: %1").arg(call), Devel);
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 025";
+    //qDebug() << Q_FUNC_INFO << " -025";
 
     if (call.count('/') == 1)
     { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
@@ -945,15 +949,15 @@ bool Utilities::isValidCall(const QString &_c)
 
 QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
+    //qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
     if (_c.isNull())
     {
         return QString();
     }
     QString call = _c;
-    qDebug() << Q_FUNC_INFO << " - 010";
+    //qDebug() << Q_FUNC_INFO << " - 010";
     call = getMainCallFromComplexCall(call);
-    qDebug() << Q_FUNC_INFO << " - 011";
+    //qDebug() << Q_FUNC_INFO << " - 011";
     QString call2 = call;
     QString call3 = call;
     bool keepAnalyzing  = true;
@@ -961,7 +965,7 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
     //FB1K
     while (keepAnalyzing)
     {
-        qDebug() << Q_FUNC_INFO << ": " << call;
+        //qDebug() << Q_FUNC_INFO << ": " << call;
         if (isALongCountryPrefix(call))
         {
             //qDebug() << Q_FUNC_INFO << ": Found!: " << call;
@@ -980,7 +984,7 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
         }
     }
     bool firstSpecial = isAOneLetterPrefix(call.at(0));
-    qDebug() << Q_FUNC_INFO << ": **** Out of while: " << call << "/" << call2 << "/" << call3;
+    //qDebug() << Q_FUNC_INFO << ": **** Out of while: " << call << "/" << call2 << "/" << call3;
     if (found)
     {
         //qDebug() << Q_FUNC_INFO << ": END-0 " << call;
@@ -997,19 +1001,19 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
         //qDebug() << Q_FUNC_INFO << ": **** Out of while Special 1-Letter: " << call << "/" << call2 << "/" << call3;
     }
 
-    qDebug() << Q_FUNC_INFO << ": **** To process: " << call << "/" << call2 << "/" << call3;
+    //qDebug() << Q_FUNC_INFO << ": **** To process: " << call << "/" << call2 << "/" << call3;
     if (withAreaNumber)
     {
-        qDebug() << Q_FUNC_INFO << ": WithAreaNumber";
+        //qDebug() << Q_FUNC_INFO << ": WithAreaNumber";
         if (firstSpecial)
         {
-            qDebug() << Q_FUNC_INFO << ": FirstSpecial";
+            //qDebug() << Q_FUNC_INFO << ": FirstSpecial";
             int last = call2.length();
-            qDebug() << Q_FUNC_INFO << ": last="<< QString::number(last);
+            //qDebug() << Q_FUNC_INFO << ": last="<< QString::number(last);
 
             if (((call2.at(last-1)).isDigit()))
             {//K1
-                qDebug() << Q_FUNC_INFO << ": END1: " << call2;
+                //qDebug() << Q_FUNC_INFO << ": END1: " << call2;
                 return call2;
             }
             else if ((call3.at(call3.length()-1)).isDigit())
@@ -1019,7 +1023,7 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": END3: " << call;
+                //qDebug() << Q_FUNC_INFO << ": END3: " << call;
                 return call;
             }
         }
@@ -1027,18 +1031,18 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
         {
             if (call == call2)
             {
-                qDebug() << Q_FUNC_INFO << ": END4: " << call;
+                //qDebug() << Q_FUNC_INFO << ": END4: " << call;
                 return call;
             }
 
             int last = call2.length();
             if (((call2.at(last-1)).isDigit()))
             {
-                qDebug() << Q_FUNC_INFO << ": END5: " << call2;
+                //qDebug() << Q_FUNC_INFO << ": END5: " << call2;
                 return call2;
             }
 
-            qDebug() << Q_FUNC_INFO << ": END6: " << call;
+            //qDebug() << Q_FUNC_INFO << ": END6: " << call;
             return call;
         }
     }
@@ -1046,7 +1050,7 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
     {
         if (firstSpecial)
         {
-          qDebug() << Q_FUNC_INFO << ": END7: " << call;
+          //qDebug() << Q_FUNC_INFO << ": END7: " << call;
           return call;
         }
         int last = call2.length();
@@ -1056,10 +1060,10 @@ QString Utilities::getPrefixFromCall2(const QString &_c, bool withAreaNumber)
             {
                 return call;
             }
-            qDebug() << Q_FUNC_INFO << ": END8: " << call2;
+            //qDebug() << Q_FUNC_INFO << ": END8: " << call2;
             return call2;
         }
-        qDebug() << Q_FUNC_INFO << ": END9: " << call;
+        //qDebug() << Q_FUNC_INFO << ": END9: " << call;
         return call;
     }
 }
@@ -1835,181 +1839,96 @@ void Utilities::setLogColumnNames()
     columnNames.insert("lotw_qsl_sent", QObject::tr("LoTW Sent"));
     columnNames.insert("max_bursts", QObject::tr("Max Bursts"));
     columnNames.insert("multiplier", QObject::tr("Multiplier"));
-
-    /*
-    columnNames.insert("", QObject::tr(""));
-    columnNames.insert("", QObject::tr(""));
-    columnNames.insert("", QObject::tr(""));
-    columnNames.insert("", QObject::tr(""));
-
-    else if (_column == "ms_shower")
-        return QObject::tr("MS Shower");
-    else if (_column == "my_antenna")
-        return QObject::tr("My Antenna");
-    else if (_column == "my_city")
-        return QObject::tr("My City");
-    else if (_column == "my_cnty")
-        return QObject::tr("My Cnty");
-    else if (_column == "my_country")
-        return QObject::tr("My Country");
-    else if (_column == "my_cq_zone")
-        return QObject::tr("My CQz");
-    else if (_column == "my_dxcc")
-        return QObject::tr("My DXCC");
-    else if (_column == "my_fists")
-        return QObject::tr("My Fists", "Do not translate if unsure, common hamradio term.");
-    else if (_column == "my_gridsquare")
-        return QObject::tr("My Gridsquare");
-    else if (_column == "my_iota")
-        return QObject::tr("My IOTA");
-    else if (_column == "my_iota_island_id")
-        return QObject::tr("My IOTA island id");
-    else if (_column == "my_itu_zone")
-        return QObject::tr("My ITUz");
-    else if (_column == "my_lat")
-        return QObject::tr("My Lat");
-    else if (_column == "my_lon")
-        return QObject::tr("My Lon");
-    else if (_column == "my_name")
-        return QObject::tr("My Name");
-    else if (_column == "my_postal_code")
-        return QObject::tr("My Postal code");
-    else if (_column == "my_rig")
-        return QObject::tr("My Rig");
-    else if (_column == "my_sig")
-        return QObject::tr("My Sig");
-    else if (_column == "my_sig_info")
-        return QObject::tr("My Sig Info");
-    else if (_column == "my_sota_ref")
-        return QObject::tr("My SOTA ref");
-    else if (_column == "my_state")
-        return QObject::tr("My State");
-    else if (_column == "my_street")
-        return QObject::tr("My Street");
-    else if (_column == "my_usaca_counties")
-        return QObject::tr("My USACA counties");
-    else if (_column == "my_vucc_grids")
-        return QObject::tr("My VUCC grids");
-    else if (_column == "name")
-        return QObject::tr("Name");
-    else if (_column == "notes")
-        return QObject::tr("Notes");
-    else if (_column == "nr_bursts")
-        return QObject::tr("Nr bursts", "Do not translate if unsure, common hamradio term.");
-    else if (_column == "nr_pings")
-        return QObject::tr("Nr pings", "Do not translate if unsure, common hamradio term.");
-    else if (_column == "operator")
-        return QObject::tr("Operator");
-    else if (_column == "owner_callsign")
-        return QObject::tr("Owner Callsign");
-    else if (_column == "pfx")
-        return QObject::tr("Pfx");
-    else if (_column == "points")
-        return QObject::tr("Points");
-    else if (_column == "precedence")
-        return QObject::tr("Precedence");
-    else if (_column == "prop_mode")
-        return QObject::tr("Prop Mode");
-    else if (_column == "public_key")
-        return QObject::tr("Public Key");
-    else if (_column == "qrzcom_qso_upload_date")
-        return QObject::tr("QRZcom SDate");
-    else if (_column == "qrzcom_qso_upload_status")
-        return QObject::tr("QRZcom status");
-    else if (_column == "qslmsg")
-        return QObject::tr("QSL msg");
-    else if (_column == "qslrdate")
-        return QObject::tr("QSL RDate");
-    else if (_column == "qslsdate")
-        return QObject::tr("QSL SDate");
-    else if (_column == "qsl_rcvd")
-        return QObject::tr("QSL Rcvd");
-    else if (_column == "qsl_sent")
-        return QObject::tr("QSL Sent");
-    else if (_column == "qsl_rcvd_via")
-        return QObject::tr("QSL rcvd via");
-    else if (_column == "qsl_sent_via")
-        return QObject::tr("QSL sent via");
-    else if (_column == "qsl_via")
-        return QObject::tr("QSL via");
-    else if (_column == "qso_complete")
-        return QObject::tr("QSO complete");
-    else if (_column == "qso_random")
-        return QObject::tr("QSO random");
-    else if (_column == "qth")
-        return QObject::tr("QTH");
-    else if (_column == "region")
-        return QObject::tr("Region");
-    else if (_column == "rig")
-        return QObject::tr("Rig");
-    else if (_column == "rx_pwr")
-        return QObject::tr("RX Pwr");
-    else if (_column == "sat_mode")
-        return QObject::tr("Sat mode");
-    else if (_column == "sat_name")
-        return QObject::tr("Sat name");
-    else if (_column == "sfi")
-        return QObject::tr("SFI");
-    else if (_column == "sig")
-        return QObject::tr("Sig");
-    else if (_column == "sig_info")
-        return QObject::tr("Sig Info");
-    else if (_column == "silent_key")
-        return QObject::tr("Silent key", "Do not translate if unsure, common hamradio term.");
-    else if (_column == "skcc")
-        return QObject::tr("SKCC");
-    else if (_column == "sota_ref")
-        return QObject::tr("SOTA Ref");
-    else if (_column == "srx_string")
-        return QObject::tr("SRX String");
-    else if (_column == "srx")
-        return QObject::tr("SRX");
-    else if (_column == "stx_string")
-        return QObject::tr("STX String");
-    else if (_column == "state")
-        return QObject::tr("State");
-    else if (_column == "station_callsign")
-        return QObject::tr("Station Callsign");
-    else if (_column == "submode")
-        return QObject::tr("Submode");
-    else if (_column == "swl")
-        return QObject::tr("SWL", "Do not translate if unsure, common hamradio term.");
-    else if (_column == "uksmg")
-        return QObject::tr("UKSMG");
-    else if (_column == "usaca_counties")
-        return QObject::tr("USACA counties");
-    else if (_column == "ve_prov")
-        return QObject::tr("VE prov");
-    else if (_column == "vucc_grids")
-        return QObject::tr("VUCC grids");
-    else if (_column == "ten_ten")
-        return QObject::tr("Ten-Ten", "Do not translate, it is a hamradio group name.");
-    else if (_column == "tx_pwr")
-        return QObject::tr("TX Pwr");
-    else if (_column == "web")
-        return QObject::tr("Web");
-    else if (_column == "qso_date_off")
-        return QObject::tr("QSO Date off");
-    else if (_column == "transmiterid")
-        return QObject::tr("Transmitter id");
-    else if (_column == "lognumber")
-        return QObject::tr("Log number");
-
-    */
+    columnNames.insert("ms_shower", QObject::tr("MS Shower"));
+    columnNames.insert("my_antenna", QObject::tr("My Antenna"));
+    columnNames.insert("my_city", QObject::tr("My City"));
+    columnNames.insert("my_cnty", QObject::tr("My Cnty"));
+    columnNames.insert("my_country", QObject::tr("My Country"));
+    columnNames.insert("my_cq_zone", QObject::tr("My CQz"));
+    columnNames.insert("my_dxcc", QObject::tr("My DXCC"));
+    columnNames.insert("my_fists", QObject::tr("My Fists", "Do not translate if unsure, common hamradio term."));
+    columnNames.insert("my_gridsquare", QObject::tr("My Gridsquare"));
+    columnNames.insert("my_iota", QObject::tr("My IOTA"));
+    columnNames.insert("my_iota_island_id", QObject::tr("My IOTA island id"));
+    columnNames.insert("my_itu_zone", QObject::tr("My ITUz"));
+    columnNames.insert("my_lat", QObject::tr("My Lat"));
+    columnNames.insert("my_lon", QObject::tr("My Lon"));
+    columnNames.insert("my_name", QObject::tr("My Name"));
+    columnNames.insert("my_postal_code", QObject::tr("My Postal code"));
+    columnNames.insert("my_rig", QObject::tr("My Rig"));
+    columnNames.insert("my_sig", QObject::tr("My Sig"));
+    columnNames.insert("my_sig_info", QObject::tr("My Sig Info"));
+    columnNames.insert("my_sota_ref", QObject::tr("My SOTA ref"));
+    columnNames.insert("my_state", QObject::tr("My State"));
+    columnNames.insert("my_street", QObject::tr("My Street"));
+    columnNames.insert("my_usaca_counties", QObject::tr("My USACA counties"));
+    columnNames.insert("my_vucc_grids", QObject::tr("My VUCC grids"));
+    columnNames.insert("name", QObject::tr("Name"));
+    columnNames.insert("notes", QObject::tr("Notes"));
+    columnNames.insert("nr_bursts", QObject::tr("Nr bursts", "Do not translate if unsure, common hamradio term."));
+    columnNames.insert("nr_pings", QObject::tr("Nr pings", "Do not translate if unsure, common hamradio term."));
+    columnNames.insert("operator", QObject::tr("Operator"));
+    columnNames.insert("owner_callsign", QObject::tr("Owner Callsign"));
+    columnNames.insert("pfx", QObject::tr("Pfx"));
+    columnNames.insert("points", QObject::tr("Points"));
+    columnNames.insert("precedence", QObject::tr("Precedence"));
+    columnNames.insert("prop_mode", QObject::tr("Prop Mode"));
+    columnNames.insert("public_key", QObject::tr("Public Key"));
+    columnNames.insert("qrzcom_qso_upload_date", QObject::tr("QRZcom SDate"));
+    columnNames.insert("qrzcom_qso_upload_status", QObject::tr("QRZcom status"));
+    columnNames.insert("qslmsg", QObject::tr("QSL msg"));
+    columnNames.insert("qslrdate", QObject::tr("QSL RDate"));
+    columnNames.insert("qslsdate", QObject::tr("QSL SDate"));
+    columnNames.insert("qsl_rcvd", QObject::tr("QSL Rcvd"));
+    columnNames.insert("qsl_sent", QObject::tr("QSL Sent"));
+    columnNames.insert("qsl_rcvd_via", QObject::tr("QSL rcvd via"));
+    columnNames.insert("qsl_sent_via", QObject::tr("QSL sent via"));
+    columnNames.insert("qsl_via", QObject::tr("QSL via"));
+    columnNames.insert("qso_complete", QObject::tr("QSO complete"));
+    columnNames.insert("qso_random", QObject::tr("QSO random"));
+    columnNames.insert("qth", QObject::tr("QTH"));
+    columnNames.insert("region", QObject::tr("Region"));
+    columnNames.insert("rig", QObject::tr("Rig"));
+    columnNames.insert("rx_pwr", QObject::tr("RX Pwr"));
+    columnNames.insert("sat_mode", QObject::tr("Sat mode"));
+    columnNames.insert("sat_name", QObject::tr("Sat name"));
+    columnNames.insert("sfi", QObject::tr("SFI"));
+    columnNames.insert("sig", QObject::tr("Sig"));
+    columnNames.insert("sig_info", QObject::tr("Sig Info"));
+    columnNames.insert("silent_key", QObject::tr("Silent key", "Do not translate if unsure, common hamradio term."));
+    columnNames.insert("skcc", QObject::tr("SKCC"));
+    columnNames.insert("sota_ref", QObject::tr("SOTA Ref"));
+    columnNames.insert("srx_string", QObject::tr("SRX String"));
+    columnNames.insert("srx", QObject::tr("SRX"));
+    columnNames.insert("stx_string", QObject::tr("STX String"));
+    columnNames.insert("state", QObject::tr("State"));
+    columnNames.insert("station_callsign", QObject::tr("Station Callsign"));
+    columnNames.insert("submode", QObject::tr("Submode"));
+    columnNames.insert("swl", QObject::tr("SWL", "Do not translate if unsure, common hamradio term."));
+    columnNames.insert("uksmg", QObject::tr("UKSMG"));
+    columnNames.insert("usaca_counties", QObject::tr("USACA counties"));
+    columnNames.insert("ve_prov", QObject::tr("VE prov"));
+    columnNames.insert("vucc_grids", QObject::tr("VUCC grids"));
+    columnNames.insert("ten_ten", QObject::tr("Ten-Ten", "Do not translate, it is a hamradio group name."));
+    columnNames.insert("tx_pwr", QObject::tr("TX Pwr"));
+    columnNames.insert("web", QObject::tr("Web"));
+    columnNames.insert("qso_date_off", QObject::tr("QSO Date off"));
+    columnNames.insert("transmiterid", QObject::tr("Transmitter id"));
+    columnNames.insert("lognumber", QObject::tr("Log number"));
 }
 QString Utilities::getLogColumnName(const QString &_column)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _column;
 
-    /*
+
     QString aux;
     aux = columnNames.value(_column);
     if (aux.length()>0)
     {
         return aux;
     }
-    return "NOTYET";
-    */
+    return _column;
+/*
     if (_column == "qso_date")
         return QObject::tr("Date");
     else if (_column == "call")
@@ -2284,6 +2203,7 @@ QString Utilities::getLogColumnName(const QString &_column)
     {
         return _column;
     }
+    */
 }
 
 bool Utilities::isValidContinent(const QString &_s)

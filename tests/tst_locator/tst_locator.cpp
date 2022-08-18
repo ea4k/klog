@@ -1,5 +1,5 @@
 /***************************************************************************
-                          tst_world.h  -  description
+                          tst_locator.h  -  description
                              -------------------
     begin                : Jan 2021
     copyright            : (C) 2021 by Jaime Robles
