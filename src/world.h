@@ -53,7 +53,7 @@ enum
     Entity_Continent = 2
 };
 
-class World : public QObject
+class World : public QWidget
 {
     //friend class Awards;
     Q_OBJECT
