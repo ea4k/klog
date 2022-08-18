@@ -39,7 +39,9 @@ BarChartStats::BarChartStats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
      setLayout(mainLayout);
 }
 
-BarChartStats::~BarChartStats(){}
+BarChartStats::~BarChartStats(){
+ delete(genchart)
+}
 
 void BarChartStats::clear()
 {
