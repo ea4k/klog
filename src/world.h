@@ -1,10 +1,10 @@
-#ifndef WORLD_H
-#define WORLD_H
+#ifndef UTILITIES_H
+#define UTILITIES_H
 /***************************************************************************
-                          world.h  -  description
+                          utilities.h  -  description
                              -------------------
-    begin                : sept 2011
-    copyright            : (C) 2011 by Jaime Robles
+    begin                : jun 2015
+    copyright            : (C) 2015 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -20,139 +20,186 @@
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
- *                                                                           *
+ *                                                                           *6
  *    You should have received a copy of the GNU General Public License      *
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
+/*
+    This class implements general use utilities that can be used from any other class
+    Anything that is not directly related with a class itself and could be used from different
+    classes should be here.
 
-//#include <QtWidgets>
-#include <QString>
-#include <QFile>
-#include <QStringList>
-//#include <QSqlRelationalTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QProgressBar>
-#include <QProgressDialog>
+    This classs hould not need to query the DB neither the DataProxy Class
+
+*/
+#include <QObject>
 #include <QtGlobal>
+#include <QString>
+#include <QtWidgets>
+#include <QPalette>
 #include <QtDebug>
-
 #include "locator.h"
-#include "dataproxy_sqlite.h"
-#include "utilities.h"
-//#include "klogdefinitions.h"
-//#include "awards.h"
+#include "klogdefinitions.h"
 
-
-class QStringList;
-
-enum
-{
-    Entity_Name = 1,
-    Entity_Continent = 2
-};
-
-class World : public QWidget
-{
-    //friend class Awards;
+class Utilities : public QObject {
     Q_OBJECT
+    friend class tst_Utilities;
 
 public:
-    World(DataProxy_SQLite *dp, const QString &_parentFunction);
-    //World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_parentFunction);
-    //World(DataProxy_SQLite *dp, const QString &_klogVer, const QString &_parentFunction);
+    Utilities(const QString &_parentName);
+    ~Utilities();
+    void setDarkMode(const QString &_dm);
+    bool isDarkMode();
+    void setCallValidation(const bool _b);
+    void setLongPrefixes (const QStringList &_p);
+    int getProgresStepForDialog(int totalSteps);
+    bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
+    QChar boolToCharToSQLite(const bool _b);
+    QString boolToQString(const bool _b);
+    QString checkAndFixASCIIinADIF(const QString &_data);
+    QString getAgent(const QString &_klogversion);
+    QString getGlobalAgent(const QString &_klogversion);
+    //QOperatingSystemVersion getOS();
+    //Devel or debug functions - Not adding any feature to the user
+    void printQString(const QStringList &_qs);
+    QString getKLogDBFile();
+    QString getKLogDBBackupFile();
+    bool QStringToBool(const QString &_s);
 
-    ~World();
-    bool create(const QString &_worldFile);
-    bool recreate(const QString &_worldFile);
+    //QString getKLogDatabaseFile(const QString &_file);
+    bool isDBFileExisting();
+    bool isDBFileExisting(const QString &_file);
+    QString getTQSLsFileName();
+    QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
+    QString getHomeDir();
+    QString getCfgFile();
+    QString getCTYFile();
+    QString getDebugLogFile();
+    QString getSaveSpotsLogFile();
+    QString getBackupADIFile();
+    QString getClubLogFile();
+    QString getEQSLFile();
+    QString getLoTWAdifFile();
+    QString getClearSQLi(QString _s);
+    void setVersion(const QString &_v);
+    QString getVersion();
+    double getVersionDouble();
 
-    QString getQRZEntityName(const QString &_qrz);
-    QString getEntityName(const int _entityN);
+    QDate getDefaultDate();
+    QString getDefaultRST(const QString &_m);
+    QStringList getDefaultLogFields();
 
-    QString getQRZEntityMainPrefix(const QString &_qrz);
-    QString getEntityMainPrefix(const int _entityN);
+    int getNormalizedDXCCValue(const int _dxcc);
 
-    QString getQRZContinentNumber(const QString &_qrz); // Returns the continent id number
-    int getContinentNumber(const int _enti); // Returns the continent id number
+    // Validations
+    bool isValidDate(const QDate _d);
+    bool isValidDateTime(const QString &_d);
+    bool isValidCall(const QString &_c);
 
-    QString getQRZContinentShortName(const QString &_qrz); // Returns the continent shortName (EU, AF, ...)
-    QString getContinentShortName(const int _enti);
+    bool isSameFreq(const double fr1, const double fr2);
+    bool isValidBandId(const int _b);
+    bool isValidModeId(const int _m);
+    bool isValidFreq(const QString &_b);
+    bool isValidGrid(const QString &_b);
+    bool isValidVUCCGrids(const QString &_b);
+    bool isValidRST(const QString &_b);
+    bool isValidPower(const QString &_b);
+    bool isValidComment(const QString &_b);
+    bool isValidName(const QString &_b);
+    bool isValidADIFField(const QString &_b);
+    bool isValidQSL_Rcvd(const QString &c);
+    bool isValidQSL_Sent(const QString &c);
+    bool isValidUpload_Status(const QString &c);
 
-    QString getQRZLocator(const QString &_qrz); // Returns the entity locator
-    QString getLocator(const int _entityN); // Returns the entity locator
+    bool isValidTimeFromString(const QString &_s);
+    bool isValidDateFromString(const QString &_s);
+    bool isValidDateTimeFromString(const QString &_s);
+    bool isValidDXCC(const int _d);
+    bool isValidAntPath(const QString &_s);
+    bool isValidARRLSect(const QString &_s);
+    bool isValidContinent(const QString &_s);
+    QStringList getValidADIFFieldAndData(const QString &_b);
+    QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
+    QString getAValidCall (const QString &_wrongCall);
+    QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
+    QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
+    QString getPrefixFullFromCall(const QString &_c);
+    QString getPrefixCountryFromCall(const QString &_c);
+    //private
+    bool isAOneLetterPrefix(const QChar &_c);
+    QString startsWithLongPrefix(const QString &_c);
 
-    double getQRZLongitude(const QString &_qrz); // Returns the longitude of the Entity
-    double getLongitude(const int _enti); // Returns the longitude of the Entity
+    // Write DATE/TIME to DB
+    QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
+    QString getDateSQLiteStringFromDate(const QDate &_d);
 
-    double getQRZLatitude(const QString &_qrz); // Returns the latitude of the Entity
-    double getLatitude(const int _enti); // Returns the latitude of the Entity
+    // Read from DB
+    QDateTime getDateTimeFromSQLiteString(const QString &_s);
+    QTime getTimeFromSQLiteString(const QString &_s);
+    QDate getDateFromSQliteString(const QString &_s);
 
-    int getEntityCqz(const int _enti);
-    int getQRZCqz(const QString &_qrz);
-    //int getPrefixCQz(const QString &_p);
+    // Translate the LOG table fields into human readable
+    QString getLogColumnName(const QString &_column);
 
-    int getQRZItuz(const QString &_qrz);
-    int getEntityItuz(const int _enti);
+    // Creates the ADIF DATE & TIME formats
+    QString getADIFDateFromQDateTime(const QDateTime &_d);  // Will produce the ADIF DATE format: "YYYYMMDD"
+    QString getADIFDateFromQDate(const QDate &_d);          // Will produce the ADIF DATE format: "YYYYMMDD"
+    QString getADIFTimeFromQDateTime(const QDateTime &_d);  // Will produce the ADIF TIME format: "HHMMSS"
 
-    int getQRZARRLId(const QString &_qrz); //Returns the ARRL id of the Entity from a QRZ & Returns -1 if not found.
-    bool isNewCQz(const int _cqz);
-    bool isNewEntity(const int _entityN);
-    //int getBandIdFromFreq(const QString fr);
+    // Parse Date & Time from ADIF
+    QDate getDateFromADIFDateString(const QString &_s);     // Expects an ADIF DATE format string: "YYYYMMDD"
+    QTime getTimeFromADIFTimeString(const QString &_s);     // Expects and ADIF TIME format String "HHMMSS" or "HHMM"
 
-    QString getQRZEntityPrefixes(const QString &_qrz);
-    QString getEntityPrefixes(const int _enti);
+    // Parse date fromLoTW
+    QDate getDateFromLoTWQSLDateString(const QString &_s);
 
-    QStringList getEntitiesNames();
-    int getHowManyEntities();
-    bool hasSpecialEntities();
+    // Creates the Cabrillo DATE & TIME (http://wwrof.org/cabrillo/)
+    QString getCabrilloDateFromQDate(const QDate &_d);          // Will produce the Cabrillo DATE format: "YYYY-MM-DD"
+    QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
-private slots:
+    QString getOnlineServiceName(OnLineProvider _service);
 
+    bool isValidDistance(const double _d);
+    bool isValidSponsor(const QString &_s);
+
+    QString debugLevelToString(DebugLogLevel _l);
+    DebugLogLevel stringToDebugLevel(const QString &_s);
+    bool isValidLogLevel(const QString &_s);
+    QStringList getDebugLevels();
+    void setLogLevel(DebugLogLevel _l);
+    //QPalette getPalete(bool _ok);
+signals:
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 private:
-    //void identifyOS();
-    bool insertSpecialEntities();
-    int getPrefixId(const QString &_qrz);
-    //bool readCTYDAT();
-    bool readCTYCSV(const QString &_worldFile);
-    QStringList processLine(const QString &_line);
-    QStringList processLineP(const QString &_line, const int _processingEntity);
-    //void createWorldModel();
-    QStringList readZones(const QString &pref, const int _cq, const int _itu);
-    QString changeSlashAndFindPrefix(const QString &_qrz); // Changes the \ into / and find the country prefix
+    void init();
+    bool processConfigLine(const QString &_line);
+    QString getKLogDefaultDatabaseFile();
+    bool isCountrySuffix (const QString &_c);
+    int isAPrefix(const QString &_c);
+    bool isALongCountryPrefix(const QString &_c);
+    bool isValidSubCall(const QString &_c);
+    //QPair<QString, QString> getCallParts(const QString &_c);
 
-    int progressBarPosition;
+    void setARRLSect();
+    void setContinent();
+    void setSponsorsList();
+    QString getCheckedComplexCall(const QString &_c);
+    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
+    bool darkMode;
+    QString dbPath;
+    QString softwareVersion;
+    QString parentName;     // The class that instanciated this object.
 
-    bool created;
-    //QString klogVersion;
-    int cqz, ituz, numberOfEntities;
-    QString entityName;
-    QString currentPrefix; // Used in the progressBar
+    QStringList ARRL_sects, continent, sponsorsList, logLevels;
+    DebugLogLevel logLevel;
+    QStringList longPrefixes;
 
-    bool ret;
-    QStringList list, prefixAndZones;
-    QString continentName, prefix;
-    int continentId;
-    double lat, lon, utc;
-    //int utc;
-    //QString line;
-    //bool readingDataOfAnEntity;
-    int nullValue;
-
-    Locator *locator;
-    DataProxy_SQLite *dataProxy;
-    Utilities *util;
-
-    //int constrid; // Just an id for the constructor to check who is being executed at one specific time
-    //Awards *awards;
-    //FLAGS
-    //QString flagsDir;
-    //FLAGS-END
-signals:
-    //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    static QHash<QString, QString> LogColumnNames;
+    void initializeLogColumnNames();
 };
 
+#endif // UTILITIES_H
 
-#endif // WORLD_H
+
