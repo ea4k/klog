@@ -29,7 +29,6 @@ QSO::QSO()
 {
     logLevel = None;
     qsoId = -1;
-    util = new Utilities(Q_FUNC_INFO);
 }
 
 QSO::~QSO() {}
@@ -102,6 +101,7 @@ void QSO::clear()
     fists = -1;
     fists_cc = -1;
     forceInit = false;
+    freq = -1.0;
     freq_rx = -1.0;
     freq_tx = -1.0;
     gridsquare = QString();
@@ -1328,6 +1328,7 @@ bool QSO::setStationCallsign(const QString &_c)
         return false;
     }
 
+
     //qDebug() << Q_FUNC_INFO << " - 010";
     if (util->isValidCall(aux))
     {
@@ -1337,7 +1338,7 @@ bool QSO::setStationCallsign(const QString &_c)
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - False";
+        //qDebug() << Q_FUNC_INFO << " - False";
        return false;
     }
 }
@@ -1634,6 +1635,23 @@ bool QSO::setHRDLogStatus(const QString &_c)
 QString QSO::getHRDLogStatus()
 {
     return hrdlog_status;
+}
+
+bool QSO::setFreq(const double _f)
+{
+    if (_f>0)
+    {
+        freq = _f;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+double QSO::getFreq()
+{
+    return freq;
 }
 
 bool QSO::setK_Index(const int _i)
@@ -2530,6 +2548,221 @@ QString QSO::getMyWwffRef()
 }
 
 
+// helper functions for hash, returns original function but takes string data as imput
+bool QSO::setAge(const QString &data) { return setAge(data.toInt()); }
+bool QSO::setA_Index(const QString& data) { return setA_Index(data.toInt()); }
+bool QSO::setAnt_az(const QString& data) { return setAnt_az(data.toInt()); }
+bool QSO::setAnt_el(const QString& data) { return setAnt_el(data.toInt()); }
+bool QSO::setCQZone(const QString& data) { return setCQZone(data.toInt()); }
+bool QSO::setDistance(const QString& data) { return setDistance(data.toInt()); }
+bool QSO::setDXCC(const QString& data) { return setDXCC(data.toInt()); }
+bool QSO::setFists(const QString& data) { return setFists(data.toInt()); }
+bool QSO::setFistsCC(const QString& data) { return setFistsCC(data.toInt()); }
+bool QSO::setIotaID(const QString& data) { return setIotaID(data.toInt()); }
+bool QSO::setItuZone(const QString& data) { return setItuZone(data.toInt()); }
+bool QSO::setK_Index(const QString& data) { return setK_Index(data.toInt()); }
+bool QSO::setMaxBursts(const QString& data) { return setMaxBursts(data.toInt()); }
+bool QSO::setMyCQZone(const QString& data) { return setMyCQZone(data.toInt()); }
+bool QSO::setMyDXCC(const QString& data) { return setMyDXCC(data.toInt()); }
+bool QSO::setMyIotaID(const QString& data) { return setMyIotaID(data.toInt()); }
+bool QSO::setMyITUZone(const QString& data) { return setMyITUZone(data.toInt()); }
+bool QSO::setNrBursts(const QString& data) { return setNrBursts(data.toInt()); }
+bool QSO::setNrPings(const QString& data) { return setNrPings(data.toInt()); }
+bool QSO::setSFI(const QString& data) { return setSFI(data.toInt()); }
+bool QSO::setSrx(const QString& data) { return setSrx(data.toInt()); }
+bool QSO::setStx(const QString& data) { return setStx(data.toInt()); }
+bool QSO::setTenTen(const QString& data) { return setTenTen(data.toInt()); }
+bool QSO::setUksmg(const QString& data) { return setUksmg(data.toInt()); }
+
+bool QSO::setFreqTX(const QString& data) { return setFreqTX(data.toDouble()); }
+bool QSO::setFreqRX(const QString& data) { return setFreqRX(data.toDouble()); }
+bool QSO::setRXPwr(const QString& data){ return setRXPwr(data.toDouble()); }
+bool QSO::setTXPwr(const QString& data){ return setTXPwr(data.toDouble()); }
+
+bool QSO::setClublogQSOUpdateDate(const QString& data) { return setClublogQSOUpdateDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setEQSLQSLRDate(const QString& data) { return setEQSLQSLRDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setEQSLQSLSDate(const QString& data) { return setEQSLQSLSDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setForceInit(const QString& data) { return setForceInit(util->QStringToBool(data)); }
+bool QSO::setHRDUpdateDate(const QString& data) { return setHRDUpdateDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setLoTWQSLRDate(const QString& data) { return setLoTWQSLRDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setLoTWQSLSDate(const QString& data) { return setLoTWQSLSDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setQRZCOMDate(const QString& data) { return setQRZCOMDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setQSLRDate(const QString& data) { return setQSLRDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setQSLSDate(const QString& data) { return setQSLSDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setDate(const QString& data) { return setDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setDateOff(const QString& data) { return setDateOff(util->getDateFromADIFDateString(data)); }
+bool QSO::setQSORandom(const QString& data) { return setQSORandom(util->QStringToBool(data)); }
+bool QSO::setSilentKey(const QString& data) { return setSilentKey(util->QStringToBool(data)); }
+bool QSO::setSwl(const QString& data) { return setSwl(util->QStringToBool(data)); }
+bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromADIFTimeString(data)); }
+bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
+
+bool QSO::setLoTWQSLRDate2(const QString& data) {
+    //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
+    setLoTWQSL_RCVD("Y");
+    return setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
+}
+bool QSO::setLoTWQSLSDate1(const QString& data) {
+    //qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data  << QT_ENDL;
+    setLoTWQSL_SENT("Y");
+    return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
+}
+bool QSO::setLoTWQSLSDate2(const QString& data) {
+    //qDebug() << "QSO::setData: APP_LoTW_QSO_TIMESTAMP: " << data  << QT_ENDL;
+    setLoTWQSL_SENT("Y");
+    return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
+}
+
+QHash<QString,std::_Mem_fn<bool(QSO::*)(const QString&)>> QSO::SetDataHash;
+void QSO::InitializeHash() {
+    SetDataHash = { 
+        {"ADDRESS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAddress)},
+        {"AGE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAge)},
+        {"A_INDEX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setA_Index)},
+        {"ANT_AZ", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAnt_az)},
+        {"ANT_EL", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAnt_el)},
+        {"ANT_PATH", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAnt_Path)},
+        {"ARRL_SECT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setARRL_Sect)},
+        {"AWARD_SUBMITTED", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAwardSubmitted)},
+        {"AWARD_GRANTED", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setAwardGranted)},
+        {"BAND", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setBand)},
+        {"BAND_RX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setBandRX)},
+        {"CALL", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCall)},
+        {"CHECK", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCheck)},
+        {"CLASS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setClase)},
+        {"CLUBLOG_QSO_UPLOAD_DATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setClublogQSOUpdateDate)},
+        {"CLUBLOG_QSO_UPLOAD_STATUS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setClubLogStatus)},
+        {"CNTY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCounty)},
+        {"COMMENT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setComment)},
+        {"CONT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setContinent)},
+        {"CONTACTED_OP", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setContactedOperator)},
+        {"CONTEST_ID", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setContestID)},
+        {"COUNTRY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCountry)},
+        {"CQZ", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCQZone)},
+        {"CREDIT_SUBMITTED", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCreditSubmitted)},
+        {"CREDIT_GRANTED", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setCreditGranted)},
+        {"DARC_DOK", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setDarcDok)},
+        {"DISTANCE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setDistance)},
+        {"DXCC", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setDXCC)},
+        {"EMAIL", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setEmail)},
+        {"EQ_CALL", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setOwnerCallsign)},
+        {"EQSL_QSLRDATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setEQSLQSLRDate)},
+        {"EQSL_QSLSDATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setEQSLQSLSDate)},
+        {"EQSL_QSL_RCVD", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setEQSLQSL_RCVD)},
+        {"EQSL_QSL_SENT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setEQSLQSL_SENT)},
+        {"FISTS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setFists)},
+        {"FISTS_CC", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setFistsCC)},
+        {"FORCE_INIT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setForceInit)},
+        {"FREQ", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setFreqTX)},
+        {"FREQ_RX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setFreqRX)},
+        {"GRIDSQUARE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setGridSquare)},
+        {"GUEST_OP", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setOperatorCallsign)},
+        {"HRDLOG_QSO_UPLOAD_DATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setHRDUpdateDate)},
+        {"HRDLOG_QSO_UPLOAD_STATUS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setHRDLogStatus)},
+        {"IOTA", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setIOTA)},
+        {"IOTA_ISLAND_ID", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setIotaID)},
+        {"ITUZ", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setItuZone)},
+        {"K_INDEX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setK_Index)},
+        {"LAT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLatitude)},
+        {"LON", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLongitude)},
+        {"LOTW_QSLRDATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLoTWQSLRDate)},
+        {"LOTW_QSLSDATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLoTWQSLSDate)},
+        {"LOTW_QSL_RCVD", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLoTWQSL_RCVD)},
+        {"LOTW_QSL_SENT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setEQSLQSL_SENT)},
+        {"MAX_BURSTS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMaxBursts)},
+        {"MODE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMode)},
+        {"MS_SHOWER", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMsShower)},
+        {"MY_ANTENNA", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyAntenna)},
+        {"MY_ARRL_SECT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyArrlSect)},
+        {"MY_CITY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyCity)},
+        {"MY_CNTY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyCounty)},
+        {"MY_COUNTRY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyCountry)},
+        {"MY_CQ_ZONE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyCQZone)},
+        {"MY_DXCC", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyDXCC)},
+        {"MY_FISTS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyFists)},
+        {"MY_GRIDSQUARE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyGridSquare)},
+        {"MY_IOTA", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyIOTA)},
+        {"MY_IOTA_ISLAND_ID", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyIotaID)},
+        {"MY_ITU_ZONE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyITUZone)},
+        {"MY_LAT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyLatitude)},
+        {"MY_LON", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyLongitude)},
+        {"MY_NAME", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyName)},
+        {"MY_POSTAL_CODE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyPostalCode)},
+        {"MY_RIG", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyRig)},
+        {"MY_SIG", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMySig)},
+        {"MY_SIG_INFO", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMySigInfo)},
+        {"MY_SOTA_REF", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMySOTA_REF)},
+        {"MY_STATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyState)},
+        {"MY_STREET", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyStreet)},
+        {"MY_USACA_COUNTIES", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyUsacaCounties)},
+        {"MY_VUCC_GRIDS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyVUCCGrids)},
+        {"MY_WWFF_REF", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setMyWwffRef)},
+        {"NAME", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setName)},
+        {"NOTES", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setNotes)},
+        {"NR_BURSTS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setNrBursts)},
+        {"NR_PINGS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setNrPings)},
+        {"OPERATOR", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setOperatorCallsign)},
+        {"OWNER_CALLSIGN", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setOwnerCallsign)},
+        {"PFX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setPrefix)},
+        {"PRECEDENCE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setPrecedence)},
+        {"PROP_MODE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setPropMode)},
+        {"PUBLIC_KEY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setPublicKey)},
+        {"QRZCOM_QSO_UPLOAD_DATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQRZCOMDate)},
+        {"QRZCOM_QSO_UPLOAD_STATUS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQRZCOMStatus)},
+        {"QSLMSG", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSLMsg)},
+        {"QSLRDATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSLRDate)},
+        {"QSLSDATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSLSDate)},
+        {"QSL_RCVD", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSL_RCVD)},
+        {"QSL_RCVD_VIA", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSLRecVia)},
+        {"QSL_SENT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSL_SENT)},
+        {"QSL_SENT_VIA", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSLSenVia)},
+        {"QSL_VIA", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSLVia)},
+        {"QSO_COMPLETE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSOComplete)},
+        {"QSO_DATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setDate)},
+        {"QSO_DATE_OFF", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setDateOff)},
+        {"QSO_RANDOM", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQSORandom)},
+        {"QTH", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setQTH)},
+        {"REGION", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setRegion)},
+        {"RIG", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setRig)},
+        {"RST_RCVD", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setRSTRX)},
+        {"RST_SENT", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setRSTTX)},
+        {"RX_PWR", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setRXPwr)},
+        {"SAT_MODE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSatMode)},
+        {"SAT_NAME", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSatName)},
+        {"SFI", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSFI)},
+        {"SIG", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSig)},
+        {"SIG_INFO", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSigInfo)},
+        {"SILENT_KEY", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSilentKey)},
+        {"SKCC", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSkcc)},
+        {"SOTA_REF", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSOTA_REF)},
+        {"SRX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSrx)},
+        {"SRX_STRING", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSrxString)},
+        {"STATE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setState)},
+        {"STATION_CALLSIGN", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setStationCallsign)},
+        {"STX", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setStx)},
+        {"STX_STRING", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setStxString)},
+        {"SUBMODE", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSubmode)},
+        {"SWL", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setSwl)},
+        {"TEN_TEN", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setTenTen)},
+        {"TIME_OFF", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setTimeOff)},
+        {"TIME_ON", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setTimeOn)},
+        {"TX_PWR", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setTXPwr)},
+        {"UKSMG", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setUksmg)},
+        {"USACA_COUNTIES", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setUsacaCounties)},
+        {"VE_PROV", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setVeProv)},
+        {"VUCC_GRIDS", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setVUCCGrids)},
+        {"WEB", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setWeb)},
+        {"WWFF_REF", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setWwffRef)},
+        {"APP_LOTW_RXQSL", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLoTWQSLRDate2)},
+        {"APP_LOTW_RXQSO", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLoTWQSLSDate1)},
+        {"APP_LOTW_QSO_TIMESTAMP", std::_Mem_fn<bool(QSO::*)(const QString&)>(&QSO::setLoTWQSLSDate2)}
+    };
+    return;
+
+
+
+
+}
 
 
 
@@ -2551,572 +2784,13 @@ bool QSO::setData(const QString &_adifPair)
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
 
-    if (field == "ADDRESS")
-    {
-        setAddress(data);
+    if (SetDataHash.empty()) {
+        InitializeHash();
     }
-    else if (field == "AGE")
-    {
-        setAge(data.toInt());
+    if (SetDataHash.contains(field)) {
+        (*SetDataHash.find(field))(this,data);
     }
-    else if (field == "A_INDEX")
-    {
-        setA_Index(data.toInt());
-    }
-    else if (field == "ANT_AZ")
-    {
-        setAnt_az(data.toInt());
-    }
-    else if (field == "ANT_EL")
-    {
-        setAnt_el(data.toInt());
-    }
-    else if (field == "ANT_PATH")
-    {
-        setAnt_Path(data);
-    }
-    else if (field == "ARRL_SECT")
-    {
-        setARRL_Sect(data);
-    }
-    else if (field == "AWARD_SUBMITTED")
-    {
-        setAwardSubmitted(data);
-    }
-    else if (field == "AWARD_GRANTED")
-    {
-        setAwardGranted(data);
-    }
-    else if (field == "BAND")
-    {
-        setBand(data);
-    }
-    else if (field == "BAND_RX")
-    {
-        setBandRX(data);
-    }
-    else if (field == "CALL")
-    {
-        setCall(data);
-    }
-    else if (field == "CHECK")
-    {
-        setCheck(data);
-    }
-    else if (field == "CLASS")
-    {
-        setClase(data);
-    }
-    else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
-    {
-        setClublogQSOUpdateDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "CLUBLOG_QSO_UPLOAD_STATUS")
-    {
-        setClubLogStatus(data);
-    }
-    else if (field == "CNTY")
-    {
-        setCounty(data);
-    }
-    else if (field == "COMMENT")
-    {
-        setComment(data);
-    }
-    else if (field == "CONT")
-    {
-        setContinent(data);
-    }
-    else if (field == "CONTACTED_OP")
-    {
-        setContactedOperator(data);
-    }
-    else if (field == "CONTEST_ID")
-    {
-        setContestID(data);
-    }
-    else if (field == "COUNTRY")
-    {
-        setCountry(data);
-    }
-    else if (field == "CQZ")
-    {
-        setCQZone(data.toInt());
-    }
-    else if (field == "CREDIT_SUBMITTED")
-    {
-        setCreditSubmitted(data);
-    }
-    else if (field == "CREDIT_GRANTED")
-    {
-        setCreditGranted(data);
-    }
-    else if (field == "DARC_DOK")
-    {
-        setDarcDok(data);
-    }
-    else if (field == "DISTANCE")
-    {
-        setDistance(data.toInt());
-    }
-    else if (field == "DXCC")
-    {
-        setDXCC(data.toInt());
-    }
-    else if (field == "EMAIL")
-    {
-        setEmail(data);
-    }
-    else if (field == "EQ_CALL")
-    {
-        setOwnerCallsign(data);
-    }
-    else if (field == "EQSL_QSLRDATE")
-    {
-        setEQSLQSLRDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "EQSL_QSLSDATE")
-    {
-        setEQSLQSLSDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "EQSL_QSL_RCVD")
-    {
-        setEQSLQSL_RCVD(data);
-    }
-    else if (field == "EQSL_QSL_SENT")
-    {
-        setEQSLQSL_SENT(data);
-    }
-    else if (field == "FISTS")
-    {
-        setFists(data.toInt());
-    }
-    else if (field == "FISTS_CC")
-    {
-        setFistsCC(data.toInt());
-    }
-    else if (field == "FORCE_INIT")
-    {
-        setForceInit(util->QStringToBool(data));
-    }
-    else if (field == "FREQ")
-    {
-        setFreqTX (data.toDouble());
-    }
-    else if (field == "FREQ_RX")
-    {
-        setFreqRX(data.toDouble());
-    }
-    else if (field == "GRIDSQUARE")
-    {
-        setGridSquare(data);
-    }
-    else if (field == "GUEST_OP")
-    {
-        setOperatorCallsign(data);
-    }
-    else if (field == "HRDLOG_QSO_UPLOAD_DATE")
-    {
-        setHRDUpdateDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "HRDLOG_QSO_UPLOAD_STATUS")
-    {
-        setHRDLogStatus(data);
-    }
-    else if (field == "IOTA")
-    {
-        setIOTA(data);
-    }
-    else if (field == "IOTA_ISLAND_ID")
-    {
-        setIotaID(data.toInt());
-    }
-    else if (field == "ITUZ")
-    {
-        setItuZone(data.toInt());
-    }
-    else if (field == "K_INDEX")
-    {
-        setK_Index(data.toInt());
-    }
-    else if (field == "LAT")
-    {
-        setLatitude(data);
-    }
-    else if (field == "LON")
-    {
-        setLongitude(data);
-    }
-    else if (field == "LOTW_QSLRDATE")
-    {
-        setLoTWQSLRDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "LOTW_QSLSDATE")
-    {
-        setLoTWQSLSDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "LOTW_QSL_RCVD")
-    {
-        setLoTWQSL_RCVD(data);
-    }
-    else if (field == "LOTW_QSL_SENT")
-    {
-        setEQSLQSL_SENT(data);
-    }
-    else if (field == "MAX_BURSTS")
-    {
-        setMaxBursts(data.toInt());
-    }
-    else if (field == "MODE")
-    {
-        setMode(data);
-    }
-    else if (field == "MS_SHOWER")
-    {
-        setMsShower(data);
-    }
-    else if (field == "MY_ANTENNA")
-    {
-        setMyAntenna(data);
-    }
-    else if (field == "MY_ARRL_SECT")
-    {
-        setMyArrlSect(data);
-    }
-    else if (field == "MY_CITY")
-    {
-        setMyCity(data);
-    }
-    else if (field == "MY_CNTY")
-    {
-        setMyCounty(data);
-    }
-    else if (field == "MY_COUNTRY")
-    {
-        setMyCountry(data);
-    }
-    else if (field == "MY_CQ_ZONE")
-    {
-        setMyCQZone(data.toInt());
-    }
-    else if (field == "MY_DXCC")
-    {
-        setMyDXCC(data.toInt());
-    }
-    else if (field == "MY_FISTS")
-    {
-        setMyFists(data);
-    }
-    else if (field == "MY_GRIDSQUARE")
-    {
-        setMyGridSquare(data);
-    }
-    else if (field == "MY_IOTA")
-    {
-        setMyIOTA(data);
-    }
-    else if (field == "MY_IOTA_ISLAND_ID")
-    {
-        setMyIotaID(data.toInt());
-    }
-    else if (field == "MY_ITU_ZONE")
-    {
-        setMyITUZone(data.toInt());
-    }
-    else if (field == "MY_LAT")
-    {
-        setMyLatitude(data);
-    }
-    else if (field == "MY_LON")
-    {
-        setMyLongitude(data);
-    }
-    else if (field == "MY_NAME")
-    {
-        setMyName(data);
-    }
-    else if (field == "MY_POSTAL_CODE")
-    {
-        setMyPostalCode(data);
-    }
-    else if (field == "MY_RIG")
-    {
-        setMyRig(data);
-    }
-    else if (field == "MY_SIG")
-    {
-        setMySig(data);
-    }
-    else if (field == "MY_SIG_INFO")
-    {
-        setMySigInfo(data);
-    }
-    else if (field == "MY_SOTA_REF")
-    {
-        setMySOTA_REF(data);
-    }
-    else if (field == "MY_STATE")
-    {
-        setMyState(data);
-    }
-    else if (field == "MY_STREET")
-    {
-        setMyStreet(data);
-    }
-    else if (field == "MY_USACA_COUNTIES")
-    {
-        setMyUsacaCounties(data);
-    }
-    else if (field == "MY_VUCC_GRIDS")
-    {
-        setMyVUCCGrids(data);
-    }
-    else if (field == "MY_WWFF_REF")
-    {
-        setMyWwffRef(data);
-    }
-    else if (field == "NAME")
-    {
-        setName(data);
-    }
-    else if (field == "NOTES")
-    {
-        setNotes(data);
-    }
-    else if (field == "NR_BURSTS")
-    {
-        setNrBursts(data.toInt());
-    }
-    else if (field == "NR_PINGS")
-    {
-        setNrPings(data.toInt());
-    }
-    else if (field == "OPERATOR")
-    {
-        setOperatorCallsign(data);
-    }
-    else if (field == "OWNER_CALLSIGN")
-    {
-        setOwnerCallsign(data);
-    }
-    else if (field == "PFX")
-    {
-        setPrefix(data);
-    }
-    else if (field == "PRECEDENCE")
-    {
-        setPrecedence(data);
-    }
-    else if (field == "PROP_MODE")
-    {
-        setPropMode(data);
-    }
-    else if (field == "PUBLIC_KEY")
-    {
-        setPublicKey(data);
-    }
-    else if (field == "QRZCOM_QSO_UPLOAD_DATE")
-    {
-        setQRZCOMDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "QRZCOM_QSO_UPLOAD_STATUS")
-    {
-        setQRZCOMStatus(data);
-    }
-    else if (field == "QSLMSG")
-    {
-        setQSLMsg(data);
-    }
-    else if (field == "QSLRDATE")
-    {
-        setQSLRDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "QSLSDATE")
-    {
-        setQSLSDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "QSL_RCVD")
-    {
-        setQSL_RCVD(data);
-    }
-    else if (field == "QSL_RCVD_VIA")
-    {
-        setQSLRecVia(data);
-    }
-    else if (field == "QSL_SENT")
-    {
-        setQSL_SENT(data);
-    }
-    else if (field == "QSL_SENT_VIA")
-    {
-        setQSLSenVia(data);
-    }
-    else if (field == "QSL_VIA")
-    {
-        setQSLVia(data);
-    }
-    else if (field == "QSO_COMPLETE")
-    {
-        setQSOComplete(data);
-    }
-    else if (field == "QSO_DATE")
-    {
-        setDate(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "QSO_DATE_OFF")
-    {
-        setDateOff(util->getDateFromADIFDateString(data));
-    }
-    else if (field == "QSO_RANDOM")
-    {
-        setQSORandom(util->QStringToBool(data));
-    }
-    else if (field =="QTH")
-    {
-        setQTH(data);
-    }
-    else if (field == "REGION")
-    {
-        setRegion(data);
-    }
-    else if (field == "RIG")
-    {
-        setRig(data);
-    }
-    else if (field == "RST_RCVD")
-    {
-        setRSTRX(data);
-    }
-    else if (field == "RST_SENT")
-    {
-        setRSTTX(data);
-    }
-    else if (field == "RX_PWR")
-    {
-        setRXPwr(data.toDouble());
-    }
-    else if (field == "SAT_MODE")
-    {
-        setSatMode(data);
-    }
-    else if (field == "SAT_NAME")
-    {
-        setSatName(data);
-    }
-    else if (field == "SFI")
-    {
-        setSFI(data.toInt());
-    }
-    else if (field == "SIG")
-    {
-        setSig(data);
-    }
-    else if (field == "SIG_INFO")
-    {
-        setSigInfo(data);
-    }
-    else if (field == "SILENT_KEY")
-    {
-        setSilentKey(util->QStringToBool(data));
-    }
-    else if (field == "SKCC")
-    {
-        setSkcc(data);
-    }
-    else if (field == "SOTA_REF")
-    {
-        setSOTA_REF(data);
-    }
-    else if (field == "SRX")
-    {
-        setSrx(data.toInt());
-    }
-    else if (field == "SRX_STRING")
-    {
-        setSrxString(data);
-    }
-    else if (field == "STATE")
-    {
-        setState(data);
-    }
-    else if (field == "STATION_CALLSIGN")
-    {
-        setStationCallsign(data);
-    }
-    else if (field == "STX")
-    {
-        setStx(data.toInt());
-    }
-    else if (field == "STX_STRING")
-    {
-        setStxString(data);
-    }
-    else if (field == "SUBMODE")
-    {
-        setSubmode(data);
-    }
-    else if (field == "SWL")
-    {
-        setSwl(util->QStringToBool(data));
-    }
-    else if (field == "TEN_TEN")
-    {
-        setTenTen(data.toInt());
-    }
-    else if (field == "TIME_OFF")
-    {
-        setTimeOff(util->getTimeFromADIFTimeString(data));
-    }
-    else if (field == "TIME_ON")
-    {
-        setTimeOn(util->getTimeFromADIFTimeString(data));
-    }
-    else if (field == "TX_PWR")
-    {
-       setTXPwr(data.toDouble());
-    }
-    else if (field == "UKSMG")
-    {
-        setUksmg(data.toInt());
-    }
-    else if (field == "USACA_COUNTIES")
-    {
-        setUsacaCounties(data);
-    }
-    else if (field == "VE_PROV")
-    {
-        setVeProv(data);
-    }
-    else if (field == "VUCC_GRIDS")
-    {
-        setVUCCGrids(data);
-    }
-    else if (field == "WEB")
-    {
-        setWeb(data);
-    }
-    else if (field == "WWFF_REF")
-    {
-        setWwffRef(data);
-    }
-    else if (field == "APP_LOTW_RXQSL")
-    {
-        //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
-        setLoTWQSL_RCVD("Y");
-        setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
-    }
-    else if (field == "APP_LOTW_RXQSO")
-    {
-        //qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data  << QT_ENDL;
-        setLoTWQSL_SENT("Y");
-        setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
-    }
-    else if (field == "APP_LOTW_QSO_TIMESTAMP")
-    {
-        //qDebug() << "QSO::setData: APP_LoTW_QSO_TIMESTAMP: " << data  << QT_ENDL;
-        setLoTWQSL_SENT("Y");
-        setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
-    }
+
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
