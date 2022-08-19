@@ -53,7 +53,7 @@ enum
     Entity_Continent = 2
 };
 
-class World : public QWidget
+class World : public QObject
 {
     //friend class Awards;
     Q_OBJECT
@@ -66,6 +66,7 @@ public:
     ~World();
     bool create(const QString &_worldFile);
     bool recreate(const QString &_worldFile);
+    bool readWorld();
 
     QString getQRZEntityName(const QString &_qrz);
     QString getEntityName(const int _entityN);
@@ -113,7 +114,7 @@ private slots:
 private:
     //void identifyOS();
     bool insertSpecialEntities();
-    int getPrefixId(const QString &_qrz);
+    int getPrefixId(const QString &_prefix);
     //bool readCTYDAT();
     bool readCTYCSV(const QString &_worldFile);
     QStringList processLine(const QString &_line);
@@ -143,6 +144,7 @@ private:
     Locator *locator;
     DataProxy_SQLite *dataProxy;
     Utilities *util;
+    QHash<QString, int> worldPrefixes;
 
     //int constrid; // Just an id for the constructor to check who is being executed at one specific time
     //Awards *awards;

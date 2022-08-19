@@ -559,7 +559,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
     //qDebug() << Q_FUNC_INFO << " - 130";
     startServices();
-    //showNotWar();
+    showNotWar();
     //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -3526,7 +3526,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz << QT_ENDL;
 
-    //QString pref = util->getPrefixFromCall2(_qrz);
+    //QString pref = util->getPrefixFromCall(_qrz);
     //logEvent(Q_FUNC_INFO, QString("Call/Prefix: %1/%2").arg(_qrz).arg(pref), Devel);
     //currentEntity = world->getQRZARRLId(pref);
     //validar por que no puedo tirar o usar  el prefijo directamente

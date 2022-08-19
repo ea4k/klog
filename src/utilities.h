@@ -53,6 +53,7 @@ public:
     bool isDarkMode();
     void setCallValidation(const bool _b);
     void setLongPrefixes (const QStringList &_p);
+    void setSpecialCalls (const QStringList &_p);
 
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
@@ -121,15 +122,11 @@ public:
     bool isValidARRLSect(const QString &_s);
     bool isValidContinent(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
+
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
     QString getAValidCall (const QString &_wrongCall);
-    QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
-    QString getPrefixFullFromCall(const QString &_c);
-    QString getPrefixCountryFromCall(const QString &_c);
-    //private
     bool isAOneLetterPrefix(const QChar &_c);
-    QString startsWithLongPrefix(const QString &_c);
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
@@ -180,9 +177,10 @@ private:
     QString getKLogDefaultDatabaseFile();
     //bool isCountrySuffix (const QString &_c);
     bool isAValidOperatingSuffix (const QString &_c);
-    int isAPrefix(const QString &_c);
-    bool isALongCountryPrefix(const QString &_c);
-    bool isValidSubCall(const QString &_c);
+    bool isAPrefix(const QString &_c); // Returns true if it is the country prefix or it includes the area number
+    bool isAKnownPrefix(const QString &_c);
+    bool isAKnownCall(const QString &_c);
+    bool isValidSimpleCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
@@ -197,7 +195,7 @@ private:
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;
-    QStringList longPrefixes;
+    QStringList longPrefixes, specialCalls;
     QMap<QString, QString> columnNames;
     bool validateCalls;
 

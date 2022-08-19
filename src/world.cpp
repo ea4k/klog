@@ -25,8 +25,6 @@
  *****************************************************************************/
 
 #include "world.h"
-
-
 /*
  QHash<QString, int> worldPrefixes;
 To insert a (key, value) pair into the hash, you can use operator[]():
@@ -42,6 +40,7 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     //qDebug() << Q_FUNC_INFO << " - Start";
     numberOfEntities = 0;
     progressBarPosition = 0;
+    worldPrefixes.clear();
     cqz = -1;
     ituz = -1;
     ret = false;
@@ -53,7 +52,17 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     created = false;
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
+
     util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    if (readWorld())
+    {
+        //qDebug() << Q_FUNC_INFO << " - World TRUE";
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << " - World FALSE";
+    }
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -62,6 +71,17 @@ World::~World()
       //qDebug() << "World::~World";
     delete(locator);
     delete(util);
+}
+
+bool World::readWorld()
+{
+    worldPrefixes.clear();
+    worldPrefixes = dataProxy->getWorldData();
+    if (worldPrefixes.size()>100)
+    {
+        return true;
+    }
+    return false;
 }
 
 bool World::recreate(const QString &_worldFile)
@@ -207,7 +227,7 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
         line.replace(QChar('\''), QChar('_'));
     }
 
-       //qDebug() << "World::processLineP: Received: " << line;
+    //qDebug() << "World::processLineP: Received: " << line;
     //QSqlQuery _queryp;
     QStringList aa, _list;
     aa.clear();
@@ -231,7 +251,6 @@ QStringList World::processLineP(const QString &_line, const int _processingEntit
             prefixAndZones = readZones(line, _cqz, _ituz);
             //aa.clear();
             aa << prefixAndZones.at(0) << QString::number(currentEntity) << prefixAndZones.at(1) << prefixAndZones.at(2);
-
 
              //readZones returns a QStringList: prefix, CQz, ITUz
              //Returns QStringList: prefix << dxcc << cqz << ituz OR CurrentEntity as a number
@@ -314,11 +333,6 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     QString azone;
     QString aux = pref;
 
-    if (aux.startsWith("="))
-    {
-        aux = aux.remove(0,1);
-    }
-
     if(aux.count('[')==1) // Check if has special CQz
     {
            //qDebug() << "World::readZones DETECTED [ !!!!";
@@ -346,35 +360,16 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     return result;
 }
 
-int World::getPrefixId(const QString &_qrz)
+int World::getPrefixId(const QString &_prefix)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
-    //TODO: Instead of going from long to short, identify prefixes from the begining:
-    // character(may be number) + number
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _prefix << "/" << QString::number(worldPrefixes.value(_prefix, -2));
+    //This function receives the final prefix.
 
-    if (_qrz.length() < 1)
+    if (_prefix.length() < 1)
     {
         return -1;
     }
-    int entityID = 0;
-    QString aux;
-    //QString pref = util->getPrefixCountryFromCall(_qrz.toUpper());
-    //QString aux = util->getMainCallFromComplexCall(_qrz.toUpper());
-    entityID = dataProxy->getDXCCFromPrefix(_qrz.toUpper());
-    //qDebug() << Q_FUNC_INFO << " - call/entityID: " << _qrz.toUpper() << "/" << QString::number(entityID);
-    if (entityID>0)
-    {
-        return entityID;
-    }
-    else
-    {
-        //aux = util->getMainCallFromComplexCall(_qrz.toUpper());
-        aux = util->getPrefixCountryFromCall(_qrz.toUpper());
-        //qDebug() << Q_FUNC_INFO << " - call/entityID2: " << aux << "/" << QString::number(entityID);
-        return dataProxy->getDXCCFromPrefix(aux);
-    }    
-    //qDebug() << "World::getPrefixId: END: " <<  _qrz << QString::number(entityID);
-    return entityID;
+    return worldPrefixes.value(_prefix, -2);
 }
 
 QString World::getQRZEntityName(const QString &_qrz)
@@ -400,24 +395,15 @@ QString World::getEntityName(const int _entityN)
 
 int World::getQRZCqz(const QString &_qrz)
 {
-        //qDebug() << "World::getQRZCqz: " << _qrz;
+    //qDebug() << "World::getQRZCqz: " << _qrz;
      if (_qrz.length() < 1 )
      {
          return -1;
      }
 
-     int i = -1;
-     QString aux = _qrz;
-
-     while ((i <= 0) && (aux.length()>=1) )
-     {
-         i = dataProxy->getCQzFromPrefix(aux);
-         if (i<=0)
-         {
-             aux.chop(1);
-         }
-     }
-     return i;
+    QString aux = _qrz;
+    aux = util->getPrefixFromCall(aux);
+    return dataProxy->getCQzFromPrefix(aux);
 }
 
 int World::getQRZItuz(const QString &_qrz)
@@ -428,18 +414,9 @@ int World::getQRZItuz(const QString &_qrz)
         return -1;
     }
 
-    int i = -1;
     QString aux = _qrz;
-
-    while ((i <= 0) && (aux.length()>=1) )
-    {
-        i = dataProxy->getITUzFromPrefix(aux);
-        if (i<=0)
-        {
-            aux.chop(1);
-        }
-    }
-    return i;
+    aux = util->getPrefixFromCall(aux);
+    return dataProxy->getITUzFromPrefix(aux);
 }
 
 int World::getEntityCqz(const int _enti)
@@ -462,13 +439,13 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-    //qDebug() << "World::getQRZARRLId" << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return -1;
     }
-    QString pref = util->getPrefixFromCall2(_qrz);
-    //return getPrefixId(_qrz);
+    QString pref = util->getPrefixFromCall(_qrz);
+    //qDebug() << Q_FUNC_INFO << ": " << pref;
     return getPrefixId(pref);
 }
 
@@ -559,7 +536,6 @@ double World::getLongitude(const int _enti)
     {
         return 0.0;
     }
-
     return dataProxy->getLongitudeFromEntity(_enti);
 }
 
@@ -639,7 +615,8 @@ bool World::readCTYCSV(const QString &_worldFile)
     // Starts with main data:
     file.seek(beginingOfFile);
     progressBarPosition = 0;
-    QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, numberOfLines, this);
+    //QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, numberOfLines, this);
+    QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, numberOfLines);
     progress.setWindowModality(Qt::ApplicationModal);
 
     numberOfEntities = 0; // Reset this variable to reuse it and assign the "dxcc" to the entities (temp solution)
@@ -772,11 +749,6 @@ bool World::readCTYCSV(const QString &_worldFile)
                     //Returns a QStringList: prefix, CQz, ITUz
                     stringListProcessedPrefix.clear();
                     stringListProcessedPrefix << readZones(prefAux, (stringList.at(4)).toInt(), (stringList.at(5)).toInt());
-
-                    if (prefAux.at(0)=='=')
-                    { //TODO: Maybe there is a better way to identify exact calls instead of prefixes , identified with a = before he call.
-                        prefAux.remove(0,1);
-                    }
 
                     queryP.addBindValue(stringListProcessedPrefix.at(0));
                     queryP.addBindValue(entityNumber);

@@ -214,6 +214,8 @@ public:
     int getDXCCFromPrefix(const QString &_p);
     QString getEntityPrefixes(const int _enti);
     QStringList getLongPrefixes();
+    QStringList getSpecialCallsigns();
+    QHash<QString, int> getWorldData();
     QStringList getEntitiesNames();
     QStringList getEntitiesIds();
     int getHowManyEntities();
