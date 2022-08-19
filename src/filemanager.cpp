@@ -1,4 +1,4 @@
-﻿/***************************************************************************
+/***************************************************************************
                           filemanager.cpp  -  description
                              -------------------
     begin                : sept 2011
@@ -1962,7 +1962,151 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
        //qDebug() << "FileManager::adifReadLog END "  << QT_ENDL;
     return true;
 }
+QHash<QString, int> FileManager::SwitchHash;
+void FileManager::initializeSwitchHash() {
+    SwitchHash = {
+    {"CALL", 1},
+    {"QSO_DATE", 2},
+    {"BAND", 3},
+    {"MODE", 4},
+    {"SUBMODE", 5},
+    {"SRX", 6},
+    {"STX", 7},
+    {"TIME_ON", 8},
+    {"QSO_DATE_OFF", 9},
+    {"BAND_RX", 10},
+    {"TIME_OFF", 11},
+    {"RST_SENT", 12},
+    {"RST_RCVD", 13},
+    {"SRX_STRING", 14},
+    {"STX_STRING", 15},
+    {"CQZ", 16},
+    {"ITUZ", 17},
+    {"DXCC", 18},
+    {"ADDRESS", 19},
+    {"AGE", 20},
+    {"CNTY", 21},
+    {"COMMENT", 22},
+    {"A_INDEX", 23},
+    {"ANT_AZ", 24},
+    {"ANT_EL", 25},
+    {"ANT_PATH", 26},
+    {"ARRL_SECT", 27},
+    {"AWARD_GRANTED", 28},
+    {"AWARD_SUBMITTED", 29},
+    {"CHECKCONTEST", 30},
+    {"CLASS", 31},
+    {"CONT", 32},
+    {"CONTACTED_OP", 33},
+    {"CONTEST_ID", 34},
+    {"COUNTRY", 35},
+    {"CREDIT_SUBMITTED", 36},
+    {"CREDIT_GRANTED", 37},
+    {"DISTANCE", 38},
+    {"DARC_DOK", 39},
+    {"EQ_CALL", 40},
+    {"EMAIL", 41},
+    {"EQSL_QSLRDATE", 42},
+    {"EQSL_QSLSDATE", 43},
+    {"EQSL_QSL_RCVD", 44},
+    {"EQSL_QSL_SENT", 45},
+    {"FISTS", 46},
+    {"FISTS_CC", 47},
+    {"FORCE_INIT", 48},
+    {"FREQ", 49},
+    {"FREQ_RX", 50},
+    {"GRIDSQUARE", 51},
+    {"GUEST_OP", 52},
+    {"HRDLOG_QSO_UPLOAD_DATE", 53},
+    {"HRDLOG_QSO_UPLOAD_STATUS", 54},
+    {"MY_GRIDSQUARE", 55},
+    {"MY_ANTENNA", 56},
+    {"IOTA", 57},
+    {"IOTA_ISLAND_ID", 58},
+    {"MY_IOTA", 59},
+    {"MY_DXCC", 60},
+    {"MY_FISTS", 61},
+    {"MY_IOTA_ISLAND_ID", 62},
+    {"K_INDEX", 63},
+    {"LAT", 64},
+    {"LON", 65},
+    {"MY_LAT", 66},
+    {"MY_LON", 67},
+    {"MY_ITU_ZONE", 68},
+    {"MY_POSTAL_CODE", 69},
+    {"LOTW_QSLRDATE", 70},
+    {"LOTW_QSLSDATE", 71},
+    {"LOTW_QSL_RCVD", 72},
+    {"LOTW_QSL_SENT", 73},
+    {"CLUBLOG_QSO_UPLOAD_DATE", 74},
+    {"CLUBLOG_QSO_UPLOAD_STATUS", 75},
+    {"MAX_BURSTS", 76},
+    {"MS_SHOWER", 77},
+    {"MY_CITY", 78},
+    {"MY_CNTY", 79},
+    {"MY_COUNTRY", 80},
+    {"MY_CQ_ZONE", 81},
+    {"MY_NAME", 82},
+    {"NAME", 83},
+    {"OPERATOR", 84},
+    {"STATION_CALLSIGN", 85},
+    {"OWNER_CALLSIGN", 86},
+    {"MY_RIG", 87},
+    {"MY_SIG", 88},
+    {"MY_SIG_INFO", 89},
+    {"MY_SOTA_REF", 90},
+    {"MY_STATE", 91},
+    {"STATE", 92},
+    {"MY_STREET", 93},
+    {"MY_USACA_COUNTIES", 94},
+    {"MY_VUCC_GRIDS", 95},
+    {"NOTES", 96},
+    {"NR_BURSTS", 97},
+    {"NR_PINGS", 98},
+    {"PFX", 99},
+    {"PRECEDENCE", 100},
+    {"PROP_MODE", 101},
+    {"PUBLIC_KEY", 102},
+    {"QRZCOM_QSO_UPLOAD_DATE", 103},
+    {"QRZCOM_QSO_UPLOAD_STATUS", 104},
+    {"QSLMSG", 105},
+    {"QSLRDATE", 106},
+    {"QSLSDATE", 107},
+    {"QSL_RCVD", 108},
+    {"QSL_SENT", 109},
+    {"QSL_RCVD_VIA", 110},
+    {"QSL_SENT_VIA", 111},
+    {"QSL_VIA", 112},
+    {"QSO_COMPLETE", 113},
+    {"QSO_RANDOM", 114},
+    {"QTH", 115},
+    {"REGION", 116},
+    {"RIG", 117},
+    {"RX_PWR", 118},
+    {"TX_PWR", 119},
+    {"SAT_MODE", 120},
+    {"SAT_NAME", 121},
+    {"SFI", 122},
+    {"SIG", 123},
+    {"SIG_INFO", 124},
+    {"SILENT_KEY", 125},
+    {"SKCC", 126},
+    {"SOTA_REF", 127},
+    {"SWL", 128},
+    {"TEN_TEN", 129},
+    {"UKSMG", 130},
+    {"USACA_COUNTIES", 131},
+    {"VE_PROV", 132},
+    {"VUCC_GRIDS", 133},
+    {"WEB", 134},
+    {"APP_KLOG_POINTS", 135},
+    {"APP_KLOG_MULTIPLIER", 136},
+    {"APP_KLOG_TRX", 137},
+    {"APP_KLOG_LOGN", 138},
+    {"APP_N1MM_POINTS", 139}
+    };
 
+}
 bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logNumber) //, const bool _keepLogsInFile)
 //bool FileManager::processQsoReadingADIF(const QStringList _line, const int logNumber, const bool _keepLogsInFile, QHash<int, int> &_logs)
 {
@@ -1986,6 +2130,8 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     QStringList oneField;
     QString field, data;
     QSqlQuery query;
+
+    if (SwitchHash.empty()) initializeSwitchHash(); 
 
     //confirmed = 0; // 0 means worked, 1 means confirmed
 
@@ -2057,7 +2203,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 field = (oneField.at(0)).trimmed(); // Needs to be cleared FIELD:4:D
                 data = (oneField.at(1)).trimmed();
                 data = util->checkAndFixASCIIinADIF(data);
-               //qDebug() << "FileManager::processQsoReadingADIF: field/data" << field << "/" << data << QT_ENDL;
+                //qDebug() << "FileManager::processQsoReadingADIF: field/data" << field << "/" << data << QT_ENDL;
 
                 if (i == 2)
                 { // DATE:8:D / 20141020
@@ -2081,809 +2227,707 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                 //length = field.indexOf(":");
                 //field = field.left(length);
                 //qDebug() << "FileManager::processQsoReadingADIF (field/data): " << field << "/" << data << QT_ENDL;
-
-                if (field == "CALL")
-                {
-                   //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << QT_ENDL;
-                    qrzCall = data;
-                    haveCall = util->isValidCall(qrzCall);
-                    if (haveCall)
-                    {
-                        //qDebug() << "FileManager::processQsoReadingADIF-CALL: Have CALL!!"  << QT_ENDL;
-                        preparedQuery.bindValue( ":call", qrzCall );
-                    }
-                   //qDebug() << "FileManager::processQsoReadingADIF-CALL-END:" << data << QT_ENDL;
-                }
-                else if (field == "QSO_DATE")
-                {
-                    //qDebug() << "FileManager::processQsoReadingADIF-QSO_DATE:" << data << QT_ENDL;
-                    dateT = util->getDateFromADIFDateString(data);
-
-                    if (dateT.isValid())
-                    {
-                        dateTime.setDate(dateT);
-                        haveDate = true;
-                    }
-                    else {
-                       //qDebug() << "FileManager::processQsoReadingADIF QSO_DATE is NOT VALID: " << data << QT_ENDL;
-                    }
-                }
-                else if (field == "BAND")
-                {
-                    //preparedQuery.bindValue( ":bandid", data );
-                    i = dataProxy->getIdFromBandName(data);
-                    //i = db->getBandIDFromName2(data);
-                    if (i>=0)
-                    {
-                        preparedQuery.bindValue( ":bandid", QString::number(i) );
-                        haveBand = true;
-                        bandi = i;
-                        //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << QT_ENDL;
-                    }
-                    else
-                    {
-                        //qDebug() << "FileManager::processQsoReadingADIF-Band - Wrong band: " << data << "/"  << QString::number(i) << QT_ENDL;
-                    }
-                   /*
-                    queryString = QString("SELECT id FROM band WHERE name ='%1'").arg(data);
-                    query.exec(queryString);
-                    query.next();
-                    if (query.isValid())
-                    {
-                        preparedQuery.bindValue( ":bandid", query.value(0).toInt() );
-                           //qDebug() << "FileManager::bprocessQsoReadingADIF-Band: " << data << QT_ENDL;
-                    }
-                    */
-                }
-                else if (field == "MODE")
-                {
-                    modei = dataProxy->getSubModeIdFromSubMode(data); // get modeid
-                    if (modei>=0)
-                    {
+                if (SwitchHash.find(field) != SwitchHash.end()) {
+                    switch (SwitchHash[field]) {
+                    case(1):
+                        //qDebug() << "FileManager::processQsoReadingADIF-CALL:" << data << QT_ENDL;
+                        qrzCall = data;
+                        haveCall = util->isValidCall(qrzCall);
+                        if (haveCall)
                         {
-                            if (!haveSubMode)
+                            //qDebug() << "FileManager::processQsoReadingADIF-CALL: Have CALL!!"  << QT_ENDL;
+                            preparedQuery.bindValue(":call", qrzCall);
+                        }
+                        //qDebug() << "FileManager::processQsoReadingADIF-CALL-END:" << data << QT_ENDL;
+                        break;
+                    case(2):
+                        //qDebug() << "FileManager::processQsoReadingADIF-QSO_DATE:" << data << QT_ENDL;
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            dateTime.setDate(dateT);
+                            haveDate = true;
+                        }
+                        else {
+                            //qDebug() << "FileManager::processQsoReadingADIF QSO_DATE is NOT VALID: " << data << QT_ENDL;
+                        }
+                        break;
+                    case(3):
+
+                        //preparedQuery.bindValue( ":bandid", data );
+                        i = dataProxy->getIdFromBandName(data);
+                        //i = db->getBandIDFromName2(data);
+                        if (i >= 0)
+                        {
+                            preparedQuery.bindValue(":bandid", QString::number(i));
+                            haveBand = true;
+                            bandi = i;
+
+                            //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << QT_ENDL;
+                        }
+                        else
+                        {
+                            //qDebug() << "FileManager::processQsoReadingADIF-Band - Wrong band: " << data << "/"  << QString::number(i) << QT_ENDL;
+                        }
+                        /*
+                         queryString = QString("SELECT id FROM band WHERE name ='%1'").arg(data);
+                         query.exec(queryString);
+                         query.next();
+                         if (query.isValid())
+                         {
+                             preparedQuery.bindValue( ":bandid", query.value(0).toInt() );
+
+                                //qDebug() << "FileManager::bprocessQsoReadingADIF-Band: " << data << QT_ENDL;
+                         }
+                         */
+                        break;
+                    case(4):
+                        modei = dataProxy->getSubModeIdFromSubMode(data);
+                        // get modeid
+                        if (modei >= 0)
+                        {
                             {
-                                preparedQuery.bindValue( ":modeid", QString::number(modei) );
-                                haveMode = true;
-                                haveSubMode = true;
-                                submode = dataProxy->getSubModeFromId(modei);
+                                if (!haveSubMode)
+                                {
+                                    preparedQuery.bindValue(":modeid", QString::number(modei));
+                                    haveMode = true;
+                                    haveSubMode = true;
+                                    submode = dataProxy->getSubModeFromId(modei);
+                                }
                             }
                         }
-                    }
-                }
-                else if (field == "SUBMODE")
-                {
-                    modei = dataProxy->getSubModeIdFromSubMode(data);
-                    if (modei>=0)
-                    {
-                        preparedQuery.bindValue( ":modeid", QString::number(modei) );
-                        preparedQuery.bindValue( ":submode", QString::number(modei) );
-                        haveSubMode = true;
-                        haveMode=true;
-                        submode = data;
-                        //submode = data;
-                    }
-                }
-                else if (field == "SRX")
-                {
-                    preparedQuery.bindValue( ":srx", data );
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-srx: " << data << QT_ENDL;
-                }
-                else if (field == "STX")
-                {
-                    preparedQuery.bindValue( ":stx", data );
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-stx: " << data << QT_ENDL;
-                }
-                else if (field == "TIME_ON")
-                {
-                    time = util->getTimeFromADIFTimeString(data);
+                        break;
+                    case(5):
+                        modei = dataProxy->getSubModeIdFromSubMode(data);
+                        if (modei >= 0)
+                        {
+                            preparedQuery.bindValue(":modeid", QString::number(modei));
+                            preparedQuery.bindValue(":submode", QString::number(modei));
+                            haveSubMode = true;
+                            haveMode = true;
+                            submode = data;
+                            //submode = data;
+                        }
+                        break;
+                    case(6):
+                        preparedQuery.bindValue(":srx", data);
 
-                    if (time.isValid())
-                    {
-                        dateTime.setTime(time);
-                        haveTime = true;
-                    }
-                }
-                else if (field == "QSO_DATE_OFF")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        dateTimeOFF.setDate(dateT);
-                        haveDateOff = true;
-                    }
-                }
-                else if (field == "BAND_RX")
-                {
-                    i = dataProxy->getIdFromBandName(data);
-                    //i = db->getBandIDFromName2(data);
-                    if (i>=0)
-                    {
-                        preparedQuery.bindValue( ":band_rx", QString::number(i) );
-                        bandRXDef = true;
-                        bandrxi = i;
-                    }
-                }
-                else if (field == "TIME_OFF")
-                {
-                    time = util->getTimeFromADIFTimeString(data);
-                    if (time.isValid())
-                    {
-                        dateTimeOFF.setTime(time);
-                        haveTimeOff = true;
-                    }
-                }
-                else if (field == "RST_SENT")
-                {
-                    preparedQuery.bindValue( ":rst_sent", data );
-                   //qDebug() << "FileManager::bprocessQsoReadingADIF-rst_rsent: " << data << QT_ENDL;
-                    rstTXr = true;
-                }
-                else if (field == "RST_RCVD")
-                {
-                   //qDebug() << "FileManager::bprocessQsoReadingADIF-rst_rcvd: " << data << QT_ENDL;
-                    preparedQuery.bindValue( ":rst_rcvd", data );
-                    rstRXr = true;
-                }
-                else if (field == "SRX_STRING")
-                {
-                    preparedQuery.bindValue( ":srx_string", data );
-                }
-                else if (field == "STX_STRING")
-                {
-                    preparedQuery.bindValue( ":stx_string", data );
-                }
-                else if (field == "CQZ")
-                {
-                    preparedQuery.bindValue( ":cqz", data );
-                    //cqz = data.toInt();
-                }
-                else if (field == "ITUZ")
-                {
-                    preparedQuery.bindValue( ":ituz", data );
-                    //ituz = data.toInt();
-                }
-                else if (field == "DXCC")
-                {
-                    //dxcc = data.toInt();
-                    preparedQuery.bindValue( ":dxcc", data );
-                }
-                else if (field == "ADDRESS")
-                {
-                    preparedQuery.bindValue( ":address", data );
-                }
-                else if (field == "AGE")
-                {
-                    preparedQuery.bindValue( ":age", data );
-                }
-                else if (field == "CNTY")
-                {
-                    preparedQuery.bindValue( ":cnty", data );
-                }
-                else if (field == "COMMENT")
-                {
-                    preparedQuery.bindValue( ":comment", data );
-                }
-                else if (field == "A_INDEX")
-                {
-                    preparedQuery.bindValue( ":a_index", data );
-                }
-                else if (field == "ANT_AZ")
-                {
-                    preparedQuery.bindValue( ":ant_az", data );
-                }
-                else if (field == "ANT_EL")
-                {
-                    preparedQuery.bindValue( ":ant_el", data );
-                }
-                else if (field == "ANT_PATH")
-                {
-                    preparedQuery.bindValue( ":ant_path", data );
-                }
-                else if (field == "ARRL_SECT")
-                {
-                    preparedQuery.bindValue( ":arrl_sect", data );
-                }
-                else if (field == "AWARD_GRANTED")
-                {
-                    preparedQuery.bindValue( ":award_granted", data );
-                }
-                else if (field == "AWARD_SUBMITTED")
-                {
-                    preparedQuery.bindValue( ":award_submitted", data );
-                }
-                else if (field == "CHECKCONTEST")
-                {
-                    preparedQuery.bindValue( ":checkcontest", data );
-                }
-                else if (field == "CLASS")
-                {
-                    preparedQuery.bindValue( ":class", data );
-                }
-                else if (field == "CONT")
-                {
-                    preparedQuery.bindValue( ":cont", data );
-                }
-                else if (field == "CONTACTED_OP")
-                {
-                    preparedQuery.bindValue( ":contacted_op", data );
-                }
-                else if (field == "CONTEST_ID")
-                {
-                    preparedQuery.bindValue( ":contest_id", data );
-                }
-                else if (field == "COUNTRY")
-                {
-                    preparedQuery.bindValue( ":country", data );
-                }
-                else if (field == "CREDIT_SUBMITTED")
-                {
-                    preparedQuery.bindValue( ":credit_submitted", data );
-                }
-                else if (field == "CREDIT_GRANTED")
-                {
-                    preparedQuery.bindValue( ":credit_granted", data );
-                }
-                else if (field == "DISTANCE")
-                {
-                    preparedQuery.bindValue( ":distance", data );
-                }
-                else if (field == "DARC_DOK")
-                {
-                    preparedQuery.bindValue( ":darc_dok", data );
-                }
-                else if (field == "EQ_CALL")
-                {
-                    preparedQuery.bindValue( ":eq_call", data );
-                }
-                else if (field == "EMAIL")
-                {
-                    if (data.contains("@") && (data.contains(".")))
-                    {
-                       preparedQuery.bindValue( ":email", data );
-                    }
-                }
-                else if (field == "EQSL_QSLRDATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                       preparedQuery.bindValue( ":eqsl_qslrdate", util->getDateSQLiteStringFromDate(dateT) );
-                    }
-                }
-                else if (field == "EQSL_QSLSDATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":eqsl_qslsdate", util->getDateSQLiteStringFromDate(dateT) );
-                    }
-                }
-                else if (field == "EQSL_QSL_RCVD")
-                {
-                    preparedQuery.bindValue( ":eqsl_qsl_rcvd", data );
-                }
-                else if (field == "EQSL_QSL_SENT")
-                {
-                    preparedQuery.bindValue( ":eqsl_qsl_sent", data );
-                    hasEqslQslSent = true;
-                }
-                else if (field == "FISTS")
-                {
-                    preparedQuery.bindValue( ":fists", data );
-                }
-                else if (field == "FISTS_CC")
-                {
-                    preparedQuery.bindValue( ":fists_cc", data );
-                }
-                else if (field == "FORCE_INIT")
-                {
-                    preparedQuery.bindValue( ":force_init", data );
-                }
-                else if (field == "FREQ")
-                {
-                       //qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << QT_ENDL;
-                    if (haveBand)
-                    {
-                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandi)
-                        //if (db->isThisFreqInBand(db->getBandNameFromNumber(bandi), data))
-                        {
-                            preparedQuery.bindValue( ":freq", data);
-                            haveFreqTX =true;
-                            freqTX = data;
-                        }
-                        else
-                        {
-                            // IF band is defined but not the same than freq, Band wins
-                        }
-                    }
-                    else
-                    {
-                        preparedQuery.bindValue( ":freq", data);
-                        haveFreqTX =true;
-                        freqTX = data;
-                        i = dataProxy->getBandIdFromFreq(data.toDouble());
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-srx: " << data << QT_ENDL;
+                        break;
+                    case(7):
+                        preparedQuery.bindValue(":stx", data);
 
-                        if (i>=0)
-                        {
-                            preparedQuery.bindValue( ":bandid", QString::number(i) );
-                            haveBand = true;
-                               //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << QT_ENDL;
-                        }
-                    }
-                }
-                else if (field == "FREQ_RX")
-                {
-                    if (bandRXDef)
-                    {
-                        if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)
-                        {
-                            preparedQuery.bindValue( ":freq_rx", data);
-                            haveFreqRX =true;
-                        }
-                        else
-                        {
-                            // IF band is defined but not the same than freq, Band wins
-                        }
-                    }
-                    else
-                    {
-                        preparedQuery.bindValue( ":freq_rx", data);
-                        haveFreqRX = true;
-                        i = dataProxy->getBandIdFromFreq(data.toDouble());
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-stx: " << data << QT_ENDL;
+                        break;
+                    case(8):
+                        time = util->getTimeFromADIFTimeString(data);
 
-                        if (i>=0)
+                        if (time.isValid())
                         {
-                            preparedQuery.bindValue( ":band_rx", QString::number(i) );
+                            dateTime.setTime(time);
+                            haveTime = true;
+                        }
+                        break;
+                    case(9):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            dateTimeOFF.setDate(dateT);
+                            haveDateOff = true;
+                        }
+                        break;
+                    case(10):
+                        i = dataProxy->getIdFromBandName(data);
+
+                        //i = db->getBandIDFromName2(data);
+                        if (i >= 0)
+                        {
+                            preparedQuery.bindValue(":band_rx", QString::number(i));
                             bandRXDef = true;
-                               //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << QT_ENDL;
+                            bandrxi = i;
                         }
+                        break;
+                    case(11):
+                        time = util->getTimeFromADIFTimeString(data);
+                        if (time.isValid())
+                        {
+                            dateTimeOFF.setTime(time);
+                            haveTimeOff = true;
+                        }
+                        break;
+                    case(12):
+                        preparedQuery.bindValue(":rst_sent", data);
+
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-rst_rsent: " << data << QT_ENDL;
+                        rstTXr = true;
+                        break;
+                    case(13):
+
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-rst_rcvd: " << data << QT_ENDL;
+                        preparedQuery.bindValue(":rst_rcvd", data);
+                        rstRXr = true;
+                        break;
+                    case(14):
+                        preparedQuery.bindValue(":srx_string", data);
+                        break;
+                    case(15):
+                        preparedQuery.bindValue(":stx_string", data);
+                        break;
+                    case(16):
+                        preparedQuery.bindValue(":cqz", data);
+
+                        //cqz = data.toInt();
+                        break;
+                    case(17):
+                        preparedQuery.bindValue(":ituz", data);
+
+                        //ituz = data.toInt();
+                        break;
+                    case(18):
+
+                        //dxcc = data.toInt();
+                        preparedQuery.bindValue(":dxcc", data);
+                        break;
+                    case(19):
+                        preparedQuery.bindValue(":address", data);
+                        break;
+                    case(20):
+                        preparedQuery.bindValue(":age", data);
+                        break;
+                    case(21):
+                        preparedQuery.bindValue(":cnty", data);
+                        break;
+                    case(22):
+                        preparedQuery.bindValue(":comment", data);
+                        break;
+                    case(23):
+                        preparedQuery.bindValue(":a_index", data);
+                        break;
+                    case(24):
+                        preparedQuery.bindValue(":ant_az", data);
+                        break;
+                    case(25):
+                        preparedQuery.bindValue(":ant_el", data);
+                        break;
+                    case(26):
+                        preparedQuery.bindValue(":ant_path", data);
+                        break;
+                    case(27):
+                        preparedQuery.bindValue(":arrl_sect", data);
+                        break;
+                    case(28):
+                        preparedQuery.bindValue(":award_granted", data);
+                        break;
+                    case(29):
+                        preparedQuery.bindValue(":award_submitted", data);
+                        break;
+                    case(30):
+                        preparedQuery.bindValue(":checkcontest", data);
+                        break;
+                    case(31):
+                        preparedQuery.bindValue(":class", data);
+                        break;
+                    case(32):
+                        preparedQuery.bindValue(":cont", data);
+                        break;
+                    case(33):
+                        preparedQuery.bindValue(":contacted_op", data);
+                        break;
+                    case(34):
+                        preparedQuery.bindValue(":contest_id", data);
+                        break;
+                    case(35):
+                        preparedQuery.bindValue(":country", data);
+                        break;
+                    case(36):
+                        preparedQuery.bindValue(":credit_submitted", data);
+                        break;
+                    case(37):
+                        preparedQuery.bindValue(":credit_granted", data);
+                        break;
+                    case(38):
+                        preparedQuery.bindValue(":distance", data);
+                        break;
+                    case(39):
+                        preparedQuery.bindValue(":darc_dok", data);
+                        break;
+                    case(40):
+                        preparedQuery.bindValue(":eq_call", data);
+                        break;
+                    case(41):
+                        if (data.contains("@") && (data.contains(".")))
+                        {
+                            preparedQuery.bindValue(":email", data);
+                        }
+                        break;
+                    case(42):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(43):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":eqsl_qslsdate", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(44):
+                        preparedQuery.bindValue(":eqsl_qsl_rcvd", data);
+                        break;
+                    case(45):
+                        preparedQuery.bindValue(":eqsl_qsl_sent", data);
+                        hasEqslQslSent = true;
+                        break;
+                    case(46):
+                        preparedQuery.bindValue(":fists", data);
+                        break;
+                    case(47):
+                        preparedQuery.bindValue(":fists_cc", data);
+                        break;
+                    case(48):
+                        preparedQuery.bindValue(":force_init", data);
+                        break;
+                    case(49):
+
+                        //qDebug() << "FileManager::processQsoReadingADIF  -FREQ: " << QString::number(data.toDouble()) << QT_ENDL;
+                        if (haveBand)
+                        {
+                            if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandi)
+
+                                //if (db->isThisFreqInBand(db->getBandNameFromNumber(bandi), data))
+                            {
+                                preparedQuery.bindValue(":freq", data);
+                                haveFreqTX = true;
+                                freqTX = data;
+                            }
+                            else
+                            {
+
+                                // IF band is defined but not the same than freq, Band wins
+                            }
+                        }
+                        else
+                        {
+                            preparedQuery.bindValue(":freq", data);
+                            haveFreqTX = true;
+                            freqTX = data;
+                            i = dataProxy->getBandIdFromFreq(data.toDouble());
+
+                            if (i >= 0)
+                            {
+                                preparedQuery.bindValue(":bandid", QString::number(i));
+                                haveBand = true;
+
+                                //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << QT_ENDL;
+                            }
+                        }
+                        break;
+                    case(50):
+                        if (bandRXDef)
+                        {
+                            if (dataProxy->getBandIdFromFreq(data.toDouble()) == bandrxi)
+                            {
+                                preparedQuery.bindValue(":freq_rx", data);
+                                haveFreqRX = true;
+                            }
+                            else
+                            {
+
+                                // IF band is defined but not the same than freq, Band wins
+                            }
+                        }
+                        else
+                        {
+                            preparedQuery.bindValue(":freq_rx", data);
+                            haveFreqRX = true;
+                            i = dataProxy->getBandIdFromFreq(data.toDouble());
+
+                            if (i >= 0)
+                            {
+                                preparedQuery.bindValue(":band_rx", QString::number(i));
+                                bandRXDef = true;
+
+                                //qDebug() << "FileManager::processQsoReadingADIF-Band: " << data << "/"  << QString::number(i) << QT_ENDL;
+                            }
+                        }
+                        break;
+                    case(51):
+                        preparedQuery.bindValue(":gridsquare", data);
+                        break;
+                    case(52):
+                        preparedQuery.bindValue(":guest_op", data);
+                        break;
+                    case(53):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":hrd_qso_upload_date", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(54):
+                        preparedQuery.bindValue(":hrd_qso_upload_status", data);
+                        break;
+                    case(55):
+                        preparedQuery.bindValue(":my_gridsquare", data);
+                        break;
+                    case(56):
+
+                        //qDebug() << ": MY_ANTENNA: " << data;
+                        preparedQuery.bindValue(":my_antenna", data);
+                        break;
+                    case(57):
+
+                        //qDebug() << "FileManager::processQsoReadingADIF (IOTA): " << data << QT_ENDL;
+                        data = awards->checkIfValidIOTA(data);
+                        /*
+                        if (data.length()==4)
+                        //EU-1
+                        {
+                            data.insert(3, "00");
+                        }
+                        else if (data.length()==5)
+                        //EU-01
+                        {
+                            data.insert(3, "0");
+                        }
+                        */
+                        if (data.length() == 6)
+                        {
+                            preparedQuery.bindValue(":iota", data);
+                        }
+                        break;
+                    case(58):
+                        preparedQuery.bindValue(":iota_island_id", data);
+                        break;
+                    case(59):
+                        /*
+                        if (data.length()==4)
+                        //EU-1
+                        {
+                            data.insert(3, "00");
+                        }
+                        else if (data.length()==5)
+                        //EU-01
+                        {
+                            data.insert(3, "0");
+                        }
+                        */
+                        data = awards->checkIfValidIOTA(data);
+                        if (data.length() == 6)
+                        {
+                            preparedQuery.bindValue(":my_iota", data);
+                        }
+                        break;
+                    case(60):
+                        preparedQuery.bindValue(":my_dxcc", data);
+                        break;
+                    case(61):
+                        preparedQuery.bindValue(":my_fists", data);
+                        break;
+                    case(62):
+                        preparedQuery.bindValue(":my_iota_island_id", data);
+                        break;
+                    case(63):
+                        preparedQuery.bindValue(":k_index", data);
+                        break;
+                    case(64):
+                        preparedQuery.bindValue(":lat", data);
+                        break;
+                    case(65):
+                        preparedQuery.bindValue(":lon", data);
+                        break;
+                    case(66):
+                        preparedQuery.bindValue(":my_lat", data);
+                        break;
+                    case(67):
+                        preparedQuery.bindValue(":my_lon", data);
+                        break;
+                    case(68):
+                        preparedQuery.bindValue(":my_itu_zone", data);
+                        break;
+                    case(69):
+                        preparedQuery.bindValue(":my_postal_code", data);
+                        break;
+                    case(70):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":lotw_qslrdate", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(71):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":lotw_qslsdate", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(72):
+                        preparedQuery.bindValue(":lotw_qsl_rcvd", data);
+                        break;
+                    case(73):
+                        preparedQuery.bindValue(":lotw_qsl_sent", data);
+                        hasLotwQslSent = true;
+                        break;
+                    case(74):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(dateT));
+                            hasClublogQslSent = true;
+                        }
+                        break;
+                    case(75):
+                        preparedQuery.bindValue(":clublog_qso_upload_status", data);
+                        break;
+                    case(76):
+                        preparedQuery.bindValue(":max_bursts", data);
+                        break;
+                    case(77):
+                        preparedQuery.bindValue(":ms_shower", data);
+                        break;
+                    case(78):
+                        preparedQuery.bindValue(":my_city", data);
+                        break;
+                    case(79):
+                        preparedQuery.bindValue(":my_cnty", data);
+                        break;
+                    case(80):
+                        preparedQuery.bindValue(":my_country", data);
+                        break;
+                    case(81):
+                        preparedQuery.bindValue(":my_cq_zone", data);
+                        break;
+                    case(82):
+                        preparedQuery.bindValue(":my_name", data);
+                        break;
+                    case(83):
+                        preparedQuery.bindValue(":name", data);
+                        break;
+                    case(84):
+                        if (util->isValidCall(data))
+                        {
+                            preparedQuery.bindValue(":operator", data);
+                        }
+                        break;
+                    case(85):
+                        if (util->isValidCall(data))
+                        {
+                            hasStationCall = true;
+                            preparedQuery.bindValue(":station_callsign", data);
+                        }
+                        break;
+                    case(86):
+                        if (util->isValidCall(data))
+                        {
+                            preparedQuery.bindValue(":owner_callsign", data);
+                        }
+                        break;
+                    case(87):
+                        preparedQuery.bindValue(":my_rig", data);
+                        break;
+                    case(88):
+                        preparedQuery.bindValue(":my_sig", data);
+                        break;
+                    case(89):
+                        preparedQuery.bindValue(":my_sig_info", data);
+                        break;
+                    case(90):
+                        preparedQuery.bindValue(":my_sota_ref", data);
+                        break;
+                    case(91):
+                        preparedQuery.bindValue(":my_state", data);
+                        break;
+                    case(92):
+                        preparedQuery.bindValue(":state", data);
+                        break;
+                    case(93):
+                        preparedQuery.bindValue(":my_street", data);
+                        break;
+                    case(94):
+                        preparedQuery.bindValue(":my_usaca_counties", data);
+                        break;
+                    case(95):
+                        preparedQuery.bindValue(":my_vucc_grids", data);
+                        break;
+                    case(96):
+                        preparedQuery.bindValue(":notes", data);
+                        break;
+                    case(97):
+                        preparedQuery.bindValue(":nr_bursts", data);
+                        break;
+                    case(98):
+                        preparedQuery.bindValue(":nr_pings", data);
+                        break;
+                    case(99):
+                        preparedQuery.bindValue(":pfx", data);
+                        break;
+                    case(100):
+                        preparedQuery.bindValue(":precedence", data);
+                        break;
+                    case(101):
+                        preparedQuery.bindValue(":prop_mode", data);
+                        break;
+                    case(102):
+                        preparedQuery.bindValue(":public_key", data);
+                        break;
+                    case(103):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(dateT));
+                            hasQrzQslSent = true;
+                        }
+                        break;
+                    case(104):
+                        preparedQuery.bindValue(":qrzcom_qso_upload_status", data);
+                        break;
+                    case(105):
+                        preparedQuery.bindValue(":qslmsg", data);
+                        break;
+                    case(106):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":qslrdate", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(107):
+                        dateT = util->getDateFromADIFDateString(data);
+                        if (dateT.isValid())
+                        {
+                            preparedQuery.bindValue(":qslsdate", util->getDateSQLiteStringFromDate(dateT));
+                        }
+                        break;
+                    case(108):
+                        preparedQuery.bindValue(":qsl_rcvd", data);
+
+                        //preparedQuery.bindValue( ":confirmed", '1' );
+                        break;
+                    case(109):
+                        preparedQuery.bindValue(":qsl_sent", data);
+                        break;
+                    case(110):
+                        preparedQuery.bindValue(":qsl_rcvd_via", data);
+                        break;
+                    case(111):
+                        preparedQuery.bindValue(":qsl_sent_via", data);
+                        break;
+                    case(112):
+
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-QSL_VIA: " << data << QT_ENDL;
+                        if (data == "BUREAU")
+                            // This comprobation is to "correct" old logs, mainly from KLog
+
+                                // comming from older ADIF files
+                        {
+                            preparedQuery.bindValue(":qsl_sent_via", "B");
+                        }
+                        else if ((data == "B") || (data == "D") || (data == "E"))
+                            // M Deprecated value from ADIF 304
+                        {
+                            preparedQuery.bindValue(":qsl_via", data);
+                        }
+                        else
+                        {
+
+                            // If values are not valid, are not imported.
+
+                            //TODO: Send an error to the user to show that there was an invalid field
+                        }
+                        break;
+                    case(113):
+                        preparedQuery.bindValue(":qso_complete", data);
+                        break;
+                    case(114):
+                        preparedQuery.bindValue(":qso_random", data);
+                        break;
+                    case(115):
+                        preparedQuery.bindValue(":qth", data);
+                        break;
+                    case(116):
+                        preparedQuery.bindValue(":region", data);
+                        break;
+                    case(117):
+                        preparedQuery.bindValue(":rig", data);
+                        break;
+                    case(118):
+
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-rx_pwr: " << data << QT_ENDL;
+                        preparedQuery.bindValue(":rx_pwr", data);
+                        break;
+                    case(119):
+
+                        //qDebug() << "FileManager::bprocessQsoReadingADIF-tx_pwr: " << data << QT_ENDL;
+                        preparedQuery.bindValue(":tx_pwr", data);
+                        break;
+                    case(120):
+                        preparedQuery.bindValue(":sat_mode", data);
+                        break;
+                    case(121):
+                        preparedQuery.bindValue(":sat_name", data);
+                        break;
+                    case(122):
+                        preparedQuery.bindValue(":sfi", data);
+                        break;
+                    case(123):
+                        preparedQuery.bindValue(":sig", data);
+                        break;
+                    case(124):
+                        preparedQuery.bindValue(":sig_info", data);
+                        break;
+                    case(125):
+                        preparedQuery.bindValue(":silent_key", data);
+                        break;
+                    case(126):
+                        preparedQuery.bindValue(":skcc", data);
+                        break;
+                    case(127):
+                        preparedQuery.bindValue(":sota_ref", data);
+                        break;
+                    case(128):
+                        preparedQuery.bindValue(":swl", data);
+                        break;
+                    case(129):
+                        preparedQuery.bindValue(":ten_ten", data);
+                        break;
+                    case(130):
+                        preparedQuery.bindValue(":uksmg", data);
+                        break;
+                    case(131):
+                        preparedQuery.bindValue(":usaca_counties", data);
+                        break;
+                    case(132):
+                        preparedQuery.bindValue(":ve_prov", data);
+                        break;
+                    case(133):
+                        preparedQuery.bindValue(":vucc_grids", data);
+                        break;
+                    case(134):
+                        preparedQuery.bindValue(":web", data);
+                        break;
+                    case(135): //Importing own ADIF fields
+                        preparedQuery.bindValue(":points", data);
+                        break;
+                    case(136): //Importing own ADIF fields
+                        preparedQuery.bindValue(":multiplier", data);
+                        break;
+                    case(137): //Importing own ADIF fields
+                        preparedQuery.bindValue(":transmiterid", data);
+                        break;
+                    case(138): //Lognumber in a multiple-log file
+
+                        //TODO: Think about how to import a file with different logs
+
+                        //isThisQSODuplicated(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
+                        break;
+                    case(139): //Importing from N1MM
+                        preparedQuery.bindValue(":points", data);
+                        break;
                     }
-                }
-                else if (field == "GRIDSQUARE")
-                {
-                    preparedQuery.bindValue( ":gridsquare", data );
-                }
-                else if (field == "GUEST_OP")
-                {
-                    preparedQuery.bindValue( ":guest_op", data );
-                }
-                else if (field == "HRDLOG_QSO_UPLOAD_DATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":hrd_qso_upload_date", util->getDateSQLiteStringFromDate(dateT) );
-                    }
-                }
-                else if (field == "HRDLOG_QSO_UPLOAD_STATUS")
-                {
-                    preparedQuery.bindValue( ":hrd_qso_upload_status", data );
-                }
-                else if (field == "MY_GRIDSQUARE")
-                {
-                    preparedQuery.bindValue( ":my_gridsquare", data );
-                }
-                else if (field == "MY_ANTENNA")
-                {
-                    //qDebug() << ": MY_ANTENNA: " << data;
-                    preparedQuery.bindValue( ":my_antenna", data );
-                }
-                else if (field == "IOTA")
-                {
-                       //qDebug() << "FileManager::processQsoReadingADIF (IOTA): " << data << QT_ENDL;
-                    data = awards->checkIfValidIOTA(data);
-                    /*
-                    if (data.length()==4) //EU-1
-                    {
-                        data.insert(3, "00");
-                    }
-                    else if (data.length()==5) //EU-01
-                    {
-                        data.insert(3, "0");
-                    }
-                    */
-                    if (data.length() == 6)
-                    {
-                        preparedQuery.bindValue( ":iota", data );
-                    }
-                }
-                else if (field == "IOTA_ISLAND_ID")
-                {
-                    preparedQuery.bindValue( ":iota_island_id", data );
-                }
-                else if (field == "MY_IOTA")
-                {
-                    /*
-                    if (data.length()==4) //EU-1
-                    {
-                        data.insert(3, "00");
-                    }
-                    else if (data.length()==5) //EU-01
-                    {
-                        data.insert(3, "0");
-                    }
-                    */
-                    data = awards->checkIfValidIOTA(data);
-                    if (data.length() == 6)
-                    {
-                        preparedQuery.bindValue( ":my_iota", data );
-                    }
-                }
-                else if (field == "MY_DXCC")
-                {
-                    preparedQuery.bindValue( ":my_dxcc", data );
-                }
-                else if (field == "MY_FISTS")
-                {
-                    preparedQuery.bindValue( ":my_fists", data );
-                }
-                else if (field == "MY_IOTA_ISLAND_ID")
-                {
-                    preparedQuery.bindValue( ":my_iota_island_id", data );
-                }
-                else if (field == "K_INDEX")
-                {
-                    preparedQuery.bindValue( ":k_index", data );
-                }
-                else if (field == "LAT")
-                {
-                    preparedQuery.bindValue( ":lat", data );
-                }
-                else if (field == "LON")
-                {
-                    preparedQuery.bindValue( ":lon", data );
-                }
-                else if (field == "MY_LAT")
-                {
-                    preparedQuery.bindValue( ":my_lat", data );
-                }
-                else if (field == "MY_LON")
-                {
-                    preparedQuery.bindValue( ":my_lon", data );
-                }
-                else if (field == "MY_ITU_ZONE")
-                {
-                    preparedQuery.bindValue( ":my_itu_zone", data );
-                }
-                else if (field == "MY_POSTAL_CODE")
-                {
-                    preparedQuery.bindValue( ":my_postal_code", data );
-                }
-                else if (field == "LOTW_QSLRDATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":lotw_qslrdate", util->getDateSQLiteStringFromDate(dateT) );
-                    }
-                }
-                else if (field == "LOTW_QSLSDATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":lotw_qslsdate", util->getDateSQLiteStringFromDate(dateT) );
-                    }
-                }
-                else if (field == "LOTW_QSL_RCVD")
-                {
-                    preparedQuery.bindValue( ":lotw_qsl_rcvd", data );
-                }
-                else if (field == "LOTW_QSL_SENT")
-                {
-                    preparedQuery.bindValue( ":lotw_qsl_sent", data );
-                    hasLotwQslSent = true;
-                }
-                else if (field == "CLUBLOG_QSO_UPLOAD_DATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(dateT) );
-                        hasClublogQslSent = true;
-                    }
-                }
-                else if (field == "CLUBLOG_QSO_UPLOAD_STATUS")
-                {
-                    preparedQuery.bindValue( ":clublog_qso_upload_status", data );
-                }
-                else if (field == "MAX_BURSTS")
-                {
-                    preparedQuery.bindValue( ":max_bursts", data );
-                }
-                else if (field == "MS_SHOWER")
-                {
-                    preparedQuery.bindValue( ":ms_shower", data );
-                }
-                else if (field == "MY_CITY")
-                {
-                    preparedQuery.bindValue( ":my_city", data );
-                }
-                else if (field == "MY_CNTY")
-                {
-                    preparedQuery.bindValue( ":my_cnty", data );
-                }
-                else if (field == "MY_COUNTRY")
-                {
-                    preparedQuery.bindValue( ":my_country", data );
-                }
-                else if (field == "MY_CQ_ZONE")
-                {
-                    preparedQuery.bindValue( ":my_cq_zone", data );
-                }
-                else if (field == "MY_NAME")
-                {
-                    preparedQuery.bindValue( ":my_name", data );
-                }
-                else if (field == "NAME")
-                {
-                    preparedQuery.bindValue( ":name", data );
-                }
-                else if (field == "OPERATOR")
-                {
-                    if (util->isValidCall(data))
-                    {
-                        preparedQuery.bindValue( ":operator", data );
-                    }
-                }
-                else if (field == "STATION_CALLSIGN")
-                {
-                    if (util->isValidCall(data))
-                    {
-                        hasStationCall = true;
-                        preparedQuery.bindValue( ":station_callsign", data );
-                    }
-                }
-                else if (field == "OWNER_CALLSIGN")
-                {
-                    if (util->isValidCall(data))
-                    {
-                        preparedQuery.bindValue( ":owner_callsign", data );
-                    }
-                }
-                else if (field == "MY_RIG")
-                {
-                    preparedQuery.bindValue( ":my_rig", data );
-                }
-                else if (field == "MY_SIG")
-                {
-                    preparedQuery.bindValue( ":my_sig", data );
-                }
-                else if (field == "MY_SIG_INFO")
-                {
-                    preparedQuery.bindValue( ":my_sig_info", data );
-                }
-                else if (field == "MY_SOTA_REF")
-                {
-                    preparedQuery.bindValue( ":my_sota_ref", data );
-                }
-                else if (field == "MY_STATE")
-                {
-                    preparedQuery.bindValue( ":my_state", data );
-                }
-                else if (field == "STATE")
-                {
-                    preparedQuery.bindValue( ":state", data );
-                }
-                else if (field == "MY_STREET")
-                {
-                    preparedQuery.bindValue( ":my_street", data );
-                }
-                else if (field == "MY_USACA_COUNTIES")
-                {
-                    preparedQuery.bindValue( ":my_usaca_counties", data );
-                }
-                else if (field == "MY_VUCC_GRIDS")
-                {
-                    preparedQuery.bindValue( ":my_vucc_grids", data );
-                }
-                else if (field == "NOTES")
-                {
-                    preparedQuery.bindValue( ":notes", data );
-                }
-                else if (field == "NR_BURSTS")
-                {
-                    preparedQuery.bindValue( ":nr_bursts", data );
-                }
-                else if (field == "NR_PINGS")
-                {
-                    preparedQuery.bindValue( ":nr_pings", data );
-                }
-                else if (field == "PFX")
-                {
-                    preparedQuery.bindValue( ":pfx", data );
-                }
-                else if (field == "PRECEDENCE")
-                {
-                    preparedQuery.bindValue( ":precedence", data );
-                }
-                else if (field == "PROP_MODE")
-                {
-                    preparedQuery.bindValue( ":prop_mode", data );
-                }
-                else if (field == "PUBLIC_KEY")
-                {
-                    preparedQuery.bindValue( ":public_key", data );
-                }
-                else if (field == "QRZCOM_QSO_UPLOAD_DATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(dateT));
-                        hasQrzQslSent = true;
-                    }
-                }
-                else if (field == "QRZCOM_QSO_UPLOAD_STATUS")
-                {
-                    preparedQuery.bindValue( ":qrzcom_qso_upload_status", data );
-                }
-                else if (field == "QSLMSG")
-                {
-                    preparedQuery.bindValue( ":qslmsg", data );
-                }
-                else if (field == "QSLRDATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":qslrdate", util->getDateSQLiteStringFromDate(dateT));
-                    }
-                }
-                else if (field == "QSLSDATE")
-                {
-                    dateT = util->getDateFromADIFDateString(data);
-                    if (dateT.isValid())
-                    {
-                        preparedQuery.bindValue( ":qslsdate", util->getDateSQLiteStringFromDate(dateT) );
-                    }
-                }
-                else if (field == "QSL_RCVD")
-                {
-                    preparedQuery.bindValue( ":qsl_rcvd", data );
-                    //preparedQuery.bindValue( ":confirmed", '1' );
-                }
-                else if (field == "QSL_SENT")
-                {
-                    preparedQuery.bindValue( ":qsl_sent", data );
-                }
-                else if (field == "QSL_RCVD_VIA")
-                {
-                    preparedQuery.bindValue( ":qsl_rcvd_via", data );
-                }
-                else if (field == "QSL_SENT_VIA")
-                {
-                    preparedQuery.bindValue( ":qsl_sent_via", data );
-                }
-                else if (field == "QSL_VIA")
-                {
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-QSL_VIA: " << data << QT_ENDL;
-                    if (data == "BUREAU") // This comprobation is to "correct" old logs, mainly from KLog
-                        // comming from older ADIF files
-                    {
-                        preparedQuery.bindValue( ":qsl_sent_via", "B" );
-                    }
-                    else if ( (data == "B") || (data == "D") || (data == "E") )// M Deprecated value from ADIF 304
-                    {
-                       preparedQuery.bindValue( ":qsl_via", data );
-                    }
-                    else
-                    {
-                        // If values are not valid, are not imported.
-                        //TODO: Send an error to the user to show that there was an invalid field
-                    }
-                }
-                else if (field == "QSO_COMPLETE")
-                {
-                    preparedQuery.bindValue( ":qso_complete", data );
-                }
-                else if (field == "QSO_RANDOM")
-                {
-                    preparedQuery.bindValue( ":qso_random", data );
-                }
-                else if (field == "QTH")
-                {
-                    preparedQuery.bindValue( ":qth", data );
-                }
-                else if (field == "REGION")
-                {
-                    preparedQuery.bindValue( ":region", data );
-                }
-                else if (field == "RIG")
-                {
-                    preparedQuery.bindValue( ":rig", data );
-                }
-                else if (field == "RX_PWR")
-                {
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-rx_pwr: " << data << QT_ENDL;
-                    preparedQuery.bindValue( ":rx_pwr", data);
-                }
-                else if (field == "TX_PWR")
-                {
-                       //qDebug() << "FileManager::bprocessQsoReadingADIF-tx_pwr: " << data << QT_ENDL;
-                    preparedQuery.bindValue( ":tx_pwr", data);
-                }
-                else if (field == "SAT_MODE")
-                {
-                    preparedQuery.bindValue( ":sat_mode", data );
-                }
-                else if (field == "SAT_NAME")
-                {
-                    preparedQuery.bindValue( ":sat_name", data );
-                }
-                else if (field == "SFI")
-                {
-                    preparedQuery.bindValue( ":sfi", data );
-                }
-                else if (field == "SIG")
-                {
-                    preparedQuery.bindValue( ":sig", data );
-                }
-                else if (field == "SIG_INFO")
-                {
-                    preparedQuery.bindValue( ":sig_info", data );
-                }
-                else if (field == "SILENT_KEY")
-                {
-                    preparedQuery.bindValue( ":silent_key", data );
-                }
-                else if (field == "SKCC")
-                {
-                    preparedQuery.bindValue( ":skcc", data );
-                }
-                else if (field == "SOTA_REF")
-                {
-                    preparedQuery.bindValue( ":sota_ref", data );
-                }
-                else if (field == "SWL")
-                {
-                    preparedQuery.bindValue( ":swl", data );
-                }
-                else if (field == "TEN_TEN")
-                {
-                    preparedQuery.bindValue( ":ten_ten", data );
-                }
-                else if (field == "UKSMG")
-                {
-                    preparedQuery.bindValue( ":uksmg", data );
-                }
-                else if (field == "USACA_COUNTIES")
-                {
-                    preparedQuery.bindValue( ":usaca_counties", data );
-                }
-                else if (field == "VE_PROV")
-                {
-                    preparedQuery.bindValue( ":ve_prov", data );
-                }
-                else if (field == "VUCC_GRIDS")
-                {
-                    preparedQuery.bindValue( ":vucc_grids", data );
-                }
-                else if (field == "WEB")
-                {
-                    preparedQuery.bindValue( ":web", data );
-                }
-                else if (field == "APP_KLOG_POINTS") //Importing own ADIF fields
-                {
-                    preparedQuery.bindValue( ":points", data );
-                }
-                else if (field == "APP_KLOG_MULTIPLIER") //Importing own ADIF fields
-                {
-                    preparedQuery.bindValue( ":multiplier", data );
-                }
-                else if (field == "APP_KLOG_TRX") //Importing own ADIF fields
-                {
-                    preparedQuery.bindValue( ":transmiterid", data );
-                }
-                else if (field == "APP_KLOG_LOGN") //Lognumber in a multiple-log file
-                {
-                    //TODO: Think about how to import a file with different logs
-                    //isThisQSODuplicated(const QString &_qrz, const QString &_date, const QString &_time, const int _band, const int _mode)
-                }
-                else if (field == "APP_N1MM_POINTS") //Importing from N1MM
-                {
-                    preparedQuery.bindValue( ":points", data );
                 }
             }
             else
@@ -5049,17 +5093,3 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     }
     out << "<EOR>" << QT_ENDL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
