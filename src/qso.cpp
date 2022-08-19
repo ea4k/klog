@@ -32,7 +32,10 @@ QSO::QSO()
     util = new Utilities(Q_FUNC_INFO);
 }
 
-QSO::~QSO() {}
+QSO::~QSO()
+{
+    delete(util);
+}
 
 void QSO::setLogLevel (const DebugLogLevel _b)
 {
