@@ -47,6 +47,7 @@ private slots:
     void test_WorldCreation();
     void test_EntityIdentification();
     void test_ZonesIdentification();
+    void test_SeveralIdentification();
 
 private:
     DataProxy_SQLite *dataProxy;
@@ -158,12 +159,35 @@ void tst_World::test_ZonesIdentification()
     QVERIFY2(world->getQRZItuz("EA4K") == 37, "ITUz for EA not properly identified");
     QVERIFY2(world->getQRZItuz("PY") == 15, "ITUz for PY not properly identified");
     QVERIFY2(world->getQRZItuz("AX9XA") ==54, "ITUz for AX9XA not properly identified");
+}
 
-    QVERIFY2(world->getQRZContinentShortName("EA4K") == "EU", "Continent for AX9XA not properly identified");
-    QVERIFY2(world->getQRZContinentShortName("PY") == "SA", "Continent for AX9XA not properly identified");
+void tst_World::test_SeveralIdentification()
+{
+    QVERIFY2(world->getQRZEntityName("EA4K") == "Spain", "Entity name for EA4K not properly identified");
+    QVERIFY2(world->getQRZEntityName("PY") == "Brazil", "Entity name for EA4K not properly identified");
+
+    QVERIFY2(world->getEntityName(281) == "Spain", "Entity name for 281 not properly identified");
+    QVERIFY2(world->getEntityCqz(281) == 14, "CQz name for 281 not properly identified");
+    QVERIFY2(world->getEntityItuz(281) == 37, "ITUz name for 281 not properly identified");
+    QVERIFY2(world->getQRZEntityMainPrefix("AM4A") == "EA", "Main prefix for AM4A not properly identified");
+    QVERIFY2(world->getEntityMainPrefix(281) == "EA", "Entity main prefix for 281 not properly identified");
+
+    QVERIFY2(world->getQRZContinentShortName("EA4K") == "EU", "Continent for EA4K not properly identified");
+    QVERIFY2(world->getQRZContinentShortName("PY") == "SA", "Continent for PY not properly identified");
     QVERIFY2(world->getQRZContinentShortName("AX9XA") == "OC", "Continent for AX9XA not properly identified");
 
+    QVERIFY2(world->getContinentShortName(281) == "EU", "Continent for 281 not properly identified");
+
+    QVERIFY2(world->getQRZLongitude("EA4K") == -3.43, "Longitude for EA4K not properly identified");
+    QVERIFY2(world->getLongitude(281) == -3.43, "Longitude for 281 not properly identified");
+
+    QVERIFY2(world->getQRZLatitude("EA4K") == 40.32, "Latitue for EA4K not properly identified");
+    QVERIFY2(world->getLatitude(281) == 40.32, "Latitude for 281 not properly identified");
+
+    QVERIFY2(world->getQRZLocator("EA4K") == "IN80GH", "Locator for EA4K not properly identified");
+    QVERIFY2(world->getLocator(281) == "IN80GH", "Locator for 281 not properly identified");
 }
+
 
 QTEST_APPLESS_MAIN(tst_World)
 

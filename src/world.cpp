@@ -374,12 +374,12 @@ int World::getPrefixId(const QString &_prefix)
 
 QString World::getQRZEntityName(const QString &_qrz)
 {
-        //qDebug() << "World::getQRZEntityName: " << _qrz;
+    //qDebug() << "World::getQRZEntityName: " << _qrz;
     if (_qrz.length() < 1 )
     {
         return QString();
-    }
-    int prefixIDNumber = getPrefixId(_qrz);
+    }    
+    int prefixIDNumber = getQRZARRLId(_qrz);
     return getEntityName(prefixIDNumber);
 }
 
@@ -401,8 +401,7 @@ int World::getQRZCqz(const QString &_qrz)
          return -1;
      }
 
-    QString aux = _qrz;
-    aux = util->getPrefixFromCall(aux);
+    QString aux = util->getPrefixFromCall(_qrz);
     return dataProxy->getCQzFromPrefix(aux);
 }
 
@@ -414,8 +413,7 @@ int World::getQRZItuz(const QString &_qrz)
         return -1;
     }
 
-    QString aux = _qrz;
-    aux = util->getPrefixFromCall(aux);
+    QString aux = util->getPrefixFromCall(_qrz);
     return dataProxy->getITUzFromPrefix(aux);
 }
 
@@ -570,12 +568,6 @@ QString World::getLocator(const int _entityN)
         return "";
     }
     return locator->getLocator(getLongitude(_entityN), getLatitude(_entityN));
-}
-
-QString World::getQRZEntityPrefixes(const QString &_qrz)
-{
-    int i = getQRZARRLId(_qrz);
-    return dataProxy->getEntityMainPrefix(i);
 }
 
 bool World::readCTYCSV(const QString &_worldFile)
@@ -788,47 +780,6 @@ bool World::readCTYCSV(const QString &_worldFile)
     }
       //qDebug()  << "World::readCTYCSV() END TRUE " ;
     return true;
-}
-
-QString World::changeSlashAndFindPrefix(const QString &_qrz)
-{
-      //qDebug() << "World::changeSlashAndFindPrefix: -"  << _qrz <<"-";
-    QString aux = _qrz.toUpper();
-
-    if ((aux).count('\\')) // Replaces \ by / to ease operation.
-    {
-        aux.replace(QChar('\\'), QChar('/'));
-    }
-    else
-    {
-        return aux;
-    }
-
-    if (aux.count('/')) // / found! Checking different options
-    {
-        int iaux1, iaux2;
-
-        if (aux.endsWith("/") )
-        { // We look for calls ending in slash "/" or "\"
-            aux.remove(aux.length()-1,1);
-        }
-        iaux1 = aux.indexOf('/');
-            //qDebug() << "World::changeSlashAndFindPrefix: Slash found at: "  << QString::number(iaux1);
-
-        iaux2 = (aux.length())- iaux1; // iaux2 is the length of the second part
-        if (iaux2 < 0){
-            iaux2 = -iaux2;
-        }
-
-        if ( iaux1 < iaux2 ) { //Like in F/EA0XXX, we can simply take the first part as the prefix
-            aux = aux.left(iaux1);
-        }
-        else
-        {
-            aux = aux.right(iaux2-1);
-        }
-    }
-    return aux;
 }
 
 QStringList World::getEntitiesNames()

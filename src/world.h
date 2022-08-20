@@ -100,8 +100,6 @@ public:
     bool isNewCQz(const int _cqz);
     bool isNewEntity(const int _entityN);
     //int getBandIdFromFreq(const QString fr);
-
-    QString getQRZEntityPrefixes(const QString &_qrz);
     QString getEntityPrefixes(const int _enti);
 
     QStringList getEntitiesNames();
@@ -121,7 +119,6 @@ private:
     QStringList processLineP(const QString &_line, const int _processingEntity);
     //void createWorldModel();
     QStringList readZones(const QString &pref, const int _cq, const int _itu);
-    QString changeSlashAndFindPrefix(const QString &_qrz); // Changes the \ into / and find the country prefix
 
     int progressBarPosition;
 
