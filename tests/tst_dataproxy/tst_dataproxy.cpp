@@ -28,7 +28,13 @@
 #include <QtTest>
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/utilities.h"
-
+/*
+    initTestCase() will be called before the first test function is executed.
+    initTestCase_data() will be called to create a global test data table.
+    cleanupTestCase() will be called after the last test function was executed.
+    init() will be called before each test function is executed.
+    cleanup() will be called after every test function.
+*/
 class tst_DataProxy : public QObject
 {
     Q_OBJECT
@@ -38,12 +44,21 @@ public:
     ~tst_DataProxy();
 
 private slots:
-    void initTestCase();
-    void cleanupTestCase();
+    //void initTestCase();        // will be called before the first test function is executed.
+    //void initTestCase_data();   // will be called to create a global test data table.
+    //void cleanupTestCase();     // will be called after the last test function was executed.
+    //void init();                // will be called before each test function is executed.
+    //void cleanup();             // will be called after every test function.
     void test_Constructor();
     void test_modes_data();
     void test_modes();
     void test_bands();
+
+
+
+
+
+
     //void test_getProgresStepForDialog();
 
 private:
@@ -61,18 +76,31 @@ tst_DataProxy::tst_DataProxy()
 
 tst_DataProxy::~tst_DataProxy()
 {
-
+    qDebug() << Q_FUNC_INFO;
+    delete (util);
+    delete (dataProxy);
 }
-
+/*
 void tst_DataProxy::initTestCase()
 {
-
+    qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::cleanupTestCase()
 {
-
+    qDebug() << Q_FUNC_INFO;
 }
+
+void tst_DataProxy::init()
+{
+    qDebug() << Q_FUNC_INFO;
+}
+
+void tst_DataProxy::cleanup()
+{
+    qDebug() << Q_FUNC_INFO;
+}
+*/
 
 void tst_DataProxy::test_Constructor()
 {

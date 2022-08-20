@@ -23,8 +23,8 @@
 # *                                                                           *
 # *****************************************************************************/
 TEMPLATE = subdirs
-SUBDIRS += src
-SUBDIRS += tests
+SUBDIRS += src \
+    tests
 #CONFIG(debug, debug) {
 #        SUBDIRS += tests
 #}
