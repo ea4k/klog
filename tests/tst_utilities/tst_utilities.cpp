@@ -170,7 +170,6 @@ void tst_Utilities::test_getNormalizedDXCCValue()
 
 void tst_Utilities::test_isValidCall()
 {
-    /*
     //Amateur and experimental stations19.68
     //1) –one  character
     // (provided  that  it  is  the  letter  B,  F,  G,  I,  K,  M,  N,  R  or  W)
@@ -201,6 +200,8 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("E73E"), "E73E");
     QVERIFY2(util->isValidCall("EA5666K"), "EA5666K");
     QVERIFY2(util->isValidCall("VK0M/ZL4DB/P"), "VK0M/ZL4DB/P");
+    QVERIFY2(util->isValidCall("EA5/DL4EA"), "EA5/DL4EA");
+    QVERIFY2(util->isValidCall("DL4EA/EA5"), "DL4EA/EA5");
 
     QVERIFY2(util->isValidCall("K4X"), "K4X");
     QVERIFY2(util->isValidCall("B2AA"), "B2AA");
@@ -257,7 +258,6 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("-"), "Should be true: EAK4");
     QVERIFY2(util->isValidCall("QQQ/EA4K"), "Should be true: QQQ/EA4K");
     util->setCallValidation (true);
-*/
 }
 
 void tst_Utilities::test_isValidFreq()

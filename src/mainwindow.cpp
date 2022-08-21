@@ -330,6 +330,8 @@ void MainWindow::init()
         debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     configFileName = util->getCfgFile();
     setupDialog->init(configFileName, softwareVersion, 0, !configured);
     filemanager->init();
@@ -790,10 +792,21 @@ void MainWindow::recommendBackupIfNeeded()
 
 void MainWindow::checkIfNewVersion()
 {
+    qDebug() << Q_FUNC_INFO << " - " << util->getVersion();
      logEvent(Q_FUNC_INFO, "Start", Debug);
     //itIsANewversion = true;
     if (itIsANewversion)
     {
+        if (util->getVersion() == "2.2")
+        {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("KLog - New version detected!"));
+            msgBox.setText(tr("This version of KLog requires that the DXCC database is updated."));
+            msgBox.setInformativeText(tr("The database will be updated."));
+            msgBox.exec();
+            slotWorldReload(true);
+        }
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog - New version detected!"));

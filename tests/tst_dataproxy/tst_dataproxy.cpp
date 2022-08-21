@@ -76,29 +76,29 @@ tst_DataProxy::tst_DataProxy()
 
 tst_DataProxy::~tst_DataProxy()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     delete (util);
     delete (dataProxy);
 }
 /*
 void tst_DataProxy::initTestCase()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::cleanupTestCase()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::init()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::cleanup()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 */
 

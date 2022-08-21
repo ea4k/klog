@@ -616,7 +616,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
     //Rules: http://life.itu.int/radioclub/rr/art19.pdf
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << QString(" - 000 - %1").arg(_c);
     int length = _c.length();
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 010";
+    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 010";    
     if (length<3)
     {
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Less than 3 chars - FALSE"), Debug);
@@ -624,6 +624,12 @@ bool Utilities::isValidSimpleCall(const QString &_c)
         return false;
     }
     //qDebug() << Q_FUNC_INFO << " - 020";
+    QString call = _c;
+    if (isAKnownCall(call))
+    {
+        return true;
+    }
+    //qDebug() << Q_FUNC_INFO << " - 021";
     // Does it contain any digit?
     bool hasDigit = false;
     for (int i=0;i<=length-1;i++)
@@ -653,7 +659,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
     //qDebug() << Q_FUNC_INFO << " - 040";
     if (length<=5)
     { //This may fail with JY1 Special call or others special 4 or 5 letter callsigns listed in
-        //qDebug() << Q_FUNC_INFO << " - 031";
+        //qDebug() << Q_FUNC_INFO << " - 031 - " << _c;
         if (isAKnownPrefix(_c))
         {
             //qDebug() << Q_FUNC_INFO << " - END5";
@@ -899,6 +905,11 @@ bool Utilities::isValidCall(const QString &_c)
         return true;
     }
     QString call = _c;
+    if (isAKnownCall(call))
+    {
+        //qDebug() << Q_FUNC_INFO << "001 - Known call: " << _c;
+        return true;
+    }
     //qDebug() << Q_FUNC_INFO << "- 002 " << call;
     if (call.length()<3)
     {
@@ -953,12 +964,11 @@ bool Utilities::isValidCall(const QString &_c)
         //qDebug() << Q_FUNC_INFO << QString("Detailed=%1/%2/%3").arg(boolToQString((isAPrefix (parts.at (1))) )).arg(boolToQString((isValidSimpleCall (parts.at(1))))).arg(boolToQString(isAValidOperatingSuffix(parts.at(1))));
         //qDebug() << Q_FUNC_INFO << "END1";
         return (result1 && result2);
-
     }
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - %1").arg(isValidSimpleCall(call)), Debug);
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - END";
 
-    return isValidSimpleCall (call);
+    return isValidSimpleCall(call);
 }
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)

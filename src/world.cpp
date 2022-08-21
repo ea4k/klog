@@ -74,7 +74,7 @@ World::~World()
 }
 
 bool World::readWorld()
-{
+{ // Used to link a prefix with an Entity quickly, without quering the DB.
     worldPrefixes.clear();
     worldPrefixes = dataProxy->getWorldData();
     if (worldPrefixes.size()>100)
