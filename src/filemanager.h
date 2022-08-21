@@ -87,6 +87,7 @@ public:
     void setStationCallSign(const QString& _st);
     void setDuplicatedQSOSlot (const int _secs);
     void setSendQSLByDefault (const bool _send);
+    void setCallValidation (const bool _b);
 
 private:
 

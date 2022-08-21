@@ -41,6 +41,7 @@
 #include <QtDebug>
 #include "locator.h"
 #include "klogdefinitions.h"
+//#include "dataproxy_sqlite.h"
 
 class Utilities : public QObject {
     Q_OBJECT
@@ -198,7 +199,6 @@ private:
     QStringList longPrefixes, specialCalls;
     QMap<QString, QString> columnNames;
     bool validateCalls;
-
 };
 
 #endif // UTILITIES_H

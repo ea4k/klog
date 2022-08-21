@@ -37,6 +37,8 @@ ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &
     qsosList.clear();
     setWindowTitle("ShowAdif");
     createUI();
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 }
 ShowAdifImportWidget::~ShowAdifImportWidget()
 {

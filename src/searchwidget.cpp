@@ -37,6 +37,8 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     filemanager = new FileManager(dataProxy);
     filemanager->init();
 

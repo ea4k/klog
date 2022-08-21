@@ -35,14 +35,14 @@
 #include "../klogdefinitions.h"
 #include "../locator.h"
 #include "../utilities.h"
-//#include "dataproxy_sqlite.h"
+#include "../dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 
 class MainWindowMyDataTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindowMyDataTab(QWidget *parent = nullptr);
+    explicit MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowMyDataTab();
 
     void createUI();
@@ -123,6 +123,7 @@ private:
 
     QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Locator *locator;
+    DataProxy_SQLite *dataProxy;
     Utilities *util;
     bool modify;
     QString my_rig, my_sota, my_antenna, my_vucc_grids;

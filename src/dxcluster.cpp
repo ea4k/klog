@@ -46,10 +46,13 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect) << QT_ENDL;
 
-    util = new Utilities(Q_FUNC_INFO);
+
     saveSpotsFile = new QFile();
 
     dataProxy = dp;
+    util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 

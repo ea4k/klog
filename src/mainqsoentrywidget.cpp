@@ -164,6 +164,11 @@ void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
+void MainQSOEntryWidget::setCallValidation (const bool _b)
+{
+    util->setCallValidation(_b);
+}
+
 void MainQSOEntryWidget::slotCheckBoxClicked()
 {
    logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -278,17 +283,17 @@ void MainQSOEntryWidget::slotQRZTextChanged()
    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars" << QT_ENDL;
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 " << QT_ENDL;
+    qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 " << QT_ENDL;
     if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - Red" << QT_ENDL;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - Red" << QT_ENDL;
         //logEvent (Q_FUNC_INFO, "END-4", Debug);
     }
     else
     {
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << QT_ENDL;
+        qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << QT_ENDL;
         if (getDarkMode())
         {
             qrzLineEdit->setPalette(palWhite);
@@ -445,6 +450,9 @@ void MainQSOEntryWidget::setInitialData()
     InValidCharsInPrevCall = false;
     qrzSmallModDontCalculate=false;
     previousQRZ = QString();
+
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
     bands.clear();
     modes.clear();

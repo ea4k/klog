@@ -34,6 +34,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
      //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << QT_ENDL;
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
+
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -49,6 +50,8 @@ FileManager::~FileManager()
 
 void FileManager::init()
 {
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     klogVersion = dataProxy->getSoftVersion();
     klogDir = util->getHomeDir();
     defaultStationCallsign = QString();
@@ -495,6 +498,12 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
    //qDebug() << "FileManager::adifQSOsExport - END" << QT_ENDL;
     return true;
 }
+
+void FileManager::setCallValidation (const bool _b)
+{
+    util->setCallValidation(_b);
+}
+
 
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)
 {

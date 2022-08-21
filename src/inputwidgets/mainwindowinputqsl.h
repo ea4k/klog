@@ -61,10 +61,8 @@ public:
     void setQSLRecDate(const QDate _qs);
     void setQSLSenDate(const QDate _qs);
 
-
     void clear();
     void qslViaClear();
-
 
 signals:
     void returnPressed();
@@ -97,7 +95,6 @@ private:
     QStringList qslSentStatusList, qslRcvdStatusList, qslViaList;
 
     QPalette palette; // To color some widgets
-
 };
 
 #endif // MAINWINDOWINPUTQSL_H

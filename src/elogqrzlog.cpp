@@ -56,6 +56,8 @@ eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, con
     uploadingFile = false;
     logged = false;
     util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
    // serviceUrl = QUrl("https://xmldata.qrz.com/xml/current/");
     //serviceUrl = QUrl("https://xmldata.qrz.com/xml/1.31/ ");
    //qDebug()<< "eLogQrzLog::eLogQrzLog - END"  << QT_ENDL;

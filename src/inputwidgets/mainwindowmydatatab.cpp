@@ -26,11 +26,12 @@
 
 #include "mainwindowmydatatab.h"
 
-MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
+MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
        //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << QT_ENDL;
     logLevel = None;
+    dataProxy = dp;
     myPowerSpinBox = new QDoubleSpinBox;
     operatorLineEdit = new QLineEdit;
     stationCallSignLineEdit = new QLineEdit;
@@ -55,8 +56,9 @@ MainWindowMyDataTab::MainWindowMyDataTab(QWidget *parent) :
     setInitialADIFValues();
     myPower = 0;
     lastPower = 0;
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
        //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << QT_ENDL;
-
 }
 
 MainWindowMyDataTab::~MainWindowMyDataTab()
@@ -64,6 +66,7 @@ MainWindowMyDataTab::~MainWindowMyDataTab()
     logEvent (Q_FUNC_INFO, "Start", Debug);
     delete(locator);
     delete(util);
+    delete(dataProxy);
 }
 
 void MainWindowMyDataTab::createUI()

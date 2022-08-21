@@ -114,12 +114,15 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
 
+
     connectActions();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
 void SetupDialog::init(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     firstTime = _firstTime;
     configFileName = _configFile;
     version = _softwareVersion;

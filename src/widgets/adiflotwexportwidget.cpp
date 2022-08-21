@@ -45,7 +45,8 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     numberLabel = new QLabel;
     selectedEMode = ModeLotW;   //By default this widget will be used for LoTW Export.
     defaultStationCallsign = QString();
-
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     createUI();
 }
 AdifLoTWExportWidget::~AdifLoTWExportWidget()

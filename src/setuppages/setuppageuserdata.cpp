@@ -245,6 +245,8 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     setLayout(mainLayout);
     maincallsignLineEdit->setFocus();
 
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
        //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END" << QT_ENDL;
 }
 
@@ -257,6 +259,7 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
     delete(world);
     delete(defaultPalette);
     delete(wrongPalette);
+    delete(dataProxy);
 }
 
 QString SetupPageUserDataPage::getMainCallsign()

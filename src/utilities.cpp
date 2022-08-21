@@ -615,6 +615,10 @@ bool Utilities::isValidSimpleCall(const QString &_c)
     // This functions only checks simple calls like EA4K, not composed like EA4K/F of F/EA4K/QRP
     //Rules: http://life.itu.int/radioclub/rr/art19.pdf
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << QString(" - 000 - %1").arg(_c);
+    if ((_c.contains('/')) || (_c.contains('\\')))
+    {
+        return false;
+    }
     int length = _c.length();
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 010";    
     if (length<3)
@@ -623,10 +627,12 @@ bool Utilities::isValidSimpleCall(const QString &_c)
         //qDebug() << Q_FUNC_INFO << " - END2";
         return false;
     }
+
     //qDebug() << Q_FUNC_INFO << " - 020";
     QString call = _c;
     if (isAKnownCall(call))
     {
+        //qDebug() << Q_FUNC_INFO << " - 020.5";
         return true;
     }
     //qDebug() << Q_FUNC_INFO << " - 021";
@@ -903,6 +909,10 @@ bool Utilities::isValidCall(const QString &_c)
         //qDebug() << Q_FUNC_INFO << "001 - Not validating calls: " << _c;
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 001 - true"), Debug);
         return true;
+    }
+    if (longPrefixes.count()<100)
+    {
+        return false;
     }
     QString call = _c;
     if (isAKnownCall(call))

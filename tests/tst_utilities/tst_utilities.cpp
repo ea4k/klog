@@ -238,7 +238,6 @@ void tst_Utilities::test_isValidCall()
     //QVERIFY(util->isValidCall("1/EA4K") == false);
 
     //qDebug() << Q_FUNC_INFO << " Wrong calls";
-
     QVERIFY2(!util->isValidCall("G1"), "G1");
     QVERIFY2(!util->isValidCall("I100"), "I100");
     QVERIFY2(util->isValidCall("K100A"), "K1");
