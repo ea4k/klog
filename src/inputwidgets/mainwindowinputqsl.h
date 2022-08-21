@@ -72,7 +72,6 @@ private slots:
     void slotQSLSentComboBoxChanged();
     void slotQSLRecvComboBoxChanged();
     void slotQSLViaLineEditReturnPressed();
-
 /*
     void sloteQSLRecvComboBoxChanged();
     void sloteQSLSentComboBoxChanged();
