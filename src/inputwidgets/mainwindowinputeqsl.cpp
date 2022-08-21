@@ -171,6 +171,7 @@ void MainWindowInputEQSL::setDefaultData()
     qrzcomComboBox->addItems(clubLogStatusList);
 
     queueSentByDefault = true;
+    isQRZSubscriber = false;
 
 }
 void MainWindowInputEQSL::clear()
@@ -182,25 +183,36 @@ void MainWindowInputEQSL::clear()
         clublogComboBox->setCurrentIndex( clublogComboBox->findText("M", Qt::MatchStartsWith));
         eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
         lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
-        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("M", Qt::MatchStartsWith));
     }
     else
     {
         clublogComboBox->setCurrentIndex( clublogComboBox->findText("N", Qt::MatchStartsWith));
-        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("N", Qt::MatchStartsWith));
         eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("N", Qt::MatchStartsWith));
         lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("N", Qt::MatchStartsWith));
     }
 
-    eqslRecComboBox->setCurrentIndex(eqslRecComboBox->findText("N", Qt::MatchStartsWith));
-    lotwRecComboBox->setCurrentIndex(lotwRecComboBox->findText("N", Qt::MatchStartsWith));
+    if ((isQRZSubscriber) && (queueSentByDefault))
+    {
+        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("M", Qt::MatchStartsWith));
+    }
+    else
+    {
+        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("N", Qt::MatchStartsWith));
+    }
 
-    eqslSentQDateEdit->setDate(util->getDefaultDate());
-    eqslRecQDateEdit->setDate(util->getDefaultDate());
-    lotwSentQDateEdit->setDate(util->getDefaultDate());
-    lotwRecQDateEdit->setDate(util->getDefaultDate());
-    clublogQDateEdit->setDate(util->getDefaultDate());
-    qrzcomQDateEdit->setDate(util->getDefaultDate());
+    eqslRecComboBox->setCurrentIndex(eqslRecComboBox->findText("N", Qt::MatchStartsWith));
+    eqslRecQDateEdit->setSpecialValueText( " " );
+    eqslRecQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
+    lotwRecComboBox->setCurrentIndex(lotwRecComboBox->findText("N", Qt::MatchStartsWith));
+    lotwRecQDateEdit->setSpecialValueText( " " );
+    lotwRecQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
+
+//    eqslSentQDateEdit->setDate(util->getDefaultDate());
+//    eqslRecQDateEdit->setDate(util->getDefaultDate());
+//    lotwSentQDateEdit->setDate(util->getDefaultDate());
+//    lotwRecQDateEdit->setDate(util->getDefaultDate());
+//    clublogQDateEdit->setDate(util->getDefaultDate());
+//    qrzcomQDateEdit->setDate(util->getDefaultDate());
 
 }
 
@@ -311,6 +323,8 @@ void MainWindowInputEQSL::setEQSLRecStatus(const QString &_qs)
      else
      {
          eqslRecComboBox->setCurrentIndex( eqslRecComboBox->findText("N", Qt::MatchStartsWith));
+         eqslRecQDateEdit->setSpecialValueText( " " );
+         eqslRecQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
      }
 }
 
@@ -355,6 +369,8 @@ void MainWindowInputEQSL::setLOTWRecStatus(const QString &_qs)
      else
      {
          lotwRecComboBox->setCurrentIndex(lotwRecComboBox->findText("N", Qt::MatchStartsWith));
+         lotwRecQDateEdit->setSpecialValueText( " " );
+         lotwRecQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
      }
 }
 
@@ -400,26 +416,23 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
     switch (i)
     {
         case 0:
-            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
             lotwRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
 
         break;
         case 2:
-            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
             lotwRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
-            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
         break;
         case 4:
-            lotwRecQDateEdit->setVisible(true);
             lotwRecQDateEdit->setEnabled(true);
         break;
         default: //NO
-            lotwRecQDateEdit->setVisible(false);
+            lotwRecQDateEdit->setSpecialValueText( " " );
+            lotwRecQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
             lotwRecQDateEdit->setEnabled(false);
         break;
     }
@@ -441,28 +454,25 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged(){
     switch (i)
     {
         case 0:
-            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
-            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
-            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
-            lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
         default: //NO
-            lotwSentQDateEdit->setVisible(false);
+            lotwSentQDateEdit->setSpecialValueText( " " );
+            lotwSentQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
             lotwSentQDateEdit->setEnabled(false);
         break;
     }
@@ -484,27 +494,24 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
     switch (i)
     {
         case 0:
-            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
-            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
-            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
-            eqslRecQDateEdit->setVisible(true);
             eqslRecQDateEdit->setEnabled(true);
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
-            eqslRecQDateEdit->setVisible(false);
+            eqslRecQDateEdit->setSpecialValueText( " " );
+            eqslRecQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
             eqslRecQDateEdit->setEnabled(false);
         break;
 
@@ -528,28 +535,25 @@ void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
     switch (i)
     {
         case 0:
-            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
-            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 3:
-            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 4:
-            eqslSentQDateEdit->setVisible(true);
             eqslSentQDateEdit->setEnabled(true);
             eqslSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
         default: //NO
-            eqslSentQDateEdit->setVisible(false);
+            eqslSentQDateEdit->setSpecialValueText( " " );
+            eqslSentQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
             eqslSentQDateEdit->setEnabled(false);
         break;
     }
@@ -566,17 +570,16 @@ void MainWindowInputEQSL::slotClubLogComboBoxChanged()
     switch (i)
     {
         case 0:
-            clublogQDateEdit->setVisible(true);
             clublogQDateEdit->setEnabled(true);
             clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
-            clublogQDateEdit->setVisible(true);
             clublogQDateEdit->setEnabled(true);
             clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
-            clublogQDateEdit->setVisible(false);
+            clublogQDateEdit->setSpecialValueText( " " );
+            clublogQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
             clublogQDateEdit->setEnabled(false);
         break;
     }
@@ -605,17 +608,16 @@ void MainWindowInputEQSL::slotQRZCOMComboBoxChanged()
     switch (i)
     {
         case 0:
-            qrzcomQDateEdit->setVisible(true);
             qrzcomQDateEdit->setEnabled(true);
             qrzcomQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         case 2:
-            qrzcomQDateEdit->setVisible(true);
             qrzcomQDateEdit->setEnabled(true);
             qrzcomQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
-            qrzcomQDateEdit->setVisible(false);
+            qrzcomQDateEdit->setSpecialValueText( " " );
+            qrzcomQDateEdit->setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
             qrzcomQDateEdit->setEnabled(false);
         break;
     }
@@ -716,3 +718,14 @@ void MainWindowInputEQSL::setQueueSentByDefault(const bool _b)
 {
     queueSentByDefault = _b;
 }
+
+void MainWindowInputEQSL::setSubscriber(const bool _b)
+{
+    isQRZSubscriber = _b;
+}
+
+//void MainWindowInputEQSL::clearDateEdit(QDateEdit &_c)
+//{
+//    _c.setSpecialValueText( " " );
+//    _c.setDate( QDate::fromString( "01/01/0001", "dd/MM/yyyy" ) );
+//}

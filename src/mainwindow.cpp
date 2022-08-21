@@ -5471,6 +5471,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         qrzcomSubscriber = util->trueOrFalse(value);
         elogQRZcom->setSubcription (util->trueOrFalse(value));
+        eQSLTabWidget->setSubscriber(qrzcomSubscriber);
     }
     else if(field =="QRZCOMAUTO")
     {
