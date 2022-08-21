@@ -67,8 +67,8 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        //name: "osm" // "osm", "mapboxgl", "esri", "googleMap...
-        name: "esri"
+        name: "osm" // Names in local language
+        //name: "esri" // Names not in local language but english
         //name: "googleMap"
         //name: "mapboxgl"
     }

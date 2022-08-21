@@ -10,6 +10,7 @@ Aug 2022 - 2.2
 - Improvement: General code cleaning (coveralls.io)
 - Improvement: General code cleaning (lgtm.com alerts)
 - Improvement Distance is now stored for new QSO added or modified QSOs from the UI. (Closes #459).
+- Map back to OSM to recover the map for raspberry & linux
 - Translations: Spanish (EA4K).
 
 Feb 2022 - 2.1
