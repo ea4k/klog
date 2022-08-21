@@ -6798,7 +6798,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="37"/>
         <source>Check non-valid calls</source>
-        <translation>COmprobar indicativos válidos</translation>
+        <translation>Comprobar indicativos válidos</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="52"/>
