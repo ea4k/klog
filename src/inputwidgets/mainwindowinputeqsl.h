@@ -75,6 +75,7 @@ public:
     void setLOTWSenDate(const QDate _qs);
 
     void setQueueSentByDefault(const bool _b);
+    void setSubscriber(const bool _b);
 
 
 signals:
@@ -90,6 +91,7 @@ private slots:
 private:
     void createUI();
     void setDefaultData();
+    void clearDateEdit(QDateEdit &_c);
 
     QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox, *qrzcomComboBox;
     QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit,  *qrzcomQDateEdit;
@@ -99,7 +101,7 @@ private:
     Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;
-    bool queueSentByDefault;
+    bool queueSentByDefault, isQRZSubscriber;
 
 };
 
