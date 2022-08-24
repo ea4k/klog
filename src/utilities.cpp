@@ -716,8 +716,13 @@ bool Utilities::isAPrefix (const QString &_c)
     // Prefixes are at least 1 chars (like in K), for K1K it should be 2 (K1)
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Start: %1").arg(_c), Debug);
     //qDebug() << Q_FUNC_INFO << "Call/Pref" << _c;
+    QString aux = _c;
+    if (aux.length()<1)
+    {
+        return false;
+    }
     //qDebug() << Q_FUNC_INFO << "Call/Pref" << _c << "/" << getPrefixFromCall(_c);
-    int length = (getPrefixFromCall(_c)).length();
+    int length = (getPrefixFromCall(aux)).length();
     return (length>0);
 }
 
@@ -915,6 +920,7 @@ bool Utilities::isValidCall(const QString &_c)
         return false;
     }
     QString call = _c;
+    //qDebug() << Q_FUNC_INFO << "000 " << _c;
     if (isAKnownCall(call))
     {
         //qDebug() << Q_FUNC_INFO << "001 - Known call: " << _c;
@@ -966,7 +972,9 @@ bool Utilities::isValidCall(const QString &_c)
         parts.clear();
         parts << call.split ('/');
         //EA4K/P
+
         bool result1 = ((isAPrefix (parts.at (0))) || (isValidSimpleCall (parts.at(0))));
+        //qDebug() << Q_FUNC_INFO << " -027";
         bool result2 = ((isAPrefix (parts.at (1))) || (isValidSimpleCall (parts.at(1))) || isAValidOperatingSuffix(parts.at(1)) );
         //qDebug() << Q_FUNC_INFO << parts.at(0) << "/" << parts.at(1);
         //qDebug() << Q_FUNC_INFO << QString("Result1=%1").arg(boolToQString(result1));
