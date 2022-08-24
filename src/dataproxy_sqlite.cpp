@@ -41,6 +41,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << QT_ENDL;
     util = new Utilities(Q_FUNC_INFO);
     util->setVersion(_softVersion);
+    util->setCallValidation(false);
     qso = new QSO;
 
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());

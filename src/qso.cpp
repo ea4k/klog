@@ -30,6 +30,7 @@ QSO::QSO()
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
+    util->setCallValidation(false);
 }
 
 QSO::~QSO()
@@ -1529,7 +1530,7 @@ QString QSO::getCheck()
     return check;
 }
 
-bool QSO::setClase(const QString &_c)
+bool QSO::setClass(const QString &_c)
 {
     clase = _c;
     return true;
@@ -3132,24 +3133,22 @@ bool QSO::setData(const QString &_adifPair)
     return true;
 }
 
+/*
 QSqlQuery QSO::add()
 {
     QSqlQuery query;
     query.clear();
     query.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, state, my_street, my_vucc_grids, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, sota_ref, swl, ten_ten, vucc_grids, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :state, :my_street, :my_vucc_grids, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sota_ref, :swl, :ten_ten, :vucc_grids, :web, :points, :multiplier, :lognumber)" );
-    //query.bindValue(":id", 1001);
-    //query.bindValue(":forename", "Bart");
-    //query.bindValue(":surname", "Simpson");
     query.bindValue(":call", getCall());
     query.bindValue(":qso_date", util->getDateSQLiteStringFromDate(getDate()));
-    query.bindValue(":bandid", );
-    query.bindValue(":modeid", );
+    //query.bindValue(":bandid", "");
+    //query.bindValue(":modeid", "");
     query.bindValue(":srx", getSrx());
     query.bindValue(":stx", getStx());
     query.bindValue(":srx_string", getSrxString());
     query.bindValue(":stx_string", getStxString());
     query.bindValue(":qso_date_off", util->getDateSQLiteStringFromDate(getDateOff()));
-    query.bindValue(":band_rx", );
+    //query.bindValue(":band_rx", "");
     query.bindValue(":rst_sent", getRSTTX());
 
     query.bindValue(":rst_rcvd", getRSTRX());
@@ -3257,9 +3256,10 @@ QSqlQuery QSO::add()
     query.bindValue(":ten_ten", getTenTen());
     query.bindValue(":vucc_grids", getVUCCGrids());
     query.bindValue(":web", getWeb());
-    query.bindValue(":points", );
-    query.bindValue(":multiplier", );
+    //query.bindValue(":points", );
+    //query.bindValue(":multiplier", );
     query.bindValue(":lognumber", getLogId());
 
     return query;
 }
+*/

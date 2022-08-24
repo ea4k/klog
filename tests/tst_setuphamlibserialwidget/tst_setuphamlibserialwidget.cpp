@@ -1,5 +1,5 @@
 /***************************************************************************
-                          tst_mainqsoentrywidget.h  -  description
+                          tst_setuphamlibserialwidget.h  -  description
                              -------------------
     begin                : Jan 2021
     copyright            : (C) 2021 by Jaime Robles

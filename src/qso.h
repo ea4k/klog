@@ -29,7 +29,7 @@
 #include <QString>
 #include <QDate>
 #include <QTime>
-#include <QSqlQuery>
+//#include <QSqlQuery>
 #include <QDebug>
 #include "utilities.h"
 #include "klogdefinitions.h"
@@ -376,8 +376,7 @@ public:
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
 
-    QSqlQuery add();
-
+    //QSqlQuery add();
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

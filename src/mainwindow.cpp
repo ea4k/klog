@@ -8684,8 +8684,9 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     QSLTabWidget->setQSLRecStatus (qso->getQSL_RCVD ());
     QSLTabWidget->setQSLRecDate (qso->getQSLRDate ());
     QSLTabWidget->setQSLSenDate (qso->getQSLSDate ());
-    QSLTabWidget->setQSLSenVia (qso->getSentVia ());
-    QSLTabWidget->setQSLRecVia (qso->getRecVia ());
+
+    QSLTabWidget->setQSLSenVia (qso->getQSLSentVia());
+    QSLTabWidget->setQSLRecVia (qso->getQSLRecVia());
     QSLTabWidget->setQSLVia (qso->getQSLVia ());
     QSLTabWidget->setQSLMsg (qso->getQSLMsg ());
 

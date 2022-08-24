@@ -655,7 +655,7 @@ void SetupDialog::slotOkButtonClicked()
         //qDebug() << "SetupDialog::slotOkButtonClicked - 60" << QT_ENDL;
 
         // LOTW
-        stream << "LoTWActive=" << eLogPage->getLoTWActive() << ";" <<  QT_ENDL;
+        stream << "LoTWActive=" << util->boolToQString(eLogPage->getLoTWActive()) << ";" <<  QT_ENDL;
         tmp = eLogPage->getTQSLPath();
         if (tmp.length()>0)
         {
@@ -1117,7 +1117,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }
     else if(tab =="QRZCOMACTIVE"){
         //eQSLPage->setActive(value);
-        eLogPage->setQRZCOMActive(value);
+        eLogPage->setQRZCOMActive(util->trueOrFalse(value));
     }
     else if(tab =="QRZCOMSUBSCRIBER"){
         eLogPage->setQRZCOMSubscriber(util->trueOrFalse (value));
@@ -1126,7 +1126,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         eLogPage->setQRZCOMUser(value);
     }
     else if(tab =="QRZCOMAUTO"){
-        eLogPage->setQRZCOMAutoCheck(value);
+        eLogPage->setQRZCOMAutoCheck(util->trueOrFalse(value));
     }
     else if(tab =="QRZCOMPASS"){
         eLogPage->setQRZCOMPassword(value);
@@ -1369,7 +1369,7 @@ void SetupDialog::setClubLogActive(const bool _b)
 
 void SetupDialog::setQRZCOMAutoCheckActive(const bool _b)
 {
-     eLogPage->setQRZCOMAutoCheck(util->boolToQString(_b));
+     eLogPage->setQRZCOMAutoCheck(_b);
 }
 
 void SetupDialog::setEQSLActive(const bool _b)
