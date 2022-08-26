@@ -217,7 +217,7 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("VK9AA"), "VK9AA"); // This is a full special call
     QVERIFY2(util->isValidCall("VK9MA"), "VK9MA");
     QVERIFY2(util->isValidCall("4U2STAYHOME") , "4U2STAYHOME");
-
+    QVERIFY2(util->isValidCall("4U1A") , "4U1A");
     // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
     // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
 
