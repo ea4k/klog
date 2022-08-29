@@ -102,7 +102,7 @@ public:
     //int getBandIdFromFreq(const QString fr);
     QString getEntityPrefixes(const int _enti);
 
-    QStringList getEntitiesNames();
+    //QStringList getEntitiesNames();
     int getHowManyEntities();
     bool hasSpecialEntities();
 

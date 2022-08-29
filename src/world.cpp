@@ -782,12 +782,12 @@ bool World::readCTYCSV(const QString &_worldFile)
     return true;
 }
 
-QStringList World::getEntitiesNames()
+/*QStringList World::getEntitiesNames()
 {
        //qDebug()  << "World::getEntitiesNames" ;
      return dataProxy->getEntitiesNames();
 }
-
+*/
 int World::getHowManyEntities()
 {
     return dataProxy->getHowManyEntities();

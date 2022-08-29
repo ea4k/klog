@@ -48,7 +48,45 @@ private slots:
     void test_EntityIdentification();
     void test_ZonesIdentification();
     void test_SeveralIdentification();
+/*
 
+    QString getQRZEntityName(const QString &_qrz);
+    QString getEntityName(const int _entityN);
+
+    QString getQRZEntityMainPrefix(const QString &_qrz);
+    QString getEntityMainPrefix(const int _entityN);
+
+    QString getQRZContinentNumber(const QString &_qrz); // Returns the continent id number
+    int getContinentNumber(const int _enti); // Returns the continent id number
+
+    QString getQRZContinentShortName(const QString &_qrz); // Returns the continent shortName (EU, AF, ...)
+    QString getContinentShortName(const int _enti);
+
+    QString getQRZLocator(const QString &_qrz); // Returns the entity locator
+    QString getLocator(const int _entityN); // Returns the entity locator
+
+    double getQRZLongitude(const QString &_qrz); // Returns the longitude of the Entity
+    double getLongitude(const int _enti); // Returns the longitude of the Entity
+
+    double getQRZLatitude(const QString &_qrz); // Returns the latitude of the Entity
+    double getLatitude(const int _enti); // Returns the latitude of the Entity
+
+    int getEntityCqz(const int _enti);
+    int getQRZCqz(const QString &_qrz);
+    //int getPrefixCQz(const QString &_p);
+
+    int getQRZItuz(const QString &_qrz);
+    int getEntityItuz(const int _enti);
+
+    int getQRZARRLId(const QString &_qrz); //Returns the ARRL id of the Entity from a QRZ & Returns -1 if not found.
+    bool isNewCQz(const int _cqz);
+    bool isNewEntity(const int _entityN);
+    //int getBandIdFromFreq(const QString fr);
+    QString getEntityPrefixes(const int _enti);
+
+    int getHowManyEntities();
+    bool hasSpecialEntities();
+*/
 private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
@@ -68,7 +106,7 @@ tst_World::tst_World()
     //qDebug() << Q_FUNC_INFO << "003";
     world = new World(dataProxy, Q_FUNC_INFO);
 
-    //ctyDatFile = util->getCTYFile();
+    //QString ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);
     //qDebug() << Q_FUNC_INFO << "END";
 }
@@ -92,27 +130,16 @@ void tst_World::test_Constructor()
 {
     //QVERIFY(util->getVersion() == "0.0");
     //qDebug() << "Testing the constructor" << endl;
+
 }
 
 void tst_World::test_WorldCreation()
 {
     //qDebug() << "Testing the world";
-    //qDebug() << QString::number(world->getQRZARRLId("EA4K"));
-    /*
-    //qDebug() << "Testing the world" << endl;
-    QVERIFY2 (1==1, "Not OK");
-    QString ctyFile = QFINDTESTDATA (util->getCTYFile());
-*/
-    /*
-    if (!world->create(version))
-    {
-        QFAIL( "World failed to be created");
-    }
-    */
-    /*
-    QFAIL( "World YES to be created");
+
+    //QFAIL( "World YES to be created");
     QVERIFY2(1==2, "Failure in the qverify2");
-*/
+
 }
 
 void tst_World::test_EntityIdentification()

@@ -1,4 +1,4 @@
-TBS 2022 - 2.3
+Aug 2022 - 2.2.1
 - Bugfix: Temporary bugfix for Setup eLog Page preventing crash on start. (Closes #489)
 - Bugfix: Temporary quick fix to prevent call validation in some classes that may cause errors. (Opens #490)
 - Bugfix: Config for real time for clublog was not properly managed.
