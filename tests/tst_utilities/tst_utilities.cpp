@@ -61,6 +61,7 @@ private slots:
     void test_logLevels();
     void test_isValidSimpleCall();
     void test_getPrefixFromCall();
+    void test_getMainCallFromComplexCall();
 
 private:
   Utilities *util;
@@ -439,6 +440,17 @@ void tst_Utilities::test_isValidSimpleCall()
     QVERIFY2(!util->isValidSimpleCall("VK9M"), "VK9M");
     QVERIFY2(util->isValidSimpleCall("VK9MA"), "VK9MA");
     QVERIFY2(!util->isValidSimpleCall("XXXX"), "XXXX");
+}
+
+void tst_Utilities::test_getMainCallFromComplexCall()
+{
+    QVERIFY2(util->getMainCallFromComplexCall("EA4K")=="EA4K", "EA4K");
+    QVERIFY2(util->getMainCallFromComplexCall("EA4K/P")=="EA4K", "EA4K/P");
+    QVERIFY2(util->getMainCallFromComplexCall("EA4K/MM")=="EA4K", "EA4K/MM");
+    QVERIFY2(util->getMainCallFromComplexCall("MM/EA4K")=="MM", "MM/EA4K");
+    QVERIFY2(util->getMainCallFromComplexCall("EA4K/F")=="F", "EA4K/F");
+    QVERIFY2(util->getMainCallFromComplexCall("EA4K/1")=="EA4K", "EA4K/1");
+    QVERIFY2(util->getMainCallFromComplexCall("VK9/EA4K")=="VK9", "VK9/EA4K");
 }
 
 

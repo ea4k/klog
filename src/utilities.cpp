@@ -822,6 +822,8 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
 { // Return the part of the call that provides entity and prefix information:
   // EA4K/F => F
   // VK9/EA4K => VK9
+  // EA4K/MM => EA4K
+  // MM/EA4K => MM
 
     QString call = _complexCall;
     if (call.length() == 1)
@@ -839,7 +841,7 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
     //qDebug() << Q_FUNC_INFO << ": " << _complexCall;
     if (call.count('/') >1)
     { //Things like F/EA4K/P will become F/EA4K    
-        //logEvent (Q_FUNC_INFO, QString("With 2 /"), Debug);  
+        //logEvent (Q_FUNC_INFO, QString("With 2 /"), Debug);
         call = call.section("/", 0,1);
     }
     //qDebug() << Q_FUNC_INFO << ": First cut: " << call;
@@ -855,8 +857,17 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
         QString first = parts.at(0);
         QString second = parts.at(1);
         // First identify normal suffixes /P, /1, /QRP...
-        bool firstCountry = !isAValidOperatingSuffix(first);
+        bool firstCountry = !isAValidOperatingSuffix(first);        
         bool secondCountry = !isAValidOperatingSuffix(second);
+        //qDebug() << QString("First = %1, Second = %2").arg(boolToQString(firstCountry)).arg(boolToQString(secondCountry));
+        if (!firstCountry)
+        {
+            if ((parts.at(0)) == "MM")
+            { // Special case for Scotland EA4K/MM colliding as maritime movil
+              // Scotland requires the prefix first like in MM/EA4K
+                firstCountry=true;
+            }
+        }
         //qDebug() << Q_FUNC_INFO << " - 020" ;
         if (firstCountry && secondCountry)
         { // EA4K/VK9M
@@ -893,7 +904,7 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
         }
         else if (isAValidOperatingSuffix(second))
         {//  EA4K/2
-            call = second;
+            call = first;
         }
         else
         { // None is a normal country prefix
