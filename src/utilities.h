@@ -53,6 +53,7 @@ public:
     bool isDarkMode();
     void setCallValidation(const bool _b);
     void setLongPrefixes (const QStringList &_p);
+    void setSpecialCalls (const QStringList &_p);
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
     QChar boolToCharToSQLite(const bool _b);
@@ -176,10 +177,12 @@ private:
     void init();
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
-    bool isCountrySuffix (const QString &_c);
-    int isAPrefix(const QString &_c);
-    bool isALongCountryPrefix(const QString &_c);
-    bool isValidSubCall(const QString &_c);
+    //bool isCountrySuffix (const QString &_c);
+    bool isAValidOperatingSuffix (const QString &_c);
+    bool isAPrefix(const QString &_c); // Returns true if it is the country prefix or it includes the area number
+    bool isAKnownPrefix(const QString &_c);
+    bool isAKnownCall(const QString &_c);
+    bool isValidSimpleCall(const QString &_c);
     //QPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
@@ -194,10 +197,9 @@ private:
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;
-    QStringList longPrefixes;
-
-    static QHash<QString, QString> LogColumnNames;
-    void initializeLogColumnNames();
+    QStringList longPrefixes, specialCalls;
+    QMap<QString, QString> columnNames;
+    bool validateCalls;
 };
 
 #endif // UTILITIES_H
