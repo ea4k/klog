@@ -244,6 +244,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 
 SetupPageELog::~SetupPageELog()
 {
+    delete(util);
 }
 
 void SetupPageELog::slotQRZCallTextChanged()
