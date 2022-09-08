@@ -414,7 +414,8 @@ private:
     DebugLogLevel logLevel;
 
    // DataProxy_SQLite *dataProxy;
-    static QHash<QString, decltype(std::mem_fn(&setSig))> SetDataHash;
+    bool decltype_function(const QString& _c); //empty function to find correct typenames for mem_fn, DO NOT RENAME
+    static QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> SetDataHash;
     void InitializeHash();
 
     //Overloaded helper functions to accept string data for nonstring functions
