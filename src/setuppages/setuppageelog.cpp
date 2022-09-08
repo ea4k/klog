@@ -32,7 +32,8 @@
 SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 {
     //qDebug() << "SetupPageELog::SetupPageELog" << QT_ENDL;
-
+    util = new Utilities(Q_FUNC_INFO);
+    util->setCallValidation(false);
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
@@ -167,7 +168,6 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwTQSLPathLineEdit->setToolTip(tr("Path to the TQSL software."));
     lotwSearchTQSLPushButton->setToolTip(tr("Enable the LoTW integration with TQSL. You will need to have TQSL installed"));
 
-
     QHBoxLayout *l1layout = new QHBoxLayout;
     l1layout->addWidget(lotwTQSLPathLineEdit);
     l1layout->addWidget(lotwSearchTQSLPushButton);
@@ -265,6 +265,7 @@ void SetupPageELog::slotQRZCallTextChanged()
        //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2.2" << QT_ENDL;
          QRZCOMUserLineEdit->setPalette(palRed);
     }
+
    //qDebug() << "SetupPageELog::slotQRZCallTextChanged-3" << QT_ENDL;
     QRZCOMUserLineEdit->setText(aux.toUpper());
    //qDebug() << "SetupPageELog::slotQRZCallTextChanged-4" << QT_ENDL;
@@ -279,6 +280,7 @@ void SetupPageELog::sloteQSLCallTextChanged()
     int cursor = eQSLUserLineEdit->cursorPosition();
 
     QString aux = util->getClearSQLi (eQSLUserLineEdit->text());
+
     if (util->isValidCall(aux))
     {
         eQSLUserLineEdit->setPalette(palBlack);
@@ -287,6 +289,7 @@ void SetupPageELog::sloteQSLCallTextChanged()
     {
          eQSLUserLineEdit->setPalette(palRed);
     }
+
     eQSLUserLineEdit->setText(aux.toUpper());
     eQSLUserLineEdit->setCursorPosition(cursor);
    //qDebug() << "SetupPageELog::sloteQSLCallTextChanged - END" << QT_ENDL;
@@ -315,6 +318,7 @@ void SetupPageELog::slotLoTWEmailDefineColor()
     {
          lotwUserLineEdit->setPalette(palRed);
     }
+
     lotwUserLineEdit->setText(aux.toUpper());
     lotwUserLineEdit->setCursorPosition(cursor);
 
@@ -395,8 +399,9 @@ void SetupPageELog::slotClubLogActive(const bool _s)
 
 void SetupPageELog::setClubLogRealTime(const bool &_s)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(_s);
     clubLogRealTime = _s;
-    clubLogSendInRealTimeCheckBox->setEnabled(clubLogRealTime);
+    clubLogSendInRealTimeCheckBox->setChecked(clubLogRealTime);
 }
 
 bool SetupPageELog::getClubLogRealTime()
@@ -476,10 +481,10 @@ void SetupPageELog::setLoTWActive(const bool &_s)
     //lotwPasswordLineEdit->setEnabled(_s);
 }
 
-QString SetupPageELog::getLoTWActive()
+bool SetupPageELog::getLoTWActive()
 {
-    lotwTQSL = lotwUseTQSLCheckBox->isChecked();
-    return util->boolToQString(lotwTQSL);
+    return lotwUseTQSLCheckBox->isChecked();
+    //return util->boolToQString(lotwTQSL);
 }
 
 void SetupPageELog::setTQSLPath(const QString &c)
@@ -569,19 +574,18 @@ void SetupPageELog::slotEnterKeyPressed()
 
 // QRZ.COM
 
-void SetupPageELog::setQRZCOMActive(const QString &_s)
+void SetupPageELog::setQRZCOMActive(const bool _s)
 {
     //qDebug() << "SetupPageELog::setQRZCOMActive " << QT_ENDL;
-    qrzcomActive = util->trueOrFalse(_s);
-    QRZCOMActiveCheckBox->setChecked(qrzcomActive);
-    QRZCOMAutoCheckCheckBox->setEnabled(qrzcomActive);
+    qrzcomActive = _s;
+    QRZCOMActiveCheckBox->setChecked(_s);
+    QRZCOMAutoCheckCheckBox->setEnabled(_s);
 }
 
 bool SetupPageELog::getQRZCOMActive()
 {
     //qDebug() << "SetupPageELog::getQRZCOMActive :" << QT_ENDL;
-    qrzcomActive = QRZCOMActiveCheckBox->isChecked();
-    return qrzcomActive;
+    return QRZCOMActiveCheckBox->isChecked();
     //qDebug() << "SetupPageELog::getQRZCOMActive : " << util->boolToQString(qrzcomActive) << QT_ENDL;
 }
 
@@ -602,7 +606,7 @@ bool SetupPageELog::SetupPageELog::getQRZCOMSubscriber()
 
 void SetupPageELog::slotQRZCOMActive(bool _s)
 {
-
+    qrzcomActive = _s;
     //qDebug() << "SetupPageELog::slotQRZCOMActive: "  << util->boolToQString(_s) << QT_ENDL;
     QRZCOMUserLabel->setEnabled(_s);
     //qDebug() << "SetupPageELog::slotQRZCOMActive - 1" << QT_ENDL;
@@ -674,9 +678,9 @@ bool SetupPageELog::getQRZCOMAutoCheck()
     return qrzcomAutoFill;
 }
 
-void SetupPageELog::setQRZCOMAutoCheck(const QString &_s)
+void SetupPageELog::setQRZCOMAutoCheck(const bool _s)
 {
-    qrzcomAutoFill = util->trueOrFalse(_s);
+    qrzcomAutoFill = _s;
     QRZCOMAutoCheckCheckBox->setChecked(qrzcomAutoFill);
 }
 

@@ -10,4 +10,5 @@ SUBDIRS=\
    tst_qso \
    tst_setuphamlibnetworkwidget \
    tst_setuphamlibserialwidget \
+   tst_setuppageelog \
    tst_world

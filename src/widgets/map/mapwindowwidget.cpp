@@ -38,9 +38,7 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     modeComboBox = new QComboBox;
     satNameComboBox = new QComboBox;
     confirmedCheckBox = new QCheckBox;
-
     //locatorsCheckBox = new QCheckBox;
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

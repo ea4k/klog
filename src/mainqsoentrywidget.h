@@ -78,6 +78,7 @@ public:
     void setDuplicatedQSOSlot (const int _secs);
     void setFocusToOK();
     void setLogLevel (const DebugLogLevel _b);
+    void setCallValidation (const bool _b);
     void clear();
 
 protected:

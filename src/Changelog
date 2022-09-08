@@ -1,3 +1,11 @@
+Aug 2022 - 2.2.1
+- Bugfix: Temporary bugfix for Setup eLog Page preventing crash on start. (Closes #489)
+- Bugfix: Temporary quick fix to prevent call validation in some classes that may cause errors. (Opens #490)
+- Bugfix: Config for real time for clublog was not properly managed.
+- Bugfix: Calls like EA4K/MM were identified like Scotland, not maritime.
+- Improvement: Code improvement in the Setup of eLogs.
+- Tests: Tests for SetupPageElog added.
+
 Aug 2022 - 2.2
 - Bugfix: DL was not properly shown in the DXCC status table (Closes #460) (TNX N6PAZ)
 - Bugfix: Clublog QSO status export to file was not properly done.
@@ -6,10 +14,12 @@ Aug 2022 - 2.2
 - Bugfix: Changing the statistic widget crashed KLog. (Closes #484)
 - Bugfix: Some prefixes were not properly identified.
 - Bugfix: Fixed some database column name typos.
+- Improvement: Callsign identification optimized.
 - Improvement: The Debug logging has been improved, still much work TBD.
 - Improvement: General code cleaning (coveralls.io)
 - Improvement: General code cleaning (lgtm.com alerts)
 - Improvement Distance is now stored for new QSO added or modified QSOs from the UI. (Closes #459).
+- Map back to OSM to recover the map for raspberry & linux
 - Translations: Spanish (EA4K).
 
 Feb 2022 - 2.1

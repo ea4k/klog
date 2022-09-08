@@ -20,7 +20,7 @@
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
  *    GNU General Public License for more details.                           *
- *                                                                           *6
+ *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
@@ -41,6 +41,7 @@
 #include <QtDebug>
 #include "locator.h"
 #include "klogdefinitions.h"
+//#include "dataproxy_sqlite.h"
 
 class Utilities : public QObject {
     Q_OBJECT
@@ -54,6 +55,7 @@ public:
     void setCallValidation(const bool _b);
     void setLongPrefixes (const QStringList &_p);
     void setSpecialCalls (const QStringList &_p);
+
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
     QChar boolToCharToSQLite(const bool _b);
@@ -121,15 +123,11 @@ public:
     bool isValidARRLSect(const QString &_s);
     bool isValidContinent(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
+
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
     QString getAValidCall (const QString &_wrongCall);
-    QString getPrefixFromCall2(const QString &_c, bool withAreaNumber = false);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
-    QString getPrefixFullFromCall(const QString &_c);
-    QString getPrefixCountryFromCall(const QString &_c);
-    //private
     bool isAOneLetterPrefix(const QChar &_c);
-    QString startsWithLongPrefix(const QString &_c);
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
@@ -175,6 +173,7 @@ signals:
 
 private:
     void init();
+    void setLogColumnNames(); // Creates the map of column Names (should be called from init() )
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     //bool isCountrySuffix (const QString &_c);

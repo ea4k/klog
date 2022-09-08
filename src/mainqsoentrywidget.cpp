@@ -164,6 +164,11 @@ void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
+void MainQSOEntryWidget::setCallValidation (const bool _b)
+{
+    util->setCallValidation(_b);
+}
+
 void MainQSOEntryWidget::slotCheckBoxClicked()
 {
    logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -445,6 +450,9 @@ void MainQSOEntryWidget::setInitialData()
     InValidCharsInPrevCall = false;
     qrzSmallModDontCalculate=false;
     previousQRZ = QString();
+
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
     bands.clear();
     modes.clear();

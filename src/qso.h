@@ -29,6 +29,7 @@
 #include <QString>
 #include <QDate>
 #include <QTime>
+//#include <QSqlQuery>
 #include <QDebug>
 #include "utilities.h"
 #include "klogdefinitions.h"
@@ -106,14 +107,14 @@ public:
     bool setQSLSDate(const QDate &_c);
     QDate getQSLSDate();
     bool setQSLSenVia(const QString &_qs);
-    QString getSentVia();
+    QString getQSLSentVia();
 
     bool setQSL_RCVD(const QString &_c);
     QString getQSL_RCVD();
     bool setQSLRDate(const QDate &_c);
     QDate getQSLRDate();
     bool setQSLRecVia(const QString &_qs);
-    QString getRecVia();
+    QString getQSLRecVia();
 
     bool setQSLVia(const QString &_qs);
     QString getQSLVia();
@@ -218,8 +219,8 @@ public:
     QString getARRL_Sect();
     bool setCheck(const QString &_c);
     QString getCheck();
-    bool setClase(const QString &_c);
-    QString getClase();
+    bool setClass(const QString &_c);
+    QString getClass();
     bool setClublogQSOUpdateDate(const QDate &_c);
     QDate getClublogQSOUpdateDate();
     bool setContinent(const QString &_c);
@@ -228,6 +229,8 @@ public:
     double getDistance();
     bool setOwnerCallsign(const QString &_c);
     QString getOwnerCallsign();
+    bool setEQ_Call(const QString &_c); // Contacted station owner
+    QString getEQ_Call();               // Contacted station owner
     bool setHRDUpdateDate(const QDate &_c);
     QDate getHRDUpdateDate();
     bool setHRDLogStatus(const QString &_c);
@@ -334,8 +337,6 @@ public:
     QString getPrecedence();
     bool setPublicKey(const QString &_c);
     QString getPublicKey();
-    bool setQslMsg(const QString &_c);
-    QString getQslMsg();
     bool setRegion(const QString &_c);
     QString getRegion();
     bool setTenTen(const int _i);
@@ -377,7 +378,7 @@ public:
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
 
-    bool add();
+    //QSqlQuery add();
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -394,7 +395,7 @@ private:
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_arrl_sect, vucc_grids, my_vucc_grids;
     QString clublog_status, hrdlog_status, QRZCom_status;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
-    QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contest_id;
+    QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contacted_owner, contest_id;
     QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web, wwff_ref;
     QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
     QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties, my_wwff_ref;

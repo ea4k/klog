@@ -40,6 +40,9 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
     dataProxy = dp;
     calendar = new QCalendarWidget;
     util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+
     manager = new QNetworkAccessManager(this);
 
     reply = nullptr;

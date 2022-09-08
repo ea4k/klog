@@ -26,8 +26,6 @@
 
 #include "statsdxccsonsatswidget.h"
 
-
-
 StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
 

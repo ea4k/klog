@@ -199,6 +199,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(true);
         satOtherLabel->setEnabled(true);
+        autofillSatMode();
     }
     else
     {
@@ -207,8 +208,8 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         satOtherLabel->setEnabled(false);
         setBandsOfSat(satNameComboBox->currentText());
        //dataProxy->getSatelliteMode(satNameComboBox->currentText())
-    }
-   //autofillSatMode();
+        autofillSatMode();
+    }  
 }
 
 void MainWindowSatTab::slotSatNameTextChanged()

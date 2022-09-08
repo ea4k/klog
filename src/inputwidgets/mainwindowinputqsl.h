@@ -61,10 +61,8 @@ public:
     void setQSLRecDate(const QDate _qs);
     void setQSLSenDate(const QDate _qs);
 
-
     void clear();
     void qslViaClear();
-
 
 signals:
     void returnPressed();
@@ -74,7 +72,6 @@ private slots:
     void slotQSLSentComboBoxChanged();
     void slotQSLRecvComboBoxChanged();
     void slotQSLViaLineEditReturnPressed();
-
 /*
     void sloteQSLRecvComboBoxChanged();
     void sloteQSLSentComboBoxChanged();
@@ -97,7 +94,6 @@ private:
     QStringList qslSentStatusList, qslRcvdStatusList, qslViaList;
 
     QPalette palette; // To color some widgets
-
 };
 
 #endif // MAINWINDOWINPUTQSL_H

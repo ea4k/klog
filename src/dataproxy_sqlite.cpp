@@ -41,6 +41,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1" << QT_ENDL;
     util = new Utilities(Q_FUNC_INFO);
     util->setVersion(_softVersion);
+    util->setCallValidation(false);
     qso = new QSO;
 
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
@@ -7619,14 +7620,95 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
     }
 }
 
+QStringList DataProxy_SQLite::getSpecialCallsigns()
+{
+    //qDebug() << Q_FUNC_INFO;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString = QString("SELECT prefix from prefixesofentity WHERE prefix like '=%'");
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                //aux.clear();
+                aux = (query.value(0)).toString();
+                aux = aux.remove(0,1);
+                qs << aux;
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    }
+    query.finish();
+    qs.sort();
+    //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(qs.count());
+    return qs;
+}
+
+QHash<QString, int> DataProxy_SQLite::getWorldData()
+{
+    //qDebug() << Q_FUNC_INFO << "Start";
+    QHash<QString, int> world;
+    world.clear();
+
+    QString queryString;
+    QSqlQuery query;
+    QString pref;
+
+    queryString = "SELECT prefix, dxcc FROM prefixesofentity";
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        //qDebug() << Q_FUNC_INFO << "END-FAIL1";
+        return world;
+    }
+    else
+    {
+        while ( (query.next()))
+        {
+            if (query.isValid())
+            {
+                //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
+                pref = (query.value(0)).toString();
+                if (pref.startsWith('='))
+                {
+                    pref.remove(0,1);
+                }
+                world.insert(pref, (query.value(1)).toInt());
+            }
+            else
+            {
+                query.finish();
+                world.clear();
+                //qDebug() << Q_FUNC_INFO << "END-FAIL";
+                return world;
+            }
+        }
+    }
+    query.finish();
+    //qDebug() << Q_FUNC_INFO << "END";
+    //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(world.count());
+    return world;
+}
+
 QStringList DataProxy_SQLite::getLongPrefixes()
 {//select prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')
     //qDebug() << Q_FUNC_INFO;
     QString aux = QString();
     QStringList qs;
-    qs.clear();
-    //QString queryString = QString("SELECT prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (length(prefix)<6)  AND (prefix NOT LIKE '%/%')");
-    QString queryString = QString("SELECT prefix FROM prefixesofentity WHERE (length(prefix)>2) AND (prefix NOT LIKE '%/%')");
+    qs.clear();    
+    QString queryString = QString("SELECT prefix from prefixesofentity WHERE prefix NOT like '=%'");
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);

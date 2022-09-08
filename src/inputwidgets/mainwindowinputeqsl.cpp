@@ -141,7 +141,6 @@ void MainWindowInputEQSL::createUI()
     connect(lotwSentComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLotwSentComboBoxChanged() ) )  ;
     connect(lotwRecComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLotwRecvComboBoxChanged() ) ) ;
     connect(qrzcomComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQRZCOMComboBoxChanged() ) )  ;
-
 }
 
 
@@ -169,10 +168,9 @@ void MainWindowInputEQSL::setDefaultData()
     //qsAux << tr("Y-Uploaded") << tr("N-Do not upload") << tr("M-Modified");
     clublogComboBox->addItems(clubLogStatusList);
     qrzcomComboBox->addItems(clubLogStatusList);
-
     queueSentByDefault = true;
-
 }
+
 void MainWindowInputEQSL::clear()
 {
       //qDebug() << "MainWindowInputEQSL::clear"  << QT_ENDL;
@@ -201,7 +199,6 @@ void MainWindowInputEQSL::clear()
     lotwRecQDateEdit->setDate(util->getDefaultDate());
     clublogQDateEdit->setDate(util->getDefaultDate());
     qrzcomQDateEdit->setDate(util->getDefaultDate());
-
 }
 
 
@@ -231,7 +228,6 @@ QString MainWindowInputEQSL::getEQSLRecStatus()
     //    return QString();
     //}
     return _pm;
-
 }
 
 QString MainWindowInputEQSL::getEQSLSenStatus()
@@ -392,9 +388,6 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
 //R-Requested-2
 //I-Ignore-3
 //V-Verified-4
-
-
-
     int i = lotwRecComboBox->currentIndex();
 
     switch (i)
@@ -423,7 +416,6 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
             lotwRecQDateEdit->setEnabled(false);
         break;
     }
-
 }
 
 
@@ -507,10 +499,7 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
             eqslRecQDateEdit->setVisible(false);
             eqslRecQDateEdit->setEnabled(false);
         break;
-
-
     }
-
 }
 
 

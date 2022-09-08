@@ -47,15 +47,11 @@ windeployqt --qmldir qml release\klog.exe
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
 :: After knowing the version, the package can be obtained from: https://indy.fulgan.com/SSL/Archive/
 
-copy *.ico release
-copy AUTHORS release
-copy Changelog release
-copy NEWS release
-copy TODO release
-copy README release
-copy COPYING release
-copy gpl-3.0-standalone.html release
 rem cd ..\..
+echo %cd%
+cd ../devscripts
+echo %cd%
+builder-cli.exe build klog-win-build.xml --verbose
 
 
 

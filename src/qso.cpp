@@ -29,9 +29,14 @@ QSO::QSO()
 {
     logLevel = None;
     qsoId = -1;
+    util = new Utilities(Q_FUNC_INFO);
+    util->setCallValidation(false);
 }
 
-QSO::~QSO() {}
+QSO::~QSO()
+{
+    delete(util);
+}
 
 void QSO::setLogLevel (const DebugLogLevel _b)
 {
@@ -94,6 +99,7 @@ void QSO::clear()
     dxcc = -1;
     email = QString();
     ownerCall = QString();
+    contacted_owner = QString();
     eQSLRDate = QDate();
     eQSLSDate = QDate();
     eqsl_qsl_rcvd = QString();
@@ -152,6 +158,7 @@ void QSO::clear()
     nr_pings = -1;
     operatorCall = QString();
     ownerCall = QString();
+    contacted_owner = QString();
     prefix = QString();
     precedence = QString();
     propMode = QString();
@@ -821,7 +828,7 @@ bool QSO::setQSLSenVia(const QString &_qs)
     }
 }
 
-QString QSO::getSentVia()
+QString QSO::getQSLSentVia()
 {
     return qslSenVia;
 }
@@ -839,7 +846,7 @@ bool QSO::setQSLRecVia(const QString &_qs)
     }
 }
 
-QString QSO::getRecVia()
+QString QSO::getQSLRecVia()
 {
     return qslRecVia;
 }
@@ -1525,13 +1532,13 @@ QString QSO::getCheck()
     return check;
 }
 
-bool QSO::setClase(const QString &_c)
+bool QSO::setClass(const QString &_c)
 {
     clase = _c;
     return true;
 }
 
-QString QSO::getClase()
+QString QSO::getClass()
 {
     return clase;
 }
@@ -1599,6 +1606,23 @@ QString QSO::getOwnerCallsign()
 {
     return ownerCall;
 }
+
+bool QSO::setEQ_Call(const QString &_c)
+{
+    if (util->isValidCall(_c))
+    {contacted_owner = _c;
+       return true;
+    }
+    else {
+       return false;
+    }
+}
+
+QString QSO::getEQ_Call()
+{
+    return contacted_owner;
+}
+// Contacted station owner
 
 bool QSO::setHRDUpdateDate(const QDate &_c)
 {
@@ -2281,17 +2305,6 @@ QString QSO::getPublicKey()
     return public_key;
 }
 
-bool QSO::setQslMsg(const QString &_c)
-{
-    qslmsg = _c;
-    return true;
-}
-
-QString QSO::getQslMsg()
-{
-    return qslmsg;
-}
-
 bool QSO::setRegion(const QString &_c)
 {
     region = _c;
@@ -2794,3 +2807,134 @@ bool QSO::setData(const QString &_adifPair)
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
+
+/*
+QSqlQuery QSO::add()
+{
+    QSqlQuery query;
+    query.clear();
+    query.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, state, my_street, my_vucc_grids, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, sota_ref, swl, ten_ten, vucc_grids, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :state, :my_street, :my_vucc_grids, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sota_ref, :swl, :ten_ten, :vucc_grids, :web, :points, :multiplier, :lognumber)" );
+    query.bindValue(":call", getCall());
+    query.bindValue(":qso_date", util->getDateSQLiteStringFromDate(getDate()));
+    //query.bindValue(":bandid", "");
+    //query.bindValue(":modeid", "");
+    query.bindValue(":srx", getSrx());
+    query.bindValue(":stx", getStx());
+    query.bindValue(":srx_string", getSrxString());
+    query.bindValue(":stx_string", getStxString());
+    query.bindValue(":qso_date_off", util->getDateSQLiteStringFromDate(getDateOff()));
+    //query.bindValue(":band_rx", "");
+    query.bindValue(":rst_sent", getRSTTX());
+
+    query.bindValue(":rst_rcvd", getRSTRX());
+    query.bindValue(":cqz", getCQZone());
+    query.bindValue(":ituz", getItuZone());
+    query.bindValue(":dxcc", getDXCC());
+    query.bindValue(":address", getAddress());
+    query.bindValue(":age", getAge());
+    query.bindValue(":cnty", getCounty());
+    query.bindValue(":comment", getComment());
+    query.bindValue(":a_index", getA_Index());
+    query.bindValue(":ant_az", getAnt_az());
+
+    query.bindValue(":ant_el", getAnt_el());
+    query.bindValue(":ant_path", getAnt_Path());
+    query.bindValue(":arrl_sect", getARRL_Sect());
+    query.bindValue(":checkcontest", getCheck());
+    query.bindValue(":class", getClass());
+    query.bindValue(":contacted_op", getContactedOperator());
+    query.bindValue(":contest_id", getContestID());
+    query.bindValue(":country", getCountry());
+    query.bindValue(":credit_submitted", getCreditSubmitted());
+    query.bindValue(":credit_granted,", getCreditGranted());
+
+    query.bindValue(":distance", getDistance());
+    query.bindValue(":eq_call", getEQ_Call());
+    query.bindValue(":email", getEmail());
+    query.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(getEQSLQSLRDate()));
+    query.bindValue(":eqsl_qslsdate", util->getDateSQLiteStringFromDate(getEQSLQSLSDate()));
+    query.bindValue(":eqsl_qsl_rcvd", getEQSLQSL_RCVD());
+    query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
+    query.bindValue(":force_init", getForceInit());
+    query.bindValue(":freq", getFreqTX());
+    query.bindValue(":freq_rx", getFreqRX());
+
+    query.bindValue(":gridsquare", getGridSquare());
+    query.bindValue(":my_gridsquare", getMyGridSquare());
+    query.bindValue(":iota", getIOTA());
+    query.bindValue(":iota_island_id", getIotaID());
+    query.bindValue(":my_iota", getMyIOTA());
+    query.bindValue(":my_iota_island_id", getMyIotaID());
+    query.bindValue(":k_index", getK_Index());
+    query.bindValue(":lat", getLatitude());
+    query.bindValue(":lon", getLongitude());
+    query.bindValue(":my_lat", getMyLatitude());
+
+    query.bindValue(":my_lon", getMyLongitude());
+    query.bindValue(":lotw_qslrdate", util->getDateSQLiteStringFromDate(getLoTWQSLRDate()));
+    query.bindValue(":lotw_qslsdate", util->getDateSQLiteStringFromDate(getLoTWQSLSDate()));
+    query.bindValue(":lotw_qsl_rcvd", getLoTWQSL_RCVD());
+    query.bindValue(":lotw_qsl_sent", getLoTWQSL_SENT());
+    query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClublogQSOUpdateDate()));
+    query.bindValue(":clublog_qso_upload_status", getClubLogStatus());
+    query.bindValue(":max_bursts", getMaxBursts());
+    query.bindValue(":ms_shower", getMsShower());
+    query.bindValue(":my_antenna", getMyAntenna());
+
+    query.bindValue(":my_city", getMyCity());
+    query.bindValue(":my_cnty", getMyCounty());
+    query.bindValue(":my_country", getMyCountry());
+    query.bindValue(":my_cq_zone", getMyCQZone());
+    query.bindValue(":my_name", getMyName());
+    query.bindValue(":name", getName());
+    query.bindValue(":operator", getOperatorCallsign());
+    query.bindValue(":station_callsign", getStationCallsign());
+    query.bindValue(":owner_callsign", getOwnerCallsign());
+    query.bindValue(":my_rig", getMyRig());
+
+    query.bindValue(":my_sig", getMySig());
+    query.bindValue(":my_sig_info", getMySigInfo());
+    query.bindValue(":my_sota_ref", getMySOTA_REF());
+    query.bindValue(":my_state", getMyState());
+    query.bindValue(":state", getState());
+    query.bindValue(":my_street", getMyStreet());
+    query.bindValue(":my_vucc_grids", getMyVUCCGrids());
+    query.bindValue(":notes", getNotes());
+    query.bindValue(":nr_bursts", getNrBursts());
+    query.bindValue(":nr_pings", getNrPings());
+
+    query.bindValue(":pfx", getPrefix());
+    query.bindValue(":precedence", getPrecedence());
+    query.bindValue(":prop_mode", getPropMode());
+    query.bindValue(":public_key", getPublicKey());
+    query.bindValue(":qslmsg", getQSLMsg());
+    query.bindValue(":qslrdate", util->getDateSQLiteStringFromDate(getQSLRDate()));
+    query.bindValue(":qslsdate", util->getDateSQLiteStringFromDate(getQSLSDate()));
+    query.bindValue(":qsl_rcvd", getQSL_RCVD());
+    query.bindValue(":qsl_sent", getQSL_SENT());
+    query.bindValue(":qsl_rcvd_via", getQSLRecVia());
+
+    query.bindValue(":qsl_sent_via", getQSLSentVia());
+    query.bindValue(":qsl_via", getQSLVia());
+    query.bindValue(":qso_complete", getQSOComplete());
+    query.bindValue(":qso_random", getQSORandom());
+    query.bindValue(":qth", getQTH());
+    query.bindValue(":rx_pwr", getRXPwr());
+    query.bindValue(":tx_pwr", getTXPwr());
+    query.bindValue(":sat_mode", getSatMode());
+    query.bindValue(":sat_name",getSatName() );
+    query.bindValue(":sfi", getSFI());
+
+    query.bindValue(":sig", getSig());
+    query.bindValue(":sota_ref", getSOTA_REF());
+    query.bindValue(":swl", getSwl());
+    query.bindValue(":ten_ten", getTenTen());
+    query.bindValue(":vucc_grids", getVUCCGrids());
+    query.bindValue(":web", getWeb());
+    //query.bindValue(":points", );
+    //query.bindValue(":multiplier", );
+    query.bindValue(":lognumber", getLogId());
+
+    return query;
+}
+*/

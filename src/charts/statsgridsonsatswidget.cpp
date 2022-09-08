@@ -41,11 +41,6 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
 
     log = -1;
 
-    //chart = new QChart();
-    //chartView = new QChartView(chart);
-    //chart->setTheme(QChart::ChartThemeQt);
-    //chart->setTheme(QChart::ChartThemeBlueCerulean);
-
     createUI();
     //prepareChart();
 }
@@ -71,10 +66,6 @@ void StatsGridsOnSatsWidget::createUI()
     //tableWidget->sortByColumn(4, Qt::AscendingOrder);
     //void QTableWidget::sortItems(int column, Qt::SortOrder order = Qt::AscendingOrder)
     tableWidget->horizontalHeader()->setStretchLastSection(true);
-    //logView->sortByColumn(1, Qt::AscendingOrder);
-
-
-
 
     QLabel *textLabel = new QLabel;
     textLabel->setText(tr("Number"));
@@ -98,7 +89,6 @@ void StatsGridsOnSatsWidget::createUI()
 
     connect(confirmedOnlyCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedClicked() ) );
     connect(onlyLEOSatCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedClicked() ) );
-
 }
 
 void StatsGridsOnSatsWidget::prepareChart(const int _log)
