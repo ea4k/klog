@@ -2743,7 +2743,7 @@ void QSO::InitializeHash() {
         {"SAT_MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSatMode)},
         {"SAT_NAME", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSatName)},
         {"SFI", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSFI)},
-        {"SIG", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::decltype_function)},
+        {"SIG", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSig)},
         {"SIG_INFO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSigInfo)},
         {"SILENT_KEY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSilentKey)},
         {"SKCC", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSkcc)},
