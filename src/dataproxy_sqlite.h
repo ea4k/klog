@@ -35,7 +35,7 @@
 #include "klogdefinitions.h"
 //#include "regionalaward.h"
 
-//Class QSO;
+class QSO;
 
 enum
 {
