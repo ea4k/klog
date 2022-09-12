@@ -157,6 +157,9 @@ private:
 
     //int constrid; // Just an id for the constructor to check who is being executed at one specific time
 
+    //Hash for simplifying if-else chain in processQsoReadingADIF to switch statement
+    static QHash<QString, int> SwitchHash;
+    void initializeSwitchHash();
 
 signals:
     void addQSOToList(QStringList _qso);

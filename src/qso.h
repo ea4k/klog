@@ -33,11 +33,11 @@
 #include <QDebug>
 #include "utilities.h"
 #include "klogdefinitions.h"
+#include <functional>
 
 class QSO : public QObject
 {
     Q_OBJECT
-    friend class tst_QSO;
 
 public:
     QSO();
@@ -235,6 +235,8 @@ public:
     QDate getHRDUpdateDate();
     bool setHRDLogStatus(const QString &_c);
     QString getHRDLogStatus();
+    bool setFreq(const double _f);
+    double getFreq();
     bool setK_Index(const int _i);
     int getK_Index();
     bool setDateOff(const QDate &_c);
@@ -386,7 +388,7 @@ private:
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, distance;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq, distance;
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
@@ -412,6 +414,62 @@ private:
     DebugLogLevel logLevel;
 
    // DataProxy_SQLite *dataProxy;
+    bool decltype_function(const QString& _c); //empty function to find correct typenames for mem_fn, DO NOT RENAME
+    static QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> SetDataHash;
+    void InitializeHash();
+
+    //Overloaded helper functions to accept string data for nonstring functions
+    bool setAge(const QString &data);
+    bool setA_Index(const QString &data);
+    bool setAnt_az(const QString &data);
+    bool setAnt_el(const QString &data);
+    bool setCQZone(const QString &data);
+    bool setDistance(const QString &data);
+    bool setDXCC(const QString &data);
+    bool setFists(const QString &data);
+    bool setFistsCC(const QString &data);
+    bool setIotaID(const QString &data);
+    bool setItuZone(const QString &data);
+    bool setK_Index(const QString &data);
+    bool setMaxBursts(const QString &data);
+    bool setMyCQZone(const QString &data);
+    bool setMyDXCC(const QString &data);
+    bool setMyIotaID(const QString &data);
+    bool setMyITUZone(const QString &data);
+    bool setNrBursts(const QString &data);
+    bool setNrPings(const QString &data);
+    bool setSFI(const QString &data);
+    bool setSrx(const QString &data);
+    bool setStx(const QString &data);
+    bool setTenTen(const QString &data);
+    bool setUksmg(const QString &data);
+
+    bool setFreqTX(const QString& data);
+    bool setFreqRX(const QString& data);
+    bool setRXPwr(const QString& data);
+    bool setTXPwr(const QString& data);
+
+    bool setClublogQSOUpdateDate(const QString& data);
+    bool setEQSLQSLRDate(const QString& data);
+    bool setEQSLQSLSDate(const QString& data);
+    bool setForceInit(const QString& data);
+    bool setHRDUpdateDate(const QString& data);
+    bool setLoTWQSLRDate(const QString& data);
+    bool setLoTWQSLSDate(const QString& data);
+    bool setQRZCOMDate(const QString& data);
+    bool setQSLRDate(const QString& data);
+    bool setQSLSDate(const QString& data);
+    bool setDate(const QString& data);
+    bool setDateOff(const QString& data);
+    bool setQSORandom(const QString& data);
+    bool setSilentKey(const QString& data);
+    bool setSwl(const QString& data);
+    bool setTimeOff(const QString& data);
+    bool setTimeOn(const QString& data);
+
+    bool setLoTWQSLRDate2(const QString& data);
+    bool setLoTWQSLSDate1(const QString& data);
+    bool setLoTWQSLSDate2(const QString& data);
 
 
 };
