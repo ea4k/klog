@@ -2628,7 +2628,7 @@ bool QSO::setLoTWQSLSDate2(const QString& data) {
 
 QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> QSO::SetDataHash;
 void QSO::InitializeHash() {
-    SetDataHash = { 
+    SetDataHash = {
         {"ADDRESS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAddress)},
         {"AGE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAge)},
         {"A_INDEX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setA_Index)},
@@ -2642,7 +2642,7 @@ void QSO::InitializeHash() {
         {"BAND_RX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setBandRX)},
         {"CALL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setCall)},
         {"CHECK", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setCheck)},
-        {"CLASS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClase)},
+        {"CLASS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClass)},
         {"CLUBLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClublogQSOUpdateDate)},
         {"CLUBLOG_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClubLogStatus)},
         {"CNTY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setCounty)},

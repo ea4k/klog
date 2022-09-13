@@ -138,7 +138,7 @@ void tst_World::test_WorldCreation()
     //qDebug() << "Testing the world";
 
     //QFAIL( "World YES to be created");
-    QVERIFY2(1==2, "Failure in the qverify2");
+    //QVERIFY2(1==2, "Failure in the qverify2");
 
 }
 
@@ -154,7 +154,7 @@ void tst_World::test_EntityIdentification()
     QVERIFY2(world->getQRZARRLId("K100A") == 291, "B Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("BY1AA") == 318, "BY Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("FB1A") == 227, "FB Entity not properly identified");
-    QVERIFY2(world->getQRZARRLId("F4AA") == 227, "F Entity not properly identified");    
+    QVERIFY2(world->getQRZARRLId("F4AA") == 227, "F Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("E") < 0, "E Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("EA") == 281, "EA Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("EA4") == 281, "EA4 Entity not properly identified");

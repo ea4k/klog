@@ -38,6 +38,7 @@
 class QSO : public QObject
 {
     Q_OBJECT
+    friend class tst_QSO;
 
 public:
     QSO();
