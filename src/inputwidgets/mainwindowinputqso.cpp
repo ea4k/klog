@@ -152,17 +152,17 @@ void MainWindowInputQSO::createUI()
     QLabel *freqLabelsN = new QLabel(this);
     freqLabelsN->setText(tr("Frequency"));
     freqLabelsN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    freqLabelsN->setAlignment(Qt::AlignCenter);
+    //freqLabelsN->setAlignment(Qt::AlignCenter);
 
     QLabel *txfreqLabelN = new QLabel(this);
     txfreqLabelN->setText(tr("TX"));
     txfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    txfreqLabelN->setAlignment(Qt::AlignLeft);
+    //txfreqLabelN->setAlignment(Qt::AlignLeft);
 
     QLabel *rxfreqLabelN = new QLabel(this);
     rxfreqLabelN->setText(tr("RX"));
     rxfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    rxfreqLabelN->setAlignment(Qt::AlignRight);
+    //rxfreqLabelN->setAlignment(Qt::AlignRight);
 
     QHBoxLayout *freqTXLayout = new QHBoxLayout;
     freqTXLayout->addWidget (txfreqLabelN);
