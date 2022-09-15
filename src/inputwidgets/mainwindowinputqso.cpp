@@ -108,19 +108,38 @@ void MainWindowInputQSO::createUI()
     rxPowerSpinBoxLabelN->setText(tr("Power(rx)"));
     rxPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
+    QLabel *rstLabelN = new QLabel(this);
+    rstLabelN->setText(tr("RST"));
+    rstLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+
     QLabel *rstTxLabelN = new QLabel(this);
-    rstTxLabelN->setText(tr("RST(tx)"));
+    rstTxLabelN->setText(tr("TX"));
     rstTxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
     QLabel *rstRxLabelN = new QLabel(this);
-    rstRxLabelN->setText(tr("RST(rx)"));
+    rstRxLabelN->setText(tr("RX"));
     rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    QGridLayout *RSTLayout = new QGridLayout;
+    QHBoxLayout *RSTLabelsLayout = new QHBoxLayout;
+    RSTLabelsLayout->addWidget (rstTxLabelN);
+    RSTLabelsLayout->addWidget (rstLabelN);
+    RSTLabelsLayout->addWidget (rstRxLabelN);
+
+    QHBoxLayout *RSTValuesLayout = new QHBoxLayout;
+    RSTValuesLayout->addWidget (rstTXLineEdit);
+    RSTValuesLayout->addWidget (rstRXLineEdit);
+
+    QVBoxLayout *RSTLayout = new QVBoxLayout;
+    RSTLayout->addLayout (RSTLabelsLayout);
+    RSTLayout->addLayout (RSTValuesLayout);
+
+    /*
+     * QGridLayout *RSTLayout = new QGridLayout;
     RSTLayout->addWidget(rstTxLabelN, 0, 0);
     RSTLayout->addWidget(rstTXLineEdit, 1, 0);
     RSTLayout->addWidget(rstRxLabelN, 0, 1);
     RSTLayout->addWidget(rstRXLineEdit, 1, 1);
+    */
 
     QVBoxLayout *qthLayout = new QVBoxLayout;
     qthLayout->addWidget(qthLabel);
