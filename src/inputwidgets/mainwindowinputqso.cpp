@@ -149,24 +149,32 @@ void MainWindowInputQSO::createUI()
     rstQTHLayout->addLayout(RSTLayout);
     rstQTHLayout->addLayout(qthLayout);
 
+    QLabel *freqLabelsN = new QLabel(this);
+    freqLabelsN->setText(tr("Frequency"));
+    freqLabelsN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    freqLabelsN->setAlignment(Qt::AlignCenter);
+
     QLabel *txfreqLabelN = new QLabel(this);
-    txfreqLabelN->setText(tr("Freq TX"));
+    txfreqLabelN->setText(tr("TX"));
     txfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     txfreqLabelN->setAlignment(Qt::AlignLeft);
 
     QLabel *rxfreqLabelN = new QLabel(this);
-    rxfreqLabelN->setText(tr("Freq RX"));
+    rxfreqLabelN->setText(tr("RX"));
     rxfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
     rxfreqLabelN->setAlignment(Qt::AlignRight);
 
+    QHBoxLayout *freqTXLayout = new QHBoxLayout;
+    freqTXLayout->addWidget (txfreqLabelN);
+    freqTXLayout->addWidget (splitCheckBox);
+
     QHBoxLayout *freqTitleLayout = new QHBoxLayout;
-    freqTitleLayout->addWidget(txfreqLabelN);
-    freqTitleLayout->addWidget(splitCheckBox);
+    freqTitleLayout->addLayout(freqTXLayout);
+    freqTitleLayout->addWidget(freqLabelsN);
     freqTitleLayout->addWidget(rxfreqLabelN);
 
     QHBoxLayout *freqDataLayout = new QHBoxLayout;
     freqDataLayout->addWidget(txFreqSpinBox);
-    //freqDataLayout->addStretch(1);
     freqDataLayout->addWidget(rxFreqSpinBox);
 
     QVBoxLayout *freqLayout = new QVBoxLayout;
