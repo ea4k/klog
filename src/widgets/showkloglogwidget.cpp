@@ -76,7 +76,7 @@ void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const Deb
         QModelIndex index = model->index(0, 0);
         model->setData(index, msg);
     }
-
+    return;
     // FILE
     debugFile = new QFile(util->getDebugLogFile());
     if (!debugFile->open(QIODevice::Append | QIODevice::Text)) /* Flawfinder: ignore */

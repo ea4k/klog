@@ -191,6 +191,8 @@ void tst_World::test_ZonesIdentification()
 void tst_World::test_SeveralIdentification()
 {
     QVERIFY2(world->getQRZEntityName("EA4K") == "Spain", "Entity name for EA4K not properly identified");
+    QVERIFY2(world->getQRZEntityName("EA4K/P") == "Spain", "Entity name for EA4K/P not properly identified");
+    QVERIFY2(world->getQRZEntityName("F4K/EA") == "Spain", "Entity name for EA4K/P not properly identified");
     QVERIFY2(world->getQRZEntityName("PY") == "Brazil", "Entity name for EA4K not properly identified");
 
     QVERIFY2(world->getEntityName(281) == "Spain", "Entity name for 281 not properly identified");
