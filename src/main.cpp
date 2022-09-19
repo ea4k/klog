@@ -313,6 +313,7 @@ int main(int argc, char *argv[])
             splash.finish(&mw);
             //mw.checkIfNewVersion();
             //mw.recommendBackupIfNeeded();
+            mw.showNotWar();
             mw.show();
             return app.exec();
         //}
@@ -391,7 +392,7 @@ int main(int argc, char *argv[])
         splash.showMessage ("Initializing window...");
         mw.init();
         //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
-        splash.showMessage ("Cheching for new versions...");
+        splash.showMessage ("Checking for new versions...");
         mw.checkIfNewVersion();
         splash.showMessage ("Checking if backup is needed...");
         //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
@@ -401,6 +402,7 @@ int main(int argc, char *argv[])
         mw.show();
         //qDebug() << "KLog Main-105" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         splash.finish(&mw);
+        mw.showNotWar();
         //qDebug() << "KLog Main-106" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;
         return app.exec();
         //qDebug() << "KLog Main-107" << (QTime::currentTime()).toString("HH:mm:ss") << QT_ENDL;

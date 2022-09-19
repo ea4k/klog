@@ -138,6 +138,7 @@ public:
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
+    void showNotWar();
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
@@ -321,7 +322,7 @@ private slots:
 
 private:
     //void setWidgetsOrder();
-    void showNotWar();
+
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);

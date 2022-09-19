@@ -620,7 +620,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
         return false;
     }
     int length = _c.length();
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 010";    
+    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 010";
     if (length<3)
     {
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Less than 3 chars - FALSE"), Debug);
@@ -671,7 +671,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
             //qDebug() << Q_FUNC_INFO << " - END5";
             return false;
         }
-    }    
+    }
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 040";
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("prefixLength: %1").arg(prefixLength), Devel);
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Call: %1").arg(_c), Devel);
@@ -703,7 +703,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
 bool Utilities::isAValidOperatingSuffix (const QString &_c)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << _c;
-    QStringList validSuffixes = {"P", "A", "AM", "M", "MM", "LH", "R", "J", "FF", "QRP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+    QStringList validSuffixes = {"A", "P", "Q", "AM", "M", "MM", "LH", "R", "J", "FF", "QRP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     return validSuffixes.contains (_c);
 }
 
@@ -840,7 +840,7 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
 
     //qDebug() << Q_FUNC_INFO << ": " << _complexCall;
     if (call.count('/') >1)
-    { //Things like F/EA4K/P will become F/EA4K    
+    { //Things like F/EA4K/P will become F/EA4K
         //logEvent (Q_FUNC_INFO, QString("With 2 /"), Debug);
         call = call.section("/", 0,1);
     }
@@ -857,7 +857,7 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
         QString first = parts.at(0);
         QString second = parts.at(1);
         // First identify normal suffixes /P, /1, /QRP...
-        bool firstCountry = !isAValidOperatingSuffix(first);        
+        bool firstCountry = !isAValidOperatingSuffix(first);
         bool secondCountry = !isAValidOperatingSuffix(second);
         //qDebug() << QString("First = %1, Second = %2").arg(boolToQString(firstCountry)).arg(boolToQString(secondCountry));
         if (!firstCountry)
