@@ -252,7 +252,10 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(!util->isValidCall("EAK4"), "EAK4");
     QVERIFY2(!util->isValidCall("QQQ/EA4K"), "QQQ/EA4K");
     QVERIFY2(!util->isValidCall("EA/"), "EA/");
+
     QVERIFY2(!util->isValidCall("DL4EA/"), "DL4EA/");
+    //QVERIFY2(util->isValidCall("RM1O"), "Should be true: RM1O");
+
     util->setCallValidation (false);
     QVERIFY2(util->isValidCall("EA"), "Should be true: EA");
     QVERIFY2(util->isValidCall("EA4"), "Should be true: EA4");
