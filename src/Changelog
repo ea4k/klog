@@ -3,6 +3,8 @@ TBD - 2.3
     https://github.com/ea4k/klog/pull/485
 - Improvements UI: Freq & RST labels have been reorganized for clarity.
 - Improvement: Windows package updated to hamlib 4.4.
+- Improvement: Minor UI changes in the Setup->misc tab.
+- Improvement: Showing seconds in the QSO edit can be selected by the user.
 
 
 Aug 2022 - 2.2.1

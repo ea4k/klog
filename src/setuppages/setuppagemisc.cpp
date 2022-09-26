@@ -37,6 +37,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     checkCallsCheckBox = new QCheckBox(tr("Check non-valid calls"), this);
     imperialCheckBox = new QCheckBox(tr("&Imperial system"), this);
     realTimeCheckbox = new QCheckBox(tr("&Log in real time"), this);
+    showSecondsCheckBox = new QCheckBox(tr("Show seconds"), this);
     UTCCheckbox = new QCheckBox(tr("&Time in UTC"), this);
     alwaysADIFCheckBox = new QCheckBox(tr("&Save ADIF on exit"), this);
     useDefaultName = new QCheckBox(tr("Use this &default filename"), this);
@@ -102,6 +103,10 @@ void SetupPageMisc::createUI()
     dbDirNew = klogDir;     // The new path where the DB is to be moved
     dbDirCurrent = dbDirNew;       // The path where the DB is hosted
 
+    showSecondsCheckBox->setToolTip (tr("Show seconds in the QSO editor"));
+    showSecondsCheckBox->setChecked (true);
+    showSecondsCheckBox->setEnabled (true);
+
     defaultFileNameLineEdit->setReadOnly(false);
     defaultFileNameLineEdit->setText(defaultFileName);
     defaultFileNameLineEdit->setEnabled(false);
@@ -155,38 +160,49 @@ void SetupPageMisc::createUI()
     fileLayout->addWidget(fileNameButton);
 
     QHBoxLayout *dbLayout = new QHBoxLayout;
-
     dbLayout->addWidget(dbPathLineEdit);
     dbLayout->addWidget(dbPushButton);
     dbLayout->addWidget(moveDBPushButton);
 
+    QLabel *logLevelLabel = new QLabel;
+    logLevelLabel->setText(tr("Log level"));
+    QHBoxLayout *logLevelLayout = new QHBoxLayout;
+    logLevelLayout->addWidget(logLevelLabel);
+    logLevelLayout->addWidget(debugLogLevelCombo);
+
     QLabel *timeRangeLabel = new QLabel;
     timeRangeLabel->setText(tr("Dupe time range:"));
+
     QHBoxLayout *timeRangeLayout = new QHBoxLayout;
     timeRangeLayout->addWidget(timeRangeLabel);
     timeRangeLayout->addWidget(dupeTimeLineEdit);
 
-    QGridLayout *mainLayou1 = new QGridLayout;
-    mainLayou1->addLayout(fileLayout, 0, 0, 1, -1);
-    mainLayou1->addLayout(dbLayout, 1, 0, 1, -1);
-    mainLayou1->addWidget(alwaysADIFCheckBox, 2, 0, 1, 1);
-    mainLayou1->addWidget(debugLogLevelCombo, 2, 1, 1, 1);
-    mainLayou1->addWidget(UTCCheckbox, 3, 0, 1, 1);
-    mainLayou1->addWidget(realTimeCheckbox, 3, 1, 1, 1);
-    mainLayou1->addWidget(imperialCheckBox, 4, 0, 1, 1);
-    mainLayou1->addWidget(useDxMarathonCheckBox, 4, 1, 1, 1);
-    mainLayou1->addLayout(timeRangeLayout, 5, 0, 1, 1);
-    mainLayou1->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
-    mainLayou1->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
-    mainLayou1->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
-    mainLayou1->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
-    mainLayou1->addWidget(provideCallCheckBox, 7, 1, 1, 1);
-    //mainLayou1->addWidget(logSortCheckBox, 8, 0, 1, 1);
-    mainLayou1->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
-    mainLayou1->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
-    mainLayou1->addWidget (checkCallsCheckBox, 9, 0, 1, 1);
+    QHBoxLayout *timeLayout = new QHBoxLayout;
+    timeLayout->addWidget (realTimeCheckbox);
+    timeLayout->addWidget (showSecondsCheckBox);
 
-    setLayout(mainLayou1);
+    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->addLayout(fileLayout, 0, 0, 1, -1);
+    mainLayout->addLayout(dbLayout, 1, 0, 1, -1);
+    mainLayout->addWidget(alwaysADIFCheckBox, 2, 0, 1, 1);
+    mainLayout->addLayout(logLevelLayout, 2, 1, 1, 1);
+    mainLayout->addWidget(UTCCheckbox, 3, 0, 1, 1);
+    //mainLayout->addWidget(realTimeCheckbox, 3, 1, 1, 1);
+    mainLayout->addLayout(timeLayout, 3, 1, 1, 1);
+    mainLayout->addWidget(imperialCheckBox, 4, 0, 1, 1);
+    mainLayout->addWidget(useDxMarathonCheckBox, 4, 1, 1, 1);
+    mainLayout->addLayout(timeRangeLayout, 5, 0, 1, 1);
+    mainLayout->addWidget(completeWithPreviousCheckBox, 5, 1, 1, 1);
+    mainLayout->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
+    mainLayout->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
+    mainLayout->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
+    mainLayout->addWidget(provideCallCheckBox, 7, 1, 1, 1);
+    //mainLayout->addWidget(logSortCheckBox, 8, 0, 1, 1);
+    mainLayout->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
+    mainLayout->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
+    mainLayout->addWidget (checkCallsCheckBox, 9, 0, 1, 1);
+
+    setLayout(mainLayout);
 }
 
 void SetupPageMisc::fillDebugComboBox()
@@ -237,6 +253,16 @@ QString SetupPageMisc::getRealTime(){
 void SetupPageMisc::setRealTime(const QString &_t)
 {
     realTimeCheckbox->setChecked(util->trueOrFalse(_t));
+}
+
+bool SetupPageMisc::getShowSeconds()
+{
+    return showSecondsCheckBox->isChecked ();
+}
+
+void SetupPageMisc::setShowSeconds(const bool &_t)
+{
+    showSecondsCheckBox->setChecked (_t);
 }
 
 QString SetupPageMisc::getUTCTime(){

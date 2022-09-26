@@ -5103,7 +5103,8 @@ bool MainWindow::processConfigLine(const QString &_line){
     }else if (field=="REALTIME"){
         //qDebug << "MainWindow::processConfigLine: REALTIME: " << value.toUpper() << QT_ENDL;
         mainQSOEntryWidget->setRealTime(util->trueOrFalse(value));
-        //realTime = util->trueOrFalse(value);
+    }else if (field=="SHOWSECONDS"){
+        mainQSOEntryWidget->setShowSeconds (util->trueOrFalse (value));
     }else if (field=="LOGVIEWFIELDS"){
         //qDebug() << "MainWindow::processConfigLine: LOGVIEWFIELDS: " << value.toUpper() << QT_ENDL;
         logWindow->setColumns(value.split(",", QT_SKIP));

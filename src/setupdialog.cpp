@@ -481,6 +481,7 @@ void SetupDialog::slotOkButtonClicked()
 
         //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  QT_ENDL;
         stream << "RealTime=" << miscPage->getRealTime() << ";" <<  QT_ENDL;
+        stream << "ShowSeconds=" << util->boolToQString(miscPage->getShowSeconds())<< ";" <<  QT_ENDL;
         stream << "UTCTime=" << miscPage->getUTCTime() << ";" <<  QT_ENDL;
         stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  QT_ENDL;
         stream << "UseDefaultName=" << miscPage->getUseDefaultName() << ";" <<  QT_ENDL;
@@ -832,6 +833,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
         logViewPage->setActiveFields(logViewFields);
     }else if (tab=="REALTIME"){
         miscPage->setRealTime(value);
+    }else if (tab=="SHOWSECONDS"){
+        miscPage->setShowSeconds (util->trueOrFalse (value));
     }else if (tab=="UTCTIME"){
         miscPage->setUTCTime(value);
     }else if (tab=="ALWAYSADIF"){

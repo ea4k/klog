@@ -157,6 +157,18 @@ void MainQSOEntryWidget::createUI()
     //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
+void MainQSOEntryWidget::setShowSeconds(const bool &t)
+{
+    if (t)
+    {
+        timeEdit->setDisplayFormat("HH:mm:ss");
+    }
+    else
+    {
+        timeEdit->setDisplayFormat("HH:mm");
+    }
+}
+
 void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);

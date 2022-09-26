@@ -39,6 +39,8 @@ public:
 
     QString getRealTime();
     void setRealTime(const QString &_t);
+    bool getShowSeconds();
+    void setShowSeconds(const bool &_t);
     QString getUTCTime();
     void setUTCTime(const QString &_t);
     QString getAlwaysADIF();
@@ -101,7 +103,7 @@ private:
 
     Utilities *util;
 
-    QCheckBox *realTimeCheckbox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
+    QCheckBox *realTimeCheckbox, *showSecondsCheckBox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *checkCallsCheckBox;
     //QCheckBox *logSortCheckBox;

@@ -53,7 +53,7 @@ public:
     void setCleaning (const bool _c);
     bool isModeExisting(const QString &_m);
     bool isBandExisting(const QString &_b);
-
+    void setShowSeconds(const bool &t);
     QString getQrz();
     QString getBand(int _b=-1);
     QString getMode(int _m=-1);
