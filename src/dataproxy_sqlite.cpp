@@ -3523,7 +3523,7 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
     return -100;
 }
 
-QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued, int _logN)
+QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QString &_myGrid, const QDate &_startDate, const QDate &_endDate, bool _justQueued, int _logN)
 {
     //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
@@ -3549,6 +3549,20 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
         _queryST_string = QString("station_callsign=''");
     }
 
+    QString _queryGrid_string;
+    if (util->isValidGrid (_myGrid))
+    {
+        _queryGrid_string = QString("my_gridsquare='%1'").arg(_myGrid);
+    }
+    else if (_stationCallsign == "ALL")
+    {
+        _queryGrid_string = QString("my_gridsquare!='ALL'");
+    }
+    else
+    {
+        _queryGrid_string = QString("my_gridsquare=''");
+    }
+
     QString _query_justQueued;
     if (_justQueued)
     {
@@ -3570,7 +3584,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     {
         _query_logNumber.clear ();
     }
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justQueued).arg(_query_logNumber);
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4").arg(_queryST_string).arg(_query_justQueued).arg(_query_logNumber).arg(_queryGrid_string);
 
 //    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + " AND " + _query_justQueued;
 
@@ -3609,6 +3623,87 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     query.finish();
     qs.sort();
     return qsoList;
+}
+
+QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    QStringList grids;
+    grids.clear ();
+
+    QDate tmpDate;
+    QString aux = QString();
+    QStringList qs;
+    qs.clear();
+    QString queryString;
+
+    QString _queryST_string;
+    if (util->isValidCall(_stationCallsign))
+    {
+        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
+    }
+    else if (_stationCallsign == "ALL")
+    {
+        _queryST_string = QString("station_callsign!='ALL'");
+    }
+    else
+    {
+        _queryST_string = QString("station_callsign=''");
+    }
+
+    QString _query_justQueued;
+    if (_justModified)
+    {
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend justQueued TRUE" << QT_ENDL;
+        _query_justQueued = QString("lotw_qsl_sent='Q'");
+    }
+    else
+    {
+        //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend justQueued FALSE" << QT_ENDL;
+        _query_justQueued = QString("lotw_qsl_sent!='1'");
+    }
+
+    QString _query_logNumber;
+    if (doesThisLogExist (_logN))
+    {
+        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
+    }
+    else
+    {
+        _query_logNumber.clear ();
+    }
+    queryString = QString("SELECT DISTINCT my_gridsquare FROM log WHERE station_callsign = '%1' AND my_gridsquare<>'' AND qso_date>='%2' AND qso_date<='%3' AND %4").arg(_stationCallsign).arg(util->getDateSQLiteStringFromDate(_startDate)).arg(util->getDateSQLiteStringFromDate(_endDate)).arg(_query_justQueued);
+
+    QSqlQuery query;
+
+    bool sqlOK = query.exec(queryString);
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() << QT_ENDL;
+
+    if (sqlOK)
+    {
+       // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() << QT_ENDL;
+
+        while ( (query.next())) {
+            if (query.isValid())
+            {
+                aux.clear();
+                grids.append ((query.value(0)).toString());
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        grids.sort ();
+        return grids;
+    }
+    query.finish();
+    grids.sort();
+    return grids;
+
+
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
@@ -7707,7 +7802,7 @@ QStringList DataProxy_SQLite::getLongPrefixes()
     //qDebug() << Q_FUNC_INFO;
     QString aux = QString();
     QStringList qs;
-    qs.clear();    
+    qs.clear();
     QString queryString = QString("SELECT prefix from prefixesofentity WHERE prefix NOT like '=%'");
     QSqlQuery query;
 
@@ -7720,7 +7815,7 @@ QStringList DataProxy_SQLite::getLongPrefixes()
             {
                 aux.clear();
                 aux = (query.value(0)).toString();
-                qs << aux;                
+                qs << aux;
             }
         }
     }

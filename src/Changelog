@@ -5,6 +5,7 @@ TBD - 2.3
 - Improvement: Windows package updated to hamlib 4.4.
 - Improvement: Minor UI changes in the Setup->misc tab.
 - Improvement: Showing seconds in the QSO edit can be selected by the user.
+- Improvement: LoTW upload process allows the user to select a specific locator to be uploaded to be matched with TQSL locations.
 
 
 Aug 2022 - 2.2.1

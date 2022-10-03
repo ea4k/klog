@@ -52,6 +52,7 @@ private slots:
     void slotCancelPushButtonClicked();
     void slotStationCallsignChanged();
     void slotDateChanged();
+    void slotMyGridChanged();
 
 signals:
     void selection(QString _st, QDate _startD, QDate _endD, ExportMode _exportMode);
@@ -62,11 +63,12 @@ private:
     void setTopLabel(const QString &_t);
     void addQSO(const int _qsoID);
     void fillStationCallsignComboBox();
+    void fillStationMyGridComboBox();
     void setDefaultStationComboBox();
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;
-    QComboBox *stationCallsignComboBox;
+    QComboBox *stationCallsignComboBox, *myGridSquareComboBox;
     QDateEdit *startDate, *endDate;
     QLabel *topLabel, *numberLabel;
     QLineEdit *searchLineEdit;

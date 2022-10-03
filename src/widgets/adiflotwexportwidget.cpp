@@ -36,6 +36,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     stationCallsignComboBox = new QComboBox;
+    myGridSquareComboBox = new QComboBox;
     startDate = new QDateEdit;
     endDate = new QDateEdit;
     okButton = new QPushButton;
@@ -79,6 +80,9 @@ void AdifLoTWExportWidget::createUI()
     QLabel *stationLabel = new QLabel;
     stationLabel->setText(tr("Station callsign"));
 
+    QLabel *myGridLabel = new QLabel;
+    myGridLabel->setText(tr("My Locator"));
+
     QLabel *startLabel = new QLabel;
     startLabel->setText(tr("Start date"));
 
@@ -100,14 +104,20 @@ void AdifLoTWExportWidget::createUI()
     tableWidget->setColumnCount(header.length());
     tableWidget->setHorizontalHeaderLabels(header);
 
+
+
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(topLabel, 0, 0, 1, -1);
     mainLayout->addWidget(stationLabel, 1, 0);
     mainLayout->addWidget(stationCallsignComboBox, 2, 0);
-    mainLayout->addWidget(startLabel, 1, 1);
-    mainLayout->addWidget(startDate, 2, 1);
-    mainLayout->addWidget(endLabel, 1, 2);
-    mainLayout->addWidget(endDate, 2, 2);
+
+    mainLayout->addWidget(myGridLabel, 1, 1);
+    mainLayout->addWidget(myGridSquareComboBox, 2, 1);
+
+    mainLayout->addWidget(startLabel, 1, 2);
+    mainLayout->addWidget(startDate, 2, 2);
+    mainLayout->addWidget(endLabel, 1, 3);
+    mainLayout->addWidget(endDate, 2, 3);
     mainLayout->addWidget(tableWidget, 3, 0, 1, -1);
     mainLayout->addWidget(numberLabel, 4, 0);
     mainLayout->addWidget(okButton, 4, 1);
@@ -117,9 +127,11 @@ void AdifLoTWExportWidget::createUI()
     connect(startDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged())) ;
     connect(endDate, SIGNAL(dateChanged(QDate)), this, SLOT(slotDateChanged() ));
     connect(stationCallsignComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotStationCallsignChanged() ) ) ;
+    connect(myGridSquareComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMyGridChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
 }
+
 
 void AdifLoTWExportWidget::setDefaultStationComboBox()
 {
@@ -152,6 +164,30 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
     //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-END" << QT_ENDL;
 }
 
+void AdifLoTWExportWidget::fillStationMyGridComboBox()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    // GUardar el locator que hay ahora
+    // limpiar y rellenar el combo.
+    // Si el locator anterior está en la lista nueva, seleccionarlo.
+    //Llamar a fillTable ();
+    QString tempGrid = myGridSquareComboBox->currentText ();
+    myGridSquareComboBox->clear();
+    myGridSquareComboBox->addItem(tr("Not defined"));
+   // getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1)
+    QStringList grids;
+    grids.clear ();
+    grids.append (dataProxy->getGridsToBeSent (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
+    myGridSquareComboBox->addItems(grids);
+
+    QString aux;
+    foreach(aux, grids)
+    {
+        //qDebug() << Q_FUNC_INFO << ": " << aux;
+    }
+    //qDebug() << Q_FUNC_INFO << " - END";
+}
+
 void AdifLoTWExportWidget::setTopLabel(const QString &_t)
 {
     topLabel->setText(_t);
@@ -160,6 +196,7 @@ void AdifLoTWExportWidget::setTopLabel(const QString &_t)
 void AdifLoTWExportWidget::fillTable()
 {
     //qDebug() << "AdifLoTWExportWidget::fillTable " << QT_ENDL;
+
     QList<int> qsos;
        qsos.clear();
        bool justQueued = true;
@@ -193,12 +230,12 @@ void AdifLoTWExportWidget::fillTable()
        if (stationCallsignComboBox->currentIndex() == 0)
        { // Not defined station_callsign (blank)
            //qDebug() << "AdifLoTWExportWidget::fillTable blank station callsign " << QT_ENDL;
-           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), startDate->date(), endDate->date(), justQueued, logNumber));
+           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), myGridSquareComboBox->currentText (), startDate->date(), endDate->date(), justQueued, logNumber));
        }
        else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
        { // ALL stations, no matter the station.
            //qDebug() << "AdifLoTWExportWidget::fillTable ALL station callsign " << QT_ENDL;
-           qsos.append(dataProxy->getQSOsListLoTWToSend("ALL", startDate->date(), endDate->date(), justQueued, logNumber));
+           qsos.append(dataProxy->getQSOsListLoTWToSend("ALL", myGridSquareComboBox->currentText (), startDate->date(), endDate->date(), justQueued, logNumber));
        }
        else
        {
@@ -221,7 +258,7 @@ void AdifLoTWExportWidget::fillTable()
            else if (currentExportMode == ModeLotW)
            {
                //qDebug() << "AdifLoTWExportWidget::fillTable Mode QRZ" << QT_ENDL;
-                qsos.append(dataProxy->getQSOsListLoTWToSend (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
+                qsos.append(dataProxy->getQSOsListLoTWToSend (stationCallsignComboBox->currentText(), myGridSquareComboBox->currentText (), startDate->date(), endDate->date(), true, logNumber));
               //qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
            }
            else
@@ -301,14 +338,24 @@ void AdifLoTWExportWidget::slotStationCallsignChanged()
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-02"  << QT_ENDL;
     endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged-03"  << QT_ENDL;
-    fillTable();
+    fillStationMyGridComboBox();
+    fillTable ();
+
     //qDebug() << "AdifLoTWExportWidget::slotStationCallsignChanged - END" << QT_ENDL;
 }
+
+
+void AdifLoTWExportWidget::slotMyGridChanged()
+{
+    fillTable();
+}
+
 
 void AdifLoTWExportWidget::slotDateChanged()
 {
     //slotStationCallsignChanged();
-    fillTable();
+    slotStationCallsignChanged ();
+
 }
 
 void AdifLoTWExportWidget::slotOKPushButtonClicked()
@@ -392,6 +439,7 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
         topLabel->setText(tr("This table shows the QSOs that will be exported to ADIF."));
     }
     fillStationCallsignComboBox();
+
     //qDebug() << "AdifLoTWExportWidget::setExportMode-END" << QT_ENDL;
 }
 
