@@ -31,7 +31,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
     //qDebug() << Q_FUNC_INFO;
@@ -423,6 +422,7 @@ bool HamLibClass::stop()
 bool HamLibClass::init(bool _active)
 {
     //qDebug()<< Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model) << QT_ENDL;
+
     if (!_active)
     {
         //qDebug()<< Q_FUNC_INFO << ": not active, exiting" << QT_ENDL;
@@ -430,6 +430,9 @@ bool HamLibClass::init(bool _active)
         stop();
         return false;
     }
+
+
+
     if ((getNameFromModelId(myrig_model)).length ()<1)
     {
         //qDebug()<< Q_FUNC_INFO << ": no rig model!" << QT_ENDL;
@@ -467,7 +470,7 @@ bool HamLibClass::init(bool _active)
     }
     else if (myrig_model == RIG_MODEL_FLRIG)
     {
-        //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_RPC" << QT_ENDL;
+       //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_RPC" << QT_ENDL;
         my_rig->state.rigport.type.rig = RIG_PORT_RPC;
         //my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
         QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
@@ -494,10 +497,9 @@ bool HamLibClass::init(bool _active)
         my_rig->state.rigport.parm.serial.parity = sparity;
         //qDebug()<< Q_FUNC_INFO << ": handshake before"  << QT_ENDL;
         my_rig->state.rigport.parm.serial.handshake = shandshake;
-        //qDebug()<< Q_FUNC_INFO << ": after handshake "  << QT_ENDL;
+       //qDebug()<< Q_FUNC_INFO << ": after handshake "  << QT_ENDL;
         // Config done
     }
-
     //qDebug()<< Q_FUNC_INFO << ": Rig model config "  << QT_ENDL;
     // Config done
     retcode = rig_open(my_rig);
@@ -509,7 +511,6 @@ bool HamLibClass::init(bool _active)
         rig_cleanup(my_rig);
         return errorManage(Q_FUNC_INFO,  retcode);
     }
-
     //qDebug()<< Q_FUNC_INFO << ": Rig open!"  << QT_ENDL;
     errorCount = 0;
     rigLaunched = true;

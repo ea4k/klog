@@ -94,6 +94,7 @@ void SetupPageHamLib::setTestResult(const bool _ok)
         //qDebug() << Q_FUNC_INFO << " - OK";
         testHamlibPushButton->setText (tr("Test: OK"));
         pal.setColor(QPalette::Button, QColor(Qt::green));
+        activateHamlibCheckBox->setEnabled (true);
         //qDebug() << Q_FUNC_INFO << " - before reading freq";
         //double freq = hamlib->getFrequency ();
         //qDebug() << Q_FUNC_INFO << " - after reading freq";
@@ -104,6 +105,8 @@ void SetupPageHamLib::setTestResult(const bool _ok)
         //qDebug() << Q_FUNC_INFO << " - NOK";
         testHamlibPushButton->setText (tr("Test: NOK"));
         pal.setColor(QPalette::Button, QColor(Qt::red));
+        activateHamlibCheckBox->setChecked (false);
+        activateHamlibCheckBox->setEnabled (false);
     }
 
     testHamlibPushButton->setPalette(pal);

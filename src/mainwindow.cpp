@@ -4649,44 +4649,56 @@ void MainWindow::openSetup(const int _page)
      //qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //int result = -1;
+    //qDebug() << Q_FUNC_INFO << " - 000 - " << (QTime::currentTime()).toString("HH:mm:ss");
     hamlib->stop();
+    //qDebug() << Q_FUNC_INFO << " - 001 - " << (QTime::currentTime()).toString("HH:mm:ss");
     if (!needToEnd)
     {
+        //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "Just before setData", Devel);
          //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  << QT_ENDL;
         if (upAndRunning)
         {
+            //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->setData(configFileName, softwareVersion, _page, !configured);
+            //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString("HH:mm:ss");
         }
         else
         {
+            //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->setData(configFileName, softwareVersion, 0, !configured);
+            //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString("HH:mm:ss");
         }
         if ( (!configured) || (itIsANewversion) )
         {
+            //qDebug() << Q_FUNC_INFO << " - 015 - " << (QTime::currentTime()).toString("HH:mm:ss");
             logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", Devel);
             itIsANewversion = false;
             //setupDialog->exec();
 
             setupDialog->setModal(true);
+            //qDebug() << Q_FUNC_INFO << " - 016 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->show();
+            //qDebug() << Q_FUNC_INFO << " - 017 - " << (QTime::currentTime()).toString("HH:mm:ss");
             // move part of this code to slotSetupDialogFinished
             logEvent(Q_FUNC_INFO, "Just after setupDialog->show", Devel);
              //qDebug() << "MainWindow::openSetup - Just after setupDialog->show" << QT_ENDL;
         }
         else
         {
+            //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString("HH:mm:ss");
             logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", Devel);
              //qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  << QT_ENDL;
         }
     }
+    //qDebug() << Q_FUNC_INFO << " - 050 - " << (QTime::currentTime()).toString("HH:mm:ss");
      //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s);
+    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s) << " - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
@@ -4695,38 +4707,48 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     //bool restoreQSOConfig = false;
     if (_s == QDialog::Accepted)
     {
-        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted";
+        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "Just before readConfigData", Debug);
         readConfigData();
+        //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         reconfigureDXMarathonUI(manageDxMarathon);
         logEvent(Q_FUNC_INFO, "Just after readConfigData", Debug);
         //qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" << QT_ENDL;
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", Debug);
+        //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logWindow->createlogPanel(currentLog);
+        //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", Debug);
         defineStationCallsign(stationCallsign);
+        //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
          //qDebug() << "MainWindow::openSetup: before db->reConnect" << QT_ENDL;
         dataProxy->reconnectDB();
+        //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
         //qDebug() << "MainWindow::openSetup: after db->reConnect" << QT_ENDL;
     }
     else
     {
          //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+        //qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (qso->getBackup())
     {
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
         //qDebug() << Q_FUNC_INFO << ": Restoring..." << QT_ENDL;
         restoreCurrentQSO (QDialog::Accepted);
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 022 - " ;
     }
     else
     {
         //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring QSO..." << QT_ENDL;
+        //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
-   setHamlib(hamlibActive);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
+    hamlibActive = setHamlib(hamlibActive);
+    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -4835,23 +4857,25 @@ bool MainWindow::setUDPServer(const bool _b)
 
 bool MainWindow::setHamlib(const bool _b)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) << QT_ENDL;
+    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": " << util->boolToQString (_b) ;
+
     if (!upAndRunning)
     {
-        //qDebug() << Q_FUNC_INFO << ": Hamlib upAndRunning FALSE";
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib upAndRunning FALSE";
         return false;
     }
     if (_b)
     {
-        //qDebug() << Q_FUNC_INFO << ": Hamlib active";
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib active";
         hamlib->init(true);
-        //qDebug() << Q_FUNC_INFO << ": After Hamlib active";
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ")  << Q_FUNC_INFO << ": After Hamlib active";
         return hamlib->readRadio(true); // Forcing the radio update
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": Hamlib NOT active";
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib NOT active";
         hamlib->init(false);
+        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": After Hamlib NOT active";
         return false;
     }
 }
@@ -4903,31 +4927,31 @@ void MainWindow::slotOpenWiki()
 
 void MainWindow::readConfigData()
 {
-    //qDebug() << Q_FUNC_INFO << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+    //qDebug() << QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO  << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
-        //qDebug() << "MainWindow::readConfigData - END - 1" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        //qDebug() << QTime::currentTime().toString("hh:mm:ss - ") << "MainWindow::readConfigData - END - 1" << QT_ENDL;
         return;
     }
     QFile file(configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug() << Q_FUNC_INFO << ": File not found" << configFileName << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": File not found" << configFileName << QT_ENDL;
         if (configured)
         {
-          //qDebug() << Q_FUNC_INFO << ": configured = true" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+          //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": configured = true"  << QT_ENDL;
         }
         else
         {
-            //qDebug() << Q_FUNC_INFO << ": configured = false" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+            //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": configured = false" << QT_ENDL;
         }
-        //qDebug() << Q_FUNC_INFO << ": Calling openSetup" << QT_ENDL;
+        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": Calling openSetup" << QT_ENDL;
         openSetup(0);
-        //qDebug() << Q_FUNC_INFO << ": After calling openSetup" << QT_ENDL;
+        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": After calling openSetup" << QT_ENDL;
         logEvent(Q_FUNC_INFO, "END-2", Debug);
-        //qDebug() << Q_FUNC_INFO << ": - END - 2" << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": - END - 2" << QT_ENDL;
         return;
     }
     hamlibActive = false;
@@ -4936,7 +4960,7 @@ void MainWindow::readConfigData()
     lotwActive = false;
     deleteAlwaysAdiFile = false;
 
-   //qDebug() << Q_FUNC_INFO << ": Before processConfigLine "  << QTime::currentTime().toString("hh:mm:ss") << QT_ENDL;
+   //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": Before processConfigLine " << QT_ENDL;
 
     QTextStream in(&file);
     while (!in.atEnd())
@@ -5027,7 +5051,7 @@ void MainWindow::startServices()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //setLogLevel(None);
     setWindowSize (windowSize);
-    setHamlib(hamlibActive);
+    hamlibActive = setHamlib(hamlibActive);
     setUDPServer(UDPServerStart);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
