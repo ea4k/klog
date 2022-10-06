@@ -1,7 +1,7 @@
 <project>
     <shortName>KLog</shortName>
     <fullName>KLog</fullName>
-    <version>2.2.1</version>
+    <version>${env(KLOGDEVELVERSION)}</version>
     <readmeFile>../src/README</readmeFile>
     <licenseFile>../src/COPYING</licenseFile>
     <htmlLicenseFile>../src/gpl-3.0-standalone.html</htmlLicenseFile>
