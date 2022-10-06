@@ -51,3 +51,8 @@ Please send all your suggestions & bug reports.
 I hope you enjoy KLog!
 
 73 de Jaime, EA4K
+
+
+## Testing
+KLog includes several tests that can be seen in the tests folders.
+You can compile and execute those tests as you compile any other Qt application.
