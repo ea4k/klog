@@ -114,8 +114,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
 
-
-    connectActions();
+    //connectActions();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 }
 
@@ -138,8 +137,7 @@ void SetupDialog::init(const QString &_configFile, const QString &_softwareVersi
     }
     //qDebug() << Q_FUNC_INFO << ": 5.3" << QT_ENDL;
     nolog = !(haveAtleastOneLog());
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
+
     connectActions();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
 
@@ -166,6 +164,7 @@ SetupDialog::~SetupDialog()
 
 void SetupDialog::connectActions()
 {
+    //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
@@ -343,7 +342,7 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 
 void SetupDialog::slotOkButtonClicked()
 {
-    //qDebug() << "SetupDialog::slotOkButtonClicked" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (!miscPage->areDBPathChangesApplied())
@@ -513,10 +512,10 @@ void SetupDialog::slotOkButtonClicked()
         {
             stream << "ProvideInfo=True;"  <<  QT_ENDL;
         }
-
-        if ((!(dxClusterPage->getSelectedDxClusterServer()).isNull()) && (  (dxClusterPage->getSelectedDxClusterServer()).length() > 0   ))
+        tmp = dxClusterPage->getSelectedDxClusterServer();
+        if (!(tmp.isNull()) && (  tmp.length() > 0   ))
         {
-            stream << "DXClusterServerToUse=" << dxClusterPage->getSelectedDxClusterServer() <<";" << QT_ENDL;
+            stream << "DXClusterServerToUse=" << tmp <<";" << QT_ENDL;
         }
 
         QStringList stringList;

@@ -27,15 +27,16 @@ rem *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         
 rem *                                                                           *
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
-set KLOGDEVELVERSION=2.5
+set KLOGDEVELVERSION=1
+set PATH=C:/Qt/5.15.2/mingw81_32/bin;C:/Qt/Tools/mingw810_32/bin;%PATH%
 
 cd ../src/
-rmdir /s /q build
-rmdir /s /q release
-rmdir /s /q debug
+rmdir /S /Q build
+rmdir /S /Q release
+rmdir /S /Q debug
 mingw32-make clean
 
-for /f "tokens=2 delims=\=" %%a in ('type src.pro^|find "VERSION = "') do (
+for /f "tokens=2 delims=\=" %%a in ('type src.pro^|find "PKGVERSION = "') do (
   set KLOGDEVELVERSION=%%a & goto :continue
 )
 :continue

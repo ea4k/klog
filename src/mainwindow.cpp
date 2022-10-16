@@ -5134,14 +5134,17 @@ bool MainWindow::processConfigLine(const QString &_line){
         logWindow->setColumns(value.split(",", QT_SKIP));
     }else if (field =="DXCLUSTERSERVERTOUSE"){
         aux = value;  //dxfun.com:8000
+        //qDebug() << Q_FUNC_INFO << ": DXServerToUse: " << aux;
         if (aux.contains(':'))
         {
             dxclusterServerToConnect = (aux.split(':', QT_SKIP)).at(0);
             dxclusterServerPort = ((aux.split(':', QT_SKIP)).at(1)).toInt();
+            //qDebug() << Q_FUNC_INFO << ": DXServerToUse: OK" ;
         }
 
         if ((dxclusterServerToConnect.length()< 3) || (dxclusterServerPort <= 0))
         {
+            //qDebug() << Q_FUNC_INFO << ": DXServerToUse: NOK=>dxfun" ;
             dxclusterServerToConnect = "dxfun.com";
             dxclusterServerPort = 8000;
         }

@@ -1,6 +1,9 @@
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)
     https://github.com/ea4k/klog/pull/485
+- Bugfix: Calls like EA4K/P were not identified as EA.
+- Bugfix: Adding DXCluster servers was failing. (Closes #492) (TNX EA7IXM)
+- Bugfix: When accepting changes on Settings, the settings were being readed twice, causing errors an delays. (Closes #495)
 - Improvement UI: Freq & RST labels have been reorganized for clarity.
 - Improvement: Windows package updated to hamlib 4.4.
 - Improvement: Minor UI changes in the Setup->misc tab.
