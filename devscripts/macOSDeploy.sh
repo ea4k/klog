@@ -28,7 +28,7 @@
 # *****************************************************************************/
 export CXXFLAGS=-std=c++11
 #KLOG_VERSION="$1"
-KLOG_VERSION=$(grep "VERSION =" src.pro |awk '{print $3}')
+KLOG_VERSION=$(grep "PKGVERSION =" src.pro |awk '{print $3}')
 echo "Packaging KLog-$KLOG_VERSION"
 KLOG_SOURCES="../src"
 QTDIRi=$HOME"/Qt/5.15.2/clang_64"

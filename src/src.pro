@@ -30,7 +30,8 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 
-VERSION = 2.3~RC1
+PKGVERSION = 2.3~RC1
+VERSION = 2.3
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
