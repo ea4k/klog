@@ -2023,7 +2023,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    return updateTo024();
+    return updateTo025();
 }
 
 
@@ -2716,7 +2716,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'C4FM', 'NO', '0')").arg(tableName));
+    //execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'C4FM', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '1')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '1')").arg(tableName));
@@ -2724,7 +2724,14 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CONTESTI', 'CONTESTI', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CW', 'CW', 'CW', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DIGITALVOICE', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DSTAR', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DMR', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
+    //execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DSTAR', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA HF', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA SATELLITE', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 1200', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 9600', 'DYNAMIC', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '1')").arg(tableName));
@@ -3211,9 +3218,11 @@ bool DataBase::populatePropagationModes()
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ES', 'Sporadic E')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('FAI', 'Field Aligned Irregularities')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('F2', 'F2 Reflection')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('GWAVE', 'Ground Wave')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('INTERNET', 'Internet-assisted')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('ION', 'Ionoscatter')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('IRL', 'IRLP')"));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('LOS', 'Line of Sight')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('MS', 'Meteor scatter')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RPT', 'Terrestrial or atmospheric repeater or transponder')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('RS', 'Rain scatter')"));
@@ -5912,7 +5921,6 @@ bool DataBase::updateTo015()
     return true;
 }
 
-
 bool DataBase::updateTo016()
 {
     // Updates the DB to 0.016:
@@ -6260,87 +6268,6 @@ bool DataBase::updateTo019()
     return true;
 }
 
-bool DataBase::updateTo024()
-{// Recreates the table band
-   //qDebug() << Q_FUNC_INFO << " " << getDBVersion() ;
-    bool IamInPreviousVersion = false;
-    bool ErrorUpdating = false;
-    latestReaded = getDBVersion().toFloat();
-    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
-    if (latestReaded >= 0.024f)
-    {
-        //qDebug() << Q_FUNC_INFO << " : - I am in 024" ;
-        return true;
-    }
-    while (!IamInPreviousVersion && !ErrorUpdating)
-    {
-        IamInPreviousVersion = updateTo023();
-        if (!IamInPreviousVersion)
-        {
-            //qDebug() << Q_FUNC_INFO << " : Update to previous version failed";
-            return false;
-        }
-    }
-
-    // Now I am in the previous version and I can update the DB.
-
-    if (!updateTheEntityTableISONames())
-    {
-        //qDebug() << Q_FUNC_INFO << " : Update of entityTableIsonames failed";
-        return false;
-    }
-
-
-    if (updateDBVersion(softVersion, QString::number(dbVersion)))
-    {
-        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " ;
-        return false;
-    }
-    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
-    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
-    return true;
-}
-
-
-bool DataBase::updateTo023()
-{// Recreates the table band
-    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
-    bool IamInPreviousVersion = false;
-    bool ErrorUpdating = false;
-    latestReaded = getDBVersion().toFloat();
-   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
-    if (latestReaded >= 0.023f)
-    {
-        //qDebug() << Q_FUNC_INFO << " : - I am in 023" ;
-        return true;
-    }
-    while (!IamInPreviousVersion && !ErrorUpdating)
-    {
-        IamInPreviousVersion = updateTo022();
-        if (!IamInPreviousVersion)
-        {
-            return false;
-        }
-    }
-
-    // Now I am in the previous version and I can update the DB.
-
-    if (!recreateTableBand())
-    {
-        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" ;
-        return false;
-    }
-
-    if (!updateDBVersion(softVersion, QString::number(0.023)))
-    {
-        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " ;
-        return false;
-    }
-    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
-    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
-    return true;
-}
-
 bool DataBase::updateTo022()
 {// Adds Q65 mode
     //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
@@ -6417,6 +6344,153 @@ bool DataBase::updateTo021()
      //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
      //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
      return true;
+}
+
+bool DataBase::updateTo023()
+{// Recreates the table band
+    //qDebug() << Q_FUNC_INFO << " "  << getDBVersion() ;
+    bool IamInPreviousVersion = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+   //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+    if (latestReaded >= 0.023f)
+    {
+        //qDebug() << Q_FUNC_INFO << " : - I am in 023" ;
+        return true;
+    }
+    while (!IamInPreviousVersion && !ErrorUpdating)
+    {
+        IamInPreviousVersion = updateTo022();
+        if (!IamInPreviousVersion)
+        {
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!recreateTableBand())
+    {
+        //qDebug() << Q_FUNC_INFO << " : - updateTheModeTableAndSyncLog OK" ;
+        return false;
+    }
+
+    if (!updateDBVersion(softVersion, QString::number(0.023)))
+    {
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " ;
+        return false;
+    }
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
+    return true;
+}
+
+bool DataBase::updateTo024()
+{// Recreates the table band
+   //qDebug() << Q_FUNC_INFO << " " << getDBVersion() ;
+    bool IamInPreviousVersion = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+    //qDebug() << Q_FUNC_INFO << " : Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+    if (latestReaded >= 0.024f)
+    {
+        //qDebug() << Q_FUNC_INFO << " : - I am in 024" ;
+        return true;
+    }
+    while (!IamInPreviousVersion && !ErrorUpdating)
+    {
+        IamInPreviousVersion = updateTo023();
+        if (!IamInPreviousVersion)
+        {
+            //qDebug() << Q_FUNC_INFO << " : Update to previous version failed";
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!updateTheEntityTableISONames())
+    {
+        //qDebug() << Q_FUNC_INFO << " : Update of entityTableIsonames failed";
+        return false;
+    }
+
+
+    if (updateDBVersion(softVersion, QString::number(dbVersion)))
+    {
+        //qDebug() << Q_FUNC_INFO << " : - Failed to go to the previous version! " ;
+        return false;
+    }
+    //qDebug() << Q_FUNC_INFO << " : - We are in the updated version! " ;
+    //qDebug() << Q_FUNC_INFO << " : UPDATED OK!" ;
+    return true;
+}
+
+bool DataBase::updateTo025()
+{
+    // Updates the DB to 0.025:
+    // Adds the mods on ADIF 3.1.3
+
+    //qDebug() << "DataBase::updateto025: latestRead: " << getDBVersion() ;
+    bool IAmIn024 = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+    if (latestReaded >= 0.025f)
+    {
+          //qDebug() << "DataBase::updateto025: - I am in 023" ;
+        return true;
+    }
+    else
+    {
+          //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() ;
+        while (!IAmIn024 && !ErrorUpdating)
+        {
+              //qDebug() << "DataBase::updateto015: - Check if I am in 024: !" ;
+            IAmIn024 = updateTo014();
+            if (IAmIn024)
+            {
+                  //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.024: " << QString::number(latestReaded) ;
+            }
+            else
+            {
+                  //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.024: " << QString::number(latestReaded) ;
+                ErrorUpdating = false;
+            }
+        }
+        if (ErrorUpdating)
+        {
+              //qDebug() << "DataBase::updateto025: - I Could not update to: " << QString::number(dbVersion) ;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+
+
+    if ((updateTheModeTableAndSyncLog()) && (recreatePropModes ()))
+    {
+          //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" ;
+    }
+    else
+    {
+          //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" ;
+        //ErrorUpdating = true;
+    }
+
+
+    if (updateDBVersion(softVersion, "0.025"))
+    {
+          //qDebug() << "DataBase::updateto025: - We are in 025! " ;
+    }
+    else
+    {
+          //qDebug() << "DataBase::updateto025: - Failed to go to 014! " ;
+       // emit debugLog(Q_FUNC_INFO, "2", 7);
+        return false;
+    }
+      //qDebug() << "DataBase::updateTo025: UPDATED OK!" ;
+    return true;
 }
 
 bool DataBase::updateAwardDXCCTable()
