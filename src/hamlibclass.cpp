@@ -39,6 +39,7 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
     rig_set_debug(RIG_DEBUG_NONE);
     my_rig = rig_init (RIG_MODEL_DUMMY);
     retcode = -1;
+    bauds = 9600;
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

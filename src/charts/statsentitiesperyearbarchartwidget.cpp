@@ -78,8 +78,8 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
 
     //int numberPerX = 0;
     chart->removeAllSeries();
-    categoriesTitle = QString();
-    categoriesElem = QString();
+    categoriesTitle = tr("DXCC Entities");
+    categoriesElem = tr("DXCC Entities");
     categories.clear();
     axis->clear();
     series->clear();
@@ -93,8 +93,8 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
        //qDebug() << "StatsEntitiesPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << QT_ENDL;
        //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC " << QT_ENDL;
         categories.append(dataProxy->getOperatingYears(_log));
-        categoriesElem = tr("DXCC Entities");
-        categoriesTitle = tr("DXCC Entities per year");
+        //categoriesElem = tr("DXCC Entities");
+        //categoriesTitle = tr("DXCC Entities");
         aux.clear();
         int numberPerX;
         for (int i = 0; i < categories.count();i++ )

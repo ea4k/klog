@@ -230,7 +230,7 @@ void AdifLoTWExportWidget::fillTable()
        if (stationCallsignComboBox->currentIndex() == 0)
        { // Not defined station_callsign (blank)
            //qDebug() << "AdifLoTWExportWidget::fillTable blank station callsign " << QT_ENDL;
-           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), myGridSquareComboBox->currentText (), startDate->date(), endDate->date(), justQueued, logNumber));
+           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), myGridSquareComboBox->currentText(), startDate->date(), endDate->date(), justQueued, logNumber));
        }
        else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
        { // ALL stations, no matter the station.
@@ -355,7 +355,6 @@ void AdifLoTWExportWidget::slotDateChanged()
 {
     //slotStationCallsignChanged();
     slotStationCallsignChanged ();
-
 }
 
 void AdifLoTWExportWidget::slotOKPushButtonClicked()
@@ -439,7 +438,6 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
         topLabel->setText(tr("This table shows the QSOs that will be exported to ADIF."));
     }
     fillStationCallsignComboBox();
-
     //qDebug() << "AdifLoTWExportWidget::setExportMode-END" << QT_ENDL;
 }
 

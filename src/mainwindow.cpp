@@ -3951,7 +3951,7 @@ void MainWindow::createMenusCommon()
     toolMenu->addSeparator();
     lotwToolMenu = toolMenu->addMenu(tr("LoTW tools ..."));
 
-    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSLs from this log to be sent"), this);
+    lotwMarkSentQueuedThisLogAct = new QAction(tr("Queue all QSOs from this log to be sent"), this);
     lotwToolMenu->addAction(lotwMarkSentQueuedThisLogAct);
     connect(lotwMarkSentQueuedThisLogAct, SIGNAL(triggered()), this, SLOT(slotToolLoTWMarkAllQueuedThisLog()));
     lotwMarkSentQueuedThisLogAct->setToolTip(tr("Mark all non-sent QSOs in this log as queued to be uploaded."));

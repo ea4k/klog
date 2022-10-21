@@ -38,6 +38,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 
     logLevel = None;
     constrid = 2;
+    nolog = true;
     util = new Utilities(Q_FUNC_INFO);
     firstTime = true;
     latestBackup = QString();
@@ -140,7 +141,6 @@ void SetupDialog::init(const QString &_configFile, const QString &_softwareVersi
 
     connectActions();
     //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
-
 }
 
 SetupDialog::~SetupDialog()
@@ -384,8 +384,8 @@ void SetupDialog::slotOkButtonClicked()
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - 10" << QT_ENDL;
     QFile file (configFileName);
-    QString tmp;
-    tmp = "true";
+
+
     if (!file.open (QIODevice::WriteOnly))   /* Flawfinder: ignore */
     {
       QDialog::reject();
@@ -512,6 +512,7 @@ void SetupDialog::slotOkButtonClicked()
         {
             stream << "ProvideInfo=True;"  <<  QT_ENDL;
         }
+        QString tmp;
         tmp = dxClusterPage->getSelectedDxClusterServer();
         if (!(tmp.isNull()) && (  tmp.length() > 0   ))
         {
@@ -795,8 +796,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
     tab = (values.at(0)).toUpper();
 
     int endValue = value.indexOf(';');
-    if (endValue>-1){
-
+    if (endValue>-1)
+    {
         value = value.left(value.length() - (value.length() - endValue));
     }
     value = checkAndFixASCIIinADIF(value); // Check whether the value is valid.
@@ -985,8 +986,8 @@ bool SetupDialog::processConfigLine(const QString &_line)
     {
         userDataPage->setAntenna3(value);
     }
-    else if (tab =="STATIONLOCATOR"){
-
+    else if (tab =="STATIONLOCATOR")
+    {
         if ( locator->isValidLocator(value) )
         {
             userDataPage->setStationLocator(value);

@@ -87,7 +87,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _lo
     QSqlQuery query;
     QString stringQuery = QString();
     bool sqlOK = false;
-    QString answer = QString();
+    //QString answer = QString();
 
     if (_confirmed)
     {
@@ -106,7 +106,7 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _lo
         query.next();
         if (query.isValid())
         {
-            answer = query.value(0).toString() + " / " + query.value(1).toString() ;
+            QString answer = query.value(0).toString() + " / " + query.value(1).toString() ;
 
             query.finish();
                //qDebug() << "Awards::getQSOofAward: answer: " << answer << QT_ENDL;
@@ -1505,7 +1505,7 @@ int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _d
 int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC in a QSO
 {
        //qDebug() << "Awards::setDXCCToQSO: " << QString::number(_dxcc) << "/" << QString::number(_qsoid) << QT_ENDL;
-    int errorCode = -1;
+    //int errorCode = -1;
     QString queryString = QString("UPDATE log SET dxcc='%1' WHERE id='%2'").arg(_dxcc).arg(_qsoid);
     QSqlQuery query = QSqlQuery();
     bool sqlOK = query.exec(queryString);
@@ -1518,7 +1518,7 @@ int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC 
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
            //qDebug() << "Awards::setDXCCToQSO: DXCC Updated in Log but failed...." << QT_ENDL;
-        errorCode = query.lastError().nativeErrorCode().toInt();
+       int errorCode = query.lastError().nativeErrorCode().toInt();
         query.finish();
            //qDebug() << "Awards::setDXCCToQSO: LastQuery: " << query.lastQuery()  << QT_ENDL;
            //qDebug() << "Awards::setDXCCToQSO: LastError-data: " << query.lastError().databaseText()  << QT_ENDL;
@@ -1531,7 +1531,7 @@ int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC 
 int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a QSO
 {
        //qDebug() << "Awards::setCQToQSO: " << QString::number(_cqz) << "/" << QString::number(_qsoid) << QT_ENDL;
-    int errorCode = -1;
+    //int errorCode = -1;
     QString queryString = QString("UPDATE log SET cqz='%1' WHERE id='%2'").arg(_cqz).arg(_qsoid);
     QSqlQuery query = QSqlQuery();
     bool sqlOK = query.exec(queryString);
@@ -1544,7 +1544,7 @@ int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a 
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
            //qDebug() << "Awards::setCQToQSO: DXCC Updated in Log but failed...." << QT_ENDL;
-        errorCode = query.lastError().nativeErrorCode().toInt();
+        int errorCode = query.lastError().nativeErrorCode().toInt();
         query.finish();
            //qDebug() << "Awards::setCQToQSO: LastQuery: " << query.lastQuery()  << QT_ENDL;
            //qDebug() << "Awards::setCQToQSO: LastError-data: " << query.lastError().databaseText()  << QT_ENDL;

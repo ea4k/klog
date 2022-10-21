@@ -40,10 +40,12 @@ ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 }
+
 ShowAdifImportWidget::~ShowAdifImportWidget()
 {
     delete(util);
 }
+
 void ShowAdifImportWidget::createUI()
 {
     QLabel *msgLabel = new QLabel;
