@@ -3663,11 +3663,12 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     {
         _query_logNumber.clear ();
     }
-    queryString = QString("SELECT DISTINCT my_gridsquare FROM log WHERE station_callsign = '%1' AND my_gridsquare<>'' AND qso_date>='%2' AND qso_date<='%3' AND %4").arg(_stationCallsign).arg(util->getDateSQLiteStringFromDate(_startDate)).arg(util->getDateSQLiteStringFromDate(_endDate)).arg(_query_justQueued);
+    queryString = QString("SELECT DISTINCT my_gridsquare FROM log WHERE station_callsign = '%1' AND my_gridsquare<>'' AND qso_date>='%2' AND qso_date<='%3' AND %4").arg(_stationCallsign).arg(util->getDateSQLiteStringFromDate(_startDate)).arg(util->getDateSQLiteStringFromDate(_endDate.addDays (1))).arg(_query_justQueued);
 
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
+   //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery ();
 
     if (sqlOK)
     {

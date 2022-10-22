@@ -66,6 +66,7 @@ void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
 void AdifLoTWExportWidget::createUI()
 {
     //fillStationCallsignComboBox();
+    tableWidget->setSortingEnabled (true);
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign that you want to use to upload the log."));
 
     startDate->clear();
