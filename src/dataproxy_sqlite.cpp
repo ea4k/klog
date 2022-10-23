@@ -5951,6 +5951,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
     query.finish();
     return true;
 }
+
 bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref,
                                                 const QString &_group, const int _regId,
                                                 const int _dxcc, const int _cq, const int _itu,
@@ -5994,8 +5995,6 @@ bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QStr
     //qDebug() << "DataProxy_SQLite::addDXCCEntitySubdivision: END"  << QT_ENDL;
     return true;
 }
-
-
 
 int DataProxy_SQLite::getNumberOfManagedLogs()
 {
@@ -6057,7 +6056,6 @@ int DataProxy_SQLite::getMaxLogNumber()
     }
     //return -1;
 }
-
 
 QStringList DataProxy_SQLite::getListOfManagedLogs()
 {
@@ -6177,7 +6175,57 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
    return calls;
 }
 
+QStringList DataProxy_SQLite::getStationCallSignsFromLogWithLoTWPendingToSend(const int _log)
+{
+    //qDebug() << Q_FUNC_INFO;
+    QString queryString;
 
+    if (doesThisLogExist(_log))
+    {
+        queryString = QString("SELECT DISTINCT station_callsign FROM log WHERE lotw_qsl_sent='Q' AND lognumber='%1'").arg(_log);
+    }
+    else
+    {
+        queryString = QString("SELECT DISTINCT station_callsign FROM log WHERE lotw_qsl_sent='Q'");
+    }
+
+    QSqlQuery query;
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        //
+        //qDebug() << Q_FUNC_INFO << "END-2 - fail";
+        return QStringList();
+    }
+
+    QStringList calls = QStringList();
+    while(query.next())
+    {
+        if (query.isValid())
+        {
+            queryString = (query.value(0)).toString();
+            if (queryString.length()>2)
+            {
+                calls.append(queryString);
+            }
+            //qDebug() << Q_FUNC_INFO << ": " << queryString;
+        }
+        else
+        {
+            query.finish();
+            //qDebug() << Q_FUNC_INFO << ": END-1 - fail";
+            return QStringList();
+        }
+    }
+    query.finish();
+    calls.removeDuplicates();
+    calls.sort();
+    //qDebug() << Q_FUNC_INFO << ": END";
+    return calls;
+}
 
 QString DataProxy_SQLite::getOperatorsFromLog(const int _log)
 {
@@ -6421,7 +6469,6 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     query.finish();
     return true;
 }
-
 
 int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
 {
@@ -6823,8 +6870,6 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
     //return false;
 }
 
-
-
 bool DataProxy_SQLite::doesThisLogExist(const int _log)
 {
        //qDebug() << "DataProxy_SQLite::doesThisLogExist: " << QString::number(_log) << QT_ENDL;
@@ -6870,7 +6915,6 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
        //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 4"  << QT_ENDL;
     //return false;
 }
-
 
 int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString &_n)
 {
@@ -7111,7 +7155,6 @@ QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
     return returningFields;
 }
 
-
 int DataProxy_SQLite::getITUzFromPrefix(const QString &_p)
 {
     QSqlQuery query;
@@ -7334,6 +7377,7 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
       }
   }
 }
+
 QStringList DataProxy_SQLite::getEntiNameISOAndPrefixFromId(const int _dxcc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
@@ -7543,7 +7587,6 @@ int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
     }
     //return -4;
 }
-
 
 bool DataProxy_SQLite::isNewCQz(int _c)
 {
@@ -7918,7 +7961,6 @@ int DataProxy_SQLite::getHowManyEntities()
         return 0;
     }
 }
-
 
 int DataProxy_SQLite::getMaxEntityID(bool limit)
 {

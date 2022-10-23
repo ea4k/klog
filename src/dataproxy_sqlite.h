@@ -297,6 +297,7 @@ public:
     int getMaxLogNumber();
     QString getStationCallSignFromLog(const int _log);
     QStringList getStationCallSignsFromLog(const int _log);
+    QStringList getStationCallSignsFromLogWithLoTWPendingToSend(const int _log);
     QString getOperatorsFromLog(const int _log);
     QString getCommentsFromLog(const int _log);
     QString getLogDateFromLog(const int _log);

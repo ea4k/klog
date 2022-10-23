@@ -160,32 +160,34 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
         stationCallsignComboBox->addItem(tr("All"));
          //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-4" << QT_ENDL;
     }
-    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-99" << QT_ENDL;
-    stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(logNumber));
+
+    //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-99" << QString::number(currentExportMode);
+    stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLogWithLoTWPendingToSend(logNumber));
     //qDebug() << "AdifLoTWExportWidget::fillStationCallsignComboBox-END" << QT_ENDL;
 }
 
 void AdifLoTWExportWidget::fillStationMyGridComboBox()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    // GUardar el locator que hay ahora
-    // limpiar y rellenar el combo.
-    // Si el locator anterior está en la lista nueva, seleccionarlo.
-    //Llamar a fillTable ();
+    // Keep the grid that is shown now
+    // clean and fill the combo.
+    // If the saved locator is in the list, it is selected.
+
     QString tempGrid = myGridSquareComboBox->currentText ();
     myGridSquareComboBox->clear();
     myGridSquareComboBox->addItem(tr("Not defined"));
-   // getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1)
+
     QStringList grids;
     grids.clear ();
     grids.append (dataProxy->getGridsToBeSent (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
     myGridSquareComboBox->addItems(grids);
 
-    QString aux;
-    foreach(aux, grids)
+
+    if (myGridSquareComboBox->findText(tempGrid, Qt::MatchCaseSensitive) >= 0)
     {
-        //qDebug() << Q_FUNC_INFO << ": " << aux;
+       myGridSquareComboBox->setCurrentIndex(myGridSquareComboBox->findText(tempGrid, Qt::MatchCaseSensitive));
     }
+
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
