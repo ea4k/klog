@@ -64,8 +64,8 @@ void FileManager::init()
     dbCreated = false;
     rstTXDefault  = false;
     rstRXDefault = false;
-    
-    
+
+
     noMoreQso = false;
     hashLogs.clear();
     util->setVersion(klogVersion);
@@ -829,7 +829,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                 {
                    //qDebug() << "FileManager::adifLoTWReadLog2 VALID QSO: " << QT_ENDL;
                     qso.setLogId(logN);
-                    if (util->isValidCall(stationCallSign))
+                    if ((util->isValidCall(stationCallSign)) && (stationCallSign.length ()>0))
                     {
                         QString aux = QString("<STATION_CALLSIGN:%1>%2").arg(QString::number(stationCallSign.length())).arg(stationCallSign);
                         qso.setData(aux);
@@ -2141,7 +2141,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
     QString field, data;
     QSqlQuery query;
 
-    if (SwitchHash.empty()) initializeSwitchHash(); 
+    if (SwitchHash.empty()) initializeSwitchHash();
 
     //confirmed = 0; // 0 means worked, 1 means confirmed
 
@@ -3927,11 +3927,12 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
             out << "<SUBMODE:" << QString::number(aux2.length()) << ">" << aux2  << " ";
         }
     }
+
     nameCol = rec.indexOf("prop_mode");
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>1)
+        if (((aux.length())>1) && (aux!="NO"))
         {
             out << "<PROP_MODE:" << QString::number(aux.length()) << ">" << aux  << " ";
             if (aux == "SAT")
@@ -3979,7 +3980,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     {
         aux = (query.value(nameCol)).toString();
         //qDebug() << "FileManager::writeQuery: StationCallSign: " << aux  << QT_ENDL;
-        if ((util->isValidCall(aux)))
+        if ((util->isValidCall(aux)) && (aux.length ()>0))
         { // User selected one station callsign from the log
             out << "<STATION_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4181,7 +4182,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (util->isValidCall(aux))
+        if ((util->isValidCall(aux)) && (aux.length ()>0))
         {
             out << "<CONTACTED_OP:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4272,7 +4273,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (util->isValidCall(aux))
+        if ((util->isValidCall(aux)) && (aux.length ()>0))
         {
             out << "<EQ_CALL:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4668,7 +4669,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (util->isValidCall(aux))
+        if ((util->isValidCall(aux)) && (aux.length ()>0))
         {
             out << "<OPERATOR:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4677,7 +4678,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (util->isValidCall(aux))
+        if ((util->isValidCall(aux)) && (aux.length ()>0))
         {
             out << "<OWNER_CALLSIGN:" << QString::number(aux.length()) << ">" << aux  << " ";
         }

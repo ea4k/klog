@@ -122,6 +122,7 @@ public:
     bool isValidAntPath(const QString &_s);
     bool isValidARRLSect(const QString &_s);
     bool isValidContinent(const QString &_s);
+    bool isValidPropMode(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
 
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K

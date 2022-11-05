@@ -2189,6 +2189,16 @@ bool Utilities::isValidContinent(const QString &_s)
     return (continent.contains (_s.toUpper ()));
 }
 
+bool Utilities::isValidPropMode(const QString &_s)
+{
+    QStringList propModes;
+    propModes.clear ();
+    propModes << "AS" << "AUE" << "AUR" << "BS" << "ECH" << "EME" << "ES"
+                << "F2" << "FAI" << "GWAVE" << "INTERNET" << "ION" << "IRL"
+                << "LOS" << "MS" << "RPT" << "RS" << "SAT" << "TEP" << "TR";
+    return propModes.contains (_s.toUpper ());
+}
+
 bool Utilities::isValidDistance(const double _d)
 {
     return (_d>=0);

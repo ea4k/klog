@@ -1076,12 +1076,10 @@ bool QSO::getKeepComment()
 // Other Tab
 bool QSO::setDXCC(const int _i)
 {
-    if (util->isValidDXCC(_i))
-    {
-        dxcc = _i;
-        return true;
-    }
-    return false;
+    if (!util->isValidDXCC(_i))
+        return false;
+    dxcc = _i;
+    return true;
 }
 
 int QSO::getDXCC()
@@ -1092,23 +1090,13 @@ int QSO::getDXCC()
 bool QSO::setPropMode(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << _c;
-    QString aux;
-    aux = _c;
-    if (aux.isNull())
-    {
-        logEvent(Q_FUNC_INFO, "END - False-1", Debug);
-        return false;
-    }
-    if (aux.length()>0)
-    {
-        propMode = _c;
-        return true;
-    }
-    else
+    if (!util->isValidPropMode (_c))
     {
         propMode = QString();
         return false;
     }
+    propMode = _c;
+    return true;
 }
 
 QString QSO::getPropMode()
@@ -1134,12 +1122,10 @@ QString QSO::getSOTA_REF()
 
 bool QSO::setMySOTA_REF(const QString &_c)
 {
-    if (_c.length ()>1)
-    {
-        my_sota_ref = _c;
-        return true;
-    }
-    return false;
+    if (_c.length ()<=1)
+        return false;
+    my_sota_ref = _c;
+    return true;
 }
 
 QString QSO::getMySOTA_REF()
@@ -1149,25 +1135,18 @@ QString QSO::getMySOTA_REF()
 
 bool QSO::setMyRig(const QString &_c)
 {
-    if (_c.length ()>1)
-    {
-        my_rig = _c;
-        return true;
-    }
-    return false;
+    if (_c.length ()<!1)
+        return false;
+    my_rig = _c;
+    return true;
 }
 
 bool QSO::setVUCCGrids(const QString &_c)
 {
-    if (util->isValidVUCCGrids (_c))
-    {
-        vucc_grids = _c;
-        return true;
-    }
-    else
-    {
+    if (!util->isValidVUCCGrids (_c))
         return false;
-    }
+    vucc_grids = _c;
+    return true;
 }
 
 QString QSO::getVUCCGrids()
@@ -1177,15 +1156,10 @@ QString QSO::getVUCCGrids()
 
 bool QSO::setMyVUCCGrids(const QString &_c)
 {
-    if (util->isValidVUCCGrids (_c))
-    {
-        my_vucc_grids = _c;
-        return true;
-    }
-    else
-    {
+    if (!util->isValidVUCCGrids (_c))
         return false;
-    }
+    my_vucc_grids = _c;
+    return true;
 }
 
 QString QSO::getMyVUCCGrids()

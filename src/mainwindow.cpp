@@ -1487,13 +1487,11 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         }
     }
 
-
-
     keepSatPage = satTabWidget->getRepeatThis();
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
-      //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << QT_ENDL;
-    if ((aux1.length()>0) && (aux1 != "Not"))
+    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << QT_ENDL;
+    if (util->isValidPropMode (aux1))
     {
         stringFields = stringFields + ", prop_mode";
         stringData = stringData + ", '" + aux1 + "'";
@@ -2406,16 +2404,11 @@ QString MainWindow::readDataFromUIDXModifying()
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
       //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << QT_ENDL;
-    if ((aux1.length()>0) && (aux1 != "Not"))
+    if (util->isValidPropMode (aux1))
     {
                     //qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 << QT_ENDL;
         updateString = updateString + "prop_mode = '";
         updateString = updateString + aux1 + "', ";
-    }
-    else if ((aux1.length()==0) || (aux1 == "Not"))
-    {
-          //qDebug() << "MainWindow::readDataFromUIDX: PropMode(2):  " << aux1 << QT_ENDL;
-        updateString = updateString + "prop_mode = '',";
     }
     else
     {
