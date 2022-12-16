@@ -1280,7 +1280,8 @@ bool Utilities::isValidVUCCGrids(const QString &_b)
     foreach (aux, tmp) {
         aux = aux.trimmed ();
 
-        if ((!isValidGrid (aux)) || (aux.length ()!=4))
+        //if ((!isValidGrid (aux)) || (aux.length ()!=4))
+        if (!isValidGrid (aux))
         {
             //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": NON VALID";
             return false;
