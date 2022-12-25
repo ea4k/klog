@@ -1,6 +1,8 @@
 TBD - 2.3.1
 - Bugfix: When no validating callsigns, some ADIF fields were exported even if they were empty.
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
+- Bugfix: VUCC_GRIDS validation was not properly done.
+- Improvement: Code improvement in the MainWindowInputQSO class.
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

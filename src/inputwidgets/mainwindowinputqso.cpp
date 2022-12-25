@@ -34,7 +34,7 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 {
        //qDebug() << "MainWindowInputQSO::MainWindowInputQSO"   << QT_ENDL;
     dataProxy = dp;
-    locator = new Locator();
+    //locator = new Locator();
 
     nameLineEdit = new QLineEdit;
     qthLineEdit = new QLineEdit;
@@ -58,7 +58,7 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 
 MainWindowInputQSO::~MainWindowInputQSO()
 {
-    delete(locator);
+    delete(dataProxy);
 }
 
 void MainWindowInputQSO::setModifying(const bool _m)
@@ -298,31 +298,43 @@ void MainWindowInputQSO::slotReturnPressed()
 
 void MainWindowInputQSO::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-    //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text();
     int cursorP = locatorLineEdit->cursorPosition();
-
-    locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
-
-    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
+    QString aux = locatorLineEdit->text().toUpper ();
+    locatorLineEdit->setText((util->getClearSQLi(aux)));
+    QString mainLocator;
+    bool ok = false;
+    if (aux.contains(','))
     {
-        //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text() << QT_ENDL;
-        setPaletteRightDXLocator(true);
-        emit dxLocatorChanged (locatorLineEdit->text());
-
-        //dxLocator = (locatorLineEdit->text());
-        //infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-        //satTabWidget->setLocator(dxLocator);
-        locatorLineEdit->setToolTip(tr("DX QTH locator."));
-        //qDebug() << Q_FUNC_INFO << ": " << locator->getLat(locatorLineEdit->text()) << QT_ENDL;
-        //qDebug() << Q_FUNC_INFO << ": LON: " << locator->getLon(locatorLineEdit->text()) << QT_ENDL;
+       //qDebug() << Q_FUNC_INFO << ": VUCC";
+        if(util->isValidVUCCGrids(aux))
+        {
+            mainLocator = (aux.split (',')).at(0);
+            ok = true;
+        }
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": NOT VALID: " << locatorLineEdit->text() << QT_ENDL;
+       //qDebug() << Q_FUNC_INFO << ": No VUCC";
+        if ( util->isValidGrid((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
+        {
+           //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text();
+            mainLocator = locatorLineEdit->text();
+            ok = true;
+        }
+    }
+    if (ok)
+    {
+       //qDebug() << Q_FUNC_INFO << ": OK: " << mainLocator;
+        setPaletteRightDXLocator(true);
+        emit dxLocatorChanged (mainLocator);
+        locatorLineEdit->setToolTip(tr("DX QTH locator."));
+    }
+    else
+    {
+       //qDebug() << Q_FUNC_INFO << ": NOK: " << mainLocator;
         setPaletteRightDXLocator(false);
         locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
-        locatorLineEdit->setCursorPosition(cursorP);
-        return;
     }
     locatorLineEdit->setCursorPosition(cursorP);
 }
@@ -335,8 +347,9 @@ QString MainWindowInputQSO::getDXLocator()
 
 void MainWindowInputQSO::setDXLocator(const QString &_loc)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    if (locator->isValidLocator (_loc))
+   //qDebug() << Q_FUNC_INFO << ": " << _loc;
+    if (util->isValidVUCCGrids (_loc))
+    //if (util->isValidGrid (_loc))
     {
         locatorLineEdit->setText (_loc.toUpper ());
     }
@@ -496,14 +509,7 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 
 bool MainWindowInputQSO::getDarkMode()
 {
-    if (nameLineEdit->palette().color(QPalette::Base) == "#646464")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (nameLineEdit->palette().color(QPalette::Base) == "#646464");
 }
 
 void MainWindowInputQSO::setPaletteRightName(const bool _ok)

@@ -57,6 +57,7 @@ private slots:
     void test_isValidCall();
     void test_isValidFreq();
     void test_isValidGrid();
+    void test_isValidVUCC();
     void test_isValidADIFField();
     void test_logLevels();
     void test_isValidSimpleCall();
@@ -299,6 +300,26 @@ void tst_Utilities::test_isValidGrid()
     QVERIFY(util->isValidGrid("AA00aa00") == true);
     QVERIFY(util->isValidGrid("RR99xx99") == true);
     QVERIFY(util->isValidGrid("RR99xz99") == false);
+}
+
+void tst_Utilities::test_isValidVUCC()
+{
+    QVERIFY2(util->isValidVUCCGrids("A") == false, "Error with wrong loc A");
+    QVERIFY2(util->isValidVUCCGrids("1") == false, "Error with wrong loc 1");
+    QVERIFY2(util->isValidVUCCGrids("AA") == false, "Error with right loc AA");
+    QVERIFY2(util->isValidVUCCGrids("SS") == false, "Error with wrong loc SS");
+    QVERIFY2(util->isValidVUCCGrids("AA00") == false, "Error with right loc AA00");
+    QVERIFY2(util->isValidVUCCGrids("AA00aa") == false, "Error with right loc AA00aa");
+    QVERIFY2(util->isValidVUCCGrids("RR99xx") == false, "Error with right loc RR99xx");
+    QVERIFY2(util->isValidVUCCGrids("RR99xz") == false, "Error with wrong loc RR99xz");
+    QVERIFY2(util->isValidVUCCGrids("AA00xz") == false, "Error with right loc AA00xz");
+    QVERIFY2(util->isValidVUCCGrids("AA00aa00") == false, "Error with right loc AA00aa00");
+
+    QVERIFY2(util->isValidVUCCGrids("AA,AA") == true, "Error with right loc AA,AA");
+    QVERIFY2(util->isValidVUCCGrids("IN80DE,IN70AA") == true, "Error with right loc AA,AA");
+    QVERIFY2(util->isValidVUCCGrids("AA10,AA10") == true, "Error with right loc AA10,AA10");
+    QVERIFY2(util->isValidVUCCGrids("AA10,IN10,IN20,IN30") == true, "Error with right loc AA10,AA10");
+    QVERIFY2(util->isValidVUCCGrids("AA10,IN10,IN20") == false, "Error with right loc AA10,AA10");
 }
 
 void tst_Utilities::test_isValidADIFField()
