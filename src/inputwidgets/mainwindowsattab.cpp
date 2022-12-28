@@ -35,7 +35,7 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     satNameComboBox = new QComboBox;
     satNameLineEdit = new QLineEdit;
     satModeLineEdit = new QLineEdit;
-    satDXLocatorLineEdit = new QLineEdit;
+
     satOtherLabel = new QLabel;
     satBandTXComboBox = new QComboBox;
     satBandRXComboBox = new QComboBox;
@@ -45,7 +45,6 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     keepThisDataForNextQSOQcheckbox = new QCheckBox;
 
     dataProxy = dp;
-    locator = new Locator;
     util = new Utilities(Q_FUNC_INFO);
 
     createUI();
@@ -67,7 +66,6 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
 }
 
 MainWindowSatTab::~MainWindowSatTab(){
-    delete(locator);
     delete(util);
     delete(dataProxy);
 }
@@ -76,10 +74,10 @@ void MainWindowSatTab::createUI()
 {
     connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatNameTextChanged() ) );
     connect(satModeLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatModeTextChanged() ) );
-    connect(satDXLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatDXLocTextChanged() ) );
+    //connect(satDXLocatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatDXLocTextChanged() ) );
     connect(satNameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
     connect(satModeLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
-    connect(satDXLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
+    //connect(satDXLocatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()) );
 
     connect(satNameComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSatNameComboBoxChanged() ) ) ;
 
@@ -106,7 +104,6 @@ void MainWindowSatTab::createUI()
     satNameComboBox->setToolTip(tr("Select the satellite you are using."));
     satBandTXComboBox->setToolTip(tr("UpLink band."));
     satBandRXComboBox->setToolTip(tr("DownLink band."));
-    satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is synchronized with the Locator box in the QSO tab."));
 
     QLabel *upLinkLabel = new QLabel();
     upLinkLabel->setText(tr("UpLink"));
@@ -123,10 +120,6 @@ void MainWindowSatTab::createUI()
     QLabel *satModeLabel = new QLabel();
     satModeLabel->setText(tr("Mode"));
     satModeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
-
-    QLabel *satDXLocLabel = new QLabel();
-    satDXLocLabel->setText(tr("DX Locator"));
-    satDXLocLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     //QLabel *satOtherLabel = new QLabel();
     satOtherLabel->setText(tr("Other"));
@@ -147,8 +140,8 @@ void MainWindowSatTab::createUI()
     QHBoxLayout *lastlineLayout = new QHBoxLayout;
     //lastlineLayout->addWidget(satModeLabel);
     lastlineLayout->addWidget(satModeLineEdit);
-    lastlineLayout->addWidget(satDXLocLabel);
-    lastlineLayout->addWidget(satDXLocatorLineEdit);
+
+
 
     QGridLayout *tabLayout = new QGridLayout;
 
@@ -250,49 +243,6 @@ void MainWindowSatTab::slotSatModeTextChanged()
         emit setPropModeSat("Not");
     }
 */
-}
-
-void MainWindowSatTab::setLocator(const QString &_t)
-{
-    //qDebug() << "MainWindowSatTab::setLocator: " << _t << QT_ENDL;
-    satDXLocatorLineEdit->setText(_t.toUpper());
-    //qDebug() << "MainWindowSatTab::setLocator - END: "  << QT_ENDL;
-}
-
-void MainWindowSatTab::slotSatDXLocTextChanged()
-{
-    //qDebug() << "MainWindowSatTab::slotSatDXLocTextChanged: " << satDXLocatorLineEdit->text() << QT_ENDL;
-    int cursorP = satDXLocatorLineEdit->cursorPosition();
-
-    satDXLocatorLineEdit->setText((util->getClearSQLi(satDXLocatorLineEdit->text())).toUpper());
-
-    if ( locator->isValidLocator(satDXLocatorLineEdit->text()) )
-    {
-        if (getDarkMode())
-        {
-            satDXLocatorLineEdit->setPalette(palWhite);
-        }
-        else
-        {
-            satDXLocatorLineEdit->setPalette(palBlack);
-        }
-
-        satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. This box is synchronized with the Locator box in the QSO tab."));
-
-        //if (!modifying)
-        //{
-        //    emit dxLocatorChanged((satDXLocatorLineEdit->text()).toUpper());
-        //}
-    }
-    else
-    {
-        satDXLocatorLineEdit->setPalette(palRed);
-        satDXLocatorLineEdit->setToolTip(tr("Locator of the DX station. Format should be Maidenhead like IN70AA up to 10 characters."));
-    }
-    satDXLocatorLineEdit->setCursorPosition(cursorP);
-    emit dxLocatorChanged(satDXLocatorLineEdit->text());
-
-    //qDebug() << "MainWindowSatTab::slotSatDXLocTextChanged - END"  << QT_ENDL;
 }
 
 QString MainWindowSatTab::getSatName()
@@ -398,14 +348,12 @@ void MainWindowSatTab::clear(bool _full)
     modifying = false;
     if ((keepThisDataForNextQSOQcheckbox->isChecked()) || (!_full))
     {
-        satDXLocatorLineEdit->clear();
     }
     else
     {
         satModeLineEdit->clear();
         satNameComboBox->setCurrentIndex(0);
         satNameLineEdit->clear();
-        satDXLocatorLineEdit->clear();
     }
     if (_full)
     {

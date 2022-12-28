@@ -47,7 +47,6 @@ private slots:
     void test_Constructor();
     void test_SatMode();
 
-
 private:
     DataProxy_SQLite *dataProxy;
     MainWindowSatTab *mainWindowSattab;

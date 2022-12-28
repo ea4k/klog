@@ -3,6 +3,7 @@ TBD - 2.3.1
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Improvement: Code improvement in the MainWindowInputQSO class.
+- UI: Removed the locator field from the Satellite tab.(Closes #534)
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

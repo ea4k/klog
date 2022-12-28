@@ -687,7 +687,7 @@ void MainWindow::createActionsCommon(){
     connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
     connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotFreqTXChanged(double)  ) );
     connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double)  ) );
-    connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
+    //connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
     connect(satTabWidget, SIGNAL(setPropModeSat(QString, bool)), this, SLOT(slotSetPropModeFromSat(QString, bool)) ) ;
     connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotFreqTXChanged(double)));
     connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotFreqRXChanged(double)));
@@ -6758,7 +6758,6 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
           //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << QT_ENDL;
         QSOTabWidget->setDXLocator(aux1);
-        satTabWidget->setLocator(aux1);
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();
@@ -7099,7 +7098,6 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
     if ( locator->isValidLocator(_loc) )
     {
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), _loc);
-        satTabWidget->setLocator(_loc);
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
