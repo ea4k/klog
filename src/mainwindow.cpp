@@ -6756,7 +6756,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("gridsquare");
         aux1 = (query.value(nameCol)).toString();
-          //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << QT_ENDL;
+        qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << QT_ENDL;
         QSOTabWidget->setDXLocator(aux1);
 
         nameCol = rec.indexOf("operator");

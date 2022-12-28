@@ -348,7 +348,7 @@ QString MainWindowInputQSO::getDXLocator()
 void MainWindowInputQSO::setDXLocator(const QString &_loc)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    if (util->isValidVUCCGrids (_loc))
+    if (util->isValidGrid(_loc))
     //if (util->isValidGrid (_loc))
     {
         locatorLineEdit->setText (_loc.toUpper ());
