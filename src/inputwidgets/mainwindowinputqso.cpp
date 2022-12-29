@@ -296,43 +296,31 @@ void MainWindowInputQSO::slotReturnPressed()
 
 void MainWindowInputQSO::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-   //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text();
+    //qDebug() << Q_FUNC_INFO << ": " << locatorLineEdit->text() << QT_ENDL;
     int cursorP = locatorLineEdit->cursorPosition();
-    QString aux = locatorLineEdit->text().toUpper ();
-    locatorLineEdit->setText((util->getClearSQLi(aux)));
-    QString mainLocator;
-    bool ok = false;
-    if (aux.contains(','))
+
+    locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
+
+    if ( util->isValidGrid((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
     {
-       //qDebug() << Q_FUNC_INFO << ": VUCC";
-        if(util->isValidVUCCGrids(aux))
-        {
-            mainLocator = (aux.split (',')).at(0);
-            ok = true;
-        }
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << ": No VUCC";
-        if ( util->isValidGrid((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
-        {
-           //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text();
-            mainLocator = locatorLineEdit->text();
-            ok = true;
-        }
-    }
-    if (ok)
-    {
-       //qDebug() << Q_FUNC_INFO << ": OK: " << mainLocator;
+        //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text() << QT_ENDL;
         setPaletteRightDXLocator(true);
-        emit dxLocatorChanged (mainLocator);
+        emit dxLocatorChanged (locatorLineEdit->text());
+
+        //dxLocator = (locatorLineEdit->text());
+        //infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
+        //satTabWidget->setLocator(dxLocator);
         locatorLineEdit->setToolTip(tr("DX QTH locator."));
+        //qDebug() << Q_FUNC_INFO << ": " << locator->getLat(locatorLineEdit->text()) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": LON: " << locator->getLon(locatorLineEdit->text()) << QT_ENDL;
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << ": NOK: " << mainLocator;
+        //qDebug() << Q_FUNC_INFO << ": NOT VALID: " << locatorLineEdit->text() << QT_ENDL;
         setPaletteRightDXLocator(false);
         locatorLineEdit->setToolTip(tr("DX QTH locator. Format should be Maidenhead like IN70AA up to 10 characters."));
+        locatorLineEdit->setCursorPosition(cursorP);
+        return;
     }
     locatorLineEdit->setCursorPosition(cursorP);
 }
