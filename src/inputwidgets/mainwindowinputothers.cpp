@@ -224,7 +224,6 @@ void MainWindowInputOthers::setEntity(const int _ent)
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
     logEvent (Q_FUNC_INFO, "END", Debug);
-
 }
 
 int MainWindowInputOthers::getEntity()
@@ -333,7 +332,6 @@ bool MainWindowInputOthers::isIOTAModified()
         logEvent (Q_FUNC_INFO, "END-False", Debug);
         return false;
     }
-
 }
 
 void MainWindowInputOthers::setIOTA(const QString &_qs)
@@ -480,7 +478,6 @@ void MainWindowInputOthers::slotPropModeComboBoxChanged()
     }
     emit setPropMode(getPropModeFromComboBox());
     logEvent (Q_FUNC_INFO, "END", Debug);
-
 }
 
 
@@ -624,7 +621,6 @@ bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
         logEvent (Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
-
 }
 
 QString MainWindowInputOthers::getVUCCGrids()
