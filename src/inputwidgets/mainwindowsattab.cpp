@@ -141,8 +141,6 @@ void MainWindowSatTab::createUI()
     //lastlineLayout->addWidget(satModeLabel);
     lastlineLayout->addWidget(satModeLineEdit);
 
-
-
     QGridLayout *tabLayout = new QGridLayout;
 
     tabLayout->addWidget(satNameLabel,0,0);

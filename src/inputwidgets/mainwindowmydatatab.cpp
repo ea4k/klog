@@ -93,7 +93,6 @@ void MainWindowMyDataTab::createUI()
     QLabel *myLocatorLabelN = new QLabel(tr("My Locator"));
     myLocatorLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
-
     QGridLayout *myDataInputTabWidgetLayout = new QGridLayout;
     myDataInputTabWidgetLayout->addWidget(myPowerSpinBoxLabelN, 0, 2);
     myDataInputTabWidgetLayout->addWidget(myPowerSpinBox, 0, 3);
@@ -321,7 +320,6 @@ double MainWindowMyDataTab::getMyPower()
     {
         return 0.0;
     }
-
     //return myPowerSpinBox->value();
 }
 
@@ -479,7 +477,6 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
         {
             stationCallSignLineEdit->setPalette(palBlack);
         }
-
         //if (!modify)
         //{
         //    stationCallsign = (stationCallSignLineEdit->text());
@@ -737,7 +734,6 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
         my_vucc_grids = myUserADIFLineEdit->text().toUpper();
         myUserADIFLineEdit->setText (my_vucc_grids);
     }
-
     myUserADIFLineEdit->setCursorPosition (currentPos);
 }
 

@@ -51,7 +51,6 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     setDefaultData();
     clear();
        //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << QT_ENDL;
-
 }
 
 MainWindowInputQSL::~MainWindowInputQSL()
@@ -117,7 +116,6 @@ void MainWindowInputQSL::createUI()
 
 void MainWindowInputQSL::setDefaultData()
 {
-
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
     qslViaList.clear();
@@ -133,9 +131,8 @@ void MainWindowInputQSL::setDefaultData()
 
     qslSentQDateEdit->setDate(util->getDefaultDate());
     qslRecQDateEdit->setDate(util->getDefaultDate());
-
-
 }
+
 void MainWindowInputQSL::clear()
 {
     qslSentComboBox->setCurrentIndex(1);
@@ -148,7 +145,6 @@ void MainWindowInputQSL::clear()
 
     qslmsgTextEdit->clear();
     qslViaLineEdit->clear();
-
 }
 
 void MainWindowInputQSL::qslViaClear()
@@ -248,7 +244,6 @@ void MainWindowInputQSL::setQSLSenVia(const QString &_qs)
 
 void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
 {
-
     palette.setColor(QPalette::Text, qColor);
     qslViaLineEdit->setPalette(palette);
 
@@ -260,7 +255,6 @@ void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
     {
         qslViaLineEdit->clear();
     }
-
 }
 
 void MainWindowInputQSL::setQSLMsg(const QString &_qs)
@@ -279,7 +273,6 @@ void MainWindowInputQSL::setQSLMsg(const QString &_qs)
 QDate MainWindowInputQSL::getQSLRecDate()
 {
     return qslRecQDateEdit->date();
-
 }
 
 QDate MainWindowInputQSL::getQSLSenDate()
@@ -318,8 +311,8 @@ void MainWindowInputQSL::slotQSLViaTextChanged()
 }
 
 
-void MainWindowInputQSL::slotQSLSentComboBoxChanged(){
-
+void MainWindowInputQSL::slotQSLSentComboBoxChanged()
+{
     int i = qslSentComboBox->currentIndex();
 //{Y, N, R, I, V}
     //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
@@ -351,8 +344,8 @@ void MainWindowInputQSL::slotQSLSentComboBoxChanged(){
 }
 
 
-void MainWindowInputQSL::slotQSLRecvComboBoxChanged(){
-
+void MainWindowInputQSL::slotQSLRecvComboBoxChanged()
+{
     int i = qslRecComboBox->currentIndex();
 //{Y, N, R, I, V}
     //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)

@@ -53,7 +53,6 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     //installEventFilter (this);
     clear();
        //qDebug() << "MainWindowInputQSO::MainWindowInputQSO - END"   << QT_ENDL;
-
 }
 
 MainWindowInputQSO::~MainWindowInputQSO()
@@ -235,7 +234,6 @@ void MainWindowInputQSO::createUI()
     QWidget::setTabOrder (nameLineEdit, qthLineEdit);
     QWidget::setTabOrder (qthLineEdit, locatorLineEdit);
     QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
-
 }
 
 
@@ -726,6 +724,5 @@ bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
             return true;
         }
     }
-
     return QWidget::event(event);
 }
