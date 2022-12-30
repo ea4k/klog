@@ -47,7 +47,6 @@ private slots:
     void test_Constructor();
     void test_SatMode();
 
-
 private:
     DataProxy_SQLite *dataProxy;
     MainWindowSatTab *mainWindowSattab;
@@ -106,7 +105,9 @@ void tst_MainQSOEntryWidget::test_SatMode()
     freq = dataProxy->getLowLimitBandFromBandName("2M");
     mainWindowSattab->setUpLinkFreq(freq);
     mainWindowSattab->setDownLinkFreq(freq);
-    //qDebug() << mainWindowSattab->getSatMode() << endl;
+    //qDebug() << mainWindowSattab->getSatMode();
+    //qDebug() << QString::number(mainWindowSattab->getRXFreq());
+    //qDebug() << QString::number(mainWindowSattab->getTXFreq());
     QVERIFY2(mainWindowSattab->getSatMode() == "V/V", "2m Mode not V");
 
     //qDebug() << Q_FUNC_INFO << ": 70cm";
@@ -128,9 +129,9 @@ void tst_MainQSOEntryWidget::test_SatMode()
     QVERIFY2(mainWindowSattab->getSatMode() == "S/S", "13cm Mode not S");
 
     //qDebug() << Q_FUNC_INFO << ": 6cm" ;
-    //freq = dataProxy->getLowLimitBandFromBandName("6CM");
-    //mainWindowSattab->setUpLinkFreq(freq);
-    //mainWindowSattab->setDownLinkFreq(freq);
+    freq = dataProxy->getLowLimitBandFromBandName("6CM");
+    mainWindowSattab->setUpLinkFreq(freq);
+    mainWindowSattab->setDownLinkFreq(freq);
     //QVERIFY2(mainWindowSattab->getSatMode() == "C/C", "6cm Mode not C");
 
     //qDebug() << Q_FUNC_INFO << ": 3cm" ;

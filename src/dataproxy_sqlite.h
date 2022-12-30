@@ -273,8 +273,8 @@ public:
     bool addSatellite(const QString &_arrlId, const QString &_name, const QString &_downLink, const QString &_upLink, const QString &_mode, int id = -1);
     int getDBSatId(const QString &_arrlId);
     QStringList getSatellitesList();
-    QString getSatelliteUplink(const QString &_sat);
-    QString getSatelliteDownlink(const QString &_sat);
+    QString getSatelliteUplink(const QString &_sat, int _pair=0);
+    QString getSatelliteDownlink(const QString &_sat, int _pair=0);
     QString getSatelliteMode(const QString &_sat);
     QString getSatelliteFullUplink(const QString &_sat);
     QString getSatelliteFullDownlink(const QString &_sat);
@@ -330,7 +330,7 @@ private:
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
-    double getFreqFromRange(QString _fr); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
+    double getFreqFromRange(QString _fr, int _pair = 0); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString &_tableName);
 
     int getPrefixId(const QString &_qrz);

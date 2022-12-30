@@ -34,7 +34,7 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
 {
        //qDebug() << "MainWindowInputQSO::MainWindowInputQSO"   << QT_ENDL;
     dataProxy = dp;
-    locator = new Locator();
+    //locator = new Locator();
 
     nameLineEdit = new QLineEdit;
     qthLineEdit = new QLineEdit;
@@ -53,12 +53,11 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     //installEventFilter (this);
     clear();
        //qDebug() << "MainWindowInputQSO::MainWindowInputQSO - END"   << QT_ENDL;
-
 }
 
 MainWindowInputQSO::~MainWindowInputQSO()
 {
-    delete(locator);
+    delete(dataProxy);
 }
 
 void MainWindowInputQSO::setModifying(const bool _m)
@@ -235,7 +234,6 @@ void MainWindowInputQSO::createUI()
     QWidget::setTabOrder (nameLineEdit, qthLineEdit);
     QWidget::setTabOrder (qthLineEdit, locatorLineEdit);
     QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
-
 }
 
 
@@ -303,7 +301,7 @@ void MainWindowInputQSO::slotLocatorTextChanged()
 
     locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
 
-    if ( locator->isValidLocator((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
+    if ( util->isValidGrid((locatorLineEdit->text()).toUpper()) || locatorLineEdit->text ().isEmpty ())
     {
         //qDebug() << Q_FUNC_INFO << ": VALID: " << locatorLineEdit->text() << QT_ENDL;
         setPaletteRightDXLocator(true);
@@ -335,8 +333,9 @@ QString MainWindowInputQSO::getDXLocator()
 
 void MainWindowInputQSO::setDXLocator(const QString &_loc)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    if (locator->isValidLocator (_loc))
+   //qDebug() << Q_FUNC_INFO << ": " << _loc;
+    if (util->isValidGrid(_loc))
+    //if (util->isValidGrid (_loc))
     {
         locatorLineEdit->setText (_loc.toUpper ());
     }
@@ -496,14 +495,7 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 
 bool MainWindowInputQSO::getDarkMode()
 {
-    if (nameLineEdit->palette().color(QPalette::Base) == "#646464")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (nameLineEdit->palette().color(QPalette::Base) == "#646464");
 }
 
 void MainWindowInputQSO::setPaletteRightName(const bool _ok)
@@ -720,6 +712,5 @@ bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
             return true;
         }
     }
-
     return QWidget::event(event);
 }

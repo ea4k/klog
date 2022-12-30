@@ -1262,35 +1262,39 @@ bool Utilities::isValidGrid(const QString &_b)
 
 bool Utilities::isValidVUCCGrids(const QString &_b)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << _b;
+    if(_b.endsWith (','))
+        return false;
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _b;
     QStringList tmp;
 
     //QString a = _b;
     tmp.clear ();
     tmp << _b.split (',', QT_SKIP);
-
-    if ((tmp.length ()!=2) && (tmp.length ()!=4))
+   //qDebug() << Q_FUNC_INFO << ": 10";
+    if ((tmp.length () !=2) && (tmp.length () !=4) )
     {
-        //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": NON VALID LENGTH";
+        //qDebug() << Q_FUNC_INFO << ": 11 - not valid lenght";
         return false;
     }
+    //qDebug() << Q_FUNC_INFO << ": 20";
 
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": tmp: " << tmp;
     QString aux;
     foreach (aux, tmp) {
         aux = aux.trimmed ();
 
-        if ((!isValidGrid (aux)) || (aux.length ()!=4))
+        //if ((!isValidGrid (aux)) || (aux.length ()!=4))
+        if (!isValidGrid (aux))
         {
-            //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": NON VALID";
+           //qDebug() << Q_FUNC_INFO << ": 30 - non valid: " << aux;
             return false;
         }
         else
         {
-            //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": VALID: " << aux;
+           //qDebug() << Q_FUNC_INFO << ": 31 - valid";
         }
     }
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": VALID-END";
+   //qDebug() << Q_FUNC_INFO << ": 100 - VALID END";
     return true;
 }
 

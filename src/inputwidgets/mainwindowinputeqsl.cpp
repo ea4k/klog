@@ -148,7 +148,6 @@ void MainWindowInputEQSL::createUI()
 
 void MainWindowInputEQSL::setDefaultData()
 {
-
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
 
     //eqslRecComboBox->addItems(qsAux);

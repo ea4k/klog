@@ -46,6 +46,7 @@ private slots:
     void test_Constructor();
     void test_WriteRead();
     void test_RST2Modes();
+    void test_GridLineEdit();
     void test_Cleaners();
 
 /*
@@ -65,6 +66,7 @@ private:
 
 tst_MainWindowInputQSO::tst_MainWindowInputQSO()
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
     mainWindowInputQSO = new MainWindowInputQSO(dataProxy);
     util = new Utilities(Q_FUNC_INFO);
@@ -77,45 +79,54 @@ tst_MainWindowInputQSO::~tst_MainWindowInputQSO()
 
 void tst_MainWindowInputQSO::initTestCase()
 {
-
+qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputQSO::cleanupTestCase()
 {
-
+qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputQSO::test_Constructor()
-{
+{qDebug() << Q_FUNC_INFO << " - Start";
     QVERIFY2(mainWindowInputQSO->getTXFreq () == 0.0, "Wrong TX Freq");
     QVERIFY2(mainWindowInputQSO->getRXFreq () == 0.0, "Wrong RX Freq");
 }
 
 void tst_MainWindowInputQSO::test_WriteRead()
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
 /*
 
     void setPropModeFromSat(const QString &_p);
 */
     mainWindowInputQSO->setRXPwr(1.1);
+    //qDebug() << Q_FUNC_INFO << " - 1";
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXPwr(), 1.1), "Wrong RX Pwr");
+    //qDebug() << Q_FUNC_INFO << " - 2";
     mainWindowInputQSO->setDXLocator("IN80");
+    //qDebug() << Q_FUNC_INFO << " - 3";
     QVERIFY2(mainWindowInputQSO->getDXLocator() == "IN80", "Wrong locator");
+    //qDebug() << Q_FUNC_INFO << " - 4";
     mainWindowInputQSO->setName("Jon Doe");
+    //qDebug() << Q_FUNC_INFO << " - 5";
     QVERIFY2(mainWindowInputQSO->getName() == "Jon Doe", "Wrong name");
+    //qDebug() << Q_FUNC_INFO << " - 6";
     mainWindowInputQSO->setQTH("Neverland");
+    //qDebug() << Q_FUNC_INFO << " - 7";
     QVERIFY2(mainWindowInputQSO->getQTH() == "Neverland", "Wrong QTH");
     mainWindowInputQSO->setTXFreq (14.1);
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getTXFreq (), 14.1), "Wrong TX Freq");
     mainWindowInputQSO->setRXFreq (14.1);
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXFreq (), 14.1), "Wrong RX Freq");
+    //qDebug() << Q_FUNC_INFO << " - END";
 
 }
 
 void tst_MainWindowInputQSO::test_RST2Modes ()
 {
 //void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
-
+qDebug() << Q_FUNC_INFO << " - Start";
     mainWindowInputQSO->setRSTTX("56");
     QVERIFY2(mainWindowInputQSO->getRSTTX ()== "56", "Wrong RST TX");
     mainWindowInputQSO->setRSTRX("43");
@@ -159,9 +170,57 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
 
 }
 
+void tst_MainWindowInputQSO::test_GridLineEdit()
+{qDebug() << Q_FUNC_INFO << " - Start";
+    QPalette palRed = mainWindowInputQSO->palRed;
+    QPalette palBlack = mainWindowInputQSO->palBlack;
+    QPalette palWhite = mainWindowInputQSO->palWhite;
+
+    mainWindowInputQSO->locatorLineEdit->setText ("IN");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN80");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN80de");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN,IN");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN80,IN80");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80,IN80");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN80de,IN80de");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de,IN80de");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN,IN80");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN80de,IN");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de,IN");
+    mainWindowInputQSO->locatorLineEdit->setText ("I");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids IN,");
+    mainWindowInputQSO->locatorLineEdit->setText ("I,");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,I");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids IN,I");
+    mainWindowInputQSO->locatorLineEdit->setText ("I,IN80");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I,IN80");
+
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80,");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I,IN80,");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80,IN");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I,IN80,IN");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80,IN80");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I,IN80,IN80");
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80,IN,IN");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Black Error in grids I,IN80,IN,IN");
+
+    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80,IN,IN,");
+    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I,IN80,IN,IN,");
+
+}
+
 void tst_MainWindowInputQSO::test_Cleaners()
 {
-    //void clear();
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    /*
     mainWindowInputQSO->setQTH ("Neverland");
     mainWindowInputQSO->setDXLocator ("IN80");
     mainWindowInputQSO->setRXPwr (1.0);
@@ -193,6 +252,7 @@ void tst_MainWindowInputQSO::test_Cleaners()
     //void clearDXLocator();
     mainWindowInputQSO->clearDXLocator ();
     QVERIFY2(mainWindowInputQSO->getDXLocator () == "", "Wrong cleanDXLocator: Not removed Locator");
+    */
 }
 
 QTEST_MAIN(tst_MainWindowInputQSO)
