@@ -1460,8 +1460,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         stringData = stringData + ", '" + aux1 + "'";
     }
 
-
-
     aux1 = othersTabWidget->getIOTA();
     //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 << QT_ENDL;
     if (aux1.length() == 6) // EU-001
@@ -1474,12 +1472,13 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     // SATS
 
     aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
-    //qDebug() << "MainWindow::readDataFromUIDX: SAT1 " << aux1 << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << aux1;
     if (aux1.length()>0)
     {
         stringFields = stringFields + ", sat_name";
         stringData = stringData + ", '" + aux1 + "'";
         aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
+        //qDebug() << Q_FUNC_INFO << ": " << aux1;
         if (aux1.length()>0)
         {
             stringFields = stringFields + ", sat_mode";
@@ -1490,7 +1489,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     keepSatPage = satTabWidget->getRepeatThis();
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
-    //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << aux1;
     if (util->isValidPropMode (aux1))
     {
         stringFields = stringFields + ", prop_mode";
@@ -6756,7 +6755,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("gridsquare");
         aux1 = (query.value(nameCol)).toString();
-        qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << QT_ENDL;
+        //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << QT_ENDL;
         QSOTabWidget->setDXLocator(aux1);
 
         nameCol = rec.indexOf("operator");

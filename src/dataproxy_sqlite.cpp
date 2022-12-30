@@ -4987,12 +4987,12 @@ int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
  }
  else
  {
-          //qDebug()  << "DataProxy_SQLite::getSatelliteUplink:  query failed: " << query.lastQuery()  << QT_ENDL;
+          //qDebug()  << Q_FUNC_INFO << ":  query failed: " << query.lastQuery()  << QT_ENDL;
      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
      query.finish();
  }
 
-    //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: final: " << aux ;
+    //qDebug()  << ":: final: " << aux ;
     query.finish();
     return aux;
 }
@@ -5032,9 +5032,9 @@ QStringList DataProxy_SQLite::getSatellitesList()
 }
 
 
-QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat)
+QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
 {
-         //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: " << _sat << QT_ENDL;
+    //qDebug()  << "DataProxy_SQLite::getSatelliteUplink: " << _sat << QT_ENDL;
     QString aux = QString();
     //QString aux2 = QString();
     //double fr1, fr2, fr;
@@ -5049,7 +5049,7 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat)
         if (query.isValid())
         {
             aux = query.value(0).toString();
-            aux = QString::number(getFreqFromRange(aux));
+            aux = QString::number(getFreqFromRange(aux, _pair));
         }
         else
         {
@@ -5072,7 +5072,7 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat)
 }
 
 
-QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat)
+QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
 {
          //qDebug()  << "DataProxy_SQLite::getSatelliteDownlink: " << _sat << QT_ENDL;
     QString aux = QString();
@@ -5090,7 +5090,7 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat)
         if (query.isValid())
         {
             aux = query.value(0).toString();
-            aux = QString::number(getFreqFromRange(aux));
+            aux = QString::number(getFreqFromRange(aux,_pair));
         }
         else
         {
@@ -5331,7 +5331,7 @@ QString DataProxy_SQLite::getSateliteArrlIdFromId(const int _id)
     return aux;
 }
 
-double DataProxy_SQLite::getFreqFromRange(QString _fr)
+double DataProxy_SQLite::getFreqFromRange(QString _fr, int _pair)
 { //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
          //qDebug()  << "DataProxy_SQLite::getFreqFromRange: " << _fr << QT_ENDL;
     QString fr1, fr2, aux;
@@ -5345,11 +5345,13 @@ double DataProxy_SQLite::getFreqFromRange(QString _fr)
     aux = _fr;
 
     if (aux.contains(','))
-    {   // Potentially somethink like: 435.030-435.456,146.180
-        // We select the  first range
-
+    {   // Potentially somethink like: 435.030-435.456,146.180        
+        if((_pair<0) || (_pair>1))
+        {
+            _pair = 0;
+        }
              //qDebug()  << "DataProxy_SQLite::getFreqFromRange: has several freqs: " << aux << QT_ENDL;
-        aux = aux.section(',', 0, 0);   // We select the first package
+        aux = aux.section(',', _pair, _pair);   // We select the selected package
     }
     if (aux.contains('-'))          // Potentially somethink like: 435.030-435.456
     {

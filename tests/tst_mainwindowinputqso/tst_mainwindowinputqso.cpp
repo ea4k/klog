@@ -66,7 +66,7 @@ private:
 
 tst_MainWindowInputQSO::tst_MainWindowInputQSO()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
     mainWindowInputQSO = new MainWindowInputQSO(dataProxy);
     util = new Utilities(Q_FUNC_INFO);
@@ -95,31 +95,31 @@ void tst_MainWindowInputQSO::test_Constructor()
 
 void tst_MainWindowInputQSO::test_WriteRead()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 /*
 
     void setPropModeFromSat(const QString &_p);
 */
     mainWindowInputQSO->setRXPwr(1.1);
-    qDebug() << Q_FUNC_INFO << " - 1";
+    //qDebug() << Q_FUNC_INFO << " - 1";
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXPwr(), 1.1), "Wrong RX Pwr");
-    qDebug() << Q_FUNC_INFO << " - 2";
+    //qDebug() << Q_FUNC_INFO << " - 2";
     mainWindowInputQSO->setDXLocator("IN80");
-    qDebug() << Q_FUNC_INFO << " - 3";
+    //qDebug() << Q_FUNC_INFO << " - 3";
     QVERIFY2(mainWindowInputQSO->getDXLocator() == "IN80", "Wrong locator");
-    qDebug() << Q_FUNC_INFO << " - 4";
+    //qDebug() << Q_FUNC_INFO << " - 4";
     mainWindowInputQSO->setName("Jon Doe");
-    qDebug() << Q_FUNC_INFO << " - 5";
+    //qDebug() << Q_FUNC_INFO << " - 5";
     QVERIFY2(mainWindowInputQSO->getName() == "Jon Doe", "Wrong name");
-    qDebug() << Q_FUNC_INFO << " - 6";
+    //qDebug() << Q_FUNC_INFO << " - 6";
     mainWindowInputQSO->setQTH("Neverland");
-    qDebug() << Q_FUNC_INFO << " - 7";
+    //qDebug() << Q_FUNC_INFO << " - 7";
     QVERIFY2(mainWindowInputQSO->getQTH() == "Neverland", "Wrong QTH");
     mainWindowInputQSO->setTXFreq (14.1);
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getTXFreq (), 14.1), "Wrong TX Freq");
     mainWindowInputQSO->setRXFreq (14.1);
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXFreq (), 14.1), "Wrong RX Freq");
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 
 }
 
