@@ -6014,7 +6014,7 @@ void MainWindow::slotADIFExportAll()
 
 void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
-    qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" << _grid <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
+    //qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" << _grid <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
     QMessageBox msgBox;
 

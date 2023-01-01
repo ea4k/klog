@@ -236,17 +236,25 @@ void AdifLoTWExportWidget::fillStationMyGridComboBox()
     myGridSquareComboBox->clear();
     QStringList grids;
     grids.clear ();
-    if (currentExportMode != ModeLotW)
+
+    if (util->isValidCall(stationCallsignComboBox->currentText()))
     {
-        myGridSquareComboBox->addItem(tr("Not defined"));
-        myGridSquareComboBox->addItem(tr("ALL"));
-        grids.append (dataProxy->getGridsToBeSent (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), false, logNumber));
-    }
-    else
-    {
+        //qDebug() << Q_FUNC_INFO << " - ValidCall: " << stationCallsignComboBox->currentText();
         grids.append (dataProxy->getGridsToBeSent (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
     }
+    else if (stationCallsignComboBox->currentIndex() == 0)
+    { // Not defined call
+        //qDebug() << Q_FUNC_INFO << " - Not Defined" ;
+        grids.append (dataProxy->getGridsToBeSent ("NOT", startDate->date(), endDate->date(), true, logNumber));
+    }
+    else
+    { //ALL calls
+        //qDebug() << Q_FUNC_INFO << " - ALL Calls" ;
+        myGridSquareComboBox->addItem(tr("ALL"));
+        grids.append (dataProxy->getGridsToBeSent ("ALL", startDate->date(), endDate->date(), false, logNumber));
+    }
 
+    myGridSquareComboBox->addItem(tr("Not defined"));
     myGridSquareComboBox->addItems(grids);
 
     if (myGridSquareComboBox->findText(tempGrid, Qt::MatchCaseSensitive) >= 0)
@@ -271,8 +279,22 @@ void AdifLoTWExportWidget::fillDates()
     //startDate->blockSignals(true);
     //endDate->blockSignals(true);
 
-    startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
-    endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
+    if (util->isValidCall(stationCallsignComboBox->currentText()))
+    {
+        startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
+        endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
+    }
+    else if ((stationCallsignComboBox->currentIndex() == 0) && (stationCallsignComboBox->currentText().length()>3))
+    {//Not defined
+        startDate->setDate(dataProxy->getFirstQSODateFromCall("NOT"));
+        endDate->setDate(dataProxy->getLastQSODateFromCall("NOT"));
+    }
+    else
+    {//ALL
+        startDate->setDate(dataProxy->getFirstQSODateFromCall("ALL"));
+        endDate->setDate(dataProxy->getLastQSODateFromCall("ALL"));
+    }
+
 
     //startDate->blockSignals(false);
     //endDate->blockSignals(false);
@@ -434,18 +456,22 @@ void AdifLoTWExportWidget::updateIfNeeded()
 {
     if (currentCall != stationCallsignComboBox->currentText())
     {
+        currentCall = stationCallsignComboBox->currentText();
         fillTable();
     }
     else if (currentGrid != myGridSquareComboBox->currentText())
     {
+        currentGrid = myGridSquareComboBox->currentText();
         fillTable();
     }
     else if (currentStart != startDate->date())
     {
+        currentStart = startDate->date();
         fillTable();
     }
     else if (currentEnd != endDate->date())
     {
+        currentEnd = endDate->date();
         fillTable();
     }
 }

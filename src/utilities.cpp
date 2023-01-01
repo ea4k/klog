@@ -30,7 +30,7 @@
 Utilities::Utilities(const QString &_parentName)
 {
     parentName = _parentName;
-    qDebug() << Q_FUNC_INFO << " (" << _parentName << ")";
+    //qDebug() << Q_FUNC_INFO << " (" << _parentName << ")";
     init();
 }
 
@@ -40,7 +40,7 @@ Utilities::~Utilities()
 
 void Utilities::init()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     validateCalls = false;
     softwareVersion = "0.0";
     longPrefixes.clear();
@@ -54,7 +54,7 @@ void Utilities::init()
     logLevels << "None" << "Info" << "Debug" << "Devel";
     setLogColumnNames();
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void Utilities::setLogLevel(DebugLogLevel _l)
@@ -618,6 +618,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << QString(" - 000 - %1").arg(_c);
     if ((_c.contains('/')) || (_c.contains('\\')))
     {
+        //qDebug() << Q_FUNC_INFO << " -001";
         return false;
     }
     int length = _c.length();
@@ -729,10 +730,10 @@ bool Utilities::isAPrefix (const QString &_c)
 
 void Utilities::setLongPrefixes (const QStringList &_p)
 {
-    qDebug() << Q_FUNC_INFO << ": Start count: " << QString::number(_p.count());
+    //qDebug() << Q_FUNC_INFO << ": Start count: " << QString::number(_p.count());
     longPrefixes.clear();
     longPrefixes.append(_p);
-    qDebug() << Q_FUNC_INFO << ": count: " << QString::number(longPrefixes.count());
+    //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(longPrefixes.count());
 }
 
 void Utilities::setSpecialCalls (const QStringList &_p)
@@ -918,24 +919,24 @@ bool Utilities::isValidCall(const QString &_c, bool _force)
 {// https://life.itu.int/radioclub/rr/art19.pdf
     //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Start = %1").arg(_c), Debug);
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << "Start: " << _c;
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     // Prefixes are at least 2 chars
 
     if ((!validateCalls) && (!_force))
     {
-        qDebug() << Q_FUNC_INFO << "001 - Not validating calls: " << _c;
+        //qDebug() << Q_FUNC_INFO << "001 - Not validating calls: " << _c;
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 001 - true"), Debug);
         return true;
     }
 
-    qDebug() << Q_FUNC_INFO << " - Long prefixes: " << QString::number(longPrefixes.count());
+    //qDebug() << Q_FUNC_INFO << " - Long prefixes: " << QString::number(longPrefixes.count());
     if (longPrefixes.count()<100)
     {
-        qDebug() << Q_FUNC_INFO << "Long prefixes < 100 " << _c;
+        //qDebug() << Q_FUNC_INFO << "Long prefixes < 100 " << _c;
         return false;
     }
     QString call = _c;
-    qDebug() << Q_FUNC_INFO << "000 " << _c;
+    //qDebug() << Q_FUNC_INFO << "000 " << _c;
     if (isAKnownCall(call))
     {
         //qDebug() << Q_FUNC_INFO << "001 - Known call: " << _c;
@@ -961,6 +962,7 @@ bool Utilities::isValidCall(const QString &_c, bool _force)
     if (call.count('/')>2)
     {
         //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 015 - false"), Debug);
+        //qDebug() << Q_FUNC_INFO << " -005.5";
         return false;
     }
     //qDebug() << Q_FUNC_INFO << " -006";
