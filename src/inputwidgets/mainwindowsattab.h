@@ -62,8 +62,8 @@ public:
 
     void setUpLinkFreq(const double _t);
     void setDownLinkFreq(const double _t);
-    void updateTXFreq(const double _f);
-    void updateRXFreq(const double _f);
+    //void updateTXFreq(const double _f);
+    //void updateRXFreq(const double _f);
 
     //void setLocator(const QString &_t);
     void refreshData();

@@ -975,7 +975,7 @@ int DataProxy_SQLite::getLastQSOid()
 
 QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _call;
+    //qDebug() << Q_FUNC_INFO << ": " << _call;
 
     QSqlQuery query;
     QString stringQuery;
@@ -990,7 +990,7 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
     }
 
     bool sqlOK = query.exec(stringQuery);
-    qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
+    //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
 
     if (sqlOK)
     {
@@ -1003,19 +1003,19 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
             query.finish();
             if (_date.isValid())
             {
-                qDebug() << Q_FUNC_INFO << ": END OK"  << QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": END OK"  << QT_ENDL;
                 return _date;
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": END-1 "  << QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": END-1 "  << QT_ENDL;
                 return QDate();
             }
         }
         else
         {
             query.finish();
-            qDebug() << Q_FUNC_INFO << ": END-2"  << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": END-2"  << QT_ENDL;
             return QDate();
         }
     }
@@ -1023,14 +1023,14 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-        qDebug() << Q_FUNC_INFO << ": END-3"  << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": END-3"  << QT_ENDL;
         return QDate();
     }
 }
 
 QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _call;
+    //qDebug() << Q_FUNC_INFO << ": " << _call;
     QSqlQuery query;
     QString stringQuery;
     QDate _date;
@@ -1056,19 +1056,19 @@ QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
             query.finish();
             if (_date.isValid())
             {
-                qDebug() << Q_FUNC_INFO << ": OK" << QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": OK" << QT_ENDL;
                 return _date;
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": END-1" << QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": END-1" << QT_ENDL;
                 return QDate();
             }
         }
         else
         {
             query.finish();
-            qDebug() << Q_FUNC_INFO << ": END-2" << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": END-2" << QT_ENDL;
             return QDate();
         }
     }
@@ -1076,7 +1076,7 @@ QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-        qDebug() << Q_FUNC_INFO << ": END-3" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": END-3" << QT_ENDL;
         return QDate();
     }
 }
@@ -3525,7 +3525,7 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
 
 QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QString &_myGrid, const QDate &_startDate, const QDate &_endDate, bool _justQueued, int _logN)
 {
-    qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
     QList <int> qsoList;
     qsoList.clear();
@@ -3593,7 +3593,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-    qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
 
     if (sqlOK)
     {
@@ -3628,7 +3628,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
 
 QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QStringList grids;
     grids.clear ();
 
@@ -3675,7 +3675,7 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-    qDebug() << Q_FUNC_INFO << ": " << query.lastQuery ();
+    //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery ();
 
     if (sqlOK)
     {
@@ -3696,12 +3696,12 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         grids.sort ();
-        qDebug() << Q_FUNC_INFO << " - END-1";
+        //qDebug() << Q_FUNC_INFO << " - END-1";
         return grids;
     }
     query.finish();
     grids.sort();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return grids;
 }
 
@@ -3978,7 +3978,7 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
 
 QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCallsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
-    qDebug() << Q_FUNC_INFO << QString("Call: %1, Grid: %2, StartDate: %3, EndDate: %4").arg(_stationCallsign).arg(_grid).arg(_startDate.toString("yyyyMMdd")).arg(_endDate.toString("yyyyMMdd"));
+    //qDebug() << Q_FUNC_INFO << QString("Call: %1, Grid: %2, StartDate: %3, EndDate: %4").arg(_stationCallsign).arg(_grid).arg(_startDate.toString("yyyyMMdd")).arg(_endDate.toString("yyyyMMdd"));
 
     QList <int> qsoList;
     qsoList.clear();
@@ -3991,17 +3991,17 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
     QString _queryST_string;
     if (util->isValidCall(_stationCallsign, true))
     {
-        qDebug() << Q_FUNC_INFO << ": Valid call";
+        //qDebug() << Q_FUNC_INFO << ": Valid call";
         _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
     }
     else if (_stationCallsign == "ALL")
     {
-        qDebug() << Q_FUNC_INFO << ": ALL";
+        //qDebug() << Q_FUNC_INFO << ": ALL";
         _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": Non valid nor ALL";
+        //qDebug() << Q_FUNC_INFO << ": Non valid nor ALL";
         _queryST_string = QString("(station_callsign='' OR station_callsign IS NULL)");
     }
 
@@ -4039,7 +4039,7 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-    qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() << QT_ENDL;
 
     if (sqlOK)
     {
