@@ -179,6 +179,7 @@ void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
 void MainQSOEntryWidget::setCallValidation (const bool _b)
 {
     util->setCallValidation(_b);
+    dataProxy->setCallValidation(_b);
 }
 
 void MainQSOEntryWidget::slotCheckBoxClicked()

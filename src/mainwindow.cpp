@@ -700,7 +700,7 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
-    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QDate, QDate, ExportMode)) );
+    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QString, QDate, QDate, ExportMode)) );
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
@@ -5277,6 +5277,7 @@ bool MainWindow::processConfigLine(const QString &_line){
         {
             //myLocator = ;
             myDataTabWidget->setMyLocator(value.toUpper());
+            adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());
         }
     }
     else if(field=="NEWONECOLOR")
@@ -5591,6 +5592,7 @@ bool MainWindow::processConfigLine(const QString &_line){
          util->setCallValidation(util->trueOrFalse (value));
          mainQSOEntryWidget->setCallValidation(util->trueOrFalse (value));
          filemanager->setCallValidation(util->trueOrFalse (value));
+         adifLoTWExportWidget->setCallValidation(util->trueOrFalse (value));
     }
     //else if(field=="LATESTBACKUP")
     //{
@@ -5600,7 +5602,7 @@ bool MainWindow::processConfigLine(const QString &_line){
       //qDebug() << "MainWindow::processConfigLine: NONE: " << QT_ENDL;
     //}
 
-    // Lines are: Option = value;
+    // Format of lines is: Option = value;
     //qDebug() << Q_FUNC_INFO << "(" << field << "/" << value << ")" << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
@@ -5973,11 +5975,11 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
       //qDebug() << "MainWindow::showNumberOfSavedQSO - END" << QT_ENDL;
 }
 
-void MainWindow::fileExportADIF(const QString &_st, const QDate &_startDate, const QDate &_endDate)
+void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
       //qDebug() << "MainWindow::fileExportADIF " << _st << QT_ENDL;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeADIF);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeADIF);
 
     showNumberOfSavedQSO(fileName, qsos.count());
 
@@ -6003,7 +6005,7 @@ void MainWindow::slotADIFExportAll()
         fileName = fileName +  ".adi";
     }
      //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName << QT_ENDL;
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
      //qDebug() << "MainWindow::slotADIFExportAll-3" << QT_ENDL;
     showNumberOfSavedQSO(fileName, qsos.count());
 
@@ -6011,9 +6013,9 @@ void MainWindow::slotADIFExportAll()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, const QDate &_endDate)
+void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
-      //qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
+    qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" << _grid <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
     QMessageBox msgBox;
 
@@ -6041,7 +6043,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QDate &_startDate, con
     QString fileName = util->getLoTWAdifFile();
 
 
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeLotW);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeLotW);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
@@ -6131,7 +6133,7 @@ void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, 
     //QString fileName = "klog-clublog-upload.adi";
     QString fileName = util->getClubLogFile();
 
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeClubLog);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, QString(), _startDate, _endDate, currentLog, ModeClubLog);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
@@ -6193,7 +6195,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
     //QString fileName = "klog-eqsl-upload.adi";
     QString fileName = util->getEQSLFile();
 
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _startDate, _endDate, currentLog, ModeEQSL);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, QString(), _startDate, _endDate, currentLog, ModeEQSL);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
@@ -6206,7 +6208,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
       //qDebug() << "MainWindow::fileExportEQSL -END " << QT_ENDL;
 }
 
-void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
+void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
 {
       //qDebug() << "MainWindow::slotADIFExportSelection  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") << QT_ENDL;
 
@@ -6214,11 +6216,11 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QDate &_start
     {
     case ModeADIF:         // General ADIF
            //qDebug() << "MainWindow::slotADIFExportSelection  - ADIF" << QT_ENDL;
-        fileExportADIF(_st, _startDate, _endDate);
+        fileExportADIF(_st, _grid, _startDate, _endDate);
         break;
     case ModeLotW:         // LoTW
           //qDebug() << "MainWindow::slotADIFExportSelection  - LoTW" << QT_ENDL;
-        fileExportLoTW(_st, _startDate, _endDate);
+        fileExportLoTW(_st, _grid, _startDate, _endDate);
         break;
     case ModeClubLog:         // General ADIF
           //qDebug() << "MainWindow::slotADIFExportSelection  - ClubLog" << QT_ENDL;
@@ -6758,7 +6760,7 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value(nameCol)).toString();
           //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  << QT_ENDL;
         QSOTabWidget->setDXLocator(aux1);
-        satTabWidget->setLocator(aux1);
+        //satTabWidget->setLocator(aux1);
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value(nameCol)).toString();
@@ -7099,7 +7101,7 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
     if ( locator->isValidLocator(_loc) )
     {
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), _loc);
-        satTabWidget->setLocator(_loc);
+        //satTabWidget->setLocator(_loc);
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -7107,7 +7109,7 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
 
 void MainWindow::slotMyLocatorTextChanged(const QString &_loc)
 {
-             //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " <<_loc << QT_ENDL;
+    //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " <<_loc << QT_ENDL;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if ( locator->isValidLocator(_loc))
     {
@@ -8644,7 +8646,7 @@ void MainWindow::backupCurrentQSO()
     logEvent(Q_FUNC_INFO, "- 061", Devel);
     qso->setOperatorCallsign (myDataTabWidget->getOperator ());
     logEvent(Q_FUNC_INFO, "- 062", Devel);
-    bool ok = qso->setStationCallsign (myDataTabWidget->getStationCallsign ());
+    qso->setStationCallsign (myDataTabWidget->getStationCallsign ());
     //qDebug() << Q_FUNC_INFO << ": Previous went: " << util->boolToQString(ok);
     logEvent(Q_FUNC_INFO, "- 063", Devel);
     qso->setMySOTA_REF (myDataTabWidget->getMySOTA ());

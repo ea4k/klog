@@ -98,7 +98,7 @@ public:
     // Validations
     bool isValidDate(const QDate _d);
     bool isValidDateTime(const QString &_d);
-    bool isValidCall(const QString &_c);
+    bool isValidCall(const QString &_c, bool _force=false);
 
     bool isSameFreq(const double fr1, const double fr2);
     bool isValidBandId(const int _b);

@@ -42,6 +42,8 @@ public:
     void setExportMode(const ExportMode _EMode);
     void setLogNumber(const int _logN);
     void setDefaultStationCallsign(const QString &_st);
+    void setDefaultMyGrid(const QString &_st);
+    void setCallValidation(const bool _v);
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -55,7 +57,7 @@ private slots:
     void slotMyGridChanged();
 
 signals:
-    void selection(QString _st, QDate _startD, QDate _endD, ExportMode _exportMode);
+    void selection(QString _st, QString _grid, QDate _startD, QDate _endD, ExportMode _exportMode);
 
 private:
     void createUI();
@@ -64,7 +66,10 @@ private:
     void addQSO(const int _qsoID);
     void fillStationCallsignComboBox();
     void fillStationMyGridComboBox();
+    void fillDates();
     void setDefaultStationComboBox();
+    void setDefaultMyGridComboBox();
+    void updateIfNeeded();
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;
@@ -81,7 +86,11 @@ private:
     ExportMode currentExportMode;
     int logNumber;
 
-    QString defaultStationCallsign;
+    QString defaultStationCallsign, defaultMyGrid;
+
+    QString currentCall, currentGrid;
+    QDate currentStart, currentEnd;
+    bool starting;
 
 };
 

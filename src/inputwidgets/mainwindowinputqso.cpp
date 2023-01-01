@@ -703,6 +703,7 @@ bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
     {
         //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());
     }
+    //qDebug() << Q_FUNC_INFO << ": " << object->objectName();
 
     if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::ShortcutOverride)) {
         //qDebug() << Q_FUNC_INFO << "KEY PRESSED";
@@ -714,12 +715,9 @@ bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
                 //qDebug() << Q_FUNC_INFO << "emitting to hand over to mainQSO Input";
                 emit handOverFocusSignal();
             }
-
-
             // special tab handling here
             return true;
         }
     }
-
     return QWidget::event(event);
 }

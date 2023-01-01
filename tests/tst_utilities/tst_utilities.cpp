@@ -261,6 +261,8 @@ void tst_Utilities::test_isValidCall()
     QVERIFY2(util->isValidCall("EA4"), "Should be true: EA4");
     QVERIFY2(util->isValidCall("-"), "Should be true: EAK4");
     QVERIFY2(util->isValidCall("QQQ/EA4K"), "Should be true: QQQ/EA4K");
+    QVERIFY2(util->isValidCall("EA4K", true), "EA4K forced");
+    QVERIFY2(!util->isValidCall("EAK", true), "EAK forced");
     util->setCallValidation (true);
 }
 

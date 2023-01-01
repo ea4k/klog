@@ -34,6 +34,8 @@ FileManager::FileManager(DataProxy_SQLite *dp)
      //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir << QT_ENDL;
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     util->setCallValidation(false);
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
     world = new World(dataProxy, Q_FUNC_INFO);
@@ -163,7 +165,7 @@ void FileManager::setSendQSLByDefault (const bool _send)
     sendEQSLByDefault = _send;
 }
 
-QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
+QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
 //QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly)
 {
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << QT_ENDL;
@@ -188,6 +190,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     QString queryStringCount;
     QString queryString;
     QString _queryStation;
+    QString _queryGrid;
 
     if (util->isValidCall(_callsign))
     {
@@ -200,6 +203,15 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     else
     {
          _queryStation = QString(" station_callsign =''");
+    }
+
+    if (util->isValidGrid(_grid))
+    {
+        _queryGrid = QString(" AND my_gridsquare = '%1'").arg(_grid);
+    }
+    else
+    {
+        _queryGrid = QString();
     }
 
     QString _queryDateFrom;
@@ -248,7 +260,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
         // LoTW Required fields: call sign, UTC Date, UTC time, Mode, Band
         // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
-        queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
+        queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + _queryGrid + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
         queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_gridsquare, qso_date, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
     }
     else if (_em == ModeClubLog)
@@ -502,7 +514,8 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 void FileManager::setCallValidation (const bool _b)
 {
     //util->setCallValidation(_b);
-    util->setCallValidation(false);
+    util->setCallValidation(_b);
+    dataProxy->setCallValidation(_b);
 }
 
 

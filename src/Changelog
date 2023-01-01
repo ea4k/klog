@@ -1,6 +1,14 @@
 TBD - 2.3.1
 - Bugfix: When no validating callsigns, some ADIF fields were exported even if they were empty.
-- Bugfix: In some conditions, not identified propagation modes were exported as "NO".
+- Bugfix: In some conditions, not identified propagation modes were exported as "NO". (Closes #518)
+- Bugfix: VUCC_GRIDS validation was not properly done.
+- Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
+- Bugfix: Export/Upload lists of QSOs where not properly created due to cal validation issues.
+TEST: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
+- Improvement: Code improvement in the MainWindowInputQSO class.
+- UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
+TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
+TEST: Bug: When uploading to LoTW, no calls are shown
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

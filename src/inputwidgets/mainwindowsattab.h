@@ -60,8 +60,10 @@ public:
 
     void setUpLinkFreq(const double _t);
     void setDownLinkFreq(const double _t);
+    void updateTXFreq(const double _f);
+    void updateRXFreq(const double _f);
 
-    void setLocator(const QString &_t);
+    //void setLocator(const QString &_t);
     void refreshData();
     void setModifying (const bool _m);
     void setKeep(const bool _b);
@@ -85,12 +87,12 @@ signals:
 private slots:
     void slotSatNameTextChanged();
     void slotSatModeTextChanged();
-    void slotSatDXLocTextChanged();
+    //void slotSatDXLocTextChanged();
     void slotSatNameComboBoxChanged();
     void slotSatBandRXComboBoxChanged();
     void slotSatBandTXComboBoxChanged();
-    void slotSatFreqRXChanged(const double _f);
-    void slotSatFreqTXChanged(const double _f);
+    //void slotSatFreqRXChanged(const double _f);
+    //void slotSatFreqTXChanged(const double _f);
     void slotReturnPressed();
     void slotSatKeepThisDataClicked();
 
