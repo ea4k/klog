@@ -9,6 +9,12 @@ TEST: Bugfix: LoTW export was not using the selected grid when exporting (Closes
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
 TEST: Bug: When uploading to LoTW, no calls are shown
+- Bugfix: In some conditions, not identified propagation modes were exported as "NO".
+- Bugfix: VUCC_GRIDS validation was not properly done.
+- Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
+- Improvement: Code improvement in the MainWindowInputQSO class.
+- UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
+
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

@@ -32,12 +32,14 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
-#include "../locator.h"
+//#include "../locator.h"
 #include "../utilities.h"
 
 class MainWindowInputQSO : public QWidget
 {
     Q_OBJECT
+    friend class tst_MainWindowInputQSO;
+
 public:
     explicit MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSO();
@@ -82,7 +84,6 @@ public:
     void clearQTH();
     void clearDXLocator();
 
-
 signals:
     void returnPressed();
     void dxLocatorChanged(QString _loc);
@@ -112,7 +113,7 @@ private:
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
     QCheckBox *splitCheckBox;
 
-    Locator *locator;
+    //Locator *locator;
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;
