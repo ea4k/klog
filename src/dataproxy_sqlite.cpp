@@ -4369,11 +4369,13 @@ int DataProxy_SQLite::getQSOsWithDXCC(const int _dxcc, const int _logNumber)
   bool sqlOK;
   if (_logNumber < 0)
   {
-      queryString = QString("SELECT COUNT (DISTINCT id) FROM log where dxcc LIKE '%1'").arg(_dxcc);
+      //queryString = QString("SELECT COUNT (DISTINCT id) FROM log where dxcc LIKE '%1'").arg(_dxcc);
+      queryString = QString("SELECT COUNT (DISTINCT id) FROM log where dxcc = '%1'").arg(_dxcc);
   }
   else
   {
-      queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND dxcc LIKE '%2'").arg(_logNumber).arg(_dxcc);
+      //queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND dxcc LIKE '%2'").arg(_logNumber).arg(_dxcc);
+      queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND dxcc = '%2'").arg(_logNumber).arg(_dxcc);
   }
 
   sqlOK = query.exec(queryString);
@@ -4479,11 +4481,11 @@ int DataProxy_SQLite::getQSOsAtHourOnBand(const int _hour, const int _band, cons
 
    if (_log < 0)
    {
-       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE qso_date LIKE '% %1:%' AND bandid='%2'").arg(aux).arg(_band);
+       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE bandid='%1' AND qso_date LIKE '% %2:%'").arg(_band).arg(aux);
    }
    else
    {
-       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND qso_date LIKE '% %2:%' AND bandid='%3'").arg(_log).arg(aux).arg(_band);
+       queryString = QString("SELECT COUNT(DISTINCT id) FROM log WHERE lognumber='%1' AND bandid='%2' AND qso_date LIKE '% %3:%' ").arg(_log).arg(_band).arg(aux);
    }
 
    sqlOK = query.exec(queryString);
@@ -5383,7 +5385,7 @@ double DataProxy_SQLite::getFreqFromRange(QString _fr, int _pair)
     aux = _fr;
 
     if (aux.contains(','))
-    {   // Potentially somethink like: 435.030-435.456,146.180        
+    {   // Potentially somethink like: 435.030-435.456,146.180
         if((_pair<0) || (_pair>1))
         {
             _pair = 0;
@@ -6640,11 +6642,12 @@ int DataProxy_SQLite::getQSOsWithContinent(const QString &_cont, const int _logN
     bool sqlOK;
     if (_logNumber < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where cont LIKE '%1'").arg(_cont);
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where cont = '%1'").arg(_cont);
     }
     else
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND cont LIKE '%2'").arg(_logNumber).arg(_cont);
+        //queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND cont LIKE '%2'").arg(_logNumber).arg(_cont);
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND cont='%2'").arg(_logNumber).arg(_cont);
     }
 
     sqlOK = query.exec(queryString);
@@ -7026,7 +7029,6 @@ int DataProxy_SQLite::getContinentIdFromEntity(const int _n)
     QString queryString = QString("SELECT continent.id FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
     bool sqlOK = query.exec(queryString);
 
-    //aux = QString("SELECT continent.id FROM entity JOIN continent ON entity.continent=continent.shortname WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_n);
     if (sqlOK)
     {
         query.next();
@@ -7198,7 +7200,8 @@ QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
 int DataProxy_SQLite::getITUzFromPrefix(const QString &_p)
 {
     QSqlQuery query;
-    QString queryString = QString("SELECT ituz FROM prefixesofentity WHERE prefix LIKE '%1'").arg(_p);
+    //QString queryString = QString("SELECT ituz FROM prefixesofentity WHERE prefix LIKE '%1'").arg(_p);
+    QString queryString = QString("SELECT ituz FROM prefixesofentity WHERE prefix = '%1'").arg(_p);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -7227,7 +7230,8 @@ int DataProxy_SQLite::getITUzFromPrefix(const QString &_p)
 int DataProxy_SQLite::getCQzFromPrefix(const QString &_p)
 {
     QSqlQuery query;
-    QString queryString = QString("SELECT cqz FROM prefixesofentity WHERE prefix LIKE '%1'").arg(_p);
+    //QString queryString = QString("SELECT cqz FROM prefixesofentity WHERE prefix LIKE '%1'").arg(_p);
+    QString queryString = QString("SELECT cqz FROM prefixesofentity WHERE prefix = '%1'").arg(_p);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -7390,7 +7394,6 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
   QString queryString;
   QSqlQuery query;
 
-  //queryString = QString("SELECT mainprefix FROM entity WHERE (mainprefix NOT LIKE '*%') AND dxcc='%1'").arg(_entityN);
   queryString = QString("SELECT dxcc FROM entity WHERE name='%1'").arg(_e);
   //queryString = "SELECT prefix FROM prefixesofentity WHERE dxcc=='" + QString::number(i) +"'";
   bool sqlOK = query.exec(queryString);
