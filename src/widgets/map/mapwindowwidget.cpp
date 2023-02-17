@@ -364,10 +364,10 @@ QString MapWindowWidget::getPropModeFromComboBox()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     QString _pm = QString();
-     //qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText() << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText();
     _pm = (((propComboBox->currentText()).split('-')).at(1)).simplified();
     QString _n = (((propComboBox->currentText()).split('-')).at(0)).simplified();
-    //qDebug() << Q_FUNC_INFO << ": " << _pm << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << _pm;
 
     if (_n == "00")
     {

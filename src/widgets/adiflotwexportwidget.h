@@ -58,6 +58,7 @@ private slots:
 
 signals:
     void selection(QString _st, QString _grid, QDate _startD, QDate _endD, ExportMode _exportMode);
+    void qsosToSend(QString _call, QList<int> _qsos, ExportMode _exportMode);
 
 private:
     void createUI();
@@ -70,6 +71,7 @@ private:
     void setDefaultStationComboBox();
     void setDefaultMyGridComboBox();
     void updateIfNeeded();
+    void blockAllSignals(const bool _b);
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;
@@ -84,13 +86,14 @@ private:
     QTableWidget *tableWidget;
     QHeaderView *hv, *hh;
     ExportMode currentExportMode;
-    int logNumber;
+    int logNumber, numOfQSOsInThisLog;
 
     QString defaultStationCallsign, defaultMyGrid;
 
     QString currentCall, currentGrid;
     QDate currentStart, currentEnd;
     bool starting;
+    QList<int> qsos;
 
 };
 

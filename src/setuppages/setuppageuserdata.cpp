@@ -27,7 +27,7 @@
 #include "setuppageuserdata.h"
 
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
-      //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << QT_ENDL;
+      //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage";
    locator = new Locator();
    util = new Utilities(Q_FUNC_INFO);
    dataProxy = dp;
@@ -247,13 +247,13 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
 
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END";
 }
 
 
 SetupPageUserDataPage::~SetupPageUserDataPage()
 {
-       //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage";
     delete(locator);
     delete(util);
     delete(world);
@@ -284,7 +284,7 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
-      //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size()) << QT_ENDL;
+      //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
 
     int i = maincallsignLineEdit->cursorPosition();
 
@@ -345,7 +345,7 @@ bool SetupPageUserDataPage::setITUz(const int _ituz){
 
 void SetupPageUserDataPage::slotMyLocatorTextChanged()
 {
-       //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
 
     //int i;
 
@@ -610,7 +610,7 @@ bool SetupPageUserDataPage::setAntenna3 (const QString &_aux)
 
 void SetupPageUserDataPage::slotOperatorsChanged()
 {
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged";
     //QString _operators = operatorsLineEdit->text();
 
 
@@ -630,31 +630,31 @@ void SetupPageUserDataPage::slotOperatorsChanged()
 
     QStringList operators = _a.split(",", QT_SKIP);
 
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02" << QT_ENDL;
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02.5 Size: " << QString::number(operators.size()) << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02";
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02.5 Size: " << QString::number(operators.size());
 
     for (int ii = 0; ii < operators.size(); ++ii)
     {
-           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-03 - " << QString::number(ii) << QT_ENDL;
+           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-03 - " << QString::number(ii);
         operatorsOK = util->isValidCall(operators.at(ii));
         //operatorsOK = world->checkQRZValidFormat(operators.at(ii));
     }
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-04" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-04";
 
     if (operatorsOK)
     {
-        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT" << QT_ENDL;
+        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT";
         operatorsLineEdit->setPalette(*defaultPalette);
         emit operatorsSignal(operatorsLineEdit->text());
     }
     else
     {
          operatorsLineEdit->setPalette(*wrongPalette);
-           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: NOT VALID FORMAT" << QT_ENDL;
+           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: NOT VALID FORMAT";
     }
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05";
     operatorsLineEdit->setCursorPosition(i);
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-END" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-END";
 }
 
 QString SetupPageUserDataPage::getOperators()
@@ -695,6 +695,6 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 }
 void SetupPageUserDataPage::setStationFocus()
 {
-    //qDebug() << "SetupPageUserDataPage::setStationFocus" << QT_ENDL;
+    //qDebug() << "SetupPageUserDataPage::setStationFocus";
     maincallsignLineEdit->setFocus();
 }

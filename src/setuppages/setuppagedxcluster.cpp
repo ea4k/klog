@@ -31,7 +31,7 @@
 
 SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 {
-       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster";
     util = new Utilities(Q_FUNC_INFO);
 
     dxclusterServersComboBox = new QComboBox;
@@ -140,26 +140,26 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 
     createActions();
 
-       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster - END" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster - END";
 }
 
 SetupPageDxCluster::~SetupPageDxCluster()
 {
-       //qDebug() << "SetupPageDxCluster::~SetupPageDxCluster" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::~SetupPageDxCluster";
     delete(util);
 }
 
 
 void SetupPageDxCluster::createActions()
 {
-       //qDebug() << "SetupPageDxCluster::createActions" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::createActions";
     connect(addClusterButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()) );
     connect(deleteClusterButton, SIGNAL(clicked()), this, SLOT(slotDeleteButtonClicked()) );
 }
 
 void SetupPageDxCluster::slotAddButtonClicked()
 {
-   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked" << QT_ENDL;
+   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked";
 
     bool ok;
     ok = false;
@@ -170,41 +170,41 @@ void SetupPageDxCluster::slotAddButtonClicked()
                            tr("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default:"),
                            QLineEdit::Normal, QString(),
                            &ok);
-        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text << QT_ENDL;
+        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text;
         if (ok && !text.isEmpty ())
         {
-            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 01"  << QT_ENDL;
+            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 01" ;
             if (checkIfValidDXCluster (text))
             {
-                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 02"  << QT_ENDL;
+                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 02" ;
                 if (checkIfNewDXCluster (text))
                 {
-                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 03"  << QT_ENDL;
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 03" ;
                     ok = true;
                     if ((text.contains (":")) == 0)
                     {
-                       //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 04"  << QT_ENDL;
+                       //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 04" ;
                         text = text + ":41112";
                     }
                     dxclusterServersComboBox->insertItem (0, text);
-                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 05"  << QT_ENDL;
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 05" ;
                 }
                 else
                 {
-                   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 06"  << QT_ENDL;
+                   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 06" ;
                     ok = false;
                 }
             }
             else
             {
-                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 07"  << QT_ENDL;
+                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 07" ;
                 ok = false;
             }
         }
         else
         {
             // user entered nothing or pressed Cancel
-            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 08"  << QT_ENDL;
+            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 08" ;
             ok = true;
         }
     }
@@ -242,20 +242,20 @@ bool SetupPageDxCluster::checkIfNewDXCluster (const QString & tdxcluster)
 
 QStringList SetupPageDxCluster::getDxclusterServersComboBox()
 {
-    //qDebug() << "SetupPageDxCluster::getDxclusterServersComboBox" << QT_ENDL;
+    //qDebug() << "SetupPageDxCluster::getDxclusterServersComboBox";
     QStringList servers;
 
     int numberOfDXClusterServers = dxclusterServersComboBox->count ();
     servers.clear();
     if(numberOfDXClusterServers>=1)
     {
-        //stream << "DXClusterServerToUse=" << dxclusterServersComboBox->currentText () << QT_ENDL;
+        //stream << "DXClusterServerToUse=" << dxclusterServersComboBox->currentText ();
         //servers << dxclusterServersComboBox->currentText ();
         for (int i = 0; i <= numberOfDXClusterServers - 1; i++)
           {
             dxclusterServersComboBox->setCurrentIndex (i);
             servers << dxclusterServersComboBox->currentText ();
-            //stream << "DXClusterServerPort=" << dxclusterServersComboBox->currentText () << QT_ENDL;
+            //stream << "DXClusterServerPort=" << dxclusterServersComboBox->currentText ();
           }
     }
     return servers;
@@ -263,7 +263,7 @@ QStringList SetupPageDxCluster::getDxclusterServersComboBox()
 
 void SetupPageDxCluster::setDxclusterServersComboBox(const QStringList t)
 {
-    //qDebug() << "SetupPageDxCluster::setDxclusterServersComboBox" << QT_ENDL;
+    //qDebug() << "SetupPageDxCluster::setDxclusterServersComboBox";
     if (t.count()>0)
     {
         QString text;

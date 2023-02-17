@@ -28,7 +28,7 @@
 
 ShowErrorDialog::ShowErrorDialog()
 {
-       //qDebug() << "ShowErrorDialog::ShowErrorDialog"  << QT_ENDL;
+       //qDebug() << "ShowErrorDialog::ShowErrorDialog" ;
     text.clear();
 
 
@@ -61,12 +61,12 @@ ShowErrorDialog::ShowErrorDialog()
     layout->addLayout(buttonsLayout);
 
     setLayout(layout);
-       //qDebug() << "ShowErrorDialog::ShowErrorDialog - END"  << QT_ENDL;
+       //qDebug() << "ShowErrorDialog::ShowErrorDialog - END" ;
 }
 
 void ShowErrorDialog::setText(const QString txt)
 {
-      //qDebug() << "ShowErrorDialog::setVersion: " << txt << QT_ENDL;
+      //qDebug() << "ShowErrorDialog::setVersion: " << txt;
 
     text = txt;
     txtLabel->setText(txt);
@@ -76,12 +76,12 @@ void ShowErrorDialog::setText(const QString txt)
 
 ShowErrorDialog::~ShowErrorDialog()
 {
-       //qDebug() << "ShowErrorDialog::~ShowErrorDialog"  << QT_ENDL;
+       //qDebug() << "ShowErrorDialog::~ShowErrorDialog" ;
 }
 
 void ShowErrorDialog::slotAcceptButtonClicked()
 {
-       //qDebug() << "ShowErrorDialog::slotAcceptButtonClicked"  << QT_ENDL;
+       //qDebug() << "ShowErrorDialog::slotAcceptButtonClicked" ;
     accept();
 }
 

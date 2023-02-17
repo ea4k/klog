@@ -1,21 +1,24 @@
 TBD - 2.3.1
+- Bugfix: When exporting a log, selecting the stationcallsign has no efect on the qsos shown
 - Bugfix: When no validating callsigns, some ADIF fields were exported even if they were empty.
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO". (Closes #518)
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Bugfix: Export/Upload lists of QSOs where not properly created due to cal validation issues.
-TEST: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
+WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
-TEST: Bug: When uploading to LoTW, no calls are shown
+TEST: Bug: When uploading to LoTW, no calls are shown.
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Some SQL queries optimized for speed.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
-
+- UI: Shows the total number of QSOs when exporting.
+TODO: - New Feature: New stat: DXCC per band (worked/confimed)
+DataProxy_SQLite::getDXCCInBand
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)
@@ -592,7 +595,7 @@ Jan  2016 - 0.9.2.3
 - Bugfix: Some strings where not defined to be translated (TNX JL3OXR).
 - Bugfix: Some tips in the UI where not correctly placed (TNX JL3OXR).
 - Bugfix: QSOs in JT9 were not properly imported from ADIF (TNX EA3XQ).
-- Bugfix: Logfiles with the <EOH> in the first line, following some test were not properly imported.
+- Bugfix: Logfiles with the  in the first line, following some test were not properly imported.
 
 Nov 2015 - 0.9.2.2
 - Translations are now working properly in Windows & OSX.

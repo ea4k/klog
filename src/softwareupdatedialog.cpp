@@ -31,7 +31,7 @@
 
 SoftwareUpdateDialog::SoftwareUpdateDialog()
 {
-      //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog"  << QT_ENDL;
+      //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog" ;
 
     textBrowser = new QTextBrowser;
     textBrowser->setOpenLinks(true);
@@ -63,12 +63,12 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     ///
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
-     //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END"  << QT_ENDL;
+     //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END" ;
 }
 
 void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)
 {
-     //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion << QT_ENDL;
+     //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion;
     _version = tversion;
     if (updateNeeded)
     {
@@ -87,21 +87,21 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
 
 SoftwareUpdateDialog::~SoftwareUpdateDialog()
 {
-      //qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog"  << QT_ENDL;
+      //qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog" ;
 }
 
 void SoftwareUpdateDialog::slotAcceptButtonClicked()
 {
-      //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked"  << QT_ENDL;
+      //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked" ;
     accept();
-     //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END"  << QT_ENDL;
+     //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END" ;
 }
 
 
 
 void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
 {
-    //qDebug() << "SoftwareUpdateDialog::keyPressEvent"  << QT_ENDL;
+    //qDebug() << "SoftwareUpdateDialog::keyPressEvent" ;
 
     if (event->key()>=0)
     {
@@ -109,5 +109,5 @@ void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
     }
 
 
-    //qDebug() << "SoftwareUpdateDialog::keyPressEvent END"  << QT_ENDL;
+    //qDebug() << "SoftwareUpdateDialog::keyPressEvent END" ;
 }

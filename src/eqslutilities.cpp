@@ -33,7 +33,7 @@
 
 eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 {
-    //qDebug()<< "eQSLUtilities::eQSLUtilities"  << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::eQSLUtilities" ;
 #ifdef QT_DEBUG
   //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #else
@@ -48,36 +48,36 @@ eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
     stationCallsign = QString();
     uploadingFile = false;
     util = new Utilities(Q_FUNC_INFO);
-    //qDebug()<< "eQSLUtilities::eQSLUtilities - END"  << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::eQSLUtilities - END" ;
 }
 
 eQSLUtilities::~eQSLUtilities()
 {
     delete(util);
-    //qDebug()<< "eQSLUtilities::~eQSLUtilities"  << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::~eQSLUtilities" ;
 }
 
 void eQSLUtilities::setUser(const QString &_call)
 {
-     //qDebug() << "eQSLUtilities::setUser: " << _call << QT_ENDL;
+     //qDebug() << "eQSLUtilities::setUser: " << _call;
     user = _call;
-     //qDebug() << "eQSLUtilities::setUser: END" << QT_ENDL;
+     //qDebug() << "eQSLUtilities::setUser: END";
 }
 
 void eQSLUtilities::setPass(const QString &_pass)
 {
-     //qDebug() << "eQSLUtilities::setPass: " << _pass << QT_ENDL;
+     //qDebug() << "eQSLUtilities::setPass: " << _pass;
     pass = _pass;
-     //qDebug() << "eQSLUtilities::setPass: END" << QT_ENDL;
+     //qDebug() << "eQSLUtilities::setPass: END";
 }
 
 void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
 {
-    //qDebug()<< "eQSLUtilities::slotQsoUploadFinished"  << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::slotQsoUploadFinished" ;
     QStringList parsedAnswer;
     parsedAnswer.clear();
     result = data->error();
-    //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = " << QString::number(result) << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = " << QString::number(result);
 
     const QByteArray sdata = data->readAll();
     QString text = QString();
@@ -88,14 +88,14 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
         parsedAnswer << prepareToTranslate(sdata);
         if (parsedAnswer.at(0).contains("Error"))
         {
-            //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - error detected" << QT_ENDL;
+            //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - error detected";
             QMessageBox::warning(nullptr, tr("KLog - eQSL"), tr("eQSL has sent the following message:\n%1").arg(parsedAnswer.at(1)), QMessageBox::Ok);
             qsos.clear();
             return;
         }
 
         //qDebug()<< sdata;
-        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - NO ERROR" << QT_ENDL;
+        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - NO ERROR";
         if (uploadingFile)
         {
             uploadingFile = false;
@@ -106,19 +106,19 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = Host Not found! = " << QString::number(result)  << QT_ENDL;
+        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = Host Not found! = " << QString::number(result) ;
         text = "eQSL: " + tr("Host not found!");
         //TODO: Mark the previous QSO as not sent to clublog
     }
     else if (result == QNetworkReply::TimeoutError)
     {
-        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = Time out error! = " << QString::number(result)  << QT_ENDL;
+        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = Time out error! = " << QString::number(result) ;
         text = "eQSL: " + tr("Timeout error!");
         //TODO: Mark the previous QSO as not sent to clublog
     }
     else
     {
-        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = UNDEFINED = " << QString::number(result)  << QT_ENDL;
+        //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = UNDEFINED = " << QString::number(result) ;
         text = "eQSL: " + tr("Undefined error number (#%1)... ").arg(result);
         QMessageBox::warning(nullptr, tr("KLog - eQSL"),
                                        tr("We have received an undefined error from eQSL (%1)").arg(result) + "\n" +
@@ -127,7 +127,7 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
         //TODO: Mark the previous QSO as not sent to clublog
     }
 
-    //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = " << QString::number(result) << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::slotQsoUploadFinished - Result = " << QString::number(result);
     //emit done();
     emit signalFileUploaded(result, qsos);
     emit showMessage(text);
@@ -135,7 +135,7 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
 }
 
 void eQSLUtilities::downloadProgress(qint64 received, qint64 total) {
-       //qDebug()<< "eQSLUtilities::downloadProgress: " << QString::number(received) << "/" << QString::number(total) << QT_ENDL;
+       //qDebug()<< "eQSLUtilities::downloadProgress: " << QString::number(received) << "/" << QString::number(total);
 
        //qDebug()<< received << total;
     emit actionShowProgres(received, total);
@@ -143,7 +143,7 @@ void eQSLUtilities::downloadProgress(qint64 received, qint64 total) {
 
 void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
-       //qDebug()<< "eQSLUtilities::slotErrorManagement: " << QString::number(networkError) << QT_ENDL;
+       //qDebug()<< "eQSLUtilities::slotErrorManagement: " << QString::number(networkError);
     result = networkError;
     /*
     if (result == QNetworkReply::NoError)
@@ -151,11 +151,11 @@ void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-            //qDebug()<< "eQSLUtilities::slotErrorManagement: Host not found" << QT_ENDL;
+            //qDebug()<< "eQSLUtilities::slotErrorManagement: Host not found";
     }
     else
     {
-            //qDebug()<< "eQSLUtilities::slotErrorManagement: ERROR!" << QT_ENDL;
+            //qDebug()<< "eQSLUtilities::slotErrorManagement: ERROR!";
     }
 
     */
@@ -163,7 +163,7 @@ void eQSLUtilities::slotErrorManagement(QNetworkReply::NetworkError networkError
 
 void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, const QString &_defaultStationCallsign)
 {
-    //qDebug()<< "eQSLUtilities::setCredentials: user: " << _user << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::setCredentials: user: " << _user << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign;
     stationCallsign = _defaultStationCallsign;
     user = _user;
     pass = _pass;
@@ -171,7 +171,7 @@ void eQSLUtilities::setCredentials(const QString &_user, const QString &_pass, c
 
 QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
 {
-    //qDebug()<< "eQSLUtilities:: = prepareToTranslate" << _m << QT_ENDL;
+    //qDebug()<< "eQSLUtilities:: = prepareToTranslate" << _m;
     QString msg = _m;
     QStringList result;
     result.clear();
@@ -195,7 +195,7 @@ QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
     {
         result << "Unknown" << "Unknown";
     }
-    //qDebug()<< "eQSLUtilities:: = prepareToTranslate returning... "  << QT_ENDL;
+    //qDebug()<< "eQSLUtilities:: = prepareToTranslate returning... " ;
 
 
     return result;
@@ -203,7 +203,7 @@ QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
 
 void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
 {
-     //qDebug()<< "eQSLUtilities::sendLogFile: " << _file << QT_ENDL;
+     //qDebug()<< "eQSLUtilities::sendLogFile: " << _file;
     qsos.clear();
     qsos.append(_qso);
     QUrl serviceUrl;
@@ -223,18 +223,18 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
     if (file->open(QIODevice::ReadOnly)) /* Flawfinder: ignore */
     {
          blob = file->readAll();
-        //qDebug()<< "eQSLUtilities::sendLogFile: FILE OPEN: " << blob << QT_ENDL;
+        //qDebug()<< "eQSLUtilities::sendLogFile: FILE OPEN: " << blob;
     }
     else
     {
-         //qDebug()<< "eQSLUtilities::sendLogFile: ERROR File not opened" << QT_ENDL;
+         //qDebug()<< "eQSLUtilities::sendLogFile: ERROR File not opened";
         return;
     }
     file->close();
     // The rest of the form goes as usual
-     //qDebug()<< "eQSLUtilities::sendLogFile: e: " << user << QT_ENDL;
-     //qDebug()<< "eQSLUtilities::sendLogFile: pass: " << pass << QT_ENDL;
-     //qDebug()<< "eQSLUtilities::sendLogFile: stationcall: " << stationCallsign << QT_ENDL;
+     //qDebug()<< "eQSLUtilities::sendLogFile: e: " << user;
+     //qDebug()<< "eQSLUtilities::sendLogFile: pass: " << pass;
+     //qDebug()<< "eQSLUtilities::sendLogFile: stationcall: " << stationCallsign;
 
     QHttpPart userPart;
     userPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eqsl_user\""));
@@ -266,11 +266,11 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
 
     uploadingFile = true;
     QNetworkRequest request(serviceUrl);
-    //qDebug()<< "eQSLUtilities::sendLogFile: Before sending" << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::sendLogFile: Before sending";
     manager->post(request, multiPart);
-    //qDebug()<< "eQSLUtilities::sendLogFile: After sending" << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::sendLogFile: After sending";
     //multiPart->setParent(reply);
-    //qDebug()<< "eQSLUtilities::sendLogFile - END" << QT_ENDL;
+    //qDebug()<< "eQSLUtilities::sendLogFile - END";
 
 }
 

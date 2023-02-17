@@ -37,7 +37,7 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
 {
 
 #ifdef QT_DEBUG
-      //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget" << QT_ENDL;
+      //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget";
 #else
 #endif
     dataProxy = dp;
@@ -71,9 +71,9 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart(const int _log)
     //PieSlice append(string label, real value)
     int qsos = dataProxy->getHowManyQSOInLog(_log);
     int confirmed = dataProxy->getHowManyConfirmedQSLInLog(_log);
-       //qDebug() << "QSOs: " << QString::number(qsos) << QT_ENDL;
-       //qDebug() << "Confirmed: " << QString::number(confirmed) << QT_ENDL;
-       //qDebug() << "Worked: " << QString::number(qsos - confirmed) << QT_ENDL;
+       //qDebug() << "QSOs: " << QString::number(qsos);
+       //qDebug() << "Confirmed: " << QString::number(confirmed);
+       //qDebug() << "Worked: " << QString::number(qsos - confirmed);
 
     series->append(tr("Worked, not confirmed - %1").arg(qsos-confirmed), qsos - confirmed);
     series->append(tr("Confirmed - %2").arg(confirmed), confirmed);

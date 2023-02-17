@@ -229,12 +229,12 @@ void SetupPageHamLib::createUI()
 
 void SetupPageHamLib::setRig()
 {
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO;
     // Rutine to fill the rig combo boxes
     // Do not display debug codes when load the rig's
     QStringList rigs;
     rigs.clear();
-    //qDebug() << Q_FUNC_INFO << " - 10" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - 10";
     hamlib->initClass();
     rigs << hamlib->getRigList();
     //qDebug() << Q_FUNC_INFO << " - rigs: " << QString::number(rigs.length())<< QT_ENDL;
@@ -243,7 +243,7 @@ void SetupPageHamLib::setRig()
     rigTypeComboBox->setCurrentIndex(0);
     //rigTypeComboBox->clear();
     //rigTypeComboBox->addItems(rigs);
-    //qDebug() << Q_FUNC_INFO << " - END" << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
@@ -264,7 +264,7 @@ void SetupPageHamLib::setDefaults()
 
 QString SetupPageHamLib::getData()
 {
-      //qDebug() << "SetupPageHamLib::getData" << QT_ENDL;
+      //qDebug() << "SetupPageHamLib::getData";
     QString _output;
     _output.clear();
     QString _rigType, _serialPort;//, dataBits, stopBits, handshake, flowControlLine;
@@ -309,7 +309,7 @@ QString SetupPageHamLib::getData()
 bool SetupPageHamLib::setRigType(const QString &_radio)
 {
     int _index = rigTypeComboBox->findText(hamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
-      //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index)  << QT_ENDL;
+      //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index) ;
     if (_index >= 0)
     {
         rigTypeComboBox->setCurrentIndex(_index);
@@ -334,7 +334,7 @@ bool SetupPageHamLib::setSerialSpeed(const int _speed )
 
 void SetupPageHamLib::setActive(const QString &_active)
 {
-      //qDebug() << "SetupPageHamLib::setActive: " << _active << QT_ENDL;
+      //qDebug() << "SetupPageHamLib::setActive: " << _active;
 
     if (_active.toUpper() == "TRUE")
     {

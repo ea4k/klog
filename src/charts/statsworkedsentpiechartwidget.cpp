@@ -35,7 +35,7 @@ StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget()
 
 StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget" << QT_ENDL;
+      //qDebug() << "StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget";
 
     dataProxy = dp;
     chart = new QChart();
@@ -68,9 +68,9 @@ void StatsWorkedSentPieChartWidget::prepareChart(const int _log)
     //PieSlice append(string label, real value)
     int qsos = dataProxy->getHowManyQSOInLog(_log);
     int confirmed = dataProxy->getHowManyQSLSentInLog(_log);
-       //qDebug() << "QSOs: " << QString::number(qsos) << QT_ENDL;
-       //qDebug() << "Confirmed: " << QString::number(confirmed) << QT_ENDL;
-       //qDebug() << "Worked: " << QString::number(qsos - confirmed) << QT_ENDL;
+       //qDebug() << "QSOs: " << QString::number(qsos);
+       //qDebug() << "Confirmed: " << QString::number(confirmed);
+       //qDebug() << "Worked: " << QString::number(qsos - confirmed);
 
     series->append(tr("Worked - %1").arg(qsos), qsos);
     series->append(tr("Sent - %2").arg(confirmed), confirmed);

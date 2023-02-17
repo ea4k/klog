@@ -28,7 +28,7 @@
 
 SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode"  ;
     dataProxy = dp;
 
     bandsListWidget = new QListWidget;
@@ -61,7 +61,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     //layout->addWidget(modesListWidget);
 
     setLayout(layout);
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"  ;
 }
 
 SetupPageBandMode::~SetupPageBandMode()
@@ -96,7 +96,7 @@ void SetupPageBandMode::addModes(QStringList _b)
 
 QString SetupPageBandMode::getBands()
 {
-       //qDebug() << "SetupPageBandMode::getBands" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::getBands";
 
     QString b;
     QListWidgetItem *it;
@@ -123,7 +123,7 @@ QString SetupPageBandMode::getBands()
 
 QString SetupPageBandMode::getModes()
 {
-       //qDebug() << "SetupPageBandMode::getModes" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::getModes";
 
     QString b;
     QListWidgetItem *it;
@@ -147,14 +147,14 @@ QString SetupPageBandMode::getModes()
     {
         b.chop(2);
     }
-       //qDebug() << "SetupPageBandMode::getModes: " << b << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::getModes: " << b;
     return b;
 }
 
 
 void SetupPageBandMode::setActiveBands(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveBands" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::setActiveBands";
 
     if (q.isEmpty())
     {return;}
@@ -184,7 +184,7 @@ void SetupPageBandMode::setActiveBands(QStringList q)
 
 void SetupPageBandMode::setActiveModes(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveModes" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::setActiveModes";
 
     if (q.isEmpty())
     {return;}

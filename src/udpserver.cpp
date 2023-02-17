@@ -32,7 +32,7 @@
 UDPServer::UDPServer(QObject *parent) :
     QObject(parent)
 {
-       //qDebug() << "UDPServer::UDPServer"  << QT_ENDL;
+       //qDebug() << "UDPServer::UDPServer" ;
        //address = QString("127.0.0.1");
        port = 2237;
        haveNetworkInterface = false;
@@ -43,11 +43,11 @@ UDPServer::UDPServer(QObject *parent) :
        //if (socketServer->bind(QHostAddress::AnyIPv4, port, QAbstractSocket::ShareAddress))
        if (socketServer->bind(port, QAbstractSocket::ShareAddress))
        {
-            //qDebug() << "UDPServer::UDPServer - Multicast group joined OK"  << QT_ENDL;
+            //qDebug() << "UDPServer::UDPServer - Multicast group joined OK" ;
        }
        else
        {
-            //qDebug() << "UDPServer::UDPServer - Multicast group joined NOK"  << QT_ENDL;
+            //qDebug() << "UDPServer::UDPServer - Multicast group joined NOK" ;
        }
        */
         util = new Utilities(Q_FUNC_INFO);
@@ -63,30 +63,30 @@ UDPServer::~UDPServer()
 
 void UDPServer::slotReadPendingDatagrams()
 {
-       //qDebug() << "UDPServer::slotReadPendingDatagrams"  << QT_ENDL;
+       //qDebug() << "UDPServer::slotReadPendingDatagrams" ;
     while (socketServer->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(socketServer->pendingDatagramSize());
         QHostAddress sender;
         quint16 senderPort;
-           //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize()) << QT_ENDL;
+           //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize());
         socketServer->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
         parse (datagram);
-        //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram << QT_ENDL;
+        //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram;
     }
 }
 
 bool UDPServer::start()
 {
-    //qDebug() << "UDPServer::start " << QT_ENDL;
+    //qDebug() << "UDPServer::start ";
     if ( (port>0) && (port<65535) )
     {
-        //qDebug() << "UDPServer::start: calling startNow " << QT_ENDL;
+        //qDebug() << "UDPServer::start: calling startNow ";
         return startNow(port, groupAddress);
     }
     else
     {
-        //qDebug() << "UDPServer::start FALSE" << QT_ENDL;
+        //qDebug() << "UDPServer::start FALSE";
         return false;
     }
 }
@@ -197,8 +197,8 @@ void UDPServer::leaveMultiCastGroup()
 
 void UDPServer::parse(const QByteArray &msg)
 {
-    //qDebug() << "UDPServer::parse: " << msg << QT_ENDL;
-    //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString()) << QT_ENDL;
+    //qDebug() << "UDPServer::parse: " << msg;
+    //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString());
     //in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
     //        tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
     //        exchange_sent >> exchange_received;
@@ -270,7 +270,7 @@ void UDPServer::parse(const QByteArray &msg)
        //qDebug() << "UDPServer::parse: -  Magic = " << QString::number(magic)<< QT_ENDL;
        //qDebug() << "UDPServer::parse: - schema = " << QString::number(schema)<< QT_ENDL;
        //qDebug() << "UDPServer::parse: -   type = " << QString::number(type)<< QT_ENDL;
-       //qDebug() << "UDPServer::parse: -   id = " << id << QT_ENDL;
+       //qDebug() << "UDPServer::parse: -   id = " << id;
 
 
     //if ((magic != 2914831322) || (id != "WSJT-X"))
@@ -285,10 +285,10 @@ void UDPServer::parse(const QByteArray &msg)
     switch (type)
     {
         case Heartbeat:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT/IN - Heartbeat" << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT/IN - Heartbeat";
         break;
         case Status:
-            //qDebug() << "UDPServer::parse: -   type" << QString::number(type) << " - OUT - Status" << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type" << QString::number(type) << " - OUT - Status";
             // unpack message
             //in >> ch;
 
@@ -301,91 +301,91 @@ void UDPServer::parse(const QByteArray &msg)
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
                //if (!util->isValidCall(dx_call))
                // {
-               //     //qDebug() << "UDPServer::parse: Status : Call not valid: -" << dx_call << "-" << QT_ENDL;
+               //     //qDebug() << "UDPServer::parse: Status : Call not valid: -" << dx_call << "-";
                //     return;
                //}
-               //qDebug() << "UDPServer::parse: Status - Freq double = " << QString::number(frequencyDouble)  << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - Mode = " << mode << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - DXCall = " << dx_call << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - Report = " << report << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - Rx DF = " << rx_df << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - Tx DF = " << tx_df << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - De_Call = " << de_call << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - De_Grid = " << de_grid << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - SubMode = " << sub_mode << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - SpecialOp = " << QString::number(specialOpMode) << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - Freq Tol = " << QString::number(freqTolerance) << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - T/R Period = " << QString::number(TRPeriod) << QT_ENDL;
-               //qDebug() << "UDPServer::parse: Status - Conf Name = " << confName << QT_ENDL;
+               //qDebug() << "UDPServer::parse: Status - Freq double = " << QString::number(frequencyDouble) ;
+               //qDebug() << "UDPServer::parse: Status - Mode = " << mode;
+               //qDebug() << "UDPServer::parse: Status - DXCall = " << dx_call;
+               //qDebug() << "UDPServer::parse: Status - Report = " << report;
+               //qDebug() << "UDPServer::parse: Status - Rx DF = " << rx_df;
+               //qDebug() << "UDPServer::parse: Status - Tx DF = " << tx_df;
+               //qDebug() << "UDPServer::parse: Status - De_Call = " << de_call;
+               //qDebug() << "UDPServer::parse: Status - De_Grid = " << de_grid;
+               //qDebug() << "UDPServer::parse: Status - SubMode = " << sub_mode;
+               //qDebug() << "UDPServer::parse: Status - SpecialOp = " << QString::number(specialOpMode);
+               //qDebug() << "UDPServer::parse: Status - Freq Tol = " << QString::number(freqTolerance);
+               //qDebug() << "UDPServer::parse: Status - T/R Period = " << QString::number(TRPeriod);
+               //qDebug() << "UDPServer::parse: Status - Conf Name = " << confName;
 
                 emit status_update (type, dx_call, frequencyDouble, mode, report, de_call, de_grid, dx_grid, sub_mode);
             }
             else
             {
-                //qDebug() << "UDPServer::parse: realtime = FALSE" << QT_ENDL;
+                //qDebug() << "UDPServer::parse: realtime = FALSE";
             }
         break;
         case Decode:
-            //() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Decode" << QT_ENDL;
+            //() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Decode";
             in >> newDecode >> time >> snr >> deltaTime >> drift >> mode >> message >> lowConfidence >> offAir;
 
 
             if (lowConfidence)
             {
-                //qDebug() << "UDPServer::parse: Decode -   Low Confidence" << QT_ENDL;
+                //qDebug() << "UDPServer::parse: Decode -   Low Confidence";
             }
             else
             {
-                //qDebug() << "UDPServer::parse: Decode -   Time = " << time.toString("hhmmss") << QT_ENDL;
-                //qDebug() << "UDPServer::parse: Decode -   SNR = " << QString::number(snr) << QT_ENDL;
-                //qDebug() << "UDPServer::parse: Decode -   Delta = " << QString::number(deltaTime) << QT_ENDL;
-                //qDebug() << "UDPServer::parse: Decode -   Drift = " << QString::number(drift) << QT_ENDL;
-                //qDebug() << "UDPServer::parse: Decode -   Mode = " << mode << QT_ENDL;
-                //qDebug() << "UDPServer::parse: Decode -   Msg = " << message << QT_ENDL;
+                //qDebug() << "UDPServer::parse: Decode -   Time = " << time.toString("hhmmss");
+                //qDebug() << "UDPServer::parse: Decode -   SNR = " << QString::number(snr);
+                //qDebug() << "UDPServer::parse: Decode -   Delta = " << QString::number(deltaTime);
+                //qDebug() << "UDPServer::parse: Decode -   Drift = " << QString::number(drift);
+                //qDebug() << "UDPServer::parse: Decode -   Mode = " << mode;
+                //qDebug() << "UDPServer::parse: Decode -   Msg = " << message;
             }
 
         break;
         case Clear:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Clear" << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Clear";
             emit clearSignal(Q_FUNC_INFO);
         break;
         case Reply:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay " << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay ";
         break;
         case QSOLogged:
-            //qDebug() << "UDPServer::parse: -   type = QSOLogged "  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = QSOLogged " ;
 
 
         in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
                     tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
                     exchange_sent >> exchange_received;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Time_off = " << time_off.toString("yyyyMMdd-hhmmss") << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   DXCall = " << dx_call << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Grid = " << dx_grid << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Freq = " << QString::number(frequency) << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Mode = " << mode << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   ReportSent = " << report_sent << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   ReportReceived = " << report_received << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   TX_PWR = " << tx_power << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Comments = " << comments << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Name = " << name << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Time = " << time_on.toString("yyyyMMdd-hhmmss") << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   DeCall = " << de_call << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   DeGrid = " << de_grid << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Exch Sent = " << exchange_sent << QT_ENDL;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Exch Recv = " << exchange_received << QT_ENDL;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Time_off = " << time_off.toString("yyyyMMdd-hhmmss");
+            //qDebug() << "UDPServer::parse: QSOLogged -   DXCall = " << dx_call;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Grid = " << dx_grid;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Freq = " << QString::number(frequency);
+            //qDebug() << "UDPServer::parse: QSOLogged -   Mode = " << mode;
+            //qDebug() << "UDPServer::parse: QSOLogged -   ReportSent = " << report_sent;
+            //qDebug() << "UDPServer::parse: QSOLogged -   ReportReceived = " << report_received;
+            //qDebug() << "UDPServer::parse: QSOLogged -   TX_PWR = " << tx_power;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Comments = " << comments;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Name = " << name;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Time = " << time_on.toString("yyyyMMdd-hhmmss");
+            //qDebug() << "UDPServer::parse: QSOLogged -   DeCall = " << de_call;
+            //qDebug() << "UDPServer::parse: QSOLogged -   DeGrid = " << de_grid;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Exch Sent = " << exchange_sent;
+            //qDebug() << "UDPServer::parse: QSOLogged -   Exch Recv = " << exchange_received;
 
             if (logging)
             {
-                //qDebug() << "UDPServer::parse: logging = true " << QT_ENDL;
+                //qDebug() << "UDPServer::parse: logging = true ";
 
 
-                //qDebug() << "UDPServer::parse: QSO to be logged: Time_on: " << time_on << QT_ENDL;
-                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off << QT_ENDL;
+                //qDebug() << "UDPServer::parse: QSO to be logged: Time_on: " << time_on;
+                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off;
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
 
-                //qDebug() << "UDPServer::parse: Data to be logged: Comment: " << comments << QT_ENDL;
+                //qDebug() << "UDPServer::parse: Data to be logged: Comment: " << comments;
 
                 //dateTime.setDate(QDate::currentDate());
                 //dateTime.setTime(QTime::fromString(time_on, "hhmmss"));
@@ -400,63 +400,63 @@ void UDPServer::parse(const QByteArray &msg)
             }
             else
             {
-                //qDebug() << "UDPServer::parse: logging = false" << QT_ENDL;
+                //qDebug() << "UDPServer::parse: logging = false";
             }
 
         break;
         case Close:
-            //qDebug() << "UDPServer::parse: -   type = Close"  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = Close" ;
             socketServer->close();
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Close " << QT_ENDL;
+               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Close ";
         break;
         case Replay:
-            //qDebug() << "UDPServer::parse: -   type = Reply"  << QT_ENDL;
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay" << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = Reply" ;
+               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay";
         break;
         case HaltTx:
-            //qDebug() << "UDPServer::parse: -   type = HaltTx"  << QT_ENDL;
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Halt TX" << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = HaltTx" ;
+               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Halt TX";
         break;
         case FreeText:
-            //qDebug() << "UDPServer::parse: -   type = FreeText"  << QT_ENDL;
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Free Text" << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = FreeText" ;
+               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Free Text";
         break;
         case WSPRDecode:
-            //qDebug() << "UDPServer::parse: -   type = WSPRDecode"  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = WSPRDecode" ;
             in >> newDecode >> time >> snr >> deltaTime >> frequency >> drift >> decodedCall >> decodedGrid >> power >> offAir;
 
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Time = " << time.toString("yyyyMMdd-hhmmss") << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   SNR = " << QString::number(snr) << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Delta = " << QString::number(deltaTime) << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Frec = " << QString::number(frequency) << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Drift = " << QString::number(drift) << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Call = " << decodedCall << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Grid = " << decodedGrid << QT_ENDL;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Power = " << QString::number(power) << QT_ENDL;
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Time = " << time.toString("yyyyMMdd-hhmmss");
+            //qDebug() << "UDPServer::parse: WSPRDecode -   SNR = " << QString::number(snr);
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Delta = " << QString::number(deltaTime);
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Frec = " << QString::number(frequency);
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Drift = " << QString::number(drift);
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Call = " << decodedCall;
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Grid = " << decodedGrid;
+            //qDebug() << "UDPServer::parse: WSPRDecode -   Power = " << QString::number(power);
 
         break;
         case Location:
-            //qDebug() << "UDPServer::parse: -   type = Location"  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = Location" ;
         break;
         case LoggedADIF:
-           //qDebug() << "UDPServer::parse: -   type = LoggedADIF"  << QT_ENDL;
-           //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ADIF" << QT_ENDL;
+           //qDebug() << "UDPServer::parse: -   type = LoggedADIF" ;
+           //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ADIF";
            //in >> adifReceived;
            //adifParse(adifReceived);
-            //qDebug() << "UDPServer::parse: ADIF: " << adifReceived << QT_ENDL;
+            //qDebug() << "UDPServer::parse: ADIF: " << adifReceived;
            // Q_SIGNAL void logged_ADIF (QString const& id, QByteArray const& ADIF);
         break;
         case HighlightCallsign:
-            //qDebug() << "UDPServer::parse: -   type = HighlightCallsign"  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = HighlightCallsign" ;
         break;
         case SwitchConfiguration:
-            //qDebug() << "UDPServer::parse: -   type = SwitchConfiguration"  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = SwitchConfiguration" ;
         break;
         case Configure:
-            //qDebug() << "UDPServer::parse: -   type = Configure"  << QT_ENDL;
+            //qDebug() << "UDPServer::parse: -   type = Configure" ;
         break;
         default: //NO
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ERROR on Type" << QT_ENDL;
+               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ERROR on Type";
         break;
     }
        //qDebug() << "UDPServer::parse: - Magic: = " << QString::number(magic)<< QT_ENDL;
@@ -479,7 +479,7 @@ bool UDPServer::stop()
 
 void UDPServer::setPort(const int _port)
 {
-       //qDebug() << "UDPServer::setPort: " << QString::number(_port) << QT_ENDL;
+       //qDebug() << "UDPServer::setPort: " << QString::number(_port);
     if ((_port >= 0) && (_port<=65535))
     {
         port = _port;
@@ -488,7 +488,7 @@ void UDPServer::setPort(const int _port)
 
 void UDPServer::setNetworkInterface(const QString &_t)
 {
-    //qDebug() << "UDPServer::setNetworkInterface: " << _t << QT_ENDL;
+    //qDebug() << "UDPServer::setNetworkInterface: " << _t;
     QString testInterface;
     testInterface.clear();
     QList<QNetworkInterface> ifaces;
@@ -499,7 +499,7 @@ void UDPServer::setNetworkInterface(const QString &_t)
         testInterface = i.humanReadableName() + "-" + i.hardwareAddress();
         if (testInterface.contains(_t))
         {
-            //qDebug() << "UDPServer::setNetworkInterface: FOUND! " << testInterface  << QT_ENDL;
+            //qDebug() << "UDPServer::setNetworkInterface: FOUND! " << testInterface ;
             if ((i.flags().testFlag(QNetworkInterface::IsUp)) )
             {
                 networkInterface = i;

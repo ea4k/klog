@@ -29,13 +29,13 @@
 
 StatsGeneralChartWidget::StatsGeneralChartWidget()
 {
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << QT_ENDL;
+      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget" ;
 }
 
 StatsGeneralChartWidget::StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
 
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << QT_ENDL;
+      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget" ;
 }
 
 

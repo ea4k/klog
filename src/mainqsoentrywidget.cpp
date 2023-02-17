@@ -29,7 +29,7 @@
 
 MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-      //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget " << QT_ENDL;
+      //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget ";
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     upAndRunning = false;
@@ -56,7 +56,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     setInitialData();
     //installEventFilter (this);
     logEvent (Q_FUNC_INFO, "END", Debug);
-      //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END" << QT_ENDL;
+      //qDebug()<< "MainQSOEntryWidget::MainQSOEntryWidget: - END";
 }
 
 MainQSOEntryWidget::~MainQSOEntryWidget()
@@ -77,7 +77,7 @@ void MainQSOEntryWidget::slotRealTimeButtonResize()
 */
 void MainQSOEntryWidget::createUI()
 {
-      //qDebug()<< "MainQSOEntryWidget::createUI" << QT_ENDL;
+      //qDebug()<< "MainQSOEntryWidget::createUI";
     logEvent (Q_FUNC_INFO, "Start", Debug);
     qrzLineEdit->setToolTip(tr("Callsign of the QSO."));
     bandComboBox->setToolTip(tr("Band of the QSO."));
@@ -148,7 +148,7 @@ void MainQSOEntryWidget::createUI()
     //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
     connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
     connect(manualModeCheckBox, SIGNAL(clicked()), this, SLOT(slotManualModeCheckBoxClicked()));
-    //qDebug()<< "MainQSOEntryWidget::createUI-END" << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::createUI-END";
 
     QWidget::setTabOrder (qrzLineEdit, dateEdit);
     QWidget::setTabOrder (dateEdit, timeEdit);
@@ -249,7 +249,7 @@ void MainQSOEntryWidget::setCleaning (const bool _c)
 void MainQSOEntryWidget::slotQRZTextChanged()
 {
     logEvent (Q_FUNC_INFO, "Start: " + qrzLineEdit->text(), Debug);
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######" << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: " << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######";
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     if ((qrzLineEdit->text()).length()<1)
@@ -257,22 +257,22 @@ void MainQSOEntryWidget::slotQRZTextChanged()
        //qDebug() << Q_FUNC_INFO << ": qrz length <1";
         slotClearButtonClicked();
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ <1 - END" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ <1 - END";
     return;
     }
     int cursorP = qrzLineEdit->cursorPosition();
-   //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position: " << QString::number(cursorP) << QT_ENDL;
+   //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position: " << QString::number(cursorP);
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
     if (cleaning)
     {
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Cleaning - END" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Cleaning - END";
         logEvent (Q_FUNC_INFO, "END-2", Debug);
         return;
     }
 
     if (qrzAutoChanging)
     {
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: qrzAutoChanging - END" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: qrzAutoChanging - END";
         qrzAutoChanging = false;
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return;
@@ -280,33 +280,33 @@ void MainQSOEntryWidget::slotQRZTextChanged()
 
     qrzAutoChanging = true;
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP) << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.1: " << QString::number(cursorP);
 
     if ( (qrzLineEdit->text()).endsWith(' ') )
     {/*Remove the space and moves the focus to SRX to write the RX exchange*/
         previousQRZ = (qrzLineEdit->text()).simplified();
         qrzLineEdit->setText(previousQRZ);
-       //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Space detected" << QT_ENDL;
+       //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Space detected";
     }
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Simplifiying & Capitalizing" << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Simplifiying & Capitalizing";
     qrzLineEdit->setText(((qrzLineEdit->text())).simplified());
     qrzLineEdit->setText((qrzLineEdit->text()).remove(" "));
 
-   //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars" << QT_ENDL;
+   //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars";
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 " << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 ";
     if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - Red" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ not valid - Red";
         //logEvent (Q_FUNC_INFO, "END-4", Debug);
     }
     else
     {
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: QRZ is valid - Black";
         if (getDarkMode())
         {
             qrzLineEdit->setPalette(palWhite);
@@ -320,7 +320,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
         //emit showInfoLabel(tr(""));
     }
     /*
-      //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for length" << QT_ENDL;
+      //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for length";
     if (((qrzLineEdit->text()).length() < 1))
     { // If QRZ box is blank, Information labels should be cleared.
         slotClearButtonClicked();
@@ -329,32 +329,32 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     }
     */
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for modify or length<1" << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for modify or length<1";
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-       //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: qrzSmallModDontCalculate < 1" << QT_ENDL;
+       //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: qrzSmallModDontCalculate < 1";
         qrzSmallModDontCalculate=false;
         logEvent (Q_FUNC_INFO, "END-6", Debug);
         return;
     }
 
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: running..." << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: running...";
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     currentQrz = qrzLineEdit->text();
 
     if ((currentQrz).count('\\'))
     { // Replaces \ by / to ease operation.
-       //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Replacing \\ by /" << QT_ENDL;
+       //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: Replacing \\ by /";
         currentQrz.replace(QChar('\\'), QChar('/'));
         qrzLineEdit->setText(currentQrz);
     }
 
     currentQrz = qrzLineEdit->text();
-    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP) << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.3: " << QString::number(cursorP);
     if (cursorP>currentQrz.length())
     {// A Space that has been removed without updating the cursor
-        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursorP > currentQRZ.length" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursorP > currentQRZ.length";
     }
     else
     {
@@ -364,17 +364,17 @@ void MainQSOEntryWidget::slotQRZTextChanged()
         {
             if ((currentQrz.at(cursorP-1)).isSpace())
             {
-               //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP) << QT_ENDL;
+               //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.5: " << QString::number(cursorP);
                 previousQRZ = currentQrz.remove(cursorP-1, 1);
-               //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP) << QT_ENDL;
+               //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.6: " << QString::number(cursorP);
                 cursorP--;
-               //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP) << QT_ENDL;
+               //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: cursor position.7: " << QString::number(cursorP);
                 qrzLineEdit->setText(previousQRZ);
             }
         }
     }
     currentQrz = qrzLineEdit->text();
-    //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: Emitting: " << currentQrz << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: Emitting: " << currentQrz;
     emit currentQRZSignal(currentQrz);
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
@@ -426,7 +426,7 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
-    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked: "  << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked: " ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     setCleaning (true);
     clear();
@@ -441,7 +441,7 @@ void MainQSOEntryWidget::clear()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO;
 
     //cleaning = true;
 
@@ -455,7 +455,7 @@ void MainQSOEntryWidget::clear()
 
 void MainQSOEntryWidget::setInitialData()
 {
-      //qDebug()<< "MainQSOEntryWidget::setInitialData" << QT_ENDL;
+      //qDebug()<< "MainQSOEntryWidget::setInitialData";
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //Default band/modes
     modify = false;
@@ -487,22 +487,22 @@ void MainQSOEntryWidget::setInitialData()
     timer->start(1000);
 
     logEvent (Q_FUNC_INFO, "END", Debug);
-     //qDebug()<< "MainQSOEntryWidget::setInitialData-END" << QT_ENDL;
+     //qDebug()<< "MainQSOEntryWidget::setInitialData-END";
 }
 
 bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
 {
     logEvent (Q_FUNC_INFO, "Start: " + _band, Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _band << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << _band;
     //QString _currentBand = getBand();
     if (!isBandExisting(_band))
     {// The selected frequency is of a band that is not currently selected
         QString _currentBand = bandComboBox->currentText ();
-        //qDebug() << Q_FUNC_INFO << ":  New band found: " << _band << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ":  New band found: " << _band;
         if (dataProxy->getIdFromBandName(_band) > 1)
         {// Not affected if 0 (light) is the frequency
          // In this case the user should select the band in the setup
-            //qDebug() << Q_FUNC_INFO << ":  Band is valid: " << _band << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ":  Band is valid: " << _band;
             QStringList qsTemp;
             qsTemp.clear();
             qsTemp << bands;
@@ -510,10 +510,10 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
             qsTemp.removeDuplicates();
             bands.clear();
             bands = dataProxy->sortBandNamesBottonUp(qsTemp);
-            //qDebug() << Q_FUNC_INFO << ": Before setBands" << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": Before setBands";
             setBands(bands);
             bandComboBox->setCurrentIndex(bandComboBox->findText(_currentBand, Qt::MatchCaseSensitive));
-            //qDebug() << Q_FUNC_INFO << ": Band has been added : " << _band << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": Band has been added : " << _band;
         }
         else
         {
@@ -522,7 +522,7 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
             return false;
         }
     }
-    //qDebug() << Q_FUNC_INFO << ": Band already existing, no need to add"  << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": Band already existing, no need to add" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -530,10 +530,10 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
 void MainQSOEntryWidget::setBands(const QStringList _bands)
 {
     logEvent (Q_FUNC_INFO, "Start: " + QString::number(_bands.length ()), Debug);
-    //qDebug()<< "MainQSOEntryWidget::setBands" << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::setBands";
     //foreach(QString i, _bands)
     //{
-        //qDebug()<< "MainQSOEntryWidget::setBands - received: " << i << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::setBands - received: " << i;
     //}
     bands.clear();
     bands = _bands;
@@ -544,7 +544,7 @@ void MainQSOEntryWidget::setBands(const QStringList _bands)
     emit validBands(_bands);
     //selectDefaultBand(true);
     logEvent (Q_FUNC_INFO, "END", Debug);
-    //qDebug()<< "MainQSOEntryWidget::setBands-END" << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::setBands-END";
 }
 
 void MainQSOEntryWidget::setModes(const QStringList _modes)
@@ -595,12 +595,12 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
             logEvent (Q_FUNC_INFO, "END-3", Debug);
             return true;
         }
-        //qDebug() << Q_FUNC_INFO << ": Freq is not in the current band" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Freq is not in the current band";
         QString _newBand = dataProxy->getBandNameFromFreq(_f);
-        //qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand  << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand ;
         if (isRX)
         {
-            //qDebug() << Q_FUNC_INFO << ": RX Freq no more actions "  << QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": RX Freq no more actions " ;
             logEvent (Q_FUNC_INFO, "END-4", Debug);
             return true;
         }
@@ -629,19 +629,19 @@ bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)
 
 bool MainQSOEntryWidget::setBand(const QString &_band)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _band << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << _band;
 
     logEvent (Q_FUNC_INFO, "Start: " + _band, Debug);
     if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
     {
-        //qDebug() << "MainQSOEntryWidget::setBand-1: Band not found " << _band << QT_ENDL;
+        //qDebug() << "MainQSOEntryWidget::setBand-1: Band not found " << _band;
         if (!updateBandComboBox(_band))
         {
             logEvent (Q_FUNC_INFO, "END-1", Debug);
             return false;
         }
     }
-    //qDebug() << "MainQSOEntryWidget::setBand-1: Band found " << _band << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::setBand-1: Band found " << _band;
     bandComboBox->setCurrentIndex(bandComboBox->findText(_band, Qt::MatchCaseSensitive));
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
@@ -669,7 +669,7 @@ bool MainQSOEntryWidget::setMode(const QString &_mode)
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "MainQSOEntryWidget::setQRZ: " << _qrz << QT_ENDL;
+    //qDebug() << "MainQSOEntryWidget::setQRZ: " << _qrz;
     //TODO: Add validations to prevent that non valid qrz are sent from the outside of this function or at least manage this appropriately.
     qrzLineEdit->setText(_qrz.toUpper());
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -688,7 +688,7 @@ bool MainQSOEntryWidget::setDateTime(const QDateTime _date)
     }
     else
     {
-        //qDebug() << "MainQSOEntryWidget::setDate - NO VALID DATE" << QT_ENDL;
+        //qDebug() << "MainQSOEntryWidget::setDate - NO VALID DATE";
         logEvent (Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
@@ -878,7 +878,7 @@ void MainQSOEntryWidget::slotUpdateTime()
     //logEvent (Q_FUNC_INFO, "Start", Debug);
     if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
-        //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update" << QT_ENDL;
+        //qDebug()<< "MainQSOEntryWidget::slotUpdateTime - Real Time & update";
         setDateAndTimeInternally();
     }
     //logEvent (Q_FUNC_INFO, "END", Debug);
@@ -902,7 +902,7 @@ void MainQSOEntryWidget::setDateAndTimeInternally()
 
 bool MainQSOEntryWidget::validCharactersInCall(const QString &_qrz)
 {
-    //qDebug()<< "MainQSOEntryWidget::validCharactersInCall: " << _qrz << QT_ENDL;
+    //qDebug()<< "MainQSOEntryWidget::validCharactersInCall: " << _qrz;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     for (int i = 0; i<_qrz.size()-1;i++)
     {
@@ -934,17 +934,17 @@ bool MainQSOEntryWidget::isModeExisting(const QString &_m)
 bool MainQSOEntryWidget::isBandExisting(const QString &_b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _b << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << _b;
     if (bandComboBox->findText(_b, Qt::MatchCaseSensitive) >= 0)
     {
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-        //qDebug() << Q_FUNC_INFO << " - END true" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " - END true";
         return true;
     }
     else
     {
         logEvent (Q_FUNC_INFO, "END-2", Debug);
-        //qDebug() << Q_FUNC_INFO << " - END false" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " - END false";
         return false;
     }
 }
@@ -958,12 +958,12 @@ void MainQSOEntryWidget::setUpAndRunning(const bool _u)
 
 void MainQSOEntryWidget::selectDefaultBand(bool _init)
 {
-      //qDebug() << "MainQSOEntryWidget::selectDefaultBand" << QT_ENDL;
+      //qDebug() << "MainQSOEntryWidget::selectDefaultBand";
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if ((upAndRunning) || (!_init))
     {
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-          //qDebug() << "MainQSOEntryWidgetselectDefaultBand-END-1" << QT_ENDL;
+          //qDebug() << "MainQSOEntryWidgetselectDefaultBand-END-1";
         return;
     }
     QString aux;
@@ -976,7 +976,7 @@ void MainQSOEntryWidget::selectDefaultBand(bool _init)
     }
 
     aux = dataProxy->getNameFromBandId(defaultBand);
-    //qDebug() << Q_FUNC_INFO << ": before setting band: " << aux << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": before setting band: " << aux;
     setBand(aux);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -990,7 +990,7 @@ void MainQSOEntryWidget::selectDefaultMode(bool _init)
         return;
     }
     int defaultMode = dataProxy->getMostUsedMode(-1); //TODO: The log could be defined here
-      //qDebug() << "MainQSOEntryWidgetselectDefaultMode: " << QString::number(defaultMode) << QT_ENDL;
+      //qDebug() << "MainQSOEntryWidgetselectDefaultMode: " << QString::number(defaultMode);
 
     if (defaultMode < 1)
     {
@@ -999,9 +999,9 @@ void MainQSOEntryWidget::selectDefaultMode(bool _init)
     setMode(dataProxy->getNameFromSubModeId(defaultMode));
     //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
 
-     //qDebug() << "MainQSOEntryWidgetselectDefaultMode3: " << QString::number(defaultMode) << QT_ENDL;
+     //qDebug() << "MainQSOEntryWidgetselectDefaultMode3: " << QString::number(defaultMode);
     logEvent (Q_FUNC_INFO, "END", Debug);
-     //qDebug() << "MainQSOEntryWidgetselectDefaultMode-END" << QT_ENDL;
+     //qDebug() << "MainQSOEntryWidgetselectDefaultMode-END";
 }
 
 void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
@@ -1017,7 +1017,7 @@ void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
 void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
 #ifdef QT_DEBUG
-   //qDebug() << Q_FUNC_INFO << "(" << _func << ")" << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << "(" << _func << ")";
 #else
 #endif
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -1027,13 +1027,13 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 
     if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qrzLineEdit->text(), _dateTime, dataProxy->getIdFromBandName(bandComboBox->currentText()), dataProxy->getIdFromModeName(modeComboBox->currentText()), duplicatedQSOSlotInSecs).length()<2) || modify)
     {
-        //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << QT_ENDL;
-        //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify) << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
+        //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify);
         qrzgroupBox->setTitle(tr("Callsign"));
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - NOT DUPE " << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
         qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common world for hams. Do not translate of not sure"));
     }
     logEvent (Q_FUNC_INFO, "END", Debug);

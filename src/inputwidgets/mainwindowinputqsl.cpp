@@ -32,7 +32,7 @@
 MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"   << QT_ENDL;
+       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"  ;
     util = new Utilities(Q_FUNC_INFO);
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
@@ -50,7 +50,7 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
-       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"   << QT_ENDL;
+       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"  ;
 }
 
 MainWindowInputQSL::~MainWindowInputQSL()
@@ -170,7 +170,7 @@ QString MainWindowInputQSL::getSentVia()
 {
     QString _pm = QString();
     _pm = (((qslSentViaComboBox->currentText()).split('-')).at(0)).simplified();
-       //qDebug() << "MainWindow::getSentVia: " << _pm << QT_ENDL;
+       //qDebug() << "MainWindow::getSentVia: " << _pm;
      return _pm;
 }
 
@@ -178,7 +178,7 @@ QString MainWindowInputQSL::getRecVia()
 {
     QString _pm = QString();
     _pm = (((qslRecViaComboBox->currentText()).split('-')).at(0)).simplified();
-       //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm << QT_ENDL;
+       //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm;
      return _pm;
 }
 
@@ -231,7 +231,7 @@ void MainWindowInputQSL::setQSLRecVia(const QString &_qs)
 
 void MainWindowInputQSL::setQSLSenVia(const QString &_qs)
 {
-       //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs << QT_ENDL;
+       //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
         qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -306,7 +306,7 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
 
 void MainWindowInputQSL::slotQSLViaTextChanged()
 {
-       //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size()) << QT_ENDL;
+       //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size());
     qslViaLineEdit->setText((util->getClearSQLi(qslViaLineEdit->text())).toUpper());
 }
 

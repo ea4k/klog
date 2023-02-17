@@ -50,11 +50,12 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     selectedEMode = ModeLotW;   //By default this widget will be used for LoTW Export.
     defaultStationCallsign = QString();
     defaultMyGrid = QString();
+    numOfQSOsInThisLog = 0;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     createUI();
     starting = false;
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 AdifLoTWExportWidget::~AdifLoTWExportWidget()
 {
@@ -68,7 +69,7 @@ void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
     {
         defaultStationCallsign = _st;
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setDefaultMyGrid(const QString &_st)
@@ -78,7 +79,7 @@ void AdifLoTWExportWidget::setDefaultMyGrid(const QString &_st)
     {
         defaultMyGrid = _st;
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::createUI()
@@ -87,7 +88,8 @@ void AdifLoTWExportWidget::createUI()
     //fillStationCallsignComboBox();
     tableWidget->setSortingEnabled (true);
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign that you want to use to upload the log."));
-
+    startDate->setCalendarPopup (true);
+    endDate->setCalendarPopup (true);
     startDate->clear();
     startDate->setToolTip(tr("Select the start date to export the QSOs. The default date is the date of the first QSO with this station callsign."));
 
@@ -118,7 +120,7 @@ void AdifLoTWExportWidget::createUI()
 
     QStringList header;
     header.clear();
-    header << tr("DX") << tr("Date/Time") << tr("Band") << tr("Mode");
+    header << tr("DX") << tr("Date/Time") << tr("Locator") << tr("Band") << tr("Mode");
     tableWidget->setColumnCount(header.length());
     tableWidget->setHorizontalHeaderLabels(header);
 
@@ -146,7 +148,7 @@ void AdifLoTWExportWidget::createUI()
     connect(myGridSquareComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMyGridChanged() ) ) ;
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOKPushButtonClicked() ) );
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
@@ -165,7 +167,7 @@ void AdifLoTWExportWidget::setDefaultStationComboBox()
        stationCallsignComboBox->setCurrentIndex(stationCallsignComboBox->findText(defaultStationCallsign, Qt::MatchCaseSensitive));
     }
     //stationCallsignComboBox->blockSignals(false);
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setDefaultMyGridComboBox()
@@ -190,7 +192,7 @@ void AdifLoTWExportWidget::setDefaultMyGridComboBox()
     {
         //qDebug() << Q_FUNC_INFO << ": 3";
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::fillStationCallsignComboBox()
@@ -222,7 +224,7 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
     }
     //stationCallsignComboBox->blockSignals(false);
     //qDebug() << QString::number(stationCallsignComboBox->count());
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::fillStationMyGridComboBox()
@@ -250,26 +252,26 @@ void AdifLoTWExportWidget::fillStationMyGridComboBox()
     else
     { //ALL calls
         //qDebug() << Q_FUNC_INFO << " - ALL Calls" ;
-        myGridSquareComboBox->addItem(tr("ALL"));
+        //myGridSquareComboBox->addItem(tr("ALL"));
         grids.append (dataProxy->getGridsToBeSent ("ALL", startDate->date(), endDate->date(), false, logNumber));
     }
 
     myGridSquareComboBox->addItem(tr("Not defined"));
+    myGridSquareComboBox->addItem(tr("ALL"));
     myGridSquareComboBox->addItems(grids);
 
     if (myGridSquareComboBox->findText(tempGrid, Qt::MatchCaseSensitive) >= 0)
     {
        myGridSquareComboBox->setCurrentIndex(myGridSquareComboBox->findText(tempGrid, Qt::MatchCaseSensitive));
     }
-    //myGridSquareComboBox->blockSignals(false);
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setTopLabel(const QString &_t)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     topLabel->setText(_t);
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::fillDates()
@@ -281,20 +283,22 @@ void AdifLoTWExportWidget::fillDates()
 
     if (util->isValidCall(stationCallsignComboBox->currentText()))
     {
+        //qDebug() << Q_FUNC_INFO << " - Not valid Call";
         startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
         endDate->setDate(dataProxy->getLastQSODateFromCall(stationCallsignComboBox->currentText()));
     }
     else if ((stationCallsignComboBox->currentIndex() == 0) && (stationCallsignComboBox->currentText().length()>3))
     {//Not defined
+        //qDebug() << Q_FUNC_INFO << " - Not defined";
         startDate->setDate(dataProxy->getFirstQSODateFromCall("NOT"));
         endDate->setDate(dataProxy->getLastQSODateFromCall("NOT"));
     }
     else
     {//ALL
+        //qDebug() << Q_FUNC_INFO << " - ALL";
         startDate->setDate(dataProxy->getFirstQSODateFromCall("ALL"));
         endDate->setDate(dataProxy->getLastQSODateFromCall("ALL"));
     }
-
 
     //startDate->blockSignals(false);
     //endDate->blockSignals(false);
@@ -305,76 +309,70 @@ void AdifLoTWExportWidget::fillTable()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
 
-    QList<int> qsos;
-    qsos.clear();
+    QList<int> _qsos;
+    _qsos.clear();
        bool justQueued = true;
-       switch (currentExportMode)
+
+       QString _myGrid;
+       if (myGridSquareComboBox->currentIndex () == 0)
        {
-           case ModeADIF:
-           justQueued = false;
-           //qDebug() << Q_FUNC_INFO << " ADIF";
-
-           break;
-       case ModeLotW:
-           //qDebug() << Q_FUNC_INFO << " LoTW";
-           justQueued = true;
-
-           break;
-       case ModeClubLog:
-           //qDebug() << Q_FUNC_INFO << " ClubLog";
-           //justQueued = true;
-
-           break;
-       case ModeEQSL:
-           //qDebug() << Q_FUNC_INFO << " EQSL";
-           justQueued = true;
-           break;
-       case ModeQRZ:
-           //qDebug() << Q_FUNC_INFO << " QRZ";
-           justQueued = true;
-           break;
+           _myGrid = "NOT";
        }
-
-       if (stationCallsignComboBox->currentIndex() == 0)
-       { // Not defined station_callsign (blank)
-           //qDebug() << Q_FUNC_INFO << " blank station callsign ";
-           qsos.append(dataProxy->getQSOsListLoTWToSend(QString(), myGridSquareComboBox->currentText(), startDate->date(), endDate->date(), justQueued, logNumber));
-       }
-       else if((stationCallsignComboBox->currentIndex() == 1) && (currentExportMode == ModeADIF))
-       { // ALL stations, no matter the station.
-           //qDebug() << Q_FUNC_INFO << " ALL station callsign ";
-           qsos.append(dataProxy->getQSOsListLoTWToSend("ALL", myGridSquareComboBox->currentText (), startDate->date(), endDate->date(), justQueued, logNumber));
-           //qsos.append(dataProxy->getQSOsListToBeExported(stationCallsignComboBox->currentText(), startDate->date(), endDate->date()));
+       else if (myGridSquareComboBox->currentIndex () == 1)
+       {
+           _myGrid = "ALL";
        }
        else
        {
-           //qDebug() << Q_FUNC_INFO << " OTHER station callsign ";
-           if (currentExportMode == ModeClubLog)
-           {
-               //qDebug() << Q_FUNC_INFO << " Mode ClubLog";
-               qsos.append(dataProxy->getQSOsListClubLogToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true, logNumber));
-           }
-           else if (currentExportMode == ModeEQSL)
-           {
-              //qDebug() << Q_FUNC_INFO << " Mode eQSL";
-              qsos.append(dataProxy->getQSOsListEQSLToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
-           }
-           else if (currentExportMode == ModeQRZ)
-           {
-              //qDebug() << Q_FUNC_INFO << " Mode QRZ";
-              qsos.append(dataProxy->getQSOsListQRZCOMToSent(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
-           }
-           else if (currentExportMode == ModeLotW)
-           {
-                //qDebug() << Q_FUNC_INFO << " Mode LoTW";
-                qsos.append(dataProxy->getQSOsListLoTWToSend (stationCallsignComboBox->currentText(), myGridSquareComboBox->currentText (), startDate->date(), endDate->date(), true, logNumber));
-           }
-           else
-           {//(currentExportMode == ModeADIF)
-               //qDebug() << Q_FUNC_INFO << " Mode ELSE";
-               qsos.append(dataProxy->getQSOsListToBeExported(stationCallsignComboBox->currentText(), myGridSquareComboBox->currentText(),  startDate->date(), endDate->date()));
-           }
+            _myGrid = myGridSquareComboBox->currentText();
        }
+        QString _myCall;
+        if (stationCallsignComboBox->currentIndex () == 0)
+        {
+            _myCall = "NOT";
+        }
+        else if ((stationCallsignComboBox->currentIndex () == 1) && (currentExportMode != ModeLotW))
+        {
+            _myCall = "ALL";
+        }
+        else
+        {
+             _myCall = stationCallsignComboBox->currentText();
+        }
+        qsos.clear ();
+        switch (currentExportMode)
+        {
+            case ModeADIF:
+            justQueued = false;
+            //_qsos.append(dataProxy->getQSOsListLoTWToSend(_myCall, startDate->date(), endDate->date(), justQueued, logNumber));
+             _qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
+             qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
+            //qDebug() << Q_FUNC_INFO << " ADIF";
+            break;
+        case ModeLotW:
+            //qDebug() << Q_FUNC_INFO << " LoTW";
+            justQueued = true;
+            _qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
+            qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
+            break;
+        case ModeClubLog:
+             qDebug() << Q_FUNC_INFO << " ClubLog";
+            _qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
+            qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
+            break;
+        case ModeEQSL:
+            //qDebug() << Q_FUNC_INFO << " EQSL";
+            justQueued = true;
+            _qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
+            qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
+            break;
+        case ModeQRZ:
+            //qDebug() << Q_FUNC_INFO << " QRZ";
+            justQueued = true;
+            _qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
+            qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
+            break;
+        }
 
        //qDebug() << Q_FUNC_INFO << " -3" ;
        tableWidget->clearContents();
@@ -382,15 +380,16 @@ void AdifLoTWExportWidget::fillTable()
        if (tableWidget->columnCount()>0)
        {
             //qDebug() << Q_FUNC_INFO << " pre FOR";
-            for (int i=0; i<qsos.length(); i++)
+            for (int i=0; i<_qsos.length(); i++)
             {
                //qDebug() << Q_FUNC_INFO << " in FOR " << QString::number(i);
-               addQSO(qsos.at(i));
+               addQSO(_qsos.at(i));
             }
        }
 
-       numberLabel->setText(tr("QSOs: ") + QString::number(qsos.count()));
-       if (qsos.count()>0)
+       //numberLabel->setText(tr("QSOs: ") + QString::number(_qsos.count()) + );
+        numberLabel->setText(QString(tr("QSOs: %1/%2")).arg(_qsos.count()).arg(numOfQSOsInThisLog) );
+       if (_qsos.count()>0)
        {
            //qDebug() << Q_FUNC_INFO << " Enable OKButton";
            okButton->setEnabled(true);
@@ -400,7 +399,7 @@ void AdifLoTWExportWidget::fillTable()
            //qDebug() << Q_FUNC_INFO << " Disable OKButton";
            okButton->setEnabled(false);
        }
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::addQSO(const int _qsoID)
@@ -439,6 +438,8 @@ void AdifLoTWExportWidget::slotStationCallsignChanged()
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
+    blockAllSignals (true);
+    QString tmpCall = stationCallsignComboBox->currentText ();
     if (stationCallsignComboBox->count()<1)
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
@@ -449,31 +450,48 @@ void AdifLoTWExportWidget::slotStationCallsignChanged()
     //qDebug() << Q_FUNC_INFO << " - 03" ;
     fillStationMyGridComboBox();
     updateIfNeeded();
+    stationCallsignComboBox->setCurrentIndex(stationCallsignComboBox->findText(tmpCall, Qt::MatchCaseSensitive));
+    blockAllSignals (false);
+     //qDebug() << Q_FUNC_INFO << " - END";
+}
+void AdifLoTWExportWidget::blockAllSignals(const bool _b)
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    stationCallsignComboBox->blockSignals (_b);
+    myGridSquareComboBox->blockSignals (_b);
+    startDate->blockSignals (_b);
+    endDate->blockSignals (_b);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::updateIfNeeded()
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
     if (currentCall != stationCallsignComboBox->currentText())
     {
+        //qDebug() << Q_FUNC_INFO << " - 1";
         currentCall = stationCallsignComboBox->currentText();
         fillTable();
     }
     else if (currentGrid != myGridSquareComboBox->currentText())
     {
+        //qDebug() << Q_FUNC_INFO << " - 2";
         currentGrid = myGridSquareComboBox->currentText();
         fillTable();
     }
     else if (currentStart != startDate->date())
     {
+        //qDebug() << Q_FUNC_INFO << " - 3";
         currentStart = startDate->date();
         fillTable();
     }
     else if (currentEnd != endDate->date())
     {
+        //qDebug() << Q_FUNC_INFO << " - 3";
         currentEnd = endDate->date();
         fillTable();
     }
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
@@ -485,8 +503,17 @@ void AdifLoTWExportWidget::slotMyGridChanged()
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
+    blockAllSignals (true);
+    QString tmpGrid = myGridSquareComboBox->currentText ();
+    //TODO: Add StationCallsigns that has been worked from that grid?
+    //TODO: Update the startDate when that grid was activated?
+    //TODO: Update the endDate when that grid was activated?
+
     fillTable();
-    //qDebug() << Q_FUNC_INFO << " - END";
+
+    myGridSquareComboBox->setCurrentIndex(myGridSquareComboBox->findText(tmpGrid, Qt::MatchCaseSensitive));
+    blockAllSignals (false);
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::slotDateChanged()
@@ -497,50 +524,67 @@ void AdifLoTWExportWidget::slotDateChanged()
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
+    blockAllSignals (true);
+    QDate tmpStartDate = startDate->date();
+    QDate tmpEndDate = endDate->date();
     updateIfNeeded();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    startDate->setDate (tmpStartDate);
+    endDate->setDate(tmpEndDate);
+    blockAllSignals (false);
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::slotOKPushButtonClicked()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     this->hide();
+    emit qsosToSend (stationCallsignComboBox->currentText(), qsos, currentExportMode);
+    QString myGrid = myGridSquareComboBox->currentText();
+    if (myGridSquareComboBox->currentIndex () == 0)
+    {
+        myGrid = "NOT";
+    }
+
     if (stationCallsignComboBox->currentIndex() == 0)
     {
-        emit selection("NOT", myGridSquareComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
+        //qDebug() << Q_FUNC_INFO << " - emit NOT";
+        emit selection("NOT", myGrid, startDate->date(), endDate->date(), currentExportMode);
     }
     else if (stationCallsignComboBox->currentIndex() == 1)
     {
         if ((currentExportMode == ModeLotW) || (currentExportMode == ModeClubLog) || (currentExportMode == ModeQRZ)|| (currentExportMode == ModeEQSL))
         {
-            emit selection(stationCallsignComboBox->currentText(), myGridSquareComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
+            //qDebug() << Q_FUNC_INFO << " - emit 1";
+            emit selection(stationCallsignComboBox->currentText(), myGrid, startDate->date(), endDate->date(), currentExportMode);
         }
         else
         {
-            emit selection("ALL", myGridSquareComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
+            //qDebug() << Q_FUNC_INFO << " - emit ALL";
+            emit selection("ALL", myGrid, startDate->date(), endDate->date(), currentExportMode);
         }
     }
     else
     {
-        emit selection(stationCallsignComboBox->currentText(), myGridSquareComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode);
+        //qDebug() << Q_FUNC_INFO << " - emit stationcall";
+        emit selection(stationCallsignComboBox->currentText(), myGrid, startDate->date(), endDate->date(), currentExportMode);
     }
     //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked - END";
     close();
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::slotCancelPushButtonClicked()
 {
      //qDebug() << Q_FUNC_INFO << " - Start";
      close();
-     //qDebug() << Q_FUNC_INFO << " - END";
+      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::closeEvent(QCloseEvent *event)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     event->accept();
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::showEvent(QShowEvent *event)
@@ -564,7 +608,7 @@ void AdifLoTWExportWidget::showEvent(QShowEvent *event)
     updateIfNeeded();
     //qDebug() << Q_FUNC_INFO << ": 5 - " << stationCallsignComboBox->currentText();
     event->accept();
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
@@ -598,7 +642,7 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
     }
     //fillStationCallsignComboBox();
     //slotStationCallsignChanged();
-    //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setLogNumber(const int _logN)
@@ -612,7 +656,8 @@ void AdifLoTWExportWidget::setLogNumber(const int _logN)
     {
         logNumber = -1;
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    numOfQSOsInThisLog = dataProxy->getHowManyQSOInLog(logNumber);
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setCallValidation(const bool _v)

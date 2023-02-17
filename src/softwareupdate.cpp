@@ -28,7 +28,7 @@
 
 SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion) : QObject(nullptr)
 {
-      //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion;
     util = new Utilities(Q_FUNC_INFO);
     updateDialog = new SoftwareUpdateDialog();
     latestVersion = "0.0";
@@ -39,15 +39,15 @@ SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion) : QObject(nullptr)
     OSString = QString();
     messageShown = false;
     OSVersion = QOperatingSystemVersion::currentType();
-    //qDebug() << "SoftwareUpdate::SoftwareUpdate OSVersion:: " << QString::number(OSVersion)  << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::SoftwareUpdate OSVersion:: " << QString::number(OSVersion) ;
     findOS(QOperatingSystemVersion::currentType());
     setHeader();
-    //qDebug() << "SoftwareUpdate::SoftwareUpdate(): - END"  << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::SoftwareUpdate(): - END" ;
 }
 
 void SoftwareUpdate::findOS(const int _os)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_os)  << QT_ENDL;
+     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_os) ;
     switch (_os)
     {
         case QOperatingSystemVersion::MacOS:
@@ -75,16 +75,16 @@ SoftwareUpdate::~SoftwareUpdate()
 
 void SoftwareUpdate::setVersion(const QString &_klogVersion)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _klogVersion << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": " << _klogVersion;
     klogVersion = _klogVersion;
     latestVersion = klogVersion;
     setHeader();
-    //qDebug() << "SoftwareUpdate::setVersion: END "  << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::setVersion: END " ;
 }
 
 void SoftwareUpdate::slotReadyRead()
 {
-      //qDebug() << "SoftwareUpdate::slotReadyRead: " << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::slotReadyRead: ";
 }
 
 void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
@@ -94,38 +94,38 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
     QUrl url = reply->url();
     if (url.toString().length()< QString("https://api.github.com/repos/ea4k/klog/releases/latest").length())
     {
-        //qDebug() << Q_FUNC_INFO << ": URL too short"  << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": URL too short" ;
         return;
     }
     QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
     if (reply->error())
     {
-          //qDebug() << Q_FUNC_INFO << ": reply error: " << QString::number(reply->error())  << QT_ENDL;
+          //qDebug() << Q_FUNC_INFO << ": reply error: " << QString::number(reply->error()) ;
     }
     else if (!redirectionTarget.isNull())
     {
         repositoryFound = false;
         QUrl newUrl = url.resolved(redirectionTarget.toUrl());
-        //qDebug() << "SoftwareUpdate::slotDownloadFinished: Redirect: " << newUrl.toString() << QT_ENDL;
+        //qDebug() << "SoftwareUpdate::slotDownloadFinished: Redirect: " << newUrl.toString();
         url = newUrl;
         reply->deleteLater();
         connectToURL(url.toString());
-        //qDebug() << "SoftwareUpdate::slotDownloadFinished - end After connect" << QT_ENDL;
+        //qDebug() << "SoftwareUpdate::slotDownloadFinished - end After connect";
         return;
     }
     else
     {
-          //qDebug() << "SoftwareUpdate::slotDownloadFinished: no redirection"  << QT_ENDL;
+          //qDebug() << "SoftwareUpdate::slotDownloadFinished: no redirection" ;
         if (checkUpdates(reply))
         {
-            //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates true"  << QT_ENDL;
+            //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates true" ;
             if (repositoryFound)
             {
-                //qDebug() << "SoftwareUpdate::slotDownloadFinished repository found"  << QT_ENDL;
+                //qDebug() << "SoftwareUpdate::slotDownloadFinished repository found" ;
                 if(latestVersion>klogVersion)
                 {
-                    //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates should update!"  << QT_ENDL;
+                    //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates should update!" ;
                     updateDialog->setVersion(latestVersion, true);
                 }
                 updateDialog->show();
@@ -137,22 +137,22 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
         {
             if (repositoryFound && messageShown)
             {
-                  //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates false!"  << QT_ENDL;
+                  //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates false!" ;
                 updateDialog->setVersion(latestVersion, false);
                 updateDialog->show();
             }
-             //qDebug() << "SoftwareUpdate::slotDownloadFinished:  checkupdates false"  << QT_ENDL;
+             //qDebug() << "SoftwareUpdate::slotDownloadFinished:  checkupdates false" ;
         }
     }
     reply->deleteLater();
-    //qDebug() << "SoftwareUpdate::slotDownloadFinished end"  << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::slotDownloadFinished end" ;
 }
 
 bool SoftwareUpdate::checkUpdates(QIODevice *data)
 {
     // Checks if there is a new version in the repository
 
-    //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size()) << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::checkUpdates: " << QString::number(data->size());
     QString line, release;
     QStringList stringList, klogStringList;
 
@@ -162,13 +162,13 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
     switch (OSVersion)
     {
         case QOperatingSystemVersion::Unknown:
-              //qDebug() << "MainWindow::checkUpdates - Unknown"  << QT_ENDL;
+              //qDebug() << "MainWindow::checkUpdates - Unknown" ;
             rx.setPattern("klog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.tar.gz");
             filterString = QString("klog");
             fileExtension = QString(".tar.gz");
         break;
         case QOperatingSystemVersion::Windows:
-              //qDebug() << "MainWindow::checkUpdates - Windows"  << QT_ENDL;
+              //qDebug() << "MainWindow::checkUpdates - Windows" ;
             rx.setPattern("KLog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?-windows-installer.exe");
             filterString = QString("KLog");
             fileExtension = QString("-windows-installer.exe");
@@ -177,7 +177,7 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
             rx.setPattern("KLog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.dmg");
             filterString = QString("KLog");
             fileExtension = QString(".dmg");
-              //qDebug() << "MainWindow::checkUpdates - macOS"  << QT_ENDL;
+              //qDebug() << "MainWindow::checkUpdates - macOS" ;
         break;
         default:
             rx.setPattern("klog-(\\d+)(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?(-RC\\d+)?.tar.gz");
@@ -196,10 +196,10 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
         klogStringList.clear();
         line.clear();
         line = data->readLine();
-        //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line << QT_ENDL;
+        //qDebug() << "SoftwareUpdate::checkUpdates: line: " << line;
         if ((line.contains("browser_download_url")) || (line.contains("tarball_url")))
         {
-            //qDebug() << "SoftwareUpdate::checkUpdates: line contains browser_download_url or tarball_url " << QT_ENDL;
+            //qDebug() << "SoftwareUpdate::checkUpdates: line contains browser_download_url or tarball_url ";
             repositoryFound = true;
             stringList << line.split(",", QT_SKIP);
             klogStringList << stringList.filter(filterString);
@@ -208,19 +208,19 @@ bool SoftwareUpdate::checkUpdates(QIODevice *data)
             {
                updateNeeded(release);
             }
-            //qDebug() << "SoftwareUpdate::checkUpdates: " << line << QT_ENDL;
+            //qDebug() << "SoftwareUpdate::checkUpdates: " << line;
         }
     }
-   //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion << "/" << klogVersion << QT_ENDL;
+   //qDebug() << "SoftwareUpdate::checkUpdates:Latest/Actual: " << latestVersion << "/" << klogVersion;
     if (latestVersion > klogVersion)
     {
         emit updateNeededSignal (true);
-          //qDebug() << "SoftwareUpdate::checkUpdates: signal true" << QT_ENDL;
+          //qDebug() << "SoftwareUpdate::checkUpdates: signal true";
         return true;
     }
     else
     {
-          //qDebug() << "SoftwareUpdate::checkUpdates: signal  alse 1" << QT_ENDL;
+          //qDebug() << "SoftwareUpdate::checkUpdates: signal  alse 1";
         return false;
     }
 }
@@ -230,21 +230,21 @@ QString SoftwareUpdate::findMatch(QRegularExpression rx, const QString &fileExte
     QString release = QString();
     foreach (QString str, data)
     {
-          //qDebug() << "SoftwareUpdate::findMatch klog: " << str << QT_ENDL;
-          //qDebug() << "SoftwareUpdate::findMatch klog - chopped: " << str << QT_ENDL;
+          //qDebug() << "SoftwareUpdate::findMatch klog: " << str;
+          //qDebug() << "SoftwareUpdate::findMatch klog - chopped: " << str;
 
            if (rx.match(str).hasMatch())
            {
-               //qDebug() << "SoftwareUpdate::findMatch: MATCH: " << str << QT_ENDL;
+               //qDebug() << "SoftwareUpdate::findMatch: MATCH: " << str;
                 release = str.section("-",1);
-               //qDebug() << "SoftwareUpdate::findMatch: MATCH-1: " << str << QT_ENDL;
+               //qDebug() << "SoftwareUpdate::findMatch: MATCH-1: " << str;
                 release = release.section(fileExtension, 0, 0);
-               //qDebug() << "SoftwareUpdate::findMatch: MATCH-2: " << str << QT_ENDL;
+               //qDebug() << "SoftwareUpdate::findMatch: MATCH-2: " << str;
                 return release;
            }
            else
            {
-               //qDebug() << "SoftwareUpdate::findMatch: DOES NOT MATCH: " << str << QT_ENDL;
+               //qDebug() << "SoftwareUpdate::findMatch: DOES NOT MATCH: " << str;
            }
     }
     return release;
@@ -252,14 +252,14 @@ QString SoftwareUpdate::findMatch(QRegularExpression rx, const QString &fileExte
 
 void SoftwareUpdate::updateNeeded(const QString &_newVer)
 {
-   //qDebug() << "SoftwareUpdate::updateNeeded: new: " << _newVer  << QT_ENDL;
-   //qDebug() << "SoftwareUpdate::updateNeeded: cur: " << latestVersion  << QT_ENDL;
+   //qDebug() << "SoftwareUpdate::updateNeeded: new: " << _newVer ;
+   //qDebug() << "SoftwareUpdate::updateNeeded: cur: " << latestVersion ;
 
     if (latestVersion< _newVer)
     {
         latestVersion = _newVer;
     }
-      //qDebug() << "SoftwareUpdate::updateNeeded - KLogVersion/latestVersion/newver: "<< klogVersion <<"/"<< latestVersion << "/"<<_newVer  << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::updateNeeded - KLogVersion/latestVersion/newver: "<< klogVersion <<"/"<< latestVersion << "/"<<_newVer ;
 }
 
 void SoftwareUpdate::needToUpdate(bool _showWithoutVersion)
@@ -267,32 +267,32 @@ void SoftwareUpdate::needToUpdate(bool _showWithoutVersion)
   // If _showWithoutVersion is false: We are checking for new versions at KLog start: No message should be shown if no new version is found.
   // If _showWithoutVersion is true: The user is manually asking to check. A message should is shown if no new version is found.
 
-      //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")"  << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")" ;
     messageShown = _showWithoutVersion;
     setVersion(klogVersion);
     //setTheURL("http://download.klog.xyz");
     connectToURL("https://api.github.com/repos/ea4k/klog/releases/latest");
-      //qDebug() << "SoftwareUpdate::neededToUpdate - END" << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::neededToUpdate - END";
 }
 
 void SoftwareUpdate::connectToURL(const QString &_url)
 {
     // This is where the connection takes place.... so first connection may be the main URL but it launches connection after redirections
-    //qDebug() << "SoftwareUpdate::connectToURL: " << _url << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::connectToURL: " << _url;
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     manager->get(QNetworkRequest(QUrl(_url)));
     QNetworkReply *reply = manager->get(request);
 
     connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
     connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
-    //qDebug() << "SoftwareUpdate::conectToURL - END" << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::conectToURL - END";
 }
 
 void SoftwareUpdate::setHeader()
 {
     //qDebug() << Q_FUNC_INFO;
     QString ver = util->getAgent(klogVersion);
-    //qDebug() << "SoftwareUpdate::setHeader - ver: " << ver << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::setHeader - ver: " << ver;
     if (callsign.length()>2)
     {
         ver = ver + "-" + callsign;
@@ -300,18 +300,18 @@ void SoftwareUpdate::setHeader()
     QByteArray str;
     str.clear();
     str.append(ver.toUtf8 ());
-    //qDebug() << "SoftwareUpdate::setHeader: " << str << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::setHeader: " << str;
     request.setRawHeader("User-Agent", str);
-    //qDebug() << "SoftwareUpdate::setHeader - END"  << QT_ENDL;
+    //qDebug() << "SoftwareUpdate::setHeader - END" ;
 }
 
 void SoftwareUpdate::addCall(const QString &_call)
 {
-      //qDebug() << "SoftwareUpdate::addCall: " << _call << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::addCall: " << _call;
     if (_call.length()>2)
     {
         callsign = _call;
         setHeader();
     }
-      //qDebug() << "SoftwareUpdate::addCall - END" << QT_ENDL;
+      //qDebug() << "SoftwareUpdate::addCall - END";
 }
