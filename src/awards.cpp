@@ -1598,10 +1598,9 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
     //qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band) << QT_ENDL;
 
         QSqlQuery query = QSqlQuery();
-        QString queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND qsl_rcvd='Y' AND bandid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
-
+        QString queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
         int status = 0;
- //qDebug() << "Awards::dxccStatusBand: " << queryString << QT_ENDL;
+        //qDebug() << "Awards::dxccStatusBand: " << queryString << QT_ENDL;
         if (query.exec(queryString))
         {
             while (query.next())

@@ -14,6 +14,7 @@ TEST: Bug: When uploading to LoTW, no calls are shown
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
+- Bugfix: QSOs confirmed with LoTW were not properly shown in DXCC Status. (Closes #551)(EA5WA)
 
 
 Oct 2022 - 2.3
