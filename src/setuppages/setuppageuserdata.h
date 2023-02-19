@@ -99,6 +99,7 @@ public:
     bool setAntenna2 (const QString &_aux);
     bool setAntenna3 (const QString &_aux);
     void setStationFocus();
+    void saveSettings();
 
 signals:
     void mainCallsignSignal (const QString &_p);

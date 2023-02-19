@@ -339,6 +339,45 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 }
 
 
+void SetupDialog::saveSettigs()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.setValue ("Version", version);
+    userDataPage->saveSettings();
+    bandModePage->saveSettings ();
+    logViewPage->saveSettings ();
+    dxClusterPage->saveSettings ();
+    miscPage->saveSettings ();
+    colorsPage->saveSettings ();
+    logsPage->saveSettings();
+    eLogPage->saveSettings ();
+    UDPPage->saveSettings ();
+
+ /*
+
+    satsPage
+    hamlibPage
+
+
+
+          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib";
+        QString _aa = hamlibPage->getData();
+        stream << _aa;
+
+          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa;
+
+        //WSJTX
+
+        //Windows Size
+        if (windowSize.length()>0)
+        {
+            stream << "MainWindowSize=" << windowSize << ";" <<  QT_ENDL;
+        }
+        if (latestBackup.length()>0)
+        {
+            stream << "LatestBackup=" << latestBackup << ";";
+   */
+}
 
 void SetupDialog::slotOkButtonClicked()
 {
@@ -383,6 +422,7 @@ void SetupDialog::slotOkButtonClicked()
         return;
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - 10";
+    saveSettigs();
     QFile file (configFileName);
 
 
@@ -393,8 +433,8 @@ void SetupDialog::slotOkButtonClicked()
     QTextStream stream (&file);
 
         //QRZ/CQ/ITU/CONTEST
-    stream << "Version=" << version << ";";
-    stream << "Callsign="  << userDataPage->getMainCallsign() << ";";
+    stream << "Version=" << version << ";" << QT_ENDL;
+    stream << "Callsign="  << userDataPage->getMainCallsign() << ";" << QT_ENDL;
     if ((userDataPage->getOperators()).length() >= 3)
     { // There are no valid calls with less than 3 Chars
         stream << "Operators="  << userDataPage->getOperators() << ";";

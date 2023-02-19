@@ -84,6 +84,7 @@ public:
     int getDupeTime();
 
     bool areDBPathChangesApplied();
+    void saveSettings();
 
 private slots:
     void slotOpenFileButtonClicked();

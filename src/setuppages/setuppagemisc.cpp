@@ -626,3 +626,34 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
     checkCallsCheckBox->setChecked (_t);
 }
 
+void SetupPageMisc::saveSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("Misc");
+    settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
+    settings.setValue ("ShowSeconds", QVariant((showSecondsCheckBox->isChecked())));
+    settings.setValue ("UTCTime", QVariant((UTCCheckbox->isChecked())));
+    settings.setValue ("AlwaysADIF", QVariant((alwaysADIFCheckBox->isChecked())));
+    settings.setValue ("UseDefaultName", QVariant((useDefaultName->isChecked())));
+    settings.setValue ("DefaultADIFFile", defaultFileName);
+    settings.setValue ("DBPath", dbDirCurrent);
+    settings.setValue ("ImperialSystem", QVariant((imperialCheckBox->isChecked())));
+    settings.setValue ("SendQSLWhenRec", QVariant((sendQSLWhenRecCheckBox->isChecked())));
+    settings.setValue ("ShowCallsignInSearch", QVariant((showStationCallWhenSearchCheckBox->isChecked())));
+    settings.setValue ("CompleteWithPrevious", QVariant((completeWithPreviousCheckBox->isChecked())));
+    settings.setValue ("CheckNewVersions", QVariant((checkNewVersionCheckBox->isChecked())));
+    settings.setValue ("ManageDXMarathon", QVariant((useDxMarathonCheckBox->isChecked())));
+    settings.setValue ("DebugLog", debugLogLevelCombo->currentText ());
+    settings.setValue ("SendEQSLByDefault", QVariant((sendEQSLByDefaultSearchCheckBox->isChecked())));
+    settings.setValue ("DeleteAlwaysAdiFile", QVariant((deleteAlwaysAdiFileCheckBox->isChecked())));
+    settings.setValue ("CheckValidCalls", QVariant((checkCallsCheckBox->isChecked())));
+    settings.setValue ("DuplicatedQSOSlot", dupeTimeLineEdit->text());
+    settings.setValue ("ProvideInfo", QVariant((provideCallCheckBox->isChecked())));
+
+    //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";";
+    //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";";
+    //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";";
+
+
+    settings.endGroup ();
+}

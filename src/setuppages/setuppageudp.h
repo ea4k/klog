@@ -54,7 +54,7 @@ public:
     QString getUDPServer();
     QString getTimeout();
     QString getNetworkInterface();
-
+    void saveSettings();
 
 private:
     void createUI();

@@ -698,3 +698,31 @@ void SetupPageUserDataPage::setStationFocus()
     //qDebug() << "SetupPageUserDataPage::setStationFocus";
     maincallsignLineEdit->setFocus();
 }
+
+void SetupPageUserDataPage::saveSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("UserData");
+    settings.setValue ("Callsign", getMainCallsign());
+    settings.setValue ("Operators", getOperators());
+    settings.setValue ("CQz", getCQz ());
+    settings.setValue ("ITUz", getITUz());
+    settings.setValue ("StationLocator", getStationLocator());
+    settings.setValue ("Name", getName());
+    settings.setValue ("Address1", getAddress1());
+    settings.setValue ("Address2", getAddress2());
+    settings.setValue ("Address3", getAddress3());
+    settings.setValue ("Address4", getAddress4());
+    settings.setValue ("City", getCity());
+    settings.setValue ("ZipCode", getZipCode());
+    settings.setValue ("ProvinceState", getProvince());
+    settings.setValue ("Country", getCountry());
+    settings.setValue ("Rig1", getRig1());
+    settings.setValue ("Rig2", getRig2());
+    settings.setValue ("Rig3", getRig3());
+    settings.setValue ("Antenna1", getAntenna1());
+    settings.setValue ("Antenna2", getAntenna2());
+    settings.setValue ("Antenna3",getAntenna3());
+    settings.setValue ("Power", getPower ());
+    settings.endGroup ();
+}

@@ -486,6 +486,19 @@ QString Utilities::getCfgFile()
 #endif
 }
 
+QString Utilities::getSetFile()
+{
+    //TODO: To be removed when the defaultDir is saved in the config file
+    #if defined(Q_OS_WIN)
+             //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  ;
+        return getHomeDir() + "/klogrc2.cfg";
+
+    #else
+             //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  ;
+        return getHomeDir() + "/klogrc2";
+    #endif
+}
+
 QString Utilities::getDebugLogFile()
 {
 #if defined(Q_OS_WIN)

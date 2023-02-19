@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <QListWidget>
 #include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 
 
 class SetupPageBandMode : public QWidget
@@ -45,6 +46,7 @@ public:
 
     void setActiveBands(QStringList q);
     void setActiveModes(QStringList q);
+    void saveSettings();
 
 signals:
 
@@ -57,6 +59,7 @@ private:
     QListWidget *bandsListWidget, *modesListWidget;
 
     DataProxy_SQLite *dataProxy;
+    Utilities *util;
 
 };
 

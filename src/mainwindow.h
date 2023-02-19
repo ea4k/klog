@@ -401,6 +401,9 @@ private:
     void openSetup(const int _page=0);
     bool processConfigLine(const QString &_line);
     void readConfigData();
+    bool usingNewSettings();
+    void saveSettings();
+    //void saveSettings();
     void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();
 

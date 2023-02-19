@@ -98,6 +98,7 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     UDPLogServer = new UDPServer();
     util = new Utilities(Q_FUNC_INFO);
     qso = new QSO;
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
     softwareVersion = tversion;
     klogDir = Info;
@@ -3742,7 +3743,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
      //qDebug() << "MainWindow::closeEvent" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
+    saveSettings ();
     if (maybeSave())
     {
          //qDebug() << "MainWindow::closeEvent saving needed" ;
@@ -5036,6 +5037,24 @@ void MainWindow::readConfigData()
         startServices();
     }
     //qDebug() << Q_FUNC_INFO << " - END" << QTime::currentTime().toString("hh:mm:ss") ;
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+bool MainWindow::usingNewSettings()
+{
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    //qDebug() << Q_FUNC_INFO ;
+    return true;
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::saveSettings()
+{
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    //qDebug() << Q_FUNC_INFO ;
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.setValue ("Version", softwareVersion);
+
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

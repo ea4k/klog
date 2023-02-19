@@ -32,6 +32,7 @@
 #include <QSqlQuery>
 #include "../dataproxy_sqlite.h"
 #include "../setuppages/setuppagelogsnew.h"
+#include "../utilities.h"
 
 
 //const int CONTEST_DX = 0;
@@ -51,6 +52,7 @@ public:
     void createNewLog();
     void setDefaultStationCallsign (const QString &_p);
     void setDefaultOperators(const QString &_p);
+    void saveSettings();
 
 private slots:
     void slotNewButtonClicked();

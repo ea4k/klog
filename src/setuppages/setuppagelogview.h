@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <QListWidget>
 #include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 
 
 class SetupPageLogView : public QWidget
@@ -40,7 +41,7 @@ public:
     ~SetupPageLogView();
 
     QString getFields();
-
+    void saveSettings();
     void setActiveFields(QStringList _q);
 
 

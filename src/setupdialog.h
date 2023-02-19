@@ -94,7 +94,7 @@ private:
     void setConfigured(const bool _configured);
     void setPage(const int _page);
     void connectActions();
-
+    void saveSettigs();
     void createIcons();
     bool processConfigLine(const QString &_line);
 

@@ -51,7 +51,7 @@ public:
     void setConfirmedColor(const QString &_c);
     void setDefaultColor(const QString &_c);
     void setDarkMode(const QString &_dm);
-
+    void saveSettings();
 
 
 private slots:
