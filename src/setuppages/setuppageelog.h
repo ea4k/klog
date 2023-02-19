@@ -88,6 +88,7 @@ public:
     bool getQRZCOMSubscriber();
     void setQRZCOMSubscriber(const bool _s);
     void saveSettings();
+    void loadSettings();
 
 private slots:
 

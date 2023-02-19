@@ -653,7 +653,31 @@ void SetupPageMisc::saveSettings()
     //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";";
     //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";";
     //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";";
-
-
     settings.endGroup ();
+}
+
+void SetupPageMisc::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());
+    showSecondsCheckBox->setChecked (settings.value("ShowSeconds").toBool ());
+    UTCCheckbox->setChecked (settings.value("UTCTime").toBool ());
+    alwaysADIFCheckBox->setChecked (settings.value("AlwaysADIF").toBool ());
+    useDefaultName->setChecked (settings.value("UseDefaultName").toBool ());
+    imperialCheckBox->setChecked (settings.value("ImperialSystem").toBool ());
+    sendQSLWhenRecCheckBox->setChecked (settings.value("SendQSLWhenRec").toBool ());
+    showStationCallWhenSearchCheckBox->setChecked (settings.value("ShowCallsignInSearch").toBool ());
+    completeWithPreviousCheckBox->setChecked (settings.value("CompleteWithPrevious").toBool ());
+    checkNewVersionCheckBox->setChecked (settings.value("CheckNewVersions").toBool ());
+    useDxMarathonCheckBox->setChecked (settings.value("ManageDXMarathon").toBool ());
+    sendEQSLByDefaultSearchCheckBox->setChecked (settings.value("SendEQSLByDefault").toBool ());
+    deleteAlwaysAdiFileCheckBox->setChecked (settings.value("DeleteAlwaysAdiFile").toBool ());
+    checkCallsCheckBox->setChecked (settings.value("CheckValidCalls").toBool ());
+    provideCallCheckBox->setChecked (settings.value("ProvideInfo").toBool ());
+
+    setDefaultFileName(settings.value("DefaultADIFFile").toString ());
+    setUseDefaultDBPath(settings.value("DBPath").toString ());
+    setDebugLogLevel(settings.value("DebugLog").toString ());
+    dupeTimeLineEdit->setText (settings.value("DuplicatedQSOSlot").toString ());
 }

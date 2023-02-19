@@ -307,9 +307,9 @@ QString SetupPageColors::getDarkMode(){
     return util->boolToQString(darkMode);
 }
 
-void SetupPageColors::setDarkMode(const QString &_dm)
+void SetupPageColors::setDarkMode(const bool _d)
 {
-    darkMode = !util->trueOrFalse(_dm);
+    darkMode = _d;
     slotSetDarkMode();
 }
 
@@ -324,4 +324,15 @@ void SetupPageColors::saveSettings()
     settings.setValue ("DefaultColor", (defaultColorButton->palette().color(QPalette::Button)).name());
     settings.setValue ("DarkMode", QVariant(darkMode));
     settings.endGroup ();
+}
+
+void SetupPageColors::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    setNewOneColor (settings.value("NewOneColor").toString ());
+    setNeededColor (settings.value("NeededColor").toString ());
+    setWorkedColor (settings.value("WorkedColor").toString ());
+    setConfirmedColor (settings.value("ConfirmedColor").toString ());
+    setDefaultColor (settings.value("DefaultColor").toString ());
+    setDarkMode (settings.value("DarkMode").toBool ());
 }

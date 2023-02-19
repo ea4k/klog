@@ -53,6 +53,7 @@ public:
     void setDefaultStationCallsign (const QString &_p);
     void setDefaultOperators(const QString &_p);
     void saveSettings();
+    void loadSettings();
 
 private slots:
     void slotNewButtonClicked();

@@ -429,3 +429,21 @@ void SetupPageDxCluster::saveSettings()
     settings.setValue ("DXClusterSendToMap", QVariant((sendSpotsToMapCheckbox->isChecked())));
     settings.endGroup ();
 }
+
+void SetupPageDxCluster::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    setDxclusterServersComboBox(settings.value("DXClusterServers").toStringList ());
+    dxclusterServersComboBox->setCurrentIndex(dxclusterServersComboBox->findText(settings.value ("DXClusterServerToUse").toString ()));
+    showHFQCheckbox->setChecked (settings.value("DXClusterShowHF").toBool ());
+    showVHFQCheckbox->setChecked (settings.value("DXClusterShowVHF").toBool ());
+    showWARCQCheckbox->setChecked (settings.value("DXClusterShowWARC").toBool ());
+    showWorkedQCheckbox->setChecked (settings.value("DXClusterShowWorked").toBool ());
+    showConfirmedQCheckbox->setChecked (settings.value("DXClusterShowConfirmed").toBool ());
+    showANNQCheckbox->setChecked (settings.value("DXClusterShowAnn").toBool ());
+    showWWVQCheckbox->setChecked (settings.value("DXClusterShowWWV").toBool ());
+    showWCYQCheckbox->setChecked (settings.value("DXClusterShowWCY").toBool ());
+    saveAllDXClusterDataQCheckbox->setChecked (settings.value("DXClusterSave").toBool ());
+    sendSpotsToMapCheckbox->setChecked (settings.value("DXClusterSendToMap").toBool ());
+}

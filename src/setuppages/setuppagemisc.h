@@ -85,6 +85,7 @@ public:
 
     bool areDBPathChangesApplied();
     void saveSettings();
+    void loadSettings();
 
 private slots:
     void slotOpenFileButtonClicked();

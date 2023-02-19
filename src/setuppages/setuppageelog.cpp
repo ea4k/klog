@@ -744,7 +744,31 @@ void SetupPageELog::saveSettings()
     settings.setValue ("LoTWUSer", lotwUserLineEdit->text());
     settings.setValue ("LoTWPass", lotwPasswordLineEdit->text());
     settings.endGroup ();
-
     settings.endGroup ();
+}
 
+void SetupPageELog::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    clubLogActiveCheckBox->setChecked (settings.value("ClubLogActive").toBool ());
+    clubLogSendInRealTimeCheckBox->setChecked (settings.value("ClubLogRealTime").toBool ());
+    clubLogEmailLineEdit->setText (settings.value("ClubLogEmail").toString ());
+    clubLogPasswordLineEdit->setText (settings.value("ClubLogPass").toString ());
+
+    eQSLActiveCheckBox->setChecked (settings.value("eQSLActive").toBool ());
+    eQSLUserLineEdit->setText (settings.value("eQSLCall").toString ());
+    eQSLPasswordLineEdit->setText (settings.value("eQSLPass").toString ());
+
+    QRZCOMActiveCheckBox->setChecked (settings.value("QRZcomActive").toBool ());
+    QRZCOMSubscriberCheckBox->setChecked (settings.value("QRZcomSubscriber").toBool ());
+    QRZCOMAutoCheckCheckBox->setChecked (settings.value("QRZcomAuto").toBool ());
+    QRZCOMUserLineEdit->setText (settings.value("QRZcomUser").toString ());
+    QRZCOMPasswordLineEdit->setText (settings.value("QRZcomPass").toString ());
+    setQRZCOMLogBookKEY (settings.value("QRZcomLogBookKey").toString ());
+
+    lotwUseTQSLCheckBox->setChecked (settings.value("LoTWActive").toBool ());
+    lotwUserLineEdit->setText (settings.value("LoTWUSer").toString ());
+    lotwPasswordLineEdit->setText (settings.value("LoTWPass").toString ());
+    lotwTQSLPathLineEdit->setText (settings.value("LoTWPath").toString ());
 }

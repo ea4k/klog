@@ -224,18 +224,18 @@ QString SetupPageUDP::getUDPServer()
     return util->boolToQString(UDPServerCheckBox->isChecked());
 }
 
-void SetupPageUDP::setUDPServer(const QString &_t)
+void SetupPageUDP::setUDPServer(const bool _t)
 {
        //qDebug() << "SetupPageUDP::setUDPServer: "  << t;
-    UDPServerCheckBox->setChecked(util->trueOrFalse(_t));
+    UDPServerCheckBox->setChecked(_t);
     slotUDPServerCheckBoxClicked();
 }
 
-void SetupPageUDP::setUDPServerPort(const QString &_t)
+void SetupPageUDP::setUDPServerPort(const int _t)
 {
-    if (  (_t.toInt()>=0) && (_t.toInt()<=65535))
+    if (  (_t>=0) && (_t<=65535))
     {
-        UDPServerPortSpinBox->setValue(_t.toInt());
+        UDPServerPortSpinBox->setValue(_t);
     }
     else
     {
@@ -257,17 +257,16 @@ QString SetupPageUDP::getUDPServerPort()
     }
 }
 
-void SetupPageUDP::setTimeout(const QString &_t)
+void SetupPageUDP::setTimeout(const int _t)
 {
-    if (  (_t.toInt()>=0) && (_t.toInt()<=30000))
+    if (  (_t>=0) && (_t<=30000))
     {
-        miliSecsSpinBox->setValue(_t.toInt());
+        miliSecsSpinBox->setValue(_t);
     }
     else
     {
         miliSecsSpinBox->setValue(defaultTimer);
     }
-
 }
 
 QString SetupPageUDP::getTimeout()
@@ -299,20 +298,20 @@ QString SetupPageUDP::getReaDataFromWSJTx()
     return util->boolToQString(realDataFromWSJTXCheckbox->isChecked());
 }
 
-void SetupPageUDP::setLogFromWSJTx(const QString &_t)
+void SetupPageUDP::setLogFromWSJTx(const bool _t)
 {
-    logFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    logFromWSJTXCheckbox->setChecked(_t);
     slotLogFromWSJTCheckBoxClicked();
 }
 
-void SetupPageUDP::setAutoLogFromWSJTx(const QString &_t)
+void SetupPageUDP::setAutoLogFromWSJTx(const bool _t)
 {
-    logAutomaticallyWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    logAutomaticallyWSJTXCheckbox->setChecked(_t);
 }
 
-void SetupPageUDP::setReaDataFromWSJTx(const QString &_t)
+void SetupPageUDP::setReaDataFromWSJTx(const bool _t)
 {
-    realDataFromWSJTXCheckbox->setChecked(util->trueOrFalse(_t));
+    realDataFromWSJTXCheckbox->setChecked(_t);
 }
 
 QString SetupPageUDP::getNetworkInterface()
@@ -354,4 +353,17 @@ void SetupPageUDP::saveSettings()
     settings.setValue ("RealTimeFromWSJTX", QVariant((realDataFromWSJTXCheckbox->isChecked())));
     settings.setValue ("InfoTimeOut", getTimeout());
     settings.endGroup ();
+}
+
+void SetupPageUDP::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    setUDPServer (settings.value("UDPServer").toBool ());
+    setNetworkInterface (settings.value("UDPNetworkInterface").toString ());
+    setUDPServerPort (settings.value("UDPServerPort").toInt ());
+    setUDPServer (settings.value("UDPServer").toBool ());
+    setLogFromWSJTx(settings.value("LogFromWSJTX").toBool ());
+    logAutomaticallyWSJTXCheckbox->setChecked(settings.value("LogAutoFromWSJTX").toBool ());
+    realDataFromWSJTXCheckbox->setChecked(settings.value("RealTimeFromWSJTX").toBool ());
+    setTimeout(settings.value("InfoTimeOut").toInt ());
 }

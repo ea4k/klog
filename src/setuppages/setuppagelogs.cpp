@@ -273,8 +273,6 @@ void SetupPageLogs::slotLogSelected(const QModelIndex & index)
     int row = index.row();
     selectedLog = (logsModel->index(row, 0)).data(0).toInt();
     //qDebug() << "SetupPageLogs::slotLogSelected: " << QString::number(selectedLog) ;
-    //setSelectedLog(selectedLog);
-
 }
 
 void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
@@ -283,7 +281,6 @@ void SetupPageLogs::slotLogDoubleClicked(const QModelIndex & index)
 
     int row = index.row();
     selectedLog = (logsModel->index(row, 0)).data(0).toInt();
-    //setSelectedLog(selectedLog);
     slotEditButtonClicked();
 }
 
@@ -402,20 +399,6 @@ int SetupPageLogs::getSelectedLog()
     return selectedLog;
 }
 
-
-
-void SetupPageLogs::setSelectedLog(const int _i)
-{
-    //qDebug() << "SetupPageLogs::SetupPageLogs::setSelectedLog: " << QString::number(_i);
-    //TODO: Show which is the selected log
-    selectedLog = _i;
-    logsView->selectRow(1);
-
-    QModelIndex index = logsModel->index(selectedLog, 0);
-    logsView->setCurrentIndex(index);
-}
-
-
 void SetupPageLogs::showError(const QString &_errorC)
 {
     QString text = QString(tr("An error has occurred showing the following error code:") + "\n'%1'").arg(_errorC);
@@ -453,4 +436,26 @@ void SetupPageLogs::saveSettings()
     settings.beginGroup ("Logs");
     settings.setValue ("SelectedLog", selectedLog);
     settings.endGroup ();
+}
+
+void SetupPageLogs::loadSettings()
+{
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    int i = settings.value("SelectedLog").toInt();
+    if (dataProxy->doesThisLogExist(i))
+    {
+    }
+    else
+    {
+        i = 0;
+        while((!dataProxy->doesThisLogExist(i)) || i >500)
+        {//TODO If a user has more than 500 logs it may fail...
+            i++;
+        }
+    }
+    selectedLog = i;
+    logsView->selectRow(1);
+    QModelIndex index = logsModel->index(selectedLog, 0);
+    logsView->setCurrentIndex(index);
 }

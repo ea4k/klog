@@ -352,13 +352,13 @@ void SetupDialog::loadSettigs()
     bandModePage->setActiveBands (bands);
 
     logViewPage->saveSettings ();
-    //dxClusterPage->saveSettings ();
-    //miscPage->saveSettings ();
-    //colorsPage->saveSettings ();
-    //logsPage->saveSettings();
-    //eLogPage->saveSettings ();
-    //UDPPage->saveSettings ();
-    //hamlibPage->saveSettings ();
+    dxClusterPage->loadSettings ();
+    miscPage->loadSettings ();
+    colorsPage->loadSettings ();
+    logsPage->loadSettings();
+    eLogPage->loadSettings ();
+    UDPPage->loadSettings ();
+    //hamlibPage->loadSettings ();
 }
 
 void SetupDialog::saveSettigs()
@@ -593,43 +593,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     {
         miscPage->setCheckCalls (util->trueOrFalse (value));
     }
-    /*
-    else if (tab=="PSTROTATORACTIVE"){
-        interfacesWindowsPage->setSendToPSTRotator(value);
-    }
-    else if (tab=="PSTROTATORPORT"){
-        interfacesWindowsPage->setPSTRotatorUDPServerPort(value);
-    }
-    else if (tab=="PSTROTATORSERVER")
-    {
-        interfacesWindowsPage->setPSTRotatorUDPServer(value);
-    }
-    */
-    else if (tab=="UDPSERVER"){
-        UDPPage->setUDPServer(value);
-    }
-    else if (tab=="UDPNETWORKINTERFACE"){
-        UDPPage->setNetworkInterface(value);
-    }
-    else if (tab=="UDPSERVERPORT"){
-        UDPPage->setUDPServerPort(value);
-    }
-    else if (tab=="LOGFROMWSJTX")
-    {
-        UDPPage->setLogFromWSJTx(value);
-    }
-    else if (tab=="LOGAUTOFROMWSJTX")
-    {
-        UDPPage->setAutoLogFromWSJTx(value);
-    }
-    else if (tab=="REALTIMEFROMWSJTX")
-    {
-        UDPPage->setReaDataFromWSJTx(value);
-    }
-    else if (tab=="INFOTIMEOUT")
-    {
-        UDPPage->setTimeout(value);
-    }else if (tab =="DXCLUSTERSHOWHF"){
+    else if (tab =="DXCLUSTERSHOWHF"){
         dxClusterPage->setShowHFQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWVHF"){
         dxClusterPage->setShowVHFQCheckbox(value);
@@ -668,8 +632,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
           //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value;
-    }else if(tab =="DARKMODE"){
-        colorsPage->setDarkMode(value);
+
     }else if(tab =="HAMLIBRIGTYPE"){
           //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value;
         hamlibPage->setRigType(value);
@@ -709,25 +672,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         hamlibPage->setRadioNetworkAddress (value);
     }else if (tab == "HAMLIBNETPORT"){
         hamlibPage->setRadioNetworkPort (value.toInt ());
-    }else if(tab =="SELECTEDLOG"){
-           //qDebug() << "SetupDialog::processConfigLine: SELECTEDLOG: " << value;
-        i = value.toInt();
-
-        if (dataProxy->doesThisLogExist(i))
-        {
-               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist TRUE";
-        }
-        else
-        {
-               //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist FALSE";
-            i = 0;
-            while(!dataProxy->doesThisLogExist(i))
-            {
-                i++;
-            }
-        }
-        logsPage->setSelectedLog(i);
-           //qDebug() << "SetupDialog::processConfigLine: dataProxy->doesThisLogExist END";
     }else if(tab =="CLUBLOGACTIVE"){
         eLogPage->setClubLogActive(util->trueOrFalse(value));
     }
@@ -931,12 +875,12 @@ void SetupDialog::setDefaults()
     miscPage->setSetEQSLByDefault("TRUE");
     miscPage->setCheckCalls (true);
 
-    UDPPage->setUDPServer("FALSE");
-    UDPPage->setUDPServerPort("2237");
-    UDPPage->setTimeout("2000");
-    UDPPage->setLogFromWSJTx("FALSE");
-    UDPPage->setReaDataFromWSJTx("FALSE");
-    UDPPage->setAutoLogFromWSJTx("FALSE");
+    UDPPage->setUDPServer(false);
+    UDPPage->setUDPServerPort(2237);
+    UDPPage->setTimeout(2000);
+    UDPPage->setLogFromWSJTx(false);
+    UDPPage->setReaDataFromWSJTx(false);
+    UDPPage->setAutoLogFromWSJTx(false);
     //interfacesWindowsPage->setSendToPSTRotator("FALSE");
     //interfacesWindowsPage->setPSTRotatorUDPServer("locahost");
     //interfacesWindowsPage->setPSTRotatorUDPServerPort("12040");

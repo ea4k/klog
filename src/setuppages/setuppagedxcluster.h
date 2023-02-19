@@ -63,6 +63,7 @@ public:
     void setShowWCYQCheckbox(const QString t);
     void setSaveActivityQCheckbox(const QString t);
     void saveSettings();
+    void loadSettings();
 
 private slots:
     void slotAddButtonClicked();
