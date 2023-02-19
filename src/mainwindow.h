@@ -403,7 +403,7 @@ private:
     void readConfigData();
     bool usingNewSettings();
     void saveSettings();
-    //void saveSettings();
+    void loadSettings();
     void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();
 
@@ -431,8 +431,8 @@ private:
     // CLUSTER
     void clusterSpotToLog(const QString &_call, const QString &_freq);
     QStringList dxclusterServersList;
-    QString dxclusterServerToConnect;
-    int dxclusterServerPort;
+    //QString dxclusterServerToConnect;
+    //int dxclusterServerPort;
     bool dxclusterSendSpotsToMap;
     // CLUSTER
 
@@ -631,7 +631,6 @@ private:
     bool qrzAutoChanging; //To remove the data coming from QRZ.com only when data is coming.
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
 
-    double myPower, lastPower;
     //int my_CQz, my_ITUz; Not used
     int defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
     int currentEntity, previousEntity;

@@ -47,10 +47,9 @@ public:
 
     void createUI();
 
-    void setData(const double _power, const QString &_stationCallsign, const QString &_operator, const QString &_myLocator);
+    void setData(const QString &_stationCallsign, const QString &_operator, const QString &_myLocator);
 
-    void setSetupMyPower(const double _power);
-    void setSetupOperator(const QString &_op);
+
     //void setSetupStationQRZ(const QString &_op);
     void setSetupMyLocator(const QString &_op);
 
@@ -91,7 +90,7 @@ public:
     bool getKeep();
     void setModify(const bool _modify);
     void setLogLevel (const DebugLogLevel _b);
-
+    void loadSettings();
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
     void myLocChangedSignal(const QString &_q); // MyLocator once updated

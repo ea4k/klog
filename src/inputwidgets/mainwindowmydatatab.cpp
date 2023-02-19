@@ -250,28 +250,7 @@ void MainWindowMyDataTab::slotReturnPressed()
     emit returnPressed();
 }
 
-void MainWindowMyDataTab::setSetupMyPower(const double _power)
-{
-    //qDebug() << Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    myPower = _power;
-    myPowerSpinBox->setValue(_power);
-    logEvent (Q_FUNC_INFO, "END", Debug);
-}
 
-void MainWindowMyDataTab::setSetupOperator(const QString &_op)
-{
-    //qDebug() << Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (!util->isValidCall (_op))
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return;
-    }
-    operatorQRZ = _op.toUpper();
-    operatorLineEdit->setText (operatorQRZ);
-    logEvent (Q_FUNC_INFO, "END", Debug);
-}
 /*
 void MainWindowMyDataTab::setSetupStationQRZ(const QString &_op)
 {
@@ -379,18 +358,11 @@ QString MainWindowMyDataTab::getMyLocator()
 }
 
 
-void MainWindowMyDataTab::setData(const double _power, const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
+void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_power > 0.0)
-    {
-        myPower = _power;
-    }
-    else
-    {
-        myPower = 0;
-    }
+
     if (util->isValidCall (_stationCallsign))
     {
         stationCallsign = _stationCallsign;
@@ -477,10 +449,6 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
         {
             stationCallSignLineEdit->setPalette(palBlack);
         }
-        //if (!modify)
-        //{
-        //    stationCallsign = (stationCallSignLineEdit->text());
-        //}
     }
     else
     {
@@ -773,4 +741,21 @@ void MainWindowMyDataTab::logEvent(const QString &_func, const QString &_msg, De
         //qDebug() << Q_FUNC_INFO << "Emitting...";
         emit debugLog (_func, _msg, _level);
     }
+}
+
+void MainWindowMyDataTab::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    myPower = settings.value("Power").toDouble ();
+    myPowerSpinBox->setValue(myPower);
+
+    QString aux = ((settings.value("Operators").toString()).split(", ", QT_SKIP)).at(0);
+    if (util->isValidCall (aux))
+    {
+        operatorQRZ = aux.toUpper();
+        operatorLineEdit->setText (operatorQRZ);
+    }
+
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }

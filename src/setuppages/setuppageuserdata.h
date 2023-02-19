@@ -90,7 +90,7 @@ public:
 
     bool setRigs(const QStringList _aux);
     bool setAntennas(const QStringList _aux);
-    bool setPower(const QString &_aux);
+    bool setPower(const float _aux);
     bool setRig1 (const QString &_aux);
     bool setRig2 (const QString &_aux);
     bool setRig3 (const QString &_aux);
@@ -100,6 +100,7 @@ public:
     bool setAntenna3 (const QString &_aux);
     void setStationFocus();
     void saveSettings();
+    void loadSettings();
 
 signals:
     void mainCallsignSignal (const QString &_p);

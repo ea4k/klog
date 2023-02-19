@@ -48,7 +48,6 @@ void MainWindow::showNotWar()
 */
    //qDebug() << QT_VERSION_STR;
     int callDXCC = world->getQRZARRLId(mainQRZ);
-    //int callDXCC = world->getQRZARRLId(stationCallsign);
     int EURusId = 54;   // ADIF code Eu Russia
     int ASRusId = 15;   // ADIF code As Russia
     int KaRusId = 126;  // Kaliningrad
@@ -262,15 +261,11 @@ void MainWindow::saveWindowsSize()
     //qDebug() << "MainWindow::saveWindows" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     windowSize = this->size();
-
     int height = windowSize.height();
     int width = windowSize.width();
-    //qDebug() << "MainWindow::windowsSizeAndPosition: /" << QString::number(width) << "/" << QString::number(height)  << ")" ;
-    //qDebug() << "MainWindow::windowsSizeAndPosition: Heigth: " << QString::number(height)  ;
-      //qDebug() << "MainWindow::windowsSizeAndPosition: Width: " << QString::number(width)  ;
-    //(const QString& _filename, const QString &_field, const QString &_value)
-    filemanager->modifySetupFile(configFileName, "MainWindowSize", QString::number(width) + "x" + QString::number(height));
-    //return QString::number(width) + "x" + QString::number(height);
+
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.setValue ("MainWindowSize", windowSize);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::windowsSizeAndPosition: END" ;
@@ -361,16 +356,13 @@ void MainWindow::init()
     setCleaning(false);
     //qDebug() << "MainWindow::init - 10" ;
     dxClusterWidget->init();
-    //dxclusterServerToConnect = "dxfun.com";
-    //dxclusterServerPort = 8000;
-    //dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);
+
     contestMode = "DX";
     infoTimeout = 2000; // default timeout
 
     defaultADIFLogFile = "klog.adi";
 
     InValidCharsInPrevCall = false;
-    //stationCallSignShownInSearch = true;
     checkNewVersions = true;
     reportInfo = false;
     configured = false;
@@ -398,7 +390,7 @@ void MainWindow::init()
     mainQRZ = "";
     //myLocator = "";
     dxLocator ="";
-    myPower = 0.0;
+
     UDPServerStart = false;   // By default the UDP server is started
 
     //qDebug() << "MainWindow::init - 30" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -1427,7 +1419,6 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     aux1 = QString::number(myDataTabWidget->getMyPower());
     if ((aux1.toFloat())>0.0f)
     {
-        //lastPower = aux1.toDouble();
         stringFields = stringFields + ", tx_pwr";
         stringData = stringData + ", '" + aux1 + "'";
     }
@@ -2176,7 +2167,6 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = myDataTabWidget->getStationCallsign();
-    //aux1 = (stationCallSignLineEdit->text()).toUpper();
     if (util->isValidCall(aux1))
     {
         updateString = updateString + "station_callsign = '";
@@ -2304,8 +2294,6 @@ QString MainWindow::readDataFromUIDXModifying()
     {
         updateString = updateString + "qsl_via = '', ";
     }
-
-    //aux1 = QString::number(myPowerSpinBox->value());
 
     if (myDataTabWidget->getMyPower()>0.0)
     {
@@ -4959,18 +4947,16 @@ void MainWindow::readConfigData()
     QTextStream in(&file);
     while (!in.atEnd())
     {
-        QString line;
-        line.clear ();
-        line = in.readLine();
-        processConfigLine(line);
+        //QString line;
+        //line.clear ();
+        //line = in.readLine();
+        //processConfigLine(line);
     }
     file.close ();
 
 
     //qDebug() << Q_FUNC_INFO << ": After processConfigLines "  << QTime::currentTime().toString("hh:mm:ss") ;
-    //defineStationCallsign(mainQRZ);
-
-     //qDebug() << Q_FUNC_INFO << ":  " << defaultADIFLogFile << QTime::currentTime().toString("hh:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << ":  " << defaultADIFLogFile << QTime::currentTime().toString("hh:mm:ss") ;
 
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
@@ -5051,9 +5037,54 @@ bool MainWindow::usingNewSettings()
 void MainWindow::saveSettings()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.setValue ("Version", softwareVersion);
+    settings.setValue ("MainWindowSize", windowSize);
+    //setupDialog->saveSettigs ();
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::loadSettings()
+{
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.setValue ("Version", softwareVersion);
+    QString value = settings.value ("Version").toString ();
+    if (softwareVersion!=value)
+    {
+        itIsANewversion = true;
+    }
+    value = settings.value ("MainWindowSize").toString ();
+    QStringList values;
+    values.clear();
+    values << value.split("x");
+    if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
+    {
+        windowSize.setWidth(values.at(0).toInt());
+        windowSize.setHeight(values.at(1).toInt());
+    }
+    value = settings.value ("CallSign").toString ();
+    if (util->isValidCall(value))
+    {
+        mainQRZ = value;
+    }
+
+    //readActiveModes(settings.value("Modes").split(", ", QT_SKIP));
+    readActiveModes(settings.value("Modes").toStringList ());
+    readActiveBands(settings.value("Bands").toStringList ());
+    //readActiveBands(settings.value("Bands").split(", ", QT_SKIP));
+    mainQSOEntryWidget->setRealTime(settings.value("RealTime").toBool ());
+    mainQSOEntryWidget->setShowSeconds (settings.value("ShowSeconds").toBool ());
+    logWindow->setColumns(settings.value("LogViewFields").toStringList ());
+    value = settings.value("StationLocator").toString ();
+    if ( locator->isValidLocator(value) )
+    {
+        myDataTabWidget->setMyLocator(value.toUpper());
+        adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());
+    }
+
+    dxClusterWidget->loadSettings ();
+    myDataTabWidget->loadSettings ();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -5144,31 +5175,6 @@ bool MainWindow::processConfigLine(const QString &_line){
     }else if (field=="LOGVIEWFIELDS"){
         //qDebug() << "MainWindow::processConfigLine: LOGVIEWFIELDS: " << value.toUpper() ;
         logWindow->setColumns(value.split(",", QT_SKIP));
-    }else if (field =="DXCLUSTERSERVERTOUSE"){
-        aux = value;  //dxfun.com:8000
-        //qDebug() << Q_FUNC_INFO << ": DXServerToUse: " << aux;
-        if (aux.contains(':'))
-        {
-            dxclusterServerToConnect = (aux.split(':', QT_SKIP)).at(0);
-            dxclusterServerPort = ((aux.split(':', QT_SKIP)).at(1)).toInt();
-            //qDebug() << Q_FUNC_INFO << ": DXServerToUse: OK" ;
-        }
-
-        if ((dxclusterServerToConnect.length()< 3) || (dxclusterServerPort <= 0))
-        {
-            //qDebug() << Q_FUNC_INFO << ": DXServerToUse: NOK=>dxfun" ;
-            dxclusterServerToConnect = "dxfun.com";
-            dxclusterServerPort = 8000;
-        }
-        dxClusterWidget->setDXClusterServer(dxclusterServerToConnect, dxclusterServerPort);
-    }
-    else if(field=="POWER")
-    {
-        if (value.toFloat()>0.0f)
-        {
-            myPower = value.toDouble();
-            myDataTabWidget->setSetupMyPower(myPower);
-        }
     }
     else if (field=="USEDEFAULTNAME")
     {
@@ -5194,7 +5200,6 @@ bool MainWindow::processConfigLine(const QString &_line){
     else if (field=="SHOWCALLSIGNINSEARCH")
     {
         searchWidget->setShowCallInSearch(util->trueOrFalse(value));
-        //stationCallSignShownInSearch = util->trueOrFalse(value);
     }
 
     else if (field=="CHECKNEWVERSIONS"){
@@ -5289,15 +5294,6 @@ bool MainWindow::processConfigLine(const QString &_line){
     {
         defaultADIFLogFile = value.toLower();
                     //qDebug() << "MainWindow::processConfigLine: " << defaultADIFLogFile ;
-    }
-    else if (field=="STATIONLOCATOR")
-    {
-        if ( locator->isValidLocator(value) )
-        {
-            //myLocator = ;
-            myDataTabWidget->setMyLocator(value.toUpper());
-            adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());
-        }
     }
     else if(field=="NEWONECOLOR")
     {
@@ -5799,10 +5795,9 @@ void MainWindow::readActiveBands (const QStringList actives)
 
 void MainWindow::readActiveModes (const QStringList actives)
 {
-             //qDebug() << "MainWindow::readActiveModes: " << actives ;
-            //qDebug() << "MainWindow::readActiveModes: " ;
+  //qDebug() << "MainWindow::readActiveModes: " << actives ;
+
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //bool atLeastOne = false;
     QString aux;
     aux.clear();
 
@@ -5812,28 +5807,19 @@ void MainWindow::readActiveModes (const QStringList actives)
     __modes << dataProxy->getModesInLog(currentLog);
     __modes.removeDuplicates();
     modes.clear();
-    //QStringList values = actives.split(", ", QT_SKIP);
 
     for (int i = 0; i < __modes.size() ; i++)
     {
-                 //qDebug() << "MainWindow::readActiveModes: checking: " << __modes.at(i) ;
+       //qDebug() << "MainWindow::readActiveModes: checking: " << __modes.at(i) ;
         if (dataProxy->getIdFromModeName(__modes.at(i)) > 0)
         {
-                     //qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) ;
-            //if (!atLeastOne)
-            //{
-            //    atLeastOne = true;
-
-            //}
+            //qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) ;
             aux = __modes.at(i);
-
             if (aux.length()>0)
             {
-                        //qDebug() << "MainWindow::readActiveModes: adding: " << aux ;
+              //qDebug() << "MainWindow::readActiveModes: adding: " << aux ;
                modes << aux;
             }
-
-           // modes << actives.at(i);
         }
     }
     modes.removeDuplicates();
@@ -5854,9 +5840,6 @@ void MainWindow::createUIDX()
 {
     //        //qDebug() << "MainWindow::createUIDX ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    //operatorLineEdit->setToolTip(tr("Logging operator's callsign."));
-    //stationCallSignLineEdit->setToolTip(tr("Callsign used over the air."));
 
     infoLabel1->setToolTip(tr("Status of the DX entity."));
             //qDebug() << "MainWindow::createUIDX-13" ;
@@ -7926,7 +7909,7 @@ void MainWindow::defineStationCallsign(const QString &_call)
 
     filemanager->setStationCallSign(stationCallsign);
     //qDebug() << "MainWindow::defineStationCallsign: AFTER"  ;
-    myDataTabWidget->setData(myPower, stationCallsign, operatorQRZ, myDataTabWidget->getMyLocator());
+    myDataTabWidget->setData(stationCallsign, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     searchWidget->setStationCallsign(stationCallsign);
     if (lotwActive)
@@ -8197,7 +8180,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
     double pwr = _mypwr.toDouble();
     if (pwr<=0.0)
     {
-        pwr = myPower;
+        pwr = myDataTabWidget->getMyPower ();
     }
 
     if (!_datetime.isValid() || !_datetime_off.isValid())

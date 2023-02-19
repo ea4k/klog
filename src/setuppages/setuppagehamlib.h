@@ -32,6 +32,7 @@
 #include <QSerialPortInfo>
 #include "../hamlibclass.h"
 #include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 #include "hamlibserialconfigwidget.h"
 #include "hamlibnetworkconfigwidget.h"
 #include <hamlib/rig.h>
@@ -58,6 +59,7 @@ public:
     void setRadioNetworkAddress(const QString &_m);
     void setRadioNetworkPort(const int _p);
     void stopHamlib();
+    void saveSettings();
 
 public slots:
     //void slotScanPorts();

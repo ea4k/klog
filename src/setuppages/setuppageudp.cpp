@@ -342,7 +342,6 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
     }
 }
 
-
 void SetupPageUDP::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);

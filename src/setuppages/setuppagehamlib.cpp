@@ -412,4 +412,30 @@ void SetupPageHamLib::setRadioNetworkPort(const int _p)
 }
 
 
+void SetupPageHamLib::saveSettings()
+{
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("HamLib");
+    settings.setValue ("HamLib", QVariant((activateHamlibCheckBox->isChecked())));
+    settings.setValue ("HamlibReadOnly", QVariant((readOnlyModeCheckBox->isChecked())));
+
+    settings.setValue ("HamLibRigType", hamlib->getModelIdFromName(rigTypeComboBox->currentText ()));
+    settings.setValue ("HamlibRigPollRate", QString::number(pollIntervalQSpinBox->value ()));
+    settings.beginGroup ("HamLib-Serial");
+    settings.setValue ("HamlibSerialPort", serialConfigWidget->getSerialPort ());
+    settings.setValue ("HamlibSerialBauds", QString::number(serialConfigWidget->getSerialBauds ()));
+    settings.setValue ("HamLibSerialDataBits", QString::number(getDataBits()));
+    settings.setValue ("HamLibSerialStopBit", serialConfigWidget->getStopBits());
+    settings.setValue ("HamLibSerialDataBits", QString::number(getDataBits()));
+    settings.setValue ("HamLibSerialStopBit", serialConfigWidget->getStopBits());
+    settings.setValue ("HamLibSerialFlowControl", serialConfigWidget->getFlowControl ());
+    settings.setValue ("HamLibSerialParity", serialConfigWidget->getParity ());
+    settings.endGroup ();
+    settings.beginGroup ("HamLib-Net");
+    settings.setValue ("HamlibNetAddress", networkConfigWidget->getAddress ());
+    settings.setValue ("HamlibNetPort", networkConfigWidget->getPort ());
+    settings.endGroup ();
+    settings.endGroup ();
+}
 

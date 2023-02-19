@@ -114,8 +114,6 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
-
-    //connectActions();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -221,7 +219,7 @@ void SetupDialog::setConfigFile(const QString &_configFile)
 
 void SetupDialog::setSoftVersion(const QString &_softwareVersion)
 {
-       //qDebug() << "SetupDialog::setSoftVersion";
+    //qDebug() << "SetupDialog::setSoftVersion";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     version = _softwareVersion;
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -338,11 +336,37 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void SetupDialog::loadSettigs()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    version = settings.value ("Version").toString();
+    //windowSize = settings.value ("MainWindowSize");
+    latestBackup = settings.value ("LatestBackup").toString ();
+    userDataPage->loadSettings();
+    //bandModePage->saveSettings ();
+    readActiveModes(settings.value ("Modes").toString());
+    modes.removeDuplicates();
+    bandModePage->setActiveModes(modes);
+    readActiveBands(settings.value ("Bands").toString());
+    bands.removeDuplicates();
+    bandModePage->setActiveBands (bands);
+
+    logViewPage->saveSettings ();
+    //dxClusterPage->saveSettings ();
+    //miscPage->saveSettings ();
+    //colorsPage->saveSettings ();
+    //logsPage->saveSettings();
+    //eLogPage->saveSettings ();
+    //UDPPage->saveSettings ();
+    //hamlibPage->saveSettings ();
+}
 
 void SetupDialog::saveSettigs()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.setValue ("Version", version);
+    //settings.setValue ("Version", version);
+    //settings.setValue ("MainWindowSize", windowSize);
+    settings.setValue ("LatestBackup", latestBackup);
     userDataPage->saveSettings();
     bandModePage->saveSettings ();
     logViewPage->saveSettings ();
@@ -352,31 +376,7 @@ void SetupDialog::saveSettigs()
     logsPage->saveSettings();
     eLogPage->saveSettings ();
     UDPPage->saveSettings ();
-
- /*
-
-    satsPage
-    hamlibPage
-
-
-
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib";
-        QString _aa = hamlibPage->getData();
-        stream << _aa;
-
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa;
-
-        //WSJTX
-
-        //Windows Size
-        if (windowSize.length()>0)
-        {
-            stream << "MainWindowSize=" << windowSize << ";" <<  QT_ENDL;
-        }
-        if (latestBackup.length()>0)
-        {
-            stream << "LatestBackup=" << latestBackup << ";";
-   */
+    hamlibPage->saveSettings ();
 }
 
 void SetupDialog::slotOkButtonClicked()
@@ -423,325 +423,7 @@ void SetupDialog::slotOkButtonClicked()
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - 10";
     saveSettigs();
-    QFile file (configFileName);
 
-
-    if (!file.open (QIODevice::WriteOnly))   /* Flawfinder: ignore */
-    {
-      QDialog::reject();
-    }
-    QTextStream stream (&file);
-
-        //QRZ/CQ/ITU/CONTEST
-    stream << "Version=" << version << ";" << QT_ENDL;
-    stream << "Callsign="  << userDataPage->getMainCallsign() << ";" << QT_ENDL;
-    if ((userDataPage->getOperators()).length() >= 3)
-    { // There are no valid calls with less than 3 Chars
-        stream << "Operators="  << userDataPage->getOperators() << ";";
-    }
-    stream << "CQz=" << QString::number(userDataPage->getCQz()) <<  ";" <<  QT_ENDL;
-    stream << "ITUz=" << QString::number(userDataPage->getITUz()) <<  ";" <<  QT_ENDL;
-
-    if ( locator->isValidLocator(userDataPage->getStationLocator()) )
-    {
-        stream << "StationLocator=" << userDataPage->getStationLocator() << ";";
-    }
-
-    if ((!(userDataPage->getName()).isNull()) && (  (userDataPage->getName()).length() > 0   ))
-    {
-        stream << "Name=" << userDataPage->getName() <<";";
-    }
-    if ((!(userDataPage->getAddress1()).isNull()) && (  (userDataPage->getAddress1()).length() > 0   ))
-    {
-        stream << "Address1=" << userDataPage->getAddress1() <<";";
-        }
-        if ((!(userDataPage->getAddress2()).isNull())  && (  (userDataPage->getAddress2()).length() > 0   ))
-        {
-            stream << "Address2=" << userDataPage->getAddress2() <<";";
-        }
-        if ((!(userDataPage->getAddress3()).isNull()) && (  (userDataPage->getAddress3()).length() > 0   ))
-        {
-            stream << "Address3=" << userDataPage->getAddress3() <<";";
-        }
-        if ((!(userDataPage->getAddress4()).isNull()) && (  (userDataPage->getAddress4()).length() > 0   ))
-        {
-            stream << "Address4=" << userDataPage->getAddress4() <<";";
-        }
-
-        if ((!(userDataPage->getCity()).isNull()) && (  (userDataPage->getCity()).length() > 0   ))
-        {
-            stream << "City=" << userDataPage->getCity() <<";";
-        }
-        if ((!(userDataPage->getZipCode()).isNull()) && (  (userDataPage->getZipCode()).length() > 0   ))
-        {
-            stream << "ZipCode=" << userDataPage->getZipCode() <<";";
-        }
-        if ((!(userDataPage->getProvince()).isNull()) && (  (userDataPage->getProvince()).length() > 0   ))
-        {
-            stream << "ProvinceState=" << userDataPage->getProvince() <<";";
-        }
-        if ((!(userDataPage->getCountry()).isNull()) && (  (userDataPage->getCountry()).length() > 0   ))
-        {
-            stream << "Country=" << userDataPage->getCountry() <<";";
-        }
-        if ((!(userDataPage->getRig1()).isNull()) && (  (userDataPage->getRig1()).length() > 0   ))
-        {
-            stream << "Rig1=" << userDataPage->getRig1() <<";";
-        }
-        if ((!(userDataPage->getRig2()).isNull()) && (  (userDataPage->getRig2()).length() > 0   ))
-        {
-            stream << "Rig2=" << userDataPage->getRig2() <<";";
-        }
-        if ((!(userDataPage->getRig3()).isNull()) && (  (userDataPage->getRig3()).length() > 0   ))
-        {
-            stream << "Rig3=" << userDataPage->getRig3() <<";";
-        }
-        if ((!(userDataPage->getAntenna1()).isNull()) && (  (userDataPage->getAntenna1()).length() > 0   ))
-        {
-            stream << "Antenna1=" << userDataPage->getAntenna1() <<";";
-        }
-        if ((!(userDataPage->getAntenna2()).isNull()) && (  (userDataPage->getAntenna2()).length() > 0   ))
-        {
-            stream << "Antenna2=" << userDataPage->getAntenna2() <<";";
-        }
-        if ((!(userDataPage->getAntenna3()).isNull()) && (  (userDataPage->getAntenna2()).length() > 0   ))
-        {
-            stream << "Antenna3=" << userDataPage->getAntenna3() <<";";
-        }
-        if ((userDataPage->getPower()).toFloat()>=0)
-        {
-            stream << "Power=" << userDataPage->getPower() << ";";
-        }
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 20";
-
-        stream << "Bands=" << bandModePage->getBands() << ";" <<  QT_ENDL;
-        stream << "Modes=" << bandModePage->getModes() << ";" <<  QT_ENDL;
-        stream << "LogViewFields=" << logViewPage->getFields() << ";" <<  QT_ENDL;
-
-        //stream << "InMemory=" << miscPage->getInMemory() << ";" <<  QT_ENDL;
-        stream << "RealTime=" << miscPage->getRealTime() << ";" <<  QT_ENDL;
-        stream << "ShowSeconds=" << util->boolToQString(miscPage->getShowSeconds())<< ";" <<  QT_ENDL;
-        stream << "UTCTime=" << miscPage->getUTCTime() << ";" <<  QT_ENDL;
-        stream << "AlwaysADIF=" << miscPage->getAlwaysADIF() << ";" <<  QT_ENDL;
-        stream << "UseDefaultName=" << miscPage->getUseDefaultName() << ";" <<  QT_ENDL;
-        stream << "DefaultADIFFile=" << miscPage->getDefaultFileName() << ";" <<  QT_ENDL;
-        stream << "DBPath=" << miscPage->getDefaultDBPath() << ";" <<  QT_ENDL;
-        stream << "ImperialSystem=" << miscPage->getImperial() << ";" <<  QT_ENDL;
-        stream << "SendQSLWhenRec=" << miscPage->getSendQSLWhenRec() << ";" <<  QT_ENDL;
-        stream << "ShowCallsignInSearch=" << miscPage->getShowStationCallSignInSearch() << ";" <<  QT_ENDL;
-        stream << "CompleteWithPrevious=" << miscPage->getCompleteWithPrevious() << ";" <<  QT_ENDL;
-        stream << "CheckNewVersions=" << miscPage->getCheckNewVersions() << ";" <<  QT_ENDL;
-        stream << "ManageDXMarathon=" << miscPage->getDXMarathon() << ";" <<  QT_ENDL;
-        stream << "DebugLog=" << miscPage->getDebugLogLevel() << ";";
-        stream << "SendEQSLByDefault=" << miscPage->getSendEQSLByDefault() << ";";
-        stream << "DeleteAlwaysAdiFile=" << miscPage->getDeleteAlwaysAdiFile() << ";";
-        stream << "CheckValidCalls=" << util->boolToQString (miscPage->getCheckCalls())<< ";";
-
-        if (miscPage->getDupeTime()>0)
-        {
-            stream << "DuplicatedQSOSlot=" << QString::number(miscPage->getDupeTime()) << ";";
-        }
-
-        //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";";
-        //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";";
-        //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";";
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 30";
-
-        if ( miscPage->getReportInfo())
-        {
-            stream << "ProvideInfo=True;"  <<  QT_ENDL;
-        }
-        QString tmp;
-        tmp = dxClusterPage->getSelectedDxClusterServer();
-        if (!(tmp.isNull()) && (  tmp.length() > 0   ))
-        {
-            stream << "DXClusterServerToUse=" << tmp <<";";
-        }
-
-        QStringList stringList;
-        stringList.clear();
-        stringList << dxClusterPage->getDxclusterServersComboBox();
-
-        if (stringList.size()>0)
-        {
-            for (int i = 0; i < stringList.size(); i++)
-            {
-                 stream << "DXClusterServerPort="<< stringList.at(i) << ";";
-            }
-        }
-        stream << "DXClusterShowHF=" << dxClusterPage->getShowHFQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowVHF=" << dxClusterPage->getShowVHFQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowWARC=" << dxClusterPage->getShowWARCQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowWorked=" << dxClusterPage->getShowWorkedQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowConfirmed=" << dxClusterPage->getShowConfirmedQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowAnn=" << dxClusterPage->getShowANNQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowWWV=" << dxClusterPage->getShowWWVQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterShowWCY=" << dxClusterPage->getShowWCYQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterSave=" << dxClusterPage->getSaveActivityQCheckbox() << ";" <<  QT_ENDL;
-        stream << "DXClusterSendToMap=" << dxClusterPage->getSendSpotsToMap()<< ";" <<  QT_ENDL;
-
-
-        stream << "NewOneColor=" << colorsPage->getNewOneColor() << ";" <<  QT_ENDL;
-        stream << "NeededColor=" << colorsPage->getNeededColor() << ";" <<  QT_ENDL;
-        stream << "WorkedColor=" << colorsPage->getWorkedColor() << ";" <<  QT_ENDL;
-        stream << "ConfirmedColor=" << colorsPage->getConfirmedColor() << ";" <<  QT_ENDL;
-        stream << "DefaultColor=" << colorsPage->getDefaultColor() << ";" <<  QT_ENDL;
-        stream << "DarkMode=" << colorsPage->getDarkMode() << ";";
-        stream << "SelectedLog=" << QString::number(logsPage->getSelectedLog()) << ";" <<  QT_ENDL;
-        //qDebug() << "SetupDialog::slotOkButtonClicked SelectedLog: " << logsPage->getSelectedLog();
-        // CLUBLOG
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 40";
-
-            if (eLogPage->getClubLogActive())
-            {
-                stream << "ClubLogActive=True;"<<  QT_ENDL;
-            }
-            else
-            {
-                stream << "ClubLogActive=False;"<< QT_ENDL;
-            }
-            if (eLogPage->getClubLogRealTime())
-            {
-                stream << "ClubLogRealTime=True;" <<  QT_ENDL;
-            }
-            else
-            {
-                stream << "ClubLogRealTime=False;";
-            }
-            tmp = eLogPage->getClubLogEmail() ;
-            if (tmp.length()>0)
-            {
-                 stream << "ClubLogEmail=" << tmp << ";" <<  QT_ENDL;
-            }
-
-            tmp = eLogPage->getClubLogPassword() ;
-            if (tmp.length()>0)
-            {
-                stream << "ClubLogPass=" << tmp << ";" <<  QT_ENDL;
-            }
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 50";
-        // eQSL
-
-            if (eLogPage->getEQSLActive())
-            {
-                stream << "eQSLActive=True;" <<  QT_ENDL;
-            }
-            else
-            {
-                stream << "eQSLActive=False;";
-            }
-            tmp = eLogPage->getEQSLUser();
-            if (tmp.length()>0)
-            {
-                 stream << "eQSLCall=" << tmp << ";" <<  QT_ENDL;
-            }
-
-            tmp = eLogPage->getEQSLPassword() ;
-            if (tmp.length()>0)
-            {
-                stream << "eQSLPass=" << tmp << ";" <<  QT_ENDL;
-            }
-
-        // eQSL - END
-        // QRZ.com
-
-            //qDebug() << "SetupDialog::slotOkButtonClicked - Storing QRZ.com data";
-
-            if (eLogPage->getQRZCOMActive())
-            {
-                stream << "QRZcomActive=True;" <<  QT_ENDL;
-            }
-            else
-            {
-                stream << "QRZcomActive=False;";
-            }
-            tmp = eLogPage->getQRZCOMUser();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomUser=" << tmp << ";" <<  QT_ENDL;
-            }
-            tmp = eLogPage->getQRZCOMPassword();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomPass=" << tmp << ";" <<  QT_ENDL;
-            }
-
-            if (eLogPage->getQRZCOMSubscriber())
-            {
-                 stream << "QRZcomSubscriber=True;";
-            }
-            else
-            {
-                stream << "QRZcomSubscriber=False;" <<  QT_ENDL;
-            }
-
-            if (eLogPage->getQRZCOMAutoCheck())
-            {
-                 stream << "QRZcomAuto=True;";
-            }
-            else
-            {
-                stream << "QRZcomAuto=False;" <<  QT_ENDL;
-            }
-            tmp = eLogPage->getQRZCOMLogBookKEY();
-            if (tmp.length()>0)
-            {
-                 stream << "QRZcomLogBookKey=" << tmp << ";" <<  QT_ENDL;
-            }
-
-        // QRZ.com - END
-
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 60";
-
-        // LOTW
-        stream << "LoTWActive=" << util->boolToQString(eLogPage->getLoTWActive()) << ";" <<  QT_ENDL;
-        tmp = eLogPage->getTQSLPath();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWPath=" << tmp << ";" <<  QT_ENDL;
-        }
-        tmp = eLogPage->getLoTWUser();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWUSer=" << tmp << ";" <<  QT_ENDL;
-        }
-        tmp = eLogPage->getLoTWPass();
-        if (tmp.length()>0)
-        {
-            stream << "LoTWPass=" << tmp << ";" <<  QT_ENDL;
-        }
-
-        // LOTW
-        //qDebug() << "SetupDialog::slotOkButtonClicked - 70";
-        //WSJTX
-        stream << "UDPServer=" << UDPPage->getUDPServer() << ";" <<  QT_ENDL;
-        stream << "UDPNetworkInterface=" << UDPPage->getNetworkInterface() << ";" <<  QT_ENDL;
-        stream << "UDPServerPort=" << UDPPage->getUDPServerPort() << ";" <<  QT_ENDL;
-        stream << "LogFromWSJTX=" << UDPPage->getLogFromWSJTx() << ";" <<  QT_ENDL;
-        stream << "LogAutoFromWSJTX=" << UDPPage->getAutoLogFromWSJTx() << ";" <<  QT_ENDL;
-        stream << "RealTimeFromWSJTX=" << UDPPage->getReaDataFromWSJTx() << ";" <<  QT_ENDL;
-        stream << "InfoTimeOut=" << UDPPage->getTimeout() << ";" <<  QT_ENDL;
-
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib";
-        QString _aa = hamlibPage->getData();
-        stream << _aa;
-
-          //qDebug() << "SetupDialog::slotOkButtonClicked: hamlib-2: " << _aa;
-
-        //WSJTX
-
-        //Windows Size
-        if (windowSize.length()>0)
-        {
-            stream << "MainWindowSize=" << windowSize << ";" <<  QT_ENDL;
-        }
-        if (latestBackup.length()>0)
-        {
-            stream << "LatestBackup=" << latestBackup << ";";
-        }
-        file.close ();
     hamlibPage->stopHamlib();
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving";
     QDialog::accept();
@@ -760,10 +442,9 @@ void SetupDialog::slotReadConfigData()
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
-        logViewFields.removeDuplicates();
         bandModePage->setActiveModes(modes);
         bandModePage->setActiveBands(bands);
-        logViewPage->setActiveFields(logViewFields);
+        logViewPage->init ();
     }
 
     //qDebug() << "SetupDialog::slotReadConfigData - 1";
@@ -778,12 +459,13 @@ void SetupDialog::slotReadConfigData()
     }
     //qDebug() << "SetupDialog::slotReadConfigData - 2";
     //dxClusterServers.clear();
-
-    while (!file.atEnd()){
+    loadSettigs ();
+    return;
+    //while (!file.atEnd()){
         QByteArray line = file.readLine();
-        processConfigLine(line);
+        //processConfigLine(line);
         //qDebug() << "SetupDialog::slotReadConfigData - in the while";
-    }
+    //}
     //qDebug() << "SetupDialog::slotReadConfigData - 3";
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
@@ -797,16 +479,12 @@ void SetupDialog::slotReadConfigData()
     {
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
     }
-    if (logViewFields.isEmpty())
-    {
-        logViewFields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
-    }
+
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
     bands.removeDuplicates();
     bandModePage->setActiveBands(bands);
-    logViewFields.removeDuplicates();
-    logViewPage->setActiveFields(logViewFields);
+
     //qDebug() << "SetupDialog::slotReadConfigData - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -862,15 +540,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         readActiveBands(value);
         bands.removeDuplicates();
         bandModePage->setActiveBands(bands);
-    //}else if (tab=="INMEMORY"){
-    //    miscPage->setInMemory(value);
-    }else if (tab=="LOGVIEWFIELDS"){
-        logViewFields.clear();
-        //qDebug() << Q_FUNC_INFO << ": " << value;
-        //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
-        logViewFields << dataProxy->filterValidFields(value.split(",", QT_SKIP));
-        logViewFields.removeDuplicates();
-        logViewPage->setActiveFields(logViewFields);
     }else if (tab=="REALTIME"){
         miscPage->setRealTime(value);
     }else if (tab=="SHOWSECONDS"){
@@ -960,78 +629,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="INFOTIMEOUT")
     {
         UDPPage->setTimeout(value);
-    }
-    else if (tab =="NAME")
-    {
-        userDataPage->setName(value);
-    }
-    else if (tab =="ADDRESS1")
-    {
-        userDataPage->setAddress1(value);
-    }
-    else if (tab =="ADDRESS2")
-    {
-        userDataPage->setAddress2(value);
-    }
-    else if (tab =="ADDRESS3")
-    {
-        userDataPage->setAddress3(value);
-    }
-    else if (tab =="ADDRESS4")
-    {
-        userDataPage->setAddress4(value);
-    }
-    else if (tab =="CITY")
-    {
-        userDataPage->setCity(value);
-    }
-    else if (tab =="ZIPCODE")
-    {
-        userDataPage->setZipCode(value);
-    }
-    else if (tab =="PROVINCESTATE")
-    {
-        userDataPage->setProvince(value);
-    }
-    else if (tab =="COUNTRY")
-    {
-        userDataPage->setCountry(value);
-    }
-    else if (tab =="POWER")
-    {
-        userDataPage->setPower(value);
-    }
-    else if (tab =="RIG1")
-    {
-        userDataPage->setRig1(value);
-    }
-    else if (tab =="RIG2")
-    {
-        userDataPage->setRig2(value);
-    }
-    else if (tab =="RIG3")
-    {
-        userDataPage->setRig3(value);
-    }
-
-    else if (tab =="ANTENNA1")
-    {
-        userDataPage->setAntenna1(value);
-    }
-    else if (tab =="ANTENNA2")
-    {
-        userDataPage->setAntenna2(value);
-    }
-    else if (tab =="ANTENNA3")
-    {
-        userDataPage->setAntenna3(value);
-    }
-    else if (tab =="STATIONLOCATOR")
-    {
-        if ( locator->isValidLocator(value) )
-        {
-            userDataPage->setStationLocator(value);
-        }
     }else if (tab =="DXCLUSTERSHOWHF"){
         dxClusterPage->setShowHFQCheckbox(value);
     }else if (tab =="DXCLUSTERSHOWVHF"){
@@ -1189,6 +786,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if(tab =="LOTWPASS"){
         eLogPage->setLoTWPass(value);
     }
+    /*
     else if(tab =="MAINWINDOWSIZE"){
         QStringList values;
         values.clear();
@@ -1198,6 +796,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
             windowSize = value;
         }
     }
+    */
     else if(tab =="DELETEALWAYSADIFILE"){
             miscPage->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
         }
@@ -1263,13 +862,12 @@ void SetupDialog::readActiveBands (const QString &actives)
 
 void SetupDialog::readActiveModes (const QString &actives)
 {
-       //qDebug() << "SetupDialog::readActiveModes: " << actives;
+    //qDebug() << "SetupDialog::readActiveModes: " << actives;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     bool atLeastOne = false;
     QStringList _amodes;//, _backModes;
-    // _backModes.clear();
-    // _backModes << modes;
+
     QStringList values = actives.split(", ", QT_SKIP);
     values.removeDuplicates();
 

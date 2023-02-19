@@ -6,7 +6,6 @@ HamLibNetworkConfigWidget::HamLibNetworkConfigWidget(QWidget *parent) : QWidget(
     hostAddressLineEdit = new QLineEdit();
     portQSpinBox = new QSpinBox;
     //qDebug() << Q_FUNC_INFO << " - END";
-
 }
 
 void HamLibNetworkConfigWidget::createUI()
@@ -64,3 +63,4 @@ void HamLibNetworkConfigWidget::setAddress(const QString &_st)
 { //TODO: Check that what is arriving is a hostname or IP address
     hostAddressLineEdit->setText (_st);
 }
+

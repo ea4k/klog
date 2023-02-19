@@ -67,7 +67,6 @@ public:
     void checkIfNewBandOrMode();
     void setLogLevel(const DebugLogLevel _sev);
 
-
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
@@ -95,6 +94,7 @@ private:
     void setPage(const int _page);
     void connectActions();
     void saveSettigs();
+    void loadSettigs();
     void createIcons();
     bool processConfigLine(const QString &_line);
 

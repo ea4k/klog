@@ -56,6 +56,18 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
 SetupPageLogView::~SetupPageLogView()
 {}
 
+void SetupPageLogView::init()
+{
+    if (fieldsListWidget->count ()<1)
+    {
+        QStringList aux;
+        aux.clear ();
+        aux << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
+        aux.removeDuplicates();
+        setActiveFields(aux);
+    }
+}
+
 void SetupPageLogView::addFields(QStringList _b)
 {
     fieldsListWidget->addItems(_b);
@@ -133,4 +145,16 @@ void SetupPageLogView::saveSettings()
     settings.beginGroup ("LogView");
     settings.setValue ("LogViewFields", getFields());
     settings.endGroup ();
+}
+
+void SetupPageLogView::loadSettings()
+{
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QStringList aux;
+    aux.clear();
+
+    aux << dataProxy->filterValidFields(settings.value("LogViewFields").toStringList ());
+    aux.removeDuplicates();
+    setActiveFields(aux);
 }

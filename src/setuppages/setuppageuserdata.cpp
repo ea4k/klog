@@ -462,7 +462,6 @@ QString SetupPageUserDataPage::getCity()
     return cityLineEdit->text();
 }
 
-
 QString SetupPageUserDataPage::getZipCode()
 {
     return zipLineEdit->text();
@@ -561,11 +560,10 @@ QString SetupPageUserDataPage::getPower()
 }
 
 
-bool SetupPageUserDataPage::setPower(const QString &_aux)
+bool SetupPageUserDataPage::setPower(const float _aux)
 {
-    myPowerSpinBox->setValue(_aux.toFloat());
+    myPowerSpinBox->setValue(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setRig1 (const QString &_aux)
@@ -725,4 +723,31 @@ void SetupPageUserDataPage::saveSettings()
     settings.setValue ("Antenna3",getAntenna3());
     settings.setValue ("Power", getPower ());
     settings.endGroup ();
+}
+
+void SetupPageUserDataPage::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    setMainCallsign(settings.value ("Callsign").toString ());
+    setOperators (settings.value ("Operators").toString ());
+    setStationLocator (settings.value ("StationLocator").toString ());
+    cqzLineEdit->setText (settings.value ("CQz").toString ());
+    ituzLineEdit->setText (settings.value ("ITUz").toString ());
+    nameLineEdit->setText (settings.value ("Name").toString ());
+    address1LineEdit->setText(settings.value ("Address1").toString ());
+    address2LineEdit->setText(settings.value ("Address2").toString ());
+    address3LineEdit->setText(settings.value ("Address3").toString ());
+    address4LineEdit->setText(settings.value ("Address4").toString ());
+    cityLineEdit->setText (settings.value ("City").toString ());
+    zipLineEdit->setText (settings.value ("ZipCode").toString ());
+    provinceLineEdit->setText(settings.value ("ProvinceState").toString ());
+    countryLineEdit->setText (settings.value ("Country").toString ());
+    rig1LineEdit->setText (settings.value ("Rig1").toString ());
+    rig2LineEdit->setText (settings.value ("Rig2").toString ());
+    rig3LineEdit->setText (settings.value ("Rig3").toString ());
+    ant1LineEdit->setText (settings.value ("Antenna1").toString ());
+    ant2LineEdit->setText (settings.value ("Antenna2").toString ());
+    ant3LineEdit->setText (settings.value ("Antenna3").toString ());
+    myPowerSpinBox->setValue(settings.value ("Power").toDouble ());
 }
