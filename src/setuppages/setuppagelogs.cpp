@@ -443,10 +443,7 @@ void SetupPageLogs::loadSettings()
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
     int i = settings.value("SelectedLog").toInt();
-    if (dataProxy->doesThisLogExist(i))
-    {
-    }
-    else
+    if (!dataProxy->doesThisLogExist(i))
     {
         i = 0;
         while((!dataProxy->doesThisLogExist(i)) || i >500)

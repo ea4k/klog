@@ -48,7 +48,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     version = QString();
     pageRequested = 0;
 
-    int logsPageTabN=-1;
+
     //qDebug() << Q_FUNC_INFO << ": 01";
 
     locator = new Locator();
@@ -358,7 +358,7 @@ void SetupDialog::loadSettigs()
     logsPage->loadSettings();
     eLogPage->loadSettings ();
     UDPPage->loadSettings ();
-    //hamlibPage->loadSettings ();
+    hamlibPage->loadSettings ();
 }
 
 void SetupDialog::saveSettigs()
@@ -637,41 +637,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
           //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value;
         hamlibPage->setRigType(value);
           //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value;
-    }else if(tab =="HAMLIBSERIALPORT"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPORT: " << value;
-        hamlibPage->setSerialPort(value);
-    }else if(tab =="HAMLIBSERIALBAUDS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALBAUDS: " << value;
-        hamlibPage->setSerialSpeed(value.toInt());
-    }else if(tab =="HAMLIB"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIB: " << value;
-        hamlibPage->setActive(value);
-    }else if(tab=="HAMLIBREADONLY"){
-        hamlibPage->setReadOnly(value);
-    }else if(tab =="HAMLIBSERIALDATABITS"){
-        //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDATABITS: " << value;
-        hamlibPage->setDataBits(value.toInt ());
-    }else if(tab =="HAMLIBSERIALSTOPBITS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALSTOPBITS: " << value;
-        hamlibPage->setStopBits(value);
-    }else if(tab =="HAMLIBSERIALFLOWCONTROL"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALFLOWCONTROL: " << value;
-        hamlibPage->setFlowControl(value);
-    }else if(tab =="HAMLIBSERIALPARITY"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALPARITY: " << value;
-        hamlibPage->setParity(value);
-    }else if(tab =="HAMLIBSERIALRTS"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALRTS: " << value;
-        //hamlibPage->setRTS(value);
-    }else if(tab =="HAMLIBSERIALDTR"){
-          //qDebug() << "SetupDialog::processConfigLine: HAMLIBSERIALDTR: " << value;
-        //hamlibPage->setDTR(value);
-    }else if (tab == "HAMLIBRIGPOLLRATE"){
-        hamlibPage->setPollingInterval(value.toInt());
-    }else if (tab == "HAMLIBNETADDRESS"){
-        hamlibPage->setRadioNetworkAddress (value);
-    }else if (tab == "HAMLIBNETPORT"){
-        hamlibPage->setRadioNetworkPort (value.toInt ());
     }else if(tab =="CLUBLOGACTIVE"){
         eLogPage->setClubLogActive(util->trueOrFalse(value));
     }

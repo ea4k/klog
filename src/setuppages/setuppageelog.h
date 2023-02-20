@@ -63,12 +63,10 @@ public:
     void setEQSLUser(const QString &c);
     void setEQSLPassword(const QString &c);
     void setEQSLActive(const bool _b);
-    //void setEQSLRealTime(const QString &_s);
 
     QString getEQSLUser();
     QString getEQSLPassword();
     bool getEQSLActive();
-    //QString getEQSLRealTime();
 
     //QRZ.COM
     void setQRZCOMUser(const QString &_s);

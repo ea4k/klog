@@ -375,10 +375,6 @@ private:
     void createMenusCommon();
     void createActionsCommon();
 
-    //bool readCtyFile();
-
-    //bool isQSLReceived(const int _qsoId);
-    //bool isQSLSent(const int _qsoId);
 
     //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
@@ -399,11 +395,12 @@ private:
     bool createConnection();
     void createData();
     void openSetup(const int _page=0);
-    bool processConfigLine(const QString &_line);
+
     void readConfigData();
     bool usingNewSettings();
     void saveSettings();
     void loadSettings();
+    void selectTheLog(const int _i);    // Receives a log number from loadSettings and setups all about the logN
     void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();
 
@@ -652,7 +649,7 @@ private:
     QSize windowSize;
 
     //<CLUBLOG>
-    bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
+    bool clublogActive, clublogRealTime, eQSLActive; //clublogUseStationCallSign,
     QString clublogPass, clublogEmail; //clublogUser,
 
     eLogClubLog *elogClublog;

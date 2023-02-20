@@ -261,7 +261,7 @@ void SetupPageHamLib::setDefaults()
     setTestResult(false);
     //qDebug()  << Q_FUNC_INFO << " - END";
 }
-
+/*
 QString SetupPageHamLib::getData()
 {
       //qDebug() << "SetupPageHamLib::getData";
@@ -305,6 +305,7 @@ QString SetupPageHamLib::getData()
     }
     return _output;
 }
+*/
 
 bool SetupPageHamLib::setRigType(const QString &_radio)
 {
@@ -322,50 +323,9 @@ bool SetupPageHamLib::setRigType(const QString &_radio)
     return false;
 }
 
-bool SetupPageHamLib::setSerialPort(const QString &_port)
-{
-    return serialConfigWidget->setSerialPort (_port);
-}
-
-bool SetupPageHamLib::setSerialSpeed(const int _speed )
-{
-    return serialConfigWidget->setSerialBauds (_speed);
-}
-
-void SetupPageHamLib::setActive(const QString &_active)
-{
-      //qDebug() << "SetupPageHamLib::setActive: " << _active;
-
-    if (_active.toUpper() == "TRUE")
-    {
-        activateHamlibCheckBox->setChecked(true);
-    }
-    else
-    {
-       activateHamlibCheckBox->setChecked(false);
-    }
-}
-
-void SetupPageHamLib::setReadOnly(const QString &_m)
-{
-    if (_m.toUpper() == "TRUE")
-    {
-        readOnlyModeCheckBox->setChecked(true);
-    }
-    else
-    {
-        readOnlyModeCheckBox->setChecked(false);
-    }
-}
-
 int SetupPageHamLib::getDataBits()
 {
     return serialConfigWidget->getDataBits ();
-}
-
-void SetupPageHamLib::setDataBits(const int _st)
-{
-    serialConfigWidget->setDataBits (_st);
 }
 
 QString SetupPageHamLib::getFlowControl()
@@ -373,44 +333,10 @@ QString SetupPageHamLib::getFlowControl()
     return serialConfigWidget->getFlowControl ();
 }
 
-void SetupPageHamLib::setFlowControl(const QString &_st)
-{
-    serialConfigWidget->setFlowControl (_st);
-}
-
 QString SetupPageHamLib::getParity()
 {
     return serialConfigWidget->getParity ();
 }
-
-void SetupPageHamLib::setParity(const QString &_st)
-{
-    serialConfigWidget->setParity(_st);
-}
-
-void SetupPageHamLib::setStopBits(const QString &_st)
-{
-    serialConfigWidget->setStopBits (_st);
-}
-
-void SetupPageHamLib::setPollingInterval(const int _msecs)
-{
-    pollIntervalQSpinBox->setValue(_msecs);
-}
-
-void SetupPageHamLib::setRadioNetworkAddress(const QString &_m)
-{
-    if (_m.length ()>0)
-    {
-        networkConfigWidget->setAddress (_m);
-    }
-}
-
-void SetupPageHamLib::setRadioNetworkPort(const int _p)
-{
-    networkConfigWidget->setPort (_p);
-}
-
 
 void SetupPageHamLib::saveSettings()
 {
@@ -427,8 +353,6 @@ void SetupPageHamLib::saveSettings()
     settings.setValue ("HamlibSerialBauds", QString::number(serialConfigWidget->getSerialBauds ()));
     settings.setValue ("HamLibSerialDataBits", QString::number(getDataBits()));
     settings.setValue ("HamLibSerialStopBit", serialConfigWidget->getStopBits());
-    settings.setValue ("HamLibSerialDataBits", QString::number(getDataBits()));
-    settings.setValue ("HamLibSerialStopBit", serialConfigWidget->getStopBits());
     settings.setValue ("HamLibSerialFlowControl", serialConfigWidget->getFlowControl ());
     settings.setValue ("HamLibSerialParity", serialConfigWidget->getParity ());
     settings.endGroup ();
@@ -439,3 +363,21 @@ void SetupPageHamLib::saveSettings()
     settings.endGroup ();
 }
 
+void SetupPageHamLib::loadSettings()
+{
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+
+    activateHamlibCheckBox->setChecked (settings.value("HamLib").toBool ());
+    readOnlyModeCheckBox->setChecked (settings.value("HamlibReadOnly").toBool ());
+    setRigType (settings.value("HamLibRigType").toString());
+    pollIntervalQSpinBox->setValue(settings.value("HamlibRigPollRate").toInt ());
+    serialConfigWidget->setSerialPort (settings.value("HamlibSerialPort").toString());
+    serialConfigWidget->setSerialBauds (settings.value("HamlibSerialBauds").toInt ());
+    serialConfigWidget->setDataBits (settings.value("HamLibSerialDataBits").toInt ());
+    serialConfigWidget->setStopBits(settings.value("HamLibSerialStopBit").toString());
+    serialConfigWidget->setFlowControl (settings.value("HamLibSerialFlowControl").toString());
+    serialConfigWidget->setParity(settings.value("HamLibSerialParity").toString());
+    networkConfigWidget->setAddress (settings.value("HamlibNetAddress").toString());
+    networkConfigWidget->setPort (settings.value("HamlibNetPort").toInt ());
+ }
