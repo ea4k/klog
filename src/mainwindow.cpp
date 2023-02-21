@@ -1151,6 +1151,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     logWindow->refresh();
     dxccStatusWidget->refresh();
+    searchWidget->slotSearchBoxTextChanged();
     logEvent(Q_FUNC_INFO, "END", Debug);
      //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << QT_ENDL;
 }
