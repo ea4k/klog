@@ -2934,6 +2934,7 @@ void MainWindow::slotQSODelete(const int _id)
 
                 dxccStatusWidget->refresh();
                 logWindow->refresh();
+                searchWidget->slotSearchBoxTextChanged();
                 slotShowAwards();
                //emit updateSearchText();
             }
