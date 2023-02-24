@@ -601,10 +601,7 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(actionDeleteQSO ( int ) ), this, SLOT(slotQSODelete(int) ) );
     connect(logWindow, SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
     connect(logWindow, SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
-
-
     connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
-    connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
     connect(logWindow, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     //CLUSTER
@@ -1151,7 +1148,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     logWindow->refresh();
     dxccStatusWidget->refresh();
-    searchWidget->slotSearchBoxTextChanged();
+    searchWidget->refresh();
     logEvent(Q_FUNC_INFO, "END", Debug);
      //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" << QT_ENDL;
 }
@@ -2802,13 +2799,6 @@ void MainWindow::slotOKButtonClicked(){
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotSearchBoxTextChanged()
-{
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    searchWidget->slotSearchBoxTextChanged();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
 void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 {
     logEvent(Q_FUNC_INFO, "Start: " + QString::number(_id.length ()), Debug);
@@ -2934,7 +2924,7 @@ void MainWindow::slotQSODelete(const int _id)
 
                 dxccStatusWidget->refresh();
                 logWindow->refresh();
-                searchWidget->slotSearchBoxTextChanged();
+                searchWidget->refresh();
                 slotShowAwards();
                //emit updateSearchText();
             }
