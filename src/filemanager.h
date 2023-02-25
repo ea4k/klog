@@ -83,7 +83,7 @@ public:
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
     //bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
-    bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
+    //bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
     void setVersion(const QString &_version);
     QDateTime getDateTimeOfLastBackup();
     void setStationCallSign(const QString& _st);

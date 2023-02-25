@@ -328,17 +328,25 @@ int SetupPageUserDataPage::getITUz(){
     return (ituzLineEdit->text()).toInt();
 }
 
-bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz){
+bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    if (_qrz.length ()<3)
+    {
+        return false;
+    }
     maincallsignLineEdit->setText((_qrz).toUpper());
     return true;
 }
 
-bool SetupPageUserDataPage::setCQz(const int _cqz){
+bool SetupPageUserDataPage::setCQz(const int _cqz)
+{
     cqzLineEdit->setText(QString::number(_cqz));
     return true;
 }
 
-bool SetupPageUserDataPage::setITUz(const int _ituz){
+bool SetupPageUserDataPage::setITUz(const int _ituz)
+{
     ituzLineEdit->setText(QString::number(_ituz));
     return true;
 }
@@ -346,8 +354,6 @@ bool SetupPageUserDataPage::setITUz(const int _ituz){
 void SetupPageUserDataPage::slotMyLocatorTextChanged()
 {
        //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
-
-    //int i;
 
     myLocatorLineEdit->setText(((util->getClearSQLi(myLocatorLineEdit->text()))).simplified());
     myLocatorLineEdit->setText((myLocatorLineEdit->text()).toUpper());
@@ -727,6 +733,8 @@ void SetupPageUserDataPage::saveSettings()
 
 void SetupPageUserDataPage::loadSettings()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
+
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
     setMainCallsign(settings.value ("Callsign").toString ());

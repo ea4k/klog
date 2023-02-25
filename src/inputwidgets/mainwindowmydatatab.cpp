@@ -745,17 +745,31 @@ void MainWindowMyDataTab::logEvent(const QString &_func, const QString &_msg, De
 
 void MainWindowMyDataTab::loadSettings()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
     myPower = settings.value("Power").toDouble ();
     myPowerSpinBox->setValue(myPower);
+    qDebug() << Q_FUNC_INFO << " - 10";
+    QString aux = settings.value("Operators").toString();
+    if (aux.contains(','))
+    {
+        aux = ((aux.split (',')).at(0)).simplified ();
+        //aux = aux.simplified ();
+    }
 
-    QString aux = ((settings.value("Operators").toString()).split(", ", QT_SKIP)).at(0);
+    //QString aux = (settings.value("Operators").toStringList ()).at(0);
+
+    qDebug() << Q_FUNC_INFO << " - 11";
     if (util->isValidCall (aux))
     {
+        qDebug() << Q_FUNC_INFO << " - 12";
         operatorQRZ = aux.toUpper();
+        qDebug() << Q_FUNC_INFO << " - 13";
         operatorLineEdit->setText (operatorQRZ);
+        qDebug() << Q_FUNC_INFO << " - 14";
     }
+    qDebug() << Q_FUNC_INFO << " - END";
 
     logEvent (Q_FUNC_INFO, "END", Debug);
 }

@@ -61,7 +61,6 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     fileNameButton = new QPushButton (tr("Browse"));
     dbPushButton = new QPushButton (tr("Browse"));
     moveDBPushButton = new QPushButton(tr("Move DB"));
-
     dbPathApplied = true;
 
     createUI();
@@ -293,7 +292,14 @@ QString SetupPageMisc::getDefaultFileName()
 void SetupPageMisc::setDefaultFileName(const QString &_t)
 {
        //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t;
-    defaultFileName = _t;
+    if (_t.length ()<1)
+    {
+        defaultFileName = util->getDebugLogFile ();
+    }
+    else
+    {
+        defaultFileName = _t;
+    }
     defaultFileNameLineEdit->setText(defaultFileName);
 }
 
@@ -434,9 +440,15 @@ QString SetupPageMisc::getDefaultDBPath()
 
 void SetupPageMisc::setUseDefaultDBPath(const QString &_t)
 {
-    dbDirCurrent = _t;
+    if (_t.isEmpty ())
+    {
+        dbDirCurrent = util->getHomeDir();
+    }
+    else
+    {
+        dbDirCurrent = _t;
+    }
     dbPathLineEdit->setText(dbDirCurrent);
-
 }
 
 
@@ -529,8 +541,6 @@ void SetupPageMisc::slotMoveDBButtonClicked()
        //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target;
     if ( QFile::exists(dbDirNew) )
     {
-        //dbDirCurrent
-        //dbDir
         if (QFile::exists(target))
         {
             //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target;
@@ -547,11 +557,9 @@ void SetupPageMisc::slotMoveDBButtonClicked()
                 msgBox.setDefaultButton(QMessageBox::Ok);
                 msgBox.exec();
                 dbPathApplied = true;
-
             }
             else
             {
-
                 msgBox.setIcon(QMessageBox::Warning);
                 msgBox.setText(tr("File copied"));
                 msgBox.setStandardButtons(QMessageBox::Ok);
@@ -573,24 +581,21 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 
                 msgBox.setText(tr("File already exist."));
                 msgBox.setDetailedText(tr("The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file."));
+                dbPathApplied = true;
             }
             else
             {
-
                 msgBox.setText(tr("File NOT copied"));
                 msgBox.setDetailedText(tr("The file was not copied due to an unknown problem."));
-
+                dbPathApplied = false;
             }
             msgBox.exec();
-            dbPathApplied = false;
+
             moveDBPushButton->setEnabled(true);
         }
-
-
     }
     else
     {
-
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("The target directory does not exist. Please select an existing directory."));
         msgBox.setStandardButtons(QMessageBox::Ok);

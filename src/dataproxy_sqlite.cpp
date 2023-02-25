@@ -113,6 +113,7 @@ int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _log
         return 0;
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
+    return 0;
 }
 
 QString DataProxy_SQLite::getSoftVersion()
@@ -150,7 +151,7 @@ QString DataProxy_SQLite::getSoftVersion()
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
-    logEvent (Q_FUNC_INFO, "END", Debug);
+    //logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString DataProxy_SQLite::getDBVersion()
@@ -247,6 +248,7 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
         logEvent (Q_FUNC_INFO, "END-4", Debug);
         return -2;
     }
+    return -3;
     logEvent (Q_FUNC_INFO, "END-1", Debug);
 }
 
@@ -304,6 +306,8 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
         return false;   // In case we can't check, we don't state it as deprecated
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
+    return false;
+
 }
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
@@ -397,7 +401,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
-    logEvent (Q_FUNC_INFO, "END", Debug);
+    //logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)

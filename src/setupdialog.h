@@ -58,9 +58,9 @@ public:
     //SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true, QWidget *parent = nullptr);
     SetupDialog(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~SetupDialog();
-    void init(const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
+    void init(const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
 
-    void setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime=true);
+    void setData(const QString &_softwareVersion, const int _page, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
     void setEQSLActive(const bool _b);
     void setQRZCOMAutoCheckActive(const bool _b);
@@ -88,7 +88,7 @@ private slots:
 
 private:
     void showEvent(QShowEvent *event);
-    void setConfigFile(const QString &_configFile);
+    //void setConfigFile(const QString &_configFile);
     void setSoftVersion(const QString &_softwareVersion);
     void setConfigured(const bool _configured);
     void setPage(const int _page);
@@ -141,7 +141,7 @@ private:
     //SetupPageRegionalAwards *regionalAwardsPage;
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;
-    QString configFileName, version;
+    QString version;
 
     QStringList bands, modes, logViewFields;
     Locator *locator;

@@ -3420,56 +3420,6 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
     return adifLogExportToFile(_fileName, 0, false, true, false);
 }
 
-bool FileManager::modifySetupFile(const QString& _filename, const QString &_field, const QString &_value)
-{
-      //qDebug() << "FileManager::modifySetupFile";
-
-
-    QFile file(_filename);
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)){ /* Flawfinder: ignore */
-          //qDebug() << "FileManager::modifySetupFile File not found" << _filename;
-        return false;
-    }
-
-    QTemporaryFile tmp;
-    if (!tmp.open()) { /* Flawfinder: ignore */
-             //qDebug() << "FileManager::modifySetupFile- Temp file not opened";
-           return false;
-    }
-
-    QString line = QString();
-    QTextStream in(&file);
-    QTextStream out(&tmp);
-    qint64 pos1 = in.pos();
-    qint64 pos2 = out.pos();
-    bool modified = false;
-
-    out << in.readAll();
-
-    in.seek(pos1);
-    out.seek(pos2);
-
-    while (!out.atEnd())
-    {
-        line = out.readLine();
-           //qDebug() << "FileManager::modifySetupFile- Temp file: " << line;
-        if (line.startsWith(_field))
-        {
-            in << _field << "=" << _value << ";";
-            modified = true;
-        }
-        else
-        {
-            in << line;
-        }
-    }
-    if (!modified)
-    {// If the data is not found, we will add it to the end.
-        in << _field << "=" << _value << ";";
-    }
-    return true;
-}
-
 int FileManager::howManyLogsInFile(QFile& _f)
 {
       //qDebug() << "FileManager::howManyLogsInFile:";

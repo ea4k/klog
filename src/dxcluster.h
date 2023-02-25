@@ -57,6 +57,7 @@ class DXClusterWidget : public QWidget
     void setDXMarathon (const bool _enable);
     void setSaveSpots (const bool _enable);
     void loadSettings();
+    void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 private slots:

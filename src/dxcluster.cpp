@@ -747,6 +747,18 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 
 }
 
+void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
+{
+    server = clusterToConnect;
+    port = quint16(portToConnect);
+    if ((server.length()< 3) || (port <= 0))
+    {
+        server = "dxfun.com";
+        port = 8000;
+    }
+
+}
+
 void DXClusterWidget::setDXMarathon (const bool _enable)
 {
     showDxMarathon = _enable;
@@ -808,20 +820,16 @@ void DXClusterWidget::saveSpot(const QString &_spot)
 
 void DXClusterWidget::loadSettings()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     QString aux = settings.value("DXClusterServerToUse").toString ();
 
     if (aux.contains(':'))
     {
-        server = (aux.split(':', QT_SKIP)).at(0);
-        port = ((aux.split(':', QT_SKIP)).at(1)).toInt();
+        setDXClusterServer((aux.split(':', QT_SKIP)).at(0), ((aux.split(':', QT_SKIP)).at(1)).toInt());
     }
 
-    if ((server.length()< 3) || (port <= 0))
-    {
-        server = "dxfun.com";
-        port = 8000;
-    }
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 /*

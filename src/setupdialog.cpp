@@ -44,7 +44,6 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     latestBackup = QString();
     dataProxy = dp;
 
-    configFileName = QString();
     version = QString();
     pageRequested = 0;
 
@@ -117,16 +116,20 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void SetupDialog::init(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
+void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     firstTime = _firstTime;
-    configFileName = _configFile;
     version = _softwareVersion;
     pageRequested = _page;
 
-    slotReadConfigData();
+    if (QFile::exists (util->getCfgFile ()))
+    {
+        slotReadConfigData();
+        saveSettigs ();
+    }
+    loadSettigs ();
     //qDebug() << Q_FUNC_INFO << ": 05.1";
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
@@ -184,7 +187,7 @@ void SetupDialog::slotQRZCOMAuto(const bool _b)
     emit qrzcomAuto(_b);
 }
 
-void SetupDialog::setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime)
+void SetupDialog::setData(const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
       //qDebug() << "SetupDialog::setData: " << "/" << _configFile << "/" << _softwareVersion << "/" << QString::number(_page);
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -200,21 +203,12 @@ void SetupDialog::setData(const QString &_configFile, const QString &_softwareVe
         miscPage->setUseDefaultDBPath(miscPage->getDefaultDBPath());
     }
 
-    setConfigFile(_configFile);
     setSoftVersion(_softwareVersion);
     slotReadConfigData ();
     setPage(_page);
     //removeBandModeDuplicates();
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "SetupDialog::setData - END";
-}
-
-void SetupDialog::setConfigFile(const QString &_configFile)
-{
-       //qDebug() << "SetupDialog::setConfigFile";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    configFileName = _configFile;
-    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void SetupDialog::setSoftVersion(const QString &_softwareVersion)
@@ -434,39 +428,41 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-    //qDebug() << "SetupDialog::slotReadConfigData";
+    qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
     {
-        //qDebug() << "SetupDialog::slotReadConfigData - First time";
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
+        logViewFields.removeDuplicates();
         bandModePage->setActiveModes(modes);
         bandModePage->setActiveBands(bands);
-        logViewPage->init ();
+        logViewPage->setActiveFields(logViewFields);
     }
-
-    //qDebug() << "SetupDialog::slotReadConfigData - 1";
-
-    QFile file(configFileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+    if (QFile::exists(util->getSetFile ()))
     {
-        //qDebug() << "SetupDialog::slotReadConfigData() File not found" << configFileName;
-        //firstTime = true;
-        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
+        loadSettigs ();
+    }
+    else if (QFile::exists(util->getCfgFile ()))
+    {
+        QFile file(util->getCfgFile ());
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+        {
+            emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
+            return;
+        }
+
+        while (!file.atEnd()){
+            QByteArray line = file.readLine();
+            processConfigLine(line);
+        }
+    }
+    else
+    {
         return;
     }
-    //qDebug() << "SetupDialog::slotReadConfigData - 2";
-    //dxClusterServers.clear();
-    loadSettigs ();
-    return;
-    //while (!file.atEnd()){
-        QByteArray line = file.readLine();
-        //processConfigLine(line);
-        //qDebug() << "SetupDialog::slotReadConfigData - in the while";
-    //}
-    //qDebug() << "SetupDialog::slotReadConfigData - 3";
+
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -479,13 +475,17 @@ void SetupDialog::slotReadConfigData()
     {
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
     }
-
+    if (logViewFields.isEmpty())
+    {
+        logViewFields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
+    }
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
     bands.removeDuplicates();
     bandModePage->setActiveBands(bands);
-
-    //qDebug() << "SetupDialog::slotReadConfigData - END";
+    logViewFields.removeDuplicates();
+    logViewPage->setActiveFields(logViewFields);
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -522,7 +522,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
       //qDebug() << "SetupDialog::processConfigLine: TAB: " << tab;
       //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value;
     if (tab == "CALLSIGN"){
-           //qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value;
+        qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value;
         userDataPage->setMainCallsign(value);
     }else if (tab == "OPERATORS"){
         userDataPage->setOperators(value);
@@ -718,7 +718,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         {
             latestBackup = QString();
         }
-    //s.append("LatestBackup=" + (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmss") + ";\n" );
     }
     else
     {

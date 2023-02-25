@@ -710,9 +710,8 @@ bool Utilities::isValidSimpleCall(const QString &_c)
         }
     }
     //qDebug() << Q_FUNC_INFO << "END";
-    return true;
-
     logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - TRUE"), Debug);
+    return true;
 }
 
 bool Utilities::isAValidOperatingSuffix (const QString &_c)
