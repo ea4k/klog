@@ -97,8 +97,10 @@ MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
     util = new Utilities(Q_FUNC_INFO);
+    //QFile file(util->getSetFile ());
+    //file.remove();
     qso = new QSO;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    //QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
     softwareVersion = tversion;
     klogDir = Info;
@@ -960,9 +962,9 @@ void MainWindow::slotBandChanged (const QString &_b)
 
         slotFreqTXChanged (txFr);
 
-        //if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value())))
+        //if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value ())))
         //{
-        //    rxFreqSpinBox->setValue(QSOTabWidget->getTXFreq());
+        //    rxFreqSpinBox->setvalue (QSOTabWidget->getTXFreq());
         //}
     }
     //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  ;
@@ -1233,8 +1235,9 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
      //qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) ;
      //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) ;
-    dxcc = util->getNormalizedDXCCValue(dxcc);
-    dxcc2 = util->getNormalizedDXCCValue(dxcc2);
+    dxcc = util->getNormalizedDXCCValue (dxcc);
+    dxcc2 = util->getNormalizedDXCCValue (dxcc2);
+
      //qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) ;
      //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) ;
 
@@ -1330,7 +1333,7 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         aux1 = QString::number(QSOTabWidget->getRXFreq());
         stringFields = stringFields + ", freq_rx, band_rx";
         stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(QSOTabWidget->getRXFreq())) + "'";
-        //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value())) + "'";
+        //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value ())) + "'";
     }
     aux1 = QSOTabWidget->getQTH();
     if (aux1.length()>2)
@@ -2012,8 +2015,8 @@ QString MainWindow::readDataFromUIDXModifying()
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
       //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) ;
       //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) ;
-    dxcc = util->getNormalizedDXCCValue(dxcc);
-    dxcc2 = util->getNormalizedDXCCValue(dxcc2);
+    dxcc = util->getNormalizedDXCCValue (dxcc);
+    dxcc2 = util->getNormalizedDXCCValue (dxcc2);
       //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) ;
       //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) ;
 
@@ -3749,13 +3752,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
      //qDebug() << "MainWindow::closeEvent" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //saveSettings ();
+    saveWindowsSize();
     if (maybeSave())
     {
          //qDebug() << "MainWindow::closeEvent saving needed" ;
         dataProxy->unMarkAllQSO();
         dataProxy->compressDB();
-        saveWindowsSize();
         event->accept();
     }
     else
@@ -5714,11 +5716,6 @@ void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     //qDebug() << "MainWindow::readActiveBands: " << actives ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    for (int i=0;i<actives.length();i++)
-    {
-                 //qDebug() << "MainWindow::readActiveBands: actives: " << actives.at(i) ;
-    }
     bool atLeastOne = false;
     QString aux;
     bands.clear();
@@ -5733,26 +5730,19 @@ void MainWindow::readActiveBands (const QStringList actives)
     for (int i = 0; i < __bands.size() ; i++)
     {
         if (dataProxy->getIdFromBandName(__bands.at(i)) > 0)
-        //if (db->isValidMode(actives.at(i), false))
         {
             if (!atLeastOne)
             {
                 atLeastOne = true;
-                //bands.clear();
             }
             aux = __bands.at(i);
             if (aux.length()>0)
             {
                bands << aux;
             }
-           // bands << actives.at(i);
         }
     }
     bands.removeDuplicates();
-    for (int i=0;i<bands.length();i++)
-    {
-                 //qDebug() << "MainWindow::readActiveBands: bands: " << bands.at(i) ;
-    }
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << "MainWindow::readActiveBands - END" ;
 }
@@ -5789,16 +5779,8 @@ void MainWindow::readActiveModes (const QStringList actives)
     modes.removeDuplicates();
     modes.sort();
     logEvent(Q_FUNC_INFO, "END", Debug);
-            //qDebug() << "MainWindow::readActiveModes - END" ;
+    //qDebug() << "MainWindow::readActiveModes - END" ;
 }
-
-void MainWindow::createData()
-{
-            //qDebug() << "MainWindow::createData " ;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
 
 void MainWindow::createUIDX()
 {
@@ -6201,7 +6183,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
   msgBox.setDetailedText(tr("If you don't agree, this upload will overwrite your current ClubLog existing log."));
   msgBox.setDefaultButton(QMessageBox::Ok);
   int ret = msgBox.exec();
-  bool overwrite = false;
+  bool overwrite;
   switch (ret)
   {
   case QMessageBox::Ok:         // General ADIF
@@ -6744,7 +6726,7 @@ void MainWindow::qsoToEdit (const int _qso)
         // ** BAND / MODE / Locator shoule be executed after SAT or may be removed
 
         nameCol = rec.indexOf("sat_name");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (aux1.length()>0)
         {
             satTabWidget->setSatName(aux1);
@@ -6755,7 +6737,7 @@ void MainWindow::qsoToEdit (const int _qso)
         }
 
         nameCol = rec.indexOf("sat_mode");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (aux1.length()>1)
         {
             satTabWidget->setSatMode(aux1);
@@ -6770,7 +6752,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     //QString currentQrz = dataProxy->getCallFromId(modifyingQSO);
     nameCol = rec.indexOf("call");
-    aux1 = (query.value(nameCol)).toString();
+    aux1 = (query.value (nameCol)).toString();
     mainQSOEntryWidget->setQRZ(aux1);
 
     QString currentQrz = aux1;
@@ -6779,14 +6761,14 @@ void MainWindow::qsoToEdit (const int _qso)
     //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) ;
 
     nameCol = rec.indexOf("qso_date");
-    aux1 = (query.value(nameCol)).toString();
+    aux1 = (query.value (nameCol)).toString();
       //qDebug() << "MainWindow::qsoToEdit - date: " << aux1 ;
     mainQSOEntryWidget->setDateTime(util->getDateTimeFromSQLiteString(aux1));
     //mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
     dateTimeTemp->setDate(util->getDateFromSQliteString(aux1));
 
     nameCol = rec.indexOf("bandid");
-    aux1 = (query.value(nameCol)).toString();
+    aux1 = (query.value (nameCol)).toString();
     stringQuery = QString("SELECT name FROM band WHERE id ='%1'").arg(aux1);
     QSqlQuery queryAux(stringQuery);
 
@@ -6799,7 +6781,7 @@ void MainWindow::qsoToEdit (const int _qso)
     queryAux.next();
     if (queryAux.isValid())
     {
-        aux1 = (queryAux.value(0)).toString();
+        aux1 = (queryAux.value (0)).toString();
                  //qDebug() << "MainWindow::qsoToEdit - bandid-1 " << aux1 ;
                  //qDebug() << "MainWindow::qsoToEdit: - Changing from: " << mainQSOEntryWidget->getBand() ;
         mainQSOEntryWidget->setBand(aux1);
@@ -6816,7 +6798,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
       //qDebug() << "MainWindow::qsoToEdit: Check mode " <<  QT_ENDL;
     nameCol = rec.indexOf("modeid");
-    aux1 = (query.value(nameCol)).toString();
+    aux1 = (query.value (nameCol)).toString();
       //qDebug() << "MainWindow::qsoToEdit: (aux1)-1: " << aux1 ;
 
 
@@ -6838,12 +6820,12 @@ void MainWindow::qsoToEdit (const int _qso)
      //qDebug() << "MainWindow::qsoToEdit: After ALL Mode actions" ;
 
     nameCol = rec.indexOf("rst_sent");
-    aux1 = (query.value(nameCol)).toString();
+    aux1 = (query.value (nameCol)).toString();
     QSOTabWidget->setRSTTX (aux1);
       //qDebug() << "MainWindow::qsoToEdit: - RST_SENT: " << aux1  ;
 
     nameCol = rec.indexOf("rst_rcvd");
-    aux1 = (query.value(nameCol)).toString();
+    aux1 = (query.value (nameCol)).toString();
     QSOTabWidget->setRSTRX (aux1);
 
                 //qDebug() << "MainWindow::qsoToEdit: - before switch"  ;
@@ -6853,17 +6835,17 @@ void MainWindow::qsoToEdit (const int _qso)
                     //qDebug() << "MainWindow::qsoToEdit: - in default"  ;
 
         nameCol = rec.indexOf("qsl_via");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLVia(aux1);
 
         nameCol = rec.indexOf("qslmsg");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLMsg(aux1);
 
         //qslmsgTextEdit->setText(aux1);
 
         nameCol = rec.indexOf("comment");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (aux1.length()>0)
         {
             commentTabWidget->setData(aux1);
@@ -6876,7 +6858,7 @@ void MainWindow::qsoToEdit (const int _qso)
         }
 
         nameCol = rec.indexOf("name");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
                     //qDebug() << "MainWindow::qsoToEdit: - NAME: " << aux1  ;
 
         if (aux1.length()>0)
@@ -6889,58 +6871,58 @@ void MainWindow::qsoToEdit (const int _qso)
         }
 
         nameCol = rec.indexOf("qth");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSOTabWidget->setQTH (aux1);
 
         nameCol = rec.indexOf("gridsquare");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  ;
         QSOTabWidget->setDXLocator(aux1);
 
         nameCol = rec.indexOf("operator");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
           //qDebug() << "MainWindow::qsoToEdit: - OPERATOR: " << aux1  ;
         myDataTabWidget->setOperator(aux1);
 
         nameCol = rec.indexOf("station_callsign");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
           //qDebug() << "MainWindow::qsoToEdit: - STATIONQRZ: " << aux1  ;
         myDataTabWidget->setStationCallsign(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         myDataTabWidget->setMyLocator(aux1);
 
         nameCol = rec.indexOf("my_vucc_grids");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         myDataTabWidget->setMyVUCCGrids(aux1);
 
         nameCol = rec.indexOf("my_rig");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (!aux1.isEmpty ())
         {
             myDataTabWidget->setMyRig (aux1);
         }
 
         nameCol = rec.indexOf("my_antenna");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (!aux1.isEmpty ())
         {
             myDataTabWidget->setMyAntenna (aux1);
         }
 
         nameCol = rec.indexOf("my_sota_ref");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (!aux1.isEmpty ())
         {
            myDataTabWidget->setMySOTA (aux1);
         }
 
         nameCol = rec.indexOf("tx_pwr");
-        myDataTabWidget->setMyPower((query.value(nameCol)).toDouble());
+        myDataTabWidget->setMyPower((query.value (nameCol)).toDouble());
 
         nameCol = rec.indexOf("rx_pwr");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         testValueDouble = aux1.toDouble();
         if (testValueDouble >=0)
         {
@@ -6953,23 +6935,23 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
         nameCol = rec.indexOf("freq");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSOTabWidget->setTXFreq (aux1.toDouble ());
 
         nameCol = rec.indexOf("freq_rx");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSOTabWidget->setRXFreq (aux1.toDouble ());
 
         //QSL SENT
 
         nameCol = rec.indexOf("qsl_sent");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
 
         QSLTabWidget->setQSLSenStatus(aux1);
         //TODO: Depending on the Value a date should or not exist.
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("qslsdate");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
 
         if (util->getDateFromSQliteString(aux1).isValid()  )
 
@@ -6980,7 +6962,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
         nameCol = rec.indexOf("qsl_sent_via");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLSenVia(aux1);
 
 
@@ -6992,32 +6974,32 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
         nameCol = rec.indexOf("qsl_rcvd");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLRecStatus(aux1);
         //TODO: Depending on the Value a date should or not exist.
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("qslrdate");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (util->getDateFromSQliteString(aux1).isValid()  )
         {
             QSLTabWidget->setQSLRecDate(util->getDateFromSQliteString(aux1));
         }
 
          nameCol = rec.indexOf("qsl_rcvd_via");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLRecVia(aux1);
 
      //TODO: BUG: When something is selected while modifying the QSL is deleted???
 
         //CLUBLOG
         nameCol = rec.indexOf("clublog_qso_upload_status");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         eQSLTabWidget->setClubLogStatus(aux1.toUpper());
 
         //TODO: Depending on the Value a date should or not exist.
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("clublog_qso_upload_date");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (util->getDateFromSQliteString(aux1).isValid()  )
         {
             eQSLTabWidget->setClubLogDate(util->getDateFromSQliteString(aux1));
@@ -7031,13 +7013,13 @@ void MainWindow::qsoToEdit (const int _qso)
        //EQSL_QSLSDATE (only valid if EQSL_SENT is Y, Q, or I)
 
         nameCol = rec.indexOf("eqsl_qsl_sent");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         eQSLTabWidget->setEQSLSenStatus(aux1.toUpper());
 
         //TODO: Depending on the Value a date should or not exist.
         //      This code may be importing dates when they should not exist.
         nameCol = rec.indexOf("eqsl_qslsdate");
-        aux1 = (query.value(nameCol)).toString();
+        aux1 = (query.value (nameCol)).toString();
         if (util->getDateFromSQliteString(aux1).isValid()  )
         {
             eQSLTabWidget->setEQSLSenDate(util->getDateFromSQliteString(aux1));
@@ -7052,13 +7034,13 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
             nameCol = rec.indexOf("eqsl_qsl_rcvd");
-            aux1 = (query.value(nameCol)).toString();
+            aux1 = (query.value (nameCol)).toString();
             eQSLTabWidget->setEQSLRecStatus(aux1.toUpper());
 
             //TODO: Depending on the Value a date should or not exist.
             //      This code may be importing dates when they should not exist.
             nameCol = rec.indexOf("eqsl_qslrdate");
-            aux1 = (query.value(nameCol)).toString();
+            aux1 = (query.value (nameCol)).toString();
             if (util->isValidDateFromString(aux1))
             {
                 eQSLTabWidget->setEQSLRecDate(util->getDateFromSQliteString(aux1));
@@ -7069,14 +7051,14 @@ void MainWindow::qsoToEdit (const int _qso)
            //LOTW_QSLSDATE (only valid if LOTW_SENT is Y, Q, or I)
 
             nameCol = rec.indexOf("lotw_qsl_sent");
-            aux1 = (query.value(nameCol)).toString();
+            aux1 = (query.value (nameCol)).toString();
             eQSLTabWidget->setLOTWSenStatus(aux1.toUpper());
                      //qDebug() << "MainWindow::qsoToEdit: - LoTW Sent Status: " << aux1  ;
 
             //TODO: Depending on the Value a date should or not exist.
             //      This code may be importing dates when they should not exist.
             nameCol = rec.indexOf("lotw_qslsdate");
-            aux1 = (query.value(nameCol)).toString();
+            aux1 = (query.value (nameCol)).toString();
 
             if ( util->isValidDateFromString(aux1) )
             {
@@ -7091,13 +7073,13 @@ void MainWindow::qsoToEdit (const int _qso)
 
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 eQSLTabWidget->setLOTWRecStatus(aux1.toUpper());
 
                 //TODO: Depending on the Value a date should or not exist.
                 //      This code may be importing dates when they should not exist.
                 nameCol = rec.indexOf("lotw_qslrdate");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 if ( util->isValidDateFromString(aux1) )
                 {
                     eQSLTabWidget->setLOTWRecDate(util->getDateFromSQliteString(aux1));
@@ -7105,13 +7087,13 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 //QRZCOM
                 nameCol = rec.indexOf("qrzcom_qso_upload_status");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 eQSLTabWidget->setQRZCOMStatus(aux1.toUpper());
 
                 //TODO: Depending on the Value a date should or not exist.
                 //      This code may be importing dates when they should not exist.
                 nameCol = rec.indexOf("qrzcom_qso_upload_date");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 if (util->getDateFromSQliteString(aux1).isValid()  )
                 {
                     eQSLTabWidget->setQRZCOMDate(util->getDateFromSQliteString(aux1));
@@ -7122,26 +7104,26 @@ void MainWindow::qsoToEdit (const int _qso)
                 // OTHERS TAB
 
                 nameCol = rec.indexOf("sota_ref");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 if (!aux1.isEmpty ())
                 {
                     othersTabWidget->setSOTA (aux1);
                 }
                 nameCol = rec.indexOf("age");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 if (aux1.toDouble ()>0)
                 {
                     othersTabWidget->setAge (aux1.toDouble ());
                 }
                 nameCol = rec.indexOf("distance");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 if (aux1.toDouble ()>0)
                 {
                     othersTabWidget->setDistance(aux1.toDouble ());
                 }
 
                 nameCol = rec.indexOf("vucc_grids");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
                 //qDebug() << Q_FUNC_INFO << ": VUCC_GRIDS: " << aux1;
                 if (util->isValidVUCCGrids (aux1))
                 {
@@ -7150,7 +7132,7 @@ void MainWindow::qsoToEdit (const int _qso)
              //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  ;
 
                 nameCol = rec.indexOf("iota");
-                aux1 = (query.value(nameCol)).toString();
+                aux1 = (query.value (nameCol)).toString();
 
                 aux1 = awards->checkIfValidIOTA(aux1);
                 othersTabWidget->setIOTA(aux1);
@@ -7158,13 +7140,13 @@ void MainWindow::qsoToEdit (const int _qso)
                            //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  ;
 
                 nameCol = rec.indexOf("dxcc");
-                aux1  = (query.value(nameCol)).toString();
+                aux1  = (query.value (nameCol)).toString();
 
                            //qDebug() << "MainWindow::qsoToEdit: Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) ;
 
                 if (aux1.toInt()>=1)
                 {
-                    if (aux1.toInt() != util->getNormalizedDXCCValue(currentEntity))
+                    if (aux1.toInt() != util->getNormalizedDXCCValue (currentEntity))
                     {
                         currentEntity = aux1.toInt();
                     }
@@ -7178,7 +7160,7 @@ void MainWindow::qsoToEdit (const int _qso)
                            //qDebug() << "MainWindow::qsoToEdit: - in default - 104: " << QString::number(currentEntity)  ;
 
                 nameCol = rec.indexOf("prop_mode");
-                aux1  = (query.value(nameCol)).toString();
+                aux1  = (query.value (nameCol)).toString();
                 othersTabWidget->setPropMode(aux1, false);
                 //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
                 infoLabel2->setText(world->getEntityName(currentEntity));
@@ -7374,46 +7356,46 @@ void MainWindow::fillQSOData()
             i++;
             toModify = false;
             nameCol = rec.indexOf("call");
-            if ( (query.value(nameCol)).isValid() )
+            if ( (query.value (nameCol)).isValid() )
             {
-                _call = (query.value(nameCol)).toString();
+                _call = (query.value (nameCol)).toString();
             }
             nameCol = rec.indexOf("bandid");
-            if ( (query.value(nameCol)).isValid() )
+            if ( (query.value (nameCol)).isValid() )
             {
-                _bandid = (query.value(nameCol)).toString();
+                _bandid = (query.value (nameCol)).toString();
             }
             nameCol = rec.indexOf("modeid");
-            if ( (query.value(nameCol)).isValid() )
+            if ( (query.value (nameCol)).isValid() )
             {
-                _modeid = (query.value(nameCol)).toString();
+                _modeid = (query.value (nameCol)).toString();
             }
             nameCol = rec.indexOf("qso_date");
-            if ( (query.value(nameCol)).isValid() )
+            if ( (query.value (nameCol)).isValid() )
             {
-                _tdate = (query.value(nameCol)).toString();
+                _tdate = (query.value (nameCol)).toString();
             }
             //nameCol = rec.indexOf("lognumber");
-            //if ( (query.value(nameCol)).isValid() )
+            //if ( (query.value (nameCol)).isValid() )
             //{
-            //    _lognumber = (query.value(nameCol)).toString();
+            //    _lognumber = (query.value (nameCol)).toString();
             //}
             //nameCol = rec.indexOf("confirmed");
-            //if ( (query.value(nameCol)).isValid() )
+            //if ( (query.value (nameCol)).isValid() )
             //{
-            //    _confirmed = (query.value(nameCol)).toString();
+            //    _confirmed = (query.value (nameCol)).toString();
             //}
             nameCol = rec.indexOf("id");
-            if ( (query.value(nameCol)).isValid() )
+            if ( (query.value (nameCol)).isValid() )
             {
-                _id = (query.value(nameCol)).toString();
+                _id = (query.value (nameCol)).toString();
             }
                         //qDebug() << "MainWindow::fillQSOData: ID: " << _id ;
             //TODO: Prepare this query
             updateString = "UPDATE log SET call = '" + _call + "', bandid = '" + _bandid + "', modeid = '" + _modeid + "', qso_date = '" + _tdate + "'" ;//  + "', confirmed = '" + _confirmed + "'";
 
             nameCol = rec.indexOf("cqz");
-            if (( (query.value(nameCol)).toString()).length() < 1 )
+            if (( (query.value (nameCol)).toString()).length() < 1 )
             {
                 aux1 = QString::number(world->getQRZCqz(_call));
                 updateString = updateString + ", cqz='" + aux1 + "'";
@@ -7421,7 +7403,7 @@ void MainWindow::fillQSOData()
             }
 
             nameCol = rec.indexOf("ituz");
-            if (( (query.value(nameCol)).toString()).length() < 1 )
+            if (( (query.value (nameCol)).toString()).length() < 1 )
             {
                 aux1 = QString::number( world->getQRZItuz(_call) );
                 updateString = updateString + ", ituz='" + aux1 + "'";
@@ -7431,7 +7413,7 @@ void MainWindow::fillQSOData()
             //qDebug() << "MainWindow::fillQSOData: DXCC" ;
 
             nameCol = rec.indexOf("dxcc");
-            _dxcc = (query.value(nameCol)).toInt();
+            _dxcc = (query.value (nameCol)).toInt();
             //qDebug() << "MainWindow::fillQSOData: DXCC: " << QString::number(_dxcc) ;
             if (_dxcc < 1)
             {
@@ -7447,7 +7429,7 @@ void MainWindow::fillQSOData()
             }
 
             nameCol = rec.indexOf("cont");
-            if (( (query.value(nameCol)).toString()).length() < 2 )
+            if (( (query.value (nameCol)).toString()).length() < 2 )
             {
                 aux1 = world->getContinentShortName(_dxcc);
                 //aux1 = QString::number( world->getQRZItuz(_call) );
@@ -7479,7 +7461,7 @@ void MainWindow::fillQSOData()
 
             aux = tr("Filling DXCC, CQz, ITUz, Continent in QSOs...\n QSO: ")  + QString::number(i) + "/" + QString::number(numberOfQsos);
             progress.setLabelText(aux);
-            progress.setValue(i);
+            progress.setValue (i);
 
             if ( progress.wasCanceled() )
             {
@@ -7616,7 +7598,7 @@ void MainWindow::slotFilePrint()
 
         aux = tr("Printing the log...\n QSO: ")  + QString::number(_qsos) + "/" + QString::number(_numberOfQsos);
         progress.setLabelText(aux);
-        progress.setValue(_qsos);
+        progress.setValue (_qsos);
 
         while ((query.next()) && (!cancelPrinting))
         {
@@ -7630,31 +7612,31 @@ void MainWindow::slotFilePrint()
                 { // To update the speed I will only show the progress once each X QSOs
                     aux = tr("Printing the log...\n QSO: ")  + QString::number(_qsos) + "/" + QString::number(_numberOfQsos);
                     progress.setLabelText(aux);
-                    progress.setValue(_qsos);
+                    progress.setValue (_qsos);
                 }
 
                 nameCol = rec.indexOf("id");
                 cursor = textTable->cellAt(row, 0).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                cursor.insertText((query.value (nameCol)).toString());
 
                 nameCol = rec.indexOf("qso_date");
                 cursor = textTable->cellAt(row, 1).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                cursor.insertText((query.value (nameCol)).toString());
 
                 nameCol = rec.indexOf("call");
                 cursor = textTable->cellAt(row, 2).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                cursor.insertText((query.value (nameCol)).toString());
 
                 nameCol = rec.indexOf("rst_sent");
                 cursor = textTable->cellAt(row, 3).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                cursor.insertText((query.value (nameCol)).toString());
 
                 nameCol = rec.indexOf("rst_rcvd");
                 cursor = textTable->cellAt(row, 4).firstCursorPosition();
-                cursor.insertText((query.value(nameCol)).toString());
+                cursor.insertText((query.value (nameCol)).toString());
 
                 nameCol = rec.indexOf("bandid");
-                aux = (query.value(nameCol)).toString();
+                aux = (query.value (nameCol)).toString();
                 stringQuery = QString("SELECT name FROM band WHERE id='%1'").arg(aux);
                 sqlOK = query1.exec(stringQuery);
                 if (sqlOK)
@@ -7663,7 +7645,7 @@ void MainWindow::slotFilePrint()
                     if (query1.isValid())
                     {
                         cursor = textTable->cellAt(row, 5).firstCursorPosition();
-                        cursor.insertText((query1.value(0)).toString());
+                        cursor.insertText((query1.value (0)).toString());
                     }
                 }
                 else
@@ -7674,7 +7656,7 @@ void MainWindow::slotFilePrint()
                         //qDebug() << "MainWindow::slotFilePrint: Band: " << aux ;
                 nameCol = rec.indexOf("modeid");
                         //qDebug() << "MainWindow::slotFilePrint: nameCol: " << QString::number(nameCol) ;
-                aux = (query.value(nameCol)).toString();
+                aux = (query.value (nameCol)).toString();
                         //qDebug() << "MainWindow::slotFilePrint: Mode1: " << aux ;
                 aux = dataProxy->getNameFromSubModeId(aux.toInt());
                         //qDebug() << "MainWindow::slotFilePrint: Mode2: " << aux ;
@@ -7689,7 +7671,7 @@ void MainWindow::slotFilePrint()
                 }
 
                 nameCol = rec.indexOf("comment");
-                aux = (query.value(nameCol)).toString();
+                aux = (query.value (nameCol)).toString();
                 if ((aux.length())>0)
                 {
                     cursor = textTable->cellAt(row, 7).firstCursorPosition();
@@ -7703,7 +7685,7 @@ void MainWindow::slotFilePrint()
         }
 
 
-        progress.setValue(_numberOfQsos);
+        progress.setValue (_numberOfQsos);
         if (!cancelPrinting)
         {
             doc->print(&printer);
@@ -7800,7 +7782,7 @@ void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
     query.next();
     if (query.isValid())
     {
-        _aux = (query.value(0)).toString();
+        _aux = (query.value (0)).toString();
         mainQSOEntryWidget->setBand(_aux);
         //bandComboBox->setCurrentIndex(bandComboBox->findText(_aux, Qt::MatchCaseSensitive));
     }
@@ -8249,7 +8231,7 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
               //qDebug() << Q_FUNC_INFO << " QSO must be logged" ;
             bool qsoLogged = false;
             int dxcc = world->getQRZARRLId(_dxcall);
-            dxcc = util->getNormalizedDXCCValue(dxcc);
+            dxcc = util->getNormalizedDXCCValue (dxcc);
 
             QString _myLoc = _mygrid;
             if (!(locator->isValidLocator(_myLoc)))
@@ -8959,16 +8941,8 @@ void MainWindow::loadSettings()
     {
         itIsANewversion = true;
     }
-    value = settings.value ("MainWindowSize").toString ();
-    QStringList values;
-    values.clear();
-    values << value.split("x");
-    if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
-    {
-        windowSize.setWidth(values.at(0).toInt());
-        windowSize.setHeight(values.at(1).toInt());
-        setWindowSize (windowSize);
-    }
+    setWindowSize (settings.value ("MainWindowSize").toSize ());
+
     qDebug() << Q_FUNC_INFO << " - 10";
     value = settings.value ("CallSign").toString ();
     if (util->isValidCall(value))
@@ -8976,115 +8950,118 @@ void MainWindow::loadSettings()
         mainQRZ = value;
     }
 
-    //readActiveModes(settings.value("Modes").split(", ", QT_SKIP));
     qDebug() << Q_FUNC_INFO << " - 11";
-    readActiveModes(settings.value("Modes").toStringList ());
+    readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()).split(", ", QT_SKIP));
     qDebug() << Q_FUNC_INFO << " - 12";
-    readActiveBands(settings.value("Bands").toStringList ());
+    readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()).split(", ", QT_SKIP));
     qDebug() << Q_FUNC_INFO << " - 13";
-    mainQSOEntryWidget->setRealTime(settings.value("RealTime").toBool ());
+    mainQSOEntryWidget->setRealTime (settings.value ("RealTime", true).toBool ());
     qDebug() << Q_FUNC_INFO << " - 14";
-    mainQSOEntryWidget->setShowSeconds (settings.value("ShowSeconds").toBool ());
+    mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds").toBool ());
     qDebug() << Q_FUNC_INFO << " - 15";
-    logWindow->setColumns(settings.value("LogViewFields").toStringList ());
+    logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
     qDebug() << Q_FUNC_INFO << " - 20";
-    useDefaultLogFileName = (settings.value("UseDefaultName").toBool ());
-    imperialSystem = (settings.value("ImperialSystem").toBool ());
-    sendQSLWhenRec = (settings.value("SendQSLWhenRec").toBool ());
-    manageDxMarathon = (settings.value("ManageDXMarathon").toBool ());
+    useDefaultLogFileName = (settings.value ("UseDefaultName").toBool ());
+    imperialSystem = (settings.value ("ImperialSystem").toBool ());
+    sendQSLWhenRec = (settings.value ("SendQSLWhenRec").toBool ());
+    manageDxMarathon = (settings.value ("ManageDXMarathon").toBool ());
     awardsWidget->setManageDXMarathon (manageDxMarathon);
-    searchWidget->setShowCallInSearch(settings.value("ShowCallsignInSearch").toBool ());
-    checkNewVersions = settings.value("CheckNewVersions").toBool ();
-    reportInfo = settings.value("ProvideInfo").toBool ();
-    alwaysADIF = settings.value("AlwaysADIF").toBool ();
+    searchWidget->setShowCallInSearch(settings.value ("ShowCallsignInSearch").toBool ());
+    checkNewVersions = settings.value ("CheckNewVersions").toBool ();
+    reportInfo = settings.value ("ProvideInfo").toBool ();
+    alwaysADIF = settings.value ("AlwaysADIF").toBool ();
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
-    mainQSOEntryWidget->setUTC(settings.value("UTCTime").toBool ());
+    mainQSOEntryWidget->setUTC(settings.value ("UTCTime").toBool ());
     qDebug() << Q_FUNC_INFO << " - 30";
-    sendQSLByDefault = settings.value("SendEQSLByDefault").toBool ();
+    sendQSLByDefault = settings.value ("SendEQSLByDefault").toBool ();
     eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
 
-    dupeSlotInSeconds = settings.value("DuplicatedQSOSlot").toInt ();
+    dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot").toInt ();
     filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
     mainQSOEntryWidget->setDuplicatedQSOSlot(dupeSlotInSeconds);
-    completeWithPrevious = settings.value("CompleteWithPrevious").toBool ();
+    completeWithPrevious = settings.value ("CompleteWithPrevious").toBool ();
     qDebug() << Q_FUNC_INFO << " - 40";
-    dxClusterWidget->setSaveSpots(settings.value("DXClusterSave").toBool ());
-    dxClusterShowHF = settings.value("DXClusterShowHF").toBool ();
-    dxClusterShowVHF = settings.value("DXClusterShowVHF").toBool ();
-    dxClusterShowWARC = settings.value("DXClusterShowWARC").toBool ();
-    dxClusterShowWorked = settings.value("DXClusterShowWorked").toBool ();
-    dxClusterShowConfirmed = settings.value("DXClusterShowConfirmed").toBool ();
-    dxClusterShowAnn = settings.value("DXClusterShowAnn").toBool ();
-    dxClusterShowWWV = settings.value("DXClusterShowWWV").toBool ();
-    dxClusterShowWCY = settings.value("DXClusterShowWCY").toBool ();
-    dxclusterSendSpotsToMap = settings.value("DXClusterSendToMap").toBool ();
+    dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave").toBool ());
+    dxClusterShowHF = settings.value ("DXClusterShowHF").toBool ();
+    dxClusterShowVHF = settings.value ("DXClusterShowVHF").toBool ();
+    dxClusterShowWARC = settings.value ("DXClusterShowWARC").toBool ();
+    dxClusterShowWorked = settings.value ("DXClusterShowWorked").toBool ();
+    dxClusterShowConfirmed = settings.value ("DXClusterShowConfirmed").toBool ();
+    dxClusterShowAnn = settings.value ("DXClusterShowAnn").toBool ();
+    dxClusterShowWWV = settings.value ("DXClusterShowWWV").toBool ();
+    dxClusterShowWCY = settings.value ("DXClusterShowWCY").toBool ();
+    dxclusterSendSpotsToMap = settings.value ("DXClusterSendToMap").toBool ();
     qDebug() << Q_FUNC_INFO << " - 50";
     defaultADIFLogFile = settings.value ("DefaultADIFFile").toString ();
 
-    newOneColor.setNamedColor(settings.value("NewOneColor").toString ());
-    neededColor.setNamedColor(settings.value("NeededColor").toString ());
-    workedColor.setNamedColor(settings.value("WorkedColor").toString ());
-    confirmedColor.setNamedColor(settings.value("ConfirmedColor").toString ());
-    defaultColor.setNamedColor(settings.value("DefaultColor").toString ());
+    settings.beginGroup ("Colors");
+
+    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+    settings.endGroup ();
+
     qDebug() << Q_FUNC_INFO << " - 60";
-    UDPServerStart = settings.value("UDPServer").toBool ();
-    UDPLogServer->setNetworkInterface(settings.value("UDPNetworkInterface").toString ());
-    UDPLogServer->setPort(settings.value("UDPServerPort").toInt ());
-    infoTimeout = settings.value("InfoTimeOut").toInt ();
-    UDPLogServer->setLogging(settings.value("LogFromWSJTX").toBool ());
-    UDPLogServer->setRealTimeUpdate(settings.value("RealTimeFromWSJTX").toBool ());
-    wsjtxAutoLog = settings.value("LogAutoFromWSJTX").toBool ();
+    UDPServerStart = settings.value ("UDPServer").toBool ();
+    UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
+    UDPLogServer->setPort(settings.value ("UDPServerPort").toInt ());
+    infoTimeout = settings.value ("InfoTimeOut").toInt ();
+    UDPLogServer->setLogging(settings.value ("LogFromWSJTX").toBool ());
+    UDPLogServer->setRealTimeUpdate(settings.value ("RealTimeFromWSJTX").toBool ());
+    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX").toBool ();
     qDebug() << Q_FUNC_INFO << " - 70";
-    hamlib->setModelId(settings.value("HamLibRigType").toInt());
-    hamlib->setPort(settings.value("HamlibSerialPort").toString());
-    hamlib->setSpeed(settings.value("HamlibSerialBauds").toInt ());
-    hamlib->setDataBits(settings.value("HamLibSerialDataBits").toInt ());
-    hamlib->setStop(settings.value("HamLibSerialStopBit").toString());
-    hamlib->setFlow(settings.value("HamLibSerialFlowControl").toString());
-    hamlib->setParity(settings.value("HamLibSerialParity").toString());
-    hamlib->setPoll(settings.value("HamlibRigPollRate").toInt ());
-    hamlibActive = settings.value("HamLib").toBool ();
-    hamlib->setReadOnly(settings.value("HamlibReadOnly").toBool ());
-    hamlib->setNetworkAddress (settings.value("HamlibNetAddress").toString());
-    hamlib->setNetworkPort (settings.value("HamlibNetPort").toInt ());
+    hamlib->setModelId(settings.value ("HamLibRigType").toInt());
+    hamlib->setPort(settings.value ("HamlibSerialPort").toString());
+    hamlib->setSpeed(settings.value ("HamlibSerialBauds").toInt ());
+    hamlib->setDataBits(settings.value ("HamLibSerialDataBits").toInt ());
+    hamlib->setStop(settings.value ("HamLibSerialStopBit").toString());
+    hamlib->setFlow(settings.value ("HamLibSerialFlowControl").toString());
+    hamlib->setParity(settings.value ("HamLibSerialParity").toString());
+    hamlib->setPoll(settings.value ("HamlibRigPollRate").toInt ());
+    hamlibActive = settings.value ("HamLib").toBool ();
+    hamlib->setReadOnly(settings.value ("HamlibReadOnly").toBool ());
+    hamlib->setNetworkAddress (settings.value ("HamlibNetAddress").toString());
+    hamlib->setNetworkPort (settings.value ("HamlibNetPort").toInt ());
     qDebug() << Q_FUNC_INFO << " - 80";
-    selectTheLog(currentLog = settings.value("SelectedLog").toInt());
+    selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
 
-    clublogActive = settings.value("ClubLogActive").toBool ();
+    clublogActive = settings.value ("ClubLogActive").toBool ();
     setupDialog->setClubLogActive(clublogActive);
-    clublogRealTime = settings.value("ClubLogRealTime").toBool ();
-    clublogEmail = settings.value("ClubLogEmail").toString ();
-    clublogPass = settings.value("ClubLogPass").toString ();
+    clublogRealTime = settings.value ("ClubLogRealTime").toBool ();
+    clublogEmail = settings.value ("ClubLogEmail").toString ();
+    clublogPass = settings.value ("ClubLogPass").toString ();
 
-    qrzcomActive = settings.value("QRZcomActive").toBool ();
+    qrzcomActive = settings.value ("QRZcomActive").toBool ();
     setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
-    qrzcomSubscriber = settings.value("QRZcomSubscriber").toBool ();
+    qrzcomSubscriber = settings.value ("QRZcomSubscriber").toBool ();
     elogQRZcom->setSubcription (qrzcomSubscriber);
-    QRZCOMAutoCheckAct->setChecked(settings.value("QRZcomSubscriber").toBool ());
-    setupDialog->setQRZCOMAutoCheckActive(settings.value("QRZcomSubscriber").toBool ());
-    qrzcomPass = settings.value("QRZcomPass").toString ();
-    qrzcomUser = settings.value("QRZcomUser").toString ();
-    elogQRZcom->setLogBookKey(settings.value("QRZcomLogBookKey").toString ());
+    QRZCOMAutoCheckAct->setChecked(settings.value ("QRZcomSubscriber").toBool ());
+    setupDialog->setQRZCOMAutoCheckActive(settings.value ("QRZcomSubscriber").toBool ());
+    qrzcomPass = settings.value ("QRZcomPass").toString ();
+    qrzcomUser = settings.value ("QRZcomUser").toString ();
+    elogQRZcom->setLogBookKey(settings.value ("QRZcomLogBookKey").toString ());
 
-    eQSLActive = settings.value("eQSLActive").toBool ();
+    eQSLActive = settings.value ("eQSLActive").toBool ();
     setupDialog->setEQSLActive(eQSLActive);
-    eqslUtilities->setUser(settings.value("eQSLCall").toString ());
-    eqslUtilities->setPass(settings.value("eQSLPass").toString ());
+    eqslUtilities->setUser(settings.value ("eQSLCall").toString ());
+    eqslUtilities->setPass(settings.value ("eQSLPass").toString ());
 
-    lotwActive = settings.value("LoTWActive").toBool ();
-    lotwTQSLpath = settings.value("LoTWPath").toString ();
-    lotwUtilities->setUser(settings.value("LoTWUSer").toString ());
-    lotwUtilities->setPass(settings.value("LoTWPass").toString ());
+    lotwActive = settings.value ("LoTWActive").toBool ();
+    lotwTQSLpath = settings.value ("LoTWPath").toString ();
+    lotwUtilities->setUser(settings.value ("LoTWUSer").toString ());
+    lotwUtilities->setPass(settings.value ("LoTWPass").toString ());
     qDebug() << Q_FUNC_INFO << " - 90";
-    deleteAlwaysAdiFile = settings.value("DeleteAlwaysAdiFile").toBool ();
+    deleteAlwaysAdiFile = settings.value ("DeleteAlwaysAdiFile").toBool ();
 
-    util->setCallValidation(settings.value("CheckValidCalls").toBool ());
-    mainQSOEntryWidget->setCallValidation(settings.value("CheckValidCalls").toBool ());
-    filemanager->setCallValidation(settings.value("CheckValidCalls").toBool ());
-    adifLoTWExportWidget->setCallValidation(settings.value("CheckValidCalls").toBool ());
+    util->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    filemanager->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
 
     qDebug() << Q_FUNC_INFO << " - 100";
-    value = settings.value("StationLocator").toString ();
+    value = settings.value ("StationLocator").toString ();
     qDebug() << Q_FUNC_INFO << " - 101";
     if ( locator->isValidLocator(value) )
     {

@@ -142,9 +142,9 @@ void SetupPageLogView::saveSettings()
 {
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("LogView");
+    //settings.beginGroup ("LogView");
     settings.setValue ("LogViewFields", getFields());
-    settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageLogView::loadSettings()

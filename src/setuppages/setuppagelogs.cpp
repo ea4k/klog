@@ -433,9 +433,9 @@ void SetupPageLogs::saveSettings()
 {
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("Logs");
+    //settings.beginGroup ("Logs");
     settings.setValue ("SelectedLog", selectedLog);
-    settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageLogs::loadSettings()

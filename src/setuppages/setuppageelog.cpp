@@ -714,37 +714,37 @@ void SetupPageELog::showEvent(QShowEvent *event)
 void SetupPageELog::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("eLogs");
+    //settings.beginGroup ("eLogs");
 
-    settings.beginGroup ("ClubLog");
+    //settings.beginGroup ("ClubLog");
     settings.setValue ("ClubLogActive", QVariant((clubLogActiveCheckBox->isChecked())));
     settings.setValue ("ClubLogRealTime", QVariant((clubLogSendInRealTimeCheckBox->isChecked())));
     settings.setValue ("ClubLogEmail", clubLogEmailLineEdit->text ());
     settings.setValue ("ClubLogPass", clubLogPasswordLineEdit->text());
-    settings.endGroup ();
+    //settings.endGroup ();
 
-    settings.beginGroup ("eQSLcc");
+    //settings.beginGroup ("eQSLcc");
     settings.setValue ("eQSLActive", QVariant((eQSLActiveCheckBox->isChecked())));
     settings.setValue ("eQSLCall", eQSLUserLineEdit->text ());
     settings.setValue ("eQSLPass", eQSLPasswordLineEdit->text());
-    settings.endGroup ();
+    //settings.endGroup ();
 
-    settings.beginGroup ("QRZCOM");
+    //settings.beginGroup ("QRZCOM");
     settings.setValue ("QRZcomActive", QVariant((QRZCOMActiveCheckBox->isChecked())));
     settings.setValue ("QRZcomUser", QRZCOMUserLineEdit->text ());
     settings.setValue ("QRZcomPass", QRZCOMPasswordLineEdit->text());
     settings.setValue ("QRZcomSubscriber", QVariant((QRZCOMSubscriberCheckBox->isChecked())));
     settings.setValue ("QRZcomAuto", QVariant((QRZCOMAutoCheckCheckBox->isChecked())));
     settings.setValue ("QRZcomLogBookKey", QRZCOMLogBookKEYLineEdit->text ());
-    settings.endGroup ();
+    //settings.endGroup ();
 
-    settings.beginGroup ("LoTW");
+    //settings.beginGroup ("LoTW");
     settings.setValue ("LoTWActive", QVariant((lotwUseTQSLCheckBox->isChecked())));
     settings.setValue ("LoTWPath", lotwTQSLPathLineEdit->text());
     settings.setValue ("LoTWUSer", lotwUserLineEdit->text());
     settings.setValue ("LoTWPass", lotwPasswordLineEdit->text());
-    settings.endGroup ();
-    settings.endGroup ();
+    //settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageELog::loadSettings()

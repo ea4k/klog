@@ -393,7 +393,6 @@ private:
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
 
     bool createConnection();
-    void createData();
     void openSetup(const int _page=0);
     bool processConfigLine(const QString &_line);
     void readConfigData();

@@ -213,12 +213,11 @@ QString SetupPageColors::getDefaultColor()
 
 void SetupPageColors::setNewOneColor(const QString &_c)
 {
-
+    qDebug() << Q_FUNC_INFO << ": " << _c;
     QString style = "* { background-color: ";
     style = style + _c;
     style = style + "; }";
     newOneColorButton->setStyleSheet(style);
-
 }
 
 void SetupPageColors::setNeededColor(const QString &_c)
@@ -317,6 +316,7 @@ void SetupPageColors::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
+    qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();
     settings.setValue ("NewOneColor", (newOneColorButton->palette().color(QPalette::Button)).name());
     settings.setValue ("NeededColor", (neededColorButton->palette().color(QPalette::Button)).name());
     settings.setValue ("WorkedColor", (workedColorButton->palette().color(QPalette::Button)).name());
@@ -328,11 +328,16 @@ void SetupPageColors::saveSettings()
 
 void SetupPageColors::loadSettings()
 {
+
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    setNewOneColor (settings.value("NewOneColor").toString ());
-    setNeededColor (settings.value("NeededColor").toString ());
-    setWorkedColor (settings.value("WorkedColor").toString ());
-    setConfirmedColor (settings.value("ConfirmedColor").toString ());
-    setDefaultColor (settings.value("DefaultColor").toString ());
-    setDarkMode (settings.value("DarkMode").toBool ());
+    settings.beginGroup ("Colors");
+
+    setNewOneColor (settings.value("NewOneColor", "#FF0000").toString ());
+    //settings.value("interval").toInt();
+    setNeededColor (settings.value("NeededColor", "#FF8C00").toString ());
+    setWorkedColor (settings.value("WorkedColor", "#FFD700").toString ());
+    setConfirmedColor (settings.value("ConfirmedColor", "#32CD32").toString ());
+    setDefaultColor (settings.value("DefaultColor", "#00BFFF").toString ());
+    setDarkMode (settings.value("DarkMode", false).toBool ());
+    settings.endGroup ();
 }

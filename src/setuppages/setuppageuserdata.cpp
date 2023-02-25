@@ -706,7 +706,7 @@ void SetupPageUserDataPage::setStationFocus()
 void SetupPageUserDataPage::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("UserData");
+    //settings.beginGroup ("UserData");
     settings.setValue ("Callsign", getMainCallsign());
     settings.setValue ("Operators", getOperators());
     settings.setValue ("CQz", getCQz ());
@@ -728,7 +728,7 @@ void SetupPageUserDataPage::saveSettings()
     settings.setValue ("Antenna2", getAntenna2());
     settings.setValue ("Antenna3",getAntenna3());
     settings.setValue ("Power", getPower ());
-    settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageUserDataPage::loadSettings()

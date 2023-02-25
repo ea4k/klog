@@ -127,7 +127,7 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
     if (QFile::exists (util->getCfgFile ()))
     {
         slotReadConfigData();
-        saveSettigs ();
+        saveSettigs();
     }
     loadSettigs ();
     //qDebug() << Q_FUNC_INFO << ": 05.1";
@@ -338,10 +338,16 @@ void SetupDialog::loadSettigs()
     latestBackup = settings.value ("LatestBackup").toString ();
     userDataPage->loadSettings();
     //bandModePage->saveSettings ();
-    readActiveModes(settings.value ("Modes").toString());
+    readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()));
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
-    readActiveBands(settings.value ("Bands").toString());
+    readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()));
+
+
+    qDebug() << Q_FUNC_INFO << " - 12";
+
+
+
     bands.removeDuplicates();
     bandModePage->setActiveBands (bands);
 
@@ -358,8 +364,6 @@ void SetupDialog::loadSettigs()
 void SetupDialog::saveSettigs()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    //settings.setValue ("Version", version);
-    //settings.setValue ("MainWindowSize", windowSize);
     settings.setValue ("LatestBackup", latestBackup);
     userDataPage->saveSettings();
     bandModePage->saveSettings ();
@@ -463,7 +467,6 @@ void SetupDialog::slotReadConfigData()
         return;
     }
 
-
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
 
@@ -496,7 +499,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
 
     QString line = _line.simplified();
     //line.simplified();
-    int i = 0; //aux variable
+    //int i = 0; //aux variable
     QStringList values = line.split("=", QT_SKIP);
     QString tab = QString();
 
@@ -530,8 +533,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
         userDataPage->setCQz((value).toInt());
     }else if (tab=="ITUZ"){
         userDataPage->setITUz((value).toInt());
-    }else if (tab=="CONTEST"){
-        //userDataPage->setContest(value);
     }else if (tab=="MODES"){
         readActiveModes(value);
         modes.removeDuplicates();
@@ -575,11 +576,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     else if (tab=="PROVIDEINFO"){
         miscPage->setReportInfo(value);
     }
-    /*
-    else if (tab=="LOGSORT"){
-        miscPage->setLogSort(value);
-    }
-    */
     else if (tab=="SENDEQSLBYDEFAULT"){
         miscPage->setSetEQSLByDefault(value);
     }
@@ -632,7 +628,6 @@ bool SetupDialog::processConfigLine(const QString &_line)
     }else if(tab =="DEFAULTCOLOR"){
         colorsPage->setDefaultColor(value);
           //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value;
-
     }else if(tab =="HAMLIBRIGTYPE"){
           //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value;
         hamlibPage->setRigType(value);

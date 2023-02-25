@@ -634,7 +634,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 void SetupPageMisc::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("Misc");
+    //settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
     settings.setValue ("ShowSeconds", QVariant((showSecondsCheckBox->isChecked())));
     settings.setValue ("UTCTime", QVariant((UTCCheckbox->isChecked())));
@@ -658,7 +658,7 @@ void SetupPageMisc::saveSettings()
     //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";";
     //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";";
     //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";";
-    settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageMisc::loadSettings()

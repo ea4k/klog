@@ -344,7 +344,7 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
 void SetupPageUDP::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("UDPServer");
+    //settings.beginGroup ("UDPServer");
     settings.setValue ("UDPServer", QVariant((UDPServerCheckBox->isChecked())));
     settings.setValue ("UDPNetworkInterface", getNetworkInterface());
     settings.setValue ("UDPServerPort", getUDPServerPort());
@@ -352,7 +352,7 @@ void SetupPageUDP::saveSettings()
     settings.setValue ("LogAutoFromWSJTX", QVariant((logAutomaticallyWSJTXCheckbox->isChecked())));
     settings.setValue ("RealTimeFromWSJTX", QVariant((realDataFromWSJTXCheckbox->isChecked())));
     settings.setValue ("InfoTimeOut", getTimeout());
-    settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageUDP::loadSettings()

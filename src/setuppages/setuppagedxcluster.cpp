@@ -414,7 +414,7 @@ void SetupPageDxCluster::setSendSpotstoMap(const QString t)
 void SetupPageDxCluster::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.beginGroup ("DXCluster");
+    //settings.beginGroup ("DXCluster");
     settings.setValue ("DXClusterServerToUse", getSelectedDxClusterServer());
     settings.setValue ("DXClusterServers", (getDxclusterServersComboBox ()).join (','));
     settings.setValue ("DXClusterShowHF", QVariant((showHFQCheckbox->isChecked())));
@@ -427,7 +427,7 @@ void SetupPageDxCluster::saveSettings()
     settings.setValue ("DXClusterShowWCY", QVariant((showWCYQCheckbox->isChecked())));
     settings.setValue ("DXClusterSave", QVariant((saveAllDXClusterDataQCheckbox->isChecked())));
     settings.setValue ("DXClusterSendToMap", QVariant((sendSpotsToMapCheckbox->isChecked())));
-    settings.endGroup ();
+    //settings.endGroup ();
 }
 
 void SetupPageDxCluster::loadSettings()
