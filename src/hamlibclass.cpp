@@ -911,3 +911,24 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 #endif
 }
 */
+
+bool HamLibClass::loadSettings()
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("HamLib");
+    setModelId(settings.value ("HamLibRigType").toInt());
+    setPort(settings.value ("HamlibSerialPort").toString());
+    setSpeed(settings.value ("HamlibSerialBauds").toInt ());
+    setDataBits(settings.value ("HamLibSerialDataBits").toInt ());
+    setStop(settings.value ("HamLibSerialStopBit").toString());
+    setFlow(settings.value ("HamLibSerialFlowControl").toString());
+    setParity(settings.value ("HamLibSerialParity").toString());
+    setPoll(settings.value ("HamlibRigPollRate").toInt ());
+    setReadOnly(settings.value ("HamlibReadOnly").toBool ());
+    setNetworkAddress (settings.value ("HamlibNetAddress").toString());
+    setNetworkPort (settings.value ("HamlibNetPort").toInt ());
+    settings.endGroup ();
+    return true;
+}

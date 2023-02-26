@@ -37,6 +37,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <QSettings>
+#include "utilities.h"
 #include "klogdefinitions.h"
 
 // Potential fix of hamlib 4.2 migration
@@ -87,9 +89,7 @@ public:
 
     double getFrequency();
     //void showDebugLog(const QString &_func, const QString &_log);
-    //bool openSerialPort();
-    //bool closeSerialPort();
-
+    bool loadSettings();
 
 signals:
     void freqChanged(double newFreq);

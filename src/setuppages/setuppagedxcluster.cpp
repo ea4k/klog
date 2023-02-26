@@ -414,7 +414,7 @@ void SetupPageDxCluster::setSendSpotstoMap(const QString t)
 void SetupPageDxCluster::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    //settings.beginGroup ("DXCluster");
+    settings.beginGroup ("DXCluster");
     settings.setValue ("DXClusterServerToUse", getSelectedDxClusterServer());
     settings.setValue ("DXClusterServers", (getDxclusterServersComboBox ()).join (','));
     settings.setValue ("DXClusterShowHF", QVariant((showHFQCheckbox->isChecked())));
@@ -427,13 +427,13 @@ void SetupPageDxCluster::saveSettings()
     settings.setValue ("DXClusterShowWCY", QVariant((showWCYQCheckbox->isChecked())));
     settings.setValue ("DXClusterSave", QVariant((saveAllDXClusterDataQCheckbox->isChecked())));
     settings.setValue ("DXClusterSendToMap", QVariant((sendSpotsToMapCheckbox->isChecked())));
-    //settings.endGroup ();
+    settings.endGroup ();
 }
 
 void SetupPageDxCluster::loadSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-
+    settings.beginGroup ("DXCluster");
     setDxclusterServersComboBox(settings.value("DXClusterServers").toStringList ());
     dxclusterServersComboBox->setCurrentIndex(dxclusterServersComboBox->findText(settings.value ("DXClusterServerToUse").toString ()));
     showHFQCheckbox->setChecked (settings.value("DXClusterShowHF").toBool ());
@@ -446,4 +446,5 @@ void SetupPageDxCluster::loadSettings()
     showWCYQCheckbox->setChecked (settings.value("DXClusterShowWCY").toBool ());
     saveAllDXClusterDataQCheckbox->setChecked (settings.value("DXClusterSave").toBool ());
     sendSpotsToMapCheckbox->setChecked (settings.value("DXClusterSendToMap").toBool ());
+    settings.endGroup ();
 }

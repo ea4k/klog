@@ -333,31 +333,38 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 void SetupDialog::loadSettigs()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    qDebug() << Q_FUNC_INFO << " - 10 - General";
     version = settings.value ("Version").toString();
-    //windowSize = settings.value ("MainWindowSize");
     latestBackup = settings.value ("LatestBackup").toString ();
+
+    qDebug() << Q_FUNC_INFO << " - 20 - user";
     userDataPage->loadSettings();
-    //bandModePage->saveSettings ();
+
+    qDebug() << Q_FUNC_INFO << " - 30 - bands";
     readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()));
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
     readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()));
-
-
-    qDebug() << Q_FUNC_INFO << " - 12";
-
-
-
     bands.removeDuplicates();
     bandModePage->setActiveBands (bands);
 
+    qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logViewPage->saveSettings ();
+    qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     dxClusterPage->loadSettings ();
-    miscPage->loadSettings ();
+    qDebug() << Q_FUNC_INFO << " - 60 - colors";
     colorsPage->loadSettings ();
+    qDebug() << Q_FUNC_INFO << " - 70 - misc";
+    miscPage->loadSettings ();
+    qDebug() << Q_FUNC_INFO << " - 80 - logs";
     logsPage->loadSettings();
+    qDebug() << Q_FUNC_INFO << " - 90 - elog";
     eLogPage->loadSettings ();
+    qDebug() << Q_FUNC_INFO << " - 100 - UDP";
     UDPPage->loadSettings ();
+    qDebug() << Q_FUNC_INFO << " - 110 - Sats";
+    qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
     hamlibPage->loadSettings ();
 }
 
@@ -498,10 +505,9 @@ bool SetupDialog::processConfigLine(const QString &_line)
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QString line = _line.simplified();
-    //line.simplified();
     //int i = 0; //aux variable
     QStringList values = line.split("=", QT_SKIP);
-    QString tab = QString();
+
 
     if (line.startsWith('#')){
            //qDebug() << "SetupDialog::processConfigLine: Comment Line!";
@@ -514,7 +520,7 @@ bool SetupDialog::processConfigLine(const QString &_line)
         return false;
     }
     QString value = values.at(1);
-    tab = (values.at(0)).toUpper();
+    QString tab = (values.at(0)).toUpper();
 
     int endValue = value.indexOf(';');
     if (endValue>-1)

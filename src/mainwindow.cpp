@@ -4887,7 +4887,6 @@ void MainWindow::showEvent(QShowEvent *event)
 {
     //qDebug() << Q_FUNC_INFO ;
     setWindowSize(windowSize);
-    //setHamlib (hamlibActive);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
@@ -8650,31 +8649,11 @@ void MainWindow::slotAwardsWidgetSetYear()
 void MainWindow::slotManualMode(bool _enable)
 {
     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_enable);
-    //bool _updateTheRadio = false;
-    //if (!manualMode && hamlibActive)
-    //{
-    //    _updateTheRadio = true;
-    //}
     manualMode = _enable;
     if ((manualMode) && (hamlibActive))
     {
         hamlib->readRadio(true);
     }
-    //if (_updateTheRadio)
-    //{
-
-    //}
-    /*
-    hamlib->init(!_enable);
-    if (_enable)
-    {
-        UDPLogServer->start();
-    }
-    else
-    {
-        UDPLogServer->stop();
-    }
-    */
 }
 
 void MainWindow::backupCurrentQSO()
@@ -8932,35 +8911,65 @@ void MainWindow::loadSettings()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    qDebug() << Q_FUNC_INFO << " - 00";
+
+
+    qDebug() << Q_FUNC_INFO << " - 10 - General";
     settings.setValue ("Version", softwareVersion);
-    qDebug() << Q_FUNC_INFO << " - 01";
     QString value = settings.value ("Version").toString ();
-    qDebug() << Q_FUNC_INFO << " - 02";
     if (softwareVersion!=value)
     {
         itIsANewversion = true;
     }
     setWindowSize (settings.value ("MainWindowSize").toSize ());
 
-    qDebug() << Q_FUNC_INFO << " - 10";
+    qDebug() << Q_FUNC_INFO << " - 20 - user";
     value = settings.value ("CallSign").toString ();
     if (util->isValidCall(value))
     {
         mainQRZ = value;
     }
+    value = settings.value ("StationLocator").toString ();
+    if ( locator->isValidLocator(value) )
+    {
+        myDataTabWidget->setMyLocator(value.toUpper());
+        adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());
+    }
+    myDataTabWidget->loadSettings ();
 
-    qDebug() << Q_FUNC_INFO << " - 11";
+    qDebug() << Q_FUNC_INFO << " - 30 - bands";
     readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()).split(", ", QT_SKIP));
-    qDebug() << Q_FUNC_INFO << " - 12";
     readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()).split(", ", QT_SKIP));
-    qDebug() << Q_FUNC_INFO << " - 13";
-    mainQSOEntryWidget->setRealTime (settings.value ("RealTime", true).toBool ());
-    qDebug() << Q_FUNC_INFO << " - 14";
-    mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds").toBool ());
-    qDebug() << Q_FUNC_INFO << " - 15";
+
+    qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
-    qDebug() << Q_FUNC_INFO << " - 20";
+
+    qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
+    settings.beginGroup ("DXCluster");
+    dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave").toBool ());
+    dxClusterShowHF = settings.value ("DXClusterShowHF").toBool ();
+    dxClusterShowVHF = settings.value ("DXClusterShowVHF").toBool ();
+    dxClusterShowWARC = settings.value ("DXClusterShowWARC").toBool ();
+    dxClusterShowWorked = settings.value ("DXClusterShowWorked").toBool ();
+    dxClusterShowConfirmed = settings.value ("DXClusterShowConfirmed").toBool ();
+    dxClusterShowAnn = settings.value ("DXClusterShowAnn").toBool ();
+    dxClusterShowWWV = settings.value ("DXClusterShowWWV").toBool ();
+    dxClusterShowWCY = settings.value ("DXClusterShowWCY").toBool ();
+    dxclusterSendSpotsToMap = settings.value ("DXClusterSendToMap").toBool ();
+    dxClusterWidget->loadSettings ();
+    settings.endGroup ();
+
+    qDebug() << Q_FUNC_INFO << " - 60 - colors";
+    settings.beginGroup ("Colors");
+    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+    settings.endGroup ();
+
+    qDebug() << Q_FUNC_INFO << " - 70 - misc";
+    mainQSOEntryWidget->setRealTime (settings.value ("RealTime", true).toBool ());
+    mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds").toBool ());
     useDefaultLogFileName = (settings.value ("UseDefaultName").toBool ());
     imperialSystem = (settings.value ("ImperialSystem").toBool ());
     sendQSLWhenRec = (settings.value ("SendQSLWhenRec").toBool ());
@@ -8972,61 +8981,23 @@ void MainWindow::loadSettings()
     alwaysADIF = settings.value ("AlwaysADIF").toBool ();
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
     mainQSOEntryWidget->setUTC(settings.value ("UTCTime").toBool ());
-    qDebug() << Q_FUNC_INFO << " - 30";
     sendQSLByDefault = settings.value ("SendEQSLByDefault").toBool ();
     eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
-
     dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot").toInt ();
     filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
     mainQSOEntryWidget->setDuplicatedQSOSlot(dupeSlotInSeconds);
     completeWithPrevious = settings.value ("CompleteWithPrevious").toBool ();
-    qDebug() << Q_FUNC_INFO << " - 40";
-    dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave").toBool ());
-    dxClusterShowHF = settings.value ("DXClusterShowHF").toBool ();
-    dxClusterShowVHF = settings.value ("DXClusterShowVHF").toBool ();
-    dxClusterShowWARC = settings.value ("DXClusterShowWARC").toBool ();
-    dxClusterShowWorked = settings.value ("DXClusterShowWorked").toBool ();
-    dxClusterShowConfirmed = settings.value ("DXClusterShowConfirmed").toBool ();
-    dxClusterShowAnn = settings.value ("DXClusterShowAnn").toBool ();
-    dxClusterShowWWV = settings.value ("DXClusterShowWWV").toBool ();
-    dxClusterShowWCY = settings.value ("DXClusterShowWCY").toBool ();
-    dxclusterSendSpotsToMap = settings.value ("DXClusterSendToMap").toBool ();
-    qDebug() << Q_FUNC_INFO << " - 50";
     defaultADIFLogFile = settings.value ("DefaultADIFFile").toString ();
+    deleteAlwaysAdiFile = settings.value ("DeleteAlwaysAdiFile").toBool ();
+    util->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    filemanager->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
 
-    settings.beginGroup ("Colors");
-
-    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
-    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
-    settings.endGroup ();
-
-    qDebug() << Q_FUNC_INFO << " - 60";
-    UDPServerStart = settings.value ("UDPServer").toBool ();
-    UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
-    UDPLogServer->setPort(settings.value ("UDPServerPort").toInt ());
-    infoTimeout = settings.value ("InfoTimeOut").toInt ();
-    UDPLogServer->setLogging(settings.value ("LogFromWSJTX").toBool ());
-    UDPLogServer->setRealTimeUpdate(settings.value ("RealTimeFromWSJTX").toBool ());
-    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX").toBool ();
-    qDebug() << Q_FUNC_INFO << " - 70";
-    hamlib->setModelId(settings.value ("HamLibRigType").toInt());
-    hamlib->setPort(settings.value ("HamlibSerialPort").toString());
-    hamlib->setSpeed(settings.value ("HamlibSerialBauds").toInt ());
-    hamlib->setDataBits(settings.value ("HamLibSerialDataBits").toInt ());
-    hamlib->setStop(settings.value ("HamLibSerialStopBit").toString());
-    hamlib->setFlow(settings.value ("HamLibSerialFlowControl").toString());
-    hamlib->setParity(settings.value ("HamLibSerialParity").toString());
-    hamlib->setPoll(settings.value ("HamlibRigPollRate").toInt ());
-    hamlibActive = settings.value ("HamLib").toBool ();
-    hamlib->setReadOnly(settings.value ("HamlibReadOnly").toBool ());
-    hamlib->setNetworkAddress (settings.value ("HamlibNetAddress").toString());
-    hamlib->setNetworkPort (settings.value ("HamlibNetPort").toInt ());
-    qDebug() << Q_FUNC_INFO << " - 80";
+    qDebug() << Q_FUNC_INFO << " - 80 - logs";
     selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
 
+    qDebug() << Q_FUNC_INFO << " - 90 - elog";
     clublogActive = settings.value ("ClubLogActive").toBool ();
     setupDialog->setClubLogActive(clublogActive);
     clublogRealTime = settings.value ("ClubLogRealTime").toBool ();
@@ -9052,29 +9023,23 @@ void MainWindow::loadSettings()
     lotwTQSLpath = settings.value ("LoTWPath").toString ();
     lotwUtilities->setUser(settings.value ("LoTWUSer").toString ());
     lotwUtilities->setPass(settings.value ("LoTWPass").toString ());
-    qDebug() << Q_FUNC_INFO << " - 90";
-    deleteAlwaysAdiFile = settings.value ("DeleteAlwaysAdiFile").toBool ();
 
-    util->setCallValidation(settings.value ("CheckValidCalls").toBool ());
-    mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
-    filemanager->setCallValidation(settings.value ("CheckValidCalls").toBool ());
-    adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    UDPServerStart = settings.value ("UDPServer").toBool ();
+    UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
+    UDPLogServer->setPort(settings.value ("UDPServerPort").toInt ());
+    infoTimeout = settings.value ("InfoTimeOut").toInt ();
+    UDPLogServer->setLogging(settings.value ("LogFromWSJTX").toBool ());
+    UDPLogServer->setRealTimeUpdate(settings.value ("RealTimeFromWSJTX").toBool ());
+    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX").toBool ();
 
-    qDebug() << Q_FUNC_INFO << " - 100";
-    value = settings.value ("StationLocator").toString ();
-    qDebug() << Q_FUNC_INFO << " - 101";
-    if ( locator->isValidLocator(value) )
-    {
-        qDebug() << Q_FUNC_INFO << " - 102";
-        myDataTabWidget->setMyLocator(value.toUpper());
-        qDebug() << Q_FUNC_INFO << " - 103";
-        adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());
-        qDebug() << Q_FUNC_INFO << " - 104";
-    }
-    qDebug() << Q_FUNC_INFO << " - 105";
-    dxClusterWidget->loadSettings ();
-    qDebug() << Q_FUNC_INFO << " - 106";
-    myDataTabWidget->loadSettings ();
+    qDebug() << Q_FUNC_INFO << " - 110 - Sats";
+
+    qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
+    settings.beginGroup ("HamLib");
+    hamlib->loadSettings ();
+    hamlibActive = settings.value ("HamLib").toBool ();
+    settings.endGroup ();
+
     applySettings ();
     qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
