@@ -36,7 +36,7 @@ StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget()
 StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget";
-
+    Q_UNUSED(parent);
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);

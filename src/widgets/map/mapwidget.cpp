@@ -33,6 +33,7 @@
 
 MapWidget::MapWidget(QWidget *parent)
 {
+    Q_UNUSED(parent);
     //qDebug() << Q_FUNC_INFO;
     //qDebug() << Q_FUNC_INFO << " - END";
 }

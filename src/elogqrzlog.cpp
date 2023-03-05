@@ -33,6 +33,7 @@
 
 eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)
 {
+    Q_UNUSED(_parentFunction);
 #ifdef QT_DEBUG
   //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #endif
@@ -71,6 +72,8 @@ eLogQrzLog::~eLogQrzLog()
 
 void eLogQrzLog::showDebugLog(const QString &_func, const QString &_log)
 {
+    Q_UNUSED(_func);
+    Q_UNUSED(_log);
 #ifdef QT_DEBUG
   //qDebug() << _func << ": " << _log;
 #else

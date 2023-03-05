@@ -36,7 +36,7 @@ StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget()
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
+    Q_UNUSED(parent);
 #ifdef QT_DEBUG
 //qDebug() << "StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget";
 #else

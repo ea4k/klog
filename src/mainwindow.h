@@ -76,6 +76,7 @@
 #include "widgets/map/mapwindowwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
+#include "updatesettings.h"
 #include "klogdefinitions.h"
 
 class QTimer;
@@ -609,7 +610,7 @@ private:
     bool yearChangedDuringModification;
     QString infoLabel1T, infoLabel2T;
 
-    QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
+    QString klogDir, ctyDatFile, defaultADIFLogFile;
     QString softwareVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;

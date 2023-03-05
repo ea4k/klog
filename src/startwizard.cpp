@@ -967,9 +967,8 @@ CTYPage::CTYPage(const QString &_klogDir, const QString &_version, QWidget *pare
 void CTYPage::slotUpdateDownloadProgress(qint64 received, qint64 total)
 {
        //qDebug() << "CTYPage::slotUpdateDownloadProgress: " << QString::number(received) << "/" << QString::number(total);
-
+    Q_UNUSED(total);
     progressBar->setValue(received);
-
 }
 
 void CTYPage::slotDownloadButtonClicked()

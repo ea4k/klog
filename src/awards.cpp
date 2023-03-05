@@ -28,7 +28,8 @@
 
 Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
-      //qDebug() << "Awards::Awards- from: " << _parentFunction;
+    Q_UNUSED(_parentFunction);
+    //qDebug() << "Awards::Awards- from: " << _parentFunction;
     dataProxy = dp;
     //QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     world = new World(dataProxy, Q_FUNC_INFO);

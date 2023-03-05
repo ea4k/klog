@@ -36,7 +36,7 @@ StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget()
 StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget";
-
+    Q_UNUSED(parent);
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);

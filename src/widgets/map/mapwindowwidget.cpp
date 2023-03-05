@@ -27,7 +27,7 @@
 
 MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
+    Q_UNUSED(parent);
     //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
     //qDebug() << Q_FUNC_INFO << "1";
@@ -62,6 +62,7 @@ void MapWindowWidget::init()
 
 void MapWindowWidget::addMarker(const Coordinate _coord, const QString _loc)
 {
+    Q_UNUSED(_loc);
     //qDebug() << Q_FUNC_INFO << QString(" %1 = %2/%3(lat/lon)").arg(_loc).arg(_coord.lat).arg(_coord.lon);
     mapWidget->addMarker(_coord);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -319,6 +320,7 @@ void MapWindowWidget::slotConfirmedCheckBoxChanged()
 
 void MapWindowWidget::addQSO(const QString &_loc)
 {
+    Q_UNUSED(_loc);
     //qDebug() << Q_FUNC_INFO << ": " << _loc;
     //qDebug() << Q_FUNC_INFO << " - END";
 }

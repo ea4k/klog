@@ -265,8 +265,8 @@ void MainWindow::saveWindowsSize()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     windowSize = this->size();
 
-    int height = windowSize.height();
-    int width = windowSize.width();
+    //int height = windowSize.height();
+    //int width = windowSize.width();
 
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.setValue ("MainWindowSize", windowSize);
@@ -330,11 +330,25 @@ void MainWindow::init()
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-    setupDialog->init(softwareVersion, 0, !configured);
+
+    if (QFile::exists(util->getSetFile ()))
+    {
+        loadSettings ();
+    }
+    else if (QFile::exists(util->getCfgFile ()))
+    {
+       UpdateSettings settingsUpdate;
+       //configured = settingsUpdate.updateFile ();
+    }
+    else
+    {
+        setupDialog->init(softwareVersion, 0, !configured);
+    }
+
     filemanager->init();
     manualMode = false;
     qrzAutoChanging = false;
-    //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
+    qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     logEvents = true;
@@ -498,23 +512,7 @@ void MainWindow::init()
 
     qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
     mapWindow->init();
-    loadSettings ();
-/*
-    if (QFile::exists(util->getSetFile ()))
-    {
-        qDebug() << Q_FUNC_INFO << " - Reading OLD config";
-        loadSettings ();
-    }
-    else if (QFile::exists(util->getCfgFile ()))
-    {
-        qDebug() << Q_FUNC_INFO << " - Reading OLD config";
-        readConfigData();
-        setupDialog->init();
 
-        QFile file(util->getCfgFile ());
-        file.remove();
-    }
-*/
     qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
     qDebug() << "MainWindow::init - 72" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -3655,6 +3653,7 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    Q_UNUSED(_func);
 
     bool needToRecover = modify;
     setCleaning(true);
@@ -4757,7 +4756,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
 
 bool MainWindow::slotOpenKLogFolder()
 {
-    //qDebug() << "MainWindow::slotOpenKLogFolder: " << configFileName ;
+    //qDebug() << "MainWindow::slotOpenKLogFolder: " << util->getHomeDir() ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QString _aux = "<ul><li><a href=file://" + util->getHomeDir() + ">file://" + util->getHomeDir() + "</a></li>" +
@@ -4886,6 +4885,7 @@ bool MainWindow::setHamlib(const bool _b)
 void MainWindow::showEvent(QShowEvent *event)
 {
     //qDebug() << Q_FUNC_INFO ;
+    (void)event;
     setWindowSize(windowSize);
 }
 
@@ -4937,10 +4937,10 @@ void MainWindow::readConfigData()
         //qDebug() << QTime::currentTime().toString("hh:mm:ss - ") << "MainWindow::readConfigData - END - 1" << QT_ENDL;
         return;
     }
-    QFile file(configFileName);
+    QFile file(util->getCfgFile ());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": File not found" << configFileName << QT_ENDL;
+        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": File not found" << util->getHomeDir() << QT_ENDL;
         if (configured)
         {
           //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": configured = true"  << QT_ENDL;
@@ -4953,7 +4953,7 @@ void MainWindow::readConfigData()
         openSetup(0);
         //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": After calling openSetup" << QT_ENDL;
         logEvent(Q_FUNC_INFO, "END-2", Debug);
-        //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": - END - 2" << QT_ENDL;
+        qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": - END - 2" << QT_ENDL;
         return;
     }
     hamlibActive = false;
@@ -4962,7 +4962,7 @@ void MainWindow::readConfigData()
     lotwActive = false;
     deleteAlwaysAdiFile = false;
 
-   //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": Before processConfigLine " << QT_ENDL;
+   qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": Before processConfigLine " << QT_ENDL;
 
     QTextStream in(&file);
     while (!in.atEnd())
@@ -5023,6 +5023,7 @@ bool MainWindow::applySettings()
     }
     qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
+    return true;
 }
 
 void MainWindow::startServices()
@@ -5036,7 +5037,7 @@ void MainWindow::startServices()
 }
 
 bool MainWindow::processConfigLine(const QString &_line){
-    //qDebug() << Q_FUNC_INFO << ": " << _line << QT_ENDL;
+    qDebug() << Q_FUNC_INFO << ": " << _line << QT_ENDL;
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_line), Debug);
     int _logWithMoreQSOs = 0; // At the end, if the this variable is >0 the Selectedlog will have to be changed in the file.
@@ -5133,6 +5134,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     }
     else if(field=="POWER")
     {
+        qDebug() << Q_FUNC_INFO << " - Power: " << value;
         if (value.toFloat()>0.0f)
         {
             myDataTabWidget->setMyPower(value.toDouble());
@@ -7742,6 +7744,8 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
 void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
+    (void)_dxCall;
+    (void)_freq;
     if (!dxclusterSendSpotsToMap)
     {
         return;
@@ -8368,6 +8372,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
                                              const QString &_dx_grid, const QString &_sub_mode)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    (void)_sub_mode;
     if (manualMode)
     {
         return;
@@ -8923,6 +8928,7 @@ void MainWindow::loadSettings()
     setWindowSize (settings.value ("MainWindowSize").toSize ());
 
     qDebug() << Q_FUNC_INFO << " - 20 - user";
+    settings.beginGroup ("UserData");
     value = settings.value ("CallSign").toString ();
     if (util->isValidCall(value))
     {
@@ -8934,11 +8940,15 @@ void MainWindow::loadSettings()
         myDataTabWidget->setMyLocator(value.toUpper());
         adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());
     }
+    settings.endGroup ();
+
     myDataTabWidget->loadSettings ();
 
     qDebug() << Q_FUNC_INFO << " - 30 - bands";
+    settings.beginGroup ("BandMode");
     readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()).split(", ", QT_SKIP));
     readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()).split(", ", QT_SKIP));
+    settings.endGroup ();
 
     qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());

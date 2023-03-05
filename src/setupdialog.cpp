@@ -35,7 +35,9 @@ This class calls all the othet "Setup..." to manage the configuration
 SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime);
-
+    Q_UNUSED(parent);
+    contentsWidget->update();
+    pagesWidget->update();
     logLevel = None;
     constrid = 2;
     nolog = true;
@@ -124,13 +126,7 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
     version = _softwareVersion;
     pageRequested = _page;
 
-    if (QFile::exists (util->getCfgFile ()))
-    {
-        slotReadConfigData();
-        saveSettigs();
-    }
-    loadSettigs ();
-    //qDebug() << Q_FUNC_INFO << ": 05.1";
+    slotReadConfigData();
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
@@ -330,50 +326,52 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void SetupDialog::loadSettigs()
+void SetupDialog::loadSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
-    qDebug() << Q_FUNC_INFO << " - 10 - General";
+    //qDebug() << Q_FUNC_INFO << " - 10 - General";
     version = settings.value ("Version").toString();
     latestBackup = settings.value ("LatestBackup").toString ();
 
-    qDebug() << Q_FUNC_INFO << " - 20 - user";
+    //qDebug() << Q_FUNC_INFO << " - 20 - user";
     userDataPage->loadSettings();
 
-    qDebug() << Q_FUNC_INFO << " - 30 - bands";
+    //qDebug() << Q_FUNC_INFO << " - 30 - bands";
+    settings.beginGroup ("BandMode");
     readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()));
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
     readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()));
     bands.removeDuplicates();
     bandModePage->setActiveBands (bands);
+    settings.endGroup ();
 
-    qDebug() << Q_FUNC_INFO << " - 40 - logview";
+    //qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logViewPage->saveSettings ();
-    qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
+    //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     dxClusterPage->loadSettings ();
-    qDebug() << Q_FUNC_INFO << " - 60 - colors";
+    //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     colorsPage->loadSettings ();
-    qDebug() << Q_FUNC_INFO << " - 70 - misc";
+    //qDebug() << Q_FUNC_INFO << " - 70 - misc";
     miscPage->loadSettings ();
-    qDebug() << Q_FUNC_INFO << " - 80 - logs";
+    //qDebug() << Q_FUNC_INFO << " - 80 - logs";
     logsPage->loadSettings();
-    qDebug() << Q_FUNC_INFO << " - 90 - elog";
+    //qDebug() << Q_FUNC_INFO << " - 90 - elog";
     eLogPage->loadSettings ();
-    qDebug() << Q_FUNC_INFO << " - 100 - UDP";
+    //qDebug() << Q_FUNC_INFO << " - 100 - UDP";
     UDPPage->loadSettings ();
-    qDebug() << Q_FUNC_INFO << " - 110 - Sats";
-    qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
+    //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
+    //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
     hamlibPage->loadSettings ();
 }
 
-void SetupDialog::saveSettigs()
+void SetupDialog::    saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.setValue ("LatestBackup", latestBackup);
-    userDataPage->saveSettings();
-    bandModePage->saveSettings ();
+    userDataPage->saveSettings();       // Groups done
+    bandModePage->saveSettings ();      // Groups done
     logViewPage->saveSettings ();
     dxClusterPage->saveSettings ();
     miscPage->saveSettings ();
@@ -427,7 +425,7 @@ void SetupDialog::slotOkButtonClicked()
         return;
     }
     //qDebug() << "SetupDialog::slotOkButtonClicked - 10";
-    saveSettigs();
+        saveSettings();
 
     hamlibPage->stopHamlib();
     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving";
@@ -439,7 +437,7 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
     {
@@ -451,28 +449,7 @@ void SetupDialog::slotReadConfigData()
         bandModePage->setActiveBands(bands);
         logViewPage->setActiveFields(logViewFields);
     }
-    if (QFile::exists(util->getSetFile ()))
-    {
-        loadSettigs ();
-    }
-    else if (QFile::exists(util->getCfgFile ()))
-    {
-        QFile file(util->getCfgFile ());
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
-        {
-            emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
-            return;
-        }
-
-        while (!file.atEnd()){
-            QByteArray line = file.readLine();
-            processConfigLine(line);
-        }
-    }
-    else
-    {
-        return;
-    }
+    loadSettings();
 
     dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -495,247 +472,14 @@ void SetupDialog::slotReadConfigData()
     bandModePage->setActiveBands(bands);
     logViewFields.removeDuplicates();
     logViewPage->setActiveFields(logViewFields);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
-bool SetupDialog::processConfigLine(const QString &_line)
-{
-    //qDebug() << "SetupDialog::processConfigLine: " << _line;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    QString line = _line.simplified();
-    //int i = 0; //aux variable
-    QStringList values = line.split("=", QT_SKIP);
-
-
-    if (line.startsWith('#')){
-           //qDebug() << "SetupDialog::processConfigLine: Comment Line!";
-        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
-        return true;
-    }
-    if (!( (line.contains('=')) && (line.contains(';')))){
-           //qDebug() << "SetupDialog::processConfigLine: Wrong Line!";
-        emit debugLog (Q_FUNC_INFO, "END-2", logLevel);
-        return false;
-    }
-    QString value = values.at(1);
-    QString tab = (values.at(0)).toUpper();
-
-    int endValue = value.indexOf(';');
-    if (endValue>-1)
-    {
-        value = value.left(value.length() - (value.length() - endValue));
-    }
-    value = checkAndFixASCIIinADIF(value); // Check whether the value is valid.
-      //qDebug() << "SetupDialog::processConfigLine: TAB: " << tab;
-      //qDebug() << "SetupDialog::processConfigLine: VALUE: " << value;
-    if (tab == "CALLSIGN"){
-        qDebug() << "SetupDialog::processConfigLine: CALLSIGN: " << value;
-        userDataPage->setMainCallsign(value);
-    }else if (tab == "OPERATORS"){
-        userDataPage->setOperators(value);
-    }else if (tab=="CQZ"){
-        userDataPage->setCQz((value).toInt());
-    }else if (tab=="ITUZ"){
-        userDataPage->setITUz((value).toInt());
-    }else if (tab=="MODES"){
-        readActiveModes(value);
-        modes.removeDuplicates();
-        bandModePage->setActiveModes(modes);
-    }else if (tab=="BANDS"){
-        readActiveBands(value);
-        bands.removeDuplicates();
-        bandModePage->setActiveBands(bands);
-    }else if (tab=="REALTIME"){
-        miscPage->setRealTime(value);
-    }else if (tab=="SHOWSECONDS"){
-        miscPage->setShowSeconds (util->trueOrFalse (value));
-    }else if (tab=="UTCTIME"){
-        miscPage->setUTCTime(value);
-    }else if (tab=="ALWAYSADIF"){
-        miscPage->setAlwaysADIF(value);
-    }else if (tab=="USEDEFAULTNAME"){
-        miscPage->setDefaultFileName(value);
-    }else if (tab=="DBPATH"){
-        miscPage->setUseDefaultDBPath(value);
-    }else if (tab=="DEFAULTADIFFILE"){
-        miscPage->setDefaultFileName(value);
-           //qDebug() << "SetupDialog::processConfigLine: FILE: " << value;
-    }else if (tab=="IMPERIALSYSTEM"){
-        miscPage->setImperial(value.toUpper());
-    }else if (tab=="COMPLETEWITHPREVIOUS"){
-        miscPage->setCompleteWithPrevious(value.toUpper());
-    }else if (tab=="SENDQSLWHENREC"){
-        miscPage->setSendQSLWhenRec(value.toUpper());
-    }else if (tab=="MANAGEDXMARATHON"){
-        miscPage->setDXMarathon(value.toUpper());
-    }else if (tab=="DEBUGLOG"){
-        miscPage->setDebugLogLevel(value);
-    }
-    else if (tab=="SHOWCALLSIGNINSEARCH"){
-        miscPage->setShowStationCallSignInSearch(value.toUpper());
-    }
-    else if (tab=="CHECKNEWVERSIONS"){
-        miscPage->setCheckNewVersions(value);
-    }
-    else if (tab=="PROVIDEINFO"){
-        miscPage->setReportInfo(value);
-    }
-    else if (tab=="SENDEQSLBYDEFAULT"){
-        miscPage->setSetEQSLByDefault(value);
-    }
-    else if (tab=="DUPLICATEDQSOSLOT"){
-        if (value.toInt()>=0)
-        {
-            miscPage->setDupeTime(value.toInt());
-        }
-    }
-    else if (tab == "CHECKVALIDCALLS")
-    {
-        miscPage->setCheckCalls (util->trueOrFalse (value));
-    }
-    else if (tab =="DXCLUSTERSHOWHF"){
-        dxClusterPage->setShowHFQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWVHF"){
-        dxClusterPage->setShowVHFQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWARC"){
-        dxClusterPage->setShowWARCQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWORKED"){
-        dxClusterPage->setShowWorkedQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWCONFIRMED"){
-        dxClusterPage->setShowConfirmedQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWANN"){
-        dxClusterPage->setShowANNQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWWV"){
-        dxClusterPage->setShowWWVQCheckbox(value);
-    }else if (tab =="DXCLUSTERSHOWWCY"){
-        dxClusterPage->setShowWCYQCheckbox(value);
-    }else if(tab =="DXCLUSTERSERVERPORT"){
-        dxClusterServers << value;
-           //qDebug() << "SetupDialog::processConfigLine: dxClusterServers: " << dxClusterServers.last();
-    }else if (tab  =="DXCLUSTERSERVERTOUSE"){
-        dxClusterServerToUse=value;
-    }
-    else if (tab  =="DXCLUSTERSAVE"){
-        dxClusterPage->setSaveActivityQCheckbox(value);
-    }
-    else if (tab  =="DXCLUSTERSENDTOMAP"){
-        dxClusterPage->setSendSpotstoMap(value);
-    }
-    else if(tab =="NEWONECOLOR"){
-        colorsPage->setNewOneColor(value);
-    }else if(tab =="NEEDEDCOLOR"){
-        colorsPage->setNeededColor(value);
-    }else if(tab =="WORKEDCOLOR"){
-        colorsPage->setWorkedColor(value);
-    }else if(tab =="CONFIRMEDCOLOR"){
-        colorsPage->setConfirmedColor(value);
-    }else if(tab =="DEFAULTCOLOR"){
-        colorsPage->setDefaultColor(value);
-          //qDebug() << "SetupDialog::processConfigLine: DEFAULTCOLOR: " << value;
-    }else if(tab =="HAMLIBRIGTYPE"){
-          //qDebug() << "SetupDialog::processConfigLine: Before HAMLIBRIGTYPE: " << value;
-        hamlibPage->setRigType(value);
-          //qDebug() << "SetupDialog::processConfigLine: After HAMLIBRIGTYPE: " << value;
-    }else if(tab =="CLUBLOGACTIVE"){
-        eLogPage->setClubLogActive(util->trueOrFalse(value));
-    }
-    else if(tab =="CLUBLOGREALTIME"){
-        //clubLogPage->setClubLogRealTime(value);
-        eLogPage->setClubLogRealTime(util->trueOrFalse(value));
-    }
-    else if(tab =="CLUBLOGPASS"){
-        //clubLogPage->setPassword(value);
-        eLogPage->setClubLogPassword(value);
-    }
-    else if(tab =="CLUBLOGEMAIL"){
-        //clubLogPage->setEmail(value);
-        eLogPage->setClubLogEmail(value);
-    }
-    else if(tab =="EQSLACTIVE"){
-        //eQSLPage->setActive(value);
-        eLogPage->setEQSLActive(util->trueOrFalse(value));
-    }
-    else if(tab =="EQSLCALL"){
-        //eQSLPage->setCallsign(value);
-        eLogPage->setEQSLUser(value);
-    }
-    else if(tab =="EQSLPASS"){
-        //eQSLPage->setPassword(value);
-        eLogPage->setEQSLPassword(value);
-    }
-    else if(tab =="QRZCOMACTIVE"){
-        //eQSLPage->setActive(value);
-        eLogPage->setQRZCOMActive(util->trueOrFalse(value));
-    }
-    else if(tab =="QRZCOMSUBSCRIBER"){
-        eLogPage->setQRZCOMSubscriber(util->trueOrFalse (value));
-    }
-    else if(tab =="QRZCOMUSER"){
-        eLogPage->setQRZCOMUser(value);
-    }
-    else if(tab =="QRZCOMAUTO"){
-        eLogPage->setQRZCOMAutoCheck(util->trueOrFalse(value));
-    }
-    else if(tab =="QRZCOMPASS"){
-        eLogPage->setQRZCOMPassword(value);
-    }
-    else if(tab =="QRZCOMLOGBOOKKEY"){
-        eLogPage->setQRZCOMLogBookKEY(value);
-    }
-    else if(tab =="LOTWACTIVE"){
-        eLogPage->setLoTWActive(util->trueOrFalse(value));
-    }
-    else if(tab =="LOTWPATH"){
-        eLogPage->setTQSLPath(value);
-    }
-    else if(tab =="LOTWUSER"){
-        eLogPage->setLoTWUser(value);
-    }
-    else if(tab =="LOTWPASS"){
-        eLogPage->setLoTWPass(value);
-    }
-    /*
-    else if(tab =="MAINWINDOWSIZE"){
-        QStringList values;
-        values.clear();
-        values << value.split("x");
-        if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
-        {
-            windowSize = value;
-        }
-    }
-    */
-    else if(tab =="DELETEALWAYSADIFILE"){
-            miscPage->setDeleteAlwaysAdiFile(util->trueOrFalse(value));
-        }
-    else if (tab == "LATESTBACKUP"){
-        if (value.length()>0)
-        {
-            latestBackup = value;
-        }
-        else
-        {
-            latestBackup = QString();
-        }
-    }
-    else
-    {
-           //qDebug() << "SetupDialog::processConfigLine: NONE: ";
-    }
-
-    // Lines are: Option = value;
-
-       //qDebug() << "SetupDialog::processConfigLine: END " ;
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return true;
 }
 
 void SetupDialog::readActiveBands (const QString &actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
     // bands used in the program
-      //qDebug() << "SetupDialog::readActiveBands: " << actives;
+      //qDebug() << "SetupDialog::readActiveBands: " << actives << QT_ENDL;
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
     bool atLeastOne = false;
@@ -749,13 +493,13 @@ void SetupDialog::readActiveBands (const QString &actives)
         {
             if (!atLeastOne)
             {
-                   //qDebug() << "SetupDialog::readActiveBands (at least One!): " << values.at(i);
+                   //qDebug() << "SetupDialog::readActiveBands (at least One!): " << values.at(i) << QT_ENDL;
                 atLeastOne = true;
                 _abands.clear();
             }
 
             _abands << values.at(i);
-               //qDebug() << "SetupDialog::readActiveBands: " << values.at(i);
+               //qDebug() << "SetupDialog::readActiveBands: " << values.at(i) << QT_ENDL;
         }
     }
 

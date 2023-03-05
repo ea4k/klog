@@ -256,6 +256,7 @@ void SetupPageWorldEditor::createActions()
 
 void SetupPageWorldEditor::slotAnalyzeEntityAddedSignal(const QStringList _qs)
 {
+    Q_UNUSED(_qs);
     /*
        //qDebug() << "SetupPageWorldEditor::slotAnalyzeEntityAddedSignal\n" <<
                 _qs.at(0) << "\n" <<

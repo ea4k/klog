@@ -36,7 +36,7 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
-
+    Q_UNUSED(_parentFunction);
 #ifdef QT_DEBUG
   //qDebug() << "DXCCStatusWidget::DXCCStatusWidget from: " << _parentFunction;
 #else
@@ -471,7 +471,7 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
 void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &_ent, const bool _creating)
 {// Receives the list of band names and defines the columns
     //qDebug() << Q_FUNC_INFO << "(" << _callingFunc << ")" << QTime::currentTime().toString("HH:mm:ss");
-
+    Q_UNUSED(_callingFunc);
     //foreach(QString aux, _ent)
     //{
     //    //qDebug << Q_FUNC_INFO << ": " << aux;

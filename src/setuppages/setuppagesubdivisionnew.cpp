@@ -33,6 +33,7 @@
 SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew"  ;
+    Q_UNUSED(parent);
     dataProxy = dp;
     editing = false;
     checking = false;

@@ -33,6 +33,10 @@ OnlineMessageWidget::OnlineMessageWidget(QWidget *parent) : QWidget(parent)
 
 int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineProvider _prov, OnlineErrorCode _onlineError, OnlineErrorReason _onlineReason, const QString &_msg)
 {
+    Q_UNUSED(_prov);
+    Q_UNUSED(_onlineError);
+    Q_UNUSED(_onlineReason);
+    Q_UNUSED(_msg);
     //enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ, HamQTH};
     QString message = QString();
     QString detailedText = QString(tr("The server returned the following error: %1")).arg(translate(_error));

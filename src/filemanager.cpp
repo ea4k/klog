@@ -425,6 +425,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
 QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN)
 {
+    Q_UNUSED(_logN);
     qDebug() << Q_FUNC_INFO << " - Start";
     qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
@@ -681,6 +682,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     //adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
     // If _logN = 0, then we will export ALL the logs.
     //qDebug() << "FileManager::adifLogExportToFile: " << _fileName;
+    Q_UNUSED(_lotw);
     bool exportJustMarkedQSO = justMarked;
     //bool marked = false;
     bool exportOnlyQSLRequested = _qslRequested;
@@ -1482,7 +1484,8 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
                         }
                         else
                         {
-                            if (askUserToAddThisQSOToLog(_call, _dateTime, _mode, _band, _freq, _qslrdate))
+                            //if (askUserToAddThisQSOToLog(_call, _dateTime, _mode, _band, _freq, _qslrdate))
+                            if (askUserToAddThisQSOToLog(_call, _dateTime, _mode, _band, _freq))
                             {
                               //qDebug() << "FileManager::adifLoTWReadLog: ADD THE QSO !!!" ;
                                 modifiedQSO = dataProxy->addQSOFromLoTW(_call, _dateTime, _mode, _band, _freq, _qslrdate, stationCallsign, logN);
@@ -3797,8 +3800,9 @@ bool FileManager::askUserToUseAlwaysSameAnswer()
     //qDebug() << "FileManager::askUserToUseAlwaysSameAnswer: - END";
 }
 
-bool FileManager::askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate)
+bool FileManager::askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq)
 {
+    Q_UNUSED(_freq);
     //qDebug() << "FileManager::askUserToAddThisQSOToLog: " << _call;
     QString qsoData = QString(tr("<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: %3</li><li>Mode: %4</li></ul>")).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime)).arg(_call).arg(_band).arg(_mode);
     QMessageBox msgBox;

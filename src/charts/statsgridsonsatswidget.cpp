@@ -27,7 +27,7 @@
 
 StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
+    Q_UNUSED(parent);
 #ifdef QT_DEBUG
      //qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget: ";
 #else

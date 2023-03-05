@@ -1,8 +1,10 @@
+#ifndef UPDATESETTINGS_H
+#define UPDATESETTINGS_H
 /***************************************************************************
-                          statsgeneralchartwidget.cpp  -  description
+                          updatesettings.h  -  description
                              -------------------
-    begin                : nov 2018
-    copyright            : (C) 2018 by Jaime Robles
+    begin                : mar 2023
+    copyright            : (C) 2023 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -24,23 +26,26 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "statsgeneralchartwidget.h"
+#include <QObject>
+#include <QtGlobal>
+
+//#include <QSettings>
+//#include <QFile>
+//#include <QString>
+#include "utilities.h"
+#include "locator.h"
 
 
-StatsGeneralChartWidget::StatsGeneralChartWidget()
+class UpdateSettings : public QObject
 {
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget" ;
-}
+    Q_OBJECT
+public:
+    UpdateSettings();
+    ~UpdateSettings();
+    bool updateFile();
 
-StatsGeneralChartWidget::StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(dp);
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget" ;
-}
+private:
+    bool processConfigLine(const QString &_line);
+};
 
-
-void StatsGeneralChartWidget::prepareChart(const int _log) {
-    (void)_log; // prevent warning
-}
-void StatsGeneralChartWidget::createUI(){}
+#endif // UPDATESETTINGS_H

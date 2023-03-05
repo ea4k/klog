@@ -35,7 +35,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     #else
       //qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
-
+    (void)_parentFunction;
       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction;
     logLevel = None;
        //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1";
@@ -183,7 +183,6 @@ QString DataProxy_SQLite::getDBVersion()
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
-    logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 bool DataProxy_SQLite::reconnectDB()
@@ -237,7 +236,7 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
         else
         {
             query.finish();
-            logEvent (Q_FUNC_INFO, "END-3", Debug);
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
             return -1;
         }
     }
@@ -248,8 +247,8 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
         logEvent (Q_FUNC_INFO, "END-4", Debug);
         return -2;
     }
+    logEvent (Q_FUNC_INFO, "END-3", Debug);
     return -3;
-    logEvent (Q_FUNC_INFO, "END-1", Debug);
 }
 
 int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
@@ -3091,7 +3090,8 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs)
 //QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode)
 {
-        //qDebug() << "DataProxy_SQLite::isThisQSODuplicated";
+    //qDebug() << Q_FUNC_INFO << ": " << _callingFunc;
+    (void)_callingFunc;
     QSqlQuery query;
     QString queryString;
     QList<int> dupeQsos;
@@ -6758,6 +6758,7 @@ int DataProxy_SQLite::getQSOsInMode(const QString &_mode, const int _log)
 
 int DataProxy_SQLite::getDXCCInBand(const int _bandid, const bool _confirmed, const int _log)
 { //(SELECT COUNT (DISTINCT dxcc) from log inner join band on log.bandid = band.id where band.name="80M")
+    Q_UNUSED(_bandid);
     if (!doesThisLogExist(_log) && (_log>0))
     {
        return 0;

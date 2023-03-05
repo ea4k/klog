@@ -37,7 +37,7 @@ StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget()
 StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget";
-
+    Q_UNUSED(parent);
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);

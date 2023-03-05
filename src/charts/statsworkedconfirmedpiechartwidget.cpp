@@ -35,7 +35,7 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget()
 
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
+    Q_UNUSED(parent);
 #ifdef QT_DEBUG
       //qDebug() << "StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget";
 #else

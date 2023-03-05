@@ -59,6 +59,7 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
     tcpSocket = new QTcpSocket(this);
 
     dxClusterListWidget = new QListWidget();
+
     inputCommand = new QLineEdit;
     sendButton = new QPushButton;
     clearButton = new QPushButton;
@@ -89,11 +90,9 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
     connect(dxClusterListWidget, SIGNAL(itemDoubleClicked ( QListWidgetItem *)), this, SLOT(slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * )) );
     connect(dxClusterListWidget, SIGNAL(itemEntered ( QListWidgetItem *)), this, SLOT(slotClusterDXClusterWidgetItemEntered( QListWidgetItem * )) );
     connect(dxClusterListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotClusterDXClusterWidgetItemSelected() ) );
-
-
+    connect(dxClusterListWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButton( const QPoint& ) ) );
      //TESTADDSPOT();
        //qDebug() << "DXClusterWidget::DXClusterWidget2 - END" ;
-
 }
 
 DXClusterWidget::~DXClusterWidget()
@@ -107,7 +106,7 @@ DXClusterWidget::~DXClusterWidget()
 
 void DXClusterWidget::init()
 {
-
+    dxClusterListWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     dxSpotColor.setNamedColor("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
@@ -790,6 +789,27 @@ bool DXClusterWidget::openFile()
     {
         return true;
     }
+}
+
+void DXClusterWidget::slotRighButton(const QPoint& pos)
+{
+    qDebug() << Q_FUNC_INFO;
+    int row = (dxClusterListWidget->indexAt(pos)).row();
+    qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
+ /*
+    QItemSelectionModel *select = logView->selectionModel();
+    QModelIndexList list = select->selectedRows();
+
+    if (select->hasSelection() && (list.length()>1) )
+    {
+        rightButtonMultipleFromLogMenu();
+    }
+    else
+    {
+        rightButtonFromLogMenu(row);
+    }
+    */
+    //TODO: To be added to the logWindow and create an action that emist the QSO id
 }
 
 void DXClusterWidget::saveSpot(const QString &_spot)

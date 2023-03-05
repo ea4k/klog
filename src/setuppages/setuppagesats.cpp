@@ -358,6 +358,7 @@ void SetupPageSats::slotSatDoubleClicked(const QModelIndex & index)
 }
 void SetupPageSats::slotAnalyzeNewSatData(const QStringList _qs)
 {
+    Q_UNUSED(_qs);
     updateSelectedSats();
 }
 

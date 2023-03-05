@@ -691,6 +691,7 @@ void MainWindowInputQSO::receiveFocus()
 
 bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
 {
+    Q_UNUSED(object);
     if (!(event->type() == QEvent::Paint ))
     {
         //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());

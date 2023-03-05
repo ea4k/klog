@@ -60,7 +60,7 @@ public:
     ~SetupDialog();
     void init(const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
 
-    void setData(const QString &_softwareVersion, const int _page, const bool _firstTime=true);
+    void setData(const QString &_softwareVersion, const int _page = 0, const bool _firstTime=true);
     void setClubLogActive(const bool _b);
     void setEQSLActive(const bool _b);
     void setQRZCOMAutoCheckActive(const bool _b);
@@ -93,8 +93,8 @@ private:
     void setConfigured(const bool _configured);
     void setPage(const int _page);
     void connectActions();
-    void saveSettigs();
-    void loadSettigs();
+    void saveSettings();
+    void loadSettings();
     void createIcons();
     bool processConfigLine(const QString &_line);
 

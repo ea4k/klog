@@ -34,6 +34,7 @@
 eQSLUtilities::eQSLUtilities(const QString &_parentFunction)
 {
     //qDebug()<< "eQSLUtilities::eQSLUtilities" ;
+    Q_UNUSED(_parentFunction);
 #ifdef QT_DEBUG
   //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #else

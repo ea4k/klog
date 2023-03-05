@@ -173,7 +173,8 @@ void MainWindowMyDataTab::clear(bool _full)
         operatorLineEdit->clear ();
         stationCallSignLineEdit->clear ();
         myLocatorLineEdit->clear ();
-        myPowerSpinBox->clear ();
+        //myPowerSpinBox->setValue(myPower);
+        myPowerSpinBox->clear();
         my_rig = QString();
         my_sota = QString();
         my_antenna = QString();
@@ -280,7 +281,7 @@ void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
 
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
-      //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power);
+   qDebug() << Q_FUNC_INFO << ": " << QString::number(_power);
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     myPowerSpinBox->setValue(_power);
@@ -747,18 +748,16 @@ void MainWindowMyDataTab::loadSettings()
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("UserData");
 
     myPower = settings.value("Power").toDouble ();
     myPowerSpinBox->setValue(myPower);
-    qDebug() << Q_FUNC_INFO << " - 10";
+    qDebug() << Q_FUNC_INFO << " - 10 " << QString::number(myPower);
     QString aux = settings.value("Operators").toString();
     if (aux.contains(','))
     {
         aux = ((aux.split (',')).at(0)).simplified ();
-        //aux = aux.simplified ();
     }
-
-    //QString aux = (settings.value("Operators").toStringList ()).at(0);
 
     qDebug() << Q_FUNC_INFO << " - 11";
     if (util->isValidCall (aux))
@@ -769,6 +768,8 @@ void MainWindowMyDataTab::loadSettings()
         operatorLineEdit->setText (operatorQRZ);
         qDebug() << Q_FUNC_INFO << " - 14";
     }
+
+    settings.endGroup ();
     qDebug() << Q_FUNC_INFO << " - END";
 
     logEvent (Q_FUNC_INFO, "END", Debug);

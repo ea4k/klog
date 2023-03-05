@@ -33,6 +33,7 @@
 SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "SetupPageLogsNew::SetupPageLogsNew"  ;
+    Q_UNUSED(parent);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     editing = false;

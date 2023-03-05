@@ -72,6 +72,7 @@ private slots:
     void slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item );
     void slotClusterDXClusterWidgetItemEntered( QListWidgetItem * item);
     void slotClusterDXClusterWidgetItemSelected();
+    void slotRighButton (const QPoint& pos);
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked

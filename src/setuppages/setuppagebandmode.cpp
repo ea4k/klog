@@ -217,8 +217,8 @@ void SetupPageBandMode::saveSettings()
 {
     util = new Utilities(Q_FUNC_INFO);
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    //settings.beginGroup ("BandMode");
+    settings.beginGroup ("BandMode");
     settings.setValue ("Bands", getBands ());
     settings.setValue ("Modes", getModes ());
-    //settings.endGroup ();
+    settings.endGroup ();
 }

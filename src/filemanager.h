@@ -106,7 +106,7 @@ private:
     void showError (const QString &_txt);
 
     bool askUserToUseAlwaysSameAnswer();
-    bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate);
+    bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq);
 
     //QString checkAndFixASCIIinADIF(_data);
 

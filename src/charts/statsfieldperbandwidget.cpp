@@ -28,6 +28,7 @@
 StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent)
 {
      //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget";
+    Q_UNUSED(parent);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     selectedField = _field;

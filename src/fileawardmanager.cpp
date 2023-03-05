@@ -28,6 +28,7 @@
 
 FileAwardManager::FileAwardManager(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
+    Q_UNUSED(_parentFunction);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     world = new World(dataProxy, Q_FUNC_INFO);
@@ -96,7 +97,7 @@ bool FileAwardManager::importNewAwardFile()
     }
 
     file.seek(pos);
-    bool haveAll = false;
+    //bool haveAll = false;
     QStringList fields;
     QString aux; aux.clear();
     hasEOH = false;

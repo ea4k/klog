@@ -1016,6 +1016,7 @@ void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
 
 void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
+    Q_UNUSED(_func);
 #ifdef QT_DEBUG
    //qDebug() << Q_FUNC_INFO << "(" << _func << ")";
 #else
@@ -1097,6 +1098,7 @@ void MainQSOEntryWidget::keyPressEvent( QKeyEvent *event)
 bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    Q_UNUSED(object);
     if (!(event->type() == QEvent::Paint ))
     {
         //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());

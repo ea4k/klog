@@ -86,7 +86,7 @@ public:
     QString getAntenna3();
     QStringList getRigs();
     QStringList getAntennas();
-    QString getPower();
+    double getPower();
 
     bool setRigs(const QStringList _aux);
     bool setAntennas(const QStringList _aux);

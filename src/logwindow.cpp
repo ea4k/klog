@@ -223,11 +223,9 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
     {
         rightButtonFromLogMenu(row);
     }
-
-
-
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 }
+
 void LogWindow::rightButtonMultipleFromLogMenu()
 {
     //qDebug() << Q_FUNC_INFO;

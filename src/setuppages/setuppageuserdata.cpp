@@ -560,9 +560,9 @@ QStringList SetupPageUserDataPage::getAntennas()
     return a;
 }
 
-QString SetupPageUserDataPage::getPower()
+double SetupPageUserDataPage::getPower()
 {
-    return QString::number(myPowerSpinBox->value());
+    return myPowerSpinBox->value();
 }
 
 
@@ -706,7 +706,7 @@ void SetupPageUserDataPage::setStationFocus()
 void SetupPageUserDataPage::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    //settings.beginGroup ("UserData");
+    settings.beginGroup ("UserData");
     settings.setValue ("Callsign", getMainCallsign());
     settings.setValue ("Operators", getOperators());
     settings.setValue ("CQz", getCQz ());
@@ -728,7 +728,7 @@ void SetupPageUserDataPage::saveSettings()
     settings.setValue ("Antenna2", getAntenna2());
     settings.setValue ("Antenna3",getAntenna3());
     settings.setValue ("Power", getPower ());
-    //settings.endGroup ();
+    settings.endGroup ();
 }
 
 void SetupPageUserDataPage::loadSettings()
@@ -736,7 +736,7 @@ void SetupPageUserDataPage::loadSettings()
     qDebug() << Q_FUNC_INFO << " - Start";
 
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-
+    settings.beginGroup ("UserData");
     setMainCallsign(settings.value ("Callsign").toString ());
     setOperators (settings.value ("Operators").toString ());
     setStationLocator (settings.value ("StationLocator").toString ());
@@ -758,4 +758,5 @@ void SetupPageUserDataPage::loadSettings()
     ant2LineEdit->setText (settings.value ("Antenna2").toString ());
     ant3LineEdit->setText (settings.value ("Antenna3").toString ());
     myPowerSpinBox->setValue(settings.value ("Power").toDouble ());
+    settings.endGroup ();
 }

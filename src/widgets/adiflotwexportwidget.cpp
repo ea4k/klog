@@ -32,6 +32,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
   //qDebug() << ": " << _parentFunction;
 #else
 #endif
+    (void)_parentFunction;
     //qDebug() << Q_FUNC_INFO << " - Start: " + _parentFunction;
     dataProxy = dp;
     starting = true;
@@ -311,7 +312,7 @@ void AdifLoTWExportWidget::fillTable()
 
     QList<int> _qsos;
     _qsos.clear();
-       bool justQueued = true;
+       //bool justQueued = true;
 
        QString _myGrid;
        if (myGridSquareComboBox->currentIndex () == 0)
@@ -343,7 +344,7 @@ void AdifLoTWExportWidget::fillTable()
         switch (currentExportMode)
         {
             case ModeADIF:
-            justQueued = false;
+            //justQueued = false;
             //_qsos.append(dataProxy->getQSOsListLoTWToSend(_myCall, startDate->date(), endDate->date(), justQueued, logNumber));
              _qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
              qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
@@ -351,7 +352,7 @@ void AdifLoTWExportWidget::fillTable()
             break;
         case ModeLotW:
             //qDebug() << Q_FUNC_INFO << " LoTW";
-            justQueued = true;
+            //justQueued = true;
             _qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
             qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
             break;
@@ -362,13 +363,13 @@ void AdifLoTWExportWidget::fillTable()
             break;
         case ModeEQSL:
             //qDebug() << Q_FUNC_INFO << " EQSL";
-            justQueued = true;
+            //justQueued = true;
             _qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
             qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
             break;
         case ModeQRZ:
             //qDebug() << Q_FUNC_INFO << " QRZ";
-            justQueued = true;
+            //justQueued = true;
             _qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
             qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
             break;
