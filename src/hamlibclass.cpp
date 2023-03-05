@@ -821,7 +821,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
     //qDebug() << Q_FUNC_INFO << ": " << _func << ": error: " << QString::number(_errorcode);
-
+    Q_UNUSED(_func);
     if (RIG_OK == _errorcode)
     {
         //qDebug() << Q_FUNC_INFO << " - RIG_OK";

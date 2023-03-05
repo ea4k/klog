@@ -26,6 +26,7 @@
 #include "setuppagehamlib.h"
 SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
+    Q_UNUSED(dp);
     //qDebug() << Q_FUNC_INFO ;
     hamlibTestOK = false;
     hamlib = new HamLibClass();

@@ -36,6 +36,7 @@ StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget()
 
 StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
+    Q_UNUSED(parent);
 #ifdef QT_DEBUG
     //qDebug() << "StatsDxccOnSatsWidget::StatsDxccOnSatsWidget";
 #else
