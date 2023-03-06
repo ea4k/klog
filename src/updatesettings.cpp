@@ -25,8 +25,12 @@
  *****************************************************************************/
 
 #include "updatesettings.h"
+#include "global.h"
 
-UpdateSettings::UpdateSettings() {}
+UpdateSettings::UpdateSettings()
+{
+
+}
 UpdateSettings::~UpdateSettings()
 {
 
@@ -88,6 +92,8 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if(tab =="SELECTEDLOG"){
         settings.setValue ("SelectedLog", value.toInt ());
+    }else if(tab =="VERSION"){
+        settings.setValue ("Version", value);
     }else if (tab == "OPERATORS"){
         settings.beginGroup ("UserData");
         settings.setValue ("Operators", value);
@@ -105,6 +111,7 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.setValue ("Modes", value);
         settings.endGroup ();
     }else if (tab=="BANDS"){
+        qDebug() << Q_FUNC_INFO << ": " << value;
         settings.beginGroup ("BandMode");
         settings.setValue ("Bands", value);
         settings.endGroup ();
@@ -150,17 +157,29 @@ bool UpdateSettings::processConfigLine(const QString &_line)
     }else if (tab == "CHECKVALIDCALLS"){
         settings.setValue ("CheckValidCalls", util.trueOrFalse (value));
     }else if (tab=="UDPSERVER"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("UDPServer", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="UDPNETWORKINTERFACE"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("UDPNetworkInterface", value);
+        settings.endGroup ();
     }else if (tab=="UDPSERVERPORT"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("UDPServerPort", value.toInt());
+        settings.endGroup ();
     }else if (tab=="LOGFROMWSJTX"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("LogFromWSJTX", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="LOGAUTOFROMWSJTX"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("LogAutoFromWSJTX", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="REALTIMEFROMWSJTX"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("RealTimeFromWSJTX", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="INFOTIMEOUT"){
         settings.setValue ("InfoTimeOut", value.toInt ());
     }else if (tab =="NAME"){
@@ -271,6 +290,33 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.beginGroup ("DXCluster");
         settings.setValue ("DXClusterServerToUse", value);
         settings.endGroup ();
+    }else if (tab  =="DXCLUSTERSERVERPORT"){
+
+        QList<QString> clusters;
+        clusters.clear ();
+        settings.beginGroup ("DXCluster");
+        int size = settings.beginReadArray("DXClusterServers");
+        for (int i = 0; i < size; ++i) {
+            settings.setArrayIndex(i);
+            clusters.append (settings.value("Server").toString());
+            //qDebug() << Q_FUNC_INFO << " - Reading Servers: " << settings.value("Server").toString();
+        }
+        settings.endArray();
+        settings.endGroup ();
+
+        clusters.append (value);
+        //qDebug() << Q_FUNC_INFO << " - AddedServer: " << value;
+
+        settings.beginGroup ("DXCluster");
+        settings.beginWriteArray("DXClusterServers");
+         for (int i = 0; i < clusters.size(); ++i) {
+             settings.setArrayIndex(i);
+             settings.setValue("Server", clusters.at(i));
+             //qDebug() << Q_FUNC_INFO << " - Writting Servers: " << clusters.at(i);
+         }
+        settings.endArray();
+        settings.endGroup ();
+
     }else if (tab  =="DXCLUSTERSAVE"){
         settings.beginGroup ("DXCluster");
         settings.setValue ("DXClusterSave", util.trueOrFalse (value));
@@ -285,7 +331,7 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if(tab =="NEEDEDCOLOR"){
         settings.beginGroup ("Colors");
-        settings.setValue ("Needed", value);
+        settings.setValue ("NeededColor", value);
         settings.endGroup ();
     }else if(tab =="WORKEDCOLOR"){
         settings.beginGroup ("Colors");
@@ -411,6 +457,7 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.beginGroup ("LoTW");
         settings.setValue ("LoTWPath", value);
         settings.endGroup ();
+    }else if(tab =="LOTWUSER"){
         settings.beginGroup ("LoTW");
         settings.setValue ("LoTWUser", value);
         settings.endGroup ();
@@ -418,10 +465,23 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.beginGroup ("LoTW");
         settings.setValue ("LoTWPass", value);
         settings.endGroup ();
+    }else if(tab =="LATESTBACKUP"){
+        QDateTime dtime = QDateTime::fromString(value, "yyyyMMdd-hhmmss");
+
+        settings.setValue ("LatestBackup", dtime.toString(Qt::ISODate));
     }else if(tab =="MAINWINDOWSIZE"){
-        settings.setValue ("MainWindowSize", value);
+        QSize windowSize;
+        QStringList values;
+        values.clear();
+        values << value.split("x");
+        if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
+        {
+            windowSize.setWidth(values.at(0).toInt());
+            windowSize.setHeight(values.at(1).toInt());
+        }
+        settings.setValue ("MainWindowSize", windowSize);
     }else if(tab =="DELETEALWAYSADIFILE"){
-        settings.setValue ("DeleteAlways", util.trueOrFalse (value));
+        settings.setValue ("DeleteAlwaysAdiFile", util.trueOrFalse (value));
     }else if (tab == "LATESTBACKUP"){
         settings.setValue ("LatestBackup", value);
     }else{

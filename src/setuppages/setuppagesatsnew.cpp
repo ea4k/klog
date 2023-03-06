@@ -226,7 +226,8 @@ bool SetupPageSatsNew::isItAFreq(const QString &_st)
       //qDebug() << "SetupPageSatsNew::isItAFreq: It is one freq: " << _st;
     bool ok = false;
     double freq = _st.toDouble(&ok);
-    return ok;
+    return ((freq>=0.0) && (ok));
+
 }
 
 void SetupPageSatsNew::slotDownLinkTextChanged()

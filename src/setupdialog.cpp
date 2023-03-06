@@ -34,52 +34,50 @@ This class calls all the othet "Setup..." to manage the configuration
 
 SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _configFile << "/" << _softwareVersion << "/" << QString::number(_page) << util->boolToQString(_firstTime);
+    qDebug() << Q_FUNC_INFO ;
+
     Q_UNUSED(parent);
-    contentsWidget->update();
-    pagesWidget->update();
+    //contentsWidget->update();
+    //pagesWidget->update();
     logLevel = None;
     constrid = 2;
     nolog = true;
     util = new Utilities(Q_FUNC_INFO);
     firstTime = true;
-    latestBackup = QString();
     dataProxy = dp;
 
     version = QString();
     pageRequested = 0;
 
-
-    //qDebug() << Q_FUNC_INFO << ": 01";
+    qDebug() << Q_FUNC_INFO << ": 01";
 
     locator = new Locator();
-
     tabWidget = new QTabWidget;
-    //qDebug() << Q_FUNC_INFO << ": 01.0";
+    qDebug() << Q_FUNC_INFO << ": 01.0";
     userDataPage = new SetupPageUserDataPage(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 01.10";
+    qDebug() << Q_FUNC_INFO << ": 01.10";
     bandModePage = new SetupPageBandMode(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.20";
+    qDebug() << Q_FUNC_INFO << ": 01.20";
     dxClusterPage = new SetupPageDxCluster(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.30";
+    qDebug() << Q_FUNC_INFO << ": 01.30";
     colorsPage = new SetupPageColors(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.40";
+    qDebug() << Q_FUNC_INFO << ": 01.40";
     miscPage = new SetupPageMisc(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.50";
+    qDebug() << Q_FUNC_INFO << ": 01.50";
     worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.60";
+    qDebug() << Q_FUNC_INFO << ": 01.60";
     logsPage = new SetupPageLogs(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.70";
+    qDebug() << Q_FUNC_INFO << ": 01.70";
     eLogPage = new SetupPageELog(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.80";
+    qDebug() << Q_FUNC_INFO << ": 01.80";
     UDPPage = new SetupPageUDP(this);
-    //qDebug() << Q_FUNC_INFO << ": 01.90";
+    qDebug() << Q_FUNC_INFO << ": 01.90";
     satsPage = new SetupPageSats(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.100";
+    qDebug() << Q_FUNC_INFO << ": 01.100";
     hamlibPage = new SetupPageHamLib(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 01.101";
+    qDebug() << Q_FUNC_INFO << ": 01.101";
     logViewPage = new SetupPageLogView(dataProxy, this);
-    //qDebug() << Q_FUNC_INFO << ": 02";
+    qDebug() << Q_FUNC_INFO << ": 02";
 
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -111,15 +109,17 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
-    //qDebug() << Q_FUNC_INFO << ": 04";
+    qDebug() << Q_FUNC_INFO << ": 04";
 
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
-    //qDebug() << Q_FUNC_INFO << " - END";
+   qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _firstTime)
 {
+    qDebug() << Q_FUNC_INFO;
+
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     firstTime = _firstTime;
@@ -137,7 +137,7 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
     nolog = !(haveAtleastOneLog());
 
     connectActions();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 SetupDialog::~SetupDialog()
@@ -332,7 +332,7 @@ void SetupDialog::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - 10 - General";
     version = settings.value ("Version").toString();
-    latestBackup = settings.value ("LatestBackup").toString ();
+    //latestBackup = settings.value ("LatestBackup").toString ();
 
     //qDebug() << Q_FUNC_INFO << " - 20 - user";
     userDataPage->loadSettings();
@@ -366,10 +366,10 @@ void SetupDialog::loadSettings()
     hamlibPage->loadSettings ();
 }
 
-void SetupDialog::    saveSettings()
+void SetupDialog::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    settings.setValue ("LatestBackup", latestBackup);
+    //settings.setValue ("LatestBackup", latestBackup);
     userDataPage->saveSettings();       // Groups done
     bandModePage->saveSettings ();      // Groups done
     logViewPage->saveSettings ();

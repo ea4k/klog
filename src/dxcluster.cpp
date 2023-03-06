@@ -128,6 +128,7 @@ void DXClusterWidget::init()
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
 
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
+    //TODO: Check how to add an item in a different way
 }
 
 void DXClusterWidget::setMyQRZ(const QString &_qrz)
