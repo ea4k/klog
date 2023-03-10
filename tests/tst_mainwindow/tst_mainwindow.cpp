@@ -115,7 +115,7 @@ tst_MainWindow::tst_MainWindow()
 {
     //MainWindow mw(klogDir, version);
     Utilities util(Q_FUNC_INFO);
-    mainWindow = new MainWindow(util.getHomeDir(), "2.3");
+    mainWindow = new MainWindow("2.3");
 }
 
 tst_MainWindow::~tst_MainWindow(){}

@@ -426,8 +426,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN)
 {
     Q_UNUSED(_logN);
-    qDebug() << Q_FUNC_INFO << " - Start";
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
@@ -464,7 +464,7 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
     {
         return qsos;
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return qsos;
 }
 
@@ -568,12 +568,12 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 
 bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em)
 { // The fields are the database fields that are to be selected in the query
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     int numberOfQSOs = _qsos.length();
     if (numberOfQSOs<1)
     {
         //TODO: Warn the user NO QSOS TO EXPORT
-       qDebug() << Q_FUNC_INFO << " - No QSOs received to be exported";
+       //qDebug() << Q_FUNC_INFO << " - No QSOs received to be exported";
     }
     QString fields = _fields;
     if (_fields.length ()<1)
@@ -581,19 +581,19 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
         fields = "*";
     }
     noMoreQso = false;
-   qDebug() << Q_FUNC_INFO << " - 01";
+   //qDebug() << Q_FUNC_INFO << " - 01";
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
         return false;
-   qDebug() << Q_FUNC_INFO << " - 02";
+   //qDebug() << Q_FUNC_INFO << " - 02";
     QTextStream out(&file);
 
     QSqlQuery query;
-    qDebug() << Q_FUNC_INFO << " - 10";
+    //qDebug() << Q_FUNC_INFO << " - 10";
     QString numbers = QString();
     foreach (int i, _qsos)
     {
-        qDebug() << Q_FUNC_INFO << " - query: " << QString("id = '%1'").arg(i) ;
+        //qDebug() << Q_FUNC_INFO << " - query: " << QString("id = '%1'").arg(i) ;
         numbers = numbers + QString::number(i) ;
         if (i != _qsos.last())
         {
@@ -602,17 +602,17 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     }
 
     QString queryString = QString("SELECT %1 FROM log WHERE id IN (%2)").arg(fields).arg(numbers);
-    qDebug() << Q_FUNC_INFO << " - writing the header";
+    //qDebug() << Q_FUNC_INFO << " - writing the header";
     writeADIFHeader(out, _em, _qsos.length());
-   qDebug() << Q_FUNC_INFO << " - writing the body";
+   //qDebug() << Q_FUNC_INFO << " - writing the body";
 
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        qDebug() << Q_FUNC_INFO << " -query error: " << query.lastQuery();
+        //qDebug() << Q_FUNC_INFO << " -query error: " << query.lastQuery();
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
-    qDebug() << Q_FUNC_INFO << " - query: " << query.lastQuery();
+    //qDebug() << Q_FUNC_INFO << " - query: " << query.lastQuery();
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQSOs, this);
     progress.setMaximum(numberOfQSOs);
     progress.setWindowModality(Qt::ApplicationModal);
@@ -621,27 +621,27 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     int step = util->getProgresStepForDialog(numberOfQSOs);
     while ( (query.next()) && (!noMoreQso) )
     {
-        qDebug() << Q_FUNC_INFO << " -  Just in the While";
+        //qDebug() << Q_FUNC_INFO << " -  Just in the While";
         if (query.isValid())
         {
-            qDebug() << Q_FUNC_INFO << " -  Query is Valid";
+            //qDebug() << Q_FUNC_INFO << " -  Query is Valid";
             writeQuery(query, out, ModeADIF, false, false, -1);
         } // Closes the isValid
         else {
-            qDebug() << Q_FUNC_INFO << " -  Query is NOT Valid";
+            //qDebug() << Q_FUNC_INFO << " -  Query is NOT Valid";
         }
 
-        qDebug() << Q_FUNC_INFO << " -  before showing progress: " << QString::number(currentQso);
+        //qDebug() << Q_FUNC_INFO << " -  before showing progress: " << QString::number(currentQso);
         currentQso++;
 
         if (( (currentQso % step ) == 0) )
         { // To update the speed I will only show the progress once each X QSOs
-            qDebug() << Q_FUNC_INFO << " -  Showing progress: " ;
+            //qDebug() << Q_FUNC_INFO << " -  Showing progress: " ;
             QString aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQSOs);
             progress.setLabelText(aux1);
             progress.setValue(currentQso);
         }
-        qDebug() << Q_FUNC_INFO << " -  after showing progress (current%Step): " << QString::number(currentQso%step);
+        //qDebug() << Q_FUNC_INFO << " -  after showing progress (current%Step): " << QString::number(currentQso%step);
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
@@ -665,7 +665,7 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
             }
         }
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 

@@ -26,7 +26,15 @@ TODO: Test ADIF Export
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
 TEST: Bug: When uploading to LoTW, no calls are shown.
 TODO: Complete the QSettings integration
-TODO: Rigt-click in a DXCC spot
+TODO: Right-click in a DXCC spot
+TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
+TODO: Test the setup tab:  colors
+TODO: Test the setup tab: misc
+TODO: Test the setup tab: editor
+TODO: Test the setup tab: logs
+TODO: Test the setup tab: eLogTODO: Test the setup tab: wsjtx
+TODO: Test the setup tab: sats
+TODO: Test the setup tab: hamlib
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

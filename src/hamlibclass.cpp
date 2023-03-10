@@ -914,7 +914,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 
 bool HamLibClass::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");

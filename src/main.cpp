@@ -268,10 +268,8 @@ int main(int argc, char *argv[])
 
     // END OF Application Singleton
 
-    QString configFileName, klogDir;
-
-    klogDir = util.getHomeDir();
-    configFileName = util.getCfgFile();
+    QString klogDir = util.getHomeDir();
+    //configFileName = util.getCfgFile();
 
     //qDebug() << "KLog Main-10";
 
@@ -294,75 +292,20 @@ int main(int argc, char *argv[])
     //qDebug() << "KLog Main-51" << (QTime::currentTime()).toString("HH:mm:ss");
     QSplashScreen splash(pixmap);
 
-    if(!QFile::exists(configFileName))
+
+    if (!((QFile::exists(util.getCfgFile ())) || (QFile::exists(util.getSetFile ()))))
     {
         //qDebug() << "MAIN:  Starting wizard... ";
-
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         //int inMemory = wizard->exec();
         wizard->exec();
-        //qDebug() << "MAIN: Wizard inMemory: " << QString::number(inMemory);
-        //inMemory = 1;
-
-        //if (inMemory == 1)
-        //{
-            //qDebug() << "MAIN: Wizard accepted " << QString::number(inMemory) << " ... Will run in Memory ";
-            MainWindow mw(klogDir, version);
-            mw.init();
-            splash.finish(&mw);
-            //mw.checkIfNewVersion();
-            //mw.recommendBackupIfNeeded();
-            mw.showNotWar();
-            mw.show();
-            return app.exec();
-        //}
-        /*
-        else
-        {
-               //qDebug() << "MAIN: Wizard cancelled " << QString::number(inMemory) << " ... should close ";
-
-            QMessageBox msgBox;
-            msgBox.setText(QObject::tr("Install wizard was canceled before completing..."));
-            msgBox.setInformativeText(QObject::tr("Do you want to remove the KLog dir from your disk?"));
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            int ret = msgBox.exec();
-
-            switch (ret)
-            {
-              case QMessageBox::Yes:
-                if (QDir::setCurrent (QDir::homePath()) )
-                {
-                    if (d1.remove(klogDir))
-                    {
-                        QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("Your KLog dir has been removed") +"\n\n" + QObject::tr("Thank you for running KLog!"));
-                        msgBox.exec();
-                    }
-                    else
-                    {
-                        QMessageBox msgBox;
-                        msgBox.setText(QObject::tr("I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.") +"\n\n" + QObject::tr("Thank you for running KLog!"));
-                        msgBox.exec();
-                    }
-                }
-                else
-                {
-                    QMessageBox msgBox;
-                    msgBox.setText(QObject::tr("Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.") +"\n\n" + QObject::tr("Thank you for running KLog!"));
-                    msgBox.exec();
-                }
-            break;
-            case QMessageBox::No:
-                QMessageBox msgBox;
-                msgBox.setText(QObject::tr("Remember that your KLog dir is on your system...") + "\n\n" + QObject::tr("Thank you for running KLog!"));
-                msgBox.exec();
-            break;
-            }
-            return 0;
-        }
-        */
+        //MainWindow mw(version);
+        //mw.init();
+        //splash.finish(&mw);
+        //mw.showNotWar();
+        //mw.show();
+        //return app.exec();
     }
     else
     {
@@ -384,30 +327,36 @@ int main(int argc, char *argv[])
         //qDebug() << "KLog Main-98" << (QTime::currentTime()).toString("HH:mm:ss");
         db->~DataBase();
         //qDebug() << "KLog Main-99" << (QTime::currentTime()).toString("HH:mm:ss");
-        splash.show();
-        //qDebug() << "KLog Main-100" << (QTime::currentTime()).toString("HH:mm:ss");
-        splash.showMessage ("Creating window...");
-        MainWindow mw(klogDir, version);
-        //qDebug() << "KLog Main-101" << (QTime::currentTime()).toString("HH:mm:ss");
-        splash.showMessage ("Initializing window...");
-        mw.init();
-        //qDebug() << "KLog Main-102" << (QTime::currentTime()).toString("HH:mm:ss");
-        splash.showMessage ("Checking for new versions...");
-        mw.checkIfNewVersion();
-        splash.showMessage ("Checking if backup is needed...");
-        //qDebug() << "KLog Main-103" << (QTime::currentTime()).toString("HH:mm:ss");
-        mw.recommendBackupIfNeeded();
-        splash.showMessage ("Showing window...");
-        //qDebug() << "KLog Main-104" << (QTime::currentTime()).toString("HH:mm:ss");
-        mw.show();
-        //qDebug() << "KLog Main-105" << (QTime::currentTime()).toString("HH:mm:ss");
-        splash.finish(&mw);
-        mw.showNotWar();
-        //qDebug() << "KLog Main-106" << (QTime::currentTime()).toString("HH:mm:ss");
-        return app.exec();
-        //qDebug() << "KLog Main-107" << (QTime::currentTime()).toString("HH:mm:ss");
     }
-        //qDebug() << "KLog Main-END: " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - 100 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.show();
+    //qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.showMessage ("Creating window...");
+    //qDebug() << Q_FUNC_INFO << " - 102 " << (QTime::currentTime()).toString("HH:mm:ss");
+    MainWindow mw(version);
+    //qDebug() << Q_FUNC_INFO << " - 103 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.showMessage ("Initializing window...");
+    //qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
+    mw.init();
+    //qDebug() << Q_FUNC_INFO << " - 105 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.showMessage ("Checking for new versions...");
+    //qDebug() << Q_FUNC_INFO << " - 106 " << (QTime::currentTime()).toString("HH:mm:ss");
+    mw.checkIfNewVersion();
+    //qDebug() << Q_FUNC_INFO << " - 107 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.showMessage ("Checking if backup is needed...");
+    //qDebug() << Q_FUNC_INFO << " - 108 " << (QTime::currentTime()).toString("HH:mm:ss");
+    mw.recommendBackupIfNeeded();
+    //qDebug() << Q_FUNC_INFO << " - 109 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.showMessage ("Showing window...");
+    //qDebug() << Q_FUNC_INFO << " - 110 " << (QTime::currentTime()).toString("HH:mm:ss");
+    mw.show();
+    //qDebug() << Q_FUNC_INFO << " - 111 " << (QTime::currentTime()).toString("HH:mm:ss");
+    splash.finish(&mw);
+    //qDebug() << Q_FUNC_INFO << " - 112 " << (QTime::currentTime()).toString("HH:mm:ss");
+    mw.showNotWar();
+    //qDebug() << Q_FUNC_INFO << " - 113 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - END";
+    return app.exec();
 }
 
 

@@ -58,9 +58,9 @@ public:
     //SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true, QWidget *parent = nullptr);
     SetupDialog(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~SetupDialog();
-    void init(const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
+    void init(const QString &_softwareVersion, const int _page=0, const bool _alreadyConfigured = true);
 
-    void setData(const QString &_softwareVersion, const int _page = 0, const bool _firstTime=true);
+    void setData(const QString &_softwareVersion, const int _page = 0, const bool _alreadyConfigured=true);
     void setClubLogActive(const bool _b);
     void setEQSLActive(const bool _b);
     void setQRZCOMAutoCheckActive(const bool _b);
@@ -94,14 +94,14 @@ private:
     void setPage(const int _page);
     void connectActions();
     void saveSettings();
-    void loadSettings();
+    bool loadSettings();
     void createIcons();
     bool processConfigLine(const QString &_line);
 
     void setDefaults();
 
-    void readActiveBands (const QString &actives);
-    void readActiveModes (const QString &actives);
+    void readActiveBands (const QStringList &actives);
+    void readActiveModes (const QStringList &actives);
     bool isValidBand (const QString &b);
     bool isValidMode (const QString &b);
 

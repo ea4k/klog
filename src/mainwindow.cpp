@@ -87,11 +87,11 @@ void MainWindow::showNotWar()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-MainWindow::MainWindow(const QString &_klogDir, const QString &tversion)
+MainWindow::MainWindow(const QString &tversion)
 {
    //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
-    //g_callsignCheck  = true;
+
 
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
@@ -290,7 +290,7 @@ void MainWindow::setWindowSize(const QSize &_size)
 
 void MainWindow::init()
 {
-    //qDebug() << "MainWindow::init: START " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!QDir::setCurrent ( klogDir )){
@@ -330,25 +330,28 @@ void MainWindow::init()
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-
+    //qDebug() << "MainWindow::init - 00" ;
     if (QFile::exists(util->getSetFile ()))
     {
-        loadSettings ();
+        //qDebug() << "MainWindow::init - We have settings, so we load them" ;
+        configured = loadSettings ();
     }
     else if (QFile::exists(util->getCfgFile ()))
     {
+        //qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
        UpdateSettings settingsUpdate;
-       configured = settingsUpdate.updateFile ();
+       if (settingsUpdate.updateFile ())
+       {
+           configured = loadSettings ();
+       }
     }
-    else
-    {
-        setupDialog->init(softwareVersion, 0, !configured);
-    }
-
+    //qDebug() << "MainWindow::init - 00" ;
+    setupDialog->init(softwareVersion, 0, configured);
+    //qDebug() << "MainWindow::init - 01" ;
     filemanager->init();
     manualMode = false;
     qrzAutoChanging = false;
-    //qDebug() << Q_FUNC_INFO << " - Setting QRZCOMAutoCheckAct = FALSE";
+
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     logEvents = true;
@@ -4711,7 +4714,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "Just before readConfigData", Debug);
         //readConfigData();
-        loadSettings ();
+        configured = loadSettings ();
         //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         reconfigureDXMarathonUI(manageDxMarathon);
         logEvent(Q_FUNC_INFO, "Just after readConfigData", Debug);
@@ -4726,6 +4729,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
          //qDebug() << "MainWindow::openSetup: before db->reConnect" ;
         dataProxy->reconnectDB();
+
         //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
         //qDebug() << "MainWindow::openSetup: after db->reConnect" ;
@@ -4750,6 +4754,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
     hamlibActive = setHamlib(hamlibActive);
+
     //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -4927,6 +4932,7 @@ void MainWindow::slotOpenWiki()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+/*
 void MainWindow::readConfigData()
 {
     //qDebug() << QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO  << QT_ENDL;
@@ -4938,7 +4944,7 @@ void MainWindow::readConfigData()
         return;
     }
     QFile file(util->getCfgFile ());
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         //qDebug()<< QTime::currentTime().toString("hh:mm:ss - ") << Q_FUNC_INFO << ": File not found" << util->getHomeDir() << QT_ENDL;
         if (configured)
@@ -4975,6 +4981,8 @@ void MainWindow::readConfigData()
     file.close ();
     applySettings ();
 }
+*/
+
 bool MainWindow::applySettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -5035,7 +5043,7 @@ void MainWindow::startServices()
     setUDPServer(UDPServerStart);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
-
+/*
 bool MainWindow::processConfigLine(const QString &_line){
     //qDebug() << Q_FUNC_INFO << ": " << _line << QT_ENDL;
 
@@ -5589,7 +5597,7 @@ bool MainWindow::processConfigLine(const QString &_line){
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
 }
-
+*/
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
@@ -5715,7 +5723,7 @@ void MainWindow::selectDefaultMode()
 
 void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
-    //qDebug() << "MainWindow::readActiveBands: " << actives ;
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     bool atLeastOne = false;
     QString aux;
@@ -5739,6 +5747,7 @@ void MainWindow::readActiveBands (const QStringList actives)
             aux = __bands.at(i);
             if (aux.length()>0)
             {
+               //qDebug() << Q_FUNC_INFO << ": " << aux;
                bands << aux;
             }
         }
@@ -5750,7 +5759,7 @@ void MainWindow::readActiveBands (const QStringList actives)
 
 void MainWindow::readActiveModes (const QStringList actives)
 {
-  //qDebug() << "MainWindow::readActiveModes: " << actives ;
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString aux;
@@ -8911,7 +8920,7 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
     settings.setValue ("DebugLog", util->debugLevelToString(l));
 }
 
-void MainWindow::loadSettings()
+bool MainWindow::loadSettings()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -8946,8 +8955,16 @@ void MainWindow::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - 30 - bands";
     settings.beginGroup ("BandMode");
-    readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()).split(", ", QT_SKIP));
-    readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()).split(", ", QT_SKIP));
+    QStringList listAux;
+    listAux.clear();
+    listAux << "SSB" << "CW" << "RTTY";
+    readActiveModes (settings.value("Modes", listAux ).toStringList ());
+    listAux.clear();
+    listAux << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
+    readActiveBands (settings.value("Bands", listAux).toStringList ());
+
+    //readActiveModes((settings.value ("Modes", "SSB, CW, RTTY").toString()).split(", ", QT_SKIP));
+    //readActiveBands ((settings.value ("Bands", "10M, 15M, 20M, 40M, 80M, 160M").toString()).split(", ", QT_SKIP));
     settings.endGroup ();
 
     //qDebug() << Q_FUNC_INFO << " - 40 - logview";
@@ -9051,8 +9068,9 @@ void MainWindow::loadSettings()
     settings.endGroup ();
 
     applySettings ();
-    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
+    //qDebug() << Q_FUNC_INFO << " - END";
+    return true;
 }
 
 void MainWindow::selectTheLog(const int _i)

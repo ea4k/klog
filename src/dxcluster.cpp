@@ -794,9 +794,9 @@ bool DXClusterWidget::openFile()
 
 void DXClusterWidget::slotRighButton(const QPoint& pos)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     int row = (dxClusterListWidget->indexAt(pos)).row();
-    qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
+    //qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
  /*
     QItemSelectionModel *select = logView->selectionModel();
     QModelIndexList list = select->selectedRows();
@@ -841,7 +841,7 @@ void DXClusterWidget::saveSpot(const QString &_spot)
 
 void DXClusterWidget::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     QString aux = settings.value("DXClusterServerToUse").toString ();
 
@@ -850,7 +850,7 @@ void DXClusterWidget::loadSettings()
         setDXClusterServer((aux.split(':', QT_SKIP)).at(0), ((aux.split(':', QT_SKIP)).at(1)).toInt());
     }
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 /*

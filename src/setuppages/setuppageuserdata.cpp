@@ -330,7 +330,7 @@ int SetupPageUserDataPage::getITUz(){
 
 bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length ()<3)
     {
         return false;
@@ -705,6 +705,7 @@ void SetupPageUserDataPage::setStationFocus()
 
 void SetupPageUserDataPage::saveSettings()
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
     settings.setValue ("Callsign", getMainCallsign());
@@ -729,11 +730,12 @@ void SetupPageUserDataPage::saveSettings()
     settings.setValue ("Antenna3",getAntenna3());
     settings.setValue ("Power", getPower ());
     settings.endGroup ();
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageUserDataPage::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");

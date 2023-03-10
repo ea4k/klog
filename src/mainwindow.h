@@ -134,7 +134,7 @@ class MainWindow : public  QMainWindow
     friend class tst_MainWindow;
 
 public:
-    MainWindow(const QString &_klogDir, const QString &tversion);
+    MainWindow(const QString &tversion);
     ~MainWindow();
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
@@ -395,10 +395,10 @@ private:
 
     bool createConnection();
     void openSetup(const int _page=0);
-    bool processConfigLine(const QString &_line);
-    void readConfigData();
+    //bool processConfigLine(const QString &_line);
+    //void readConfigData();
     //void saveSettings();
-    void loadSettings();
+    bool loadSettings();
     bool applySettings();
     void selectTheLog(const int _i);    // Receives a log number from loadSettings and setups all about the logN
     void defineStationCallsign(const QString &_call);

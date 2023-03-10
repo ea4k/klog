@@ -40,10 +40,11 @@ public:
     SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageLogView();
     void init();
-    QString getFields();
+    //QString getFields();
     void saveSettings();
     void loadSettings();
     void setActiveFields(QStringList _q);
+    QStringList getActiveFields();
 
 
 signals:

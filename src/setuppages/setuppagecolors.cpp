@@ -213,7 +213,7 @@ QString SetupPageColors::getDefaultColor()
 
 void SetupPageColors::setNewOneColor(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     QString style = "* { background-color: ";
     style = style + _c;
     style = style + "; }";
@@ -316,7 +316,7 @@ void SetupPageColors::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
-    qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();
+    //qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();
     settings.setValue ("NewOneColor", (newOneColorButton->palette().color(QPalette::Button)).name());
     settings.setValue ("NeededColor", (neededColorButton->palette().color(QPalette::Button)).name());
     settings.setValue ("WorkedColor", (workedColorButton->palette().color(QPalette::Button)).name());

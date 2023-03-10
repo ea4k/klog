@@ -41,8 +41,8 @@ public:
     ~SetupPageBandMode();
 
 
-    QString getBands(); // 10m, 12m, 15m
-    QString getModes(); //ssb, CW
+    QStringList getBands(); // 10m, 12m, 15m
+    QStringList getModes(); //ssb, CW
 
     void setActiveBands(QStringList q);
     void setActiveModes(QStringList q);

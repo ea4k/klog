@@ -55,13 +55,15 @@ bool UpdateSettings::updateFile()
             QByteArray line = file.readLine();
             processConfigLine(line);
         }
+        //return file.remove();
     }
     return true;
+    //return true;
 }
 
 bool UpdateSettings::processConfigLine(const QString &_line)
 {
-    qDebug() << Q_FUNC_INFO << _line;
+    //qDebug() << Q_FUNC_INFO << _line;
     Utilities util(Q_FUNC_INFO);
     QString line = _line.simplified();
 
@@ -108,12 +110,12 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if (tab=="MODES"){
         settings.beginGroup ("BandMode");
-        settings.setValue ("Modes", value);
+        settings.setValue ("Modes", value.split (", ", QT_SKIP));
         settings.endGroup ();
     }else if (tab=="BANDS"){
-        qDebug() << Q_FUNC_INFO << ": " << value;
+        //qDebug() << Q_FUNC_INFO << ": " << value;
         settings.beginGroup ("BandMode");
-        settings.setValue ("Bands", value);
+        settings.setValue ("Bands", value.split (", ", QT_SKIP));
         settings.endGroup ();
     }else if (tab=="LOGVIEWFIELDS"){
         settings.setValue ("LogViewFields", value);
@@ -288,6 +290,7 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if (tab  =="DXCLUSTERSERVERTOUSE"){
         settings.beginGroup ("DXCluster");
+        //qDebug() << Q_FUNC_INFO << "DXClusterServerToUse: " << value;
         settings.setValue ("DXClusterServerToUse", value);
         settings.endGroup ();
     }else if (tab  =="DXCLUSTERSERVERPORT"){

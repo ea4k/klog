@@ -357,7 +357,7 @@ void AdifLoTWExportWidget::fillTable()
             qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
             break;
         case ModeClubLog:
-             qDebug() << Q_FUNC_INFO << " ClubLog";
+             //qDebug() << Q_FUNC_INFO << " ClubLog";
             _qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
             qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
             break;
