@@ -6049,6 +6049,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const 
     int i ;
     if (uploadedToLoTW)
     {
+        logWindow->refresh();
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
@@ -6519,7 +6520,7 @@ void MainWindow::slotADIFImport(){
 
                  //qDebug() << "MainWindow::slotADIFImport -2" << QT_ENDL;
         //dxccStatusWidget->refresh();
-        logWindow->refresh();
+        //logWindow->refresh();
                  //qDebug() << "MainWindow::slotADIFImport -3" << QT_ENDL;
         checkIfNewBandOrMode();
                  //qDebug() << "MainWindow::slotADIFImport -4" << QT_ENDL;
@@ -7179,7 +7180,7 @@ void MainWindow::slotShowAwards()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     awards->recalculateAwards();
              //qDebug() << "MainWindow::slotShowAwards-1"  << QT_ENDL;
-    logWindow->refresh();
+    //logWindow->refresh();
              //qDebug() << "MainWindow::slotShowAwards-2"  << QT_ENDL;
 
     awardsWidget->showAwards();
