@@ -63,13 +63,13 @@ UDPServer::~UDPServer()
 
 void UDPServer::slotReadPendingDatagrams()
 {
-       //qDebug() << "UDPServer::slotReadPendingDatagrams" ;
+    //qDebug() << "UDPServer::slotReadPendingDatagrams" ;
     while (socketServer->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(socketServer->pendingDatagramSize());
         QHostAddress sender;
         quint16 senderPort;
-           //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize());
+        //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize());
         socketServer->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
         parse (datagram);
         //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram;
@@ -93,15 +93,15 @@ bool UDPServer::start()
 
 bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_address)
 {
-    //qDebug() << "UDPServer::startNow "<< QT_ENDL;
+    qDebug() << "UDPServer::startNow ";
     //if ((_port != port) || (_multicast_group_address != groupAddress))
     if (1)
     {
-        //qDebug() << "UDPServer::startNow starting..."<< QT_ENDL;
+        qDebug() << "UDPServer::startNow starting...";
         leaveMultiCastGroup();
         if (socketServer->state() == QAbstractSocket::BoundState)
         {
-            //qDebug() << "UDPServer::startNow: closing socket"<< QT_ENDL;
+            qDebug() << "UDPServer::startNow: closing socket";
             socketServer->close();
         }
         groupAddress = _multicast_group_address;
@@ -115,21 +115,21 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
         }
         else
         {
-            //qDebug() << "UDPServer::startNow port = 0"<< QT_ENDL;
+            qDebug() << "UDPServer::startNow port = 0";
             port = 0;
         }
     }
     else
     {
-       //qDebug() << "UDPServer::startNow exiting... "<< QT_ENDL;
+       qDebug() << "UDPServer::startNow exiting with an error... ";
     }
-    //qDebug() << "UDPServer::startNow exiting... "<< QT_ENDL;
+    qDebug() << "UDPServer::startNow finalizing... ";
     return  socketServer->isValid();
 }
 
 void UDPServer::joinMultiCastGroup()
 {
-    //qDebug() << "UDPServer::joinMultiCastGroup: "<< QT_ENDL;
+    //qDebug() << "UDPServer::joinMultiCastGroup: ";
     if (!haveNetworkInterface)
     {
         return;
@@ -144,7 +144,7 @@ void UDPServer::joinMultiCastGroup()
             socketServer->bind(QHostAddress::AnyIPv4, port, QAbstractSocket::ShareAddress | QAbstractSocket::ReuseAddressHint);
             if (socketServer->isValid())
             {
-               //qDebug() << "UDPServer::joinMultiCastGroup socket valid"<< QT_ENDL;
+               //qDebug() << "UDPServer::joinMultiCastGroup socket valid";
             }
 
         }
@@ -171,12 +171,12 @@ void UDPServer::joinMultiCastGroup()
         }
         socketServer->setMulticastInterface(mcast_interface);
     }
-    //qDebug() << "UDPServer::joinMultiCastGroup - END"<< QT_ENDL;
+    //qDebug() << "UDPServer::joinMultiCastGroup - END";
 }
 
 void UDPServer::leaveMultiCastGroup()
 {
-    //qDebug() << "UDPServer::leaveMultiCastGroup"<< QT_ENDL;
+    //qDebug() << "UDPServer::leaveMultiCastGroup";
     if (groupAddress.isNull() && socketServer->state() && groupAddress.isMulticast())
     {
         QList<QNetworkInterface> interfaces;
@@ -187,7 +187,7 @@ void UDPServer::leaveMultiCastGroup()
             socketServer->leaveMulticastGroup(groupAddress, interfaces.at(i));
         }
     }
-    //qDebug() << "UDPServer::leaveMultiCastGroup - END"<< QT_ENDL;
+    //qDebug() << "UDPServer::leaveMultiCastGroup - END";
 }
 
  bool UDPServer::isStarted()
@@ -197,7 +197,7 @@ void UDPServer::leaveMultiCastGroup()
 
 void UDPServer::parse(const QByteArray &msg)
 {
-    //qDebug() << "UDPServer::parse: " << msg;
+    qDebug() << "UDPServer::parse: " << msg;
     //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString());
     //in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
     //        tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
@@ -267,20 +267,20 @@ void UDPServer::parse(const QByteArray &msg)
     in >> magic >> schema >> type >> id;
     //QByteArray ba4(QByteArray::fromRawData(cart, 6));
     //in.readRawData(type, size)
-       //qDebug() << "UDPServer::parse: -  Magic = " << QString::number(magic)<< QT_ENDL;
-       //qDebug() << "UDPServer::parse: - schema = " << QString::number(schema)<< QT_ENDL;
-       //qDebug() << "UDPServer::parse: -   type = " << QString::number(type)<< QT_ENDL;
+       //qDebug() << "UDPServer::parse: -  Magic = " << QString::number(magic);
+       //qDebug() << "UDPServer::parse: - schema = " << QString::number(schema);
+       //qDebug() << "UDPServer::parse: -   type = " << QString::number(type);
        //qDebug() << "UDPServer::parse: -   id = " << id;
 
 
     //if ((magic != 2914831322) || (id != "WSJT-X"))
     if (magic != 2914831322)
     {
-        //qDebug() << "UDPServer::parse: - Magic BAD FORMAT = " << QString::number(magic)<< QT_ENDL;
+        //qDebug() << "UDPServer::parse: - Magic BAD FORMAT = " << QString::number(magic);
         return;
     }
 
-    //qDebug() << "UDPServer::parse: TYPE: " << QString::number(type)<< QT_ENDL;
+    //qDebug() << "UDPServer::parse: TYPE: " << QString::number(type);
 
     switch (type)
     {
@@ -459,13 +459,13 @@ void UDPServer::parse(const QByteArray &msg)
                //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ERROR on Type";
         break;
     }
-       //qDebug() << "UDPServer::parse: - Magic: = " << QString::number(magic)<< QT_ENDL;
+       //qDebug() << "UDPServer::parse: - Magic: = " << QString::number(magic);
 }
 
 
 bool UDPServer::stop()
 {
-    //qDebug() << "UDPServer::stop"<< QT_ENDL;
+    //qDebug() << "UDPServer::stop";
     socketServer->close();
     if (socketServer->isValid())
     {
@@ -683,6 +683,7 @@ void UDPServer::adifParse(QByteArray &msg)
 
 void UDPServer::loadSettings()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
 
@@ -690,7 +691,6 @@ void UDPServer::loadSettings()
     setPort (settings.value("UDPServerPort").toInt ());
     logging = settings.value("LogFromWSJTX").toBool ();
     realtime = settings.value ("RealTimeFromWSJTX", false).toBool ();
-
     settings.endGroup ();
 
     /*
@@ -701,4 +701,5 @@ void UDPServer::loadSettings()
     infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();
     wsjtxAutoLog = settings.value ("LogAutoFromWSJTX", false).toBool ();
 */
+    qDebug() << Q_FUNC_INFO << " - END";
 }
