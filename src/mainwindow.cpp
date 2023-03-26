@@ -4808,8 +4808,8 @@ void MainWindow::slotDoubleClickLog(const int _qsoID)
 
 bool MainWindow::setUDPServer(const bool _b)
 {
-    //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) ;
-    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) ;
+    qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) ;
+    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) ;
     QString errorMSG, aux;
     if (_b)
     {
@@ -4825,19 +4825,19 @@ bool MainWindow::setUDPServer(const bool _b)
             }
             else
             {
-                //qDebug() << Q_FUNC_INFO << ": UDP Log server started!" << QTime::currentTime().toString("hh:mm:ss") ;
+                qDebug() << Q_FUNC_INFO << ": UDP Log server started!" << QTime::currentTime().toString("hh:mm:ss") ;
             }
             return true;
         }
         else
         {
             return true;
-            //qDebug() << Q_FUNC_INFO << ": UDP Log server already started no need to restart!" << QTime::currentTime().toString("hh:mm:ss") ;
+            qDebug() << Q_FUNC_INFO << ": UDP Log server already started no need to restart!" << QTime::currentTime().toString("hh:mm:ss") ;
         }
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") ;
+        qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") ;
         if (UDPLogServer->isStarted())
         {
             if (!UDPLogServer->stop())
@@ -4851,13 +4851,13 @@ bool MainWindow::setUDPServer(const bool _b)
             else
             {
                 return false;
-                //qDebug() << Q_FUNC_INFO << ": UDP Log server stopped!" << QTime::currentTime().toString("hh:mm:ss") ;
+                qDebug() << Q_FUNC_INFO << ": UDP Log server stopped!" << QTime::currentTime().toString("hh:mm:ss") ;
             }
         }
         else
         {
             return false;
-                   //qDebug() << Q_FUNC_INFO << ": UDP Log server already stopped no need to restop!" ;
+            qDebug() << Q_FUNC_INFO << ": UDP Log server already stopped no need to restop!" ;
         }
     }
 }
@@ -5036,7 +5036,7 @@ bool MainWindow::applySettings()
 
 void MainWindow::startServices()
 {
-    //qDebug() << QTime::currentTime().toString("hh:mm:ss - ") ;
+    qDebug() << QTime::currentTime().toString("hh:mm:ss - ") ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     setWindowSize (windowSize);
     hamlibActive = setHamlib(hamlibActive);
@@ -8972,16 +8972,16 @@ bool MainWindow::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     settings.beginGroup ("DXCluster");
-    dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave").toBool ());
-    dxClusterShowHF = settings.value ("DXClusterShowHF").toBool ();
-    dxClusterShowVHF = settings.value ("DXClusterShowVHF").toBool ();
-    dxClusterShowWARC = settings.value ("DXClusterShowWARC").toBool ();
-    dxClusterShowWorked = settings.value ("DXClusterShowWorked").toBool ();
-    dxClusterShowConfirmed = settings.value ("DXClusterShowConfirmed").toBool ();
-    dxClusterShowAnn = settings.value ("DXClusterShowAnn").toBool ();
-    dxClusterShowWWV = settings.value ("DXClusterShowWWV").toBool ();
-    dxClusterShowWCY = settings.value ("DXClusterShowWCY").toBool ();
-    dxclusterSendSpotsToMap = settings.value ("DXClusterSendToMap").toBool ();
+    dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave", false).toBool ());
+    dxClusterShowHF = settings.value ("DXClusterShowHF", true).toBool ();
+    dxClusterShowVHF = settings.value ("DXClusterShowVHF", true).toBool ();
+    dxClusterShowWARC = settings.value ("DXClusterShowWARC", true).toBool ();
+    dxClusterShowWorked = settings.value ("DXClusterShowWorked", true).toBool ();
+    dxClusterShowConfirmed = settings.value ("DXClusterShowConfirmed", true).toBool ();
+    dxClusterShowAnn = settings.value ("DXClusterShowAnn", true).toBool ();
+    dxClusterShowWWV = settings.value ("DXClusterShowWWV", true).toBool ();
+    dxClusterShowWCY = settings.value ("DXClusterShowWCY", true).toBool ();
+    dxclusterSendSpotsToMap = settings.value ("DXClusterSendToMap", true).toBool ();
     dxClusterWidget->loadSettings ();
     settings.endGroup ();
 
@@ -8996,68 +8996,74 @@ bool MainWindow::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - 70 - misc";
     mainQSOEntryWidget->setRealTime (settings.value ("RealTime", true).toBool ());
-    mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds").toBool ());
-    useDefaultLogFileName = (settings.value ("UseDefaultName").toBool ());
-    imperialSystem = (settings.value ("ImperialSystem").toBool ());
-    sendQSLWhenRec = (settings.value ("SendQSLWhenRec").toBool ());
-    manageDxMarathon = (settings.value ("ManageDXMarathon").toBool ());
+    mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds", false).toBool ());
+    useDefaultLogFileName = (settings.value ("UseDefaultName", true).toBool ());
+    imperialSystem = (settings.value ("ImperialSystem", false).toBool ());
+    sendQSLWhenRec = (settings.value ("SendQSLWhenRec", true).toBool ());
+    manageDxMarathon = (settings.value ("ManageDXMarathon", false).toBool ());
     awardsWidget->setManageDXMarathon (manageDxMarathon);
-    searchWidget->setShowCallInSearch(settings.value ("ShowCallsignInSearch").toBool ());
-    checkNewVersions = settings.value ("CheckNewVersions").toBool ();
-    reportInfo = settings.value ("ProvideInfo").toBool ();
-    alwaysADIF = settings.value ("AlwaysADIF").toBool ();
+    searchWidget->setShowCallInSearch(settings.value ("ShowCallsignInSearch", true).toBool ());
+    checkNewVersions = settings.value ("CheckNewVersions", true).toBool ();
+    reportInfo = settings.value ("ProvideInfo", false).toBool ();
+    alwaysADIF = settings.value ("AlwaysADIF", true).toBool ();
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
-    mainQSOEntryWidget->setUTC(settings.value ("UTCTime").toBool ());
-    sendQSLByDefault = settings.value ("SendEQSLByDefault").toBool ();
+    mainQSOEntryWidget->setUTC(settings.value ("UTCTime", true).toBool ());
+    sendQSLByDefault = settings.value ("SendEQSLByDefault", true).toBool ();
     eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
-    dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot").toInt ();
+    dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot", 300).toInt ();
     filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
     mainQSOEntryWidget->setDuplicatedQSOSlot(dupeSlotInSeconds);
-    completeWithPrevious = settings.value ("CompleteWithPrevious").toBool ();
+    completeWithPrevious = settings.value ("CompleteWithPrevious", true).toBool ();
     defaultADIFLogFile = settings.value ("DefaultADIFFile").toString ();
-    deleteAlwaysAdiFile = settings.value ("DeleteAlwaysAdiFile").toBool ();
-    util->setCallValidation(settings.value ("CheckValidCalls").toBool ());
-    mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
-    filemanager->setCallValidation(settings.value ("CheckValidCalls").toBool ());
-    adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls").toBool ());
+    deleteAlwaysAdiFile = settings.value ("DeleteAlwaysAdiFile", true).toBool ();
+    util->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+    mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+    filemanager->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+    adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
 
     //qDebug() << Q_FUNC_INFO << " - 80 - logs";
     selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
 
     //qDebug() << Q_FUNC_INFO << " - 90 - elog";
-    clublogActive = settings.value ("ClubLogActive").toBool ();
+    clublogActive = settings.value ("ClubLogActive", false).toBool ();
     setupDialog->setClubLogActive(clublogActive);
-    clublogRealTime = settings.value ("ClubLogRealTime").toBool ();
+    clublogRealTime = settings.value ("ClubLogRealTime", false).toBool ();
     clublogEmail = settings.value ("ClubLogEmail").toString ();
     clublogPass = settings.value ("ClubLogPass").toString ();
 
-    qrzcomActive = settings.value ("QRZcomActive").toBool ();
+    qrzcomActive = settings.value ("QRZcomActive", false).toBool ();
     setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
-    qrzcomSubscriber = settings.value ("QRZcomSubscriber").toBool ();
+    qrzcomSubscriber = settings.value ("QRZcomSubscriber", false).toBool ();
     elogQRZcom->setSubcription (qrzcomSubscriber);
-    QRZCOMAutoCheckAct->setChecked(settings.value ("QRZcomSubscriber").toBool ());
-    setupDialog->setQRZCOMAutoCheckActive(settings.value ("QRZcomSubscriber").toBool ());
+    QRZCOMAutoCheckAct->setChecked(settings.value ("QRZcomSubscriber", false).toBool ());
+    setupDialog->setQRZCOMAutoCheckActive(settings.value ("QRZcomSubscriber", false).toBool ());
     qrzcomPass = settings.value ("QRZcomPass").toString ();
     qrzcomUser = settings.value ("QRZcomUser").toString ();
     elogQRZcom->setLogBookKey(settings.value ("QRZcomLogBookKey").toString ());
 
-    eQSLActive = settings.value ("eQSLActive").toBool ();
+    eQSLActive = settings.value ("eQSLActive", false).toBool ();
     setupDialog->setEQSLActive(eQSLActive);
     eqslUtilities->setUser(settings.value ("eQSLCall").toString ());
     eqslUtilities->setPass(settings.value ("eQSLPass").toString ());
 
-    lotwActive = settings.value ("LoTWActive").toBool ();
+    lotwActive = settings.value ("LoTWActive", false).toBool ();
     lotwTQSLpath = settings.value ("LoTWPath").toString ();
     lotwUtilities->setUser(settings.value ("LoTWUSer").toString ());
     lotwUtilities->setPass(settings.value ("LoTWPass").toString ());
 
-    UDPServerStart = settings.value ("UDPServer").toBool ();
-    UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
-    UDPLogServer->setPort(settings.value ("UDPServerPort").toInt ());
-    infoTimeout = settings.value ("InfoTimeOut").toInt ();
-    UDPLogServer->setLogging(settings.value ("LogFromWSJTX").toBool ());
-    UDPLogServer->setRealTimeUpdate(settings.value ("RealTimeFromWSJTX").toBool ());
-    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX").toBool ();
+    //qDebug() << Q_FUNC_INFO << " - 50 - UDPServer";
+    settings.beginGroup ("UDPServer");
+    UDPServerStart = settings.value ("UDPServer", false).toBool ();
+    //UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
+    //UDPLogServer->setPort(settings.value ("UDPServerPort", 2237).toInt ());
+    infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();
+    //UDPLogServer->setLogging(settings.value ("LogFromWSJTX", false).toBool ());
+    //UDPLogServer->setRealTimeUpdate(settings.value ("RealTimeFromWSJTX", false).toBool ());
+    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX", false).toBool ();
+
+    settings.endGroup ();
+
+
 
     //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
 

@@ -920,15 +920,15 @@ bool HamLibClass::loadSettings()
     settings.beginGroup ("HamLib");
     setModelId(settings.value ("HamLibRigType").toInt());
     setPort(settings.value ("HamlibSerialPort").toString());
-    setSpeed(settings.value ("HamlibSerialBauds").toInt ());
-    setDataBits(settings.value ("HamLibSerialDataBits").toInt ());
-    setStop(settings.value ("HamLibSerialStopBit").toString());
-    setFlow(settings.value ("HamLibSerialFlowControl").toString());
-    setParity(settings.value ("HamLibSerialParity").toString());
-    setPoll(settings.value ("HamlibRigPollRate").toInt ());
-    setReadOnly(settings.value ("HamlibReadOnly").toBool ());
+    setSpeed(settings.value ("HamlibSerialBauds", 9600).toInt ());
+    setDataBits(settings.value ("HamLibSerialDataBits", 8).toInt ());
+    setStop(settings.value ("HamLibSerialStopBit", "OneStop").toString());
+    setFlow(settings.value ("HamLibSerialFlowControl", "None").toString());
+    setParity(settings.value ("HamLibSerialParity", "Even").toString());
+    setPoll(settings.value ("HamlibRigPollRate", 2000).toInt ());
+    setReadOnly(settings.value ("HamlibReadOnly", false).toBool ());
     setNetworkAddress (settings.value ("HamlibNetAddress").toString());
-    setNetworkPort (settings.value ("HamlibNetPort").toInt ());
+    setNetworkPort (settings.value ("HamlibNetPort", 4532).toInt ());
     settings.endGroup ();
     return true;
 }

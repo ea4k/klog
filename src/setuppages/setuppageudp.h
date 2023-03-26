@@ -52,7 +52,7 @@ public:
     QString getReaDataFromWSJTx();
     QString getUDPServerPort();
     QString getUDPServer();
-    QString getTimeout();
+    //int getTimeout();
     QString getNetworkInterface();
     void saveSettings();
     void loadSettings();

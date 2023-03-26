@@ -45,7 +45,7 @@ void Utilities::init()
     softwareVersion = "0.0";
     longPrefixes.clear();
     specialCalls.clear();
-    darkMode = false;
+    //darkMode = false;
     logLevel = None;
     setARRLSect();
     setContinent();
@@ -1767,15 +1767,15 @@ QString Utilities::getClearSQLi(QString _s)
     return _s.remove ('\'');
 }
 
-void Utilities::setDarkMode(const QString &_dm)
-{
-    darkMode = trueOrFalse(_dm);
-}
+//void Utilities::setDarkMode(const QString &_dm)
+//{
+//    darkMode = trueOrFalse(_dm);
+//}
 
-bool Utilities::isDarkMode()
-{
-    return darkMode;
-}
+//bool Utilities::isDarkMode()
+//{
+//    return darkMode;
+//}
 
 void Utilities::setLogColumnNames()
 {

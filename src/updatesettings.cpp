@@ -183,7 +183,9 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.setValue ("RealTimeFromWSJTX", util.trueOrFalse (value));
         settings.endGroup ();
     }else if (tab=="INFOTIMEOUT"){
+        settings.beginGroup ("UDPServer");
         settings.setValue ("InfoTimeOut", value.toInt ());
+        settings.endGroup ();
     }else if (tab =="NAME"){
         settings.beginGroup ("UserData");
         settings.setValue ("Name", value);

@@ -298,14 +298,7 @@ int main(int argc, char *argv[])
         //qDebug() << "MAIN:  Starting wizard... ";
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
-        //int inMemory = wizard->exec();
         wizard->exec();
-        //MainWindow mw(version);
-        //mw.init();
-        //splash.finish(&mw);
-        //mw.showNotWar();
-        //mw.show();
-        //return app.exec();
     }
     else
     {
@@ -353,7 +346,7 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " - 111 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.finish(&mw);
     //qDebug() << Q_FUNC_INFO << " - 112 " << (QTime::currentTime()).toString("HH:mm:ss");
-    mw.showNotWar();
+    //mw.showNotWar();
     //qDebug() << Q_FUNC_INFO << " - 113 " << (QTime::currentTime()).toString("HH:mm:ss");
     //qDebug() << Q_FUNC_INFO << " - END";
     return app.exec();

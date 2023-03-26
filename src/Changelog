@@ -28,13 +28,13 @@ TEST: Bug: When uploading to LoTW, no calls are shown.
 TODO: Complete the QSettings integration
 TODO: Right-click in a DXCC spot
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
-TODO: Test the setup tab:  colors
 TODO: Test the setup tab: misc
 TODO: Test the setup tab: editor
 TODO: Test the setup tab: logs
-TODO: Test the setup tab: eLogTODO: Test the setup tab: wsjtx
-TODO: Test the setup tab: sats
-TODO: Test the setup tab: hamlib
+TODO: Test the setup tab: eLog
+TODO: Test the setup tab: wsjtx
+
+
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

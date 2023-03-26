@@ -78,15 +78,15 @@ void UDPServer::slotReadPendingDatagrams()
 
 bool UDPServer::start()
 {
-    //qDebug() << "UDPServer::start ";
+    qDebug() << "UDPServer::start ";
     if ( (port>0) && (port<65535) )
     {
-        //qDebug() << "UDPServer::start: calling startNow ";
+        qDebug() << "UDPServer::start: calling startNow ";
         return startNow(port, groupAddress);
     }
     else
     {
-        //qDebug() << "UDPServer::start FALSE";
+        qDebug() << "UDPServer::start FALSE";
         return false;
     }
 }
@@ -509,34 +509,6 @@ void UDPServer::setNetworkInterface(const QString &_t)
     }
 }
 
-void UDPServer::setLogging(const bool _t)
-{
-       //qDebug() << "UDPServer::setLogging: " <<   endl;
-    if (_t)
-    {
-           //qDebug() << "UDPServer::setLogging: TRUE " <<   endl;
-    }
-    else
-    {
-           //qDebug() << "UDPServer::setLogging: FALSE" <<   endl;
-    }
-    logging = _t;
-}
-
-
-void UDPServer::setRealTimeUpdate(const bool _t)
-{
-       //qDebug() << "UDPServer::setRealTimeUpdate: " <<   endl;
-    if (_t)
-    {
-           //qDebug() << "UDPServer::setRealTimeUpdate: TRUE " <<   endl;
-    }
-    else
-    {
-           //qDebug() << "UDPServer::setRealTimeUpdate: FALSE" <<   endl;
-    }
-       realtime = _t;
-}
 
 void UDPServer::adifParse(QByteArray &msg)
 {
@@ -707,4 +679,26 @@ void UDPServer::adifParse(QByteArray &msg)
         }
     }
     //qDebug() << "UDPServer::adifParse: - END" <<  QT_ENDL;
+}
+
+void UDPServer::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("UDPServer");
+
+    setNetworkInterface (settings.value("UDPNetworkInterface").toString ());
+    setPort (settings.value("UDPServerPort").toInt ());
+    logging = settings.value("LogFromWSJTX").toBool ();
+    realtime = settings.value ("RealTimeFromWSJTX", false).toBool ();
+
+    settings.endGroup ();
+
+    /*
+    UDPServerStart = settings.value ("UDPServer", false).toBool ();
+
+    UDPLogServer->setRealTimeUpdate();
+
+    infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();
+    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX", false).toBool ();
+*/
 }

@@ -364,17 +364,17 @@ void SetupPageHamLib::loadSettings()
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
-    activateHamlibCheckBox->setChecked (settings.value("HamLib").toBool ());
-    readOnlyModeCheckBox->setChecked (settings.value("HamlibReadOnly").toBool ());
+    activateHamlibCheckBox->setChecked (settings.value("HamLib", false).toBool ());
+    readOnlyModeCheckBox->setChecked (settings.value("HamlibReadOnly", false).toBool ());
     setRigType (settings.value("HamLibRigType").toString());
-    pollIntervalQSpinBox->setValue(settings.value("HamlibRigPollRate").toInt ());
+    pollIntervalQSpinBox->setValue(settings.value("HamlibRigPollRate", 2000).toInt ());
     serialConfigWidget->setSerialPort (settings.value("HamlibSerialPort").toString());
-    serialConfigWidget->setSerialBauds (settings.value("HamlibSerialBauds").toInt ());
-    serialConfigWidget->setDataBits (settings.value("HamLibSerialDataBits").toInt ());
-    serialConfigWidget->setStopBits(settings.value("HamLibSerialStopBit").toString());
-    serialConfigWidget->setFlowControl (settings.value("HamLibSerialFlowControl").toString());
-    serialConfigWidget->setParity(settings.value("HamLibSerialParity").toString());
-    networkConfigWidget->setAddress (settings.value("HamlibNetAddress").toString());
-    networkConfigWidget->setPort (settings.value("HamlibNetPort").toInt ());
+    serialConfigWidget->setSerialBauds (settings.value("HamlibSerialBauds", 9600).toInt ());
+    serialConfigWidget->setDataBits (settings.value("HamLibSerialDataBits", 8).toInt ());
+    serialConfigWidget->setStopBits(settings.value("HamLibSerialStopBit", "OneStop").toString());
+    serialConfigWidget->setFlowControl (settings.value("HamLibSerialFlowControl", "None").toString());
+    serialConfigWidget->setParity(settings.value("HamLibSerialParity", "Even").toString());
+    networkConfigWidget->setAddress (settings.value("HamlibNetAddress", "localhost").toString());
+    networkConfigWidget->setPort (settings.value("HamlibNetPort", 4532).toInt ());
     settings.endGroup ();
  }

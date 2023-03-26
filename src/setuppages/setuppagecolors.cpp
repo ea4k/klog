@@ -286,7 +286,6 @@ void SetupPageColors::slotSetDarkMode()
         QPalette p;
         p = qApp->palette();
         p.setColor(QPalette::Window, QColor(244,246,246));
-        //p.setColor(QPalette::Button, QColor(214,219,223));
         p.setColor(QPalette::Text, Qt::black);
         p.setColor(QPalette::Button, QColor(234,237,237));
         p.setColor(QPalette::Highlight, QColor(40,120,240));
@@ -328,7 +327,6 @@ void SetupPageColors::saveSettings()
 
 void SetupPageColors::loadSettings()
 {
-
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
 

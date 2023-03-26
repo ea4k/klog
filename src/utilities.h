@@ -50,8 +50,8 @@ class Utilities : public QObject {
 public:
     Utilities(const QString &_parentName);
     ~Utilities();
-    void setDarkMode(const QString &_dm);
-    bool isDarkMode();
+    //void setDarkMode(const QString &_dm);
+    //bool isDarkMode();
     void setCallValidation(const bool _b);
     void setLongPrefixes (const QStringList &_p);
     void setSpecialCalls (const QStringList &_p);
@@ -191,7 +191,7 @@ private:
     void setSponsorsList();
     QString getCheckedComplexCall(const QString &_c);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
-    bool darkMode;
+    //bool darkMode;
     QString dbPath;
     QString softwareVersion;
     QString parentName;     // The class that instanciated this object.
