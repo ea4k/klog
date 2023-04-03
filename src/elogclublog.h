@@ -43,7 +43,7 @@ public:
     explicit eLogClubLog();
     ~eLogClubLog();
 
-    void setCredentials(const QString &_email, const QString &_pass, const QString &_defaultStationCallsign);
+    void setDefaultCallsign(const QString &_defaultStationCallsign);
     int sendQSO(QStringList _qso);
 
     int deleteQSO(QStringList _qso);
@@ -51,7 +51,7 @@ public:
     int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
 
     void sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite);
-
+    void loadSettings();
 
 private:
     QString getClubLogAdif(const QStringList _q);

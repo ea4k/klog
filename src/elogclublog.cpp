@@ -509,12 +509,9 @@ NOTES
     return qso;
 }
 
-void eLogClubLog::setCredentials(const QString &_email, const QString &_pass, const QString &_defaultStationCallsign)
+void eLogClubLog::setDefaultCallsign(const QString &_defaultStationCallsign)
 {
-     //qDebug()<< "eLogClubLog::setCredentials: email: " << _email << " / Pass: " << _pass << " / StationCallsign: " << _defaultStationCallsign;
     stationCallsign = _defaultStationCallsign;
-    email = _email;
-    pass = _pass;
 }
 
 
@@ -786,7 +783,15 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     //multiPart->setParent(reply);
 
       //qDebug()<< "eLogClubLog::sendLogFile - END";
+}
 
+void eLogClubLog::loadSettings()
+{
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("ClubLog");
+    email = settings.value ("ClubLogEmail").toString ();
+    pass = settings.value ("ClubLogPass").toString ();
+    settings.endGroup ();
 }
 
 

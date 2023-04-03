@@ -46,7 +46,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     showStationCallWhenSearchCheckBox = new QCheckBox(tr("Show the Station &Callsign used in the search box"), this);
     //keepMyDataCheckBox = new QCheckBox(tr("&Reset to My Data for all QSOs"), this);
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
-    provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
+    //provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
 
     //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
@@ -133,7 +133,7 @@ void SetupPageMisc::createUI()
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
     //keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
     checkNewVersionCheckBox->setToolTip(tr("Check if there is a new release of KLog available every time you start KLog."));
-    provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog."));
+    //provideCallCheckBox->setToolTip(tr("If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog."));
     imperialCheckBox ->setToolTip(tr("Check it for Imperial system (Miles instead of Kilometers)."));
     realTimeCheckbox->setToolTip(tr("Select to use real time."));
     UTCCheckbox->setToolTip(tr("Select to use UTC time."));
@@ -195,7 +195,7 @@ void SetupPageMisc::createUI()
     mainLayout->addWidget(sendQSLWhenRecCheckBox,6, 0, 1, 1);
     mainLayout->addWidget(sendEQSLByDefaultSearchCheckBox, 6, 1, 1, 1);
     mainLayout->addWidget(checkNewVersionCheckBox, 7, 0, 1, 1);
-    mainLayout->addWidget(provideCallCheckBox, 7, 1, 1, 1);
+    //mainLayout->addWidget(provideCallCheckBox, 7, 1, 1, 1);
     //mainLayout->addWidget(logSortCheckBox, 8, 0, 1, 1);
     mainLayout->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
     mainLayout->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
@@ -403,12 +403,12 @@ void SetupPageMisc::slotcheckNewVersionCheckBoxClicked()
 {
     if (checkNewVersionCheckBox->isChecked())
     {
-        provideCallCheckBox->setEnabled(true);
+        //provideCallCheckBox->setEnabled(true);
     }
     else
     {
-        provideCallCheckBox->setEnabled(false);
-        provideCallCheckBox->setChecked(false);
+        //provideCallCheckBox->setEnabled(false);
+        //provideCallCheckBox->setChecked(false);
     }
 }
 
@@ -429,7 +429,7 @@ bool SetupPageMisc::getReportInfo()
 
 void SetupPageMisc::setReportInfo(const QString &_t)
 {
-    provideCallCheckBox->setChecked(util->trueOrFalse(_t));
+    //provideCallCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
 QString SetupPageMisc::getDefaultDBPath()
@@ -634,7 +634,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 void SetupPageMisc::saveSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-    //settings.beginGroup ("Misc");
+    settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
     settings.setValue ("ShowSeconds", QVariant((showSecondsCheckBox->isChecked())));
     settings.setValue ("UTCTime", QVariant((UTCCheckbox->isChecked())));
@@ -653,18 +653,18 @@ void SetupPageMisc::saveSettings()
     settings.setValue ("DeleteAlwaysAdiFile", QVariant((deleteAlwaysAdiFileCheckBox->isChecked())));
     settings.setValue ("CheckValidCalls", QVariant((checkCallsCheckBox->isChecked())));
     settings.setValue ("DuplicatedQSOSlot", dupeTimeLineEdit->text());
-    settings.setValue ("ProvideInfo", QVariant((provideCallCheckBox->isChecked())));
+    //settings.setValue ("ProvideInfo", QVariant((provideCallCheckBox->isChecked())));
 
     //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";";
     //stream << "PSTRotatorServer=" << interfacesWindowsPage->getPSTRotatorUDPServer() << ";";
     //stream << "PSTRotatorPort=" << interfacesWindowsPage->getPSTRotatorUDPServerPort() << ";";
-    //settings.endGroup ();
+    settings.endGroup ();
 }
 
 void SetupPageMisc::loadSettings()
 {
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
-
+    settings.beginGroup ("Misc");
     realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());
     showSecondsCheckBox->setChecked (settings.value("ShowSeconds").toBool ());
     UTCCheckbox->setChecked (settings.value("UTCTime").toBool ());
@@ -679,10 +679,11 @@ void SetupPageMisc::loadSettings()
     sendEQSLByDefaultSearchCheckBox->setChecked (settings.value("SendEQSLByDefault").toBool ());
     deleteAlwaysAdiFileCheckBox->setChecked (settings.value("DeleteAlwaysAdiFile").toBool ());
     checkCallsCheckBox->setChecked (settings.value("CheckValidCalls").toBool ());
-    provideCallCheckBox->setChecked (settings.value("ProvideInfo").toBool ());
+    //provideCallCheckBox->setChecked (settings.value("ProvideInfo").toBool ());
 
     setDefaultFileName(settings.value("DefaultADIFFile").toString ());
     setUseDefaultDBPath(settings.value("DBPath").toString ());
     setDebugLogLevel(settings.value("DebugLog").toString ());
     dupeTimeLineEdit->setText (settings.value("DuplicatedQSOSlot").toString ());
+    settings.endGroup ();
 }

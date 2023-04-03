@@ -343,6 +343,7 @@ void InfoWidget::clear()
 void InfoWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
+    clearBandLabels();
 }
 
 void InfoWidget::setCurrentLog(const int _log)

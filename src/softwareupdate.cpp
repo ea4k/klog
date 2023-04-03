@@ -310,7 +310,7 @@ void SoftwareUpdate::addCall(const QString &_call)
       //qDebug() << "SoftwareUpdate::addCall: " << _call;
     if (_call.length()>2)
     {
-        callsign = _call;
+        //callsign = _call;
         setHeader();
     }
       //qDebug() << "SoftwareUpdate::addCall - END";

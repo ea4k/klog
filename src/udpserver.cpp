@@ -78,30 +78,30 @@ void UDPServer::slotReadPendingDatagrams()
 
 bool UDPServer::start()
 {
-    qDebug() << "UDPServer::start ";
+    //qDebug() << "UDPServer::start ";
     if ( (port>0) && (port<65535) )
     {
-        qDebug() << "UDPServer::start: calling startNow ";
+        //qDebug() << "UDPServer::start: calling startNow ";
         return startNow(port, groupAddress);
     }
     else
     {
-        qDebug() << "UDPServer::start FALSE";
+        //qDebug() << "UDPServer::start FALSE";
         return false;
     }
 }
 
 bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_address)
 {
-    qDebug() << "UDPServer::startNow ";
+    //qDebug() << "UDPServer::startNow ";
     //if ((_port != port) || (_multicast_group_address != groupAddress))
     if (1)
     {
-        qDebug() << "UDPServer::startNow starting...";
+        //qDebug() << "UDPServer::startNow starting...";
         leaveMultiCastGroup();
         if (socketServer->state() == QAbstractSocket::BoundState)
         {
-            qDebug() << "UDPServer::startNow: closing socket";
+            //qDebug() << "UDPServer::startNow: closing socket";
             socketServer->close();
         }
         groupAddress = _multicast_group_address;
@@ -115,15 +115,15 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
         }
         else
         {
-            qDebug() << "UDPServer::startNow port = 0";
+            //qDebug() << "UDPServer::startNow port = 0";
             port = 0;
         }
     }
     else
     {
-       qDebug() << "UDPServer::startNow exiting with an error... ";
+       //qDebug() << "UDPServer::startNow exiting with an error... ";
     }
-    qDebug() << "UDPServer::startNow finalizing... ";
+    //qDebug() << "UDPServer::startNow finalizing... ";
     return  socketServer->isValid();
 }
 
@@ -197,7 +197,7 @@ void UDPServer::leaveMultiCastGroup()
 
 void UDPServer::parse(const QByteArray &msg)
 {
-    qDebug() << "UDPServer::parse: " << msg;
+    //qDebug() << "UDPServer::parse: " << msg;
     //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString());
     //in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
     //        tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
@@ -683,7 +683,7 @@ void UDPServer::adifParse(QByteArray &msg)
 
 void UDPServer::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
 
@@ -701,5 +701,5 @@ void UDPServer::loadSettings()
     infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();
     wsjtxAutoLog = settings.value ("LogAutoFromWSJTX", false).toBool ();
 */
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }

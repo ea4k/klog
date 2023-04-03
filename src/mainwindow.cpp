@@ -91,19 +91,16 @@ MainWindow::MainWindow(const QString &tversion)
 {
    //qDebug() << Q_FUNC_INFO << ": " <<  _klogDir << " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
-
-
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
     util = new Utilities(Q_FUNC_INFO);
-    //QFile file(util->getSetFile ());
-    //file.remove();
+
     qso = new QSO;
-    //QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
     softwareVersion = tversion;
-    klogDir = Info;
+
+    logLevel = Info;
     sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 15;
     needToEnd = false;
@@ -119,7 +116,7 @@ MainWindow::MainWindow(const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
-    lotwUtilities = new LoTWUtilities(klogDir, softwareVersion, Q_FUNC_INFO, dataProxy);
+    lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
     mapWindow = new MapWindowWidget(dataProxy, this);
 
@@ -157,7 +154,7 @@ MainWindow::MainWindow(const QString &tversion)
     aboutDialog = new AboutDialog(softwareVersion);
     tipsDialog = new TipsDialog();
 
-    downloadcty = new DownLoadCTY(klogDir, softwareVersion);
+    downloadcty = new DownLoadCTY(util->getHomeDir (), softwareVersion);
 
     statusBarMessage = tr("Starting KLog");
 
@@ -290,14 +287,14 @@ void MainWindow::setWindowSize(const QSize &_size)
 
 void MainWindow::init()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (!QDir::setCurrent ( klogDir )){
-        QDir d1(klogDir);
-        if (d1.mkdir(klogDir))
+    if (!QDir::setCurrent ( util->getHomeDir () )){
+        QDir d1(util->getHomeDir ());
+        if (d1.mkdir(util->getHomeDir ()))
         {
-            if (!QDir::setCurrent ( klogDir ))
+            if (!QDir::setCurrent ( util->getHomeDir () ))
             {
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
@@ -330,7 +327,7 @@ void MainWindow::init()
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-    qDebug() << "MainWindow::init - 00" ;
+    //qDebug() << "MainWindow::init - 00" ;
     setupDialog->init(softwareVersion, 0, configured);
     //qDebug() << "MainWindow::init - 01" ;
     filemanager->init();
@@ -433,8 +430,6 @@ void MainWindow::init()
 
     keepSatPage = false;
     //qDebug() << "MainWindow::init - 40" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    clublogPass = QString();
-    clublogEmail = QString();
     clublogActive = false;
     clublogRealTime = false;
 
@@ -501,15 +496,15 @@ void MainWindow::init()
 
     //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    qDebug() << "MainWindow::init - Reading config file" ;
+    //qDebug() << "MainWindow::init - Reading config file" ;
     if (QFile::exists(util->getSetFile ()))
     {
-        qDebug() << "MainWindow::init - We have settings, so we load them" ;
+        //qDebug() << "MainWindow::init - We have settings, so we load them" ;
         configured = loadSettings ();
     }
     else if (QFile::exists(util->getCfgFile ()))
     {
-       qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
+       //qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
        UpdateSettings settingsUpdate;
        if (settingsUpdate.updateFile ())
        {
@@ -2994,8 +2989,9 @@ void MainWindow::slotElogClubLogDisable(const bool _b)
     setupDialog->setClubLogActive(clublogActive);
 
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("ClubLog");
     settings.setValue ("ClubLogActive", false);
-
+    settings.endGroup();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -3227,7 +3223,9 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
         qrzcomActive = false;
         setupDialog->setQRZCOMAutoCheckActive (false);
         QSettings settings(util->getSetFile (), QSettings::IniFormat);
+        settings.beginGroup ("QRZcom");
         settings.setValue ("QRZcomActive", false);
+        settings.endGroup ();
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -4812,18 +4810,18 @@ void MainWindow::slotDoubleClickLog(const int _qsoID)
 
 bool MainWindow::setUDPServer(const bool _b)
 {
-    qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) ;
-    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) ;
+    //qDebug() << Q_FUNC_INFO << ": upAndRunning: " << util->boolToQString (upAndRunning) ;
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_b) ;
     QString errorMSG, aux;
     if (_b)
     {
-        qDebug() << Q_FUNC_INFO << ": Starting the server" ;
+        //qDebug() << Q_FUNC_INFO << ": Starting the server" ;
         if (!UDPLogServer->isStarted())
         {
-            qDebug() << Q_FUNC_INFO << ": Server is not started, starting...";
+            //qDebug() << Q_FUNC_INFO << ": Server is not started, starting...";
             if (!UDPLogServer->start())
             {
-                qDebug() << Q_FUNC_INFO << ": Server could not be started, exiting...";
+                //qDebug() << Q_FUNC_INFO << ": Server could not be started, exiting...";
                 errorMSG =  tr("start");
                 aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
                 showErrorDialog->setText(aux);
@@ -4832,25 +4830,25 @@ bool MainWindow::setUDPServer(const bool _b)
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": UDP Log server started!" << QTime::currentTime().toString("hh:mm:ss") ;
+                //qDebug() << Q_FUNC_INFO << ": UDP Log server started!" << QTime::currentTime().toString("hh:mm:ss") ;
             }
             return true;
         }
         else
         {
             return true;
-            qDebug() << Q_FUNC_INFO << ": UDP Log server already started no need to restart!" << QTime::currentTime().toString("hh:mm:ss") ;
+            //qDebug() << Q_FUNC_INFO << ": UDP Log server already started no need to restart!" << QTime::currentTime().toString("hh:mm:ss") ;
         }
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") ;
+        //qDebug() << Q_FUNC_INFO << ": UDPServerStart FALSE" << QTime::currentTime().toString("hh:mm:ss") ;
         if (UDPLogServer->isStarted())
         {
-            qDebug() << Q_FUNC_INFO << ": Server is startted and should be Disabled";
+            //qDebug() << Q_FUNC_INFO << ": Server is startted and should be Disabled";
             if (!UDPLogServer->stop())
             {
-                qDebug() << Q_FUNC_INFO << ": Server should be disabled and I can't stop it";
+                //qDebug() << Q_FUNC_INFO << ": Server should be disabled and I can't stop it";
                 errorMSG =  tr("stop");
                 aux = tr("UDP Server error\nThe UDP server failed to %1.", "start or stop").arg(errorMSG);
                 showErrorDialog->setText(aux);
@@ -4859,17 +4857,17 @@ bool MainWindow::setUDPServer(const bool _b)
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": UDP Log server stopped!" << QTime::currentTime().toString("hh:mm:ss") ;
+                //qDebug() << Q_FUNC_INFO << ": UDP Log server stopped!" << QTime::currentTime().toString("hh:mm:ss") ;
                 return false;
             }
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << ": UDP Log server already stopped no need to restop!" ;
+            //qDebug() << Q_FUNC_INFO << ": UDP Log server already stopped no need to restop!" ;
             return false;
         }
     }
-    qDebug() << Q_FUNC_INFO << ": It should not reach this, default to false";
+    //qDebug() << Q_FUNC_INFO << ": It should not reach this, default to false";
     return false;
 }
 
@@ -4967,10 +4965,7 @@ bool MainWindow::applySettings()
     setMainWindowTitle();
     dxClusterWidget->setMyQRZ(stationCallsign);
     checkIfNewBandOrMode();
-    if (clublogActive)
-    {
-        elogClublog->setCredentials(clublogEmail, clublogPass, stationCallsign);
-    }
+    elogClublog->setDefaultCallsign (stationCallsign);
 
     if (qrzcomActive)
     {
@@ -4990,14 +4985,14 @@ bool MainWindow::applySettings()
     {
         startServices();
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
 }
 
 void MainWindow::startServices()
 {
-    qDebug() << QTime::currentTime().toString("hh:mm:ss - ") ;
+    //qDebug() << QTime::currentTime().toString("hh:mm:ss - ") ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     hamlibActive = setHamlib(hamlibActive);
@@ -8324,7 +8319,9 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
 {
     setLogLevel(l);
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("Misc");
     settings.setValue ("DebugLog", util->debugLevelToString(l));
+    settings.endGroup ();
 }
 
 bool MainWindow::loadSettings()
@@ -8333,10 +8330,10 @@ bool MainWindow::loadSettings()
     //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
 
-
     //qDebug() << Q_FUNC_INFO << " - 10 - General";
-    settings.setValue ("Version", softwareVersion);
     QString value = settings.value ("Version").toString ();
+    //settings.setValue ("Version", softwareVersion);
+    //QString value = settings.value ("Version").toString ();
     if (softwareVersion!=value)
     {
         itIsANewversion = true;
@@ -8376,6 +8373,8 @@ bool MainWindow::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
+    //qDebug() << Q_FUNC_INFO << " - 41 - logs";
+    selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
 
     //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     settings.beginGroup ("DXCluster");
@@ -8402,6 +8401,7 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
 
     //qDebug() << Q_FUNC_INFO << " - 70 - misc";
+    settings.beginGroup ("Misc");
     mainQSOEntryWidget->setRealTime (settings.value ("RealTime", true).toBool ());
     mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds", false).toBool ());
     useDefaultLogFileName = (settings.value ("UseDefaultName", true).toBool ());
@@ -8411,7 +8411,7 @@ bool MainWindow::loadSettings()
     awardsWidget->setManageDXMarathon (manageDxMarathon);
     searchWidget->setShowCallInSearch(settings.value ("ShowCallsignInSearch", true).toBool ());
     checkNewVersions = settings.value ("CheckNewVersions", true).toBool ();
-    reportInfo = settings.value ("ProvideInfo", false).toBool ();
+    reportInfo = false;
     alwaysADIF = settings.value ("AlwaysADIF", true).toBool ();
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
     mainQSOEntryWidget->setUTC(settings.value ("UTCTime", true).toBool ());
@@ -8427,16 +8427,14 @@ bool MainWindow::loadSettings()
     mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
     filemanager->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
     adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
-
-    //qDebug() << Q_FUNC_INFO << " - 80 - logs";
-    selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
+    settings.endGroup ();
 
     //qDebug() << Q_FUNC_INFO << " - 90 - elog";
+    settings.beginGroup ("ClubLog");
     clublogActive = settings.value ("ClubLogActive", false).toBool ();
     setupDialog->setClubLogActive(clublogActive);
     clublogRealTime = settings.value ("ClubLogRealTime", false).toBool ();
-    clublogEmail = settings.value ("ClubLogEmail").toString ();
-    clublogPass = settings.value ("ClubLogPass").toString ();
+    settings.endGroup ();
 
     qrzcomActive = settings.value ("QRZcomActive", false).toBool ();
     setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
@@ -8463,7 +8461,7 @@ bool MainWindow::loadSettings()
     UDPLogServer->loadSettings ();
     settings.beginGroup ("UDPServer");
     UDPServerStart = settings.value ("UDPServer", false).toBool ();
-    qDebug() << Q_FUNC_INFO << "UDPServer = " << util->boolToQString (UDPServerStart);
+    //qDebug() << Q_FUNC_INFO << "UDPServer = " << util->boolToQString (UDPServerStart);
     //UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
     //UDPLogServer->setPort(settings.value ("UDPServerPort", 2237).toInt ());
     infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();

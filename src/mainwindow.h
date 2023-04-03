@@ -610,7 +610,7 @@ private:
     bool yearChangedDuringModification;
     QString infoLabel1T, infoLabel2T;
 
-    QString klogDir, ctyDatFile, defaultADIFLogFile;
+    QString ctyDatFile, defaultADIFLogFile;
     QString softwareVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;
@@ -650,7 +650,6 @@ private:
 
     //<CLUBLOG>
     bool clublogActive, clublogRealTime, eQSLActive; //clublogUseStationCallSign,
-    QString clublogPass, clublogEmail; //clublogUser,
 
     eLogClubLog *elogClublog;
     int clublogAnswer;

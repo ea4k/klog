@@ -227,7 +227,7 @@ void SetupPageUDP::setUDPServer(const bool _t)
 
 void SetupPageUDP::setUDPServerPort(const int _t)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number (_t);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number (_t);
     if (  (_t>=0) && (_t<=65535))
     {
         UDPServerPortSpinBox->setValue(_t);
@@ -340,7 +340,7 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
 
 void SetupPageUDP::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
     settings.setValue ("UDPServer", QVariant((UDPServerCheckBox->isChecked())));
@@ -351,7 +351,7 @@ void SetupPageUDP::saveSettings()
     settings.setValue ("RealTimeFromWSJTX", QVariant((realDataFromWSJTXCheckbox->isChecked())));
     settings.setValue ("InfoTimeOut", miliSecsSpinBox->value());
     settings.endGroup ();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageUDP::loadSettings()

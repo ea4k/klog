@@ -120,44 +120,78 @@ bool UpdateSettings::processConfigLine(const QString &_line)
     }else if (tab=="LOGVIEWFIELDS"){
         settings.setValue ("LogViewFields", value);
     }else if (tab=="REALTIME"){
+        settings.beginGroup ("Misc");
         settings.setValue ("RealTime", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="SHOWSECONDS"){
+        settings.beginGroup ("Misc");
         settings.setValue ("ShowSeconds", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="UTCTIME"){
+        settings.beginGroup ("Misc");
         settings.setValue ("UTCTime", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="ALWAYSADIF"){
+        settings.beginGroup ("Misc");
         settings.setValue ("AlwaysADIF", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="USEDEFAULTNAME"){
+        settings.beginGroup ("Misc");
         settings.setValue ("UseDefaultName", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="DBPATH"){
+        settings.beginGroup ("Misc");
         settings.setValue ("DBPath", value);
+        settings.endGroup ();
     }else if (tab=="DEFAULTADIFFILE"){
+        settings.beginGroup ("Misc");
         settings.setValue ("DefaultADIFFile", value);
+        settings.endGroup ();
     }else if (tab=="IMPERIALSYSTEM"){
+        settings.beginGroup ("Misc");
         settings.setValue ("ImperialSystem", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="COMPLETEWITHPREVIOUS"){
+        settings.beginGroup ("Misc");
         settings.setValue ("CompleteWithPreviou", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="SENDQSLWHENREC"){
+        settings.beginGroup ("Misc");
         settings.setValue ("SendQSLWhenRec", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="MANAGEDXMARATHON"){
+        settings.beginGroup ("Misc");
         settings.setValue ("ManageDXMarathon", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="DEBUGLOG"){
+        settings.beginGroup ("Misc");
         settings.setValue ("DebugLog", value);
+        settings.endGroup ();
     }else if (tab=="SHOWCALLSIGNINSEARCH"){
+        settings.beginGroup ("Misc");
         settings.setValue ("ShowCallsignInSearch", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="CHECKNEWVERSIONS"){
+        settings.beginGroup ("Misc");
         settings.setValue ("CheckNewVersions", util.trueOrFalse (value));
-    }else if (tab=="PROVIDEINFO"){
+        settings.endGroup ();
+    //}else if (tab=="PROVIDEINFO"){
         //settings.setValue ("ProvideInfo", util.trueOrFalse (value));
     }else if (tab=="SENDEQSLBYDEFAULT"){
+        settings.beginGroup ("Misc");
         settings.setValue ("SendEQSLByDefault", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab=="DUPLICATEDQSOSLOT"){
         if (value.toInt()>=0)
         {
+            settings.beginGroup ("Misc");
             settings.setValue ("DuplicatedQSOSlot", value.toInt());
+            settings.endGroup ();
         }
     }else if (tab == "CHECKVALIDCALLS"){
+        settings.beginGroup ("Misc");
         settings.setValue ("CheckValidCalls", util.trueOrFalse (value));
+       settings.endGroup ();
     }else if (tab=="UDPSERVER"){
         settings.beginGroup ("UDPServer");
         settings.setValue ("UDPServer", util.trueOrFalse (value));
@@ -486,7 +520,9 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         }
         settings.setValue ("MainWindowSize", windowSize);
     }else if(tab =="DELETEALWAYSADIFILE"){
+        settings.beginGroup ("Misc");
         settings.setValue ("DeleteAlwaysAdiFile", util.trueOrFalse (value));
+        settings.endGroup ();
     }else if (tab == "LATESTBACKUP"){
         settings.setValue ("LatestBackup", value);
     }else{
