@@ -449,7 +449,7 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
     }
     else if (_em == ModeEQSL)
     {
-        queryString = QString("call, rst_sent, freq, bandid, modeid, qso_date, prop_mode, operator, station_callsign, sat_name, my_cnty, my_gridsquare, my_lat, my_lon");
+        queryString = QString("call, rst_sent, freq, bandid, modeid, submode, qso_date, prop_mode, operator, station_callsign, sat_name, my_cnty, my_gridsquare, my_lat, my_lon, qslmsg, sat_mode, sat_name");
     }
     else
     { // THis is ModeADIF and ModeQRZ we will upload ALL the ADIF files

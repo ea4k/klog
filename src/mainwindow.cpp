@@ -5547,7 +5547,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 
   if (!util->isValidCall(_call))
   {
-         //qDebug() << Q_FUNC_INFO << " - no valid call" ;
+       qDebug() << Q_FUNC_INFO << " - no valid call" ;
       if (_call == "ALL")
       {
           msgBox.setWindowTitle(tr("KLog - ClubLog"));
@@ -5561,8 +5561,9 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
   }
 
   QString fileName = util->getClubLogFile();
+  QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeClubLog, currentLog);
 
-  if (_qsos.count() <= 0)
+  if (qsos.count() <= 0)
   { // TODO: Check if errors should be managed.
        //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
       msgBox.setWindowTitle(tr("KLog - ClubLog"));
@@ -5656,13 +5657,13 @@ void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, 
 
 void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
-      //qDebug() << "MainWindow::fileExportEQSL  - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
+      //qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
 
     QMessageBox msgBox;
 
     if (!util->isValidCall(_st))
     {
-           //qDebug() << "MainWindow::fileExportEQSL - no valid call" ;
+           //qDebug() << Q_FUNC_INFO << "- no valid call" ;
         if (_st == "ALL")
         {
             msgBox.setWindowTitle(tr("KLog - eQSL"));
@@ -5676,7 +5677,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
     }
     if ((!_startDate.isValid()) || (!_endDate.isValid()))
     {
-           //qDebug() << "MainWindow::fileExportEQSL - no valid date" ;
+           //qDebug() << Q_FUNC_INFO << "- no valid date" ;
         return;
     }
 
@@ -5687,13 +5688,37 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
-           //qDebug() << "MainWindow::fileExportEQSL NO QSOs" ;
+           //qDebug() << Q_FUNC_INFO << "NO QSOs" ;
         return;
     }
 
     eqslUtilities->sendLogFile(fileName, qsos);
 
-       //qDebug() << "MainWindow::fileExportEQSL -END " ;
+       //qDebug() << Q_FUNC_INFO << "-END " ;
+}
+
+void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
+{
+    qDebug() << Q_FUNC_INFO << QString(" - Start:  QSOs: %2" ).arg(_qsos.length ());
+
+    //QString fileName = "klog-eqsl-upload.adi";
+    QString fileName = util->getEQSLFile();
+    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeEQSL, currentLog);
+
+    if (qsos.count() <= 0)
+    { // TODO: Check if errors should be managed.
+         //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - ClubLog"));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("The selection you have done does not include any QSO."));
+        msgBox.setStandardButtons(QMessageBox::Ok );
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return;
+    }
+    eqslUtilities->sendLogFile(fileName, _qsos);
+    //qDebug() << Q_FUNC_INFO << "-END " ;
 }
 
 void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
@@ -5745,8 +5770,8 @@ void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos
         fileExportClubLog2(_call, _qsos);
         break;
     case ModeEQSL:         // General eQSL
-         //qDebug() << Q_FUNC_INFO << " - eQSL" ;
-        //fileExportEQSL2(_call, _qsos);
+         qDebug() << Q_FUNC_INFO << " - eQSL" ;
+        fileExportEQSL2(_call, _qsos);
         break;
     case ModeQRZ:         // General eQSL
          //qDebug() << Q_FUNC_INFO << " - QRZ.com" ;

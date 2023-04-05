@@ -342,7 +342,9 @@ private:
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog2(const QString &_call, QList<int> _qsos);
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportEQSL2(const QString &_call, QList<int> _qsos);
     void fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
     //QString getCallToUseForLoTWExportUpload();

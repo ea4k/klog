@@ -777,7 +777,6 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     multiPart->append(clearPart);
     multiPart->append(apiPart);
 
-
     uploadingFile = true;
 
     QNetworkRequest request(serviceUrl);

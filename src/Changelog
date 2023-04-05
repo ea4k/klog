@@ -15,6 +15,7 @@ TBD - 2.3.1
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Warning of unused parameters removed.
 - Improvement: Some SQL queries optimized for speed.
+- Improvement: Optimized the way log files are exported to online services.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Shows the total number of QSOs when exporting.
 - Removed the callsign from the header to increase privacy.
@@ -22,15 +23,13 @@ TBD - 2.3.1
 WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 TODO: - New Feature: New stat: DXCC per band (worked/confimed)
 DataProxy_SQLite::getDXCCInBand
-TODO: Test ClubLog Export
-TODO: Test QRZCOM Export
 TODO: Test LoTW Export
 TODO: Test ADIF Export
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
 TEST: Bug: When uploading to LoTW, no calls are shown.
-TODO: Right-click in a DXCC spot
+TODO: Right-click in a DXCC spot to send to QRZ.com
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
-TODO: Test the setup tab: eLog
+
 
 eLog: LoTW
 eLog: eQSL
