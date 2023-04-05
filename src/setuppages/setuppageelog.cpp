@@ -315,7 +315,7 @@ void SetupPageELog::slotClubLogEmailDefineColor()
 
 void SetupPageELog::slotLoTWEmailDefineColor()
 {
-    //qDebug() << "SetupPageELog::slotLoTWEmailDefineColor";
+    qDebug() << Q_FUNC_INFO << ": " << lotwUserLineEdit->text();
     int cursor = lotwUserLineEdit->cursorPosition();
     QString aux = lotwUserLineEdit->text();
 
@@ -514,10 +514,10 @@ void SetupPageELog::showEvent(QShowEvent *event)
     //eQSLPasswordLineEdit->setText(eqslPass);
    // eQSLActiveCheckBox->setChecked(eqslActive);
 
-    lotwUserLineEdit->setText(lotwUser);
-    lotwPasswordLineEdit->setText(lotwPass);
+    //lotwUserLineEdit->setText(lotwUser);
+    //lotwPasswordLineEdit->setText(lotwPass);
     //lotwUseTQSLCheckBox->setChecked(lotwTQSL);
-    lotwTQSLPathLineEdit->setText(lotwPath);
+    //lotwTQSLPathLineEdit->setText(lotwPath);
 
     event->accept();
 }
@@ -555,7 +555,7 @@ void SetupPageELog::saveSettings()
     settings.beginGroup ("LoTW");
     settings.setValue ("LoTWActive", QVariant((lotwUseTQSLCheckBox->isChecked())));
     settings.setValue ("LoTWPath", lotwTQSLPathLineEdit->text());
-    settings.setValue ("LoTWUSer", lotwUserLineEdit->text());
+    settings.setValue ("LoTWUser", lotwUserLineEdit->text());
     settings.setValue ("LoTWPass", lotwPasswordLineEdit->text());
     settings.endGroup ();
 }
@@ -589,7 +589,8 @@ void SetupPageELog::loadSettings()
 
     settings.beginGroup ("LoTW");
     lotwUseTQSLCheckBox->setChecked (settings.value("LoTWActive").toBool ());
-    lotwUserLineEdit->setText (settings.value("LoTWUSer").toString ());
+    lotwUserLineEdit->setText (settings.value("LoTWUser").toString ());
+    qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
     lotwPasswordLineEdit->setText (settings.value("LoTWPass").toString ());
     lotwTQSLPathLineEdit->setText (settings.value("LoTWPath").toString ());
     settings.endGroup ();

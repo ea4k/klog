@@ -8474,7 +8474,7 @@ bool MainWindow::loadSettings()
     settings.beginGroup ("LoTW");
     lotwActive = settings.value ("LoTWActive", false).toBool ();
     lotwTQSLpath = settings.value ("LoTWPath").toString ();
-    lotwUtilities->setUser(settings.value ("LoTWUSer").toString ());
+    lotwUtilities->setUser(settings.value ("LoTWUser").toString ());
     lotwUtilities->setPass(settings.value ("LoTWPass").toString ());
     settings.endGroup ();
 

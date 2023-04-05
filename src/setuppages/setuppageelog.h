@@ -96,7 +96,7 @@ private:
     QCheckBox *lotwUseTQSLCheckBox;
     QLabel *lotwpasswordLabel, *lotwemailLabel;
     //bool lotwTQSL;
-    QString lotwPath, lotwUser, lotwPass;
+    //QString lotwPath, lotwUser, lotwPass;
 
     QGroupBox *QRZCOMGroup;
     //QLineEdit *QRZCOMAPILineEdit;

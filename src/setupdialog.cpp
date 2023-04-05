@@ -174,10 +174,7 @@ void SetupDialog::connectActions()
     connect (userDataPage, SIGNAL(mainCallsignSignal(QString)), this, SLOT(slotSetStationCallSign(QString)));
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
-    //connect (lotwPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     connect (eLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
-    //connect (clubLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
-    //connect (eLogPage, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotQRZCOMAuto(bool)));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
