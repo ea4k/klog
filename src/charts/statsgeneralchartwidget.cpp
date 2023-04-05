@@ -29,15 +29,18 @@
 
 StatsGeneralChartWidget::StatsGeneralChartWidget()
 {
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << QT_ENDL;
+      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget" ;
 }
 
 StatsGeneralChartWidget::StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
-      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget"  << QT_ENDL;
+    Q_UNUSED(parent);
+    Q_UNUSED(dp);
+      //qDebug() << "StatsGeneralChartWidget::StatsGeneralChartWidget" ;
 }
 
 
-void StatsGeneralChartWidget::prepareChart(const int _log) {}
+void StatsGeneralChartWidget::prepareChart(const int _log) {
+    (void)_log; // prevent warning
+}
 void StatsGeneralChartWidget::createUI(){}

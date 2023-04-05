@@ -32,6 +32,7 @@
 #include <QSerialPortInfo>
 #include "../hamlibclass.h"
 #include "../dataproxy_sqlite.h"
+#include "../utilities.h"
 #include "hamlibserialconfigwidget.h"
 #include "hamlibnetworkconfigwidget.h"
 #include <hamlib/rig.h>
@@ -41,23 +42,25 @@ class SetupPageHamLib : public QWidget
     Q_OBJECT
 public:
     explicit SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    QString getData();
+    //QString getData();
     bool setRigType(const QString &_radio);
-    void setPollingInterval(const int _msecs);
-    bool setSerialPort(const QString &_port);
-    bool setSerialSpeed(const int _speed );
-    void setActive(const QString &_active);
+    //void setPollingInterval(const int _msecs);
+    //bool setSerialPort(const QString &_port);
+    //bool setSerialSpeed(const int _speed );
+    //void setActive(const QString &_active);
     //void setRTS(const QString &_state);
     //void setDTR(const QString &_state);
-    void setDataBits(const int _st);
-    void setFlowControl(const QString &_st);
-    void setParity(const QString &_st);
-    void setStopBits(const QString &_st);
+    //void setDataBits(const int _st);
+    //void setFlowControl(const QString &_st);
+    //void setParity(const QString &_st);
+    //void setStopBits(const QString &_st);
     //void setPollInterval(const QString &_st);
-    void setReadOnly(const QString &_m);
-    void setRadioNetworkAddress(const QString &_m);
-    void setRadioNetworkPort(const int _p);
+    //void setReadOnly(const QString &_m);
+    //void setRadioNetworkAddress(const QString &_m);
+    //void setRadioNetworkPort(const int _p);
     void stopHamlib();
+    void saveSettings();
+    void loadSettings();
 
 public slots:
     //void slotScanPorts();
@@ -75,8 +78,6 @@ private:
     int getDataBits();
     QString getFlowControl();
     QString getParity();
-    //int getStopBits();
-
 
     QTabWidget *tabWidget;
     HamLibSerialConfigWidget *serialConfigWidget;

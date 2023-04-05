@@ -34,7 +34,7 @@
 
 TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
-      //qDebug() << "TipsDialog::TipsDialog" << QT_ENDL;
+      //qDebug() << "TipsDialog::TipsDialog";
     logLevel = Info;  //7 Debug /0=emergency or no debug
     logEvent(Q_FUNC_INFO, "Start", Debug);
     tipTextQLabel = new QLabel;
@@ -204,14 +204,14 @@ void TipsDialog::setTip(const int _t)
 
     tipTextQLabel->setText(description);
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "TipsDialog::setTip: END"  << QT_ENDL;
+      //qDebug() << "TipsDialog::setTip: END" ;
 }
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
-      //qDebug() << "TipsDialog::slotLinkActivated: " << _link << QT_ENDL;
+      //qDebug() << "TipsDialog::slotLinkActivated: " << _link;
     //Comprobar el enalce y activar el menu correspondiente
     if (_link == "#ToolsFillInQSO")
     {

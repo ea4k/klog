@@ -66,11 +66,10 @@ public:
 
     bool stop();
     bool isStarted();
-    void setLogging(const bool _t);
-    void setRealTimeUpdate(const bool _t);
     //void setAddress(const QString &_address);
     void setPort(const int _port);
     void setNetworkInterface(const QString &_t);
+    void loadSettings();
 
 private:
     void readPendingDatagrams();

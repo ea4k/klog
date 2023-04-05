@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include "../klogdefinitions.h"
+#include "../utilities.h"
 
 class HamLibNetworkConfigWidget : public QWidget
 {

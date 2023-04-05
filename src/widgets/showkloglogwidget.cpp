@@ -86,7 +86,7 @@ void ShowKLogLogWidget::add(const QString &_func, QString const &_log, const Deb
     }
 
     QTextStream out(debugFile);
-    out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << msg << QT_ENDL;
+    out << (QDateTime::currentDateTime()).toString("yyyyMMdd-hhmmsszzz") << " - " << _func << " - " << msg;
     //qDebug() << "Debugging2: " << out.string();
     debugFile->close();
 }

@@ -28,7 +28,7 @@
 
 SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageLogView::SetupPageLogView"   << QT_ENDL;
+       //qDebug() << "SetupPageLogView::SetupPageLogView"  ;
     dataProxy = dp;
 
     fieldsListWidget = new QListWidget;
@@ -50,11 +50,23 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
     layout->addLayout(fLayout);
 
     setLayout(layout);
-       //qDebug() << "SetupPageLogView::SetupPageLogView - END"   << QT_ENDL;
+       //qDebug() << "SetupPageLogView::SetupPageLogView - END"  ;
 }
 
 SetupPageLogView::~SetupPageLogView()
 {}
+
+void SetupPageLogView::init()
+{
+    if (fieldsListWidget->count ()<1)
+    {
+        QStringList aux;
+        aux.clear ();
+        aux << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
+        aux.removeDuplicates();
+        setActiveFields(aux);
+    }
+}
 
 void SetupPageLogView::addFields(QStringList _b)
 {
@@ -68,17 +80,15 @@ void SetupPageLogView::addFields(QStringList _b)
     }
 }
 
-QString SetupPageLogView::getFields()
+QStringList SetupPageLogView::getActiveFields()
 {
-       //qDebug() << "SetupPageLogView::getBands" << QT_ENDL;
-
-    QString b;
-    QListWidgetItem *it;
-
+    //qDebug() << Q_FUNC_INFO;
     if ( (fieldsListWidget->count()) < 1)
     {
-        return "";
+        return QStringList();
     }
+     QListWidgetItem *it;
+     QString b = QString();
     for (int i = 0; i < fieldsListWidget->count(); i++)
     {
         it = fieldsListWidget->item(i);
@@ -92,22 +102,22 @@ QString SetupPageLogView::getFields()
     {
         b.chop(2);
     }
-    return b;
+    //qDebug() << Q_FUNC_INFO << " : " << b;
+    return b.split(", ", Qt::SkipEmptyParts);
 }
-
 
 void SetupPageLogView::setActiveFields(QStringList q)
 {
-       //qDebug() << "SetupPageLogView::setActiveFields" << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << " - Start";
 
     if (q.isEmpty())
     {return;}
 
-    //QString b;
     QListWidgetItem *it;
 
     if ( (fieldsListWidget->count()) < 1)
     {
+        //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
 
@@ -120,9 +130,34 @@ void SetupPageLogView::setActiveFields(QStringList q)
         {
             if (it->text() == q.at(j))
             {
+                //qDebug() << Q_FUNC_INFO << " - Checking: " << q.at(j);
                 it->setCheckState(Qt::Checked);
             }
         }
     }
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void SetupPageLogView::saveSettings()
+{
+    qDebug() << Q_FUNC_INFO ;
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    //settings.beginGroup ("LogView");
+    settings.setValue ("LogViewFields", getActiveFields ());
+    //settings.endGroup ();
+}
+
+void SetupPageLogView::loadSettings()
+{
+
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QStringList aux;
+    aux.clear();
+    aux << dataProxy->filterValidFields(settings.value("LogViewFields").toStringList ());
+    aux.removeDuplicates();
+    setActiveFields(aux);
+    //qDebug() << Q_FUNC_INFO << " - END";
+}

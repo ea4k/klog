@@ -158,6 +158,7 @@ HEADERS += setupdialog.h \
     widgets/showkloglogwidget.h \
     widgets/onlinemessagewidget.h \
     widgets/showadifimportwidget.h \
+    updatesettings.h \
     world.h
 
 message(Sources)
@@ -251,6 +252,7 @@ SOURCES += main.cpp \
     charts/statsgridsonsatswidget.cpp \
     hamlibclass.cpp \
     tipsdialog.cpp \
+    updatesettings.cpp \
     world.cpp
 
 

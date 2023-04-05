@@ -35,8 +35,8 @@ StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget()
 
 StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget" << QT_ENDL;
-
+      //qDebug() << "StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget";
+    Q_UNUSED(parent);
     dataProxy = dp;
     chart = new QChart();
     chartView = new QChartView(chart);
@@ -86,7 +86,7 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << QT_ENDL;
+       //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart: SelectedGrapth-1: YEARS ";
      categories.append(dataProxy->getBandsInLog(_log));
      categoriesElem = tr("Bands");
      categoriesTitle = tr("QSOs per band distribution");
@@ -95,10 +95,10 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
     for (int i = 0; i < categories.count();i++ )
     {
         numberPerX = dataProxy->getQSOsInBand((categories.at(i)), _log);
-           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX) << QT_ENDL;
+           //qDebug() << categories.at(i) + "-" + QString::number(numberPerX);
         *set0 << numberPerX;
         //numberPerX = 0;
-           //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << QT_ENDL;
+           //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX);
         aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(categories.count());
         //aux = tr("Reading data ...") + "\n" + tr("Bands: %1/%2").arg(QString::number(i)).arg(QString::number(categories.count()));
         progress.setLabelText(aux);

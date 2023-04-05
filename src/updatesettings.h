@@ -1,10 +1,10 @@
-#ifndef SETUPPAGEBANDMODE_H
-#define SETUPPAGEBANDMODE_H
+#ifndef UPDATESETTINGS_H
+#define UPDATESETTINGS_H
 /***************************************************************************
-                          setuppagebandmode.h  -  description
+                          updatesettings.h  -  description
                              -------------------
-    begin                : nov 2011
-    copyright            : (C) 2011 by Jaime Robles
+    begin                : mar 2023
+    copyright            : (C) 2023 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 
@@ -25,42 +25,27 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QtWidgets>
-#include <QSqlQuery>
-#include <QStringList>
-#include <QListWidget>
-#include "../dataproxy_sqlite.h"
-#include "../utilities.h"
+
+#include <QObject>
+#include <QtGlobal>
+
+//#include <QSettings>
+//#include <QFile>
+//#include <QString>
+#include "utilities.h"
+#include "locator.h"
 
 
-class SetupPageBandMode : public QWidget
+class UpdateSettings : public QObject
 {
     Q_OBJECT
 public:
-    SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent=nullptr);
-    ~SetupPageBandMode();
-
-
-    QStringList getBands(); // 10m, 12m, 15m
-    QStringList getModes(); //ssb, CW
-
-    void setActiveBands(QStringList q);
-    void setActiveModes(QStringList q);
-    void saveSettings();
-
-signals:
-
-public slots:
+    UpdateSettings();
+    ~UpdateSettings();
+    bool updateFile();
 
 private:
-    void addBands(QStringList _b); // read the available bands from the DB
-    void addModes(QStringList _b); // read the available modes from the DB
-
-    QListWidget *bandsListWidget, *modesListWidget;
-
-    DataProxy_SQLite *dataProxy;
-    Utilities *util;
-
+    bool processConfigLine(const QString &_line);
 };
 
-#endif // SETUPPAGEBANDMODE_H
+#endif // UPDATESETTINGS_H

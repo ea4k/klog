@@ -27,9 +27,9 @@
 
 StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
-
+    Q_UNUSED(parent);
 #ifdef QT_DEBUG
-     //qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget: " << QT_ENDL;
+     //qDebug() << "StatsGridsOnSatsWidget::StatsGridsOnSatsWidget: ";
 #else
 #endif
 
@@ -93,7 +93,7 @@ void StatsGridsOnSatsWidget::createUI()
 
 void StatsGridsOnSatsWidget::prepareChart(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log) << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log);
 
     while(tableWidget->rowCount()>0)
     {
@@ -112,7 +112,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     tableWidget->setHorizontalHeaderItem(5, new QTableWidgetItem(tr("Satellite")));
     tableWidget->setHorizontalHeaderItem(6, new QTableWidgetItem(tr("Confirmed")));
     tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
-    //qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length()) << QT_ENDL;
+    //qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length());
 
     int number = 0;
     QStringList grids;

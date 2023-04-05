@@ -169,25 +169,24 @@ void HamLibSerialConfigWidget::setDataBits (const int _b)
 QString HamLibSerialConfigWidget::getFlowControl()
 {
     int ret = flowControlComboBox->currentIndex();
-    QString output;
-    output = "HamLibSerialFlowControl=";
+
     switch (ret)
     {
         case 0:
-            output = output + "None";
+            return "None";
         break;
         case 1:
-            output = output + "Hardware";
+            return "Hardware";
             break;
         case 2:
-            output = output + "Software";
+            return "Software";
             break;
         default:
         // should never be reached
-            output = output + "None";
+            return "None";
         break;
     }
-    return output;
+    return "None";
 }
 
 void HamLibSerialConfigWidget::setFlowControl(const QString &_st)
@@ -211,31 +210,30 @@ void HamLibSerialConfigWidget::setFlowControl(const QString &_st)
 QString HamLibSerialConfigWidget::getParity()
 {
     int ret = parityComboBox->currentIndex();
-    QString output;
-    output = "HamLibSerialParity=";
+
     switch (ret)
     {
         case 0:
-            output = output + "None";
+            return "None";
         break;
         case 1:
-            output = output + "Even";
+            return "Even";
             break;
         case 2:
-            output = output + "Odd";
+            return "Odd";
             break;
         case 3:
-            output = output + "Space";
+            return "Space";
             break;
         case 4:
-            output = output + "Mark";
+            return "Mark";
             break;
         default:
         // should never be reached
-            output = output + "None";
+            return "None";
         break;
     }
-    return output;
+    return "None";
 }
 
 void HamLibSerialConfigWidget::setParity(const QString &_st)
@@ -351,5 +349,3 @@ int HamLibSerialConfigWidget::getSerialBauds()
 {
     return (serialBaudsComboBox->currentText ()).toInt();
 }
-
-

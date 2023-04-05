@@ -104,7 +104,7 @@ This should be coherent with the logview
      q.next();
      rec = q.record(); // Number of columns
 
-    //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count()) << QT_ENDL;
+    //qDebug() << "LogModel::createlogModel - columns: " << QString::number(rec.count());
 
      if (_columns.contains("bandid"))
      {

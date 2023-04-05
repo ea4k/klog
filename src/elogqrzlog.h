@@ -49,7 +49,8 @@ public:
     explicit eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion);
     ~eLogQrzLog();
     void login();
-    void setCredentials(const QString &_user, const QString &_pass);
+    void setUser(const QString &_user);
+    void setPassword(const QString &_pass);
     void setLogBookKey(const QString &_key);
     bool hasLogBookKey();
     int sendQSOs(QList<int> _qsos);

@@ -39,23 +39,23 @@ UpdateSatsData::~UpdateSatsData()
 
 bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 {
-       //qDebug() << "UpdateSatsData::satDataFileRead: " << tfileName << QT_ENDL;
+       //qDebug() << "UpdateSatsData::satDataFileRead: " << tfileName;
     QString fileName = tfileName;
     bool errorFound = true;
 
     QFile file( fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-           //qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName << QT_ENDL;
+           //qDebug() << "UpdateSatsData::satDataFileRead File not found" << fileName;
         return false;
     }
     if (dataProxy->clearSatList())
     {
-           //qDebug() << "UpdateSatsData::satDataFileRead Sats YES deleted"  << QT_ENDL;
+           //qDebug() << "UpdateSatsData::satDataFileRead Sats YES deleted" ;
     }
     else
     {
-           //qDebug() << "UpdateSatsData::satDataFileRead Sats NOT deleted"  << QT_ENDL;
+           //qDebug() << "UpdateSatsData::satDataFileRead Sats NOT deleted" ;
          return false;
     }
 
@@ -95,12 +95,12 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     progress.setMaximum(numberOfSats);
 
 
-       //qDebug() << "UpdateSatsData::satDataFileRead: END OF HEADER"  << QT_ENDL;
+       //qDebug() << "UpdateSatsData::satDataFileRead: END OF HEADER" ;
 
 
     //file.seek(pos);
     //START reading SAT data...
-       //qDebug() << "UpdateSatsData::satDataFileRead: Start reading data"  << QT_ENDL;
+       //qDebug() << "UpdateSatsData::satDataFileRead: Start reading data" ;
 
     QStringList fields, fieldToAnalyze;//, qsToPass;
     fields.clear();
@@ -118,32 +118,32 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
     while (!noMoreRegisters)
     {
-           //qDebug() << "UpdateSatsData::satDataFileRead: While Start"  << QT_ENDL;
+           //qDebug() << "UpdateSatsData::satDataFileRead: While Start" ;
         if (!file.atEnd())
         {
             line.clear();
             line.append(file.readLine().trimmed().toUpper());
             fields.clear();
-               //qDebug() << "UpdateSatsData::satDataFileRead-line:" << line << QT_ENDL;
+               //qDebug() << "UpdateSatsData::satDataFileRead-line:" << line;
             fields << line.split("<", QT_SKIP);
 
             foreach (aux, fields)
             {
                 aux = aux.simplified();
-                  //qDebug() << "UpdateSatsData::satDataFileRead-aux:" << aux << QT_ENDL;
+                  //qDebug() << "UpdateSatsData::satDataFileRead-aux:" << aux;
                 fieldToAnalyze = util->getValidADIFFieldAndData("<" + aux);
                 if (fieldToAnalyze.size() == 2)
                 {
                     field = fieldToAnalyze.at(0);
                     data = fieldToAnalyze.at(1);
-                      //qDebug() << "UpdateSatsData::satDataFileRead-Field:" << field << QT_ENDL;
-                      //qDebug() << "UpdateSatsData::satDataFileRead-Data:" << data << QT_ENDL;
+                      //qDebug() << "UpdateSatsData::satDataFileRead-Field:" << field;
+                      //qDebug() << "UpdateSatsData::satDataFileRead-Data:" << data;
                     if (field == "EOR")
                     {
-                          //qDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED!" << QT_ENDL;
+                          //qDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED!";
                         if (haveId && haveName)
                         {
-                              //qDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED and have it all!" << QT_ENDL;
+                              //qDebug() << "UpdateSatsData::satDataFileRead - EOR DETECTED and have it all!";
                             haveId = false;
                             haveName = false;
                             //haveUpLink = false;
@@ -154,7 +154,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                                 //errorFound = true;
                                 return false;
                             }
-                              //qDebug() << "UpdateSatsData::satDataFileRead - Satellite added: " << satID << QT_ENDL;
+                              //qDebug() << "UpdateSatsData::satDataFileRead - Satellite added: " << satID;
                             satID = QString();
                             satName = QString();
                             satUpLink = QString();
@@ -181,35 +181,35 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                         {
                             satID = data;
                             haveId = true;
-                                   //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_ARRLID" << QT_ENDL;
+                                   //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_ARRLID";
                         }
                         else if (field == "APP_KLOG_SATS_NAME")
                         {
                             satName = data;
                             haveName = true;
-                                   //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_NAME" << QT_ENDL;
+                                   //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_NAME";
                         }
                         else if (field == "APP_KLOG_SATS_UPLINK")
                         {
                             satUpLink = data;
                             //haveUpLink = true;
-                               //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_UPLINK" << QT_ENDL;
+                               //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_UPLINK";
                         }
                         else if (field == "APP_KLOG_SATS_DOWNLINK")
                         {
                             satDownLink = data;
                             //haveDownLink = true;
-                               //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_DOWNLINK" << QT_ENDL;
+                               //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_DOWNLINK";
                         }
                         else if (field == "APP_KLOG_SATS_MODE")
                         {
                             satMode = data;
                             //haveMode = true;
-                                   //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_MODE" << QT_ENDL;
+                                   //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_SATS_MODE";
                         }
                         else if (field == "APP_KLOG_DATA")
                         {
-                               //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_DATA" << QT_ENDL;
+                               //qDebug() << "UpdateSatsData::satDataFileRead - Detected: " << "APP_KLOG_DATA";
                             if (data != "SATS")
                             {
                                 return false;
@@ -217,27 +217,27 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
                         }
                     }
                 }
-                   //qDebug() << "UpdateSatsData::satDataFileRead: foreach end"  << QT_ENDL;
+                   //qDebug() << "UpdateSatsData::satDataFileRead: foreach end" ;
             }
-               //qDebug() << "UpdateSatsData::satDataFileRead: out of foreach"  << QT_ENDL;
+               //qDebug() << "UpdateSatsData::satDataFileRead: out of foreach" ;
         }
         else
         {
             noMoreRegisters = true;
         }
 
-           //qDebug() << "UpdateSatsData::satDataFileRead: While END"  << QT_ENDL;
+           //qDebug() << "UpdateSatsData::satDataFileRead: While END" ;
     }
 
 
     if (errorFound)
     {
-          //qDebug() << "UpdateSatsData::satDataFileRead: errorFound = true"  << QT_ENDL;
+          //qDebug() << "UpdateSatsData::satDataFileRead: errorFound = true" ;
         return false;
     }
     else
     {
-         //qDebug() << "UpdateSatsData::satDataFileRead: END"  << QT_ENDL;
+         //qDebug() << "UpdateSatsData::satDataFileRead: END" ;
        emit satsUpdatedSignal(true);
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Information);
@@ -246,7 +246,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
     }
 
 
-      //qDebug() << "UpdateSatsData::satDataFileRead: END "  << QT_ENDL;
+      //qDebug() << "UpdateSatsData::satDataFileRead: END " ;
     return true;
 }
 
@@ -255,7 +255,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
 bool UpdateSatsData::readSatDataFile()
 {
-       //qDebug() << "UpdateSatsData::readSatDataFile: " << QT_ENDL;
+       //qDebug() << "UpdateSatsData::readSatDataFile: ";
     //QString fileName = QFileDialog::getOpenFileName(0, tr("Open File"), "/home", "Sat data (*.dat)");
 
 
@@ -268,9 +268,9 @@ bool UpdateSatsData::readSatDataFile()
     }
     else
     {
-           //qDebug() << "MainWindow::slotADIFImport -1" << QT_ENDL;
+           //qDebug() << "MainWindow::slotADIFImport -1";
         return satDataFileRead(fileName);
         //filemanager->adifReadLog(fileName, currentLog);
     }
-       //qDebug() << "UpdateSatsData::readSatDataFile: END" << QT_ENDL;
+       //qDebug() << "UpdateSatsData::readSatDataFile: END";
 }

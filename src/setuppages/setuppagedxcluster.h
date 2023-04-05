@@ -35,33 +35,15 @@ class SetupPageDxCluster : public QWidget {
 public:
     SetupPageDxCluster(QWidget *parent=nullptr);
     ~SetupPageDxCluster();
+    void init();
 
     QStringList getDxclusterServersComboBox();
     void setDxclusterServersComboBox(const QStringList t);
     QString getSelectedDxClusterServer();
     void setSelectedDxClusterServer(const QString t);
 
-    QString getShowHFQCheckbox();
-    QString getShowVHFQCheckbox();
-    QString getShowWARCQCheckbox();
-    QString getShowWorkedQCheckbox();
-    QString getShowConfirmedQCheckbox();
-    QString getShowANNQCheckbox();
-    QString getShowWWVQCheckbox();
-    QString getShowWCYQCheckbox();
-    QString getSaveActivityQCheckbox();
-    QString getSendSpotsToMap();
-
-    void setSendSpotstoMap(const QString t);
-    void setShowHFQCheckbox(const QString t);
-    void setShowVHFQCheckbox(const QString t);
-    void setShowWARCQCheckbox(const QString t);
-    void setShowWorkedQCheckbox(const QString t);
-    void setShowConfirmedQCheckbox(const QString t);
-    void setShowANNQCheckbox(const QString t);
-    void setShowWWVQCheckbox(const QString t);
-    void setShowWCYQCheckbox(const QString t);
-    void setSaveActivityQCheckbox(const QString t);
+    void saveSettings();
+    void loadSettings();
 
 private slots:
     void slotAddButtonClicked();

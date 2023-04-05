@@ -58,21 +58,19 @@ public:
     //SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true, QWidget *parent = nullptr);
     SetupDialog(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~SetupDialog();
-    void init(const QString &_configFile, const QString &_softwareVersion, const int _page=0, const bool _firstTime = true);
+    void init(const QString &_softwareVersion, const int _page=0, const bool _alreadyConfigured = true);
 
-    void setData(const QString &_configFile, const QString &_softwareVersion, const int _page, const bool _firstTime=true);
+    void setData(const QString &_softwareVersion, const int _page = 0, const bool _alreadyConfigured=true);
     void setClubLogActive(const bool _b);
-    void setEQSLActive(const bool _b);
-    void setQRZCOMAutoCheckActive(const bool _b);
+    //void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
     void setLogLevel(const DebugLogLevel _sev);
-
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    void qrzcomAuto(bool);
+    //void qrzcomAuto(bool);
     //void newLogRequested(const bool _s); // true show new log
 
 private slots:
@@ -85,23 +83,24 @@ private slots:
     void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     void slotFocusOK();
-    void slotQRZCOMAuto(const bool _b);
+    //void slotQRZCOMAuto(const bool _b);
 
 private:
     void showEvent(QShowEvent *event);
-    void setConfigFile(const QString &_configFile);
+    //void setConfigFile(const QString &_configFile);
     void setSoftVersion(const QString &_softwareVersion);
     void setConfigured(const bool _configured);
     void setPage(const int _page);
     void connectActions();
-
+    void saveSettings();
+    bool loadSettings();
     void createIcons();
     bool processConfigLine(const QString &_line);
 
     void setDefaults();
 
-    void readActiveBands (const QString &actives);
-    void readActiveModes (const QString &actives);
+    void readActiveBands (const QStringList &actives);
+    void readActiveModes (const QStringList &actives);
     bool isValidBand (const QString &b);
     bool isValidMode (const QString &b);
 
@@ -141,15 +140,15 @@ private:
     //SetupPageRegionalAwards *regionalAwardsPage;
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
     //QString klogDir;
-    QString configFileName, version;
+    QString version;
 
     QStringList bands, modes, logViewFields;
     Locator *locator;
     DataProxy_SQLite *dataProxy;
 
     Utilities *util;
-    QString windowSize;
-    QString latestBackup;
+    //QString windowSize;
+    //QString latestBackup;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
     DebugLogLevel logLevel;    // Manages as syslog, the severity of the application debug log

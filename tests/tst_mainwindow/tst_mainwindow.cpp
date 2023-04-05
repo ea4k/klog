@@ -81,6 +81,7 @@
 #include "../../src/setuppages/setuppagemisc.h"
 #include "../../src/utilities.h"
 #include "../../src/qso.h"
+#include "../../src/updatesettings.h"
 #include "../../src/world.h"
 
 // http://blog.davidecoppola.com/2018/01/gui-unit-testing-with-qt-test-introduction/
@@ -114,7 +115,7 @@ tst_MainWindow::tst_MainWindow()
 {
     //MainWindow mw(klogDir, version);
     Utilities util(Q_FUNC_INFO);
-    mainWindow = new MainWindow(util.getHomeDir(), "2.2");
+    mainWindow = new MainWindow("2.3");
 }
 
 tst_MainWindow::~tst_MainWindow(){}

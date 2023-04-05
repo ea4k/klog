@@ -45,7 +45,7 @@ void Utilities::init()
     softwareVersion = "0.0";
     longPrefixes.clear();
     specialCalls.clear();
-    darkMode = false;
+    //darkMode = false;
     logLevel = None;
     setARRLSect();
     setContinent();
@@ -94,7 +94,7 @@ void Utilities::setSponsorsList()
 
 void Utilities::setVersion(const QString &_v)
 {
-    //qDebug() << "Utilities::setVersion: " << _v ;
+    qDebug() << "Utilities::setVersion: " << _v ;
     softwareVersion = _v;
 }
 
@@ -486,6 +486,19 @@ QString Utilities::getCfgFile()
 #endif
 }
 
+QString Utilities::getSetFile()
+{
+    //TODO: To be removed when the defaultDir is saved in the config file
+    #if defined(Q_OS_WIN)
+             //qDebug() << "WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  ;
+        return getHomeDir() + "/klogrc2.cfg";
+
+    #else
+             //qDebug() << "NO WINDOWS DETECTED!: " << getHomeDir() + "/klogrc.cfg"  ;
+        return getHomeDir() + "/klogrc2";
+    #endif
+}
+
 QString Utilities::getDebugLogFile()
 {
 #if defined(Q_OS_WIN)
@@ -697,9 +710,8 @@ bool Utilities::isValidSimpleCall(const QString &_c)
         }
     }
     //qDebug() << Q_FUNC_INFO << "END";
-    return true;
-
     logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - TRUE"), Debug);
+    return true;
 }
 
 bool Utilities::isAValidOperatingSuffix (const QString &_c)
@@ -1755,15 +1767,15 @@ QString Utilities::getClearSQLi(QString _s)
     return _s.remove ('\'');
 }
 
-void Utilities::setDarkMode(const QString &_dm)
-{
-    darkMode = trueOrFalse(_dm);
-}
+//void Utilities::setDarkMode(const QString &_dm)
+//{
+//    darkMode = trueOrFalse(_dm);
+//}
 
-bool Utilities::isDarkMode()
-{
-    return darkMode;
-}
+//bool Utilities::isDarkMode()
+//{
+//    return darkMode;
+//}
 
 void Utilities::setLogColumnNames()
 {
