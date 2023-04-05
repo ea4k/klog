@@ -315,7 +315,7 @@ void SetupPageELog::slotClubLogEmailDefineColor()
 
 void SetupPageELog::slotLoTWEmailDefineColor()
 {
-    qDebug() << Q_FUNC_INFO << ": " << lotwUserLineEdit->text();
+    //qDebug() << Q_FUNC_INFO << ": " << lotwUserLineEdit->text();
     int cursor = lotwUserLineEdit->cursorPosition();
     QString aux = lotwUserLineEdit->text();
 
@@ -525,7 +525,7 @@ void SetupPageELog::showEvent(QShowEvent *event)
 
 void SetupPageELog::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     //settings.beginGroup ("eLogs");
 
@@ -590,7 +590,7 @@ void SetupPageELog::loadSettings()
     settings.beginGroup ("LoTW");
     lotwUseTQSLCheckBox->setChecked (settings.value("LoTWActive").toBool ());
     lotwUserLineEdit->setText (settings.value("LoTWUser").toString ());
-    qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
+    //qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
     lotwPasswordLineEdit->setText (settings.value("LoTWPass").toString ());
     lotwTQSLPathLineEdit->setText (settings.value("LoTWPath").toString ());
     settings.endGroup ();

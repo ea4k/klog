@@ -313,7 +313,7 @@ void SetupPageColors::setDarkMode(const bool _d)
 
 void SetupPageColors::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
     //qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();

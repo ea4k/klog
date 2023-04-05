@@ -340,7 +340,7 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
 
 void SetupPageUDP::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
     settings.setValue ("UDPServer", QVariant((UDPServerCheckBox->isChecked())));

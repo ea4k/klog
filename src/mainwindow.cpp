@@ -258,7 +258,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::saveWindowsSize()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     windowSize = this->size();
 
@@ -493,15 +493,15 @@ void MainWindow::init()
 
      //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    qDebug() << "MainWindow::init - Reading config file" ;
+    //qDebug() << "MainWindow::init - Reading config file" ;
     if (QFile::exists(util->getSetFile ()))
     {
-         qDebug() << "MainWindow::init - We have settings, so we load them" ;
+         //qDebug() << "MainWindow::init - We have settings, so we load them" ;
         configured = loadSettings ();
     }
     else if (QFile::exists(util->getCfgFile ()))
     {
-        qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
+        //qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Settings update"));
         msgBox.setIcon(QMessageBox::Warning);
@@ -520,7 +520,7 @@ void MainWindow::init()
 
     mapWindow->init();
 
-    qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
      //qDebug() << "MainWindow::init - 72" << (QTime::currentTime()).toString("HH:mm:ss") ;
     awards->setManageModes(manageMode);
@@ -2990,7 +2990,7 @@ void MainWindow::slotLogRefresh()
 
 void MainWindow::slotElogClubLogDisable(const bool _b)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     clublogActive = !_b;
     //setupDialog->setClubLogActive(clublogActive);
@@ -3215,7 +3215,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
 
 void MainWindow::slotElogQRZCOMDisable(const bool _b)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if ((_b) && (elogQRZcom->getSubscription ()))
     {
@@ -3411,7 +3411,7 @@ void MainWindow::showMessageToEnableTheOnlineService(const OnLineProvider _servi
 
 void MainWindow::slotElogQRZCOMAutoCheck()
 {
-    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) ;
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(QRZCOMAutoCheckAct->isChecked()) ;
     if (!qrzcomActive)
     {
         showMessageToEnableTheOnlineService(QRZ);
@@ -5542,12 +5542,12 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 
 void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 {
-    qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
+    //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
     QMessageBox msgBox;
 
   if (!util->isValidCall(_call))
   {
-       qDebug() << Q_FUNC_INFO << " - no valid call" ;
+       //qDebug() << Q_FUNC_INFO << " - no valid call" ;
       if (_call == "ALL")
       {
           msgBox.setWindowTitle(tr("KLog - ClubLog"));
@@ -5599,7 +5599,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 
 void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
-    qDebug() << Q_FUNC_INFO << "- Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
+    //qDebug() << Q_FUNC_INFO << "- Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
     QMessageBox msgBox;
 
     if (!util->isValidCall(_st))
@@ -5699,7 +5699,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
 
 void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
 {
-    qDebug() << Q_FUNC_INFO << QString(" - Start:  QSOs: %2" ).arg(_qsos.length ());
+    //qDebug() << Q_FUNC_INFO << QString(" - Start:  QSOs: %2" ).arg(_qsos.length ());
 
     //QString fileName = "klog-eqsl-upload.adi";
     QString fileName = util->getEQSLFile();
@@ -5723,8 +5723,8 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
 
 void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_grid << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
-    qDebug() << Q_FUNC_INFO << " - Trigered by signal: selection";
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_grid << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
+    //qDebug() << Q_FUNC_INFO << " - Trigered by signal: selection";
     switch (_eM)
     {
     case ModeADIF:         // General ADIF
@@ -5753,8 +5753,8 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_gri
 
 void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos, ExportMode _eM)
 {
-    qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
-    qDebug() << Q_FUNC_INFO << " - Trigered by signal: selection";
+    //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
+    //qDebug() << Q_FUNC_INFO << " - Trigered by signal: selection";
     switch (_eM)
     {
     case ModeADIF:         // General ADIF
@@ -5770,7 +5770,7 @@ void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos
         fileExportClubLog2(_call, _qsos);
         break;
     case ModeEQSL:         // General eQSL
-         qDebug() << Q_FUNC_INFO << " - eQSL" ;
+         //qDebug() << Q_FUNC_INFO << " - eQSL" ;
         fileExportEQSL2(_call, _qsos);
         break;
     case ModeQRZ:         // General eQSL
@@ -8288,7 +8288,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
 void MainWindow::setLogLevel(const DebugLogLevel _sev)
 {
-    qDebug() << Q_FUNC_INFO << ": " << util->debugLevelToString(_sev);
+    //qDebug() << Q_FUNC_INFO << ": " << util->debugLevelToString(_sev);
     logEvent(Q_FUNC_INFO, "Start", Debug);
     logLevel = _sev;
     showKLogLogWidget->setLogLevel(logLevel);
@@ -8333,7 +8333,7 @@ void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg,
 
 void MainWindow::slotNewLogLevel(DebugLogLevel l)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     setLogLevel(l);
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
@@ -8351,7 +8351,7 @@ bool MainWindow::loadSettings()
     QString value = settings.value ("Version").toString ();
     if (softwareVersion!=value)
     {
-        qDebug() << Q_FUNC_INFO << " - It seems it is a new version";
+        //qDebug() << Q_FUNC_INFO << " - It seems it is a new version";
         itIsANewversion = true;
     }
     setWindowSize (settings.value ("MainWindowSize").toSize ());
@@ -8509,7 +8509,7 @@ bool MainWindow::loadSettings()
 
 void MainWindow::selectTheLog(const int _i)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     currentLog = _i;
     if (!dataProxy->doesThisLogExist(currentLog))
     {

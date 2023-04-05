@@ -705,7 +705,7 @@ void SetupPageUserDataPage::setStationFocus()
 
 void SetupPageUserDataPage::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
     settings.setValue ("Callsign", getMainCallsign());

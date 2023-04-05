@@ -325,7 +325,7 @@ void SetupPageDxCluster::setSelectedDxClusterServer(const QString t)
 
 void SetupPageDxCluster::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("DXCluster");
     settings.setValue ("DXClusterServerToUse", getSelectedDxClusterServer());

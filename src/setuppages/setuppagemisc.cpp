@@ -623,7 +623,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 
 void SetupPageMisc::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
