@@ -8,7 +8,7 @@ TBD - 2.3.1
 - Bugfix: Fixed tge ClubLog URLs that were changed by ClubLog.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
-
+- Bugfix: QSOs confirmed with LoTW were not properly shown in DXCC Status. (Closes #551)(EA5WA)
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
@@ -34,7 +34,6 @@ TODO: Test the setup tab: eLog
 
 eLog: LoTW
 eLog: eQSL
-
 
 
 Oct 2022 - 2.3

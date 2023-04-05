@@ -1168,7 +1168,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     logWindow->refresh();
     dxccStatusWidget->refresh();
-    slotSearchBoxTextChanged();
+    searchWidget->slotSearchBoxTextChanged();
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" ;
 }
@@ -2948,7 +2948,7 @@ void MainWindow::slotQSODelete(const int _id)
 
                 dxccStatusWidget->refresh();
                 logWindow->refresh();
-                slotSearchBoxTextChanged();
+                searchWidget->slotSearchBoxTextChanged();
                 slotShowAwards();
                //emit updateSearchText();
             }
