@@ -65,8 +65,7 @@ public:
     void setCompleteWithPrevious(const QString &_t);
     QString getCheckNewVersions();
     void setCheckNewVersions(const QString &_t);
-    bool getReportInfo();
-    void setReportInfo(const QString &_t);
+    //void setReportInfo(const QString &_t);
     QString getDXMarathon();
     void setDXMarathon(const QString &_t);
     QString getDebugLogLevel();
@@ -84,6 +83,8 @@ public:
     int getDupeTime();
 
     bool areDBPathChangesApplied();
+    void saveSettings();
+    void loadSettings();
 
 private slots:
     void slotOpenFileButtonClicked();

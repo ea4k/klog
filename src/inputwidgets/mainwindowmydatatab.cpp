@@ -29,7 +29,7 @@
 MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"   << QT_ENDL;
+       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"  ;
     logLevel = None;
     dataProxy = dp;
     myPowerSpinBox = new QDoubleSpinBox;
@@ -58,7 +58,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) 
     lastPower = 0;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"   << QT_ENDL;
+       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"  ;
 }
 
 MainWindowMyDataTab::~MainWindowMyDataTab()
@@ -134,7 +134,7 @@ void MainWindowMyDataTab::clear(bool _full)
     modify = false;
     if (!keepThisDataForNextQSOQCheckbox->isChecked())
     {
-        //qDebug() << "MainWindowMyDataTab::clear: NOT checked"  << QT_ENDL;
+        //qDebug() << "MainWindowMyDataTab::clear: NOT checked" ;
         myPowerSpinBox->setValue(myPower);
         if (util->isValidCall(operatorQRZ))
         {
@@ -173,7 +173,8 @@ void MainWindowMyDataTab::clear(bool _full)
         operatorLineEdit->clear ();
         stationCallSignLineEdit->clear ();
         myLocatorLineEdit->clear ();
-        myPowerSpinBox->clear ();
+        //myPowerSpinBox->setValue(myPower);
+        myPowerSpinBox->clear();
         my_rig = QString();
         my_sota = QString();
         my_antenna = QString();
@@ -189,11 +190,11 @@ void MainWindowMyDataTab::show()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO;
-    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationCallsign << "/" << myLocator << QT_ENDL;
+    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationCallsign << "/" << myLocator;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationCallsign);
-    //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator  << QT_ENDL;
+    //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator ;
     myLocatorLineEdit->setText(myLocator);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -202,11 +203,11 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO;
-     //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << QT_ENDL;
+     //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
     //logEvent(Q_FUNC_INFO, "Start", logLevel);
     int cursorP = myLocatorLineEdit->cursorPosition();
     myLocatorLineEdit->setText(util->getClearSQLi(myLocatorLineEdit->text()).toUpper());
-    //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text()  << QT_ENDL;
+    //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text() ;
     if ( locator->isValidLocator(myLocatorLineEdit->text()))
     {
         if (!modify)
@@ -228,7 +229,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
         emit myLocChangedSignal(myLocatorLineEdit->text());
 
         //dxccStatusWidget->setMyLocator(myLocator);
-              //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator << QT_ENDL;
+              //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator;
         //slotLocatorTextChanged();
     }
     else
@@ -250,28 +251,7 @@ void MainWindowMyDataTab::slotReturnPressed()
     emit returnPressed();
 }
 
-void MainWindowMyDataTab::setSetupMyPower(const double _power)
-{
-    //qDebug() << Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    myPower = _power;
-    myPowerSpinBox->setValue(_power);
-    logEvent (Q_FUNC_INFO, "END", Debug);
-}
 
-void MainWindowMyDataTab::setSetupOperator(const QString &_op)
-{
-    //qDebug() << Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (!util->isValidCall (_op))
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return;
-    }
-    operatorQRZ = _op.toUpper();
-    operatorLineEdit->setText (operatorQRZ);
-    logEvent (Q_FUNC_INFO, "END", Debug);
-}
 /*
 void MainWindowMyDataTab::setSetupStationQRZ(const QString &_op)
 {
@@ -301,7 +281,7 @@ void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
 
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
-      //qDebug() << "MainWindowMyDataTab::setMyPower: " << QString::number(_power) << QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_power);
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     myPowerSpinBox->setValue(_power);
@@ -379,18 +359,11 @@ QString MainWindowMyDataTab::getMyLocator()
 }
 
 
-void MainWindowMyDataTab::setData(const double _power, const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
+void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_power > 0.0)
-    {
-        myPower = _power;
-    }
-    else
-    {
-        myPower = 0;
-    }
+
     if (util->isValidCall (_stationCallsign))
     {
         stationCallsign = _stationCallsign;
@@ -477,10 +450,6 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
         {
             stationCallSignLineEdit->setPalette(palBlack);
         }
-        //if (!modify)
-        //{
-        //    stationCallsign = (stationCallSignLineEdit->text());
-        //}
     }
     else
     {
@@ -773,4 +742,35 @@ void MainWindowMyDataTab::logEvent(const QString &_func, const QString &_msg, De
         //qDebug() << Q_FUNC_INFO << "Emitting...";
         emit debugLog (_func, _msg, _level);
     }
+}
+
+void MainWindowMyDataTab::loadSettings()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("UserData");
+
+    myPower = settings.value("Power").toDouble ();
+    myPowerSpinBox->setValue(myPower);
+    //qDebug() << Q_FUNC_INFO << " - 10 " << QString::number(myPower);
+    QString aux = settings.value("Operators").toString();
+    if (aux.contains(','))
+    {
+        aux = ((aux.split (',')).at(0)).simplified ();
+    }
+
+    //qDebug() << Q_FUNC_INFO << " - 11";
+    if (util->isValidCall (aux))
+    {
+        //qDebug() << Q_FUNC_INFO << " - 12";
+        operatorQRZ = aux.toUpper();
+        //qDebug() << Q_FUNC_INFO << " - 13";
+        operatorLineEdit->setText (operatorQRZ);
+        //qDebug() << Q_FUNC_INFO << " - 14";
+    }
+
+    settings.endGroup ();
+    //qDebug() << Q_FUNC_INFO << " - END";
+
+    logEvent (Q_FUNC_INFO, "END", Debug);
 }

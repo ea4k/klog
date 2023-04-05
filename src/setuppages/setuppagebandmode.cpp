@@ -28,7 +28,7 @@
 
 SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode"   << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode"  ;
     dataProxy = dp;
 
     bandsListWidget = new QListWidget;
@@ -61,7 +61,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     //layout->addWidget(modesListWidget);
 
     setLayout(layout);
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"   << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"  ;
 }
 
 SetupPageBandMode::~SetupPageBandMode()
@@ -94,67 +94,55 @@ void SetupPageBandMode::addModes(QStringList _b)
 }
 
 
-QString SetupPageBandMode::getBands()
+QStringList SetupPageBandMode::getBands()
 {
-       //qDebug() << "SetupPageBandMode::getBands" << QT_ENDL;
-
-    QString b;
-    QListWidgetItem *it;
-
-    if ( (bandsListWidget->count()) < 1)
+       //qDebug() << "SetupPageBandMode::getBands";
+  if ( (bandsListWidget->count()) < 1)
     {
-        return "";
+        return QStringList();
     }
+    QListWidgetItem *it;
+    QStringList _bands;
+    _bands.clear();
     for (int i = 0; i < bandsListWidget->count(); i++)
     {
         it = bandsListWidget->item(i);
         if (it->checkState() == Qt::Checked)
         {
-            b = b + it->text();
-            b = b + ", ";
+            _bands.append (it->text());
         }
     }
-    if (b.size()>=2)
-    {
-        b.chop(2);
-    }
-    return b;
+    return _bands;
 }
 
-QString SetupPageBandMode::getModes()
+QStringList SetupPageBandMode::getModes()
 {
-       //qDebug() << "SetupPageBandMode::getModes" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::getModes";
 
-    QString b;
-    QListWidgetItem *it;
 
     if ( (modesListWidget->count()) < 1)
     {
-        return "";
+        return QStringList();
     }
+    QListWidgetItem *it;
+    QStringList _modes;
+    _modes.clear ();
     for (int i = 0; i < modesListWidget->count(); i++)
     {
         it = modesListWidget->item(i);
 
         if (it->checkState() == Qt::Checked)
         {
-            b = b + it->text();
-            b = b + ", ";
+            _modes.append (it->text());
         }
     }
-
-    if (b.size()>=2)
-    {
-        b.chop(2);
-    }
-       //qDebug() << "SetupPageBandMode::getModes: " << b << QT_ENDL;
-    return b;
+    return _modes;
 }
 
 
 void SetupPageBandMode::setActiveBands(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveBands" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::setActiveBands";
 
     if (q.isEmpty())
     {return;}
@@ -184,7 +172,7 @@ void SetupPageBandMode::setActiveBands(QStringList q)
 
 void SetupPageBandMode::setActiveModes(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveModes" << QT_ENDL;
+       //qDebug() << "SetupPageBandMode::setActiveModes";
 
     if (q.isEmpty())
     {return;}
@@ -210,4 +198,15 @@ void SetupPageBandMode::setActiveModes(QStringList q)
             }
         }
     }
+}
+
+void SetupPageBandMode::saveSettings()
+{
+    //qDebug() << Q_FUNC_INFO ;
+    util = new Utilities(Q_FUNC_INFO);
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("BandMode");
+    settings.setValue ("Bands", getBands ());
+    settings.setValue ("Modes", getModes ());
+    settings.endGroup ();
 }

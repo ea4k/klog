@@ -345,7 +345,7 @@ QString QSO::getCall()
 
 bool QSO::setBand(const QString &_c)
 {
-   //qDebug() << "QSO::setBand: "<< _c << QT_ENDL;
+   //qDebug() << "QSO::setBand: "<< _c;
     if (_c.length()>0)
     {
         band = _c;
@@ -365,7 +365,7 @@ QString QSO::getBand()
 
 bool QSO::setBandRX(const QString &_c)
 {
-   //qDebug() << "QSO::setBandRX: "<< _c << QT_ENDL;
+   //qDebug() << "QSO::setBandRX: "<< _c;
     if (_c.length()>0)
     {
         band_rx = _c;
@@ -470,10 +470,10 @@ QTime QSO::getTimeOff()
 
 bool QSO::setTimeOn(const QTime &_c)
 {
-   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss") << QT_ENDL;
+   //qDebug() << "QSO::setQSLTime: " << _c.toString("mmhhss");
     if (_c.isValid())
     {
-       //qDebug() << "QSO::setQSLTime: VALID" << QT_ENDL;
+       //qDebug() << "QSO::setQSLTime: VALID";
         qso_dateTime.setTime(_c);
         return true;
     }
@@ -719,16 +719,16 @@ QDate QSO::getLoTWQSLSDate()
 
 bool QSO::setLoTWQSL_RCVD(const QString &_c)
 {
-    //qDebug() << "QSO::setLoTWQSL_RCVD: " << _c  << QT_ENDL;
+    //qDebug() << "QSO::setLoTWQSL_RCVD: " << _c ;
     if (util->isValidQSL_Rcvd(_c))
     {
-        //qDebug() << "QSO::setLoTWQSL_RCVD: VALID " << QT_ENDL;
+        //qDebug() << "QSO::setLoTWQSL_RCVD: VALID ";
         lotw_qsl_rcvd = _c;
         return true;
     }
     else
     {
-        //qDebug() << "QSO::setLoTWQSL_RCVD: NOT valid " << QT_ENDL;
+        //qDebug() << "QSO::setLoTWQSL_RCVD: NOT valid ";
         return false;
     }
 }
@@ -740,16 +740,16 @@ QString QSO::getLoTWQSL_RCVD()
 
 bool QSO::setLoTWQSLRDate(const QDate &_c)
 {
-    //qDebug() << "QSO::setLoTWQSLRDate: " << _c.toString("yyyy-MM-dd") << QT_ENDL;
+    //qDebug() << "QSO::setLoTWQSLRDate: " << _c.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
-        //qDebug() << "QSO::setLoTWQSLRDate: TRUE" << QT_ENDL;
+        //qDebug() << "QSO::setLoTWQSLRDate: TRUE";
         QSLLoTWRDate = _c;
         return true;
     }
     else
     {
-        //qDebug() << "QSO::setLoTWQSLRDate: FALSE" << QT_ENDL;
+        //qDebug() << "QSO::setLoTWQSLRDate: FALSE";
         QSLLoTWRDate = QDate();
         return false;
     }
@@ -2585,17 +2585,17 @@ bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromA
 bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
 
 bool QSO::setLoTWQSLRDate2(const QString& data) {
-    //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data  << QT_ENDL;
+    //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data ;
     setLoTWQSL_RCVD("Y");
     return setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
 }
 bool QSO::setLoTWQSLSDate1(const QString& data) {
-    //qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data  << QT_ENDL;
+    //qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data ;
     setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
 bool QSO::setLoTWQSLSDate2(const QString& data) {
-    //qDebug() << "QSO::setData: APP_LoTW_QSO_TIMESTAMP: " << data  << QT_ENDL;
+    //qDebug() << "QSO::setData: APP_LoTW_QSO_TIMESTAMP: " << data ;
     setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
@@ -2753,7 +2753,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "QSO::setData: " << _adifPair << QT_ENDL;
+    //qDebug() << "QSO::setData: " << _adifPair;
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
@@ -2762,7 +2762,7 @@ bool QSO::setData(const QString &_adifPair)
         logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
         return false;
     }
-    //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1) << QT_ENDL;
+    //qDebug() << "QSO::setData: " << d.at(0) << "/" << d.at(1);
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);

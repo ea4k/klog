@@ -103,6 +103,7 @@ HEADERS += \
     ../../src/charts/statsqsosperbandbarchartwidget.h \
     ../../src/charts/statsworkedsentpiechartwidget.h \
     ../../src/charts/statsqsospercontinentbarchartwidget.h \
+    ../../src/updatesettings.h \
     ../../src/world.h
 
 
@@ -191,6 +192,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/charts/statsqsosperbandbarchartwidget.cpp \
     ../../src/charts/statsworkedsentpiechartwidget.cpp \
     ../../src/charts/statsqsospercontinentbarchartwidget.cpp \
+    ../../src/updatesettings.cpp \
     ../../src/world.cpp
 
 unix:!mac {

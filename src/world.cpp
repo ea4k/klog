@@ -35,6 +35,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 */
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
+    Q_UNUSED(_parentFunction);
     //qDebug() << Q_FUNC_INFO << " - Start";
     //worldModel = new QSqlRelationalTableModel(this);
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -378,7 +379,7 @@ QString World::getQRZEntityName(const QString &_qrz)
     if (_qrz.length() < 1 )
     {
         return QString();
-    }    
+    }
     int prefixIDNumber = getQRZARRLId(_qrz);
     return getEntityName(prefixIDNumber);
 }

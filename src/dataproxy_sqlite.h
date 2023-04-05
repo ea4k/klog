@@ -247,6 +247,7 @@ public:
 
     int getQSOsInBand(const QString &_band, const int _log);
     int getQSOsInMode(const QString &_mode, const int _log);
+    int getDXCCInBand(const int _bandid, const bool _confirmed, const int _log);
 
     QList<QList<int>> getTop10QSOPerDXCC(const int _log);
 

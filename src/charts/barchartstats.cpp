@@ -46,7 +46,7 @@ BarChartStats::~BarChartStats()
 
 void BarChartStats::clear()
 {
-      //qDebug() << "BarChartStats::clear()" << QT_ENDL;
+      //qDebug() << "BarChartStats::clear()";
     //cleanLayout();
     prepareChart(1);
 }

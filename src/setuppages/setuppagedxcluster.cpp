@@ -31,11 +31,10 @@
 
 SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 {
-       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster";
     util = new Utilities(Q_FUNC_INFO);
 
     dxclusterServersComboBox = new QComboBox;
-    dxclusterServersComboBox->addItem("dxfun.com:8000");
     addClusterButton = new QPushButton;
     deleteClusterButton = new QPushButton;
 
@@ -140,26 +139,38 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
 
     createActions();
 
-       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster - END" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::SetupPageDxCluster - END";
 }
 
 SetupPageDxCluster::~SetupPageDxCluster()
 {
-       //qDebug() << "SetupPageDxCluster::~SetupPageDxCluster" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::~SetupPageDxCluster";
     delete(util);
 }
 
+void SetupPageDxCluster::init()
+{
+    showHFQCheckbox->setChecked(true);
+    showVHFQCheckbox->setChecked(true);
+    showWARCQCheckbox->setChecked(true);
+    showWCYQCheckbox->setChecked(true);
+    showWWVQCheckbox->setChecked(true);
+    showANNQCheckbox->setChecked(true);
+    showConfirmedQCheckbox->setChecked(true);
+    showWorkedQCheckbox->setChecked(true);
+    dxclusterServersComboBox->addItem("dxfun.com:8000");
+}
 
 void SetupPageDxCluster::createActions()
 {
-       //qDebug() << "SetupPageDxCluster::createActions" << QT_ENDL;
+       //qDebug() << "SetupPageDxCluster::createActions";
     connect(addClusterButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()) );
     connect(deleteClusterButton, SIGNAL(clicked()), this, SLOT(slotDeleteButtonClicked()) );
 }
 
 void SetupPageDxCluster::slotAddButtonClicked()
 {
-   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked" << QT_ENDL;
+   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked";
 
     bool ok;
     ok = false;
@@ -170,41 +181,41 @@ void SetupPageDxCluster::slotAddButtonClicked()
                            tr("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default:"),
                            QLineEdit::Normal, QString(),
                            &ok);
-        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text << QT_ENDL;
+        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text;
         if (ok && !text.isEmpty ())
         {
-            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 01"  << QT_ENDL;
+            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 01" ;
             if (checkIfValidDXCluster (text))
             {
-                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 02"  << QT_ENDL;
+                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 02" ;
                 if (checkIfNewDXCluster (text))
                 {
-                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 03"  << QT_ENDL;
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 03" ;
                     ok = true;
                     if ((text.contains (":")) == 0)
                     {
-                       //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 04"  << QT_ENDL;
+                       //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 04" ;
                         text = text + ":41112";
                     }
                     dxclusterServersComboBox->insertItem (0, text);
-                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 05"  << QT_ENDL;
+                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 05" ;
                 }
                 else
                 {
-                   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 06"  << QT_ENDL;
+                   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 06" ;
                     ok = false;
                 }
             }
             else
             {
-                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 07"  << QT_ENDL;
+                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 07" ;
                 ok = false;
             }
         }
         else
         {
             // user entered nothing or pressed Cancel
-            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 08"  << QT_ENDL;
+            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 08" ;
             ok = true;
         }
     }
@@ -242,20 +253,20 @@ bool SetupPageDxCluster::checkIfNewDXCluster (const QString & tdxcluster)
 
 QStringList SetupPageDxCluster::getDxclusterServersComboBox()
 {
-    //qDebug() << "SetupPageDxCluster::getDxclusterServersComboBox" << QT_ENDL;
+    //qDebug() << "SetupPageDxCluster::getDxclusterServersComboBox";
     QStringList servers;
 
     int numberOfDXClusterServers = dxclusterServersComboBox->count ();
     servers.clear();
     if(numberOfDXClusterServers>=1)
     {
-        //stream << "DXClusterServerToUse=" << dxclusterServersComboBox->currentText () << QT_ENDL;
+        //stream << "DXClusterServerToUse=" << dxclusterServersComboBox->currentText ();
         //servers << dxclusterServersComboBox->currentText ();
         for (int i = 0; i <= numberOfDXClusterServers - 1; i++)
           {
             dxclusterServersComboBox->setCurrentIndex (i);
             servers << dxclusterServersComboBox->currentText ();
-            //stream << "DXClusterServerPort=" << dxclusterServersComboBox->currentText () << QT_ENDL;
+            //stream << "DXClusterServerPort=" << dxclusterServersComboBox->currentText ();
           }
     }
     return servers;
@@ -263,7 +274,7 @@ QStringList SetupPageDxCluster::getDxclusterServersComboBox()
 
 void SetupPageDxCluster::setDxclusterServersComboBox(const QStringList t)
 {
-    //qDebug() << "SetupPageDxCluster::setDxclusterServersComboBox" << QT_ENDL;
+    //qDebug() << "SetupPageDxCluster::setDxclusterServersComboBox";
     if (t.count()>0)
     {
         QString text;
@@ -290,96 +301,6 @@ void SetupPageDxCluster::setDxclusterServersComboBox(const QStringList t)
     }
 }
 
-QString SetupPageDxCluster::getSaveActivityQCheckbox()
-{
-    return util->boolToQString (saveAllDXClusterDataQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowHFQCheckbox()
-{
-    return util->boolToQString (showHFQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowVHFQCheckbox()
-{
-    return util->boolToQString (showVHFQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowWARCQCheckbox()
-{
-    return util->boolToQString (showWARCQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowWorkedQCheckbox()
-{
-    return util->boolToQString (showWorkedQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowConfirmedQCheckbox()
-{
-    return util->boolToQString (showConfirmedQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowANNQCheckbox()
-{
-    return util->boolToQString (showANNQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowWWVQCheckbox()
-{
-    return util->boolToQString (showWWVQCheckbox->isChecked());
-}
-
-QString SetupPageDxCluster::getShowWCYQCheckbox()
-{
-    return util->boolToQString (showWCYQCheckbox->isChecked());
-}
-
-void SetupPageDxCluster::setShowHFQCheckbox(const QString t)
-{
-    showHFQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowVHFQCheckbox(const QString t)
-{
-    showVHFQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowWARCQCheckbox(const QString t)
-{
-    showWARCQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setSaveActivityQCheckbox(const QString t)
-{
-    saveAllDXClusterDataQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowWorkedQCheckbox(const QString t)
-{
-    showWorkedQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowConfirmedQCheckbox(const QString t)
-{
-    showConfirmedQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowANNQCheckbox(const QString t)
-{
-    showANNQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowWWVQCheckbox(const QString t)
-{
-    showWWVQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
-void SetupPageDxCluster::setShowWCYQCheckbox(const QString t)
-{
-    showWCYQCheckbox->setChecked(util->trueOrFalse (t));
-}
-
 QString SetupPageDxCluster::getSelectedDxClusterServer()
 {
     //qDebug() << Q_FUNC_INFO;
@@ -401,12 +322,67 @@ void SetupPageDxCluster::setSelectedDxClusterServer(const QString t)
     dxclusterServersComboBox->setCurrentIndex(dxclusterServersComboBox->findText(t));
 }
 
-QString SetupPageDxCluster::getSendSpotsToMap()
+
+void SetupPageDxCluster::saveSettings()
 {
-    return util->boolToQString (sendSpotsToMapCheckbox->isChecked());
+    //qDebug() << Q_FUNC_INFO ;
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("DXCluster");
+    settings.setValue ("DXClusterServerToUse", getSelectedDxClusterServer());
+
+    QList<QString> clusters = getDxclusterServersComboBox ();
+
+    settings.beginWriteArray("DXClusterServers");
+     for (int i = 0; i < clusters.size(); ++i) {
+         settings.setArrayIndex(i);
+         settings.setValue("Server", clusters.at(i));
+         //qDebug() << Q_FUNC_INFO << " - Writting Servers: " << clusters.at(i);
+     }
+    settings.endArray();
+
+    settings.setValue ("DXClusterShowHF", QVariant((showHFQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowVHF", QVariant((showVHFQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowWARC", QVariant((showWARCQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowWorked", QVariant((showWorkedQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowConfirmed", QVariant((showConfirmedQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowAnn", QVariant((showANNQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowWWV", QVariant((showWWVQCheckbox->isChecked())));
+    settings.setValue ("DXClusterShowWCY", QVariant((showWCYQCheckbox->isChecked())));
+    settings.setValue ("DXClusterSave", QVariant((saveAllDXClusterDataQCheckbox->isChecked())));
+    settings.setValue ("DXClusterSendToMap", QVariant((sendSpotsToMapCheckbox->isChecked())));
+    settings.endGroup ();
 }
 
-void SetupPageDxCluster::setSendSpotstoMap(const QString t)
+void SetupPageDxCluster::loadSettings()
 {
-    sendSpotsToMapCheckbox->setChecked(util->trueOrFalse (t));
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("DXCluster");
+
+    showHFQCheckbox->setChecked (settings.value("DXClusterShowHF", true).toBool ());
+    showVHFQCheckbox->setChecked (settings.value("DXClusterShowVHF", true).toBool ());
+    showWARCQCheckbox->setChecked (settings.value("DXClusterShowWARC", true).toBool ());
+    showWorkedQCheckbox->setChecked (settings.value("DXClusterShowWorked", true).toBool ());
+    showConfirmedQCheckbox->setChecked (settings.value("DXClusterShowConfirmed", true).toBool ());
+    showANNQCheckbox->setChecked (settings.value("DXClusterShowAnn", true).toBool ());
+    showWWVQCheckbox->setChecked (settings.value("DXClusterShowWWV", true).toBool ());
+    showWCYQCheckbox->setChecked (settings.value("DXClusterShowWCY", true).toBool ());
+    saveAllDXClusterDataQCheckbox->setChecked (settings.value("DXClusterSave", false).toBool ());
+    sendSpotsToMapCheckbox->setChecked (settings.value("DXClusterSendToMap", true).toBool ());
+
+    QList<QString> servers;
+    servers.clear ();
+
+    int size = settings.beginReadArray("DXClusterServers");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        servers.append (settings.value("Server").toString());
+        //qDebug() << Q_FUNC_INFO << " - Reading Servers: " << settings.value("Server").toString();
+    }
+    settings.endArray();
+
+    setDxclusterServersComboBox(servers);
+    QString aux = settings.value ("DXClusterServerToUse").toString ();
+    //qDebug() << Q_FUNC_INFO << ": " << aux;
+    dxclusterServersComboBox->setCurrentIndex(dxclusterServersComboBox->findText(aux));
+    settings.endGroup ();
 }

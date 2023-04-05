@@ -76,12 +76,14 @@ public:
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
 
     bool adifQSOsExport(const QString& _fileName, QList<int> _qsos);
+    bool adifQSOsExport2(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em);
     QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em);
+    QList<int> adifLogExportReturnList2(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
     bool adifLogExportMarked(const QString& _fileName);
     bool adifReqQSLExport(const QString& _fileName);
     //bool cabrilloLogExport(const QString& _fileName, const QString &_contestType, const int logNconst);
-    bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
+    //bool modifySetupFile(const QString& _filename, const QString &_field, const QString &_value);
     void setVersion(const QString &_version);
     QDateTime getDateTimeOfLastBackup();
     void setStationCallSign(const QString& _st);
@@ -104,7 +106,7 @@ private:
     void showError (const QString &_txt);
 
     bool askUserToUseAlwaysSameAnswer();
-    bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate);
+    bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq);
 
     //QString checkAndFixASCIIinADIF(_data);
 

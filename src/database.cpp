@@ -29,6 +29,7 @@
 
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 {
+    Q_UNUSED(_parentClass);
     //qDebug() << "DataBase::DataBase: PLAIN: " << _parentClass << " / Name = " << _DBName ;
     logLevel = None;
     constrid = 1;
@@ -53,6 +54,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
 
 DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
 {
+    Q_UNUSED(_parentClass);
     //qDebug() << "DataBase::DataBase2: " << _parentClass << "/" << _softVersion << " / Name = " << _DBName ;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     logLevel = None;
@@ -248,13 +250,14 @@ bool DataBase::reConnect(const QString &_DBName)
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
     return sqlOK;
-
 }
 
 bool DataBase::createConnection(const QString &function, bool newDB)
 {
     //qDebug() << "DataBase::createConnection: " << function << "-" << QString::number(dbVersion) << "/" << softVersion ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    Q_UNUSED(function);
+    Q_UNUSED(newDB);
     QString stringQuery;
     QSqlQuery query;
 
@@ -6985,6 +6988,10 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
 void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
 {
+    Q_UNUSED(_functionFailed);
+    Q_UNUSED(errorCodeS);
+    Q_UNUSED(_nativeError);
+    Q_UNUSED(_failedQuery);
        //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) ;
        //qDebug() << "DataBase::queryErrorManagement: Function: " << _functionFailed ;
        //qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError ;

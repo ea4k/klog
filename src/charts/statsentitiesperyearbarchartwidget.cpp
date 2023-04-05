@@ -35,9 +35,10 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget()
 
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
+    Q_UNUSED(parent);
 
 #ifdef QT_DEBUG
-//qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget" << QT_ENDL;
+//qDebug() << "StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget";
 #else
 #endif
 
@@ -90,8 +91,8 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "StatsEntitiesPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS " << QT_ENDL;
-       //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC " << QT_ENDL;
+       //qDebug() << "StatsEntitiesPerYearBarChartWidget::prepareChart: SelectedGrapth-1: YEARS ";
+       //qDebug() << "BarChartStats::prepareChart: SelectedGrapth-2: DXCC ";
         categories.append(dataProxy->getOperatingYears(_log));
         //categoriesElem = tr("DXCC Entities");
         //categoriesTitle = tr("DXCC Entities");
@@ -111,7 +112,7 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
             {
                 i = categories.count();
             }
-               //qDebug() << "BarChartStats::prepareChart DXCCs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX) << QT_ENDL;
+               //qDebug() << "BarChartStats::prepareChart DXCCs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX);
         }
 
     series->append(set0);

@@ -53,7 +53,7 @@ Wikipedia:
 
 */
 
-    //qDebug() << "Locator::isValidLocator: " << tlocator << QT_ENDL;
+    //qDebug() << "Locator::isValidLocator: " << tlocator;
 
     //int lenght_of_locator;
 
@@ -273,8 +273,8 @@ double Locator::getLon(const QString& tlocator)
 
 int Locator::getBeam(const double lon1, const double lat1, const double lon2, const double lat2){
   double lon_a,lat_a,lon_b,lat_b, bearing;
-     //qDebug() << "Locator::getBeam1: " << QString::number(lon1) << "/" << QString::number(lat1) << QT_ENDL;
-     //qDebug() << "Locator::getBeam2: " << QString::number(lon2) << "/" << QString::number(lat2) << QT_ENDL;
+     //qDebug() << "Locator::getBeam1: " << QString::number(lon1) << "/" << QString::number(lat1);
+     //qDebug() << "Locator::getBeam2: " << QString::number(lon2) << "/" << QString::number(lat2);
 
 
   lon_a=lon1*PI/180;   // Convert degrees to radians
@@ -315,7 +315,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
   bearing = 360 - (180/PI*bearing);
   bearing = 360 - bearing;
 
-     //qDebug() << "Locator::getBeam: " << QString::number(bearing) << QT_ENDL;
+     //qDebug() << "Locator::getBeam: " << QString::number(bearing);
   /* Convert to degrees */
 
   return int(bearing);
@@ -323,8 +323,8 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem){
   //http://en.wikipedia.org/wiki/Haversine_formula
-       //qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << ")" << QT_ENDL;
-// << QString::number(lat1)  << ") - DxPos(" << QString::number(lon2) << "/" << QString::number(lat2) << ")" << QT_ENDL;
+       //qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << ")";
+// << QString::number(lat1)  << ") - DxPos(" << QString::number(lon2) << "/" << QString::number(lat2) << ")";
   double lo1,la1,lo2,la2;
 
 // TODO: Is it needed to check if the longitude and latitude are correct and/or between the magins?
@@ -337,10 +337,10 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
   la2=lat2* DEG_TO_RAD;
 
   if (!_imperialSystem){
-     //qDebug() << "Locator::getDistance (Km): " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) << QT_ENDL;
+     //qDebug() << "Locator::getDistance (Km): " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS));
     return int(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
   }else{ // In milles
-       //qDebug() << "Locator::getDistance (Milles): " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137) << QT_ENDL;
+       //qDebug() << "Locator::getDistance (Milles): " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137);
     return int(((acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137);
   }
 }
@@ -362,7 +362,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
            lat = Latitude in decimal degrees (+ = North; - = South).
    Output: locator = 6 characters world wide locator.
    ------------------------------------------------- */
-    //qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")" << QT_ENDL;
+    //qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")";
     QString locat = ""; //NO locator
 
     double lo, la;
@@ -410,7 +410,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
 
 int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2)
 {
-       //qDebug() << "Locator::getBeamBetweenLocators: " << tlocator1 << "/" << tlocator2 << QT_ENDL;
+       //qDebug() << "Locator::getBeamBetweenLocators: " << tlocator1 << "/" << tlocator2;
     if (  !(isValidLocator(tlocator1) && isValidLocator(tlocator2) )  )
     {
         return -1;

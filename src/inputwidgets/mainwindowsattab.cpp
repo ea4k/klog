@@ -31,7 +31,7 @@ This class implements the Satellite TAB of the MainWindow
 MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowSatTab::MainWindowSatTab"   << QT_ENDL;
+       //qDebug() << "MainWindowSatTab::MainWindowSatTab"  ;
     satNameComboBox = new QComboBox;
     satNameLineEdit = new QLineEdit;
     satModeLineEdit = new QLineEdit;
@@ -62,7 +62,7 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     palWhite.setColor(QPalette::Text, Qt::white);
 
     setDefaultBands(); //TODO: Check how the bands are included not to create an inconsistence with the selected (in the setup) bands
-       //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"   << QT_ENDL;
+       //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"  ;
 }
 
 MainWindowSatTab::~MainWindowSatTab(){
@@ -164,14 +164,14 @@ void MainWindowSatTab::createUI()
 
 void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
-   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << satNameComboBox->currentText() << QT_ENDL;
+   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << satNameComboBox->currentText();
     if (modifying || (satNameComboBox->currentText().length()<4))
     {
         return;
     }
 
     int i = satNameComboBox->currentIndex();
-   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i) << QT_ENDL;
+   //qDebug() << "MainWindowSatTab::slotSatNameComboBoxChanged: " << QString::number(i);
     //QString _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
 
     satNameLineEdit->clear();
@@ -203,7 +203,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
 
 void MainWindowSatTab::slotSatNameTextChanged()
 {
-    //qDebug() << "MainWindowSatTab::slotSatNameTextChanged: " << satNameLineEdit->text() << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::slotSatNameTextChanged: " << satNameLineEdit->text();
     int cursor = satNameLineEdit->cursorPosition ();
     satNameLineEdit->setText((util->getClearSQLi (satNameLineEdit->text())).toUpper());
 
@@ -226,7 +226,7 @@ void MainWindowSatTab::slotSatNameTextChanged()
 
 void MainWindowSatTab::slotSatModeTextChanged()
 {
-    //qDebug() << "MainWindowSatTab::slotSatModeTextChanged: " << satModeLineEdit->text() << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::slotSatModeTextChanged: " << satModeLineEdit->text();
 /*
     satModeLineEdit->setText((satModeLineEdit->text()).toUpper());
 
@@ -252,13 +252,13 @@ QString MainWindowSatTab::getSatName()
     //TODO: Check that the format is OK
     return satName;
  */
-    //qDebug() << "MainWindowSatTab::getSatName:" << satNameComboBox->currentText() << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::getSatName:" << satNameComboBox->currentText();
     QString _pm = QString();
     QString satName = QString();
 
     _pm = (((satNameComboBox->currentText()).split(' ')).at(0)).simplified();
 
-       //qDebug() << "MainWindowSatTab::satNameComboBox: " << _pm << QT_ENDL;
+       //qDebug() << "MainWindowSatTab::satNameComboBox: " << _pm;
     if (satNameComboBox->currentIndex() == 0)
     {
         return QString();
@@ -290,7 +290,7 @@ void MainWindowSatTab::setNoSat()
 void MainWindowSatTab::setSatName(const QString &_t)
 {
      //TODO: Check that the format is OK
-    //qDebug() << "MainWindowSatTab::setSatName: " << _t << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::setSatName: " << _t;
     //satNameLineEdit->setText(_t);
     if (_t =="")
     {
@@ -309,7 +309,7 @@ void MainWindowSatTab::setSatName(const QString &_t)
 
 QString MainWindowSatTab::getSatMode()
 {
-    //qDebug() << "MainWindowSatTab::getSatMode: " << satModeLineEdit->text() << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::getSatMode: " << satModeLineEdit->text();
     return satModeLineEdit->text();
 }
 
@@ -328,19 +328,19 @@ void MainWindowSatTab::setSatMode(const QString &_t)
 
 bool MainWindowSatTab::getRepeatThis()
 {
-    //qDebug() << "MainWindowSatTab::getRepeatThis: "  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::getRepeatThis: " ;
     return keepThisDataForNextQSOQcheckbox->isChecked();
 }
 
 void MainWindowSatTab::setRepeatThis(const bool _t)
 {
-    //qDebug() << "MainWindowSatTab::setRepeatThis: "  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::setRepeatThis: " ;
     keepThisDataForNextQSOQcheckbox->setChecked(_t);
 }
 
 void MainWindowSatTab::clear(bool _full)
 {
-    //qDebug() << "MainWindowSatTab::clear"  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::clear" ;
     modifying = false;
     if ((keepThisDataForNextQSOQcheckbox->isChecked()) || (!_full))
     {
@@ -359,14 +359,14 @@ void MainWindowSatTab::clear(bool _full)
 
 void MainWindowSatTab::refreshData()
 {
-    //qDebug() << "MainWindowSatTab::refreshData"  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::refreshData" ;
     populateSatComboBox();
     //autofillSatMode();
 }
 
 void MainWindowSatTab::populateSatComboBox()
 {
-    //qDebug() << "MainWindowSatTab::populateSatComboBox: " << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::populateSatComboBox: ";
 
     QString nosat = tr("Not Sat QSO");
     QString othersat = tr("Other - Sat not in the list");
@@ -389,11 +389,11 @@ void MainWindowSatTab::populateSatComboBox()
 
 void MainWindowSatTab::setSatelliteCombo(const QString &_p)
 {
-    //qDebug() << "MainWindowsatTab::setSatelliteCombo: " << _p << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setSatelliteCombo: " << _p;
     QString aux = QString();
     int indexC = getSatIndex(_p);
     //int indexC = satNameComboBox->findText(_p, Qt::MatchContains);
-       //qDebug() << "MainWindowsatTab::setSatelliteCombo: N=" << QString::number(indexC) << QT_ENDL;
+       //qDebug() << "MainWindowsatTab::setSatelliteCombo: N=" << QString::number(indexC);
     if (indexC>0)
     {
         satNameComboBox->setCurrentIndex(indexC);
@@ -424,25 +424,25 @@ void MainWindowSatTab::setSatelliteCombo(const QString &_p)
 
 void MainWindowSatTab::setOtherSatName(const QString &_t)
 {
-    //qDebug() << "MainWindowsatTab::setOtherSatName: " << _t << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setOtherSatName: " << _t;
     satNameLineEdit->setText(_t);
 }
 
 QString MainWindowSatTab::getOtherSatName()
 {
-    //qDebug() << "MainWindowSatTab::getOtherSatName"  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::getOtherSatName" ;
     return QString();
 }
 
 int MainWindowSatTab::getSatIndex(const QString &_p)
 {
-    //qDebug() << "MainWindowSatTab::getSatIndex: " << QString::number(satNameComboBox->findText(_p, Qt::MatchContains))  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::getSatIndex: " << QString::number(satNameComboBox->findText(_p, Qt::MatchContains)) ;
     return satNameComboBox->findText(_p, Qt::MatchContains);
 }
 
 void MainWindowSatTab::addBands(QStringList _bands)
 {
-    //qDebug() << "MainWindowSatTab::addBands: " << QString::number(_bands.length()) << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::addBands: " << QString::number(_bands.length());
     updatingBands = true;
     QString _txBand = satBandTXComboBox->currentText();
     QString _rxBand = satBandRXComboBox->currentText();
@@ -455,12 +455,12 @@ void MainWindowSatTab::addBands(QStringList _bands)
     satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(_rxBand, Qt::MatchCaseSensitive));
     //txBandsBeingChanged = false;
     updatingBands = false;
-    //qDebug() << "MainWindowSatTab::addBands - END"  << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::addBands - END" ;
 }
 
 void MainWindowSatTab::setDefaultBands()
 {//Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
-    //qDebug() << "MainWindowsatTab::setDefaultBands: " << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setDefaultBands: ";
     QStringList _b;
     _b.clear();
 
@@ -471,7 +471,7 @@ void MainWindowSatTab::setDefaultBands()
 
 void MainWindowSatTab::slotSatBandRXComboBoxChanged()
 {
-    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged" << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged";
     if (updatingBands || modifying)
     {
         return;
@@ -480,13 +480,13 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
     bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(freqRX));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
-       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText()  << QT_ENDL;
-        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()))  << QT_ENDL;
+       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText() ;
+        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
 
         updateRXFreq(dataProxy->getLowLimitBandFromBandName(satBandRXComboBox->currentText()));
     }
 
-    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END" << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END";
     autofillSatMode();
 }
 
@@ -502,8 +502,8 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     bool freqInBand = dataProxy->isThisFreqInBand(tmpBand, QString::number(freqTX));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
-       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText()  << QT_ENDL;
-        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()))  << QT_ENDL;
+       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText() ;
+        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
         QString tmpFreq = dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(satBandTXComboBox->currentText()));
         //qDebug() << ": Normal" << dataProxy->getSatelliteUplink(getSatName());
         //qDebug() << ": Normal1" << dataProxy->getSatelliteUplink(getSatName(), 1);
@@ -527,7 +527,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
 
         updateTXFreq(upLink);
     }
-   //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged-END" << QT_ENDL;
+   //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged-END";
     autofillSatMode();
 }
 
@@ -540,8 +540,8 @@ void MainWindowSatTab::setUpLink(const QString &_t)
         return;
     }
     int index = satBandTXComboBox->findText(_t, Qt::MatchCaseSensitive);
-    //qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index) << QT_ENDL;
-    //qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex()) << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setUpLink: new index: " << QString::number(index);
+    //qDebug() << "MainWindowsatTab::setUpLink: current index: " << QString::number(satBandTXComboBox->currentIndex());
     //int indexRX;
     if (index>=0)
     {
@@ -584,7 +584,7 @@ void MainWindowSatTab::setUpLinkFreq(const double _t)
 
 double MainWindowSatTab::getRXFreq()
 {
-    //qDebug() << "MainWindowsatTab::getRXFreq " << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::getRXFreq ";
     return freqRX;
 }
 
@@ -680,8 +680,8 @@ void MainWindowSatTab::updateTXFreq(const double _f)
             bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(freqTX));
             if(!freqInBand)
             { // If the freq does not belong to the current band, we need to update the band
-                //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: If the freq does not belong to the current band, we need to update the band" << QT_ENDL;
-                //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: We define UpLink to: " << dataProxy->getBandNameFromFreq(txFreqSpinBox->value()) << QT_ENDL;
+                //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: If the freq does not belong to the current band, we need to update the band";
+                //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: We define UpLink to: " << dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
                 QString aux = dataProxy->getBandNameFromFreq(freqTX);
                 //qDebug() << Q_FUNC_INFO << QString("FreqTx = %1 / Band = %2").arg(freqTX).arg(aux);
                 if (satBandTXComboBox->findText(aux, Qt::MatchCaseSensitive)<0)
@@ -694,7 +694,7 @@ void MainWindowSatTab::updateTXFreq(const double _f)
         //autofillSatMode();
         }
 
-        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Emitting: " << QString::number(txFreqSpinBox->value()) << QT_ENDL;
+        //qDebug() << "MainWindowsatTab::slotSatFreqTXChanged: Emitting: " << QString::number(txFreqSpinBox->value());
         emit satTxFreqChanged(freqTX);
         //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -704,7 +704,7 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
     // Until the data is in the DB, this function tries to solve data of active sats from: http://www.amsat.org/status/
     // This functio:
     //  - identifies the freqs & bands that the sat is using
-    //qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - Short: " << _p.section(' ', 0, 0) << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - Short: " << _p.section(' ', 0, 0);
     //"AO-7 - AMSAT-OSCAT 7"
     //2M/10M << 2M/70CM
     if (modifying)
@@ -744,15 +744,15 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
     }
       //qDebug() << "MainWindowSatTab::setBandsOfSat downLink: emiting: " << QString::number(downLink)<< QT_ENDL;
     //emit satRxFreqChanged(downLink);
-      //qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - END "  << QT_ENDL;
+      //qDebug() << "MainWindowSatTab::setBandsOfSat: " << _p << " - END " ;
 }
 
 void MainWindowSatTab::addNewBand(const QString &_p)
 {
-    //qDebug() << "MainWindowSatTab::addNewBand: " << _p << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::addNewBand: " << _p;
     if (dataProxy->getIdFromBandName(_p)<0)
     {
-        //qDebug() << "MainWindowSatTab::addNewBand: Id: " <<  QString::number(dataProxy->getIdFromBandName(_p)) << QT_ENDL;
+        //qDebug() << "MainWindowSatTab::addNewBand: Id: " <<  QString::number(dataProxy->getIdFromBandName(_p));
         return;
     }
     QStringList bands;
@@ -760,8 +760,8 @@ void MainWindowSatTab::addNewBand(const QString &_p)
     int indexRX = satBandRXComboBox->currentIndex();
     int indexTX = satBandTXComboBox->currentIndex();
 
-       //qDebug() << "MainWindowSatTab::addNewBand: RX Id: " <<  QString::number(satBandRXComboBox->count()) << QT_ENDL;
-       //qDebug() << "MainWindowSatTab::addNewBand: TX Id: " <<  QString::number(satBandTXComboBox->count()) << QT_ENDL;
+       //qDebug() << "MainWindowSatTab::addNewBand: RX Id: " <<  QString::number(satBandRXComboBox->count());
+       //qDebug() << "MainWindowSatTab::addNewBand: TX Id: " <<  QString::number(satBandTXComboBox->count());
 
     for (int i = 0; i < satBandTXComboBox->count(); i++)
     {
@@ -780,32 +780,32 @@ void MainWindowSatTab::addNewBand(const QString &_p)
     satBandRXComboBox->setCurrentIndex(indexRX);
     satBandTXComboBox->setCurrentIndex(indexTX);
     //addBands(bands);
-    //qDebug() << "MainWindowSatTab::addNewBand: 2 RX Id: " <<  QString::number(satBandRXComboBox->count()) << QT_ENDL;
-    //qDebug() << "MainWindowSatTab::addNewBand: 2 TX Id: " <<  QString::number(satBandTXComboBox->count()) << QT_ENDL;
+    //qDebug() << "MainWindowSatTab::addNewBand: 2 RX Id: " <<  QString::number(satBandRXComboBox->count());
+    //qDebug() << "MainWindowSatTab::addNewBand: 2 TX Id: " <<  QString::number(satBandTXComboBox->count());
 }
 
 void MainWindowSatTab::setModifying (const bool _m)
 {
-    //qDebug() << "MainWindowsatTab::setModifying" << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::setModifying";
     modifying = _m;
 }
 
 void MainWindowSatTab::slotReturnPressed()
 {
-    //qDebug() << "MainWindowsatTab::slotReturnPressed" << QT_ENDL;
+    //qDebug() << "MainWindowsatTab::slotReturnPressed";
     emit returnPressed();
 }
 
 void MainWindowSatTab::slotSatKeepThisDataClicked()
 {
-    //qDebug() << Q_FUNC_INFO << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO;
     if (keepThisDataForNextQSOQcheckbox->isChecked())
     {
-        //qDebug() << Q_FUNC_INFO << ": True" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": True";
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": False" << QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": False";
     }
     slotSatNameComboBoxChanged();
 }

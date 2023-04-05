@@ -55,12 +55,12 @@ StatisticsWidget::~StatisticsWidget()
 void StatisticsWidget::clear()
 {
     //qDebug() << Q_FUNC_INFO << "Start-END";
-     //qDebug() <<  "StatisticsWidget::clear()" << QT_ENDL;
+     //qDebug() <<  "StatisticsWidget::clear()";
 }
 
 void StatisticsWidget::closeEvent(QCloseEvent *event)
 {
-       //qDebug() << "StatisticsWidget::closeEvent" << QT_ENDL;
+       //qDebug() << "StatisticsWidget::closeEvent";
     //barChartStats->clear();
     //qDebug() << Q_FUNC_INFO << "Start-END";
     event->accept();
@@ -69,7 +69,7 @@ void StatisticsWidget::closeEvent(QCloseEvent *event)
 
 void StatisticsWidget::showEvent(QShowEvent *event)
 {
-      //qDebug() << "StatisticsWidget::showEvent" << QT_ENDL;
+      //qDebug() << "StatisticsWidget::showEvent";
     //qDebug() << Q_FUNC_INFO << "Start";
     fillLogCombo();
     event->accept();
@@ -78,7 +78,7 @@ void StatisticsWidget::showEvent(QShowEvent *event)
 
 void StatisticsWidget::slotChartComboBoxChanged()
 {
-       //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText()  << QT_ENDL;
+       //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText() ;
     //qDebug() << Q_FUNC_INFO << "Start";
     updateChart();
     statisticToShowComboBox->setFocus();
@@ -101,8 +101,8 @@ void StatisticsWidget::updateChart()
     //qDebug() << Q_FUNC_INFO << " - 010";
     int log = ((logComboBox->currentText()).section('-', 0, 0)).toInt();
     //qDebug() << Q_FUNC_INFO << " - 011";
-    //qDebug() << Q_FUNC_INFO << " Text : " << logComboBox->currentText() << QT_ENDL;
-    //qDebug() << Q_FUNC_INFO << " Log : " << QString::number(log) << QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " Text : " << logComboBox->currentText();
+    //qDebug() << Q_FUNC_INFO << " Log : " << QString::number(log);
     barChartStats->prepareChart(text.toInt(), log);
     //qDebug() << Q_FUNC_INFO << "END";
 }
@@ -154,7 +154,7 @@ void StatisticsWidget::fillLogCombo()
 
     for (int i = 0; i < ids.size(); ++i)
     {
-        //cout << fonts.at(i).toLocal8Bit().constData() << QT_ENDL;
+        //cout << fonts.at(i).toLocal8Bit().constData();
         logs<< ids.at(i) + "-" + dataProxy->getLogDateFromLog((ids.at(i)).toInt()) + "-" + dataProxy->getStationCallSignFromLog((ids.at(i)).toInt());
     }
     logComboBox->clear();

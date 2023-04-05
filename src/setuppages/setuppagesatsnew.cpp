@@ -32,7 +32,8 @@
 
 SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
-       //qDebug() << "SetupPageSatsNew::SetupPageSatsNew"   << QT_ENDL;
+       //qDebug() << "SetupPageSatsNew::SetupPageSatsNew"  ;
+    Q_UNUSED(parent);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     editing = false;
@@ -60,7 +61,7 @@ SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
 
     okButton->setEnabled(true);
 
-       //qDebug() << "SetupPageSatsNew::SetupPageSatsNew - END"   << QT_ENDL;
+       //qDebug() << "SetupPageSatsNew::SetupPageSatsNew - END"  ;
 }
 
 SetupPageSatsNew::~SetupPageSatsNew()
@@ -93,7 +94,7 @@ void SetupPageSatsNew::clear()
 
 void SetupPageSatsNew::createUI()
 {
-       //qDebug() << "SetupPageSatsNew::createWidget" << QT_ENDL;
+       //qDebug() << "SetupPageSatsNew::createWidget";
 
     shortNameLabel->setWordWrap(true);
     nameLabel->setWordWrap(true);
@@ -190,7 +191,7 @@ void SetupPageSatsNew::slotUpLinkTextChanged()
             Range:                  145.600-145.700
             Two freqs or ranges:    145.600,145.650 or 145.600,145.600-145.700
 */
-      //qDebug() << "SetupPageSatsNew::slotUpLinkTextChanged:" <<  uplinkLineEdit->text()  << QT_ENDL;
+      //qDebug() << "SetupPageSatsNew::slotUpLinkTextChanged:" <<  uplinkLineEdit->text() ;
 
     if ((uplinkLineEdit->text()).length()<2)
     {
@@ -208,7 +209,7 @@ void SetupPageSatsNew::slotUpLinkTextChanged()
     {
         if (aux.contains('-'))
         { // It is a range
-              //qDebug() << "SetupPageSatsNew::slotUpLinkTextChanged: It is a range: " <<  aux << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotUpLinkTextChanged: It is a range: " <<  aux;
         }
         else
         { //It is just one freq
@@ -222,10 +223,11 @@ void SetupPageSatsNew::slotUpLinkTextChanged()
 
 bool SetupPageSatsNew::isItAFreq(const QString &_st)
 {
-      //qDebug() << "SetupPageSatsNew::isItAFreq: It is one freq: " << _st << QT_ENDL;
+      //qDebug() << "SetupPageSatsNew::isItAFreq: It is one freq: " << _st;
     bool ok = false;
     double freq = _st.toDouble(&ok);
-    return ok;
+    return ((freq>=0.0) && (ok));
+
 }
 
 void SetupPageSatsNew::slotDownLinkTextChanged()
@@ -251,7 +253,7 @@ void SetupPageSatsNew::slotDownLinkTextChanged()
     {
         if (aux.contains('-'))
         { // It is a range
-              //qDebug() << "SetupPageSatsNew::slotUpLinkTextChanged: It is a range: " <<  aux << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotUpLinkTextChanged: It is a range: " <<  aux;
         }
         else
         { //It is just one freq
@@ -271,7 +273,7 @@ void SetupPageSatsNew::slotModesTextChanged()
                 Two modes:              USB,LSB
                 One mode per up/down    USB/LSB
     */
-      //qDebug() << "SetupPageSatsNew::slotModesTextChanged: " <<  modesLineEdit->text() << QT_ENDL;
+      //qDebug() << "SetupPageSatsNew::slotModesTextChanged: " <<  modesLineEdit->text();
     int cursorP = modesLineEdit->cursorPosition();
 
     modesLineEdit->setText((modesLineEdit->text()).toUpper());
@@ -283,15 +285,15 @@ void SetupPageSatsNew::slotModesTextChanged()
         return;
     }
 
-      //qDebug() << "SetupPageSatsNew::slotModesTextChanged: length >=2" << QT_ENDL;
+      //qDebug() << "SetupPageSatsNew::slotModesTextChanged: length >=2";
     QStringList _modes;
     _modes.clear();
     _modes = (modesLineEdit->text()).split(',');
 
-      //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Starting to process the list"  << QT_ENDL;
+      //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Starting to process the list" ;
     foreach (aux, _modes)
     {
-          //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Processing: " <<  aux << QT_ENDL;
+          //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Processing: " <<  aux;
         if (aux.contains('/'))
         {// It s a pair of modes (up and down link)
             QStringList _pair;
@@ -299,16 +301,16 @@ void SetupPageSatsNew::slotModesTextChanged()
             _pair << aux.split('/');
             foreach (aux2, _pair)
             {
-                  //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Processing aux2: " <<  aux2 << QT_ENDL;
+                  //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Processing aux2: " <<  aux2;
 
                if (dataProxy->getIdFromModeName(aux2)>0)
                {
-                     //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking2: true: " <<  aux2 << QT_ENDL;
+                     //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking2: true: " <<  aux2;
                    hasModes = true;
                }
                else
                {
-                     //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking2: false: " <<  aux2 << QT_ENDL;
+                     //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking2: false: " <<  aux2;
                    hasModes = false;
                }
             }
@@ -316,16 +318,16 @@ void SetupPageSatsNew::slotModesTextChanged()
         }
         else
         {
-              //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: " <<  aux << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: " <<  aux;
 
             if (dataProxy->getSubModeIdFromSubMode(aux)>0)
             {
-                  //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: true: " <<  aux << QT_ENDL;
+                  //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: true: " <<  aux;
                 hasModes = true;
             }
             else
             {
-                  //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: false: " <<  aux << QT_ENDL;
+                  //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: false: " <<  aux;
                 hasModes = false;
             }
         }
@@ -362,7 +364,7 @@ void SetupPageSatsNew::setModes(const QString st)
 void SetupPageSatsNew::slotOKButtonClicked()
 {
 
-       //qDebug() << "SetupPageSatsNew::slotOkButtonClicked" << QT_ENDL;
+       //qDebug() << "SetupPageSatsNew::slotOkButtonClicked";
     shortName = shortNameLineEdit->text();
     name = nameLineEdit->text();
     uplink = uplinkLineEdit->text();
@@ -385,23 +387,23 @@ void SetupPageSatsNew::slotOKButtonClicked()
 
         if (!hasShortName)
         {
-              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasShortName is FALSE" << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasShortName is FALSE";
         }
         else if (!hasName)
         {
-              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasName is FALSE" << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasName is FALSE";
         }
         else if (!hasUplink)
         {
-              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasUpLink is FALSE" << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasUpLink is FALSE";
         }
         else if (!hasDownlink)
         {
-              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasDownLink is FALSE" << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasDownLink is FALSE";
         }
         else if (!hasModes)
         {
-              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasModes is FALSE" << QT_ENDL;
+              //qDebug() << "SetupPageSatsNew::slotOkButtonClicked hasModes is FALSE";
         }
     }
     //close();
@@ -409,7 +411,7 @@ void SetupPageSatsNew::slotOKButtonClicked()
 
 void SetupPageSatsNew::gatherAndSend()
 {
-     //qDebug() << "SetupPageSatsNew::gatherAndSend: " << QT_ENDL;
+     //qDebug() << "SetupPageSatsNew::gatherAndSend: ";
 
 
     // The previous lines will be removed once more contest types have been added
@@ -419,7 +421,7 @@ void SetupPageSatsNew::gatherAndSend()
                uplinkLineEdit->text() << modesLineEdit->text();
 
     int satId = dataProxy->getDBSatId(shortNameLineEdit->text());
-      //qDebug() << "SetupPageSatsNew::gatherAndSend: satId: " << QString::number(satId) << QT_ENDL;
+      //qDebug() << "SetupPageSatsNew::gatherAndSend: satId: " << QString::number(satId);
     if ((editing) && (satId>0))
     {
         satData << "1";
@@ -432,7 +434,7 @@ void SetupPageSatsNew::gatherAndSend()
         dataProxy->addSatellite(shortNameLineEdit->text(), nameLineEdit->text(), downlinkLineEdit->text(), uplinkLineEdit->text(), modesLineEdit->text());
     }
 
-       //qDebug() << "SetupPageSatsNew::gatherAndSend: EMITED" << QT_ENDL;
+       //qDebug() << "SetupPageSatsNew::gatherAndSend: EMITED";
 
 
     emit newSatData(satData);
@@ -441,7 +443,7 @@ void SetupPageSatsNew::gatherAndSend()
 
 void SetupPageSatsNew::slotCancelButtonClicked()
 {
-       //qDebug() << "SetupPageSatsNew::slotCancelButtonClicked" << QT_ENDL;
+       //qDebug() << "SetupPageSatsNew::slotCancelButtonClicked";
     satData.clear();
     clear();
     emit cancelled(true);

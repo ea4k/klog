@@ -50,12 +50,14 @@ class DXClusterWidget : public QWidget
     ~DXClusterWidget();
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
-    void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
+    //void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     void setCurrentLog(const int _log);
     bool isConnected();
     void setMyQRZ(const QString &_qrz);
     void setDXMarathon (const bool _enable);
     void setSaveSpots (const bool _enable);
+    void loadSettings();
+    void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 private slots:
@@ -70,6 +72,7 @@ private slots:
     void slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item );
     void slotClusterDXClusterWidgetItemEntered( QListWidgetItem * item);
     void slotClusterDXClusterWidgetItemSelected();
+    void slotRighButton (const QPoint& pos);
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked

@@ -27,7 +27,7 @@
 #include "setuppageuserdata.h"
 
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
-      //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage" << QT_ENDL;
+      //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage";
    locator = new Locator();
    util = new Utilities(Q_FUNC_INFO);
    dataProxy = dp;
@@ -247,13 +247,13 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
 
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END";
 }
 
 
 SetupPageUserDataPage::~SetupPageUserDataPage()
 {
-       //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage";
     delete(locator);
     delete(util);
     delete(world);
@@ -284,7 +284,7 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
-      //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size()) << QT_ENDL;
+      //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
 
     int i = maincallsignLineEdit->cursorPosition();
 
@@ -328,26 +328,32 @@ int SetupPageUserDataPage::getITUz(){
     return (ituzLineEdit->text()).toInt();
 }
 
-bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz){
+bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    if (_qrz.length ()<3)
+    {
+        return false;
+    }
     maincallsignLineEdit->setText((_qrz).toUpper());
     return true;
 }
 
-bool SetupPageUserDataPage::setCQz(const int _cqz){
+bool SetupPageUserDataPage::setCQz(const int _cqz)
+{
     cqzLineEdit->setText(QString::number(_cqz));
     return true;
 }
 
-bool SetupPageUserDataPage::setITUz(const int _ituz){
+bool SetupPageUserDataPage::setITUz(const int _ituz)
+{
     ituzLineEdit->setText(QString::number(_ituz));
     return true;
 }
 
 void SetupPageUserDataPage::slotMyLocatorTextChanged()
 {
-       //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text() << QT_ENDL;
-
-    //int i;
+       //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
 
     myLocatorLineEdit->setText(((util->getClearSQLi(myLocatorLineEdit->text()))).simplified());
     myLocatorLineEdit->setText((myLocatorLineEdit->text()).toUpper());
@@ -462,7 +468,6 @@ QString SetupPageUserDataPage::getCity()
     return cityLineEdit->text();
 }
 
-
 QString SetupPageUserDataPage::getZipCode()
 {
     return zipLineEdit->text();
@@ -555,17 +560,16 @@ QStringList SetupPageUserDataPage::getAntennas()
     return a;
 }
 
-QString SetupPageUserDataPage::getPower()
+double SetupPageUserDataPage::getPower()
 {
-    return QString::number(myPowerSpinBox->value());
+    return myPowerSpinBox->value();
 }
 
 
-bool SetupPageUserDataPage::setPower(const QString &_aux)
+bool SetupPageUserDataPage::setPower(const float _aux)
 {
-    myPowerSpinBox->setValue(_aux.toFloat());
+    myPowerSpinBox->setValue(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setRig1 (const QString &_aux)
@@ -610,7 +614,7 @@ bool SetupPageUserDataPage::setAntenna3 (const QString &_aux)
 
 void SetupPageUserDataPage::slotOperatorsChanged()
 {
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged";
     //QString _operators = operatorsLineEdit->text();
 
 
@@ -630,31 +634,31 @@ void SetupPageUserDataPage::slotOperatorsChanged()
 
     QStringList operators = _a.split(",", QT_SKIP);
 
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02" << QT_ENDL;
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02.5 Size: " << QString::number(operators.size()) << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02";
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-02.5 Size: " << QString::number(operators.size());
 
     for (int ii = 0; ii < operators.size(); ++ii)
     {
-           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-03 - " << QString::number(ii) << QT_ENDL;
+           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-03 - " << QString::number(ii);
         operatorsOK = util->isValidCall(operators.at(ii));
         //operatorsOK = world->checkQRZValidFormat(operators.at(ii));
     }
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-04" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-04";
 
     if (operatorsOK)
     {
-        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT" << QT_ENDL;
+        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT";
         operatorsLineEdit->setPalette(*defaultPalette);
         emit operatorsSignal(operatorsLineEdit->text());
     }
     else
     {
          operatorsLineEdit->setPalette(*wrongPalette);
-           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: NOT VALID FORMAT" << QT_ENDL;
+           //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: NOT VALID FORMAT";
     }
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-05";
     operatorsLineEdit->setCursorPosition(i);
-       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-END" << QT_ENDL;
+       //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-END";
 }
 
 QString SetupPageUserDataPage::getOperators()
@@ -695,6 +699,66 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 }
 void SetupPageUserDataPage::setStationFocus()
 {
-    //qDebug() << "SetupPageUserDataPage::setStationFocus" << QT_ENDL;
+    //qDebug() << "SetupPageUserDataPage::setStationFocus";
     maincallsignLineEdit->setFocus();
+}
+
+void SetupPageUserDataPage::saveSettings()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("UserData");
+    settings.setValue ("Callsign", getMainCallsign());
+    settings.setValue ("Operators", getOperators());
+    settings.setValue ("CQz", getCQz ());
+    settings.setValue ("ITUz", getITUz());
+    settings.setValue ("StationLocator", getStationLocator());
+    settings.setValue ("Name", getName());
+    settings.setValue ("Address1", getAddress1());
+    settings.setValue ("Address2", getAddress2());
+    settings.setValue ("Address3", getAddress3());
+    settings.setValue ("Address4", getAddress4());
+    settings.setValue ("City", getCity());
+    settings.setValue ("ZipCode", getZipCode());
+    settings.setValue ("ProvinceState", getProvince());
+    settings.setValue ("Country", getCountry());
+    settings.setValue ("Rig1", getRig1());
+    settings.setValue ("Rig2", getRig2());
+    settings.setValue ("Rig3", getRig3());
+    settings.setValue ("Antenna1", getAntenna1());
+    settings.setValue ("Antenna2", getAntenna2());
+    settings.setValue ("Antenna3",getAntenna3());
+    settings.setValue ("Power", getPower ());
+    settings.endGroup ();
+    //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void SetupPageUserDataPage::loadSettings()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("UserData");
+    setMainCallsign(settings.value ("Callsign").toString ());
+    setOperators (settings.value ("Operators").toString ());
+    setStationLocator (settings.value ("StationLocator").toString ());
+    cqzLineEdit->setText (settings.value ("CQz").toString ());
+    ituzLineEdit->setText (settings.value ("ITUz").toString ());
+    nameLineEdit->setText (settings.value ("Name").toString ());
+    address1LineEdit->setText(settings.value ("Address1").toString ());
+    address2LineEdit->setText(settings.value ("Address2").toString ());
+    address3LineEdit->setText(settings.value ("Address3").toString ());
+    address4LineEdit->setText(settings.value ("Address4").toString ());
+    cityLineEdit->setText (settings.value ("City").toString ());
+    zipLineEdit->setText (settings.value ("ZipCode").toString ());
+    provinceLineEdit->setText(settings.value ("ProvinceState").toString ());
+    countryLineEdit->setText (settings.value ("Country").toString ());
+    rig1LineEdit->setText (settings.value ("Rig1").toString ());
+    rig2LineEdit->setText (settings.value ("Rig2").toString ());
+    rig3LineEdit->setText (settings.value ("Rig3").toString ());
+    ant1LineEdit->setText (settings.value ("Antenna1").toString ());
+    ant2LineEdit->setText (settings.value ("Antenna2").toString ());
+    ant3LineEdit->setText (settings.value ("Antenna3").toString ());
+    myPowerSpinBox->setValue(settings.value ("Power").toDouble ());
+    settings.endGroup ();
 }

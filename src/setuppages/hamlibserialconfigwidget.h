@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QSerialPortInfo>
 #include "../klogdefinitions.h"
+#include "../utilities.h"
 
 class HamLibSerialConfigWidget : public QWidget
 {

@@ -76,6 +76,7 @@
 #include "widgets/map/mapwindowwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
+#include "updatesettings.h"
 #include "klogdefinitions.h"
 
 class QTimer;
@@ -133,7 +134,7 @@ class MainWindow : public  QMainWindow
     friend class tst_MainWindow;
 
 public:
-    MainWindow(const QString &_klogDir, const QString &tversion);
+    MainWindow(const QString &tversion);
     ~MainWindow();
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
@@ -205,7 +206,7 @@ private slots:
     void slotLoTWDownload();
     void slotLoTWFullDownload();
     void slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
-
+    void slotADIFExportSelection2(const QString &_call, QList<int> _qsos, ExportMode _eM);
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();
@@ -281,7 +282,7 @@ private slots:
     void slotElogQRZCOMFoundData(const QString &_t, const QString & _d);
     void slotElogQRZCOMCheckThisCall();
     void slotElogQRZCOMAutoCheck();
-    void slotElogQRZCOMAutoCheckFromSetup(const bool _s);
+    //void slotElogQRZCOMAutoCheckFromSetup(const bool _s);
     void slotElogQRZCOMModifyCurrentLog();
     void slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // QRZCOM
@@ -337,9 +338,13 @@ private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     void setLogLevel(const DebugLogLevel _sev);
     void fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+    void fileExportLoTW2(const QString &_call, QList<int> _qsos);
     void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportClubLog2(const QString &_call, QList<int> _qsos);
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    void fileExportEQSL2(const QString &_call, QList<int> _qsos);
     void fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
     //QString getCallToUseForLoTWExportUpload();
@@ -373,10 +378,6 @@ private:
     void createMenusCommon();
     void createActionsCommon();
 
-    //bool readCtyFile();
-
-    //bool isQSLReceived(const int _qsoId);
-    //bool isQSLSent(const int _qsoId);
 
     //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
@@ -395,10 +396,13 @@ private:
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
 
     bool createConnection();
-    void createData();
     void openSetup(const int _page=0);
-    bool processConfigLine(const QString &_line);
-    void readConfigData();
+    //bool processConfigLine(const QString &_line);
+    //void readConfigData();
+    //void saveSettings();
+    bool loadSettings();
+    bool applySettings();
+    void selectTheLog(const int _i);    // Receives a log number from loadSettings and setups all about the logN
     void defineStationCallsign(const QString &_call);
     QString selectStationCallsign();
 
@@ -426,8 +430,8 @@ private:
     // CLUSTER
     void clusterSpotToLog(const QString &_call, const QString &_freq);
     QStringList dxclusterServersList;
-    QString dxclusterServerToConnect;
-    int dxclusterServerPort;
+    //QString dxclusterServerToConnect;
+    //int dxclusterServerPort;
     bool dxclusterSendSpotsToMap;
     // CLUSTER
 
@@ -608,7 +612,7 @@ private:
     bool yearChangedDuringModification;
     QString infoLabel1T, infoLabel2T;
 
-    QString klogDir, ctyDatFile, defaultADIFLogFile, configFileName;
+    QString ctyDatFile, defaultADIFLogFile;
     QString softwareVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;
@@ -626,7 +630,6 @@ private:
     bool qrzAutoChanging; //To remove the data coming from QRZ.com only when data is coming.
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
 
-    double myPower, lastPower;
     //int my_CQz, my_ITUz; Not used
     int defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
     int currentEntity, previousEntity;
@@ -648,8 +651,7 @@ private:
     QSize windowSize;
 
     //<CLUBLOG>
-    bool clublogActive, clublogRealTime, eQSLActive, eQSLRealTime, eQSLUseQSOStationCallSign; //clublogUseStationCallSign,
-    QString clublogPass, clublogEmail; //clublogUser,
+    bool clublogActive, clublogRealTime, eQSLActive; //clublogUseStationCallSign,
 
     eLogClubLog *elogClublog;
     int clublogAnswer;
@@ -660,7 +662,6 @@ private:
     bool qrzcomActive;
     bool qrzcomSubscriber;
     eLogQrzLog *elogQRZcom;
-    QString qrzcomUser, qrzcomPass;
     // QRz.com - END
 
     // Contest
