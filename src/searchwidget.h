@@ -52,13 +52,12 @@ public:
     void showQSOs(QList<int> qsoIdList);
     void setStationCallsign(const QString &_st);
     void setCallToSearch (const QString &_st);
-
     void searchToolNeededQSLToSend();
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void refresh();
 
 public slots:
     void slotSearchBoxTextChanged();
-
     void slotToolSearchRequestedQSLToSend();
     void slotToolSearchNeededQSLPendingToReceive();
     void slotToolSearchNeededQSLRequested();

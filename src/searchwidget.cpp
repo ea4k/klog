@@ -875,3 +875,8 @@ void SearchWidget::setColors (const QString &_newOne, const QString &_needed, co
     // Just to pass the colors to the awards class
     searchWindow->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
 }
+
+void SearchWidget::refresh()
+{
+    slotSearchBoxTextChanged();
+}

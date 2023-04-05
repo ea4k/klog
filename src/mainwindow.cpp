@@ -617,10 +617,7 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(actionDeleteQSO ( int ) ), this, SLOT(slotQSODelete(int) ) );
     connect(logWindow, SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
     connect(logWindow, SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
-
-
     connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
-    connect(logWindow, SIGNAL(updateSearchText()), this, SLOT(slotSearchBoxTextChanged() ) ); //When a QSO is deleted
     connect(logWindow, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     //CLUSTER
@@ -1168,7 +1165,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     logWindow->refresh();
     dxccStatusWidget->refresh();
-    searchWidget->slotSearchBoxTextChanged();
+    searchWidget->refresh();
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" ;
 }
@@ -2816,13 +2813,6 @@ void MainWindow::slotOKButtonClicked(){
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotSearchBoxTextChanged()
-{
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    searchWidget->slotSearchBoxTextChanged();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
 void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 {
     logEvent(Q_FUNC_INFO, "Start: " + QString::number(_id.length ()), Debug);
@@ -2948,7 +2938,7 @@ void MainWindow::slotQSODelete(const int _id)
 
                 dxccStatusWidget->refresh();
                 logWindow->refresh();
-                searchWidget->slotSearchBoxTextChanged();
+                searchWidget->refresh();
                 slotShowAwards();
                //emit updateSearchText();
             }
@@ -5404,6 +5394,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const 
     int i ;
     if (uploadedToLoTW)
     {
+        logWindow->refresh();
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
@@ -6069,8 +6060,10 @@ void MainWindow::slotADIFImport(){
 
                   //qDebug() << "MainWindow::slotADIFImport -2" ;
         //dxccStatusWidget->refresh();
-        logWindow->refresh();
-                  //qDebug() << "MainWindow::slotADIFImport -3" ;
+
+        //logWindow->refresh();
+                 //qDebug() << "MainWindow::slotADIFImport -3";
+
         checkIfNewBandOrMode();
                   //qDebug() << "MainWindow::slotADIFImport -4" ;
 
@@ -6725,9 +6718,9 @@ void MainWindow::slotShowAwards()
              //qDebug() << "MainWindow::slotShowAwards"  ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     awards->recalculateAwards();
-              //qDebug() << "MainWindow::slotShowAwards-1"  ;
-    logWindow->refresh();
-              //qDebug() << "MainWindow::slotShowAwards-2"  ;
+             //qDebug() << "MainWindow::slotShowAwards-1";
+    //logWindow->refresh();
+             //qDebug() << "MainWindow::slotShowAwards-2";
 
     awardsWidget->showAwards();
               //qDebug() << "MainWindow::slotShowAwards-3"  ;

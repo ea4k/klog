@@ -160,7 +160,7 @@ private slots:
     void slotFreqRXChanged(const double _fr);
     //void slotSplitCLicked();
 
-    void slotSearchBoxTextChanged();
+    //void slotSearchBoxTextChanged();
     //void slotCloseStats(bool _vis);
     void slotSearchToolNeededQSLToSend();
     void slotToolSearchRequestedQSLToSend();
