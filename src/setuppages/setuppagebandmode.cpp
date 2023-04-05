@@ -202,6 +202,7 @@ void SetupPageBandMode::setActiveModes(QStringList q)
 
 void SetupPageBandMode::saveSettings()
 {
+    qDebug() << Q_FUNC_INFO ;
     util = new Utilities(Q_FUNC_INFO);
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("BandMode");

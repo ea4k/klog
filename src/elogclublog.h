@@ -60,7 +60,7 @@ private:
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
 
-    QString email, pass, api, stationCallsign;
+    QString email, pass, appPass, api, stationCallsign;
 
     QNetworkAccessManager *manager;
     QNetworkReply* reply;

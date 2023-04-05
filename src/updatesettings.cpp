@@ -38,6 +38,7 @@ UpdateSettings::~UpdateSettings()
 
 bool UpdateSettings::updateFile()
 {
+    qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
     QString _oldFile = util.getCfgFile ();
     if (!QFile::exists(_oldFile))

@@ -3798,7 +3798,7 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
 
 QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified)
 {
-    //qDebug() << "DataProxy_SQLite::getQSOsListEQSLToSent Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
+   //qDebug() << "DataProxy_SQLite::getQSOsListEQSLToSent Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
 
     QList <int> qsoList;
     qsoList.clear();
@@ -3846,7 +3846,8 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
         queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 '%3'").arg(_queryST_string).arg(_query_justQueued).arg(_query_logNumber);
 
     */
-    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string  + _query_justModified;
+    //queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string  + " AND " + _query_justModified;
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2").arg(_queryST_string).arg(_query_justModified);
 
 
     QSqlQuery query;

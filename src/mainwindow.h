@@ -282,7 +282,7 @@ private slots:
     void slotElogQRZCOMFoundData(const QString &_t, const QString & _d);
     void slotElogQRZCOMCheckThisCall();
     void slotElogQRZCOMAutoCheck();
-    void slotElogQRZCOMAutoCheckFromSetup(const bool _s);
+    //void slotElogQRZCOMAutoCheckFromSetup(const bool _s);
     void slotElogQRZCOMModifyCurrentLog();
     void slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, QList<int> _qsos);
     // QRZCOM
@@ -660,7 +660,6 @@ private:
     bool qrzcomActive;
     bool qrzcomSubscriber;
     eLogQrzLog *elogQRZcom;
-    QString qrzcomUser, qrzcomPass;
     // QRz.com - END
 
     // Contest

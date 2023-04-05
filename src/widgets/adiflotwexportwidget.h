@@ -62,7 +62,7 @@ signals:
 
 private:
     void createUI();
-    void fillTable();
+    QList<int> fillTable();
     void setTopLabel(const QString &_t);
     void addQSO(const int _qsoID);
     void fillStationCallsignComboBox();

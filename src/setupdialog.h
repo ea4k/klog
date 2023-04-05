@@ -62,8 +62,7 @@ public:
 
     void setData(const QString &_softwareVersion, const int _page = 0, const bool _alreadyConfigured=true);
     void setClubLogActive(const bool _b);
-    void setEQSLActive(const bool _b);
-    void setQRZCOMAutoCheckActive(const bool _b);
+    //void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
     void setLogLevel(const DebugLogLevel _sev);
 
@@ -71,7 +70,7 @@ signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    void qrzcomAuto(bool);
+    //void qrzcomAuto(bool);
     //void newLogRequested(const bool _s); // true show new log
 
 private slots:
@@ -84,7 +83,7 @@ private slots:
     void slotSetOperators(const QString &_p);            // We receive te station operators from the userData tab to fill the new log
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     void slotFocusOK();
-    void slotQRZCOMAuto(const bool _b);
+    //void slotQRZCOMAuto(const bool _b);
 
 private:
     void showEvent(QShowEvent *event);

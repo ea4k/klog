@@ -5,7 +5,7 @@ TBD - 2.3.1
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Bugfix: Export/Upload lists of QSOs where not properly created due to cal validation issues.
-WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
+- Bugfix: Fixed tge ClubLog URLs that were changed by ClubLog.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 
@@ -18,6 +18,8 @@ WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporti
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Shows the total number of QSOs when exporting.
 - Removed the callsign from the header to increase privacy.
+
+WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 TODO: - New Feature: New stat: DXCC per band (worked/confimed)
 DataProxy_SQLite::getDXCCInBand
 TODO: Test ClubLog Export
@@ -29,13 +31,11 @@ TEST: Bug: When uploading to LoTW, no calls are shown.
 TODO: Right-click in a DXCC spot
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
 TODO: Test the setup tab: eLog
-Working in the eLog Tab. Test all eLog features
 
 eLog: LoTW
 eLog: eQSL
-eLog: QRZ.com
-eLog: ClubLog
-WORKING NOW: Cleaning SetupPageELog
+
+
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)

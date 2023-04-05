@@ -422,16 +422,6 @@ void SetupPageMisc::setCheckNewVersions(const QString &_t)
     checkNewVersionCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
-bool SetupPageMisc::getReportInfo()
-{
-    return checkNewVersionCheckBox->isChecked();
-}
-
-void SetupPageMisc::setReportInfo(const QString &_t)
-{
-    //provideCallCheckBox->setChecked(util->trueOrFalse(_t));
-}
-
 QString SetupPageMisc::getDefaultDBPath()
 {
     return dbDirCurrent;
@@ -633,6 +623,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 
 void SetupPageMisc::saveSettings()
 {
+    qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));

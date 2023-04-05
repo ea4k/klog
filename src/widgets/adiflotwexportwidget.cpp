@@ -56,6 +56,7 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     createUI();
     starting = false;
+    qsos.clear ();
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 AdifLoTWExportWidget::~AdifLoTWExportWidget()
@@ -306,7 +307,7 @@ void AdifLoTWExportWidget::fillDates()
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void AdifLoTWExportWidget::fillTable()
+QList<int> AdifLoTWExportWidget::fillTable()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
 
@@ -340,38 +341,38 @@ void AdifLoTWExportWidget::fillTable()
         {
              _myCall = stationCallsignComboBox->currentText();
         }
-        qsos.clear ();
+        //qsos.clear ();
         switch (currentExportMode)
         {
             case ModeADIF:
             //justQueued = false;
             //_qsos.append(dataProxy->getQSOsListLoTWToSend(_myCall, startDate->date(), endDate->date(), justQueued, logNumber));
              _qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
-             qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
+            //qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
             //qDebug() << Q_FUNC_INFO << " ADIF";
             break;
         case ModeLotW:
             //qDebug() << Q_FUNC_INFO << " LoTW";
             //justQueued = true;
             _qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
-            qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
+            //qsos.append(dataProxy->getQSOsListLoTWToSend (_myCall, _myGrid, startDate->date(), endDate->date(), true, logNumber));
             break;
         case ModeClubLog:
              //qDebug() << Q_FUNC_INFO << " ClubLog";
             _qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
-            qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
+            //qsos.append(dataProxy->getQSOsListClubLogToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
             break;
         case ModeEQSL:
             //qDebug() << Q_FUNC_INFO << " EQSL";
             //justQueued = true;
             _qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
-            qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
+            //qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
             break;
         case ModeQRZ:
             //qDebug() << Q_FUNC_INFO << " QRZ";
             //justQueued = true;
             _qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
-            qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
+            //qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
             break;
         }
 
@@ -400,6 +401,7 @@ void AdifLoTWExportWidget::fillTable()
            //qDebug() << Q_FUNC_INFO << " Disable OKButton";
            okButton->setEnabled(false);
        }
+       return _qsos;
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -472,25 +474,25 @@ void AdifLoTWExportWidget::updateIfNeeded()
     {
         //qDebug() << Q_FUNC_INFO << " - 1";
         currentCall = stationCallsignComboBox->currentText();
-        fillTable();
+        qsos = fillTable();
     }
     else if (currentGrid != myGridSquareComboBox->currentText())
     {
         //qDebug() << Q_FUNC_INFO << " - 2";
         currentGrid = myGridSquareComboBox->currentText();
-        fillTable();
+        qsos = fillTable();
     }
     else if (currentStart != startDate->date())
     {
         //qDebug() << Q_FUNC_INFO << " - 3";
         currentStart = startDate->date();
-        fillTable();
+        qsos = fillTable();
     }
     else if (currentEnd != endDate->date())
     {
         //qDebug() << Q_FUNC_INFO << " - 3";
         currentEnd = endDate->date();
-        fillTable();
+        qsos = fillTable();
     }
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -510,7 +512,7 @@ void AdifLoTWExportWidget::slotMyGridChanged()
     //TODO: Update the startDate when that grid was activated?
     //TODO: Update the endDate when that grid was activated?
 
-    fillTable();
+    qsos = fillTable();
 
     myGridSquareComboBox->setCurrentIndex(myGridSquareComboBox->findText(tmpGrid, Qt::MatchCaseSensitive));
     blockAllSignals (false);
@@ -540,6 +542,7 @@ void AdifLoTWExportWidget::slotOKPushButtonClicked()
     //qDebug() << Q_FUNC_INFO << " - Start";
     this->hide();
     emit qsosToSend (stationCallsignComboBox->currentText(), qsos, currentExportMode);
+    return;
     QString myGrid = myGridSquareComboBox->currentText();
     if (myGridSquareComboBox->currentIndex () == 0)
     {

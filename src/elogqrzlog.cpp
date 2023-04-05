@@ -579,6 +579,7 @@ void eLogQrzLog::fetchData()
 
 void eLogQrzLog::checkQRZ(const QString &_qrz)
 {
+    //qDebug() << Q_FUNC_INFO << ": " + _qrz;
     showDebugLog (Q_FUNC_INFO, "Start: " + _qrz);
     if (!util->isValidCall(_qrz))
     {
@@ -761,11 +762,17 @@ int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
     return -1;
 }
 
-void eLogQrzLog::setCredentials(const QString &_user, const QString &_pass)
+void eLogQrzLog::setUser(const QString &_user)
 {
-    //qDebug()<< "eLogQrzLog::setCredentials: user: " << _user << " / Pass: " << _pass ;
-    showDebugLog (Q_FUNC_INFO, "Start: " + _user + "/" + _pass);
+    showDebugLog (Q_FUNC_INFO, "Start: " + _user );
     user = _user;
+    showDebugLog (Q_FUNC_INFO, "END");
+}
+
+void eLogQrzLog::setPassword(const QString &_pass)
+{
+
+    showDebugLog (Q_FUNC_INFO, "Start: " + _pass);
     pass = _pass;
     showDebugLog (Q_FUNC_INFO, "END");
 }

@@ -341,6 +341,7 @@ QString SetupPageHamLib::getParity()
 
 void SetupPageHamLib::saveSettings()
 {
+    qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
