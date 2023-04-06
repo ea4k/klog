@@ -186,9 +186,9 @@ public:
     QList<int> getQSOsListeQSLNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
 
     QList<int> getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
-    QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
-    QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true);
-    QList<int> getQSOsListToBeExported(const QString &_stationCallsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+    QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
+    QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
+    QList<int> getQSOsListToBeExported(const QString &_stationCallsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, int _logN = -1);
     QStringList getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
 
 

@@ -347,7 +347,7 @@ QList<int> AdifLoTWExportWidget::fillTable()
             case ModeADIF:
             //justQueued = false;
             //_qsos.append(dataProxy->getQSOsListLoTWToSend(_myCall, startDate->date(), endDate->date(), justQueued, logNumber));
-             _qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
+             _qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date(), logNumber));
             //qsos.append(dataProxy->getQSOsListToBeExported(_myCall, _myGrid, startDate->date(), endDate->date()));
             //qDebug() << Q_FUNC_INFO << " ADIF";
             break;
@@ -365,13 +365,13 @@ QList<int> AdifLoTWExportWidget::fillTable()
         case ModeEQSL:
             //qDebug() << Q_FUNC_INFO << " EQSL";
             //justQueued = true;
-            _qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
+            _qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
             //qsos.append(dataProxy->getQSOsListEQSLToSent(_myCall, startDate->date(), endDate->date(), true));
             break;
         case ModeQRZ:
             //qDebug() << Q_FUNC_INFO << " QRZ";
             //justQueued = true;
-            _qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
+            _qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true, logNumber));
             //qsos.append(dataProxy->getQSOsListQRZCOMToSent(_myCall, startDate->date(), endDate->date(), true));
             break;
         }
@@ -391,6 +391,7 @@ QList<int> AdifLoTWExportWidget::fillTable()
 
        //numberLabel->setText(tr("QSOs: ") + QString::number(_qsos.count()) + );
         numberLabel->setText(QString(tr("QSOs: %1/%2")).arg(_qsos.count()).arg(numOfQSOsInThisLog) );
+        numberLabel->setToolTip (QString("The current number has %1 QSOs and your selection in this widget shows %2 QSOs").arg(numOfQSOsInThisLog).arg(_qsos.count ()));
        if (_qsos.count()>0)
        {
            //qDebug() << Q_FUNC_INFO << " Enable OKButton";

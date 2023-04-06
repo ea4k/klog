@@ -3796,7 +3796,7 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
     return qsoList;
 }
 
-QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified)
+QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
 {
    //qDebug() << "DataProxy_SQLite::getQSOsListEQSLToSent Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
 
@@ -3833,21 +3833,17 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
         //qDebug() << "DataProxy_SQLite::getQSOsListEQSLToSent justQueued FALSE";
         _query_justModified = QString("eqsl_qsl_sent!='M'");
     }
-    /* Modify accordingly to add log number support
-        QString _query_logNumber;
-        if (doesThisLogExist (_logN))
-        {
-            _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-        }
-        else
-        {
-            _query_logNumber.clear ();
-        }
-        queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 '%3'").arg(_queryST_string).arg(_query_justQueued).arg(_query_logNumber);
 
-    */
-    //queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string  + " AND " + _query_justModified;
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2").arg(_queryST_string).arg(_query_justModified);
+    QString _query_logNumber;
+    if (doesThisLogExist (_logN))
+    {
+        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
+    }
+    else
+    {
+        _query_logNumber.clear ();
+    }
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber);
 
 
     QSqlQuery query;
@@ -3886,7 +3882,7 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
     return qsoList;
 }
 
-QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified)
+QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
 {
     //qDebug() << "DataProxy_SQLite::QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true); Call/Start/end: " << _stationCallsign << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
 
@@ -3923,20 +3919,17 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
         //qDebug() << "DataProxy_SQLite::getQSOsListQRZCOMToSent justQueued FALSE";
         _query_justModified = QString("qrzcom_qso_upload_status!='-'");
     }
-/*
-        QString _query_logNumber;
-        if (doesThisLogExist (_logN))
-        {
-            _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-        }
-        else
-        {
-            _query_logNumber.clear ();
-        }
-        queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber);
 
-*/
-    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + " AND " + _query_justModified;
+    QString _query_logNumber;
+    if (doesThisLogExist (_logN))
+    {
+        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
+    }
+    else
+    {
+        _query_logNumber.clear ();
+    }
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber) ;
 
 
     QSqlQuery query;
@@ -3976,7 +3969,7 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
 }
 
 
-QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCallsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
+QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCallsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, int _logN)
 {
     //qDebug() << Q_FUNC_INFO << QString("Call: %1, Grid: %2, StartDate: %3, EndDate: %4").arg(_stationCallsign).arg(_grid).arg(_startDate.toString("yyyyMMdd")).arg(_endDate.toString("yyyyMMdd"));
 
@@ -4020,7 +4013,17 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
         _queryGrid_String = QString("AND (my_gridsquare='' OR my_gridsquare IS NULL)");
     }
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + _queryGrid_String;
+    QString _query_logNumber;
+    if (doesThisLogExist (_logN))
+    {
+        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
+    }
+    else
+    {
+        _query_logNumber.clear ();
+    }
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + _queryGrid_String + _query_logNumber;
 
     QSqlQuery query;
 
@@ -6771,8 +6774,7 @@ int DataProxy_SQLite::getDXCCInBand(const int _bandid, const bool _confirmed, co
         _confirmedChar = 'Y';
     }
 
-
-    QString queryString = QString();
+    QString queryString;
     QSqlQuery query;
     if (_log < 0)
     {
@@ -6782,7 +6784,10 @@ int DataProxy_SQLite::getDXCCInBand(const int _bandid, const bool _confirmed, co
     {
         queryString = QString("SELECT COUNT (DISTINCT dxcc) from log where band.id=:bandid AND log.id=:log AND (qsl_rcvd=:confirmed OR lotw_qsl_rcvd=:confirmed)");
     }
-    query.prepare (queryString);
+    if (!query.prepare (queryString))
+    {
+        return 0;
+    }
     query.bindValue (":confirmed", _confirmedChar);
     query.bindValue (":log", _log);
     bool sqlOK = query.exec(queryString);

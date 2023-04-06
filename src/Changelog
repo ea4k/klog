@@ -12,17 +12,17 @@ TBD - 2.3.1
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
+- Improvement: Log export widget shows now only QSOs in the current log.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Warning of unused parameters removed.
 - Improvement: Some SQL queries optimized for speed.
 - Improvement: Optimized the way log files are exported to online services.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Shows the total number of QSOs when exporting.
-- Removed the callsign from the header to increase privacy.
+- Removed the callsign from the http header when checking for a new version.
 
 WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
-TODO: - New Feature: New stat: DXCC per band (worked/confimed)
-DataProxy_SQLite::getDXCCInBand
+TODO: - New Feature: New stat: DXCC per band (worked/confimed)  -  DataProxy_SQLite::getDXCCInBand
 TODO: Test LoTW Export
 
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
@@ -30,10 +30,16 @@ TEST: Bug: When uploading to LoTW, no calls are shown.
 TODO: Right-click in a DXCC spot to send to QRZ.com
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
 
+AdifLoTWExportWidget shows ALL logs not only the current one
+When a new QSO is added, the numbers in awardswidget are not updated
 
-eLog: LoTW
+eLog: LoTW, check if credentials are migrated in the settings update
+LoTW is not uploading QSOs?
+
 Export ADIF (not all) shows right QSOs in the current log but does not create a file
-Check distances
+
+
+
 TODO: remove slotADIFExportSelection and the export functions
 
 
