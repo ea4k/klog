@@ -3850,7 +3850,7 @@ void MainWindow::createMenusCommon()
     //LoTWImport->setToolTip(tr("Import an LoTW file into the current log"));
 
     fileMenu->addSeparator();
-    fileMenu->addSeparator();
+    //fileMenu->addSeparator();
 
     ADIFExport = new QAction(tr("Export to ADIF ..."), this);
     fileMenu->addAction(ADIFExport);
@@ -5312,13 +5312,20 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 
 void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _st ;
+    //qDebug() << Q_FUNC_INFO << ": " << _st ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeADIF);
-
     showNumberOfSavedQSO(fileName, qsos.count());
+    //qDebug() << Q_FUNC_INFO << " - END";
+}
 
-       //qDebug() << Q_FUNC_INFO << " - END";
+void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
+{
+    qDebug() << Q_FUNC_INFO ;
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeADIF, currentLog);
+    showNumberOfSavedQSO(fileName, qsos.count());
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotADIFExportAll()
@@ -5748,14 +5755,13 @@ void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos
     switch (_eM)
     {
     case ModeADIF:         // General ADIF
-         //qDebug() << Q_FUNC_INFO << " - ADIF" ;
-        //rellenar para los demas casos
+        fileExportADIF2(_call, _qsos);
         break;
     case ModeLotW:         // LoTW
          //qDebug() << Q_FUNC_INFO << " - LoTW" ;
         fileExportLoTW2(_call, _qsos);
         break;
-    case ModeClubLog:         // General ADIF
+    case ModeClubLog:         // ClubLog
          //qDebug() << Q_FUNC_INFO << " - ClubLog" ;
         fileExportClubLog2(_call, _qsos);
         break;

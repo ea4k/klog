@@ -344,6 +344,7 @@ private:
     void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportEQSL2(const QString &_call, QList<int> _qsos);
     void fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+    void fileExportADIF2(const QString &_call, QList<int> _qsos);
 
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);

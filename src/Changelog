@@ -24,7 +24,7 @@ WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporti
 TODO: - New Feature: New stat: DXCC per band (worked/confimed)
 DataProxy_SQLite::getDXCCInBand
 TODO: Test LoTW Export
-TODO: Test ADIF Export
+
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
 TEST: Bug: When uploading to LoTW, no calls are shown.
 TODO: Right-click in a DXCC spot to send to QRZ.com
@@ -32,7 +32,9 @@ TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()  
 
 
 eLog: LoTW
-eLog: eQSL
+Export ADIF (not all) shows right QSOs in the current log but does not create a file
+Check distances
+TODO: remove slotADIFExportSelection and the export functions
 
 
 Oct 2022 - 2.3
