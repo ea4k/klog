@@ -527,7 +527,7 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
     return true;
 }
 
-void MainQSOEntryWidget::setBands(const QStringList _bands)
+void MainQSOEntryWidget::setBands(const QStringList &_bands)
 {
     logEvent (Q_FUNC_INFO, "Start: " + QString::number(_bands.length ()), Debug);
     //qDebug()<< "MainQSOEntryWidget::setBands";
@@ -547,9 +547,11 @@ void MainQSOEntryWidget::setBands(const QStringList _bands)
     //qDebug()<< "MainQSOEntryWidget::setBands-END";
 }
 
-void MainQSOEntryWidget::setModes(const QStringList _modes)
+void MainQSOEntryWidget::setModes(const QStringList &_modes)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    //qDebug() << Q_FUNC_INFO;
+
     modes.clear();
     modes = _modes;
     modes.removeDuplicates();

@@ -666,13 +666,10 @@ private:
 
     // Contest
     //int points, qsoPoints, multipliers, qsoMultiplier;
-    QString contestMode;
+    //QString contestMode;
     //Contest *contest;
     // Contest
     DataProxy_SQLite *dataProxy;
-
-    //DataBase *db;
-
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;

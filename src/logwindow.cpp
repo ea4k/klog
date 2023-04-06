@@ -188,8 +188,7 @@ void LogWindow::showColumn(const QString &_columnName)
 
 void LogWindow::refresh()
 {
-       //qDebug() << "LogWindow::refresh" ;
-
+    //qDebug() << "LogWindow::refresh" ;
     logModel->select();
 }
 
