@@ -12,6 +12,7 @@ TBD - 2.3.1
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
+- Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 - Improvement: Log export widget shows now only QSOs in the current log.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Warning of unused parameters removed.
@@ -21,7 +22,7 @@ TBD - 2.3.1
 - UI: Shows the total number of QSOs when exporting.
 - Removed the callsign from the http header when checking for a new version.
 
-WORKING ON BUG: Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
+
 TODO: - New Feature: New stat: DXCC per band (worked/confimed)  -  DataProxy_SQLite::getDXCCInBand
 TODO: Test LoTW Export
 
