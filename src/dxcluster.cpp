@@ -83,6 +83,7 @@ DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
 
     setLayout(layout);
 
+    dxClusterListWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(sendButton , SIGNAL(clicked()), this, SLOT(slotClusterSendToServer()) );
     connect(inputCommand, SIGNAL(textChanged(QString)), this, SLOT(slotClusterInputTextChanged()) );
 
@@ -104,9 +105,17 @@ DXClusterWidget::~DXClusterWidget()
     delete(saveSpotsFile);
 }
 
+void DXClusterWidget::createActions()
+{
+    checkQRZCOMFromLogAct = new QAction(tr("Check in QRZ.com"), this);
+    //checkQRZCOMFromLogAct->setShortcut(Qt::CTRL + Qt::Key_Q);
+    checkQRZCOMFromLogAct->setStatusTip(tr("Check this callsign in QRZ.com"));
+    connect(checkQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckQRZCom() ));
+
+}
+
 void DXClusterWidget::init()
 {
-    dxClusterListWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     dxSpotColor.setNamedColor("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
@@ -128,6 +137,7 @@ void DXClusterWidget::init()
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
 
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
+    createActions ();
     //TODO: Check how to add an item in a different way
 }
 
@@ -673,7 +683,8 @@ bool DXClusterWidget::isConnected()
 
 QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 {
-      //qDebug() << "DXClusterWidget::readItem";
+    //qDebug() << "DXClusterWidget::readItem";
+    // Returns: fields << dxCallsign << dxFreq;
 
     QStringList fields;
     QString dxClusterString;
@@ -794,25 +805,48 @@ bool DXClusterWidget::openFile()
 
 void DXClusterWidget::slotRighButton(const QPoint& pos)
 {
-    //qDebug() << Q_FUNC_INFO;
-    int row = (dxClusterListWidget->indexAt(pos)).row();
-    //qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
- /*
-    QItemSelectionModel *select = logView->selectionModel();
-    QModelIndexList list = select->selectedRows();
+    qDebug() << Q_FUNC_INFO;
 
-    if (select->hasSelection() && (list.length()>1) )
+    int row = (dxClusterListWidget->indexAt(pos)).row();
+    qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
+
+    QListWidgetItem * item = dxClusterListWidget->currentItem();
+
+    QStringList ql;
+    ql.clear();
+
+    ql = readItem(item); //qstringlist << dxCallsign << dxFreq;
+    if (ql.length()==2)
     {
-        rightButtonMultipleFromLogMenu();
+        rightButtonFromLogMenu(ql);
+
     }
-    else
-    {
-        rightButtonFromLogMenu(row);
-    }
-    */
-    //TODO: To be added to the logWindow and create an action that emist the QSO id
+}
+void DXClusterWidget::rightButtonFromLogMenu(const QStringList _ql)
+{
+    // This function creates the context menu
+
+    checkQRZCOMFromLogAct->setData (_ql.at(0));
+    QMenu menu(this);
+    menu.addAction(checkQRZCOMFromLogAct);
+    menu.exec(QCursor::pos());
 }
 
+
+
+void DXClusterWidget::slotCheckQRZCom()
+{
+    QString _c = checkQRZCOMFromLogAct->data ().toString ();
+    util->openQrzcom (_c);
+}
+
+/*
+void DXClusterWidget::rightButtonFromLogMenu(const int trow)
+{
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(trow);
+    int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
+}
+*/
 void DXClusterWidget::saveSpot(const QString &_spot)
 {
       //qDebug() << "DXClusterWidget::saveSpot: " << _spot ;

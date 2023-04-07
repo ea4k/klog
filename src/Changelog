@@ -20,6 +20,7 @@ TBD - 2.3.1
 - Improvement: Optimized the way log files are exported to online services.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Shows the total number of QSOs when exporting.
+- UI: Added a Right-click menu in the DXCluster widget to send a spot to QRZ.com.
 - Removed the callsign from the http header when checking for a new version.
 
 TODO: - New Feature: New stat: DXCC per band (worked/confimed)  -  DataProxy_SQLite::getDXCCInBand
@@ -27,7 +28,7 @@ TODO: Test LoTW Export
 
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
 TEST: Bug: When uploading to LoTW, no calls are shown.
-TODO: Right-click in a DXCC spot to send to QRZ.com
+
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
 
 AdifLoTWExportWidget shows ALL logs not only the current one

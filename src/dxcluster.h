@@ -58,6 +58,8 @@ class DXClusterWidget : public QWidget
     void setSaveSpots (const bool _enable);
     void loadSettings();
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
+
+    void rightButtonFromLogMenu(const QStringList _ql);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 private slots:
@@ -73,6 +75,7 @@ private slots:
     void slotClusterDXClusterWidgetItemEntered( QListWidgetItem * item);
     void slotClusterDXClusterWidgetItemSelected();
     void slotRighButton (const QPoint& pos);
+    void slotCheckQRZCom();
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
@@ -83,7 +86,7 @@ private:
 
     //void TESTADDSPOT(); // Just a test spot
 
-
+    void createActions();
     void connectToDXCluster();
     QStringList readItem(QListWidgetItem * item);
     bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
@@ -120,6 +123,8 @@ private:
 
     QFile *saveSpotsFile;
     bool saveSpots; // write/save the spots to a file
+
+    QAction *checkQRZCOMFromLogAct;
 
  };
 

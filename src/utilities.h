@@ -169,6 +169,7 @@ public:
     bool isValidLogLevel(const QString &_s);
     QStringList getDebugLevels();
     void setLogLevel(DebugLogLevel _l);
+    void openQrzcom(const QString _call);
     //QPalette getPalete(bool _ok);
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

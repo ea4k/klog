@@ -2231,6 +2231,11 @@ bool Utilities::isValidSponsor(const QString &_s)
     return (sponsorsList.contains (_s.toUpper ()));
 }
 
+ void Utilities::openQrzcom(const QString _call)
+ {
+     QString url = "https://www.qrz.com/db/" + _call;
+     QDesktopServices::openUrl(QUrl(url));
+ }
 QString Utilities::debugLevelToString(DebugLogLevel _l)
 {
     switch (_l) {

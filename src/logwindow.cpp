@@ -691,10 +691,9 @@ void LogWindow::slotCheckQRZCom()
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
       //qDebug() << "LogWindow::sloTCheckQRZCom: " << _qrz;
-    QString url = "https://www.qrz.com/db/" + _qrz;
-
-    QDesktopServices::openUrl(QUrl(url));
-
+    util->openQrzcom (_qrz);
+    //QString url = "https://www.qrz.com/db/" + _qrz;
+    //QDesktopServices::openUrl(QUrl(url));
 }
 
 void LogWindow::slotCheckDXHeatCom()
