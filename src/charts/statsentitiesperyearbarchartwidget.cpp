@@ -92,11 +92,11 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
         //categoriesElem = tr("DXCC Entities");
         //categoriesTitle = tr("DXCC Entities");
         aux.clear();
-        int numberPerX;
+        //int numberPerX;
         for (int i = 0; i < categories.count();i++ )
         {
-            numberPerX = dataProxy->getDXCConYear((categories.at(i)).toInt(), _log);
-            *set0 << numberPerX;
+            *set0 << dataProxy->getDXCConYear((categories.at(i)).toInt(), _log);
+            //*set0 << numberPerX;
             //numberPerX = 0;
 
             aux = tr("Reading data ...") + "\n" + tr("Entities: ")  + QString::number(i) + "/" + QString::number(categories.count());

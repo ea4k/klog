@@ -72,7 +72,7 @@ void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX = 0;
     chart->removeAllSeries();
     //categoriesTitle = QString();
     //categoriesElem = QString();
@@ -94,9 +94,9 @@ void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOsInMode((categories.at(i)), _log);
+        *set0 << dataProxy->getQSOsInMode((categories.at(i)), _log);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX);
-        *set0 << numberPerX;
+        //*set0 << numberPerX;
         //numberPerX = 0;
            //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX);
         aux = tr("Reading data ...") + "\n" + tr("Modes: ")  + QString::number(i) + "/" + QString::number(categories.count());

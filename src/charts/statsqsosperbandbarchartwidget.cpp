@@ -87,9 +87,9 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        int numberPerX = dataProxy->getQSOsInBand((categories.at(i)), _log);
+        *set0 << dataProxy->getQSOsInBand((categories.at(i)), _log);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX);
-        *set0 << numberPerX;
+        //*set0 << numberPerX;
         //numberPerX = 0;
            //qDebug() << "StatsQSOsPerBandBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX);
         aux = tr("Reading data ...") + "\n" + tr("Bands: ")  + QString::number(i) + "/" + QString::number(categories.count());

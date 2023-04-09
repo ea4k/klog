@@ -66,7 +66,7 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX = 0;
     chart->removeAllSeries();
     categoriesTitle = QString();
     categoriesElem = QString();
@@ -90,9 +90,9 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
      aux.clear();
      for (int i = 0; i < categories.count(); i++ )
      {
-         numberPerX = dataProxy->getQSOsOnMonth(i+1, _log);
+         *set0 << dataProxy->getQSOsOnMonth(i+1, _log);
             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX);
-         *set0 << numberPerX;
+         //*set0 << numberPerX;
          //numberPerX = 0;
 
          aux = tr("Reading data ...") + "\n" + tr("Months: ")  + QString::number(i) + "/" + QString::number(categories.count());

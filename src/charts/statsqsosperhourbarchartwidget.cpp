@@ -68,7 +68,7 @@ void StatsQSOsPerHourBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX = 0;
     chart->removeAllSeries();
     categoriesTitle = QString();
     categoriesElem = QString();
@@ -92,9 +92,9 @@ void StatsQSOsPerHourBarChartWidget::prepareChart(const int _log)
      aux.clear();
      for (int i = 0; i < categories.count(); i++ )
      {
-         numberPerX = dataProxy->getQSOsAtHour((categories.at(i)).toInt(), _log);
+         *set0 << dataProxy->getQSOsAtHour((categories.at(i)).toInt(), _log);
             //qDebug() << "BarChartStats::prepareChart SelectedGrapth-7: QSO/hour: " << categories.at(i) << " - " << QString::number(numberPerX);
-         *set0 << numberPerX;
+         //*set0 << numberPerX;
          //numberPerX = 0;
 
 

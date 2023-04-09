@@ -122,7 +122,7 @@ void AdifLoTWExportWidget::createUI()
 
     QStringList header;
     header.clear();
-    header << tr("DX") << tr("Date/Time") << tr("Locator") << tr("Band") << tr("Mode");
+    header << tr("DX") << tr("Date/Time") << tr("My Locator") << tr("Band") << tr("Mode");
     tableWidget->setColumnCount(header.length());
     tableWidget->setHorizontalHeaderLabels(header);
 
@@ -331,15 +331,18 @@ QList<int> AdifLoTWExportWidget::fillTable()
         QString _myCall;
         if (stationCallsignComboBox->currentIndex () == 0)
         {
+            qDebug() << ": NOT";
             _myCall = "NOT";
         }
         else if ((stationCallsignComboBox->currentIndex () == 1) && (currentExportMode != ModeLotW))
         {
+            qDebug() << ": all";
             _myCall = "ALL";
         }
         else
         {
              _myCall = stationCallsignComboBox->currentText();
+             qDebug() << ": Call: " <<_myCall;
         }
         //qsos.clear ();
         switch (currentExportMode)

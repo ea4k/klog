@@ -67,7 +67,7 @@ void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX = 0;
     chart->removeAllSeries();
 
     categories.clear();
@@ -88,10 +88,10 @@ void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getCQzonYear((categories.at(i)).toInt(), _log);
+        *set0 << dataProxy->getCQzonYear((categories.at(i)).toInt(), _log);
         //numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), -1);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX);
-        *set0 << numberPerX;
+        //*set0 << numberPerX;
 
            //qDebug() << "StatsCQZPerYearBarChartWidget::prepareChart QSOs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX);
 
