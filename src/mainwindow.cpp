@@ -5321,11 +5321,11 @@ void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const 
 
 void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeADIF, currentLog);
     showNumberOfSavedQSO(fileName, qsos.count());
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotADIFExportAll()
@@ -5579,7 +5579,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
   msgBox.setDetailedText(tr("If you don't agree, this upload will overwrite your current ClubLog existing log."));
   msgBox.setDefaultButton(QMessageBox::Ok);
   int ret = msgBox.exec();
-  bool overwrite;
+  bool overwrite = false;
   switch (ret)
   {
   case QMessageBox::Ok:         // General ADIF

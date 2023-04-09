@@ -26,14 +26,6 @@
 
 #include "statsqsosperdxccbarchartwidget.h"
 
-
-StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     Q_UNUSED(parent);
@@ -43,8 +35,8 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite 
 #endif
 
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
    // prepareChart();
@@ -57,9 +49,6 @@ StatsQSOsPerDXCCBarChartWidget::~StatsQSOsPerDXCCBarChartWidget()
 
 void StatsQSOsPerDXCCBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -70,6 +59,10 @@ void StatsQSOsPerDXCCBarChartWidget::createUI()
 void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
 {
 
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
     QString categoriesTitle;
     QString categoriesElem;
     QStringList categories;
@@ -189,6 +182,5 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-
-    //chart->setAxisX(axis, series);
+    chartView->setChart (chart);
 }

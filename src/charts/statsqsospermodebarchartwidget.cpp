@@ -27,12 +27,6 @@
 #include "statsqsospermodebarchartwidget.h"
 
 
-StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
 
 StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
@@ -43,8 +37,8 @@ StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite 
 #endif
 
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -57,9 +51,7 @@ StatsQSOsPerModeBarChartWidget::~StatsQSOsPerModeBarChartWidget()
 
 void StatsQSOsPerModeBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -69,7 +61,10 @@ void StatsQSOsPerModeBarChartWidget::createUI()
 
 void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
 {
-
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
     QString categoriesTitle;
     QString categoriesElem;
     QStringList categories;
@@ -126,6 +121,5 @@ void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-
-    //chart->setAxisX(axis, series);
+    chartView->setChart (chart);
 }

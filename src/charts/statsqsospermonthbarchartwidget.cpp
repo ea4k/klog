@@ -27,20 +27,13 @@
 #include "statsqsospermonthbarchartwidget.h"
 
 
-StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget";
     Q_UNUSED(parent);
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -53,9 +46,6 @@ StatsQSOsPerMonthBarChartWidget::~StatsQSOsPerMonthBarChartWidget()
 
 void StatsQSOsPerMonthBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -65,7 +55,10 @@ void StatsQSOsPerMonthBarChartWidget::createUI()
 
 void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
 {
-
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
     QString categoriesTitle;
     QString categoriesElem;
     QStringList categories;
@@ -125,6 +118,5 @@ void StatsQSOsPerMonthBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-
-    //chart->setAxisX(axis, series);
+    chartView->setChart (chart);
 }

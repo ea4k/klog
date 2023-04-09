@@ -13,6 +13,7 @@ TBD - 2.3.1
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
+- Bugfix: Some statistic widgets had a broken layout (Closes #491)
 - Improvement: Log export widget shows now only QSOs in the current log.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Warning of unused parameters removed.

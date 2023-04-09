@@ -41,7 +41,6 @@ class StatsQSOsPerDXCCBarChartWidget : public StatsGeneralChartWidget
     Q_OBJECT
 public:
     StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
-    StatsQSOsPerDXCCBarChartWidget();
     ~StatsQSOsPerDXCCBarChartWidget();
     void prepareChart(const int _log=-1);
 
@@ -53,7 +52,7 @@ private:
     void createUI();
     DataProxy_SQLite *dataProxy;
 
-    QChart *chart;
+    //QChart *chart;
     QChartView *chartView;
 
 };

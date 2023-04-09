@@ -26,13 +26,6 @@
 
 #include "statsworkedconfirmedpiechartwidget.h"
 
-StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     Q_UNUSED(parent);
@@ -41,8 +34,8 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
 #else
 #endif
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -55,9 +48,7 @@ StatsWorkedConfirmedPieChartWidget::~StatsWorkedConfirmedPieChartWidget()
 
 void StatsWorkedConfirmedPieChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -67,6 +58,11 @@ void StatsWorkedConfirmedPieChartWidget::createUI()
 
 void StatsWorkedConfirmedPieChartWidget::prepareChart(const int _log)
 {
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
     QPieSeries *series = new QPieSeries();
     //PieSlice append(string label, real value)
     int qsos = dataProxy->getHowManyQSOInLog(_log);
@@ -95,6 +91,6 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart(const int _log)
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);
-
+    chartView->setChart (chart);
 
 }

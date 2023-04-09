@@ -86,7 +86,6 @@ HEADERS += \
     ../../src/klogdefinitions.h \
     ../../src/utilities.h \
     ../../src/qso.h \
-    ../../src/charts/barchartstats.h \
     ../../src/charts/statsqsosperdxccbarchartwidget.h \
     ../../src/charts/statscqzperyearbarchartwidget.h \
     ../../src/charts/statsqsosperhourbarchartwidget.h \
@@ -175,7 +174,6 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/setuppages/setuppageworldeditor.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
-    ../../src/charts/barchartstats.cpp \
     ../../src/charts/statsqsosperdxccbarchartwidget.cpp \
     ../../src/charts/statscqzperyearbarchartwidget.cpp \
     ../../src/charts/statsqsosperhourbarchartwidget.cpp \
