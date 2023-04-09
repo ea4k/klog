@@ -6,39 +6,43 @@ TBD - 2.3.1
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Bugfix: Export/Upload lists of QSOs where not properly created due to cal validation issues.
 - Bugfix: Fixed tge ClubLog URLs that were changed by ClubLog.
-- Improvement: Code improvement in the MainWindowInputQSO class.
-- UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - Bugfix: QSOs confirmed with LoTW were not properly shown in DXCC Status. (Closes #551)(EA5WA)
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 - Bugfix: Some statistic widgets had a broken layout (Closes #491)
+- Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Log export widget shows now only QSOs in the current log.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Warning of unused parameters removed.
 - Improvement: Some SQL queries optimized for speed.
 - Improvement: Optimized the way log files are exported to online services.
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
+- UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Shows the total number of QSOs when exporting.
 - UI: Added a Right-click menu in the DXCluster widget to send a spot to QRZ.com.
-- Removed the callsign from the http header when checking for a new version.
+- Removed the user callsign from the http header when checking for a new version.
 
+
+
+LoTW related tasks: To be tested when LoTW Queue is OK
+        https://www.arrl.org/logbook-queue-status
 TODO: Test LoTW Export
+TEST: Bug: When uploading to LoTW, no calls are shown.
+AdifLoTWExportWidget shows ALL logs not only the current one
+LoTW is not uploading QSOs?
+
 
 TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
-TEST: Bug: When uploading to LoTW, no calls are shown.
 
-
-AdifLoTWExportWidget shows ALL logs not only the current one
-When a new QSO is added, the numbers in awardswidget are not updated
-
-eLog: LoTW, check if credentials are migrated in the settings update
-LoTW is not uploading QSOs?
+BUG: When a new QSO is added, the numbers in awardswidget are not updated
 
 Export ADIF (not all) shows right QSOs in the current log but does not create a file
 
 
+Tasks to done before releasing:
+TODO: Change the name of the new setting file. Renaming the old one and reusing config may be OK.
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
 TODO: remove slotADIFExportSelection and the export functions
 
