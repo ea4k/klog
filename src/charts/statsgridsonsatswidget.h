@@ -40,7 +40,6 @@ class StatsGridsOnSatsWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
 public:
-    StatsGridsOnSatsWidget();
     StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsGridsOnSatsWidget();
     void prepareChart(const int _log=-1);

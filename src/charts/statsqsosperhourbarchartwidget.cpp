@@ -26,14 +26,6 @@
 
 #include "statsqsosperhourbarchartwidget.h"
 
-
-StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     Q_UNUSED(parent);
@@ -43,8 +35,8 @@ StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite 
 #endif
 
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -56,9 +48,6 @@ StatsQSOsPerHourBarChartWidget::~StatsQSOsPerHourBarChartWidget()
 
 void StatsQSOsPerHourBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -68,7 +57,10 @@ void StatsQSOsPerHourBarChartWidget::createUI()
 
 void StatsQSOsPerHourBarChartWidget::prepareChart(const int _log)
 {
-
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
     QString categoriesTitle;
     QString categoriesElem;
     QStringList categories;
@@ -129,7 +121,7 @@ void StatsQSOsPerHourBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-    //chart->setAxisX(axis, series);
+    chartView->setChart (chart);
 }
 
 

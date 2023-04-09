@@ -26,20 +26,12 @@
 
 #include "statsqsosperbandbarchartwidget.h"
 
-StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget";
     Q_UNUSED(parent);
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -52,9 +44,7 @@ StatsQSOsPerBandBarChartWidget::~StatsQSOsPerBandBarChartWidget()
 
 void StatsQSOsPerBandBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -64,7 +54,10 @@ void StatsQSOsPerBandBarChartWidget::createUI()
 
 void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
 {
-
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
     QString categoriesTitle;
     QString categoriesElem;
     QStringList categories;
@@ -72,7 +65,7 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     QString aux;
 
-    int numberPerX = 0;
+    //int numberPerX = 0;
     chart->removeAllSeries();
     //categoriesTitle = QString();
     //categoriesElem = QString();
@@ -94,7 +87,7 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
      aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
-        numberPerX = dataProxy->getQSOsInBand((categories.at(i)), _log);
+        int numberPerX = dataProxy->getQSOsInBand((categories.at(i)), _log);
            //qDebug() << categories.at(i) + "-" + QString::number(numberPerX);
         *set0 << numberPerX;
         //numberPerX = 0;
@@ -121,6 +114,5 @@ void StatsQSOsPerBandBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-
-    //chart->setAxisX(axis, series);
+    chartView->setChart (chart);
 }

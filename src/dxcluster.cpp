@@ -805,10 +805,10 @@ bool DXClusterWidget::openFile()
 
 void DXClusterWidget::slotRighButton(const QPoint& pos)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     int row = (dxClusterListWidget->indexAt(pos)).row();
-    qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
+    //qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
 
     QListWidgetItem * item = dxClusterListWidget->currentItem();
 
@@ -843,7 +843,7 @@ void DXClusterWidget::slotCheckQRZCom()
 /*
 void DXClusterWidget::rightButtonFromLogMenu(const int trow)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(trow);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(trow);
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
 }
 */

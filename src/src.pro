@@ -71,7 +71,6 @@ HEADERS += setupdialog.h \
     awarddxmarathon.h \
     awards.h \
     awardswidget.h \
-    charts/barchartstats.h \
     charts/statsfieldperbandwidget.h \
     setuppages/hamlibnetworkconfigwidget.h \
     setuppages/hamlibserialconfigwidget.h \
@@ -233,7 +232,6 @@ SOURCES += main.cpp \
     showerrordialog.cpp \
     udpserver.cpp \
     statisticswidget.cpp \
-    charts/barchartstats.cpp \
     updatesatsdata.cpp \
     charts/statsgeneralchartwidget.cpp \
     charts/statsdxccsonsatswidget.cpp \

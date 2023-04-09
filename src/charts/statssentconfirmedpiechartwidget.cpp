@@ -26,20 +26,13 @@
 
 #include "statssentconfirmedpiechartwidget.h"
 
-StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget";
     Q_UNUSED(parent);
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -52,9 +45,6 @@ StatsSentConfirmedPieChartWidget::~StatsSentConfirmedPieChartWidget()
 
 void StatsSentConfirmedPieChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -64,6 +54,10 @@ void StatsSentConfirmedPieChartWidget::createUI()
 
 void StatsSentConfirmedPieChartWidget::prepareChart(const int _log)
 {
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
     QPieSeries *series = new QPieSeries();
     //PieSlice append(string label, real value)
     int sent = dataProxy->getHowManyQSLSentInLog(_log);
@@ -92,6 +86,6 @@ void StatsSentConfirmedPieChartWidget::prepareChart(const int _log)
     chart->legend()->hide();
 
     chartView->setRenderHint(QPainter::Antialiasing);
-
+    chartView->setChart (chart);
 
 }

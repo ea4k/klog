@@ -32,11 +32,25 @@ StatisticsWidget::StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent): QWidg
     dataProxy = dp;
     statisticToShowComboBox = new QComboBox();
     logComboBox = new QComboBox();
-    barChartStats = new BarChartStats(dp, this);
-    //donutChartStats = new DonutChartStats(dp, this);
 
-    //chartView = new QChartView(this);
-    //graphWidget = new QWidget(this);
+    stackedWidget = new QStackedWidget ;
+    w1 = new StatsQSOsPerYearBarChartWidget(dataProxy, this);
+    w2 = new StatsEntitiesPerYearBarChartWidget(dataProxy, this);
+    w3 = new StatsCQZPerYearBarChartWidget(dataProxy, this);
+    w4 = new StatsQSOsPerBandBarChartWidget(dataProxy, nullptr);
+    w5 = new StatsQSOsPerModeBarChartWidget(dataProxy, nullptr);
+    w6 = new StatsQSOsPerDXCCBarChartWidget(dataProxy, nullptr);
+    w7 = new StatsQSOsPerContinentBarChartWidget(dataProxy, nullptr);
+    w8 = new StatsQSOsPerHourBarChartWidget(dataProxy, nullptr);
+    w9 = new StatsQSOsPerMonthBarChartWidget(dataProxy, nullptr);
+    w10 = new StatsWorkedConfirmedPieChartWidget(dataProxy, nullptr);
+    w11 = new StatsWorkedSentPieChartWidget(dataProxy, nullptr);
+    w12 = new StatsSentConfirmedPieChartWidget(dataProxy, nullptr);
+    w13 = new StatsGridsOnSatsWidget(dataProxy, nullptr);
+    w14 = new StatsDXCCOnSatsWidget(dataProxy, nullptr);
+    w15= new StatsFieldPerBandWidget(dataProxy, GridSquare, nullptr);
+    w16 = new StatsFieldPerBandWidget(dataProxy, DXCC, nullptr);;
+
 
     statisticsToShowList.clear();
 
@@ -103,13 +117,155 @@ void StatisticsWidget::updateChart()
     //qDebug() << Q_FUNC_INFO << " - 011";
     //qDebug() << Q_FUNC_INFO << " Text : " << logComboBox->currentText();
     //qDebug() << Q_FUNC_INFO << " Log : " << QString::number(log);
-    barChartStats->prepareChart(text.toInt(), log);
+    //barChartStats->prepareChart(text.toInt(), log);
+    switch (text.toInt())
+    {
+        case 1:
+    {
+        //qDebug() << Q_FUNC_INFO << "10";
+        w1->prepareChart (log);
+        //qDebug() << Q_FUNC_INFO << "11";
+        stackedWidget->setCurrentWidget (w1);
+        //qDebug() << Q_FUNC_INFO << "12";
+    }
+        break;
+        case 2:
+    {
+        //qDebug() << Q_FUNC_INFO << "20";
+        w2->prepareChart (log);
+        stackedWidget->setCurrentWidget (w2);
+    }
+        break;
+
+    case 3:
+    {
+        //qDebug() << Q_FUNC_INFO << "30";
+        w3->prepareChart (log);
+        stackedWidget->setCurrentWidget (w3);
+    }
+    break;
+    case 4:
+    {
+        //qDebug() << Q_FUNC_INFO << "40";
+        w4->prepareChart (log);
+        stackedWidget->setCurrentWidget (w4);
+    }
+    break;
+    case 5:
+    {
+        //qDebug() << Q_FUNC_INFO << "50";
+        w5->prepareChart (log);
+        stackedWidget->setCurrentWidget (w5);
+    }
+    break;
+    case 6:
+    {
+        //qDebug() << Q_FUNC_INFO << "60";
+        w6->prepareChart (log);
+        stackedWidget->setCurrentWidget (w6);
+    }
+    break;
+    case 7:
+    { // How many QSO per Continent
+        //qDebug() << Q_FUNC_INFO << "70";
+        w7->prepareChart (log);
+        stackedWidget->setCurrentWidget (w7);
+    }
+    break;
+    case 8:
+    {
+        //qDebug() << Q_FUNC_INFO << "80";
+        w8->prepareChart (log);
+        stackedWidget->setCurrentWidget (w8);
+    }
+    break;
+    case 9:
+    {
+        //qDebug() << Q_FUNC_INFO << "90";
+        w9->prepareChart (log);
+        stackedWidget->setCurrentWidget (w9);
+
+    }
+    break;
+    case 10:
+    {
+        //qDebug() << Q_FUNC_INFO << "100";
+        w10->prepareChart (log);
+        stackedWidget->setCurrentWidget (w10);
+    }
+    break;
+    case 11:
+    {
+        //qDebug() << Q_FUNC_INFO << "110";
+        w11->prepareChart (log);
+        stackedWidget->setCurrentWidget (w11);
+
+    }
+    break;
+    case 12:
+    {
+        //qDebug() << Q_FUNC_INFO << "120";
+        w12->prepareChart (log);
+        stackedWidget->setCurrentWidget (w12);
+    }
+    break;
+    case 13:
+    {
+        //qDebug() << Q_FUNC_INFO << "130";
+        w13->prepareChart (log);
+        stackedWidget->setCurrentWidget (w13);
+    }
+    break;
+    case 14:
+    {
+        //qDebug() << Q_FUNC_INFO << "140";
+        w14->prepareChart (log);
+        stackedWidget->setCurrentWidget (w14);
+
+    }
+    break;
+    case 15:
+    {
+        //qDebug() << Q_FUNC_INFO << "150";
+        w15->prepareChart (log);
+        stackedWidget->setCurrentWidget (w15);
+        //genchart = new StatsFieldPerBandWidget(dataProxy, GridSquare, nullptr);
+    }
+    break;
+    case 16:
+    {
+        //qDebug() << Q_FUNC_INFO << "160";
+        w16->prepareChart (log);
+        stackedWidget->setCurrentWidget (w16);
+        //genchart = new StatsFieldPerBandWidget(dataProxy, DXCC, nullptr);
+    }
+    break;
+    }
     //qDebug() << Q_FUNC_INFO << "END";
 }
 
 void StatisticsWidget::createUI()
  {
     //qDebug() << Q_FUNC_INFO << "Start";
+
+
+    stackedWidget->addWidget(w1);
+    stackedWidget->addWidget(w2);
+    stackedWidget->addWidget(w3);
+    stackedWidget->addWidget(w4);
+    stackedWidget->addWidget(w5);
+    stackedWidget->addWidget(w6);
+    stackedWidget->addWidget(w7);
+    stackedWidget->addWidget(w8);
+    stackedWidget->addWidget(w9);
+    stackedWidget->addWidget(w10);
+    stackedWidget->addWidget(w11);
+    stackedWidget->addWidget(w12);
+    stackedWidget->addWidget(w13);
+    stackedWidget->addWidget(w14);
+    stackedWidget->addWidget(w15);
+    stackedWidget->addWidget(w16);
+
      statisticsToShowList << "01-" + tr("QSO per year");
      statisticsToShowList << "02-" + tr("DXCC per year");
      statisticsToShowList << "03-" + tr("CQ zones per year");
@@ -137,7 +293,7 @@ void StatisticsWidget::createUI()
 
      QVBoxLayout *layout = new QVBoxLayout;
      layout->addLayout(hLayout);
-     layout->addWidget(barChartStats);
+     layout->addWidget(stackedWidget);
      setLayout(layout);
      resize(420,300);
      //qDebug() << Q_FUNC_INFO << "END";

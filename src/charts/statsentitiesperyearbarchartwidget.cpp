@@ -26,13 +26,6 @@
 #include "statsentitiesperyearbarchartwidget.h"
 
 
-StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     Q_UNUSED(parent);
@@ -43,8 +36,8 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy
 #endif
 
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -57,9 +50,7 @@ StatsEntitiesPerYearBarChartWidget::~StatsEntitiesPerYearBarChartWidget()
 
 void StatsEntitiesPerYearBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -69,6 +60,10 @@ void StatsEntitiesPerYearBarChartWidget::createUI()
 
 void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
 {
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
 
     QString categoriesTitle;
     QString categoriesElem;
@@ -124,7 +119,5 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-
-    // chart->setAxisX(axis, series);
-
+    chartView->setChart (chart);
 }

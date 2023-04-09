@@ -27,20 +27,13 @@
 #include "statsqsosperyearbarchartwidget.h"
 
 
-StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
-}
-
 StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
       //qDebug() << "StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget";
     Q_UNUSED(parent);
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    //chart = new QChart();
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
@@ -53,9 +46,7 @@ StatsQSOsPerYearBarChartWidget::~StatsQSOsPerYearBarChartWidget()
 
 void StatsQSOsPerYearBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -65,33 +56,34 @@ void StatsQSOsPerYearBarChartWidget::createUI()
 
 void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
 {
+    QChart *chart = new QChart();
 
-    QString categoriesTitle;
-    QString categoriesElem;
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    QString categoriesElem = tr("QSOs");
+    QString categoriesTitle = tr("QSOs per year");
     QStringList categories;
     QBarSeries *series = new QBarSeries();
     QBarCategoryAxis *axis = new QBarCategoryAxis();
-    QString aux;
+    QString aux = QString();
 
     //int numberPerX= 0;
-    chart->removeAllSeries();
-    categoriesTitle = QString();
-    categoriesElem = QString();
+    //chart->removeAllSeries();
+
     categories.clear();
     axis->clear();
     series->clear();
-    QBarSet *set0 = new QBarSet(tr("QSOs per year"));
+    QBarSet *set0 = new QBarSet(tr("Qsos"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;
     QProgressDialog progress(tr("Reading data ... "), tr("Abort reading"), 0, categories.count(), this);
     progress.setWindowModality(Qt::WindowModal);
 
-     categories.append(dataProxy->getOperatingYears(_log));
-     categoriesElem = tr("QSOs");
-     categoriesTitle = tr("QSOs per year");
+    categories.append(dataProxy->getOperatingYears(_log));
 
-     aux.clear();
     for (int i = 0; i < categories.count();i++ )
     {
         int numberPerX = dataProxy->getQSOonYear((categories.at(i)).toInt(), _log);
@@ -121,5 +113,6 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
+    chartView->setChart (chart);
     //chart->setAxisX(axis, series);
 }

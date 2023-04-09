@@ -31,18 +31,10 @@ StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataPro
       //qDebug() << "StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget";
     Q_UNUSED(parent);
     dataProxy = dp;
-    chart = new QChart();
-    chartView = new QChartView(chart);
+    chartView = new QChartView();
 
     createUI();
     //prepareChart();
-}
-
-StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget()
-{
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    chart = new QChart();
-    chartView = new QChartView(chart);
 }
 
 StatsQSOsPerContinentBarChartWidget::~StatsQSOsPerContinentBarChartWidget()
@@ -52,9 +44,6 @@ StatsQSOsPerContinentBarChartWidget::~StatsQSOsPerContinentBarChartWidget()
 
 void StatsQSOsPerContinentBarChartWidget::createUI()
 {
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -64,6 +53,10 @@ void StatsQSOsPerContinentBarChartWidget::createUI()
 
 void StatsQSOsPerContinentBarChartWidget::prepareChart(const int _log)
 {
+    QChart *chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
 
     QString categoriesTitle;
     QString categoriesElem;
@@ -125,6 +118,5 @@ void StatsQSOsPerContinentBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-
-    //chart->setAxisX(axis, series);
+    chartView->setChart (chart);
 }

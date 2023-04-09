@@ -27,8 +27,24 @@
  *****************************************************************************/
 #include <QWidget>
 #include <QtWidgets>
+#include <QStackedWidget>
 #include "dataproxy_sqlite.h"
-#include "charts/barchartstats.h"
+#include "charts/statsgeneralchartwidget.h"
+#include "charts/statsqsosperyearbarchartwidget.h"
+#include "charts/statsqsosperbandbarchartwidget.h"
+#include "charts/statsqsospermodebarchartwidget.h"
+#include "charts/statsentitiesperyearbarchartwidget.h"
+#include "charts/statscqzperyearbarchartwidget.h"
+#include "charts/statsqsosperdxccbarchartwidget.h"
+#include "charts/statsqsospercontinentbarchartwidget.h"
+#include "charts/statsqsosperhourbarchartwidget.h"
+#include "charts/statsqsospermonthbarchartwidget.h"
+#include "charts/statsworkedconfirmedpiechartwidget.h"
+#include "charts/statsworkedsentpiechartwidget.h"
+#include "charts/statssentconfirmedpiechartwidget.h"
+#include "charts/statsgridsonsatswidget.h"
+#include "charts/statsdxccsonsatswidget.h"
+#include "charts/statsfieldperbandwidget.h"
 
 class StatisticsWidget : public QWidget
 {
@@ -53,14 +69,28 @@ private:
     void updateChart();
    // void paintQSOperOtherBarChart(const int _i);
 
+    QStackedWidget *stackedWidget;
+    StatsQSOsPerYearBarChartWidget *w1;
+    StatsEntitiesPerYearBarChartWidget *w2;
+    StatsCQZPerYearBarChartWidget *w3;
+    StatsQSOsPerBandBarChartWidget *w4;
+    StatsQSOsPerModeBarChartWidget *w5;
+    StatsQSOsPerDXCCBarChartWidget *w6;
+    StatsQSOsPerContinentBarChartWidget *w7;
+    StatsQSOsPerHourBarChartWidget *w8;
+    StatsQSOsPerMonthBarChartWidget *w9;
+    StatsWorkedConfirmedPieChartWidget *w10;
+    StatsWorkedSentPieChartWidget *w11;
+    StatsSentConfirmedPieChartWidget *w12;
+    StatsGridsOnSatsWidget *w13;
+    StatsDXCCOnSatsWidget *w14;
+    StatsFieldPerBandWidget *w15;
+    StatsFieldPerBandWidget *w16;
+
+
 
      DataProxy_SQLite *dataProxy;
-     //QWidget *graphWidget;
 
-     //QChartView *chartView;
-
-     BarChartStats *barChartStats;
-     //DonutChartStats *donutChartStats;
 
      QComboBox *statisticToShowComboBox, *logComboBox;
      QStringList statisticsToShowList;
