@@ -39,15 +39,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     Q_UNUSED(parent);
     //contentsWidget->update();
     //pagesWidget->update();
-    logLevel = None;
-    constrid = 2;
-    nolog = true;
-    util = new Utilities(Q_FUNC_INFO);
-    firstTime = true;
     dataProxy = dp;
-
-    version = QString();
-    pageRequested = 0;
+    util = new Utilities(Q_FUNC_INFO);
 
      //qDebug() << Q_FUNC_INFO << ": 01";
 
@@ -119,7 +112,13 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)
 {
      //qDebug() << Q_FUNC_INFO;
+    logLevel = None;
+    constrid = 2;
+    nolog = true;
+    firstTime = true;
 
+    version = QString();
+    pageRequested = 0;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     firstTime = !_alreadyConfigured;

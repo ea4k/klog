@@ -3623,7 +3623,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     return qsoList;
 }
 
-QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
+QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, const ExportMode _em, bool _justModified, int _logN)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     QStringList grids;
@@ -3652,7 +3652,7 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     }
 
     QString _query_justQueued;
-    if (_justModified)
+    if ((_justModified) && (_em == ModeLotW))
     {
         _query_justQueued = QString("lotw_qsl_sent='Q'");
     }
