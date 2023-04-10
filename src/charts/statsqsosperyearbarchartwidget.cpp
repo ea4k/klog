@@ -75,7 +75,7 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
     categories.clear();
     axis->clear();
     series->clear();
-    QBarSet *set0 = new QBarSet(tr("Qsos"));
+    QBarSet *set0 = new QBarSet(tr("QSOs"));
 
     //*set0->remove(0, set0->count()-1);
     qreal sum = 0;

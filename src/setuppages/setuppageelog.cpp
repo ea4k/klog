@@ -48,11 +48,11 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     clubLogEmailLabel = new QLabel(tr("ClubLog email"));
     clubLogAppPasswordLabel->setBuddy (clubLogAppPasswordLineEdit);
     clubLogPasswordLabel->setBuddy(clubLogPasswordLineEdit);
-    clubLogEmailLabel->setBuddy(clubLogEmailLineEdit);
+    clubLogEmailLabel->setBuddy(clubLogEmailLineEdit);""
 
     clubLogEmailLineEdit->setToolTip(tr("Enter the email you used to register in ClubLog."));
     clubLogPasswordLineEdit->setToolTip(tr("Enter your password ClubLog here. Warning: The password will be save on clear in the KLog config file!! (If you don't want to enter the password, KLog will ask you when it is needed.)"));
-    clubLogAppPasswordLineEdit->setToolTip(tr("Enter your application password ClubLog here. It can be obtained in ClubLog (Settings > App Passwords menu). Warning: The app password will be save on clear in the KLog config file!! (If you don't want to enter the password, KLog will ask you when it is needed.)"));
+    clubLogAppPasswordLineEdit->setToolTip(tr("Enter your application password ClubLog here. It can be obtained in ClubLog (Settings > App Passwords menu). Warning: The app password will be save on clear in the KLog config file!!"));
 
     QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
                               QRegularExpression::CaseInsensitiveOption);

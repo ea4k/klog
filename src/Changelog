@@ -4,14 +4,17 @@ TBD - 2.3.1
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO". (Closes #518)
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
-- Bugfix: Export/Upload lists of QSOs where not properly created due to cal validation issues.
-- Bugfix: Fixed tge ClubLog URLs that were changed by ClubLog.
+- Bugfix: Export/Upload lists of QSOs where not properly created due to call validation issues. (Closes #528)
+- Bugfix: Fixed the ClubLog URLs that were changed by ClubLog. (Closes #502)
 - Bugfix: QSOs confirmed with LoTW were not properly shown in DXCC Status. (Closes #551)(EA5WA)
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO".
+- Bugfix: In some conditions QRZ.com log upload was not working. (Closes #542)
+- Bugfix: In some conditions eQSL.cc log upload was not working. (Closes #526)#
 - Bugfix: VUCC_GRIDS validation was not properly done.
 - Bugfix: It was not possible to select the second pair of freqs of a Sat (Closes #483)
 - Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 - Bugfix: Some statistic widgets had a broken layout (Closes #491)
+- Bugfix: When a new QSO is added, the numbers in awardswidget were not updated.
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Log export widget shows now only QSOs in the current log.
 - Improvement: Code improvement in the MainWindowInputQSO class.
@@ -23,7 +26,7 @@ TBD - 2.3.1
 - UI: Shows the total number of QSOs when exporting.
 - UI: Added a Right-click menu in the DXCluster widget to send a spot to QRZ.com.
 - Removed the user callsign from the http header when checking for a new version.
-
+- Translations: Spanish (EA4K).
 
 
 LoTW related tasks: To be tested when LoTW Queue is OK
@@ -33,15 +36,13 @@ TEST: Bug: When uploading to LoTW, no calls are shown.
 AdifLoTWExportWidget shows ALL logs not only the current one
 LoTW is not uploading QSOs?
 
+TODO: Bug
+TODO: TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
+TODO: BUG: https://github.com/ea4k/klog/issues/330
+TODO: Review the dark mode workflow.
+TODO: Add an option to create a screenshot of maps and statistics
 
-TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
-
-BUG: When a new QSO is added, the numbers in awardswidget are not updated
-
-Export ADIF (not all) shows right QSOs in the current log but does not create a file
-
-
-Tasks to done before releasing:
+*** Tasks to done before releasing: ***
 TODO: Change the name of the new setting file. Renaming the old one and reusing config may be OK.
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
 TODO: remove slotADIFExportSelection and the export functions

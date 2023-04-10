@@ -512,10 +512,11 @@ void MainWindow::init()
        if (settingsUpdate.updateFile ())
        {
            configured = loadSettings ();
-           QSettings settings(util->getSetFile (), QSettings::IniFormat);
-           settings.setValue ("Version", softwareVersion);
        }
+
     }
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.setValue ("Version", softwareVersion);
 
     mapWindow->init();
 
@@ -1165,6 +1166,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     logWindow->refresh();
     dxccStatusWidget->refresh();
     searchWidget->refresh();
+    awardsWidget->showAwards ();
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" ;
 }
@@ -6337,7 +6339,6 @@ void MainWindow::qsoToEdit (const int _qso)
             QSOTabWidget->setRXPwr(0.0);
         }
 
-
         nameCol = rec.indexOf("freq");
         aux1 = (query.value (nameCol)).toString();
         QSOTabWidget->setTXFreq (aux1.toDouble ());
@@ -6364,18 +6365,15 @@ void MainWindow::qsoToEdit (const int _qso)
             QSLTabWidget->setQSLSenDate(util->getDateFromSQliteString(aux1));
         }
 
-
         nameCol = rec.indexOf("qsl_sent_via");
         aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLSenVia(aux1);
-
 
         //QSL RECEPTION
 
         // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
         // tr("B-Bureau") << tr("D-Direct") << tr("E-Electronic") << tr("M-Manager");
         //QSLRDATE: (only valid if QSL_RCVD is Y, I, or V)
-
 
         nameCol = rec.indexOf("qsl_rcvd");
         aux1 = (query.value (nameCol)).toString();
@@ -6393,7 +6391,7 @@ void MainWindow::qsoToEdit (const int _qso)
         aux1 = (query.value (nameCol)).toString();
         QSLTabWidget->setQSLRecVia(aux1);
 
-     //TODO: BUG: When something is selected while modifying the QSL is deleted???
+        //TODO: BUG: When something is selected while modifying the QSL is deleted???
 
         //CLUBLOG
         nameCol = rec.indexOf("clublog_qso_upload_status");
@@ -6432,17 +6430,16 @@ void MainWindow::qsoToEdit (const int _qso)
 
         //E-QSL RECEPTION
 
-    // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
-    // EQSL_QSL_RCVD: {Y, N, R, I, V}
-    // EQSL_QSLRDATE: (only valid if EQSL_RCVD is Y, I, or V)
-
+        // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
+        // EQSL_QSL_RCVD: {Y, N, R, I, V}
+        // EQSL_QSLRDATE: (only valid if EQSL_RCVD is Y, I, or V)
 
             nameCol = rec.indexOf("eqsl_qsl_rcvd");
             aux1 = (query.value (nameCol)).toString();
             eQSLTabWidget->setEQSLRecStatus(aux1.toUpper());
 
-    //TODO: Depending on the Value a date should or not exist.
-    //      This code may be importing dates when they should not exist.
+        //TODO: Depending on the Value a date should or not exist.
+        //      This code may be importing dates when they should not exist.
             nameCol = rec.indexOf("eqsl_qslrdate");
             aux1 = (query.value (nameCol)).toString();
             if (util->isValidDateFromString(aux1))
@@ -6474,7 +6471,6 @@ void MainWindow::qsoToEdit (const int _qso)
         // tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Verified");
         // lotw_QSL_RCVD: {Y, N, R, I, V}
         // lotw_QSLRDATE: (only valid if lotw_RCVD is Y, I, or V)
-
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");
                 aux1 = (query.value (nameCol)).toString();
@@ -8322,7 +8318,8 @@ bool MainWindow::loadSettings()
     QString value = settings.value ("Version").toString ();
     if (softwareVersion!=value)
     {
-        //qDebug() << Q_FUNC_INFO << " - It seems it is a new version";
+        qDebug() << Q_FUNC_INFO << " - It seems it is a new version ";
+        qDebug() << Q_FUNC_INFO << QString("softwareversion: %1 / version: %2").arg(softwareVersion).arg(value);
         itIsANewversion = true;
     }
     selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
