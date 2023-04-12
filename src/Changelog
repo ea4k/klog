@@ -15,6 +15,7 @@ TBD - 2.3.1
 - Bugfix: LoTW export was not using the selected grid when exporting (Closes #539)
 - Bugfix: Some statistic widgets had a broken layout (Closes #491)
 - Bugfix: When a new QSO is added, the numbers in awardswidget were not updated.
+- Bugfix: Distance/beam is shown when editing. (Closes #330)
 - Improvement: Code improvement in the MainWindowInputQSO class.
 - Improvement: Log export widget shows now only QSOs in the current log.
 - Improvement: Code improvement in the MainWindowInputQSO class.
@@ -38,7 +39,6 @@ LoTW is not uploading QSOs?
 
 TODO: Bug
 TODO: TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
-TODO: BUG: https://github.com/ea4k/klog/issues/330
 TODO: Review the dark mode workflow.
 TODO: Add an option to create a screenshot of maps and statistics
 
