@@ -65,6 +65,7 @@ public:
     //void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
     void setLogLevel(const DebugLogLevel _sev);
+    void loadDarkMode(); // Reads the config to setup the DarkMode
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked

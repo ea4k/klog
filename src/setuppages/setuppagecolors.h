@@ -53,6 +53,7 @@ public:
     void setDarkMode(const bool _d);
     void saveSettings();
     void loadSettings();
+    void loadDarkMode(); // Reads the config to setup the DarkMode
 
 
 private slots:

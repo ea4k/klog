@@ -492,15 +492,15 @@ void MainWindow::init()
 
      //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    //qDebug() << "MainWindow::init - Reading config file" ;
+    qDebug() << "MainWindow::init - Reading config file" ;
     if (QFile::exists(util->getSetFile ()))
     {
-         //qDebug() << "MainWindow::init - We have settings, so we load them" ;
+         qDebug() << "MainWindow::init - We have settings, so we load them" ;
         configured = loadSettings ();
     }
     else if (QFile::exists(util->getCfgFile ()))
     {
-        //qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
+        qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Settings update"));
         msgBox.setIcon(QMessageBox::Warning);
@@ -515,6 +515,7 @@ void MainWindow::init()
        }
 
     }
+    qDebug() << "MainWindow::init - After reading file";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.setValue ("Version", softwareVersion);
 
@@ -8383,6 +8384,7 @@ bool MainWindow::loadSettings()
     confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
     defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
     settings.endGroup ();
+    setupDialog->loadDarkMode ();
 
      //qDebug() << Q_FUNC_INFO << " - 70 - misc";
     settings.beginGroup ("Misc");

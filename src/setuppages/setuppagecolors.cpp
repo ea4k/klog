@@ -262,9 +262,31 @@ void SetupPageColors::slotKLogButtonClicked()
     setDefaultColors();
 }
 
+void SetupPageColors::loadDarkMode()
+{// Reads the config to setup the DarkMode
+    qDebug() << Q_FUNC_INFO;
+    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    settings.beginGroup ("Colors");
+    setDarkMode (settings.value("DarkMode", false).toBool ());
+    settings.endGroup ();
+}
+
 void SetupPageColors::slotSetDarkMode()
 {
-    if (!darkMode)
+    setDarkMode (!darkMode);
+}
+
+QString SetupPageColors::getDarkMode(){
+
+    qDebug() << Q_FUNC_INFO;
+    return util->boolToQString(darkMode);
+}
+
+void SetupPageColors::setDarkMode(const bool _d)
+{
+    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_d);
+    darkMode = _d;
+    if (darkMode)
     {
         QApplication::setStyle(QStyleFactory::create("Fusion"));
         QPalette p;
@@ -278,7 +300,7 @@ void SetupPageColors::slotSetDarkMode()
         p.setColor(QPalette::Base, QColor(100,100,100));
         qApp->setPalette(p);
         darkModeButton->setText(tr("Light Mode"));
-        darkMode = true;
+        //darkMode = true;
     }
     else
     {
@@ -296,19 +318,8 @@ void SetupPageColors::slotSetDarkMode()
         p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
         darkModeButton->setText(tr("Dark Mode"));
-        darkMode = false;
+        //darkMode = false;
     }
-}
-
-QString SetupPageColors::getDarkMode(){
-
-    return util->boolToQString(darkMode);
-}
-
-void SetupPageColors::setDarkMode(const bool _d)
-{
-    darkMode = _d;
-    slotSetDarkMode();
 }
 
 void SetupPageColors::saveSettings()
@@ -328,6 +339,7 @@ void SetupPageColors::saveSettings()
 
 void SetupPageColors::loadSettings()
 {
+    qDebug() << Q_FUNC_INFO;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
 

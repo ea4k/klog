@@ -325,6 +325,11 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
     pagesWidget->setCurrentIndex(contentsWidget->row(current));
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
+void SetupDialog::loadDarkMode()
+{// Reads the config to setup the DarkMode
+    qDebug() << Q_FUNC_INFO;
+    colorsPage->loadDarkMode ();
+}
 
 bool SetupDialog::loadSettings()
 {
