@@ -37,8 +37,7 @@ TEST: Bug: When uploading to LoTW, no calls are shown.
 AdifLoTWExportWidget shows ALL logs not only the current one
 LoTW is not uploading QSOs?
 
-TODO: Bug
-TODO: TEST: Bug: Export all in macOS opens another "empty" windows while exporting.
+
 TODO: Add an option to create a screenshot of maps and statistics
 TODO: Check the cty.dat loading as in the first time it seems it is not loaded as the Grid/CQz/ITUz is not properly detected.
 

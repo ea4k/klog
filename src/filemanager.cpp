@@ -167,7 +167,7 @@ void FileManager::setSendQSLByDefault (const bool _send)
 
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
 {
-    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
+    qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
     if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
@@ -180,7 +180,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     { // We will export data from ALL logs.
         if (!dataProxy->doesThisLogExist(_logN))
         {
-            //qDebug() << Q_FUNC_INFO << ": The log does not exist";
+            qDebug() << Q_FUNC_INFO << ": The log does not exist";
             showError(tr("The selected log does not exist, please check it again."));
             return qsos;
         }
@@ -193,20 +193,20 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
     if (_callsign == "NOT")
     {
-        //qDebug() << Q_FUNC_INFO << ": else: " << _callsign;
+         qDebug() << Q_FUNC_INFO << ": else: " << _callsign;
          _queryStation = QString(" ((station_callsign ='') OR (station_callsign IS NULL))");
     }
     else if (_callsign == "ALL")
     {
-        //qDebug() << Q_FUNC_INFO << ": ALL: " << _callsign;
+         qDebug() << Q_FUNC_INFO << ": ALL: " << _callsign;
         _queryStation = QString(" station_callsign !='ALL'");
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": ValidCall: " << _callsign;
+         qDebug() << Q_FUNC_INFO << ": ValidCall: " << _callsign;
         _queryStation = QString(" station_callsign ='%1'").arg(_callsign);
     }
-    //qDebug() << Q_FUNC_INFO << ": _queryStation: " << _queryStation;
+    qDebug() << Q_FUNC_INFO << ": _queryStation: " << _queryStation;
     if (util->isValidGrid(_grid))
     {
         _queryGrid = QString(" AND my_gridsquare = '%1'").arg(_grid);
@@ -262,7 +262,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
     if (_em == ModeLotW)
     {
-        //qDebug() << Q_FUNC_INFO << ":  Exporting for LoTW";
+         qDebug() << Q_FUNC_INFO << ":  Exporting for LoTW";
         // LoTW Required fields: call sign, UTC Date, UTC time, Mode, Band
         // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
 
@@ -271,19 +271,19 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     }
     else if (_em == ModeClubLog)
     {
-        //qDebug() << Q_FUNC_INFO << ": Exporting for ClubLog";
+         qDebug() << Q_FUNC_INFO << ": Exporting for ClubLog";
         queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND clublog_qso_upload_status='M'") + _queryDateFrom + _queryDateTo;
         queryString = QString("SELECT id, call, rst_sent, rst_rcvd, freq, bandid, band_rx, modeid, qso_date, qsl_rcvd, qslrdate, qslsdate, prop_mode, operator, station_callsign, dxcc, qsl_sent, lotw_qsl_rcvd, credit_granted, notes, qso_date_off FROM log WHERE") + _queryStation + QString(" AND clublog_qso_upload_status='M'") + _queryDateFrom + _queryDateTo;
     }
     else if (_em == ModeEQSL)
     {
-        //qDebug() << Q_FUNC_INFO << ":  Exporting for eQSL";
+         qDebug() << Q_FUNC_INFO << ":  Exporting for eQSL";
         queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND eqsl_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
         queryString = QString("SELECT id, call, rst_sent, freq, bandid, modeid, qso_date, prop_mode, operator, station_callsign, sat_name, my_cnty, my_gridsquare, my_lat, my_lon FROM log WHERE") + _queryStation + QString(" AND eqsl_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": Exporting normal ADIF";
+        qDebug() << Q_FUNC_INFO << ": Exporting normal ADIF";
         if (_callsign == "ALL")
         {
             queryStringCount = QString("SELECT COUNT (id) FROM log");
@@ -300,16 +300,16 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             queryString = QString("SELECT * FROM log WHERE") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
         }
     }
-    //qDebug() << Q_FUNC_INFO << ":  Query Count: " << queryStringCount;
-    //qDebug() << Q_FUNC_INFO << ":  Query data: " << queryString;
+    qDebug() << Q_FUNC_INFO << ":  Query Count: " << queryStringCount;
+    qDebug() << Q_FUNC_INFO << ":  Query data: " << queryString;
     int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
     int i = 0;
 
     bool sqlOK = query.exec(queryStringCount);
-    //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
+    qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
     if (!sqlOK)
     {
-        //qDebug() << Q_FUNC_INFO << ":  Query Error" ;
+        qDebug() << Q_FUNC_INFO << ":  Query Error" ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return qsos;
     }
@@ -335,7 +335,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     QTextStream out(&file);
 
     int step = util->getProgresStepForDialog(numberOfQsos);
-   //qDebug() << Q_FUNC_INFO << ":  " << QString::number(step);
+    qDebug() << Q_FUNC_INFO << ":  " << QString::number(step);
 
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
@@ -350,10 +350,10 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     i = 0;
 
     sqlOK = query.exec(queryString);
-    //qDebug() << Q_FUNC_INFO << ":  " << query.lastQuery();
+     qDebug() << Q_FUNC_INFO << ":  " << query.lastQuery();
     if (!sqlOK)
     {
-        //qDebug() << Q_FUNC_INFO << ":  Query Error" ;
+         qDebug() << Q_FUNC_INFO << ":  Query Error" ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return qsos;
     }
@@ -361,7 +361,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     QSqlRecord rec = query.record();
     int nameCol;
 
-   //qDebug() << Q_FUNC_INFO << ":  Entering the While..." ;
+    qDebug() << Q_FUNC_INFO << ":  Entering the While..." ;
 
     while ( (query.next()) && (!noMoreQso) )
     {
@@ -580,6 +580,14 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     {
         fields = "*";
     }
+    bool exportAll = false;
+    if ((_qsos.at(0) == -1) && (_qsos.size() == 1))
+    {
+        numberOfQSOs = dataProxy->getHowManyQSOInLog(-1);
+        exportAll = true;
+    }
+
+
     noMoreQso = false;
    //qDebug() << Q_FUNC_INFO << " - 01";
     QFile file(_fileName);
@@ -601,9 +609,18 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
         }
     }
 
-    QString queryString = QString("SELECT %1 FROM log WHERE id IN (%2)").arg(fields).arg(numbers);
+    QString queryString;
+    int logLength = _qsos.size();
+    if (exportAll)
+    {
+        queryString = QString("SELECT %1 FROM log").arg(fields);
+    }
+    else
+    {
+        queryString = QString("SELECT %1 FROM log WHERE id IN (%2)").arg(fields).arg(numbers);
+    }
     //qDebug() << Q_FUNC_INFO << " - writing the header";
-    writeADIFHeader(out, _em, _qsos.length());
+    writeADIFHeader(out, _em, numberOfQSOs);
    //qDebug() << Q_FUNC_INFO << " - writing the body";
 
     bool sqlOK = query.exec(queryString);
@@ -681,17 +698,18 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 {
     //adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
     // If _logN = 0, then we will export ALL the logs.
-    //qDebug() << "FileManager::adifLogExportToFile: " << _fileName;
+    qDebug() << Q_FUNC_INFO << _fileName;
     Q_UNUSED(_lotw);
     bool exportJustMarkedQSO = justMarked;
     //bool marked = false;
     bool exportOnlyQSLRequested = _qslRequested;
     //bool haveMode = false;
     noMoreQso = false;
-
+    qDebug() << Q_FUNC_INFO << " - 10";
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
         return false;
+    qDebug() << Q_FUNC_INFO << " - 11";
 
     QTextStream out(&file);
     QString aux1, aux2, queryString, bandst, bandrxst; // bandst & bandrxst are to check if the band is properly defined
@@ -715,7 +733,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
     bandst = QString();
     bandrxst = QString();
-
+    qDebug() << Q_FUNC_INFO << " - 20";
     if (exportJustMarkedQSO)
     {
         //TODO: Count the marked QSO and adjust the numberOfQsos
@@ -770,15 +788,16 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         }
           //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< QT_ENDL;
     }
-
+    qDebug() << Q_FUNC_INFO << " - 30";
     //qDebug() << "FileManager::adifLogExportToFile - end get numberOfQsos = " << QString::number(numberOfQsos);
 
     step = util->getProgresStepForDialog(numberOfQsos);
+    qDebug() << Q_FUNC_INFO << " - 31";
     //qDebug() << "FileManager::adifLogExportToFile END -  Steps = " << QString::number(step);
     //step = getProgresStepForDialog(numberOfQsos);
 
     writeADIFHeader(out, ModeADIF, numberOfQsos);
-
+    qDebug() << Q_FUNC_INFO << " - 32";
     if (exportAll)
     {
         if (justMarked)
@@ -801,14 +820,14 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             queryString = QString("SELECT * FROM log WHERE lognumber='%1'").arg(_logN);
         }
     }
-
+    qDebug() << Q_FUNC_INFO << " - 40";
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
-
+    qDebug() << Q_FUNC_INFO << " - 41";
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
     progress.setWindowModality(Qt::ApplicationModal);
@@ -816,16 +835,16 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
 
     QSqlRecord rec = query.record();
     QDateTime date;
-
-    //qDebug() << "FileManager::adifLogExportToFile -  before the While";
+    qDebug() << Q_FUNC_INFO << " - 50";
 
     while ( (query.next()) && (!noMoreQso) )
     {
-        //qDebug() << "FileManager::adifLogExportToFile -  Just in the While";
+        qDebug() << Q_FUNC_INFO << " - 50.1";
 
         if (query.isValid())
         {
             writeQuery(query, out, ModeADIF, exportJustMarkedQSO, exportOnlyQSLRequested, _logN);
+            qDebug() << Q_FUNC_INFO << " - 50.2";
         } // Closes the isValid
 
         //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso);
@@ -836,11 +855,13 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQsos);
             progress.setLabelText(aux1);
             progress.setValue(currentQso);
+            qDebug() << Q_FUNC_INFO << " - 50.3";
         }
         //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step);
 
         if ( progress.wasCanceled() )
         {
+            qDebug() << Q_FUNC_INFO << " - 50.7";
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("KLog - User cancelled"));
             QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
@@ -862,22 +883,25 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             }
         }
     } //Closes the While
-
+    qDebug() << Q_FUNC_INFO << " - 60";
       //qDebug() << "FileManager::adifLogExportToFile -  after the While";
     progress.setValue(numberOfQsos);
-
+    qDebug() << Q_FUNC_INFO << " - 70";
     if (noMoreQso)
     {
     //TODO: Remove the file (_fileName)
           //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = true";
         file.remove();
+        qDebug() << Q_FUNC_INFO << " - 70.1";
         return false;
     }
     else
     {
           //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = false";
+        qDebug() << Q_FUNC_INFO << " - 70.2";
         return writeBackupDate();
     }
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool FileManager::printQs(const QStringList &_line)

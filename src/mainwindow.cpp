@@ -492,15 +492,15 @@ void MainWindow::init()
 
      //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    qDebug() << "MainWindow::init - Reading config file" ;
+    //qDebug() << "MainWindow::init - Reading config file" ;
     if (QFile::exists(util->getSetFile ()))
     {
-         qDebug() << "MainWindow::init - We have settings, so we load them" ;
+         //qDebug() << "MainWindow::init - We have settings, so we load them" ;
         configured = loadSettings ();
     }
     else if (QFile::exists(util->getCfgFile ()))
     {
-        qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
+        //qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Settings update"));
         msgBox.setIcon(QMessageBox::Warning);
@@ -515,7 +515,6 @@ void MainWindow::init()
        }
 
     }
-    qDebug() << "MainWindow::init - After reading file";
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.setValue ("Version", softwareVersion);
 
@@ -2822,9 +2821,9 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
     {
         return; // NO QSO TO EXPORT
     }
-
+    qDebug() << Q_FUNC_INFO << " - xxy";
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-       //qDebug() << "MainWindow::slotQSOsExportToADIF: " << fileName ;
+    qDebug() << Q_FUNC_INFO << fileName ;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
     {
   //qDebug() << "MainWindow::slotQSOsExportToADIF: Adding the .adi to the file" << fileName ;
@@ -5282,8 +5281,6 @@ void MainWindow::createUIDX()
 void MainWindow::slotADIFExport()
 {
        //qDebug() << "MainWindow::slotADIFExport - Start" ;
-
-   // QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     adifLoTWExportWidget->setExportMode(ModeADIF);
     adifLoTWExportWidget->show();
 
@@ -5315,48 +5312,46 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 
 void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _st ;
+    qDebug() << Q_FUNC_INFO << ": " << _st ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeADIF);
     showNumberOfSavedQSO(fileName, qsos.count());
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
 {
-    //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeADIF, currentLog);
     showNumberOfSavedQSO(fileName, qsos.count());
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotADIFExportAll()
 {
-     //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
     QString _callToUse = "ALL";
-
+    QList <int> _qsos;
+    _qsos.clear();
+    _qsos.append(-1); //Code to specify to export ALL QSOs;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-       //qDebug() << "MainWindow::slotADIFExportAll: " << fileName ;
-    if (fileName.length()<1)
-    {
-        return;
-    }
-    if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
-    {
-  //qDebug() << "MainWindow::slotADIFExportAll: Adding the .adi to the file" << fileName ;
-        fileName = fileName +  ".adi";
-    }
-      //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName ;
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
-      //qDebug() << "MainWindow::slotADIFExportAll-3" ;
+    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _callToUse, _qsos, ModeADIF, currentLog);
     showNumberOfSavedQSO(fileName, qsos.count());
+
+      //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName ;
+    //QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
+      //qDebug() << "MainWindow::slotADIFExportAll-3" ;
+    //showNumberOfSavedQSO(fileName, qsos.count());
 
     //filemanager->adifLogExport(fileName, 0);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
+/*
+
+
+*/
 
 void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
@@ -8319,8 +8314,8 @@ bool MainWindow::loadSettings()
     QString value = settings.value ("Version").toString ();
     if (softwareVersion!=value)
     {
-        qDebug() << Q_FUNC_INFO << " - It seems it is a new version ";
-        qDebug() << Q_FUNC_INFO << QString("softwareversion: %1 / version: %2").arg(softwareVersion).arg(value);
+        //qDebug() << Q_FUNC_INFO << " - It seems it is a new version ";
+        //qDebug() << Q_FUNC_INFO << QString("softwareversion: %1 / version: %2").arg(softwareVersion).arg(value);
         itIsANewversion = true;
     }
     selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
