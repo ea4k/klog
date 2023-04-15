@@ -610,7 +610,7 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     }
 
     QString queryString;
-    int logLength = _qsos.size();
+
     if (exportAll)
     {
         queryString = QString("SELECT %1 FROM log").arg(fields);
