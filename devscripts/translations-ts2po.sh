@@ -31,7 +31,7 @@ TRANSLATIONS="src/translations"
 POFILES="po"
 export QT_SELECT="qt5"
 lupdate -no-obsolete $SOURCES/src.pro
-chmod 777 $TRANSLATIONS -R
+#chmod 777 $TRANSLATIONS -R
 
 for file in $TRANSLATIONS/*.ts
  do
@@ -59,7 +59,7 @@ for file2 in "$POFILES"/*.po
   msgfmt -o /dev/null --statistics "$file2"
 done
 
-chmod 644 $TRANSLATIONS -R                                                  
+#chmod 644 $TRANSLATIONS -R                                                  
 
 
 
