@@ -38,7 +38,7 @@ AdifLoTWExportWidget shows ALL logs not only the current one
 LoTW is not uploading QSOs?
 
 
-TODO: Add an option to create a screenshot of maps and statistics
+TODO:reate a screenshot of maps and statistics Add an option to c
 TODO: Check the cty.dat loading as in the first time it seems it is not loaded as the Grid/CQz/ITUz is not properly detected.
 
 *** Tasks to done before releasing: ***
