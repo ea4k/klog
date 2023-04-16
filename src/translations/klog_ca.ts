@@ -163,7 +163,7 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="107"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>My Locator</source>
-        <translation type="unfinished">El meu localitzador</translation>
+        <translation>El meu localitzador</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="110"/>
@@ -215,12 +215,12 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="211"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="262"/>
         <source>ALL</source>
-        <translation type="unfinished"></translation>
+        <translation>TOT</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="396"/>
         <source>QSOs: %1/%2</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO: %1/%2</translation>
     </message>
     <message>
         <source>All</source>
@@ -544,12 +544,12 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxcluster.cpp" line="110"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished">Comprova a QRZ.com</translation>
+        <translation>Comprova a QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="112"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished">Comprova aquest identificador a QRZ.com</translation>
+        <translation>Comprova aquest identificador a QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="225"/>
@@ -2456,7 +2456,7 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="302"/>
         <source>It was not possible to define the KLog folder. Some functions may not work properly!</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut definir la carpeta del KLog. Algune sfunciones no funcionaran correctament!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="476"/>
@@ -3452,14 +3452,16 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="59"/>
         <source>KLog - Stop the war in Ukraine!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Aturem la guerra a Ucraïna!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="63"/>
         <source>KLog - Stop the war in Ukraine!
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Aturem la guerra a Ucraïna!
+
+</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="70"/>
@@ -3468,7 +3470,11 @@ Voleu que el KLog elimini aquest fitxer?</translation>
 You can probably help to stop the Russian war, people are dying.
 
 Please call your leaders to stop the war.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esteu empreant un idenficador rus (%1).
+
+Probablement podeu ajudar a aturar la guerra russa, la gent està morint.
+
+Demaneu als vostres líders que aturin la guerra.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="75"/>
@@ -3477,7 +3483,11 @@ Please call your leaders to stop the war.</source>
 Please take care and protect yourself and your family. 
 
 The KLog developers wish you the best of luck in this very difficult moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esteu emprant un identificador ucraïnès.
+
+Tingueu cura i protegiu-vos, també a la vostra família. 
+
+Els desenvolupadors del KLog us desitgen molta sort en aquest moment tan difícil.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="80"/>
@@ -3486,32 +3496,36 @@ The KLog developers wish you the best of luck in this very difficult moment.</so
 You can help to stop the Russian war against Ukraine.
 
 Please show your disagreement to your leaders, or in your social network to stop the war.</source>
-        <translation type="unfinished"></translation>
+        <translation>La gent està morint a la guerra de Rússia contra Ucraïna.
+
+Podeu ajudar la guerra russa contra Ucraïna.
+
+Mostre el vostre desacord amb els vostres líders, o en les vostres xarxes socials per a aturar la guerra.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="301"/>
         <source>KLog - KLog folder not found</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - No s&apos;ha trobat la carpeta del KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="505"/>
         <source>KLog - Settings update</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Actualització de la configuració</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="507"/>
         <source>The settings system has been changed and KLog will update your settings file.</source>
-        <translation type="unfinished"></translation>
+        <translation>El sistema de configuració ha canviat i el KLog actualitzarà el fitxer de configuració.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="812"/>
         <source>This version of KLog requires that the DXCC database is updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquesta versió del KLog requereix que la base de dades DXCC s&apos;actualitzi.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="813"/>
         <source>The database will be updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>La base de dades s&apos;actualitzarà.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="866"/>
@@ -3571,7 +3585,7 @@ Please show your disagreement to your leaders, or in your social network to stop
     <message>
         <location filename="../mainwindow.cpp" line="3935"/>
         <source>Queue all QSOs from this log to be sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Posa a la cua tots els QSO d&apos;aquest registre per a enviar-los</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3976"/>
@@ -3624,7 +3638,7 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
         <location filename="../mainwindow.cpp" line="5566"/>
         <location filename="../mainwindow.cpp" line="5709"/>
         <source>The selection you have done does not include any QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>La selecció que heu fet no inclou cap QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5957"/>
@@ -4062,7 +4076,7 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="560"/>
         <source>Distance</source>
-        <translation type="unfinished">Distància</translation>
+        <translation>Distància</translation>
     </message>
 </context>
 <context>
@@ -4212,24 +4226,24 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="111"/>
         <source>RST</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="115"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="157"/>
         <source>TX</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="119"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="162"/>
         <source>RX</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="152"/>
         <source>Frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Freqüència</translation>
     </message>
     <message>
         <source>RST(tx)</source>
@@ -4501,7 +4515,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="133"/>
         <source>Show nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostris res</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="146"/>
@@ -5039,7 +5053,7 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
     <message>
         <location filename="../utilities.cpp" line="1809"/>
         <source>Contacted_Op</source>
-        <translation type="unfinished"></translation>
+        <translation>OP_contactat</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1816"/>
@@ -6263,12 +6277,12 @@ Afegiu i seleccioneu la classe de registre que voleu usar.</translation>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="89"/>
         <source>Send DX Spots to the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Envia els avisos DX al mapa</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="90"/>
         <source>Sends the received DX Spots to the map to know where is the activity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envia els avisos DX rebuts al mapa per a conèixer a on és l&apos;activitat.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="92"/>
@@ -6314,7 +6328,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="47"/>
         <source>ClubLog App password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrasenya de l&apos;aplicació ClubLog</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="48"/>
@@ -6334,7 +6348,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="55"/>
         <source>Enter your application password ClubLog here. It can be obtained in ClubLog (Settings &gt; App Passwords menu). Warning: The app password will be save on clear in the KLog config file!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduïu aquí la contrasenya de l&apos;aplicació ClubLog. Es pot obtenir al ClubLog (menú Configuració -&gt; Contrasenyes d&apos;aplicacions). Avís: la contrasenya de l&apos;aplicació es desarà en clar al fitxer de configuració del KLog!!</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="61"/>
@@ -6901,7 +6915,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="40"/>
         <source>Show seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra els segons</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="53"/>
@@ -6911,7 +6925,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="105"/>
         <source>Show seconds in the QSO editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra els segons a l&apos;editor de QSO</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="146"/>
@@ -6926,12 +6940,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="149"/>
         <source>Select the application debug log level. This may be useful if something is not working as expected. A debug file will be created in the KLog directory and/or shown with Help-&gt;Debug menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona el nivell de registre de depuració de l&apos;aplicació. Això pot ser útil si hi ha quelcom que no funciona com s&apos;espera. Es crearà un fitxer de depuració en el directori del KLog i/o es mostra amb el menú Ajuda-&gt;Depura.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="167"/>
         <source>Log level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivell de registre</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="470"/>
@@ -8889,17 +8903,17 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../elogclublog.cpp" line="109"/>
         <source>It seems to be a CREDENTIALS ERROR; check your email and password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembla que hi ha un error de credencials, verifiqueu el vostre correu i contrasenya.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="112"/>
         <source>It seems that your ClubLog credentials are not correct.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembla que les vostres credencials del ClubLog no són correctes.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="113"/>
         <source>Please check your credentials in the setup. ClubLog uploads will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifiqueu les vostres credencials a la configuració. Les pujades al ClubLog estan desactivades.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="627"/>
