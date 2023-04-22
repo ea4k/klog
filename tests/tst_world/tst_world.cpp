@@ -65,10 +65,8 @@ private slots:
     QString getQRZLocator(const QString &_qrz); // Returns the entity locator
     QString getLocator(const int _entityN); // Returns the entity locator
 
-    double getQRZLongitude(const QString &_qrz); // Returns the longitude of the Entity
     double getLongitude(const int _enti); // Returns the longitude of the Entity
 
-    double getQRZLatitude(const QString &_qrz); // Returns the latitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
 
     int getEntityCqz(const int _enti);
@@ -210,10 +208,8 @@ void tst_World::test_SeveralIdentification()
 
     QVERIFY2(world->getContinentShortName(281) == "EU", "Continent for 281 not properly identified");
 
-    QVERIFY2(world->getQRZLongitude("EA4K") == -3.43, "Longitude for EA4K not properly identified");
     QVERIFY2(world->getLongitude(281) == -3.43, "Longitude for 281 not properly identified");
 
-    QVERIFY2(world->getQRZLatitude("EA4K") == 40.32, "Latitue for EA4K not properly identified");
     QVERIFY2(world->getLatitude(281) == 40.32, "Latitude for 281 not properly identified");
 
     QVERIFY2(world->getQRZLocator("EA4K") == "IN80GH", "Locator for EA4K not properly identified");

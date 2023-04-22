@@ -324,10 +324,11 @@ void MainWindow::init()
         debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
+    //qDebug() << "MainWindow::init - 00" ;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-     //qDebug() << "MainWindow::init - 00" ;
+    //qDebug() << "MainWindow::init - 000" ;
     setupDialog->init(softwareVersion, 0, configured);
      //qDebug() << "MainWindow::init - 01" ;
     filemanager->init();
@@ -400,7 +401,6 @@ void MainWindow::init()
      //qDebug() << "MainWindow::init - 30" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
-
 
     completeWithPrevious=false;
     completedWithPreviousQTH=false;
@@ -568,7 +568,7 @@ void MainWindow::init()
     infoWidget->showInfo(-1);
      //qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
-
+    world->readWorld ();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
      //qDebug() << Q_FUNC_INFO << " - 130";
@@ -2821,9 +2821,9 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
     {
         return; // NO QSO TO EXPORT
     }
-    qDebug() << Q_FUNC_INFO << " - xxy";
+    //qDebug() << Q_FUNC_INFO << " - xxy";
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    qDebug() << Q_FUNC_INFO << fileName ;
+    //qDebug() << Q_FUNC_INFO << fileName ;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
     {
   //qDebug() << "MainWindow::slotQSOsExportToADIF: Adding the .adi to the file" << fileName ;
@@ -3468,7 +3468,7 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-     //qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
+    //qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
     if (_qrz.length()<1)
@@ -3497,13 +3497,13 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-         //qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" ;
+        //qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" ;
         qrzSmallModDontCalculate=false;
         logEvent(Q_FUNC_INFO, "END-Small QRZ, don't calculate", Devel);
         return;
     }
 
-     //qDebug()<< Q_FUNC_INFO << ": running ..." ;
+    //qDebug()<< Q_FUNC_INFO << ": running ..." ;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -5312,25 +5312,25 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 
 void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _st ;
+    //qDebug() << Q_FUNC_INFO << ": " << _st ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeADIF);
     showNumberOfSavedQSO(fileName, qsos.count());
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeADIF, currentLog);
     showNumberOfSavedQSO(fileName, qsos.count());
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotADIFExportAll()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString _callToUse = "ALL";
     QList <int> _qsos;

@@ -331,18 +331,18 @@ QList<int> AdifLoTWExportWidget::fillTable()
         QString _myCall;
         if (stationCallsignComboBox->currentIndex () == 0)
         {
-            qDebug() << ": NOT";
+            //qDebug() << ": NOT";
             _myCall = "NOT";
         }
         else if ((stationCallsignComboBox->currentIndex () == 1) && (currentExportMode != ModeLotW))
         {
-            qDebug() << ": all";
+            //qDebug() << ": all";
             _myCall = "ALL";
         }
         else
         {
              _myCall = stationCallsignComboBox->currentText();
-             qDebug() << ": Call: " <<_myCall;
+             //qDebug() << ": Call: " <<_myCall;
         }
         //qsos.clear ();
         switch (currentExportMode)

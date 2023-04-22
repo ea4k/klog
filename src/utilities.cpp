@@ -1050,7 +1050,7 @@ QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
             //qDebug() << Q_FUNC_INFO << " - Known CALL found!";
             return _c;
         }
-         //qDebug() << Q_FUNC_INFO << " - Call not found!" ;
+        //qDebug() << Q_FUNC_INFO << " - Call not found!" ;
     }
 
     //qDebug() << Q_FUNC_INFO << " - 010";

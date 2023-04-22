@@ -111,7 +111,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
 
 void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)
 {
-     //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     logLevel = None;
     constrid = 2;
     nolog = true;
@@ -119,8 +119,11 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
 
     version = QString();
     pageRequested = 0;
+    //qDebug() << Q_FUNC_INFO << "00";
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    userDataPage->setPrefixes ();
+    //qDebug() << Q_FUNC_INFO << "000";
     firstTime = !_alreadyConfigured;
     if (firstTime)
     {
@@ -327,7 +330,7 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 }
 void SetupDialog::loadDarkMode()
 {// Reads the config to setup the DarkMode
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     colorsPage->loadDarkMode ();
 }
 

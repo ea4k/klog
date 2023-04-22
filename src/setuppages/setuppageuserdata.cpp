@@ -27,7 +27,8 @@
 #include "setuppageuserdata.h"
 
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
-      //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage";
+   //qDebug() << Q_FUNC_INFO << " - Start";
+   slotQRZRunning = false;
    locator = new Locator();
    util = new Utilities(Q_FUNC_INFO);
    dataProxy = dp;
@@ -49,11 +50,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
    myLocatorLineEdit = new QLineEdit;
 
    defaultPalette = new QPalette;
-   //defaultPalette = operatorsLineEdit->palette();
    wrongPalette = new QPalette;
-   //wrongPalette->setColor(QPalette::WindowText, setNamedColor(Qt::red));
-    //redColor.setNamedColor(Qt::red);
-   //redColor->setNamedColor(Qt::red);
    wrongPalette->setColor(QPalette::Text, Qt::red);
 
 
@@ -115,12 +112,6 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
    personalLayout->addWidget(countryLabel, 4, 5);
    personalLayout->addWidget(countryLineEdit, 5, 5, 1, 1);
 
-   //personalLayout->addWidget();
-
-   //QHBoxLayout *personalAllLayout = new QHBoxLayout();
-   //personalAllLayout->addLayout(nameLayout);
-   //personalAllLayout->addLayout(personalLayout);
-
    personalTab->setLayout(personalLayout);
 
    // Station Tab
@@ -130,7 +121,6 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
    ant1LineEdit = new QLineEdit;
    ant2LineEdit = new QLineEdit;
    ant3LineEdit = new QLineEdit;
-   //powerLineEdit = new QLineEdit;
 
    myPowerSpinBox = new QDoubleSpinBox;
    myPowerSpinBox->setDecimals(2);
@@ -245,15 +235,13 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
     setLayout(mainLayout);
     maincallsignLineEdit->setFocus();
 
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-       //qDebug() << "SetupPageUserDataPage::SetupPageUserDataPage - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 SetupPageUserDataPage::~SetupPageUserDataPage()
 {
-       //qDebug() << "SetupPageUserDataPage::~SetupPageUserDataPage";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     delete(locator);
     delete(util);
     delete(world);
@@ -262,9 +250,15 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
     delete(dataProxy);
 }
 
+void SetupPageUserDataPage::setPrefixes()
+{
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    world->readWorld ();
+}
+
 QString SetupPageUserDataPage::getMainCallsign()
 {
-    //mainCallOK = world->checkQRZValidFormat(maincallsignLineEdit->text());
     if (util->isValidCall(maincallsignLineEdit->text()))
     {
         return maincallsignLineEdit->text();
@@ -284,6 +278,13 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    if (slotQRZRunning)
+    {
+        //qDebug() << Q_FUNC_INFO << " - END-1";
+        return;
+    }
+    slotQRZRunning = true;
       //qDebug() << "SetupPageUserDataPage::slotQRZTextChanged: " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
 
     int i = maincallsignLineEdit->cursorPosition();
@@ -291,6 +292,8 @@ void SetupPageUserDataPage::slotQRZTextChanged()
     QString _a = util->getClearSQLi (maincallsignLineEdit->text());
     if (i<1)
     {
+        slotQRZRunning = false;
+        //qDebug() << Q_FUNC_INFO << " - END-2";
         return;
     }
 
@@ -318,6 +321,8 @@ void SetupPageUserDataPage::slotQRZTextChanged()
         myLocatorLineEdit->setText(world->getQRZLocator(maincallsignLineEdit->text()));
     }
     */
+    //qDebug() << Q_FUNC_INFO << " - END-3";
+    slotQRZRunning = false;
 }
 
 int SetupPageUserDataPage::getCQz(){
@@ -353,7 +358,7 @@ bool SetupPageUserDataPage::setITUz(const int _ituz)
 
 void SetupPageUserDataPage::slotMyLocatorTextChanged()
 {
-       //qDebug() << "SetupPageUserDataPage::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     myLocatorLineEdit->setText(((util->getClearSQLi(myLocatorLineEdit->text()))).simplified());
     myLocatorLineEdit->setText((myLocatorLineEdit->text()).toUpper());
@@ -699,7 +704,7 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 }
 void SetupPageUserDataPage::setStationFocus()
 {
-    //qDebug() << "SetupPageUserDataPage::setStationFocus";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     maincallsignLineEdit->setFocus();
 }
 

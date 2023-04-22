@@ -37,10 +37,6 @@ TEST: Bug: When uploading to LoTW, no calls are shown.
 AdifLoTWExportWidget shows ALL logs not only the current one
 LoTW is not uploading QSOs?
 
-
-TODO:reate a screenshot of maps and statistics Add an option to c
-TODO: Check the cty.dat loading as in the first time it seems it is not loaded as the Grid/CQz/ITUz is not properly detected.
-
 *** Tasks to done before releasing: ***
 TODO: Change the name of the new setting file. Renaming the old one and reusing config may be OK.
 TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();

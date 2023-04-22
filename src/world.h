@@ -83,10 +83,7 @@ public:
     QString getQRZLocator(const QString &_qrz); // Returns the entity locator
     QString getLocator(const int _entityN); // Returns the entity locator
 
-    double getQRZLongitude(const QString &_qrz); // Returns the longitude of the Entity
     double getLongitude(const int _enti); // Returns the longitude of the Entity
-
-    double getQRZLatitude(const QString &_qrz); // Returns the latitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
 
     int getEntityCqz(const int _enti);

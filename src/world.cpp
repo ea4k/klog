@@ -54,8 +54,7 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
 
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+
     if (readWorld())
     {
         //qDebug() << Q_FUNC_INFO << " - World TRUE";
@@ -64,6 +63,7 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     {
         //qDebug() << Q_FUNC_INFO << " - World FALSE";
     }
+
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -76,12 +76,17 @@ World::~World()
 
 bool World::readWorld()
 { // Used to link a prefix with an Entity quickly, without quering the DB.
+    //qDebug() << Q_FUNC_INFO << " - Start";
     worldPrefixes.clear();
     worldPrefixes = dataProxy->getWorldData();
     if (worldPrefixes.size()>100)
     {
+        //qDebug() << Q_FUNC_INFO << " - END true";
+        util->setLongPrefixes(dataProxy->getLongPrefixes());
+        util->setSpecialCalls(dataProxy->getSpecialCallsigns());
         return true;
     }
+    //qDebug() << Q_FUNC_INFO << " - END false";
     return false;
 }
 
@@ -95,10 +100,12 @@ bool World::recreate(const QString &_worldFile)
         if (query.exec("DELETE FROM prefixesofentity"))
         {
              //qDebug() << "World::recreate: EMPTY prefixesofentity" ;
-             if (create(_worldFile))
-             {
-                 return insertSpecialEntities ();
-             }
+            return create(_worldFile);
+
+            //if (create(_worldFile))
+            // {
+            //     return insertSpecialEntities ();
+            // }
         }
         else
         {//TODO: Manage the query error
@@ -124,6 +131,8 @@ bool World::create(const QString &_worldFile)
 
     if (readCTYCSV(_worldFile))
     {
+        util->setLongPrefixes(dataProxy->getLongPrefixes());
+        util->setSpecialCalls(dataProxy->getSpecialCallsigns());
         created = true;
          //qDebug() << "World::create: TRUE" ;
 
@@ -148,6 +157,7 @@ bool World::create(const QString &_worldFile)
                //qDebug() << "World::create: updateISONames FALSE" ;
         }
     }
+    readWorld ();
        //qDebug() << "World::create: END" ;
     return created;
 }
@@ -375,7 +385,7 @@ int World::getPrefixId(const QString &_prefix)
 
 QString World::getQRZEntityName(const QString &_qrz)
 {
-    //qDebug() << "World::getQRZEntityName: " << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return QString();
@@ -444,12 +454,13 @@ int World::getQRZARRLId(const QString &_qrz)
         return -1;
     }
     QString pref = util->getPrefixFromCall(_qrz);
-    //qDebug() << Q_FUNC_INFO << ": " << pref;
+    //qDebug() << Q_FUNC_INFO << ": prefix: " << pref;
     return getPrefixId(pref);
 }
 
 QString World::getQRZEntityMainPrefix(const QString &_qrz)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return "";
@@ -484,7 +495,7 @@ bool World::isNewEntity(const int _entityN)
 
 QString World::getQRZContinentShortName(const QString &_qrz)
 {
-        //qDebug() << "World::getQRZContinentShortName: " << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     return getContinentShortName (getQRZARRLId(_qrz));
 }
 
@@ -508,7 +519,7 @@ QString World::getContinentShortName(const int _enti)
 
 QString World::getQRZContinentNumber(const QString &_qrz)
 {
-       //qDebug() << "World::getQRZContinentNumber: " << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     int i = getQRZARRLId(_qrz);
     return QString::number(getContinentNumber(i));
 }
@@ -523,12 +534,6 @@ int World::getContinentNumber(const int _enti)
     return dataProxy->getContinentIdFromEntity(_enti);
 }
 
-double World::getQRZLongitude(const QString &_qrz)
-{
-    int i = getQRZARRLId(_qrz);
-    return dataProxy->getLongitudeFromEntity(i);
-}
-
 double World::getLongitude(const int _enti)
 {
     if (_enti <= 0)
@@ -536,12 +541,6 @@ double World::getLongitude(const int _enti)
         return 0.0;
     }
     return dataProxy->getLongitudeFromEntity(_enti);
-}
-
-double World::getQRZLatitude(const QString &_qrz)
-{
-    int i = getQRZARRLId(_qrz);
-    return dataProxy->getLatitudeFromEntity(i);
 }
 
 double World::getLatitude(const int _enti)
@@ -555,11 +554,14 @@ double World::getLatitude(const int _enti)
 
 QString World::getQRZLocator(const QString &_qrz)
 {
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
     if (_qrz.length() < 1)
     {
         return "";
     }
-    return locator->getLocator(getQRZLongitude(_qrz), getQRZLatitude(_qrz));
+    int i = getQRZARRLId (_qrz);
+    //qDebug() << Q_FUNC_INFO << " - 2";
+    return locator->getLocator(getLongitude(i), getLatitude (i));
 }
 
 QString World::getLocator(const int _entityN)

@@ -40,6 +40,7 @@ class SetupPageUserDataPage : public QWidget {
 public:
     SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageUserDataPage();
+    void setPrefixes();
 
     QString getMainCallsign();
     QString getOperators();
@@ -160,6 +161,7 @@ private:
 
     bool operatorsOK;
     bool mainCallOK;
+    bool slotQRZRunning;
     Utilities *util;
 
 };

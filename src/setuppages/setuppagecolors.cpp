@@ -264,7 +264,7 @@ void SetupPageColors::slotKLogButtonClicked()
 
 void SetupPageColors::loadDarkMode()
 {// Reads the config to setup the DarkMode
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
     setDarkMode (settings.value("DarkMode", false).toBool ());
@@ -278,13 +278,13 @@ void SetupPageColors::slotSetDarkMode()
 
 QString SetupPageColors::getDarkMode(){
 
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     return util->boolToQString(darkMode);
 }
 
 void SetupPageColors::setDarkMode(const bool _d)
 {
-    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_d);
+    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_d);
     darkMode = _d;
     if (darkMode)
     {
@@ -339,7 +339,7 @@ void SetupPageColors::saveSettings()
 
 void SetupPageColors::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QSettings settings(util->getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
 
