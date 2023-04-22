@@ -463,7 +463,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation>Parece que el estado de DXCC no está actualizado en la base de datos y KLog no puede encontrar infomración de DXCC. Puede intentar arreglarlo actualizando el log.</translation>
+        <translation>Parece que el estado de DXCC no está actualizado en la base de datos y KLog no puede encontrar información de DXCC. Puede intentar arreglarlo actualizando el log.</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
