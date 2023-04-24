@@ -119,7 +119,8 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.setValue ("Bands", value.split (", ", QT_SKIP));
         settings.endGroup ();
     }else if (tab=="LOGVIEWFIELDS"){
-        settings.setValue ("LogViewFields", value);
+        settings.setValue ("LogViewFields", value.split (", ", QT_SKIP));
+        //settings.setValue ("LogViewFields", value);
     }else if (tab=="REALTIME"){
         settings.beginGroup ("Misc");
         settings.setValue ("RealTime", util.trueOrFalse (value));

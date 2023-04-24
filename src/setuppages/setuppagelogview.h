@@ -43,9 +43,6 @@ public:
     //QString getFields();
     void saveSettings();
     void loadSettings();
-    void setActiveFields(QStringList _q);
-    QStringList getActiveFields();
-
 
 signals:
 
@@ -53,6 +50,8 @@ public slots:
 
 private:
     void addFields (QStringList _b); // read the available fields from the DB
+    QStringList getActiveFields();
+    void setActiveFields(QStringList _q);
 
     QListWidget *fieldsListWidget;
 

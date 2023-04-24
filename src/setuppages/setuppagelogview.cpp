@@ -41,9 +41,6 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
     fieldsLabel->setText(tr("Fields"));
     fieldsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    addFields(dataProxy->getFields());
-
-
     fLayout->addWidget(fieldsLabel);
     fLayout->addWidget(fieldsListWidget);
 
@@ -58,6 +55,7 @@ SetupPageLogView::~SetupPageLogView()
 
 void SetupPageLogView::init()
 {
+    addFields(dataProxy->getFields());
     if (fieldsListWidget->count ()<1)
     {
         QStringList aux;
@@ -87,34 +85,39 @@ QStringList SetupPageLogView::getActiveFields()
     {
         return QStringList();
     }
+    QStringList _list;
+    _list.clear ();
      QListWidgetItem *it;
-     QString b = QString();
+    //QString b = QString();
     for (int i = 0; i < fieldsListWidget->count(); i++)
     {
         it = fieldsListWidget->item(i);
         if (it->checkState() == Qt::Checked)
         {
-            b = b + it->text();
-            b = b + ", ";
+            _list.append (it->text ());
+            //b = b + it->text();
+            //b = b + ", ";
         }
     }
-    if (b.size()>=2)
-    {
-        b.chop(2);
-    }
+    //if (b.size()>=2)
+    //{
+    //    b.chop(2);
+    //}
     //qDebug() << Q_FUNC_INFO << " : " << b;
-    return b.split(", ", Qt::SkipEmptyParts);
+    return _list;
+    //return b.split(", ", Qt::SkipEmptyParts);
 }
 
 void SetupPageLogView::setActiveFields(QStringList q)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
-
+    //qDebug() << Q_FUNC_INFO << " - Start";
     if (q.isEmpty())
-    {return;}
+    {
+        //qDebug() << Q_FUNC_INFO << " - Empty list - END-0";
+        return;
+    }
 
     QListWidgetItem *it;
-
     if ( (fieldsListWidget->count()) < 1)
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
@@ -128,9 +131,10 @@ void SetupPageLogView::setActiveFields(QStringList q)
 
         for (int j=0;j<q.length();j++)
         {
+            //qDebug() << Q_FUNC_INFO << " - Checking: " << q.at(j);
             if (it->text() == q.at(j))
             {
-                //qDebug() << Q_FUNC_INFO << " - Checking: " << q.at(j);
+                //qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);
                 it->setCheckState(Qt::Checked);
             }
         }

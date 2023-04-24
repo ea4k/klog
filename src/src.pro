@@ -30,9 +30,8 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 
-PKGVERSION = 2.3.1-RC1
-VERSION = 2.3.1-RC1
-
+PKGVERSION = 2.3.1-RC.2
+VERSION = 2.3.1
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog

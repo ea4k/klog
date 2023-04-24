@@ -336,6 +336,7 @@ void SetupDialog::loadDarkMode()
 
 bool SetupDialog::loadSettings()
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
     if (!QFile::exists(util->getSetFile ()))
     {
          //qDebug() << Q_FUNC_INFO << " - Nothing to load";
@@ -369,10 +370,8 @@ bool SetupDialog::loadSettings()
     bandModePage->setActiveBands (bands);
     settings.endGroup ();
 
-     //qDebug() << Q_FUNC_INFO << " - 40 - logview";
+    //qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logViewPage->loadSettings ();
-    logViewFields.clear();
-    logViewFields << logViewPage->getActiveFields ();
      //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     dxClusterPage->loadSettings ();
      //qDebug() << Q_FUNC_INFO << " - 60 - colors";
@@ -387,7 +386,7 @@ bool SetupDialog::loadSettings()
     UDPPage->loadSettings ();
      //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
     hamlibPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
+    //qDebug() << Q_FUNC_INFO << " - 120 - END";
     return true;
 }
 
@@ -464,19 +463,19 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-     //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
     //if (!QFile::exists (util->getSetFile ()))
     {
-         //qDebug() << Q_FUNC_INFO << " - FirstTime";
+        //qDebug() << Q_FUNC_INFO << " - FirstTime";
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
-        logViewFields.removeDuplicates();
+        //logViewFields.removeDuplicates();
         bandModePage->setActiveModes(modes);
         bandModePage->setActiveBands(bands);
-        logViewPage->setActiveFields(logViewFields);
+        //logViewPage->setActiveFields(logViewFields);
     }
     loadSettings();
 
@@ -491,17 +490,14 @@ void SetupDialog::slotReadConfigData()
     {
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
     }
-    if (logViewFields.isEmpty())
-    {
-        logViewFields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
-    }
+
     modes.removeDuplicates();
     bandModePage->setActiveModes(modes);
     bands.removeDuplicates();
     bandModePage->setActiveBands(bands);
-    logViewFields.removeDuplicates();
-    logViewPage->setActiveFields(logViewFields);
-     //qDebug() << Q_FUNC_INFO << " - END";
+
+    //logViewPage->setActiveFields(logViewFields);
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -619,6 +615,8 @@ void SetupDialog::setDefaults()
     //interfacesWindowsPage->setPSTRotatorUDPServer("locahost");
     //interfacesWindowsPage->setPSTRotatorUDPServerPort("12040");
     dxClusterPage->init ();
+    logViewPage->init();
+
 
     //dxClusterServers.clear();
     //dxClusterServers.append("dxfun.com:8000");
