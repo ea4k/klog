@@ -6059,7 +6059,7 @@ void MainWindow::slotADIFImport(){
           //qDebug() << "MainWindow::slotADIFImport -2" ;
         //dxccStatusWidget->refresh();
 
-        //logWindow->refresh();
+        logWindow->refresh();
          //qDebug() << "MainWindow::slotADIFImport -3";
 
         checkIfNewBandOrMode();
