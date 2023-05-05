@@ -213,7 +213,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     }
     else if (_grid == "NOT")
     {
-        _queryGrid = QString(" AND (my_gridsquare = '' OR my_gridsquate IS NULL)");
+        _queryGrid = QString(" AND (my_gridsquare = '' OR my_gridsquare IS NULL)");
     }
     else
     {
@@ -2766,6 +2766,7 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         preparedQuery.bindValue(":hrd_qso_upload_status", data);
                         break;
                     case(55):
+                        //TODO: if data is NULL or empty, ask for my_gridsquare
                         preparedQuery.bindValue(":my_gridsquare", data);
                         break;
                     case(56):

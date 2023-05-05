@@ -717,7 +717,7 @@ bool Utilities::isValidSimpleCall(const QString &_c)
 bool Utilities::isAValidOperatingSuffix (const QString &_c)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << _c;
-    QStringList validSuffixes = {"A", "P", "Q", "AM", "M", "MM", "LH", "R", "J", "FF", "QRP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+    QStringList validSuffixes = {"A", "P", "Q", "AM", "M", "MM", "LH", "R", "J", "FF", "QRP", "QRPP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     return validSuffixes.contains (_c);
 }
 
