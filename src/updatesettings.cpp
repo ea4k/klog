@@ -404,7 +404,7 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if(tab =="HAMLIB"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("Hamlib", util.trueOrFalse (value));
+        settings.setValue ("HamlibActive", util.trueOrFalse (value));
         settings.endGroup ();
     }else if(tab=="HAMLIBREADONLY"){
         settings.beginGroup ("HamLib");

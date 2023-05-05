@@ -347,7 +347,7 @@ void MainWindow::init()
 
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
-    modes << "SSB" << "CW" << "RTTY";
+    modes << "SSB" << "CW";
      //qDebug() << "MainWindow::init - 00" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     hamlibActive = false;
@@ -5105,6 +5105,10 @@ void MainWindow::readActiveBands (const QStringList actives)
 { // Checks a "10m, 12m" QString, checks if  they are valid bands and import to the
      //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    foreach (QString aux, actives)
+    {
+      qDebug() << Q_FUNC_INFO << ": " << aux;
+    }
     bool atLeastOne = false;
     QString aux;
     bands.clear();
@@ -7415,11 +7419,11 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-     //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
     mapWindow->setBands(_b);
-     //qDebug() << Q_FUNC_INFO << " - END" ;
+    qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -8342,7 +8346,7 @@ bool MainWindow::loadSettings()
     settings.beginGroup ("BandMode");
     QStringList listAux;
     listAux.clear();
-    listAux << "SSB" << "CW" << "RTTY";
+    listAux << "SSB" << "CW";
     readActiveModes (settings.value("Modes", listAux ).toStringList ());
 
     //qDebug() << Q_FUNC_INFO << " - 31 - bands";
@@ -8464,7 +8468,7 @@ bool MainWindow::loadSettings()
      //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
     settings.beginGroup ("HamLib");
     hamlib->loadSettings ();
-    hamlibActive = settings.value ("HamLib").toBool ();
+    hamlibActive = settings.value ("HamlibActive").toBool ();
     settings.endGroup ();
 
     logEvent(Q_FUNC_INFO, "END", Debug);

@@ -159,7 +159,7 @@ private:
     QString lastQrz;
     double freqTX, freqRX, bottomBandLimit, upperBandLimit;
     DebugLogLevel logLevel;
-    //HamLibClass *hamlib;
+    bool modifyingBands;
 };
 
 #endif // MAINQSOENTRYWIDGET_H

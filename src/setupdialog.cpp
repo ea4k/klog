@@ -356,7 +356,7 @@ bool SetupDialog::loadSettings()
 
     QStringList listAux;
     listAux.clear();
-    listAux << "SSB" << "CW" << "RTTY";
+    listAux << "SSB" << "CW";
     readActiveModes (settings.value("Modes", listAux).toStringList ());
     listAux.clear();
     listAux << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
@@ -484,7 +484,7 @@ void SetupDialog::slotReadConfigData()
 
     if (modes.isEmpty())
     {
-        modes << "SSB" << "CW" << "RTTY";
+        modes << "SSB" << "CW";
     }
     if (bands.isEmpty())
     {
@@ -624,7 +624,7 @@ void SetupDialog::setDefaults()
 
     if (modes.isEmpty())
     {
-        modes << "SSB" << "CW" << "RTTY";
+        modes << "SSB" << "CW";
         modes.removeDuplicates();
     }
 
