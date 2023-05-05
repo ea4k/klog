@@ -692,7 +692,7 @@ void MainWindow::createActionsCommon(){
 
     // SATELLITES TAB
     //connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
-    //connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotFreqTXChanged(double)  ) );
+    connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotFreqTXChangedFromSat(double)  ) );
     //connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double)  ) );
     //connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
     connect(satTabWidget, SIGNAL(setPropModeSat(QString,bool)), this, SLOT(slotSetPropModeFromSat(QString,bool)) ) ;
@@ -7443,6 +7443,23 @@ void MainWindow::slotFreqRXChanged(const double _fr)
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << "MainWindow::slotFreqRXChanged - END"  ;
+}
+
+void MainWindow::slotFreqTXChangedFromSat(const double _fr)
+{
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    if (!upAndRunning)
+    {
+         //qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" ;
+        return;
+    }
+    if (dataProxy->isThisFreqInBand (mainQSOEntryWidget->getBand (), QString::number(_fr)))
+    {
+        return;
+    }
+    slotFreqTXChanged (_fr);
+
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotFreqTXChanged(const double _fr)

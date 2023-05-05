@@ -198,7 +198,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         setBandsOfSat(satNameComboBox->currentText());
        //dataProxy->getSatelliteMode(satNameComboBox->currentText())
         autofillSatMode();
-    }  
+    }
 }
 
 void MainWindowSatTab::slotSatNameTextChanged()
@@ -471,7 +471,7 @@ void MainWindowSatTab::setDefaultBands()
 
 void MainWindowSatTab::slotSatBandRXComboBoxChanged()
 {
-    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged";
+    //qDebug() << Q_FUNC_INFO;
     if (updatingBands || modifying)
     {
         return;
@@ -480,13 +480,13 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
     bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(freqRX));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
-       //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText() ;
-        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
-
+       //qDebug() << Q_FUNC_INFO << " changing to: Band: " << satBandTXComboBox->currentText() ;
+        //qDebug() << Q_FUNC_INFO << " changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
+        setNoSat ();
         updateRXFreq(dataProxy->getLowLimitBandFromBandName(satBandRXComboBox->currentText()));
     }
 
-    //qDebug() << "MainWindowsatTab::slotSatBandRXComboBoxChanged-END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     autofillSatMode();
 }
 
@@ -511,7 +511,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
         //qDebug() << ": Full" << dataProxy->getSatelliteFullUplink(getSatName());
 
         double upLink = tmpFreq.toDouble();
-        double downLink = 0.0;
+        double downLink;
         if (dataProxy->isThisFreqInBand(tmpBand,dataProxy->getSatelliteUplink(getSatName(),1)) )
         {
             upLink = (dataProxy->getSatelliteUplink(getSatName(),1)).toDouble();
@@ -523,6 +523,11 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
             upLink = (dataProxy->getSatelliteUplink(getSatName(),0)).toDouble();
             downLink = (dataProxy->getSatelliteDownlink(getSatName(),1)).toDouble();
             updateRXFreq(downLink);
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO << " - Selected satelite does not work in the selected band. NO sat should be selected";
+            setNoSat ();
         }
 
         updateTXFreq(upLink);

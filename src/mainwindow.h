@@ -158,6 +158,7 @@ private slots:
     //void slotMyLocatorTextChanged();
     void slotFreqTXChanged(const double _fr);
     void slotFreqRXChanged(const double _fr);
+    void slotFreqTXChangedFromSat(const double _fr);
     //void slotSplitCLicked();
 
     //void slotSearchBoxTextChanged();
