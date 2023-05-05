@@ -519,7 +519,7 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << ": (END) Band is NOT  valid: " <<_band<< endl;
+            qDebug() << Q_FUNC_INFO << ": (END) Band is NOT  valid: " <<_band;
             logEvent (Q_FUNC_INFO, "END-1", Debug);
             return false;
         }

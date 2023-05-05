@@ -1529,8 +1529,7 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
         return result;
     }
      //qDebug() << "Utilities::getValidADIFFieldAndData: -90: f: " << field ;
-      //qDebug() << "Utilities::getValidADIFFieldAndData: -90: d: " << data<< endl;
-    //field = field.section(':', 0, 0);
+      //qDebug() << "Utilities::getValidADIFFieldAndData: -90: d: " << data;ield = field.section(':', 0, 0);
     result.clear();
     result << field.section(':', 0, 0) << data;
      //qDebug() << "Utilities::checkADIFValidFormat: Return true: " << result.at(0) << "/" << result.at(1) ;

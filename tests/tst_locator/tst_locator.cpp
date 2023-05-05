@@ -73,7 +73,7 @@ void tst_Locator::cleanupTestCase()
 void tst_Locator::test_Constructor()
 {
     //QVERIFY(util->getVersion() == "0.0");
-    //qDebug() << "Testing the constructor" << endl;
+    //qDebug() << "Testing the constructor" ;
 }
 
 void tst_Locator::test_isValid()

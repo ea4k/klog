@@ -79,7 +79,7 @@ void tst_QSO::test_Constructor()
 
     QVERIFY2(qso->getQSOid() == -1, "Wrong Id in constructor");
     QVERIFY2(qso->logLevel == None, "Wrong LogLevel in constructor");
-    //qDebug() << "Testing the constructor" << endl;
+    //qDebug() << "Testing the constructor" ;
 }
 
 void tst_QSO::test_dataEntry()

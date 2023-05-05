@@ -127,7 +127,7 @@ void tst_World::cleanupTestCase()
 void tst_World::test_Constructor()
 {
     //QVERIFY(util->getVersion() == "0.0");
-    //qDebug() << "Testing the constructor" << endl;
+    //qDebug() << "Testing the constructor" ;
 
 }
 

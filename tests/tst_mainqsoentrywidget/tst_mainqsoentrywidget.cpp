@@ -101,7 +101,7 @@ void tst_MainQSOEntryWidget::test_InitialData()
     mainQSOEntryWidget->setBands (bands);
     QVERIFY(mainQSOEntryWidget->getModes().length() == modes.length ());
     QVERIFY(mainQSOEntryWidget->getDate()== QDate::currentDate());
-    //qDebug() << mainQSOEntryWidget->getBand(-1) << endl;
+    //qDebug() << mainQSOEntryWidget->getBand(-1) ;
     //QVERIFY(mainQSOEntryWidget->getBand(-1) == "20M");
     QVERIFY(mainQSOEntryWidget->getBand(0) == "160M");
     QVERIFY(mainQSOEntryWidget->getBand(1) == "80M");
@@ -137,13 +137,13 @@ void tst_MainQSOEntryWidget::test_Bands()
     QVERIFY (mainQSOEntryWidget->getBand() == "80M");
     mainQSOEntryWidget->setBand ("160M");
     QVERIFY (mainQSOEntryWidget->getBand() == "160M");
-    //qDebug() <<mainQSOEntryWidget->getBand() << endl;
+    //qDebug() <<mainQSOEntryWidget->getBand() ;
     //mainQSOEntryWidget->setBand("12M"); // Trying to select a band that is not in the list
     mainQSOEntryWidget->setBand (band);
     QVERIFY (mainQSOEntryWidget->getBand() == band);
-    //qDebug() << mainQSOEntryWidget->getBand() << endl;
+    //qDebug() << mainQSOEntryWidget->getBand() ;
     mainQSOEntryWidget->selectDefaultBand ();
-    //qDebug() << "DefaultBand: " << mainQSOEntryWidget->getBand() << endl;
+    //qDebug() << "DefaultBand: " << mainQSOEntryWidget->getBand() ;
     QVERIFY (mainQSOEntryWidget->getBand() == currentBand);
 }
 
