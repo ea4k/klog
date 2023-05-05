@@ -5102,7 +5102,7 @@ void MainWindow::readActiveBands (const QStringList actives)
     logEvent(Q_FUNC_INFO, "Start", Debug);
     foreach (QString aux, actives)
     {
-      qDebug() << Q_FUNC_INFO << ": " << aux;
+      //qDebug() << Q_FUNC_INFO << ": " << aux;
     }
     bool atLeastOne = false;
     QString aux;
@@ -7414,11 +7414,11 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
     mapWindow->setBands(_b);
-    qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

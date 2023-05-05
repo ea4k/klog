@@ -526,7 +526,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << " - Selected satelite does not work in the selected band. NO sat should be selected";
+            //qDebug() << Q_FUNC_INFO << " - Selected satelite does not work in the selected band. NO sat should be selected";
             setNoSat ();
         }
 
