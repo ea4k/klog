@@ -28,7 +28,7 @@ rem *                                                                           
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
-set PATH=C:/Qt/5.15.3/mingw81_32/bin;C:/Qt/Tools/mingw810_32/bin;%PATH%
+set PATH=%PATH%;C:/Qt/5.15.2/mingw81_32/bin;C:/Qt/Tools/mingw810_32/bin;
 
 cd ../src/
 rmdir /S /Q build
