@@ -43,7 +43,7 @@ TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()  
 TODO: remove slotADIFExportSelection and the export functions
 
 
-WORKING ON issue #576
+WORKING ON issue #574
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)
