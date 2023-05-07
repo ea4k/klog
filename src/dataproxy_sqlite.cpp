@@ -3549,8 +3549,6 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
         _queryST_string = QString("((station_callsign='') OR (station_callsign IS NULL))");
     }
 
-    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
-    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
     QString _queryGrid_string;
     if (util->isValidGrid (_myGrid))
@@ -3587,6 +3585,9 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     {
         _query_logNumber.clear ();
     }
+
+    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
     queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 AND %3 %4 AND %5 AND %6").arg(_queryST_string).arg(_queryGrid_string).arg(_query_justQueued).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
@@ -3756,10 +3757,13 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
         //qDebug() << "DataProxy_SQLite::getQSOsListClubLogToSent log DOES NOT exist";
         _query_logNumber.clear ();
     }
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber);
 
 
-    //queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + " AND " + _query_justModified;
+    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
+
 
     QSqlQuery query;
 
@@ -3846,7 +3850,11 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
     {
         _query_logNumber.clear ();
     }
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber);
+
+    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
 
     QSqlQuery query;
@@ -3932,7 +3940,11 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
     {
         _query_logNumber.clear ();
     }
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber) ;
+
+    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
 
     QSqlQuery query;
@@ -4026,7 +4038,10 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
         _query_logNumber.clear ();
     }
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE ") + _queryST_string + _queryGrid_String + _query_logNumber;
+    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 %2 %3 AND %4 AND %5 ").arg(_queryST_string).arg(_queryGrid_String).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);;
 
     QSqlQuery query;
 
