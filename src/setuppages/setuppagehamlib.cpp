@@ -362,6 +362,7 @@ void SetupPageHamLib::saveSettings()
 
 void SetupPageHamLib::loadSettings()
 {
+    //qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getSetFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");

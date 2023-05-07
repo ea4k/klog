@@ -3525,7 +3525,7 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
 
 QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QString &_myGrid, const QDate &_startDate, const QDate &_endDate, bool _justQueued, int _logN)
 {
-    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
+    qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
 
     QList <int> qsoList;
     qsoList.clear();
@@ -3548,6 +3548,9 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     {
         _queryST_string = QString("((station_callsign='') OR (station_callsign IS NULL))");
     }
+
+    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
     QString _queryGrid_string;
     if (util->isValidGrid (_myGrid))
@@ -3585,12 +3588,12 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
         _query_logNumber.clear ();
     }
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 AND %3 %4").arg(_queryST_string).arg(_queryGrid_string).arg(_query_justQueued).arg(_query_logNumber);
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 AND %3 %4 AND %5 AND %6").arg(_queryST_string).arg(_queryGrid_string).arg(_query_justQueued).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
 
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
-    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
+    qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
 
     if (sqlOK)
     {
