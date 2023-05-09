@@ -1021,7 +1021,13 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
                     }
                     QList<int> dupeQsos;
                     dupeQsos.clear();
-                    dupeQsos << dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), dataProxy->getIdFromModeName(qso.getMode()), duplicatedQSOSlotInSecs);
+                    int mode;
+                    if (qso.getSubmode().isEmpty()) {
+                        mode = dataProxy->getIdFromModeName(qso.getMode());
+                    } else {
+                        mode = dataProxy->getSubModeIdFromSubMode(qso.getSubmode());
+                    }
+                    dupeQsos << dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), mode, duplicatedQSOSlotInSecs);
 
                     if ((dupeQsos.length()<1) && (!askedToAddNewQSOs) )
                     {
