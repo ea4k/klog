@@ -650,89 +650,89 @@ Do you want to try again?</source>
         <translation>Inačica softvera u bazi je null</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4876"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4894"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Aircraft Scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4880"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4898"/>
         <source>Aurora</source>
         <translation>Aurora</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4884"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4902"/>
         <source>Aurora-E</source>
         <translation>Aurora-E</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4888"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4906"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Back scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4892"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4910"/>
         <source>Earth-Moon-Earth</source>
         <translation>Earth-Moon-Earth</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4896"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4914"/>
         <source>Sporadic E</source>
         <translation>Sporadic E</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4908"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4926"/>
         <source>Internet-assisted</source>
         <translation>Potpomognuto Internetom</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4912"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4930"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Ionoscatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4916"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4934"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Meteor scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4920"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4938"/>
         <source>Terrestrial or atmospheric repeater or transponder</source>
         <translation>Zemaljski ili zračni repetitor ili transponder</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4924"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4942"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Rain scatter</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4928"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4946"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5632"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5650"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Biro</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5644"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5662"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Manager</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6516"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6534"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
         <translation>Svi QSOi su bili nadopunjeni DXCCom i kontinentom.</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4900"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4918"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Field Aligned Irregularities</translation>
@@ -744,105 +744,105 @@ Do you want to try again?</source>
         <translation>Upit nije neuspio</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4904"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4922"/>
         <source>F2 Reflection</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>F2 Reflection</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4932"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4950"/>
         <source>Trans-equatorial</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Trans-equatorial</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4936"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4954"/>
         <source>Tropospheric ducting</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Tropospheric ducting</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5459"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5519"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5477"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5537"/>
         <source>Yes</source>
         <translation>Da</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5463"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5523"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5481"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5541"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5467"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5527"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5485"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5545"/>
         <source>Requested</source>
         <translatorcomment>I&apos;ve opted for neutral gender but whether this is correct depends on the context in which this word is used.</translatorcomment>
         <translation>Zatraženo</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5471"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5535"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5489"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5553"/>
         <source>Ignore/Invalid</source>
         <translation>Zanemari/Nevaljalo</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5475"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5493"/>
         <source>Validated</source>
         <translation>Provjereno</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5531"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5549"/>
         <source>Queued</source>
         <translation>Poredano</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5579"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5597"/>
         <source>Uploaded</source>
         <translation>Učitano</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5583"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5601"/>
         <source>Do not upload</source>
         <translation>Ne učitavaj</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5587"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5605"/>
         <source>Modified</source>
         <translation>Ažurirano</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5636"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5654"/>
         <source>Direct</source>
         <translation>Izravno</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5640"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5658"/>
         <source>Electronic</source>
         <translation>Elektronički</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6515"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6533"/>
         <source>KLog DXCC</source>
         <translation>KLog DXCC</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9605"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9623"/>
         <source>KLog - Invalid call detected</source>
         <translation type="unfinished">KLog - Otkriven nevaljani pozivni znak</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9611"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9629"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9615"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9633"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9619"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9637"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4334,44 +4334,44 @@ Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="91"/>
         <source>Keep this data</source>
         <translation>Spremiti ove podatke</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="372"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="96"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="376"/>
         <source>Other - Sat not in the list</source>
         <translation>Drugo - Satelit nije na listi</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Podaci uneseni u ovu karticu biti će kopirani u sljedeći QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="99"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Ime satelita ako nije na popisu. Odaberite &quot;%1&quot; kako bi omogućili ovu opciju (formata kao AO-51).</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Satellite mode used.</source>
         <translation>Satelitski način rada korišten.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>Select the satellite you are using.</source>
         <translation>Izaberite satelit koji koristite.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>UpLink band.</source>
         <translation>UpLink frekvencijski pojas.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
         <source>DownLink band.</source>
         <translation>DownLink frekvencijski pojas.</translation>
     </message>
@@ -4380,22 +4380,22 @@ Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
         <translation type="vanished">Lokator DX postaje. Ova kućica sinkronizirana je sa kućicom Lokator u QSO odjeljku.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>UpLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="111"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>DownLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="115"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Način rada</translation>
     </message>
@@ -4404,7 +4404,7 @@ Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
         <translation type="vanished">DX lokator</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="123"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>Other</source>
         <translation>Drugo</translation>
     </message>
@@ -4417,22 +4417,22 @@ Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
         <translation type="vanished">Lokator DX postaje. Format bi trebao biti Maidenhead kao npr. IN70AA do 10 znakova.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="371"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="375"/>
         <source>Not Sat QSO</source>
         <translation>Nije satelitski QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="408"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="412"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog je otkrio satelit čije ime ne poznaje. Ako je riječ o nekom od poznatih satelita, molim izaberite ga s liste. Inače, molim kontaktirajte razvojni tim da dodaju ime novog satelita.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="409"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="413"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satelit kojeg imate u QSOu je: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="409"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="413"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Pripazite na to da ime satelita neće biti spremljeno ako nije na popisu, tako da informacija može biti izgubljena!</translation>
     </message>
@@ -4626,7 +4626,7 @@ Frekvencija nije u radioamaterskom frekvencijskom pojasu!</translation>
         <location filename="../database.cpp" line="3948"/>
         <location filename="../database.cpp" line="6713"/>
         <location filename="../database.cpp" line="6943"/>
-        <location filename="../dataproxy_sqlite.cpp" line="6498"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6516"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
     </message>
@@ -4699,7 +4699,7 @@ KLog će izaći kad kliknete na OK.</translation>
         <location filename="../database.cpp" line="4310"/>
         <location filename="../database.cpp" line="6627"/>
         <location filename="../database.cpp" line="6857"/>
-        <location filename="../dataproxy_sqlite.cpp" line="6453"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6471"/>
         <source>Abort updating</source>
         <translation>Prekini ažuriranje</translation>
     </message>
@@ -4796,12 +4796,12 @@ KLog će izaći kad kliknete na OK.</translation>
         <translation type="vanished">Hvala što koristite KLog!</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6453"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6471"/>
         <source>Updating information...</source>
         <translation>Ažuriram podatke...</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6498"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6516"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Ažuriram podatke o DXCC i kontinentima...</translation>
     </message>

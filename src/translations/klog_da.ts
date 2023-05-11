@@ -649,192 +649,192 @@ igen. Ønsker du at prøve igen?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4876"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4894"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Flystøj</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4880"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4898"/>
         <source>Aurora</source>
         <translation>Aurora</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4884"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4902"/>
         <source>Aurora-E</source>
         <translation>Aurora-E</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4888"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4906"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Baggrundsstøj</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4892"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4910"/>
         <source>Earth-Moon-Earth</source>
         <translation>Jorden-månen-jorden</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4896"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4914"/>
         <source>Sporadic E</source>
         <translation>Sporadisk E</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4900"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4918"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Feltjusterede uregelmæssigheder</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4904"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4922"/>
         <source>F2 Reflection</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>F2-reflektion</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4908"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4926"/>
         <source>Internet-assisted</source>
         <translation>Internetassisteret</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4912"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4930"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Ionostøj</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4916"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4934"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Meteorstøj</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4920"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4938"/>
         <source>Terrestrial or atmospheric repeater or transponder</source>
         <translation>Terrestrisk eller atmosfærisk repeater eller transponder</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4924"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4942"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Regnstøj</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4928"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4946"/>
         <source>Satellite</source>
         <translation>Satellit</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4932"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4950"/>
         <source>Trans-equatorial</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Trans-ækvatoriale</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="4936"/>
+        <location filename="../dataproxy_sqlite.cpp" line="4954"/>
         <source>Tropospheric ducting</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Troposfærisk kanalisering</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5459"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5519"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5477"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5537"/>
         <source>Yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5463"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5523"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5481"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5541"/>
         <source>No</source>
         <translation>Nej</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5467"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5527"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5485"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5545"/>
         <source>Requested</source>
         <translation>Anmodt</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5471"/>
-        <location filename="../dataproxy_sqlite.cpp" line="5535"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5489"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5553"/>
         <source>Ignore/Invalid</source>
         <translation>ignorer/ugyldig</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5475"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5493"/>
         <source>Validated</source>
         <translation>Valideret</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5531"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5549"/>
         <source>Queued</source>
         <translation>I kø</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5579"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5597"/>
         <source>Uploaded</source>
         <translation>Overført</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5583"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5601"/>
         <source>Do not upload</source>
         <translation>Overfør ikke</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5587"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5605"/>
         <source>Modified</source>
         <translation>Ændret</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5632"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5650"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Bureau</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5636"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5654"/>
         <source>Direct</source>
         <translation>Direkte</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5640"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5658"/>
         <source>Electronic</source>
         <translation>Elektronisk</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="5644"/>
+        <location filename="../dataproxy_sqlite.cpp" line="5662"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
         <translation>Manager</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6515"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6533"/>
         <source>KLog DXCC</source>
         <translation>KLog-DXCC</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6516"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6534"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
         <translation>Alle QSO&apos;er er blevet opdateret med en DXCC og kontinentet.</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9605"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9623"/>
         <source>KLog - Invalid call detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9611"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9629"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9615"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9633"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="9619"/>
+        <location filename="../dataproxy_sqlite.cpp" line="9637"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4300,44 +4300,44 @@ Frekvens er ikke i et amatørradiobånd!</translation>
 <context>
     <name>MainWindowSatTab</name>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="91"/>
         <source>Keep this data</source>
         <translation>Behold disse data</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="372"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="96"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="376"/>
         <source>Other - Sat not in the list</source>
         <translation>Andre - sat er ikke i listen</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="94"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="95"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
         <translation>Data indtastet i dette faneblad vil blive kopieret ind i den næste QSO.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="98"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="99"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
         <translation>Navn på satellitten hvis ikke i listen. Vælg: »%1« for at aktivere denne boks.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="101"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
         <source>Satellite mode used.</source>
         <translation>Satellittilstand anvendt.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="102"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
         <source>Select the satellite you are using.</source>
         <translation>Vælg satelitten du bruger.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="103"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
         <source>UpLink band.</source>
         <translation>UpLink-bånd.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="104"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="105"/>
         <source>DownLink band.</source>
         <translation>DownLink-bånd.</translation>
     </message>
@@ -4346,22 +4346,22 @@ Frekvens er ikke i et amatørradiobånd!</translation>
         <translation type="vanished">Lokalisering af DX-stationen. Denne boks er synkroniseret med lokaliseringsboksen i QSO-fanebladet.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="107"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="108"/>
         <source>UpLink</source>
         <translation>UpLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="111"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="112"/>
         <source>DownLink</source>
         <translation>DownLink</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="115"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
         <source>Satellite</source>
         <translation>Satellit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="119"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="120"/>
         <source>Mode</source>
         <translation>Tilstand</translation>
     </message>
@@ -4370,7 +4370,7 @@ Frekvens er ikke i et amatørradiobånd!</translation>
         <translation type="vanished">DX-lokalisering</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="123"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>Other</source>
         <translation>Andet</translation>
     </message>
@@ -4379,22 +4379,22 @@ Frekvens er ikke i et amatørradiobånd!</translation>
         <translation type="vanished">MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="371"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="375"/>
         <source>Not Sat QSO</source>
         <translation>Ikke sat QSO</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="408"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="412"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog har registreret et satellitnavn, som det ikke genkender. Hvis det skal bruge et af navnene på kendte satellitter i stedet for, vælg det fra listen. Alternativt så kontakt udviklingsholdet for at tilføje det nye satellitnavn.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="409"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="413"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Satellitten du har i din QSO er: </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="409"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="413"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4667,7 +4667,7 @@ KLog will finish when you click on OK.</source>
         <location filename="../database.cpp" line="4310"/>
         <location filename="../database.cpp" line="6627"/>
         <location filename="../database.cpp" line="6857"/>
-        <location filename="../dataproxy_sqlite.cpp" line="6453"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6471"/>
         <source>Abort updating</source>
         <translation>Afbryd opdatering</translation>
     </message>
@@ -4676,7 +4676,7 @@ KLog will finish when you click on OK.</source>
         <location filename="../database.cpp" line="3948"/>
         <location filename="../database.cpp" line="6713"/>
         <location filename="../database.cpp" line="6943"/>
-        <location filename="../dataproxy_sqlite.cpp" line="6498"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6516"/>
         <source>QSO: </source>
         <translation>QSO: </translation>
     </message>
@@ -4751,12 +4751,12 @@ KLog will finish when you click on OK.</source>
         <translation type="vanished">Husk at din KLog-mappe er på dit system ...</translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6453"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6471"/>
         <source>Updating information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dataproxy_sqlite.cpp" line="6498"/>
+        <location filename="../dataproxy_sqlite.cpp" line="6516"/>
         <source>Updating DXCC and Continent information...</source>
         <translation>Opdaterer DSCC- og kontinentinformation ...</translation>
     </message>

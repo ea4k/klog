@@ -123,7 +123,7 @@ private:
     QStringList satNames, satModes;
     QStringList satellitesList;
 
-    bool updatingBands;
+    bool updatingBands, updatingSat;
     QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
 
     //QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;

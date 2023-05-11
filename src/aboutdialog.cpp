@@ -102,11 +102,11 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     QString translator9 = QString("<tr><td>Japanese</td>")  + QString("<td>Nick and Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jj1tgt\">JJ1TGT</a> and <a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
     QString translator10 = QString("<tr><td>Polish</td>")  + QString("<td>Piotr Ludwig</td>") + QString("<td><a href=\"https://www.qrz.com/db/la7rra\">LA7RRA</a></td></tr>");
     QString translator11 = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td></tr>");
-
+ QString translator_lv = QString("<tr><td>Latvian</td>") + QString("<td>YL3GBs</td>") + QString("<td><a href=\"https://www.qrz.com/db/yl3gbc\">YL3GBC</a></td></tr>");
 
     QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, you are welcome to contact us through the <a href=\"https://groups.io/g/klog\">KLog mailing list</a>!");
     QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>" + translator1 + translator2 + translator3
-                                                                                                                      + translator4 + translator5 + translator6
+                                                                                                                      + translator4 + translator5 + translator6 + translator_lv
                                                                                                                       + translator7 + translator8 + translator9
                                                                                                                       + translator10 + translator11 + "</table>";
     QLabel *authorsLabel = new QLabel(authors);
