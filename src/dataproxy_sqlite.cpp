@@ -3525,7 +3525,7 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
 
 QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QString &_myGrid, const QDate &_startDate, const QDate &_endDate, bool _justQueued, int _logN)
 {
-    qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
 
     QList <int> qsoList;
     qsoList.clear();
@@ -3594,7 +3594,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
 
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
-    qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
+    //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
 
     if (sqlOK)
     {

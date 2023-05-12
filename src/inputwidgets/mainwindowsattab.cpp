@@ -538,7 +538,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     }
 
     autofillSatMode();
-    qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 void MainWindowSatTab::setUpLink(const QString &_t)
@@ -586,14 +586,14 @@ void MainWindowSatTab::setUpLink(const QString &_t)
 
 void MainWindowSatTab::setUpLinkFreq(const double _t)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_t);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_t);
     if (!updatingSat)
     {
         setNoSat ();
     }
     updateTXFreq(_t);
     setUpLink(dataProxy->getBandNameFromFreq(_t));
-    qDebug() << Q_FUNC_INFO << "END";
+    //qDebug() << Q_FUNC_INFO << "END";
 }
 
 double MainWindowSatTab::getRXFreq()

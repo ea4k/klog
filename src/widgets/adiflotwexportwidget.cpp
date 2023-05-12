@@ -411,7 +411,7 @@ QList<int> AdifLoTWExportWidget::fillTable()
 
 void AdifLoTWExportWidget::addQSO(const int _qsoID)
 {
-    qDebug() << "AdifLoTWExportWidget::addQSO: " << QString::number(_qsoID);
+    //qDebug() << "AdifLoTWExportWidget::addQSO: " << QString::number(_qsoID);
 
     //qDebug() << Q_FUNC_INFO << " - Start";
     QStringList qsoToAdd;
