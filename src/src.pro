@@ -296,7 +296,8 @@ TRANSLATIONS = translations/klog_es.ts \
     translations/klog_it.ts \
     translations/klog_ja.ts \
     translations/klog_lv.ts \
-    translations/klog_pl.ts
+    translations/klog_pl.ts \
+    translations/klog_uk.ts
 
 message(End of translations...)
 
