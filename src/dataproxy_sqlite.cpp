@@ -3104,7 +3104,7 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_callingFunc, co
     // We will match +-15min
 
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE call='%1' AND bandid='%2' AND modeid='%3' AND qso_date>'%4' AND qso_date<'%5'").arg(_qrz).arg(_band).arg(_mode).arg(initTime).arg(endTime);
+    queryString = QString("SELECT id, qso_date FROM log WHERE call='%1' AND bandid='%2' AND modeid='%3' AND qso_date>='%4' AND qso_date<='%5'").arg(_qrz).arg(_band).arg(_mode).arg(initTime).arg(endTime);
 
     bool sqlOK = query.exec(queryString);
 
