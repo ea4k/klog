@@ -5397,7 +5397,7 @@ void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const 
     int i ;
     if (uploadedToLoTW)
     {
-        //logWindow->refresh();
+        logWindow->refresh();
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
