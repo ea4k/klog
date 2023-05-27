@@ -3019,7 +3019,6 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
      msgBox.setIcon(QMessageBox::Question);
      msgBox.setWindowTitle(tr("KLog - ClubLog"));
      msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?") );
-
      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
      msgBox.setDefaultButton(QMessageBox::Yes);
      int i = msgBox.exec();
@@ -3027,6 +3026,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
      if (i == QMessageBox::Yes)
      {
          bool uploadedToClubLog = dataProxy->clublogSentQSOs(_qsos);
+         slotLogRefresh();
 
          // TODO: Check if QSOS where sent
         if (!uploadedToClubLog)
@@ -3071,7 +3071,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
 
            //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE NOT REMOVED: " << fileName ;
             }
-            i = msgBox.exec();
+            //i = msgBox.exec();
         }
     }
     else
@@ -3136,7 +3136,6 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
      msgBox.setIcon(QMessageBox::Question);
      msgBox.setWindowTitle(tr("KLog - eQSL"));
      msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to eQSL?") );
-
      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
      msgBox.setDefaultButton(QMessageBox::Yes);
      int i = msgBox.exec();
@@ -3144,6 +3143,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
      if (i == QMessageBox::Yes)
      {
          bool uploadedToeQSL = dataProxy->eQSLSentQSOs(_qsos);
+         slotLogRefresh();
 
          // TODO: Check if QSOS where sent
         if (!uploadedToeQSL)
@@ -3189,7 +3189,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
 
            //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName ;
             }
-            i = msgBox.exec();
+            //i = msgBox.exec();
         }
     }
     else
@@ -3262,6 +3262,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
     if (i == QMessageBox::Yes)
     {
         bool uploadedToeQSL = dataProxy->QRZCOMSentQSOs(_qsos);
+        slotLogRefresh();
 
         // TODO: Check if QSOS where sent
        if (!uploadedToeQSL)
@@ -5397,17 +5398,17 @@ void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const 
     int i ;
     if (uploadedToLoTW)
     {
-        //logWindow->refresh();
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
-
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
         int i = msgBox.exec();
         if (i == QMessageBox::Yes)
         {
            uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
+           slotLogRefresh();
+
            if (!uploadedToLoTW)
            {
                QMessageBox msgBox;
@@ -5495,6 +5496,8 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
         if (i == QMessageBox::Yes)
         {
            uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
+           slotLogRefresh();
+
            if (!uploadedToLoTW)
            {
                QMessageBox msgBox;
@@ -5588,6 +5591,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
   }
     //qDebug() << Q_FUNC_INFO << " - 50" ;
     elogClublog->sendLogFile(fileName, _qsos, overwrite);
+    logWindow->refresh();
     //qDebug() << Q_FUNC_INFO << " - END " ;
 }
 
@@ -5646,6 +5650,7 @@ void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, 
     }
        //qDebug() << Q_FUNC_INFO << " - 50" ;
     elogClublog->sendLogFile(fileName, qsos, overwrite);
+    logWindow->refresh();
        //qDebug() << Q_FUNC_INFO << " -END " ;
 }
 
@@ -5687,6 +5692,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
     }
 
     eqslUtilities->sendLogFile(fileName, qsos);
+    logWindow->refresh();
 
        //qDebug() << Q_FUNC_INFO << "-END " ;
 }
@@ -5712,6 +5718,7 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
         return;
     }
     eqslUtilities->sendLogFile(fileName, _qsos);
+    logWindow->refresh();
     //qDebug() << Q_FUNC_INFO << "-END " ;
 }
 
@@ -5742,6 +5749,7 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_gri
         elogQRZcom->sendQSOs(dataProxy->getQSOsListQRZCOMToSent(_st, _startDate, _endDate, true));
         break;
     }
+    logWindow->refresh();
        //qDebug() << Q_FUNC_INFO << " - END " ;
 }
 
@@ -5771,6 +5779,7 @@ void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos
         elogQRZcom->sendQSOs(_qsos);
         break;
     }
+    logWindow->refresh();
      //qDebug() << Q_FUNC_INFO << " - END " ;
 }
 
