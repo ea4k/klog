@@ -3019,7 +3019,6 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
      msgBox.setIcon(QMessageBox::Question);
      msgBox.setWindowTitle(tr("KLog - ClubLog"));
      msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?") );
-
      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
      msgBox.setDefaultButton(QMessageBox::Yes);
      int i = msgBox.exec();
@@ -3027,6 +3026,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
      if (i == QMessageBox::Yes)
      {
          bool uploadedToClubLog = dataProxy->clublogSentQSOs(_qsos);
+         slotLogRefresh();
 
          // TODO: Check if QSOS where sent
         if (!uploadedToClubLog)
@@ -3136,7 +3136,6 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
      msgBox.setIcon(QMessageBox::Question);
      msgBox.setWindowTitle(tr("KLog - eQSL"));
      msgBox.setText(tr("Do you want to mark as Uploaded all the QSOs uploaded to eQSL?") );
-
      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
      msgBox.setDefaultButton(QMessageBox::Yes);
      int i = msgBox.exec();
@@ -3144,6 +3143,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
      if (i == QMessageBox::Yes)
      {
          bool uploadedToeQSL = dataProxy->eQSLSentQSOs(_qsos);
+         slotLogRefresh();
 
          // TODO: Check if QSOS where sent
         if (!uploadedToeQSL)
@@ -3189,7 +3189,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
 
            //qDebug() << "MainWindow::slotElogEQSLFileUploaded - FILE NOT REMOVED: " << fileName ;
             }
-            i = msgBox.exec();
+            //i = msgBox.exec();
         }
     }
     else
@@ -3262,6 +3262,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
     if (i == QMessageBox::Yes)
     {
         bool uploadedToeQSL = dataProxy->QRZCOMSentQSOs(_qsos);
+        slotLogRefresh();
 
         // TODO: Check if QSOS where sent
        if (!uploadedToeQSL)
@@ -5397,17 +5398,17 @@ void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const 
     int i ;
     if (uploadedToLoTW)
     {
-        logWindow->refresh();
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
-
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
         msgBox.setDefaultButton(QMessageBox::Yes);
         int i = msgBox.exec();
         if (i == QMessageBox::Yes)
         {
            uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
+           slotLogRefresh();
+
            if (!uploadedToLoTW)
            {
                QMessageBox msgBox;
@@ -5495,7 +5496,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
         if (i == QMessageBox::Yes)
         {
            uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
-           logWindow->refresh();
+           slotLogRefresh();
 
            if (!uploadedToLoTW)
            {
