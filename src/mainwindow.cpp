@@ -3071,7 +3071,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
 
            //qDebug() << "MainWindow::slotElogClubLogFileUploaded - FILE NOT REMOVED: " << fileName ;
             }
-            i = msgBox.exec();
+            //i = msgBox.exec();
         }
     }
     else
