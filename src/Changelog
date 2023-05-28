@@ -23,6 +23,7 @@ TBD - 2.3.1
 - Improvement: Warning of unused parameters removed.
 - Improvement: Some SQL queries optimized for speed.
 - Improvement: Optimized the way log files are exported to online services.
+- UI: Added QRZ Lookup Button (Closes #390) (EA5WA).
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Removed the locator, TX Freq and RX freq widgets from the Satellite tab. (Closes #534, 535, #536)
 - UI: Shows the total number of QSOs when exporting.

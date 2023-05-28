@@ -43,6 +43,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     enabledCR = realtimeCheckBox->backgroundRole();
     manualModeCheckBox = new QCheckBox;
 
+    QRZButton = new QPushButton("QRZ");
     OKButton = new QPushButton(tr("&Add"), this);
     clearButton = new QPushButton(tr("&Clear"), this);
     timer = new QTimer(this);
@@ -86,6 +87,7 @@ void MainQSOEntryWidget::createUI()
     timeEdit->setToolTip(tr("Time of the QSO."));
     OKButton->setToolTip(tr("Add the QSO to the log."));
     clearButton->setToolTip(tr("Clears the QSO entry."));
+    QRZButton->setToolTip(tr("Look up info about the current callsign on qrz.com"));
     realtimeCheckBox->setToolTip(tr("KLog will show real time if enabled."));
     realtimeCheckBox->setText (tr("Real time"));
     //realtimeButton->setToolTip(tr("KLog will show real time if enabled."));
@@ -115,6 +117,7 @@ void MainQSOEntryWidget::createUI()
     qrzgroupBox->setLayout(qrzvbox);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addWidget(QRZButton);
     buttonsLayout->addWidget(OKButton);
     buttonsLayout->addWidget(clearButton);
     dateEdit->setCalendarPopup (true);;
@@ -141,9 +144,10 @@ void MainQSOEntryWidget::createUI()
     connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandComboBoxChanged(QString) ) ) ;
     connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModeComboBoxChanged(QString) ) ) ;
 
-    connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked() ) );
+    connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked()));
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked()));
+    connect(QRZButton, SIGNAL(clicked()), this, SLOT(slotQRZButtonClicked()));
 
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked() ) );
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
     connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
@@ -413,6 +417,15 @@ void MainQSOEntryWidget::slotModeComboBoxChanged(const QString &_m)
     emit modeChanged(_m);
     checkIfDupe(Q_FUNC_INFO);
     logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+void MainQSOEntryWidget::slotQRZButtonClicked()
+{
+    if ((qrzLineEdit->text()).length()<1)
+    {
+        return;
+    }
+    util->openQrzcom(currentQrz);
 }
 
 void MainQSOEntryWidget::slotOKButtonClicked()
