@@ -105,6 +105,7 @@ private slots:
     void slotModeComboBoxChanged(const QString &_m);
     void slotOKButtonClicked();
     void slotClearButtonClicked();
+    void slotQRZButtonClicked();
     //void slotRealtimeButtonClicked();
     void slotCheckBoxClicked();
     //void slotRealTimeCheckBoxChanged();
@@ -131,7 +132,7 @@ private:
     QComboBox *bandComboBox, *modeComboBox;
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
-    QPushButton *OKButton, *clearButton;
+    QPushButton *OKButton, *clearButton, *QRZButton;
     QCheckBox *realtimeCheckBox, *manualModeCheckBox;
     //QPushButton *realtimeButton;
     //DebugLogLevel logLevel;
