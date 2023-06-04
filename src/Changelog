@@ -29,7 +29,7 @@ TBD - 2.3.1
 - UI: Shows the total number of QSOs when exporting.
 - UI: Added a Right-click menu in the DXCluster widget to send a spot to QRZ.com.
 - Removed the user callsign from the http header when checking for a new version.
-- Translations: Catalan (TNX Txema), Latvian (TNX YL3GBC), Spanish (EA4K).
+- Translations: Catalan (TNX Txema), Latvian (TNX YL3GBC), Spanish (EA4K), Ukranian (UR6QV & Volodymyr).
 
 
 LoTW related tasks: To be tested when LoTW Queue is OK
