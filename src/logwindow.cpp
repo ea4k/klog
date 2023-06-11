@@ -85,8 +85,8 @@ void LogWindow::createUI()
 
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
-    logView->setDragDropMode (QAbstractItemView::InternalMove);
-    logView->setDropIndicatorShown (true);
+    //logView->setDragDropMode (QAbstractItemView::InternalMove);
+    //logView->setDropIndicatorShown (true);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(logView);
