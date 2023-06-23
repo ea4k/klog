@@ -433,7 +433,7 @@ void SetupPageLogs::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("Logs");
     settings.setValue ("SelectedLog", selectedLog);
     //settings.endGroup ();
@@ -442,7 +442,7 @@ void SetupPageLogs::saveSettings()
 void SetupPageLogs::loadSettings()
 {
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     int i = settings.value("SelectedLog").toInt();
     if (!dataProxy->doesThisLogExist(i))
     {

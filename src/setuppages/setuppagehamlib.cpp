@@ -343,7 +343,7 @@ void SetupPageHamLib::saveSettings()
 {
      //qDebug << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
     settings.setValue ("HamlibActive", QVariant((activateHamlibCheckBox->isChecked())));
     settings.setValue ("HamlibReadOnly", QVariant((readOnlyModeCheckBox->isChecked())));
@@ -364,7 +364,7 @@ void SetupPageHamLib::loadSettings()
 {
     //qDebug << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
     setRigType (settings.value("HamLibRigType").toString());
     pollIntervalQSpinBox->setValue(settings.value("HamlibRigPollRate", 2000).toInt ());

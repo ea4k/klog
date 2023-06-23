@@ -624,7 +624,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 void SetupPageMisc::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
     settings.setValue ("ShowSeconds", QVariant((showSecondsCheckBox->isChecked())));
@@ -654,7 +654,7 @@ void SetupPageMisc::saveSettings()
 
 void SetupPageMisc::loadSettings()
 {
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());
     showSecondsCheckBox->setChecked (settings.value("ShowSeconds").toBool ());

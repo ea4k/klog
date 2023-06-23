@@ -747,7 +747,7 @@ void MainWindowMyDataTab::logEvent(const QString &_func, const QString &_msg, De
 void MainWindowMyDataTab::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
 
     myPower = settings.value("Power").toDouble ();

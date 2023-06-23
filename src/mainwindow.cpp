@@ -265,7 +265,7 @@ void MainWindow::saveWindowsSize()
     //int height = windowSize.height();
     //int width = windowSize.width();
 
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.setValue ("MainWindowSize", windowSize);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -492,30 +492,16 @@ void MainWindow::init()
 
      //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    //qDebug() << "MainWindow::init - Reading config file" ;
-    if (QFile::exists(util->getSetFile ()))
+    qDebug() << "MainWindow::init - Reading config file" ;
+    UpdateSettings settingsUpdate;
+    if (settingsUpdate.updateFile ())
     {
-         //qDebug() << "MainWindow::init - We have settings, so we load them" ;
-        configured = loadSettings ();
+        //configured = loadSettings ();
     }
-    else if (QFile::exists(util->getCfgFile ()))
-    {
-        //qDebug() << "MainWindow::init - We have OLD settings, so we translate them" ;
-        QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - Settings update"));
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("The settings system has been changed and KLog will update your settings file."));
-        msgBox.setStandardButtons(QMessageBox::Ok );
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-       UpdateSettings settingsUpdate;
-       if (settingsUpdate.updateFile ())
-       {
-           configured = loadSettings ();
-       }
+    configured = loadSettings ();
 
-    }
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.setValue ("Version", softwareVersion);
 
     mapWindow->init();
@@ -708,7 +694,7 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
-    connect(adifLoTWExportWidget, SIGNAL(selection(QString, QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QString, QDate, QDate, ExportMode)) );
+    //connect(adifLoTWExportWidget, SIGNAL(selection(QString, QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QString, QDate, QDate, ExportMode)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection2(QString, QList<int>, ExportMode)) );
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -2982,7 +2968,7 @@ void MainWindow::slotElogClubLogDisable(const bool _b)
     //setupDialog->setClubLogActive(clublogActive);
 
 
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("ClubLog");
     settings.setValue ("ClubLogActive", _b);
     settings.endGroup();
@@ -3215,7 +3201,7 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
         msgBox.exec();
 
         qrzcomActive = false;
-        QSettings settings(util->getSetFile (), QSettings::IniFormat);
+        QSettings settings(util->getCfgFile (), QSettings::IniFormat);
         settings.beginGroup ("QRZcom");
         settings.setValue ("QRZcomActive", false);
         settings.endGroup ();
@@ -3404,7 +3390,7 @@ void MainWindow::slotElogQRZCOMAutoCheck()
         showMessageToEnableTheOnlineService(QRZ);
         return;
     }
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("QRZcom");
     settings.setValue ("QRZcomAuto", false);
     settings.endGroup ();
@@ -4945,6 +4931,7 @@ bool MainWindow::applySettings()
         elogQRZcom->login();
     }
     util->setVersion(softwareVersion);
+
     searchWidget->setVersion(softwareVersion);
     searchWidget->setCurrentLog(currentLog);
     infoWidget->setCurrentLog(currentLog);
@@ -5310,6 +5297,7 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
        //qDebug() << "MainWindow::showNumberOfSavedQSO - END" ;
 }
 
+/*
 void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _st ;
@@ -5318,6 +5306,7 @@ void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const 
     showNumberOfSavedQSO(fileName, qsos.count());
     //qDebug() << Q_FUNC_INFO << " - END";
 }
+*/
 
 void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
 {
@@ -5349,10 +5338,6 @@ void MainWindow::slotADIFExportAll()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 /*
-
-
-*/
-
 void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
 {
      //qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" << _grid <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
@@ -5439,11 +5424,11 @@ void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const 
             msgBox.setDefaultButton(QMessageBox::Ok);
         }
     }
-       //qDebug() << "MainWindow::fileExportLoTW -END " ;
     }else{
          QFile::remove(fileName);
     }
 }
+*/
 
 void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 {
@@ -5595,6 +5580,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
     //qDebug() << Q_FUNC_INFO << " - END " ;
 }
 
+/*
 void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
     //qDebug() << Q_FUNC_INFO << "- Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
@@ -5653,7 +5639,9 @@ void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, 
     logWindow->refresh();
        //qDebug() << Q_FUNC_INFO << " -END " ;
 }
+*/
 
+/*
 void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate)
 {
       //qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
@@ -5696,6 +5684,7 @@ void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, con
 
        //qDebug() << Q_FUNC_INFO << "-END " ;
 }
+*/
 
 void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
 {
@@ -5722,6 +5711,7 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
     //qDebug() << Q_FUNC_INFO << "-END " ;
 }
 
+/*
 void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_grid << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
@@ -5730,19 +5720,19 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_gri
     {
     case ModeADIF:         // General ADIF
          //qDebug() << Q_FUNC_INFO << " - ADIF" ;
-        fileExportADIF(_st, _grid, _startDate, _endDate);
+        //fileExportADIF(_st, _grid, _startDate, _endDate);
         break;
     case ModeLotW:         // LoTW
          //qDebug() << Q_FUNC_INFO << " - LoTW" ;
-        fileExportLoTW(_st, _grid, _startDate, _endDate);
+        //fileExportLoTW(_st, _grid, _startDate, _endDate);
         break;
     case ModeClubLog:         // General ADIF
          //qDebug() << Q_FUNC_INFO << " - ClubLog" ;
-        fileExportClubLog(_st, _startDate, _endDate);
+        //fileExportClubLog(_st, _startDate, _endDate);
         break;
     case ModeEQSL:         // General eQSL
-         //qDebug() << Q_FUNC_INFO << " - eQSL" ;
-        fileExportEQSL(_st, _startDate, _endDate);
+         //qDebug() << Q_FUNC_INFO << " - eQSL"
+        //fileExportEQSL(_st, _startDate, _endDate);
         break;
     case ModeQRZ:         // General eQSL
          //qDebug() << Q_FUNC_INFO << " - QRZ.com" ;
@@ -5752,6 +5742,7 @@ void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_gri
     logWindow->refresh();
        //qDebug() << Q_FUNC_INFO << " - END " ;
 }
+*/
 
 void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos, ExportMode _eM)
 {
@@ -8282,7 +8273,7 @@ void MainWindow::setLogLevel(const DebugLogLevel _sev)
     showKLogLogWidget->setLogLevel(logLevel);
     //setupDialog->setLogLevel(logLevel);
 
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("DebugLog",util->debugLevelToString (logLevel));
     settings.endGroup ();
@@ -8323,7 +8314,7 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
 {
     //qDebug() << Q_FUNC_INFO;
     setLogLevel(l);
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("DebugLog", util->debugLevelToString(l));
     settings.endGroup ();
@@ -8333,7 +8324,7 @@ bool MainWindow::loadSettings()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
      //qDebug() << Q_FUNC_INFO << " - 10 - General";
     QString value = settings.value ("Version").toString ();
@@ -8521,7 +8512,7 @@ void MainWindow::selectTheLog(const int _i)
         if (_logWithMoreQSOs>0)
         {
             currentLog = _logWithMoreQSOs;
-            QSettings settings(util->getSetFile (), QSettings::IniFormat);
+            QSettings settings(util->getCfgFile (), QSettings::IniFormat);
             settings.setValue ("SelectedLog", currentLog);
         }
         else

@@ -52,7 +52,6 @@ HEADERS += \
     ../../src/inputwidgets/mainwindowinputeqsl.h \
     ../../src/inputwidgets/mainwindowinputqsl.h \
     ../../src/inputwidgets/mainwindowinputqso.h \
-    ../../src/mainqsoentrywidget.h \
     ../../src/elogclublog.h \
     ../../src/downloadcty.h \
     ../../src/dxccstatuswidget.h \

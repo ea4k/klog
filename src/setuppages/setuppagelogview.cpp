@@ -146,7 +146,7 @@ void SetupPageLogView::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("LogView");
     settings.setValue ("LogViewFields", getActiveFields ());
     //settings.endGroup ();
@@ -157,7 +157,7 @@ void SetupPageLogView::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     QStringList aux;
     aux.clear();
     aux << dataProxy->filterValidFields(settings.value("LogViewFields").toStringList ());

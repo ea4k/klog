@@ -107,6 +107,7 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
         groupAddress = _multicast_group_address;
         auto address = _multicast_group_address.isNull ()
                 || QAbstractSocket::IPv4Protocol != groupAddress.protocol () ? QHostAddress::Any : QHostAddress::AnyIPv4;
+        Q_UNUSED(address);
         if (_port && socketServer->bind(groupAddress, _port, QAbstractSocket::ShareAddress | QAbstractSocket::ReuseAddressHint))
         {
             port = _port;
@@ -684,7 +685,7 @@ void UDPServer::adifParse(QByteArray &msg)
 void UDPServer::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
 
     setNetworkInterface (settings.value("UDPNetworkInterface").toString ());

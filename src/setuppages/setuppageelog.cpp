@@ -526,7 +526,7 @@ void SetupPageELog::showEvent(QShowEvent *event)
 void SetupPageELog::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("eLogs");
 
     settings.beginGroup ("ClubLog");
@@ -562,7 +562,7 @@ void SetupPageELog::saveSettings()
 
 void SetupPageELog::loadSettings()
 {
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("ClubLog");
     clubLogActiveCheckBox->setChecked (settings.value("ClubLogActive").toBool ());
     clubLogSendInRealTimeCheckBox->setChecked (settings.value("ClubLogRealTime").toBool ());

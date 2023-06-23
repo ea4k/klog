@@ -337,12 +337,12 @@ void SetupDialog::loadDarkMode()
 bool SetupDialog::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    if (!QFile::exists(util->getSetFile ()))
+    if (!QFile::exists(util->getCfgFile ()))
     {
          //qDebug() << Q_FUNC_INFO << " - Nothing to load";
         return false;
     }
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
      //qDebug() << Q_FUNC_INFO << " - 10 - General";
     version = settings.value ("Version").toString();
@@ -393,7 +393,7 @@ bool SetupDialog::loadSettings()
 void SetupDialog::saveSettings()
 {
      //qDebug() << Q_FUNC_INFO << " - Start";
-    //QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    //QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
     userDataPage->saveSettings();       // Groups done
     bandModePage->saveSettings ();      // Groups done
@@ -466,7 +466,7 @@ void SetupDialog::slotReadConfigData()
     //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
-    //if (!QFile::exists (util->getSetFile ()))
+    //if (!QFile::exists (util->getCfgFile ()))
     {
         //qDebug() << Q_FUNC_INFO << " - FirstTime";
         setDefaults();

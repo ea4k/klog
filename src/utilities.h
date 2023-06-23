@@ -77,7 +77,7 @@ public:
     QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
     QString getHomeDir();
     QString getCfgFile();
-    QString getSetFile();
+    QString getCfgFilee();
     QString getCTYFile();
     QString getDebugLogFile();
     QString getSaveSpotsLogFile();

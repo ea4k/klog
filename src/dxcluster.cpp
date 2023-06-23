@@ -137,6 +137,7 @@ void DXClusterWidget::init()
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
 
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
+    Q_UNUSED(item);
     createActions ();
     //TODO: Check how to add an item in a different way
 }
@@ -168,7 +169,7 @@ void DXClusterWidget::addData()
 */
 
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
-
+    Q_UNUSED(item);
 
 
 }
@@ -806,8 +807,8 @@ bool DXClusterWidget::openFile()
 void DXClusterWidget::slotRighButton(const QPoint& pos)
 {
     //qDebug() << Q_FUNC_INFO;
-
-    int row = (dxClusterListWidget->indexAt(pos)).row();
+    Q_UNUSED(pos);
+    //int row = (dxClusterListWidget->indexAt(pos)).row();
     //qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
 
     QListWidgetItem * item = dxClusterListWidget->currentItem();
@@ -876,7 +877,7 @@ void DXClusterWidget::saveSpot(const QString &_spot)
 void DXClusterWidget::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     QString aux = settings.value("DXClusterServerToUse").toString ();
 
     if (aux.contains(':'))

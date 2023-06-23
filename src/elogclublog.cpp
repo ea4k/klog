@@ -108,7 +108,7 @@ eLogClubLog::~eLogClubLog()
     {
         text = "ClubLog: " + tr("It seems to be a CREDENTIALS ERROR; check your email and password.");
 
-        int i = QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
+        QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
                                        tr("It seems that your ClubLog credentials are not correct.") + "\n" +
                                           tr("Please check your credentials in the setup. ClubLog uploads will be disabled."),
                                        QMessageBox::Ok);
@@ -788,7 +788,7 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
 
 void eLogClubLog::loadSettings()
 {
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("ClubLog");
     email = settings.value ("ClubLogEmail").toString ();
     pass = settings.value ("ClubLogPass").toString ();

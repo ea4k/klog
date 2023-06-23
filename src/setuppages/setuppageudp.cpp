@@ -341,7 +341,7 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
 void SetupPageUDP::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
     settings.setValue ("UDPServer", QVariant((UDPServerCheckBox->isChecked())));
     settings.setValue ("UDPNetworkInterface", getNetworkInterface());
@@ -356,7 +356,7 @@ void SetupPageUDP::saveSettings()
 
 void SetupPageUDP::loadSettings()
 {
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
     setUDPServer (settings.value("UDPServer").toBool ());
     setNetworkInterface (settings.value("UDPNetworkInterface").toString ());

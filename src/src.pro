@@ -71,12 +71,6 @@ HEADERS += setupdialog.h \
     awards.h \
     awardswidget.h \
     charts/statsfieldperbandwidget.h \
-    setuppages/hamlibnetworkconfigwidget.h \
-    setuppages/hamlibserialconfigwidget.h \
-    setuppages/setuppagelogview.h \
-    widgets/map/mapwidget.h \
-    widgets/map/mapwindowwidget.h \
-    widgets/showkloglogwidget.h \
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
     charts/statsqsosperyearbarchartwidget.h \
@@ -133,6 +127,8 @@ HEADERS += setupdialog.h \
     showerrordialog.h \
     statisticswidget.h \
     setuppages/setuppagemisc.h \
+    setuppages/hamlibnetworkconfigwidget.h \
+    setuppages/hamlibserialconfigwidget.h \
     setuppages/setuppagelogview.h \
     setuppages/setuppageuserdata.h \
     setuppages/setuppagedxcluster.h \
@@ -152,6 +148,8 @@ HEADERS += setupdialog.h \
     tipsdialog.h \
     udpserver.h \
     updatesatsdata.h \
+    widgets/map/mapwidget.h \
+    widgets/map/mapwindowwidget.h \
     widgets/adiflotwexportwidget.h \
     widgets/showkloglogwidget.h \
     widgets/onlinemessagewidget.h \

@@ -29,37 +29,101 @@
 
 UpdateSettings::UpdateSettings()
 {
-
 }
+
 UpdateSettings::~UpdateSettings()
 {
 
 }
 
-bool UpdateSettings::updateFile()
+bool UpdateSettings::findInFile()
 {
-    //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
-    QString _oldFile = util.getCfgFile ();
-    if (!QFile::exists(_oldFile))
+    QString searchString("[UserData]");
+    QString _fileName = util.getCfgFile ();
+
+    if (!QFile::exists(_fileName))
     {
+        qDebug() << Q_FUNC_INFO << " - File does not exist";
         return false;
     }
-    else
-    {
-        QFile file(_oldFile);
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+
+    QFile file(_fileName);
+    QTextStream in (&file);
+    QString line;
+    do {
+        line = in.readLine();
+        if (line.contains(searchString, Qt::CaseSensitive))
         {
+            qDebug() << Q_FUNC_INFO << " - String founded!";
+            return true;
+        }
+    } while (!line.isNull());
+    qDebug() << Q_FUNC_INFO << " - String NOT found!!";
+    return false;
+}
+
+bool UpdateSettings::renameFile(const QString &_oldName, const QString &_newName)
+{
+
+    QFile file(_oldName);
+    if (!file.copy(_newName))
+    {
             return false;
-        }
-        while (!file.atEnd()){
-            QByteArray line = file.readLine();
-            processConfigLine(line);
-        }
-        //return file.remove();
     }
+    return file.remove ();
+}
+
+bool UpdateSettings::updateFile()
+{
+    qDebug() << Q_FUNC_INFO ;
+    Utilities util(Q_FUNC_INFO);
+    // 3 steps:
+    // Find if update is needed
+    // Crete a backup file
+    // Generate the new from backup
+
+
+    if (findInFile ()) // Do we need to update the file?
+    {
+        qDebug() << Q_FUNC_INFO << " - No need to update";
+        return true;
+    }
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - Settings update"));
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setText(tr("The settings system has been changed and KLog will update your settings file."));
+    msgBox.setStandardButtons(QMessageBox::Ok );
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+
+    QString _oldFile = util.getCfgFile ();
+    QString _backupFile = util.getCfgFile ();
+
+    qDebug() << Q_FUNC_INFO << " - Renaming file";
+
+    if (!renameFile (util.getCfgFile (), _backupFile))
+    {
+        qDebug() << Q_FUNC_INFO << " - Renaming file FAILED";
+        return false;
+    }
+
+    qDebug() << Q_FUNC_INFO << " - Opening backup file";
+    QFile file(_backupFile);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+    {
+        qDebug() << Q_FUNC_INFO << " - Opening backup file FAILED";
+        return false;
+    }
+
+    while (!file.atEnd()){
+        QByteArray line = file.readLine();
+        processConfigLine(line);
+    }
+    qDebug() << Q_FUNC_INFO << " - Settings created";
     return true;
-    //return true;
 }
 
 bool UpdateSettings::processConfigLine(const QString &_line)
@@ -86,7 +150,8 @@ bool UpdateSettings::processConfigLine(const QString &_line)
     {
         value = value.left(value.length() - (value.length() - endValue));
     }
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    //QSettings settings(util.getCfgFile(), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile(), QSettings::IniFormat);
 
     if (tab == "CALLSIGN")
     {

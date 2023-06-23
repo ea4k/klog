@@ -206,7 +206,7 @@ private slots:
     void slotLoTWExport();
     void slotLoTWDownload();
     void slotLoTWFullDownload();
-    void slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
+    //void slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM);
     void slotADIFExportSelection2(const QString &_call, QList<int> _qsos, ExportMode _eM);
     void slotADIFExportAll();
     void slotADIFImport();
@@ -338,13 +338,13 @@ private:
     bool setUDPServer(const bool _b);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     void setLogLevel(const DebugLogLevel _sev);
-    void fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+    //void fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
     void fileExportLoTW2(const QString &_call, QList<int> _qsos);
-    void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    //void fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportClubLog2(const QString &_call, QList<int> _qsos);
-    void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
+    //void fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate);
     void fileExportEQSL2(const QString &_call, QList<int> _qsos);
-    void fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
+    //void fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
     void fileExportADIF2(const QString &_call, QList<int> _qsos);
 
     bool callTQSL(const QString &_filename, const QString &_call);

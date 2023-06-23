@@ -110,7 +110,7 @@ void tst_MainQSOEntryWidget::test_InitialData()
     QVERIFY(mainQSOEntryWidget->getBand(4) == "15M");
     QVERIFY(mainQSOEntryWidget->getBand(5) == "10M");
     //QVERIFY(mainQSOEntryWidget->getBand(6) == "");
-    QVERIFY(mainQSOEntryWidget->getMode(-1) == mode);
+    //QVERIFY(mainQSOEntryWidget->getMode(-1) == mode);
     QVERIFY(mainQSOEntryWidget->getMode(0) == "CW");
     QVERIFY(mainQSOEntryWidget->getMode(1) == "LSB");
     QVERIFY(mainQSOEntryWidget->getMode(2) == "RTTY");

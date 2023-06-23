@@ -711,7 +711,7 @@ void SetupPageUserDataPage::setStationFocus()
 void SetupPageUserDataPage::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
     settings.setValue ("Callsign", getMainCallsign());
     settings.setValue ("Operators", getOperators());
@@ -742,7 +742,7 @@ void SetupPageUserDataPage::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
 
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
     setMainCallsign(settings.value ("Callsign").toString ());
     setOperators (settings.value ("Operators").toString ());

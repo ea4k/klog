@@ -326,7 +326,7 @@ void SetupPageDxCluster::setSelectedDxClusterServer(const QString t)
 void SetupPageDxCluster::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("DXCluster");
     settings.setValue ("DXClusterServerToUse", getSelectedDxClusterServer());
 
@@ -355,7 +355,7 @@ void SetupPageDxCluster::saveSettings()
 
 void SetupPageDxCluster::loadSettings()
 {
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("DXCluster");
 
     showHFQCheckbox->setChecked (settings.value("DXClusterShowHF", true).toBool ());

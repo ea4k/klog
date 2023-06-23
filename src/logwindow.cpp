@@ -85,6 +85,7 @@ void LogWindow::createUI()
 
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
+    logView->horizontalHeader ()->setSectionsMovable (true);
     //logView->setDragDropMode (QAbstractItemView::InternalMove);
     //logView->setDropIndicatorShown (true);
 

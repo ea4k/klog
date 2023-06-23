@@ -265,7 +265,7 @@ void SetupPageColors::slotKLogButtonClicked()
 void SetupPageColors::loadDarkMode()
 {// Reads the config to setup the DarkMode
     //qDebug() << Q_FUNC_INFO;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
     setDarkMode (settings.value("DarkMode", false).toBool ());
     settings.endGroup ();
@@ -325,7 +325,7 @@ void SetupPageColors::setDarkMode(const bool _d)
 void SetupPageColors::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
     //qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();
     settings.setValue ("NewOneColor", (newOneColorButton->palette().color(QPalette::Button)).name());
@@ -340,7 +340,7 @@ void SetupPageColors::saveSettings()
 void SetupPageColors::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO;
-    QSettings settings(util->getSetFile (), QSettings::IniFormat);
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
 
     setNewOneColor (settings.value("NewOneColor", "#FF0000").toString ());

@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
     QSplashScreen splash(pixmap);
 
 
-    if (!((QFile::exists(util.getCfgFile ())) || (QFile::exists(util.getSetFile ()))))
+    if (!((QFile::exists(util.getCfgFile ()))))
     {
         //qDebug() << "MAIN:  Starting wizard... ";
         StartWizard *wizard = new StartWizard(klogDir, version);

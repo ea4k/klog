@@ -916,7 +916,7 @@ bool HamLibClass::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getSetFile (), QSettings::IniFormat);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
     setModelId(settings.value ("HamLibRigType").toInt());
     setPort(settings.value ("HamlibSerialPort").toString());
