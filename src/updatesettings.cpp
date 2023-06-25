@@ -38,46 +38,61 @@ UpdateSettings::~UpdateSettings()
 
 bool UpdateSettings::findInFile()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
     QString searchString("[UserData]");
     QString _fileName = util.getCfgFile ();
-
+    //qDebug() << Q_FUNC_INFO << " File: " << _fileName;
     if (!QFile::exists(_fileName))
     {
-        qDebug() << Q_FUNC_INFO << " - File does not exist";
+        //qDebug() << Q_FUNC_INFO << " - File does not exist";
         return false;
     }
-
+    //qDebug() << Q_FUNC_INFO << " - File exists";
     QFile file(_fileName);
     QTextStream in (&file);
     QString line;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+    {
+        //qDebug() << Q_FUNC_INFO << " - Can't open the file";
+        return false;
+    }
     do {
         line = in.readLine();
+        //qDebug() << Q_FUNC_INFO << " - Line: " << line;
         if (line.contains(searchString, Qt::CaseSensitive))
         {
-            qDebug() << Q_FUNC_INFO << " - String founded!";
+            //qDebug() << Q_FUNC_INFO << " - String founded!";
+            file.close();
             return true;
         }
     } while (!line.isNull());
-    qDebug() << Q_FUNC_INFO << " - String NOT found!!";
+    file.close();
+    //qDebug() << Q_FUNC_INFO << " - String NOT found!!";
     return false;
 }
 
 bool UpdateSettings::renameFile(const QString &_oldName, const QString &_newName)
 {
+    if (QFile::exists(_newName))
+    {
+        if (!QFile::remove (_newName))
+        {
+            return false;
+        }
+    }
 
     QFile file(_oldName);
     if (!file.copy(_newName))
     {
-            return false;
+        return false;
     }
     return file.remove ();
 }
 
 bool UpdateSettings::updateFile()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
     // 3 steps:
     // Find if update is needed
@@ -87,9 +102,10 @@ bool UpdateSettings::updateFile()
 
     if (findInFile ()) // Do we need to update the file?
     {
-        qDebug() << Q_FUNC_INFO << " - No need to update";
+        //qDebug() << Q_FUNC_INFO << " - No need to update";
         return true;
     }
+    //qDebug() << Q_FUNC_INFO << " - Updating setting file...";
 
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - Settings update"));
@@ -100,21 +116,21 @@ bool UpdateSettings::updateFile()
     msgBox.exec();
 
     QString _oldFile = util.getCfgFile ();
-    QString _backupFile = util.getCfgFile ();
+    QString _backupFile = util.getCfgFile () + "-back";
 
-    qDebug() << Q_FUNC_INFO << " - Renaming file";
+    //qDebug() << Q_FUNC_INFO << " - Renaming file";
 
     if (!renameFile (util.getCfgFile (), _backupFile))
     {
-        qDebug() << Q_FUNC_INFO << " - Renaming file FAILED";
+        //qDebug() << Q_FUNC_INFO << " - Renaming file FAILED";
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << " - Opening backup file";
+    //qDebug() << Q_FUNC_INFO << " - Opening backup file";
     QFile file(_backupFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << " - Opening backup file FAILED";
+         //qDebug() << Q_FUNC_INFO << " - Opening backup file FAILED";
         return false;
     }
 
@@ -122,7 +138,7 @@ bool UpdateSettings::updateFile()
         QByteArray line = file.readLine();
         processConfigLine(line);
     }
-    qDebug() << Q_FUNC_INFO << " - Settings created";
+    //qDebug() << Q_FUNC_INFO << " - Settings migrated";
     return true;
 }
 

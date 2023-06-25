@@ -492,7 +492,7 @@ void MainWindow::init()
 
      //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    qDebug() << "MainWindow::init - Reading config file" ;
+    //qDebug() << "MainWindow::init - Reading config file" ;
     UpdateSettings settingsUpdate;
     if (settingsUpdate.updateFile ())
     {

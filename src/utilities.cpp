@@ -486,17 +486,6 @@ QString Utilities::getCfgFile()
 #endif
 }
 
-QString Utilities::getCfgFilee()
-{
-    //TODO: To be removed when the defaultDir is saved in the config file
-    return getHomeDir() + "/klogrc.ini";
-    //#if defined(Q_OS_WIN)
-    //    return getHomeDir() + "/klogrc.ini";
-    //#else
-    //    return getHomeDir() + "/klogrc.ini";
-    //#endif
-}
-
 QString Utilities::getDebugLogFile()
 {
 #if defined(Q_OS_WIN)
