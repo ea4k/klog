@@ -1,4 +1,4 @@
-TBD - 2.3.1
+Jun - 2.3.1
 - Bugfix: When exporting a log, selecting the stationcallsign has no efect on the qsos shown
 - Bugfix: When no validating callsigns, some ADIF fields were exported even if they were empty.
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO". (Closes #518)
