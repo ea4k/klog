@@ -694,8 +694,7 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
-    //connect(adifLoTWExportWidget, SIGNAL(selection(QString, QString, QDate, QDate, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QString, QDate, QDate, ExportMode)) );
-    connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection2(QString, QList<int>, ExportMode)) );
+    connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
@@ -5711,40 +5710,8 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
     //qDebug() << Q_FUNC_INFO << "-END " ;
 }
 
-/*
-void MainWindow::slotADIFExportSelection(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const ExportMode _eM)
-{
-    //qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_grid << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
-    //qDebug() << Q_FUNC_INFO << " - Trigered by signal: selection";
-    switch (_eM)
-    {
-    case ModeADIF:         // General ADIF
-         //qDebug() << Q_FUNC_INFO << " - ADIF" ;
-        //fileExportADIF(_st, _grid, _startDate, _endDate);
-        break;
-    case ModeLotW:         // LoTW
-         //qDebug() << Q_FUNC_INFO << " - LoTW" ;
-        //fileExportLoTW(_st, _grid, _startDate, _endDate);
-        break;
-    case ModeClubLog:         // General ADIF
-         //qDebug() << Q_FUNC_INFO << " - ClubLog" ;
-        //fileExportClubLog(_st, _startDate, _endDate);
-        break;
-    case ModeEQSL:         // General eQSL
-         //qDebug() << Q_FUNC_INFO << " - eQSL"
-        //fileExportEQSL(_st, _startDate, _endDate);
-        break;
-    case ModeQRZ:         // General eQSL
-         //qDebug() << Q_FUNC_INFO << " - QRZ.com" ;
-        elogQRZcom->sendQSOs(dataProxy->getQSOsListQRZCOMToSent(_st, _startDate, _endDate, true));
-        break;
-    }
-    logWindow->refresh();
-       //qDebug() << Q_FUNC_INFO << " - END " ;
-}
-*/
 
-void MainWindow::slotADIFExportSelection2(const QString &_call, QList<int> _qsos, ExportMode _eM)
+void MainWindow::slotADIFExportSelection(const QString &_call, QList<int> _qsos, ExportMode _eM)
 {
     //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
     //qDebug() << Q_FUNC_INFO << " - Trigered by signal: selection";

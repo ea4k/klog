@@ -29,15 +29,8 @@ TBD - 2.3.1
 - UI: Shows the total number of QSOs when exporting.
 - UI: Added a Right-click menu in the DXCluster widget to send a spot to QRZ.com.
 - UI: Columns in LogView are now movable with the mouse.
-- Removed the user callsign from the http header when checking for a new version.
+- Removed the user callsign from the http header when checking for a new version for increased privacy.
 - Translations: Catalan (TNX Txema), Latvian (TNX YL3GBC), Spanish (EA4K), Ukrainian (UR6QV & UR3QJW).
-
-
-*** Tasks to done before releasing: ***
-TODO: Change the name of the new setting file. Renaming the old one and reusing config may be OK.
-TODO: Uncomment the line to remove the old config UpdateSettings::updateFile()    //return file.remove();
-TODO: remove slotADIFExportSelection and the export functions
-
 
 Oct 2022 - 2.3
 - Improvement: Code optimization (TNX JohnS0819)
