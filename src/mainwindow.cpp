@@ -324,13 +324,13 @@ void MainWindow::init()
         debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
-    //qDebug() << "MainWindow::init - 00" ;
+    //qDebug() << Q_FUNC_INFO << " -  00" ;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-    //qDebug() << "MainWindow::init - 000" ;
+    //qDebug() << Q_FUNC_INFO << " -  000" ;
     setupDialog->init(softwareVersion, 0, configured);
-     //qDebug() << "MainWindow::init - 01" ;
+     //qDebug() << Q_FUNC_INFO << " -  01" ;
     filemanager->init();
 
     manualMode = false;
@@ -348,7 +348,7 @@ void MainWindow::init()
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW";
-     //qDebug() << "MainWindow::init - 00" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  00" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     hamlibActive = false;
     hamlibModeNotADIFSupported = false;
@@ -359,7 +359,7 @@ void MainWindow::init()
     itIsANewversion = false;
 
     setCleaning(false);
-     //qDebug() << "MainWindow::init - 10" ;
+     //qDebug() << Q_FUNC_INFO << " -  10" ;
     dxClusterWidget->init();
 
     infoTimeout = 2000; // default timeout
@@ -383,7 +383,7 @@ void MainWindow::init()
     selectedYear = 0;
     defaultMode = 1;
     defaultBand = 1;
-     //qDebug() << "MainWindow::init - 20" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  20" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentMode = 1;
     currentModeShown = currentMode;
     currentBand = 1;
@@ -398,7 +398,7 @@ void MainWindow::init()
 
     UDPServerStart = false;   // By default the UDP server is started
 
-     //qDebug() << "MainWindow::init - 30" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  30" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
 
@@ -428,7 +428,7 @@ void MainWindow::init()
     dxclusterSendSpotsToMap = false;
 
     keepSatPage = false;
-     //qDebug() << "MainWindow::init - 40" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  40" << (QTime::currentTime()).toString("HH:mm:ss") ;
     clublogActive = false;
     clublogRealTime = false;
 
@@ -440,7 +440,7 @@ void MainWindow::init()
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     //previousQrz = "";
     setModifying(false);
-     //qDebug() << "MainWindow::init - 50" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
 
@@ -454,20 +454,20 @@ void MainWindow::init()
     workedColor.setNamedColor("blue");
     confirmedColor.setNamedColor("red");
     newOneColor.setNamedColor("green");
-     //qDebug() << "MainWindow::init - 60" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
-     //qDebug() << "MainWindow::init - 60.1" ;
+     //qDebug() << Q_FUNC_INFO << " -  60.1" ;
     ctyDatFile = util->getCTYFile();
-     //qDebug() << "MainWindow::init - 60.2" ;
+     //qDebug() << Q_FUNC_INFO << " -  60.2" ;
     if (!existingData)
     {
-         //qDebug() << "MainWindow::init - 61" ;
+         //qDebug() << Q_FUNC_INFO << " -  61" ;
         world->create(ctyDatFile);
-         //qDebug() << "MainWindow::init - 62" ;
+         //qDebug() << Q_FUNC_INFO << " -  62" ;
     }
     else if (!world->hasSpecialEntities())
     {
-         //qDebug() << "MainWindow::init - 63" ;
+         //qDebug() << Q_FUNC_INFO << " -  63" ;
         QMessageBox msgBox;
          msgBox.setIcon(QMessageBox::Question);
 
@@ -487,45 +487,47 @@ void MainWindow::init()
         default:
             break;
         }
-         //qDebug() << "MainWindow::init - 69" << (QTime::currentTime()).toString("HH:mm:ss") ;
+         //qDebug() << Q_FUNC_INFO << " -  69" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
 
-     //qDebug() << "MainWindow::init - 70" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-    //qDebug() << "MainWindow::init - Reading config file" ;
-    UpdateSettings settingsUpdate;
-    if (settingsUpdate.updateFile ())
+    //qDebug() << Q_FUNC_INFO << " -  Reading config file" ;
+    if (util->fileExists (util->getCfgFile ()))
     {
-        //configured = loadSettings ();
+        UpdateSettings settingsUpdate;
+        if (settingsUpdate.updateFile ())
+        {
+            //configured = loadSettings ();
+        }
+        configured = loadSettings ();
     }
-    configured = loadSettings ();
-
 
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.setValue ("Version", softwareVersion);
 
     mapWindow->init();
 
-    //qDebug() << "MainWindow::init - 71" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
-     //qDebug() << "MainWindow::init - 72" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
     awards->setManageModes(manageMode);
-     //qDebug() << "MainWindow::init - 73" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-         //qDebug() << "MainWindow::init - 73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
+         //qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
         openSetup(6);
-         //qDebug() << "MainWindow::init - 73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
+         //qDebug() << Q_FUNC_INFO << " -  73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
-     //qDebug() << "MainWindow::init - 74" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
-     //qDebug() << "MainWindow::init - 75" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  75" << (QTime::currentTime()).toString("HH:mm:ss") ;
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
-     //qDebug() << "MainWindow::init - 80" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
      //qDebug() << "MainWindow::Init: calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
     if (checkNewVersions)
     {//reportInfo
@@ -535,11 +537,11 @@ void MainWindow::init()
         }
         softUpdate->needToUpdate();
     }
-     //qDebug() << "MainWindow::init - 90" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-     //qDebug() << "MainWindow::init - 91" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-     //qDebug() << "MainWindow::init - 92" << (QTime::currentTime()).toString("HH:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 

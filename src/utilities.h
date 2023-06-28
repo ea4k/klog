@@ -71,8 +71,8 @@ public:
     bool QStringToBool(const QString &_s);
 
     //QString getKLogDatabaseFile(const QString &_file);
-    bool isDBFileExisting();
-    bool isDBFileExisting(const QString &_file);
+    bool fileExists(const QString &_fileName);
+
     QString getTQSLsFileName();
     QString getTQSLsPath();   // Depending on the OS where are usually installed the executables
     QString getHomeDir();

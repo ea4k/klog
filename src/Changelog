@@ -1,3 +1,6 @@
+Jun - 2.3.2
+- Bugfix: KLog was not starting when started in clean installations.(Closes #599)(TNX cwross)
+
 Jun - 2.3.1
 - Bugfix: When exporting a log, selecting the stationcallsign has no efect on the qsos shown
 - Bugfix: When no validating callsigns, some ADIF fields were exported even if they were empty.

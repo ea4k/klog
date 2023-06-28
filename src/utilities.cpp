@@ -1323,17 +1323,10 @@ bool Utilities::isValidName(const QString &_b)
     return (_b.length()>0);
 }
 
-bool Utilities::isDBFileExisting()
+bool Utilities::fileExists(const QString &_fileName)
 {
-    //qDebug() << "Utilities::isDBFileExisting: " << getKLogDBFile() ;
-    return (QFile::exists(getKLogDBFile()));
-}
-
-bool Utilities::isDBFileExisting(const QString &_file)
-{
-         //qDebug() << "Utilities::isDBFileExisting2: " << _file ;
-
-    return (QFile::exists(_file));
+    //qDebug() << Q_FUNC_INFO << _file ;
+    return (QFile::exists(_fileName));
 }
 
 bool Utilities::isValidADIFField(const QString &_b)

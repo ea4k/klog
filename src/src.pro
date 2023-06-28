@@ -31,7 +31,7 @@ CONFIG -=depend_includepath
 TEMPLATE = app
 
 PKGVERSION = 2.3.1
-VERSION = 2.3.1
+VERSION = 2.3.2
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog
