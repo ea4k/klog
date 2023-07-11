@@ -30,8 +30,9 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 
-PKGVERSION = 2.3.2
-VERSION = 2.3.2
+PKGVERSION = 2.3.3
+VERSION = 2.3.3
+
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 APP_NAME = KLog
@@ -175,7 +176,6 @@ SOURCES += main.cpp \
     inputwidgets/mainwindowinputeqsl.cpp \
     inputwidgets/mainwindowinputqsl.cpp \
     inputwidgets/mainwindowsattab.cpp\
-    qso.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \
@@ -202,6 +202,7 @@ SOURCES += main.cpp \
     downloadcty.cpp \
     dxcluster.cpp \
     locator.cpp \
+    qso.cpp \
     awards.cpp \
     setuppages/setuppagemisc.cpp \
     setuppages/setuppageuserdata.cpp \

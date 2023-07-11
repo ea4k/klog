@@ -68,16 +68,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     util->setVersion(softVersion);
 
     dbName = _DBName;
-    //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
 
-       //qDebug() << "DataBase::DataBase2: dbName: " << dbName ;
-    //dbDir = dbName;
-       //qDebug() << "DataBase::DataBase: DB(string): " << dbName ;
-
-    //db = QSqlDatabase::database();
-
-
-    //db = QSqlDatabase::removeDatabase("QSQLITE");
     if (util->getVersionDouble()>0)
     {
         createConnection(QString(Q_FUNC_INFO)+"2");
@@ -98,12 +89,6 @@ DataBase::~DataBase()
          //qDebug() << "DataBase::~DataBase"  ;
 }
 
-//void DataBase::slotPrintErrors(QString _func, QString _msg, int _level)
-//{
-    //qDebug() << "DataBase::slotPrintErrors: FUNC: " << _func ;
-    //qDebug() << "DataBase::slotPrintErrors: MSG: " << _msg ;
-    //qDebug() << "DataBase::slotPrintErrors: LEVEL: " << QString::number(_level) ;
-//}
 
 QString DataBase::getSoftVersion()
 {
@@ -186,40 +171,36 @@ QString DataBase::getDBName()
 QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-   QSqlQuery query;
+    QSqlQuery query;
+    QString queryString = "PRAGMA table_info(:table)";
+    query.prepare(queryString);
+    query.bindValue(":table", _tableName);
 
-   QString queryString = QString("PRAGMA table_info('%1')").arg(_tableName);
+    bool sqlOK = query.exec();
+    QStringList list;
 
-   bool sqlOK = query.exec(queryString);
-   QStringList list;
-   list.clear();
-    QString aux;
-   if (sqlOK)
-   {
-          //qDebug() << "DataBase::getColumnNamesFromTable: OK" ;
-       while(query.next())
-       {
-           if (query.isValid())
-           {
-                aux = (query.value(1)).toString();
-               if (( aux.toUpper() != "ID" ) && (aux.length()>0))
-               {
-                   list << aux;
-                      //qDebug() << "DataBase::getColumnNamesFromTable: " << (query.value(1)).toString() ;
-               }
-           }
-       }
-       query.finish();
+    if (sqlOK)
+    {
+        while (query.next())
+        {
+            QString columnName = query.value(1).toString();
+            if (!columnName.isEmpty() && columnName.toUpper() != "ID")
+            {
+                list << columnName;
+            }
+        }
     }
     else
     {
-       queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
+
     query.finish();
-       //qDebug() << "DataBase::getColumnNamesFromTable: " << QString::number(list.size()) ;
+
     logEvent(Q_FUNC_INFO, "END", Debug);
     return list;
 }
+
 
 void DataBase::compress()
 {

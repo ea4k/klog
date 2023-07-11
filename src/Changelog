@@ -1,3 +1,8 @@
+TBD - 2.4
+WIP: - Bugfix: Started to reduce the possibility of SQLi tje use of prepared statements.
+bool QSO::add()
+Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
+
 Jun - 2.3.2
 - Bugfix: KLog was not starting when started in clean installations.(Closes #599)(TNX cwross)
 

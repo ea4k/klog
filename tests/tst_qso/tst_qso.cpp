@@ -28,10 +28,7 @@
 #include <QtTest>
 #include "../../src/qso.h"
 #include "../../src/klogdefinitions.h"
-//#include "../../src/dataproxy_sqlite.h"
-//#include "../../src/database.h"
 
-//#include "../../src/utilities.h"
 
 class tst_QSO : public QObject
 {

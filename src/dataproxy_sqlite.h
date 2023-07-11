@@ -29,6 +29,7 @@
 #include <QString>
 #include <QStringList>
 #include <QObject>
+#include <QSqlQuery>
 #include "database.h"
 #include "qso.h"
 #include "utilities.h"
@@ -111,6 +112,7 @@ public:
 
     int addQSOFromLoTW(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate, const QString &_stationcallsign, const int _logn);
     int addQSO(QSO &_qso);
+    int addQSOQuery(const QSqlQuery &_q);
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);

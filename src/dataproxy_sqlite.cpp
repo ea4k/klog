@@ -68,53 +68,45 @@ DataProxy_SQLite::~DataProxy_SQLite()
 
 int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _logn)
 {
-    //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: " << _p << "/" << QString::number(_logn);
-    logEvent (Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     QString queryString;
     bool sqlOK;
+
     if (_logn < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log WHERE prop_mode='%1'").arg(_p);
+        queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE prop_mode=:prop_mode";
+        if (!query.prepare(queryString))
+        {return 0;}
+        query.bindValue(":prop_mode", _p);
     }
     else
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND prop_mode='%2'").arg(_logn).arg(_p);
+        queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE lognumber=:lognumber AND prop_mode=:prop_mode";
+        if (!query.prepare(queryString))
+        {return 0;}
+        query.bindValue(":lognumber", _logn);
+        query.bindValue(":prop_mode", _p);
     }
 
-    sqlOK = query.exec(queryString);
+    sqlOK = query.exec();
 
-    //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: queryString: " << queryString;
-    if (sqlOK)
+    if (sqlOK && query.next() && query.isValid())
     {
-        query.next();
-        if (query.isValid())
-        {
-            //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: " << QString::number((query.value(0)).toInt());
-            int v = (query.value(0)).toInt();
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-1", Debug);
-            return v;
-        }
-        else
-        {
-            //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropModer: 0";
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-2", Debug);
-            return 0;
-        }
+        int v = query.value(0).toInt();
+        query.finish();
+        logEvent(Q_FUNC_INFO, "END-1", Debug);
+        return v;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        //qDebug() << "DataProxy_SQLite::getHowManyQSOPerPropMode: Query error";
         query.finish();
-        logEvent (Q_FUNC_INFO, "END-3", Debug);
+        logEvent(Q_FUNC_INFO, "END-2", Debug);
         return 0;
     }
-    logEvent (Q_FUNC_INFO, "END", Debug);
-    return 0;
 }
+
 
 QString DataProxy_SQLite::getSoftVersion()
 { //SELECT MAX (softversion) FROM softwarecontrolç
@@ -9996,17 +9988,47 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
     return 0;
 }
 
-int DataProxy_SQLite::addQSO(QSO &_qso)
+int DataProxy_SQLite::addQSOQuery(const QSqlQuery &_q)
 {
+    QSqlQuery query = _q;
+    if (query.exec ())
+    {
+        qDebug() << Q_FUNC_INFO << " - QSO Added!";
+        return 1;
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - QSO NOT Added!";
+        qDebug() << Q_FUNC_INFO << " - Error: " << query.lastError ().databaseText ();
+        qDebug() << Q_FUNC_INFO << " - Error text: " << query.lastError ().text ();
+        qDebug() << Q_FUNC_INFO << " - Error query: " << query.lastQuery ();
+        return -1;
+    }
+}
+
+int DataProxy_SQLite::addQSO(QSO &_qso)
+{//EA4K: Check if I can simply remove this function
     //qDebug() << "DataProxy_SQLite::addQSO: " << _qso.getCall();
     qso = &_qso;
    //qDebug() << "DataProxy_SQLite::addQSO: " << qso->getCall();
-    //qso = _qso;
+    QString stringQuery = QString("INSERT INTO log (qso_date, call) VALUES (:qso_date, :call)");
+    QSqlQuery query;
+
+    query.prepare(stringQuery);
+
+    query.bindValue (":qso_date", qso->getDate ());
+
+   /* queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE prop_mode=:prop_mode";
+            if (!query.prepare(queryString))
+            {return 0;}
+            query.bindValue(":prop_mode", _p);
+            */
+            //stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
 
     bool havePropMode = false;
     bool haveRSTRX = false;
     bool haveRSTTX = false;
-    QString stringQuery;
+
     QString stringFields, stringData;
     stringFields.clear();
     stringData.clear();
@@ -10161,7 +10183,7 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
     }
 
     stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
-    QSqlQuery query;
+
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {

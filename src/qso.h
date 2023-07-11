@@ -27,13 +27,15 @@
  *****************************************************************************/
 
 #include <QString>
+#include <QSqlQuery>
 #include <QDate>
 #include <QTime>
-//#include <QSqlQuery>
-#include <QDebug>
+#include <QObject>
+//#include <QDebug>
 #include "utilities.h"
 #include "klogdefinitions.h"
-#include <functional>
+#include "database.h"
+//#include <functional>
 
 class QSO : public QObject
 {
@@ -378,8 +380,8 @@ public:
     QString getWwffRef();
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
+    bool add();
 
-    //QSqlQuery add();
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

@@ -287,7 +287,7 @@ void MainWindow::setWindowSize(const QSize &_size)
 
 void MainWindow::init()
 {
-     //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!QDir::setCurrent ( util->getHomeDir () )){
@@ -324,6 +324,7 @@ void MainWindow::init()
         debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
+
     //qDebug() << Q_FUNC_INFO << " -  00" ;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
@@ -331,6 +332,7 @@ void MainWindow::init()
     //qDebug() << Q_FUNC_INFO << " -  000" ;
     setupDialog->init(softwareVersion, 0, configured);
      //qDebug() << Q_FUNC_INFO << " -  01" ;
+
     filemanager->init();
 
     manualMode = false;
@@ -359,7 +361,9 @@ void MainWindow::init()
     itIsANewversion = false;
 
     setCleaning(false);
+
      //qDebug() << Q_FUNC_INFO << " -  10" ;
+
     dxClusterWidget->init();
 
     infoTimeout = 2000; // default timeout
@@ -384,6 +388,7 @@ void MainWindow::init()
     defaultMode = 1;
     defaultBand = 1;
      //qDebug() << Q_FUNC_INFO << " -  20" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
     currentMode = 1;
     currentModeShown = currentMode;
     currentBand = 1;
@@ -393,12 +398,12 @@ void MainWindow::init()
     operatorQRZ = "";
     stationCallsign = "";
     mainQRZ = "";
-    //myLocator = "";
     dxLocator ="";
 
     UDPServerStart = false;   // By default the UDP server is started
 
      //qDebug() << Q_FUNC_INFO << " -  30" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
 
@@ -438,9 +443,9 @@ void MainWindow::init()
     qrzcomSubscriber = false;
 
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
-    //previousQrz = "";
     setModifying(false);
      //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
 
@@ -454,6 +459,7 @@ void MainWindow::init()
     workedColor.setNamedColor("blue");
     confirmedColor.setNamedColor("red");
     newOneColor.setNamedColor("green");
+
      //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
      //qDebug() << Q_FUNC_INFO << " -  60.1" ;
@@ -467,7 +473,6 @@ void MainWindow::init()
     }
     else if (!world->hasSpecialEntities())
     {
-         //qDebug() << Q_FUNC_INFO << " -  63" ;
         QMessageBox msgBox;
          msgBox.setIcon(QMessageBox::Question);
 
@@ -498,9 +503,13 @@ void MainWindow::init()
         UpdateSettings settingsUpdate;
         if (settingsUpdate.updateFile ())
         {
+            UpdateSettings settingsUpdate;
+            if (settingsUpdate.updateFile ())
+            {
             //configured = loadSettings ();
+            }
+            configured = loadSettings ();
         }
-        configured = loadSettings ();
     }
 
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
@@ -522,13 +531,16 @@ void MainWindow::init()
      //qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
      //qDebug() << Q_FUNC_INFO << " -  75" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
+
      //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
      //qDebug() << "MainWindow::Init: calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
+
     if (checkNewVersions)
     {//reportInfo
         if (reportInfo)
@@ -537,32 +549,34 @@ void MainWindow::init()
         }
         softUpdate->needToUpdate();
     }
+
      //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
      //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
      //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
     timerInfoBars = new QTimer(this);
 
-     //qDebug() << "MainWindow::init: Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
     createUI();
-     //qDebug() << "MainWindow::init: Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
-     //qDebug() << Q_FUNC_INFO << " - 100";
+    //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - 100";
     slotClearButtonClicked(Q_FUNC_INFO);
-     //qDebug() << Q_FUNC_INFO << " - 110";
+    //qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
-     //qDebug() << Q_FUNC_INFO << " - 120";
+    //qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     world->readWorld ();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
-     //qDebug() << Q_FUNC_INFO << " - 130";
+    //qDebug() << Q_FUNC_INFO << " - 130";
 
     applySettings ();
-     //qDebug() << "MainWindow::init: END" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -719,7 +733,7 @@ void MainWindow::recommendBackupIfNeeded()
     QDateTime lastBackupDate;
     lastBackupDate = QDateTime();
     lastBackupDate = filemanager->getDateTimeOfLastBackup();
-     //qDebug() << "MainWindow::recommendBackupIfNeeded lastDate: " << util->getDateTimeSQLiteStringFromDateTime(lastBackupDate) << (QTime::currentTime()).toString(" HH:mm:ss")  ;
+     //qDebug() << Q_FUNC_INFO << " -  lastDate: " << util->getDateTimeSQLiteStringFromDateTime(lastBackupDate) << (QTime::currentTime()).toString(" HH:mm:ss")  ;
     bool backupNeeded = false;
     QString msg;
     if (lastBackupDate == QDateTime())
@@ -729,14 +743,14 @@ void MainWindow::recommendBackupIfNeeded()
     }
     else if (lastBackupDate.addMonths(1) < QDateTime::currentDateTime())
     {
-         //qDebug() << "MainWindow::recommendBackupIfNeeded More than a month" << (QTime::currentTime()).toString(" HH:mm:ss")   ;
+         //qDebug() << Q_FUNC_INFO << " -  More than a month" << (QTime::currentTime()).toString(" HH:mm:ss")   ;
         backupNeeded = true;
         msg = tr("It seems that the latest backup you did is older than one month.");
     }
 
     if (backupNeeded)
     {
-         //qDebug() << "MainWindow::recommendBackupIfNeeded We need to backup"  << (QTime::currentTime()).toString(" HH:mm:ss")  ;
+         //qDebug() << Q_FUNC_INFO << " -  We need to backup"  << (QTime::currentTime()).toString(" HH:mm:ss")  ;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
 
@@ -757,7 +771,7 @@ void MainWindow::recommendBackupIfNeeded()
         {
             case QMessageBox::Yes:
             QString filename = util->getBackupADIFile();
-     //qDebug() << "MainWindow::recommendBackupIfNeeded: Backup to: " << filename << (QTime::currentTime()).toString(" HH:mm:ss")   ;
+     //qDebug() << Q_FUNC_INFO << " -  Backup to: " << filename << (QTime::currentTime()).toString(" HH:mm:ss")   ;
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("KLog - Backup"));
             if (filemanager->adifLogExport(filename, 0)) // 0 will save ALL the logs)
@@ -804,7 +818,7 @@ void MainWindow::checkIfNewVersion()
         msgBox.exec();
         openSetup(0);
     }
-      //qDebug() << "MainWindow::checkIfNewVersion - END"  ;
+      //qDebug() << Q_FUNC_INFO << " - END"  ;
 }
 
 void MainWindow::createStatusBar()
@@ -840,7 +854,7 @@ void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
     int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
-       //qDebug() << "MainWindow::setMainWindowTitle:  (comment): " << aux ;
+       //qDebug() << Q_FUNC_INFO << " - (comment): " << aux ;
     QString msg;
 
     if (mainQRZ == stationCallsign)
@@ -863,7 +877,7 @@ void MainWindow::setMainWindowTitle()
 
 void MainWindow::createUI()
 {
-     //qDebug() << "MainWindow::createUI" ;
+     //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     createStatusBar();
     setWindowTitle(tr("KLog"));
@@ -872,13 +886,13 @@ void MainWindow::createUI()
     createMenusCommon();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-     //qDebug() << "MainWindow::createUI-END" ;
+     //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 void MainWindow::slotTimeOutInfoBars()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-       //qDebug() << "MainWindow::slotTimeOutInfoBars - Start" ;
+       //qDebug() << Q_FUNC_INFO << " -  - Start" ;
     slotShowInfoLabel(infoLabel1T);
     //slotShowInfoLabel(infoLabel2T);
     //infoLabel1->setText(infoLabel1T);
@@ -909,11 +923,11 @@ void MainWindow::setModeFromFreq()
 
 void MainWindow::slotBandChanged (const QString &_b)
 {
-     //qDebug() << "MainWindow::slotBandChanged: " << _b ;
+     //qDebug() << Q_FUNC_INFO << " -  " << _b ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if ((!upAndRunning) || (_b.length()<2))
     {
-         //qDebug() << "MainWindow::slotBandChanged: !upAndRunning or band short"  ;
+         //qDebug() << Q_FUNC_INFO << " -  !upAndRunning or band short"  ;
         return;
     }
 
@@ -1005,17 +1019,17 @@ void MainWindow::slotModeChanged (const QString &_m)
     }
 */
     logEvent(Q_FUNC_INFO, "END", Debug);
-     //qDebug() << "MainWindow::slotModeComboBoxChanged2: " << mainQSOEntryWidget->getMode() ;
+     //qDebug() << Q_FUNC_INFO << " - " << mainQSOEntryWidget->getMode() ;
 }
 
 
 void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-     //qDebug() << "MainWindow::slotQRZReturnPressed: "  ;
+     //qDebug() << Q_FUNC_INFO << " - Start"  ;
     if (mainQSOEntryWidget->getQrz().length()<=0)
     {
-   //qDebug() << "MainWindow::slotQRZReturnPressed: no QRZ"  ;
+   //qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;
         return;
     }
     readingTheUI = true;
@@ -1027,48 +1041,57 @@ void MainWindow::slotQRZReturnPressed()
     QSqlQuery query;
     QString queryString = readDataFromUI();
 
-       //qDebug() << "MainWindow::slotQRZReturnPressed: queryString: " << queryString ;
+    //qDebug() << Q_FUNC_INFO << " -  queryString: " << queryString ;
 
     if (queryString != "NULL")
     {
-        if (!query.exec(queryString))
+        if (queryString == "TEMP-STRING")
+        { // Just to be used while 2.4 or 2.3.4 is written
+            //qDebug() << Q_FUNC_INFO << " -  QSO Added-1! " ;
+                 actionsJustAfterAddingOneQSO();
+        }
+        else
         {
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-                query.finish();
-           //qDebug() << "MainWindow::slotQRZReturnPressed: Query ERROR: (queryString): " << queryString ;
-        //errorCode = query.lastError().nativeErrorCode();
-                QMessageBox msgBox;
-                msgBox.setWindowTitle(tr("KLog - Unexpected error"));
-                msgBox.setIcon(QMessageBox::Warning);
-                QString aux = tr("An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: ");
-                msgBox.setText(aux + "MW-1: " + query.lastError().nativeErrorCode());
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.setDefaultButton(QMessageBox::Ok);
-                int ret = msgBox.exec();
-                switch (ret)
-                {
-                    case QMessageBox::Ok:
-                    break;
-                    default:
-            // should never be reached
-                    break;
-                }
-                logEvent(Q_FUNC_INFO, "END-1", Debug);
-                return;
-            }
-            else
+            if (!query.exec(queryString))
             {
-                query.finish();
-        //TODO: To move the following lines to this part to properly manage the query result!!
-        //ret = true;
-           //qDebug() << "MainWindow::slotQRZReturnPressed: QSO Added! " ;
-                actionsJustAfterAddingOneQSO();
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                    query.finish();
+               //qDebug() << Q_FUNC_INFO << " -  Query ERROR: (queryString): " << queryString ;
+            //errorCode = query.lastError().nativeErrorCode();
+                    QMessageBox msgBox;
+                    msgBox.setWindowTitle(tr("KLog - Unexpected error"));
+                    msgBox.setIcon(QMessageBox::Warning);
+                    QString aux = tr("An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: ");
+                    msgBox.setText(aux + "MW-1: " + query.lastError().nativeErrorCode());
+                    msgBox.setStandardButtons(QMessageBox::Ok);
+                    msgBox.setDefaultButton(QMessageBox::Ok);
+                    int ret = msgBox.exec();
+                    switch (ret)
+                    {
+                        case QMessageBox::Ok:
+                        break;
+                        default:
+                // should never be reached
+                        break;
+                    }
+                    logEvent(Q_FUNC_INFO, "END-1", Debug);
+                    return;
+                }
+                else
+                {
+                    query.finish();
+            //TODO: To move the following lines to this part to properly manage the query result!!
+            //ret = true;
+               //qDebug() << Q_FUNC_INFO << " -  QSO Added-2! " ;
+                    actionsJustAfterAddingOneQSO();
+                }
             }
         }
+
     else   // The QUERY string is NULL
         {
             logEvent(Q_FUNC_INFO, "END-2", Debug);
-       //qDebug() << "MainWindow::slotQRZReturnPressed: QUERY string is NULL " ;
+       //qDebug() << Q_FUNC_INFO << " -  QUERY string is NULL " ;
             readingTheUI = false;
             return;
         }
@@ -1087,13 +1110,13 @@ void MainWindow::slotQRZReturnPressed()
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO" ;
+       //qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     int lastId = -1;
     needToSave = true;
     if (modify)
     {
-       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Modifying! " ;
+       //qDebug() << Q_FUNC_INFO << " -  Modifying! " ;
        needToSave = true;
        if(modifyingQSO>0)
        {
@@ -1105,7 +1128,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
            }
            if ((clublogActive) && (clublogRealTime))
            {
-         //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Modifiying ClubLog) Lastid: "<< QString::number(lastId) ;
+         //qDebug() << Q_FUNC_INFO << " -  (Modifiying ClubLog) Lastid: "<< QString::number(lastId) ;
        // Delete QSO in CLubLog
                elogClublog->deleteQSO(clublogPrevQSO);
        // Add modified QSO in ClubLog
@@ -1113,7 +1136,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
            }
            else
            {
-                   //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) ;
+                   //qDebug() << Q_FUNC_INFO << " -  (No ClubLog) Lastid: "<< QString::number(lastId) ;
            }
            awards->setAwards(modifyingQSO);   //Update the DXCC award status
        }
@@ -1121,27 +1144,27 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     else
     {
-   //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Not Modifying " ;
+   //qDebug() << Q_FUNC_INFO << " -  Not Modifying " ;
         lastId = dataProxy->getLastQSOid();
         if (lastId>=0)
         {
-       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid: "<< QString::number(lastId) ;
+       //qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
             awards->setAwards(lastId);   //Update the DXCC award status
     // Send to CLUBLOG if enabled
             if ((clublogActive) && (clublogRealTime))
             {
-           //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (Sending ClubLog) Lastid: "<< QString::number(lastId) ;
+           //qDebug() << Q_FUNC_INFO << " -  (Sending ClubLog) Lastid: "<< QString::number(lastId) ;
                 elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
             }
             else
             {
-           //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: (No ClubLog) Lastid: "<< QString::number(lastId) ;
+           //qDebug() << Q_FUNC_INFO << " -  (No ClubLog) Lastid: "<< QString::number(lastId) ;
             }
     //<CLUBLOG>
         }
         else
         {
-       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO: Lastid < 0 "<< QString::number(lastId) ;
+       //qDebug() << Q_FUNC_INFO << " -  Lastid < 0 "<< QString::number(lastId) ;
         }
         //awards->setAwards(lastId);
     }
@@ -1155,7 +1178,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
 
 QString MainWindow::readDataFromUI()
 {
-     //qDebug() << "MainWindow::readDataFromUI: " ;
+     //qDebug() << Q_FUNC_INFO << " -  " ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (modify)
     {
@@ -1165,9 +1188,10 @@ QString MainWindow::readDataFromUI()
     else
     {
         logEvent(Q_FUNC_INFO, "END-3", Debug);
-        return readDataFromUIDX();
+        QString tmp = readDataFromUIDX();
+        return "TEMP-STRING";
     }
-    //logEvent(Q_FUNC_INFO, "END", Debug);
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 QString MainWindow::readDataFromUIDX()
@@ -1175,9 +1199,11 @@ QString MainWindow::readDataFromUIDX()
 /*
 If you make any change here, please update also readDataFromUIDXModifying to keep data integrity!
 */
-     //qDebug() << "MainWindow::readDataFromUIDX:" ;
+    qDebug() << Q_FUNC_INFO << " - " ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    QSO qso;
     QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
+
     if (!util->isValidCall(tqrz))
     {
         QMessageBox msgBox;
@@ -1201,31 +1227,24 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
             break;
         }
     }
-    QString stringQuery = "NULL";
-    QString aux1, aux2, stringFields, stringData;
-    //QString aux, aux2;
-      //qDebug() << "MainWindow::readDataFromUIDX: Band: " << QString::number(currentBand) ;
-      //qDebug() << "MainWindow::readDataFromUIDX: Mode: " << QString::number(currentMode)  ;
-    int tband = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-    int tmode = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
+    qso.setCall (tqrz);
+    qso.setBand(mainQSOEntryWidget->getBand());
+    qso.setMode(mainQSOEntryWidget->getMode());
 
-    QString tdate = util->getDateTimeSQLiteStringFromDateTime(mainQSOEntryWidget->getDateTime());
-    QString ttime = (mainQSOEntryWidget->getTime()).toString("hh:mm:ss");
+    //qso.setDate (tdate);
+    qso.setLogId (currentLog);
 
-    QString trsttx = QSOTabWidget->getRSTTX ();
-      //qDebug() << "MainWindow::readDataFromUIDX - RSTtx: " << trsttx ;
-    QString trstrx = QSOTabWidget->getRSTRX ();
+    qso.setDateTimeOn (mainQSOEntryWidget->getDateTime());
+
+    qso.setRSTTX (QSOTabWidget->getRSTTX ());
+    qso.setRSTRX (QSOTabWidget->getRSTRX ());
 
     int dxcc = world->getQRZARRLId(tqrz);
     //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
-      //qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) ;
-      //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) ;
+
     dxcc = util->getNormalizedDXCCValue (dxcc);
     dxcc2 = util->getNormalizedDXCCValue (dxcc2);
-
-      //qDebug() << "MainWindow::readDataFromUIDX - DXCC: " << QString::number(dxcc) ;
-      //qDebug() << "MainWindow::readDataFromUIDX - DXCC2: " << QString::number(dxcc2) ;
 
     if (dxcc!=dxcc2)
     {
@@ -1264,682 +1283,75 @@ If you make any change here, please update also readDataFromUIDXModifying to kee
         }
     }
 
-    aux1 = dataProxy->getContinentShortNameFromEntity(dxcc);
-    if (dataProxy->isValidContinentShortName(aux1))
-    {
-        stringFields = stringFields + ", cont";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+    qso.setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
 
     int cqz = world->getEntityCqz(dxcc);
     int ituz = world->getEntityItuz(dxcc);
 
-    aux1 = QSOTabWidget->getName();
-    if (aux1.length()>1)
-    {
-        stringFields = stringFields + ", name";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+    qso.setName (QSOTabWidget->getName());
+    qso.setDistance (infoWidget->getDistance ());
+    qso.setGridSquare (QSOTabWidget->getDXLocator());
+    qso.setMyGridSquare (myDataTabWidget->getMyLocator());
 
+    qso.setFreqTX (QSOTabWidget->getTXFreq());
+    qso.setFreqRX (QSOTabWidget->getRXFreq());
+    qso.setBandRX (dataProxy->getBandNameFromFreq (QSOTabWidget->getRXFreq ()));
 
-    if (infoWidget->getDistance ()>0)
-    {
-        stringFields = stringFields + ", distance";
-        stringData = stringData + ", '" + QString::number(infoWidget->getDistance ()) + "'";
-    }
+    qso.setQTH (QSOTabWidget->getQTH());
+    qso.setOperatorCallsign (myDataTabWidget->getOperator());
+    qso.setStationCallsign (myDataTabWidget->getStationCallsign());
 
-    aux1 = QSOTabWidget->getDXLocator();
+    qso.setMyRig (myDataTabWidget->getMyRig());
+    qso.setMyAntenna (myDataTabWidget->getMyAntenna());
+    qso.setMySOTA_REF (myDataTabWidget->getMySOTA());
+    qso.setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
 
-    if ( locator->isValidLocator(aux1)  )
-    {
-        stringFields = stringFields + ", gridsquare";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-    //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << QString::number(QSOTabWidget->getTXFreq()) ;
-    if ( QSOTabWidget->getTXFreq() > 0  )
-    {
-        aux1 = QString::number(QSOTabWidget->getTXFreq());
-         //qDebug() << "MainWindow::readDataFromUIDX: Reading freq...: " << aux1 << "/" << tband ;
+    qso.setComment (commentTabWidget->getComment());
+    qso.setQSLMsg (QSLTabWidget->getQSLMsg());
 
-        if (dataProxy->isThisFreqInBand(dataProxy->getNameFromBandId(tband), aux1) )
-        {
-            stringFields = stringFields + ", freq";
-            stringData = stringData + ", '" + aux1 + "'";
-                 //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND OK" ;
-        }
-        else
-        {
-                 //qDebug() << "MainWindow::readDataFromUIDX: FREQ & BAND NOK" ;
-        }
-    }
+    qso.setDXCC (dxcc);
+    qso.setCQZone (cqz);
+    qso.setItuZone (ituz);
 
-    if ( QSOTabWidget->getRXFreq() > 0  )
-    {
-         //qDebug() << "MainWindow::readDataFromUIDX: TX FREQ & RX FREQ ARE DIFFERENT AND != 0" ;
-        aux1 = QString::number(QSOTabWidget->getRXFreq());
-        stringFields = stringFields + ", freq_rx, band_rx";
-        stringData = stringData + ", '" + aux1 + "', '" + QString::number(dataProxy->getBandIdFromFreq(QSOTabWidget->getRXFreq())) + "'";
-        //stringData = stringData + ", '" + aux1 + ", " + QString::number(dataProxy->getBandIdFromFreq(rxFreqSpinBox->value ())) + "'";
-    }
-    aux1 = QSOTabWidget->getQTH();
-    if (aux1.length()>2)
-    {
-        stringFields = stringFields + ", qth";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+    qso.setQSLVia (QSLTabWidget->getQSLVia());
+    qso.setTXPwr (myDataTabWidget->getMyPower());
+    qso.setRXPwr (QSOTabWidget->getRXPwr ());
 
-    aux1 = myDataTabWidget->getOperator();
-    if (aux1.length()>2)
-    {
-        stringFields = stringFields + ", operator";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+    qso.setSOTA_REF (othersTabWidget->getSOTA());
+    qso.setAge (othersTabWidget->getAge());
+    qso.setVUCCGrids (othersTabWidget->getVUCCGrids ());
+    qso.setIOTA (othersTabWidget->getIOTA());
 
-    aux1 = myDataTabWidget->getStationCallsign();
-     //qDebug() << Q_FUNC_INFO << "StationCallSign: " << aux1;
-    if (aux1.length()>2)
-    {
-        //lastStationQRZ = aux1.toUpper();
-        stringFields = stringFields + ", station_callsign";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = myDataTabWidget->getMyLocator();
-    if (aux1.length()>2)
-    {
-        stringFields = stringFields + ", my_gridsquare";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = myDataTabWidget->getMyRig();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", my_rig";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = myDataTabWidget->getMyAntenna();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", my_antenna";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = myDataTabWidget->getMySOTA();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", my_sota_ref";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = myDataTabWidget->getMyVUCCGrids ();
-    if (util->isValidVUCCGrids (aux1))
-    {
-        stringFields = stringFields + ", my_vucc_grids";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = commentTabWidget->getComment();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", comment";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QSLTabWidget->getQSLMsg();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", qslmsg";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QString::number(dxcc);
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", dxcc";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QString::number(cqz);
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", cqz";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QString::number(ituz);
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", ituz";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QSLTabWidget->getQSLVia();
-    if (aux1.length()>3)
-    {
-        stringFields = stringFields + ", qsl_via";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QString::number(myDataTabWidget->getMyPower());
-    if ((aux1.toFloat())>0.0f)
-    {
-        stringFields = stringFields + ", tx_pwr";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QString::number(QSOTabWidget->getRXPwr ());
-    if ((aux1.toFloat())>0.0f)
-    {
-        stringFields = stringFields + ", rx_pwr";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    // OTHERS TAB
-    // User Selectable field
-    aux1 = othersTabWidget->getSOTA();
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", sota_ref";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = QString::number(othersTabWidget->getAge());
-    if (othersTabWidget->getAge()>0)
-    {
-        stringFields = stringFields + ", age";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = othersTabWidget->getVUCCGrids ();
-    if (util->isValidVUCCGrids (aux1))
-    {
-        stringFields = stringFields + ", vucc_grids";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    aux1 = othersTabWidget->getIOTA();
-     //qDebug() << "MainWindow::readDataFromUIDX: IOTA: " << aux1 ;
-    if (aux1.length() == 6) // EU-001
-    {
-       //qDebug() << "MainWindow::readDataFromUIDX: IOTA to be saved" ;
-        stringFields = stringFields + ", iota";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
-
-    // SATS
-
-    aux1 = satTabWidget->getSatName(); //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
-     //qDebug() << Q_FUNC_INFO << ": " << aux1;
-    if (aux1.length()>0)
-    {
-        stringFields = stringFields + ", sat_name";
-        stringData = stringData + ", '" + aux1 + "'";
-        aux1 = satTabWidget->getSatMode(); // We are assuming that the SAT_MODE is always well provided. If it is blank, then no SAT QSO
-         //qDebug() << Q_FUNC_INFO << ": " << aux1;
-        if (aux1.length()>0)
-        {
-            stringFields = stringFields + ", sat_mode";
-            stringData = stringData + ", '" + aux1 + "'";
-        }
-    }
+    qso.setSatName (satTabWidget->getSatName());
+    qso.setSatMode (satTabWidget->getSatMode());
 
     keepSatPage = satTabWidget->getRepeatThis();
 
-    aux1 = othersTabWidget->getPropModeFromComboBox();
-     //qDebug() << Q_FUNC_INFO << ": " << aux1;
-    if (util->isValidPropMode (aux1))
-    {
-        stringFields = stringFields + ", prop_mode";
-        stringData = stringData + ", '" + aux1 + "'";
-    }
+    qso.setPropMode (othersTabWidget->getPropModeFromComboBox());
 
-    //CLUBLOG
-    aux1 = eQSLTabWidget->getClubLogStatus(); //Y, N, M
-    if (aux1 == "Y")
-    {
-        stringFields = stringFields + ", clublog_qso_upload_status";
-        stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", clublog_qso_upload_date";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "'";
-    }
-    else if (aux1 == "N")
-    {
-        stringFields = stringFields + ", clublog_qso_upload_status";
-        stringData = stringData + ", 'N'";
-    }
-    else if (aux1 == "M")
-    {
-        stringFields = stringFields + ", clublog_qso_upload_status";
-        stringData = stringData + ", 'M'";
-        stringFields = stringFields + ", clublog_qso_upload_date";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getClubLogDate()) + "'";
-    }
-    else //TODO: This should be equivalent to N?
-    {
-        stringFields = stringFields + ", clublog_qso_upload_status";
-        stringData = stringData + ", 'N'";
-    }
-    //CLUBLOG
-   aux1 = eQSLTabWidget->getEQSLSenStatus();
-    if (aux1 == "Y")
-    {
-        stringFields = stringFields + ", eqsl_qsl_sent";
-        stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", eqsl_qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate())+ "'";
-    }
-    else if (aux1 == "R")
-    {
-        stringFields = stringFields + ", eqsl_qsl_sent";
-        stringData = stringData + ", 'R'";
-    }
-    else if (aux1 == "Q")
-    {
-        stringFields = stringFields + ", eqsl_qsl_sent";
-        stringData = stringData + ", 'Q'";
-        stringFields = stringFields + ", eqsl_qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate())+ "'";
-    }
-    else if (aux1 == "I")
-    {
-        stringFields = stringFields + ", eqsl_qsl_sent";
-        stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", eqsl_qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLSenDate())+ "'";
-    }
-    else // N
-    {
-        stringFields = stringFields + ", eqsl_qsl_sent";
-        stringData = stringData + ", 'N'";
-    }
+    qso.setClubLogStatus (eQSLTabWidget->getClubLogStatus()); //Y, N, M
+    qso.setClubLogDate(eQSLTabWidget->getClubLogDate());
 
-    aux1 = eQSLTabWidget->getEQSLRecStatus();
-    if (aux1 == "Y")
-    {
-        stringFields = stringFields + ", eqsl_qsl_rcvd";
-        stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", eqsl_qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate())+ "'";
-    }
-    else if (aux1 == "R")
-    {
-        stringFields = stringFields + ", eqsl_qsl_rcvd";
-        stringData = stringData + ", 'R'";
-    }
-    else if (aux1 == "Q")
-    {
-        stringFields = stringFields + ", eqsl_qsl_rcvd";
-        stringData = stringData + ", 'Q'";
-        stringFields = stringFields + ", eqsl_qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate())+ "'";
-    }
-    else if (aux1 == "I")
-    {
-        stringFields = stringFields + ", eqsl_qsl_rcvd";
-        stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", eqsl_qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getEQSLRecDate())+ "'";
-    }
-    else
-    {
-        stringFields = stringFields + ", eqsl_qsl_rcvd";
-        stringData = stringData + ", 'N'";
-    }
+    qso.setEQSLQSL_SENT (eQSLTabWidget->getEQSLSenStatus());
+    qso.setEQSLQSLSDate (eQSLTabWidget->getEQSLSenDate());
 
-    // LOTW-SENT
+    qso.setEQSLQSL_RCVD (eQSLTabWidget->getEQSLRecStatus());
+    qso.setEQSLQSLRDate (eQSLTabWidget->getEQSLRecDate());
 
-    aux1 = eQSLTabWidget->getLOTWSenStatus();
-    if (aux1 == "Y")
-    {
-        stringFields = stringFields + ", lotw_qsl_sent";
-        stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", lotw_qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate())+ "'";
-    }
-    else if (aux1 == "R")
-    {
-        stringFields = stringFields + ", lotw_qsl_sent";
-        stringData = stringData + ", 'R'";
-    }
-    else if (aux1 == "Q")
-    {
-        stringFields = stringFields + ", lotw_qsl_sent";
-        stringData = stringData + ", 'Q'";
-        stringFields = stringFields + ", lotw_qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate())+ "'";
-    }
-    else if (aux1 == "I")
-    {
-        stringFields = stringFields + ", lotw_qsl_sent";
-        stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", lotw_qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWSenDate())+ "'";
-    }
-    else
-    {
-        stringFields = stringFields + ", lotw_qsl_sent";
-        stringData = stringData + ", 'N'";
-    }
+    qso.setLoTWQSL_SENT (eQSLTabWidget->getLOTWSenStatus());
+    qso.setLoTWQSLSDate (eQSLTabWidget->getLOTWSenDate());
+    qso.setLoTWQSL_SENT (eQSLTabWidget->getLOTWRecStatus());
+    qso.setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate());
 
-    // LOTW-RECEPTION
-    //LOTW_QSLRDATE: (only valid if LOTW_RCVD is Y, I, or V)
+    qso.setQSL_SENT (QSLTabWidget->getQSLSenStatus());
+    qso.setQSLSenVia (QSLTabWidget->getSentVia());
+    qso.setQSLSDate (QSLTabWidget->getQSLSenDate());
 
-    aux1 = eQSLTabWidget->getLOTWRecStatus();
-    if (aux1 == "Y")
-    {
-            stringFields = stringFields + ", lotw_qsl_rcvd";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", lotw_qslrdate";
-            stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate())+ "'";
-    }
-    else if (aux1 == "R")
-    {
-        stringFields = stringFields + ", lotw_qsl_rcvd";
-        stringData = stringData + ", 'R'";
-    }
-    else if (aux1 == "V")
-    {
-        stringFields = stringFields + ", lotw_qsl_rcvd";
-        stringData = stringData + ", 'V'";
-        stringFields = stringFields + ", lotw_qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate())+ "'";
-    }
-    else if (aux1 == "I")
-    {
-        stringFields = stringFields + ", lotw_qsl_rcvd";
-        stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", lotw_qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getLOTWRecDate())+ "'";
-    }
-    else
-    {
-        stringFields = stringFields + ", lotw_qsl_rcvd";
-        stringData = stringData + ", 'N'";
-    }
-
-    aux1 = eQSLTabWidget->getQRZCOMStatus();
-    if (aux1 == "Y")
-    {
-            stringFields = stringFields + ", qrzcom_qso_upload_status";
-            stringData = stringData + ", 'Y'";
-            stringFields = stringFields + ", qrzcom_qso_upload_date";
-            stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getQRZCOMDate())+ "'";
-    }
-    else if(aux1 == "M")
-    {
-            stringFields = stringFields + ", qrzcom_qso_upload_status";
-            stringData = stringData + ", 'M'";
-            stringFields = stringFields + ", qrzcom_qso_upload_date";
-            stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(eQSLTabWidget->getQRZCOMDate())+ "'";
-    }
-    else
-    {
-            stringFields = stringFields + ", qrzcom_qso_upload_status";
-            stringData = stringData + ", 'N'";
-    }
-
-    //QSLTABWidget
-    // QSL SENT: Y/N/R/Q/I
-    // QSL_VIA: B/D/E/M
-
-    aux1 = QSLTabWidget->getQSLSenStatus();
-    aux2 = QSLTabWidget->getSentVia();
-       //qDebug() << "MainWindow::readDataFromUIDX: aux1: " << aux1 << " / aux2: " << aux2 ;
-
-    //TODO: the aux2 switch is repeated and could be improved
-
-    if (aux1=="Y")
-    {
-        stringFields = stringFields + ", qsl_sent";
-        stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", qslsdate";
-        //stringData = stringData + ", '" + (QSLTabWidget->getQSLSenDate()).toString("yyyy/MM/dd") + "'";
-
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())+ "'";
-        stringFields = stringFields + ", qsl_sent_via";
-        if (aux2 == "D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2 == "E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2 == "M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-         stringData = stringData + ", 'B'";
-        }
-    }
-    else if (aux1 == "R")
-    {
-        stringFields = stringFields + ", qsl_sent";
-        stringData = stringData + ", 'R'";
-        stringFields = stringFields + ", qsl_sent_via";
-        if (aux2 == "D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2 == "E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2 == "M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-         stringData = stringData + ", 'B'";
-        }
-    }
-    else if (aux1 == "Q")
-    {
-        stringFields = stringFields + ", qsl_sent";
-        stringData = stringData + ", 'Q'";
-        stringFields = stringFields + ", qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())+ "'";
-        stringFields = stringFields + ", qsl_sent_via";
-        if (aux2 == "D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2 == "E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2 == "M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-         stringData = stringData + ", 'B'";
-        }
-    }
-    else if (aux1 == "I")
-    {
-        stringFields = stringFields + ", qsl_sent";
-        stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", qslsdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLSenDate())+ "'";
-        stringFields = stringFields + ", qsl_sent_via";
-        if (aux2 == "D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2 == "E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2 == "M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-         stringData = stringData + ", 'B'";
-        }
-    }
-    else
-    {
-        stringFields = stringFields + ", qsl_sent";
-        stringData = stringData + ", 'N'";
-        stringFields = stringFields + ", qsl_sent_via";
-        stringData = stringData + ", 'B'";
-    }
-
-     // QSL RECEPTION
-    //i = qslRecComboBox->currentIndex();
-    //ii = qslRecViaComboBox->currentIndex();
-    aux1 = QSLTabWidget->getQSLRecStatus(); // Y/N/R/I/V
-    aux2 = QSLTabWidget->getRecVia();       // B/D/E/M
-
-    if (aux1 == "Y")
-    {
-        stringFields = stringFields + ", qsl_rcvd";
-        stringData = stringData + ", 'Y'";
-        stringFields = stringFields + ", qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
-        //stringFields = stringFields + ", confirmed";
-        //stringData = stringData + ", '1'";
-        stringFields = stringFields + ", qsl_rcvd_via";
-        if (aux2 == "D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2 == "E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2 == "M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-         stringData = stringData + ", 'B'";
-        }
-    }
-    else if (aux1 =="R")
-    {
-        stringFields = stringFields + ", qsl_rcvd";
-        stringData = stringData + ", 'R'";
-        //stringFields = stringFields + ", confirmed";
-        //stringData = stringData + ", '0'";
-        stringFields = stringFields + ", qsl_rcvd_via";
-        if (aux2=="D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2=="E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2=="M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-            stringData = stringData + ", 'B'";
-        }
-    }
-    else if (aux1=="I")
-    {
-        stringFields = stringFields + ", qsl_rcvd";
-        stringData = stringData + ", 'I'";
-        stringFields = stringFields + ", qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
-        //stringFields = stringFields + ", confirmed";
-        //stringData = stringData + ", '0'";
-        stringFields = stringFields + ", qsl_rcvd_via";
-        if (aux2=="D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2=="E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2=="M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-            stringData = stringData + ", 'B'";
-        }
-    }
-    else if (aux1=="V")
-    {
-        stringFields = stringFields + ", qsl_rcvd";
-        stringData = stringData + ", 'V'";
-        stringFields = stringFields + ", qslrdate";
-        stringData = stringData + ", '" + util->getDateSQLiteStringFromDate(QSLTabWidget->getQSLRecDate())+ "'";
-        //TODO: Check if the QSL has been received or not as this "V" could mask a received QSL as a Worked (0)
-        stringFields = stringFields + ", qsl_rcvd_via";
-        if (aux2=="D")
-        {
-            stringData = stringData + ", 'D'";
-        }
-        else if (aux2=="E")
-        {
-            stringData = stringData + ", 'E'";
-        }
-        else if (aux2=="M")
-        {
-            stringData = stringData + ", 'M'";
-        }
-        else
-        {
-            stringData = stringData + ", 'B'";
-        }
-    }
-    else
-    {
-        stringFields = stringFields + ", qsl_rcvd";
-        stringData = stringData + ", 'N'";
-        stringFields = stringFields + ", qsl_rcvd_via";
-        stringData = stringData + ", 'B'";
-    }
-
-    // The data reading finish here. Now, we prepare the data to insert into the DB
-
-    if (stringFields.startsWith(", ") )
-    {
-        stringFields.remove(0,2);
-    }
-
-    stringFields += ", call, bandid, modeid, qso_date, lognumber, rst_sent, rst_rcvd";
-
-    if (stringFields.startsWith(", ") )
-    {
-        stringFields.remove(0,2);
-    }
-
-    if (stringData.startsWith(", ") )
-    {
-        stringData.remove(0,1);
-    }
-
-    stringData.remove(0,1);
-
-
-    stringData += QString(", '%1', '%2', '%3', '%4', '%5', '%6', '%7'").arg(tqrz).arg(tband).arg(tmode).arg(tdate).arg(QString::number(currentLog)).arg(trsttx).arg(trstrx);
-
-    if (stringData.startsWith(", ") )
-    {
-        stringData.remove(0,2);
-    }
-
-    stringQuery = "INSERT INTO log (" + stringFields + ") values (" + stringData +")" ;
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return stringQuery;
+    qso.setQSL_RCVD (QSLTabWidget->getQSLRecStatus());
+    qso.setQSLRecVia (QSLTabWidget->getRecVia());
+    qso.setQSLRDate (QSLTabWidget->getQSLRecDate());
+    qso.add ();
+    return " - END";
 }
 
 QString MainWindow::readDataFromUIDXModifying()
@@ -1974,7 +1386,7 @@ QString MainWindow::readDataFromUIDXModifying()
         logEvent(Q_FUNC_INFO, "END-1", Debug);
     }
 
-       //qDebug() << "MainWindow::readDataFromUIDXModifying: " << tqrz ;
+    //qDebug() << Q_FUNC_INFO << ": " << tqrz ;
 
     QString stringQuery = "NULL";
     QString aux1, aux2;
@@ -1999,12 +1411,10 @@ QString MainWindow::readDataFromUIDXModifying()
     int ituz = world->getEntityItuz(dxcc);
 
     int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
-       //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) ;
-       //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) ;
+
     dxcc = util->getNormalizedDXCCValue (dxcc);
     dxcc2 = util->getNormalizedDXCCValue (dxcc2);
-       //qDebug() << "MainWindow::readDataFromUIDXModifying - DXCC: " << QString::number(dxcc) ;
-       //qDebug() << "MainWindow::readDataFromUIDXModifying- DXCC2: " << QString::number(dxcc2) ;
+
 
     if (dxcc!=dxcc2)
     {
@@ -2359,21 +1769,21 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = othersTabWidget->getIOTA();
-        //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA: " << aux1 ;
+        //qDebug() << Q_FUNC_INFO << " -  Modifyng IOTA: " << aux1 ;
     if (aux1.length() == 6) // EU-001
     {
-            //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA to be saved! " ;
+            //qDebug() << Q_FUNC_INFO << " -  Modifyng IOTA to be saved! " ;
         updateString = updateString + "iota = '";
         updateString = updateString + aux1 + "', ";
     }
     else
     {
         updateString = updateString + "iota = '', ";
-           //qDebug() << "MainWindow::readDataFromUIDX: Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) ;
+           //qDebug() << Q_FUNC_INFO << " -  Modifyng IOTA NOT to be saved! Lenght="<<QString::number(aux1.length()) ;
     }
     bool satQSO = false;
     aux1 = satTabWidget->getSatName();   //We are assuming that the SAT_NAME is always well provided. If it is blank, then no SAT QSO
-        //qDebug() << "MainWindow::readDataFromUIDX: SAT2 modif " << aux1 ;
+        //qDebug() << Q_FUNC_INFO << " -  SAT2 modif " << aux1 ;
     if (aux1.length()>0)
     {
         updateString = updateString + "sat_name = '";
@@ -2397,17 +1807,17 @@ QString MainWindow::readDataFromUIDXModifying()
     }
 
     aux1 = othersTabWidget->getPropModeFromComboBox();
-       //qDebug() << "MainWindow::readDataFromUIDX: PropMode:  " << aux1 ;
+       //qDebug() << Q_FUNC_INFO << " -  PropMode:  " << aux1 ;
     if (util->isValidPropMode (aux1))
     {
-             //qDebug() << "MainWindow::readDataFromUIDX: PropMode(1):  " << aux1 ;
+             //qDebug() << Q_FUNC_INFO << " -  PropMode(1):  " << aux1 ;
         updateString = updateString + "prop_mode = '";
         updateString = updateString + aux1 + "', ";
     }
     else
     {
         updateString = updateString + "prop_mode = '', ";
-     //qDebug() << "MainWindow::readDataFromUIDX: PropMode(3):  " << aux1 ;
+     //qDebug() << Q_FUNC_INFO << " -  PropMode(3):  " << aux1 ;
     }
 
     //CLUBLOG
