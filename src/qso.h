@@ -238,8 +238,6 @@ public:
     QDate getHRDUpdateDate();
     bool setHRDLogStatus(const QString &_c);
     QString getHRDLogStatus();
-    bool setFreq(const double _f);
-    double getFreq();
     bool setK_Index(const int _i);
     int getK_Index();
     bool setDateOff(const QDate &_c);
@@ -364,6 +362,7 @@ public:
     int getStx();
     bool setStxString(const QString &_c);
     QString getStxString();
+    //bool setSubmode(const QString &_c, bool requestMode = false);
     bool setSubmode(const QString &_c);
     QString getSubmode();
     bool setSwl(bool _k);
@@ -381,10 +380,14 @@ public:
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
     bool add();
+    bool modify(const int _qsoId);
+    bool isComplete();
 
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
+    void getBandSignal (double fr);
+    void getModeSignal (QString submode);
 
 private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
@@ -412,6 +415,7 @@ private:
 
     bool backup, lotwUpdating, realTime, manualMode, silent_key;
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
+    bool haveBand, haveMode, haveDateTime, haveCall;
 
     Utilities *util;
     DebugLogLevel logLevel;

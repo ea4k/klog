@@ -9661,7 +9661,7 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     else
     {
         //qDebug() << Q_FUNC_INFO << ": log does not exist " ;
-        stringQuery = QString("SELECT call, qso_date, band.name, mode.name, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id ORDER BY entity.name");
+        stringQuery = QString("SELECT call, qso_date, band.name, mode.submode, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id ORDER BY entity.name");
     }
 
     QSqlQuery query;
@@ -9695,12 +9695,12 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
 
                 nameCol = rec.indexOf("bandid");
                 //qDebug() << "DataProxy_SQLite::getGridStats: bandid" << QString::number((query.value(nameCol)).toInt());
-                _qso->setBand(query.value(2).toString());
+                _qso->setBand(query.value(nameCol).toString());
 
                 //nameCol = rec.indexOf("modeid");
                 //qDebug() << Q_FUNC_INFO << ": modeid" << QString::number((query.value(nameCol)).toInt());
-                _qso->setMode(query.value(3).toString());
-
+                _qso->setMode(getNameFromSubMode (query.value(3).toString()));
+                _qso->setSubmode(query.value(3).toString());
                 nameCol = rec.indexOf("sat_name");
                 _qso->setSatName((query.value(nameCol)).toString());
 
@@ -9778,6 +9778,7 @@ QList<QSO *> DataProxy_SQLite::getGridStats(int _log)
                 nameCol = rec.indexOf("modeid");
                 //qDebug() << Q_FUNC_INFO <<  ": modeid" << QString::number((query.value(nameCol)).toInt());
                 _qso->setMode(getNameFromModeId((query.value(nameCol)).toInt()));
+                _qso->setSubmode (getSubModeFromId ((query.value(nameCol)).toInt()));
 
                 nameCol = rec.indexOf("lotw_qsl_rcvd");
                 _qso->setLoTWQSL_RCVD((query.value(nameCol)).toString());
@@ -9856,6 +9857,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
                 nameCol = rec.indexOf("modeid");
                 //qDebug() << "DataProxy_SQLite::getGridStats: modeid" << QString::number((query.value(nameCol)).toInt());
                 _qso->setMode(getNameFromModeId((query.value(nameCol)).toInt()));
+                _qso->setSubmode(getSubModeFromId((query.value(nameCol)).toInt()));
 
                 nameCol = rec.indexOf("sat_name");
                 _qso->setSatName((query.value(nameCol)).toString());

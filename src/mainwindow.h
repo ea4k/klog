@@ -320,6 +320,8 @@ private slots:
     void slotTakeOverFocusToQSOTabWidget();
     void slotTakeOverFocusToMainQSOInput();
     void slotNewLogLevel(DebugLogLevel l);
+    void slotQSO_SetBand(const double _fr);
+    void slotQSO_SetMode(const QString _submode);
 
 private:
     //void setWidgetsOrder();
@@ -381,9 +383,10 @@ private:
 
 
     //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
-    QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
-    QString readDataFromUIDX();
-    QString readDataFromUIDXModifying();
+    bool readQSOFromUI();
+    //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
+    //QString readDataFromUIDX();
+    //QString readDataFromUIDXModifying();
     void actionsJustAfterAddingOneQSO();
     //void clearForNextQSO();
     void clearUIDX(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
