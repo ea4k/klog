@@ -117,7 +117,6 @@ private:
 
     QStringList readAdifField (const QString &_field);
     // void writeAdifField(const QString &_field, const QString &_data); // It should possibly receive also the QTextStream
-    QString prepareStringLog();
 
     void writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);

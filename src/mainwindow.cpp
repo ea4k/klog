@@ -719,6 +719,7 @@ void MainWindow::createActionsCommon(){
     // Following calls answer calls from the QSO to receive information.
     connect (qso, SIGNAL(getBandSignal(double)), this, SLOT(slotQSO_SetBand(double)));
     connect (qso, SIGNAL(getModeSignal(QString)), this, SLOT(slotQSO_SetMode(QString)));
+    connect(qso, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -1046,19 +1047,8 @@ void MainWindow::slotQRZReturnPressed()
 
     if (!readQSOFromUI ())
     {return;}
-    bool addedOK = false;
-    if (modify)
-    {
-        addedOK = qso->toDB (modifyingQSO);
-        //addedOK = qso->modify (modifyingQSO);
-    }
-    else
-    {
-        logEvent(Q_FUNC_INFO, "END-3", Debug);
-        qDebug() << Q_FUNC_INFO << " - ModifyinQSO: " << QString::number(modifyingQSO);
-        addedOK = qso->toDB ();
-        //addedOK = qso->add ();
-    }
+    bool addedOK = qso->toDB (modifyingQSO);
+
     if (addedOK)
     {
          actionsJustAfterAddingOneQSO();
@@ -1146,7 +1136,6 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::actionsJustAfterAddingOneQSO - END" ;
 }
-
 
 bool MainWindow::readQSOFromUI()
 {

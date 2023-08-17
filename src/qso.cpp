@@ -2597,17 +2597,14 @@ bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromA
 bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
 
 bool QSO::setLoTWQSLRDate2(const QString& data) {
-    //qDebug() << "QSO::setData: APP_LOTW_RXQSL: " << data ;
     setLoTWQSL_RCVD("Y");
     return setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
 }
 bool QSO::setLoTWQSLSDate1(const QString& data) {
-    //qDebug() << "QSO::setData: APP_LOTW_RXQSO: " << data ;
     setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
 bool QSO::setLoTWQSLSDate2(const QString& data) {
-    //qDebug() << "QSO::setData: APP_LoTW_QSO_TIMESTAMP: " << data ;
     setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
@@ -2766,7 +2763,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "QSO::setData: " << _adifPair;
+    qDebug() << "QSO::setData: " << _adifPair;
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
@@ -2822,9 +2819,7 @@ bool QSO::toDB(int _qsoId)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED: " << query.lastQuery ();
-        qDebug() << Q_FUNC_INFO << ": DB ERROR: " << query.lastError ();
-        qDebug() << Q_FUNC_INFO << ": DB NativeError: " << query.lastError().nativeErrorCode();
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return false;
     }
 }
@@ -3094,6 +3089,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     return query;
 }
 
+/*
 bool QSO::add()
 {
     if (!isComplete ())
@@ -3540,3 +3536,4 @@ bool QSO::modify(const int _qsoId)
     }
     return false;
 }
+*/

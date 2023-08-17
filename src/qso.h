@@ -380,15 +380,16 @@ public:
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
     bool toDB(int _qsoId = 0);
-    bool add();
-    bool modify(const int _qsoId);
+    //bool add();
+    //bool modify(const int _qsoId);
     bool isComplete();
 
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    void getBandSignal (double fr);
-    void getModeSignal (QString submode);
+    void getBandSignal (double fr);         // Request the band to be filed for a given frequency
+    void getModeSignal (QString submode);   // Request the mode to be filled for a given submode
+    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);

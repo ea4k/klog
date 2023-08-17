@@ -255,7 +255,7 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
 
 bool UpdateSatsData::readSatDataFile()
 {
-       //qDebug() << "UpdateSatsData::readSatDataFile: ";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //QString fileName = QFileDialog::getOpenFileName(0, tr("Open File"), "/home", "Sat data (*.dat)");
 
 
@@ -268,9 +268,7 @@ bool UpdateSatsData::readSatDataFile()
     }
     else
     {
-           //qDebug() << "MainWindow::slotADIFImport -1";
         return satDataFileRead(fileName);
-        //filemanager->adifReadLog(fileName, currentLog);
     }
-       //qDebug() << "UpdateSatsData::readSatDataFile: END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
