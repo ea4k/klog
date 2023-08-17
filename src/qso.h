@@ -304,8 +304,8 @@ public:
     int getMyCQZone();
     bool setMyDXCC(const int _i);
     int getMyDXCC();
-    bool setMyFists(const QString &_c);
-    QString getMyFists();
+    bool setMyFists(const int _c);
+    int getMyFists();
     bool setMyIOTA(const QString &_c);
     QString getMyIOTA();
     bool setMyIotaID(const int _i);
@@ -379,6 +379,7 @@ public:
     QString getWwffRef();
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
+    bool toDB(int _qsoId = 0);
     bool add();
     bool modify(const int _qsoId);
     bool isComplete();
@@ -391,8 +392,11 @@ signals:
 
 private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
+    QString getAddQueryString();
+    QString getModifyQueryString();
+    QSqlQuery getPreparedQuery(const QString &_s);
 
-    int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
+    int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, freq, distance;
 
@@ -404,13 +408,13 @@ private:
     QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contacted_owner, contest_id;
     QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web, wwff_ref;
     QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
-    QString my_city, my_county, my_country, my_fists, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties, my_wwff_ref;
+    QString my_city, my_county, my_country, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties, my_wwff_ref;
 
     QTime qso_time_off;
     QDateTime qso_dateTime;
 
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
-    QDate eQSLRDate, eQSLSDate, clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;;
+    QDate eQSLRDate, eQSLSDate, clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;
     QDate QRZComDate;
 
     bool backup, lotwUpdating, realTime, manualMode, silent_key;
@@ -435,6 +439,7 @@ private:
     bool setDXCC(const QString &data);
     bool setFists(const QString &data);
     bool setFistsCC(const QString &data);
+    bool setMyFists(const QString &data);
     bool setIotaID(const QString &data);
     bool setItuZone(const QString &data);
     bool setK_Index(const QString &data);

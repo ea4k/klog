@@ -1049,12 +1049,15 @@ void MainWindow::slotQRZReturnPressed()
     bool addedOK = false;
     if (modify)
     {
-        addedOK = qso->modify (modifyingQSO);
+        addedOK = qso->toDB (modifyingQSO);
+        //addedOK = qso->modify (modifyingQSO);
     }
     else
     {
         logEvent(Q_FUNC_INFO, "END-3", Debug);
-        addedOK = qso->add ();
+        qDebug() << Q_FUNC_INFO << " - ModifyinQSO: " << QString::number(modifyingQSO);
+        addedOK = qso->toDB ();
+        //addedOK = qso->add ();
     }
     if (addedOK)
     {
