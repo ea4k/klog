@@ -236,7 +236,7 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if (tab=="COMPLETEWITHPREVIOUS"){
         settings.beginGroup ("Misc");
-        settings.setValue ("CompleteWithPreviou", util.trueOrFalse (value));
+        settings.setValue ("CompleteWithPrevious", util.trueOrFalse (value));
         settings.endGroup ();
     }else if (tab=="SENDQSLWHENREC"){
         settings.beginGroup ("Misc");
