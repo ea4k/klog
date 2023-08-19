@@ -6342,8 +6342,8 @@ void MainWindow::slotClearNoMorErrorShown()
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
 {
-     //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed ;
-     //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << errorCodeS;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed ;
+    qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << " - " << errorCodeS;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (noMoreErrorShown)
@@ -6351,21 +6351,34 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-
-    if ((functionFailed == "virtual bool DataProxy_SQLite::addSatellite(QString, QString, QString, QString, QString)") && (nativeError.toInt() == 19))
+    QString aux;
+    bool showDebug = true;
+    if (nativeError.toInt() == 19)
     {
         QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - Duplicated satellite"));
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("A duplicated satellite has been detected in the file and will not be imported."));
-        msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
+        if (functionFailed == "bool QSO::toDB(int)")
+        {
+                msgBox.setWindowTitle(tr("KLog - QSO Dupe"));
+                msgBox.setText(tr("A dupe QSO has been detected in the file and will not be added to the log."));
+                msgBox.setInformativeText(tr("Please check the QSO information file and ensure it is properly added.") );
+                showDebug = false;
+        }
+        else if (functionFailed == "virtual bool DataProxy_SQLite::addSatellite(QString, QString, QString, QString, QString)")
+        {
+            msgBox.setWindowTitle(tr("KLog - Duplicated satellite"));
+            msgBox.setText(tr("A duplicated satellite has been detected in the file and will not be imported."));
+            msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
+        }
         msgBox.exec();
     }
-    // TODO: An error on DB has been detected.
-    // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
+    if (showDebug)
+    {
+        // TODO: An error on DB has been detected.
+        // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
 
-    QString aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog@groups.io>klog@groups.io</a>)" + tr("for analysis:") + "<br>";
-    QString errorMSG =  "<ul>"
+        aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog@groups.io>klog@groups.io</a>)" + tr("for analysis:") + "<br>";
+        QString errorMSG =  "<ul>"
                         "<li><b>" + tr("Error in function") + ":</b> " + functionFailed + "</li>" +
                         "<li><b>" + tr("Native Error") +":</b> " + nativeError + "</li>" +
                         "<li><b>" + tr("Error text") + ":</b> " + errorCodeS + "</li>" +
@@ -6373,10 +6386,10 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
                         "</ul><br>" +
                         "<b>" + tr("Recommendation:") + "</b>" + tr("Periodically export your data to ADIF to prevent a potential data loss.") + "<br>";
 
-    showErrorDialog->setText(aux + errorMSG);
+        showErrorDialog->setText(aux + errorMSG);
     //showErrorDialog->setModal(true);
-    showErrorDialog->exec();
-
+        showErrorDialog->exec();
+    }
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - Show errors"));
     msgBox.setIcon(QMessageBox::Question);
