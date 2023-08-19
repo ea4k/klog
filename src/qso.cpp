@@ -1379,9 +1379,9 @@ bool QSO::getKeepMyData()
 }
 
 // Satellite Tab
-bool setKeepSatTab(bool _k);
+bool QSO::setKeepSatTab(bool _k){keepSat = _k; return true;}
 
-bool getKeepSatTab();
+bool QSO::getKeepSatTab(){return keepSat;}
 
 bool QSO::setSatName(const QString &_c)
 {
@@ -1420,17 +1420,6 @@ bool QSO::setSatMode(const QString &_c)
 QString QSO::getSatMode()
 {
     return satMode;
-}
-
-bool QSO::setKeepSatTab(bool _k)
-{
-    keepSat = _k;
-    return true;
-}
-
-bool QSO::getKeepSatTab()
-{
-    return keepSat;
 }
 
 bool QSO::setAddress(const QString &_c)
