@@ -396,6 +396,8 @@ private:
     QString getAddQueryString();
     QString getModifyQueryString();
     QSqlQuery getPreparedQuery(const QString &_s);
+    int getBandIdFromBandName();
+    int getModeIdFromModeName();
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;

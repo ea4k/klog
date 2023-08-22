@@ -70,6 +70,7 @@ public:
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     bool adifReadLog(const QString& tfileName, const int logN);
+    bool adifReadLog2(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog2(const QString& fileName, const int logN);
     QList<int> adifLoTWReadLog(const QString& tfileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
@@ -98,6 +99,9 @@ private:
     //bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
     int howManyLogsInFile(QFile & _f);
+    int howManyQSOsInFile (QFile & _f);
+    qint64 passHeader(QFile & _f);
+
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
     bool writeBackupDate();
@@ -120,6 +124,7 @@ private:
 
     void writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
+
 
     bool dbCreated;
     DataBase *db;

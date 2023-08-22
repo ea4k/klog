@@ -4536,7 +4536,8 @@ void MainWindow::slotADIFImport(){
     if (!fileName.isNull())
     {
          //qDebug() << "MainWindow::slotADIFImport -1" ;
-        filemanager->adifReadLog(fileName, currentLog);
+        //filemanager->adifReadLog(fileName, currentLog);
+        filemanager->adifReadLog2(fileName, currentLog);
         updateQSLRecAndSent();
 
 
