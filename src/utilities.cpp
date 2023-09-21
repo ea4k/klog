@@ -1223,7 +1223,7 @@ bool Utilities::isSameFreq(const double fr1, const double fr2)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << QString::number(fr1) << "/" << QString::number(fr2) << " = " << QString::number(fabs(fr1 - fr2)) ;
 
-    if (fabs(fr1 - fr2) < 0.001)
+    if (fabs(fr1 - fr2) < 0.00001) // 10 Hz
     {
         //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - true" ;
         return true;
