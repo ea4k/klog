@@ -2094,7 +2094,7 @@ bool QSO::setMyIOTA(const QString &_c)
 
 QString QSO::getMyIOTA()
 {
-    return iota;
+    return my_iota;
 }
 
 bool QSO::setMyIotaID(const int _i)
