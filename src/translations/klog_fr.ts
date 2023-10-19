@@ -5078,11 +5078,6 @@ KLog will finish when you click on OK.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1827"/>
-        <source>Multiplier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../utilities.cpp" line="1828"/>
         <source>MS Shower</source>
         <translation type="unfinished"></translation>
@@ -5416,11 +5411,6 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSO Date off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../utilities.cpp" line="1902"/>
-        <source>Transmitter id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

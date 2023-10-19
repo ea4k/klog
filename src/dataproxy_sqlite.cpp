@@ -8710,34 +8710,6 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
             ADIFqso.append("<CONTEST_ID:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
     }
-    nameCol = rec.indexOf("points");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            ADIFqso.append("<APP_KLOG_POINTS:" + QString::number(aux.length()) + ">" + aux  + " ");
-        }
-    }
-    nameCol = rec.indexOf("multiplier");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            ADIFqso.append("<APP_KLOG_MULTIPLIER:" + QString::number(aux.length()) + ">" + aux  + " ");
-        }
-        //qDebug() << "DataProxy_SQLite::getADIFQSO - 40";
-    }
-    nameCol = rec.indexOf("transmiterid");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            ADIFqso.append("<APP_KLOG_TRX:" + QString::number(aux.length()) + ">" + aux  + " ");
-        }
-    }
     nameCol = rec.indexOf("country");
     if (nameCol>=0)
     {
@@ -8870,15 +8842,6 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         if ((aux.length())>0)
         {
             ADIFqso.append("<FORCE_INIT:" + QString::number(aux.length()) + ">" + aux  + " ");
-        }
-    }
-    nameCol = rec.indexOf("guest_op");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            ADIFqso.append("<GUEST_OP:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
     }
     nameCol = rec.indexOf("hrdlog_qso_upload_date");

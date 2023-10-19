@@ -5156,11 +5156,6 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <translation>Màx ràfegues</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1827"/>
-        <source>Multiplier</source>
-        <translation>Multiplicador</translation>
-    </message>
-    <message>
         <location filename="../utilities.cpp" line="1828"/>
         <source>MS Shower</source>
         <translation>Pluja MS</translation>
@@ -5299,11 +5294,6 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <location filename="../utilities.cpp" line="1858"/>
         <source>Pfx</source>
         <translation>Pfx</translation>
-    </message>
-    <message>
-        <location filename="../utilities.cpp" line="1859"/>
-        <source>Points</source>
-        <translation>Punts</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1860"/>
@@ -5495,11 +5485,6 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSO Date off</source>
         <translation>Data fi QSO</translation>
-    </message>
-    <message>
-        <location filename="../utilities.cpp" line="1902"/>
-        <source>Transmitter id</source>
-        <translation>ID transmissor</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1903"/>

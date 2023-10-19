@@ -1804,7 +1804,6 @@ void Utilities::setLogColumnNames()
     columnNames.insert("freq", QObject::tr("Freq"));
     columnNames.insert("freq_rx", QObject::tr("Freq RX"));
     columnNames.insert("gridsquare", QObject::tr("Gridsquare"));
-    columnNames.insert("guest_op", QObject::tr("Guest OP"));
     columnNames.insert("hrdlog_qso_upload_date", QObject::tr("HRDLog SDate"));
     columnNames.insert("hrdlog_qso_upload_status", QObject::tr("HRDLog status"));
     columnNames.insert("iota", QObject::tr("IOTA"));
@@ -1817,7 +1816,6 @@ void Utilities::setLogColumnNames()
     columnNames.insert("lotw_qsl_rcvd", QObject::tr("LoTW Rcvd"));
     columnNames.insert("lotw_qsl_sent", QObject::tr("LoTW Sent"));
     columnNames.insert("max_bursts", QObject::tr("Max Bursts"));
-    columnNames.insert("multiplier", QObject::tr("Multiplier"));
     columnNames.insert("ms_shower", QObject::tr("MS Shower"));
     columnNames.insert("my_antenna", QObject::tr("My Antenna"));
     columnNames.insert("my_city", QObject::tr("My City"));
@@ -1849,7 +1847,6 @@ void Utilities::setLogColumnNames()
     columnNames.insert("operator", QObject::tr("Operator"));
     columnNames.insert("owner_callsign", QObject::tr("Owner Callsign"));
     columnNames.insert("pfx", QObject::tr("Pfx"));
-    columnNames.insert("points", QObject::tr("Points"));
     columnNames.insert("precedence", QObject::tr("Precedence"));
     columnNames.insert("prop_mode", QObject::tr("Prop Mode"));
     columnNames.insert("public_key", QObject::tr("Public Key"));
@@ -1892,7 +1889,6 @@ void Utilities::setLogColumnNames()
     columnNames.insert("tx_pwr", QObject::tr("TX Pwr"));
     columnNames.insert("web", QObject::tr("Web"));
     columnNames.insert("qso_date_off", QObject::tr("QSO Date off"));
-    columnNames.insert("transmiterid", QObject::tr("Transmitter id"));
     columnNames.insert("lognumber", QObject::tr("Log number"));
 }
 QString Utilities::getLogColumnName(const QString &_column)
@@ -1998,8 +1994,6 @@ QString Utilities::getLogColumnName(const QString &_column)
         return QObject::tr("Freq RX");
     else if (_column == "gridsquare")
         return QObject::tr("Gridsquare");
-    else if (_column == "guest_op")
-        return QObject::tr("Guest OP");
     else if (_column == "hrdlog_qso_upload_date")
         return QObject::tr("HRDLog SDate");
     else if (_column == "hrdlog_qso_upload_status")
@@ -2024,8 +2018,6 @@ QString Utilities::getLogColumnName(const QString &_column)
         return QObject::tr("LoTW Sent");
     else if (_column == "max_bursts")
         return QObject::tr("Max Bursts");
-    else if (_column == "multiplier")
-        return QObject::tr("Multiplier");
     else if (_column == "ms_shower")
         return QObject::tr("MS Shower");
     else if (_column == "my_antenna")
@@ -2088,8 +2080,6 @@ QString Utilities::getLogColumnName(const QString &_column)
         return QObject::tr("Owner Callsign");
     else if (_column == "pfx")
         return QObject::tr("Pfx");
-    else if (_column == "points")
-        return QObject::tr("Points");
     else if (_column == "precedence")
         return QObject::tr("Precedence");
     else if (_column == "prop_mode")
@@ -2174,8 +2164,6 @@ QString Utilities::getLogColumnName(const QString &_column)
         return QObject::tr("Web");
     else if (_column == "qso_date_off")
         return QObject::tr("QSO Date off");
-    else if (_column == "transmiterid")
-        return QObject::tr("Transmitter id");
     else if (_column == "lognumber")
         return QObject::tr("Log number");
     else

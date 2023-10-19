@@ -5155,11 +5155,6 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <translation>max ráfagas</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1827"/>
-        <source>Multiplier</source>
-        <translation>Multiplicador</translation>
-    </message>
-    <message>
         <location filename="../utilities.cpp" line="1828"/>
         <source>MS Shower</source>
         <translation>Lluvia MS</translation>
@@ -5494,11 +5489,6 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSO Date off</source>
         <translation>Fecha fin QSO</translation>
-    </message>
-    <message>
-        <location filename="../utilities.cpp" line="1902"/>
-        <source>Transmitter id</source>
-        <translation>Id transmisor</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1903"/>

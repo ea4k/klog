@@ -5011,11 +5011,6 @@ KLog завершить роботу, коли Ви натиснете кноп�
         <translation></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1827"/>
-        <source>Multiplier</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../utilities.cpp" line="1828"/>
         <source>MS Shower</source>
         <translation></translation>
@@ -5384,11 +5379,6 @@ KLog завершить роботу, коли Ви натиснете кноп�
     <message>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSO Date off</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../utilities.cpp" line="1902"/>
-        <source>Transmitter id</source>
         <translation></translation>
     </message>
     <message>
