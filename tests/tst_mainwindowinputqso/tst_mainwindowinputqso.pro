@@ -10,6 +10,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/inputwidgets/mainwindowinputqso.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/database.h \
@@ -18,6 +19,7 @@ HEADERS += \
     ../../src/locator.h
 
 SOURCES +=  tst_mainwindowinputqso.cpp \
+    ../../src/adif.cpp \
     ../../src/inputwidgets/mainwindowinputqso.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/database.cpp \

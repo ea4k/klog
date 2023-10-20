@@ -9,6 +9,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/utilities.h \
     ../../src/locator.h \
@@ -17,6 +18,7 @@ HEADERS += \
     ../../src/klogdefinitions.h
 
 SOURCES +=  tst_dataproxy.cpp \
+        ../../src/adif.cpp \
         ../../src/utilities.cpp \
         ../../src/locator.cpp \
         ../../src/database.cpp \

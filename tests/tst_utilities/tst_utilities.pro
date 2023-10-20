@@ -12,6 +12,7 @@ TEMPLATE = app
 #QMAKE_CFLAGS += -Wall -Wextra -Werror
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/utilities.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/database.h \
@@ -20,6 +21,7 @@ HEADERS += \
     ../../src/locator.h
 
 SOURCES +=  tst_utilities.cpp \
+    ../../src/adif.cpp \
     ../../src/utilities.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/database.cpp \

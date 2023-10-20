@@ -10,6 +10,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/mainqsoentrywidget.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/utilities.h \
@@ -19,6 +20,7 @@ HEADERS += \
     ../../src/database.h
 
 SOURCES +=  tst_mainqsoentrywidget.cpp \
+    ../../src/adif.cpp \
     ../../src/mainqsoentrywidget.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/utilities.cpp \
