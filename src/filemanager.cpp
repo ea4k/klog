@@ -1877,7 +1877,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
     // START reading QSO data...
       //qDebug() << Q_FUNC_INFO << " QSO data reading started..." ;
 
-    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, state, my_street, my_vucc_grids, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, sota_ref, swl, ten_ten, vucc_grids, web, points, multiplier, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :state, :my_street, :my_vucc_grids, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sota_ref, :swl, :ten_ten, :vucc_grids, :web, :points, :multiplier, :lognumber)" );
+    preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, state, my_street, my_vucc_grids, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, sota_ref, swl, ten_ten, vucc_grids, web, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :state, :my_street, :my_vucc_grids, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sota_ref, :swl, :ten_ten, :vucc_grids, :web, :lognumber)" );
 /*
     if (db.transaction())
     {
@@ -2260,7 +2260,6 @@ void FileManager::initializeSwitchHash() {
     {"FREQ", 49},
     {"FREQ_RX", 50},
     {"GRIDSQUARE", 51},
-    {"GUEST_OP", 52},
     {"HRDLOG_QSO_UPLOAD_DATE", 53},
     {"HRDLOG_QSO_UPLOAD_STATUS", 54},
     {"MY_GRIDSQUARE", 55},
@@ -2343,8 +2342,6 @@ void FileManager::initializeSwitchHash() {
     {"VE_PROV", 132},
     {"VUCC_GRIDS", 133},
     {"WEB", 134},
-    {"APP_KLOG_POINTS", 135},
-    {"APP_KLOG_MULTIPLIER", 136},
     {"APP_KLOG_TRX", 137},
     {"APP_KLOG_LOGN", 138},
     {"APP_N1MM_POINTS", 139}
@@ -2802,9 +2799,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                     case(51):
                         preparedQuery.bindValue(":gridsquare", data);
                         break;
-                    case(52):
-                        preparedQuery.bindValue(":guest_op", data);
-                        break;
                     case(53):
                         dateT = util->getDateFromADIFDateString(data);
                         if (dateT.isValid())
@@ -3154,15 +3148,6 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         break;
                     case(134):
                         preparedQuery.bindValue(":web", data);
-                        break;
-                    case(135): //Importing own ADIF fields
-                        preparedQuery.bindValue(":points", data);
-                        break;
-                    case(136): //Importing own ADIF fields
-                        preparedQuery.bindValue(":multiplier", data);
-                        break;
-                    case(137): //Importing own ADIF fields
-                        preparedQuery.bindValue(":transmiterid", data);
                         break;
                     case(138): //Lognumber in a multiple-log file
 
@@ -4404,34 +4389,6 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
             out << "<CONTEST_ID:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
     }
-    nameCol = rec.indexOf("points");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            out << "<APP_KLOG_POINTS:" << QString::number(aux.length()) << ">" << aux  << " ";
-        }
-    }
-    nameCol = rec.indexOf("multiplier");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            out << "<APP_KLOG_MULTIPLIER:" << QString::number(aux.length()) << ">" << aux  << " ";
-        }
-        //qDebug() << "FileManager::writeQuery - 40";
-    }
-    nameCol = rec.indexOf("transmiterid");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            out << "<APP_KLOG_TRX:" << QString::number(aux.length()) << ">" << aux  << " ";
-        }
-    }
     nameCol = rec.indexOf("country");
     if (nameCol>=0)
     {
@@ -4566,15 +4523,6 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
         if ((aux == "Y") || (aux == "N"))
         {
             out << "<FORCE_INIT:" << QString::number(aux.length()) << ">" << aux  << " ";
-        }
-    }
-    nameCol = rec.indexOf("guest_op");
-    if (nameCol>=0)
-    {
-        aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
-        {
-            out << "<GUEST_OP:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
     }
     nameCol = rec.indexOf("hrdlog_qso_upload_date");

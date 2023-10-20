@@ -2094,7 +2094,7 @@ bool QSO::setMyIOTA(const QString &_c)
 
 QString QSO::getMyIOTA()
 {
-    return iota;
+    return my_iota;
 }
 
 bool QSO::setMyIotaID(const int _i)
@@ -2642,7 +2642,6 @@ void QSO::InitializeHash() {
         {"FREQ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreqTX)},
         {"FREQ_RX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreqRX)},
         {"GRIDSQUARE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setGridSquare)},
-        {"GUEST_OP", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setOperatorCallsign)},
         {"HRDLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDUpdateDate)},
         {"HRDLOG_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDLogStatus)},
         {"IOTA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setIOTA)},
@@ -2830,7 +2829,7 @@ QString QSO::getAddQueryString()
         " my_itu_zone, my_lat, "
         "my_lon, my_name, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, "
         "my_usaca_counties, my_vucc_grids, name, "
-        "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, points, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
+        "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
         "qrzcom_qso_upload_status, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, "
         "qth, region, rig, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, silent_key, skcc, sota_ref, srx_string, srx, stx_string, stx, state, "
         "station_callsign, submode, swl, uksmg, usaca_counties, ve_prov, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
@@ -2843,7 +2842,7 @@ QString QSO::getAddQueryString()
         ":iota, :iota_island_id, :k_index, :lat, :lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :max_bursts, :ms_shower, "
         ":my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
         ":my_lon, :my_name, :my_postal_code, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :my_street, :my_usaca_counties, :my_vucc_grids, :name, "
-        ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :points, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
+        ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
         ":qrzcom_qso_upload_status, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, "
         ":qth, :region, :rig, :rx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sig_info, :silent_key, :skcc, :sota_ref, :srx_string, :srx, :stx_string, :stx, :state,"
         ":station_callsign, :submode, :swl, :uksmg, :usaca_counties, :ve_prov, :vucc_grids, :ten_ten, :tx_pwr, :web, :qso_date_off, "
@@ -2875,7 +2874,7 @@ QString QSO::getModifyQueryString()
                    "my_sota_ref = :my_sota_ref, my_state = :my_state, my_street = :my_street, "
                    "my_usaca_counties = :my_usaca_counties, my_vucc_grids = :my_vucc_grids, name = :name, notes = :notes, "
                    "nr_bursts = :nr_bursts, nr_pings = :nr_pings, operator = :operator, owner_callsign = :owner_callsign, "
-                   "pfx = :pfx, points = :points, precedence = :precedence, prop_mode = :prop_mode, "
+                   "pfx = :pfx, precedence = :precedence, prop_mode = :prop_mode, "
                    "public_key = :public_key, qrzcom_qso_upload_date = :qrzcom_qso_upload_date, "
                    "qrzcom_qso_upload_status = :qrzcom_qso_upload_status, qslmsg = :qslmsg, qslrdate = :qslrdate, "
                    "qslsdate = :qslsdate, qsl_rcvd = :qsl_rcvd, qsl_sent = :qsl_sent, qsl_rcvd_via = :qsl_rcvd_via, "
