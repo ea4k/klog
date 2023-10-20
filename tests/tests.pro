@@ -1,5 +1,6 @@
 TEMPLATE=subdirs
 SUBDIRS=\
+   tst_adif \
    tst_utilities \
    tst_mainqsoentrywidget \
    tst_mainwindowsattab \

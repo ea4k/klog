@@ -3407,7 +3407,7 @@ void MainWindow::slotOpenWiki()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
      //qDebug() << Q_FUNC_INFO ;
-    QDesktopServices::openUrl(QUrl("https://wiki.klog.xyz/"));
+    QDesktopServices::openUrl(QUrl("https://github.com/ea4k/klog/wiki/"));
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

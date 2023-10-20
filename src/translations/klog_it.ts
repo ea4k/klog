@@ -5130,11 +5130,6 @@ KLog terminerà appena cliccherai su OK.</translation>
         <translation>Burst Max</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1827"/>
-        <source>Multiplier</source>
-        <translation>Moltiplicatore</translation>
-    </message>
-    <message>
         <location filename="../utilities.cpp" line="1828"/>
         <source>MS Shower</source>
         <translation>MS Shower</translation>
@@ -5469,11 +5464,6 @@ KLog terminerà appena cliccherai su OK.</translation>
         <location filename="../utilities.cpp" line="1901"/>
         <source>QSO Date off</source>
         <translation>QSO Date spenta</translation>
-    </message>
-    <message>
-        <location filename="../utilities.cpp" line="1902"/>
-        <source>Transmitter id</source>
-        <translation>Id trasmettitore</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1903"/>
