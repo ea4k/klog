@@ -114,6 +114,7 @@ public:
     bool isValidQSL_Rcvd(const QString &c);
     bool isValidQSL_Sent(const QString &c);
     bool isValidUpload_Status(const QString &c);
+    bool isValidFISTS(const QString &c);
 
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
@@ -124,6 +125,7 @@ public:
     bool isValidContinent(const QString &_s);
     bool isValidPropMode(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
+    //QString getADIFField(const QString &_fieldName, const QString &_data);
 
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
     QString getAValidCall (const QString &_wrongCall);
@@ -175,6 +177,7 @@ signals:
 
 private:
     void init();
+    void InitializeHash();
     void setLogColumnNames(); // Creates the map of column Names (should be called from init() )
     bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
@@ -201,6 +204,8 @@ private:
     QStringList longPrefixes, specialCalls;
     QMap<QString, QString> columnNames;
     bool validateCalls;
+    QHash<QString, QString> ADIFHash; // Name, type
+
 };
 
 #endif // UTILITIES_H

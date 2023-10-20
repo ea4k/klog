@@ -4207,7 +4207,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     {
         aux = (query.value(nameCol)).toString();
         aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        int i = aux.toInt ();
+        if (i>=0)
         {
             out << "<SRX:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4225,7 +4226,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        int i = aux.toInt ();
+        if (i>=0)
         {
             out << "<STX:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4283,7 +4285,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        int age = aux.toInt ();
+        if ((age>=0) && (age<=120))
         {
             out << "<AGE:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4311,7 +4314,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        int i = aux.toInt ();
+        if ((i>=0) && (i<=400))
         {
             out << "<A_INDEX:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4320,7 +4324,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        double i = aux.toDouble ();
+        if ((i>=0) && (i<=360))
         {
             out << "<ANT_AZ:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4329,7 +4334,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        double i = aux.toDouble ();
+        if ((i>=-90) && (i<=90))
         {
             out << "<ANT_EL:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4338,7 +4344,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        if ((aux == "G") || (aux == "O") || (aux == "S") || (aux == "L") )
         {
             out << "<ANT_PATH:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4375,7 +4381,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        if (util->isValidContinent (aux))
         {
             out << "<CONT:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4457,7 +4463,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        double i = aux.toDouble ();
+        if (util->isValidDistance (i))
         {
             out << "<DISTANCE:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4519,7 +4526,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (  ((aux.length())==1) && (aux!="N") )
+        if ( (util->isValidQSL_Rcvd (aux)) && (aux!="N") )
         {
             out << "<EQSL_QSL_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4528,7 +4535,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (  ((aux.length())==1) && (aux!="N") )
+        if ( (util->isValidQSL_Sent (aux)) && (aux!="N") )
         {
             out << "<EQSL_QSL_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4537,7 +4544,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        if (util->isValidFISTS (aux))
         {
             out << "<FISTS:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4546,7 +4553,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+
+        if (util->isValidFISTS (aux))
         {
             out << "<FISTS_CC:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4555,7 +4563,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        if ((aux == "Y") || (aux == "N"))
         {
             out << "<FORCE_INIT:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4609,7 +4617,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        int i = aux.toInt ();
+        if (util->isValidDXCC (i))
         {
             out << "<MY_DXCC:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4637,8 +4646,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << "FileManager::writeQuery (IOTA_ID): " << aux;
-        if ((aux.length())>0)
+        int i = aux.toInt ();
+        if (i>0)
         {
             out << "<IOTA_ISLAND_ID:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4656,7 +4665,8 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ((aux.length())>0)
+        int i = aux.toInt ();
+        if (i>0)
         {
             out << "<MY_IOTA_ISLAND_ID:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4665,6 +4675,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
+
         if ((aux.length())>0)
         {
             out << "<K_INDEX:" << QString::number(aux.length()) << ">" << aux  << " ";
@@ -4741,7 +4752,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1) && (aux!="N") )
+        if ( (util->isValidQSL_Rcvd (aux)) && (aux!="N") )
         {
             out << "<LOTW_QSL_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -4750,7 +4761,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if ( ((aux.length())==1)  && (aux!="N") )
+        if ( (util->isValidQSL_Sent (aux)) && (aux!="N") )
         {
             out << "<LOTW_QSL_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
         }
@@ -5036,7 +5047,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (((aux.length())==1) && (aux!="N") )
+        if ( (util->isValidQSL_Rcvd (aux)) && (aux!="N") )
         {
             out << "<QSL_RCVD:" << QString::number(aux.length()) << ">" << aux  << " ";
 
@@ -5052,7 +5063,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        if (((aux.length())==1) && (aux!="N") )
+        if ( (util->isValidQSL_Sent (aux)) && (aux!="N") )
         {
             out << "<QSL_SENT:" << QString::number(aux.length()) << ">" << aux  << " ";
             nameCol = rec.indexOf("qsl_sent_via");

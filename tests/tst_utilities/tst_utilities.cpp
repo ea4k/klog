@@ -479,7 +479,6 @@ void tst_Utilities::test_getMainCallFromComplexCall()
     QVERIFY2(util->getMainCallFromComplexCall("VK9/EA4K")=="VK9", "VK9/EA4K");
 }
 
-
 QTEST_APPLESS_MAIN(tst_Utilities)
 
 #include "tst_utilities.moc"

@@ -47,6 +47,7 @@ void Utilities::init()
     specialCalls.clear();
     //darkMode = false;
     logLevel = None;
+
     setARRLSect();
     setContinent();
     setSponsorsList();
@@ -56,6 +57,163 @@ void Utilities::init()
 
     //qDebug() << Q_FUNC_INFO << " - END";
 }
+
+void Utilities::InitializeHash() {
+    ADIFHash = {
+        {"ADDRESS", "MultiLineString"},
+        {"AGE", "Number"},
+        {"ALTITUDE", "Number"},
+        {"ANT_AZ", "Number"},
+        {"ANT_EL", "Number"},
+        {"ANT_PATH", "Enumeration"},
+        {"ARRL_SECT", "Enumeration"},
+        {"AWARD_SUBMITTED", "SponsoredAwardList"},
+        {"AWARD_GRANTED", "SponsoredAwardList"},
+        {"A_INDEX", "Number"},
+        {"BAND", "Enumeration"},
+        {"BAND_RX", "Enumeration"},
+        {"CALL", "String"},
+        {"CHECK", "String"},
+        {"CLASS", "String"},
+        {"CLUBLOG_QSO_UPLOAD_DATE", "Date"},
+        {"CLUBLOG_QSO_UPLOAD_STATUS", "Enumeration"},
+        {"CNTY", "Enumeration"},
+        {"COMMENT", "String"},
+        {"CONT", "Enumeration"},
+        {"CONTACTED_OP", "String"},
+        {"CONTEST_ID", "String"},
+        {"COUNTRY", "String"},
+        {"CQZ", "PositiveInteger"},
+        {"CREDIT_SUBMITTED", "CreditList"},
+        {"CREDIT_GRANTED", "CreditList"},
+        {"DARC_DOK", "Enumeration"},
+        {"DISTANCE", "Number"},
+        {"DXCC", "Enumeration"},
+        {"EMAIL", "String"},
+        {"EQ_CALL", "String"},
+        {"EQSL_QSLRDATE", "Date"},
+        {"EQSL_QSLSDATE", "Date"},
+        {"EQSL_QSL_RCVD", "Enumeration"},
+        {"EQSL_QSL_SENT", "Enumeration"},
+        {"FISTS", "PositiveInteger"},
+        {"FISTS_CC", "PositiveInteger"},
+        {"FORCE_INIT", "Boolean"},
+        {"FREQ", "Number"},
+        {"FREQ_RX", "Number"},
+        {"GRIDSQUARE", "GridSquare"},
+        {"GRIDSQUARE_EXT", "GridSquareExt"},
+        {"GUEST_OP", "String"},
+        {"HAMLOGEU_QSO_UPLOAD_DATE", "Date"},
+        {"HAMLOGEU_UPLOAD_STATUS", "Enumeration"},
+        {"HAMQTH_QSO_UPLOAD_DATE", "Date"},
+        {"HAMQTH_UPLOAD_STATUS", "Enumeration"},
+        {"HRDLOG_QSO_UPLOAD_DATE", "Date"},
+        {"HRDLOG_QSO_UPLOAD_STATUS", "Enumeration"},
+        {"IOTA", "IOTARefNo"},
+        {"IOTA_ISLAND_ID", "PositiveInteger"},
+        {"ITUZ", "PositiveInteger"},
+        {"K_INDEX", "Integer"},
+        {"LAT", "Location"},
+        {"LON", "Location"},
+        {"LOTW_QSLRDATE", "Date"},
+        {"LOTW_QSLSDATE", "Date"},
+        {"LOTW_QSL_RCVD", "Enumeration"},
+        {"LOTW_QSL_SENT", "Enumeration"},
+        {"MAX_BURSTS", "Number"},
+        {"MODE", "Enumeration"},
+        {"MS_SHOWER", "String"},
+        {"MY_ALTITUDE", "Number"},
+        {"MY_ANTENNA", "String"},
+        {"MY_ARRL_SECT", "Enumeration"},
+        {"MY_CITY", "String"},
+        {"MY_CNTY", "Enumeration"},
+        {"MY_COUNTRY", "String"},
+        {"MY_CQ_ZONE", "PositiveInteger"},
+        {"MY_DXCC", "Enumeration"},
+        {"MY_FISTS", "PositiveInteger"},
+        {"MY_GRIDSQUARE", "GridSquare"},
+        {"MY_GRIDSQUARE_EXT", "GridSquareExt"},
+        {"MY_IOTA", "IOTARefNo"},
+        {"MY_IOTA_ISLAND_ID", "PositiveInteger"},
+        {"MY_ITU_ZONE", "PositiveInteger"},
+        {"MY_LAT", "Location"},
+        {"MY_LON", "Location"},
+        {"MY_NAME", "String"},
+        {"MY_POSTAL_CODE", "String"},
+        {"MY_POTA_REF", "POTARef"},
+        {"MY_RIG", "String"},
+        {"MY_SIG", "String"},
+        {"MY_SIG_INFO", "String"},
+        {"MY_SOTA_REF", "SOTARef"},
+        {"MY_STATE", "Enumeration"},
+        {"MY_STREET", "String"},
+        {"MY_USACA_COUNTIES", "SecondarySubdivisionList"},
+        {"MY_VUCC_GRIDS", "GridSquareList"},
+        {"MY_WWFF_REF", "WWFFRef"},
+        {"NAME", "String"},
+        {"NOTES", "MultilineString"},
+        {"NR_BURSTS", "Integer"},
+        {"NR_PINGS", "Integer"},
+        {"OPERATOR", "String"},
+        {"OWNER_CALLSIGN", "String"},
+        {"PFX", "String"},
+        {"POTA_REF", "POTARef"},
+        {"PRECEDENCE", "String"},
+        {"PROP_MODE", "Enumeration"},
+        {"PUBLIC_KEY", "String"},
+        {"QRZCOM_QSO_UPLOAD_DATE", "Date"},
+        {"QRZCOM_QSO_UPLOAD_STATUS", "Enumeration"},
+        {"QSLMSG", "MultilineString"},
+        {"QSLRDATE", "Date"},
+        {"QSLSDATE", "Date"},
+        {"QSL_RCVD", "Enumeration"},
+        {"QSL_RCVD_VIA", "Enumeration"},
+        {"QSL_SENT", "Enumeration"},
+        {"QSL_SENT_VIA", "Enumeration"},
+        {"QSL_VIA", "String"},
+        {"QSO_COMPLETE", "Enumeration"},
+        {"QSO_DATE", "Date"},
+        {"QSO_DATE_OFF", "Date"},
+        {"QSO_RANDOM", "Boolean"},
+        {"QTH", "String"},
+        {"REGION", "Enumeration"},
+        {"RIG", "MultilineString"},
+        {"RST_RCVD", "String"},
+        {"RST_SENT", "String"},
+        {"RX_PWR", "Number"},
+        {"SAT_MODE", "String"},
+        {"SAT_NAME", "String"},
+        {"SFI", "Integer"},
+        {"SIG", "String"},
+        {"SIG_INFO", "String"},
+        {"SILENT_KEY", "Boolean"},
+        {"SKCC", "String"},
+        {"SOTA_REF", "SOTARef"},
+        {"SRX", "Integer"},
+        {"SRX_STRING", "String"},
+        {"STATE", "Enumeration"},
+        {"STATION_CALLSIGN", "String"},
+        {"STX", "Integer"},
+        {"STX_STRING", "String"},
+        {"SUBMODE", "String"},
+        {"SWL", "Boolean"},
+        {"TEN_TEN", "PositiveInteger"},
+        {"TIME_OFF", "Time"},
+        {"TIME_ON", "Time"},
+        {"TX_PWR", "Number"},
+        {"UKSMG", "PositiveInteger"},
+        {"USACA_COUNTIES", "SecondarySubdivisionList"},
+        {"VE_PROV", "String"},
+        {"VUCC_GRIDS", "GridSquareList"},
+        {"WEB", "String"},
+        {"WWFF_REF", "WWFFRef"},
+        {"APP_LOTW_RXQSL", "Date"},
+        {"APP_LOTW_RXQSO", "Date"},
+        {"APP_LOTW_QSO_TIMESTAMP", "Date"}
+    };
+    return;
+}
+
 
 void Utilities::setLogLevel(DebugLogLevel _l)
 {
@@ -198,7 +356,6 @@ QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
     //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data ;
 // This function is not really working with ASCII but with Unicode
-//TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
     ushort unicodeVal;
     QString st = _data;
     QString newString;
@@ -1420,6 +1577,12 @@ bool Utilities::isValidUpload_Status(const QString &c)
     return ((c == "Y") || (c == "N") || (c == "M"));
 }
 
+
+bool Utilities::isValidFISTS(const QString &c)
+{
+    return (c.toInt ()>0);
+}
+
 QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 {
    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b ;
@@ -1895,6 +2058,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("transmiterid", QObject::tr("Transmitter id"));
     columnNames.insert("lognumber", QObject::tr("Log number"));
 }
+
 QString Utilities::getLogColumnName(const QString &_column)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _column;

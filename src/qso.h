@@ -35,6 +35,7 @@
 #include "utilities.h"
 #include "klogdefinitions.h"
 #include "database.h"
+#include "adif.h"
 //#include <functional>
 
 class QSO : public QObject
@@ -383,6 +384,7 @@ public:
     //bool add();
     //bool modify(const int _qsoId);
     bool isComplete();
+    QString getADIF();
 
 
 signals:
@@ -398,6 +400,7 @@ private:
     QSqlQuery getPreparedQuery(const QString &_s);
     int getBandIdFromBandName();
     int getModeIdFromModeName();
+
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
@@ -425,6 +428,7 @@ private:
     bool haveBand, haveMode, haveDateTime, haveCall;
 
     Utilities *util;
+    Adif *adif;
     DebugLogLevel logLevel;
 
    // DataProxy_SQLite *dataProxy;
@@ -485,8 +489,6 @@ private:
     bool setLoTWQSLRDate2(const QString& data);
     bool setLoTWQSLSDate1(const QString& data);
     bool setLoTWQSLSDate2(const QString& data);
-
-
 };
 
 #endif // QSO_H

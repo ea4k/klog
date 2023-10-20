@@ -3133,3 +3133,15 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 
     return query;
 }
+
+QString QSO::getADIF()
+{
+    adif = new Adif(Q_FUNC_INFO);
+
+    QString adifStr = QString();
+    adifStr.append(adif->getADIFField ("CALL", callsign));
+    adifStr.append(adif->getADIFField ("QSO_DATE",  util->getADIFDateFromQDateTime(qso_dateTime)));
+    adifStr.append(adif->getADIFField ("TIME_ON",  util->getADIFTimeFromQDateTime(qso_dateTime)));
+
+    return adifStr;
+}
