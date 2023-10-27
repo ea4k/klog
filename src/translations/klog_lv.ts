@@ -9,7 +9,7 @@
         <translation>Par KLog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="24"/>
+        <location filename="../aboutdialog.cpp" line="24"/> 
         <source>By</source>
         <translation>Autors</translation>
     </message>
