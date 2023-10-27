@@ -1630,7 +1630,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     }
     int qsos = howManyQSOsInFile (file);
     qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
-    qint64 pos = passHeader (file); //Position in the file to calculate where the header ends
+    qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
         qDebug() << Q_FUNC_INFO << "  File not found" ;
@@ -1641,7 +1641,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
 
     QSO qso;
     QStringList fields, fieldsRest; // fields keeps the running array,
-                                    // fieldsRest keeps the rest of fields after qdding a QSO to prevent loosing any field.
+                                    // fieldsRest keeps the rest of fields after adding a QSO to prevent losing any field.
     fields.clear ();
     QString line = QString();
     line.clear();

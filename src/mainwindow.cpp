@@ -106,7 +106,7 @@ MainWindow::MainWindow(const QString &tversion)
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
-    QRZCOMAutoCheckAct = new QAction(tr("Check always the current callsign in QRZ.com"), this);
+    QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
      //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() ;
 
@@ -218,7 +218,7 @@ MainWindow::MainWindow(const QString &tversion)
       //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
-    lotwCallTQSL = new QAction(tr("Upload the queued QSOs to LoTW"), this);
+    lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
       //qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << ": ShowAdifImportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -479,7 +479,7 @@ void MainWindow::init()
         msgBox.setWindowTitle(tr("KLog - CTY.dat update"));
         msgBox.setText(tr("KLog needs to update the Entities database."));
         msgBox.setDetailedText(tr("You can update the entities database in Tools->Update cty.csv"));
-        msgBox.setInformativeText(tr("Do you want to do it now?"));
+        msgBox.setInformativeText(tr("Do you want to update now?"));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
         int ret = msgBox.exec();
@@ -750,13 +750,13 @@ void MainWindow::recommendBackupIfNeeded()
     if (lastBackupDate == QDateTime())
     {
         backupNeeded = true;
-        msg = tr("It seems that you have never done a backup or exported your log to ADIF.");
+        msg = tr("You seem to have never backed up or exported your log to ADIF.");
     }
     else if (lastBackupDate.addMonths(1) < QDateTime::currentDateTime())
     {
          //qDebug() << Q_FUNC_INFO << " -  More than a month" << (QTime::currentTime()).toString(" HH:mm:ss")   ;
         backupNeeded = true;
-        msg = tr("It seems that the latest backup you did is older than one month.");
+        msg = tr("Your latest backup seems older than one month.");
     }
 
     if (backupNeeded)
@@ -770,8 +770,8 @@ void MainWindow::recommendBackupIfNeeded()
         msgBox.setWindowTitle(tr("Log backup recommended!"));
         msgBox.setText(msg);
 
-        msgBox.setInformativeText(tr("It is a good practice to backup your full log regularly to avoid loosing data in case of a problem.\n"
-                                     "Once you export your log to an ADIF file, you should copy that file to a safe place, like an USB drive, cloud drive, another computer, ...\n\n"
+        msgBox.setInformativeText(tr("Regular backups prevent data loss and are good operator practice.\n"
+                                     "Once exported, copy your ADIF file to a safe place such as a USB drive, cloud drive or other offsite computer.\n\n"
                                      "KLog will remind you to backup on a monthly basis.\n\n"));
 
         msgBox.addButton(QMessageBox::Yes);
@@ -788,14 +788,14 @@ void MainWindow::recommendBackupIfNeeded()
             if (filemanager->adifLogExport(filename, 0)) // 0 will save ALL the logs)
             {
                 msgBox.setIcon(QMessageBox::Information);
-                msgBox.setText(tr("The backup was done successfully"));
-                msgBox.setInformativeText(tr("KLog will remind you to backup your data again in aprox one month."));
+                msgBox.setText(tr("Backup completed successfully"));
+                msgBox.setInformativeText(tr("KLog will remind you again in approximately one month."));
             }
             else
             {
                 msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setText(tr("The backup was not properly done."));
-                msgBox.setInformativeText(tr("It is recommended to backup your data periodically to prevent lose or corruption of your log."));
+                msgBox.setText(tr("Backup failed."));
+                msgBox.setInformativeText(tr("Periodic data backups are recommended to prevent data loss and corruption of your log."));
             }
             msgBox.exec();
             break;
@@ -825,7 +825,7 @@ void MainWindow::checkIfNewVersion()
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog - New version detected!"));
         msgBox.setText(tr("It seems that you are running this version of KLog for the first time."));
-        msgBox.setInformativeText(tr("The setup will be open to allow you to do any new setup you may need."));
+        msgBox.setInformativeText(tr("The setup will now open to allow you to change your settings."));
         msgBox.exec();
         openSetup(0);
     }
