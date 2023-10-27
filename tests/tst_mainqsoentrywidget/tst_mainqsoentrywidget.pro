@@ -16,7 +16,8 @@ HEADERS += \
     ../../src/qso.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
-    ../../src/database.h
+    ../../src/database.h \
+    ../../src/adif.h
 
 SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/mainqsoentrywidget.cpp \
@@ -24,7 +25,8 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
     ../../src/locator.cpp \
-    ../../src/database.cpp
+    ../../src/database.cpp \
+    ../../src/adif.cpp
 
 
 isEmpty(QMAKE_LRELEASE) {

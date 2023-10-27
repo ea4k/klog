@@ -102,7 +102,8 @@ HEADERS += \
     ../../src/charts/statsworkedsentpiechartwidget.h \
     ../../src/charts/statsqsospercontinentbarchartwidget.h \
     ../../src/updatesettings.h \
-    ../../src/world.h
+    ../../src/world.h \
+    ../../src/adif.h
 
 
 SOURCES +=  tst_mainwindow.cpp \
@@ -190,7 +191,8 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/charts/statsworkedsentpiechartwidget.cpp \
     ../../src/charts/statsqsospercontinentbarchartwidget.cpp \
     ../../src/updatesettings.cpp \
-    ../../src/world.cpp
+    ../../src/world.cpp \
+    ../../src/adif.cpp
 
 unix:!mac {
     message(unix:!mac)
