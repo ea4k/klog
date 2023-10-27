@@ -13,14 +13,16 @@ HEADERS += \
     #../../src/dataproxy_sqlite.h \
     #../../src/database.h \
     ../../src/locator.h \
-    ../../src/qso.h
+    ../../src/qso.h \
+    ../../src/adif.h
 
 SOURCES +=  tst_qso.cpp \
     ../../src/utilities.cpp \
     #../../src/dataproxy_sqlite.cpp \
     #../../src/database.cpp \
     ../../src/locator.cpp \
-    ../../src/qso.cpp
+    ../../src/qso.cpp \
+    ../../src/adif.cpp
 
 
 

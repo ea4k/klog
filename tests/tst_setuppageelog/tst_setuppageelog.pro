@@ -16,7 +16,8 @@ HEADERS += \
     ../../src/database.h \
     ../../src/qso.h \
     ../../src/locator.h \
-    ../../src/setuppages/setuppageelog.h
+    ../../src/setuppages/setuppageelog.h \
+    ../../src/adif.h
 
 
 SOURCES +=  tst_setuppageelog.cpp \
@@ -25,7 +26,9 @@ SOURCES +=  tst_setuppageelog.cpp \
     ../../src/database.cpp \
     ../../src/qso.cpp \
     ../../src/locator.cpp \
-    ../../src/setuppages/setuppageelog.cpp
+    ../../src/setuppages/setuppageelog.cpp \
+    ../../src/adif.cpp
+
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe

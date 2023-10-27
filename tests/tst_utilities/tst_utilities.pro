@@ -17,15 +17,16 @@ HEADERS += \
     ../../src/database.h \
     ../../src/qso.h \
     ../../src/klogdefinitions.h \
-    ../../src/locator.h
+    ../../src/locator.h \
+    ../../src/adif.h
 
 SOURCES +=  tst_utilities.cpp \
     ../../src/utilities.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/database.cpp \
     ../../src/qso.cpp \
-    ../../src/locator.cpp
-
+    ../../src/locator.cpp \
+    ../../src/adif.cpp
 
 
 isEmpty(QMAKE_LRELEASE) {
