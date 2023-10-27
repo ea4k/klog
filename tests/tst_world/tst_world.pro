@@ -14,7 +14,8 @@ HEADERS += \
     ../../src/locator.h \
     ../../src/utilities.h \
     ../../src/database.h \
-    ../../src/qso.h
+    ../../src/qso.h \
+    ../../src/adif.h
 
 SOURCES +=  tst_world.cpp \
     ../../src/world.cpp \
@@ -22,9 +23,8 @@ SOURCES +=  tst_world.cpp \
     ../../src/qso.cpp \
     ../../src/utilities.cpp \
     ../../src/database.cpp \
-    ../../src/locator.cpp
-
-
+    ../../src/locator.cpp \
+    ../../src/adif.cpp
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe

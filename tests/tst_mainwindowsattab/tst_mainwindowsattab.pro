@@ -24,7 +24,8 @@ HEADERS += \
     ../../src/utilities.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
-    ../../src/database.h
+    ../../src/database.h \
+    ../../src/adif.h
 
 SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \
@@ -32,7 +33,8 @@ SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/qso.cpp \
     ../../src/utilities.cpp \
     ../../src/locator.cpp \
-    ../../src/database.cpp
+    ../../src/database.cpp \
+    ../../src/adif.cpp
 
 
 isEmpty(QMAKE_LRELEASE) {
