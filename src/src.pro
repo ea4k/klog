@@ -364,7 +364,16 @@ win32: {
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-    LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
-    LIBS += -L"$$PWD/../../libs/hamlib/bin"
-    INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
+
+    contains(QT_ARCH, i386) {
+        message("32-bit")
+        LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../libs/hamlib/bin"
+        INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
+    } else {
+        message("64-bit")
+        LIBS += -L"$$PWD/../../libs/hamlib-w64/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../libs/hamlib-w64/bin"
+        INCLUDEPATH += "$$PWD/../../libs/hamlib-w64/include/"
+    }
 }
