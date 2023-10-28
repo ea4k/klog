@@ -2,6 +2,7 @@
     <shortName>KLog</shortName>
     <fullName>KLog</fullName>
     <version>${env(KLOGDEVELVERSION)}</version>
+    <installerFilename>${product_shortname}-${product_version}-win64.${platform_exec_suffix}</installerFilename>
     <readmeFile>../src/README</readmeFile>
     <licenseFile>../src/COPYING</licenseFile>
     <htmlLicenseFile>../src/gpl-3.0-standalone.html</htmlLicenseFile>
@@ -9,7 +10,6 @@
     <logoImage>../images/klog.iconset/icon_512x512.png</logoImage>
     <splashImage>../images/klog_splash.png</splashImage>
     <allowLanguageSelection>1</allowLanguageSelection>
-	<outputDirectory>.</outputDirectory>
     <componentList>
         <component>
             <name>default</name>
@@ -62,16 +62,16 @@
                             <origin>../images/klog.ico</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libcrypto-3.dll</origin>
+                            <origin>../src/release/libcrypto-3-x64.dll</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/release/libEGL.dll</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libgcc_s_dw2-1.dll</origin>
+                            <origin>../src/release/libgcc_s_sjlj-1.dll</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libgcc_s_sjlj-1.dll</origin>
+                            <origin>../src/release/libgcc_s_seh-1.dll</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/release/libGLESv2.dll</origin>
@@ -80,7 +80,7 @@
                             <origin>../src/release/libhamlib-4.dll</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libssl-3.dll</origin>
+                            <origin>../src/release/libssl-3-x64.dll</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/release/libstdc++-6.dll</origin>
@@ -274,6 +274,7 @@
     <allowAddRemoveComponents>1</allowAddRemoveComponents>
     <enableRollback>1</enableRollback>
     <enableTimestamp>1</enableTimestamp>
+    <outputDirectory>.</outputDirectory>
     <saveRelativePaths>1</saveRelativePaths>
     <vendor>EA4K</vendor>
     <windowsARPRegistryPrefix>${project.fullName}</windowsARPRegistryPrefix>

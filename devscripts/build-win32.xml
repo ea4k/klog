@@ -2,6 +2,7 @@
     <shortName>KLog</shortName>
     <fullName>KLog</fullName>
     <version>${env(KLOGDEVELVERSION)}</version>
+    <installerFilename>${product_shortname}-${product_version}-win32.${platform_exec_suffix}</installerFilename>
     <readmeFile>../src/README</readmeFile>
     <licenseFile>../src/COPYING</licenseFile>
     <htmlLicenseFile>../src/gpl-3.0-standalone.html</htmlLicenseFile>
@@ -9,7 +10,6 @@
     <logoImage>../images/klog.iconset/icon_512x512.png</logoImage>
     <splashImage>../images/klog_splash.png</splashImage>
     <allowLanguageSelection>1</allowLanguageSelection>
-	<outputDirectory>.</outputDirectory>
     <componentList>
         <component>
             <name>default</name>
@@ -283,6 +283,7 @@
     <allowAddRemoveComponents>1</allowAddRemoveComponents>
     <enableRollback>1</enableRollback>
     <enableTimestamp>1</enableTimestamp>
+    <outputDirectory>.</outputDirectory>
     <saveRelativePaths>1</saveRelativePaths>
     <vendor>EA4K</vendor>
     <windowsARPRegistryPrefix>${project.fullName}</windowsARPRegistryPrefix>
