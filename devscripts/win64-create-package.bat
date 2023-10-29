@@ -59,9 +59,10 @@ echo Linea 43
 xcopy /Y /S /F build\target\* release
 echo localdir=%cd%
 echo %localdir%
-copy ..\..\paquete\openssl\openssl-3\x64\bin\*.dll release
+rem COPY OpenSSL-1 DLL
+copy ..\..\paquete\openssl\*.dll release
 copy ..\..\libs\hamlib-w64\bin\*.dll release
-windeployqt --qmldir qml release\klog.exe
+windeployqt --qmldir release release\klog.exe
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
 :: After knowing the version, the package can be obtained from: https://indy.fulgan.com/SSL/Archive/
