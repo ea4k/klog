@@ -83,11 +83,13 @@ void MainWindowInputQSO::createUI()
     txFreqSpinBox->setDecimals(6);
     txFreqSpinBox->setMaximum(99999);
     txFreqSpinBox->setSuffix(" " + tr("MHz"));
+    txFreqSpinBox->setKeyboardTracking(false);
     txFreqSpinBox->setSingleStep(0.001);
 
     rxFreqSpinBox->setDecimals(6);
     rxFreqSpinBox->setMaximum(99999);
     rxFreqSpinBox->setSuffix(" " + tr("MHz"));
+    rxFreqSpinBox->setKeyboardTracking(false);
     rxFreqSpinBox->setSingleStep(0.001);
 
     splitCheckBox->setText(tr("Split", "Translator: Split is a common hamradio term. Do not translate unless you are sure."));
