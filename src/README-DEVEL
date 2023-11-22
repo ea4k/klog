@@ -266,6 +266,14 @@ Before deploying, translations should be updated.
 9.2 DEPLOYING ON macOS
 
     Build KLog with QTCreator
+    If you can't run KLog due to missing libTIFF/LibJPEG/libPNG/libGIF chec this URL:
+    https://stackoverflow.com/questions/35509731/dyld-symbol-not-found-cg-jpeg-resync-to-restart
+    Try this in the shell:
+        $ cd /System/Library/Frameworks/ImageIO.framework/Versions/A/Resources
+        $ sudo ln -sf libJPEG.dylib /usr/local/lib/libJPEG.dylib
+        $ sudo ln -sf libPng.dylib /usr/local/lib/libPng.dylib
+        $ sudo ln -sf libTIFF.dylib /usr/local/lib/libTIFF.dylib
+        $ sudo ln -sf libGIF.dylib /usr/local/lib/libGIF.dylib
 
     Run the following command from the build directory:
         mv klog.app KLog.app
