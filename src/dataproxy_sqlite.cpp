@@ -3624,7 +3624,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
 
 QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, const ExportMode _em, bool _justModified, int _logN)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QStringList grids;
     grids.clear ();
 
@@ -3636,17 +3636,17 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     QString _queryST_string;
     if (util->isValidCall(_stationCallsign, true))
     {
-         //qDebug() << Q_FUNC_INFO << " - Valid Call: " << _stationCallsign;
+        //qDebug() << Q_FUNC_INFO << " - Valid Call: " << _stationCallsign;
         _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
     }
     else if (_stationCallsign == "ALL")
     {
-         //qDebug() << Q_FUNC_INFO << " - ALL Calls";
+        //qDebug() << Q_FUNC_INFO << " - ALL Calls";
         _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " - Else calls";
+        //qDebug() << Q_FUNC_INFO << " - Else calls";
         _queryST_string = QString("((station_callsign='') OR (station_callsign IS NULL))");
     }
 
@@ -3657,7 +3657,7 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     }
     else
     {
-        _query_justQueued = QString("lotw_qsl_sent!='1'");
+        _query_justQueued = QString("((lotw_qsl_sent!='1') OR (lotw_qsl_sent IS NULL))");
     }
 
     QString _query_logNumber;
@@ -3674,7 +3674,7 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
-    //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery ();
+   //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery ();
 
     if (sqlOK)
     {
@@ -3695,12 +3695,12 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         grids.sort ();
-        //qDebug() << Q_FUNC_INFO << " - END-1";
+       //qDebug() << Q_FUNC_INFO << " - END-1";
         return grids;
     }
     query.finish();
     grids.sort();
-    //qDebug() << Q_FUNC_INFO << " - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
     return grids;
 }
 
@@ -9958,15 +9958,15 @@ int DataProxy_SQLite::addQSOQuery(const QSqlQuery &_q)
     QSqlQuery query = _q;
     if (query.exec ())
     {
-        qDebug() << Q_FUNC_INFO << " - QSO Added!";
+       //qDebug() << Q_FUNC_INFO << " - QSO Added!";
         return 1;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - QSO NOT Added!";
-        qDebug() << Q_FUNC_INFO << " - Error: " << query.lastError ().databaseText ();
-        qDebug() << Q_FUNC_INFO << " - Error text: " << query.lastError ().text ();
-        qDebug() << Q_FUNC_INFO << " - Error query: " << query.lastQuery ();
+       //qDebug() << Q_FUNC_INFO << " - QSO NOT Added!";
+       //qDebug() << Q_FUNC_INFO << " - Error: " << query.lastError ().databaseText ();
+       //qDebug() << Q_FUNC_INFO << " - Error text: " << query.lastError ().text ();
+       //qDebug() << Q_FUNC_INFO << " - Error query: " << query.lastQuery ();
         return -1;
     }
 }

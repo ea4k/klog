@@ -243,17 +243,17 @@ void AdifLoTWExportWidget::fillStationMyGridComboBox()
 
     if (util->isValidCall(stationCallsignComboBox->currentText()))
     {
-        //qDebug() << Q_FUNC_INFO << " - ValidCall: " << stationCallsignComboBox->currentText();
+        qDebug() << Q_FUNC_INFO << " - ValidCall: " << stationCallsignComboBox->currentText();
         grids.append (dataProxy->getGridsToBeSent (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode, true, logNumber));
     }
     else if (stationCallsignComboBox->currentIndex() == 0)
     { // Not defined call
-        //qDebug() << Q_FUNC_INFO << " - Not Defined" ;
+        qDebug() << Q_FUNC_INFO << " - Not Defined" ;
         grids.append (dataProxy->getGridsToBeSent ("NOT", startDate->date(), endDate->date(), currentExportMode, true, logNumber));
     }
     else
     { //ALL calls
-        //qDebug() << Q_FUNC_INFO << " - ALL Calls" ;
+        qDebug() << Q_FUNC_INFO << " - ALL Calls" ;
         //myGridSquareComboBox->addItem(tr("ALL"));
         grids.append (dataProxy->getGridsToBeSent ("ALL", startDate->date(), endDate->date(), currentExportMode, false, logNumber));
     }
