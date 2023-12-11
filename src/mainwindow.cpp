@@ -24,13 +24,13 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "global.h"
+//#include "global.h"
 #include <QtWidgets>
 #include <QtSql>
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
-#include "database.h"
+//#include "database.h"
 #include "mainwindow.h"
 
 void MainWindow::showNotWar()
