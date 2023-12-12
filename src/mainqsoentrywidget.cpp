@@ -397,17 +397,19 @@ void MainQSOEntryWidget::setCurrentQRZ(const QString &_qrz)
 }
 
 void MainQSOEntryWidget::slotBandComboBoxChanged(const QString &_b){
-     //qDebug() << Q_FUNC_INFO << ": " << _b;
+    //qDebug() << Q_FUNC_INFO << ": " << _b;
 
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (modifyingBands)
+    if (modifyingBands){
+         //qDebug() << Q_FUNC_INFO << ": Modifying bands - END" ;
         return;
+    }
     bottomBandLimit = dataProxy->getLowLimitBandFromBandName (_b);
     upperBandLimit = dataProxy->getUpperLimitBandFromBandName (_b);
     emit bandChanged(_b);
     checkIfDupe(Q_FUNC_INFO);
     logEvent (Q_FUNC_INFO, "END", Debug);
-     //qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainQSOEntryWidget::slotModeComboBoxChanged(const QString &_m)
@@ -523,12 +525,25 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
             qsTemp << bands;
             qsTemp << _band;
             qsTemp.removeDuplicates();
+            QString aux;
+            foreach(aux, bands)
+            {
+                //qDebug() << " bands Band: " << aux;
+            }
+            foreach(aux, qsTemp)
+            {
+                //qDebug() << " qsTemp Band: " << aux;
+            }
             bands.clear();
             bands = dataProxy->sortBandNamesBottonUp(qsTemp);
-             //qDebug() << Q_FUNC_INFO << ": Before setBands";
+            foreach(aux, bands)
+            {
+                //qDebug() << " bands2 Band: " << aux;
+            }
+            //qDebug() << Q_FUNC_INFO << ": Before setBands";
             setBands(bands);
             bandComboBox->setCurrentIndex(bandComboBox->findText(_currentBand, Qt::MatchCaseSensitive));
-             //qDebug() << Q_FUNC_INFO << ": Band has been added : " << _band;
+            //qDebug() << Q_FUNC_INFO << ": Band has been added : " << _band;
         }
         else
         {
@@ -547,11 +562,7 @@ void MainQSOEntryWidget::setBands(const QStringList &_bands)
     logEvent (Q_FUNC_INFO, "Start: " + QString::number(_bands.length ()), Debug);
     //qDebug()<< Q_FUNC_INFO << " - Start: " << QString::number(_bands.length ());
     modifyingBands = true;
-    foreach(QString i, _bands)
-    {
-        //qDebug()<< Q_FUNC_INFO << " - received: " << i;
-    }
-    bands.clear();
+    //bands.clear();
     bands = _bands;
     bands.removeDuplicates();
     bands = dataProxy->sortBandNamesBottonUp(bands);
@@ -560,6 +571,7 @@ void MainQSOEntryWidget::setBands(const QStringList &_bands)
     emit validBands(_bands);
     //selectDefaultBand(true);
     modifyingBands = false;
+
     logEvent (Q_FUNC_INFO, "END", Debug);
     //qDebug()<< Q_FUNC_INFO << " - END";
 }
@@ -588,8 +600,9 @@ QStringList MainQSOEntryWidget::getModes()
 
 bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     logEvent (Q_FUNC_INFO, "Start", Debug);
+
     if (isRX)
     {
         if (util->isSameFreq (freqRX, _f))
@@ -609,22 +622,27 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
 
     if (newBandNeededForFreq (_f))
     {
+        //qDebug() << Q_FUNC_INFO << ": New band needed";
         if ((bottomBandLimit<=freqTX) && (freqTX<= upperBandLimit))
         {
             logEvent (Q_FUNC_INFO, "END-3", Debug);
             return true;
         }
-         //qDebug() << Q_FUNC_INFO << ": Freq is not in the current band";
+        //qDebug() << Q_FUNC_INFO << ": Freq is not in the current band";
         QString _newBand = dataProxy->getBandNameFromFreq(_f);
-         //qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand ;
+        //qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand ;
         if (isRX)
         {
-             //qDebug() << Q_FUNC_INFO << ": RX Freq no more actions " ;
+            //qDebug() << Q_FUNC_INFO << ": RX Freq no more actions " ;
             logEvent (Q_FUNC_INFO, "END-4", Debug);
             return true;
         }
         logEvent (Q_FUNC_INFO, "END-5", Debug);
         return setBand(_newBand);
+    }
+    else
+    {
+        //qDebug() << Q_FUNC_INFO << ": NO New band needed - BORRAR";
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
     return false;
@@ -638,7 +656,7 @@ bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)
     if (!updateBandComboBox (_newBand))
     {
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-         //qDebug() << Q_FUNC_INFO << " - END false";
+        //qDebug() << Q_FUNC_INFO << " - END false";
         return false;
     }
     //qDebug() << Q_FUNC_INFO << " - END true ";

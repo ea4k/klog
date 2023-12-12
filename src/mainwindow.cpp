@@ -1139,7 +1139,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
 
 bool MainWindow::readQSOFromUI()
 {
-    qDebug() << Q_FUNC_INFO << " -  Start" ;
+    //qDebug() << Q_FUNC_INFO << " -  Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     qso->clear ();
@@ -1295,7 +1295,7 @@ bool MainWindow::readQSOFromUI()
     qso->setQSLRecVia (QSLTabWidget->getRecVia());
     qso->setQSLRDate (QSLTabWidget->getQSLRecDate());
 
-    qDebug() << Q_FUNC_INFO << " -  END" ;
+    //qDebug() << Q_FUNC_INFO << " -  END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -5952,6 +5952,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
          //qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" ;
         return;
     }
+
     QSOTabWidget->setTXFreq (_fr);
     mainQSOEntryWidget->setFreq (_fr);
     satTabWidget->setUpLinkFreq(_fr);
@@ -6344,7 +6345,7 @@ void MainWindow::slotClearNoMorErrorShown()
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
 {
     //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed ;
-    qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << " - " << errorCodeS;
+    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << " - " << errorCodeS;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (noMoreErrorShown)

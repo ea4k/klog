@@ -458,7 +458,7 @@ QString Utilities::getADIFField(const QString &_fieldName, const QString &_data)
         InitializeHash();
     }
     if (!ADIFHash.contains(_fieldName)) {
-        qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
+        //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
     return QString ("<%1:%2>%3 ").arg(_fieldName).arg(_data.length ()).arg(_data);
@@ -508,7 +508,7 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
         InitializeHash();
     }
     if (!ADIFHash.contains(_fieldName)) {
-        qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
+        //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
     return QString ("<%1:%2>%3 ").arg(_fieldName).arg(_data.length ()).arg(_data);

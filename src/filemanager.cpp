@@ -1621,19 +1621,19 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
 
 bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file( tfileName );
     if (!file.exists ())
     {
-        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
+        //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
     int qsos = howManyQSOsInFile (file);
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
+    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  File not found" ;
+        //qDebug() << Q_FUNC_INFO << "  File not found" ;
         return false;
     }
 
@@ -1671,17 +1671,17 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     }
     file.close ();
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
 qint64 FileManager::passHeader(QFile & _f)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
     QFile &file = _f;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  File not found" ;
+        //qDebug() << Q_FUNC_INFO << "  File not found" ;
         return false;
     }
     //bool hasEOH = false;
@@ -1690,7 +1690,7 @@ qint64 FileManager::passHeader(QFile & _f)
     while ( !file.atEnd()   )
     {
         line = file.readLine ().toUpper ();
-        qDebug() << Q_FUNC_INFO << " - " << line;
+        //qDebug() << Q_FUNC_INFO << " - " << line;
         if (line.count ("<EOH>")>0)
         {
             break;
@@ -1698,7 +1698,7 @@ qint64 FileManager::passHeader(QFile & _f)
     }
     pos = file.pos();
     file.close ();
-    qDebug() << Q_FUNC_INFO << " - END (" << QString::number(pos) << ")";
+    //qDebug() << Q_FUNC_INFO << " - END (" << QString::number(pos) << ")";
     return pos;
 }
 
@@ -3484,7 +3484,7 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
 }
 int FileManager::howManyQSOsInFile (QFile & _f)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
     QFile &file = _f;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
@@ -3512,7 +3512,7 @@ int FileManager::howManyQSOsInFile (QFile & _f)
                     QStringList data = QStringList();
                     data << aux.split('>');
                     file.close ();
-                    qDebug() << Q_FUNC_INFO << " - END-1";
+                    //qDebug() << Q_FUNC_INFO << " - END-1";
                     return ((data.at(1)).toInt());
                 }
             }
@@ -3524,7 +3524,7 @@ int FileManager::howManyQSOsInFile (QFile & _f)
     }
 
     file.close();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return qsos;
 }
 

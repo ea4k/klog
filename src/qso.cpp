@@ -2751,7 +2751,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << "QSO::setData: " << _adifPair;
+    //qDebug() << "QSO::setData: " << _adifPair;
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
@@ -2779,34 +2779,34 @@ bool QSO::setData(const QString &_adifPair)
 bool QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     if (!isComplete ())
     {
-        qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
+        //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return false;
     }
-    qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
+    //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     if (_qsoId<=0)
     {
-        qDebug() << Q_FUNC_INFO << " - qsoID <=0";
+        //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
         queryString = getAddQueryString();
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - qsoID>0";
+        //qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }
     QSqlQuery query = getPreparedQuery(queryString);
     if (_qsoId>0)
     {
-        qDebug() << Q_FUNC_INFO << " - binding ID";
+        //qDebug() << Q_FUNC_INFO << " - binding ID";
         query.bindValue (":id", _qsoId);
     }
-    qDebug() << Q_FUNC_INFO << " - executing query";
+    //qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
-        qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
+        //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
         return true;
     }
     else
@@ -2891,11 +2891,11 @@ QString QSO::getModifyQueryString()
 int QSO::getBandIdFromBandName()
 {
     QSqlQuery query;
-    qDebug() << Q_FUNC_INFO << "Band: " << getBand();
+    //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
     bool ok = query.prepare ("SELECT band.id FROM band WHERE band.name=:bandname");
     if (!ok)
     {
-        qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
     }
     query.bindValue (":bandname", getBand ());
 
@@ -2909,12 +2909,12 @@ int QSO::getBandIdFromBandName()
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << " - Query NOT valid";
+                //qDebug() << Q_FUNC_INFO << " - Query NOT valid";
             }
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << " - Query NO Next";
+            //qDebug() << Q_FUNC_INFO << " - Query NO Next";
         }
     }
     else
@@ -2928,12 +2928,12 @@ int QSO::getBandIdFromBandName()
 int QSO::getModeIdFromModeName()
 {
     QSqlQuery query;
-    qDebug() << Q_FUNC_INFO << "Mode: " << getSubmode();
+    //qDebug() << Q_FUNC_INFO << "Mode: " << getSubmode();
     //SELECT id from mode WHERE CASE WHEN 1=1 THEN submode='AM' ELSE name = 'FM' END;
     bool ok = query.prepare ("SELECT id from mode WHERE CASE WHEN ''<>:submode THEN submode=:submode ELSE name = :name END");
     if (!ok)
     {
-        qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
     }
     query.bindValue (":submode", getSubmode ());
     query.bindValue (":name", getMode());
@@ -2949,12 +2949,12 @@ int QSO::getModeIdFromModeName()
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << " - Query NOT Valid";
+                //qDebug() << Q_FUNC_INFO << " - Query NOT Valid";
             }
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << " - Query NOT Next";
+            //qDebug() << Q_FUNC_INFO << " - Query NOT Next";
         }
     }
     else
@@ -2969,15 +2969,15 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 {
     QSqlQuery query;
 
-    qDebug() << Q_FUNC_INFO << "Band: " << getBand();
-    qDebug() << Q_FUNC_INFO << "Mode: " << getMode ();
+    //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
+    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode ();
 
 
 
     query.clear ();
     if (!query.prepare (_s))
     {
-       qDebug() << Q_FUNC_INFO << "Query not prepared";
+       //qDebug() << Q_FUNC_INFO << "Query not prepared";
        query.clear ();
        return query;
     }
