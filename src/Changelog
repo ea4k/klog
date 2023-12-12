@@ -2,9 +2,10 @@ TBD - 2.4
 WIP: - Bugfix: Started to reduce the possibility of SQLi with the use of prepared statements.
 bool QSO::add()
 Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
-- Bugfix: All Gridsquares are now listed when Export to ADIF is used (Closes #514)
+- Bugfix: All Gridsquares are now listed when Export to ADIF is used. (Closes #514)
+- Bugfix: Selecting a sat with a new band made the bandcombobox unusable. #613
 - Bugfix: F1 (online manual link fixed (Closes #627) (TNX ikbenkous)
-- Enhancement: Improved the Frequency entry (Closes #622) (TNX ikbenkous)
+- Enhancement: Improved the Frequency entry. (Closes #622) (TNX ikbenkous)
 
 Jun - 2.3.2
 - Bugfix: KLog was not starting when started in clean installations.(Closes #599)(TNX cwross)
