@@ -1,5 +1,5 @@
-#ifndef ONLINEMESSAGEWIDGET_H
-#define ONLINEMESSAGEWIDGET_H
+#ifndef KLOG_WIDGETS_ONLINEMESSAGEWIDGET_H
+#define KLOG_WIDGETS_ONLINEMESSAGEWIDGET_H
 /***************************************************************************
                           onlinemessagewidget.h  -  description
                              -------------------

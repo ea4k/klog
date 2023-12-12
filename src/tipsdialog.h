@@ -1,5 +1,5 @@
-#ifndef TIPSDIALOG_H
-#define TIPSDIALOG_H
+#ifndef KLOG_TIPSDIALOG_H
+#define KLOG_TIPSDIALOG_H
 /***************************************************************************
                           tipsdialog.h  -  description
                              -------------------

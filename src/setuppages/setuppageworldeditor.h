@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEWORLDEDITOR_H
-#define SETUPPAGEWORLDEDITOR_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEWORLDEDITOR_H
+#define KLOG_SETUPPAGES_SETUPPAGEWORLDEDITOR_H
 
 /***************************************************************************
                           setuppageworldeditor.h  -  description

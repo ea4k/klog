@@ -1628,7 +1628,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
         //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
-    int qsos = howManyQSOsInFile (file);
+    //int qsos = howManyQSOsInFile (file);
     //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */

@@ -1,5 +1,5 @@
-#ifndef ELOGCLUBLOG_H
-#define ELOGCLUBLOG_H
+#ifndef KLOG_ELOGCLUBLOG_H
+#define KLOG_ELOGCLUBLOG_H
 /***************************************************************************
                           elogclublog.h  -  description
                              -------------------

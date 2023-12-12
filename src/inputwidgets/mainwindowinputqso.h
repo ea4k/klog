@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWINPUTQSO_H
-#define MAINWINDOWINPUTQSO_H
+#ifndef KLOG_INPUTWIDGETS_MAINWINDOWINPUTQSO_H
+#define KLOG_INPUTWIDGETS_MAINWINDOWINPUTQSO_H
 /***************************************************************************
                           mainwindowinputqso.h  -  description
                              -------------------

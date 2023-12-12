@@ -1,5 +1,5 @@
-#ifndef ELOGQRZLOG_H
-#define ELOGQRZLOG_H
+#ifndef KLOG_ELOGQRZLOG_H
+#define KLOG_ELOGQRZLOG_H
 /***************************************************************************
                           elogqrzlog.h  -  description
                              -------------------

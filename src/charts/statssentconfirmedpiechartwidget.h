@@ -1,5 +1,5 @@
-#ifndef STATSSENTCONFIRMEDPIECHARTWIDGET_H
-#define STATSSENTCONFIRMEDPIECHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSSENTCONFIRMEDPIECHARTWIDGET_H
+#define KLOG_CHARTS_STATSSENTCONFIRMEDPIECHARTWIDGET_H
 /***************************************************************************
                           statssentconfirmedpiechatwidget.h  -  description
                              -------------------

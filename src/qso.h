@@ -1,5 +1,5 @@
-#ifndef QSO_H
-#define QSO_H
+#ifndef KLOG_QSO_H
+#define KLOG_QSO_H
 /***************************************************************************
                           qso.h  -  description
                              -------------------

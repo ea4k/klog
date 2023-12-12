@@ -1,5 +1,5 @@
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#ifndef KLOG_UTILITIES_H
+#define KLOG_UTILITIES_H
 /***************************************************************************
                           utilities.h  -  description
                              -------------------
@@ -33,6 +33,7 @@
     This classs hould not need to query the DB neither the DataProxy Class
 
 */
+#include <iostream>
 #include <QObject>
 #include <QtGlobal>
 #include <QString>
@@ -171,6 +172,7 @@ public:
     QStringList getDebugLevels();
     void setLogLevel(DebugLogLevel _l);
     void openQrzcom(const QString _call);
+    void printCommandHelp();
     //QPalette getPalete(bool _ok);
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

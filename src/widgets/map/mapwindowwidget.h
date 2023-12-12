@@ -1,5 +1,5 @@
-#ifndef MAPWINDOWWIDGET_H
-#define MAPWINDOWWIDGET_H
+#ifndef KLOG_WIDGETS_MAP_MAPWINDOWWIDGET_H
+#define KLOG_WIDGETS_MAP_MAPWINDOWWIDGET_H
 /***************************************************************************
                           mapwindowwidget.h  -  description
                              -------------------

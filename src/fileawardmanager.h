@@ -1,5 +1,5 @@
-#ifndef FILEAWARDMANAGER_H
-#define FILEAWARDMANAGER_H
+#ifndef KLOG_FILEAWARDMANAGER_H
+#define KLOG_FILEAWARDMANAGER_H
 /***************************************************************************
                           fileawardmanager.h  -  description
                              -------------------

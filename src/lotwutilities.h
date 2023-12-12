@@ -1,5 +1,5 @@
-#ifndef LOTWUTILITIES_H
-#define LOTWUTILITIES_H
+#ifndef KLOG_LOTWUTILITIES_H
+#define KLOG_LOTWUTILITIES_H
 /***************************************************************************
                           lotwutilities.h  -  description
                              -------------------

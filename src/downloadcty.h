@@ -1,5 +1,5 @@
-#ifndef DOWNLOADCTY_H
-#define DOWNLOADCTY_H
+#ifndef KLOG_DOWNLOADCTY_H
+#define KLOG_DOWNLOADCTY_H
 /***************************************************************************
                           downloadcty.h  -  description
                              -------------------

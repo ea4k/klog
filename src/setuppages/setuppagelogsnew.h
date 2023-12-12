@@ -1,5 +1,5 @@
-#ifndef SETUPPAGELOGSNEW_H
-#define SETUPPAGELOGSNEW_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGELOGSNEW_H
+#define KLOG_SETUPPAGES_SETUPPAGELOGSNEW_H
 /***************************************************************************
                           setuppagelogsnew.h  -  description
                              -------------------

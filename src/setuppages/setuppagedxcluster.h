@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEDXCLUSTER_H
-#define SETUPPAGEDXCLUSTER_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEDXCLUSTER_H
+#define KLOG_SETUPPAGES_SETUPPAGEDXCLUSTER_H
 /***************************************************************************
                           setuppagedxcluster.h  -  description
                              -------------------

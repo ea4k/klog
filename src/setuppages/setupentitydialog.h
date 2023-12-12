@@ -1,5 +1,5 @@
-#ifndef SETUPENTITYDIALOG_H
-#define SETUPENTITYDIALOG_H
+#ifndef KLOG_SETUPPAGES_SETUPENTITYDIALOG_H
+#define KLOG_SETUPPAGES_SETUPENTITYDIALOG_H
 /***************************************************************************
                           SetupEntityDialog.h  -  description
                              -------------------

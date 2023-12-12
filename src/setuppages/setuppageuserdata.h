@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEUSERDATA_H
-#define SETUPPAGEUSERDATA_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEUSERDATA_H
+#define KLOG_SETUPPAGES_SETUPPAGEUSERDATA_H
 
 /***************************************************************************
                           setuppageuserdata.h  -  description

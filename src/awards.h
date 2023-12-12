@@ -1,5 +1,5 @@
-#ifndef AWARDS_H
-#define AWARDS_H
+#ifndef KLOG_AWARDS_H
+#define KLOG_AWARDS_H
 /***************************************************************************
                           awards.h  -  description
                              -------------------

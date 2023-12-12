@@ -1,5 +1,5 @@
-#ifndef SETUPPAGELOGVIEW_H
-#define SETUPPAGELOGVIEW_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGELOGVIEW_H
+#define KLOG_SETUPPAGES_SETUPPAGELOGVIEW_H
 /***************************************************************************
                           setuppagelogview.h  -  description
                              -------------------

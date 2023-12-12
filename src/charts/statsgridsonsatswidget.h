@@ -1,5 +1,5 @@
-#ifndef STATSGRIDSONSATSWIDGET_H
-#define STATSGRIDSONSATSWIDGET_H
+#ifndef KLOG_CHARTS_STATSGRIDSONSATSWIDGET_H
+#define KLOG_CHARTS_STATSGRIDSONSATSWIDGET_H
 /***************************************************************************
                           statsgridsonsatswidget.h  -  description
                              -------------------

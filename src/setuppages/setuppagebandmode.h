@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEBANDMODE_H
-#define SETUPPAGEBANDMODE_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEBANDMODE_H
+#define KLOG_SETUPPAGES_SETUPPAGEBANDMODE_H
 /***************************************************************************
                           setuppagebandmode.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef STATSQSOSPERBANDBARCHARTWIDGET_H
-#define STATSQSOSPERBANDBARCHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSQSOSPERBANDBARCHARTWIDGET_H
+#define KLOG_CHARTS_STATSQSOSPERBANDBARCHARTWIDGET_H
 /***************************************************************************
                           statsqsosperbandbarchatwidget.h  -  description
                              -------------------

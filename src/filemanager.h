@@ -1,5 +1,5 @@
-#ifndef FILEMANAGER_H
-#define FILEMANAGER_H
+#ifndef KLOG_FILEMANAGER_H
+#define KLOG_FILEMANAGER_H
 
 /***************************************************************************
                           filemanager.h  -  description

@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEELOG_H
-#define SETUPPAGEELOG_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEELOG_H
+#define KLOG_SETUPPAGES_SETUPPAGEELOG_H
 /***************************************************************************
                           setuppageelog.h  -  description
                              -------------------

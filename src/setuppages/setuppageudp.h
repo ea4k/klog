@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEUDP_H
-#define SETUPPAGEUDP_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEUDP_H
+#define KLOG_SETUPPAGES_SETUPPAGEUDP_H
 /***************************************************************************
                           setuppageudp.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEMISC_H
-#define SETUPPAGEMISC_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEMISC_H
+#define KLOG_SETUPPAGES_SETUPPAGEMISC_H
 /***************************************************************************
                           setuppagemisc.h  -  description
                              -------------------

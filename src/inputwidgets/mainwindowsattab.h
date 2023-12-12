@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWSATTAB_H
-#define MAINWINDOWSATTAB_H
+#ifndef KLOG_INPUTWIDGETS_MAINWINDOWSATTAB_H
+#define KLOG_INPUTWIDGETS_MAINWINDOWSATTAB_H
 /***************************************************************************
                           mainwindowsattab.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef EQSLUTILITIES_H
-#define EQSLUTILITIES_H
+#ifndef KLOG_EQSLUTILITIES_H
+#define KLOG_EQSLUTILITIES_H
 /***************************************************************************
                           eqslutilities.h  -  description
                              -------------------

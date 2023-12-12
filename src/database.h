@@ -1,5 +1,5 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef KLOG_DATABASE_H
+#define KLOG_DATABASE_H
 /***************************************************************************
                           database.h  -  description
                              -------------------

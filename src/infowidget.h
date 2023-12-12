@@ -1,5 +1,5 @@
-#ifndef INFOWIDGET_H
-#define INFOWIDGET_H
+#ifndef KLOG_INFOWIDGET_H
+#define KLOG_INFOWIDGET_H
 /***************************************************************************
                           infowidget.h  -  description
                              -------------------

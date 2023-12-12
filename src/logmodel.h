@@ -1,5 +1,5 @@
-#ifndef LOGMODEL_H
-#define LOGMODEL_H
+#ifndef KLOG_LOGMODEL_H
+#define KLOG_LOGMODEL_H
 /***************************************************************************
                           logmodel.h  -  description
                              -------------------

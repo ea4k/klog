@@ -1,5 +1,5 @@
-#ifndef SOFTWAREUPDATEDIALOG_H
-#define SOFTWAREUPDATEDIALOG_H
+#ifndef KLOG_SOFTWAREUPDATEDIALOG_H
+#define KLOG_SOFTWAREUPDATEDIALOG_H
 /***************************************************************************
                           softwareupdatedialog.h  -  description
                              -------------------

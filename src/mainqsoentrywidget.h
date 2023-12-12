@@ -1,5 +1,5 @@
-#ifndef MAINQSOENTRYWIDGET_H
-#define MAINQSOENTRYWIDGET_H
+#ifndef KLOG_MAINQSOENTRYWIDGET_H
+#define KLOG_MAINQSOENTRYWIDGET_H
 /***************************************************************************
                           mainqsoentrywidget.h  -  description
                              -------------------

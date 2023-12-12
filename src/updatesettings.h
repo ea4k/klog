@@ -1,5 +1,5 @@
-#ifndef UPDATESETTINGS_H
-#define UPDATESETTINGS_H
+#ifndef KLOG_UPDATESETTINGS_H
+#define KLOG_UPDATESETTINGS_H
 /***************************************************************************
                           updatesettings.h  -  description
                              -------------------

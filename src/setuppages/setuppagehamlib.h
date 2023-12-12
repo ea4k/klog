@@ -1,5 +1,5 @@
-#ifndef SETUPPAGEHAMLIB_H
-#define SETUPPAGEHAMLIB_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGEHAMLIB_H
+#define KLOG_SETUPPAGES_SETUPPAGEHAMLIB_H
 /***************************************************************************
                           setuppagehamlib.h  -  description
                              -------------------

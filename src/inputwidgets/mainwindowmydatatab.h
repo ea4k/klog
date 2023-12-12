@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWMYDATATAB_H
-#define MAINWINDOWMYDATATAB_H
+#ifndef KLOG_INPUTWIDGETS_MAINWINDOWMYDATATAB_H
+#define KLOG_INPUTWIDGETS_MAINWINDOWMYDATATAB_H
 
 /***************************************************************************
                           mainwindowmydatatab.h  -  description

@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWINPUTOTHERS_H
-#define MAINWINDOWINPUTOTHERS_H
+#ifndef KLOG_INPUTWIDGETS_MAINWINDOWINPUTOTHERS_H
+#define KLOG_INPUTWIDGETS_MAINWINDOWINPUTOTHERS_H
 /***************************************************************************
                           mainwindowminputothers.h  -  description
                              -------------------

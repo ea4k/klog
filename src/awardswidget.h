@@ -1,5 +1,5 @@
-#ifndef AWARDSWIDGET_H
-#define AWARDSWIDGET_H
+#ifndef KLOG_AWARDSWIDGET_H
+#define KLOG_AWARDSWIDGET_H
 /***************************************************************************
                           awardswidget.h  -  description
                              -------------------

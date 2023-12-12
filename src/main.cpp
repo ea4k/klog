@@ -34,12 +34,9 @@
 #include <QSystemSemaphore>
 #include <QSharedMemory>
 #include <QMessageBox>
-#include "klogdefinitions.h"
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
-
-
 
 int main(int argc, char *argv[])
 {
@@ -74,38 +71,19 @@ int main(int argc, char *argv[])
     arguments << app.arguments();
     if (arguments.length()>1)
     {
-        if (arguments.contains("-h"))
+        if (arguments.contains("-v"))
         {
-            //cout << "Usage: klog [OPTION]... [FILE]...";
-
-            cout << "Usage: klog [OPTION]...";
-            cout << "Options:";
-            cout << "     -?           Display this help";
-            cout << "     -h           Display this help";
-            cout << "     -v           Display program version";
-
-            //cout << "     -e <file>    Export Adif file <file>";
+            cout << "Version: KLog-" << app.applicationVersion() << "\n";
         }
-        else if (arguments.contains("-?"))
+        else if ((arguments.contains("-?")) || (arguments.contains("-h")) )
         {
-            cout << "Usage: klog [OPTION]...";
-            cout << "Options:";
-            cout << "     -?           Display this help";
-            cout << "     -h           Display this help";
-            cout << "     -v           Display program version";
-        }
-        else if (arguments.contains("-v"))
-        {
-            cout << "Version: KLog-" << app.applicationVersion();
-
+            util.printCommandHelp();
         }
         else
         {
-            cout << "Usage: klog [OPTION]...";
-            cout << "Options:";
-            cout << "     -?           Display this help";
-            cout << "     -h           Display this help";
-            cout << "     -v           Display program version";
+            util.printCommandHelp();
+            app.quit();
+            return 1;
         }
         app.quit();
         return 0;
@@ -223,7 +201,7 @@ int main(int argc, char *argv[])
     QSystemSemaphore semaphore("klogapp", 1);  // create semaphore with unique ID klogapp
     semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
 
-#ifndef Q_OS_WIN
+#ifndef KLOG_Q_OS_WIN
     // in linux / unix shared memory is not freed when the application terminates abnormally,
     // so you need to get rid of the garbage
     QSharedMemory nix_fix_shared_memory("klogshm");
@@ -351,5 +329,6 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " - END";
     return app.exec();
 }
+
 
 

@@ -1,5 +1,5 @@
-#ifndef STATSQSOSPERDXCCBARCHARTWIDGET_H
-#define STATSQSOSPERDXCCBARCHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSQSOSPERDXCCBARCHARTWIDGET_H
+#define KLOG_CHARTS_STATSQSOSPERDXCCBARCHARTWIDGET_H
 /***************************************************************************
                           statsqsosperdxccbarchatwidget.h  -  description
                              -------------------

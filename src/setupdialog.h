@@ -1,5 +1,5 @@
-#ifndef SETUPDIALOG_H
-#define SETUPDIALOG_H
+#ifndef KLOG_SETUPDIALOG_H
+#define KLOG_SETUPDIALOG_H
 /***************************************************************************
                           setupdialog.h  -  description
                              -------------------

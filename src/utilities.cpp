@@ -23,7 +23,6 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include "global.h"
 #include "utilities.h"
 
 //bool c;
@@ -2362,11 +2361,20 @@ bool Utilities::isValidSponsor(const QString &_s)
     return (sponsorsList.contains (_s.toUpper ()));
 }
 
- void Utilities::openQrzcom(const QString _call)
+void Utilities::openQrzcom(const QString _call)
  {
      QString url = "https://www.qrz.com/lookup/" + _call;
      QDesktopServices::openUrl(QUrl(url));
- }
+}
+
+void Utilities::printCommandHelp(){
+    cout << "Usage: klog [OPTION]...\n";
+    cout << "Options:\n";
+    cout << "     -?           Display this help\n";
+    cout << "     -h           Display this help\n";
+    cout << "     -v           Display program version\n";
+}
+
 QString Utilities::debugLevelToString(DebugLogLevel _l)
 {
     switch (_l) {

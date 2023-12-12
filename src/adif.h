@@ -1,5 +1,5 @@
-#ifndef ADIF_H
-#define ADIF_H
+#ifndef KLOG_ADIF_H
+#define KLOG_ADIF_H
 /***************************************************************************
                           adif.h  -  description
                              -------------------

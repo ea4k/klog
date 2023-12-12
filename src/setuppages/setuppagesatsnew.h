@@ -1,5 +1,5 @@
-#ifndef SETUPPAGESATSNEW_H
-#define SETUPPAGESATSNEW_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGESATSNEW_H
+#define KLOG_SETUPPAGES_SETUPPAGESATSNEW_H
 /***************************************************************************
                           setuppagesatsnew.h  -  description
                              -------------------

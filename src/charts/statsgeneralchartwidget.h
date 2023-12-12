@@ -1,5 +1,5 @@
-#ifndef STATSGENERALCHARTWIDGET_H
-#define STATSGENERALCHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSGENERALCHARTWIDGET_H
+#define KLOG_CHARTS_STATSGENERALCHARTWIDGET_H
 /***************************************************************************
                           statsgeneralchartwidget.h  -  description
                              -------------------

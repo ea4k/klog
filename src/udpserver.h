@@ -1,5 +1,5 @@
-#ifndef UDPSERVER_H
-#define UDPSERVER_H
+#ifndef KLOG_UDPSERVER_H
+#define KLOG_UDPSERVER_H
 /***************************************************************************
                           udpserver.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef ABOUTDIALOG_H
-#define ABOUTDIALOG_H
+#ifndef KLOG_ABOUTDIALOG_H
+#define KLOG_ABOUTDIALOG_H
 
 /***************************************************************************
                           aboutdialog.h  -  description

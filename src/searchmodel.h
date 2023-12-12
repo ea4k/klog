@@ -1,5 +1,5 @@
-#ifndef SEARCHMODEL_H
-#define SEARCHMODEL_H
+#ifndef KLOG_SEARCHMODEL_H
+#define KLOG_SEARCHMODEL_H
 /***************************************************************************
                           searchmodel.h  -  description
                              -------------------

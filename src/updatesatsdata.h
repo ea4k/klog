@@ -1,5 +1,5 @@
-#ifndef UPDATESATSDATA_H
-#define UPDATESATSDATA_H
+#ifndef KLOG_UPDATESATSDATA_H
+#define KLOG_UPDATESATSDATA_H
 /***************************************************************************
                           updatesatsdata.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef DATAPROXY_SQLITE_H
-#define DATAPROXY_SQLITE_H
+#ifndef KLOG_DATAPROXY_SQLITE_H
+#define KLOG_DATAPROXY_SQLITE_H
 
 /***************************************************************************
                           dataproxy_sqlite.h  -  description

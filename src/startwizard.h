@@ -1,5 +1,5 @@
-#ifndef STARTWIZARD_H
-#define STARTWIZARD_H
+#ifndef KLOG_STARTWIZARD_H
+#define KLOG_STARTWIZARD_H
 /***************************************************************************
                           startwizard.h  -  description
                              -------------------

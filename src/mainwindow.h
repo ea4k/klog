@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef KLOG_MAINWINDOW_H
+#define KLOG_MAINWINDOW_H
 /***************************************************************************
                           mainwindow.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef STATSQSOSPERCONTINENTBARCHARTWIDGET_H
-#define STATSQSOSPERCONTINENTBARCHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSQSOSPERCONTINENTBARCHARTWIDGET_H
+#define KLOG_CHARTS_STATSQSOSPERCONTINENTBARCHARTWIDGET_H
 /***************************************************************************
                           statsqsospercontinentbarchatwidget.h  -  description
                              -------------------

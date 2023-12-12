@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWINPUTCOMMENT_H
-#define MAINWINDOWINPUTCOMMENT_H
+#ifndef KLOG_INPUTWIDGETS_MAINWINDOWINPUTCOMMENT_H
+#define KLOG_INPUTWIDGETS_MAINWINDOWINPUTCOMMENT_H
 /***************************************************************************
                           mainwindowminputcomment.h  -  description
                              -------------------

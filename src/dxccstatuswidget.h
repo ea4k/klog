@@ -1,5 +1,5 @@
-#ifndef DXCCSTATUSWIDGET_H
-#define DXCCSTATUSWIDGET_H
+#ifndef KLOG_DXCCSTATUSWIDGET_H
+#define KLOG_DXCCSTATUSWIDGET_H
 /***************************************************************************
                           dxccstatuswidget.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef STATISTICSWIDGET_H
-#define STATISTICSWIDGET_H
+#ifndef KLOG_STATISTICSWIDGET_H
+#define KLOG_STATISTICSWIDGET_H
 /***************************************************************************
                           statisticswidget.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef DXCLUSTER_H
-#define DXCLUSTER_H
+#ifndef KLOG_DXCLUSTER_H
+#define KLOG_DXCLUSTER_H
 /***************************************************************************
     dxcluster.h  -  description
        -------------------

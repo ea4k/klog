@@ -1,5 +1,5 @@
-#ifndef SETUPPAGESUBDIVISION_H
-#define SETUPPAGESUBDIVISION_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGESUBDIVISION_H
+#define KLOG_SETUPPAGES_SETUPPAGESUBDIVISION_H
 /***************************************************************************
                           setuppagesubdivision.h  -  description
                              -------------------

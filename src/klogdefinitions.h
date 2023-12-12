@@ -1,5 +1,5 @@
-#ifndef KLOGDEFINITIONS_H
-#define KLOGDEFINITIONS_H
+#ifndef KLOG_KLOGDEFINITIONS_H
+#define KLOG_KLOGDEFINITIONS_H
 /***************************************************************************
                           klogdefinitions.h  -  description
                              -------------------

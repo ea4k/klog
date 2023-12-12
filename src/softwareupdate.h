@@ -1,5 +1,5 @@
-#ifndef SOFTWAREUPDATE_H
-#define SOFTWAREUPDATE_H
+#ifndef KLOG_SOFTWAREUPDATE_H
+#define KLOG_SOFTWAREUPDATE_H
 /***************************************************************************
                           softwareupdate.h  -  description
                              -------------------

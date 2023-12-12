@@ -1,5 +1,5 @@
-#ifndef STATSDXCCSONSATSWIDGET_H
-#define STATSDXCCSONSATSWIDGET_H
+#ifndef CHARTS_KLOG_STATSDXCCSONSATSWIDGET_H
+#define CHARTS_KLOG_STATSDXCCSONSATSWIDGET_H
 /***************************************************************************
                           statsdxccsonsatswidget.h  -  description
                              -------------------

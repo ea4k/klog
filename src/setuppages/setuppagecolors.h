@@ -1,5 +1,5 @@
-#ifndef SETUPPAGECOLORS_H
-#define SETUPPAGECOLORS_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGECOLORS_H
+#define KLOG_SETUPPAGES_SETUPPAGECOLORS_H
 /***************************************************************************
                           setuppagecolors.h  -  description
                              -------------------

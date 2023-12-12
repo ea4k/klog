@@ -1,5 +1,5 @@
-#ifndef SEARCHWIDGET_H
-#define SEARCHWIDGET_H
+#ifndef KLOG_SEARCHWIDGET_H
+#define KLOG_SEARCHWIDGET_H
 /***************************************************************************
                           searchwidget.h  -  description
                              -------------------

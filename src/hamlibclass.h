@@ -1,5 +1,5 @@
-#ifndef HAMLIBCLASS_H
-#define HAMLIBCLASS_H
+#ifndef KLOG_HAMLIBCLASS_H
+#define KLOG_HAMLIBCLASS_H
 
 /***************************************************************************
                           hamlibclass.h  -  description

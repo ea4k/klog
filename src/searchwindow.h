@@ -1,5 +1,5 @@
-#ifndef SEARCHWINDOW_H
-#define SEARCHWINDOW_H
+#ifndef KLOG_SEARCHWINDOW_H
+#define KLOG_SEARCHWINDOW_H
 
 /***************************************************************************
                           searchwindow.h  -  description

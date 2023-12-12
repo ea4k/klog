@@ -1,5 +1,5 @@
-#ifndef LOGWINDOW_H
-#define LOGWINDOW_H
+#ifndef KLOG_LOGWINDOW_H
+#define KLOG_LOGWINDOW_H
 
 /***************************************************************************
                           logwindow.h  -  description

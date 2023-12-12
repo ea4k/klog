@@ -1,5 +1,5 @@
-#ifndef SETUPPAGESATS_H
-#define SETUPPAGESATS_H
+#ifndef KLOG_SETUPPAGES_SETUPPAGESATS_H
+#define KLOG_SETUPPAGES_SETUPPAGESATS_H
 /***************************************************************************
                           setuppagesats.h  -  description
                              -------------------

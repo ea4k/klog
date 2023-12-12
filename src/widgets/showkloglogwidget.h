@@ -1,5 +1,5 @@
-#ifndef SHOWKLOGLOGWIDGET_H
-#define SHOWKLOGLOGWIDGET_H
+#ifndef KLOG_WIDGETS_SHOWKLOGLOGWIDGET_H
+#define KLOG_WIDGETS_SHOWKLOGLOGWIDGET_H
 /***************************************************************************
                           showkloglogwidget.h  -  description
                              -------------------

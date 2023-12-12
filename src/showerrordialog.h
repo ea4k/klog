@@ -1,5 +1,5 @@
-#ifndef SHOWERRORDIALOG_H
-#define SHOWERRORDIALOG_H
+#ifndef KLOG_SHOWERRORDIALOG_H
+#define KLOG_SHOWERRORDIALOG_H
 
 /***************************************************************************
                           showerrordialog.h  -  description

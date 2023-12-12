@@ -1,5 +1,5 @@
-#ifndef STATSENTITIESPERYEARBARCHARTWIDGET_H
-#define STATSENTITIESPERYEARBARCHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSENTITIESPERYEARBARCHARTWIDGET_H
+#define KLOG_CHARTS_STATSENTITIESPERYEARBARCHARTWIDGET_H
 /***************************************************************************
                           statsentitiesperyearbarchatwidget.h  -  description
                              -------------------

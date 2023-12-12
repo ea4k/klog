@@ -24,8 +24,8 @@
  *                                                                           *
  *****************************************************************************/
 
-#ifndef LOCATOR_H
-#define LOCATOR_H
+#ifndef KLOG_LOCATOR_H
+#define KLOG_LOCATOR_H
 #include <math.h>
 #include <QString>
 #include <QRegularExpression>

@@ -1,5 +1,5 @@
-#ifndef SHOWADIFIMPORTPORTWIDGET_H
-#define SHOWADIFIMPORTPORTWIDGET_H
+#ifndef KLOG_WIDGETS_SHOWADIFIMPORTPORTWIDGET_H
+#define KLOG_WIDGETS_SHOWADIFIMPORTPORTWIDGET_H
 /***************************************************************************
                           showadifimportwidget.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef ADIFLOTWEXPORTWIDGET_H
-#define ADIFLOTWEXPORTWIDGET_H
+#ifndef KLOG_WIDGETS_ADIFLOTWEXPORTWIDGET_H
+#define KLOG_WIDGETS_ADIFLOTWEXPORTWIDGET_H
 /***************************************************************************
                           adiflotwexportwidget.h  -  description
                              -------------------

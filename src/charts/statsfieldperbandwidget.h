@@ -1,5 +1,5 @@
-#ifndef STATSFIELDPERBANDWIDGET_H
-#define STATSFIELDPERBANDWIDGET_H
+#ifndef KLOG_CHARTS_STATSFIELDPERBANDWIDGET_H
+#define KLOG_CHARTS_STATSFIELDPERBANDWIDGET_H
 /***************************************************************************
                           statsfieldperbandwidget.h  -  description
                              -------------------

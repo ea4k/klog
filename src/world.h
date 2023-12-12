@@ -1,5 +1,5 @@
-#ifndef WORLD_H
-#define WORLD_H
+#ifndef KLOG_WORLD_H
+#define KLOG_WORLD_H
 /***************************************************************************
                           world.h  -  description
                              -------------------

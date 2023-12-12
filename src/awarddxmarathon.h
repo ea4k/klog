@@ -1,5 +1,5 @@
-#ifndef AWARDDXMARATHON_H
-#define AWARDDXMARATHON_H
+#ifndef KLOG_AWARDDXMARATHON_H
+#define KLOG_AWARDDXMARATHON_H
 /***************************************************************************
                           awarddxmarathon.h  -  description
                              -------------------

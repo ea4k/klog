@@ -1,5 +1,5 @@
-#ifndef STATSWORKEDSENTPIECHARTWIDGET_H
-#define STATSWORKEDSENTPIECHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSWORKEDSENTPIECHARTWIDGET_H
+#define KLOG_CHARTS_STATSWORKEDSENTPIECHARTWIDGET_H
 /***************************************************************************
                           statsworkedsentpiechatwidget.h  -  description
                              -------------------

@@ -1,5 +1,5 @@
-#ifndef STATSQSOSPERHOURBARCHARTWIDGET_H
-#define STATSQSOSPERHOURBARCHARTWIDGET_H
+#ifndef KLOG_CHARTS_STATSQSOSPERHOURBARCHARTWIDGET_H
+#define KLOG_CHARTS_STATSQSOSPERHOURBARCHARTWIDGET_H
 /***************************************************************************
                           statsqsosperhourbarchatwidget.h  -  description
                              -------------------
