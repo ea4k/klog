@@ -3175,12 +3175,6 @@ Přejete si smazat tento soubor?</translation>
         <translation>Všechna zafrontovaná QSO byla označena jako odeslaná do LoTW!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4065"/>
-        <location filename="../mainwindow.cpp" line="4215"/>
-        <source>The selection you have done does not include any qso-&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4496"/>
         <source>To upload QSOs you need a qrz.com subscription. If you have one, go to Setup-&gt;QRZ.com tab to enable it.</source>
         <translation type="unfinished"></translation>
@@ -3284,6 +3278,11 @@ Serveru UDP se nepovedlo %1.</translation>
         <location filename="../mainwindow.cpp" line="3322"/>
         <source>stop</source>
         <translation>zastavit</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4215"/>
+        <source>The selection you have done does not include any QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7026"/>
@@ -3475,6 +3474,11 @@ Přejete si ho smazat?</translation>
         <location filename="../mainwindow.cpp" line="4049"/>
         <source>You need to select one station callsign to be able to send your log to ClubLog.</source>
         <translation>Je potřeba vybrat jednu značku stanice, abyste mohli odeslat log do ClubLog.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4065"/>
+        <source>The selection you have done does not include any QSO</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4074"/>

@@ -2390,6 +2390,16 @@ Error returned: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="4065"/>
+        <source>The selection you have done does not include any QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4215"/>
+        <source>The selection you have done does not include any QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="4285"/>
         <location filename="../mainwindow.cpp" line="4328"/>
         <source>KLog - Select the Station Callsign.</source>
@@ -3562,12 +3572,6 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="4302"/>
         <location filename="../mainwindow.cpp" line="4345"/>
         <source>KLog - LoTW</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="4065"/>
-        <location filename="../mainwindow.cpp" line="4215"/>
-        <source>The selection you have done does not include any qso-&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

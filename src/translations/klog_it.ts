@@ -2679,12 +2679,6 @@ KLog ti ricoderà la necessità di fare il backup almeno 1 volta al mese.
         <translation>stop</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4065"/>
-        <location filename="../mainwindow.cpp" line="4215"/>
-        <source>The selection you have done does not include any qso-&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="6370"/>
         <source>KLog - QSO Dupe</source>
         <translation type="unfinished"></translation>
@@ -3638,6 +3632,16 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <translation>TQSL terminato senza errori.
 
 Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4065"/>
+        <source>The selection you have done does not include any QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4215"/>
+        <source>The selection you have done does not include any QSO.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4366"/>

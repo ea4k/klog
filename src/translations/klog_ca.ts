@@ -2638,12 +2638,6 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
         <translation>aturar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4065"/>
-        <location filename="../mainwindow.cpp" line="4215"/>
-        <source>The selection you have done does not include any qso-&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="7026"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
         <translation>Si esteu segur que la base de dades conté QSO i el KLog no és capaç de trobar-los, contacteu amb els desenvolupadors (vegeu Quant al KLog) per sol·licitar ajuda.</translation>
@@ -3666,8 +3660,14 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
 Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="4065"/>
+        <source>The selection you have done does not include any QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4215"/>
         <source>The selection you have done does not include any QSO.</source>
-        <translation type="vanished">La selecció que heu fet no inclou cap QSO.</translation>
+        <translation>La selecció que heu fet no inclou cap QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4436"/>

@@ -2812,6 +2812,16 @@ KLogは毎月バックアップを取るように促してくれます。
         <translation>ストップ</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="4065"/>
+        <source>The selection you have done does not include any QSO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4215"/>
+        <source>The selection you have done does not include any QSO.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="7026"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
         <translation>データベースにQSOが含まれているのは確かなのに、KLogがそれを見つけられない場合は、開発者（「KLogについて」参照）に問い合わせてください。</translation>
@@ -3677,12 +3687,6 @@ KLogにそのファイルを削除させますか？</translation>
         <location filename="../mainwindow.cpp" line="4345"/>
         <source>KLog - LoTW</source>
         <translation>KLog - LoTW</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="4065"/>
-        <location filename="../mainwindow.cpp" line="4215"/>
-        <source>The selection you have done does not include any qso-&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4533"/>

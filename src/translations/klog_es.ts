@@ -1657,7 +1657,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../startwizard.cpp" line="157"/>
         <source>KLog is a free hamradio logging program that can run on GNU/Linux, macOS, and Windows. </source>
-        <translation type="unfinished"></translation>
+        <translation>KLog es un programa libre de log de radioaficionados que puede correr en Linux, macOS y Windows.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="158"/>
@@ -3180,27 +3180,27 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="109"/>
         <source>Always check the current callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar siempre el indicativo actual en QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="221"/>
         <source>Upload queued QSOs to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar QSOs en cola a LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="482"/>
         <source>Do you want to update now?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Quiere actualizar ahora?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="753"/>
         <source>You seem to have never backed up or exported your log to ADIF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Parece que no ha hecho nunca una copia de seguridad o exportado su log a ADIF.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="759"/>
         <source>Your latest backup seems older than one month.</source>
-        <translation type="unfinished"></translation>
+        <translation>Parece que la última copia de seguridad que hizo fue hace más de un mes.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="773"/>
@@ -3210,32 +3210,37 @@ Once exported, copy your ADIF file to a safe place such as a USB drive, cloud dr
 KLog will remind you to backup on a monthly basis.
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Hacer copias de seguridad de todo el log de forma regular es una buena práctica para evitar la pérdida de datos en caso de problemas.
+Una vez se haya exportado el log aun fichero ADIF, ese fichero debería guardarse en un lugar seguro como un disco USB, carpeta en cloud, otro ordenador, ...
+
+KLog recordará hacer una copia de seguridad una vez al mes.
+
+</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="791"/>
         <source>Backup completed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>La copia de seguridad se terminó correctamente.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="792"/>
         <source>KLog will remind you again in approximately one month.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog no le recordará de nuevo, en un mes, que debe realizar la copia de seguridad.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="797"/>
         <source>Backup failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falló la copia de seguridad.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="798"/>
         <source>Periodic data backups are recommended to prevent data loss and corruption of your log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporte periódicamente los datos a ADIF para prevenir una potencial pérdida de datos.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="828"/>
         <source>The setup will now open to allow you to change your settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se abrirá la el menú de configuración para que pueda hacer cualquier nueva configuración que pueda necesitar.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3296"/>
@@ -3256,10 +3261,8 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
 ¿Quiere marcar como enviados todos los QSOs enviados a LoTW?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4065"/>
-        <location filename="../mainwindow.cpp" line="4215"/>
         <source>The selection you have done does not include any qso-&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">La selección no incluye ningún QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4286"/>
@@ -3402,17 +3405,17 @@ Abra la pestaña de LoTW en las Preferencias y configure su conexión a LoTW.</t
     <message>
         <location filename="../mainwindow.cpp" line="6370"/>
         <source>KLog - QSO Dupe</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSO duplicado</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6371"/>
         <source>A dupe QSO has been detected in the file and will not be added to the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha detectado un QSO duplicado y no se añadirá al log.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6372"/>
         <source>Please check the QSO information file and ensure it is properly added.</source>
-        <translation type="unfinished"></translation>
+        <translation>Revise el fichero de información de QSO y asegúrese de que se ha añadido correctamente.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6391"/>
@@ -3701,8 +3704,14 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
         <translation>¡Hubo un problema al marcar todos los QSO en cola como enviados a LoTW!</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="4065"/>
+        <source>The selection you have done does not include any QSO</source>
+        <translation>La selección no incluye ningún QSO.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="4215"/>
         <source>The selection you have done does not include any QSO.</source>
-        <translation type="vanished">La selección no incluye ningún QSO.</translation>
+        <translation>La selección no incluye ningún QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4366"/>

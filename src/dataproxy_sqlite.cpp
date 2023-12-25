@@ -9972,7 +9972,7 @@ int DataProxy_SQLite::addQSOQuery(const QSqlQuery &_q)
 }
 
 int DataProxy_SQLite::addQSO(QSO &_qso)
-{//EA4K: Check if I can simply remove this function
+{//TODO: Check if I can simply remove this function
     //qDebug() << "DataProxy_SQLite::addQSO: " << _qso.getCall();
     qso = &_qso;
    //qDebug() << "DataProxy_SQLite::addQSO: " << qso->getCall();

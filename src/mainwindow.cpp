@@ -4062,7 +4062,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
        //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
       msgBox.setWindowTitle(tr("KLog - ClubLog"));
       msgBox.setIcon(QMessageBox::Warning);
-      msgBox.setText(tr("The selection you have done does not include any qso->"));
+      msgBox.setText(tr("The selection you have done does not include any QSO"));
       msgBox.setStandardButtons(QMessageBox::Ok );
       msgBox.setDefaultButton(QMessageBox::Ok);
       msgBox.exec();
@@ -4212,7 +4212,7 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - ClubLog"));
         msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText(tr("The selection you have done does not include any qso->"));
+        msgBox.setText(tr("The selection you have done does not include any QSO."));
         msgBox.setStandardButtons(QMessageBox::Ok );
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
