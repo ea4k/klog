@@ -355,7 +355,7 @@ private:
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
-    QSO *qso;
+    QSO *qso, *backupQSO;
 
     bool hamlibActive;
     bool hamlibChangingMode;
