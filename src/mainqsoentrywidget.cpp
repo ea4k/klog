@@ -600,7 +600,7 @@ QStringList MainQSOEntryWidget::getModes()
 
 bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     if (isRX)
@@ -622,18 +622,18 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
 
     if (newBandNeededForFreq (_f))
     {
-        //qDebug() << Q_FUNC_INFO << ": New band needed";
+        qDebug() << Q_FUNC_INFO << ": New band needed";
         if ((bottomBandLimit<=freqTX) && (freqTX<= upperBandLimit))
         {
             logEvent (Q_FUNC_INFO, "END-3", Debug);
             return true;
         }
-        //qDebug() << Q_FUNC_INFO << ": Freq is not in the current band";
+        qDebug() << Q_FUNC_INFO << ": Freq is not in the current band";
         QString _newBand = dataProxy->getBandNameFromFreq(_f);
-        //qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand ;
+        qDebug() << Q_FUNC_INFO << ": before setting band: " << _newBand ;
         if (isRX)
         {
-            //qDebug() << Q_FUNC_INFO << ": RX Freq no more actions " ;
+            qDebug() << Q_FUNC_INFO << ": RX Freq no more actions " ;
             logEvent (Q_FUNC_INFO, "END-4", Debug);
             return true;
         }
@@ -642,7 +642,7 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": NO New band needed - BORRAR";
+        qDebug() << Q_FUNC_INFO << ": NO New band needed - REMOVE THIS else";
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
     return false;
@@ -650,16 +650,16 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
 
 bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     logEvent (Q_FUNC_INFO, "Start: " + QString::number(_f), Debug);
     QString _newBand = dataProxy->getBandNameFromFreq(_f);
     if (!updateBandComboBox (_newBand))
     {
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-        //qDebug() << Q_FUNC_INFO << " - END false";
+        qDebug() << Q_FUNC_INFO << " - END false";
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << " - END true ";
+    qDebug() << Q_FUNC_INFO << " - END true ";
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }

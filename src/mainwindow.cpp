@@ -1047,6 +1047,7 @@ void MainWindow::slotQRZReturnPressed()
 
     if (!readQSOFromUI ())
     {return;}
+    qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
     bool addedOK = qso->toDB (modifyingQSO);
 
     if (addedOK)
@@ -5912,24 +5913,25 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
 void MainWindow::slotFreqRXChanged(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
     if (!upAndRunning)
     {
-         //qDebug() << Q_FUNC_INFO << " - not running" ;
+        qDebug() << Q_FUNC_INFO << " - not running" ;
         return;
     }
     int bandId = dataProxy->getBandIdFromFreq(_fr);
     if (bandId < 1)
     {
-         //qDebug() << Q_FUNC_INFO << " - wrong band" ;
+        qDebug() << Q_FUNC_INFO << " - wrong band" ;
         return;
     }
 
-    //mainQSOEntryWidget->setFreq (_fr, true);
+    mainQSOEntryWidget->setFreq (_fr, true);
+
     QSOTabWidget->setRXFreq (_fr);
     satTabWidget->setDownLinkFreq(_fr);
-
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    //qDebug() << "MainWindow::slotFreqRXChanged - END"  ;
+    qDebug() << Q_FUNC_INFO << " - END";
+    logEvent(Q_FUNC_INFO, "END", Debug);    
 }
 
 void MainWindow::slotFreqTXChangedFromSat(const double _fr)
@@ -5937,30 +5939,34 @@ void MainWindow::slotFreqTXChangedFromSat(const double _fr)
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!upAndRunning)
     {
-         //qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" ;
+        qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
     if (dataProxy->isThisFreqInBand (mainQSOEntryWidget->getBand (), QString::number(_fr)))
     {
+        qDebug() << Q_FUNC_INFO << " - END-2";
         return;
     }
     slotFreqTXChanged (_fr);
-
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotFreqTXChanged(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
     if (!upAndRunning)
     {
-         //qDebug() << "MainWindow::slotFreqTXChanged !upAndRunning" ;
+        qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
 
+    qDebug() << Q_FUNC_INFO << " - 10";
     QSOTabWidget->setTXFreq (_fr);
+    qDebug() << Q_FUNC_INFO << " - 11";
     mainQSOEntryWidget->setFreq (_fr);
+    qDebug() << Q_FUNC_INFO << " - calling setUpLinkFreq";
     satTabWidget->setUpLinkFreq(_fr);
     if (hamlibActive && !manualMode)
     {
@@ -5988,7 +5994,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
 
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-     //qDebug() << "MainWindow::slotFreqTXChanged - END"  ;
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)

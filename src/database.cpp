@@ -1416,28 +1416,26 @@ int DataBase::getBandIdFromFreq(const QString &fr)
 
 bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
 {//Freq should be in MHz
-    //qDebug() << "DataBase::isThisFreqInBand: " << b << "/" << fr ;
+    qDebug() << Q_FUNC_INFO << ": " << b << "/" << fr ;
     if (b.length()<2)
     {
-        //qDebug() << "DataBase::isThisFreqInBand returning false" ;
+        qDebug() << Q_FUNC_INFO << ": returning false" ;
         return false;
     }
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIDFromName2(b);
-       //qDebug() << "DataBase::isThisFreqInBand: (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) ;
+    qDebug() << Q_FUNC_INFO << ":  (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) ;
     if (bandNf == bandN)
     {
-           //qDebug() << "DataBase::isThisFreqInBand: OK " << b << "/" << fr ;
+        qDebug() << Q_FUNC_INFO << ": OK " << b << "/" << fr ;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::isThisFreqInBand: NOK " << b << "/" << fr ;
+        qDebug() << Q_FUNC_INFO << ": NOK " << b << "/" << fr ;
        //emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
-        //qDebug() << "DataBase::isThisFreqInBand: END" ;
-    //return false;
 }
 
 
