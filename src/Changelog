@@ -5,6 +5,7 @@ Finish add, think/create/review QSO::modify, update: QString MainWindow::readDat
 
 Dec 2023 - 2.3.3
 WIP: Bugfix: Sat QSO edit was not showing the worked SAT (Closes #645)
+- Bugfix: In Sat QSO, still not selected band may make the QSO unusable. (Closes #651)
 - Bugfix: All Gridsquares are now listed when Export to ADIF is used. (Closes #514)
 - Bugfix: Selecting a sat with a new band made the bandcombobox unusable. #613
 - Bugfix: F1 (online manual link fixed (Closes #627) (TNX ikbenkous)

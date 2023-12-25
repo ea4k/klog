@@ -2937,7 +2937,7 @@ int QSO::getModeIdFromModeName()
 {
     // submode is not used, keep it empty.
     // mode field is populated with the submode
-    qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     QSqlQuery query;
     //
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
@@ -2956,12 +2956,12 @@ int QSO::getModeIdFromModeName()
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << " - Query NOT Valid";
+               //qDebug() << Q_FUNC_INFO << " - Query NOT Valid";
             }
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << " - Query NOT Next";
+           //qDebug() << Q_FUNC_INFO << " - Query NOT Next";
         }
     }
     else
