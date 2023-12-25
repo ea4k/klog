@@ -1,7 +1,4 @@
-TBD - 2.4
-WIP: - Bugfix: Started to reduce the possibility of SQLi with the use of prepared statements.
-bool QSO::add()
-Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
+Dec 2023 - 2.3.3
 - Bugfix: All Gridsquares are now listed when Export to ADIF is used. (Closes #514)
 - Bugfix: Selecting a sat with a new band made the bandcombobox unusable. #613
 - Bugfix: F1 (online manual link fixed (Closes #627) (TNX ikbenkous)
@@ -10,10 +7,10 @@ Finish add, think/create/review QSO::modify, update: QString MainWindow::readDat
 - Enhancement: Improved the Frequency entry. (Closes #622) (TNX ikbenkous)
 - Enhancement: Use a good discriminator in header guards (Closes #624) (TNX ikbenkous)
 
-Jun - 2.3.2
+Jun 2023 - 2.3.2
 - Bugfix: KLog was not starting when started in clean installations.(Closes #599)(TNX cwross)
 
-Jun - 2.3.1
+Jun 2023 - 2.3.1
 - Bugfix: When exporting a log, selecting the stationcallsign has no efect on the qsos shown
 - Bugfix: When no validating callsigns, some ADIF fields were exported even if they were empty.
 - Bugfix: In some conditions, not identified propagation modes were exported as "NO". (Closes #518)
