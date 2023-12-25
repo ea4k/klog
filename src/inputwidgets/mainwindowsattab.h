@@ -68,10 +68,10 @@ public:
     //void setLocator(const QString &_t);
     void refreshData();
     void setModifying (const bool _m);
+    void setFillingToEdit(const bool _m);
     void setKeep(const bool _b);
     bool getKeep();
     void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
-
 
 
 signals:
@@ -124,6 +124,7 @@ private:
     QStringList satellitesList;
 
     bool updatingBands, updatingSat;
+    bool qsoToEditInProcess;             // True just when MainWindow::qsoToEdit is being executed
     QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
 
     //QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;

@@ -6,6 +6,7 @@ Finish add, think/create/review QSO::modify, update: QString MainWindow::readDat
 - Bugfix: Selecting a sat with a new band made the bandcombobox unusable. #613
 - Bugfix: F1 (online manual link fixed (Closes #627) (TNX ikbenkous)
 - Bugfix: 'Usage' does not properly handle arguments, print newlines or return status codes (Closes #625) (TNX ikbenkous)
+- Bugfix: Sat QSO edit was not showing the worked SAT (Closes #645)
 - Enhancement: Improved the Frequency entry. (Closes #622) (TNX ikbenkous)
 - Enhancement: Use a good discriminator in header guards (Closes #624) (TNX ikbenkous)
 

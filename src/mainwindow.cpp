@@ -2180,7 +2180,7 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
 
 void MainWindow::clearUIDX(bool _full)
 {
-     //qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     mainQSOEntryWidget->clear();
@@ -2210,7 +2210,7 @@ void MainWindow::clearUIDX(bool _full)
         QSOTabWidget->setRXFreq(QSOTabWidget->getTXFreq());
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
-     //qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 
@@ -4565,14 +4565,13 @@ void MainWindow::slotADIFImport(){
 
 void MainWindow::qsoToEdit (const int _qso)
 {
-     //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
+    //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!modify)
     {
         backupCurrentQSO ();
     }
 
-     //qDebug() << Q_FUNC_INFO;
     clearUIDX(true);
     readingTheUI = true;
     int nameCol;
@@ -4580,11 +4579,12 @@ void MainWindow::qsoToEdit (const int _qso)
     double testValueDouble; // Variable just to test if the value is in the appropriate range
 
     setModifying(true);
+
     modifyingQSO = _qso;
 
     //TODO: Optimize the following query. Maybe the * is not needed.
     QString stringQuery = QString("SELECT * FROM log WHERE id ='%1' AND lognumber='%2'").arg(_qso).arg(currentLog);
-         //qDebug() << "MainWindow::qsoToEdit: " << stringQuery ;
+    //qDebug() << Q_FUNC_INFO << " - " << stringQuery ;
 
     QSqlQuery query(stringQuery);
     bool sqlOK = query.exec();
@@ -4610,9 +4610,12 @@ void MainWindow::qsoToEdit (const int _qso)
 
         // ** Start of SAT data
         // ** BAND / MODE / Locator shoule be executed after SAT or may be removed
-
+        //qDebug() << Q_FUNC_INFO << " - SATELLITE - Start" ;
+        //qDebug() << Q_FUNC_INFO << " - SATELLITE - satName" ;
+        satTabWidget->setFillingToEdit(true);
         nameCol = rec.indexOf("sat_name");
         aux1 = (query.value (nameCol)).toString();
+        //qDebug() << Q_FUNC_INFO << " - SatName: " << aux1;
         if (aux1.length()>0)
         {
             satTabWidget->setSatName(aux1);
@@ -4622,6 +4625,7 @@ void MainWindow::qsoToEdit (const int _qso)
             satTabWidget->clear();
         }
 
+        //qDebug() << Q_FUNC_INFO << " - Start SATELLITE - satMode" ;
         nameCol = rec.indexOf("sat_mode");
         aux1 = (query.value (nameCol)).toString();
         if (aux1.length()>1)
@@ -4633,6 +4637,7 @@ void MainWindow::qsoToEdit (const int _qso)
             satTabWidget->setSatMode("-CLEAR-");
         }
 
+        //qDebug() << Q_FUNC_INFO << " - SATELLITE - end" ;
         // END of SAT data
 
 
@@ -4644,15 +4649,16 @@ void MainWindow::qsoToEdit (const int _qso)
     QString currentQrz = aux1;
     currentEntity = world->getQRZARRLId(currentQrz);
 
-     //qDebug() << "MainWindow::qsoToEdit - currentEntity " << QString::number(currentEntity) ;
+    //qDebug() << Q_FUNC_INFO << " - currentEntity " << QString::number(currentEntity) ;
 
     nameCol = rec.indexOf("qso_date");
     aux1 = (query.value (nameCol)).toString();
-       //qDebug() << "MainWindow::qsoToEdit - date: " << aux1 ;
+       //qDebug() << Q_FUNC_INFO << " - date: " << aux1 ;
     mainQSOEntryWidget->setDateTime(util->getDateTimeFromSQLiteString(aux1));
     //mainQSOEntryWidget->setDate(QDate::fromString(aux1, "yyyy/MM/dd"));
     dateTimeTemp->setDate(util->getDateFromSQliteString(aux1));
 
+    //qDebug() << Q_FUNC_INFO << " - bandid" ;
     nameCol = rec.indexOf("bandid");
     aux1 = (query.value (nameCol)).toString();
     stringQuery = QString("SELECT name FROM band WHERE id ='%1'").arg(aux1);
@@ -4668,27 +4674,28 @@ void MainWindow::qsoToEdit (const int _qso)
     if (queryAux.isValid())
     {
         aux1 = (queryAux.value (0)).toString();
-          //qDebug() << "MainWindow::qsoToEdit - bandid-1 " << aux1 ;
-          //qDebug() << "MainWindow::qsoToEdit: - Changing from: " << mainQSOEntryWidget->getBand() ;
+        //qDebug() << Q_FUNC_INFO << " - bandid-1 " << aux1 ;
+        //qDebug() << Q_FUNC_INFO << " - Changing from: " << mainQSOEntryWidget->getBand() ;
         mainQSOEntryWidget->setBand(aux1);
         //bandComboBox->setCurrentIndex(bandComboBox->findText(aux1, Qt::MatchCaseSensitive));
-          //qDebug() << "MainWindow::qsoToEdit: - Changing to: " << mainQSOEntryWidget->getBand() ;
+        //qDebug() << Q_FUNC_INFO << " - Changing to: " << mainQSOEntryWidget->getBand() ;
     }
     else
     {
-          //qDebug() << "MainWindow::qsoToEdit - bandid-NO "  ;
+        //qDebug() << Q_FUNC_INFO << " - bandid-NO "  ;
         mainQSOEntryWidget->setBand(dataProxy->getNameFromBandId(defaultBand));
         //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
         //bandComboBox->setCurrentIndex(defaultBand);
     }
 
-       //qDebug() << "MainWindow::qsoToEdit: Check mode " <<  QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << " - modeid" ;
     nameCol = rec.indexOf("modeid");
     aux1 = (query.value (nameCol)).toString();
-       //qDebug() << "MainWindow::qsoToEdit: (aux1)-1: " << aux1 ;
-
+       //qDebug() << Q_FUNC_INFO << " - (aux1)-1: " << aux1 ;
 
     aux1 = dataProxy->getNameFromSubModeId(aux1.toInt());
+
+    //qDebug() << Q_FUNC_INFO << " - RST" ;
     QSOTabWidget->setRSTToMode(aux1, readingTheUI);
 
     if (mainQSOEntryWidget->isModeExisting(aux1))
@@ -4703,18 +4710,18 @@ void MainWindow::qsoToEdit (const int _qso)
     stringQuery = QString("SELECT submode FROM mode WHERE id ='%1'").arg(aux1);
     sqlOK = queryAux.exec(stringQuery);
 
-      //qDebug() << "MainWindow::qsoToEdit: After ALL Mode actions" ;
+    //qDebug() << Q_FUNC_INFO << " - After ALL Mode actions" ;
 
     nameCol = rec.indexOf("rst_sent");
     aux1 = (query.value (nameCol)).toString();
     QSOTabWidget->setRSTTX (aux1);
-       //qDebug() << "MainWindow::qsoToEdit: - RST_SENT: " << aux1  ;
+    //qDebug() << Q_FUNC_INFO << " - RST_SENT: " << aux1  ;
 
     nameCol = rec.indexOf("rst_rcvd");
     aux1 = (query.value (nameCol)).toString();
     QSOTabWidget->setRSTRX (aux1);
 
-         //qDebug() << "MainWindow::qsoToEdit: - before switch"  ;
+    //qDebug() << Q_FUNC_INFO << " - before switch"  ;
 
         nameCol = rec.indexOf("qsl_via");
         aux1 = (query.value (nameCol)).toString();
@@ -4741,7 +4748,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("name");
         aux1 = (query.value (nameCol)).toString();
-             //qDebug() << "MainWindow::qsoToEdit: - NAME: " << aux1  ;
+        //qDebug() << Q_FUNC_INFO << " - NAME: " << aux1  ;
 
         if (aux1.length()>0)
         {
@@ -4758,17 +4765,17 @@ void MainWindow::qsoToEdit (const int _qso)
 
         nameCol = rec.indexOf("gridsquare");
         aux1 = (query.value (nameCol)).toString();
-         //qDebug() << "MainWindow::qsoToEdit: - GRIDSQUARE: " << aux1  ;
+        //qDebug() << Q_FUNC_INFO << " - GRIDSQUARE: " << aux1  ;
         QSOTabWidget->setDXLocator(aux1);
 
         nameCol = rec.indexOf("operator");
         aux1 = (query.value (nameCol)).toString();
-   //qDebug() << "MainWindow::qsoToEdit: - OPERATOR: " << aux1  ;
+        //qDebug() << Q_FUNC_INFO << " - OPERATOR: " << aux1  ;
         myDataTabWidget->setOperator(aux1);
 
         nameCol = rec.indexOf("station_callsign");
         aux1 = (query.value (nameCol)).toString();
-   //qDebug() << "MainWindow::qsoToEdit: - STATIONQRZ: " << aux1  ;
+        //qDebug() << Q_FUNC_INFO << " - STATIONQRZ: " << aux1  ;
         myDataTabWidget->setStationCallsign(aux1);
 
         nameCol = rec.indexOf("my_gridsquare");
@@ -4814,17 +4821,18 @@ void MainWindow::qsoToEdit (const int _qso)
         {
             QSOTabWidget->setRXPwr(0.0);
         }
-
+        //qDebug() << Q_FUNC_INFO << " - freq" ;
         nameCol = rec.indexOf("freq");
         aux1 = (query.value (nameCol)).toString();
         QSOTabWidget->setTXFreq (aux1.toDouble ());
 
+        //qDebug() << Q_FUNC_INFO << " - freq_rx" ;
         nameCol = rec.indexOf("freq_rx");
         aux1 = (query.value (nameCol)).toString();
         QSOTabWidget->setRXFreq (aux1.toDouble ());
 
         //QSL SENT
-
+        //qDebug() << Q_FUNC_INFO << " - qsl_sent" ;
         nameCol = rec.indexOf("qsl_sent");
         aux1 = (query.value (nameCol)).toString();
 
@@ -4930,7 +4938,7 @@ void MainWindow::qsoToEdit (const int _qso)
             nameCol = rec.indexOf("lotw_qsl_sent");
             aux1 = (query.value (nameCol)).toString();
             eQSLTabWidget->setLOTWSenStatus(aux1.toUpper());
-              //qDebug() << "MainWindow::qsoToEdit: - LoTW Sent Status: " << aux1  ;
+            //qDebug() << Q_FUNC_INFO << " LoTW Sent Status: " << aux1  ;
 
     //TODO: Depending on the Value a date should or not exist.
     //      This code may be importing dates when they should not exist.
@@ -5000,12 +5008,12 @@ void MainWindow::qsoToEdit (const int _qso)
 
                 nameCol = rec.indexOf("vucc_grids");
                 aux1 = (query.value (nameCol)).toString();
-         //qDebug() << Q_FUNC_INFO << ": VUCC_GRIDS: " << aux1;
+                //qDebug() << Q_FUNC_INFO << " - VUCC_GRIDS: " << aux1;
                 if (util->isValidVUCCGrids (aux1))
                 {
                     othersTabWidget->setVUCCGrids (aux1);
                 }
-      //qDebug() << "MainWindow::qsoToEdit: - just before IOTA"  ;
+                //qDebug() << Q_FUNC_INFO << " - just before IOTA"  ;
 
                 nameCol = rec.indexOf("iota");
                 aux1 = (query.value (nameCol)).toString();
@@ -5013,12 +5021,12 @@ void MainWindow::qsoToEdit (const int _qso)
                 aux1 = awards->checkIfValidIOTA(aux1);
                 othersTabWidget->setIOTA(aux1);
 
-                    //qDebug() << "MainWindow::qsoToEdit: - in default - 100: " << QString::number(currentEntity)  ;
+                //qDebug() << Q_FUNC_INFO << " - in default - 100: " << QString::number(currentEntity)  ;
 
                 nameCol = rec.indexOf("dxcc");
                 aux1  = (query.value (nameCol)).toString();
 
-                    //qDebug() << "MainWindow::qsoToEdit: Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) ;
+                //qDebug() << Q_FUNC_INFO << " - Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) ;
 
                 if (aux1.toInt()>=1)
                 {
@@ -5026,41 +5034,39 @@ void MainWindow::qsoToEdit (const int _qso)
                     {
                         currentEntity = aux1.toInt();
                     }
-                        //qDebug() << "MainWindow::qsoToEdit: - in default - 101: " << QString::number(currentEntity)  ;
+                        //qDebug() << Q_FUNC_INFO << " - in default - 101: " << QString::number(currentEntity)  ;
                 }
                 else
                 {
                     currentEntity = world->getQRZARRLId(currentQrz);
-                        //qDebug() << "MainWindow::qsoToEdit: - in default - 103: " << QString::number(currentEntity)  ;
+                    //qDebug() << Q_FUNC_INFO << " - in default - 103: " << QString::number(currentEntity)  ;
                 }
-                    //qDebug() << "MainWindow::qsoToEdit: - in default - 104: " << QString::number(currentEntity)  ;
+                //qDebug() << Q_FUNC_INFO << " - in default - 104: " << QString::number(currentEntity)  ;
 
                 nameCol = rec.indexOf("prop_mode");
                 aux1  = (query.value (nameCol)).toString();
                 othersTabWidget->setPropMode(aux1, false);
-        //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
                 infoLabel2->setText(world->getEntityName(currentEntity));
                 infoWidget->showEntityInfo(currentEntity);
-        //selectCorrectComboBoxEntity(currentEntity);
-                    //qDebug() << "MainWindow::qsoToEdit: " << QString::number(currentEntity) ;
+                //qDebug() << Q_FUNC_INFO << " - " << QString::number(currentEntity) ;
                 othersTabWidget->setEntity(currentEntity);
-                     //qDebug() << "MainWindow::qsoToEdit: - in default - 101"  ;
+                //qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
 
                 QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
                 _qs.clear();
-        //TODO: The band sometimes fails here. Check
+                //TODO: The band sometimes fails here. Check
 
                 _qs << QString::number(currentEntity) << QString::number(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand())) << QString::number(dataProxy->getIdFromBandName(mainQSOEntryWidget->getMode()))  << QString::number(currentLog);
 
-
-                     //qDebug() << "MainWindow::qsoToEdit: - in default - 104"  ;
-                 //qDebug() << "MainWindow:: - calling showStatusOfDXCC-05 " ;
+                //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
+                //qDebug() << Q_FUNC_INFO << " - calling showStatusOfDXCC-05 " ;
                 showStatusOfDXCC(_qs);
 
-    //qDebug() << "MainWindow::qsoToEdit: - in default - 106"  ;
+        //qDebug() << Q_FUNC_INFO << " - in default - 106"  ;
     } //Closes the next.isValid
-         //qDebug() << "MainWindow::qsoToEdit: - in default - END"  ;
+    //qDebug() << Q_FUNC_INFO << " - in default - END"  ;
     readingTheUI = false;
+    satTabWidget->setFillingToEdit(false);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5750,10 +5756,10 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 
 void MainWindow::slotSetPropModeFromOther(const QString &_p)
 {
-    //Debug() << Q_FUNC_INFO << ": " << _p;
+    //qDebug() << Q_FUNC_INFO << ": " << _p;
     if (_p!="SAT")
     {
-         //qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
+        //qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
         satTabWidget->setNoSat();
     }
 }
