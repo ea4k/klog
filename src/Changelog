@@ -1,9 +1,15 @@
+Changelog 2.4
+WIP: - Bugfix: Started to reduce the possibility of SQLi with the use of prepared statements.
+bool QSO::add()
+Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
+
 Dec 2023 - 2.3.3
+WIP: Bugfix: Sat QSO edit was not showing the worked SAT (Closes #645)
 - Bugfix: All Gridsquares are now listed when Export to ADIF is used. (Closes #514)
 - Bugfix: Selecting a sat with a new band made the bandcombobox unusable. #613
 - Bugfix: F1 (online manual link fixed (Closes #627) (TNX ikbenkous)
 - Bugfix: 'Usage' does not properly handle arguments, print newlines or return status codes (Closes #625) (TNX ikbenkous)
-- Bugfix: Sat QSO edit was not showing the worked SAT (Closes #645)
+
 - Enhancement: Improved the Frequency entry. (Closes #622) (TNX ikbenkous)
 - Enhancement: Use a good discriminator in header guards (Closes #624) (TNX ikbenkous)
 

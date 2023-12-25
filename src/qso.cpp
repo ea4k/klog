@@ -2779,7 +2779,7 @@ bool QSO::setData(const QString &_adifPair)
 bool QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
     if (!isComplete ())
     {
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
@@ -2888,7 +2888,7 @@ QString QSO::getModifyQueryString()
                    "WHERE id = :id");
 }
 
-int QSO::getBandIdFromBandName()
+int QSO::getBandIdFromBandName(bool _rxBand)
 {
     QSqlQuery query;
     //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
@@ -2897,7 +2897,13 @@ int QSO::getBandIdFromBandName()
     {
         //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
     }
-    query.bindValue (":bandname", getBand ());
+    if (_rxBand){
+        query.bindValue (":bandname", getBandRX());
+    }
+    else
+    {
+        query.bindValue (":bandname", getBand ());
+    }
 
     if (query.exec ())
     {
@@ -2925,7 +2931,7 @@ int QSO::getBandIdFromBandName()
     return -1;
 }
 
-int QSO::getModeIdFromModeName()
+int QSO::getModeIdFromModeName(bool _submode)
 {
     QSqlQuery query;
     //qDebug() << Q_FUNC_INFO << "Mode: " << getSubmode();
@@ -2935,8 +2941,14 @@ int QSO::getModeIdFromModeName()
     {
         //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
     }
-    query.bindValue (":submode", getSubmode ());
-    query.bindValue (":name", getMode());
+    if (_submode)
+    {
+        query.bindValue (":submode", getSubmode ());
+    }
+    else
+    {
+        query.bindValue (":name", getMode());
+    }
 
     if (query.exec ())
     {
@@ -3003,7 +3015,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":arrl_sect", getARRL_Sect());
     query.bindValue(":award_submitted", getAwardSubmitted ());
     query.bindValue(":award_granted", getAwardGranted ());
-    query.bindValue(":band_rx", getBandRX());
+    query.bindValue(":band_rx", getBandIdFromBandName(true));
     query.bindValue(":checkcontest", getCheck());
     query.bindValue(":class", getClass());
     query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClublogQSOUpdateDate()));
@@ -3117,7 +3129,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":stx", getStx());
     query.bindValue(":state", getState());
     query.bindValue(":station_callsign", getStationCallsign());
-    query.bindValue(":submode", getSubmode ());
+    //query.bindValue(":submode", getSubmode ());
+    query.bindValue(":modeid", getModeIdFromModeName (true));
 
     query.bindValue(":swl", getSwl());
     query.bindValue(":uksmg", getUksmg ());
