@@ -20,7 +20,7 @@
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
 
@@ -30,7 +30,7 @@
 MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputOthers::MainWindowInputOthers";
+       //qDebug() << Q_FUNC_INFO;
     logLevel = None;
     dataProxy = dp;
 
@@ -56,7 +56,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
 
     createUI();
     setInitialADIFValues ();
-       //qDebug() << "MainWindowInputOthers::MainWindowInputOthers - END";
+       //qDebug() << Q_FUNC_INFO << ": "- END";
 }
 
 MainWindowInputOthers::~MainWindowInputOthers()
@@ -67,7 +67,7 @@ MainWindowInputOthers::~MainWindowInputOthers()
 
 void MainWindowInputOthers::createUI()
 {
-      //qDebug() << "MainWindowInputOthers::createUI";
+      //qDebug() << Q_FUNC_INFO ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     entitiesList.clear();
@@ -164,7 +164,7 @@ void MainWindowInputOthers::createUI()
 
 void MainWindowInputOthers::clear(bool _full)
 {
-      //qDebug() << "MainWindowInputOthers::clear";
+      //qDebug() << Q_FUNC_INFO ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
@@ -188,7 +188,7 @@ void MainWindowInputOthers::clear(bool _full)
 
 void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 {
-      //qDebug() << "MainWindowInputOthers::setEntitiesList: " << QString::number(_qs.length());
+      //qDebug() << Q_FUNC_INFO << ": " << QString::number(_qs.length());
     logEvent (Q_FUNC_INFO, "Start", Debug);
     entitiesList.clear();
     entitiesList << _qs;
@@ -203,7 +203,7 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
-       //qDebug() << "MainWindowInputOthers::setEntity: " << QString::number(_ent);
+       //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_ent<=0)
     {
@@ -246,7 +246,7 @@ int MainWindowInputOthers::getEntity()
 
 QString MainWindowInputOthers::getEntityPrefix()
 {
-    //qDebug() << "MainWindowInputOthers::getEntityPrefix: " << (entityNameComboBox->currentText()).split('-').at(0);
+    //qDebug() << Q_FUNC_INFO << ": " << (entityNameComboBox->currentText()).split('-').at(0);
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return (entityNameComboBox->currentText()).split('-').at(0);
     //return world->getQRZARRLId(pref);
@@ -351,7 +351,7 @@ void MainWindowInputOthers::setIOTA(const QString &_qs)
     else
     {
         QStringList values = _qs.split("-", QT_SKIP);
-          //qDebug() << "MainWindowInputOthers::setIOTA: IOTA " << _qs;
+          //qDebug() << Q_FUNC_INFO << ": IOTA " << _qs;
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
         iotaNumberLineEdit->setText(values.at(1));
         if (getDarkMode())
@@ -385,12 +385,12 @@ void MainWindowInputOthers::setIOTAContinent(const QString &_qs)
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if(( iotaContinentComboBox->findText(_qs, Qt::MatchContains))>0)
     {
-          //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains));
+          //qDebug() << Q_FUNC_INFO << ": setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains));
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(_qs, Qt::MatchContains));
     }
     else
     {
-           //qDebug() << "MainWindowInputOthers::setIOTAContinent: setting to index: 00";
+           //qDebug() << Q_FUNC_INFO << ": setting to index: 00";
         iotaContinentComboBox->setCurrentIndex(0);
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -411,7 +411,7 @@ QString MainWindowInputOthers::checkIfValidIOTA(const QString &_tiota)
 Returns a valid format IOTA if possible and "" in other cases.
 
 ************************************/
-      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA: " << _tiota;
+      //qDebug() << Q_FUNC_INFO << ": " << _tiota;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     QString _continent;
     QString _number;
@@ -427,8 +427,8 @@ Returns a valid format IOTA if possible and "" in other cases.
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return "";
     }
-      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (cont) " << _continent;
-      //qDebug() << "MainWindowInputOthers::checkIfValidIOTA (numb): " << _number;
+      //qDebug() << Q_FUNC_INFO << ": (cont) " << _continent;
+      //qDebug() << Q_FUNC_INFO << ": (numb): " << _number;
 
     // Check if continent is valid
 
