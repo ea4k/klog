@@ -177,7 +177,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
 
     if (i == 0)
     {
-        //qDebug() << Q_FUNC_INFO << ": i=0";
+       //qDebug() << Q_FUNC_INFO << ": i=0, emitting setPropModeSat - Not";
         emit setPropModeSat("Not", false);
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
@@ -185,7 +185,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     }
     else if(i == 1)
     {
-        //qDebug() << Q_FUNC_INFO << ": i=1";
+       //qDebug() << Q_FUNC_INFO << ": i=1, emitting setPropModeSat - SAT";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(true);
         satOtherLabel->setEnabled(true);
@@ -193,7 +193,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": i = else";
+        //qDebug() << Q_FUNC_INFO << ": i = else, , emitting setPropModeSat - SAT";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
@@ -207,23 +207,25 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
 
 void MainWindowSatTab::slotSatNameTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << satNameLineEdit->text();
+   //qDebug() << Q_FUNC_INFO << ": " << satNameLineEdit->text();
     int cursor = satNameLineEdit->cursorPosition ();
     satNameLineEdit->setText((util->getClearSQLi (satNameLineEdit->text())).toUpper());
 
     if (modifying )
     {
         satNameLineEdit->setCursorPosition (cursor);
-        //qDebug() << Q_FUNC_INFO << ": Modifying return";
+       //qDebug() << Q_FUNC_INFO << ": Modifying return";
         return;
     }
 
     if ((satNameLineEdit->text()).length()>0)
     {
+       //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -SAT- signal";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
     }
     else if ((satModeLineEdit->text()).length()<1)
     {
+       //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -Not- signal";
         emit setPropModeSat("Not", false);
     }
     satNameLineEdit->setCursorPosition (cursor);

@@ -5743,7 +5743,7 @@ void MainWindow::defineStationCallsign(const QString &_call)
 
 void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 {
-         //qDebug() << "MainWindow::slotSetPropModeFromSat: " << _p ;
+   //qDebug() << Q_FUNC_INFO << ": " << _p ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
      //qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) ;
 

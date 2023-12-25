@@ -2779,7 +2779,7 @@ bool QSO::setData(const QString &_adifPair)
 bool QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-    qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
+   //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
     if (!isComplete ())
     {
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";

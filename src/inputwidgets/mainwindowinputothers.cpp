@@ -254,16 +254,18 @@ QString MainWindowInputOthers::getEntityPrefix()
 
 void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
-      //qDebug() << "MainWindowInputOthers::setPropMode: " << _qs;
+   //qDebug() << Q_FUNC_INFO << ": " << _qs;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
+       //qDebug() << Q_FUNC_INFO << " PropMode found" ;
         propModeComboBox->setCurrentIndex( propModeComboBox->findText(_qs+" -", Qt::MatchContains));
         keepPropCheckBox->setChecked(_keep);
     }
     else
     {
+       //qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
         propModeComboBox->setCurrentIndex(0);
         keepPropCheckBox->setChecked(false);
     }
