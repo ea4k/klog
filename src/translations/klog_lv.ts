@@ -4435,12 +4435,14 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="42"/>
         <source>The server returned the following error: %1</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Serveris atgrieza šādu kļūdu: %1</translatorcomment>
+        <translation>Serveris atgrieza šādu kļūdu: %1</translation>
     </message>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="176"/>
         <source>Not identified</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Nav identificēts</translatorcomment>
+        <translation>Nav identificēts</translation>
     </message>
 </context>
 <context>
