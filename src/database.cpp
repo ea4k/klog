@@ -6963,7 +6963,7 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
 int DataBase::getLastInsertedQSO()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QString stringQuery = QString("SELECT last_insert_rowid()");
 
     QSqlQuery query;
@@ -6983,7 +6983,7 @@ int DataBase::getLastInsertedQSO()
     query.finish();
     return id;
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
