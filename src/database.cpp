@@ -6961,6 +6961,31 @@ int DataBase::getNumberOfQsos(const int _logNumber)
     return qsos;
 }
 
+int DataBase::getLastInsertedQSO()
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    QString stringQuery = QString("SELECT last_insert_rowid()");
+
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    int id = -1;
+
+    if (sqlOK)
+    {
+        //QSqlDatabase::database().commit();
+        query.next();
+        id = (query.value(0)).toInt();
+    }
+    else
+    {
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    }
+    query.finish();
+    return id;
+
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+
 void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
 {
     Q_UNUSED(_functionFailed);

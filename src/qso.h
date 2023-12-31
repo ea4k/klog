@@ -34,8 +34,8 @@
 //#include <QDebug>
 #include "utilities.h"
 #include "klogdefinitions.h"
-#include "database.h"
 #include "adif.h"
+#include "database.h"
 //#include <functional>
 
 class QSO : public QObject
@@ -380,7 +380,7 @@ public:
     QString getWwffRef();
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
-    bool toDB(int _qsoId = 0);
+    int toDB(int _qsoId = 0);
     //bool add();
     //bool modify(const int _qsoId);
     bool isComplete();
@@ -400,6 +400,7 @@ private:
     QSqlQuery getPreparedQuery(const QString &_s);
     int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX
     int getModeIdFromModeName();
+    DataBase *db;
 
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;

@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "qso.h"
+#include "database.h"
 
 QSO::QSO()
 {
@@ -31,6 +32,7 @@ QSO::QSO()
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
     util->setCallValidation(false);
+    db = new DataBase(Q_FUNC_INFO, util->getVersion(), util->getKLogDBFile());
 }
 
 QSO::~QSO()
@@ -2776,7 +2778,7 @@ bool QSO::setData(const QString &_adifPair)
     return true;
 }
 
-bool QSO::toDB(int _qsoId)
+int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
    //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
@@ -2807,12 +2809,13 @@ bool QSO::toDB(int _qsoId)
     if (query.exec())
     {
         //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
-        return true;
+
+        return db->getLastInsertedQSO();
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        return false;
+        return -2;
     }
 }
 

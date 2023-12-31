@@ -128,6 +128,7 @@ public:
     bool updateAwardDXCCTable();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
+    int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);

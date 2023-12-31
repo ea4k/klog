@@ -164,7 +164,7 @@ void MainWindowInputOthers::createUI()
 
 void MainWindowInputOthers::clear(bool _full)
 {
-      //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
@@ -177,10 +177,12 @@ void MainWindowInputOthers::clear(bool _full)
     iotaNumberLineEdit->setText("000");
     if ((!keepPropCheckBox->isChecked()) || _full)
     {
+      qDebug() << Q_FUNC_INFO << ": Clear the proModeComboBox";
       propModeComboBox->setCurrentIndex(0);
     }
     if (_full)
     {
+        qDebug() << Q_FUNC_INFO << ": Clear the keepPropCheckBox";
         keepPropCheckBox->setChecked (false);
     }
     logEvent (Q_FUNC_INFO, "END", Debug);

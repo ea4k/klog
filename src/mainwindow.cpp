@@ -1050,9 +1050,9 @@ void MainWindow::slotQRZReturnPressed()
     if (!readQSOFromUI ())
     {return;}
     //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
-    bool addedOK = qso->toDB (modifyingQSO);
-
-    if (addedOK)
+    int addedOK = qso->toDB (modifyingQSO);
+    qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+    if (addedOK>0)
     {
         qso->clear();
         actionsJustAfterAddingOneQSO();
@@ -6377,7 +6377,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
-        if (functionFailed == "bool QSO::toDB(int)")
+        if (functionFailed == "int QSO::toDB(int)")
         {
                 msgBox.setWindowTitle(tr("KLog - QSO Dupe"));
                 msgBox.setText(tr("A dupe QSO has been detected in the file and will not be added to the log."));

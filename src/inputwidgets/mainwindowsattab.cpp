@@ -373,6 +373,7 @@ void MainWindowSatTab::clear(bool _full)
     }
     if (_full)
     {
+        qDebug() << Q_FUNC_INFO << ": Clear the keepThisDataForNextQSOQcheckbox";
         keepThisDataForNextQSOQcheckbox->setChecked (false);
     }
     //qDebug() << Q_FUNC_INFO << " - END";
