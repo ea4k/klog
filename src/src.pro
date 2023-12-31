@@ -30,8 +30,8 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 
-PKGVERSION = 2.3.3
-VERSION = 2.3.3
+PKGVERSION = 2.3.4
+VERSION = 2.3.4
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
@@ -298,6 +298,7 @@ TRANSLATIONS = translations/klog_es.ts \
     translations/klog_ja.ts \
     translations/klog_lv.ts \
     translations/klog_pl.ts \
+    translations/klog_ru.ts \
     translations/klog_uk.ts
 
 message(End of translations...)

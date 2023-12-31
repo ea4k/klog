@@ -1288,7 +1288,7 @@ bool MainWindow::readQSOFromUI()
 
     qso->setLoTWQSL_SENT (eQSLTabWidget->getLOTWSenStatus());
     qso->setLoTWQSLSDate (eQSLTabWidget->getLOTWSenDate());
-    qso->setLoTWQSL_SENT (eQSLTabWidget->getLOTWRecStatus());
+    qso->setLoTWQSL_RCVD (eQSLTabWidget->getLOTWRecStatus());
     qso->setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate());
 
     qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus());

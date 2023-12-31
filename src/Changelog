@@ -3,6 +3,10 @@ WIP: Started to reduce the possibility of SQLi with the use of prepared statemen
 bool QSO::add()
 Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
 
+TBD - 2.2.4
+- BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #659) (EA5WA)
+- Translations: Spanish (EA4K), Ukrainian (YL3GBC), Russian (YL3GBC)
+
 Dec 2023 - 2.3.3
 - WIP: Started to reduce the possibility of SQLi with the use of prepared statements.
 - Bugfix: Sat QSO edit was not showing the worked SAT (Closes #645)

@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="lv_LV">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../aboutdialog.cpp" line="44"/>
         <source>About KLog</source>
-        <translation>Par KLog</translation>
+        <translation>О KLog</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="51"/>
         <source>By</source>
-        <translation>Autors</translation>
+        <translation>К</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="53"/>
         <source>KLog is a free logbook for hamradio operators.</source>
-        <translation>KLog ir bezmaksas hamradio operatoriem.žurnāls.</translation>
+        <translation>KLog — бесплатный бортовой журнал для радиолюбителей.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="54"/>
         <source>Please be aware that this is a development release and it may contain many bugs.&lt;br&gt;Backup your data before using this software!</source>
-        <translation>Lūdzu, ņemiet vērā, ka šis ir izstrādes laidiens un tajā var būt daudz kļūdu.&lt;br&gt;Pirms šīs programmatūras izmantošanas dublējiet savus datus!</translation>
+        <translation>Имейте в виду, что это разрабатываемая версия, и она может содержать много ошибок.&lt;br&gt;Создайте резервную копию своих данных перед использованием этого программного обеспечения!</translation>
     </message>
     <message>
         <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (Linux, macOS and Windows) and to support new functionality.</source>
-        <translation type="vanished">Kopš 0.6.2 KLog ir pilnībā pārrakstīts, lai nodrošinātu starpplatformu lietojumprogrammu, kas darbojas visās lielākajās operētājsistēmās (Linux, macOS un Windows), un atbalstītu jaunas funkcionalitātes.</translation>
+        <translation type="vanished">Начиная с версии 0.6.2, KLog был полностью переписан, чтобы предоставить кроссплатформенное приложение, работающее во всех основных операционных системах (Linux, macOS и Windows) и поддерживающее новые функции.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="58"/>
         <source>Please provide your review in KLog&apos;s eHam review page:</source>
-        <translation>Lūdzu, sniedziet savu atsauksmi KLog eHam pārskata lapā:</translation>
+        <translation>Пожалуйста, оставьте свой отзыв на странице отзывов KLog eHam:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="61"/>
         <source>Find more information and the latest release at</source>
-        <translation>Plašāku informāciju un jaunāko izlaidumu meklējiet vietnē</translation>
+        <translation>Дополнительную информацию и последний выпуск можно найти на</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="62"/>
         <source>Author</source>
-        <translation>Autors</translation>
+        <translation>Автор</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="85"/>
         <location filename="../aboutdialog.cpp" line="86"/>
         <source>today</source>
-        <translation>šodien</translation>
+        <translation>сегодня</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="85"/>
         <source>Main developer</source>
-        <translation>Galvenais izstrādātājs</translation>
+        <translation>Главный разработчик</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="91"/>
         <source>KLog is developed by a very small team and you are invited to join!</source>
-        <translation>KLog izstrādā ļoti maza komanda, un jūs esat aicināti pievienoties!</translation>
+        <translation>KLog разрабатывается очень небольшой командой, и мы приглашаем вас присоединиться!</translation>
     </message>
     <message>
         <source>If you want to provide support you are welcome to join the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation type="vanished">Ja vēlaties sniegt atbalstu, laipni lūdzam pievienoties &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog izstrādes adresātu sarakstam&lt;/a&gt;!</translation>
+        <translation type="vanished">Если вы хотите оказать поддержку, присоединяйтесь к &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;списку рассылки разработчиков KLog&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="91"/>
         <source>You can also help us by sending bug reports or small code contributions, ideas or whatever you think may improve KLog.</source>
-        <translation>Varat arī mums palīdzēt, nosūtot kļūdu ziņojumus vai nelielu koda ieguldījumu, idejas vai visu, kas, jūsuprāt, varētu uzlabot KLog.</translation>
+        <translation>Вы также можете помочь нам, отправив отчеты об ошибках или небольшие дополнения к коду, идеи или все, что, по вашему мнению, может улучшить KLog.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="92"/>
         <location filename="../aboutdialog.cpp" line="168"/>
         <source>Authors</source>
-        <translation>Autori</translation>
+        <translation>Авторы</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="108"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
-        <translation>Tulkotājimi ienes KLog jūsu valodā. Viņi patiešām ir svarīga KLog izstrādes komandas sastāvdaļa.</translation>
+        <translation>Переводчики переводят KLog на ваш язык. Они действительно важная часть команды разработчиков KLog.</translation>
     </message>
     <message>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation type="vanished">Ja KLog joprojām nav jūsu valodā un vēlaties mums palīdzēt, varat sazināties ar mums, izmantojot &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog izstrādes vēstuli. saraksts&lt;/a&gt;!</translation>
+        <translation type="vanished">Если KLog все еще не на вашем языке и вы хотите помочь нам, вы можете связаться с нами через &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;рассылку по разработке KLog. список&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="56"/>
@@ -101,52 +101,52 @@
         <location filename="../aboutdialog.cpp" line="109"/>
         <location filename="../aboutdialog.cpp" line="169"/>
         <source>Translators</source>
-        <translation>Tulkotāji</translation>
+        <translation>Переводчики</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="125"/>
         <source>Privacy advisory</source>
-        <translation>Privātuma ieteikums</translation>
+        <translation>Рекомендации по конфиденциальности</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="126"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users&apos; needs.</source>
-        <translation>KLog izstrādātāji ir iekļāvuši funkciju, kas ziņo par dažiem lietotāja datiem KLog serverim ar vienīgo mērķi identificēt instalēto versiju skaitu, lai fokusētu attīstību vienā vai otrā virzienā, ņemot vērā lietotāju vajadzības.</translation>
+        <translation>Разработчики KLog включили функцию, которая передает некоторые пользовательские данные на сервер KLog с единственной целью определения количества установленных версий, чтобы сосредоточить разработку в том или ином направлении с учетом потребностей пользователей.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="127"/>
         <source>At present, the data that is provided is the following:</source>
-        <translation>Šobrīd sniegtie dati ir šādi:</translation>
+        <translation>На данный момент предоставлены следующие данные:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="128"/>
         <source>Callsign</source>
-        <translation>Izsaukuma signāls</translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="128"/>
         <source>KLog version</source>
-        <translation>KLog versija</translation>
+        <translation>KLog-версия</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="128"/>
         <source>Operating system</source>
-        <translation>Operētājsistēma</translation>
+        <translation>Операционная система</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="129"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page.</source>
-        <translation>Ņemiet vērā, ka šo funkciju varat iespējot/atspējot iestatīšanas lapas cilnē Dažādi.</translation>
+        <translation>И мейте в виду, что вы можете включить/отключить эту функцию на вкладке Разное на странице Настройка</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="167"/>
         <source>KLog</source>
-        <translation>KLog</translation>
+        <translation>Клог</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="170"/>
         <source>Privacy</source>
-        <translation>Privātums</translation>
+        <translation>Конфиденциальность</translation>
     </message>
 </context>
 <context>
@@ -154,22 +154,22 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="92"/>
         <source>Select the Station Callsign that you want to use to upload the log.</source>
-        <translation>Atlasiet stacijas izsaukuma signālu, kuru vēlaties izmantot žurnāla augšupielādei.</translation>
+        <translation>Выберите позывной станции, который вы хотите использовать для загрузки журнала.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="96"/>
         <source>Select the start date to export the QSOs. The default date is the date of the first QSO with this station callsign.</source>
-        <translation>Izvēlieties sākuma datumu, lai eksportētu QSO. Noklusējuma datums ir pirmā QSO datums ar šo stacijas izsaukuma signālu.</translation>
+        <translation>Выберите дату начала для экспорта QSO. Датой по умолчанию является дата первого QSO с позывным этой станции.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="101"/>
         <source>Select the end date to export the QSOs. The default date is the date of the last QSO with this station callsign.</source>
-        <translation>Atlasiet beigu datumu, lai eksportētu QSO. Noklusējuma datums ir pēdējā QSO datums ar šo stacijas izsaukuma signālu.</translation>
+        <translation>Выберите дату окончания для экспорта QSO. Датой по умолчанию является дата последнего QSO с позывным этой станции.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="104"/>
         <source>Station callsign</source>
-        <translation>Stacijas izsaukuma signāls</translation>
+        <translation>Позывной станции</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="107"/>
@@ -180,22 +180,22 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="110"/>
         <source>Start date</source>
-        <translation>Sākuma datums</translation>
+        <translation>Дата начала</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="113"/>
         <source>End date</source>
-        <translation>Beigu datums</translation>
+        <translation>Дата окончания</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="115"/>
         <source>Ok</source>
-        <translation>Labi</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="116"/>
         <source>Cancel</source>
-        <translation>Atcelt</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
@@ -205,23 +205,23 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>Date/Time</source>
-        <translation>Datums Laiks</translation>
+        <translation>Дата/Время</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>Band</source>
-        <translation>Diepazons</translation>
+        <translation>Диапазон</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>Mode</source>
-        <translation>Režīms</translation>
+        <translation>Режим</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="206"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="261"/>
         <source>Not defined</source>
-        <translation>Nav definēts</translation>
+        <translation>Не определен</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="211"/>
@@ -236,56 +236,56 @@
     </message>
     <message>
         <source>All</source>
-        <translation type="vanished">Visi</translation>
+        <translation type="vanished">Все</translation>
     </message>
     <message>
         <source>QSOs: </source>
-        <translation type="vanished">QSO: </translation>
+        <translation type="vanished">QSOs: </translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="629"/>
         <source>KLog - QSOs to be uploaded to LoTW.</source>
-        <translation>KLog — QSO, kas jāaugšupielādē LoTW.</translation>
+        <translation>KLog - QSO для загрузки в LoTW.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="630"/>
         <source>This table shows the QSOs that will be sent to LoTW.</source>
-        <translation>Šajā tabulā parādīti QSO, kas tiks nosūtīti uz LoTW.</translation>
+        <translation>В этой таблице показаны QSO, которые будут отправлены в LoTW.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="634"/>
         <source>KLog - QSOs to be uploaded to ClubLog.</source>
-        <translation>KLog - QSO, kas augšupielādējami ClubLog.</translation>
+        <translation>KLog - QSO для загрузки в ClubLog.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="635"/>
         <source>This table shows the QSOs that will be sent to ClubLog.</source>
-        <translation>Šajā tabulā parādīti QSO, kas tiks nosūtīti uz ClubLog.</translation>
+        <translation>В этой таблице показаны QSO, которые будут отправлены в ClubLog.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="639"/>
         <source>KLog - QSOs to be uploaded to eQSL.cc.</source>
-        <translation>KLog — QSO, kas augšupielādējami eQSL.cc.</translation>
+        <translation>KLog - QSO для загрузки на eQSL.cc.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="640"/>
         <source>This table shows the QSOs that will be sent to eQSL.cc.</source>
-        <translation>Šajā tabulā parādīti QSO, kas tiks nosūtīti uz eQSL.cc.</translation>
+        <translation>В этой таблице показаны QSO, которые будут отправлены на eQSL.cc.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="644"/>
         <source>KLog - QSOs to be uploaded to QRZ.com.</source>
-        <translation>KLog — QSO, kas jāaugšupielādē uz QRZ.com.</translation>
+        <translation>KLog - QSO для загрузки на QRZ.com.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="645"/>
         <source>This table shows the QSOs that will be sent to QRZ.com.</source>
-        <translation>Šajā tabulā parādīti QSO, kas tiks nosūtīti uz QRZ.com.</translation>
+        <translation>В этой таблице показаны QSO, которые будут отправлены на QRZ.com.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="650"/>
         <source>This table shows the QSOs that will be exported to ADIF.</source>
-        <translation>Šajā tabulā parādīti QSO, kas tiks eksportēti uz ADIF.</translation>
+        <translation>В этой таблице показаны QSO, которые будут экспортированы в ADIF.</translation>
     </message>
 </context>
 <context>
@@ -293,24 +293,24 @@
     <message>
         <location filename="../awardswidget.cpp" line="97"/>
         <source>Recalculate</source>
-        <translation>Pārrēķināt</translation>
+        <translation>Пересчитать</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="98"/>
         <source>Click to recalculate the award status.</source>
-        <translation>Noklikšķiniet, lai pārrēķinātu balvas statusu.</translation>
+        <translation>Нажмите, чтобы пересчитать статус награды.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="99"/>
         <location filename="../awardswidget.cpp" line="294"/>
         <source>Select the year you want to check.</source>
-        <translation>Atlasiet gadu, kuru vēlaties pārbaudīt.</translation>
+        <translation>Выберите год, который хотите проверить.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="101"/>
         <location filename="../awardswidget.cpp" line="122"/>
         <source>QSOs</source>
-        <translation>QSO</translation>
+        <translation>QSOs</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="102"/>
@@ -326,17 +326,17 @@
     <message>
         <location filename="../awardswidget.cpp" line="105"/>
         <source>Award</source>
-        <translation>Balva</translation>
+        <translation>Награда</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="107"/>
         <source>Confirmed</source>
-        <translation>Apstiprināts</translation>
+        <translation>Подтвержденный</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="110"/>
         <source>Worked</source>
-        <translation>Strādāja</translation>
+        <translation>Работал</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="116"/>
@@ -346,68 +346,68 @@
     <message>
         <location filename="../awardswidget.cpp" line="187"/>
         <source>Score</source>
-        <translation>Rezultāts</translation>
+        <translation>Счет</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="188"/>
         <location filename="../awardswidget.cpp" line="408"/>
         <source>Annual</source>
-        <translation>Gada</translation>
+        <translation>Ежегодный</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="281"/>
         <source>Number of confirmed DXCC entities.</source>
-        <translation>Apstiprināto DXCC skaits.</translation>
+        <translation>Количество подтвержденных участников DXCC.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="282"/>
         <source>Number of worked DXCC entities.</source>
-        <translation>Nostrādāto DXCC skaits.</translation>
+        <translation>Количество отработанных объектов DXCC.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="283"/>
         <source>Number of confirmed WAZ zones.</source>
-        <translation>Apstiprināto WAZ zonu skaits.</translation>
+        <translation>Подтвержденных зон WAZ.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="284"/>
         <source>Number of worked WAZ zones.</source>
-        <translation>Nostrādāto WAZ zonu skaits.</translation>
+        <translation>Количество отработанных зон WAZ.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="287"/>
         <source>Number of confirmed QSOs.</source>
-        <translation>Apstiprināto QSO skaits.</translation>
+        <translation>Количество подтвержденных QSO.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="288"/>
         <source>Number of worked QSOs.</source>
-        <translation>Nostrādāto QSO skaits.</translation>
+        <translation>Количество отработанных QSO.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="290"/>
         <source>Number of QSOs worked in the selected year.</source>
-        <translation>Nostrādāto QSO skaits izvēlētajā gadā.</translation>
+        <translation>Количество проведенных QSO в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="291"/>
         <source>Number of DXCCs worked in the selected year.</source>
-        <translation>Nostrādāto DXCC skaits atlasītajā gadā.</translation>
+        <translation>Количество DXCC, работающих в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="292"/>
         <source>Number of CQ Zones worked in the selected year.</source>
-        <translation>Nostrādāto CQ zonu skaits izvēlētajā gadā.</translation>
+        <translation>Количество зон CQ, работающих в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="293"/>
         <source>Score for the DXMarathon in the selected year.</source>
-        <translation>Rezultāts DXMarathon izvēlētajā gadā.</translation>
+        <translation>Оценка за DXMarathon в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="401"/>
         <source>DX-Marathon</source>
-        <translation>DX-maratons</translation>
+        <translation>DX-марафон</translation>
     </message>
 </context>
 <context>
@@ -415,12 +415,12 @@
     <message>
         <location filename="../startwizard.cpp" line="919"/>
         <source>Country data download</source>
-        <translation>Valsts datu lejupielāde</translation>
+        <translation>Загрузка данных о стране</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="922"/>
         <source>KLog needs country data...</source>
-        <translation>KLog nepieciešami valstu dati...</translation>
+        <translation>KLog нужны данные о стране...</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="928"/>
@@ -435,34 +435,34 @@
     <message>
         <location filename="../startwizard.cpp" line="948"/>
         <source>Country data needed</source>
-        <translation>Nepieciešami valsts dati</translation>
+        <translation>Нужны данные о стране</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="951"/>
         <source>KLog uses the cty.csv file from https://www.country-files.com/ to get DXCC information.</source>
-        <translation>KLog izmanto cty.csv failu no https://www.country-files.com/, lai iegūtu DXCC informāciju.</translation>
+        <translation>KLog использует файл cty.csv с https://www.country-files.com/ для получения информации DXCC.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="953"/>
         <source>You need to download the cty.csv file if you want KLog to show you the countries, locator, etc. of the QSOs you do.</source>
-        <translation>Jums ir jālejupielādē cty.csv fails, ja vēlaties, lai KLog parādītu jūsu veikto QSO valstis, vietrādi utt.</translation>
+        <translation>Вам необходимо загрузить файл cty.csv, если вы хотите, чтобы KLog показывал вам страны, локаторы и т. д. ваших QSO.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="955"/>
         <source>Click on Download to download now.</source>
-        <translation>Noklikšķiniet uz Lejupielādēt, lai lejupielādētu tūlīt.</translation>
+        <translation>Нажмите «Загрузить», чтобы загрузить сейчас.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="1036"/>
         <source>KLog</source>
-        <translation>Klogs</translation>
+        <translation>KLog</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="1037"/>
         <source>I can&apos;t find the host. Please check your network and try again
 Do you want to try again?</source>
-        <translation>Es nevaru atrast saimnieku. Lūdzu, pārbaudiet savu tīklu un mēģiniet vēlreiz
-Vai vēlaties mēģināt vēlreiz?</translation>
+        <translation>Я не могу найти хозяина. Проверьте свою сеть и повторите попытку.
+Хотите попробовать еще раз?</translation>
     </message>
 </context>
 <context>
@@ -470,7 +470,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="90"/>
         <source>Update</source>
-        <translation>Atjaunināt</translation>
+        <translation>Обновлять</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
@@ -485,17 +485,17 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="539"/>
         <source>Prefix</source>
-        <translation>Prefix</translation>
+        <translation>Префикс</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="539"/>
         <source>Entity</source>
-        <translation>Entity</translation>
+        <translation type="unfinished">Сущность</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="657"/>
         <source>Pref: </source>
-        <translation>Prefiks: </translation>
+        <translation>Pref: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="658"/>
@@ -510,12 +510,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="661"/>
         <source>Beam: </source>
-        <translation>Sija: </translation>
+        <translation>Луч: </translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="668"/>
         <source>Entity not worked in this band.</source>
-        <translation>Vienība nedarbojās šajā joslā.</translation>
+        <translation>Сущность не работала в этой группе.</translation>
     </message>
 </context>
 <context>
@@ -523,13 +523,13 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster.cpp" line="68"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
-        <translation>Noklikšķiniet uz Savienot lai izveidotu savienojumu ar DX-Cluster serveri</translation>
+        <translation>Нажмите Подключиться , чтобы подключиться к серверу DX-Cluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="72"/>
         <location filename="../dxcluster.cpp" line="560"/>
         <source>Connect</source>
-        <translation>Savienot</translation>
+        <translation>Соединять</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="73"/>
@@ -537,119 +537,119 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dxcluster.cpp" line="611"/>
         <location filename="../dxcluster.cpp" line="616"/>
         <source>Clear</source>
-        <translation>Dzēst</translation>
+        <translation>Прозрачный</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="110"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверьте на QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="112"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверьте этот позывной на QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="139"/>
         <location filename="../dxcluster.cpp" line="171"/>
         <source>Click on connect to connect to the DX-Cluster</source>
-        <translation>Noklikšķiniet uz izveidot savienojumu, lai izveidotu savienojumu ar DX-klasteri</translation>
+        <translation>Нажмите Подключиться, чтобы подключиться к DX-кластеру.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="226"/>
         <source>Trying to connect to the server</source>
-        <translation>Mēģina izveidot savienojumu ar serveri</translation>
+        <translation>Пытаюсь подключиться к серверу</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="239"/>
         <location filename="../dxcluster.cpp" line="245"/>
         <location filename="../dxcluster.cpp" line="252"/>
         <source>KLog DXCluster</source>
-        <translation>Klog DXCluster</translation>
+        <translation>KLog DXCluster</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="240"/>
         <source>The host was not found. Please check:</source>
-        <translation>Saimnieks netika atrasts. Lūdzu pārbaudi:</translation>
+        <translation>Хозяин не найден. Пожалуйста, проверьте:</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="241"/>
         <source>- your network connection;
 - the host name and port settings.</source>
-        <translation>- jūsu tīkla savienojums;
-- resursdatora nosaukums un porta iestatījumi.</translation>
+        <translation>- ваше сетевое подключение;
+- имя хоста и настройки порта.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="246"/>
         <source>The connection was refused by the peer. Make sure the DXCluster server is running, and check that the host name and port settings are correct.</source>
-        <translation>Līdzinieks atteicās izveidot savienojumu. Pārliecinieties, vai darbojas DXCluster serveris, un pārbaudiet, vai resursdatora nosaukums un porta iestatījumi ir pareizi.</translation>
+        <translation>Соединение было отклонено узлом. Убедитесь, что сервер DXCluster запущен, и проверьте правильность имени хоста и параметров порта.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="253"/>
         <source>The following error occurred: %1.</source>
-        <translation>Radās šāda kļūda: %1.</translation>
+        <translation>Произошла следующая ошибка: %1.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="512"/>
         <source>Connected to server</source>
-        <translation>Savienots ar serveri</translation>
+        <translation>Подключено к серверу</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="525"/>
         <location filename="../dxcluster.cpp" line="529"/>
         <location filename="../dxcluster.cpp" line="533"/>
         <source>KLog message</source>
-        <translation>Klog ziņojums</translation>
+        <translation>KLog-сообщение</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="525"/>
         <location filename="../dxcluster.cpp" line="529"/>
         <source>Enter your callsign to connect to the cluster:</source>
-        <translation>Ievadiet savu izsaukuma signālu, lai izveidotu savienojumu ar klasteri:</translation>
+        <translation>Введите свой позывной для подключения к кластеру:</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="533"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
-        <translation>Ievadiet savu paroli, lai izveidotu savienojumu ar klasteri:
-(Vienkārši nospiediet Enter, lai bez paroles)</translation>
+        <translation>Введите пароль для подключения к кластеру:
+(Просто нажмите Enter, чтобы не было пароля)</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="538"/>
         <location filename="../dxcluster.cpp" line="576"/>
         <location filename="../dxcluster.cpp" line="610"/>
         <source>Disconnect</source>
-        <translation>Atvienoties</translation>
+        <translation>Отключить</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="542"/>
         <source>Not logged on, you may need to enter your callsign again.</source>
-        <translation>Neesat pieteicies, iespējams, vēlreiz jāievada izsaukuma signāls.</translation>
+        <translation>Вы не вошли в систему, возможно, вам придется снова ввести свой позывной.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="546"/>
         <source>Enter here the commands to be sent to the DX-Cluster server.</source>
-        <translation>Šeit ievadiet komandas, kas jānosūta uz DX-Cluster serveri.</translation>
+        <translation>Введите здесь команды, которые будут отправлены на сервер DX-Cluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="556"/>
         <source>Connection closed by the server</source>
-        <translation>Savienojumu noslēdzis serveris</translation>
+        <translation>Соединение закрыто сервером</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="562"/>
         <source>Click on Connect to connect to the DX-Cluster server.</source>
-        <translation>Noklikšķiniet uz Savienot, lai izveidotu savienojumu ar DX-Cluster serveri.</translation>
+        <translation>Нажмите Connect, чтобы подключиться к серверу DX-Cluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="615"/>
         <source>Send</source>
-        <translation>Sūtīt</translation>
+        <translation>Отправлять</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="794"/>
         <source>It was not possible to open the file to save the DX-Spots for writing. DX-Cluster activity will not be saved!</source>
-        <translation>Nevarēja atvērt failu, lai saglabātu DX-Spots rakstīšanai. DX klastera darbība netiks saglabāta!</translation>
+        <translation>Не удалось открыть файл для сохранения DX-Spots для записи. Активность DX-кластера не будет сохранена!</translation>
     </message>
 </context>
 <context>
@@ -657,202 +657,213 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="127"/>
         <source>Software version in DB is null</source>
-        <translation>Programmatūras versija DB ir nulle</translation>
+        <translation>Версия ПО в БД нулевая</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="127"/>
         <source>Query didn&apos;t failed</source>
-        <translation>Vaicājums neizdevās</translation>
+        <translation>Запрос не провалился</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4889"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Разброс самолетов</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4893"/>
         <source>Aurora</source>
-        <translation>Aurora</translation>
+        <translation>Аврора</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4897"/>
         <source>Aurora-E</source>
-        <translation>Aurora-E</translation>
+        <translation>Аврора-Э</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4901"/>
         <source>Back scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation></translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Обратное рассеивание</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4905"/>
         <source>Earth-Moon-Earth</source>
-        <translation>Zeme-Mēness-Zeme</translation>
+        <translation>Земля-Луна-Земля</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4909"/>
         <source>Sporadic E</source>
-        <translation>Sporādisks E</translation>
+        <translation>Спорадический E</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4913"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Laukā izlīdzinātie pārkāpumi</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Неровности, выровненные по полю</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4917"/>
         <source>F2 Reflection</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>F2 Atspulgs</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>F2 Отражение</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4921"/>
         <source>Internet-assisted</source>
-        <translation>Ar interneta palīdzību</translation>
+        <translation>с помощью Интернета</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4925"/>
         <source>Ionoscatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Jonu izkliede</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>ионорассеяние</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4929"/>
         <source>Meteor scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Meteoru izkliede</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Разброс метеоров</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4933"/>
         <source>Terrestrial or atmospheric repeater or transponder</source>
-        <translation>Virszemes vai atmosfēras atkārtotājs vai retranslators</translation>
+        <translation>Наземный или атмосферный ретранслятор или транспондер</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4937"/>
         <source>Rain scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Lietus izkliedē</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Рассеяние дождя</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4941"/>
         <source>Satellite</source>
-        <translation>Satelīts</translation>
+        <translation>спутник</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4945"/>
         <source>Trans-equatorial</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Transekvatoriāls</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Трансэкваториальный</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4949"/>
         <source>Tropospheric ducting</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Troposfēras kanāli</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Тропосферный воздуховод</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5472"/>
         <location filename="../dataproxy_sqlite.cpp" line="5532"/>
         <source>Yes</source>
-        <translation>Jā</translation>
+        <translation>Да</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5476"/>
         <location filename="../dataproxy_sqlite.cpp" line="5536"/>
         <source>No</source>
-        <translation>Nē</translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5480"/>
         <location filename="../dataproxy_sqlite.cpp" line="5540"/>
         <source>Requested</source>
-        <translation>Pieprasīts</translation>
+        <translation>Запрошено</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5484"/>
         <location filename="../dataproxy_sqlite.cpp" line="5548"/>
         <source>Ignore/Invalid</source>
-        <translation>Ignorēt/nederīgs</translation>
+        <translation>Игнорировать/Недействительно</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5488"/>
         <source>Validated</source>
-        <translation>Apstiprināts</translation>
+        <translation>Утверждено</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5544"/>
         <source>Queued</source>
-        <translation>Rindā</translation>
+        <translation>В очереди</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5592"/>
         <source>Uploaded</source>
-        <translation>Augšupielādēts</translation>
+        <translation>Загружено</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5596"/>
         <source>Do not upload</source>
-        <translation>Neaugšupielādēt</translation>
+        <translation>Не загружать</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5600"/>
         <source>Modified</source>
-        <translation>Pārveidots</translation>
+        <translation>Изменено</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5645"/>
         <source>Bureau</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Birojs</translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Бюро</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5649"/>
         <source>Direct</source>
-        <translation>Tieša</translation>
+        <translation>Прямой</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5653"/>
         <source>Electronic</source>
-        <translation>Elektroniskā</translation>
+        <translation>Электронный</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5657"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Распространенный термин в радиолюбителях, не переводите, если не уверены</translatorcomment>
+        <translation>Менеджер</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="6528"/>
         <source>KLog DXCC</source>
-        <translation>Klog DXCC</translation>
+        <translation>Клог DXCC</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="6529"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
-        <translation>Visi QSO ir atjaunināti ar DXCC un kontinentu.</translation>
+        <translation>Все QSO были обновлены с DXCC и Continent.</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="9581"/>
         <source>KLog - Invalid call detected</source>
-        <translation>KLog — konstatēts nederīgs izsaukumasignals</translation>
+        <translation>KLog — Обнаружен недействительный вызов</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="9587"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported ADIF record?</source>
-        <translation>Ir konstatēts tukšs izsaukuma signāls. Vai tomēr vēlaties eksportēt šo QSO (noklikšķināt uz Jā) vai noņemt lauku no eksportētā ADIF ieraksta?</translation>
+        <translation>Обнаружен пустой позывной. Вы все равно хотите экспортировать это QSO (нажмите Да) или удалить это поле из экспортируемой записи ADIF?</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="9591"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log?</source>
-        <translation>Ir konstatēts nederīgs izsaukuma signāls %1. Vai tomēr vēlaties eksportēt šo izsaukuma signālu (noklikšķināt uz Jā) vai noņemt zvanu no eksportētā žurnāla?</translation>
+        <translation>Обнаружен неверный позывной %1. Вы все равно хотите экспортировать этот позывной (нажмите Да) или удалить позывной из экспортированного журнала?</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="9595"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid.</source>
-        <translation>Nepareizu zvanu eksportēšana var radīt problēmas lietojumprogrammās, kurās, iespējams, importējat šo žurnālfailu. Tomēr tas var būt labs izsaukuma signāls, ko KLog nepareizi identificē kā nederīgu.</translation>
+        <translation>Экспорт неправильных вызовов может создать проблемы в приложениях, в которые вы потенциально импортируете этот файл журнала. Однако это может быть хороший позывной, который KLog ошибочно идентифицирует как недействительный.</translation>
     </message>
 </context>
 <context>
@@ -860,22 +871,22 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../downloadcty.cpp" line="93"/>
         <source>Download of cty.csv failed with the following error code: </source>
-        <translation>Cty.csv lejupielāde neizdevās ar šādu kļūdas kodu: </translation>
+        <translation>Загрузка файла cty.csv не удалась со следующим кодом ошибки: </translation>
     </message>
     <message>
         <location filename="../downloadcty.cpp" line="105"/>
         <source>Download of cty.csv done.</source>
-        <translation>Cty.csv lejupielāde ir pabeigta.</translation>
+        <translation>Загрузка cty.csv завершена.</translation>
     </message>
     <message>
         <location filename="../downloadcty.cpp" line="176"/>
         <source>There is already a cty.csv file in the folder but it will be replaced with the new one.</source>
-        <translation>Mapē jau ir fails cty.csv, taču tas tiks aizstāts ar jaunu.</translation>
+        <translation>В папке уже есть файл cty.csv, но он будет заменен новым.</translation>
     </message>
     <message>
         <location filename="../downloadcty.cpp" line="205"/>
         <source>Could not open %1 for writing</source>
-        <translation>Nevarēja atvērt %1 rakstīšanai</translation>
+        <translation>Не удалось открыть %1 для записи</translation>
     </message>
 </context>
 <context>
@@ -883,47 +894,47 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../fileawardmanager.cpp" line="46"/>
         <source>Open Award file</source>
-        <translation>Atveriet balvas failu</translation>
+        <translation>Открыть файл награды</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="46"/>
         <source>Award files (*.awa)</source>
-        <translation>Apbalvojuma faili (*.awa)</translation>
+        <translation>Файлы наград (*.awa)</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="52"/>
         <source>Award file not opened</source>
-        <translation>Balvas fails nav atvērts</translation>
+        <translation>Файл с наградой не открыт</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="52"/>
         <source>KLog was not able to read the award file</source>
-        <translation>KLog nevarēja nolasīt balvas failu</translation>
+        <translation>KLog не смог прочитать файл награды</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="52"/>
         <source>It was not possible to open the file %1 for reading.</source>
-        <translation>Nevarēja atvērt failu %1 lasīšanai.</translation>
+        <translation>Не удалось открыть файл %1 для чтения.</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="95"/>
         <source>AWA wrong format</source>
-        <translation>AWA nepareizs formāts</translation>
+        <translation>Неправильный формат AWA</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="95"/>
         <source>The AWA file does not have the right format</source>
-        <translation>AWA failam nav pareizais formāts</translation>
+        <translation>Файл AWA имеет неправильный формат</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="95"/>
         <source>AWA file does not have an &lt;EOH&gt; field</source>
-        <translation>AWA failam nav &lt;EOH&gt; lauka</translation>
+        <translation>В файле AWA нет поля &lt;EOH&gt;</translation>
     </message>
     <message>
         <location filename="../fileawardmanager.cpp" line="239"/>
         <source>KLog - %1</source>
-        <translation>Klog — %1</translation>
+        <translation>Клог — %1</translation>
     </message>
 </context>
 <context>
@@ -931,28 +942,28 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="154"/>
         <source>KLog - Error</source>
-        <translation>KLog — kļūda</translation>
+        <translation>Клог – ошибка</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="184"/>
         <source>The selected log does not exist, please check it again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбранный журнал не существует, проверьте его еще раз.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="175"/>
         <location filename="../filemanager.cpp" line="436"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбранный позывной (%1) недействителен, проверьте его еще раз, чтобы экспортировать журнал.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="257"/>
         <source>The file %1 can&apos;t be opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 не может быть открыт.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="329"/>
         <source>There are no QSOs pending to be exported with that station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет ожидающих экспорта QSO с этим позывным станции.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="340"/>
@@ -960,7 +971,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="633"/>
         <location filename="../filemanager.cpp" line="831"/>
         <source>Writing ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись файла ADIF...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="340"/>
@@ -968,18 +979,19 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="633"/>
         <location filename="../filemanager.cpp" line="831"/>
         <source>Abort writing</source>
-        <translation>Pārtraukt rakstīšanu</translation>
+        <translation>Прервать запись</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="344"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="388"/>
         <source>Exporting ADIF file...
  QSO: %1 / %2 </source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт файла ADIF...
+ QSO: %1 / %2 </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="397"/>
@@ -990,7 +1002,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1596"/>
         <location filename="../filemanager.cpp" line="2107"/>
         <source>KLog - User cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — Пользователь удален</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="398"/>
@@ -998,7 +1010,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="666"/>
         <location filename="../filemanager.cpp" line="867"/>
         <source>You have canceled the file export. The file will be removed and no data will be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы отменили экспорт файла. Файл будет удален, и данные не будут экспортированы.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="398"/>
@@ -1009,14 +1021,14 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1597"/>
         <location filename="../filemanager.cpp" line="2108"/>
         <source>Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы все еще хотите отменить?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="516"/>
         <location filename="../filemanager.cpp" line="636"/>
         <location filename="../filemanager.cpp" line="834"/>
         <source>Export progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт прогресса</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="537"/>
@@ -1024,84 +1036,85 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="855"/>
         <source>Writing ADIF file...
  QSO: </source>
-        <translation>Notiek ADIF faila rakstīšana...
+        <translation>Запись файла ADIF...
  QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="948"/>
         <location filename="../filemanager.cpp" line="1156"/>
         <source>KLog - File not opened</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Файл не открыт</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="949"/>
         <location filename="../filemanager.cpp" line="1157"/>
         <source>It was not possible to open the file %1 for reading.</source>
-        <translation type="unfinished">Nevarēja atvērt failu %1 lasīšanai.</translation>
+        <translation>Не удалось открыть файл %1 для чтения.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="950"/>
         <location filename="../filemanager.cpp" line="1158"/>
         <source>KLog was not able to read the LoTW file</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog не смог прочитать файл LoTW</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="985"/>
         <source>Processing LoTW ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Обработка файла LoTW ADIF...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="985"/>
         <source>Abort processing</source>
-        <translation>Pārtraukt apstrādi</translation>
+        <translation>Прервать обработку</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="989"/>
         <source>LoTW reading</source>
-        <translation>LoTW lasīšana</translation>
+        <translation>Чтение LoTW</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1036"/>
         <location filename="../filemanager.cpp" line="1974"/>
         <source>KLog - Add new QSOs?</source>
-        <translation>Klog — pievienot jaunus QSO?</translation>
+        <translation>KLog - Добавить новые QSO?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1037"/>
         <source>Do you want to add non existing QSOs to your local log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите добавить несуществующие QSO в свой локальный журнал?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1039"/>
         <source>There are some QSOs in the LoTW log that are not in your local log.</source>
-        <translation type="unfinished"></translation>
+        <translation>В журнале LoTW есть несколько QSO, которых нет в вашем локальном журнале.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1100"/>
         <source>Processing LoTW ADIF file......
  QSO: %1 / %2 </source>
-        <translation type="unfinished"></translation>
+        <translation>Обработка файла LoTW ADIF......
+ QSO: %1 / %2 </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1109"/>
         <source>You have canceled the LoTW processing. The process will be stopped and your log may not be completely updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы отменили обработку LoTW. Процесс будет остановлен, и ваш журнал может быть обновлен не полностью.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1206"/>
         <source>Reading LoTW file...</source>
-        <translation>Notiek LoTW faila lasīšana...</translation>
+        <translation>Чтение файла LoTW...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1206"/>
         <location filename="../filemanager.cpp" line="1806"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation>Прервать чтение</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1585"/>
         <source>Importing LoTW ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт файла LoTW ADIF...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1585"/>
@@ -1113,229 +1126,237 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1597"/>
         <location filename="../filemanager.cpp" line="2108"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы отменили импорт файла. Файл будет удален, и никакие данные не будут импортированы.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1761"/>
         <source>KLog - Log selection</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — выбор журнала</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1762"/>
         <source>There is more than one log in this logfile.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этом файле журнала содержится более одного журнала.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1762"/>
         <source>All logs will be imported into the current log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Все журналы будут импортированы в текущий журнал.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1762"/>
         <source>Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите продолжать?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1806"/>
         <source>Reading ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Чтение файла ADIF...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1975"/>
         <source>Do you want to add dupe QSOs to your local log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите добавить повторные QSO в свой локальный журнал?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1977"/>
         <source>There are some QSOs in this logfile that may be dupes as they have same call, band &amp; mode and a very close date.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этом лог-файле есть несколько QSO, которые могут быть дубликатами, поскольку у них один и тот же позывной, диапазон и режим и очень близкая дата.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2031"/>
         <source>Importing ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт файла ADIF...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2057"/>
         <source>KLog - Duplicated QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Дублированные QSO</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="2058"/>
         <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
-        <translation type="unfinished"></translation>
+        <translation>Похоже, что в импортируемом файле ADIF есть несколько дублированных QSO. Вы хотите продолжать? (Поддельные QSO не будут импортированы)</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3244"/>
         <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Это QSO не включает минимальные данные, чтобы считать QSO действительным!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3244"/>
         <source>Please edit the ADIF file and make sure that it include at least:</source>
-        <translation type="unfinished"></translation>
+        <translation>Please edit the ADIF file and make sure that it include at least:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3244"/>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>и</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3244"/>
         <source>This QSO had:</source>
-        <translation type="unfinished"></translation>
+        <translation>Это QSO было:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3247"/>
         <source> - The band missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Отсутствует полоса и следующий звонок: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3251"/>
         <source> - The mode missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Режим отсутствует и следующий вызов: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3255"/>
         <source> - The date missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Дата отсутствует и следующий вызов: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3259"/>
         <source> - The time missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Время отсутствует и следующий звонок: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3261"/>
         <source>Do you want to continue with the current file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите продолжить работу с текущим файлом?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3265"/>
         <source>KLog: Not all required data found!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog: Не все необходимые данные найдены!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3290"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
-        <translation type="unfinished"></translation>
+        <translation>В некоторых QSO этого лога (например: %1) отсутствует информация RST-TX.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3290"/>
         <location filename="../filemanager.cpp" line="3313"/>
         <source>Click on Yes to add a default %1 for mode %2 to all QSOs with a similar problem.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите Да, чтобы добавить %1 по умолчанию для режима %2 ко всем QSO с похожей проблемой.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3290"/>
         <location filename="../filemanager.cpp" line="3313"/>
         <source>If you select NO, maybe the QSO will not be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Если вы выберете НЕТ, возможно, QSO не будет импортировано.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3291"/>
         <source>KLog: No RST TX found!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog: RST TX не найден!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3313"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
-        <translation type="unfinished"></translation>
+        <translation>В некоторых QSO этого журнала (например: %1) отсутствует информация RST-RX.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3315"/>
         <source>KLog: No RST RX found!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog: RST RX не найден!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3353"/>
         <location filename="../filemanager.cpp" line="3364"/>
         <source>KLog - No Station callsign entered.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Позывной станции не введен.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3379"/>
         <source>KLog - Apply to all QSOs in this log?</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Применить ко всем QSO в этом логе?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3421"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog обнаружил одно QSO без определенного позывного станции.
+
+Введите позывной станции, которая использовалась для проведения этого QSO с %1 на %2:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3422"/>
         <location filename="../filemanager.cpp" line="3427"/>
         <source>KLog - QSO without Station Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSO без позывного станции</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3428"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO on %1:</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog обнаружил одно QSO без определенного позывного станции.
+
+Введите позывной станции, которая использовалась для проведения этого QSO на %1:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3856"/>
         <source>KLog - Don&apos;t ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - больше не спрашивать</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3858"/>
         <source>Do you want to reuse your answer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите повторно использовать свой ответ?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3859"/>
         <source>KLog will use automatically your previous answer for any other similar ocurrence, if any, without asking you again.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog будет автоматически использовать ваш предыдущий ответ для любого другого подобного случая, если таковой имеется, не спрашивая вас снова.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3882"/>
         <source>&lt;ul&gt;&lt;li&gt;Date/Time:&lt;/i&gt; %1&lt;/li&gt;&lt;li&gt;Callsign: %2&lt;/li&gt;&lt;li&gt;Band: %3&lt;/li&gt;&lt;li&gt;Mode: %4&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;ul&gt;&lt;li&gt;Дата/время:&lt;/i&gt; %1&lt;/li&gt;&lt;li&gt;Позывной: %2&lt;/li&gt;&lt;li&gt;Диапазон: %3&lt;/li&gt;&lt;li&gt;Режим: %4&lt; /ли&gt;&lt;/ул&gt;</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3886"/>
         <source>KLog - QSO not found</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSO не найдено</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3888"/>
         <source>Do you want to add this QSO to the log?:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите добавить это QSO в лог?:
+
+</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3889"/>
         <source>We have found a QSO coming from LoTW that is not in your local log.
 
 Do you want KLog to add this QSO to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Мы обнаружили QSO из LoTW, которого нет в вашем локальном журнале.
+
+Вы хотите, чтобы KLog добавил это QSO в лог?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3911"/>
         <source>KLog - Invalid call detected</source>
-        <translation type="unfinished">KLog — konstatēts nederīgs izsaukumasignals</translation>
+        <translation>KLog — Обнаружен недействительный вызов</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3917"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported log file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Обнаружен пустой позывной. Вы все равно хотите экспортировать это QSO (нажмите «Да») или удалить это поле из экспортируемого лог-файла?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3921"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Обнаружен неверный позывной %1. Вы все равно хотите экспортировать этот позывной (нажмите «Да») или удалить позывной из экспортированного лог-файла?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3924"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт неправильных вызовов может создать проблемы в приложениях, в которые вы потенциально импортируете этот файл журнала. Однако это может быть хороший позывной, который KLog ошибочно идентифицирует как недействительный. Однако вы можете отредактировать файл ADIF после завершения процесса экспорта.</translation>
     </message>
 </context>
 <context>
@@ -1432,7 +1453,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="60"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Никто</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="60"/>
@@ -1530,7 +1551,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../infowidget.cpp" line="83"/>
         <source>20M</source>
-        <translation></translation>
+        <translation>20M</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="84"/>
@@ -1580,12 +1601,12 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../infowidget.cpp" line="107"/>
         <source>Continent</source>
-        <translation>Kontinents</translation>
+        <translation>Континент</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="111"/>
         <source>Prefix</source>
-        <translation>Prefiks</translation>
+        <translation>Префикс</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="115"/>
@@ -1600,24 +1621,24 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../infowidget.cpp" line="123"/>
         <source>Short Path</source>
-        <translation>Īss ceļš</translation>
+        <translation>Короткий путь</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="126"/>
         <source>Long Path</source>
-        <translation>Garais ceļš</translation>
+        <translation>Долгий путь</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="129"/>
         <location filename="../infowidget.cpp" line="134"/>
         <source>Deg</source>
-        <translation type="unfinished"></translation>
+        <translation>градус</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="360"/>
         <location filename="../infowidget.cpp" line="361"/>
         <source>Miles</source>
-        <translation>Jūdzes</translation>
+        <translation>Мили</translation>
     </message>
     <message>
         <location filename="../infowidget.cpp" line="367"/>
@@ -1631,26 +1652,26 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../startwizard.cpp" line="145"/>
         <source>Welcome to KLog!</source>
-        <translation>Laipni lūdzam KLog!</translation>
+        <translation>Добро пожаловать в Клог!</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="147"/>
         <source>Welcome to KLog! - brought to you under the terms of the GPL!</source>
-        <translation>Laipni lūdzam KLog! - sniegta jums saskaņā ar GPL noteikumiem!</translation>
+        <translation>Добро пожаловать в Клог! - принесено вам на условиях GPL!</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="155"/>
         <source>Welcome to KLog</source>
-        <translation>Laipni lūdzam KLog</translation>
+        <translation>Добро пожаловать в Клог</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="156"/>
         <source>This looks like it&apos;s the first time you&apos;ve run KLog on this computer.</source>
-        <translation>Šķiet, ka šī ir pirmā reize, kad šajā datorā palaižat KLog.</translation>
+        <translation>Похоже, вы впервые запускаете KLog на этом компьютере.</translation>
     </message>
     <message>
         <source>KLog is a free hamradio logging program that can run on Linux, macOS, and Windows.</source>
-        <translation type="vanished">KLog ir bezmaksas hamradio reģistrēšanas programma, kas var darboties operētājsistēmās Linux, macOS un Windows.</translation>
+        <translation type="vanished">KLog — бесплатная программа для ведения журналов радиолюбителей, которая может работать в Linux, macOS и Windows.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="157"/>
@@ -1660,42 +1681,42 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../startwizard.cpp" line="158"/>
         <source>It is designed to provide general purpose DX, and contest logging.</source>
-        <translation>Tas ir paredzēts, lai nodrošinātu vispārējas nozīmes DX un sacensību reģistrēšanu.</translation>
+        <translation>Он предназначен для обеспечения DX общего назначения и ведения журнала соревнований.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="159"/>
         <source>It supports QSL management, import and export of ADIF </source>
-        <translation>Tā atbalsta QSL pārvaldību, ADIF importu un eksportu </translation>
+        <translation>Он поддерживает управление QSL, импорт и экспорт ADIF.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="160"/>
         <source>and Cabrillo file formats and many other features...</source>
-        <translation>un Cabrillo failu formāti un daudzas citas funkcijas...</translation>
+        <translation>форматы файлов Cabrillo и многие другие функции...</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="161"/>
         <source>Before you can start using KLog, you will be asked to:</source>
-        <translation>Pirms sākat lietot KLog, jums tiks lūgts:</translation>
+        <translation>Прежде чем вы сможете начать использовать KLog, вам будет предложено:</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="162"/>
         <source>Acknowledge to the terms of the license.</source>
-        <translation>Apstipriniet licences nosacījumus.</translation>
+        <translation>Примите условия лицензии.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="163"/>
         <source>Download the DX entities information.</source>
-        <translation>Lejupielādējiet DX entītiju informāciju.</translation>
+        <translation>Загрузите информацию об объектах DX.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="164"/>
         <source>Enter your callsign, CQ zone, etc. and main configuration.</source>
-        <translation>Ievadiet savu izsaukuma signālu, CQ zonu utt. un galveno konfigurāciju.</translation>
+        <translation>Введите свой позывной, зону CQ и т. д. и основную конфигурацию.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="165"/>
         <source>Enjoy KLog and contact the development team if you have any suggestions!</source>
-        <translation>Izbaudiet KLog un sazinieties ar izstrādes komandu, ja jums ir kādi ieteikumi!</translation>
+        <translation>Наслаждайтесь KLog и свяжитесь с командой разработчиков, если у вас есть какие-либо предложения!</translation>
     </message>
 </context>
 <context>
@@ -1703,22 +1724,22 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../startwizard.cpp" line="186"/>
         <source>KLog License information</source>
-        <translation>Informācija par KLog licenzi</translation>
+        <translation>Информация о лицензии KLog</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="189"/>
         <source>Welcome to KLog!- brought to you under the terms of the GPL!</source>
-        <translation>Laipni lūdzam KLog! — nodrošināts saskaņā ar GPL noteikumiem!</translation>
+        <translation>Добро пожаловать в KLog! — предоставляется вам на условиях GPL!</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="830"/>
         <source>Acknowledge</source>
-        <translation>Atzīt</translation>
+        <translation>Сознавать</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="831"/>
         <source>Be aware that KLog is free software.</source>
-        <translation>Ņemiet vērā, ka KLog ir bezmaksas programmatūra.</translation>
+        <translation>Имейте в виду, что KLog — бесплатное программное обеспечение.</translation>
     </message>
 </context>
 <context>
@@ -1726,92 +1747,97 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../lotwutilities.cpp" line="65"/>
         <source>Double click on the date that you want to use as the start date for downloading QSOs.</source>
-        <translation>Veiciet dubultklikšķi uz datuma, kuru vēlaties izmantot kā QSO lejupielādes sākuma datumu.</translation>
+        <translation>Дважды щелкните дату, которую вы хотите использовать в качестве даты начала загрузки QSO.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="114"/>
         <source>KLog - LoTW password needed</source>
-        <translation>KLog — nepieciešama LoTW parole</translation>
+        <translation>KLog - требуется пароль LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="115"/>
         <source>Please enter your LoTW password: </source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, введите свой пароль LoTW: </translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="190"/>
         <source>KLog - LoTW Station callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — позывной станции LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="191"/>
         <source>There is not a single QSO in the log with that station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>В логе нет ни одного QSO с этим позывным станции.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="192"/>
         <source>Are you sure that you want to use that station callsign (%1)?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы уверены, что хотите использовать позывной этой станции (%1)?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="254"/>
         <location filename="../lotwutilities.cpp" line="383"/>
         <source>KLog - LoTW File already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — файл LoTW уже существует</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="255"/>
         <location filename="../lotwutilities.cpp" line="384"/>
         <source>There is a file already existing with the name that will be used.</source>
-        <translation type="unfinished"></translation>
+        <translation>Уже существует файл с именем, которое будет использоваться.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="256"/>
         <location filename="../lotwutilities.cpp" line="385"/>
         <source>The file %1 already exist. Do you want to overwrite?</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 уже существует. Вы хотите перезаписать?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="281"/>
         <location filename="../lotwutilities.cpp" line="410"/>
         <source>KLog - LoTW Can&apos;t write the file</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - LoTW Невозможно записать файл</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="282"/>
         <location filename="../lotwutilities.cpp" line="411"/>
         <source>KLog was not able to save the file %1.
 Error returned: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog не удалось сохранить файл %1.
+Возвращена ошибка: %2</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="283"/>
         <location filename="../lotwutilities.cpp" line="412"/>
         <source>The file %1 already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 уже существует.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="301"/>
         <location filename="../lotwutilities.cpp" line="430"/>
         <source>Downloading data to file: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка данных в файл: %1.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="303"/>
         <location filename="../lotwutilities.cpp" line="432"/>
         <location filename="../lotwutilities.cpp" line="695"/>
         <source>KLog - LoTW download</source>
-        <translation>KLog — LoTW lejupielāde</translation>
+        <translation>KLog - загрузка LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="337"/>
         <source>KLog - LoTW Start date selection</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — Выбор даты начала LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="338"/>
         <source>This is the first date of a QSO with the callsign %1 in this log If you think that in LoTW you may have previous QSOs, answer No.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это первая дата QSO с позывным %1 в этом журнале. Если вы считаете, что в LoTW у вас могут быть предыдущие QSO, ответьте Нет.</translation>
+    </message>
+    <message>
+        <source>Do you want to used this date (%1) as start date?</source>
+        <translation type="vanished">Вы хотите использовать эту дату (%1) в качестве даты начала?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="339"/>
@@ -1821,121 +1847,121 @@ Error returned: %2</source>
     <message>
         <location filename="../lotwutilities.cpp" line="512"/>
         <source>KLog - LoTW Download error</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — ошибка загрузки LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="514"/>
         <source>There was an error (%1) while downloading the file from LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>При загрузке файла с LoTW произошла ошибка (%1).</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="515"/>
         <source>The downloading error details are: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сведения об ошибке загрузки: %1</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="527"/>
         <source>KLog - LoTW Redirection found</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog – обнаружено перенаправление LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="528"/>
         <source>The remote server redirected our connection to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Удаленный сервер перенаправил наше соединение на %1</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="529"/>
         <source>Do you want to follow the redirection?</source>
-        <translation type="unfinished"></translation>
+        <translation>Хотите следовать перенаправлению?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="604"/>
         <source>KLog - LoTW File not found</source>
-        <translation>KLog — LoTW fails nav atrasts</translation>
+        <translation>KLog — Файл LoTW не найден</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="605"/>
         <source>KLog can&apos;t find the downloaded file.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog не может найти загруженный файл.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="606"/>
         <source>It was not possible for find the file %1 that has been just downloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось найти только что загруженный файл %1 </translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="666"/>
         <source>KLog - LoTW user/password error</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — ошибка пользователя/пароля LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="667"/>
         <source>LoTW server did not recognized your user/password</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер LoTW не распознал вашего пользователя/пароль</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="668"/>
         <source>Check your user and password and ensure your are using the right one before trying again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте свой пользователь и пароль и убедитесь, что вы используете правильный, прежде чем повторить попытку.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="672"/>
         <source>KLog - LoTW No QSOs </source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - LoTW Нет связей </translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="673"/>
         <source>LoTW sent no QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>LoTW не провел QSO</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="674"/>
         <source>It seems that LoTW has no QSO with the Station Callsign you are using (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Похоже, что у LoTW нет связей с позывным станции, которую вы используете (%1).</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="678"/>
         <source>KLog - LoTW Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — Неизвестная ошибка LoTW</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="679"/>
         <source>KLog can&apos;t recognize the file that has been downloaded from LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog не может распознать файл, загруженный с LoTW.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="680"/>
         <source>Try again and send the downloaded file (%1) to the KLog developer for analysis.</source>
-        <translation type="unfinished"></translation>
+        <translation>Попробуйте еще раз и отправьте загруженный файл (%1) разработчику KLog для анализа.</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="696"/>
         <source>KLog downloaded %1 QSOs successfully. Do you want to update your log with the downloaded data?</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog успешно загрузил %1 QSO. Хотите обновить свой журнал загруженными данными?</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="697"/>
         <source>Now KLog will process the downloaded QSO and update your local log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Теперь KLog обработает загруженное QSO и обновит ваш локальный журнал.</translation>
     </message>
 </context>
 <context>
     <name>LogModel</name>
     <message>
         <source>Date</source>
-        <translation type="vanished">Datums</translation>
+        <translation type="vanished">Дата</translation>
     </message>
     <message>
         <source>Call</source>
-        <translation type="vanished">Izsaukuma signāls</translation>
+        <translation type="vanished">Позывной</translation>
     </message>
     <message>
         <source>Band</source>
-        <translation type="vanished">Diapazons</translation>
+        <translation type="vanished">диапазон</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="vanished">Režīms</translation>
+        <translation type="vanished">выд излучение</translation>
     </message>
     <message>
         <source>RSTtx</source>
@@ -1947,7 +1973,7 @@ Error returned: %2</source>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="vanished">Komentāri</translation>
+        <translation type="vanished">Комментарий</translation>
     </message>
 </context>
 <context>
@@ -1955,12 +1981,12 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="288"/>
         <source>QSL Send</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL отправить</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="297"/>
         <source>QSL Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL Rcvd</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="346"/>
@@ -1970,7 +1996,7 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="348"/>
         <source>Delete a QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить QSO</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="351"/>
@@ -1980,7 +2006,7 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="353"/>
         <source>Edit this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактировать это QSO</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="356"/>
@@ -1990,7 +2016,7 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="358"/>
         <source>Send this QSL via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправьте эту QSL через бюро</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="361"/>
@@ -2000,14 +2026,14 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="363"/>
         <source>Send this QSL via direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправьте эту QSL через direct</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="366"/>
         <location filename="../logwindow.cpp" line="412"/>
         <location filename="../logwindow.cpp" line="420"/>
         <source>Via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Через бюро</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="368"/>
@@ -2019,7 +2045,7 @@ Error returned: %2</source>
         <location filename="../logwindow.cpp" line="416"/>
         <location filename="../logwindow.cpp" line="424"/>
         <source>Direct</source>
-        <translation type="unfinished">Tieša</translation>
+        <translation>Прямой</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="373"/>
@@ -2029,87 +2055,87 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="376"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте на QRZ.com</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="378"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте этот позывной на QRZ.com</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="381"/>
         <source>Check in DXHeat.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте на DXHeat.com</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="383"/>
         <source>Check this callsign in DXHeat.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте этот позывной на DXHeat.com</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="386"/>
         <source>Delete selected QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить выбранные QSO</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="388"/>
         <source>Delete the selected QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить выбранные QSO</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="391"/>
         <source>Export to ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт в ADIF</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="392"/>
         <source>Export the selected QSOs to an ADIF file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать выбранные QSO в файл ADIF.</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="400"/>
         <source>Upload to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить в LoTW</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="401"/>
         <source>Upload the selected QSOs to LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить выбранные QSO в LoTW</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="404"/>
         <source>Upload to ClubLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить в ClubLog</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="405"/>
         <source>Upload the selected QSOs to ClubLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить выбранные QSO в ClubLog</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="408"/>
         <source>Upload to eQSL.cc</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить на eQSL.cc</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="409"/>
         <source>Upload the selected QSOs to eQSL.cc</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить выбранные QSO на eQSL.cc</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="413"/>
         <source>Send these QSLs via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправьте эти QSL через бюро</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="417"/>
         <source>Send these QSLs via direct</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправьте эти QSL через direct</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="421"/>
         <source>QSLs received via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL, полученные через бюро</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="425"/>
@@ -2119,22 +2145,22 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="428"/>
         <source>Select none</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите ничего</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="429"/>
         <source>Remove all selections</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить все выделения</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="432"/>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать все</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="433"/>
         <source>Select all the QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать все QSO</translation>
     </message>
 </context>
 <context>
@@ -2154,37 +2180,37 @@ Error returned: %2</source>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="83"/>
         <source>Callsign of the QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="84"/>
         <source>Band of the QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Группа QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="85"/>
         <source>Mode of the QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="86"/>
         <source>Date of the QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="87"/>
         <source>Time of the QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Время QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="88"/>
         <source>Add the QSO to the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавьте QSO в лог.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="89"/>
         <source>Clears the QSO entry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очищает запись QSO.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="90"/>
@@ -2194,7 +2220,7 @@ Error returned: %2</source>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="91"/>
         <source>KLog will show real time if enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog будет показывать в реальном времени, если он включен.</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="92"/>
@@ -2215,7 +2241,7 @@ Error returned: %2</source>
         <location filename="../mainqsoentrywidget.cpp" line="113"/>
         <location filename="../mainqsoentrywidget.cpp" line="1070"/>
         <source>Callsign</source>
-        <translation type="unfinished">Izsaukuma signāls</translation>
+        <translation>Позывной</translation>
     </message>
     <message>
         <location filename="../mainqsoentrywidget.cpp" line="895"/>
@@ -2231,7 +2257,8 @@ Error returned: %2</source>
         <location filename="../mainqsoentrywidget.cpp" line="1075"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common world for hams. Do not translate of not sure</comment>
-        <translation>DUPE</translation>
+        <translatorcomment>Переводчик: DUPE — это обычный мир для радиолюбителей. не переводить не уверен</translatorcomment>
+        <translation>ДЮП</translation>
     </message>
 </context>
 <context>
@@ -2239,33 +2266,33 @@ Error returned: %2</source>
     <message>
         <location filename="../mainwindow.cpp" line="2506"/>
         <source>Check always the current callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Всегда проверяйте текущий позывной на QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="317"/>
         <source>KLog - File not open</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Файл не открыт</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="318"/>
         <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть отладочный файл для записи. Журнал отладки не будет сохранен!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="137"/>
         <source>Status bar ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Статус бар ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="138"/>
         <location filename="../mainwindow.cpp" line="196"/>
         <source>DX Entity</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-сущность</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="160"/>
         <source>Starting KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Запуск KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="197"/>
@@ -2273,70 +2300,183 @@ Error returned: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Upload the queued QSOs to LoTW</source>
+        <translation type="vanished">Загрузить поставленные в очередь QSO в LoTW</translation>
+    </message>
+    <message>
+        <source>Watts</source>
+        <translation type="vanished">Вт</translation>
+    </message>
+    <message>
+        <source>MHz</source>
+        <translation type="vanished">МГц</translation>
+    </message>
+    <message>
+        <source>Split</source>
+        <comment>Translator: Split is a common hamradio term. Do not translate unless you are sure.</comment>
+        <translatorcomment>Переводчик: «Сплит» — это общепринятый термин для радиолюбителей. Не переводите, если не уверены.</translatorcomment>
+        <translation type="vanished">Расколоть</translation>
+    </message>
+    <message>
+        <source>KLog CTY.dat update</source>
+        <translation type="vanished">Обновление KLog CTY.dat</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.cpp" line="482"/>
         <source>KLog needs to update the Entities database.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog необходимо обновить базу данных сущностей.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="483"/>
         <source>You can update the entities database in Tools-&gt;Update cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете обновить базу данных сущностей в Tools-&gt;Update cty.csv</translation>
+    </message>
+    <message>
+        <source>Do you want to do it now?</source>
+        <translation type="vanished">Вы хотите сделать это сейчас?</translation>
+    </message>
+    <message>
+        <source>It seems that you have never done a backup or exported your log to ADIF.</source>
+        <translation type="vanished">Похоже, вы никогда не делали резервную копию и не экспортировали журнал в ADIF.</translation>
+    </message>
+    <message>
+        <source>It seems that the latest backup you did is older than one month.</source>
+        <translation type="vanished">Кажется, что последняя резервная копия, которую вы сделали, старше одного месяца.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="772"/>
         <source>Log backup recommended!</source>
-        <translation type="unfinished"></translation>
+        <translation>Рекомендуется резервное копирование журнала!</translation>
+    </message>
+    <message>
+        <source>It is a good practice to backup your full log regularly to avoid loosing data in case of a problem.
+Once you export your log to an ADIF file, you should copy that file to a safe place, like an USB drive, cloud drive, another computer, ...
+
+KLog will remind you to backup on a monthly basis.
+
+</source>
+        <translation type="vanished">Хорошей практикой является регулярное резервное копирование полного журнала, чтобы избежать потери данных в случае возникновения проблемы.
+
+После того, как вы экспортируете свой журнал в файл ADIF, вы должны скопировать этот файл в безопасное место, например на USB-накопитель, облачный диск, другой компьютер и т. д.
+
+KLog ежемесячно будет напоминать вам о резервном копировании.
+
+</translation>
+    </message>
+    <message>
+        <source>KLog backup</source>
+        <translation type="vanished">Резервное копирование KLog</translation>
+    </message>
+    <message>
+        <source>The backup was done successfully</source>
+        <translation type="vanished">Резервное копирование было сделано успешно</translation>
+    </message>
+    <message>
+        <source>KLog will remind you to backup your data again in aprox one month.</source>
+        <translation type="vanished">KLog напомнит вам снова сделать резервную копию ваших данных примерно через месяц.</translation>
+    </message>
+    <message>
+        <source>The backup was not properly done.</source>
+        <translation type="vanished">Резервное копирование не было сделано должным образом.</translation>
+    </message>
+    <message>
+        <source>It is recommended to backup your data periodically to prevent lose or corruption of your log.</source>
+        <translation type="vanished">Рекомендуется периодически делать резервную копию ваших данных, чтобы предотвратить потерю или повреждение вашего журнала.</translation>
+    </message>
+    <message>
+        <source>KLog new version detected!</source>
+        <translation type="vanished">Обнаружена новая версия KLog!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="829"/>
         <source>It seems that you are running this version of KLog for the first time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Похоже, вы запускаете эту версию KLog впервые.</translation>
+    </message>
+    <message>
+        <source>The setup will be open to allow you to do any new setup you may need.</source>
+        <translation type="vanished">Настройка будет открыта, чтобы вы могли выполнить любую новую настройку, которая может вам понадобиться.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="840"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Готовый</translation>
+    </message>
+    <message>
+        <source>KLog - %1 - QSOs: %2 - %3</source>
+        <translation type="vanished">KLog - %1 - QSO: %2 - %3</translation>
+    </message>
+    <message>
+        <source>KLog - %1 - QSOs: %2</source>
+        <translation type="vanished">KLog - %1 - QSO: %2</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="896"/>
         <location filename="../mainwindow.cpp" line="3245"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Клог</translation>
+    </message>
+    <message>
+        <source>KLog - Unexpected error</source>
+        <translation type="vanished">KLog — непредвиденная ошибка</translation>
+    </message>
+    <message>
+        <source>An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: </source>
+        <translation type="vanished">Произошла непредвиденная ошибка при попытке добавить QSO в ваш лог. Если проблема не устранена, обратитесь к разработчику для анализа: </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1156"/>
         <source>KLog - Not valid call</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Недействительный вызов</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1157"/>
         <source>The callsign %1 is not a valid call. Do you really want to add this callsign to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной %1 недействителен. Вы действительно хотите добавить этот позывной в журнал?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1159"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавление недействительных вызовов в журнал может создать проблемы при подаче заявок на награды, экспорте файлов ADIF в другие системы или приложения.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1213"/>
         <source>KLog - Select correct entity</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — выберите правильный объект</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1214"/>
         <source>You have selected an entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы выбрали объект:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1214"/>
         <source>that is different from the KLog proposed entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>который отличается от предлагаемого объекта KLog:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1215"/>
         <source>Click on the prefix of the correct entity or Cancel to edit the QSO again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите на префикс нужного объекта или нажмите «Отмена», чтобы снова отредактировать QSO.</translation>
+    </message>
+    <message>
+        <source>KLog - Not valid callsign</source>
+        <translation type="vanished">KLog - Недействительный позывной</translation>
+    </message>
+    <message>
+        <source>The callsign %1 is not a valid callsign. Do you really want to add this callsign to the log?</source>
+        <translation type="vanished">Позывной %1 не является допустимым позывным. Вы действительно хотите добавить этот позывной в журнал?</translation>
+    </message>
+    <message>
+        <source>No DXCC</source>
+        <translation type="vanished">Нет DXCC</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="vanished">Никто</translation>
+    </message>
+    <message>
+        <source>Click on the prefix of the right entity or Cancel to correct.</source>
+        <translation type="vanished">Нажмите на префикс нужного объекта или Отмена, чтобы исправить.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1321"/>
@@ -2344,43 +2484,51 @@ Error returned: %2</source>
         <location filename="../mainwindow.cpp" line="3842"/>
         <location filename="../mainwindow.cpp" line="4523"/>
         <source>Save ADIF File</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить файл ADIF</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1351"/>
         <source>You have requested to delete several QSOs </source>
-        <translation type="unfinished"></translation>
+        <translation>Вы запросили удаление нескольких QSO </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1355"/>
         <source>This operation shall remove definitely all the selected QSO and associated data and you will not be able to recover it again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта операция обязательно удалит все выбранные QSO и связанные с ними данные, и вы не сможете восстановить их снова.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1356"/>
         <location filename="../mainwindow.cpp" line="1411"/>
         <source>Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы уверены?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1406"/>
         <source>You have requested to delete the QSO with: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы запросили удаление QSO с: %1</translation>
+    </message>
+    <message>
+        <source>KLog ClubLog error</source>
+        <translation type="vanished">Ошибка KLog ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1502"/>
         <source>The ClubLog upload process has finished with an error and the log was possibly not uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Процесс загрузки ClubLog завершился с ошибкой, возможно, журнал не был загружен.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1503"/>
         <source>Please check your credentials, your Internet connection and your Clublog account. The received error code was: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте свои учетные данные, подключение к Интернету и учетную запись Clublog. Получен код ошибки: %1</translation>
+    </message>
+    <message>
+        <source>KLog ClubLog</source>
+        <translation type="vanished">KLog ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1522"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to ClubLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите пометить как загруженные все QSO, загруженные в ClubLog?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1521"/>
@@ -2394,7 +2542,7 @@ Error returned: %2</source>
         <location filename="../mainwindow.cpp" line="4215"/>
         <location filename="../mainwindow.cpp" line="4367"/>
         <source>KLog - ClubLog</source>
-        <translation type="unfinished">KLog - ClubLog</translation>
+        <translation>KLog - Клублог</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="59"/>
@@ -2549,50 +2697,61 @@ KLog will remind you to backup on a monthly basis.
     <message>
         <location filename="../mainwindow.cpp" line="1538"/>
         <source>There was an error while updating to Yes the ClubLog QSO upload information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла ошибка при обновлении на «Да» информации о загрузке QSO ClubLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1548"/>
         <source>The ClubLog upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Процесс загрузки ClubLog завершен, и KLog создал файл (%1) в вашей папке KLog.
+
+Вы хотите, чтобы KLog удалил этот файл?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1558"/>
         <location filename="../mainwindow.cpp" line="1676"/>
         <location filename="../mainwindow.cpp" line="4026"/>
         <source>The file has been removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл был удален.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1568"/>
         <location filename="../mainwindow.cpp" line="1686"/>
         <source>The file has not been removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не удален.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1569"/>
         <location filename="../mainwindow.cpp" line="1687"/>
         <source>It seems that there was something that prevented KLog from removing the file
 You can remove it manually.</source>
-        <translation type="unfinished"></translation>
+        <translation>Похоже, что-то мешало KLog удалить файл
+Вы можете удалить его вручную.</translation>
+    </message>
+    <message>
+        <source>KLog eQSL error</source>
+        <translation type="vanished">Ошибка eQSL KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1619"/>
         <source>The eQSL upload process has finished with an error and the log was possibly not uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Процесс загрузки eQSL завершился с ошибкой, и журнал, возможно, не был загружен.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1620"/>
         <location filename="../mainwindow.cpp" line="1738"/>
         <source>Please check your credentials, your Internet connection and your eQSL account. The received error code was: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте свои учетные данные, подключение к Интернету и учетную запись eQSL. Получен код ошибки: %1</translation>
+    </message>
+    <message>
+        <source>KLog eQSL</source>
+        <translation type="vanished">KLog eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1639"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to eQSL?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите пометить как загруженные все QSO, загруженные в eQSL?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1638"/>
@@ -2602,29 +2761,39 @@ You can remove it manually.</source>
         <location filename="../mainwindow.cpp" line="1685"/>
         <location filename="../mainwindow.cpp" line="4397"/>
         <source>KLog - eQSL</source>
-        <translation type="unfinished">KLog - eQSL</translation>
+        <translation>KLog - eQSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1655"/>
         <source>There was an error while updating to Yes the eQSL QSO upload information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла ошибка при обновлении на «Да» информации о загрузке QSO eQSL.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1666"/>
         <source>The eQSL upload process has finished and KLog created a file (%1) in your KLog folder.
 
 Do you want KLog to remove that file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Процесс загрузки eQSL завершен, и KLog создал файл (%1) в вашей папке KLog.
+
+Вы хотите, чтобы KLog удалил этот файл?</translation>
+    </message>
+    <message>
+        <source>KLog QRZ.com error</source>
+        <translation type="vanished">KLog Ошибка QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1737"/>
         <source>The QRZ.com upload process has finished with an error and the log was possibly not uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Процесс загрузки QRZ.com завершился с ошибкой, и журнал, возможно, не был загружен.</translation>
+    </message>
+    <message>
+        <source>KLog QRZ.com</source>
+        <translation type="vanished">KLog QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1757"/>
         <source>Do you want to mark as Uploaded all the QSOs uploaded to QRZ.com?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите пометить как загруженные все QSO, загруженные на QRZ.com?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1756"/>
@@ -2633,7 +2802,7 @@ Do you want KLog to remove that file?</source>
         <location filename="../mainwindow.cpp" line="4497"/>
         <location filename="../mainwindow.cpp" line="4508"/>
         <source>KLog - QRZ.com</source>
-        <translation type="unfinished">KLog — QRZ.com</translation>
+        <translation>KLog - QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1618"/>
@@ -2658,68 +2827,76 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="1774"/>
         <source>There was an error while updating to Yes the QRZ.com QSO upload information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла ошибка при обновлении информации о загрузке QRZ.com QSO на «Да».</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1784"/>
         <source>The QRZ.com upload process has finished successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Процесс загрузки QRZ.com успешно завершен</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1857"/>
         <source>Call not found in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Вызов не найден на QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1736"/>
         <location filename="../mainwindow.cpp" line="1862"/>
         <source>KLog - QRZ.com error</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - ошибка QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1863"/>
         <source>KLog has received an error from QRZ.com.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog получил сообщение об ошибке от QRZ.com.</translation>
+    </message>
+    <message>
+        <source>KLog %1</source>
+        <translation type="vanished">Клог %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1896"/>
         <source>You need to activate the %1 service in the eLog preferences.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вам необходимо активировать службу %1 в настройках eLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1944"/>
         <source>KLog - Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Клог - Выход</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1945"/>
         <source>Do you really want to exit KLog?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы действительно хотите выйти из KLog?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2251"/>
         <source>The logfile has been modified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Лог-файл был изменен.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2251"/>
         <source>Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите сохранить изменения?</translation>
+    </message>
+    <message>
+        <source>KLog ADIF export</source>
+        <translation type="vanished">Экспорт KLog ADIF</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2271"/>
         <source>It is important to export to ADIF and save a copy as a backup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Важно экспортировать в ADIF и сохранить копию в качестве резервной копии.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2275"/>
         <source>Saving the log was done successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранение журнала выполнено успешно.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2283"/>
         <source>The ADIF export was not properly done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт ADIF был выполнен неправильно.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2329"/>
@@ -2734,27 +2911,27 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2343"/>
         <source>Import an ADIF file into the current log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортируйте файл ADIF в текущий журнал.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2353"/>
         <source>Export to ADIF ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт в ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2357"/>
         <source>Export the current log to an ADIF logfile.</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортируйте текущий журнал в файл журнала ADIF.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2359"/>
         <source>Export all logs to ADIF ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать все журналы в ADIF...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2363"/>
         <source>Export ALL the QSOs into one ADIF file, merging QSOs from all the logs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортируйте ВСЕ QSO в один файл ADIF, объединив QSO из всех журналов.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2367"/>
@@ -2764,17 +2941,17 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2370"/>
         <source>Print your log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Распечатайте свой журнал.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2375"/>
         <source>KLog folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Папка KLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2377"/>
         <source>Opens the data folder of KLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Открывает папку данных KLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2382"/>
@@ -2794,180 +2971,192 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2398"/>
         <source>Fill in QSO data</source>
-        <translation type="unfinished"></translation>
+        <translation>Заполнить данные QSO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2402"/>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Просмотрите журнал, повторно используя предыдущие QSO, чтобы заполнить недостающую информацию в других QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2405"/>
         <source>QSL tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL-инструменты...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2407"/>
         <source>Find QSO to QSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти QSO на QSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2410"/>
         <source>Shows QSOs for which you should send your QSL and request the DX QSL.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывает QSO, для которых вы должны послать свою QSL и запросить DX QSL.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2412"/>
         <source>Find My-QSLs pending to send</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти My-QSL, ожидающие отправки</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2416"/>
         <source>Shows the QSOs with pending requests to send QSLs. You should keep this queue empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывает QSO с ожидающими запросами на отправку QSL. Вы должны держать эту очередь пустой!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2418"/>
         <source>Find DX-QSLs pending to receive</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти ожидающие получения DX-QSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2421"/>
         <source>Shows DX-QSLs for which requests or QSLs have been sent with no answer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывает DX-QSL, для которых запросы или QSL были отправлены без ответа.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2423"/>
         <source>Find requested pending to receive</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти запрос, ожидающий получения</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2426"/>
         <source>Shows the DX-QSLs that have been requested.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывает запрошенные DX-QSL.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2429"/>
         <source>LoTW tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Инструменты LoTW...</translation>
+    </message>
+    <message>
+        <source>Queue all QSLs from this log to be sent</source>
+        <translation type="vanished">Поставить в очередь все QSL из этого журнала для отправки</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2434"/>
         <source>Mark all non-sent QSOs in this log as queued to be uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отметьте все неотправленные QSO в этом журнале как поставленные в очередь на загрузку.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2436"/>
         <source>Queue all QSLs to be sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Поставить в очередь все QSL для отправки</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2439"/>
         <source>Put all the non-sent QSOs in the queue to be uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Поставьте все неотправленные QSO в очередь на загрузку.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2443"/>
         <source>Mark all queued QSOs from this log as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Отметить все поставленные в очередь QSO из этого журнала как отправленные</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2446"/>
         <source>Mark all queued QSOs in this log as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пометить все поставленные в очередь QSO в этом журнале как отправленные в LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2448"/>
         <source>Mark all queued QSOs as sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Отметить все QSO в очереди как отправленные</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2451"/>
         <source>Mark all queued QSOs as sent to LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пометить все QSO в очереди как отправленные в LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2460"/>
         <source>Download from LoTW ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачать с LoTW...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2465"/>
         <source>Download the full log from LoTW ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачать полный лог с LoTW...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2470"/>
         <source>ClubLog tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Инструменты ClubLog ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2472"/>
         <location filename="../mainwindow.cpp" line="2485"/>
         <source>Queue all the QSOs to be uploaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Поставьте в очередь все QSO для загрузки</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2477"/>
         <source>Upload the queued QSOs to ClubLog ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить поставленные в очередь QSO в ClubLog...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2483"/>
         <source>eQSL tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>инструменты eQSL...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2490"/>
         <source>Upload the queued QSOs to eQSL.cc ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить поставленные в очередь QSO на eQSL.cc...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2496"/>
         <source>QRZ.com tools ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Инструменты QRZ.com...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2498"/>
         <source>Check the current callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте текущий позывной на QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2499"/>
         <source>Queue all the QSO to be uploaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Поставьте в очередь все QSO для загрузки</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2500"/>
         <source>Upload the queued QSOs to QRZ.com ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузите QSO из очереди на QRZ.com...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2523"/>
         <source>Update cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить cty.csv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2527"/>
         <location filename="../mainwindow.cpp" line="2532"/>
         <source>For updated DX-Entity data, update cty.csv.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для получения обновленных данных DX-Entity обновите cty.csv.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2529"/>
         <source>Update Satellite Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновление спутниковых данных</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2536"/>
         <source>Stats</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2539"/>
         <location filename="../mainwindow.cpp" line="2544"/>
         <source>Show the statistics of your radio activity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать статистику вашей радиоактивности.</translation>
+    </message>
+    <message>
+        <source>Setup</source>
+        <translation type="vanished">Настраивать</translation>
+    </message>
+    <message>
+        <source>Setup ...</source>
+        <translation type="vanished">Настраивать ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2566"/>
@@ -2997,42 +3186,50 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2592"/>
         <source>About Qt ...</source>
-        <translation type="unfinished"></translation>
+        <translation>По поводу Qt...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2600"/>
         <source>Check updates ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте обновления...</translation>
+    </message>
+    <message>
+        <source>KLog LoTW</source>
+        <translation type="vanished">KLog LoTW</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2677"/>
         <source>All pending QSOs of this log has been marked as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Все ожидающие связи в этом журнале отмечены как поставленные в очередь LoTW!</translation>
+    </message>
+    <message>
+        <source>Now you can go to the File menu to export the LoTW ADIF file and upload it to LoTW.</source>
+        <translation type="vanished">Теперь вы можете перейти в меню «Файл», чтобы экспортировать файл LoTW ADIF и загрузить его в LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2683"/>
         <source>There was a problem to mark all pending QSOs of this log as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Возникла проблема с пометкой всех ожидающих QSO в этом журнале как находящихся в очереди на LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2713"/>
         <source>Your log has been updated with the LoTW downloaded QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш журнал обновлен за счет загруженных LoTW связей.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2714"/>
         <source>KLog has updated %1 QSOs from LoTW.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog обновил %1 связей с LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2724"/>
         <source>Your log has not been updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш журнал не был обновлен.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2725"/>
         <source>No QSO was updated with the data coming from LoTW. This may be because of errors in the logfile or simply because your log was already updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни одно QSO не было обновлено данными, поступающими от LoTW. Это может быть связано с ошибками в файле журнала или просто с тем, что ваш журнал уже обновлен.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2742"/>
@@ -3042,7 +3239,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2755"/>
         <source>All pending QSOs has been marked as queued for LoTW!</source>
-        <translation type="unfinished"></translation>
+        <translation>Все ожидающие связи отмечены как поставленные в очередь LoTW!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2760"/>
@@ -3052,37 +3249,41 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="2780"/>
         <source>KLog - TQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - TQSL</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2784"/>
         <source>TQSL is not installed or KLog can&apos;t find it. Please check the configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>TQSL не установлен или KLog не может его найти. Пожалуйста, проверьте конфигурацию.</translation>
+    </message>
+    <message>
+        <source>TQSL finished with no error.</source>
+        <translation type="vanished">TQSL завершился без ошибок.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2803"/>
         <source>Error #1: The process was cancelled by the user or TQSL was not configured. No QSOs were uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка №1: процесс был отменен пользователем или TQSL не настроен. Никакие связи не были загружены.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2807"/>
         <source>Error #2: Upload was rejected by LoTW, please check your data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка №2: LoTW отклонил загрузку, проверьте свои данные.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2811"/>
         <source>Error #3: The TQSL server returned an unexpected response.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка №3: ​​Сервер TQSL вернул неожиданный ответ.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2815"/>
         <source>Error #4: There was a TQSL error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка №4: произошла ошибка TQSL.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2819"/>
         <source>Error #5: There was a TQSLLib error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка №5: произошла ошибка TQSLLib.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2823"/>
@@ -3167,7 +3368,7 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="1895"/>
         <source>KLog - %1</source>
-        <translation type="unfinished">Klog — %1</translation>
+        <translation type="unfinished">Клог — %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2270"/>
@@ -3219,12 +3420,12 @@ Do you want KLog to remove that file?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3079"/>
         <source>Congratulations!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поздравляем!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3079"/>
         <source>You already have the latest version.</source>
-        <translation type="unfinished">Jums jau ir jaunākā versija.</translation>
+        <translation type="unfinished">У вас уже есть последняя версия.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3243"/>
@@ -3364,7 +3565,7 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
         <location filename="../mainwindow.cpp" line="5439"/>
         <location filename="../mainwindow.cpp" line="6098"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentāri</translation>
+        <translation type="unfinished">Комментарий</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3707"/>
@@ -3379,7 +3580,7 @@ Do you want to mark as Sent all the QSOs uploaded to LoTW?</source>
     <message>
         <location filename="../mainwindow.cpp" line="3710"/>
         <source>Satellite</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">спутник</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3727"/>
@@ -3561,7 +3762,7 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../mainwindow.cpp" line="4535"/>
         <source>Open File</source>
-        <translation type="unfinished">Atver failu</translation>
+        <translation type="unfinished">Открыть файл</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5169"/>
@@ -3587,18 +3788,18 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../mainwindow.cpp" line="5425"/>
         <source>Number</source>
-        <translation type="unfinished">Numurs</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5427"/>
         <source>Date/Time</source>
-        <translation type="unfinished">Datums Laiks</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5429"/>
         <location filename="../mainwindow.cpp" line="6078"/>
         <source>Callsign</source>
-        <translation type="unfinished">Izsaukuma signāls</translation>
+        <translation type="unfinished">Позывной</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5431"/>
@@ -3804,23 +4005,23 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="47"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentāri</translation>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="49"/>
         <source>Add a comment for this QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавьте комментарий к этому QSO.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="52"/>
         <source>Keep this data</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохраните эти данные</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="54"/>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="56"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Данные, введенные на этой вкладке, будут скопированы в следующее QSO.</translation>
     </message>
 </context>
 <context>
@@ -3936,7 +4137,7 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="89"/>
         <source>Entity</source>
-        <translation type="unfinished">Entity</translation>
+        <translation type="unfinished">Сущность</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="90"/>
@@ -4140,19 +4341,19 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="81"/>
         <source>Watts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вт</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="85"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="91"/>
         <source>MHz</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">МГц</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="95"/>
         <source>Split</source>
         <comment>Translator: Split is a common hamradio term. Do not translate unless you are sure.</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Расколоть</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="99"/>
@@ -4224,12 +4425,12 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="82"/>
         <source>Watts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вт</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="84"/>
         <source>Keep this data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сохраните эти данные</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="227"/>
@@ -4287,13 +4488,13 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="88"/>
         <source>Keep this data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сохраните эти данные</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="90"/>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="92"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Данные, введенные на этой вкладке, будут скопированы в следующее QSO.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
@@ -4339,7 +4540,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="113"/>
         <source>Satellite</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">спутник</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="117"/>
@@ -4473,7 +4674,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../awards.cpp" line="867"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Apstiprināts</translation>
+        <translation type="unfinished">Подтвержденный</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="871"/>
@@ -4524,7 +4725,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../database.cpp" line="1580"/>
         <source>The backup was not properly done.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Резервное копирование не было сделано должным образом.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1581"/>
@@ -4693,12 +4894,12 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../utilities.cpp" line="1924"/>
         <source>Date</source>
-        <translation type="unfinished">Datums</translation>
+        <translation type="unfinished">Дата</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1925"/>
         <source>Call</source>
-        <translation type="unfinished">Izsaukuma signāls</translation>
+        <translation type="unfinished">Позывной</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1926"/>
@@ -4718,7 +4919,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../utilities.cpp" line="1929"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentāri</translation>
+        <translation type="unfinished">Комментарий</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1930"/>
@@ -4818,7 +5019,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../utilities.cpp" line="1949"/>
         <source>Continent</source>
-        <translation type="unfinished">Kontinents</translation>
+        <translation type="unfinished">Континент</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1950"/>
@@ -5179,7 +5380,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../utilities.cpp" line="2020"/>
         <source>QSL Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">QSL Rcvd</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="2021"/>
@@ -5426,12 +5627,12 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwidget.cpp" line="256"/>
         <source>You have requested to delete the QSO with: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вы запросили удаление QSO с: %1</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="261"/>
         <source>Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вы уверены?</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="374"/>
@@ -5441,7 +5642,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwidget.cpp" line="375"/>
         <source>Not defined</source>
-        <translation type="unfinished">Nav definēts</translation>
+        <translation type="unfinished">Не определен</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="778"/>
@@ -5461,13 +5662,13 @@ KLog will finish when you click on OK.</source>
         <location filename="../searchwindow.cpp" line="91"/>
         <location filename="../searchwindow.cpp" line="196"/>
         <source>Call</source>
-        <translation type="unfinished">Izsaukuma signāls</translation>
+        <translation type="unfinished">Позывной</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="86"/>
         <location filename="../searchwindow.cpp" line="91"/>
         <source>Date/Time</source>
-        <translation type="unfinished">Datums Laiks</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="86"/>
@@ -5496,7 +5697,7 @@ KLog will finish when you click on OK.</source>
         <location filename="../searchwindow.cpp" line="217"/>
         <location filename="../searchwindow.cpp" line="309"/>
         <source>QSL Rcvd</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">QSL Rcvd</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="86"/>
@@ -5517,12 +5718,12 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="223"/>
         <source>Station callsign</source>
-        <translation type="unfinished">Stacijas izsaukuma signāls</translation>
+        <translation type="unfinished">Позывной станции</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="291"/>
         <source>QSL Send</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">QSL отправить</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="370"/>
@@ -5532,7 +5733,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="371"/>
         <source>Delete a QSO</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить QSO</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="374"/>
@@ -5542,7 +5743,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="375"/>
         <source>Edit this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Редактировать это QSO</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="378"/>
@@ -5552,7 +5753,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="379"/>
         <source>Send this QSL via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отправьте эту QSL через бюро</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="382"/>
@@ -5562,12 +5763,12 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="383"/>
         <source>Send this QSL via direct</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отправьте эту QSL через direct</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="386"/>
         <source>Via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Через бюро</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="387"/>
@@ -5577,7 +5778,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="390"/>
         <source>Direct</source>
-        <translation type="unfinished">Tieša</translation>
+        <translation type="unfinished">Прямой</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="391"/>
@@ -5587,22 +5788,22 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="394"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверьте на QRZ.com</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="395"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверьте этот позывной на QRZ.com</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="398"/>
         <source>Check in DXHeat.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверьте на DXHeat.com</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="399"/>
         <source>Check this callsign in DXHeat.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверьте этот позывной на DXHeat.com</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="402"/>
@@ -5751,7 +5952,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../setupdialog.cpp" line="90"/>
         <source>Cancel</source>
-        <translation type="unfinished">Atcelt</translation>
+        <translation type="unfinished">Отмена</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="91"/>
@@ -5822,7 +6023,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="69"/>
         <source>Entity</source>
-        <translation type="unfinished">Entity</translation>
+        <translation type="unfinished">Сущность</translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="71"/>
@@ -5918,12 +6119,12 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="120"/>
         <source>Cancel</source>
-        <translation type="unfinished">Atcelt</translation>
+        <translation type="unfinished">Отмена</translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="121"/>
         <source>Ok</source>
-        <translation type="unfinished">Labi</translation>
+        <translation type="unfinished">Хорошо</translation>
     </message>
     <message>
         <location filename="../setuppages/setupentitydialog.cpp" line="209"/>
@@ -5936,12 +6137,12 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setuppagebandmode.cpp" line="42"/>
         <source>Bands</source>
-        <translation type="unfinished">Diapazons</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagebandmode.cpp" line="46"/>
         <source>Modes</source>
-        <translation>Modes</translation>
+        <translation type="unfinished">режими</translation>
     </message>
 </context>
 <context>
@@ -6497,7 +6698,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="254"/>
         <source>Date</source>
-        <translation type="unfinished">Datums</translation>
+        <translation type="unfinished">Дата</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="257"/>
@@ -6517,7 +6718,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="266"/>
         <source>QSOs</source>
-        <translation type="unfinished">QSO</translation>
+        <translation type="unfinished">QSOs</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="380"/>
@@ -6795,7 +6996,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="308"/>
         <source>Open File</source>
-        <translation type="unfinished">Atver failu</translation>
+        <translation type="unfinished">Открыть файл</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="470"/>
@@ -6968,7 +7169,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="337"/>
         <source>Modes</source>
-        <translation type="unfinished">Modes</translation>
+        <translation type="unfinished">режими</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="563"/>
@@ -7033,7 +7234,7 @@ It may be caused because the file you are trying to import does not have the rig
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="52"/>
         <source>Modes</source>
-        <translation type="unfinished">Modes</translation>
+        <translation type="unfinished">режими</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="58"/>
@@ -7573,12 +7774,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="208"/>
         <source>Prefix</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Префикс</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="210"/>
         <source>Entity</source>
-        <translation type="unfinished">Entity</translation>
+        <translation type="unfinished">Сущность</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="212"/>
@@ -7588,7 +7789,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="214"/>
         <source>Continent</source>
-        <translation type="unfinished">Kontinents</translation>
+        <translation type="unfinished">Континент</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="216"/>
@@ -7633,7 +7834,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="329"/>
         <source>Open File</source>
-        <translation type="unfinished">Atver failu</translation>
+        <translation type="unfinished">Открыть файл</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="329"/>
@@ -7656,22 +7857,22 @@ The log will not be opened.</source>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="53"/>
         <source>The following QSOs are those QSOs that you have received the LoTW confirmation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Следующие QSO - это те QSO, на которые вы получили подтверждение LoTW.</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="54"/>
         <source>Ok</source>
-        <translation type="unfinished">Labi</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="64"/>
         <source>DX</source>
-        <translation type="unfinished">DX</translation>
+        <translation>DX</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="64"/>
         <source>Date/Time</source>
-        <translation type="unfinished">Datums Laiks</translation>
+        <translation>Date/Time</translation>
     </message>
     <message>
         <location filename="../widgets/showadifimportwidget.cpp" line="64"/>
@@ -7689,7 +7890,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../showerrordialog.cpp" line="35"/>
         <source>KLog Message</source>
-        <translation>KLog ziņojums</translation>
+        <translation>KLog-сообщение</translation>
     </message>
 </context>
 <context>
@@ -7697,12 +7898,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="43"/>
         <source>Ok</source>
-        <translation>Labi</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="61"/>
         <source>KLog update</source>
-        <translation>Klog atjauninājums</translation>
+        <translation>Обновление KLog</translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="76"/>
@@ -7712,17 +7913,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="81"/>
         <source>Congratulations!</source>
-        <translation type="unfinished"></translation>
+        <translation>Поздравляем!</translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="81"/>
         <source>Your KLog has been updated.</source>
-        <translation>Jūsu KLog ir atjaunināts.</translation>
+        <translation>Ваш KLog обновлен.</translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="81"/>
         <source>You already have the latest version.</source>
-        <translation>Jums jau ir jaunākā versija.</translation>
+        <translation>У вас уже есть последняя версия.</translation>
     </message>
 </context>
 <context>
@@ -7730,17 +7931,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../startwizard.cpp" line="68"/>
         <source>KLog - The free hamradio logging program</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — бесплатная программа для ведения радиолюбителей</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="94"/>
         <source>Quit Setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Выйти из настройки</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="94"/>
         <source>Setup is not complete yet. Are you sure you want to quit setup?</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройка еще не завершена. Вы уверены, что хотите выйти из программы установки?</translation>
     </message>
 </context>
 <context>
@@ -7758,7 +7959,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../statisticswidget.cpp" line="271"/>
         <source>CQ zones per year</source>
-        <translation type="unfinished">CQ zonas gadā</translation>
+        <translation type="unfinished">Зоны CQ в год</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="272"/>
@@ -7793,17 +7994,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../statisticswidget.cpp" line="278"/>
         <source>Worked / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Рабочий / Подтвержденный статус</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="279"/>
         <source>Worked / Sent status</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Статус Работал/Отправлено</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="280"/>
         <source>Sent / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Статус отправлен/подтвержден</translation>
     </message>
     <message>
         <location filename="../statisticswidget.cpp" line="281"/>
@@ -7831,37 +8032,37 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="76"/>
         <source>CQ Zones per year</source>
-        <translation>CQ zonas gadā</translation>
+        <translation>Зон CQ в год</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="80"/>
         <source>Reading data ... </source>
-        <translation>Notiek datu lasīšana ... </translation>
+        <translation>Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="80"/>
         <source>Abort reading</source>
-        <translation>Pārtraukt lasīšanu</translation>
+        <translation>Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="85"/>
         <source>CQ zones</source>
-        <translation>CQ zonas</translation>
+        <translation>CQ-зоны</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="86"/>
         <source>CQ zones per year</source>
-        <translation>CQ zonas gadā</translation>
+        <translation>Зоны CQ в год</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="98"/>
         <source>Reading data ...</source>
-        <translation>Notiek datu lasīšana ...</translation>
+        <translation>Чтение данных ...</translation>
     </message>
     <message>
         <location filename="../charts/statscqzperyearbarchartwidget.cpp" line="98"/>
         <source>Years: %1/%2</source>
-        <translation>Gadi: %1/%2</translation>
+        <translation>Годы: %1/%2</translation>
     </message>
 </context>
 <context>
@@ -7869,58 +8070,58 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="56"/>
         <source>Show confirmed only</source>
-        <translation>Rādīt tikai apstiprināts</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="58"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
-        <translation>Tikai LEO satelīti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="74"/>
         <source>Number</source>
-        <translation>Numurs</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="116"/>
         <source>Callsign</source>
-        <translation>Izsaukuma signāls</translation>
+        <translation type="unfinished">Позывной</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="117"/>
         <source>Date</source>
-        <translation>Datums</translation>
+        <translation type="unfinished">Дата</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="118"/>
         <source>Band</source>
-        <translation>Diapazons</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="119"/>
         <source>Mode</source>
-        <translation>Mode</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="120"/>
         <source>DXCC</source>
-        <translation>DXCC</translation>
+        <translation type="unfinished">DXCC</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="121"/>
         <source>Satellite</source>
-        <translation>Satelīti</translation>
+        <translation type="unfinished">спутник</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="122"/>
         <source>Confirmed</source>
-        <translation>Apstiprināts</translation>
+        <translation type="unfinished">Подтвержденный</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="151"/>
         <source>No</source>
-        <translation>Nē</translation>
+        <translation type="unfinished">Нет</translation>
     </message>
 </context>
 <context>
@@ -7933,12 +8134,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="86"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="86"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="77"/>
@@ -7949,7 +8150,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="102"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsentitiesperyearbarchartwidget.cpp" line="102"/>
@@ -7963,7 +8164,7 @@ The log will not be opened.</source>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="51"/>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="120"/>
         <source>All</source>
-        <translation type="unfinished">Visi</translation>
+        <translation type="unfinished">Все</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="67"/>
@@ -7978,12 +8179,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="95"/>
         <source>Worked</source>
-        <translation type="unfinished">Strādāja</translation>
+        <translation type="unfinished">Работал</translation>
     </message>
     <message>
         <location filename="../charts/statsfieldperbandwidget.cpp" line="96"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Apstiprināts</translation>
+        <translation type="unfinished">Подтвержденный</translation>
     </message>
 </context>
 <context>
@@ -7991,28 +8192,28 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="56"/>
         <source>Show confirmed only</source>
-        <translation type="unfinished">Rādīt tikai apstiprināts</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="58"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
-        <translation type="unfinished">Tikai LEO satelīti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="71"/>
         <source>Number</source>
-        <translation type="unfinished">Numurs</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="107"/>
         <source>Callsign</source>
-        <translation type="unfinished">Izsaukuma signāls</translation>
+        <translation type="unfinished">Позывной</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="108"/>
         <source>Date</source>
-        <translation type="unfinished">Datums</translation>
+        <translation type="unfinished">Дата</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="109"/>
@@ -8032,17 +8233,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="112"/>
         <source>Satellite</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">спутник</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="113"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Apstiprināts</translation>
+        <translation type="unfinished">Подтвержденный</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="142"/>
         <source>No</source>
-        <translation type="unfinished">Nē</translation>
+        <translation type="unfinished">Нет</translation>
     </message>
 </context>
 <context>
@@ -8055,17 +8256,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="79"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="79"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="84"/>
         <source>Bands</source>
-        <translation type="unfinished">Diapazons</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="85"/>
@@ -8075,7 +8276,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="95"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperbandbarchartwidget.cpp" line="95"/>
@@ -8094,12 +8295,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="79"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="79"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="88"/>
@@ -8109,7 +8310,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="98"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsqsospercontinentbarchartwidget.cpp" line="98"/>
@@ -8127,12 +8328,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="84"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="84"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperdxccbarchartwidget.cpp" line="86"/>
@@ -8160,12 +8361,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="82"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="82"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="90"/>
@@ -8180,7 +8381,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="101"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperhourbarchartwidget.cpp" line="101"/>
@@ -8193,37 +8394,37 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="82"/>
         <source>QSOs per mode</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO в каждом режиме</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="86"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation>Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="86"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation>Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="91"/>
         <source>Modes</source>
-        <translation type="unfinished">Modes</translation>
+        <translation>режими</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="92"/>
         <source>QSOs per mode distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO на распределение видов</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="102"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation>Чтение данных...</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermodebarchartwidget.cpp" line="102"/>
         <source>Modes: </source>
-        <translation type="unfinished"></translation>
+        <translation>режими: </translation>
     </message>
 </context>
 <context>
@@ -8236,12 +8437,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="80"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="80"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="85"/>
@@ -8316,7 +8517,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="98"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsqsospermonthbarchartwidget.cpp" line="98"/>
@@ -8334,23 +8535,23 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="82"/>
         <source>Reading data ... </source>
-        <translation type="unfinished">Notiek datu lasīšana ... </translation>
+        <translation type="unfinished">Чтение данных ... </translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="82"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Прервать чтение</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="65"/>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="78"/>
         <source>QSOs</source>
-        <translation type="unfinished">QSO</translation>
+        <translation type="unfinished">QSOs</translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="95"/>
         <source>Reading data ...</source>
-        <translation type="unfinished">Notiek datu lasīšana ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../charts/statsqsosperyearbarchartwidget.cpp" line="95"/>
@@ -8363,17 +8564,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="69"/>
         <source>Sent - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлено — %1</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="70"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждено - %2</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="85"/>
         <source>Sent / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Статус отправлен/подтвержден</translation>
     </message>
 </context>
 <context>
@@ -8381,17 +8582,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="74"/>
         <source>Worked, not confirmed - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сработало, не подтверждено - %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="75"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждено - %2</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="90"/>
         <source>Worked / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Рабочий / Подтвержденный статус</translation>
     </message>
 </context>
 <context>
@@ -8399,17 +8600,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="69"/>
         <source>Worked - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сработало - %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="70"/>
         <source>Sent - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлено — %2</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="86"/>
         <source>Worked / Sent status</source>
-        <translation type="unfinished"></translation>
+        <translation>Статус Работал/Отправлено</translation>
     </message>
 </context>
 <context>
@@ -8538,27 +8739,27 @@ The log will not be opened.</source>
     <message>
         <location filename="../updatesatsdata.cpp" line="90"/>
         <source>Reading Satellites data file...</source>
-        <translation>Notiek satelītu datu faila lasīšana...</translation>
+        <translation>Чтение файла данных спутников...</translation>
     </message>
     <message>
         <location filename="../updatesatsdata.cpp" line="90"/>
         <source>Abort reading</source>
-        <translation>Pārtraukt lasīšanu</translation>
+        <translation>Прервать чтение</translation>
     </message>
     <message>
         <location filename="../updatesatsdata.cpp" line="244"/>
         <source>The Satellites information has been updated.</source>
-        <translation>Satelītu informācija ir atjaunināta.</translation>
+        <translation>Информация о спутниках обновлена.</translation>
     </message>
     <message>
         <location filename="../updatesatsdata.cpp" line="262"/>
         <source>Open File</source>
-        <translation>Atver failu</translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <location filename="../updatesatsdata.cpp" line="264"/>
         <source>Sat Data</source>
-        <translation>Satelitu Dati</translation>
+        <translation>Спутниковые данные</translation>
     </message>
 </context>
 <context>
@@ -8577,45 +8778,49 @@ The log will not be opened.</source>
 <context>
     <name>World</name>
     <message>
+        <source>Entity</source>
+        <translation type="vanished">Сущность</translation>
+    </message>
+    <message>
         <source>Continent</source>
-        <translation type="vanished">Kontinents</translation>
+        <translation type="vanished">Континент</translation>
     </message>
     <message>
         <location filename="../world.cpp" line="614"/>
         <source>Reading cty.csv...</source>
-        <translation>Lasu cty.csv...</translation>
+        <translation>Чтение cty.csv...</translation>
     </message>
     <message>
         <location filename="../world.cpp" line="614"/>
         <source>Abort reading</source>
-        <translation>Pārtraukt lasīšanu</translation>
+        <translation>Прервать чтение</translation>
     </message>
 </context>
 <context>
     <name>WorldMapWidget</name>
     <message>
         <source>World map</source>
-        <translation type="vanished">Pasaules karte</translation>
+        <translation type="vanished">Карта мира</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="vanished">Skatīt</translation>
+        <translation type="vanished">Вид</translation>
     </message>
     <message>
         <source>Zoom In(25%)</source>
-        <translation type="vanished">Tuvināt (25%)</translation>
+        <translation type="vanished">Увеличить (25%)</translation>
     </message>
     <message>
         <source>Zoom Out(25%)</source>
-        <translation type="vanished">Tālināt (25%)</translation>
+        <translation type="vanished">Уменьшить (25%)</translation>
     </message>
     <message>
         <source>Normal Size</source>
-        <translation type="vanished">Normāls izmērs</translation>
+        <translation type="vanished">Нормальный размер</translation>
     </message>
     <message>
         <source>Fit to window</source>
-        <translation type="vanished">Pielāgot logam</translation>
+        <translation type="vanished">Подходит к окну</translation>
     </message>
 </context>
 <context>
@@ -8624,25 +8829,25 @@ The log will not be opened.</source>
         <location filename="../elogclublog.cpp" line="98"/>
         <location filename="../elogclublog.cpp" line="183"/>
         <source>Host not found!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Хост не найден!</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="104"/>
         <location filename="../elogclublog.cpp" line="188"/>
         <source>Timeout error!</source>
-        <translation>Taimauta kļūda!</translation>
+        <translation type="unfinished">Ошибка таймаута!</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="135"/>
         <source>QSO dupe or not existing (#%1)... </source>
-        <translation>QSO ir dublikāts vai nepastāv (#% 1)... </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="111"/>
         <location filename="../elogclublog.cpp" line="136"/>
         <location filename="../elogclublog.cpp" line="145"/>
         <source>KLog - ClubLog</source>
-        <translation>KLog - ClubLog</translation>
+        <translation type="unfinished">KLog - Клублог</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="109"/>
@@ -8673,7 +8878,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="144"/>
         <source>Undefined error number (#%1)... </source>
-        <translation type="unfinished">Nedefinēts kļūdas numurs (#%1)... </translation>
+        <translation type="unfinished">Неопределенный номер ошибки (#%1)... </translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="147"/>
@@ -8688,7 +8893,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="591"/>
         <source>Callsign missing</source>
-        <translation type="unfinished">Trūkst izsaukuma signāla</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="595"/>
@@ -8713,12 +8918,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="611"/>
         <source>Updated QSO</source>
-        <translation>Atjaunināts QSO</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="615"/>
         <source>Invalid ADIF record</source>
-        <translation>Nederīgs ADIF ieraksts</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="619"/>
@@ -8807,28 +9012,28 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogqrzlog.cpp" line="103"/>
         <source>Host not found!</source>
-        <translation>Domēna nav</translation>
+        <translation type="unfinished">Хост не найден!</translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="106"/>
         <source>Timeout error!</source>
-        <translation>Taimauta kļūda!</translation>
+        <translation type="unfinished">Ошибка таймаута!</translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="109"/>
         <source>Undefined error number (#%1)</source>
-        <translation>Nedefinēts kļūdas numurs (#%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="114"/>
         <location filename="../elogqrzlog.cpp" line="615"/>
         <source>KLog - QRZ.com</source>
-        <translation>KLog — QRZ.com</translation>
+        <translation type="unfinished">KLog - QRZ.com</translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="115"/>
         <source>We have received the following error from QRZ.com (%1)</source>
-        <translation>Mēs esam saņēmuši šādu kļūdu no QRZ.com (% 1)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="317"/>
@@ -8838,29 +9043,28 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogqrzlog.cpp" line="616"/>
         <source>Not valid KEY found</source>
-        <translation>Atrasts nederīgs KEY</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="617"/>
         <source>Please configure your QRZ.com API key. You will find it in your QRZ.com Logbook settings webpage.
 You need a QRZ.com subscription to use this feature.</source>
-        <translation>Lūdzu, konfigurējiet savu QRZ.com API atslēgu. Jūs to atradīsit savā QRZ.com žurnāla iestatījumu tīmekļa vietnē.
-Lai izmantotu šo funkciju, jums ir nepieciešams QRZ.com abonements.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="704"/>
         <source>KLog - QRZ.com password needed</source>
-        <translation>KLog — nepieciešama QRZ.com parole</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="704"/>
         <source>Please enter your QRZ.com password: </source>
-        <translation>Lūdzu, ievadiet savu QRZ.com paroli: </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="786"/>
         <source>Callsign missing</source>
-        <translation>Trūkst izsaukuma signāla</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8875,58 +9079,58 @@ Lai izmantotu šo funkciju, jums ir nepieciešams QRZ.com abonements.</translati
         <location filename="../eqslutilities.cpp" line="93"/>
         <source>eQSL has sent the following message:
 %1</source>
-        <translation>eQSL ir nosūtījis šādu ziņojumu:
+        <translation>eQSL отправил следующее сообщение:
 %1</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="111"/>
         <source>Host not found!</source>
-        <translation>Neeksistē šis  domēns!</translation>
+        <translation>Хост не найден!</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="117"/>
         <source>Timeout error!</source>
-        <translation>Taimauta kļūda!</translation>
+        <translation>Ошибка таймаута!</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="123"/>
         <source>Undefined error number (#%1)... </source>
-        <translation>Nedefinēts kļūdas numurs (#%1)... </translation>
+        <translation>Неопределенный номер ошибки (#%1)... </translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="125"/>
         <source>We have received an undefined error from eQSL (%1)</source>
-        <translation>Mēs esam saņēmuši nedefinētu kļūdu no eQSL (% 1)</translation>
+        <translation>Мы получили неопределенную ошибку от eQSL (%1)</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="126"/>
         <source>Please check your config in the setup and contact the KLog development team if you can&apos;t fix it. eQSL uploads will be disabled.</source>
-        <translation>Lūdzu, pārbaudiet savu konfigurāciju iestatījumos un sazinieties ar KLog izstrādes komandu, ja nevarat to labot. eQSL augšupielāde tiks atspējota.</translation>
+        <translation>Пожалуйста, проверьте свою конфигурацию в настройках и свяжитесь с командой разработчиков KLog, если вы не можете это исправить. Загрузка eQSL будет отключена.</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="182"/>
         <source>eQSL Error: User or password incorrect</source>
-        <translation>eQSL kļūda: nepareizs lietotājs vai parole</translation>
+        <translation>Ошибка eQSL: неправильный пользователь или пароль</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="188"/>
         <source>eQSL Warning: At least one of the uplodaded QSOs is duplicated.</source>
-        <translation>eQSL Brīdinājums: Vismaz viens no augšupielādētajiem QSO ir dublēts.</translation>
+        <translation>Предупреждение eQSL: по крайней мере одно из загруженных QSO продублировано.</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="193"/>
         <source>eQSL: All the QSOs were properly uploaded.</source>
-        <translation>eQSL: visi QSO tika pareizi augšupielādēti.</translation>
+        <translation>eQSL: Все QSO были правильно загружены.</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="247"/>
         <source>KLog - eQSL.cc password needed</source>
-        <translation>KLog — nepieciešama eQSL.cc parole</translation>
+        <translation>KLog - требуется пароль eQSL.cc</translation>
     </message>
     <message>
         <location filename="../eqslutilities.cpp" line="247"/>
         <source>Please enter your eQSL.cc password: </source>
-        <translation>Lūdzu, ievadiet savu eQSL.cc paroli: </translation>
+        <translation>Пожалуйста, введите свой пароль eQSL.cc: </translation>
     </message>
 </context>
 </TS>
