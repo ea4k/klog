@@ -475,12 +475,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka DXCC statuss jūsu datu bāzē nav atjaunināts un KLog nevar atrast dxcc informāciju. Varat mēģināt to novērst, atjauninot žurnālu.</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
         <source>Do you want to update your DXCC status?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai vēlaties atjaunināt savu DXCC statusu?</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="539"/>
@@ -542,12 +542,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster.cpp" line="110"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Pārbaudiet QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="112"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Pārbaudiet šo izsaukuma signālu vietnē QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="139"/>
@@ -668,7 +668,8 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="4889"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Izplatīts termins hamradio, netulkot, ja neesat pārliecināts</translatorcomment>
+        <translation>Lidmašīnu izkliede</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4893"/>
@@ -8789,17 +8790,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="671"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="675"/>
         <source>Login rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>Pieteikšanās noraidīta</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="683"/>
         <source>Rejected: Callsign is your own call</source>
-        <translation type="unfinished"></translation>
+        <translation>Noraidīts: izsaukuma signāls ir jūsu zvans</translation>
     </message>
 </context>
 <context>
