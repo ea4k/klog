@@ -26,6 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
+
 #include "../../src/qso.h"
 #include "../../src/klogdefinitions.h"
 

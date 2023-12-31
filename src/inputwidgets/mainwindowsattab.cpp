@@ -364,6 +364,7 @@ void MainWindowSatTab::clear(bool _full)
     modifying = false;
     if ((keepThisDataForNextQSOQcheckbox->isChecked()) || (!_full))
     {
+        return;
     }
     else
     {

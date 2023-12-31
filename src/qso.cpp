@@ -24,7 +24,6 @@
  *                                                                           *
  *****************************************************************************/
 #include "qso.h"
-#include "database.h"
 
 QSO::QSO()
 {
@@ -32,7 +31,8 @@ QSO::QSO()
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
     util->setCallValidation(false);
-    db = new DataBase(Q_FUNC_INFO, util->getVersion(), util->getKLogDBFile());
+    //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
+    //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 }
 
 QSO::~QSO()
@@ -2810,7 +2810,7 @@ int QSO::toDB(int _qsoId)
     {
         //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
 
-        return db->getLastInsertedQSO();
+        return 1;//db->getLastInsertedQSO();
     }
     else
     {
@@ -2946,6 +2946,10 @@ int QSO::getModeIdFromModeName()
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
     // SELECT mode.id FROM mode WHERE mode.name="MFSK"
     bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode=:submode");
+    if (!ok)
+    {
+        return -1;
+    }
     //bool ok = query.prepare ("SELECT id from mode WHERE CASE WHEN ''<>:submode THEN submode=:submode ELSE name = :name END");
     query.bindValue (":submode", getMode ());
 

@@ -4,7 +4,8 @@ bool QSO::add()
 Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
 
 TBD - 2.2.4
-- BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #659) (EA5WA)
+- BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #656, #659) (TNX N6PAZ, EA5WA)
+WIP: - Bugfix: Keep data of SAT tab when entering a QSO stopped working. (TNX EA5WA)
 - Translations: Spanish (EA4K), Ukrainian (YL3GBC), Russian (YL3GBC)
 
 Dec 2023 - 2.3.3
