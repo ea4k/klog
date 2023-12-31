@@ -4092,7 +4092,7 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="147"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="197"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="199"/>
         <source>Not Identified</source>
         <translation>No identificat</translation>
     </message>
@@ -4102,22 +4102,22 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
         <translation>Not - No identificat</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>SOTA Ref</source>
         <translation>Referència SOTA</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>Age</source>
         <translation>Antiguitat</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>VUCC grids</source>
         <translation>Quadrícules VUCC</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="562"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="564"/>
         <source>Distance</source>
         <translation>Distància</translation>
     </message>
@@ -4466,17 +4466,17 @@ La freqüència no es en una banda de radioafició!</translation>
         <translation type="vanished">Localitzador de l&apos;estació DX. El format hauria de ser «Maidenhead» (p. ex. IN70AA) de fins a 10 caràcters.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="392"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="394"/>
         <source>Not Sat QSO</source>
         <translation>QSO sense satèl·lit</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="430"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="432"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>El KLog ha detectat un nom de satèl·lit que no reconeix. En el seu lloc, caldria usar un dels noms coneguts de satèl·lit. Seleccioneu-lo de la llista. Alternativament, contacteu amb l&apos;equip de desenvolupament per afegir el nom nou de satèl·lit.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="431"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Tingueu en compte que el nom del satèl·lit no es desarà si no és a la llista, i per tant, aquesta informació es podria perdre!</translation>
     </message>
@@ -4502,7 +4502,7 @@ La freqüència no es en una banda de radioafició!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="393"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="395"/>
         <source>Other - Sat not in the list</source>
         <translation>Altres - El satèl·lit no és a la llista</translation>
     </message>
@@ -4513,7 +4513,7 @@ La freqüència no es en una banda de radioafició!</translation>
         <translation>Les dades introduïdes en aquesta pestanya es copiaran en el QSO següent.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="431"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>El satèl·lit que hi ha al QSO és: </translation>
     </message>

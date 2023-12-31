@@ -3968,7 +3968,7 @@ QSO : </translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="147"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="197"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="199"/>
         <source>Not Identified</source>
         <translation>Non Identifié</translation>
     </message>
@@ -3978,22 +3978,22 @@ QSO : </translation>
         <translation>Non - Non Identifié</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>SOTA Ref</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>VUCC grids</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="562"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="564"/>
         <source>Distance</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4277,7 +4277,7 @@ La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translati
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="393"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="395"/>
         <source>Other - Sat not in the list</source>
         <translation>Autre - Sat n&apos;est pas dans la liste</translation>
     </message>
@@ -4350,22 +4350,22 @@ La fréquence n&apos;est pas une bande réservée aux radioamateurs !</translati
         <translation type="vanished">MHz</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="392"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="394"/>
         <source>Not Sat QSO</source>
         <translation>QSO non Sat</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="430"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="432"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog a détecté un nom de satellite qu&apos;il ne reconnaît pas. Si vous préférez utiliser l&apos;un des noms de satellites connus à la place, veuillez le choisir dans la liste. Sinon, veuillez contacter l&apos;équipe de développement pour ajouter le nouveau nom de satellite.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="431"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Le satellite que vous avez dans votre QSO est : </translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="431"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation type="unfinished"></translation>
     </message>

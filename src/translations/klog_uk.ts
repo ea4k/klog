@@ -4062,7 +4062,7 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="147"/>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="197"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="199"/>
         <source>Not Identified</source>
         <translation></translation>
     </message>
@@ -4072,22 +4072,22 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>SOTA Ref</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>Age</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="561"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="563"/>
         <source>VUCC grids</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="562"/>
+        <location filename="../inputwidgets/mainwindowinputothers.cpp" line="564"/>
         <source>Distance</source>
         <translation></translation>
     </message>
@@ -4361,7 +4361,7 @@ Frequency is not in a hamradio band!</source>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="93"/>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="393"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="395"/>
         <source>Other - Sat not in the list</source>
         <translation>Інший - Супутник відсутній у списку</translation>
     </message>
@@ -4417,22 +4417,22 @@ Frequency is not in a hamradio band!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="392"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="394"/>
         <source>Not Sat QSO</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="430"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="432"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
         <translation>KLog виявив назву супутника, яку він не розпізнає. Якщо замість нього має використовуватися одна з назв відомих супутників, будь ласка, виберіть її зі списку. Крім того, зв’яжіться з командою розробників, щоб додати назву нового супутника.</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="431"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>The satellite you have in your QSO is: </source>
         <translation>Супутник у вашому QSO:</translation>
     </message>
     <message>
-        <location filename="../inputwidgets/mainwindowsattab.cpp" line="431"/>
+        <location filename="../inputwidgets/mainwindowsattab.cpp" line="433"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>Будь ласка, майте на увазі, назва супутника не буде збережена, якщо її немає у списку. Тому інформація може бути втрачена!</translation>
     </message>
