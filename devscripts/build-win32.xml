@@ -65,7 +65,7 @@
                             <origin>../images/klog.ico</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libcrypto-1_1.dll</origin>
+                            <origin>../src/release/libcrypto-3.dll</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/release/libeay32.dll</origin>
@@ -86,7 +86,7 @@
                             <origin>../src/release/libhamlib-4.dll</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libssl-1_1.dll</origin>
+                            <origin>../src/release/libssl-3.dll</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/release/libstdc++-6.dll</origin>

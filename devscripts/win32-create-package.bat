@@ -28,31 +28,41 @@ rem *                                                                           
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
-set PATH=%PATH%;C:/Qt/5.15.2/mingw81_32/bin;C:/Qt/Tools/mingw810_32/bin;
+set PATH=%PATH%;C:\Qt\5.15.2\mingw81_32\bin;C:\Qt\Tools\mingw810_32\bin;
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
-
+echo Line 10
 cd ../src/
 rmdir /S /Q build
 rmdir /S /Q release
 rmdir /S /Q debug
+echo Line 20
 mingw32-make clean
-
+echo Line 21
 for /f "tokens=2 delims=\=" %%a in ('type src.pro^|find "PKGVERSION = "') do (
   set KLOGDEVELVERSION=%%a & goto :continue
 )
+echo Line 30
 :continue
-set KLOGDEVELVERSION=%KLOGDEVELVERSION:~1%
+@echo on
+SETLOCAL EnableDelayedExpansion
+set KLOGDEVELVERSION=!KLOGDEVELVERSION: =!
+rem set KLOGDEVELVERSION=%KLOGDEVELVERSION:~1%
 echo Building KLog-%KLOGDEVELVERSION%
-
+echo Line 40
+qmake -set CONFIG+=x86_32
 qmake src.pro
+echo Line 41
 mingw32-make
+echo Line 42
 mkdir release
+echo Line 43
 xcopy /Y /S /F build\target\* release
 echo localdir=%cd%
 echo %localdir%
-copy ..\..\paquete\openssl\*.dll release
-copy ..\..\paquete\hamlibDLL\*.dll release
-windeployqt --qmldir qml release\klog.exe
+rem COPY OpenSSL-1 DLL
+copy ..\..\libs\win32\openssl\*.dll release
+copy ..\..\libs\win32\hamlib\*.dll release
+windeployqt --qmldir release release\klog.exe
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
 :: After knowing the version, the package can be obtained from: https://indy.fulgan.com/SSL/Archive/

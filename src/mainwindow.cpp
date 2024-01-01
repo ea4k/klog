@@ -1051,7 +1051,7 @@ void MainWindow::slotQRZReturnPressed()
     {return;}
     //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
     int addedOK = qso->toDB (modifyingQSO);
-    qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
         qso->clear();
