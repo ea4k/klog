@@ -7876,7 +7876,7 @@ You need a QRZ.com subscription to use this feature.</source>
     <message>
         <location filename="../elogqrzlog.cpp" line="660"/>
         <source>Callsign missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Позывной отсутствует</translation>
     </message>
 </context>
 <context>
