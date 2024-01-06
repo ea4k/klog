@@ -67,6 +67,7 @@ If qt5 is still not there, check your instalallation as one of the previous pack
 
 4.- Generate the Makefile
 
+    cd src
     qmake PREFIX=/usr/local src.pro
 
 5. Make everything.
