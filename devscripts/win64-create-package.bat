@@ -3,7 +3,7 @@ rem Script to deploy the windows package file
 rem Must be executed in the build directory of KLog
 rem ***************************************************************************
 rem			
-rem                         klogwincreatepacksage2.bat
+rem                         win64-create-package.bat
 rem						  -------------------
 rem    begin                : jan 2021
 rem    copyright            : (C) 2021 by Jaime Robles
@@ -30,39 +30,42 @@ echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
 set PATH=%PATH%;C:\Qt\5.15.2\mingw81_64\bin;C:\Qt\Tools\mingw810_64\bin;
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
-echo Linea 10
+echo Line 10
 cd ../src/
+echo Line 11
 rmdir /S /Q build
+echo Line 12
 rmdir /S /Q release
+echo Line 13
 rmdir /S /Q debug
-echo Linea 20
+echo Line 20
 mingw32-make clean
-echo Linea 21
+echo Line 21
 for /f "tokens=2 delims=\=" %%a in ('type src.pro^|find "PKGVERSION = "') do (
   set KLOGDEVELVERSION=%%a & goto :continue
 )
-echo Linea 30
+echo Line 30
 :continue
 @echo on
 SETLOCAL EnableDelayedExpansion
 set KLOGDEVELVERSION=!KLOGDEVELVERSION: =!
 rem set KLOGDEVELVERSION=%KLOGDEVELVERSION:~1%
 echo Building KLog-%KLOGDEVELVERSION%
-echo Linea 40
+echo Line 40
 qmake -set CONFIG+=x86_64
-echo Linea 41
+echo Line 41
 qmake src.pro
-echo Linea 42
+echo Line 42
 mingw32-make
-echo Linea 43
+echo Line 43
 mkdir release
-echo Linea 44
+echo Line 44
 xcopy /Y /S /F build\target\* release
-echo Linea 45
+echo Line 45
 echo localdir=%cd%
 echo %localdir%
 rem COPY OpenSSL-1 DLL
-echo Linea 50
+echo Line 50
 copy ..\..\paquete\openssl\*.dll release
 echo Line 51
 copy ..\..\libs\hamlib-w64\bin\*.dll release
