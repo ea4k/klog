@@ -50,19 +50,25 @@ rem set KLOGDEVELVERSION=%KLOGDEVELVERSION:~1%
 echo Building KLog-%KLOGDEVELVERSION%
 echo Linea 40
 qmake -set CONFIG+=x86_64
-qmake src.pro
 echo Linea 41
-mingw32-make
+qmake src.pro
 echo Linea 42
-mkdir release
+mingw32-make
 echo Linea 43
+mkdir release
+echo Linea 44
 xcopy /Y /S /F build\target\* release
+echo Linea 45
 echo localdir=%cd%
 echo %localdir%
 rem COPY OpenSSL-1 DLL
+echo Linea 50
 copy ..\..\paquete\openssl\*.dll release
+echo Line 51
 copy ..\..\libs\hamlib-w64\bin\*.dll release
+echo Line 52
 windeployqt --qmldir release release\klog.exe
+echo Line 60
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
 :: After knowing the version, the package can be obtained from: https://indy.fulgan.com/SSL/Archive/
@@ -71,7 +77,9 @@ rem cd ..\..
 echo %cd%
 cd ../devscripts
 echo %cd%
+echo Line 90
 builder-cli.exe build build-win64.xml --verbose
+echo Line 999
 
 
 
