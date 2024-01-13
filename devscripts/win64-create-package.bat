@@ -30,6 +30,7 @@ echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
 set PATH=%PATH%;C:\Qt\5.15.2\mingw81_64\bin;C:\Qt\Tools\mingw810_64\bin;
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
+del ..\devscripts\klog-*win64*.exe
 echo Line 10
 cd ../src/
 echo Line 11
