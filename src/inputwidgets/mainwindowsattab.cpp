@@ -614,7 +614,7 @@ void MainWindowSatTab::setUpLinkFreq(const double _t)
     if ((!updatingSat) && (!qsoToEditInProcess))
     {
        //qDebug() << Q_FUNC_INFO << ": Calling setNoSat";
-        setNoSat ();
+        //setNoSat ();
     }
     updateTXFreq(_t);
     setUpLink(dataProxy->getBandNameFromFreq(_t));
