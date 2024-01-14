@@ -53,170 +53,21 @@
                             <origin>../src/COPYING</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/D3Dcompiler_47.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
                             <origin>../src/gpl-3.0-standalone.html</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/klog.exe</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../images/klog.ico</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/release/libcrypto-3.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libeay32.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libEGL.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libgcc_s_dw2-1.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libgcc_s_sjlj-1.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libGLESv2.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libhamlib-4.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libssl-3.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libstdc++-6.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libusb-1.0.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/libwinpthread-1.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
                             <origin>../src/NEWS</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/opengl32sw.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Charts.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Core.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Gui.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Location.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Network.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Positioning.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5PositioningQuick.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5PrintSupport.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Qml.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5QmlModels.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5QmlWorkerScript.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Quick.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5RemoteObjects.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5SerialPort.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Sql.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Svg.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5Widgets.dll</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/README</origin>
                         </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/ssleay32.dll</origin>
-                        </distributionFile>
-                        <distributionDirectory>
-                            <origin>../src/release/bearer</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/geoservices</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/iconengines</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/imageformats</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/platforms</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/position</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/printsupport</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/qmltooling</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/QtLocation</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/QtPositioning</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/QtQml</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/QtQuick</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/QtQuick.2</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/sqldrivers</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/styles</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/translations</origin>
-                        </distributionDirectory>
-                        <distributionDirectory>
-                            <origin>../src/release/QtGraphicalEffects</origin>
-                        </distributionDirectory>
-                        <distributionFile>
-                            <origin>../src/release/Qt5QuickControls2.dll</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>../src/release/Qt5QuickTemplates2.dll</origin>
-                        </distributionFile>
+						<distributionFile>
+							<allowWildcards>1</allowWildcards>
+							<origin>../src/release/*</origin>
+						</distributionFile>
                     </distributionFileList>
                     <shortcutList>
                         <shortcut>

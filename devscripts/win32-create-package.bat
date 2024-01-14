@@ -3,7 +3,7 @@ rem Script to deploy the windows package file
 rem Must be executed in the build directory of KLog
 rem ***************************************************************************
 rem			
-rem                         klogwincreatepacksage2.bat
+rem                         win32-create-package.bat
 rem						  -------------------
 rem    begin                : jan 2021
 rem    copyright            : (C) 2021 by Jaime Robles
@@ -30,6 +30,7 @@ echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
 set PATH=%PATH%;C:\Qt\5.15.2\mingw81_32\bin;C:\Qt\Tools\mingw810_32\bin;
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
+set PATH=%PATH%;C:\Program Files (x86)\BitRock InstallBuilder Enterprise 15.10.1\bin;
 echo Line 10
 cd ../src/
 rmdir /S /Q build
@@ -59,9 +60,9 @@ echo Line 43
 xcopy /Y /S /F build\target\* release
 echo localdir=%cd%
 echo %localdir%
-rem COPY OpenSSL-1 DLL
-copy ..\..\libs\win32\openssl\*.dll release
-copy ..\..\libs\win32\hamlib\*.dll release
+rem COPY OpenSSL DLL
+copy ..\..\..\libs\win32\openssl\bin\*.dll release
+copy ..\..\..\libs\win32\hamlib\bin\*.dll release
 windeployqt --qmldir release release\klog.exe
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
