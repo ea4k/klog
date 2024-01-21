@@ -175,7 +175,7 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="107"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>My Locator</source>
-        <translation type="unfinished"></translation>
+        <translation>Mans Lokātors</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="110"/>
