@@ -603,7 +603,7 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
         txFreqSpinBox->setPalette(palRed);
          //qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
     }
-    if ((!splitCheckBox->isChecked()) || modify )
+    if ((!splitCheckBox->isChecked()) && !modify)
     {
         rxFreqSpinBox->setValue (_f);
         //qDebug() << Q_FUNC_INFO << ": copying to RX Freq " ;

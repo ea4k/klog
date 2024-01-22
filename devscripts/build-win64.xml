@@ -2,6 +2,7 @@
     <shortName>KLog</shortName>
     <fullName>KLog</fullName>
     <version>${env(KLOGDEVELVERSION)}</version>
+    <windows64bitMode>1</windows64bitMode>
     <installerFilename>${product_shortname}-${product_version}-win64.${platform_exec_suffix}</installerFilename>
     <readmeFile>../src/README</readmeFile>
     <licenseFile>../src/COPYING</licenseFile>

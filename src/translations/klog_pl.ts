@@ -39,7 +39,7 @@
         <translation>Możesz również pomóc przesyłając błędy programu oraz swoje pomysły lub cokolwiek co pomogło by w poprawie KLog.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="127"/>
+        <location filename="../aboutdialog.cpp" line="128"/>
         <source>At present, the data that is provided is the following:</source>
         <translation>W tym momęcie, dane dostarczone zawierają:</translation>
     </message>
@@ -76,63 +76,63 @@
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="92"/>
-        <location filename="../aboutdialog.cpp" line="168"/>
+        <location filename="../aboutdialog.cpp" line="169"/>
         <source>Authors</source>
         <translation>Autorzy</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="108"/>
+        <location filename="../aboutdialog.cpp" line="109"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>Tłumacze przełożli KLOG na Twój język. Tłumacze są naprawdę ważną częścią grupy rozwojowej KLOG. </translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="108"/>
+        <location filename="../aboutdialog.cpp" line="109"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="109"/>
-        <location filename="../aboutdialog.cpp" line="169"/>
+        <location filename="../aboutdialog.cpp" line="110"/>
+        <location filename="../aboutdialog.cpp" line="170"/>
         <source>Translators</source>
         <translation>Tłumacze</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="125"/>
+        <location filename="../aboutdialog.cpp" line="126"/>
         <source>Privacy advisory</source>
         <translation>Postanowienia prawne</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="126"/>
+        <location filename="../aboutdialog.cpp" line="127"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users&apos; needs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="128"/>
+        <location filename="../aboutdialog.cpp" line="129"/>
         <source>Callsign</source>
         <translation>Znak wywoławczy</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="128"/>
+        <location filename="../aboutdialog.cpp" line="129"/>
         <source>KLog version</source>
         <translation>Wersja KLog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="128"/>
+        <location filename="../aboutdialog.cpp" line="129"/>
         <source>Operating system</source>
         <translation>System operacyjny</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="129"/>
+        <location filename="../aboutdialog.cpp" line="130"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="167"/>
+        <location filename="../aboutdialog.cpp" line="168"/>
         <source>KLog</source>
         <translation>Klog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="170"/>
+        <location filename="../aboutdialog.cpp" line="171"/>
         <source>Privacy</source>
         <translation>Prywatność</translation>
     </message>

@@ -60,7 +60,7 @@
         <translation>KLog je vyvíjen velmi malým týmem, ale každá další pomoc je vítaná!</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="108"/>
+        <location filename="../aboutdialog.cpp" line="109"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://groups.io/g/klog&quot;&gt;KLog mailing list&lt;/a&gt;!</source>
         <translation>Pokud KLog stále není ve vašem jazyce a chcete nám pomoci, můžete nás kontaktovat prostřednictvím &lt;a href=&quot;https://groups.io/g/klog&quot;&gt; KLog mailing listu &lt;/a&gt;!</translation>
     </message>
@@ -76,63 +76,63 @@
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="92"/>
-        <location filename="../aboutdialog.cpp" line="168"/>
+        <location filename="../aboutdialog.cpp" line="169"/>
         <source>Authors</source>
         <translation>Autoři</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="108"/>
+        <location filename="../aboutdialog.cpp" line="109"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>Překladatelé překládají KLog do vašeho jazyka. Jsou opravdu důležitou součástí vývojového týmu KLog.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="109"/>
-        <location filename="../aboutdialog.cpp" line="169"/>
+        <location filename="../aboutdialog.cpp" line="110"/>
+        <location filename="../aboutdialog.cpp" line="170"/>
         <source>Translators</source>
         <translation>Překladatelé</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="125"/>
+        <location filename="../aboutdialog.cpp" line="126"/>
         <source>Privacy advisory</source>
         <translation>Ochrana osobních údajů</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="126"/>
+        <location filename="../aboutdialog.cpp" line="127"/>
         <source>KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users&apos; needs.</source>
         <translation>Vývojáři KLog implementovali funkci, která posílá některá uživatelská data na server KLog s jediným účelem - identifikovat počet nainstalovaných verzí, zaměřit vývoj jedním nebo druhým směrem s ohledem na potřeby uživatelů.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="127"/>
+        <location filename="../aboutdialog.cpp" line="128"/>
         <source>At present, the data that is provided is the following:</source>
         <translation>V současné době jsou poskytovány následující údaje:</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="128"/>
+        <location filename="../aboutdialog.cpp" line="129"/>
         <source>Callsign</source>
         <translation>Volací značka</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="128"/>
+        <location filename="../aboutdialog.cpp" line="129"/>
         <source>KLog version</source>
         <translation>KLog verze</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="128"/>
+        <location filename="../aboutdialog.cpp" line="129"/>
         <source>Operating system</source>
         <translation>Operační systém</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="129"/>
+        <location filename="../aboutdialog.cpp" line="130"/>
         <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page.</source>
         <translation>Tuto funkci můžete povolit nebo zakázat v menu Nastavení -&gt;Nastavení -&gt;záložka Různé.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="167"/>
+        <location filename="../aboutdialog.cpp" line="168"/>
         <source>KLog</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="170"/>
+        <location filename="../aboutdialog.cpp" line="171"/>
         <source>Privacy</source>
         <translation>Soukromí</translation>
     </message>

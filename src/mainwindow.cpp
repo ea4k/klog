@@ -1233,7 +1233,7 @@ bool MainWindow::readQSOFromUI()
 
     qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
 
-    int cqz = world->getEntityCqz(dxcc);
+    int cqz = world->getQRZCqz(tqrz);
     int ituz = world->getEntityItuz(dxcc);
 
     qso->setName (QSOTabWidget->getName());
