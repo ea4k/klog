@@ -30,7 +30,7 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 
-PKGVERSION = 2.3.4-RC1
+PKGVERSION = 2.3.4-RC2
 VERSION = 2.3.4
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
@@ -368,13 +368,13 @@ win32: {
 
     contains(QT_ARCH, i386) {
         message("32-bit")
-        LIBS += -L"$$PWD/../../libs/hamlib/lib/gcc" -lhamlib
-        LIBS += -L"$$PWD/../../libs/hamlib/bin"
-        INCLUDEPATH += "$$PWD/../../libs/hamlib/include/"
+        LIBS += -L"$$PWD/../../libs/win32/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../libs/win32/hamlib/bin"
+        INCLUDEPATH += "$$PWD/../../libs/win32/hamlib/include/"
     } else {
         message("64-bit")
-        LIBS += -L"$$PWD/../../libs/hamlib-w64/lib/gcc" -lhamlib
-        LIBS += -L"$$PWD/../../libs/hamlib-w64/bin"
-        INCLUDEPATH += "$$PWD/../../libs/hamlib-w64/include/"
+        LIBS += -L"$$PWD/../../libs/win64/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../libs/win64/hamlib/bin"
+        INCLUDEPATH += "$$PWD/../../libs/win64/hamlib/include/"
     }
 }
