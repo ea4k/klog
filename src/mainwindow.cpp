@@ -1273,7 +1273,7 @@ bool MainWindow::readQSOFromUI()
     qso->setSatName (satTabWidget->getSatName());
     qso->setSatMode (satTabWidget->getSatMode());
 
-    keepSatPage = satTabWidget->getRepeatThis();
+    keepSatPage = satTabWidget->getKeep();
 
     qso->setPropMode (othersTabWidget->getPropModeFromComboBox());
 
@@ -5747,9 +5747,8 @@ void MainWindow::defineStationCallsign(const QString &_call)
 
 void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _p ;
+    qDebug() << Q_FUNC_INFO << ": " << _p << "- _keep: " << util->boolToQString(_keep) ;;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-     //qDebug() << Q_FUNC_INFO << ": _keep" << util->boolToQString(_keep) ;
 
     othersTabWidget->setPropMode(_p, _keep);
     QSOTabWidget->setPropModeFromSat(_p);
@@ -5760,10 +5759,10 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 
 void MainWindow::slotSetPropModeFromOther(const QString &_p)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _p;
+    qDebug() << Q_FUNC_INFO << ": " << _p;
     if (_p!="SAT")
     {
-        //qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
+        qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
         satTabWidget->setNoSat();
     }
 }
@@ -6753,8 +6752,11 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
 
     othersTabWidget->setEntity (backupQSO->getDXCC ());
     othersTabWidget->setIOTA (backupQSO->getIOTA ());
+    qDebug() << Q_FUNC_INFO << ": Restoring propMode";
     othersTabWidget->setPropMode (backupQSO->getPropMode ());
+    qDebug() << Q_FUNC_INFO << ": Restoring Keep";
     othersTabWidget->setKeep (backupQSO->getKeepOthers ());
+    qDebug() << Q_FUNC_INFO << ": END";
 
     // MainWindowMyDataTab
     if (backupQSO->getLogId () == currentLog)

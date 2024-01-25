@@ -59,7 +59,10 @@ bool QSO::isComplete()
 }
 
 void QSO::clear()
-{
+{   // When we clear a QSO, we put data that is not valid for a QSO, if possible.
+    // so no data that has not been saved by the user is "populated automatically" by KLog
+    // without the user's knowledge or intention
+
     logEvent (Q_FUNC_INFO, "Start", Debug);
     haveBand = false;
     haveMode = false;
@@ -81,10 +84,10 @@ void QSO::clear()
 
     // VARIABLES for ADIF //////////
     address = QString();
-    age = 0.0;
+    age = -1;
     a_index = -1;
-    ant_az = 0;
-    ant_el = 0;
+    ant_az = -1;
+    ant_el = -91;
     ant_path = QString();
     arrl_sect = QString();
     award_submitted = QString();
@@ -107,7 +110,7 @@ void QSO::clear()
     credit_granted = QString();
     credit_submitted = QString();
     darc_dok = QString();
-    distance = 0.0;
+    distance = -1.0;
     dxcc = -1;
     email = QString();
     ownerCall = QString();
@@ -166,8 +169,8 @@ void QSO::clear()
     my_wwff_ref = QString();
     name = QString();
     notes = QString();
-    nr_bursts = 0;
-    nr_pings = 0;
+    nr_bursts = -1;
+    nr_pings = -1;
     operatorCall = QString();
     ownerCall = QString();
     contacted_owner = QString();
@@ -1111,18 +1114,21 @@ int QSO::getDXCC()
 
 bool QSO::setPropMode(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << _c;
+    qDebug() << Q_FUNC_INFO << _c;
     if (!util->isValidPropMode (_c))
     {
+        qDebug() << Q_FUNC_INFO << " - Not valid!";
         propMode = QString();
         return false;
     }
+    qDebug() << Q_FUNC_INFO << " - OK END";
     propMode = _c;
     return true;
 }
 
 QString QSO::getPropMode()
 {
+    qDebug() << Q_FUNC_INFO << ": " << propMode;
     return propMode;
 }
 
@@ -1746,7 +1752,7 @@ QString QSO::getContestID()
 
 bool QSO::setCQZone(const int _i)
 {
-    if ((_i>=0) && (_i<=40))
+    if ((_i>0) && (_i<=40))
     {
         cqz = _i;
         return true;
@@ -1873,7 +1879,7 @@ int QSO::getIotaID()
 
 bool QSO::setItuZone(const int _i)
 {
-    if (_i>=0 && (_i<=90))
+    if (_i>0 && (_i<=90))
     {
         itu_zone = _i;
         return true;
@@ -3147,12 +3153,210 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 
 QString QSO::getADIF()
 {
+    if (!isComplete())
+        return QString();
     adif = new Adif(Q_FUNC_INFO);
 
     QString adifStr = QString();
     adifStr.append(adif->getADIFField ("CALL", callsign));
     adifStr.append(adif->getADIFField ("QSO_DATE",  util->getADIFDateFromQDateTime(qso_dateTime)));
+    adifStr.append(adif->getADIFField ("QSO_DATE_OFF",  util->getADIFDateFromQDate(qso_date_off)));
     adifStr.append(adif->getADIFField ("TIME_ON",  util->getADIFTimeFromQDateTime(qso_dateTime)));
+    adifStr.append(adif->getADIFField ("TIME_OFF",  util->getADIFTimeFromQTime(qso_time_off)));
+    adifStr.append(adif->getADIFField ("RST_RCVD", RST_rx));
+    adifStr.append(adif->getADIFField ("RST_SENT",  RST_tx));
+    adifStr.append(adif->getADIFField ("BAND",  band));
+    adifStr.append(adif->getADIFField ("BAND_RX",  band_rx));
+    adifStr.append(adif->getADIFField ("MODE",  mode));
+    adifStr.append(adif->getADIFField ("SUBMODE", submode ));
+
+    if (adif->isValidCQz(QString::number(cqz)))
+        adifStr.append(adif->getADIFField ("CQZ",  QString::number(cqz) ));
+
+    if (adif->isValidITUz(QString::number(itu_zone)))
+        adifStr.append(adif->getADIFField ("ITUZ", QString::number(itu_zone) ));
+
+    if (dxcc>0)
+        adifStr.append(adif->getADIFField ("DXCC",  QString::number(dxcc)));
+    adifStr.append(adif->getADIFField ("ADDRESS",  address));
+    adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
+    adifStr.append(adif->getADIFField ("CNTY",  county));
+    adifStr.append(adif->getADIFField ("COMMENT",  comment));
+
+    if (a_index>=0)
+        adifStr.append(adif->getADIFField ("A_INDEX",  QString::number(a_index)));
+
+    if (ant_az>=0)
+        adifStr.append(adif->getADIFField ("ANT_AZ",  QString::number(ant_az)));
+
+    if (ant_el>=-90)
+    adifStr.append(adif->getADIFField ("ANT_EL",  QString::number(ant_el)));
+    adifStr.append(adif->getADIFField ("ANT_PATH", ant_path));
+    adifStr.append(adif->getADIFField ("ARRL_SECT", arrl_sect ));
+    adifStr.append(adif->getADIFField ("AWARD_SUBMITTED",  award_submitted));
+    adifStr.append(adif->getADIFField ("AWARD_GRANTED",  award_granted));
+
+    adifStr.append(adif->getADIFField ("checkcontest",  check));
+    adifStr.append(adif->getADIFField ("class",  clase));
+
+    adifStr.append(adif->getADIFField ("clublog_qso_upload_date",  util->getADIFDateFromQDate(clublogQSOUpdateDate) ));
+    adifStr.append(adif->getADIFField ("clublog_qso_upload_status", clublog_status ));
+
+    adifStr.append(adif->getADIFField ("cont",  continent));
+    adifStr.append(adif->getADIFField ("contacted_op", contacted_op));
+    adifStr.append(adif->getADIFField ("contest_id",  contest_id));
+    adifStr.append(adif->getADIFField ("country",  country));
+    adifStr.append(adif->getADIFField ("credit_submitted",  credit_submitted));
+    adifStr.append(adif->getADIFField ("credit_granted", credit_granted ));
+
+    if (distance>0)
+        adifStr.append(adif->getADIFField ("darc_dok", QString::number(distance) ));
+    adifStr.append(adif->getADIFField ("email",  email));
+    adifStr.append(adif->getADIFField ("eq_call",  getEQ_Call()));
+    adifStr.append(adif->getADIFField ("eqsl_qslrdate", util->getADIFDateFromQDate(eQSLRDate) ));
+    adifStr.append(adif->getADIFField ("eqsl_qslsdate", util->getADIFDateFromQDate(eQSLSDate) ));
+    adifStr.append(adif->getADIFField ("eqsl_qsl_rcvd", eqsl_qsl_rcvd));
+    adifStr.append(adif->getADIFField ("eqsl_qsl_sent", eqsl_qsl_sent));
+
+    if (fists>0)
+        adifStr.append(adif->getADIFField ("fists", QString::number(fists)));
+
+    if (fists_cc>0)
+        adifStr.append(adif->getADIFField ("fists_cc", QString::number(fists_cc)));
+    adifStr.append(adif->getADIFField ("force_init", adif->getADIFBoolFromBool(getForceInit()) ));
+
+    if (adif->isValidFreq(QString::number(freq)))
+        adifStr.append(adif->getADIFField ("freq",  QString::number(freq)));
+
+    if (adif->isValidFreq(QString::number(freq_rx)))
+    adifStr.append(adif->getADIFField ("freq_rx", QString::number(freq_rx) ));
+    adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
+    adifStr.append(adif->getADIFField ("hrdlog_qso_upload_date",  util->getADIFDateFromQDate(hrdlogUploadDate)));
+    adifStr.append(adif->getADIFField ("hrdlog_qso_upload_status", hrdlog_status ));
+    adifStr.append(adif->getADIFField ("iota", iota));
+
+    if (iota_ID>0)
+        adifStr.append(adif->getADIFField ("iota_island_id", QString::number(iota_ID)));
+
+    if (adif->isValidK_Index(QString::number(k_index)))
+        adifStr.append(adif->getADIFField ("k_index", QString::number(k_index)));
+    adifStr.append(adif->getADIFField ("lat", latitude));
+    adifStr.append(adif->getADIFField ("lon", longitude));
+    adifStr.append(adif->getADIFField ("lotw_qslrdate", util->getADIFDateFromQDate(QSLLoTWRDate)));
+    adifStr.append(adif->getADIFField ("lotw_qslsdate", util->getADIFDateFromQDate(QSLLoTWSDate)));
+    adifStr.append(adif->getADIFField ("lotw_qsl_rcvd", lotw_qsl_rcvd));
+    adifStr.append(adif->getADIFField ("lotw_qsl_sent", lotw_qsl_sent));
+
+    if (adif->isValidNRBursts(QString::number(getMaxBursts())))
+        adifStr.append(adif->getADIFField ("max_bursts", QString::number(getMaxBursts()) ));
+
+    adifStr.append(adif->getADIFField ("ms_shower",  ms_shower));
+    adifStr.append(adif->getADIFField ("my_antenna", my_antenna));
+    adifStr.append(adif->getADIFField ("my_city", my_city));
+
+    adifStr.append(adif->getADIFField ("my_cnty", my_county));
+    adifStr.append(adif->getADIFField ("my_country", my_country));
+
+    if (adif->isValidCQz(QString::number(my_cqz)))
+        adifStr.append(adif->getADIFField ("my_cq_zone", QString::number(my_cqz)));
+
+    if (adif->isValidDXCC(QString::number(my_dxcc)))
+        adifStr.append(adif->getADIFField ("my_dxcc", QString::number(my_dxcc) ));
+
+    if (adif->isValidFISTS(QString::number(my_fists)))
+        adifStr.append(adif->getADIFField ("my_fists", QString::number(my_fists) ));
+    adifStr.append(adif->getADIFField ("my_gridsquare", my_gridsquare ));
+    adifStr.append(adif->getADIFField ("my_iota", my_iota));
+    if (adif->isValidIOTA_islandID(QString::number(getMyIotaID())))
+        adifStr.append(adif->getADIFField ("my_iota_island_id", QString::number(getMyIotaID())));
+
+    if (adif->isValidITUz(QString::number(my_itu_zone)))
+        adifStr.append(adif->getADIFField ("my_itu_zone", QString::number(my_itu_zone)));
+
+    adifStr.append(adif->getADIFField ("my_lat", my_latitude));
+    adifStr.append(adif->getADIFField ("my_lon", my_longitude));
+    adifStr.append(adif->getADIFField ("my_name", my_name));
+
+    adifStr.append(adif->getADIFField ("my_postal_code", my_postal_code));
+    adifStr.append(adif->getADIFField ("my_rig", my_rig));
+    adifStr.append(adif->getADIFField ("my_sig", my_sig));
+    adifStr.append(adif->getADIFField ("my_sig_info", my_sig_info));
+
+    adifStr.append(adif->getADIFField ("my_sota_ref", my_sota_ref));
+    adifStr.append(adif->getADIFField ("my_state", my_state));
+    adifStr.append(adif->getADIFField ("my_street", my_street));
+    adifStr.append(adif->getADIFField ("my_usaca_counties", my_usaca_counties));
+
+    adifStr.append(adif->getADIFField ("my_vucc_grids", my_vucc_grids));
+    adifStr.append(adif->getADIFField ("name", name));
+    adifStr.append(adif->getADIFField ("notes", notes));
+    if (adif->isValidNRBursts(QString::number(nr_bursts)))
+        adifStr.append(adif->getADIFField ("nr_bursts", QString::number(nr_bursts)));
+    if (adif->isValidPings(QString::number(nr_pings)))
+        adifStr.append(adif->getADIFField ("nr_pings", QString::number(nr_pings)));
+    adifStr.append(adif->getADIFField ("operator", operatorCall));
+    adifStr.append(adif->getADIFField ("owner_callsign", ownerCall));
+    adifStr.append(adif->getADIFField ("pfx", prefix));
+
+    adifStr.append(adif->getADIFField ("precedence", precedence));
+    adifStr.append(adif->getADIFField ("prop_mode", propMode));
+    adifStr.append(adif->getADIFField ("public_key", public_key));
+    adifStr.append(adif->getADIFField ("qrzcom_qso_upload_date",  util->getADIFDateFromQDate(QRZComDate) ));
+    adifStr.append(adif->getADIFField ("qrzcom_qso_upload_status", QRZCom_status ));
+
+    adifStr.append(adif->getADIFField ("qslmsg", qslmsg));
+    adifStr.append(adif->getADIFField ("qslrdate", util->getADIFDateFromQDate(QSLRDate) ));
+    adifStr.append(adif->getADIFField ("qslsdate", util->getADIFDateFromQDate(QSLSDate)));
+    adifStr.append(adif->getADIFField ("qsl_rcvd", getQSL_RCVD()));
+    adifStr.append(adif->getADIFField ("qsl_sent", getQSL_SENT()));
+
+    adifStr.append(adif->getADIFField ("qsl_rcvd_via", qslRecVia));
+    adifStr.append(adif->getADIFField ("qsl_sent_via", qslSenVia));
+    adifStr.append(adif->getADIFField ("qsl_via", qslVia));
+    adifStr.append(adif->getADIFField ("qso_complete", getQSOComplete()));
+    adifStr.append(adif->getADIFField ("qso_random", adif->getADIFBoolFromBool(getQSORandom())));
+
+    adifStr.append(adif->getADIFField ("qth", qth));
+    adifStr.append(adif->getADIFField ("region", region));
+    adifStr.append(adif->getADIFField ("rig", rig));
+
+    if (adif->isValidPower(QString::number(pwr_rx)))
+        adifStr.append(adif->getADIFField ("rx_pwr", QString::number(pwr_rx)));
+    adifStr.append(adif->getADIFField ("sat_mode", getSatMode()));
+    adifStr.append(adif->getADIFField ("sat_name", getSatName()));
+
+    if (adif->isValidSFI(QString::number(sfi)))
+        adifStr.append(adif->getADIFField ("sfi", QString::number(sfi)));
+    adifStr.append(adif->getADIFField ("sig", sig));
+    adifStr.append(adif->getADIFField ("sig_info", sig_info));
+    adifStr.append(adif->getADIFField ("silent_key", adif->getADIFBoolFromBool(silent_key)));
+    adifStr.append(adif->getADIFField ("skcc", skcc));
+
+    adifStr.append(adif->getADIFField ("sota_ref", sota_ref));
+    adifStr.append(adif->getADIFField ("srx_string", srx_string));
+    if (adif->isValidSRX(QString::number(nr_bursts)))
+        adifStr.append(adif->getADIFField ("srx", QString::number(srx)));
+    adifStr.append(adif->getADIFField ("stx_string", stx_string));
+    if (adif->isValidSTX(QString::number(nr_bursts)))
+        adifStr.append(adif->getADIFField ("stx", QString::number(stx)));
+
+    adifStr.append(adif->getADIFField ("state", state));
+    adifStr.append(adif->getADIFField ("station_callsign", stationCallsign));
+    adifStr.append(adif->getADIFField ("swl", adif->getADIFBoolFromBool(swl)));
+    if (adif->isValidUKSMG(QString::number(uksmg)))
+        adifStr.append(adif->getADIFField ("uksmg", QString::number(uksmg)));
+
+    adifStr.append(adif->getADIFField ("usaca_counties", usaca_counties));
+    adifStr.append(adif->getADIFField ("ve_prov", ve_prov));
+    adifStr.append(adif->getADIFField ("vucc_grids", vucc_grids));
+
+    if (adif->isValidTenTen(QString::number(ten_ten)))
+        adifStr.append(adif->getADIFField ("ten_ten", QString::number(ten_ten)));
+    if (adif->isValidPower(QString::number(pwr_tx)))
+        adifStr.append(adif->getADIFField ("tx_pwr", QString::number(pwr_tx)));
+    adifStr.append(adif->getADIFField ("web", web));
+    if (adif->isValidLogId(QString::number(getLogId())))
+        adifStr.append(adif->getADIFField ("lognumber", QString::number(getLogId())));
 
     return adifStr;
 }

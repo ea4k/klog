@@ -54,8 +54,8 @@ public:
     //double getTXFreq();
     void setSatMode(const QString &_t);
 
-    bool getRepeatThis();
-    void setRepeatThis(const bool _t);
+    //bool getRepeatThis();
+    //void setRepeatThis(const bool _t);
 
     void addBands(QStringList _bands);
     void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands

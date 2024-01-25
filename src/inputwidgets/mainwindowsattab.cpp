@@ -162,22 +162,22 @@ void MainWindowSatTab::createUI()
 
 void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
-   //qDebug() << Q_FUNC_INFO << ": " << satNameComboBox->currentText();
+    //qDebug() << Q_FUNC_INFO << ": " << satNameComboBox->currentText();
     if (modifying || (satNameComboBox->currentText().length()<4))
     {
-       //qDebug() << Q_FUNC_INFO << ": Modifying: return";
+        //qDebug() << Q_FUNC_INFO << ": Modifying: return";
         return;
     }
     updatingSat = true;
 
     int i = satNameComboBox->currentIndex();
-   //qDebug() << Q_FUNC_INFO << ": SAT index: " << QString::number(i);
+    //qDebug() << Q_FUNC_INFO << ": SAT index: " << QString::number(i);
 
     satNameLineEdit->clear();
 
     if (i == 0)
     {
-       //qDebug() << Q_FUNC_INFO << ": i=0, emitting setPropModeSat - Not";
+        //qDebug() << Q_FUNC_INFO << ": i=0, emitting setPropModeSat - Not";
         emit setPropModeSat("Not", false);
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
@@ -185,7 +185,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     }
     else if(i == 1)
     {
-       //qDebug() << Q_FUNC_INFO << ": i=1, emitting setPropModeSat - SAT";
+        //qDebug() << Q_FUNC_INFO << ": i=1, emitting setPropModeSat - SAT";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(true);
         satOtherLabel->setEnabled(true);
@@ -193,7 +193,7 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << ": i = else, emitting setPropModeSat - SAT";
+        //qDebug() << Q_FUNC_INFO << ": i = else, emitting setPropModeSat - SAT";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
         satNameLineEdit->setEnabled(false);
         satOtherLabel->setEnabled(false);
@@ -202,30 +202,30 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
         autofillSatMode();
     }
     updatingSat = false;
-   //qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowSatTab::slotSatNameTextChanged()
 {
-   //qDebug() << Q_FUNC_INFO << ": " << satNameLineEdit->text();
+    //qDebug() << Q_FUNC_INFO << ": " << satNameLineEdit->text();
     int cursor = satNameLineEdit->cursorPosition ();
     satNameLineEdit->setText((util->getClearSQLi (satNameLineEdit->text())).toUpper());
 
     if (modifying )
     {
         satNameLineEdit->setCursorPosition (cursor);
-       //qDebug() << Q_FUNC_INFO << ": Modifying return";
+        //qDebug() << Q_FUNC_INFO << ": Modifying return";
         return;
     }
 
     if ((satNameLineEdit->text()).length()>0)
     {
-       //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -SAT- signal";
+        //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -SAT- signal";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
     }
     else if ((satModeLineEdit->text()).length()<1)
     {
-       //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -Not- signal";
+        //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -Not- signal";
         emit setPropModeSat("Not", false);
     }
     satNameLineEdit->setCursorPosition (cursor);
@@ -297,7 +297,7 @@ QString MainWindowSatTab::getSatName()
 
 void MainWindowSatTab::setNoSat()
 {
-    //qDebug() << Q_FUNC_INFO << ": - Start";
+   //qDebug() << Q_FUNC_INFO << ": - Start";
    satNameComboBox->setCurrentIndex(0);
    setSatMode("-CLEAR-");
    keepThisDataForNextQSOQcheckbox->setChecked(false);
@@ -346,24 +346,13 @@ void MainWindowSatTab::setSatMode(const QString &_t)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-bool MainWindowSatTab::getRepeatThis()
-{
-    //qDebug() << Q_FUNC_INFO << " - Start" ;
-    return keepThisDataForNextQSOQcheckbox->isChecked();
-}
-
-void MainWindowSatTab::setRepeatThis(const bool _t)
-{
-    //qDebug() << Q_FUNC_INFO << " - Start" ;
-    keepThisDataForNextQSOQcheckbox->setChecked(_t);
-}
-
 void MainWindowSatTab::clear(bool _full)
 {
     //qDebug() << Q_FUNC_INFO << " - Start" ;
     modifying = false;
     if ((keepThisDataForNextQSOQcheckbox->isChecked()) || (!_full))
     {
+        //qDebug() << Q_FUNC_INFO << " - Keep this data is checked or not Full clear" ;
         return;
     }
     else
@@ -918,11 +907,25 @@ void MainWindowSatTab::setKeep(const bool _b)
     keepThisDataForNextQSOQcheckbox->setChecked (_b);
 }
 
+// Commented as it was duplicated code
+//void MainWindowSatTab::setRepeatThis(const bool _t)
+//{
+//    //qDebug() << Q_FUNC_INFO << " - Start" ;
+//    keepThisDataForNextQSOQcheckbox->setChecked(_t);
+//}
+
 bool MainWindowSatTab::getKeep()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     return keepThisDataForNextQSOQcheckbox->isChecked ();
 }
+
+// Commented as it was duplicated code
+//bool MainWindowSatTab::getRepeatThis()
+//{
+//    //qDebug() << Q_FUNC_INFO << " - Start" ;
+//    return keepThisDataForNextQSOQcheckbox->isChecked();
+//}
 
 bool MainWindowSatTab::getDarkMode()
 {

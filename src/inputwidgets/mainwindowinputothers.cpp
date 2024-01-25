@@ -164,7 +164,7 @@ void MainWindowInputOthers::createUI()
 
 void MainWindowInputOthers::clear(bool _full)
 {
-    //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO << ": Full = " << util->boolToQString(_full);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
@@ -177,12 +177,12 @@ void MainWindowInputOthers::clear(bool _full)
     iotaNumberLineEdit->setText("000");
     if ((!keepPropCheckBox->isChecked()) || _full)
     {
-      //qDebug() << Q_FUNC_INFO << ": Clear the proModeComboBox";
+      qDebug() << Q_FUNC_INFO << ": Clear the proModeComboBox";
       propModeComboBox->setCurrentIndex(0);
     }
     if (_full)
     {
-        //qDebug() << Q_FUNC_INFO << ": Clear the keepPropCheckBox";
+        qDebug() << Q_FUNC_INFO << ": Clear the keepPropCheckBox";
         keepPropCheckBox->setChecked (false);
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -256,18 +256,18 @@ QString MainWindowInputOthers::getEntityPrefix()
 
 void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _qs;
+    qDebug() << Q_FUNC_INFO << ": " << _qs << "/ Keep: " << util->boolToQString(_keep);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
-       //qDebug() << Q_FUNC_INFO << " PropMode found" ;
+        qDebug() << Q_FUNC_INFO << " PropMode found" ;
         propModeComboBox->setCurrentIndex( propModeComboBox->findText(_qs+" -", Qt::MatchContains));
         keepPropCheckBox->setChecked(_keep);
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
+        qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
         propModeComboBox->setCurrentIndex(0);
         keepPropCheckBox->setChecked(false);
     }
@@ -488,6 +488,7 @@ void MainWindowInputOthers::slotPropModeComboBoxChanged()
 void MainWindowInputOthers::setKeep(const bool _b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(_b);
     keepPropCheckBox->setChecked (_b);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -495,6 +496,7 @@ void MainWindowInputOthers::setKeep(const bool _b)
 bool MainWindowInputOthers::getKeep()
 {
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    qDebug() << Q_FUNC_INFO;
     return keepPropCheckBox->isChecked ();
 }
 

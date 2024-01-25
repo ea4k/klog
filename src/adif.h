@@ -49,10 +49,31 @@ public:
     Adif(const QString &_parentName);
     ~Adif();
     void init();
-    bool isValidFreq(const QString &_b);
-    bool isValidPower(const QString &_b);
+    bool isValidFreq(const QString &_b);            //>0
+    bool isValidPower(const QString &_b);           //>0
+    bool isValidK_Index(const QString &_b);         //0-9
+    bool isValidCQz(const QString &_b);             //1-40
+    bool isValidITUz(const QString &_b);            // 1-90
+    bool isValidDXCC(const QString &_b);            // 0-522
+    bool isValidAge(const QString &_b);             // 0-120
+    bool isValidAnt_EL(const QString &_b);          //>=0-360
+    bool isValidAnt_AZ(const QString &_b);          //>=-90-90
+    bool isValidA_Index(const QString &_b);         //0-400
+    bool isValidDistance(const QString &_b);        //>0
+    bool isValidIOTA_islandID(const QString &_b);   //1-99999999
+    bool isValidNRBursts(const QString &_b);        //>0
+    bool isValidPings(const QString &_b);            //>0
+    bool isValidSFI(const QString &_b);            //0-300
+    bool isValidSTX(const QString &_b);            //>=0
+    bool isValidSRX(const QString &_b);            //>=0
+    bool isValidFISTS(const QString &_b);            //>0
+    bool isValidUKSMG(const QString &_b);            //>0
+    bool isValidTenTen(const QString &_b);            //>0
+    bool isValidLogId(const QString &_b);            //>0
+
     void setLogLevel(DebugLogLevel _l);
     QString getADIFField(const QString &_fieldName, const QString &_data);
+    QString getADIFBoolFromBool(const bool _b);             // Will produce the ADIF format if a bool is received
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

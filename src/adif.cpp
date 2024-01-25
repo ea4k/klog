@@ -246,6 +246,109 @@ bool Adif::isValidPower(const QString &_b)
 {
     return (_b.toDouble()>0);
 }
+
+QString Adif::getADIFBoolFromBool(const bool _b)
+{// Will produce the ADIF format if a bool is received
+    if (_b)
+        return "T";
+    return "F";
+}
+
+bool Adif::isValidK_Index(const QString &_b)
+{
+    return ((_b.toInt()>=0) && (_b.toInt()<=9));
+}
+
+bool Adif::isValidCQz(const QString &_b)
+{
+   return ((_b.toInt()>=1) && (_b.toInt()<=40));
+}
+
+bool Adif::isValidITUz(const QString &_b)
+{
+    return ((_b.toInt()>=1) && (_b.toInt()<=90));
+}
+
+bool Adif::isValidDXCC(const QString &_b)
+{
+    return ((_b.toInt()>=0) && (_b.toInt()<=522));
+}
+
+bool Adif::isValidAge(const QString &_b)
+{
+    return ((_b.toInt()>=0) && (_b.toInt()<=120));
+}
+
+bool Adif::isValidAnt_EL(const QString &_b)
+{
+    return ((_b.toInt()>=0) && (_b.toInt()<=360));
+}
+
+bool Adif::isValidAnt_AZ(const QString &_b)
+{
+    return ((_b.toInt()>=-90) && (_b.toInt()<=90));
+}
+
+bool Adif::isValidA_Index(const QString &_b)
+{
+    return ((_b.toInt()>=0) && (_b.toInt()<=400));
+}
+
+bool Adif::isValidDistance(const QString &_b)
+{
+    return (_b.toDouble()>0);
+}
+
+bool Adif::isValidIOTA_islandID(const QString &_b)
+{
+    return ((_b.toInt()>=1) && (_b.toInt()<=90));
+}
+
+bool Adif::isValidNRBursts(const QString &_b)
+{
+    return (_b.toInt()>0);
+}
+
+bool Adif::isValidPings(const QString &_b)
+{
+    return (_b.toInt()>0);
+}
+
+bool Adif::isValidSFI(const QString &_b)
+{
+    return ((_b.toInt()>=0) && (_b.toInt()<=300));
+}
+
+bool Adif::isValidSTX(const QString &_b)
+{
+    return (_b.toInt()>=0);
+}
+
+bool Adif::isValidSRX(const QString &_b)
+{
+    return (_b.toInt()>=0);
+}
+
+bool Adif::isValidFISTS(const QString &_b)
+{
+   return (_b.toInt()>0);
+}
+
+bool Adif::isValidUKSMG(const QString &_b)
+{
+    return (_b.toInt()>0);
+}
+
+bool Adif::isValidTenTen(const QString &_b)
+{
+    return (_b.toInt()>0);
+}
+
+bool Adif::isValidLogId(const QString &_b)
+{
+    return (_b.toInt()>0);
+}
+
 /*
 bool Utilities::isValidComment(const QString &_b)
 {
@@ -504,14 +607,19 @@ bool Utilities::isValidSponsor(const QString &_s)
 QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 {// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
     // Check if _fieldName is a valid ADIF
+    if ((_data.length()<=0) || (_data.isNull()))
+        return QString();
+
     if (ADIFHash.empty()) {
         InitializeHash();
     }
-    if (!ADIFHash.contains(_fieldName)) {
+
+    QString fieldN = _fieldName.toUpper();
+    if (!ADIFHash.contains(fieldN)) {
         //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
-    return QString ("<%1:%2>%3 ").arg(_fieldName).arg(_data.length ()).arg(_data);
+    return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 
 bool Adif::isValidCall(const QString &_c)

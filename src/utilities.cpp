@@ -1820,14 +1820,7 @@ QDate Utilities::getDateFromLoTWQSLDateString(const QString &_s)
 
 QString Utilities::getADIFDateFromQDateTime(const QDateTime &_d)
 {
-    if (!_d.isValid())
-    {
-        return QString();
-    }
-    else
-    {
-        return _d.date().toString("yyyyMMdd");
-    }
+    return getADIFDateFromQDate(_d.date());
 }
 
 QString Utilities::getADIFDateFromQDate(const QDate &_d)
@@ -1844,13 +1837,20 @@ QString Utilities::getADIFDateFromQDate(const QDate &_d)
 
 QString Utilities::getADIFTimeFromQDateTime(const QDateTime &_d)
 {
+    return getADIFTimeFromQTime(_d.time());
+}
+
+QString Utilities::getADIFTimeFromQTime(const QTime &_d)
+{
     if (!_d.isValid())
     {
         return QString();
     }
     else
     {
-        return _d.time().toString("hhmmss");
+        if (_d.second() == 0)
+            return _d.toString("hhmm");
+        return _d.toString("hhmmss");
     }
 }
 

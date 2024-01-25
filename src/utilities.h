@@ -145,10 +145,12 @@ public:
     // Translate the LOG table fields into human readable
     QString getLogColumnName(const QString &_column);
 
+
     // Creates the ADIF DATE & TIME formats
     QString getADIFDateFromQDateTime(const QDateTime &_d);  // Will produce the ADIF DATE format: "YYYYMMDD"
     QString getADIFDateFromQDate(const QDate &_d);          // Will produce the ADIF DATE format: "YYYYMMDD"
     QString getADIFTimeFromQDateTime(const QDateTime &_d);  // Will produce the ADIF TIME format: "HHMMSS"
+    QString getADIFTimeFromQTime(const QTime &_d);      // Will produce the ADIF TIME format: "HHMMSS"
 
     // Parse Date & Time from ADIF
     QDate getDateFromADIFDateString(const QString &_s);     // Expects an ADIF DATE format string: "YYYYMMDD"
