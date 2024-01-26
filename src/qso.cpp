@@ -84,7 +84,7 @@ void QSO::clear()
 
     // VARIABLES for ADIF //////////
     address = QString();
-    age = -1;
+    age = -1.0;
     a_index = -1;
     ant_az = -1;
     ant_el = -91;
@@ -122,9 +122,8 @@ void QSO::clear()
     fists = -1;
     fists_cc = -1;
     forceInit = false;
-    freq = -1.0;
-    freq_rx = -1.0;
     freq_tx = -1.0;
+    freq_rx = -1.0;
     gridsquare = QString();
     operatorCall = QString();
     hrdlogUploadDate = QDate();
@@ -281,12 +280,16 @@ int QSO::getLogId()
     return logId;
 }
 
-double QSO::setFreqTX(const double _f)
+bool QSO::setFreqTX(const double _f)
 {
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     if (_f>0)
     {
         freq_tx = _f;
+        qDebug() << Q_FUNC_INFO << ":-2 " << QString::number(freq_tx);
         setBandFromFreq(freq_tx);
+        if (freq_rx<=0)
+            setFreqRX(freq_tx);
         return true;
     }
     else {
@@ -380,6 +383,8 @@ bool QSO::setBand(const QString &_c)
     {
         band = _c;
         haveBand = true;
+        if (band_rx.isNull())
+            band_rx = band;
         return true;
     }
     else
@@ -2565,7 +2570,7 @@ QString QSO::getMyWwffRef()
 
 
 // helper functions for hash, returns original function but takes string data as imput
-bool QSO::setAge(const QString &data) { return setAge(data.toInt()); }
+bool QSO::setAge(const QString &data) { return setAge(data.toDouble()); }
 bool QSO::setA_Index(const QString& data) { return setA_Index(data.toInt()); }
 bool QSO::setAnt_az(const QString& data) { return setAnt_az(data.toInt()); }
 bool QSO::setAnt_el(const QString& data) { return setAnt_el(data.toInt()); }
@@ -2808,7 +2813,7 @@ bool QSO::setData(const QString &_adifPair)
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-   //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
+    //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
     if (!isComplete ())
     {
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
@@ -2816,6 +2821,7 @@ int QSO::toDB(int _qsoId)
     }
     //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
+    queryString.clear();
     if (_qsoId<=0)
     {
         //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
@@ -2835,15 +2841,20 @@ int QSO::toDB(int _qsoId)
     //qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
+        qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
         //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
-
         return 1;//db->getLastInsertedQSO();
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
+        //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
+        qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().databaseText();
+        qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().nativeErrorCode();
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return -2;
     }
+    query.finish();
 }
 
 QString QSO::getAddQueryString()
@@ -2868,7 +2879,7 @@ QString QSO::getAddQueryString()
         ":qso_date, :call, :rst_sent, :rst_rcvd, :bandid, :modeid, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, "
         ":ant_path, :arrl_sect, :award_submitted, :award_granted, :band_rx, :checkcontest, :class, :clublog_qso_upload_date, :clublog_qso_upload_status, :cont, "
         ":contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :darc_dok, :distance, :email, :eq_call, :eqsl_qslrdate, :eqsl_qslsdate, "
-        ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq, :freq_rx, :gridsquare, :hrdlog_qso_upload_date, "
+        ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq_tx, :freq_rx, :gridsquare, :hrdlog_qso_upload_date, "
         ":hrdlog_qso_upload_status, "
         ":iota, :iota_island_id, :k_index, :lat, :lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :max_bursts, :ms_shower, "
         ":my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
@@ -2893,7 +2904,7 @@ QString QSO::getModifyQueryString()
                    "credit_submitted = :credit_submitted, credit_granted = :credit_granted, darc_dok = :darc_dok, "
                    "distance = :distance, email = :email, eq_call = :eq_call, eqsl_qslrdate = :eqsl_qslrdate, "
                    "eqsl_qslsdate = :eqsl_qslsdate, eqsl_qsl_rcvd = :eqsl_qsl_rcvd, eqsl_qsl_sent = :eqsl_qsl_sent, "
-                   "fists = :fists, fists_cc = :fists_cc, force_init = :force_init, freq = :freq, freq_rx = :freq_rx, "
+                   "fists = :fists, fists_cc = :fists_cc, force_init = :force_init, freq = :freq_tx, freq_rx = :freq_rx, "
                    "gridsquare = :gridsquare, hrdlog_qso_upload_date = :hrdlog_qso_upload_date, "
                    "hrdlog_qso_upload_status = :hrdlog_qso_upload_status, iota = :iota, iota_island_id = :iota_island_id, "
                    "k_index = :k_index, lat = :lat, lon = :lon, lotw_qslrdate = :lotw_qslrdate, lotw_qslsdate = :lotw_qslsdate, "
@@ -3204,7 +3215,7 @@ QString QSO::getADIF()
     if (dxcc>0)
         adifStr.append(adif->getADIFField ("DXCC",  QString::number(dxcc)));
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
-    if (age>0)  //Only relevant if Age >0
+    if (age>0.0)  //Only relevant if Age >0
     adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
     adifStr.append(adif->getADIFField ("CNTY",  county));
     adifStr.append(adif->getADIFField ("COMMENT",  comment));
@@ -3254,11 +3265,14 @@ QString QSO::getADIF()
     if (forceInit)      // Only relevant if true
         adifStr.append(adif->getADIFField ("force_init", adif->getADIFBoolFromBool(getForceInit()) ));
 
-    if (adif->isValidFreq(QString::number(freq)))
-        adifStr.append(adif->getADIFField ("freq",  QString::number(freq)));
+    qDebug() << Q_FUNC_INFO << ": Printing FREQ: " << QString::number(freq_tx);
+    if (adif->isValidFreq(QString::number(freq_tx)))
+        adifStr.append(adif->getADIFField ("freq",  QString::number(freq_tx)));
 
-    if ((adif->isValidFreq(QString::number(freq_rx))) && (freq != freq_rx))
+    qDebug() << Q_FUNC_INFO << ": Printing FREQ_RX";
+    if ((adif->isValidFreq(QString::number(freq_rx))) && (freq_tx != freq_rx))
         adifStr.append(adif->getADIFField ("freq_rx", QString::number(freq_rx) ));
+
     adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
     adifStr.append(adif->getADIFField ("hrdlog_qso_upload_date",  util->getADIFDateFromQDate(hrdlogUploadDate)));
     adifStr.append(adif->getADIFField ("hrdlog_qso_upload_status", hrdlog_status ));
@@ -3353,7 +3367,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("qso_complete", getQSOComplete()));
 
     //TODO: Check wether it makes sense to use this field for ALL QSOs or just when it is not random.
-    if (!getQSORandom())
+    if (getQSORandom())
         adifStr.append(adif->getADIFField ("qso_random", adif->getADIFBoolFromBool(getQSORandom())));
 
     adifStr.append(adif->getADIFField ("qth", qth));

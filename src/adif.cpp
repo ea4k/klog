@@ -233,12 +233,20 @@ void Adif::setSponsorsList()
 
 bool Adif::isValidFreq(const QString &_b)
 {
+    //qDebug() << Q_FUNC_INFO << ": freq: " << _b;
     bool _ok;
     double f = _b.toDouble(&_ok);
     if ((_ok) && f>0)
     {
+        //qDebug() << Q_FUNC_INFO << ": Freq OK" ;
         return true;
     }
+   /* if (!_ok)
+        qDebug() << Q_FUNC_INFO << ": Freq NOK: NOK" ;
+    if (f<=0)
+        qDebug() << Q_FUNC_INFO << ": Freq NOK: f=0" ;
+    else
+        qDebug() << Q_FUNC_INFO << ": Freq NOK: NOT-KNOWN" ;*/
     return false;
 }
 

@@ -280,7 +280,7 @@ double Utilities::getVersionDouble()
 
 int Utilities::getProgresStepForDialog(int totalSteps)
 {
-       //qDebug() << "Utilities::getProgresStepForDialog";
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(totalSteps);
     if (totalSteps <=100)
         return 1;
     else if (totalSteps <=1000)
@@ -2358,7 +2358,7 @@ bool Utilities::isValidEmail(const QString &_s)
 
 bool Utilities::isValidDistance(const double _d)
 {
-    return (_d>=0);
+    return (_d>0);
 }
 
 bool Utilities::isValidSponsor(const QString &_s)

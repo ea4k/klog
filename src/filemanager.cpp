@@ -69,7 +69,7 @@ void FileManager::init()
 
 
     noMoreQso = false;
-    hashLogs.clear();
+    //hashLogs.clear();
     util->setVersion(klogVersion);
 }
 
@@ -1621,55 +1621,116 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
 
 bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+    qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file( tfileName );
     if (!file.exists ())
     {
-        //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
+        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
-    //int qsos = howManyQSOsInFile (file);
-    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
+    int qsos = howManyQSOsInFile (file);
+    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug() << Q_FUNC_INFO << "  File not found" ;
+        qDebug() << Q_FUNC_INFO << "  File not found" ;
         return false;
     }
 
     file.seek (pos); // QSO Data starts here
 
     QSO qso;
-    QStringList fields, fieldsRest; // fields keeps the running array,
-                                    // fieldsRest keeps the rest of fields after adding a QSO to prevent losing any field.
+    QStringList fields; // fields keeps the running array,
+
     fields.clear ();
     QString line = QString();
-    line.clear();
-    while (!file.atEnd())
-    {
-        line.append(file.readLine().trimmed().toUpper());
-        if (line.contains("<EOR>"))
-        {
-            fields << line.split("<", QT_SKIP);
-            QString aux;
-            foreach (aux, fields)
-            {
-                QString field = "<" + aux;
-                if (field.contains ("<EOR>"))
-                {
-                    qso.setLogId (logN);
-                    qso.toDB ();
-                    qso.clear ();
+    //line.clear();
+    qso.clear ();
 
+    qDebug() << Q_FUNC_INFO << ": Progress defined" ;
+    QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, qsos, this);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.setValue(0);
+    //progress.setWindowTitle(tr("Import"));
+    progress.setAutoClose(true);
+    int step = util->getProgresStepForDialog(qsos);
+    int i = 0;
+    bool noMoreQSO = false;
+    qDebug() << Q_FUNC_INFO << ": We start the while" ;
+    while ((!file.atEnd()) && (!noMoreQSO))
+    {
+        // One line is read and splitted into the list of fields
+        // Fields are analyzed one by one and extracted from the list of fields
+        // Fields are added to the QSO
+        // If the field is <EOR> the QSO is completed and added to the log.
+        // Once the QSO is added to the log, QSO is cleared and process continues
+        // Once the list of fields is empty, we read another file and start again
+        // until we reach the end of file
+        line.clear();
+        line.append(file.readLine().trimmed().toUpper());
+        qDebug() << Q_FUNC_INFO << ": Reading the line: " << line ;
+        fields << line.split("<", QT_SKIP);
+        while (!fields.isEmpty())
+        {
+            //qDebug() << Q_FUNC_INFO << QString(": Fields still has %1 items").arg(fields.count()) ;
+            QString fieldToAnalyze = "<" + (fields.takeFirst()).trimmed();
+            //qDebug() << Q_FUNC_INFO << QString(": Extracted: %1").arg(fieldToAnalyze) ;
+            if (fieldToAnalyze.contains ("<EOR>"))
+            {
+                //qDebug() << Q_FUNC_INFO << QString(": EOR detected, QSO added");
+                qso.setLogId (logN);
+                qso.toDB ();
+                qso.clear ();
+                i++;
+                if (( (i % step ) == 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    //qDebug() << Q_FUNC_INFO << " MOD 0 - i = " << QString::number(i) ;
+                    QString aux = tr("Importing ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
+                    progress.setLabelText(aux);
+                    progress.setValue(i);
                 }
                 else
                 {
-                    qso.setData (field);
+                    //qDebug() << Q_FUNC_INFO << " Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step);
                 }
             }
+            else
+            {
+                //qDebug() << Q_FUNC_INFO << QString(": Adding this to the QSO: %1").arg(fieldToAnalyze) ;
+                //fieldToAnalyze must be an ADIF record: <Field:length:Data type>Data
+                qso.setData (fieldToAnalyze);
+            }
+            if ( progress.wasCanceled() )
+            {
+                qDebug() << Q_FUNC_INFO << QString(": Progress Cancelled") ;
+                QMessageBox msgBox;
+                msgBox.setWindowTitle(tr("KLog - User cancelled"));
+                QString aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                msgBox.setDefaultButton(QMessageBox::No);
+                int ret = msgBox.exec();
+                switch (ret) {
+                case QMessageBox::Yes:
+                    // Yes was clicked
+                    noMoreQSO = true;
+                    break;
+                case QMessageBox::No:
+                    // No Save was clicked
+                    break;
+                default:
+                    // should never be reached
+                    break;
+                }
+            }
+            //qDebug() << Q_FUNC_INFO << QString(": Field process finished: ").arg(fieldToAnalyze) ;
         }
+        qDebug() << Q_FUNC_INFO << QString(": List of fields is empty!") ;
     }
+    qDebug() << Q_FUNC_INFO << QString(": End of File or no more QSOs") ;
     file.close ();
+    progress.setValue(qsos);    // Closes the progressDialog
 
     //qDebug() << Q_FUNC_INFO << " - END";
     return true;
@@ -1878,16 +1939,7 @@ bool FileManager::adifReadLog(const QString& tfileName, const int logN)
       //qDebug() << Q_FUNC_INFO << " QSO data reading started..." ;
 
     preparedQuery.prepare( "INSERT INTO log (call, qso_date, bandid, modeid, srx, stx, srx_string, stx_string, qso_date_off, band_rx, rst_sent, rst_rcvd, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, eq_call, email, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, my_gridsquare, iota, iota_island_id, my_iota, my_iota_island_id, k_index, lat, lon, my_lat, my_lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, clublog_qso_upload_date, clublog_qso_upload_status, max_bursts, ms_shower, my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_name, name, operator, station_callsign, owner_callsign, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, state, my_street, my_vucc_grids, notes, nr_bursts, nr_pings, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, tx_pwr, sat_mode, sat_name, sfi, sig, sota_ref, swl, ten_ten, vucc_grids, web, lognumber) VALUES (:call, :qso_date, :bandid, :modeid, :srx, :stx, :srx_string, :stx_string, :qso_date_off, :band_rx, :rst_sent, :rst_rcvd, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, :ant_path, :arrl_sect, :checkcontest, :class, :contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :distance, :eq_call, :email, :eqsl_qslrdate, :eqsl_qslsdate, :eqsl_qsl_rcvd, :eqsl_qsl_sent, :force_init, :freq, :freq_rx, :gridsquare, :my_gridsquare, :iota, :iota_island_id, :my_iota, :my_iota_island_id, :k_index, :lat, :lon, :my_lat, :my_lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :clublog_qso_upload_date, :clublog_qso_upload_status, :max_bursts, :ms_shower, :my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_name, :name, :operator, :station_callsign, :owner_callsign, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :state, :my_street, :my_vucc_grids, :notes, :nr_bursts, :nr_pings, :pfx, :precedence, :prop_mode, :public_key, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, :qth, :rx_pwr, :tx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sota_ref, :swl, :ten_ten, :vucc_grids, :web, :lognumber)" );
-/*
-    if (db.transaction())
-    {
-           //qDebug() << Q_FUNC_INFO << " Transaction Opened" ;
-    }
-    else
-    {
-           //qDebug() << Q_FUNC_INFO << " Transaction NOT Opened" ;
-    }
-*/
+
     //file.seek(pos);
     fields.clear();
    // while ( (!file.atEnd() ) && (!noMoreQso) && (sqlOK))
@@ -3590,6 +3642,7 @@ int FileManager::howManyLogsInFile(QFile& _f)
     return logs.size();
 }
 
+
 bool FileManager::fillHashLog(QFile &_f)
 {
        //qDebug() << Q_FUNC_INFO << " - Start" ;
@@ -3628,6 +3681,7 @@ bool FileManager::fillHashLog(QFile &_f)
     }
     return true;
 }
+
 
 QStringList FileManager::getListOfLogsInFile(QFile& _f)
 {
@@ -4016,11 +4070,11 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString();
-        //qDebug() << Q_FUNC_INFO << ":  FREQ1: "  << aux;
+        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
         aux = util->checkAndFixASCIIinADIF(aux);
+        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
         double freqTX = aux.toDouble();
         qso.setFreqTX(freqTX);
-
     }
     // Now the BAND RX
     nameCol = rec.indexOf("band_rx");
