@@ -3354,7 +3354,7 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("qslrdate", util->getADIFDateFromQDate(QSLRDate) ));
 
     adifStr.append(adif->getADIFField ("qsl_sent", getQSL_SENT()));
-    if ((QSLSDate.isValid()) && ( (qsl_rcvd=="Y") || (qsl_rcvd=='Q') || (qsl_rcvd=='I')))
+    if ((QSLSDate.isValid()) && ( (qsl_sent=="Y") || (qsl_sent=='Q') || (qsl_sent=='I')))
         adifStr.append(adif->getADIFField ("qslsdate", util->getADIFDateFromQDate(QSLSDate)));
 
 
