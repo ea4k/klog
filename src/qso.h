@@ -36,6 +36,7 @@
 #include "klogdefinitions.h"
 #include "adif.h"
 #include "database.h"
+
 //#include <functional>
 
 class QSO : public QObject
@@ -83,10 +84,8 @@ public:
     bool setLogId(const int _i);
     int getLogId();
 
-
     bool setBandRX(const QString &_c);
     QString getBandRX();
-
 
     bool setRSTTX(const QString &_c);
     QString getRSTTX();
@@ -385,12 +384,12 @@ public:
     //bool modify(const int _qsoId);
     bool isComplete();
     QString getADIF();
+    QString getBandNameFromFreq(const double _n); // Should be push out of this class
 
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    void getBandSignal (double fr);         // Request the band to be filed for a given frequency
-    void getModeSignal (QString submode);   // Request the mode to be filled for a given submode
+    void  getModeSignal (QString submode);   // Request the mode to be filled for a given submode
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 private:
@@ -400,6 +399,7 @@ private:
     QSqlQuery getPreparedQuery(const QString &_s);
     int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX
     int getModeIdFromModeName();
+    void setBandFromFreq(const double _fr, bool TX = true);
     DataBase *db;
 
 

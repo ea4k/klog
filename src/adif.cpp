@@ -281,12 +281,12 @@ bool Adif::isValidAge(const QString &_b)
 
 bool Adif::isValidAnt_EL(const QString &_b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=360));
+    return ((_b.toInt()>=-90) && (_b.toInt()<=900));
 }
 
 bool Adif::isValidAnt_AZ(const QString &_b)
 {
-    return ((_b.toInt()>=-90) && (_b.toInt()<=90));
+    return ((_b.toInt()>=0) && (_b.toInt()<=360));
 }
 
 bool Adif::isValidA_Index(const QString &_b)
@@ -348,6 +348,13 @@ bool Adif::isValidLogId(const QString &_b)
 {
     return (_b.toInt()>0);
 }
+
+bool Adif::isValidAntPath(const QString &_s)
+{
+    return ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"));
+}
+
+
 
 /*
 bool Utilities::isValidComment(const QString &_b)
@@ -565,11 +572,6 @@ QString Utilities::getADIFField(const QString &_fieldName, const QString &_data)
         return QString();
     }
     return QString ("<%1:%2>%3 ").arg(_fieldName).arg(_data.length ()).arg(_data);
-}
-
-bool Utilities::isValidAntPath(const QString &_s)
-{
-   return ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"));
 }
 
 bool Utilities::isValidARRLSect(const QString &_s)

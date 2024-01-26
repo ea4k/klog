@@ -70,6 +70,7 @@ public:
     bool isValidUKSMG(const QString &_b);            //>0
     bool isValidTenTen(const QString &_b);            //>0
     bool isValidLogId(const QString &_b);            //>0
+    bool isValidAntPath(const QString &_s);
 
     void setLogLevel(DebugLogLevel _l);
     QString getADIFField(const QString &_fieldName, const QString &_data);

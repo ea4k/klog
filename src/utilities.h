@@ -115,7 +115,7 @@ public:
     bool isValidQSL_Rcvd(const QString &c);
     bool isValidQSL_Sent(const QString &c);
     bool isValidUpload_Status(const QString &c);
-    bool isValidFISTS(const QString &c);
+    //bool isValidFISTS(const QString &c);
 
     bool isValidTimeFromString(const QString &_s);
     bool isValidDateFromString(const QString &_s);
@@ -125,6 +125,7 @@ public:
     bool isValidARRLSect(const QString &_s);
     bool isValidContinent(const QString &_s);
     bool isValidPropMode(const QString &_s);
+    bool isValidEmail(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
     //QString getADIFField(const QString &_fieldName, const QString &_data);
 

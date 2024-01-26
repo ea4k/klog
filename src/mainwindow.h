@@ -42,7 +42,6 @@
 #include "filemanager.h"
 #include "fileawardmanager.h"
 #include "dataproxy_sqlite.h"
-#include "dataproxy_sqlite.h"
 #include "locator.h"
 #include "dxcluster.h"
 #include "awards.h"
@@ -320,7 +319,6 @@ private slots:
     void slotTakeOverFocusToQSOTabWidget();
     void slotTakeOverFocusToMainQSOInput();
     void slotNewLogLevel(DebugLogLevel l);
-    void slotQSO_SetBand(const double _fr);
     void slotQSO_SetMode(const QString _submode);
 
 private:

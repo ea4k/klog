@@ -28,6 +28,7 @@
 #include <QtTest>
 #include "../../src/utilities.h"
 #include "../../src/dataproxy_sqlite.h"
+#include "QtTest/qtestcase.h"
 
 class tst_Utilities : public QObject
 {
@@ -63,6 +64,7 @@ private slots:
     void test_isValidSimpleCall();
     void test_getPrefixFromCall();
     void test_getMainCallFromComplexCall();
+    void test_isValidEmail();
 
 private:
   Utilities *util;
@@ -477,6 +479,18 @@ void tst_Utilities::test_getMainCallFromComplexCall()
     QVERIFY2(util->getMainCallFromComplexCall("EA4K/F")=="F", "EA4K/F");
     QVERIFY2(util->getMainCallFromComplexCall("EA4K/1")=="EA4K", "EA4K/1");
     QVERIFY2(util->getMainCallFromComplexCall("VK9/EA4K")=="VK9", "VK9/EA4K");
+}
+
+void tst_Utilities::test_isValidEmail()
+{
+    QVERIFY2(util->isValidEmail("test@gmail.com") == true, "test@gmail.com");
+    QVERIFY2(util->isValidEmail("test+a@gmail.com") == true, "test+a@gmail.com");
+    QVERIFY2(util->isValidEmail("test@gmail.test.com") == true, "test@gmail.test.com");
+    QVERIFY2(util->isValidEmail("test@gmail.co") == true, "test@gmail.co");
+    QVERIFY2(util->isValidEmail("gmail.com") == false, "gmail.com");
+    QVERIFY2(util->isValidEmail("test@gmail.") == false, "test@gmail.");
+    QVERIFY2(util->isValidEmail("test@co") == false, "test@co");
+    QVERIFY2(util->isValidEmail("gmail") == false, "gmail");
 }
 
 QTEST_APPLESS_MAIN(tst_Utilities)

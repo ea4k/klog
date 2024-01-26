@@ -354,7 +354,8 @@ bool Utilities::QStringToBool(const QString &_s)
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 {
     //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data ;
-// This function is not really working with ASCII but with Unicode
+    //TODO This function should be moved to the class ADIF
+    // This function is not really working with ASCII but with Unicode
     ushort unicodeVal;
     QString st = _data;
     QString newString;
@@ -1576,12 +1577,6 @@ bool Utilities::isValidUpload_Status(const QString &c)
     return ((c == "Y") || (c == "N") || (c == "M"));
 }
 
-
-bool Utilities::isValidFISTS(const QString &c)
-{
-    return (c.toInt ()>0);
-}
-
 QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 {
    //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b ;
@@ -1741,7 +1736,7 @@ bool Utilities::isValidDXCC(const int _d)
 }
 
 bool Utilities::isValidAntPath(const QString &_s)
-{
+{ // MOVE IT TO ADIF
    return ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"));
 }
 
@@ -2342,7 +2337,7 @@ bool Utilities::isValidContinent(const QString &_s)
 }
 
 bool Utilities::isValidPropMode(const QString &_s)
-{
+{ //TODO MOVE IT TO ADIF
     QStringList propModes;
     propModes.clear ();
     propModes << "AS" << "AUE" << "AUR" << "BS" << "ECH" << "EME" << "ES"
@@ -2350,6 +2345,16 @@ bool Utilities::isValidPropMode(const QString &_s)
                 << "LOS" << "MS" << "RPT" << "RS" << "SAT" << "TEP" << "TR";
     return propModes.contains (_s.toUpper ());
 }
+
+bool Utilities::isValidEmail(const QString &_s)
+{
+    QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+    mailREX.setCaseSensitivity(Qt::CaseInsensitive);
+    mailREX.setPatternSyntax(QRegExp::RegExp);
+    return mailREX.exactMatch(_s);
+    //return ((_s.contains("@")) && (_s.contains(".")));
+}
+
 
 bool Utilities::isValidDistance(const double _d)
 {

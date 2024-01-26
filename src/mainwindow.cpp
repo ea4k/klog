@@ -719,15 +719,9 @@ void MainWindow::createActionsCommon(){
     connect(showKLogLogWidget, SIGNAL(newLogLevel(DebugLogLevel)), this, SLOT(slotNewLogLevel(DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
     // Following calls answer calls from the QSO to receive information.
-    connect (qso, SIGNAL(getBandSignal(double)), this, SLOT(slotQSO_SetBand(double)));
     connect (qso, SIGNAL(getModeSignal(QString)), this, SLOT(slotQSO_SetMode(QString)));
     connect(qso, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
-void MainWindow::slotQSO_SetBand(const double _fr)
-{
-    qso->setBand (dataProxy->getBandNameFromFreq (_fr));
 }
 
 void MainWindow::slotQSO_SetMode(const QString _submode)

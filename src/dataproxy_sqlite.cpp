@@ -440,7 +440,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
     //Freq should be in MHz
     logEvent (Q_FUNC_INFO, "Start", Debug);
     bool sqlOk = false;
-    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(_n).arg(_n);
+    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%1'").arg(_n);
 
     QSqlQuery query(queryString);
     sqlOk = query.exec();
@@ -468,7 +468,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
     }
     else
     {
-             //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: Query NOK";
+        //qDebug() << "DataProxy_SQLite::getBandIdFromFreq: Query NOK";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-3", Debug);
@@ -478,8 +478,37 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 
 QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 {
-    logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    return getNameFromBandId(getBandIdFromFreq(_n));
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    bool sqlOk = false;
+    QString queryString = QString("SELECT name FROM band WHERE lower <= '%1' and upper >= '%1'").arg(_n);
+
+    QSqlQuery query(queryString);
+    sqlOk = query.exec();
+
+    if (sqlOk)
+    {
+        query.next();
+        if (query.isValid())
+        {
+            QString b = (query.value(0)).toString();
+            query.finish();
+            logEvent (Q_FUNC_INFO, "END-1", Debug);
+            return b;
+        }
+        else
+        {
+            query.finish();
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
+            return QString();
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        logEvent (Q_FUNC_INFO, "END-3", Debug);
+        return QString();
+    }
 }
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
