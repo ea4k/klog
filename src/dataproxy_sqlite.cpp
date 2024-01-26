@@ -8284,7 +8284,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     QString ADIFqso;
     ADIFqso.clear();
 
-    //qDebug() << "DataProxy_SQLite::getADIFQSO: " <<  QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_qsoId);
     int nameCol;
     QString aux;
     bool propsat = false;    // Reset the QSO in case it is a Satellite QSO
@@ -8299,25 +8299,25 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         {
             if (query.isValid())
             {
-              //qDebug() << "DataProxy_SQLite::getADIFQSO: Query OK: " << query.lastQuery();
+              //qDebug() << Q_FUNC_INFO << ": Query OK: " << query.lastQuery();
             }
             else
             {
-                //qDebug() << "DataProxy_SQLite::getADIFQSO: Query isValid FAILED: " << query.lastQuery();
+                //qDebug() << Q_FUNC_INFO << ": Query isValid FAILED: " << query.lastQuery();
                 query.finish();
                 return QString();
             }
         }
         else
         {
-            //qDebug() << "DataProxy_SQLite::getADIFQSO: Query NEXT FAILED: " << query.lastQuery();
+            //qDebug() << Q_FUNC_INFO << ": Query NEXT FAILED: " << query.lastQuery();
             query.finish();
             return QString();
         }
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::getADIFQSO: Query FAILED: " << query.lastQuery();
+        //qDebug() << Q_FUNC_INFO << ": Query FAILED: " << query.lastQuery();
         query.finish();
         return QString();
     }
@@ -8327,7 +8327,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << "DataProxy_SQLite::getADIFQSO: " << QString::number(nameCol) << "/" << aux1;
+        //qDebug() << Q_FUNC_INFO << ": " << QString::number(nameCol) << "/" << aux1;
         if (util->isValidCall(aux))
         {
             ADIFqso.append("<CALL:" + QString::number(aux.length()) + ">" + aux + " ");
@@ -8454,7 +8454,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
                 propsat = true;
             }
         }
-        //qDebug() << "DataProxy_SQLite::getADIFQSO: PROP_MODE" ;
+        //qDebug() << Q_FUNC_INFO << ": PROP_MODE" ;
     }
     nameCol = rec.indexOf("sat_name");
     if (nameCol>=0)
@@ -8469,7 +8469,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
                 propsat = false;
             }
         }
-    //qDebug() << "DataProxy_SQLite::getADIFQSO: SAT_NAME" ;
+    //qDebug() << Q_FUNC_INFO << ": SAT_NAME" ;
     }
     nameCol = rec.indexOf("gridsquare");
     if (nameCol>=0)
@@ -8493,7 +8493,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if ((nameCol>=0) )
     {
         aux = (query.value(nameCol)).toString();
-        //qDebug() << "DataProxy_SQLite::getADIFQSO: StationCallSign: " << aux ;
+        //qDebug() << Q_FUNC_INFO << ": StationCallSign: " << aux ;
         if ((util->isValidCall(aux)))
         { // User selected one station callsign from the log
             ADIFqso.append("<STATION_CALLSIGN:" + QString::number(aux.length()) + ">" + aux  + " ");
@@ -8551,7 +8551,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
             ADIFqso.append("<STX_STRING:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
     }
-    //qDebug() << "DataProxy_SQLite::getADIFQSO - 100";
+    //qDebug() << Q_FUNC_INFO << ": - 100";
     nameCol = rec.indexOf("cqz");
     if (nameCol>=0)
     {
@@ -8569,7 +8569,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         {
             ADIFqso.append("<ITUZ:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
-        //qDebug() << "DataProxy_SQLite::getADIFQSO: DXCC - Now..." ;
+        //qDebug() << Q_FUNC_INFO << ": DXCC - Now..." ;
     }
     nameCol = rec.indexOf("dxcc");
     if (nameCol>=0)
@@ -8578,9 +8578,9 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         if ((aux.length())>0)
         {
             ADIFqso.append("<DXCC:" + QString::number(aux.length()) + ">" + aux  + " ");
-            //qDebug() << "DataProxy_SQLite::getADIFQSO: DXCC " << aux;
+            //qDebug() << Q_FUNC_INFO << ": DXCC " << aux;
         }
-        //qDebug() << "DataProxy_SQLite::getADIFQSO: DXCC - Exported!" ;
+        //qDebug() << Q_FUNC_INFO << ": DXCC - Exported!" ;
     }
     nameCol = rec.indexOf("address");
     if (nameCol>=0)
@@ -8617,7 +8617,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
         {
             ADIFqso.append("<COMMENT:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
-        //qDebug() << "DataProxy_SQLite::getADIFQSO - 200";
+        //qDebug() << Q_FUNC_INFO << ": - 200";
     }
     nameCol = rec.indexOf("a_index");
     if (nameCol>=0)
@@ -8673,7 +8673,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
             ADIFqso.append("<CHECKCONTEST:" + QString::number(aux.length()) + ">" + aux  + " ");
         }
     }
-    //qDebug() << "DataProxy_SQLite::getADIFQSO - 30";
+    //qDebug() << Q_FUNC_INFO << ": - 30";
     nameCol = rec.indexOf("class");
     if (nameCol>=0)
     {
@@ -8896,7 +8896,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << "DataProxy_SQLite::getADIFQSO (IOTA): " << aux;
+        //qDebug() << Q_FUNC_INFO << ": (IOTA): " << aux;
         if (((aux.length())>=4) && ((aux.length())<=6))
         {
             ADIFqso.append("<IOTA:" + QString::number(aux.length()) + ">" + aux  + " ");
@@ -8906,7 +8906,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << "DataProxy_SQLite::getADIFQSO (IOTA_ID): " << aux;
+        //qDebug() << Q_FUNC_INFO << ": (IOTA_ID): " << aux;
         if ((aux.length())>0)
         {
             ADIFqso.append("<IOTA_ISLAND_ID:" + QString::number(aux.length()) + ">" + aux  + " ");
@@ -9428,6 +9428,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     nameCol = rec.indexOf("sfi");
     if (nameCol>=0)
     {
+        qDebug() << Q_FUNC_INFO << ": Exporting SFI";
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
         if ((aux.length())>0){
             ADIFqso.append("<SFI:" + QString::number(aux.length()) + ">" + aux  + " ");

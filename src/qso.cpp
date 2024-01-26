@@ -1114,21 +1114,21 @@ int QSO::getDXCC()
 
 bool QSO::setPropMode(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << _c;
+    //qDebug() << Q_FUNC_INFO << _c;
     if (!util->isValidPropMode (_c))
     {
-        qDebug() << Q_FUNC_INFO << " - Not valid!";
+        //qDebug() << Q_FUNC_INFO << " - Not valid!";
         propMode = QString();
         return false;
     }
-    qDebug() << Q_FUNC_INFO << " - OK END";
+    //qDebug() << Q_FUNC_INFO << " - OK END";
     propMode = _c;
     return true;
 }
 
 QString QSO::getPropMode()
 {
-    qDebug() << Q_FUNC_INFO << ": " << propMode;
+    //qDebug() << Q_FUNC_INFO << ": " << propMode;
     return propMode;
 }
 
