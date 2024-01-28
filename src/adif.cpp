@@ -242,11 +242,11 @@ bool Adif::isValidFreq(const QString &_b)
         return true;
     }
    /* if (!_ok)
-        qDebug() << Q_FUNC_INFO << ": Freq NOK: NOK" ;
+        //qDebug() << Q_FUNC_INFO << ": Freq NOK: NOK" ;
     if (f<=0)
-        qDebug() << Q_FUNC_INFO << ": Freq NOK: f=0" ;
+        //qDebug() << Q_FUNC_INFO << ": Freq NOK: f=0" ;
     else
-        qDebug() << Q_FUNC_INFO << ": Freq NOK: NOT-KNOWN" ;*/
+        //qDebug() << Q_FUNC_INFO << ": Freq NOK: NOT-KNOWN" ;*/
     return false;
 }
 

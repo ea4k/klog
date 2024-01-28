@@ -9457,7 +9457,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId)
     nameCol = rec.indexOf("sfi");
     if (nameCol>=0)
     {
-        qDebug() << Q_FUNC_INFO << ": Exporting SFI";
+        //qDebug() << Q_FUNC_INFO << ": Exporting SFI";
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
         if ((aux.length())>0){
             ADIFqso.append("<SFI:" + QString::number(aux.length()) + ">" + aux  + " ");

@@ -1621,19 +1621,19 @@ QList<int> FileManager::adifLoTWReadLog(const QString& tfileName, const int logN
 
 bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file( tfileName );
     if (!file.exists ())
     {
-        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
+        //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
     int qsos = howManyQSOsInFile (file);
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
+    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  File not found" ;
+        //qDebug() << Q_FUNC_INFO << "  File not found" ;
         return false;
     }
 
@@ -1647,7 +1647,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     //line.clear();
     qso.clear ();
 
-    qDebug() << Q_FUNC_INFO << ": Progress defined" ;
+    //qDebug() << Q_FUNC_INFO << ": Progress defined" ;
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, qsos, this);
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
@@ -1657,7 +1657,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     int step = util->getProgresStepForDialog(qsos);
     int i = 0;
     bool noMoreQSO = false;
-    qDebug() << Q_FUNC_INFO << ": We start the while" ;
+    //qDebug() << Q_FUNC_INFO << ": We start the while" ;
     while ((!file.atEnd()) && (!noMoreQSO))
     {
         // One line is read and splitted into the list of fields
@@ -1669,7 +1669,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
         // until we reach the end of file
         line.clear();
         line.append(file.readLine().trimmed().toUpper());
-        qDebug() << Q_FUNC_INFO << ": Reading the line: " << line ;
+        //qDebug() << Q_FUNC_INFO << ": Reading the line: " << line ;
         fields << line.split("<", QT_SKIP);
         while (!fields.isEmpty())
         {
@@ -1703,7 +1703,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
             }
             if ( progress.wasCanceled() )
             {
-                qDebug() << Q_FUNC_INFO << QString(": Progress Cancelled") ;
+                //qDebug() << Q_FUNC_INFO << QString(": Progress Cancelled") ;
                 QMessageBox msgBox;
                 msgBox.setWindowTitle(tr("KLog - User cancelled"));
                 QString aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
@@ -1726,9 +1726,9 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
             }
             //qDebug() << Q_FUNC_INFO << QString(": Field process finished: ").arg(fieldToAnalyze) ;
         }
-        qDebug() << Q_FUNC_INFO << QString(": List of fields is empty!") ;
+        //qDebug() << Q_FUNC_INFO << QString(": List of fields is empty!") ;
     }
-    qDebug() << Q_FUNC_INFO << QString(": End of File or no more QSOs") ;
+    //qDebug() << Q_FUNC_INFO << QString(": End of File or no more QSOs") ;
     file.close ();
     progress.setValue(qsos);    // Closes the progressDialog
 
@@ -4070,9 +4070,9 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString();
-        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
+        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
         aux = util->checkAndFixASCIIinADIF(aux);
-        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
+        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
         double freqTX = aux.toDouble();
         qso.setFreqTX(freqTX);
     }
