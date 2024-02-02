@@ -2240,22 +2240,22 @@ Error returned: %2</source>
     <message>
         <location filename="../mainwindow.cpp" line="2506"/>
         <source>Check always the current callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Vienmēr pārbaudiet pašreizējo izsaukuma signālu vietnē QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="317"/>
         <source>KLog - File not open</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — fails nav atvērts</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="318"/>
         <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nevarēja atvērt atkļūdošanas failu rakstīšanai. Neviens atkļūdošanas žurnāls netiks saglabāts!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="137"/>
         <source>Status bar ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Statusa josla&quot;..</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="138"/>
@@ -2266,7 +2266,7 @@ Error returned: %2</source>
     <message>
         <location filename="../mainwindow.cpp" line="160"/>
         <source>Starting KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiek palaists Klog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="197"/>
@@ -2276,53 +2276,53 @@ Error returned: %2</source>
     <message>
         <location filename="../mainwindow.cpp" line="482"/>
         <source>KLog needs to update the Entities database.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ir jāatjaunina entītiju datu bāze.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="483"/>
         <source>You can update the entities database in Tools-&gt;Update cty.csv</source>
-        <translation type="unfinished"></translation>
+        <translation>Jūs varat atjaunināt entītiju datu bāzi sadaļā Rīki-&gt; Atjaunināt cty.csv</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="772"/>
         <source>Log backup recommended!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ieteicama žurnāla dublēšana!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="829"/>
         <source>It seems that you are running this version of KLog for the first time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka jūs pirmo reizi izmantojat šo KLog versiju.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="840"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Gatavs</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="896"/>
         <location filename="../mainwindow.cpp" line="3245"/>
         <source>KLog</source>
-        <translation type="unfinished"></translation>
+        <translation>KLogs</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1156"/>
         <source>KLog - Not valid call</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog&#xa0;— nederīgs izsaukuma signāls</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1157"/>
         <source>The callsign %1 is not a valid call. Do you really want to add this callsign to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Izsaukuma signāls %1 nav derīgs. Vai tiešām vēlaties pievienot šo izsaukuma signālu žurnālam?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1159"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederīgu izsaukuma signalu pievienošana žurnālam var radīt problēmas, piesakoties balvām, eksportējot ADIF failus uz citām sistēmām vai lietojumprogrammām.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1213"/>
         <source>KLog - Select correct entity</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — atlasiet pareizo entītiju</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1214"/>
@@ -2345,7 +2345,7 @@ Error returned: %2</source>
         <location filename="../mainwindow.cpp" line="3842"/>
         <location filename="../mainwindow.cpp" line="4523"/>
         <source>Save ADIF File</source>
-        <translation type="unfinished"></translation>
+        <translation>Saglabājiet ADIF failu</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1351"/>
