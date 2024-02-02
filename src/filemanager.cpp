@@ -982,9 +982,10 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
     }
     file.seek(pos);
     int step = util->getProgresStepForDialog(numberOfQsos);
+
     QProgressDialog progress(tr("Processing LoTW ADIF file..."), tr("Abort processing"), 0, numberOfQsos, this);
     progress.setMaximum(numberOfQsos);
-    progress.setWindowModality(Qt::WindowModal);
+    progress.setWindowModality(Qt::ApplicationModal);
     progress.setValue(0);
     progress.setWindowTitle(tr("LoTW reading"));
     progress.setAutoClose(true);
@@ -1650,7 +1651,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     //qDebug() << Q_FUNC_INFO << ": Progress defined" ;
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, qsos, this);
     progress.setMaximum(qsos);
-    progress.setWindowModality(Qt::WindowModal);
+    progress.setWindowModality(Qt::ApplicationModal);
     progress.setValue(0);
     //progress.setWindowTitle(tr("Import"));
     progress.setAutoClose(true);
@@ -1765,7 +1766,7 @@ qint64 FileManager::passHeader(QFile & _f)
 
 bool FileManager::adifReadLog(const QString& tfileName, const int logN)
 {
-    //qDebug() << Q_FUNC_INFO << " " << tfileName;
+   //qDebug() << Q_FUNC_INFO << " " << tfileName;
     //QElapsedTimer time1;
 
     //int n = 0;
@@ -3531,7 +3532,7 @@ void FileManager::queryPreparation(const int _logN)
 
 bool FileManager::adifReqQSLExport(const QString& _fileName)
 {
-    //qDebug() << "FileManager::adifReqQSLExport" << _fileName;
+   //qDebug() << "FileManager::adifReqQSLExport" << _fileName;
     return adifLogExportToFile(_fileName, 0, false, true, false);
 }
 int FileManager::howManyQSOsInFile (QFile & _f)
@@ -4070,11 +4071,11 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString();
-        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
+        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
         aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
+        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
         double freqTX = aux.toDouble();
-        qso.setFreqTX(freqTX);
+        qso.setFreq(freqTX);
     }
     // Now the BAND RX
     nameCol = rec.indexOf("band_rx");

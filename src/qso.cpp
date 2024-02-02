@@ -84,10 +84,10 @@ void QSO::clear()
 
     // VARIABLES for ADIF //////////
     address = QString();
-    age = -1.0;
-    a_index = -1;
-    ant_az = -1;
-    ant_el = -91;
+    age = 0;
+    a_index = 0;
+    ant_az = 0.0;
+    ant_el = 0.0;
     ant_path = QString();
     arrl_sect = QString();
     award_submitted = QString();
@@ -106,12 +106,12 @@ void QSO::clear()
     contacted_op = QString();
     contest_id = QString();
     country = QString();
-    cqz = -1;
+    cqz = 0;
     credit_granted = QString();
     credit_submitted = QString();
     darc_dok = QString();
-    distance = -1.0;
-    dxcc = -1;
+    distance = 0;
+    dxcc = 0;
     email = QString();
     ownerCall = QString();
     contacted_owner = QString();
@@ -119,26 +119,26 @@ void QSO::clear()
     eQSLSDate = QDate();
     eqsl_qsl_rcvd = QString();
     eqsl_qsl_sent = QString();
-    fists = -1;
-    fists_cc = -1;
+    fists = 0;
+    fists_cc = 0;
     forceInit = false;
-    freq_tx = -1.0;
-    freq_rx = -1.0;
+    freq_tx = 0;
+    freq_rx = 0;
     gridsquare = QString();
     operatorCall = QString();
     hrdlogUploadDate = QDate();
     hrdlog_status = QString();
     iota = QString();
-    iota_ID = -1;
-    itu_zone = -1;
-    k_index = -1;
+    iota_ID = 0;
+    itu_zone = 0;
+    k_index = 0;
     latitude = QString();
     longitude = QString();
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
     lotw_qsl_rcvd = QString();
     lotw_qsl_sent = QString();
-    max_bursts = -1;
+    max_bursts = 0;
     mode = QString();
     ms_shower = QString();
     my_antenna = QString();
@@ -146,13 +146,13 @@ void QSO::clear()
     my_city = QString();
     my_county = QString();
     my_country = QString();
-    my_cqz = -1;
-    my_dxcc = -1;
-    my_fists = -1;
+    my_cqz = 0;
+    my_dxcc = 0;
+    my_fists = 0;
     my_gridsquare = QString();
     my_iota = QString();
-    my_iota_ID = -1;
-    my_itu_zone = -1;
+    my_iota_ID = 0;
+    my_itu_zone = 0;
     my_latitude = QString();
     my_longitude = QString();
     my_name = QString();
@@ -168,8 +168,8 @@ void QSO::clear()
     my_wwff_ref = QString();
     name = QString();
     notes = QString();
-    nr_bursts = -1;
-    nr_pings = -1;
+    nr_bursts = 0;
+    nr_pings = 0;
     operatorCall = QString();
     ownerCall = QString();
     contacted_owner = QString();
@@ -199,23 +199,23 @@ void QSO::clear()
     pwr_rx = 0.0;
     satMode = QString();
     satName = QString();
-    sfi = -1;
+    sfi = 0;
     sig = QString();
     sig_info = QString();
     silent_key = false;
     skcc = QString();
     sota_ref = QString();
-    srx = -1;
+    srx = 0;
     srx_string = QString();
     state = QString();
-    stx = -1;
+    stx = 0;
     stx_string = QString();
     submode = QString();
     swl = false;
-    ten_ten = -1;
+    ten_ten = 0;
     qso_time_off = QTime();
     pwr_tx = 0.0;
-    uksmg = -1;
+    uksmg = 0;
     usaca_counties = QString();
     ve_prov = QString();
     vucc_grids = QString();
@@ -280,13 +280,13 @@ int QSO::getLogId()
     return logId;
 }
 
-bool QSO::setFreqTX(const double _f)
+bool QSO::setFreq(const double _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     if (_f>0)
     {
         freq_tx = _f;
-        //qDebug() << Q_FUNC_INFO << ":-2 " << QString::number(freq_tx);
+       //qDebug() << Q_FUNC_INFO << ":-2 " << QString::number(freq_tx);
         setBandFromFreq(freq_tx);
         if (freq_rx<=0)
             setFreqRX(freq_tx);
@@ -1089,15 +1089,10 @@ double QSO::getRXPwr()
 // Comment Tab
 bool QSO::setComment(const QString &_c)
 {
-    if (!_c.isNull ())
-    {
-        comment = _c;
-        return true;
-    }
-    else
-    {
+    if (_c.isNull ())
         return false;
-    }
+    comment = _c;
+    return true;
 }
 
 QString QSO::getComment()
@@ -1151,13 +1146,12 @@ QString QSO::getPropMode()
 }
 
 bool QSO::setSOTA_REF(const QString &_c)
-{
-    if (_c.length ()>1)
-    {
-        sota_ref = _c;
-        return true;
-    }
-    return false;
+{// TODO: Check if the SOTA REF is Valid
+
+    if (_c.length ()<=1)
+        return false;
+    sota_ref = _c;
+    return true;
 }
 
 QString QSO::getSOTA_REF()
@@ -1219,12 +1213,11 @@ QString QSO::getMyRig()
 
 bool QSO::setMyAntenna(const QString &_c)
 {
-    if (_c.length ()>1)
-    {
-        my_antenna = _c;
-        return true;
-    }
-    return false;
+    if (_c.length ()<1)
+        return false;
+    my_antenna = _c;
+    return true;
+
 }
 
 QString QSO::getMyAntenna()
@@ -1354,7 +1347,6 @@ bool QSO::setStationCallsign(const QString &_c)
         return false;
     }
 
-
     //qDebug() << Q_FUNC_INFO << " - 010";
     if (util->isValidCall(aux))
     {
@@ -1413,8 +1405,7 @@ bool QSO::setSatName(const QString &_c)
     if (_c.length()>0)
     {
         satName = _c;
-        setPropMode("SAT");
-        return true;
+        return setPropMode("SAT");
     }
     else
     {
@@ -1477,12 +1468,20 @@ int QSO::getA_Index()
 
 bool QSO::setAnt_az(const double _c)
 { //TODO: Adjust number: http://www.adif.org/312/ADIF_312.htm#QSO_Field_ANT_AZ
+    ant_az = fmod(_c, 360.0);
+    return true;
+    /*
     if ((0 <= _c) && (_c <= 360))
     {
-        ant_az = _c;
+        //ant_az = _c;
+
         return true;
     }
-    return false;
+    else
+    {
+
+    }
+    return false;*/
 }
 double QSO::getAnt_az()
 {
@@ -2572,10 +2571,10 @@ QString QSO::getMyWwffRef()
 // helper functions for hash, returns original function but takes string data as imput
 bool QSO::setAge(const QString &data) { return setAge(data.toDouble()); }
 bool QSO::setA_Index(const QString& data) { return setA_Index(data.toInt()); }
-bool QSO::setAnt_az(const QString& data) { return setAnt_az(data.toInt()); }
-bool QSO::setAnt_el(const QString& data) { return setAnt_el(data.toInt()); }
+bool QSO::setAnt_az(const QString& data) { return setAnt_az(data.toDouble()); }
+bool QSO::setAnt_el(const QString& data) { return setAnt_el(data.toDouble()); }
 bool QSO::setCQZone(const QString& data) { return setCQZone(data.toInt()); }
-bool QSO::setDistance(const QString& data) { return setDistance(data.toInt()); }
+bool QSO::setDistance(const QString& data) { return setDistance(data.toDouble()); }
 bool QSO::setDXCC(const QString& data) { return setDXCC(data.toInt()); }
 bool QSO::setFists(const QString& data) { return setFists(data.toInt()); }
 bool QSO::setFistsCC(const QString& data) { return setFistsCC(data.toInt()); }
@@ -2596,7 +2595,7 @@ bool QSO::setStx(const QString& data) { return setStx(data.toInt()); }
 bool QSO::setTenTen(const QString& data) { return setTenTen(data.toInt()); }
 bool QSO::setUksmg(const QString& data) { return setUksmg(data.toInt()); }
 
-bool QSO::setFreqTX(const QString& data) { return setFreqTX(data.toDouble()); }
+bool QSO::setFreq(const QString& data) { return setFreq(data.toDouble()); }
 bool QSO::setFreqRX(const QString& data) { return setFreqRX(data.toDouble()); }
 bool QSO::setRXPwr(const QString& data){ return setRXPwr(data.toDouble()); }
 bool QSO::setTXPwr(const QString& data){ return setTXPwr(data.toDouble()); }
@@ -2673,7 +2672,7 @@ void QSO::InitializeHash() {
         {"FISTS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFists)},
         {"FISTS_CC", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFistsCC)},
         {"FORCE_INIT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setForceInit)},
-        {"FREQ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreqTX)},
+        {"FREQ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreq)},
         {"FREQ_RX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreqRX)},
         {"GRIDSQUARE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setGridSquare)},
         {"HRDLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDUpdateDate)},
@@ -2785,7 +2784,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _adifPair;
+   //qDebug() << Q_FUNC_INFO << ": " << _adifPair;
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
@@ -2794,7 +2793,7 @@ bool QSO::setData(const QString &_adifPair)
         logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
+   //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
@@ -2842,7 +2841,7 @@ int QSO::toDB(int _qsoId)
     if (query.exec())
     {
         //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
-        //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
+       //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
         return 1;//db->getLastInsertedQSO();
     }
     else
@@ -3078,7 +3077,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":fists_cc", getFistsCC ());
 
     query.bindValue(":force_init", util->boolToCharToSQLite (getForceInit()));
-    query.bindValue(":freq", getFreqTX());
+    query.bindValue(":freq_tx", getFreqTX());
     query.bindValue(":freq_rx", getFreqRX());
     query.bindValue(":gridsquare", getGridSquare());
     query.bindValue(":hrdlog_qso_upload_date", getHRDUpdateDate ());
@@ -3212,18 +3211,18 @@ QString QSO::getADIF()
     if (adif->isValidITUz(QString::number(itu_zone)))
         adifStr.append(adif->getADIFField ("ITUZ", QString::number(itu_zone) ));
 
-    if (dxcc>0)
+    if (adif->isValidDXCC(QString::number(dxcc)) && (dxcc>0))
         adifStr.append(adif->getADIFField ("DXCC",  QString::number(dxcc)));
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
     adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
     adifStr.append(adif->getADIFField ("CNTY",  county));
     adifStr.append(adif->getADIFField ("COMMENT",  comment));
-    if (adif->isValidA_Index(QString::number(a_index)))
+    if ((adif->isValidA_Index(QString::number(a_index))) && (a_index>0))
         adifStr.append(adif->getADIFField ("A_INDEX",  QString::number(a_index)));
-    if (adif->isValidAnt_AZ(QString::number(ant_az)))
+    if ((adif->isValidAnt_AZ(QString::number(ant_az))) && (ant_az!=0))
         adifStr.append(adif->getADIFField ("ANT_AZ",  QString::number(ant_az)));
-    if (adif->isValidAnt_EL(QString::number(ant_el)))
+    if ((adif->isValidAnt_EL(QString::number(ant_el))) && (ant_el!=0.0) )
         adifStr.append(adif->getADIFField ("ANT_EL",  QString::number(ant_el)));
     adifStr.append(adif->getADIFField ("ANT_PATH", ant_path));
     adifStr.append(adif->getADIFField ("ARRL_SECT", arrl_sect ));
@@ -3281,7 +3280,7 @@ QString QSO::getADIF()
     if (iota_ID>0)
         adifStr.append(adif->getADIFField ("iota_island_id", QString::number(iota_ID)));
 
-    if (adif->isValidK_Index(QString::number(k_index)))
+    if ((adif->isValidK_Index(QString::number(k_index))) && (k_index>0))
         adifStr.append(adif->getADIFField ("k_index", QString::number(k_index)));
     adifStr.append(adif->getADIFField ("lat", latitude));
     adifStr.append(adif->getADIFField ("lon", longitude));
@@ -3303,7 +3302,7 @@ QString QSO::getADIF()
     if (adif->isValidCQz(QString::number(my_cqz)))
         adifStr.append(adif->getADIFField ("my_cq_zone", QString::number(my_cqz)));
 
-    if (adif->isValidDXCC(QString::number(my_dxcc)))
+    if (adif->isValidDXCC(QString::number(my_dxcc)) && (my_dxcc>0))
         adifStr.append(adif->getADIFField ("my_dxcc", QString::number(my_dxcc) ));
 
     if (adif->isValidFISTS(QString::number(my_fists)))
@@ -3379,7 +3378,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("sat_mode", getSatMode()));
     adifStr.append(adif->getADIFField ("sat_name", getSatName()));
 
-    if (adif->isValidSFI(QString::number(sfi)))
+    if ((adif->isValidSFI(QString::number(sfi))) && (sfi>0))
         adifStr.append(adif->getADIFField ("sfi", QString::number(sfi)));
     adifStr.append(adif->getADIFField ("sig", sig));
     adifStr.append(adif->getADIFField ("sig_info", sig_info));

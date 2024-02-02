@@ -53,7 +53,6 @@ void MainWindow::showNotWar()
     int ASRusId = 15;   // ADIF code As Russia
     int KaRusId = 126;  // Kaliningrad
     int UkrId = 288;    // UKraine
-
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Critical);
     msgBox.setWindowTitle(tr("KLog - Stop the war in Ukraine!"));
@@ -1235,7 +1234,7 @@ bool MainWindow::readQSOFromUI()
     qso->setGridSquare (QSOTabWidget->getDXLocator());
     qso->setMyGridSquare (myDataTabWidget->getMyLocator());
 
-    qso->setFreqTX (QSOTabWidget->getTXFreq());
+    qso->setFreq (QSOTabWidget->getTXFreq());
     qso->setFreqRX (QSOTabWidget->getRXFreq());
     qso->setBandRX (dataProxy->getBandNameFromFreq (QSOTabWidget->getRXFreq ()));
 
@@ -3835,7 +3834,8 @@ void MainWindow::slotADIFExportAll()
     _qsos.append(-1); //Code to specify to export ALL QSOs;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _callToUse, _qsos, ModeADIF, currentLog);
-    showNumberOfSavedQSO(fileName, qsos.count());
+
+    showNumberOfSavedQSO(fileName, dataProxy->getHowManyQSOInLog(-1));
 
       //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName ;
     //QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
@@ -6599,7 +6599,7 @@ void MainWindow::backupCurrentQSO()
     //  MainWindowInputQSO
     backupQSO->setRSTTX (QSOTabWidget->getRSTTX ());
     backupQSO->setRSTRX (QSOTabWidget->getRSTRX ());
-    backupQSO->setFreqTX (QSOTabWidget->getTXFreq ());
+    backupQSO->setFreq (QSOTabWidget->getTXFreq ());
     backupQSO->setFreqRX (QSOTabWidget->getRXFreq ());
     backupQSO->setGridSquare (QSOTabWidget->getDXLocator ());
     backupQSO->setName (QSOTabWidget->getName ());

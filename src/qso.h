@@ -91,7 +91,7 @@ public:
     QString getRSTTX();
     bool setRSTRX(const QString &_c);
     QString getRSTRX();
-    bool setFreqTX(const double _f);
+    bool setFreq(const double _f);
     bool setFreqRX(const double _f);
     double getFreqTX();
     double getFreqRX();
@@ -464,7 +464,7 @@ private:
     bool setTenTen(const QString &data);
     bool setUksmg(const QString &data);
 
-    bool setFreqTX(const QString& data);
+    bool setFreq(const QString& data);
     bool setFreqRX(const QString& data);
     bool setRXPwr(const QString& data);
     bool setTXPwr(const QString& data);

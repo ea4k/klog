@@ -340,15 +340,8 @@ QString Utilities::boolToQString(const bool _b)
 
 bool Utilities::QStringToBool(const QString &_s)
 {
-
-    if ( (_s.toUpper()) == "Y")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    qDebug() << Q_FUNC_INFO << ": " << _s;
+    return ((_s.toUpper()) == "Y");
 }
 
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
