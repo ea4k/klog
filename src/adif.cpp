@@ -258,9 +258,10 @@ bool Adif::isValidPower(const QString &_b)
 QString Adif::getADIFBoolFromBool(const bool _b)
 {// Will produce the ADIF format if a bool is received
     if (_b)
-        return "T";
-    return "F";
+        return "Y";
+    return "N";
 }
+
 
 bool Adif::isValidK_Index(const QString &_b)
 {
@@ -617,9 +618,12 @@ bool Utilities::isValidSponsor(const QString &_s)
 QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 {// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
     // Check if _fieldName is a valid ADIF
+    qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
     if ((_data.length()<=0) || (_data.isNull()))
+    {
+        //qDebug() << Q_FUNC_INFO << " - Not Valid";
         return QString();
-
+    }
     if (ADIFHash.empty()) {
         InitializeHash();
     }
