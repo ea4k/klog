@@ -1181,7 +1181,7 @@ bool MainWindow::readQSOFromUI()
 
     int dxcc = world->getQRZARRLId(tqrz);
     //int dxcc2 = getDXCCFromComboBox();
-    int dxcc2 = world->getQRZARRLId(othersTabWidget->getEntityPrefix());
+    int dxcc2 = othersTabWidget->getEntity();
 
     dxcc = util->getNormalizedDXCCValue (dxcc);
     dxcc2 = util->getNormalizedDXCCValue (dxcc2);
@@ -1224,11 +1224,10 @@ bool MainWindow::readQSOFromUI()
         }
     }
 
-    qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
-
-    int cqz = world->getQRZCqz(tqrz);
+    int cqz = world->getEntityCqz(dxcc);
     int ituz = world->getEntityItuz(dxcc);
 
+    qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
     qso->setName (QSOTabWidget->getName());
     qso->setDistance (infoWidget->getDistance ());
     qso->setGridSquare (QSOTabWidget->getDXLocator());
