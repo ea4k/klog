@@ -1649,7 +1649,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     qso.clear ();
 
     //qDebug() << Q_FUNC_INFO << ": Progress defined" ;
-    QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, qsos, this);
+    QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setValue(0);

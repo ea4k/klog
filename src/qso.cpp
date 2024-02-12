@@ -361,6 +361,7 @@ bool QSO::setCall(const QString &_c)
 
 QString QSO::getCall()
 {
+    qDebug() << Q_FUNC_INFO << ": " << callsign;
     return callsign;
 }
 
@@ -2612,8 +2613,8 @@ bool QSO::setQSLRDate(const QString& data) { return setQSLRDate(util->getDateFro
 bool QSO::setQSLSDate(const QString& data) { return setQSLSDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setDate(const QString& data) { return setDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setDateOff(const QString& data) { return setDateOff(util->getDateFromADIFDateString(data)); }
-bool QSO::setQSORandom(const QString& data) { return setQSORandom(util->QStringToBool(data)); }
-bool QSO::setSilentKey(const QString& data) { return setSilentKey(util->QStringToBool(data)); }
+bool QSO::setQSORandom(const QString& data) { qDebug() << "XXX: " << data; return setQSORandom(util->QStringToBool(data)); }
+bool QSO::setSilentKey(const QString& data) {  qDebug() << "XXY: " << data; return setSilentKey(util->QStringToBool(data)); }
 bool QSO::setSwl(const QString& data) { return setSwl(util->QStringToBool(data)); }
 bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromADIFTimeString(data)); }
 bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
@@ -3075,7 +3076,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
     query.bindValue(":fists", getFists ());
     query.bindValue(":fists_cc", getFistsCC ());
-
+    qDebug() << Q_FUNC_INFO << " - 1";
     query.bindValue(":force_init", util->boolToCharToSQLite (getForceInit()));
     query.bindValue(":freq_tx", getFreqTX());
     query.bindValue(":freq_rx", getFreqRX());
@@ -3144,7 +3145,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":qsl_sent_via", getQSLSentVia());
     query.bindValue(":qsl_via", getQSLVia());
     query.bindValue(":qso_complete", getQSOComplete());
-    query.bindValue(":qso_random", getQSORandom());
+    qDebug() << Q_FUNC_INFO << " - 2";
+    query.bindValue(":qso_random", util->boolToCharToSQLite (getQSORandom()));
     query.bindValue(":qth", getQTH());
     query.bindValue(":region", getRegion ());
     query.bindValue(":rig", getRig ());
@@ -3155,6 +3157,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":sfi", getSFI());
     query.bindValue(":sig", getSig());
     query.bindValue(":sig_info", getSigInfo ());
+    qDebug() << Q_FUNC_INFO << " - 3";
     query.bindValue(":silent_key", util->boolToCharToSQLite (getSilentKey ()));
     query.bindValue(":skcc", getSkcc ());
 
@@ -3168,7 +3171,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":station_callsign", getStationCallsign());
     //query.bindValue(":submode", getModeIdFromModeName (true));
 
-    query.bindValue(":swl", getSwl());
+    qDebug() << Q_FUNC_INFO << " - 4";
+    query.bindValue(":swl", util->boolToCharToSQLite (getSwl()));
     query.bindValue(":uksmg", getUksmg ());
     query.bindValue(":usaca_counties", getUsacaCounties ());
     query.bindValue(":ve_prov", getVeProv ());

@@ -318,10 +318,12 @@ QChar Utilities::boolToCharToSQLite(const bool _b)
 {
     if (_b)
     {
+        qDebug() << Q_FUNC_INFO << ": Y";
         return 'Y';
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << ": N";
         return 'N';
     }
 }
