@@ -4071,9 +4071,9 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString();
-        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
+        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
         aux = util->checkAndFixASCIIinADIF(aux);
-        qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
+        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
         double freqTX = aux.toDouble();
         qso.setFreq(freqTX);
     }

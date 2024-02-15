@@ -317,33 +317,25 @@ bool Utilities::trueOrFalse(const QString &_s)
 QChar Utilities::boolToCharToSQLite(const bool _b)
 {
     if (_b)
-    {
-        qDebug() << Q_FUNC_INFO << ": Y";
         return 'Y';
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << ": N";
-        return 'N';
-    }
+    return 'N';
 }
+
 
 QString Utilities::boolToQString(const bool _b)
 {
     if (_b)
-    {
         return "True";
-    }
-    else
-    {
-        return "False";
-    }
+    return "False";
 }
 
 bool Utilities::QStringToBool(const QString &_s)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _s;
-    return ((_s.toUpper()) == "Y");
+   //qDebug() << Q_FUNC_INFO << ": " << _s;
+    if (_s.toUpper() == "Y")
+        return true;
+    return false;
+    //return ((_s.toUpper()) == "Y");
 }
 
 QString Utilities::checkAndFixASCIIinADIF(const QString &_data)

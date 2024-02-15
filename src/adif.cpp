@@ -618,7 +618,7 @@ bool Utilities::isValidSponsor(const QString &_s)
 QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 {// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
     // Check if _fieldName is a valid ADIF
-    qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
+    //qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
     if ((_data.length()<=0) || (_data.isNull()))
     {
         //qDebug() << Q_FUNC_INFO << " - Not Valid";
