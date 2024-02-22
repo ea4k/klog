@@ -548,3 +548,13 @@ int InfoWidget::getDistance(bool shortPath)
     }
 }
 
+int InfoWidget::getCQ()
+{ // Returns the CQ zone shown in the widget
+    return (cqzLabel->text()).toInt();
+}
+
+int InfoWidget::getITU()
+{ // Returns the CQ zone shown in the widget
+    return (ituzLabel->text()).toInt();
+}
+

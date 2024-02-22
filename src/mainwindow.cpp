@@ -1224,8 +1224,8 @@ bool MainWindow::readQSOFromUI()
         }
     }
 
-    int cqz = world->getEntityCqz(dxcc);
-    int ituz = world->getEntityItuz(dxcc);
+    int cqz = infoWidget->getCQ();
+    int ituz = infoWidget->getITU();
 
     qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
     qso->setName (QSOTabWidget->getName());
