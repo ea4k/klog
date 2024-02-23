@@ -44,6 +44,7 @@ private slots:
     void cleanupTestCase();
     void test_Constructor();
     void test_dataEntry();
+    void test_AdifCreation();
 
 
 private:
@@ -124,11 +125,331 @@ void tst_QSO::test_dataEntry()
     QVERIFY2(qso->getModifying(), "Error while reading Modifying true");
     qso->setModifying(false);
     QVERIFY2(!qso->getModifying(), "Error while reading Modifying false");
+}
 
+void tst_QSO::test_AdifCreation()
+{
+    qso->clear();
+    qso->setCall("EA4TV");
+    qso->setOperatorCallsign("EA4K");
 /*
+    bool setCall(const QString &_c);
+    QString getCall();
+    bool setBand(const QString &_c);
+    QString getBand();
+    bool setMode(const QString &_c);
+    QString getMode();
+
+    bool setDateTimeOn(const QDateTime &_c);
+    QDateTime getDateTimeOn();
+    bool setDate(const QDate &_c);
+    QDate getDate();
+    bool setTimeOn(const QTime &_c);
+    QTime getTimeOn();
+
+    bool setQSOid(const int _i);
+    int getQSOid();
+
+    bool setLogId(const int _i);
+    int getLogId();
+
+    bool setBandRX(const QString &_c);
+    QString getBandRX();
+
+    bool setRSTTX(const QString &_c);
+    QString getRSTTX();
+    bool setRSTRX(const QString &_c);
+    QString getRSTRX();
+    bool setFreq(const double _f);
+    bool setFreqRX(const double _f);
+    double getFreqTX();
+    double getFreqRX();
+    bool setQTH(const QString &_c);
+    QString getQTH();
+    bool setGridSquare(const QString &_c);
+    QString getGridSquare();
+    bool setName(const QString &_c);
+    QString getName();
+    bool setRXPwr(const double _f);
+    double getRXPwr();
+
+    // QSL TAB
+    bool setQSL_SENT(const QString &_c);
+    QString getQSL_SENT();
+    bool setQSLSDate(const QDate &_c);
+    QDate getQSLSDate();
+    bool setQSLSenVia(const QString &_qs);
+    QString getQSLSentVia();
+
+    bool setQSL_RCVD(const QString &_c);
+    QString getQSL_RCVD();
+    bool setQSLRDate(const QDate &_c);
+    QDate getQSLRDate();
+    bool setQSLRecVia(const QString &_qs);
+    QString getQSLRecVia();
+
+    bool setQSLVia(const QString &_qs);
+    QString getQSLVia();
+    bool setQSLMsg(const QString &_qs);
+    QString getQSLMsg();
+
+
+    // eQSL tab
+    bool setClubLogStatus(const QString &_c);
+    QString getClubLogStatus();
+    bool setClubLogDate(const QDate &_c);
+    QDate getClubLogDate();
+
+    bool setEQSLQSL_RCVD(const QString &_c);
+    QString getEQSLQSL_RCVD();
+    bool setEQSLQSL_SENT(const QString &_c);
+    QString getEQSLQSL_SENT();
+    bool setEQSLQSLRDate(const QDate &_c);
+    QDate getEQSLQSLRDate();
+    bool setEQSLQSLSDate(const QDate &_c);
+    QDate getEQSLQSLSDate();
+
+    bool setLoTWQSL_RCVD(const QString &_c);
+    QString getLoTWQSL_RCVD();
+    bool setLoTWQSL_SENT(const QString &_c);
+    QString getLoTWQSL_SENT();
+    bool setLoTWQSLRDate(const QDate &_c);
+    QDate getLoTWQSLRDate();
+    bool setLoTWQSLSDate(const QDate &_c);
+    QDate getLoTWQSLSDate();
+
+    bool setQRZCOMStatus(const QString &_c);
+    QString getQRZCOMStatus();
+    bool setQRZCOMDate(const QDate &_c);
+    QDate getQRZCOMDate();
+
+    void setDefaultEQSLSentServices(const bool _send);
+
+    // Comment Tab
+    bool setComment(const QString &_c);
+    QString getComment();
+    bool setKeepComment(bool _k);
+    bool getKeepComment();
+
+    // Others Tab
+    bool setDXCC(const int _i);
+    int getDXCC();
+    bool setPropMode(const QString &_c);
+    QString getPropMode();
+    bool setSOTA_REF(const QString &_c);
+    QString getSOTA_REF();
+    bool setAge(const double _c);
+    double getAge();
+    bool setIOTA(const QString &_c);
+    QString getIOTA();
+    bool setKeepOthers(bool _k);
+    bool getKeepOthers();
+    bool setVUCCGrids(const QString &_c);
+    QString getVUCCGrids();
+
+
+    // My data Tab
+    bool setTXPwr(double _f);
+    double getTXPwr();
+    bool setOperatorCallsign(const QString &_c);
+    QString getOperatorCallsign();
+    bool setStationCallsign(const QString &_c);
+    QString getStationCallsign();
+    bool setMyGridSquare(const QString &_c);
+    QString getMyGridSquare();
+    bool setKeepMyData(bool _k);
+    bool getKeepMyData();
+    bool setMySOTA_REF(const QString &_c);
+    QString getMySOTA_REF();
+    bool setMyRig(const QString &_c);
+    QString getMyRig();
+    bool setMyAntenna(const QString &_c);
+    QString getMyAntenna();
+    bool setMyArrlSect(const QString &_c);
+    QString getMyArrlSect();
+    bool setMyVUCCGrids(const QString &_c);
+    QString getMyVUCCGrids();
+    // Satellite Tab
+    bool setSatName(const QString &_c);
+    QString getSatName();
+    bool setSatMode(const QString &_c);
+    QString getSatMode();
+    bool setKeepSatTab(bool _k);
+    bool getKeepSatTab();
+
+    bool setAddress(const QString &_c);
+    QString getAddress();
+    bool setA_Index(const int _i);
+    int getA_Index();
+    bool setAnt_az(const double _c);
+    double getAnt_az();
+    bool setAnt_el(const double _c);
+    double getAnt_el();
+    bool setAnt_Path(const QString &_c);
+    QString getAnt_Path();
+    bool setARRL_Sect(const QString &_c);
+    QString getARRL_Sect();
+    bool setCheck(const QString &_c);
+    QString getCheck();
+    bool setClass(const QString &_c);
+    QString getClass();
+    bool setClublogQSOUpdateDate(const QDate &_c);
+    QDate getClublogQSOUpdateDate();
+    bool setContinent(const QString &_c);
+    QString getContinent();
+    bool setDistance(const double _i);
+    double getDistance();
+    bool setOwnerCallsign(const QString &_c);
+    QString getOwnerCallsign();
+    bool setEQ_Call(const QString &_c); // Contacted station owner
+    QString getEQ_Call();               // Contacted station owner
+    bool setHRDUpdateDate(const QDate &_c);
+    QDate getHRDUpdateDate();
+    bool setHRDLogStatus(const QString &_c);
+    QString getHRDLogStatus();
+    bool setK_Index(const int _i);
+    int getK_Index();
+    bool setDateOff(const QDate &_c);
+    QDate getDateOff();
+    bool setTimeOff(const QTime &_c);
+    QTime getTimeOff();
+    bool setRig(const QString &_c);
+    QString getRig();
+    bool setCountry(const QString &_c);
+    QString getCountry();
+    bool setAwardGranted(const QString &_c);
+    QString getAwardGranted();
+    bool setAwardSubmitted(const QString &_c);
+    QString getAwardSubmitted();
+    bool setCounty(const QString &_c);
+    QString getCounty();
+    bool setContactedOperator(const QString &_c);
+    QString getContactedOperator();
+    bool setContestID(const QString &_c);
+    QString getContestID();
+    bool setCQZone(const int _i);
+    int getCQZone();
+    bool setCreditGranted(const QString &_c);
+    QString getCreditGranted();
+    bool setCreditSubmitted(const QString &_c);
+    QString getCreditSubmitted();
+    bool setDarcDok(const QString &_c);
+    QString getDarcDok();
+    bool setEmail(const QString &_c);
+    QString getEmail();
+    bool setFists(const int _i);
+    int getFists();
+    bool setFistsCC(const int _i);
+    int getFistsCC();
+    bool setForceInit(bool _k);
+    bool getForceInit();
+    bool setIotaID(const int _i);
+    int getIotaID();
+    bool setItuZone(const int _i);
+    int getItuZone();
+    bool setLatitude(const QString &_c);
+    QString getLatitude();
+    bool setLongitude(const QString &_c);
+    QString getLongitude();
+    bool setQSOComplete(const QString &_c);
+    QString getQSOComplete();
+    bool setNrBursts(const int _i);
+    int getNrBursts();
+    bool setMaxBursts(const int _i);
+    int getMaxBursts();
+    bool setNrPings(const int _i);
+    int getNrPings();
+    bool setMsShower(const QString &_c);
+    QString getMsShower();
+    bool setQSORandom(bool _k);
+    bool getQSORandom();
+    bool setMyCity(const QString &_c);
+    QString getMyCity();
+    bool setMyCounty(const QString &_c);
+    QString getMyCounty();
+    bool setMyCountry(const QString &_c);
+    QString getMyCountry();
+    bool setMyCQZone(const int _i);
+    int getMyCQZone();
+    bool setMyDXCC(const int _i);
+    int getMyDXCC();
+    bool setMyFists(const int _c);
+    int getMyFists();
+    bool setMyIOTA(const QString &_c);
+    QString getMyIOTA();
+    bool setMyIotaID(const int _i);
+    int getMyIotaID();
+    bool setMyITUZone(const int _i);
+    int getMyITUZone();
+    bool setMyLatitude(const QString &_c);
+    QString getMyLatitude();
+    bool setMyLongitude(const QString &_c);
+    QString getMyLongitude();
+    bool setMyName(const QString &_c);
+    QString getMyName();
+    bool setMyPostalCode(const QString &_c);
+    QString getMyPostalCode();
+    bool setMySig(const QString &_c);
+    QString getMySig();
+    bool setMySigInfo(const QString &_c);
+    QString getMySigInfo();
+    bool setMyState(const QString &_c);
+    QString getMyState();
+    bool setMyStreet(const QString &_c);
+    QString getMyStreet();
+    bool setMyUsacaCounties(const QString &_c);
+    QString getMyUsacaCounties();
+    bool setNotes(const QString &_c);
+    QString getNotes();
+    bool setPrefix(const QString &_c);
+    QString getPrefix();
+    bool setPrecedence(const QString &_c);
+    QString getPrecedence();
+    bool setPublicKey(const QString &_c);
+    QString getPublicKey();
+    bool setRegion(const QString &_c);
+    QString getRegion();
+    bool setTenTen(const int _i);
+    int getTenTen();
+    bool setSFI(const int _i);
+    int getSFI();
+    bool setSig(const QString &_c);
+    QString getSig();
+    bool setSigInfo(const QString &_c);
+    QString getSigInfo();
+    bool setSilentKey(bool _k);
+    bool getSilentKey();
+    bool setSkcc(const QString &_c);
+    QString getSkcc();
+    bool setSrx(const int _i);
+    int getSrx();
+    bool setSrxString(const QString &_c);
+    QString getSrxString();
+    bool setState(const QString &_c);
+    QString getState();
+    bool setStx(const int _i);
+    int getStx();
+    bool setStxString(const QString &_c);
+    QString getStxString();
+    //bool setSubmode(const QString &_c, bool requestMode = false);
+    bool setSubmode(const QString &_c);
+    QString getSubmode();
+    bool setSwl(bool _k);
+    bool getSwl();
+    bool setUksmg(const int _i);
+    int getUksmg();
+    bool setUsacaCounties(const QString &_c);
+    QString getUsacaCounties();
+    bool setVeProv(const QString &_c);
+    QString getVeProv();
+    bool setWeb(const QString &_c);
+    QString getWeb();
+    bool setWwffRef(const QString &_c);
+    QString getWwffRef();
+    bool setMyWwffRef(const QString &_c);
+
 
 */
-
 }
 
 QTEST_APPLESS_MAIN(tst_QSO)

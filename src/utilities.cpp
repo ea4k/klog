@@ -1861,6 +1861,64 @@ QString Utilities::getCabrilloTimeFromQDateTime(const QDateTime &_d)
     }
 }
 
+QString Utilities::getQSO_CompleteFromADIF(const QString &_s)
+{ // Receives a valid QSO_COMPLETE ADIF data and returns
+  // one char to be stored in the data base.
+  // Default value is Y
+    //Parece que falla al guardar este campo que no se traduce a un varchar(1)
+    //qDebug() << Q_FUNC_INFO << ": " << _s;
+
+    Adif adif(Q_FUNC_INFO);
+    if (!adif.isValidQSO_COMPLETE(_s))
+    {
+        //qDebug() << Q_FUNC_INFO << " No valid";
+        return "1";
+    }
+    if (_s == "N")
+    {
+       return "2";
+    }
+    else if (_s == "NIL")
+    {
+        return "3";
+    }
+    else if (_s == "?")
+    {
+        return "4";
+    }
+    else
+    {
+        return "1";
+    }
+}
+
+QString Utilities::getADIFQSO_CompleteFromDB(const QString &_s)
+{// Returns the ADIF QSO_COMPLETE
+    //1=Y, 2=N, 3=NIL, 4=?
+    //qDebug() << Q_FUNC_INFO << ": " << _s;
+    int i = _s.toInt();
+    switch (i)
+    {
+        case 2:
+        {
+            return "N";
+        }
+        case 3:
+        {
+            return "NIL";
+        }
+        case 4:
+        {
+            return "?";
+        }
+        default:
+        {
+            return "Y";
+        }
+    }
+}
+
+
 QString Utilities::getOnlineServiceName(OnLineProvider _service)
 {//enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
     switch (_service)

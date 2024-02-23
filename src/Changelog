@@ -12,6 +12,7 @@ WIP: - Bugfix: Keep data of SAT tab when entering a QSO stopped working. (TNX EA
 - BugFix: Minor CQz & ITUz bugfixes that could, potentially accept CQ or ITU zones being 0.
 - Bugfix: Several fields do not meet ADIF specification (Closes #669)
 - Bugfix: DX-Cluster activity file can't be edit with normal txt file. (Closes #682)
+- Bugfix: QSO_COMPLETE field in database needs to be redefined (Closes #680)
 - Translations: Danish (TNX Peter), Russian (YL3GBC), Spanish (EA4K), Ukrainian (YL3GBC)
 
 Dec 2023 - 2.3.3

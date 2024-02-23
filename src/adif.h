@@ -71,6 +71,7 @@ public:
     bool isValidTenTen(const QString &_b);            //>0
     bool isValidLogId(const QString &_b);            //>0
     bool isValidAntPath(const QString &_s);
+    bool isValidQSO_COMPLETE(const QString &_s);    // "Y", "N", "NIL", "?"
 
     void setLogLevel(DebugLogLevel _l);
     QString getADIFField(const QString &_fieldName, const QString &_data);

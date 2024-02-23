@@ -2005,13 +2005,12 @@ QString QSO::getMsShower()
 }
 
 bool QSO::setQSOComplete(const QString &_c)
-{
-    if ((_c == "Y") || (_c == "N") || (_c == "NIL") || (_c == "?"))
-    {
-        qso_complete = _c;
-        return true;
-    }
-    return false;
+{ // Y, N, I, ? are the valid chars.
+  // Here we store the short version just for the DB
+  // If we need to export it to ADIF, we need to call util->getADIFQSO_CompleteFromDB()
+    qso_complete = util->getQSO_CompleteFromADIF(_c);
+    //qDebug() << Q_FUNC_INFO << ": " << qso_complete;
+    return true;
 }
 
 QString QSO::getQSOComplete()
@@ -3364,7 +3363,7 @@ QString QSO::getADIF()
      if (getQSL_SENT()=="Y")                // Valid case to use qslsentVia
         adifStr.append(adif->getADIFField ("qsl_sent_via", qslSenVia));
     adifStr.append(adif->getADIFField ("qsl_via", qslVia));
-    adifStr.append(adif->getADIFField ("qso_complete", getQSOComplete()));
+    adifStr.append(adif->getADIFField ("qso_complete", util->getADIFQSO_CompleteFromDB(getQSOComplete())));
 
     //TODO: Check wether it makes sense to use this field for ALL QSOs or just when it is not random.
     if (getQSORandom())

@@ -282,7 +282,7 @@ public:
     QString getLatitude();
     bool setLongitude(const QString &_c);
     QString getLongitude();
-    bool setQSOComplete(const QString &_c);
+    bool setQSOComplete(const QString &_c);         // Receives valid ADIF data (Y/N/NIL/?)
     QString getQSOComplete();
     bool setNrBursts(const int _i);
     int getNrBursts();

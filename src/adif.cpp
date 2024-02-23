@@ -363,7 +363,10 @@ bool Adif::isValidAntPath(const QString &_s)
     return ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"));
 }
 
-
+bool Adif::isValidQSO_COMPLETE(const QString &_s)
+{    // "Y", "N", "NIL", "?"
+    return ((_s == "Y") || (_s == "N") || (_s == "NIL") || (_s == "?"));
+}
 
 /*
 bool Utilities::isValidComment(const QString &_b)

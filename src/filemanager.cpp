@@ -3133,7 +3133,8 @@ bool FileManager::processQsoReadingADIF(const QStringList &_line, const int logN
                         }
                         break;
                     case(113):
-                        preparedQuery.bindValue(":qso_complete", data);
+                        //preparedQuery.bindValue(":qso_complete", data);
+                        preparedQuery.bindValue(":qso_complete", util->getQSO_CompleteFromADIF(data));
                         break;
                     case(114):
                         preparedQuery.bindValue(":qso_random", data);
@@ -4769,7 +4770,7 @@ void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode
     if (nameCol>=0)
     {
         aux = (query.value(nameCol)).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSOComplete(aux);
+        qso.setQSOComplete(util->getADIFQSO_CompleteFromDB(aux));
     }
     nameCol = rec.indexOf("qso_random");
     if (nameCol>=0)
