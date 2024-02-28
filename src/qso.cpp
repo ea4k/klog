@@ -55,7 +55,7 @@ void QSO::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _le
 
 bool QSO::isComplete()
 {
-    return (haveBand && haveMode && haveDateTime && haveCall);
+    return (haveBand && (haveMode || haveSubMode) && haveDateTime && haveCall);
 }
 
 void QSO::clear()
@@ -66,6 +66,7 @@ void QSO::clear()
     logEvent (Q_FUNC_INFO, "Start", Debug);
     haveBand = false;
     haveMode = false;
+    haveSubMode = false;
     haveDateTime = false;
     haveCall = false;
 
@@ -187,7 +188,7 @@ void QSO::clear()
     qslSenVia = QString();
     qslRecVia = QString();
     qslVia = QString();
-    qso_complete = QString();
+    qso_complete = qso_complete = util->getQSO_CompleteFromADIF("Y");
     qso_dateTime = QDateTime();
     qso_date_off = QDate();
     qso_random = true;
@@ -2472,6 +2473,8 @@ QString QSO::getState()
 bool QSO::setSubmode(const QString &_c)
 {
     submode = _c;
+    haveSubMode = true;
+
     //if (requestMode){
     //    emit getModeSignal(submode);
     //}
@@ -2975,8 +2978,8 @@ int QSO::getBandIdFromBandName(bool _rxBand)
 
 int QSO::getModeIdFromModeName()
 {
-    // submode is not used, keep it empty.
-    // mode field is populated with the submode
+    // We need to save always the submode id
+    // If submode is no present, then we will store the mode id
    //qDebug() << Q_FUNC_INFO;
     QSqlQuery query;
     //
@@ -2987,8 +2990,18 @@ int QSO::getModeIdFromModeName()
     {
         return -1;
     }
-    //bool ok = query.prepare ("SELECT id from mode WHERE CASE WHEN ''<>:submode THEN submode=:submode ELSE name = :name END");
-    query.bindValue (":submode", getMode ());
+    if (haveSubMode)
+    {
+        query.bindValue (":submode", getSubmode ());
+    }
+    else if (haveMode)
+    {
+        query.bindValue (":submode", getMode ());
+    }
+    else
+    {
+        return -1;
+    }
 
     if (query.exec ())
     {
@@ -3000,20 +3013,20 @@ int QSO::getModeIdFromModeName()
             }
             else
             {
-               //qDebug() << Q_FUNC_INFO << " - Query NOT Valid";
+                return -4;
             }
         }
         else
         {
-           //qDebug() << Q_FUNC_INFO << " - Query NOT Next";
+            return -5;
         }
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        return -1;
+        return -2;
     }
-    return -1;
+    return -3;
 }
 
 QSqlQuery QSO::getPreparedQuery(const QString &_s)
@@ -3166,7 +3179,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":stx", getStx());
     query.bindValue(":state", getState());
     query.bindValue(":station_callsign", getStationCallsign());
-    //query.bindValue(":submode", getModeIdFromModeName (true));
+    //query.bindValue(":submode", getModeIdFromModeName ());
 
     query.bindValue(":swl", util->boolToCharToSQLite (getSwl()));
     query.bindValue(":uksmg", getUksmg ());

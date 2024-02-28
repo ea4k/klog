@@ -68,6 +68,7 @@ public:
     //QOperatingSystemVersion getOS();
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList &_qs);
+
     QString getKLogDBFile();
     QString getKLogDBBackupFile();
     bool QStringToBool(const QString &_s);
@@ -190,7 +191,6 @@ private:
     void init();
     void InitializeHash();
     void setLogColumnNames(); // Creates the map of column Names (should be called from init() )
-    bool processConfigLine(const QString &_line);
     QString getKLogDefaultDatabaseFile();
     //bool isCountrySuffix (const QString &_c);
     bool isAValidOperatingSuffix (const QString &_c);
@@ -206,7 +206,8 @@ private:
     QString getCheckedComplexCall(const QString &_c);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     //bool darkMode;
-    QString dbPath;
+    QString getDBPath();
+    //QString dbPath;
     QString softwareVersion;
     QString parentName;     // The class that instanciated this object.
 

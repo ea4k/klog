@@ -322,7 +322,6 @@ TODO: Add color support: messages for slotQRZTextChanged
 
 TODO: SetupPageColors: Check the style in the buttons as the rounds are lost when I change the color!!
 
-TODO: MainWindow::processConfigLine:  add support for the cluster data.
 TODO: Check when to connect the DXCluster and when no, it tries twice or more...
 
 TODO: Awards: make a function to calculate the total.

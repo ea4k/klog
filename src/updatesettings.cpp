@@ -25,7 +25,6 @@
  *****************************************************************************/
 
 #include "updatesettings.h"
-#include "global.h"
 
 UpdateSettings::UpdateSettings()
 {
@@ -608,8 +607,6 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if (tab == "LATESTBACKUP"){
         settings.setValue ("LatestBackup", value);
-    }else{
-           //qDebug() << "SetupDialog::processConfigLine: NONE: " << QT_ENDL;
     }
     return true;
 }

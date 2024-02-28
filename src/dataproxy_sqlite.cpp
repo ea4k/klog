@@ -36,25 +36,33 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
       //qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
     (void)_parentFunction;
-      //qDebug() << "DataProxy_SQLite::DataProxy_SQLite" << _softVersion << _parentFunction;
+    //qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
     logLevel = None;
-       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite 1";
+    //qDebug() << Q_FUNC_INFO << " - 45";
     util = new Utilities(Q_FUNC_INFO);
+    //qDebug() << Q_FUNC_INFO << " - 46";
     util->setVersion(_softVersion);
+    //qDebug() << Q_FUNC_INFO << " - 47";
     util->setCallValidation(false);
-    util->setLongPrefixes(getLongPrefixes());
-    util->setSpecialCalls(getSpecialCallsigns());
-    qso = new QSO;
-
+     //qDebug() << Q_FUNC_INFO << " - 48";
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
+    //qDebug() << Q_FUNC_INFO << " - 49";
 
     dbCreated = db->createConnection(Q_FUNC_INFO);
-    //dbCreated = db->createBandModeMaps();
-       //qDebug() << "DataProxy_SQLite::DataProxy_SQLite - END";
+    //qDebug() << Q_FUNC_INFO << " - 50";
+    util->setLongPrefixes(getLongPrefixes());
+     //qDebug() << Q_FUNC_INFO << " - 51";
+    util->setSpecialCalls(getSpecialCallsigns());
+     //qDebug() << Q_FUNC_INFO << " - 52";
+    qso = new QSO;
+    //qDebug() << Q_FUNC_INFO << " - 53";
+
+    //qDebug() << Q_FUNC_INFO << " - 54";
+
     searching = false;
     executionN = 0;
     connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
-
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 

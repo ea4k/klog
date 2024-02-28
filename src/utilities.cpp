@@ -28,9 +28,11 @@
 //bool c;
 Utilities::Utilities(const QString &_parentName)
 {
+    //qDebug() << Q_FUNC_INFO << " - Start";
     parentName = _parentName;
     //qDebug() << Q_FUNC_INFO << " (" << _parentName << ")";
     init();
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 Utilities::~Utilities()
@@ -514,93 +516,31 @@ QString Utilities::getKLogDefaultDatabaseFile()
     return getHomeDir() ;
 }
 
+QString Utilities::getDBPath()
+{   //Returns the path (folder level) of the DB
+
+    QSettings settings(getCfgFile (), QSettings::IniFormat);
+    settings.beginGroup ("Misc");
+    QString dbPath = settings.value ("DBPath").toString ();
+
+    if (dbPath.length()<1)
+    {
+        dbPath = getKLogDefaultDatabaseFile();
+    }
+    return dbPath;
+}
+
 QString Utilities::getKLogDBFile()
-{
-        //qDebug() << "Utilities::getKLogDBFile: start " ;
-
-    dbPath = getKLogDefaultDatabaseFile();
-    QFile file(getCfgFile());
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
-    {
-        //return dbPath;
-        //return getKLogDatabaseFile(dbPath);
-    }
-    else
-    {
-        while (!file.atEnd()) {
-            QByteArray line = file.readLine();
-            processConfigLine(line);
-        }
-
-        if (dbPath.length()<1)
-        {
-            dbPath = getKLogDefaultDatabaseFile();
-        }
-    }
-       //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath ;
-    return dbPath + "/logbook.dat";
+{   // Returns the full path to the main DB
+    return getDBPath() + "/logbook.dat";
 }
 
 QString Utilities::getKLogDBBackupFile()
-{
-        //qDebug() << "Utilities::getKLogDBFile: start " ;
-
-    dbPath = getKLogDefaultDatabaseFile();
-    QFile file(getCfgFile());
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        //return dbPath;
-        //return getKLogDatabaseFile(dbPath);
-    }
-    else
-    {
-        while (!file.atEnd()) {
-            QByteArray line = file.readLine();
-            processConfigLine(line);
-        }
-        if (dbPath.length()<1)
-        {
-            dbPath = getKLogDefaultDatabaseFile();
-        }
-    }
-       //qDebug() << "Utilities::getKLogDBFile: path to use: " << dbPath ;
-    return dbPath + "/" + QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss") + "-backup-logbook.dat" ;
+{   // Returns the full path to the backup DB
+    return getDBPath() + "/" + QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss") + "-backup-logbook.dat" ;
 }
 
-bool Utilities::processConfigLine(const QString &_line)
-{
-             //qDebug() << "Utilities::processConfigLine: " << _line ;
 
-        QString line = _line.simplified();
-        //line.simplified();
-        //QString aux;
-        QStringList values = line.split("=", QT_SKIP);
-
-        if (line.startsWith('#')){
-                 //qDebug() << "Utilities::processConfigLine: notes Line!" ;
-            return true;
-        }
-        if (!( (line.contains('=')) && (line.contains(';')))){
-                 //qDebug() << "Utilities::processConfigLine: Wrong Line!" ;
-            return false;
-        }
-        QString field = (values.at(0)).toUpper();
-        QString value = values.at(1);
-
-        int endValue = value.indexOf(';');
-        if (endValue>-1){
-            value = value.left(value.length() - (value.length() - endValue));
-        }
-
-        if (field == "DBPATH")
-        {
-                  //qDebug() << "Utilities::processConfigLine: dbPATH found: " << value ;
-            dbPath = value;
-        }
-        return true;
-}
 
 /*
 QString Utilities::getKLogDatabaseFile(const QString &_file)
@@ -1221,140 +1161,6 @@ QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
         i--;
     }
     return QString();
-    /*
-    QString call2 = call;
-    QString call3 = call;
-    bool keepAnalyzing  = true;
-    bool found = false;
-    bool secondCharIsNumber = false;
-
-    if ((call.at(1)).isDigit())
-    {
-        secondCharIsNumber = true;
-    }
-
-    //GW1A
-    while (keepAnalyzing)
-    {
-        //qDebug() << Q_FUNC_INFO << " - call: " << call;
-        //qDebug() << Q_FUNC_INFO << " - call2: " << call2;
-        //qDebug() << Q_FUNC_INFO << " - call3: " << call3;
-        if (isAKnownPrefix(call))
-        {
-            //qDebug() << Q_FUNC_INFO << ": Found!: " << call;
-            keepAnalyzing = false;
-            found = true;
-        }
-        else if (call.length()<=2)
-        {
-           //qDebug() << Q_FUNC_INFO << ": Not found & call<=2: " << call;
-           keepAnalyzing = false;
-        }
-        else
-        {
-            //qDebug() << Q_FUNC_INFO << ": else, chop: " << call;
-            call3 = call2;
-            call2 = call;
-            call.chop(1);
-        }
-    }
-
-    //qDebug() << Q_FUNC_INFO << ": **** Out of while: " << call << "/" << call2 << "/" << call3;
-    if (found)
-    {
-        //qDebug() << Q_FUNC_INFO << ": END-0 " << call;
-        return call;
-    }
-    else
-    {
-        if (firstSpecial)
-        {
-            call3 = call2;
-            call2 = call;
-            call.chop(1);
-        }
-        //qDebug() << Q_FUNC_INFO << ": **** Out of while Special 1-Letter: " << call << "/" << call2 << "/" << call3;
-    }
-
-    //qDebug() << Q_FUNC_INFO << ": **** To process: " << call << "/" << call2 << "/" << call3;
-    if (withAreaNumber)
-    {
-        //qDebug() << Q_FUNC_INFO << ": WithAreaNumber";
-        if (firstSpecial)
-        {
-            //qDebug() << Q_FUNC_INFO << ": FirstSpecial";
-            int last = call2.length();
-            //qDebug() << Q_FUNC_INFO << ": last="<< QString::number(last);
-            if (call.length()==1)
-            {
-                //qDebug() << Q_FUNC_INFO << ": END0: " << call;
-                return call;
-            }
-            else if (((call2.at(last-1)).isDigit()))
-            {//K1
-                //qDebug() << Q_FUNC_INFO << ": END1: " << call2;
-                return call2;
-            }
-            else if ((call3.at(call3.length()-1)).isDigit())
-            {//KB1
-                //qDebug() << Q_FUNC_INFO << ": END2: " << call3;
-                return call3;
-            }
-            else
-            {
-                //qDebug() << Q_FUNC_INFO << ": END3: " << call;
-                return call;
-            }
-        }
-        else
-        {
-            if (call == call2)
-            {
-                //qDebug() << Q_FUNC_INFO << ": END4: " << call;
-                return call;
-            }
-
-            int last = call2.length();
-            if (((call2.at(last-1)).isDigit()))
-            {
-                //qDebug() << Q_FUNC_INFO << ": END5: " << call2;
-                return call2;
-            }
-            //qDebug() << Q_FUNC_INFO << ": END6: " << call;
-            //return call;
-        }
-    }
-//Si se pide el numero pero el prefijo no trae numero se devuelve sin numero.
-    if (firstSpecial)
-    {
-        //qDebug() << Q_FUNC_INFO << ": call2: " << call2;
-        if (isAKnownPrefix(call2))
-        {
-            //qDebug() << Q_FUNC_INFO << ": END7.1: " << call;
-            return call2;
-        }
-        else if (!secondCharIsNumber && (call.at(3)).isDigit())
-        {
-            //qDebug() << Q_FUNC_INFO << ": END7.2: " << call;
-            return call;
-        }
-        //qDebug() << Q_FUNC_INFO << ": END7.3: " << call;
-        //return call;
-    }
-    int last = call2.length();
-    if (!((call2.at(last-1)).isDigit()))
-    {
-        if (isAKnownPrefix(call))
-        {
-            //qDebug() << Q_FUNC_INFO << ": END7.5: " << call2;
-            return call;
-        }
-        //qDebug() << Q_FUNC_INFO << ": END8: " << call2;
-        return call2;
-    }
-    //qDebug() << Q_FUNC_INFO << ": END9: " << call;
-    return call;
-    */
 }
 
 bool Utilities::isAOneLetterPrefix(const QChar &_c)

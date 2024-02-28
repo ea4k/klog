@@ -39,13 +39,13 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     softVersion = util->getVersion();
     dbName = _DBName;
     //connect(this, SIGNAL(debugLog(QString, QString, int)), this, SLOT(slotPrintErrors(QString, QString, int)) );
-    //qDebug() << "DataBase::DataBase1: dbName: " << dbName ;
+   //qDebug() << "DataBase::DataBase1: dbName: " << dbName ;
 
     //db = QSqlDatabase::database();
 
     dbVersion = DBVersionf;
     createConnection(QString(Q_FUNC_INFO)+"1");
-       //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName ;
+   //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName ;
        //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() ;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
@@ -241,28 +241,28 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     Q_UNUSED(newDB);
     QString stringQuery;
     QSqlQuery query;
-
+   //qDebug() << Q_FUNC_INFO << ": check if open";
     if (!db.isOpen())
     {
-        //qDebug() << "DataBase::createConnection: DB NOT Opened" ;
+       //qDebug() << "DataBase::createConnection: DB NOT Opened" ;
         if (!db.isValid())
         {
-            //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  ;
+           //qDebug() << "DataBase::createConnection: DB is not valid, let's call addDataBase"  ;
             if (!db.isOpen())
             {
-                //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName();
+               //qDebug() << "DataBase::createConnection: DB is NOT open, let's open: connection name" << db.connectionName();
                 QSqlDatabase::removeDatabase("qt_sql_default_connection");
                 db = QSqlDatabase::addDatabase("QSQLITE");
             }
 
-            //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  ;
+           //qDebug() << "DataBase::createConnection: Now we call setDatabaseName"  ;
             db.setDatabaseName(dbName);
-            //qDebug() << "DataBase::createConnection: end of not valid"  ;
+           //qDebug() << "DataBase::createConnection: end of not valid"  ;
         }
-        //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  ;
+       //qDebug() << "DataBase::createConnection: end of valid check, let's try if it is open"  ;
         if (!db.open()) /* Flawfinder: ignore */
         {
-            //qDebug() << "DataBase::createConnection:Not open "  ;
+           //qDebug() << "DataBase::createConnection:Not open "  ;
             QMessageBox::warning(nullptr, QObject::tr("Database Error"), db.lastError().text());
             //qDebug() << "DataBase::createConnection: DB creation ERROR"  ;
             // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -271,17 +271,17 @@ bool DataBase::createConnection(const QString &function, bool newDB)
         }
         else
         {
-            //qDebug() << "DataBase::createConnection: created and opened after the creation" ;
+           //qDebug() << "DataBase::createConnection: created and opened after the creation" ;
             if (!isTheDBCreated())
             {
-                //qDebug() << "DataBase::createConnection: DB is still not created"  ;
+               //qDebug() << "DataBase::createConnection: DB is still not created"  ;
                 if (!createDataBase())
                 {
-                    //qDebug() << "DataBase::createConnection: DB creation failed!!"  ;
+                   //qDebug() << "DataBase::createConnection: DB creation failed!!"  ;
                     logEvent(Q_FUNC_INFO, "END-2", Debug);
                     return false;
                 }
-                //qDebug() << "DataBase::createConnection: After creation"  ;
+               //qDebug() << "DataBase::createConnection: After creation"  ;
                 stringQuery ="PRAGMA main.page_size = 4096;";
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
@@ -317,7 +317,7 @@ bool DataBase::createConnection(const QString &function, bool newDB)
         logEvent(Q_FUNC_INFO, "END-3", Debug);
         return false;
     }
-   //qDebug() << "DataBase::createConnection -------------------------------------------- END" ;
+  //qDebug() << "DataBase::createConnection -------------------------------------------- END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
     return unMarkAllQSO();
 }

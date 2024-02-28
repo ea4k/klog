@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
         }
       //qDebug() << Q_FUNC_INFO << " -  -20 - end WIN ";
     #elif defined(Q_OS_OSX)
-    //qDebug() << Q_FUNC_INFO << " -  OSX ";
+        //qDebug() << Q_FUNC_INFO << " -  OSX ";
 
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" +  (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
             missingTranslation = true;
         }
     #else
-           //qDebug() << Q_FUNC_INFO << " - OTHER OS: " << (QLocale::system()).name();
+            //qDebug() << Q_FUNC_INFO << " - OTHER OS: " << (QLocale::system()).name();
         if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
             myappTranslator.load("klog_" + (QLocale::system().name()).left(2)); /* Flawfinder: ignore */

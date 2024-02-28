@@ -96,7 +96,7 @@ private:
     void saveSettings();
     bool loadSettings();
     void createIcons();
-    bool processConfigLine(const QString &_line);
+    //bool processConfigLine(const QString &_line);
 
     void setDefaults();
 

@@ -426,7 +426,7 @@ private:
 
     bool backup, lotwUpdating, realTime, manualMode, silent_key;
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
-    bool haveBand, haveMode, haveDateTime, haveCall;
+    bool haveBand, haveMode, haveSubMode, haveDateTime, haveCall;
 
     Utilities *util;
     Adif *adif;
