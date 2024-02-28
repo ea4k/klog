@@ -2010,7 +2010,7 @@ Error returned: %2</source>
         <location filename="../logwindow.cpp" line="412"/>
         <location filename="../logwindow.cpp" line="420"/>
         <source>Via bureau</source>
-        <translation type="unfinished"></translation>
+        <translation>Caur qsl biroju</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="368"/>
