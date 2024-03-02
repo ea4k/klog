@@ -109,29 +109,30 @@ void tst_SetupHamLibSerialWidget::test_DataBits()
 void tst_SetupHamLibSerialWidget::test_FlowControl()
 {
     serialHamLibWidget->setFlowControl("Hardware");
-    QVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=Hardware", "FlowControl Hardware not OK");
+    //QVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=Hardware", "FlowControl Hardware not OK");
+    QVERIFY2(serialHamLibWidget->getFlowControl() == "Hardware", "FlowControl Hardware not OK");
     serialHamLibWidget->setFlowControl("Software");
-    QVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=Software", "FlowControl Software not OK");
+    QVERIFY2(serialHamLibWidget->getFlowControl() == "Software", "FlowControl Software not OK");
     serialHamLibWidget->setFlowControl("None");
-    QVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=None", "FlowControl None not OK");
+    QVERIFY2(serialHamLibWidget->getFlowControl() == "None", "FlowControl None not OK");
     serialHamLibWidget->setFlowControl("DEFAULT");
-    QVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=None", "FlowControl Default not OK");
+    QVERIFY2(serialHamLibWidget->getFlowControl() == "None", "FlowControl Default not OK");
 }
 
 void tst_SetupHamLibSerialWidget::test_Parity()
 {
     serialHamLibWidget->setParity("None");
-    QVERIFY2(serialHamLibWidget->getParity() == "HamLibSerialParity=None", "Parity None not OK");
+    QVERIFY2(serialHamLibWidget->getParity() == "None", "Parity None not OK");
     serialHamLibWidget->setParity("Even");
-    QVERIFY2(serialHamLibWidget->getParity() == "HamLibSerialParity=Even", "Parity Even not OK");
+    QVERIFY2(serialHamLibWidget->getParity() == "Even", "Parity Even not OK");
     serialHamLibWidget->setParity("Odd");
-    QVERIFY2(serialHamLibWidget->getParity() == "HamLibSerialParity=Odd", "Parity Odd not OK");
+    QVERIFY2(serialHamLibWidget->getParity() == "Odd", "Parity Odd not OK");
     serialHamLibWidget->setParity("Space");
-    QVERIFY2(serialHamLibWidget->getParity() == "HamLibSerialParity=Space", "Parity Space not OK");
+    QVERIFY2(serialHamLibWidget->getParity() == "Space", "Parity Space not OK");
     serialHamLibWidget->setParity("Mark");
-    QVERIFY2(serialHamLibWidget->getParity() == "HamLibSerialParity=Mark", "Parity Mark not OK");
+    QVERIFY2(serialHamLibWidget->getParity() == "Mark", "Parity Mark not OK");
     serialHamLibWidget->setParity("Default");
-    QVERIFY2(serialHamLibWidget->getParity() == "HamLibSerialParity=None", "Parity Default not OK");
+    QVERIFY2(serialHamLibWidget->getParity() == "None", "Parity Default not OK");
 }
 
 void tst_SetupHamLibSerialWidget::test_StopBits()
