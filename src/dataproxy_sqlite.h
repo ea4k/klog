@@ -318,7 +318,9 @@ public:
     bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);
 
     //void getFoundInLog(const QString &_txt, const int _log=-1);
-    QString getADIFQSO(const int _qsoId);
+    QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
+    QString getADIFFromQSOQuery(QSqlQuery query, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
+
     bool showInvalidCallMessage(const QString &_call);
 
     QList<QSO*> getSatGridStats(int _log=-1);

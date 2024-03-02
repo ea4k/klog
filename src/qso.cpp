@@ -1620,8 +1620,9 @@ QString QSO::getOwnerCallsign()
 bool QSO::setEQ_Call(const QString &_c)
 {
     if (util->isValidCall(_c))
-    {contacted_owner = _c;
-       return true;
+    {
+        contacted_owner = _c;
+        return true;
     }
     else {
        return false;
@@ -3425,8 +3426,8 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("web", web));
     if (adif->isValidLogId(QString::number(getLogId())))
         adifStr.append(adif->getADIFField ("APP_KLOG_LOGN", QString::number(getLogId())));
-
-    return adifStr;
+    //return  qso.getADIF() + "<EOR>\n";
+    return adifStr + "<EOR>\n";;
 }
 
 QString QSO::getBandNameFromFreq(const double _n)

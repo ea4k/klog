@@ -606,6 +606,8 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
 
 int eLogQrzLog::sendQSOs(QList<int> _qsos)
 {
+// This function is called from mainwindow, when the user clicks on OK in AdifLoTWExportWidget::slotOKPushButtonClicked
+// The list of QSOs is processed below to otain the ADIF and sent one by one
     //qDebug()<< "eLogQrzLog::sendQSOs: QSOs: " << QString::number(_qsos.length());
     showDebugLog (Q_FUNC_INFO, "Start");
     errorWhileSendingLog = false;
@@ -636,9 +638,10 @@ int eLogQrzLog::sendQSOs(QList<int> _qsos)
 
 int eLogQrzLog::sendQSO(const int _qsoID)
 {
+    // Received an ID, obtains the ADIF fo QRZ.com from dataProxy and sends it t QRZ.com
     //qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID);
     showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(_qsoID));
-    QString adifQSO = dataProxy->getADIFQSO(_qsoID);
+    QString adifQSO = dataProxy->getADIFQSO(_qsoID, ModeEQSL);
 
     //qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO;
     //qDebug()<< "eLogQrzLog::sendQSO: (KEY) :" << logbookkey;

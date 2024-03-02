@@ -1,7 +1,5 @@
 Changelog 2.4
 WIP: Started to reduce the possibility of SQLi with the use of prepared statements.
-bool QSO::add()
-Finish add, think/create/review QSO::modify, update: QString MainWindow::readDataFromUI()
 
 TBD - 2.3.4
 - BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #656, #659) (TNX N6PAZ, EA5WA)
@@ -17,6 +15,7 @@ TBD - 2.3.4
 - Bugfix: Alternative location for logbook.dat was not working properly (Closes #653)
 - Bugfix: Clarify how to use mode / submode in the DB (Closes #650)
 - Bugfix: Cleared some warning errors about the DB notbeing created in the console.
+- Enhancement: Refactored the getADIFQSO/getADIFFromQSOQuery to have just one single point of ADIF creation.
 - Translations: Danish (TNX Peter), Russian (YL3GBC), Spanish (EA4K)
 
 Dec 2023 - 2.3.3
