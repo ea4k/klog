@@ -84,8 +84,8 @@ void tst_QSO::test_Constructor()
 void tst_QSO::test_dataEntry()
 {
     qso->clear();
-    QVERIFY2(qso->getFreqRX() == -1, "Wrong FreqRX");
-    QVERIFY2(qso->getFreqTX() == -1, "Wrong FreqTX");
+    QVERIFY2(qso->getFreqRX() == 0, "Wrong FreqRX");
+    QVERIFY2(qso->getFreqTX() == 0, "Wrong FreqTX");
     QVERIFY2(qso->setPrefix("EA4"), "Error while setting Prefix");
     QVERIFY2(qso->getPrefix() == "EA4", "Error while reading Prefix");
     QVERIFY2(qso->setCall("EA4K"), "Error while setting Call");
