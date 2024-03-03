@@ -40,6 +40,16 @@ writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyReq
 { // Next line was commented out as it returns q QStringView instead of a QString
     //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
 
+**
+void ShowKLogLogWidget::createUI()
+void StatsFieldPerBandWidget::createUI()
+void SetupPageHamLib::createUI()
+void MainWindowMyDataTab::createUI() (myUserADIFComboBox)
+void MainQSOEntryWidget::createUI()  (bandComboBox, modeComboBox)
+void MapWindowWidget::createUI()     (bandComboBox, modeComboBox, propComboBox, satNameComboBox)
+
+    Test the combobox as currentIndexChanged was modified to currentTextChanged
+
 =============== END of Qt6 migration
 
 

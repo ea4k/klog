@@ -26,7 +26,7 @@
 #include <QtWidgets>
 //#include <QtSql>
 #include <QTranslator>
-#include <cstdlib>
+//#include <cstdlib>
 #include <QTextStream>
 #include <QCoreApplication>
 #include <QCommandLineParser>
@@ -92,8 +92,10 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
     // Translations begin
     QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)); /* Flawfinder: ignore */
-    app.installTranslator(&qtTranslator);
+    bool translatorLoad = qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)); /* Flawfinder: ignore */
+    if (translatorLoad)
+        app.installTranslator(&qtTranslator);
+
     QTranslator myappTranslator;
 
     bool missingTranslation = false;
@@ -121,10 +123,11 @@ int main(int argc, char *argv[])
       //qDebug() << Q_FUNC_INFO << " -  -20 - end WIN ";
     #elif defined(Q_OS_OSX)
         //qDebug() << Q_FUNC_INFO << " -  OSX ";
-
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" +  (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
+            translatorLoad = myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
+            if (!translatorLoad)
+                missingTranslation = true;
         }
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
         { // If language is English, it will execute without showing message

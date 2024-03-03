@@ -141,8 +141,8 @@ void MainQSOEntryWidget::createUI()
     connect(qrzLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStartDelayInputTimer() ) );
     connect(delayInputTimer, SIGNAL(timeout()), this, SLOT(slotDelayInputTimedOut() ) );
 
-    connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandComboBoxChanged(QString) ) ) ;
-    connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModeComboBoxChanged(QString) ) ) ;
+    connect(bandComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotBandComboBoxChanged(QString) ) ) ;
+    connect(modeComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotModeComboBoxChanged(QString) ) ) ;
 
     connect(OKButton, SIGNAL(clicked()), this, SLOT(slotOKButtonClicked()));
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClearButtonClicked()));

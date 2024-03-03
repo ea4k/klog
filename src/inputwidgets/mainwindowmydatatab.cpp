@@ -121,7 +121,7 @@ void MainWindowMyDataTab::createUI()
     connect(operatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotOperatorTextChanged()) );
     connect(stationCallSignLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(stationCallSignLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotStationCallSignTextChanged() ) );
-    connect(myUserADIFComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotMyUserADIFComboBoxChanged() ) ) ;
+    connect(myUserADIFComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotMyUserADIFComboBoxChanged() ) ) ;
 
     connect(myUserADIFLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentMyUSerData() ) );
     logEvent (Q_FUNC_INFO, "END", Debug);
