@@ -267,7 +267,7 @@ void MapWindowWidget::showFiltered()
 
 void MapWindowWidget::slotBandsComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
    showFiltered();
    bandComboBox->setFocus();
     //qDebug() << Q_FUNC_INFO << " - END";

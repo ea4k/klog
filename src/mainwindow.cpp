@@ -1183,6 +1183,8 @@ bool MainWindow::readQSOFromUI()
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
 
     int dxcc = world->getQRZARRLId(tqrz);
+    //qDebug() << Q_FUNC_INFO + QString(": %1 - %2").arg(tqrz).arg(dxcc);
+
     //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = othersTabWidget->getEntity();
 

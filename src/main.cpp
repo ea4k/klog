@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
         }
       //qDebug() << Q_FUNC_INFO << " -  -20 - end WIN ";
     #elif defined(Q_OS_OSX)
-        //qDebug() << Q_FUNC_INFO << " -  OSX ";
+        //qDebug() << Q_FUNC_INFO << " -  OSX: " << QLocale::system().name();
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" +  (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
             translatorLoad = myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */

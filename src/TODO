@@ -13,19 +13,6 @@ bool DataBase::updateAwardWAZTable()
 if (query.lastError().nativeErrorCode().toInt() == 19)
 
 **
-Test locator.cpp
-I had to change some code to make it compile.
-QChar(QChar('0').unicode() + k);
-
-**
-int Utilities::getNormalizedDXCCValue(const int _dxcc)
-I had to replace rightRef by right
-
-**
-bool Utilities::isValidEmail(const QString &_s)
-QRegExp has been deprecated to QRegularExpresion. Check if it works well.
-
-**
 void DataBase::compress()
 qsqldatabase::exec is deprecated
 
@@ -39,16 +26,6 @@ writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyReq
 **void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
 { // Next line was commented out as it returns q QStringView instead of a QString
     //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
-
-**
-void ShowKLogLogWidget::createUI()
-void StatsFieldPerBandWidget::createUI()
-void SetupPageHamLib::createUI()
-void MainWindowMyDataTab::createUI() (myUserADIFComboBox)
-void MainQSOEntryWidget::createUI()  (bandComboBox, modeComboBox)
-void MapWindowWidget::createUI()     (bandComboBox, modeComboBox, propComboBox, satNameComboBox)
-
-    Test the combobox as currentIndexChanged was modified to currentTextChanged
 
 =============== END of Qt6 migration
 
