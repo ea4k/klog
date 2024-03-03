@@ -650,9 +650,11 @@ QString Utilities::getCTYFile()
 
 int Utilities::getNormalizedDXCCValue(const int _dxcc)
 {
+    //qDebug() << Q_FUNC_INFO << QString(": %1").arg(_dxcc);
     if (_dxcc >1000)
     {
-        return ((QString::number(_dxcc)).right(3)).toInt();
+        //qDebug() << Q_FUNC_INFO << QString(": Special: %1 / Normalized: %2").arg(_dxcc).arg(((QString::number(_dxcc)).last(3)).toInt());
+        return ((QString::number(_dxcc)).last(3)).toInt();
     }
     else
     {

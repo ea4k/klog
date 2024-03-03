@@ -453,10 +453,12 @@ QStringList Locator::getAll(int _length)
     QChar letter1, letter2, letter3, letter4, num1, num2;
     for (int i = 0; i<18; i++)
     {
-        letter1 = QChar(QChar('A').unicode() + i);
+        letter1 = QChar('A' + i);
+        //qDebug() << Q_FUNC_INFO << ": L1: " << letter1;
         for (int j = 0; j<18; j++)
         {
-            letter2 = QChar(QChar('A').unicode() + j);
+            letter2 = QChar('A'+ j);
+            //qDebug() << Q_FUNC_INFO << ": L2: " << letter2;
             if (_length<=2)
             {
                 locator.append(letter1);
@@ -469,11 +471,13 @@ QStringList Locator::getAll(int _length)
             {
                 for (int k = 0; k<10; k++)
                 {
-                    num1 = QChar(QChar('0').unicode() + k);
+                    num1 = QChar('0' + k);
+                    //qDebug() << Q_FUNC_INFO << ": N1: " << num1;
 
                     for (int l = 0; l<10; l++)
                     {
-                        num2 = QChar(QChar('0').unicode() + l);
+                        num2 = QChar('0' + l);
+                        //qDebug() << Q_FUNC_INFO << ": N2: " << num2;
                         if (_length<=4)
                         {
                             locator.append(letter1);
@@ -488,10 +492,12 @@ QStringList Locator::getAll(int _length)
                         {
                             for (int m = 0; m<24; m++)
                             {
-                                letter3 = QChar(QChar('a').unicode() + m);
+                                //letter3 = QChar('a' + m);
+                                //qDebug() << Q_FUNC_INFO << ": L3: " << letter3;
                                 for (int n = 0; n<24; n++)
                                 {
-                                    letter4 = QChar(QChar('a').unicode() + n);
+                                    letter4 = QChar('a' + n);
+                                    //qDebug() << Q_FUNC_INFO << ": L4: " << letter4;
                                     if (_length<=6)
                                     {
                                         locator.append(letter1);
