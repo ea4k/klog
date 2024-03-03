@@ -6613,7 +6613,7 @@ bool DataBase::updateAwardDXCCTable()
         if (!sqlOK)
         {
                //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().nativeErrorCode()) ;
-            if (query.lastError().nativeErrorCode() == 19)
+            if ((query.lastError().nativeErrorCode()).toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
@@ -6843,7 +6843,7 @@ bool DataBase::updateAwardWAZTable()
         if (!sqlOK)
         {
                //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) ;
-            if (query.lastError().nativeErrorCode() == 19)
+            if (query.lastError().nativeErrorCode().toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")

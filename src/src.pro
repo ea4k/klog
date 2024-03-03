@@ -41,6 +41,7 @@ DEFINES += APP_NAME="$$APP_NAME"
 APP_UNIX_NAME = klog
 DEFINES += APP_UNIX_NAME="$$APP_UNIX_NAME"
 
+
 message(Building $${APP_NAME} $${VERSION})
 message(Qt $$[QT_VERSION] in $$[QT_INSTALL_PREFIX])
 
@@ -65,6 +66,8 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 {
     macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 }
+
+DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x050F00
 
 HEADERS += setupdialog.h \
     aboutdialog.h \

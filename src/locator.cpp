@@ -453,10 +453,10 @@ QStringList Locator::getAll(int _length)
     QChar letter1, letter2, letter3, letter4, num1, num2;
     for (int i = 0; i<18; i++)
     {
-        letter1 = 'A' + i;
+        letter1 = QChar(QChar('A').unicode() + i);
         for (int j = 0; j<18; j++)
         {
-            letter2 = 'A' + j;
+            letter2 = QChar(QChar('A').unicode() + j);
             if (_length<=2)
             {
                 locator.append(letter1);
@@ -469,10 +469,11 @@ QStringList Locator::getAll(int _length)
             {
                 for (int k = 0; k<10; k++)
                 {
-                    num1 = '0' + k;
+                    num1 = QChar(QChar('0').unicode() + k);
+
                     for (int l = 0; l<10; l++)
                     {
-                        num2 = '0' + l;
+                        num2 = QChar(QChar('0').unicode() + l);
                         if (_length<=4)
                         {
                             locator.append(letter1);
@@ -487,10 +488,10 @@ QStringList Locator::getAll(int _length)
                         {
                             for (int m = 0; m<24; m++)
                             {
-                                letter3 = 'a' + m;
+                                letter3 = QChar(QChar('a').unicode() + m);
                                 for (int n = 0; n<24; n++)
                                 {
-                                    letter4 = 'a' + n;
+                                    letter4 = QChar(QChar('a').unicode() + n);
                                     if (_length<=6)
                                     {
                                         locator.append(letter1);
@@ -507,7 +508,6 @@ QStringList Locator::getAll(int _length)
                             }
                         }
                     }
-
                 }
             }
         }

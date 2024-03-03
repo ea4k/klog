@@ -341,13 +341,17 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     QStringList result;
     int cq = _cq;
     int itu = _itu;
-    QString azone;
+    QString azone; // Special zones start with a [
     QString aux = pref;
 
     if(aux.count('[')==1) // Check if has special CQz
     {
            //qDebug() << "World::readZones DETECTED [ !!!!";
-        azone = (aux.midRef(aux.indexOf('[')+1)).toString();
+        qsizetype pos = aux.indexOf('[');
+        azone = aux.sliced(pos, 1);
+        //Following line was migrated from qt5
+        //azone = (aux.midRef(aux.indexOf('[')+1)).toString();
+
            //qDebug() << "World::readZones (ITU)-1: " << aux << " right of " << QString::number(aux.indexOf('[')) << " = " << azone;
         itu = (azone.left(azone.indexOf(']'))).toInt();
 
@@ -359,7 +363,10 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     if(aux.count('(')==1) // Check if has special CQz
     {
            //qDebug() << "World::readZones DETECTED ( !!!!";
-        azone = (aux.midRef(aux.indexOf('(')+1)).toString();
+        qsizetype pos = aux.indexOf('[');
+        azone = aux.sliced(pos, 1);
+         //Following line was migrated from qt5
+        //azone = (aux.midRef(aux.indexOf('(')+1)).toString();
         cq = (azone.left(azone.indexOf(')'))).toInt();
         aux = aux.left(aux.indexOf('('));
            //qDebug() << "World::readZones (CQ): "  << pref << "/" << QString::number(cq) << "/" << aux;
