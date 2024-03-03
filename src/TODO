@@ -40,7 +40,10 @@ writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyReq
 { // Next line was commented out as it returns q QStringView instead of a QString
     //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
 
-=============== END of Qt6 migratio
+=============== END of Qt6 migration
+
+
+
 BUG: KLog needs to update the Entity DB is shown on every start
 
 KLog should update ALWAYS when receiving from LoTW the QSL_LOTW_rcvd or add the QSO if not in local log.

@@ -163,7 +163,7 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
 void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
 {
     //qDebug() << Q_FUNC_INFO << xml.text();
-    //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
+    showDebugLog (Q_FUNC_INFO, QString("Start: ").append(xml.text()));
     QString tdata = QString();
 
     while (!xml.atEnd())
