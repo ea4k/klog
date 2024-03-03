@@ -371,6 +371,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             nameCol = rec.indexOf("id");
             qsos.append((query.value(nameCol)).toInt());
             writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
+            //Use std::move(query) instead of query?
+            // Copy queries is deprecated
 
             i++;
             //qDebug() << Q_FUNC_INFO << ":  Start of isValid" ;
@@ -4009,7 +4011,7 @@ void FileManager::writeADIFHeader(QTextStream &out, const ExportMode _em, const 
     out << "<EOH>\n";
 }
 
-void FileManager::writeQuery(QSqlQuery query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN )
+void FileManager::writeQuery(QSqlQuery &query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN )
 {
     out << dataProxy->getADIFFromQSOQuery(query, _em, _justMarked, _onlyRequested, _logN);
 }

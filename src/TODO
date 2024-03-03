@@ -1,16 +1,4 @@
 /*========== START Qt6 migration:
-**
-int DataProxy_SQLite::lotwUpdateQSLReception
-I had to comment out: //else if (query.lastError().nativeErrorCode() == -1)
-
-**
-bool DataBase::updateAwardDXCCTable()
-nativeErrorCode seems to be a QChar now, I added the toInt
-if ((query.lastError().nativeErrorCode()).toInt() == 19)
-
-**
-bool DataBase::updateAwardWAZTable()
-if (query.lastError().nativeErrorCode().toInt() == 19)
 
 **
 void DataBase::compress()
@@ -20,10 +8,9 @@ qsqldatabase::exec is deprecated
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
 QSqlQuery is deprecated
 writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
-
+std::move(query);
 **
-**
-**void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
+void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
 { // Next line was commented out as it returns q QStringView instead of a QString
     //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
 

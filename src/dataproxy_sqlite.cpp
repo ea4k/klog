@@ -3532,11 +3532,11 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
                 return -5;
             }
         }
-        //else if (query.lastError().nativeErrorCode() == -1)
-        //{
+        else if ((query.lastError().nativeErrorCode()).toInt() == -1)
+        {
            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception QSO not found " << query.lastQuery();
-        //    return -1;
-        //}
+            return -1;
+        }
         else
         {
            //qDebug() << "DataProxy_SQLite::lotwUpdateQSLReception Unknown error " << query.lastQuery();

@@ -5175,19 +5175,19 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
 
 void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
-     //qDebug() << "MainWindow::slotShowAwards"  ;
+    qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     awards->recalculateAwards();
-     //qDebug() << "MainWindow::slotShowAwards-1";
+    qDebug() << Q_FUNC_INFO << " - 1";
     //logWindow->refresh();
-     //qDebug() << "MainWindow::slotShowAwards-2";
+    qDebug() << Q_FUNC_INFO << " - 2";
 
     awardsWidget->showAwards();
-      //qDebug() << "MainWindow::slotShowAwards-3"  ;
+    qDebug() << Q_FUNC_INFO << " - 3";
     //dxccStatusWidget->refresh();
     setMainWindowTitle();
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "MainWindow::slotShowAwards-END"  ;
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::fillQSOData()
