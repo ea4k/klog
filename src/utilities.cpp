@@ -2231,6 +2231,7 @@ void Utilities::openQrzcom(const QString _call)
 }
 
 void Utilities::printCommandHelp(){
+    QTextStream cout(stdout);
     cout << "Usage: klog [OPTION]...\n";
     cout << "Options:\n";
     cout << "     -?           Display this help\n";

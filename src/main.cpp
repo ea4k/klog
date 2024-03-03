@@ -104,13 +104,18 @@ int main(int argc, char *argv[])
     #if defined(Q_OS_WIN)
         //qDebug() << Q_FUNC_INFO << " - WIN ";
         //qDebug() << Q_FUNC_INFO << " - 20 - WIN";
+
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
+            translatorLoad = myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
+        if (!translatorLoad)
+            missingTranslation = true;
         }
         else if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") ) /* Flawfinder: ignore */
         {
-            myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name())); /* Flawfinder: ignore */
+           translatorLoad = myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name())); /* Flawfinder: ignore */
+            if (!translatorLoad)
+                missingTranslation = true;
         }
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
         { // If language is English, it will execute without showing message

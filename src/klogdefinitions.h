@@ -28,7 +28,7 @@
 
 #include <QString>
 
-using namespace std;
+//using namespace std;
 
 enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
 enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
