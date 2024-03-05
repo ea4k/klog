@@ -358,19 +358,20 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
         return qsos;
     }
 
-    QSqlRecord rec = query.record();
+
     int nameCol;
 
     //qDebug() << Q_FUNC_INFO << ":  Entering the While..." ;
-
+    QSqlRecord rec;
     while ( (query.next()) && (!noMoreQso) )
     {
         //qDebug() << Q_FUNC_INFO << ":  Start of While" ;
         if (query.isValid())
         {
+            rec = query.record();
             nameCol = rec.indexOf("id");
             qsos.append((query.value(nameCol)).toInt());
-            writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
+            writeQuery(rec, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
             //Use std::move(query) instead of query?
             // Copy queries is deprecated
 
@@ -518,13 +519,15 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     progress.setWindowTitle(tr("Export progress"));
     int currentQso = 0;
     int step = util->getProgresStepForDialog(numberOfQSOs);
+    QSqlRecord rec;
     while ( (query.next()) && (!noMoreQso) )
     {
        //qDebug() << "FileManager::adifLogExportToFile -  Just in the While";
         if (query.isValid())
         {
+            rec = query.record();
             //qDebug() << "FileManager::adifLogExportToFile -  Query is Valid";
-             writeQuery(query, out, ModeADIF, false, false, -1);
+             writeQuery(rec, out, ModeADIF, false, false, -1);
         } // Closes the isValid
         else {
            //qDebug() << "FileManager::adifLogExportToFile -  Query is NOT Valid";
@@ -638,13 +641,15 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     progress.setWindowTitle(tr("Export progress"));
     int currentQso = 0;
     int step = util->getProgresStepForDialog(numberOfQSOs);
+    QSqlRecord rec;
     while ( (query.next()) && (!noMoreQso) )
     {
         //qDebug() << Q_FUNC_INFO << " -  Just in the While";
         if (query.isValid())
         {
+            rec = query.record();
             //qDebug() << Q_FUNC_INFO << " -  Query is Valid";
-            writeQuery(query, out, ModeADIF, false, false, -1);
+            writeQuery(rec, out, ModeADIF, false, false, -1);
         } // Closes the isValid
         else {
             //qDebug() << Q_FUNC_INFO << " -  Query is NOT Valid";
@@ -835,17 +840,17 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setWindowTitle(tr("Export progress"));
 
-    QSqlRecord rec = query.record();
     QDateTime date;
     //qDebug() << Q_FUNC_INFO << " - 50";
-
+    QSqlRecord rec;
     while ( (query.next()) && (!noMoreQso) )
     {
         //qDebug() << Q_FUNC_INFO << " - 50.1";
 
         if (query.isValid())
         {
-            writeQuery(query, out, ModeADIF, exportJustMarkedQSO, exportOnlyQSLRequested, _logN);
+            rec = query.record();
+            writeQuery(rec, out, ModeADIF, exportJustMarkedQSO, exportOnlyQSLRequested, _logN);
             //qDebug() << Q_FUNC_INFO << " - 50.2";
         } // Closes the isValid
 
@@ -4011,7 +4016,7 @@ void FileManager::writeADIFHeader(QTextStream &out, const ExportMode _em, const 
     out << "<EOH>\n";
 }
 
-void FileManager::writeQuery(QSqlQuery &query, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN )
+void FileManager::writeQuery(QSqlRecord &rec, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN )
 {
-    out << dataProxy->getADIFFromQSOQuery(query, _em, _justMarked, _onlyRequested, _logN);
+    out << dataProxy->getADIFFromQSOQuery(rec, _em, _justMarked, _onlyRequested, _logN);
 }

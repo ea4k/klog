@@ -688,7 +688,10 @@ bool World::readCTYCSV(const QString &_worldFile)
         if (stringList.size()>=8 )
         {
         //(id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)
-            query.addBindValue(QVariant(QVariant::Int));
+            //query.prepare("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            //query.addBindValue(QVariant(QVariant::Int));
+            query.addBindValue( QVariant(int()));
             query.addBindValue(stringList.at(1)); // name
             query.addBindValue(stringList.at(4)); // CQ
             query.addBindValue(stringList.at(5)); // ITU
@@ -744,7 +747,7 @@ bool World::readCTYCSV(const QString &_worldFile)
                     //                                               0    1       2    3    4
                     //  (id, prefix, dxcc, cqz, ituz)
                       //qDebug()  << "World::readCTYCSV(): Prefix: " << stringListPrefixes.at(i);
-                    queryP.addBindValue(QVariant(QVariant::Int));
+                    queryP.addBindValue(QVariant(int()));
 
 
                     //readZones (const QString &pref, const int _cq, const int _itu)

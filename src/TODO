@@ -1,14 +1,13 @@
 /*========== START Qt6 migration:
+**
+void tst_MainWindow::test_focusOrder()
+Test: //QApplication::setActiveWindow(mainWindow);
+I had to replace previews line.
 
 **
 void DataBase::compress()
 qsqldatabase::exec is deprecated
 
-**
-QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
-QSqlQuery is deprecated
-writeQuery(query, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
-std::move(query);
 **
 void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
 { // Next line was commented out as it returns q QStringView instead of a QString

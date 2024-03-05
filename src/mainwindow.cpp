@@ -451,18 +451,19 @@ void MainWindow::init()
      //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     selectedYear = (dateTime->currentDateTime()).date().year();
-    loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
+    loggWinAct->setShortcut(Qt::CTRL | Qt::Key_L);
+
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
     clublogAnswer = -1;
 
-    defaultColor.setNamedColor("slategrey");
-    neededColor.setNamedColor("yellow");
-    workedColor.setNamedColor("blue");
-    confirmedColor.setNamedColor("red");
-    newOneColor.setNamedColor("green");
+    defaultColor.fromString("slategrey");
+    neededColor.fromString("yellow");
+    workedColor.fromString("blue");
+    confirmedColor.fromString("red");
+    newOneColor.fromString("green");
 
      //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
@@ -2366,7 +2367,7 @@ void MainWindow::createMenusCommon()
 
     printLogAct = new QAction(tr("&Print Log ..."), this);
     fileMenu->addAction(printLogAct);
-    printLogAct->setShortcut(Qt::CTRL + Qt::Key_P);
+    printLogAct->setShortcut(Qt::CTRL | Qt::Key_P);
     printLogAct->setToolTip(tr("Print your log."));
     connect(printLogAct, SIGNAL(triggered()), this, SLOT(slotFilePrint()));
 
@@ -2389,7 +2390,7 @@ void MainWindow::createMenusCommon()
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     //exitAct->setMenuRole(QAction::QuitRole);
-    exitAct->setShortcut(Qt::CTRL + Qt::Key_X);
+    exitAct->setShortcut(Qt::CTRL | Qt::Key_X);
     //connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(slotFileClose()));
 
@@ -6912,11 +6913,11 @@ bool MainWindow::loadSettings()
 
      //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
-    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
-    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+    newOneColor.fromString(settings.value ("NewOneColor", "#FF0000").toString ());
+    neededColor.fromString(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.fromString(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.fromString(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.fromString(settings.value ("DefaultColor", "#00BFFF").toString ());
     settings.endGroup ();
     setupDialog->loadDarkMode ();
 

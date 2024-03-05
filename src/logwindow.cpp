@@ -344,47 +344,47 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
    //qDebug() << "LogWindow::showMenuRightButtonFromLogCreateActions";
 
     delQSOFromLogAct = new QAction(tr("&Delete"), this);
-    delQSOFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
+    delQSOFromLogAct->setShortcut(Qt::CTRL | Qt::Key_D);
     delQSOFromLogAct->setStatusTip(tr("Delete a QSO"));
     connect(delQSOFromLogAct, SIGNAL(triggered()), this, SLOT(slotQsoDeleteFromLog()));
 
     qsoToEditFromLogAct = new QAction(tr("&Edit QSO"), this);
-    qsoToEditFromLogAct->setShortcut(Qt::CTRL + Qt::Key_E);
+    qsoToEditFromLogAct->setShortcut(Qt::CTRL | Qt::Key_E);
     qsoToEditFromLogAct->setStatusTip(tr("Edit this QSO"));
     connect(qsoToEditFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOToEditFromLog()));
 
     qslSentViaBureauFromLogAct = new QAction(tr("Via &bureau"), this);
-    qslSentViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_B);
+    qslSentViaBureauFromLogAct->setShortcut(Qt::CTRL | Qt::Key_B);
     qslSentViaBureauFromLogAct->setStatusTip(tr("Send this QSL via bureau"));
     connect(qslSentViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaBureauFromLog() ));
 
     qslSentViaDirectFromLogAct = new QAction(tr("D&irect"), this);
-    qslSentViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_I);
+    qslSentViaDirectFromLogAct->setShortcut(Qt::CTRL | Qt::Key_I);
     qslSentViaDirectFromLogAct->setStatusTip(tr("Send this QSL via direct"));
     connect(qslSentViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLSentViaDirectFromLog()   ));
 
     qslRecViaBureauFromLogAct = new QAction(tr("Via bureau"), this);
-    qslRecViaBureauFromLogAct->setShortcut(Qt::CTRL + Qt::Key_R);
+    qslRecViaBureauFromLogAct->setShortcut(Qt::CTRL | Qt::Key_R);
     qslRecViaBureauFromLogAct->setStatusTip(tr("QSL &received via bureau"));
     connect(qslRecViaBureauFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaBureauFromLog() ));
 
     qslRecViaDirectFromLogAct = new QAction(tr("Direct"), this);
-    qslRecViaDirectFromLogAct->setShortcut(Qt::CTRL + Qt::Key_T);
+    qslRecViaDirectFromLogAct->setShortcut(Qt::CTRL | Qt::Key_T);
     qslRecViaDirectFromLogAct->setStatusTip(tr("QSL received via direc&t"));
     connect(qslRecViaDirectFromLogAct, SIGNAL(triggered()), this, SLOT( slotQSLRecViaDirectFromLog() ));
 
     checkQRZCOMFromLogAct = new QAction(tr("Check in QRZ.com"), this);
-    checkQRZCOMFromLogAct->setShortcut(Qt::CTRL + Qt::Key_Q);
+    checkQRZCOMFromLogAct->setShortcut(Qt::CTRL | Qt::Key_Q);
     checkQRZCOMFromLogAct->setStatusTip(tr("Check this callsign in QRZ.com"));
     connect(checkQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckQRZCom() ));
 
     checkDXHeatFromLogAct = new QAction(tr("Check in DXHeat.com"), this);
-    checkDXHeatFromLogAct->setShortcut(Qt::CTRL + Qt::Key_Q);
+    checkDXHeatFromLogAct->setShortcut(Qt::CTRL | Qt::Key_Q);
     checkDXHeatFromLogAct->setStatusTip(tr("Check this callsign in DXHeat.com"));
     connect(checkDXHeatFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckDXHeatCom() ));
 
     multipleDelQSOsFromLogAct = new QAction(tr("Delete selected QSOs"), this);
-    //multipleDelQSOsFromLogAct->setShortcut(Qt::CTRL + Qt::Key_D);
+    //multipleDelQSOsFromLogAct->setShortcut(Qt::CTRL | Qt::Key_D);
     multipleDelQSOsFromLogAct->setStatusTip(tr("Delete the selected QSOs"));
     connect(multipleDelQSOsFromLogAct, SIGNAL(triggered()), this, SLOT(slotQSOsDeleteFromLog()));
 
