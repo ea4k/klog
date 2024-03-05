@@ -45,7 +45,7 @@
 //#include "awards.h"
 
 
-class QStringList;
+//class QStringList;
 
 enum
 {

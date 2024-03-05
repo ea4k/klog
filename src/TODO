@@ -1,3 +1,22 @@
+/*========== START Qt6 migration:
+**
+void tst_MainWindow::test_focusOrder()
+Test: //QApplication::setActiveWindow(mainWindow);
+I had to replace previews line.
+
+**
+void DataBase::compress()
+qsqldatabase::exec is deprecated
+
+**
+void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
+{ // Next line was commented out as it returns q QStringView instead of a QString
+    //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
+
+=============== END of Qt6 migration
+
+
+
 BUG: KLog needs to update the Entity DB is shown on every start
 
 KLog should update ALWAYS when receiving from LoTW the QSL_LOTW_rcvd or add the QSO if not in local log.
@@ -306,7 +325,7 @@ Mode U
 Mode U/V -> B
 </SATELLITE SUPPORT>
 
-TODO: Code a way to sort the bands/modes in the "setuppagebandsmodes.cpp
+TODO: Code a way to sort the bands/modes in the setuppagebandsmodes.cpp
 
 TODO: Create an "updateKLog" class to manage all the release updates
 so there is a way to detect the version of KLog and upgrade the DB to the latest.
@@ -415,4 +434,4 @@ DONE: TODO: DXCluster: Connect, disconnect and connect again does not work
 DONE: TODO: Add a field in Mainwindow to manage RX_PWR
 DONE: TODO: slotclearbuttons->Colors to default
 DONE: GUI: Add in the input box a combobox to change the DXCC
-
+*/

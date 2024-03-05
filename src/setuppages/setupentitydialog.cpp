@@ -45,7 +45,7 @@ SetupEntityDialog::SetupEntityDialog(){
     //paletteWrong = new QPalette();
     //*paletteWrong->setColor(QPalette::WindowText, Qt::red);
 
-    //paletteWrong.setColor(QPalette::WindowText, color.setNamedColor("red"));
+    //paletteWrong.setColor(QPalette::WindowText, color.fromString("red"));
     palw.setColor(QPalette::Text, Qt::red);
     //pal.setColor(QPalette::Text, Qt::black);
 

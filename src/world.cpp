@@ -341,13 +341,17 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     QStringList result;
     int cq = _cq;
     int itu = _itu;
-    QString azone;
+    QString azone; // Special zones start with a [
     QString aux = pref;
 
     if(aux.count('[')==1) // Check if has special CQz
     {
            //qDebug() << "World::readZones DETECTED [ !!!!";
-        azone = (aux.midRef(aux.indexOf('[')+1)).toString();
+        qsizetype pos = aux.indexOf('[');
+        azone = aux.sliced(pos, 1);
+        //Following line was migrated from qt5
+        //azone = (aux.midRef(aux.indexOf('[')+1)).toString();
+
            //qDebug() << "World::readZones (ITU)-1: " << aux << " right of " << QString::number(aux.indexOf('[')) << " = " << azone;
         itu = (azone.left(azone.indexOf(']'))).toInt();
 
@@ -359,7 +363,10 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     if(aux.count('(')==1) // Check if has special CQz
     {
            //qDebug() << "World::readZones DETECTED ( !!!!";
-        azone = (aux.midRef(aux.indexOf('(')+1)).toString();
+        qsizetype pos = aux.indexOf('[');
+        azone = aux.sliced(pos, 1);
+         //Following line was migrated from qt5
+        //azone = (aux.midRef(aux.indexOf('(')+1)).toString();
         cq = (azone.left(azone.indexOf(')'))).toInt();
         aux = aux.left(aux.indexOf('('));
            //qDebug() << "World::readZones (CQ): "  << pref << "/" << QString::number(cq) << "/" << aux;
@@ -681,7 +688,10 @@ bool World::readCTYCSV(const QString &_worldFile)
         if (stringList.size()>=8 )
         {
         //(id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)
-            query.addBindValue(QVariant(QVariant::Int));
+            //query.prepare("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            //query.addBindValue(QVariant(QVariant::Int));
+            query.addBindValue( QVariant(int()));
             query.addBindValue(stringList.at(1)); // name
             query.addBindValue(stringList.at(4)); // CQ
             query.addBindValue(stringList.at(5)); // ITU
@@ -737,7 +747,7 @@ bool World::readCTYCSV(const QString &_worldFile)
                     //                                               0    1       2    3    4
                     //  (id, prefix, dxcc, cqz, ituz)
                       //qDebug()  << "World::readCTYCSV(): Prefix: " << stringListPrefixes.at(i);
-                    queryP.addBindValue(QVariant(QVariant::Int));
+                    queryP.addBindValue(QVariant(int()));
 
 
                     //readZones (const QString &pref, const int _cq, const int _itu)

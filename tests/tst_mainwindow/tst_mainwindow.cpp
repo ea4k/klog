@@ -127,7 +127,8 @@ void tst_MainWindow::init()
 
 void tst_MainWindow::test_focusOrder()
 {
-    QApplication::setActiveWindow(mainWindow);
+    //QApplication::setActiveWindow(mainWindow);
+    mainWindow->activateWindow();
     mainWindow->mainQSOEntryWidget->setFocus();
     QVERIFY2(mainWindow->mainQSOEntryWidget->hasFocus(), "mainQSOEntriWidget didn't get focus");
 }
@@ -249,7 +250,9 @@ void tst_MainWindow::test_QSOEntry()
     QCOMPARE(spy1.count(), 1);
 
     QList<QVariant> args = spy1.takeFirst();
-    QVERIFY(args.at(0).type() == QVariant::Bool);
+
+    //QVERIFY(args.at(0).type() == QMetaType::Bool);
+    QVERIFY(args.at(0).typeId() == QMetaType::Bool);
     if (mainQSOEntryWidget->getManualMode() == true)
     {
         QVERIFY2(args.at(0).toBool () == true, "Manual mode  has been enabled");

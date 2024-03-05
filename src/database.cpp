@@ -212,7 +212,8 @@ void DataBase::compress()
     }
    else
     {
-        db.exec("VACUUM;");
+        QSqlQuery query("VACUUM;");
+        query.exec("VACUUM;");
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -3708,7 +3709,7 @@ bool DataBase::updateModeIdFromSubModeId()
     int qsos;
     int i = 0;
     QString aux;
-    QSqlQuery query, query2;
+    QSqlQuery query;
     bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
 
     if (sqlOk)
@@ -3763,6 +3764,7 @@ bool DataBase::updateModeIdFromSubModeId()
                 //TODO The following query can be executed in: getModeIdFromSubMode()
 
                 sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(modetxt);                                // STEP-3
+                QSqlQuery query2;
                 sqlOk2 = query2.exec(sq);
 
                 if (sqlOk2)
@@ -3784,7 +3786,7 @@ bool DataBase::updateModeIdFromSubModeId()
                             else
                             {
                                 //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                     //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  ;
+                                //qDebug() << "DataBase::updateModeIdFromSubModeId: (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  ;
                             }
                         }
                         else
@@ -3845,9 +3847,7 @@ bool DataBase::updateModeIdFromSubModeId()
             query.finish();
             return false;
         }
-
             //qDebug() << "DataBase::updateModeIdFromSubModeId: END"  ;
-
         query.finish();
         return true;
     }
@@ -3882,7 +3882,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     int qsos;
     int i = 0;
     QString aux;
-    QSqlQuery query, query2;
+    QSqlQuery query;
     bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
 
     if (sqlOk)
@@ -3931,7 +3931,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 bandtxt = getBandNameFromNumber(bandFound);
 
                      //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt ;
-
+                QSqlQuery query2;
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
 
@@ -6613,7 +6613,7 @@ bool DataBase::updateAwardDXCCTable()
         if (!sqlOK)
         {
                //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().nativeErrorCode()) ;
-            if (query.lastError().nativeErrorCode() == 19)
+            if ((query.lastError().nativeErrorCode()).toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
@@ -6843,7 +6843,7 @@ bool DataBase::updateAwardWAZTable()
         if (!sqlOK)
         {
                //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) ;
-            if (query.lastError().nativeErrorCode() == 19)
+            if (query.lastError().nativeErrorCode().toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")

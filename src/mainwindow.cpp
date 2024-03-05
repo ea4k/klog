@@ -451,18 +451,19 @@ void MainWindow::init()
      //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     selectedYear = (dateTime->currentDateTime()).date().year();
-    loggWinAct->setShortcut(Qt::CTRL + Qt::Key_L);
+    loggWinAct->setShortcut(Qt::CTRL | Qt::Key_L);
+
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
     clublogAnswer = -1;
 
-    defaultColor.setNamedColor("slategrey");
-    neededColor.setNamedColor("yellow");
-    workedColor.setNamedColor("blue");
-    confirmedColor.setNamedColor("red");
-    newOneColor.setNamedColor("green");
+    defaultColor.fromString("slategrey");
+    neededColor.fromString("yellow");
+    workedColor.fromString("blue");
+    confirmedColor.fromString("red");
+    newOneColor.fromString("green");
 
      //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
@@ -1183,6 +1184,8 @@ bool MainWindow::readQSOFromUI()
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
 
     int dxcc = world->getQRZARRLId(tqrz);
+    //qDebug() << Q_FUNC_INFO + QString(": %1 - %2").arg(tqrz).arg(dxcc);
+
     //int dxcc2 = getDXCCFromComboBox();
     int dxcc2 = othersTabWidget->getEntity();
 
@@ -2364,7 +2367,7 @@ void MainWindow::createMenusCommon()
 
     printLogAct = new QAction(tr("&Print Log ..."), this);
     fileMenu->addAction(printLogAct);
-    printLogAct->setShortcut(Qt::CTRL + Qt::Key_P);
+    printLogAct->setShortcut(Qt::CTRL | Qt::Key_P);
     printLogAct->setToolTip(tr("Print your log."));
     connect(printLogAct, SIGNAL(triggered()), this, SLOT(slotFilePrint()));
 
@@ -2387,7 +2390,7 @@ void MainWindow::createMenusCommon()
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     //exitAct->setMenuRole(QAction::QuitRole);
-    exitAct->setShortcut(Qt::CTRL + Qt::Key_X);
+    exitAct->setShortcut(Qt::CTRL | Qt::Key_X);
     //connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(slotFileClose()));
 
@@ -5173,19 +5176,19 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
 
 void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
-     //qDebug() << "MainWindow::slotShowAwards"  ;
+    qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     awards->recalculateAwards();
-     //qDebug() << "MainWindow::slotShowAwards-1";
+    qDebug() << Q_FUNC_INFO << " - 1";
     //logWindow->refresh();
-     //qDebug() << "MainWindow::slotShowAwards-2";
+    qDebug() << Q_FUNC_INFO << " - 2";
 
     awardsWidget->showAwards();
-      //qDebug() << "MainWindow::slotShowAwards-3"  ;
+    qDebug() << Q_FUNC_INFO << " - 3";
     //dxccStatusWidget->refresh();
     setMainWindowTitle();
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "MainWindow::slotShowAwards-END"  ;
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::fillQSOData()
@@ -6910,11 +6913,11 @@ bool MainWindow::loadSettings()
 
      //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
-    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
-    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+    newOneColor.fromString(settings.value ("NewOneColor", "#FF0000").toString ());
+    neededColor.fromString(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.fromString(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.fromString(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.fromString(settings.value ("DefaultColor", "#00BFFF").toString ());
     settings.endGroup ();
     setupDialog->loadDarkMode ();
 
