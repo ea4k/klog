@@ -13,11 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: configure
-      run: ./configure
+    - name: apt update
+      run: sudo apt-get update
+    - name: Install dependencies
+      run: sudo apt install -y --fix-missing g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib++-dev libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev
+    - name: qmake
+      run: qmake src.pro
     - name: make
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
