@@ -6,7 +6,6 @@
 <img src="https://img.shields.io/github/v/release/ea4k/klog?logo=github&logoColor=white" alt="GitHub release"/>
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <a href="https://twitter.com/_ea4k"><img src="https://img.shields.io/twitter/follow/_ea4k.svg?style=social&label=Follow" alt="Twitter Follow"/></a>
-[![](https://tokei.rs/b1/github/ea4k/klog)](https://github.com/ea4k/klog).
 [![Build status](https://ci.appveyor.com/api/projects/status/4hfa3npj88v2reqs/branch/master?svg=true)](https://ci.appveyor.com/project/ea4k/klog/branch/master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/23857/badge.svg)](https://scan.coverity.com/projects/ea4k-klog)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5879/badge)](https://bestpractices.coreinfrastructure.org/projects/5879)
