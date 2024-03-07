@@ -1,7 +1,7 @@
 version: build{build}
 
 image:
-  - Ubuntu2004
+  - Ubuntu2204
 
 install:
   - sh: sudo apt-get -qq update
