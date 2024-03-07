@@ -805,7 +805,7 @@ void DXCCStatusWidget::slotRightButton(const QPoint& pos)
     int row = (dxccView->indexAt(pos)).row();
 
     showDXCCWikipediaAct = new QAction(tr("&Wikipedia"), this);
-    showDXCCWikipediaAct->setShortcut(Qt::CTRL + Qt::Key_W);
+    showDXCCWikipediaAct->setShortcut(Qt::CTRL | Qt::Key_W);
     showDXCCWikipediaAct->setStatusTip(tr("Show this DXCC in Wikipedia"));
     connect(showDXCCWikipediaAct, SIGNAL(triggered()), this, SLOT(slotWikipedia()));
 

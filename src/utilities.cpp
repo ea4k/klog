@@ -650,9 +650,11 @@ QString Utilities::getCTYFile()
 
 int Utilities::getNormalizedDXCCValue(const int _dxcc)
 {
+    //qDebug() << Q_FUNC_INFO << QString(": %1").arg(_dxcc);
     if (_dxcc >1000)
     {
-        return ((QString::number(_dxcc)).rightRef(3)).toInt();
+        //qDebug() << Q_FUNC_INFO << QString(": Special: %1 / Normalized: %2").arg(_dxcc).arg(((QString::number(_dxcc)).last(3)).toInt());
+        return ((QString::number(_dxcc)).last(3)).toInt();
     }
     else
     {
@@ -2199,11 +2201,18 @@ bool Utilities::isValidPropMode(const QString &_s)
 
 bool Utilities::isValidEmail(const QString &_s)
 {
-    QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
-    mailREX.setCaseSensitivity(Qt::CaseInsensitive);
-    mailREX.setPatternSyntax(QRegExp::RegExp);
-    return mailREX.exactMatch(_s);
-    //return ((_s.contains("@")) && (_s.contains(".")));
+    //QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+    QRegularExpression mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+    mailREX.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+
+    //mailREX.setCaseSensitivity(Qt::CaseInsensitive);
+    //mailREX.setPatternSyntax(QRegExp::RegExp)
+
+    // match two digits followed by a space and a word
+
+    QRegularExpressionMatch match = mailREX.match(_s);
+    return match.hasMatch(); // true
+    //return mailREX.exactMatch(_s);
 }
 
 
@@ -2224,6 +2233,7 @@ void Utilities::openQrzcom(const QString _call)
 }
 
 void Utilities::printCommandHelp(){
+    QTextStream cout(stdout);
     cout << "Usage: klog [OPTION]...\n";
     cout << "Options:\n";
     cout << "     -?           Display this help\n";

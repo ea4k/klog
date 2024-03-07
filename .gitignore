@@ -9,7 +9,7 @@ src/object_*
 .DS_Store
 KLog.app
 *.qm
-
+.qtc_clangd
 *.autosave
 *.sh~
 *.dmg

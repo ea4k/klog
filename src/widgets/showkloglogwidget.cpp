@@ -44,6 +44,7 @@ ShowKLogLogWidget::~ShowKLogLogWidget()
 {
     delete(util);
 }
+
 void ShowKLogLogWidget::createUI()
 {
     levelComboBox->clear();
@@ -55,7 +56,7 @@ void ShowKLogLogWidget::createUI()
     layout->addWidget(logsView);
     setLayout(layout);
 
-    connect(levelComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotLevelComboBoxChanged(QString) ) ) ;
+    connect(levelComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotLevelComboBoxChanged(QString) ) ) ;
 }
 
 

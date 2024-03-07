@@ -110,7 +110,7 @@ void DXClusterWidget::createActions()
 {
    //qDebug() << Q_FUNC_INFO;
     checkQRZCOMFromLogAct = new QAction(tr("Check in QRZ.com"), this);
-    //checkQRZCOMFromLogAct->setShortcut(Qt::CTRL + Qt::Key_Q);
+    //checkQRZCOMFromLogAct->setShortcut(Qt::CTRL | Qt::Key_Q);
     checkQRZCOMFromLogAct->setStatusTip(tr("Check this callsign in QRZ.com"));
     connect(checkQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckQRZCom() ));
 
@@ -119,7 +119,8 @@ void DXClusterWidget::createActions()
 void DXClusterWidget::init()
 {
    //qDebug() << Q_FUNC_INFO;
-    dxSpotColor.setNamedColor("slategrey");
+    dxSpotColor.fromString("slategrey");
+    //dxSpotColor.fromString("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     showDxMarathon = false;

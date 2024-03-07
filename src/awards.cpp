@@ -40,11 +40,11 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
     util = new Utilities(Q_FUNC_INFO);
     //world->create();
 /*
-    newOneColor.setNamedColor("#ff0000");
-    neededColor.setNamedColor("#ff8c00");
-    workedColor.setNamedColor("#ffd700");
-    confirmedColor.setNamedColor("#32cd32");
-    defaultColor.setNamedColor("#00bfff");
+    newOneColor.fromString("#ff0000");
+    neededColor.fromString("#ff8c00");
+    workedColor.fromString("#ffd700");
+    confirmedColor.fromString("#32cd32");
+    defaultColor.fromString("#00bfff");
 */
     //"Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
     //Awards::setColors:  "#ff0000" / "#ff8c00" / "#ffd700" / "#32cd32" / "#00bfff"
@@ -1146,27 +1146,27 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
 
     if (defaultColor.isValid())
     {
-        defaultColor.setNamedColor(_default.toUpper());
+        defaultColor.fromString(_default.toUpper());
     }
 
     if (neededColor.isValid())
     {
-        neededColor.setNamedColor(_needed.toUpper());
+        neededColor.fromString(_needed.toUpper());
     }
 
     if (confirmedColor.isValid())
     {
-        confirmedColor.setNamedColor(_confirmed.toUpper());
+        confirmedColor.fromString(_confirmed.toUpper());
     }
 
     if (newOneColor.isValid())
     {
-        newOneColor.setNamedColor(_newOne.toUpper());
+        newOneColor.fromString(_newOne.toUpper());
     }
 
     if (workedColor.isValid())
     {
-        workedColor.setNamedColor(_worked.toUpper());
+        workedColor.fromString(_worked.toUpper());
     }
 }
 
@@ -1183,11 +1183,11 @@ void Awards::recalculateAwards()
     Should go in a transaction
 */
 
-    //qDebug() << "Awards::recalculateAwards";
+    qDebug() << Q_FUNC_INFO;
     dataProxy->updateAwardDXCC();
     emit awardDXCCUpdated();
     dataProxy->updateAwardWAZ();
-       //qDebug() << "Awards::recalculateAwards - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 int Awards::getQSOsInLog(const int _logNumber)

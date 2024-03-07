@@ -3,7 +3,7 @@ Follow these steps to build KLog.
 KLog requires Qt5 to be built.
 
 Currently, many distributions are still distributing Qt4 as a default Qt
-version so it may be needed that you install Qt5 to be able to build KLog in
+version so it may be needed that you install Qt6 to be able to build KLog in
 your system.
 
 install may depend on your distribution, however, check for similar names &
@@ -18,12 +18,12 @@ details in the AUTHORS file).
 There are dependencies to build KLog and dependencies to run KLog.
 
 The dependencies to build KLog are:
-        - g++, make, qt5-qmake, qtbase5-dev, qttools5-dev, libqt5charts5-dev, libqt5sql5-sqlite, libqt5serialport5-dev, qtdeclarative5-dev, qtpositioning5-dev & libhamlib-dev packages
+        - make qmake6 qt6-base-dev qt6-declarative-dev libhamlib-dev build-essential libgl1-mesa-dev qt6-serialport-dev qt6-positioning-dev qt6-charts-dev qt6-l10n-tools
 
 In Debian it is done with: 
-         apt-get install g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib++-dev libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev
+         apt install -y --fix-missing make qmake6 qt6-base-dev qt6-declarative-dev libhamlib-dev build-essential libgl1-mesa-dev qt6-serialport-dev qt6-positioning-dev qt6-charts-dev qt6-l10n-tools
 
-The dependencies to run KLog once installed are:
+*** TO BE UPDATED: The dependencies to run KLog once installed are:
         - libqt5sql5-sqlite, qml-module-qtquick-window2, qml-module-qtlocation, qml-module-qtpositioning, qml-module-qtquick2 & qml-module-qtquick-controls2
 
 Again in Debian, it is done with:
@@ -35,28 +35,17 @@ If your are using the Debian KLog package the dependencies to run KLog will be a
 In your distribution, you should know how to install new packages :-)
 
 
-Make sure you have qt5 available. You can do it with the qtchooser command.
+Make sure you have qt6 available. You can do it with the qtchooser command.
 The output should be something like:
 
-        user@debian:~$ qtchooser -l
-        4
-        5
-        default
-        qt4-i386-linux-gnu
-        qt4
-        qt5-i386-linux-gnu
-        qt5
-        user@debian:~$
+        user@debian:~$ qmake6 -v
+        QMake version 3.1
+        Using Qt version 6.4.2 in /usr/lib/x86_64-linux-gnu
+
+If Qt is not at least Qt6, check your instalallation as one of the previous packages may be missing.
 
 
-It should return the list of qt versions available, qt5 must be one of them.
-If qt5 is still not there, check your instalallation as one of the previous packages may be missing.
-
-2.- Select the appropriate Qt version (Qt5)
-
-    export QT_SELECT=qt5
-
-3.- Untar klog
+2.- Untar klog
 
     tar xvzf klog-version.tar.gz
 
@@ -65,18 +54,18 @@ If qt5 is still not there, check your instalallation as one of the previous pack
     cd klog-version
 
 
-4.- Generate the Makefile
+3.- Generate the Makefile
 
     cd src
-    qmake PREFIX=/usr/local src.pro
+    qmake6 PREFIX=/usr/local src.pro
 
-5. Make everything.
+4. Make everything.
 
     make
 
 If everything goes OK, you should have the klog executable in the folder.
 
-6.- To install KLog, execute the following from the root account.
+5.- To install KLog, execute the following from the root account.
 
     make install
 

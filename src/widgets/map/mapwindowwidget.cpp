@@ -101,10 +101,10 @@ void MapWindowWidget::createUI()
     mapWidget->init();
     //qDebug() << Q_FUNC_INFO << "4";
 
-    connect(bandComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotBandsComboBoxChanged()));
-    connect(modeComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
-    connect(propComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
-    connect(satNameComboBox, SIGNAL(currentIndexChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
+    connect(bandComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotBandsComboBoxChanged()));
+    connect(modeComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
+    connect(propComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
+    connect(satNameComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
     connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
 
     //connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
@@ -267,7 +267,7 @@ void MapWindowWidget::showFiltered()
 
 void MapWindowWidget::slotBandsComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
    showFiltered();
    bandComboBox->setFocus();
     //qDebug() << Q_FUNC_INFO << " - END";
