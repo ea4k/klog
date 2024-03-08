@@ -459,11 +459,11 @@ void MainWindow::init()
 
     clublogAnswer = -1;
 
-    defaultColor.fromString("slategrey");
-    neededColor.fromString("yellow");
-    workedColor.fromString("blue");
-    confirmedColor.fromString("red");
-    newOneColor.fromString("green");
+    defaultColor.setNamedColor("slategrey");
+    neededColor.setNamedColor("yellow");
+    workedColor.setNamedColor("blue");
+    confirmedColor.setNamedColor("red");
+    newOneColor.setNamedColor("green");
 
      //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
