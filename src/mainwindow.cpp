@@ -6913,11 +6913,11 @@ bool MainWindow::loadSettings()
 
      //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
-    newOneColor.fromString(settings.value ("NewOneColor", "#FF0000").toString ());
-    neededColor.fromString(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.fromString(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.fromString(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.fromString(settings.value ("DefaultColor", "#00BFFF").toString ());
+    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
     settings.endGroup ();
     setupDialog->loadDarkMode ();
 
