@@ -27,18 +27,17 @@ matrix:
   include:
   - os: linux
     arch: amd64
-    dist: focal
+    dist: jammy
     
     before_install:
-      - sudo apt-get update
-      - sudo apt-get -y install qtbase5-dev libsqlite3-dev
-      - sudo apt-get -y install qttools5-dev-tools qtchooser libqt5charts5-dev libqt5serialport5-dev libhamlib++-dev qt5-qmake qttools5-dev libqt5sql5-sqlite qtdeclarative5-dev qtpositioning5-dev libhamlib-dev
+      - sudo apt update
+      - sudo apt install -y --fix-missing make qmake6 qt6-base-dev qt6-declarative-dev libhamlib-dev build-essential libgl1-mesa-dev qt6-serialport-dev qt6-positioning-dev qt6-charts-dev qt6-l10n-tools
     
     compiler:
       - gcc
       
     before_script:
-      - qmake KLog.pro
+      - qmake6 KLog.pro
     
     script:
       - make
