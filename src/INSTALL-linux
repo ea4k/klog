@@ -1,6 +1,6 @@
 Follow these steps to build KLog.
 
-KLog requires Qt5 to be built.
+KLog requires Qt6 to be built.
 
 Currently, many distributions are still distributing Qt4 as a default Qt
 version so it may be needed that you install Qt6 to be able to build KLog in
