@@ -1146,27 +1146,27 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
 
     if (defaultColor.isValid())
     {
-        defaultColor.fromString(_default.toUpper());
+        defaultColor.setNamedColor(_default.toUpper());
     }
 
     if (neededColor.isValid())
     {
-        neededColor.fromString(_needed.toUpper());
+        neededColor.setNamedColor(_needed.toUpper());
     }
 
     if (confirmedColor.isValid())
     {
-        confirmedColor.fromString(_confirmed.toUpper());
+        confirmedColor.setNamedColor(_confirmed.toUpper());
     }
 
     if (newOneColor.isValid())
     {
-        newOneColor.fromString(_newOne.toUpper());
+        newOneColor.setNamedColor(_newOne.toUpper());
     }
 
     if (workedColor.isValid())
     {
-        workedColor.fromString(_worked.toUpper());
+        workedColor.setNamedColor(_worked.toUpper());
     }
 }
 
