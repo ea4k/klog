@@ -425,12 +425,12 @@
     <message>
         <location filename="../startwizard.cpp" line="928"/>
         <source>&amp;Download</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lejupielāde</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="929"/>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignorēt</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="948"/>
