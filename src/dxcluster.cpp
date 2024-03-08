@@ -119,7 +119,7 @@ void DXClusterWidget::createActions()
 void DXClusterWidget::init()
 {
    //qDebug() << Q_FUNC_INFO;
-    dxSpotColor.fromString("slategrey");
+    dxSpotColor.setNamedColor("slategrey");
     //dxSpotColor.fromString("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
