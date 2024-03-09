@@ -1146,27 +1146,51 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
 
     if (defaultColor.isValid())
     {
-        defaultColor.setNamedColor(_default.toUpper());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+       defaultColor.fromString(_default.toUpper()); //To be replaced by .fromString in Qt6.6
+#else
+        defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
+#endif
+
     }
 
     if (neededColor.isValid())
     {
-        neededColor.setNamedColor(_needed.toUpper());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+        neededColor.fromString(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
+#else
+        neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
+#endif
+
     }
 
     if (confirmedColor.isValid())
     {
-        confirmedColor.setNamedColor(_confirmed.toUpper());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+        confirmedColor.fromString(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
+#else
+        confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
+#endif
     }
 
     if (newOneColor.isValid())
     {
-        newOneColor.setNamedColor(_newOne.toUpper());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+        newOneColor.fromString(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
+#else
+        newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
+#endif
     }
 
     if (workedColor.isValid())
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+        workedColor.fromString(_worked.toUpper());
+#else
         workedColor.setNamedColor(_worked.toUpper());
+#endif
+
+
     }
 }
 

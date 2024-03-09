@@ -458,12 +458,23 @@ void MainWindow::init()
     palBlack.setColor(QPalette::Text, Qt::black);
 
     clublogAnswer = -1;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+       defaultColor.fromString("slategrey"); //To be replaced by .fromString in Qt6.6
+       neededColor.fromString("yellow");
+       workedColor.fromString("blue");
+       confirmedColor.fromString("red");
+       newOneColor.fromString("green");
+#else
+        defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
+        neededColor.setNamedColor("yellow");
+        workedColor.setNamedColor("blue");
+        confirmedColor.setNamedColor("red");
+        newOneColor.setNamedColor("green");
+#endif
 
-    defaultColor.setNamedColor("slategrey");
-    neededColor.setNamedColor("yellow");
-    workedColor.setNamedColor("blue");
-    confirmedColor.setNamedColor("red");
-    newOneColor.setNamedColor("green");
+
+
+
 
      //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
@@ -6913,11 +6924,22 @@ bool MainWindow::loadSettings()
 
      //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+    newOneColor.fromString(settings.value ("NewOneColor", "#FF0000").toString ());
+    neededColor.fromString(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.fromString(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.fromString(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.fromString(settings.value ("DefaultColor", "#00BFFF").toString ());
+#else
     newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
     workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
     confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
     defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+#endif
+
+
     settings.endGroup ();
     setupDialog->loadDarkMode ();
 
