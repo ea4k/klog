@@ -2062,7 +2062,7 @@ Error returned: %2</source>
     <message>
         <location filename="../logwindow.cpp" line="391"/>
         <source>Export to ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportēt uz ADIF</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="392"/>
