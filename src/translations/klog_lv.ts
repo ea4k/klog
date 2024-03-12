@@ -3807,7 +3807,7 @@ Open the LoTW tab in the Setup and configure your LoTW connection.</source>
     <message>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="47"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentāri</translation>
+        <translation>Komentāri</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputcomment.cpp" line="49"/>
@@ -5466,13 +5466,13 @@ KLog will finish when you click on OK.</source>
         <location filename="../searchwindow.cpp" line="91"/>
         <location filename="../searchwindow.cpp" line="196"/>
         <source>Call</source>
-        <translation type="unfinished">Izsaukuma signāls</translation>
+        <translation>Izsaukuma signāls</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="86"/>
         <location filename="../searchwindow.cpp" line="91"/>
         <source>Date/Time</source>
-        <translation type="unfinished">Datums Laiks</translation>
+        <translation>Datums/Laiks</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="86"/>
@@ -5512,17 +5512,17 @@ KLog will finish when you click on OK.</source>
         <location filename="../searchwindow.cpp" line="86"/>
         <location filename="../searchwindow.cpp" line="91"/>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="191"/>
         <source>Date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Datums/Laiks</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="223"/>
         <source>Station callsign</source>
-        <translation type="unfinished">Stacijas izsaukuma signāls</translation>
+        <translation>Stacijas izsaukuma signāls</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="291"/>
@@ -5582,7 +5582,7 @@ KLog will finish when you click on OK.</source>
     <message>
         <location filename="../searchwindow.cpp" line="390"/>
         <source>Direct</source>
-        <translation type="unfinished">Tieša</translation>
+        <translation>Tieša</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="391"/>
