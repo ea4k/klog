@@ -9,8 +9,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/4hfa3npj88v2reqs/branch/master?svg=true)](https://ci.appveyor.com/project/ea4k/klog/branch/master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/23857/badge.svg)](https://scan.coverity.com/projects/ea4k-klog)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5879/badge)](https://bestpractices.coreinfrastructure.org/projects/5879)
-![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
 [![Known Vulnerabilities](https://snyk.io/test/github/ea4k/klog/badge.svg)](https://snyk.io/test/github/ea4k/klog)
+![klog-screenshot](https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png)
 
 
 The objective of KLog is to provide a free software that runs in GNU/Linux, macOS and Windows.
