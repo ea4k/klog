@@ -70,7 +70,7 @@ public:
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     //bool adifReadLog(const QString& tfileName, const int logN);
-    bool adifReadLog2(const QString& tfileName, const int logN);
+    int adifReadLog2(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog2(const QString& fileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);

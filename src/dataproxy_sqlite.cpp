@@ -306,7 +306,6 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
     return false;
-
 }
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
