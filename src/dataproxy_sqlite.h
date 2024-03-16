@@ -340,7 +340,9 @@ private:
     QStringList sortBandIdBottonUp(const QStringList _qs);
     double getFreqFromRange(QString _fr, int _pair = 0); //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString &_tableName);
-
+    QString getStringQueryStationCallSign (const QString &_a);   // Creates part of a query regarding the station_call field
+    QString getStringQueryMyGrid (const QString &_a);     // Creates part of a query regarding the my_gridsquare field
+    QString getStringQueryLogNumber (const int _a);     // Creates part of a query regarding the lognumber field
     int getPrefixId(const QString &_qrz);
     //QString changeSlashAndFindPrefix(const QString &_qrz);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);

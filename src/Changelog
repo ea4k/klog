@@ -1,5 +1,7 @@
 Changelog 2.4
 WIP: Started to reduce the possibility of SQLi with the use of prepared statements.
+- Enhancement: Ported from Qt4 to Qt5.
+- Enhancement: Refactoring of several classes.
 
 Mar 2024 - 2.3.4
 - BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #656, #659) (TNX N6PAZ, EA5WA)

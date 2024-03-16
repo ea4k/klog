@@ -3554,47 +3554,85 @@ int DataProxy_SQLite::lotwUpdateQSLReception (const QString &_call, const QDateT
     query.finish();
     return -100;
 }
+QString DataProxy_SQLite::getStringQueryLogNumber (const int _a)
+{
+    // Returns the string to build a query.
+    // This is used by:
+    // DataProxy_SQLite::getQSOsListLoTWToSend
+    // DataProxy_SQLite::getQSOsListClubLogToSent
+    // DataProxy_SQLite::getQSOsListEQSLToSent
+    // DataProxy_SQLite::getQSOsListQRZCOMToSent
+    // DataProxy_SQLite::getQSOsListToBeExported
+
+    if (doesThisLogExist (_a))
+    {
+        return QString(" AND lognumber='%1'").arg(_a);
+    }
+    else
+    {
+        return QString();
+    }
+}
+
+QString DataProxy_SQLite::getStringQueryMyGrid (const QString &_a)
+{
+    // Returns the string to build a query.
+    // This is used by:
+    // DataProxy_SQLite::getQSOsListToBeExported
+    if (util->isValidGrid (_a))
+    {
+        return QString("my_gridsquare='%1'").arg(_a);
+    }
+    else if (_a == "ALL")
+    {
+        return QString("((my_gridsquare!='ALL') OR (my_gridsquare IS NULL) OR (my_gridsquare=''))");
+    }
+    else
+    { // NO GRID
+        return QString("(my_gridsquare='' OR my_gridsquare IS NULL)");
+    }
+}
+
+QString DataProxy_SQLite::getStringQueryStationCallSign (const QString &_a)
+{
+    // Returns the string to build a query.
+    // This is used by:
+    // DataProxy_SQLite::getQSOsListLoTWToSend
+    // DataProxy_SQLite::getGridsToBeSent
+    // DataProxy_SQLite::getQSOsListClubLogToSent
+    // DataProxy_SQLite::getQSOsListEQSLToSent
+    // DataProxy_SQLite::getQSOsListQRZCOMToSent
+    // DataProxy_SQLite::getQSOsListToBeExported
+    // DataProxy_SQLite::getQSOsListeQSLNotSent
+    if (util->isValidCall(_a, true))
+    {
+        return QString("station_callsign='%1'").arg(_a);
+    }
+    else if (_a == "ALL")
+    {
+        return QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
+    }
+    else
+    {
+        return QString("((station_callsign='') OR (station_callsign IS NULL))");
+    }
+}
 
 QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsign, const QString &_myGrid, const QDate &_startDate, const QDate &_endDate, bool _justQueued, int _logN)
 {
     //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Call/Start/end: " << _stationCallsign << _myGrid << _startDate.toString("yyyyMMdd") << "/" << _endDate.toString("yyyyMMdd");
 
-    QList <int> qsoList;
-    qsoList.clear();
+
     QDate tmpDate;
     QString aux = QString();
     QStringList qs;
     qs.clear();
     QString queryString;
 
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-        _queryST_string = QString("((station_callsign='') OR (station_callsign IS NULL))");
-    }
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
+    QString _queryGrid_string = getStringQueryMyGrid (_myGrid);
 
-    QString _queryGrid_string;
-    if (util->isValidGrid (_myGrid))
-    {
-        _queryGrid_string = QString("my_gridsquare='%1'").arg(_myGrid);
-    }
-    else if (_myGrid == "ALL")
-    {
-        _queryGrid_string = QString("(my_gridsquare!='ALL' OR my_gridsquare IS NULL OR my_gridsquare='')");
-    }
-    else
-    {
-        _queryGrid_string = QString("(my_gridsquare='' OR my_gridsquare IS NULL)");
-    }
 
     QString _query_justQueued;
     if (_justQueued)
@@ -3608,15 +3646,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
         _query_justQueued = QString("lotw_qsl_sent!='1'");
     }
 
-    QString _query_logNumber;
-    if (doesThisLogExist (_logN))
-    {
-        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-    }
-    else
-    {
-        _query_logNumber.clear ();
-    }
+    QString _query_logNumber = getStringQueryLogNumber(_logN);
 
     QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
     QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
@@ -3624,10 +3654,12 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
     queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 AND %3 %4 AND %5 AND %6").arg(_queryST_string).arg(_queryGrid_string).arg(_query_justQueued).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
 
+    QList <int> qsoList;
+    qsoList.clear();
+
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
     //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery() ;
-
     if (sqlOK)
     {
        // //qDebug() << "DataProxy_SQLite::getQSOsListLoTWToSend Query: " << query.lastQuery();
@@ -3670,22 +3702,8 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     qs.clear();
     QString queryString;
 
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-        //qDebug() << Q_FUNC_INFO << " - Valid Call: " << _stationCallsign;
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-        //qDebug() << Q_FUNC_INFO << " - ALL Calls";
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << " - Else calls";
-        _queryST_string = QString("((station_callsign='') OR (station_callsign IS NULL))");
-    }
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+    QString _queryST_logNumber = getStringQueryLogNumber (_logN);
 
     QString _query_justQueued;
     if ((_justModified) && (_em == ModeLotW))
@@ -3697,16 +3715,7 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
         _query_justQueued = QString("((lotw_qsl_sent!='1') OR (lotw_qsl_sent IS NULL))");
     }
 
-    QString _query_logNumber;
-    if (doesThisLogExist (_logN))
-    {
-        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-    }
-    else
-    {
-        _query_logNumber.clear ();
-    }
-    queryString = QString("SELECT DISTINCT my_gridsquare FROM log WHERE %1 AND ((my_gridsquare<>'') OR (my_gridsquare IS NOT NULL)) AND qso_date>='%2' AND qso_date<='%3' AND %4").arg(_queryST_string).arg(util->getDateSQLiteStringFromDate(_startDate)).arg(util->getDateSQLiteStringFromDate(_endDate.addDays (1))).arg(_query_justQueued);
+    queryString = QString("SELECT DISTINCT my_gridsquare FROM log WHERE %1 AND ((my_gridsquare<>'') OR (my_gridsquare IS NOT NULL)) AND qso_date>='%2' AND qso_date<='%3' AND %4 %5").arg(_queryST_string).arg(util->getDateSQLiteStringFromDate(_startDate)).arg(util->getDateSQLiteStringFromDate(_endDate.addDays (1))).arg(_query_justQueued).arg(_queryST_logNumber);
 
     QSqlQuery query;
 
@@ -3752,19 +3761,8 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
     QStringList qs;
     qs.clear();
     QString queryString;
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-        _queryST_string = QString("(station_callsign='' OR station_callsign IS NULL)");
-    }
+
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
     QString _query_justModified;
     if (_justModified)
@@ -3778,17 +3776,8 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
         _query_justModified = QString("clublog_qso_upload_status!='M'");
     }
     //qDebug() << "DataProxy_SQLite::getQSOsListClubLogToSent logN: " << QString::number(_logN);
-    QString _query_logNumber;
-    if (doesThisLogExist (_logN))
-    {
-        //qDebug() << "DataProxy_SQLite::getQSOsListClubLogToSent log DOES exist";
-        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-    }
-    else
-    {
-        //qDebug() << "DataProxy_SQLite::getQSOsListClubLogToSent log DOES NOT exist";
-        _query_logNumber.clear ();
-    }
+
+    QString _query_logNumber = getStringQueryLogNumber(_logN);
 
 
     QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
@@ -3847,19 +3836,8 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
     qs.clear();
     QString queryString;
 
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-        _queryST_string = QString("(station_callsign='' OR station_callsign IS NULL)");
-    }
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+
 
     QString _query_justModified;
     if (_justModified)
@@ -3873,15 +3851,7 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
         _query_justModified = QString("eqsl_qsl_sent!='M'");
     }
 
-    QString _query_logNumber;
-    if (doesThisLogExist (_logN))
-    {
-        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-    }
-    else
-    {
-        _query_logNumber.clear ();
-    }
+    QString _query_logNumber = getStringQueryLogNumber(_logN);
 
     QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
     QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
@@ -3937,19 +3907,7 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
     qs.clear();
     QString queryString;
 
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-        _queryST_string = QString("(station_callsign='' OR station_callsign IS NULL)");
-    }
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
     QString _query_justModified;
     if (_justModified)
@@ -3963,15 +3921,7 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
         _query_justModified = QString("qrzcom_qso_upload_status!='-'");
     }
 
-    QString _query_logNumber;
-    if (doesThisLogExist (_logN))
-    {
-        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-    }
-    else
-    {
-        _query_logNumber.clear ();
-    }
+    QString _query_logNumber = getStringQueryLogNumber(_logN);
 
     QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
     QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
@@ -4028,52 +3978,16 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
     qs.clear();
     QString queryString;
 
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-         //qDebug() << Q_FUNC_INFO << ": Valid call";
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-         //qDebug() << Q_FUNC_INFO << ": ALL";
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-         //qDebug() << Q_FUNC_INFO << ": Non defined or empty";
-        _queryST_string = QString("(station_callsign='' OR station_callsign IS NULL)");
-    }
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
-    QString _queryGrid_String;
-    if (util->isValidGrid (_grid))
-    {
-        _queryGrid_String = QString("AND my_gridsquare='%1'").arg(_grid);
-    }
-    else if (_grid == "ALL")
-    {
-        //_queryGrid_String = QString();
-        _queryGrid_String = QString("AND ((my_gridsquare!='ALL') OR (my_gridsquare IS NULL) OR (my_gridsquare=''))");
-    }
-    else
-    { // NO GRID
-        _queryGrid_String = QString("AND (my_gridsquare='' OR my_gridsquare IS NULL)");
-    }
+    QString _queryGrid_String = getStringQueryMyGrid (_grid);
 
-    QString _query_logNumber;
-    if (doesThisLogExist (_logN))
-    {
-        _query_logNumber = QString(" AND lognumber='%1'").arg(_logN);
-    }
-    else
-    {
-        _query_logNumber.clear ();
-    }
+    QString _query_logNumber = getStringQueryLogNumber(_logN);
 
     QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
     QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 %2 %3 AND %4 AND %5 ").arg(_queryST_string).arg(_queryGrid_String).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);;
+    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5 ").arg(_queryST_string).arg(_queryGrid_String).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);;
 
     QSqlQuery query;
 
@@ -4153,20 +4067,7 @@ QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCalls
     qs.clear();
     QString queryString;
 
-    QString _queryST_string;
-    if (util->isValidCall(_stationCallsign, true))
-    {
-        _queryST_string = QString("station_callsign='%1'").arg(_stationCallsign);
-    }
-    else if (_stationCallsign == "ALL")
-    {
-
-        _queryST_string = QString("((station_callsign!='ALL') OR (station_callsign IS NULL) OR (station_callsign=''))");
-    }
-    else
-    {
-        _queryST_string = QString("((station_callsign='') OR (station_callsign IS NULL))");
-    }
+    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
     QString _query_justQueued;
     if (_justQueued)
