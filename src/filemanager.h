@@ -69,10 +69,9 @@ public:
     ~FileManager();
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
-    bool adifReadLog(const QString& tfileName, const int logN);
+    //bool adifReadLog(const QString& tfileName, const int logN);
     bool adifReadLog2(const QString& tfileName, const int logN);
     QList<int> adifLoTWReadLog2(const QString& fileName, const int logN);
-    QList<int> adifLoTWReadLog(const QString& tfileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
 
@@ -114,7 +113,7 @@ private:
 
     //QString checkAndFixASCIIinADIF(_data);
 
-    bool processQsoReadingADIF(const QStringList &_line, const int logNumber);//, const bool _keepLogsInFile);
+    //bool processQsoReadingADIF(const QStringList &_line, const int logNumber);//, const bool _keepLogsInFile);
     void queryPreparation(const int _logN);
 
     bool checkADIFValidFormat(const QStringList &_qs);

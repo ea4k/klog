@@ -99,7 +99,6 @@ QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _lo
        stringQuery = QString("SELECT call, qso_date from log where dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(_enti).arg(_bandid).arg(_log);
     }
 
-
     sqlOK = query.exec(stringQuery);
        //qDebug() << "Awards::getQSOofAward: stringQuery: " << stringQuery;
     if (sqlOK)
@@ -1151,7 +1150,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
 #else
         defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
-
     }
 
     if (neededColor.isValid())
@@ -1161,7 +1159,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
 #else
         neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
-
     }
 
     if (confirmedColor.isValid())
@@ -1172,7 +1169,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
         confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
     }
-
     if (newOneColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
@@ -1181,7 +1177,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
         newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
     }
-
     if (workedColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
@@ -1189,8 +1184,6 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
 #else
         workedColor.setNamedColor(_worked.toUpper());
 #endif
-
-
     }
 }
 
@@ -1649,7 +1642,6 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
               query.finish();
               return -1;
         }
-
        //qDebug() << "Awards::dxccStatusBand: return - 0.3";
         return status;                                       // if arrives to here decision => not worked
 }
@@ -1819,7 +1811,6 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
     if (sqlOK)
     {
         //qDebug() << Q_FUNC_INFO << " - exec query: " << query.lastQuery ();
-
         dxccStatusList.clear();
         while(query.next())
         {

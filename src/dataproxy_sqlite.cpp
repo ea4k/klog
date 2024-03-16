@@ -5771,10 +5771,10 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-      //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: " << QString::number(_qsoId);
+      //qDebug() << Q_FUNC_ << QString::number(_qsoId);
     if (_qsoId <= 0)
     {
-           //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: QSOid <=0 " << QString::number(_qsoId);
+           //qDebug() << Q_FUNC_INFO << ":  QSOid <=0 " << QString::number(_qsoId);
         return false;
     }
     QList<int> values;
@@ -5790,7 +5790,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     //int _dxcc = getDXCCFromId(_qsoId);
     if (_dxcc <= 0)
     {
-           //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: DXCC <= 0: DXCC: " << QString::number(_dxcc) << " - "  << QString::number(_qsoId);
+           //qDebug() << Q_FUNC_INFO << ":  DXCC <= 0: DXCC: " << QString::number(_dxcc) << " - "  << QString::number(_qsoId);
         return false;
     }
 
@@ -5798,21 +5798,21 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     //int _band = getBandFromId(_qsoId);
     if (_band <= 0)
     {
-          //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Band <= 0: BAND: " << QString::number(_band) << " - "  << QString::number(_qsoId);
+          //qDebug() << Q_FUNC_INFO << ":  Band <= 0: BAND: " << QString::number(_band) << " - "  << QString::number(_qsoId);
         return false;
     }
 
     int _mode = values.at(1);    //int _mode = getModeFromId(_qsoId);
     if (_mode <= 0)
     {
-          //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Mode <= 0: Mode: " << QString::number(_mode) << " - "  << QString::number(_qsoId);
+          //qDebug() << Q_FUNC_INFO << ":  Mode <= 0: Mode: " << QString::number(_mode) << " - "  << QString::number(_qsoId);
         return false;
     }
     int _log = values.at(4);
     //int _log = getLogNumberFromQSOId(_qsoId);
     if (_log <= 0)
     {
-          //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Log <= 0: Log: " << QString::number(_log) << " - "  << QString::number(_qsoId);
+          //qDebug() << Q_FUNC_INFO << ":  Log <= 0: Log: " << QString::number(_log) << " - "  << QString::number(_qsoId);
         return false;
     }
 
@@ -5825,10 +5825,17 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-    QString queryString = QString("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band='%1' AND mode='%2' AND dxcc='%3'").arg(_band).arg(_mode).arg(_dxcc);
+    QString queryString = QString("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band=:band AND mode=:mode AND dxcc=:dxcc");
+    if (!query.prepare(queryString))
+    {
+        return false;
+    }
+    query.bindValue(":band", _band);
+    query.bindValue(":mode", _mode);
+    query.bindValue(":dxcc", _dxcc);
 
     bool sqlOK = query.exec(queryString);
-      //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Queryexec-1: " << queryString;
+      //qDebug() << Q_FUNC_INFO << ":  Queryexec-1: " << queryString;
     queryString.clear();
 
     if (sqlOK)
@@ -5860,7 +5867,12 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 { // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
                     nameCol = rec.indexOf("qsoid");
                     //int __qsoid = (query.value(nameCol)).toInt();
-                    queryString = QString("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
+                    queryString = QString("UPDATE awarddxcc SET confirmed = '1', qsoid = :qsoid WHERE id = :_id");
+                    query.finish();
+                    if (!query.prepare(queryString))
+                        return false;
+                    query.bindValue("qsoid", _qsoId);
+                    query.bindValue("_id", __id);
                 }
             }
             else
@@ -5868,9 +5880,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 query.finish();
                 return true;
             }
-
-            query.finish();
-
             // #1 - If the band/mode/log is already confirmed: Return true
             // #2 - If the band/mode/log is already worked and status worked: Return true
             // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
@@ -5881,14 +5890,20 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             //#4 - If not worked: Add and Return true
             query.finish();
             // awarddxcc id dxcc band mode confirmed qsoid lognumber
-            queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','0', '%4', '%5')").arg(_dxcc).arg(_band).arg(_mode).arg(_qsoId).arg(_log);
+            //queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','0', '%4', '%5')").arg(_dxcc).arg(_band).arg(_mode).arg(_qsoId).arg(_log);
+            queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) "
+                                  "values(:dxcc, :band, :mode,'0', :qsoid, :logNumber)");
+            if (!query.prepare(queryString))
+                return false;
+            query.bindValue(":dxcc", _dxcc);
+            query.bindValue(":band", _band);
+            query.bindValue(":mode", _mode);
+            query.bindValue(":qsoid", _qsoId);
+            query.bindValue(":logNumber", _log);
         }
-
-        if (queryString.length()>5)
-        {
             if (query.exec(queryString))
             {
-                  //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: Queryexec-2: " << queryString;
+                  //qDebug() << Q_FUNC_INFO << ": Queryexec-2: " << queryString;
                 query.finish();
                 return true;
             }
@@ -5901,7 +5916,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                     return false;
                 }
             }
-        }
     }
     else
     {
@@ -5921,7 +5935,7 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-       //qDebug() << "DataProxy_SQLite::setDXCCAwardStatus: " << QString::number(_qsoId);
+       //qDebug() << Q_FUNC_INFO << ":  << QString::number(_qsoId);
     if (_qsoId <= 0)
     {
         return false;
@@ -8336,19 +8350,24 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId, ExportMode _em)
     return getADIFFromQSOQuery(rec, _em, false, false, -1);
 }
 
+QString DataProxy_SQLite::getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName)
+{// To refactor the getADIFFromQSOQuery function
+    int nameCol = _rec.indexOf(_fieldName);
+    if (nameCol>=0)
+    {
+        QSqlField field = _rec.field(nameCol);
+        return (field.value()).toString();
+    }
+    return QString();
+}
+
 
 QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bool _justMarked, bool _onlyRequested, const int _logN )
 {   //qDebug() << Q_FUNC_INFO << ": " <<  query.lastQuery();
-    qDebug() << Q_FUNC_INFO << ": START";
+    //qDebug() << Q_FUNC_INFO << ": START";
     int nameCol;
     QString aux;
 
-    //bool propsat = false;    // Reset the QSO in case it is a Satellite QSO
-
-    //for(int i=0;i<rec.count();i++){
-    //    QSqlField field=rec.field(i);
-    //    qDebug() << Q_FUNC_INFO << " / "<<field.name()<<" / "<<field.value();
-    //}
     QSO qso;
     qso.clear();
     QSqlField field;
@@ -8376,1025 +8395,230 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
         }
     }
 
+    qso.setCall(getADIFValueFromRec(rec, "call"));
 
-
-    nameCol = rec.indexOf("call");
-
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-        aux = (field.value()).toString();
-        //aux = (query.value(nameCol)).toString();
-        qso.setCall(aux);
-    }
-
-    nameCol = rec.indexOf("qso_date");
     QDateTime tDateTime;
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-        aux = (field.value()).toString();
-        //aux = (query.value(nameCol)).toString();
-        tDateTime = util->getDateTimeFromSQLiteString(aux);
-        qso.setDateTimeOn(tDateTime);
-    }
+    aux = getADIFValueFromRec(rec, "qso_date");
+    tDateTime = util->getDateTimeFromSQLiteString(aux);
+    qso.setDateTimeOn(tDateTime);
 
-    nameCol = rec.indexOf("bandid");
-    QString bandst = QString();
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
+    aux = getADIFValueFromRec(rec, "bandid");
+    qso.setBand(getNameFromBandId(aux.toInt()));
 
-        //qDebug() << Q_FUNC_INFO << ": -Band-1: "  << aux;
-        aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << Q_FUNC_INFO << ": -Band-2: "  << aux;
-        qso.setBand(getNameFromBandId(aux.toInt()));
-    }
+    aux = getADIFValueFromRec(rec, "freq");
+    qso.setFreq(aux.toDouble());
 
-    nameCol = rec.indexOf("freq");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-1: "  << aux;
-        aux = util->checkAndFixASCIIinADIF(aux);
-        //qDebug() << Q_FUNC_INFO << ":  FREQ_TX-2: "  << aux;
-        qso.setFreq(aux.toDouble());
-    }
-    // Now the BAND RX
-    nameCol = rec.indexOf("band_rx");
-    QString bandrxst = QString();
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        aux = util->checkAndFixASCIIinADIF(aux);
-        aux = getNameFromBandId(aux.toInt());
-        qso.setBandRX(aux);
-    }
+    aux = getADIFValueFromRec(rec, "band_rx");
+    aux = getNameFromBandId(aux.toInt());
+    qso.setBandRX(aux);
 
-    nameCol = rec.indexOf("freq_rx");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setFreqRX(aux.toDouble());
-    }
+    aux = getADIFValueFromRec(rec, "freq_rx");
+    qso.setFreqRX((aux.toDouble()));
 
-    nameCol = rec.indexOf("modeid");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        aux = util->checkAndFixASCIIinADIF(aux);
-        // get SubModeId to check if it is the same or not from modeid
-        QString aux2 = getSubModeFromId(aux.toInt());
-        aux = getNameFromSubMode(aux2);
-        qso.setMode(aux);
-        qso.setSubmode(aux2);
-    }
+    aux = getADIFValueFromRec(rec, "modeid");
+    QString aux2 = getSubModeFromId(aux.toInt());
+    aux = getNameFromSubMode(aux2);
+    qso.setMode(aux);
+    qso.setSubmode(aux2);
 
-    nameCol = rec.indexOf("prop_mode");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setPropMode(aux);
-        //qDebug() << Q_FUNC_INFO << ":  PROP_MODE" ;
-    }
+    qso.setPropMode(getADIFValueFromRec(rec, "prop_mode"));
+    qso.setSatName(getADIFValueFromRec(rec, "sat_name"));
 
-    nameCol = rec.indexOf("sat_name");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSatName(aux);
-    //qDebug() << Q_FUNC_INFO << ":  SAT_NAME" ;
-    }
+    qso.setGridSquare(getADIFValueFromRec(rec, "gridsquare"));
+    qso.setMyGridSquare(getADIFValueFromRec(rec, "my_gridsquare"));
 
-    nameCol = rec.indexOf("gridsquare");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setGridSquare(aux);
-    }
+    if (_em != ModeEQSL)
+        qso.setStationCallsign(getADIFValueFromRec(rec, "station_callsign"));
 
-    nameCol = rec.indexOf("my_gridsquare");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyGridSquare(aux);
-    }
+    aux = getADIFValueFromRec(rec, "qso_date_off");
+    tDateTime = util->getDateTimeFromSQLiteString(aux);
+    qso.setDateOff(tDateTime.date());
+    qso.setTimeOff(tDateTime.time());
 
-    nameCol = rec.indexOf("station_callsign");
-    if ((nameCol>=0) && (_em != ModeEQSL))
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        qso.setStationCallsign(aux);
-    }
+    qso.setSrx((getADIFValueFromRec(rec, "srx")).toInt());
+    qso.setSrxString(getADIFValueFromRec(rec, "srx_string"));
 
-    nameCol = rec.indexOf("qso_date_off");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        aux = util->checkAndFixASCIIinADIF(aux);
-        tDateTime = util->getDateTimeFromSQLiteString(aux);
-        qso.setDateOff(tDateTime.date());
-        qso.setTimeOff(tDateTime.time());
-    }
+    qso.setStx((getADIFValueFromRec(rec, "stx")).toInt());
+    qso.setStxString(getADIFValueFromRec(rec, "stx_string"));
 
-    nameCol = rec.indexOf("srx");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSrx(aux.toInt ());
-    }
-
-    nameCol = rec.indexOf("srx_string");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSrxString(aux);
-    }
-
-    nameCol = rec.indexOf("stx");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setStx(aux.toInt ());
-    }
-
-    nameCol = rec.indexOf("stx_string");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setStxString(aux);
-    }
-
+    qso.setCQZone((getADIFValueFromRec(rec, "cqz")).toInt());
+    qso.setItuZone((getADIFValueFromRec(rec, "ituz")).toInt());
+    qso.setDXCC((getADIFValueFromRec(rec, "dxcc")).toInt());
     //qDebug() << Q_FUNC_INFO << ":  - 100";
-    nameCol = rec.indexOf("cqz");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setCQZone(aux.toInt());
-    }
 
-    nameCol = rec.indexOf("ituz");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setItuZone(aux.toInt());
+    qso.setAddress(getADIFValueFromRec(rec, "address"));
+    qso.setAge((getADIFValueFromRec(rec, "age")).toDouble());
 
-    }
-    //qDebug() << Q_FUNC_INFO << ":  DXCC - Now..." ;
-    nameCol = rec.indexOf("dxcc");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setDXCC(aux.toInt());
-    }
+    qso.setCounty(getADIFValueFromRec(rec, "cnty"));
+    qso.setComment(getADIFValueFromRec(rec, "comment"));
 
-    nameCol = rec.indexOf("address");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setAddress(aux);
-    }
+    qso.setA_Index((getADIFValueFromRec(rec, "a_index")).toInt());
 
-    nameCol = rec.indexOf("age");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setAge(aux.toInt());
-    }
+    qso.setAnt_az((getADIFValueFromRec(rec, "ant_az")).toDouble());
+    qso.setAnt_el((getADIFValueFromRec(rec, "ant_al")).toDouble());
+    qso.setAnt_Path(getADIFValueFromRec(rec, "ant_path"));
 
-    nameCol = rec.indexOf("cnty");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setCounty(aux);
-    }
-
-    nameCol = rec.indexOf("comment");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setComment(aux);
-    }
-
-    nameCol = rec.indexOf("a_index");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setA_Index(aux.toInt());
-    }
-
-    nameCol = rec.indexOf("ant_az");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setAnt_az(aux.toDouble());
-    }
-
-    nameCol = rec.indexOf("ant_el");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setAnt_el(aux.toDouble());
-    }
-
-    nameCol = rec.indexOf("ant_path");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setAnt_Path(aux);
-    }
-
-    nameCol = rec.indexOf("arrl_sect");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setARRL_Sect(aux);
-    }
-
-    nameCol = rec.indexOf("checkcontest");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setCheck(aux);
-    }
+    qso.setARRL_Sect(getADIFValueFromRec(rec, "arrl_sect"));
+    qso.setCheck(getADIFValueFromRec(rec, "checkcontest"));
+    qso.setClass(getADIFValueFromRec(rec, "class"));
 
     //qDebug() << Q_FUNC_INFO << ":  - 30";
-    nameCol = rec.indexOf("class");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setClass(aux);
-    }
+    qso.setContinent(getADIFValueFromRec(rec, "cont"));
+    qso.setContactedOperator(getADIFValueFromRec(rec, "contacted_op"));
+    qso.setContestID(getADIFValueFromRec(rec, "contest_id"));
 
-    nameCol = rec.indexOf("cont");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setContinent(aux);
-    }
+    qso.setCountry(getADIFValueFromRec(rec, "country"));
 
-    nameCol = rec.indexOf("contacted_op");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setContactedOperator(aux);
-    }
+    qso.setCreditSubmitted(getADIFValueFromRec(rec, "credit_submitted"));
+    qso.setCreditGranted(getADIFValueFromRec(rec, "credit_granted"));
 
-    nameCol = rec.indexOf("contest_id");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setContestID(aux);
-    }
+    qso.setDistance(getADIFValueFromRec(rec, "distance").toDouble());
+    qso.setDarcDok(getADIFValueFromRec(rec, "darc_dok"));
 
-    nameCol = rec.indexOf("country");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setCountry(aux);
-    }
 
-    nameCol = rec.indexOf("credit_submitted");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setCreditSubmitted(aux);
-    }
+    qso.setEQ_Call(getADIFValueFromRec(rec, "eq_call"));
+    qso.setEmail(getADIFValueFromRec(rec, "email"));
 
-    nameCol = rec.indexOf("credit_granted");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setCreditGranted(aux);
-    }
+    aux = getADIFValueFromRec(rec, "eqsl_qslrdate");
+    qso.setEQSLQSLRDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("distance");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setDistance(aux.toDouble ());
-    }
+    aux = getADIFValueFromRec(rec, "eqsl_qslsdate");
+    qso.setEQSLQSLSDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("darc_dok");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setDarcDok(aux);
-    }
 
-    nameCol = rec.indexOf("eq_call");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setEQ_Call(aux);
-    }
+    qso.setEQSLQSL_RCVD(getADIFValueFromRec(rec, "eqsl_qsl_rcvd"));
+    qso.setEQSLQSL_SENT(getADIFValueFromRec(rec, "eqsl_qsl_sent"));
 
-    nameCol = rec.indexOf("email");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setEmail(aux);
-    }
+    qso.setFists(getADIFValueFromRec(rec, "fists").toInt());
+    qso.setFistsCC(getADIFValueFromRec(rec, "fists_cc").toInt());
+    qso.setForceInit(util->QStringToBool(getADIFValueFromRec(rec, "force_init")));
 
-    nameCol = rec.indexOf("eqsl_qslrdate");
-    QDate date;
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setEQSLQSLRDate(date);
-    }
+    aux = getADIFValueFromRec(rec, "hrdlog_qso_upload_date");
+    qso.setHRDUpdateDate(util->getDateFromSQliteString(aux));
+    qso.setHRDLogStatus(getADIFValueFromRec(rec, "hrdlog_qso_upload_status"));
 
-    nameCol = rec.indexOf("eqsl_qslsdate");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setEQSLQSLSDate(date);
-    }
+    qso.setMyAntenna(getADIFValueFromRec(rec, "my_antenna"));
 
-    nameCol = rec.indexOf("eqsl_qsl_rcvd");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setEQSLQSL_RCVD(aux);
-    }
-
-    nameCol = rec.indexOf("eqsl_qsl_sent");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setEQSLQSL_SENT(aux);
-    }
-
-    nameCol = rec.indexOf("fists");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setFists(aux.toInt());
-    }
-
-    nameCol = rec.indexOf("fists_cc");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setFistsCC(aux.toInt());
-    }
-
-    nameCol = rec.indexOf("force_init");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setForceInit(util->QStringToBool(aux));
-    }
-
-    nameCol = rec.indexOf("hrdlog_qso_upload_date");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setHRDUpdateDate(date);
-    }
-
-    nameCol = rec.indexOf("hrdlog_qso_upload_status");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        //TODO: Add a isValidUploadStatus
-        qso.setHRDLogStatus(aux);
-    }
-
-    nameCol = rec.indexOf("my_antenna");
-    //qDebug() << Q_FUNC_INFO << ": my_antenna-0";
-    if (nameCol>=0)
-    {
-        //qDebug() << Q_FUNC_INFO << ": my_antenna-1";
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyAntenna(aux);
-    }
     //qDebug() << Q_FUNC_INFO << ": my_antenna-99";
-    nameCol = rec.indexOf("my_dxcc");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyDXCC(aux.toInt());
-    }
+    qso.setMyDXCC(getADIFValueFromRec(rec, "my_dxcc").toInt());
 
-    nameCol = rec.indexOf("my_fists");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyFists(aux.toInt());
-    }
 
-    nameCol = rec.indexOf("iota");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setIOTA(aux);
-    }
+    qso.setMyFists(getADIFValueFromRec(rec, "my_fists").toInt());
+    qso.setIOTA(getADIFValueFromRec(rec, "iota"));
+    qso.setIotaID(getADIFValueFromRec(rec, "iota_island_id").toInt());
 
-    nameCol = rec.indexOf("iota_island_id");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setIotaID(aux.toInt());
-    }
+    qso.setMyIOTA(getADIFValueFromRec(rec, "my_iota"));
+    qso.setMyIotaID(getADIFValueFromRec(rec, "my_iota_island_id").toInt());
+    qso.setK_Index(getADIFValueFromRec(rec, "k_index").toInt());
+    qso.setMyITUZone(getADIFValueFromRec(rec, "my_itu_zone").toInt());
 
-    nameCol = rec.indexOf("my_iota");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyIOTA(aux);
-    }
-    nameCol = rec.indexOf("my_iota_island_id");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyIotaID(aux.toInt());
-    }
+    qso.setLatitude(getADIFValueFromRec(rec, "lat"));
+    qso.setLongitude(getADIFValueFromRec(rec, "lon"));
 
-    nameCol = rec.indexOf("k_index");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setK_Index(aux.toInt());
-    }
+    qso.setMyLatitude(getADIFValueFromRec(rec, "my_lat"));
+    qso.setMyLongitude(getADIFValueFromRec(rec, "my_lon"));
 
-    nameCol = rec.indexOf("my_itu_zone");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyITUZone(aux.toInt());
-    }
+    aux = getADIFValueFromRec(rec, "lotw_qslrdate");
+    qso.setLoTWQSLRDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("lat");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setLatitude(aux);
-    }
+    aux = getADIFValueFromRec(rec, "lotw_qslsdate");
+    qso.setLoTWQSLSDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("lon");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setLongitude(aux);
-    }
+    qso.setLoTWQSL_RCVD(getADIFValueFromRec(rec, "lotw_qsl_rcvd"));
+    qso.setLoTWQSL_SENT(getADIFValueFromRec(rec, "lotw_qsl_sent"));
 
-    nameCol = rec.indexOf("my_lat");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyLatitude(aux);
-    }
+    aux = getADIFValueFromRec(rec, "clublog_qso_upload_date");
+    qso.setClublogQSOUpdateDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("my_lon");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyLongitude(aux);
-    }
+    qso.setClubLogStatus(getADIFValueFromRec(rec, "clublog_qso_upload_status"));
 
-    nameCol = rec.indexOf("lotw_qslrdate");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setLoTWQSLRDate(date);
-    }
+    aux = getADIFValueFromRec(rec, "qrzcom_qso_upload_date");
+    qso.setQRZCOMDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("lotw_qslsdate");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setLoTWQSLSDate(date);
-    }
+    qso.setQRZCOMStatus(getADIFValueFromRec(rec, "qrzcom_qso_upload_status"));
 
-    nameCol = rec.indexOf("lotw_qsl_rcvd");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setLoTWQSL_RCVD(aux);
-    }
+    qso.setMaxBursts(getADIFValueFromRec(rec, "max_bursts").toInt());
+    qso.setMsShower(getADIFValueFromRec(rec, "ms_shower"));
 
-    nameCol = rec.indexOf("lotw_qsl_sent");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setLoTWQSL_SENT(aux);
-    }
+    qso.setMyCity(getADIFValueFromRec(rec, "my_city"));
+    qso.setMyCounty(getADIFValueFromRec(rec, "my_cnty"));
+    qso.setMyCountry(getADIFValueFromRec(rec, "my_country"));
+    qso.setMyCQZone(getADIFValueFromRec(rec, "my_cq_zone").toInt());
+    qso.setMyName(getADIFValueFromRec(rec, "my_name"));
 
-    nameCol = rec.indexOf("clublog_qso_upload_date");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setClublogQSOUpdateDate(date);
-    }
+    qso.setName(getADIFValueFromRec(rec, "name"));
+    qso.setOperatorCallsign(getADIFValueFromRec(rec, "operator"));
 
-    nameCol = rec.indexOf("clublog_qso_upload_status");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setClubLogStatus(aux);
-    }
+    qso.setOwnerCallsign(getADIFValueFromRec(rec, "owner_callsign"));
+    qso.setMyPostalCode(getADIFValueFromRec(rec, "my_postal_code"));
+    qso.setMyRig(getADIFValueFromRec(rec, "my_rig"));
+    qso.setMySig(getADIFValueFromRec(rec, "my_sig"));
 
-    nameCol = rec.indexOf("qrzcom_qso_upload_date");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setQRZCOMDate(date);
-    }
-    nameCol = rec.indexOf("qrzcom_qso_upload_status");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQRZCOMStatus(aux);
-    }
-    nameCol = rec.indexOf("max_bursts");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMaxBursts(aux.toInt());
-    }
-    nameCol = rec.indexOf("ms_shower");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMsShower(aux);
-    }
-    nameCol = rec.indexOf("my_city");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyCity(aux);
-    }
 
-    nameCol = rec.indexOf("my_cnty");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyCounty(aux);
-    }
-    nameCol = rec.indexOf("my_country");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyCountry(aux);
-    }
-    nameCol = rec.indexOf("my_cq_zone");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyCQZone(aux.toInt());
-    }
-    nameCol = rec.indexOf("my_name");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyName(aux);
-    }
-    nameCol = rec.indexOf("name");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setName(aux);
-    }
-    nameCol = rec.indexOf("operator");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setOperatorCallsign(aux);
-    }
-    nameCol = rec.indexOf("owner_callsign");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setOwnerCallsign(aux);
-    }
-    nameCol = rec.indexOf("my_postal_code");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyPostalCode(aux);
-    }
-    nameCol = rec.indexOf("my_rig");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyRig(aux);
-    }
-    nameCol = rec.indexOf("my_sig");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMySig(aux);
-    }
-    nameCol = rec.indexOf("my_sota_ref");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMySOTA_REF(aux);
-    }
+    qso.setMySOTA_REF(getADIFValueFromRec(rec, "my_sota_ref"));
+    qso.setMyState(getADIFValueFromRec(rec, "my_state"));
+    qso.setMyStreet(getADIFValueFromRec(rec, "my_street"));
 
-    nameCol = rec.indexOf("my_state");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyState(aux);
-    }
-    nameCol = rec.indexOf("my_street");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyStreet(aux);
-    }
-    nameCol = rec.indexOf("notes");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setNotes(aux);
-    }
-    nameCol = rec.indexOf("nr_bursts");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setNrBursts(aux.toInt());
-    }
-    nameCol = rec.indexOf("nr_pings");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setNrPings(aux.toInt());
-    }
-    nameCol = rec.indexOf("pfx");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setPrefix(aux);
-    }
+    qso.setNotes(getADIFValueFromRec(rec, "notes"));
+    qso.setNrBursts(getADIFValueFromRec(rec, "nr_bursts").toInt());
+    qso.setNrPings(getADIFValueFromRec(rec, "nr_pings").toInt());
+    qso.setPrefix(getADIFValueFromRec(rec, "pfx"));
 
-    nameCol = rec.indexOf("precedence");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setPrecedence(aux);
-    }
-    nameCol = rec.indexOf("public_key");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setPublicKey(aux);
-    }
-    nameCol = rec.indexOf("qslmsg");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSLMsg(aux);
-    }
-    nameCol = rec.indexOf("qslrdate");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setQSLRDate(date);
-    }
-    nameCol = rec.indexOf("qslsdate");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString();
-        date = util->getDateFromSQliteString(aux);
-        qso.setQSLSDate(date);
-    }
-    nameCol = rec.indexOf("qsl_rcvd");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSL_RCVD(aux);
-    }
+    qso.setPrecedence(getADIFValueFromRec(rec, "precedence"));
+    qso.setPublicKey(getADIFValueFromRec(rec, "public_key"));
+    qso.setQSLMsg(getADIFValueFromRec(rec, "qslmsg"));
 
-    nameCol = rec.indexOf("qsl_rcvd_via");
-    if (nameCol>=0)
-    {
-       field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-       qso.setQSLRecVia(aux);
-    }
+    aux = getADIFValueFromRec(rec, "qslrdate");
+    qso.setQSLRDate(util->getDateFromSQliteString(aux));
 
-    nameCol = rec.indexOf("qsl_sent");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSL_SENT(aux);
-    }
-    nameCol = rec.indexOf("qsl_sent_via");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSLSenVia(aux);
-    }
-    nameCol = rec.indexOf("qsl_via");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSLVia(aux);
-    }
-    nameCol = rec.indexOf("qso_complete");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSOComplete(util->getADIFQSO_CompleteFromDB(aux));
-    }
-    nameCol = rec.indexOf("qso_random");
-    if (nameCol>=0)
-    {   //TODO: Check wether it makes sense to use this field for ALL QSOs or just when it is not random.
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQSORandom(util->QStringToBool(aux));
-    }
-    nameCol = rec.indexOf("qth");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setQTH(aux);
-    }
-    nameCol = rec.indexOf("rst_sent");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setRSTTX(aux);
-    }
-    nameCol = rec.indexOf("rst_rcvd");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setRSTRX(aux);
-    }
-    nameCol = rec.indexOf("region");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setRegion(aux);
-    }
-    nameCol = rec.indexOf("rig");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setRig(aux);
-    }
-    nameCol = rec.indexOf("rx_pwr");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setRXPwr(aux.toDouble());
-    }
-    nameCol = rec.indexOf("tx_pwr");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setTXPwr(aux.toDouble());
-    }
-    nameCol = rec.indexOf("sat_mode");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSatMode(aux);
-    }
-    nameCol = rec.indexOf("sfi");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSFI(aux.toInt());
-    }
-    nameCol = rec.indexOf("sig");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSig(aux);
-    }
-    nameCol = rec.indexOf("sig_info");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSigInfo(aux);
-    }
-    nameCol = rec.indexOf("silent_key");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSilentKey(util->QStringToBool(aux));
-    }
-    nameCol = rec.indexOf("skcc");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSkcc(aux);
-    }
-    nameCol = rec.indexOf("sota_ref");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSOTA_REF(aux);
-    }
-    nameCol = rec.indexOf("state");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setState(aux);
-    }
-    nameCol = rec.indexOf("swl");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setSwl(util->QStringToBool(aux));
-    }
-    nameCol = rec.indexOf("ten_ten");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setTenTen(aux.toInt());
-    }
+    aux = getADIFValueFromRec(rec, "qslsdate");
+    qso.setQSLSDate(util->getDateFromSQliteString(aux));
+    qso.setQSL_RCVD(getADIFValueFromRec(rec, "qsl_rcvd"));
+    qso.setQSLRecVia(getADIFValueFromRec(rec, "qsl_rcvd_via"));
 
-    nameCol = rec.indexOf("uksmg");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setUksmg(aux.toInt());
-    }
-    nameCol = rec.indexOf("ve_prov");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setVeProv(aux);
-    }
-    nameCol = rec.indexOf("my_usaca_counties");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyUsacaCounties(aux);
-    }
-    nameCol = rec.indexOf("usaca_counties");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setUsacaCounties(aux);
-    }
-    nameCol = rec.indexOf("vucc_grids");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setVUCCGrids(aux);
-    }
-    nameCol = rec.indexOf("my_vucc_grids");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setMyVUCCGrids(aux);
-    }
-    nameCol = rec.indexOf("web");
-    if (nameCol>=0)
-    {
-        field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-        qso.setWeb(aux);
-    }
+    qso.setQSL_SENT(getADIFValueFromRec(rec, "qsl_sent"));
+    qso.setQSLSenVia(getADIFValueFromRec(rec, "qsl_sent_via"));
+    qso.setQSLVia(getADIFValueFromRec(rec, "qsl_via"));
+
+    qso.setQSOComplete(util->getADIFQSO_CompleteFromDB(getADIFValueFromRec(rec, "qso_complete")));
+    qso.setQSORandom(util->QStringToBool(getADIFValueFromRec(rec, "qso_random")));
+
+    qso.setQTH(getADIFValueFromRec(rec, "qth"));
+    qso.setRSTTX(getADIFValueFromRec(rec, "rst_sent"));
+
+    qso.setRSTRX(getADIFValueFromRec(rec, "rst_rcvd"));
+    qso.setRegion(getADIFValueFromRec(rec, "region"));
+    qso.setRig(getADIFValueFromRec(rec, "rig"));
+
+    qso.setRXPwr(getADIFValueFromRec(rec, "rx_pwr").toDouble());
+    qso.setTXPwr(getADIFValueFromRec(rec, "tx_pwr").toDouble());
+
+    qso.setSatMode(getADIFValueFromRec(rec, "sat_mode"));
+
+    qso.setSFI(getADIFValueFromRec(rec, "sfi").toInt());
+    qso.setSig(getADIFValueFromRec(rec, "sig"));
+
+    qso.setSigInfo(getADIFValueFromRec(rec, "sig_info"));
+    qso.setSilentKey(util->QStringToBool(getADIFValueFromRec(rec, "silent_key")));
+
+    qso.setSkcc(getADIFValueFromRec(rec, "skcc"));
+    qso.setSOTA_REF(getADIFValueFromRec(rec, "sota_ref"));
+
+    qso.setState(getADIFValueFromRec(rec, "state"));
+    qso.setSwl(util->QStringToBool(getADIFValueFromRec(rec, "swl")));
+    qso.setTenTen(getADIFValueFromRec(rec, "ten_ten").toInt());
+    qso.setUksmg(getADIFValueFromRec(rec, "uksmg").toInt());
+
+    qso.setVeProv(getADIFValueFromRec(rec, "ve_prov"));
+    qso.setMyUsacaCounties(getADIFValueFromRec(rec, "my_usaca_counties"));
+    qso.setUsacaCounties(getADIFValueFromRec(rec, "usaca_counties"));
+
+    qso.setVUCCGrids(getADIFValueFromRec(rec, "vucc_grids"));
+    qso.setMyVUCCGrids(getADIFValueFromRec(rec, "my_vucc_grids"));
+
+    qso.setWeb(getADIFValueFromRec(rec, "web"));
     if (_logN == -1)
-    {
-        nameCol = rec.indexOf("lognumber");
-        if (nameCol>=0)
-        {
-            field = rec.field(nameCol);
-aux = (field.value()).toString(); aux = util->checkAndFixASCIIinADIF(aux);
-            qso.setLogId(aux.toInt());
-        }
-    }
+        qso.setLogId(getADIFValueFromRec(rec, "lognumber").toInt());
 
    return  qso.getADIF();
 }

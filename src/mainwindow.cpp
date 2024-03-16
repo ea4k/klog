@@ -2738,7 +2738,6 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         msgBox.setInformativeText(aux);
         msgBox.exec();
     }
-    //filemanager->adifLoTWReadLog(_fn);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5187,19 +5186,19 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
 
 void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     awards->recalculateAwards();
-    qDebug() << Q_FUNC_INFO << " - 1";
+    //qDebug() << Q_FUNC_INFO << " - 1";
     //logWindow->refresh();
-    qDebug() << Q_FUNC_INFO << " - 2";
+    //qDebug() << Q_FUNC_INFO << " - 2";
 
     awardsWidget->showAwards();
-    qDebug() << Q_FUNC_INFO << " - 3";
+    //qDebug() << Q_FUNC_INFO << " - 3";
     //dxccStatusWidget->refresh();
     setMainWindowTitle();
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::fillQSOData()
