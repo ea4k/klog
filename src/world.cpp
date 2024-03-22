@@ -92,14 +92,14 @@ bool World::readWorld()
 
 bool World::recreate(const QString &_worldFile)
 {
-     //qDebug() << "World::recreate: " << _worldFile;
+    qDebug() << Q_FUNC_INFO << ": " << _worldFile;
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))
     {
-          //qDebug() << "World::recreate: EMPTY entity" ;
+        qDebug() << Q_FUNC_INFO << ":  EMPTY entity" ;
         if (query.exec("DELETE FROM prefixesofentity"))
         {
-             //qDebug() << "World::recreate: EMPTY prefixesofentity" ;
+            qDebug() << Q_FUNC_INFO << ": EMPTY prefixesofentity - END-1" ;
             return create(_worldFile);
 
             //if (create(_worldFile))
@@ -109,56 +109,63 @@ bool World::recreate(const QString &_worldFile)
         }
         else
         {//TODO: Manage the query error
-             //qDebug() << "World::recreate: FAILED TO EMPTY prefixesofentity" ;
+            qDebug() << Q_FUNC_INFO << ": FAILED TO EMPTY prefixesofentity - END-2" ;
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
             return false;
         }
     }
     else
     {//TODO: Manage the query error
-         //qDebug() << "World::recreate: FAILED TO EMPTY entity" ;
+        qDebug() << Q_FUNC_INFO << ": FAILED TO EMPTY entity - END-3" ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return false;
     }
+    qDebug() << Q_FUNC_INFO << " - END-4";
     return false;
 }
 
 bool World::create(const QString &_worldFile)
 {
-       //qDebug() << "World::create: " << _worldFile;
-    //klogDir = _worldFile;
-       //qDebug() << "World::create: 2 " <<  klogDir;
+    qDebug() << Q_FUNC_INFO << "  " << _worldFile;
 
     if (readCTYCSV(_worldFile))
     {
+        qDebug() << Q_FUNC_INFO << " - 10" ;
         util->setLongPrefixes(dataProxy->getLongPrefixes());
         util->setSpecialCalls(dataProxy->getSpecialCallsigns());
         created = true;
-         //qDebug() << "World::create: TRUE" ;
+        qDebug() << Q_FUNC_INFO << " - TRUE" ;
 
     }else
     {
+        qDebug() << Q_FUNC_INFO << " - 20" ;
         created = false;
-         //qDebug() << "World::create: FALSE" ;
+        qDebug() << Q_FUNC_INFO << " - FALSE" ;
     }
+    qDebug() << Q_FUNC_INFO << " - 30" ;
     if (created)
     {
+        qDebug() << Q_FUNC_INFO << " - 40" ;
         created = insertSpecialEntities();
     }
     if (created)
     {
-        //dataProxy->updateISONames();
+        qDebug() << Q_FUNC_INFO << " - 50" ;
         if (dataProxy->updateISONames())
         {
-               //qDebug() << "World::create: updateISONames TRUE" ;
+            qDebug() << Q_FUNC_INFO << " - 60" ;
+               qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
         }
         else
         {
-               //qDebug() << "World::create: updateISONames FALSE" ;
+            qDebug() << Q_FUNC_INFO << " - 70" ;
+            qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
         }
+        qDebug() << Q_FUNC_INFO << " - 80" ;
     }
+    qDebug() << Q_FUNC_INFO << " - 90" ;
     readWorld ();
-       //qDebug() << "World::create: END" ;
+    qDebug() << Q_FUNC_INFO << " - END" ;
     return created;
 }
 
@@ -580,28 +587,108 @@ QString World::getLocator(const int _entityN)
     return locator->getLocator(getLongitude(_entityN), getLatitude(_entityN));
 }
 
+bool World::addEntity(const QString &_name, const int _cq, const int _itu, const int _contId, const double _lat, const double _lon, const double _utc, const int _dxcc, const QString &_mainpref)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO entity (name, cqz, ituz, cont, latitude, longitude, utc, dxcc, mainprefix) "
+                  "VALUES (:name, :cqz, :ituz, :cont, :lat, :lon, :utc, :dxcc, :mainpref)");
+
+    query.bindValue(":name", _name); // name
+    query.bindValue(":cqz", _cq); // CQ
+    query.bindValue(":ituz", _itu); // ITU
+    query.bindValue(":cont", _contId); // Cont
+    query.bindValue(":lat", _lat); // Lat
+    query.bindValue(":lon", _lon); // Lon
+    query.bindValue(":utc", _utc); // UTC
+    query.bindValue(":dxcc", _dxcc); // dxcc
+    query.bindValue(":mainpref", _mainpref); // Mainprefix
+
+    //qDebug()  << Q_FUNC_INFO << " Entity name: " << _name;
+    //qDebug()  << Q_FUNC_INFO << " Entity cqz:  " << QString::number(_cq);
+    //qDebug()  << Q_FUNC_INFO << " Entity ituz: " << QString::number(_itu);
+    //qDebug()  << Q_FUNC_INFO << " Entity cont: " << QString::number(_contId);
+    //qDebug()  << Q_FUNC_INFO << " Entity lat:  " << QString::number(_lat);
+    //qDebug()  << Q_FUNC_INFO << " Entity lon:  " << QString::number(_lon);
+    //qDebug()  << Q_FUNC_INFO << " Entity UTC:  " << QString::number(_utc);
+    //qDebug()  << Q_FUNC_INFO << " Entity ARRL: " << QString::number(_dxcc);
+    //qDebug()  << Q_FUNC_INFO << " Entity Pref: " << _mainpref;
+
+    if (query.exec())
+    {
+        qDebug() << Q_FUNC_INFO << "  Entity data added OK: " <<  _name ;
+        return true;
+    }
+    //else if (query.lastError().nativeErrorCode() == QString::number(19))
+    //{
+        //qDebug() << Q_FUNC_INFO << "  Entity data NOT added: error19:  " <<  _name ;
+    //}
+    //else
+    //{
+        //qDebug() << Q_FUNC_INFO << "  Entity data NOT added: error else:  " <<  _name ;
+        //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        //qDebug() << Q_FUNC_INFO << " Entity data NOT added" ;
+        //qDebug() << Q_FUNC_INFO << " LastQuery: " << query.lastQuery() ;
+        //qDebug() << Q_FUNC_INFO << " LastError-data: " << query.lastError().databaseText() ;
+        //qDebug() << Q_FUNC_INFO << " LastError-driver: " << query.lastError().driverText() ;
+        //qDebug() << Q_FUNC_INFO << " LastError-n: " << query.lastError().nativeErrorCode();
+    //}
+    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    return false;
+}
+
+bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, const int _ituz)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES (:pref, :dxcc, :cqz, :ituz)");
+
+    query.bindValue(":pref", _pref); // Cont
+    query.bindValue(":dxcc", _dxcc); // Cont
+    query.bindValue(":cqz", _cqz); // CQ
+    query.bindValue(":ituz", _ituz); // ITU
+    if (query.exec())
+    {
+        qDebug() << Q_FUNC_INFO << "  Prefix data added OK: " <<  _pref ;
+        return true;
+    }
+    else if (query.lastError().nativeErrorCode() == QString::number(19))
+    {
+        qDebug() << Q_FUNC_INFO << "  :Prefix data NOT added: error19:  " <<  _pref ;
+
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "  Pref data NOT added: error else:  " <<  _pref ;
+        qDebug() << Q_FUNC_INFO << " LastQuery: " << query.lastQuery() ;
+        qDebug() << Q_FUNC_INFO << " LastError-data: " << query.lastError().databaseText() ;
+        qDebug() << Q_FUNC_INFO << " LastError-driver: " << query.lastError().driverText() ;
+        qDebug() << Q_FUNC_INFO << " LastError-n: " << query.lastError().nativeErrorCode();
+    }
+    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    return false;
+}
+
 bool World::readCTYCSV(const QString &_worldFile)
 {
-     //qDebug() << "World::readCTYCSV(): " << _worldFile;
+    qDebug() << Q_FUNC_INFO << _worldFile;
     QString tq;
     tq.clear();
-    QString entityNumber;
-    //entityNumber = "-1";
-    //QString fileName;
+
     qint64 beginingOfFile;
     int numberOfLines = 0;
-    //int errorCode = -1;
 
+    qDebug() << Q_FUNC_INFO << " - 10";
     QFile file( _worldFile );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
     {
-          //qDebug() << "World::readCTYCSV() File not found: END FALSE" << fileName;
+        qDebug() << Q_FUNC_INFO << ":  File not found: END FALSE" << _worldFile;
         return false;
     }
     else
     {
-         //qDebug() << "World::readCTYCSV() File found: " << fileName;
+        qDebug() << Q_FUNC_INFO << "  File found: " << _worldFile;
     }
+    qDebug() << Q_FUNC_INFO << " - 20";
     beginingOfFile = file.pos();
 
     while (!file.atEnd()) {
@@ -611,7 +698,8 @@ bool World::readCTYCSV(const QString &_worldFile)
         }
         numberOfLines++;
     }
-      //qDebug() << "World::readCTYCSV() - numberOfEntities: " << QString::number(numberOfEntities);
+    qDebug() << Q_FUNC_INFO << " - 30";
+    qDebug() << Q_FUNC_INFO << "  - numberOfEntities: " << QString::number(numberOfEntities);
     // The file is readed twice: 1: Main entity data; 2: prefixes.
 
     // Starts with main data:
@@ -622,13 +710,11 @@ bool World::readCTYCSV(const QString &_worldFile)
     progress.setWindowModality(Qt::ApplicationModal);
 
     numberOfEntities = 0; // Reset this variable to reuse it and assign the "dxcc" to the entities (temp solution)
+    qDebug() << Q_FUNC_INFO << " - 40";
 
-    QSqlQuery query;    // Entity information
-    QSqlQuery queryP;   // Prefixes information
+      // Prefixes information
 
-    query.prepare("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    queryP.prepare("INSERT INTO prefixesofentity (id, prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?, ?)");
-
+    qDebug() << Q_FUNC_INFO << " - 50";
     QSqlDatabase::database().transaction();
     QStringList T9StringList;
     T9StringList.clear();
@@ -636,162 +722,122 @@ bool World::readCTYCSV(const QString &_worldFile)
     QStringList stringList, stringListPrefixes, stringListProcessedPrefix;
 
     int entN;
-    //entN = -1;
-
+    qDebug() << Q_FUNC_INFO << " - 60";
     while (!file.atEnd()) {
+
         progress.setValue(progressBarPosition);
         progressBarPosition++;
         if (progress.wasCanceled())
             break;
         stringList.clear();
         stringListPrefixes.clear();
-//
-//     9Y,Trinidad & Tobago,90,SA,9,11,10.38,61.28,4.0,9Y 9Z;
-//     5A,Libya,436,AF,34,38,27.20,-16.60,-2.0,5A;
-// MainPref / Name / dxcc / Cont / CQ / ITU / LAT / LON / -UTC / prefixes
-//    0        1        2      3      4    5     6     7      8       9
+    //
+    //     9Y,Trinidad & Tobago,90,SA,9,11,10.38,61.28,4.0,9Y 9Z;
+    //     5A,Libya,436,AF,34,38,27.20,-16.60,-2.0,5A;
+    // MainPref / Name / dxcc / Cont / CQ / ITU / LAT / LON / -UTC / prefixes
+    //    0        1      2      3      4    5     6     7      8       9
 
         tq = file.readLine();
-           //qDebug()  << "World::readCTYCSV(): Line: " << tq;
+        qDebug() << Q_FUNC_INFO << "  Line: " << tq;
         tq = tq.simplified();
-           //qDebug()  << "World::readCTYCSV(): Line simplified: " << tq;
+        qDebug() << Q_FUNC_INFO << "  Line simplified: " << tq;
         tq = tq.trimmed();
-          //qDebug()  << "World::readCTYCSV(): Line trimmed: " << tq;
+        qDebug() << Q_FUNC_INFO << "  Line trimmed: " << tq;
         tq.remove(QChar(';'), Qt::CaseInsensitive);
-          //qDebug()  << "World::readCTYCSV(): Line without ;: " << tq;
+        qDebug() << Q_FUNC_INFO << "  Line without ;: " << tq;
 
         stringList << tq.split(',');
 
-           //qDebug()  << "World::readCTYCSV(): Line stringList-0: " << stringList.at(0);
+        qDebug() << Q_FUNC_INFO << "  Line stringList-0: " << stringList.at(0);
 
-        if (( stringList.at(0)).contains(QChar('*'), Qt::CaseInsensitive))
-        { // This is a special Entity. Not really an ARRL Entity but interesting for the DXer.
-          // From http://www.country-files.com/cty-dat-format
-          // (A “*” preceding this prefix indicates that the country is on the DARC WAEDC list, and counts in CQ-sponsored contests, but not ARRL-sponsored contests).
-            //entN = -1;
-            entN = (stringList.at(2)).toInt() + 1000;
+        qDebug() << Q_FUNC_INFO << "  Line stringList Length: " << QString::number(stringList.length());
 
-            while ( (dataProxy->getEntityMainPrefix(entN)).size()>0  )
-            {
-                  //qDebug()  << "World::readCTYCSV() entN: " << QString::number(entN);
-                   //qDebug()  << "World::readCTYCSV() dataProxy->getEntityMainPrefix: " << QString::number(entN);
-                entN = entN + 1000;
-            }
-            entityNumber = QString::number(entN);
-        }
-        else
+
+        // stringList.at(9) contains an space separated list of prefixes for that entity
+        QString mPrefix = QString();
+        if (stringList.size()==10 )
         {
-            entityNumber = stringList.at(2);
-        }
-           //qDebug()  << "World::readCTYCSV(): Line stringList Length: " << QString::number(stringList.length());
+            int entityNumber;
+            if (( stringList.at(0)).contains(QChar('*'), Qt::CaseInsensitive))
+            { // This is a special Entity. Not really an ARRL Entity but interesting for the DXer.
+                // From http://www.country-files.com/cty-dat-format
+                // (A “*” preceding this prefix indicates that the country is on the DARC WAEDC list, and counts in CQ-sponsored contests, but not ARRL-sponsored contests).
+                entN = (stringList.at(2)).toInt() + 1000;
 
-        if (stringList.size()>=8 )
-        {
-        //(id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix)
-            //query.prepare("INSERT INTO entity (id, name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-            //query.addBindValue(QVariant(QVariant::Int));
-            query.addBindValue( QVariant(int()));
-            query.addBindValue(stringList.at(1)); // name
-            query.addBindValue(stringList.at(4)); // CQ
-            query.addBindValue(stringList.at(5)); // ITU
-            query.addBindValue(stringList.at(3)); // Cont
-            query.addBindValue(stringList.at(6)); // Lat
-            query.addBindValue(stringList.at(7)); // Lon
-            query.addBindValue(stringList.at(8)); // UTC
-            //query.addBindValue(stringList.at(2)); // dxcc
-            query.addBindValue(entityNumber); // dxcc
-            query.addBindValue(stringList.at(0)); // Mainprefix
-               //qDebug()  << "World::readCTYCSV(): Entity name: " << stringList.at(1);
-               //qDebug()  << "World::readCTYCSV(): Entity cqz:  " << stringList.at(4);
-               //qDebug()  << "World::readCTYCSV(): Entity ituz: " << stringList.at(5);
-               //qDebug()  << "World::readCTYCSV(): Entity cont: " << stringList.at(3);
-               //qDebug()  << "World::readCTYCSV(): Entity lat:  " << stringList.at(6);
-               //qDebug()  << "World::readCTYCSV(): Entity lon:  " << stringList.at(7);
-               //qDebug()  << "World::readCTYCSV(): Entity UTC:  " << stringList.at(8);
-               //qDebug()  << "World::readCTYCSV(): Entity ARRL: " << stringList.at(2);
-               //qDebug()  << "World::readCTYCSV(): Entity Pref: " << stringList.at(0);
-
-            if (query.exec())
-            {
-                   //qDebug()  << "World::readCTYDAT(): Entity data added: " <<  stringList.at(1) ;
-            }
-            else if (query.lastError().nativeErrorCode() == QString::number(19))
-            {
-               //qDebug()  << "World::readCTYDAT(): Entity data added: error19:  " <<  stringList.at(1) ;
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                while ( (dataProxy->getEntityMainPrefix(entN)).size()>0  )
+                {
+                    qDebug() << Q_FUNC_INFO << "  entN: " << QString::number(entN);
+                    qDebug() << Q_FUNC_INFO << "  dataProxy->getEntityMainPrefix: " << QString::number(entN);
+                    entN = entN + 1000;
+                }
+                entityNumber = entN;
             }
             else
             {
-                //qDebug()  << "World::readCTYDAT(): Entity data added: error else:  " <<  stringList.at(1) ;
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-                //errorCode = query.lastError().nativeErrorCode();
-                  //qDebug() << "World::readCTYCSV(): Entity data NOT added" ;
-                  //qDebug() << "World::readCTYCSV(): LastQuery: " << query.lastQuery() ;
-                  //qDebug() << "World::readCTYCSV(): LastError-data: " << query.lastError().databaseText() ;
-                  //qDebug() << "World::readCTYCSV(): LastError-driver: " << query.lastError().driverText() ;
-                  //qDebug() << "World::readCTYCSV(): LastError-n: " << QString::number(query.lastError().nativeErrorCode() );
+                entityNumber = stringList.at(2).toInt();
             }
-                //qDebug()  << "World::readCTYCSV(): Entity ADDED or NOT" ;
-            if (stringList.size()>8)
-            {
-                tq = stringList.at(9);
-                stringListPrefixes << tq.split(' ');
-                tq = stringListPrefixes.last();
-                QString prefAux = QString();
 
+            mPrefix = stringList.at(0);
+            QString entName = stringList.at(1);
+            //QString continent = stringList.at(3);
+            int contId = dataProxy->getContinentIdFromContinentShortName(stringList.at(3));
+            int cqz = stringList.at(4).toInt();
+            int ituz = stringList.at(5).toInt();
+            double lat = stringList.at(6).toDouble();
+            double lon = stringList.at(7).toDouble();
+            double utc = stringList.at(8).toDouble();
+
+            bool entityAdded = addEntity(entName, cqz, ituz, contId, lat, lon, utc, entityNumber, mPrefix);
+            if (entityAdded)
+            {
+                qDebug() << Q_FUNC_INFO << "  Entity added: " << entName;
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO << "  Entity Not added: " << entName;
+            }
+            if (false)
+            {
+                qDebug() << Q_FUNC_INFO << "  Let's going for the prefixes: ... if entity is not added, we should not go to the prefixes!" ;
+                QString listOfPrefixesString = stringList.at(9);
+                stringListPrefixes << listOfPrefixesString.split(' ');
+                QString prefAux = QString();
                 for (int i = 0; i < stringListPrefixes.size(); ++i)
                 {
                     prefAux = stringListPrefixes.at(i);
-                    //queryP.prepare("INSERT INTO prefixesofentity (id, prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?, ?)");
-                    //                                               0    1       2    3    4
-                    //  (id, prefix, dxcc, cqz, ituz)
-                      //qDebug()  << "World::readCTYCSV(): Prefix: " << stringListPrefixes.at(i);
-                    queryP.addBindValue(QVariant(int()));
-
-
-                    //readZones (const QString &pref, const int _cq, const int _itu)
-                    //Returns a QStringList: prefix, CQz, ITUz
+                    QStringList stringListProcessedPrefix;
                     stringListProcessedPrefix.clear();
-                    stringListProcessedPrefix << readZones(prefAux, (stringList.at(4)).toInt(), (stringList.at(5)).toInt());
+                    stringListProcessedPrefix << readZones (prefAux, cqz, ituz);
+                    //Returns a QStringList: prefix, CQz, ITUz
 
-                    queryP.addBindValue(stringListProcessedPrefix.at(0));
-                    queryP.addBindValue(entityNumber);
-                    queryP.addBindValue(stringListProcessedPrefix.at(1));
-                    queryP.addBindValue(stringListProcessedPrefix.at(2));
-
-                    if (queryP.exec())
-                    {// T9 is the former prefix of Bosnia and Herzegovina; it moved to E7 on 7 August 2007.
-                     // YZ and 4N belonged to Yugoslavia, along with 4O (which went to successor state Montenegro)
-                     // YT and YU (which went to successor state Serbia)
-                           //qDebug()  << "World::readCTYCSV(): Prefix added: " << stringListPrefixes.at(i);
-                    }
-                    else if (queryP.lastError().nativeErrorCode() != QString::number(19))
+                    bool prefixAdded = addPrefix(stringListProcessedPrefix.at(0), entityNumber, stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt());
+                    if (prefixAdded)
                     {
-                        //errorCode = queryP.lastError().nativeErrorCode();
-                        emit queryError(Q_FUNC_INFO, queryP.lastError().databaseText(), queryP.lastError().nativeErrorCode(), queryP.lastQuery());
-                          //qDebug() << "World::readCTYCSV(): Prefix data NOT added" ;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastQuery: " << query.lastQuery() ;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastError-data: " << query.lastError().databaseText() ;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastError-driver: " << query.lastError().driverText() ;
-                          //qDebug() << "World::readCTYCSV(): Prefix LastError-n: " << QString::number(query.lastError().nativeErrorCode() );
+                       qDebug() << Q_FUNC_INFO << ": Prefix added: " << stringListProcessedPrefix.at(0);
+
+                    }
+                    else
+                    {
+                       qDebug() << Q_FUNC_INFO << ": Prefix NOT added: " << stringListProcessedPrefix.at(0);
                     }
                 }
             }
-         }
-          //qDebug()  << "World::readCTYCSV() tq: " << tq;
-        progress.setLabelText("Reading cty.csv ... \nNow reading " + currentPrefix + " data");
-          //qDebug() << "World::readCTYCSV() - progressBarPosition: " << QString::number(progressBarPosition);
+        }
+
+        progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
+        qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
     }
-
+    qDebug() << Q_FUNC_INFO << " - 100";
     QSqlDatabase::database().commit();
-
+    qDebug() << Q_FUNC_INFO << " - 101";
     progress.setValue(numberOfLines);
+    qDebug() << Q_FUNC_INFO << " - 102";
     if (created)
     {
+        qDebug() << Q_FUNC_INFO << " - 110";
         dataProxy->updateISONames();
     }
-      //qDebug()  << "World::readCTYCSV() END TRUE " ;
+    qDebug() << Q_FUNC_INFO << " END TRUE " ;
     return true;
 }
 
@@ -801,6 +847,7 @@ bool World::readCTYCSV(const QString &_worldFile)
      return dataProxy->getEntitiesNames();
 }
 */
+
 int World::getHowManyEntities()
 {
     return dataProxy->getHowManyEntities();

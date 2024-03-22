@@ -112,6 +112,8 @@ private:
     int getPrefixId(const QString &_prefix);
     //bool readCTYDAT();
     bool readCTYCSV(const QString &_worldFile);
+    bool addEntity(const QString &_name, const int _cq, const int _itu, const int _contId, const double _lat, const double _lon, const double _utc, const int _dxcc, const QString &_mainpref);
+    bool addPrefix(const QString &_pref, const int _dxcc, const int _cqz, const int _ituz);
     QStringList processLine(const QString &_line);
     QStringList processLineP(const QString &_line, const int _processingEntity);
     //void createWorldModel();

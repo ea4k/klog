@@ -1,7 +1,17 @@
+
+TESTS to do before releasing:
+- ADIF log Import
+- LoTW log Import
+
+
 Changelog 2.4
-WIP: Started to reduce the possibility of SQLi with the use of prepared statements.
-- Enhancement: Ported from Qt4 to Qt5.
+- Enhancement: Ported from Qt5 to Qt6.
 - Enhancement: Refactoring of several classes.
+- Enhancement: SQLi protection of some queries.
+- Enhancement: Improve how the cty.csv file (countries file) is read.
+- Enhancement: Update the entities table to make UTC real instead of int (e.g. India is -5.5 UTC)
+- BugFix: Fixed the ISO name for Togo.
+
 
 Mar 2024 - 2.3.4
 - BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #656, #659) (TNX N6PAZ, EA5WA)

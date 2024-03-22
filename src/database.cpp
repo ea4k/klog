@@ -3008,6 +3008,17 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     return true;
 }
 
+bool DataBase::recreateTableEntity()
+{
+    //QSqlQuery query;
+
+    if (execQuery(Q_FUNC_INFO, "DROP TABLE entity"))
+    {
+        return createTableEntity(false);
+    }
+    return true;
+}
+
 bool DataBase::createTableEntity(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
         //qDebug() << "DataBase::createTableEntity" ;
@@ -3027,10 +3038,10 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "name VARCHAR(40) NOT NULL,"
                                              "cqz INTEGER NOT NULL, "
                                              "ituz INTEGER NOT NULL, "
-                                             "continent INTEGER NOT NULL, "
+                                             "cont INTEGER NOT NULL, "
                                              "latitude REAL NOT NULL, "
                                              "longitude REAL NOT NULL, "
-                                             "utc INTEGER NOT NULL, "
+                                             "utc REAL NOT NULL, "
                                              "dxcc INTEGER NOT NULL, "
                                              "mainprefix VARCHAR(15) NOT NULL, "
                                              "deleted INTEGER, "
@@ -3038,7 +3049,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "todate VARCHAR(10), "
                                              "isoname VARCHAR(10), "
                                              "UNIQUE (dxcc, mainprefix), "
-                                             "FOREIGN KEY (continent) REFERENCES continent(shortname) )");
+                                             "FOREIGN KEY (cont) REFERENCES continent)");
 
          //qDebug() << "DataBase::createTableEntity END" ;
     return execQuery(Q_FUNC_INFO, stringQuery);
@@ -3600,7 +3611,7 @@ bool DataBase::updateTableEntity()
             //qDebug() << "DataBase::updateTableEntity: Table entitytemp created!" ;
         // Now we need to move all the data from the old to the temp entity table.
 
-        stringQuery = QString("INSERT INTO entitytemp (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) SELECT name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate FROM entity");
+        stringQuery = QString("INSERT INTO entitytemp (name, cqz, ituz, cont, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate) SELECT name, cqz, ituz, cont, latitude, longitude, utc, dxcc, mainprefix, deleted, sincedate, todate FROM entity");
 
         sqlOk = execQuery(Q_FUNC_INFO, stringQuery);
 
@@ -5002,7 +5013,7 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
     countryCodes.insert ("mg", 438);  // Madagascar
     countryCodes.insert ("mr", 444);  // Mauritania
     countryCodes.insert ("ne", 187);  // Niger
-    countryCodes.insert ("tg", 484);  // Togo
+    countryCodes.insert ("tg", 483);  // Togo
     countryCodes.insert ("ws", 190);  // Samoa
     countryCodes.insert ("ug", 286);  // Uganda
     countryCodes.insert ("ke", 430);  // Kenya
@@ -6470,6 +6481,54 @@ bool DataBase::updateTo025()
       //qDebug() << "DataBase::updateTo025: UPDATED OK!" ;
     return true;
 }
+
+bool DataBase::updateTo026()
+{
+    // Updates the DB to 0.026:
+    // Recreates entity table to make UTC a real value
+
+    //qDebug() << "DataBase::updateto025: latestRead: " << getDBVersion() ;
+    bool IAmIn025 = false;
+    bool ErrorUpdating = false;
+    latestReaded = getDBVersion().toFloat();
+    if (latestReaded >= 0.026f)
+    {
+          //qDebug() << "DataBase::updateto025: - I am in 023" ;
+        return true;
+    }
+    else
+    {
+          //qDebug() << "DataBase::updateto024: - I am not in 0.014 I am in: " << getDBVersion() ;
+        while (!IAmIn025 && !ErrorUpdating)
+        {
+              //qDebug() << "DataBase::updateto025: - Check if I am in 024: !" ;
+            IAmIn025 = updateTo024();
+            if (IAmIn025)
+            {
+                  //qDebug() << "DataBase::updateto025: - updateTo013 returned TRUE - I am in 0.024: " << QString::number(latestReaded) ;
+            }
+            else
+            {
+                  //qDebug() << "DataBase::updateto025: - updateTo011 returned FALSE - I am NOT in 0.024: " << QString::number(latestReaded) ;
+                ErrorUpdating = false;
+            }
+        }
+        if (ErrorUpdating)
+        {
+              //qDebug() << "DataBase::updateto025: - I Could not update to: " << QString::number(dbVersion) ;
+           // emit debugLog(Q_FUNC_INFO, "1", 7);
+            return false;
+        }
+    }
+
+    // Now I am in the previous version and I can update the DB.
+    if (recreateTableEntity())
+    {
+        return updateDBVersion(softVersion, "0.026");
+    }
+    return false;
+}
+
 
 bool DataBase::updateAwardDXCCTable()
 {

@@ -169,9 +169,9 @@ MainWindow::MainWindow(const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") ;
     setupDialog = new SetupDialog(dataProxy, this);
 
-    //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
+   //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
     satTabWidget = new MainWindowSatTab(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") ;
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 53: " << QTime::currentTime().toString("hh:mm:ss") ;
     myDataTabWidget = new MainWindowMyDataTab(dataProxy);
@@ -2712,18 +2712,19 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
       //qDebug() << Q_FUNC_INFO << _fn ;
-    QList<int> a;
-    a.clear();
-    a.append(filemanager->adifLoTWReadLog2(_fn, currentLog));
+    //QList<int> a;
+    //a.clear();
+    //a.append(filemanager->adifLoTWReadLog2(_fn, currentLog));
+    int added_qsos = filemanager->adifLoTWReadLog2(_fn, currentLog);
     QString aux;
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - LoTW"));
 
-    if (a.length()>0)
+    if (added_qsos>0)
     {
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("Your log has been updated with the LoTW downloaded QSOs."));
-        aux = QString(tr("KLog has updated %1 QSOs from LoTW.")).arg(a.length());
+        aux = QString(tr("KLog has updated %1 QSOs from LoTW.")).arg(added_qsos);
         msgBox.setInformativeText(aux);
         msgBox.exec();
         logWindow->refresh();
@@ -4551,26 +4552,20 @@ void MainWindow::slotADIFImport(){
     {
          //qDebug() << "MainWindow::slotADIFImport -1" ;
         //filemanager->adifReadLog(fileName, currentLog);
-        filemanager->adifReadLog2(fileName, currentLog);
-        updateQSLRecAndSent();
-
-
-          //qDebug() << "MainWindow::slotADIFImport -2" ;
-        //dxccStatusWidget->refresh();
-
-        logWindow->refresh();
-         //qDebug() << "MainWindow::slotADIFImport -3";
-
-        checkIfNewBandOrMode();
-          //qDebug() << "MainWindow::slotADIFImport -4" ;
-
-    //operatingYearsComboBox->addItems(dataProxy->getOperatingYears(currentLog));
-        awardsWidget->fillOperatingYears();
-              //qDebug() << "MainWindow::slotADIFImport-DX-1" ;
-        slotShowAwards();
-        awardsWidget->showAwards();
-              //qDebug() << "MainWindow::slotADIFImport-DX-1-end" ;
-
+        int loggedQSOs = filemanager->adifReadLog2(fileName, QString(), currentLog);  // Empty StationCallsign by default
+        if (loggedQSOs>0)
+        {
+            updateQSLRecAndSent();
+            logWindow->refresh();
+            //qDebug() << Q_FUNC_INFO << " -3";
+            checkIfNewBandOrMode();
+            //qDebug() << Q_FUNC_INFO << " -4" ;
+            awardsWidget->fillOperatingYears();
+            //qDebug() << Q_FUNC_INFO << " -5" ;
+            slotShowAwards();
+            awardsWidget->showAwards();
+            //qDebug() << Q_FUNC_INFO << " -6" ;
+        }
           //qDebug() << "MainWindow::slotADIFImport-7" ;
     }
     logEvent(Q_FUNC_INFO, "END", Debug);

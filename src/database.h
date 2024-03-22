@@ -40,7 +40,7 @@
 #include "utilities.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.025f; // This is the latest version of the DB.
+const float DBVersionf = 0.026f; // This is the latest version of the DB.
 
 
 struct AwarddxccEntry
@@ -167,6 +167,7 @@ private:
     bool updateTo023(); // Fixes the cabrillo fields in the table band
     bool updateTo024(); // Fixes the entity table fixinf the DL id
     bool updateTo025(); // Adds modes from ADIF 3.1.3
+    bool updateTo026(); // Recreates entity to make UTC a real
 
     bool updateTableLog(const int _v);
     bool updateDBVersion(QString _softV, QString _dbV);
@@ -178,7 +179,7 @@ private:
     bool recreateTableLog();
     bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
     bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
-
+    bool recreateTableEntity();
     bool createTableEntity(const bool NoTmp);
     bool updateTableEntity();
 

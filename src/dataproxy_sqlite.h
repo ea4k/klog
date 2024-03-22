@@ -110,8 +110,7 @@ public:
                           const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
                           const int _dxcc, const int _logNumber, bool _sendQSL = true);
 
-    int addQSOFromLoTW(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq, const QDate _qslrdate, const QString &_stationcallsign, const int _logn);
-    int addQSO(QSO &_qso);
+    //int addQSO(QSO &_qso);
     //int addQSOQuery(const QSqlQuery &_q);
 
     bool deleteQSO(const int _qsoId);

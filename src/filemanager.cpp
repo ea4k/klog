@@ -929,20 +929,20 @@ bool FileManager::adifLogExportMarked(const QString& _fileName)
     return adifLogExportToFile(_fileName, 0, true, false, false);
 }
 
-QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
+int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
 {
   //qDebug() << Q_FUNC_INFO << " - " << fileName;
    //QSO qso(Q_FUNC_INFO);
    QString stationCallSign;
    stationCallSign.clear();
-   bool addNewQSOs = false;
-   bool askedToAddNewQSOs = false;
+   //bool addNewQSOs = false;
+   //bool askedToAddNewQSOs = false;
    QList<int> _qsos;
    _qsos.clear();
    if (!dataProxy->doesThisLogExist(logN))
    {
        //qDebug() << Q_FUNC_INFO << " - : ERROR: The log does not exist: " << QString::number(logN);
-       return _qsos;
+       return 0;
    }
    //qDebug() << Q_FUNC_INFO << " -  - 10" ;
    //QString fn = "blotw.adi";
@@ -958,7 +958,7 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
        msgBox.setInformativeText(aux);
        msgBox.setStandardButtons(QMessageBox::Ok);
        msgBox.exec();
-       return _qsos;
+       return 0;
    }
    //qDebug() << Q_FUNC_INFO << " -  - 20" ;
     int numberOfQsos = 0;
@@ -988,161 +988,11 @@ QList<int> FileManager::adifLoTWReadLog2(const QString& fileName, const int logN
         }
     }
     file.seek(pos);
-    int step = util->getProgresStepForDialog(numberOfQsos);
-
-    QProgressDialog progress(tr("Processing LoTW ADIF file..."), tr("Abort processing"), 0, numberOfQsos, this);
-    progress.setMaximum(numberOfQsos);
-    progress.setWindowModality(Qt::ApplicationModal);
-    progress.setValue(0);
-    progress.setWindowTitle(tr("LoTW reading"));
-    progress.setAutoClose(true);
-    //qDebug() << Q_FUNC_INFO << " -  - After header while" ;
-    noMoreQso = false;
-    QStringList fields;
-    QSO qso;
-    qso.clear();
-    int i = 0;
-    while (!file.atEnd() && !noMoreQso)
-    {
-        fields.clear();
-        line = (file.readLine()).toUpper();
-        if (line.contains("<APP_LOTW_EOF>"))
-        {
-            noMoreQso = true;
-        }
-        fields << line.split("<", QT_SKIP);
-
-        foreach(QString a, fields)
-        {
-            //qDebug() << Q_FUNC_INFO << " -  - Fields: " << a ;
-            QString fullField = "<" + a.trimmed();
-            if (fullField.contains("<EOR>"))
-            {
-                if (qso.isValid())
-                {
-                   //qDebug() << Q_FUNC_INFO << " -  VALID QSO: ";
-                    qso.setLogId(logN);
-                    if ((util->isValidCall(stationCallSign)) && (stationCallSign.length ()>0))
-                    {
-                        QString aux = QString("<STATION_CALLSIGN:%1>%2").arg(QString::number(stationCallSign.length())).arg(stationCallSign);
-                        qso.setData(aux);
-                    }
-                    QList<int> dupeQsos;
-                    dupeQsos.clear();
-                    int mode;
-                    if (qso.getSubmode().isEmpty()) {
-                        mode = dataProxy->getIdFromModeName(qso.getMode());
-                    } else {
-                        mode = dataProxy->getSubModeIdFromSubMode(qso.getSubmode());
-                    }
-                    dupeQsos << dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qso.getCall(), qso.getDateTimeOn(), dataProxy->getIdFromBandName(qso.getBand()), mode, duplicatedQSOSlotInSecs);
-
-                    if ((dupeQsos.length()<1) && (!askedToAddNewQSOs) )
-                    {
-                        askedToAddNewQSOs = true;
-                        QMessageBox msgBox;
-                        msgBox.setWindowTitle(tr("KLog - Add new QSOs?"));
-                        QString aux = QString(tr("Do you want to add non existing QSOs to your local log?"));
-                        msgBox.setText(aux);
-                        msgBox.setDetailedText(tr("There are some QSOs in the LoTW log that are not in your local log."));
-                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                        msgBox.setDefaultButton(QMessageBox::No);
-                        int ret = msgBox.exec();
-                        switch (ret)
-                        {
-                            case QMessageBox::Yes:
-                            addNewQSOs = true;
-                            break;
-                            case QMessageBox::No:
-                            addNewQSOs = false;
-                            break;
-                            default:
-                            // should never be reached
-                            break;
-                        }
-                    }
-                    if ((dupeQsos.length()<1) && (addNewQSOs))
-                    {
-                        //qDebug() << Q_FUNC_INFO << " -  -  New QSO ... adding ..."  ;
-                        qso.setDefaultEQSLSentServices (sendEQSLByDefault);
-                        int lastId = dataProxy->addQSO(qso);
-                        if (lastId>0)
-                        {
-                            _qsos.append(lastId);
-                            //qDebug() << Q_FUNC_INFO << " -  -  New QSO ... added ..."  ;
-                        }
-                    }
-                    else
-                    {
-                        //qDebug() << Q_FUNC_INFO << " -  -  EXisting QSO or not adding, Updating LoTW QSL status to: " <<  qso.getLoTWQSL_RCVD() ;
-                        if (dataProxy->setLoTWQSLRec (dupeQsos.at(0), qso.getLoTWQSL_RCVD(), qso.getLoTWQSLRDate()))
-                        {
-                            _qsos.append(dupeQsos.at(0));
-                            //qDebug() << Q_FUNC_INFO << " - : Modified QSO: " << QString::number(dupeQsos.at(0));
-                        }
-                    }
-                    i++;
-                    qso.clear();
-                }
-            }
-            else
-            {
-                qso.setData(fullField);
-                //qDebug() << Q_FUNC_INFO << ": - " << fullField;
-                if (fullField.contains ("<CALL:"))
-                {
-                    //qDebug() << Q_FUNC_INFO << ": Getting the DXCC for a call.";
-                    int _dxcc = dataProxy->getDXCCFromPrefix (qso.getCall ());
-                    //qDebug() << Q_FUNC_INFO << ": DXCC: "  << QString::number(_dxcc);
-                    if (util->isValidDXCC (_dxcc))
-                    {
-                        //qDebug() << Q_FUNC_INFO << ": - Adding a DXCC" ;
-                        qso.setDXCC (_dxcc);
-                    }
-                }
-            }
-        }
-        if (( (i % step ) == 0) )
-        { // To update the speed I will only show the progress once each X QSOs
-            //qDebug() << Q_FUNC_INFO << " - : ********************************   UPDATING THE MESSAGE! " << QString::number(i) ;
-            QString aux = tr("Processing LoTW ADIF file......\n QSO: %1 / %2 ").arg(i).arg(numberOfQsos);
-            progress.setLabelText(aux);
-            progress.setValue(i);
-            //qDebug() << Q_FUNC_INFO << " - : ********************************   UPDATING THE MESSAGE: " << aux ;
-        }
-        if ( progress.wasCanceled() )
-        {
-            QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog - User cancelled"));
-            QString aux = QString(tr("You have canceled the LoTW processing. The process will be stopped and your log may not be completely updated.") + "\n" + tr("Do you still want to cancel?"));
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
-            int ret = msgBox.exec();
-            switch (ret)
-            {
-                case QMessageBox::Yes:
-            // Yes was clicked
-                noMoreQso = true;
-                _qsos.clear();
-                progress.setValue(numberOfQsos);
-                return _qsos;
-                //return qsos;
-                case QMessageBox::No:
-                // No Save was clicked
-                break;
-                default:
-                // should never be reached
-                break;
-            }
-        }
-    }
-
-   //qDebug() << Q_FUNC_INFO << " -  - END: " << QString::number(_qsos.length ());
-   return _qsos;
+    qDebug() << Q_FUNC_INFO << " - END" ;
+    return adifReadLog2(fileName, stationCallSign, logN);
 }
 
-bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
+int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file( tfileName );
@@ -1199,10 +1049,14 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
             //qDebug() << Q_FUNC_INFO << QString(": Fields still has %1 items").arg(fields.count()) ;
             QString fieldToAnalyze = "<" + (fields.takeFirst()).trimmed();
             //qDebug() << Q_FUNC_INFO << QString(": Extracted: %1").arg(fieldToAnalyze) ;
-            if (fieldToAnalyze.contains ("<EOR>"))
+            if ((fieldToAnalyze.contains ("<EOR>")) || (fieldToAnalyze.contains("<APP_LOTW_EOF>")) )
             {
                 //qDebug() << Q_FUNC_INFO << QString(": EOR detected, QSO added");
                 qso.setLogId (logN);
+                if ((util->isValidCall(_stationCallsign,true)) && (!util->isValidCall(qso.getStationCallsign(), true)) )
+                {
+                    qso.setStationCallsign(_stationCallsign);
+                }
                 qso.toDB ();
                 qso.clear ();
                 i++;
@@ -1221,7 +1075,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
             else
             {
                 //qDebug() << Q_FUNC_INFO << QString(": Adding this to the QSO: %1").arg(fieldToAnalyze) ;
-                //fieldToAnalyze must be an ADIF record: <Field:length:Data type>Data
+                //fieldToAnalyze must be an ADIF record: <Field:length:Data type>Data                
                 qso.setData (fieldToAnalyze);
             }
             if ( progress.wasCanceled() )
@@ -1256,7 +1110,7 @@ bool FileManager::adifReadLog2(const QString& tfileName, const int logN)
     progress.setValue(qsos);    // Closes the progressDialog
 
     //qDebug() << Q_FUNC_INFO << " - END";
-    return true;
+    return i;
 }
 
 qint64 FileManager::passHeader(QFile & _f)
