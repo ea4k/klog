@@ -57,6 +57,7 @@ class World : public QObject
 {
     //friend class Awards;
     Q_OBJECT
+    friend class tst_World;
 
 public:
     World(DataProxy_SQLite *dp, const QString &_parentFunction);

@@ -53,18 +53,13 @@ private slots:
     void test_modes_data();
     void test_modes();
     void test_bands();
-
-
-
-
-
+    void test_continents();
 
     //void test_getProgresStepForDialog();
 
 private:
   DataProxy_SQLite *dataProxy;
   Utilities *util;
-
 };
 
 tst_DataProxy::tst_DataProxy()
@@ -183,10 +178,17 @@ void tst_DataProxy::test_bands()
     QVERIFY2(!dataProxy->isThisFreqInBand ("80M", "28.775"), "Freq in band failed");
 
     QVERIFY2(dataProxy->getNameFromBandId (dataProxy->getIdFromBandName ("20M")) == "20M", "Band names and Id failed");
+}
 
-
-
-
+void tst_DataProxy::test_continents()
+{
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (281) == "EU", "Continent for Spain (dxcc=281) failed");
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (1) == "NA", "Continent for Canada (dxcc=1) failed");
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (100) == "SA", "Continent for Argentina (dxcc=100) failed");
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (318) == "AS", "Continent for China (dxcc=318) failed");
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (150) == "OC", "Continent for Australia (dxcc=150) failed");
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (483) == "AF", "Continent for Togo (dxcc=483) failed");
+    QVERIFY2(dataProxy->getContinentShortNameFromEntity (13) == "AN", "Continent for Antartica (dxcc=13) failed");
 }
 
 QTEST_APPLESS_MAIN(tst_DataProxy)

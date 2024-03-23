@@ -27,9 +27,7 @@
 
 #include <QtTest>
 #include "../../src/world.h"
-#include "../../src/qso.h"
 #include "../../src/dataproxy_sqlite.h"
-#include "../../src/database.h"
 #include "../../src/utilities.h"
 
 class tst_World : public QObject
@@ -103,7 +101,6 @@ tst_World::tst_World()
     util = new Utilities(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << "003";
     world = new World(dataProxy, Q_FUNC_INFO);
-
     //QString ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);
     //qDebug() << Q_FUNC_INFO << "END";
@@ -128,16 +125,13 @@ void tst_World::test_Constructor()
 {
     //QVERIFY(util->getVersion() == "0.0");
     //qDebug() << "Testing the constructor" ;
-
 }
 
 void tst_World::test_WorldCreation()
 {
     //qDebug() << "Testing the world";
-
-    //QFAIL( "World YES to be created");
-    //QVERIFY2(1==2, "Failure in the qverify2");
-
+    //QString file = util->getCTYFile();
+    //QVERIFY2(world->readCTYCSV(file), "readCTYCSV failed");
 }
 
 void tst_World::test_EntityIdentification()

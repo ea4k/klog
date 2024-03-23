@@ -6851,7 +6851,7 @@ QString DataProxy_SQLite::getContinentShortNameFromEntity(const int _n)
 {
     QSqlQuery query;
 
-    QString queryString= QString("SELECT continent FROM entity WHERE dxcc='%1'").arg(_n);
+    QString queryString= QString("SELECT cont FROM entity WHERE dxcc='%1'").arg(_n);
     //QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.cont=continent.shortname WHERE dxcc='%1'").arg(_n);
     bool sqlOK = query.exec(queryString);
 

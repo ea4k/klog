@@ -754,7 +754,7 @@ bool DataBase::createDataBase()
                  "cqz INTEGER NOT NULL,"
                  "ituz INTEGER NOT NULL,"
                  "UNIQUE (prefix, dxcc), "
-                 "FOREIGN KEY (dxcc) REFERENCES entity)");
+                 "FOREIGN KEY (dxcc) REFERENCES entity(dxcc) )");
     execQuery(Q_FUNC_INFO, stringQuery);
 
     createTableAwardDXCC();
@@ -3049,7 +3049,7 @@ bool DataBase::createTableEntity(const bool NoTmp)
                                              "todate VARCHAR(10), "
                                              "isoname VARCHAR(10), "
                                              "UNIQUE (dxcc, mainprefix), "
-                                             "FOREIGN KEY (cont) REFERENCES continent)");
+                                             "FOREIGN KEY (cont) REFERENCES continent(id) )");
 
          //qDebug() << "DataBase::createTableEntity END" ;
     return execQuery(Q_FUNC_INFO, stringQuery);

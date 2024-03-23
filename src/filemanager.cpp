@@ -988,7 +988,7 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
         }
     }
     file.seek(pos);
-    qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
     return adifReadLog2(fileName, stationCallSign, logN);
 }
 

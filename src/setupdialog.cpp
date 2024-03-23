@@ -58,19 +58,19 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     miscPage = new SetupPageMisc(this);
      //qDebug() << Q_FUNC_INFO << ": 01.50";
     worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
-     qDebug() << Q_FUNC_INFO << ": 01.60";
+     //qDebug() << Q_FUNC_INFO << ": 01.60";
     logsPage = new SetupPageLogs(dataProxy, this);
-     qDebug() << Q_FUNC_INFO << ": 01.70";
+     //qDebug() << Q_FUNC_INFO << ": 01.70";
     eLogPage = new SetupPageELog(this);
-     qDebug() << Q_FUNC_INFO << ": 01.80";
+     //qDebug() << Q_FUNC_INFO << ": 01.80";
     UDPPage = new SetupPageUDP(this);
-     qDebug() << Q_FUNC_INFO << ": 01.90";
+     //qDebug() << Q_FUNC_INFO << ": 01.90";
     satsPage = new SetupPageSats(dataProxy, this);
-     qDebug() << Q_FUNC_INFO << ": 01.100";
+     //qDebug() << Q_FUNC_INFO << ": 01.100";
     hamlibPage = new SetupPageHamLib(dataProxy, this);
-     qDebug() << Q_FUNC_INFO << ": 01.101";
+     //qDebug() << Q_FUNC_INFO << ": 01.101";
     logViewPage = new SetupPageLogView(dataProxy, this);
-     qDebug() << Q_FUNC_INFO << ": 02";
+     //qDebug() << Q_FUNC_INFO << ": 02";
 
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -83,9 +83,9 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     tabWidget->addTab(eLogPage, tr("eLog"));
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
-     qDebug() << Q_FUNC_INFO << ": 02.100";
+     //qDebug() << Q_FUNC_INFO << ": 02.100";
     tabWidget->addTab(hamlibPage, tr ("HamLib"));
-     qDebug() << "SetupDialog::SetupDialog 03";
+     //qDebug() << "SetupDialog::SetupDialog 03";
 
     closeButton = new QPushButton(tr("Cancel"));
     okButton = new QPushButton(tr("OK"));
@@ -102,11 +102,11 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
-     qDebug() << Q_FUNC_INFO << ": 04";
+     //qDebug() << Q_FUNC_INFO << ": 04";
 
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)

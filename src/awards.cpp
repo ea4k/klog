@@ -1200,11 +1200,11 @@ void Awards::recalculateAwards()
     Should go in a transaction
 */
 
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     dataProxy->updateAwardDXCC();
     emit awardDXCCUpdated();
     dataProxy->updateAwardWAZ();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 int Awards::getQSOsInLog(const int _logNumber)

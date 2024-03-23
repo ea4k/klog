@@ -11,6 +11,7 @@ Changelog 2.4
 - Enhancement: Improve how the cty.csv file (countries file) is read.
 - Enhancement: Update the entities table to make UTC real instead of int (e.g. India is -5.5 UTC)
 - BugFix: Fixed the ISO name for Togo.
+- BugFix: Country fix read failed with complex prefixes.
 
 
 Mar 2024 - 2.3.4
