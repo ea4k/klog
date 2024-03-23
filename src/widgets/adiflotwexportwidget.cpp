@@ -94,7 +94,6 @@ void AdifLoTWExportWidget::createUI()
     endDate->setCalendarPopup (true);
     startDate->clear();
     startDate->setToolTip(tr("Select the start date to export the QSOs. The default date is the date of the first QSO with this station callsign."));
-
     endDate->clear();
 
     //endDate->setDate(QDate::currentDate());

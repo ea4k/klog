@@ -58,7 +58,6 @@ void StatsQSOsPerDXCCBarChartWidget::createUI()
 
 void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
 {
-
     QChart *chart = new QChart();
     chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->legend()->setVisible(true);

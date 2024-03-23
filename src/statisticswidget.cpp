@@ -184,7 +184,6 @@ void StatisticsWidget::updateChart()
         //qDebug() << Q_FUNC_INFO << "90";
         w9->prepareChart (log);
         stackedWidget->setCurrentWidget (w9);
-
     }
     break;
     case 10:
@@ -199,7 +198,6 @@ void StatisticsWidget::updateChart()
         //qDebug() << Q_FUNC_INFO << "110";
         w11->prepareChart (log);
         stackedWidget->setCurrentWidget (w11);
-
     }
     break;
     case 12:
@@ -221,7 +219,6 @@ void StatisticsWidget::updateChart()
         //qDebug() << Q_FUNC_INFO << "140";
         w14->prepareChart (log);
         stackedWidget->setCurrentWidget (w14);
-
     }
     break;
     case 15:
@@ -247,8 +244,6 @@ void StatisticsWidget::updateChart()
 void StatisticsWidget::createUI()
  {
     //qDebug() << Q_FUNC_INFO << "Start";
-
-
     stackedWidget->addWidget(w1);
     stackedWidget->addWidget(w2);
     stackedWidget->addWidget(w3);

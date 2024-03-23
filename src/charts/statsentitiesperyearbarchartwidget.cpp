@@ -50,7 +50,6 @@ StatsEntitiesPerYearBarChartWidget::~StatsEntitiesPerYearBarChartWidget()
 
 void StatsEntitiesPerYearBarChartWidget::createUI()
 {
-
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -109,7 +108,6 @@ void StatsEntitiesPerYearBarChartWidget::prepareChart(const int _log)
             }
                //qDebug() << "BarChartStats::prepareChart DXCCs: " << QString::number((categories.at(i)).toInt()) << "/" << QString::number(numberPerX);
         }
-
     series->append(set0);
     set0->setLabel(categoriesElem);
     chart->addSeries(series);

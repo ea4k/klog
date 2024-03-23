@@ -552,7 +552,6 @@ QStringList SetupPageUserDataPage::getRigs()
     a.clear();
     a << rig1LineEdit->text() << rig2LineEdit->text() << rig3LineEdit->text();
     return a;
-
 }
 
 QStringList SetupPageUserDataPage::getAntennas()

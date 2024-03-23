@@ -181,7 +181,6 @@ void SetupPageLogs::slotRemoveButtonClicked()
                     showError(tr("Log has not been removed. (#3)"));
                        //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")";
                 }
-
             }
             else
             {
@@ -339,7 +338,6 @@ QStringList SetupPageLogs::readLogs()
             aux2 = aux2.append(")");
 
             _logs.append(aux2);
-
         }
         return _logs;
     }

@@ -44,7 +44,6 @@ StatsQSOsPerBandBarChartWidget::~StatsQSOsPerBandBarChartWidget()
 
 void StatsQSOsPerBandBarChartWidget::createUI()
 {
-
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;

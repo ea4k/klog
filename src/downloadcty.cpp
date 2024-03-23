@@ -80,8 +80,8 @@ DownLoadCTY::~DownLoadCTY()
    QString aux;
    aux.clear();
 
-   if (reply->error()) {
-
+   if (reply->error())
+   {
        //fprintf(stderr, "Download of %s failed: %s\n",
        //        url.toEncoded().constData(),
        //        qPrintable(reply->errorString()));
@@ -114,9 +114,7 @@ DownLoadCTY::~DownLoadCTY()
    }
 
    reply->deleteLater();
-
    emit done(true);
-
 }
 
 int DownLoadCTY::download()
@@ -170,8 +168,8 @@ QString DownLoadCTY::saveFileName(const QUrl &url)
     if (basename.isEmpty())
         basename = "download";
 
-    if (QFile::exists(basename)) {
-
+    if (QFile::exists(basename))
+    {
         msgBox.setIcon(QMessageBox::Warning);
         aux = tr("There is already a cty.csv file in the folder but it will be replaced with the new one.");
         msgBox.setText(aux);
@@ -185,7 +183,6 @@ QString DownLoadCTY::saveFileName(const QUrl &url)
         //basename += '.';
         //while (QFile::exists(basename + QString::number(i)))
         //    ++i;
-
         //basename += QString::number(i);
     }
 
@@ -200,7 +197,6 @@ bool DownLoadCTY::saveToDisk(const QString &filename, QIODevice *data)
     QString aux;
     aux.clear();
     if (!file.open(QIODevice::WriteOnly)) { /* Flawfinder: ignore */
-
         msgBox.setIcon(QMessageBox::Warning);
         aux = tr("Could not open %1 for writing").arg(filename);
         //aux = tr("Could not open ") + filename + tr(" for writing.");

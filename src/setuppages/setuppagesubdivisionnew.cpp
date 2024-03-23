@@ -70,10 +70,7 @@ SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *
     okButton = new QPushButton(tr("&Ok"), this);
     cancelButton = new QPushButton(tr("&Cancel"), this);
     createWidget();
-
-
     okButton->setEnabled(false);
-
        //qDebug() << "SetupPageSubdivisionNew::SetupPageSubdivisionNew - END"  ;
 }
 
@@ -272,9 +269,7 @@ void SetupPageSubdivisionNew::createWidget()
     clear();
     //page->setLayout(callsLayout);
       //qDebug() << "SetupPageSubdivisionNew::createWidget - End";
-
 }
-
 
 void SetupPageSubdivisionNew::slotOperatorsTextChanged()
 {
@@ -548,7 +543,6 @@ void SetupPageSubdivisionNew::slotCatModeComboBoxChanged()
 */
 void SetupPageSubdivisionNew::slotOKButtonClicked()
 {
-
        //qDebug() << "SetupPageSubdivisionNew::slotOkButtonClicked";
     stationCallsign = stationCallsignLineEdit->text();
     if (stationCallsign.length()<3)
@@ -694,7 +688,6 @@ void SetupPageSubdivisionNew::slotOKButtonClicked()
 
     }
 */
-
 }
 
 void SetupPageSubdivisionNew::gatherAndSend()
@@ -738,13 +731,11 @@ void SetupPageSubdivisionNew::gatherAndSend()
         logData << "0";
     }
 
-
     //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
 
        //qDebug() << "SetupPageSubdivisionNew::gatherAndSend: EMITED";
     emit newLogData(logData);
-
 }
 
 void SetupPageSubdivisionNew::slotCancelButtonClicked()
@@ -796,7 +787,6 @@ void SetupPageSubdivisionNew::setDateString(const QString &_st)
 {
     dateString = _st;
     dateEdit->setDate(QDate::fromString(dateString, "yyyy-MM-dd"));
-
 }
 
 /*
@@ -930,7 +920,6 @@ void SetupPageSubdivisionNew::showOK()
     //validCats->setText(tr("Data OK"));
     //validCats->setStyleSheet("QLabel {color : black; }");
     okButton->setEnabled(true);
-
 }
 
 void SetupPageSubdivisionNew::showNOK()

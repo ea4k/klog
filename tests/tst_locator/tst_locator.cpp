@@ -55,20 +55,11 @@ tst_Locator::tst_Locator()
     locator = new Locator;
 }
 
-tst_Locator::~tst_Locator()
-{
+tst_Locator::~tst_Locator(){}
 
-}
+void tst_Locator::initTestCase(){}
 
-void tst_Locator::initTestCase()
-{
-
-}
-
-void tst_Locator::cleanupTestCase()
-{
-
-}
+void tst_Locator::cleanupTestCase(){}
 
 void tst_Locator::test_Constructor()
 {

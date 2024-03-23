@@ -134,7 +134,6 @@ void SetupPageColors::slotNeededColorButtonClicked ()
     style = style + (giveColor(neededColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
     neededColorButton->setStyleSheet(style);
-
 }
 
 void SetupPageColors::slotWorkedColorButtonClicked ()
@@ -144,7 +143,6 @@ void SetupPageColors::slotWorkedColorButtonClicked ()
     style = style + (giveColor(workedColorButton->palette().color(QPalette::Button))).name();
     style = style + "; }";
     workedColorButton->setStyleSheet(style);
-
 }
 
 void SetupPageColors::slotConfirmedColorButtonClicked ()
@@ -182,7 +180,6 @@ QColor SetupPageColors::giveColor (QColor c)
            //qDebug()  << "SetupPageColors::giveColor NOT valid color";
       return colorb;
     }
-
 }
 
 QString SetupPageColors::getNewOneColor()
@@ -276,8 +273,8 @@ void SetupPageColors::slotSetDarkMode()
     setDarkMode (!darkMode);
 }
 
-QString SetupPageColors::getDarkMode(){
-
+QString SetupPageColors::getDarkMode()
+{
     //qDebug() << Q_FUNC_INFO;
     return util->boolToQString(darkMode);
 }

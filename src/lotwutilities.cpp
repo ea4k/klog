@@ -83,7 +83,6 @@ void LoTWUtilities::slotCalendarDateSelected(const QDate _d)
    //qDebug() << "LoTWUtilities::slotCalendarDateSelected: " << _d.toString("yyyyMMdd") ;
     firstDate = _d;
     startThefullDownload();
-
 }
 
 void LoTWUtilities::setFileName(const QString &_fn)
@@ -359,7 +358,6 @@ int LoTWUtilities::fullDownload()
 
 int LoTWUtilities::startThefullDownload()
 {
-
    //qDebug() << "LoTWUtilities::startThefulldownload - Start";
     if (calendar->isVisible())
     {
@@ -586,7 +584,6 @@ bool LoTWUtilities::getIsReady()
          //qDebug() << "LoTWUtilities::getIsReady: false";
       return false;
     }
-
 }
 
 void LoTWUtilities::parseDownloadedFile(const QString &_fn)
@@ -658,7 +655,6 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         // WE HAVE JUST FINISHED TO READ THE HEADER OR THE FILE, IF IT IS NOT AN ADIF
         if (!hasHeader || (numQSO<1))
         {
-
              //qDebug() << "LoTWUtilities::parseDownloadedFile Header not found" << _fileName;
             QString aux;
             if (userPasswordError)
@@ -706,7 +702,6 @@ void LoTWUtilities::parseDownloadedFile(const QString &_fn)
         }
         //file.seek(startOfFile);
         emit actionProcessLoTWDownloadedFile(_fileName);
-
     }
 
 

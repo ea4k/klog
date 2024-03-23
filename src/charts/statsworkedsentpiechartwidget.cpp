@@ -88,5 +88,4 @@ void StatsWorkedSentPieChartWidget::prepareChart(const int _log)
 
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setChart (chart);
-
 }

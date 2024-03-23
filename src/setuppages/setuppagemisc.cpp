@@ -240,8 +240,8 @@ QString SetupPageMisc::getSendEQSLByDefault()
     return util->boolToQString(sendEQSLByDefaultSearchCheckBox->isChecked());
 }
 
-void SetupPageMisc::setSetEQSLByDefault(const QString &_t){
-
+void SetupPageMisc::setSetEQSLByDefault(const QString &_t)
+{
     sendEQSLByDefaultSearchCheckBox->setChecked(util->trueOrFalse(_t));
 }
 

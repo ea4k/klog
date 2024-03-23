@@ -264,7 +264,6 @@ void HamLibSerialConfigWidget::setParity(const QString &_st)
 //StopBits { OneStop, OneAndHalfStop, TwoStop, UnknownStopBits }
 QString HamLibSerialConfigWidget::getStopBits()
 {
-
    int ret = stopBitsComboBox->currentIndex();
     switch (ret)
     {
@@ -285,13 +284,10 @@ QString HamLibSerialConfigWidget::getStopBits()
             return "UnknownStopBits";
         break;
     }
-
 }
 
 void HamLibSerialConfigWidget::setStopBits(const QString &_st)
 {
-
-
     if (_st == "OneStop")
     {
         stopBitsComboBox->setCurrentIndex(0);

@@ -128,10 +128,8 @@ void ShowAdifImportWidget::addQSO(const QStringList &_qso)
             newItemID->setFlags(Qt::NoItemFlags);
             tableWidget->setItem(tableWidget->rowCount()-1, i, newItemID);
         }
-
         //QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(pow(row, column+1)));
         //tableWidget->setItem(row, column, newItem);
-
     }
 
     //qDebug() << "ShowAdifImportWidget::addQSO: - END" ;

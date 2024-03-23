@@ -138,7 +138,6 @@ void SearchWidget::showQSOs(QList<int> qsoIdList)
     //qDebug() << "SearchWidget::showQSOs filter: " << filter;
 
     searchWindow->setFilterString(filter);
-
 }
 
 
@@ -252,7 +251,6 @@ void SearchWidget::slotQsoDeleteFromSearch(const int _qsoId)
     QString _qrz = dataProxy->getCallFromId(QSOid);
     if (_qrz.length()>=3)
     {
-
         QString message = QString(tr("You have requested to delete the QSO with: %1").arg(_qrz));
 
         QMessageBox msgBox;
@@ -283,7 +281,6 @@ void SearchWidget::slotQsoDeleteFromSearch(const int _qsoId)
                 //dxccStatusWidget->refresh();
                 //awards->recalculateAwards();
                 emit updateAwards();
-
             }
             else
             {
@@ -298,7 +295,6 @@ void SearchWidget::slotQsoDeleteFromSearch(const int _qsoId)
               // should never be reached
             break;
         }
-
     }
     else
     {
@@ -490,7 +486,6 @@ void SearchWidget::slotQSLSentViaDirectFromSearch()
     }
 
     //qslSentViaDirect(_qsoId);
-
 }
 
 /*
@@ -593,12 +588,12 @@ void SearchWidget::slotDoubleClickSearch(QTreeWidgetItem * item, int)
     {}
 
 }
-    */
+*/
+
 void SearchWidget::setNeedingQSL(bool const _q)
 {
     qslingNeeded = _q;
     searchWindow->setNeedingQSL(qslingNeeded);
-
 }
 
 void SearchWidget::slotSearchBoxTextChanged()
@@ -697,8 +692,6 @@ void SearchWidget::slotSearchBoxTextChanged()
     }
 
     searchBoxLineEdit->setCursorPosition(cursorP);
-
-
 }
 
 void SearchWidget::setModelFilter()
@@ -706,7 +699,6 @@ void SearchWidget::setModelFilter()
     //qDebug() << "SearchWidget::setModelFilter - callFilter        = "  << callFilter ;
     //qDebug() << "SearchWidget::setModelFilter - stationCallFilter = " << stationCallsignFilter  ;
     //qDebug() << "SearchWidget::setModelFilter - currentLog        = " << currentLogFilter;
-
     QString filter;
     filter = QString();
 
@@ -768,7 +760,6 @@ void SearchWidget::slotSearchBoxSelectAllButtonClicked()
         searchSelectAllClicked = false;
         searchWindow->clearSelection();
         searchBoxSelectAllButton->setText(tr("&Select All"));
-
     }
     else
     {
@@ -776,9 +767,7 @@ void SearchWidget::slotSearchBoxSelectAllButtonClicked()
         searchSelectAllClicked = true;
         searchWindow->selectAll();
         searchBoxSelectAllButton->setText(tr("&Clear selection"));
-
     }
-
 }
 
 void SearchWidget::slotSearchBoxReSearchButtonClicked()

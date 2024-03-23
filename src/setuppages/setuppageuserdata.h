@@ -163,7 +163,6 @@ private:
     bool mainCallOK;
     bool slotQRZRunning;
     Utilities *util;
-
 };
 
 

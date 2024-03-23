@@ -68,7 +68,6 @@
     setWindowTitle(tr("KLog - The free hamradio logging program"));
 
        //qDebug() << "StartWizard::StartWizard: - END";
-
  }
 
  void StartWizard::setVersion(const QString &tversion)
@@ -141,7 +140,6 @@
  IntroPage::IntroPage(QWidget *parent)
      : QWizardPage(parent)
  {
-
      setTitle(tr("Welcome to KLog!"));
 
      topLabel = new QLabel(tr("Welcome to KLog! "
@@ -171,7 +169,6 @@
     layout->addWidget(welcomeBrowser);
 
     setLayout(layout);
-
  }
 
  int IntroPage::nextId() const
@@ -987,9 +984,6 @@ void CTYPage::slotIgnoreDownloadButtonClicked()
     slotStopProgressBar();
     hiddenCheckBox->setChecked(true);
     progressBar->setEnabled(false);
-
-    //completed = true;
-
 }
 
 void CTYPage::slotDownloadFinished(const int ret)
@@ -1012,8 +1006,6 @@ void CTYPage::slotDownloadFinished(const int ret)
      {
        //qDebug() << "CTYPage::slotDownloadFinished: (another result): " << QString::number(ret);
      }
-
-
 }
 
 void CTYPage::slotDownloadError(const int ret)

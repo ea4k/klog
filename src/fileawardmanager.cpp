@@ -145,12 +145,10 @@ bool FileAwardManager::importNewAwardFile()
                     {
                         //regionalAward->addRegionalAwardName(adifField.at(1));
                     }
-
                     else
                     {
                         //qDebug() << "FileAwardManager::importNewAwardFile: Invalid AWA field found HEADER" << adifField.at(0);
                     }
-
                 }
                 aux.clear();
             }
@@ -224,10 +222,10 @@ bool FileAwardManager::importNewAwardFile()
                 {
                     //qDebug() << "FileAwardManager::importNewAwardFile: Invalid AWA field found in BODY" << adifField.at(0);
                 }
-            }}
+            }
+            }
         }
     }
-
     return false;
 }
 

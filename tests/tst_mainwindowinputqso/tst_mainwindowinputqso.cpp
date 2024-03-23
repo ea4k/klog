@@ -61,7 +61,6 @@ private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
     MainWindowInputQSO *mainWindowInputQSO;
-
 };
 
 tst_MainWindowInputQSO::tst_MainWindowInputQSO()
@@ -72,19 +71,16 @@ tst_MainWindowInputQSO::tst_MainWindowInputQSO()
     util = new Utilities(Q_FUNC_INFO);
 }
 
-tst_MainWindowInputQSO::~tst_MainWindowInputQSO()
-{
-
-}
+tst_MainWindowInputQSO::~tst_MainWindowInputQSO(){}
 
 void tst_MainWindowInputQSO::initTestCase()
 {
-qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputQSO::cleanupTestCase()
 {
-qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputQSO::test_Constructor()
@@ -120,13 +116,12 @@ void tst_MainWindowInputQSO::test_WriteRead()
     mainWindowInputQSO->setRXFreq (14.1);
     QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXFreq (), 14.1), "Wrong RX Freq");
     //qDebug() << Q_FUNC_INFO << " - END";
-
 }
 
 void tst_MainWindowInputQSO::test_RST2Modes ()
 {
-//void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
-qDebug() << Q_FUNC_INFO << " - Start";
+    //void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
+    qDebug() << Q_FUNC_INFO << " - Start";
     mainWindowInputQSO->setRSTTX("56");
     QVERIFY2(mainWindowInputQSO->getRSTTX ()== "56", "Wrong RST TX");
     mainWindowInputQSO->setRSTRX("43");
@@ -167,11 +162,11 @@ qDebug() << Q_FUNC_INFO << " - Start";
     mainWindowInputQSO->setRSTRX("57AAAA");
     QVERIFY2(mainWindowInputQSO->getRSTRX ()== "57AA", "Wrong invalid RST RX - ELSE");
     //qDebug() << Q_FUNC_INFO << ": ELSE Wrong RST: " << mainWindowInputQSO->getRSTRX () ;
-
 }
 
 void tst_MainWindowInputQSO::test_GridLineEdit()
-{qDebug() << Q_FUNC_INFO << " - Start";
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
     QPalette palRed = mainWindowInputQSO->palRed;
     QPalette palBlack = mainWindowInputQSO->palBlack;
     QPalette palWhite = mainWindowInputQSO->palWhite;
@@ -214,7 +209,6 @@ void tst_MainWindowInputQSO::test_GridLineEdit()
 
     mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80,IN,IN,");
     QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I,IN80,IN,IN,");
-
 }
 
 void tst_MainWindowInputQSO::test_Cleaners()

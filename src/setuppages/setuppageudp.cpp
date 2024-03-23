@@ -52,14 +52,14 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     //qDebug() << "SetupPageUDP::SetupPageUDP - END";
 }
 
-SetupPageUDP::~SetupPageUDP(){
+SetupPageUDP::~SetupPageUDP()
+{
     delete(util);
        //qDebug() << "SetupPageUDP::~SetupPageUDP";
 }
 
 void SetupPageUDP::createUI()
 {
-
     QString msgAuto = QString(tr("Automatically log QSOs from WSJT-X"));
     logFromWSJTXCheckbox->setText(tr("Allow WSJT-X to send logged QSOs to KLog"));
     logFromWSJTXCheckbox->setToolTip(tr("QSOs logged in WSJT-X will be sent to KLog and KLog will ask before logging into KLog unless \"%1\" is selected").arg(msgAuto));
@@ -146,7 +146,6 @@ void SetupPageUDP::createActions()
     //connect(logAutomaticallyWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotAutoLogFromWSJTCheckBoxClicked() ) );
     //connect(realDataFromWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotRealFromWSJTCheckBoxClicked() ) );
     connect(UDPServerCheckBox, SIGNAL(clicked()), this, SLOT(slotUDPServerCheckBoxClicked() ) );
-
 }
 
 void SetupPageUDP::slotUDPServerCheckBoxClicked()
@@ -195,7 +194,6 @@ void SetupPageUDP::fillNetworkInterfaceComboBox()
     }
     interfacesNames.insert(0, loopBack.humanReadableName());
     networkInterfacesComboBox->addItems(interfacesNames);
-
 }
 
 void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()

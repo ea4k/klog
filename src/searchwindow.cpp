@@ -603,7 +603,6 @@ QList<int> SearchWindow::getSelectedQSOs()
 
 void SearchWindow::slotQSLRecMarkAsRequested()
 {
-
     int _qsoId = ((searchModel->index((qslRecRequestedAct->data()).toInt(), 0)).data(0)).toInt();
     dataProxy->qslRecAsRequested(_qsoId, QDate::currentDate());
     if(qslingNeeded)
@@ -729,7 +728,6 @@ void SearchWindow::slotQSLSentViaBureauMarkDXReqFromSearch()
     dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
     dataProxy->qslRecAsRequested(_qsoId, QDate::currentDate());
 
-
     if(qslingNeeded)
     {
         slotToolSearchQSL(0);
@@ -741,7 +739,6 @@ void SearchWindow::slotQSLSentViaBureauMarkDXReqFromSearch()
     searchModel->select();
     //qDebug() << "slotQSLSentViaBureauMarkDXReqFromSearch: - END ";
     // Mark Sent, Bureau, date, update log.
-
 }
 
 void SearchWindow::slotQSLRecViaBureauMarkReqFromSearch()
@@ -771,7 +768,7 @@ void SearchWindow::slotQSLRecViaBureauMarkReqFromSearch()
 
 void SearchWindow::slotQSLRecViaDirectMarkReqFromSearch()
 {
-       //qDebug() << "SearchWidget::slotQSLRecViaDirectFromLog: ";
+    //qDebug() << "SearchWidget::slotQSLRecViaDirectFromLog: ";
      //int _qsoId = (qslRecViaDirectMarkReqFromSearchAct->data()).toInt();
      int _qsoId = ((searchModel->index((qslRecViaDirectMarkReqFromSearchAct->data()).toInt(), 0)).data(0)).toInt();
     //qslRecViaDirectMarkReq(_qsoId);

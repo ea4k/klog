@@ -89,7 +89,6 @@ void SetupPageSatsNew::clear()
     uplinkLineEdit->clear();
     downlinkLineEdit->clear();
     modesLineEdit->clear();
-
 }
 
 void SetupPageSatsNew::createUI()
@@ -149,7 +148,6 @@ void SetupPageSatsNew::createUI()
 
     setLayout(mainLayout);
     clear();
-
 }
 
 void SetupPageSatsNew::slotShortNameTextChanged()
@@ -180,7 +178,6 @@ void SetupPageSatsNew::slotNameTextChanged()
     {
         hasName = false;
     }
-
     nameLineEdit->setCursorPosition(cursorP);
 }
 
@@ -227,7 +224,6 @@ bool SetupPageSatsNew::isItAFreq(const QString &_st)
     bool ok = false;
     double freq = _st.toDouble(&ok);
     return ((freq>=0.0) && (ok));
-
 }
 
 void SetupPageSatsNew::slotDownLinkTextChanged()
@@ -263,7 +259,6 @@ void SetupPageSatsNew::slotDownLinkTextChanged()
             }
         }
     }
-
 }
 
 void SetupPageSatsNew::slotModesTextChanged()
@@ -314,7 +309,6 @@ void SetupPageSatsNew::slotModesTextChanged()
                    hasModes = false;
                }
             }
-
         }
         else
         {
@@ -363,7 +357,6 @@ void SetupPageSatsNew::setModes(const QString st)
 
 void SetupPageSatsNew::slotOKButtonClicked()
 {
-
        //qDebug() << "SetupPageSatsNew::slotOkButtonClicked";
     shortName = shortNameLineEdit->text();
     name = nameLineEdit->text();
@@ -373,7 +366,6 @@ void SetupPageSatsNew::slotOKButtonClicked()
 
     if (hasShortName && hasName && (hasUplink || hasDownlink) && hasModes)
     {
-
         gatherAndSend();
         editing = false;
         close();
@@ -457,6 +449,5 @@ void SetupPageSatsNew::setEditing(const bool b)
     {
         clear();
     }
-
 }
 

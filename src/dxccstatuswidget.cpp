@@ -652,7 +652,6 @@ void DXCCStatusWidget::refresh()
 
         if ((column == 0) || (column == 1))
         {
-
             //tip = tr("Pref: ") + (dxccView->item(row, 1))->text() + " - ";
             tip = tr("Pref: ") + dataProxy->getEntityMainPrefix(entiID) + " - ";
             tip = tip + tr("CQ: ") + QString::number(dataProxy->getCQzFromEntity(entiID)) + " - ";
@@ -774,7 +773,6 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
           {
               qsos.append(qsoId);
           }
-
         }
         //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of for" ;
         if (qsos.length()>0)
@@ -796,7 +794,6 @@ void DXCCStatusWidget::setMyLocator(const QString &_loc)
     {
         loc = l.toUpper();
     }
-
 }
 /*
 void DXCCStatusWidget::slotRightButton(const QPoint& pos)

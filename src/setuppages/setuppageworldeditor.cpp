@@ -137,7 +137,6 @@ SetupPageWorldEditor::~SetupPageWorldEditor()
 
 void SetupPageWorldEditor::createWorldPanel()
 {
-
     worldView->setModel(worldModel);
     QString stringQuery = QString("SELECT * FROM entity");
     QSqlQuery query(stringQuery);
@@ -179,7 +178,6 @@ void SetupPageWorldEditor::createWorldPanel()
     worldView->setSelectionBehavior(QAbstractItemView::SelectRows);
     worldView->resizeColumnsToContents();
     worldView->horizontalHeader()->setStretchLastSection(true);
-
 }
 
 void SetupPageWorldEditor::createWorldModel()
@@ -253,7 +251,6 @@ void SetupPageWorldEditor::createActions()
     //SIGNAL received from the setupEntityDialog
     // void entityAdded(const QStringList _qs); // entity
     connect(setupEntityDialog, SIGNAL(entityAdded(QStringList)), this, SLOT(slotAnalyzeEntityAddedSignal(QStringList) ) );
-
 }
 
 void SetupPageWorldEditor::slotAnalyzeEntityAddedSignal(const QStringList _qs)
@@ -335,7 +332,6 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
 
     if (world->recreate(worldFile) )
     {
-
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("Entities information has been updated."));
         worldModel->select();
@@ -345,8 +341,6 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("Entities information has not been updated."));
     }
-
-
     msgBox.exec();
        //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END";
 }

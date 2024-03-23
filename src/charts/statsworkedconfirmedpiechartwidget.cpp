@@ -48,7 +48,6 @@ StatsWorkedConfirmedPieChartWidget::~StatsWorkedConfirmedPieChartWidget()
 
 void StatsWorkedConfirmedPieChartWidget::createUI()
 {
-
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;
@@ -92,5 +91,4 @@ void StatsWorkedConfirmedPieChartWidget::prepareChart(const int _log)
 
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setChart (chart);
-
 }

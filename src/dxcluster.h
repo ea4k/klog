@@ -83,7 +83,6 @@ signals:
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
-
     //void TESTADDSPOT(); // Just a test spot
 
     void createActions();
@@ -125,20 +124,16 @@ private:
     bool saveSpots; // write/save the spots to a file
 
     QAction *checkQRZCOMFromLogAct;
-
  };
 
-class dxClusterSpotItem : public QListWidgetItem {
-
+class dxClusterSpotItem : public QListWidgetItem
+{
 public:
-
     dxClusterSpotItem( QListWidget* parent, const QString& spot, const QColor& color );
     ~dxClusterSpotItem();
 
 protected:
-
   QColor spotColor;
-
 };
 
 #endif // DXCLUSTER_H

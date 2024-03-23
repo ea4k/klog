@@ -121,7 +121,6 @@ private:
 
     QComboBox *debugLogLevelCombo;
     //QWidget *bandsWidget;
-
 };
 
 

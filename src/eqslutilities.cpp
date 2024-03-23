@@ -85,7 +85,6 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
 
     if (result == QNetworkReply::NoError)
     {
-
         parsedAnswer << prepareToTranslate(sdata);
         if (parsedAnswer.at(0).contains("Error"))
         {
@@ -132,7 +131,6 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
     //emit done();
     emit signalFileUploaded(result, qsos);
     emit showMessage(text);
-
 }
 
 void eQSLUtilities::downloadProgress(qint64 received, qint64 total) {
@@ -197,8 +195,6 @@ QStringList eQSLUtilities::prepareToTranslate(const QString &_m)
         result << "Unknown" << "Unknown";
     }
     //qDebug()<< "eQSLUtilities:: = prepareToTranslate returning... " ;
-
-
     return result;
 }
 
@@ -272,7 +268,6 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
     //qDebug()<< Q_FUNC_INFO << " After sending";
     //multiPart->setParent(reply);
     //qDebug()<< "eQSLUtilities::sendLogFile - END";
-
 }
 
 

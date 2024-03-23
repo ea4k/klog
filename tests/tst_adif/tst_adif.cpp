@@ -53,10 +53,7 @@ tst_Adif::tst_Adif()
     adif = new Adif(Q_FUNC_INFO);
 }
 
-tst_Adif::~tst_Adif()
-{
-
-}
+tst_Adif::~tst_Adif(){}
 
 void tst_Adif::initTestCase()
 {
@@ -67,7 +64,6 @@ void tst_Adif::cleanupTestCase()
 {
     //qDebug("Called after last test.");
 }
-
 
 void tst_Adif::test_getADIFField()
 { //QString Utilities::getADIFField(const QString &_fieldName, const QString &_data)

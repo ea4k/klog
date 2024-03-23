@@ -40,7 +40,6 @@ StatsCQZPerYearBarChartWidget::StatsCQZPerYearBarChartWidget(DataProxy_SQLite *d
 
 void StatsCQZPerYearBarChartWidget::createUI()
 {
-
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;

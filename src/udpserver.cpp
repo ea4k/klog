@@ -112,7 +112,6 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
         {
             port = _port;
             joinMultiCastGroup();
-
         }
         else
         {
@@ -147,7 +146,6 @@ void UDPServer::joinMultiCastGroup()
             {
                //qDebug() << "UDPServer::joinMultiCastGroup socket valid";
             }
-
         }
         bool joined {false};
 

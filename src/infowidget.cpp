@@ -300,7 +300,6 @@ void InfoWidget::createUI()
 #endif
 
     setLayout(mainLayout);
-
 }
 
 void InfoWidget::clearBandLabels()
@@ -472,7 +471,6 @@ void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)
             ituzLabel->setText("0");
         }
     }
-
 }
 
 
@@ -484,7 +482,6 @@ void InfoWidget::showDistanceAndBearing(const QString &_locLocal, const QString 
 
     if ( locator->isValidLocator(lloc)  )
     {
-
         if ( locator->isValidLocator(ldx)  )
         {
             dxLocator = ldx;

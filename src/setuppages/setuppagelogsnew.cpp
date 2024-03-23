@@ -132,7 +132,6 @@ void SetupPageLogsNew::createWidget()
     clear();
 
       //qDebug() << "SetupPageLogsNew::createWidget - End";
-
 }
 
 void SetupPageLogsNew::slotOperatorsTextChanged()
@@ -176,7 +175,6 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
         return;
     }
 
-
     int cursorP = stationCallsignLineEdit->cursorPosition();
 
     QString currentQrz = util->getClearSQLi (stationCallsignLineEdit->text());
@@ -202,7 +200,6 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
 
 void SetupPageLogsNew::slotOKButtonClicked()
 {
-
        //qDebug() << "SetupPageLogsNew::slotOkButtonClicked";
     stationCallsign = stationCallsignLineEdit->text();
     if (stationCallsign.length()<3)
@@ -283,7 +280,6 @@ void SetupPageLogsNew::gatherAndSend()
 
        //qDebug() << "SetupPageLogsNew::gatherAndSend: EMITED";
     emit newLogData(logData);
-
 }
 
 void SetupPageLogsNew::slotCancelButtonClicked()
@@ -335,7 +331,6 @@ void SetupPageLogsNew::setDateString(const QString &_st)
 {
     dateString = _st;
     dateEdit->setDate(QDate::fromString(dateString, "yyyy-MM-dd"));
-
 }
 
 /*
@@ -469,7 +464,6 @@ void SetupPageLogsNew::showOK()
     //validCats->setText(tr("Data OK"));
     //validCats->setStyleSheet("QLabel {color : black; }");
     okButton->setEnabled(true);
-
 }
 
 void SetupPageLogsNew::showNOK()

@@ -518,7 +518,6 @@ QString MainWindowMyDataTab::getUserADIFTypeComboBox()
     int value = (((myUserADIFComboBox->currentText ()).split('-')).at(0)).toInt ();
     switch (value)
     {
-
     case 1:
         return "MY_RIG";
     case 2:

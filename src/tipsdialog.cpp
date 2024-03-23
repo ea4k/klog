@@ -126,8 +126,8 @@ void TipsDialog::setLogLevel(const DebugLogLevel _sev)
 void TipsDialog::setTip(const int _t)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    switch (_t) {
-
+    switch (_t)
+    {
     case 1:
         //: Translator: Please make sure that the name of the link is coherent with the menu Tools->Fill in QSO data
         description = tr("<b>Tip #1:</b><br>Do you know...<br>You can use <a href=\"#ToolsFillInQSO\">Tools->Fill in QSO data</a> to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?");

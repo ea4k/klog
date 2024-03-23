@@ -100,12 +100,11 @@ SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
 
     createActions();
     updateSelectedSats();
-
-
        //qDebug() << "SetupPageSats::SetupPageSats - END";
 }
 
-SetupPageSats::~SetupPageSats(){
+SetupPageSats::~SetupPageSats()
+{
        //qDebug() << "SetupPageSats::~SetupPageSats";
     delete(util);
     delete(newSat);
@@ -217,14 +216,12 @@ void SetupPageSats::slotRemoveButtonClicked()
              QMessageBox::Yes | QMessageBox::No);
     if (ret == QMessageBox::Yes)
     {
-
         QString stringQuery = QString("DELETE FROM satellites WHERE id='%1'").arg(selectedSat);
         QSqlQuery query(stringQuery);
 
         bool sqlOk = query.exec();
         if (sqlOk)
         {
-
             satsModel->select();
             updateSelectedSats();
             stringQuery = QString("DELETE FROM log WHERE lognumber='%1'").arg(selectedSat);
@@ -233,7 +230,6 @@ void SetupPageSats::slotRemoveButtonClicked()
                //qDebug() << "SetupPageSats::slotRemoveButtonClicked: LastQuery: " << query.lastQuery() ;
             if (sqlOk)
             {
-
                 stringQuery = QString("DELETE FROM awarddxcc WHERE lognumber='%2'").arg(selectedSat);
                 query.exec(stringQuery);
                 sqlOk = query.exec();
@@ -248,7 +244,6 @@ void SetupPageSats::slotRemoveButtonClicked()
                     showError(tr("Sat has not been removed. (#3)"));
                        //qDebug() << "SetupPageSats::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedSat) << ")";
                 }
-
             }
             else
             {
@@ -263,11 +258,8 @@ void SetupPageSats::slotRemoveButtonClicked()
                //qDebug() << "SetupPageSats::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedSat) << ")";
         }
     }
-
     //ASK FOR A CONFIRMATION
-
     //DELETE ALL THE QSO IN THE REMOVED Sat
-
 }
 
 void SetupPageSats::createSatsPanel()
@@ -301,7 +293,6 @@ void SetupPageSats::createSatsPanel()
     satsView->setSelectionBehavior(QAbstractItemView::SelectRows);
     satsView->resizeColumnsToContents();
     satsView->horizontalHeader()->setStretchLastSection(true);
-
 }
 
 void SetupPageSats::createSatsModel()
@@ -344,7 +335,6 @@ void SetupPageSats::slotSatselected(const QModelIndex & index)
      //qDebug() << "SetupPageSats::slotSatselected" ;
     int row = index.row();
     setSelectedSat((satsModel->index(row, 0)).data(0).toInt());
-
 }
 
 void SetupPageSats::slotSatDoubleClicked(const QModelIndex & index)
@@ -354,7 +344,6 @@ void SetupPageSats::slotSatDoubleClicked(const QModelIndex & index)
     int row = index.row();
     setSelectedSat((satsModel->index(row, 0)).data(0).toInt());
     slotEditButtonClicked();
-
 }
 void SetupPageSats::slotAnalyzeNewSatData(const QStringList _qs)
 {
@@ -378,7 +367,6 @@ void SetupPageSats::createActions()
     //loadAllPushButton->setToolTip(tr("Load all the Sats"));
     //loadSelectedPushButton->setToolTip(tr("Load only the selected Sat"));
     //clearPushButton->setToolTip(tr("Clear selection"));
-
 }
 
 /*
@@ -451,7 +439,6 @@ void SetupPageSats::updateSelectedSats()
 QStringList SetupPageSats::readSats()
 {
        //qDebug() << "SetupPageSats::readSats";
-
     QString aux, aux2;
     QStringList _sats;
     QSqlQuery query;
@@ -507,12 +494,6 @@ QStringList SetupPageSats::readSats()
          emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
          return _sats;
      }
-
-
-     //_sats.clear();
-        //qDebug() << "SetupPageSats::readSats: " << QString::number(_sats.size())<< QT_ENDL;
-
-     //return _sats;
 }
 
 int SetupPageSats::getSelectedSat()
@@ -553,11 +534,6 @@ void SetupPageSats::setSelectedSat(const int _i)
     }
 }
 
-//void SetupPageSats::readSelectedSat(const int _i)
-//{
-
-//}
-
 void SetupPageSats::showError(const QString &_errorC)
 {
     QString text = QString(tr("An error has occurred showing the following error code:") + "\n'%1'").arg(_errorC);
@@ -566,13 +542,11 @@ void SetupPageSats::showError(const QString &_errorC)
     QMessageBox::warning(this, tr("KLog - SetupPageSats"),
                                    text,
                                    QMessageBox::Ok);
-
 }
 
 void SetupPageSats::slotImportButtonClicked()
 {
      //qDebug() << "SetupPageSats::slotImportButtonClicked";
-
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Satellites File"),
                                                      util->getHomeDir(),
                                                      "SATS (*.dat)");
@@ -584,7 +558,6 @@ void SetupPageSats::slotImportButtonClicked()
     UpdateSatsData *updateSat = new UpdateSatsData(dataProxy, this);
     if (updateSat->satDataFileRead(fileName))
     {
-
          //qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED OK";
     }
     else
@@ -609,11 +582,9 @@ void SetupPageSats::slotImportButtonClicked()
             // should never be reached
             break;
         }
-
     }
     satsModel->select();
     updateSelectedSats();
-
 }
 
 void SetupPageSats::slotExportButtonClicked()
@@ -648,7 +619,6 @@ void SetupPageSats::slotExportButtonClicked()
         {
             return;
         }
-
     }
     else
     {
@@ -663,7 +633,6 @@ void SetupPageSats::slotExportButtonClicked()
 
     if (sqlOk)
     {
-
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save Satellites File"),
                                    util->getHomeDir(),
                                    "SATS (*.dat)");
@@ -704,12 +673,10 @@ void SetupPageSats::slotExportButtonClicked()
             out << satText;
             //satText.clear();
         }
-
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
-
      //qDebug() << "SetupPageSats::slotExportButtonClicked END";
 }

@@ -46,7 +46,6 @@ private slots:
     void test_dataEntry();
     void test_AdifCreation();
 
-
 private:
     QSO *qso;
 };
@@ -56,20 +55,11 @@ tst_QSO::tst_QSO()
     qso = new QSO;
 }
 
-tst_QSO::~tst_QSO()
-{
+tst_QSO::~tst_QSO(){}
 
-}
+void tst_QSO::initTestCase(){}
 
-void tst_QSO::initTestCase()
-{
-
-}
-
-void tst_QSO::cleanupTestCase()
-{
-
-}
+void tst_QSO::cleanupTestCase(){}
 
 void tst_QSO::test_Constructor()
 {

@@ -75,10 +75,8 @@ eLogClubLog::~eLogClubLog()
         currentQSO = -1;
     }
 
-
     if (result == QNetworkReply::NoError)
     {
-
         text = "ClubLog: " + prepareToTranslate(sdata);
           //qDebug()<< sdata;
           //qDebug()<< Q_FUNC_INFO << " - NO ERROR";
@@ -89,8 +87,6 @@ eLogClubLog::~eLogClubLog()
             qsos.clear();
             return;
         }
-
-
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
@@ -155,7 +151,6 @@ eLogClubLog::~eLogClubLog()
     //emit done();
     //emit signalFileUploaded(result, qsos);
     emit showMessage(text);
-
 }
 
 void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
@@ -169,10 +164,8 @@ void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
 
     QString text;
 
-
     if (result == QNetworkReply::NoError)
     {
-
         text = "ClubLog: " + prepareToTranslate(sdata);
              //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = NoError = " << QString::number(result) ;
              //qDebug()<< sdata;
@@ -265,7 +258,6 @@ int eLogClubLog::sendQSO(QStringList _qso)
     uploadingFile = false;
     return sendDataParams(tempCall, params, true);
     //return sendData(tempCall, qso);
-
 }
 /*
 int eLogClubLog::deleteQSOid(const int _qsoId)
@@ -433,8 +425,8 @@ NOTES
     qso.clear();
     aux1 = _q.at(0);
       //qDebug()<< "eLogClubLog::getClubLogAdif: Date: " << _q.at(0) ;
-    if (QDate::fromString(aux1, "yyyyMMdd").isValid()){
-
+    if (QDate::fromString(aux1, "yyyyMMdd").isValid())
+    {
         qso = "<QSO_DATE:" + QString::number(aux1.length()) + ">" +  aux1  +  " ";
     }
     else

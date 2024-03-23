@@ -81,7 +81,6 @@ bool UpdateSatsData::satDataFileRead(const QString& tfileName)
             errorFound = false;
             hasEOH = true;
             pos = file.pos();
-
         }
     }
 

@@ -174,15 +174,10 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     layout->addWidget(buttonBox, 1, 0, Qt::AlignRight);
 
     setLayout(layout);
-
-
        //qDebug() << "AboutDialog::AboutDialog - END";
-
 }
-AboutDialog::~AboutDialog()
-{
 
-}
+AboutDialog::~AboutDialog(){}
 
 bool AboutDialog::event(QEvent *event)
 {

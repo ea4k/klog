@@ -105,9 +105,8 @@ This should be coherent with the treeview
     setFilter(stringQuery);
     //setColumnsToDX();
     select();
-
-
 }
+
 void SearchModel::setStationCallsignInHeader(const bool _s)
 {
     stationCallsignInHeader = _s;
@@ -173,13 +172,13 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
      setSort(nameCol, Qt::AscendingOrder);
  }
 */
- void SearchModel::setFilterString(const QString &_st)
+
+void SearchModel::setFilterString(const QString &_st)
  {
     //qDebug() << "SearchModel::setFilterString: " << _st;
     setFilter(_st);
     select();
     //qDebug() << "SearchModel::setFilterString: SelectStatement: " << selectStatement ();
-
  }
 
  void SearchModel::update()

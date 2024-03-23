@@ -119,7 +119,6 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     grids.clear();
     if (_qsos.length()>0)
     {
-
         for (int i = 0; i<_qsos.length(); i++)
         {
             bool confirmed = false;

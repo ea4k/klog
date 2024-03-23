@@ -93,7 +93,6 @@ void eLogQrzLog::setLogBookKey(const QString &_key)
 
 void eLogQrzLog::parseNetworkError(QNetworkReply::NetworkError _error)
 {
-
     showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(_error));
     QString text;
     switch (_error) {
@@ -501,7 +500,6 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
     emit showMessage(text);
     showDebugLog (Q_FUNC_INFO, "Text: " + text);
     showDebugLog (Q_FUNC_INFO, "END");
-
 }
 
 void eLogQrzLog::downloadProgress(qint64 received, qint64 total) {
@@ -737,7 +735,6 @@ void eLogQrzLog::login()
     //}
     //qDebug()<< "eLogQrzLog::login - END" ;
     showDebugLog (Q_FUNC_INFO, "END");
-
 }
 
 int eLogQrzLog::sendDataParams(const QUrlQuery &_params)
@@ -774,7 +771,6 @@ void eLogQrzLog::setUser(const QString &_user)
 
 void eLogQrzLog::setPassword(const QString &_pass)
 {
-
     showDebugLog (Q_FUNC_INFO, "Start: " + _pass);
     pass = _pass;
     showDebugLog (Q_FUNC_INFO, "END");

@@ -136,7 +136,6 @@ int main(int argc, char *argv[])
         }
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
         { // If language is English, it will execute without showing message
-
         }
         else
         {
@@ -161,7 +160,6 @@ int main(int argc, char *argv[])
 
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
         { // If language is English, it will execute without showing message
-
         }
         else
         {
@@ -193,7 +191,6 @@ int main(int argc, char *argv[])
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
-
         }
 
     //qDebug() << Q_FUNC_INFO << " - 1" << (QTime::currentTime()).toString("HH:mm:ss") ;

@@ -94,7 +94,6 @@ private:
     QHash<QString, QString> ADIFHash; // Name, type
 
     QStringList ARRL_sects, continents, sponsorsList;
-
 };
 
 #endif // ADIF_H

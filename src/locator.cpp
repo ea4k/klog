@@ -27,12 +27,9 @@
 #include "locator.h"
 #include <QtDebug>
 
-Locator::Locator(){
+Locator::Locator(){}
 
-}
-
-Locator::~Locator(){
-}
+Locator::~Locator(){}
 
 bool Locator::isValidLocator(const QString& tlocator){
 /* -------------- Subroutine -----------------------

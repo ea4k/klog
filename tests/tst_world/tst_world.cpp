@@ -106,20 +106,11 @@ tst_World::tst_World()
     //qDebug() << Q_FUNC_INFO << "END";
 }
 
-tst_World::~tst_World()
-{
+tst_World::~tst_World(){}
 
-}
+void tst_World::initTestCase(){}
 
-void tst_World::initTestCase()
-{
-
-}
-
-void tst_World::cleanupTestCase()
-{
-
-}
+void tst_World::cleanupTestCase(){}
 
 void tst_World::test_Constructor()
 {

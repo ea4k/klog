@@ -69,7 +69,6 @@ private slots:
 private:
   Utilities *util;
   DataProxy_SQLite *dataProxy;
-
 };
 
 tst_Utilities::tst_Utilities()
@@ -85,7 +84,6 @@ tst_Utilities::tst_Utilities()
 
 tst_Utilities::~tst_Utilities()
 {
-
 }
 
 void tst_Utilities::initTestCase()

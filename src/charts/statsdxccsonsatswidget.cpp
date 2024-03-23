@@ -92,7 +92,6 @@ void StatsDXCCOnSatsWidget::createUI()
 
     connect(confirmedOnlyCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedClicked() ) );
     connect(onlyLEOSatCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedClicked() ) );
-
 }
 
 StatsDXCCOnSatsWidget::~StatsDXCCOnSatsWidget()
@@ -179,7 +178,6 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
                  tableWidget->setItem(tableWidget->rowCount()-1, 5, new QTableWidgetItem(satName));
                  tableWidget->setItem(tableWidget->rowCount()-1, 6, new QTableWidgetItem(qslStatus) );
              }
-
          }
          numberLabel->setText(QString::number(number));
      }

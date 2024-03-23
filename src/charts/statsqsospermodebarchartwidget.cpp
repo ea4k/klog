@@ -51,7 +51,6 @@ StatsQSOsPerModeBarChartWidget::~StatsQSOsPerModeBarChartWidget()
 
 void StatsQSOsPerModeBarChartWidget::createUI()
 {
-
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;

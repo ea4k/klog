@@ -158,7 +158,6 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
                     showError(tr("Log has not been removed. (#3)"));
                        //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")";
                 }
-
             }
             else
             {
@@ -177,7 +176,6 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
     //ASK FOR A CONFIRMATION
 
     //DELETE ALL THE QSO IN THE REMOVED LOG
-
 }
 
 void SetupPageSubdivisions::createLogsPanel()
@@ -202,7 +200,6 @@ void SetupPageSubdivisions::createLogsPanel()
     logsView->setSelectionBehavior(QAbstractItemView::SelectRows);
     logsView->resizeColumnsToContents();
     logsView->horizontalHeader()->setStretchLastSection(true);
-
 }
 
 void SetupPageSubdivisions::createLogsModel()
@@ -282,7 +279,7 @@ QStringList SetupPageSubdivisions::readLogs()
     _logs.clear();
 
     aux = "SELECT DISTINCT dxcc from primary_subdivisions";
-    int counter = 0;
+    /int counter = 0;
     sqlOk = query.exec(aux);
     if (sqlOk)
     {
@@ -290,7 +287,7 @@ QStringList SetupPageSubdivisions::readLogs()
 
         while ( (query.next()) && (query.isValid()) )
         {
-            counter ++;
+            //counter ++;
             aux2.clear();
 
             nameCol = rec.indexOf("dxcc");
@@ -299,7 +296,6 @@ QStringList SetupPageSubdivisions::readLogs()
             //aux2.append((query.value(nameCol)).toString());
 
             _logs.append(aux2);
-
         }
         return _logs;
     }
@@ -308,8 +304,6 @@ QStringList SetupPageSubdivisions::readLogs()
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return _logs;
     }
-
-
 }
 
 
@@ -358,8 +352,6 @@ void SetupPageSubdivisions::slotCurrentLogsComboBoxChanged()
       //qDebug() << "SetupPageSubdivisions::slotCurrentLogsComboBoxChanged: a: " << a;
 
     setSelectedLog(a.toInt());
-
-
 }
 
 void SetupPageSubdivisions::setSelectedLog(const int _i)
@@ -389,7 +381,6 @@ void SetupPageSubdivisions::showError(const QString &_errorC)
     QMessageBox::warning(this, tr("KLog - SetupPageSubdivisions"),
                                    text,
                                    QMessageBox::Ok);
-
 }
 
 void SetupPageSubdivisions::slotImportButtonClicked()
@@ -404,6 +395,5 @@ void SetupPageSubdivisions::slotImportButtonClicked()
         //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - NOK";
     }
     //QString fileName = QFileDialog::getOpenFileName(this, tr("Open Award file"), util->getHomeDir(), tr("Award files (*.awa)"));
-
     //qDebug() << "SetupPageSubdivisions::slotImportButtonClicked - END";
 }

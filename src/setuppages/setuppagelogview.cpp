@@ -154,7 +154,6 @@ void SetupPageLogView::saveSettings()
 
 void SetupPageLogView::loadSettings()
 {
-
     //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
