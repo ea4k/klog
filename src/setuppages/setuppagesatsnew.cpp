@@ -405,9 +405,7 @@ void SetupPageSatsNew::gatherAndSend()
 {
      //qDebug() << "SetupPageSatsNew::gatherAndSend: ";
 
-
     // The previous lines will be removed once more contest types have been added
-
     satData.clear();
     satData << shortNameLineEdit->text() << nameLineEdit->text() << downlinkLineEdit->text() <<
                uplinkLineEdit->text() << modesLineEdit->text();
@@ -427,10 +425,7 @@ void SetupPageSatsNew::gatherAndSend()
     }
 
        //qDebug() << "SetupPageSatsNew::gatherAndSend: EMITED";
-
-
     emit newSatData(satData);
-
 }
 
 void SetupPageSatsNew::slotCancelButtonClicked()

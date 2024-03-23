@@ -167,6 +167,5 @@ private:
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void awardDXCCUpdated();
-
 };
 #endif // AWARDS_H

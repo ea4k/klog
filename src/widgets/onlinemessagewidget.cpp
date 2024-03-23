@@ -25,10 +25,7 @@
  *****************************************************************************/
 #include "onlinemessagewidget.h"
 
-OnlineMessageWidget::OnlineMessageWidget(QWidget *parent) : QWidget(parent)
-{
-
-}
+OnlineMessageWidget::OnlineMessageWidget(QWidget *parent) : QWidget(parent){}
 
 
 int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineProvider _prov, OnlineErrorCode _onlineError, OnlineErrorReason _onlineReason, const QString &_msg)
@@ -95,8 +92,6 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     return msgBox.exec();
-
-
 }
 
 
@@ -176,6 +171,5 @@ QString OnlineMessageWidget::translate(QNetworkReply::NetworkError _error)
         return QString(tr("Not identified"));
         break;
     }
-
     return QString::number(_error);
 }

@@ -77,7 +77,6 @@ void StatsFieldPerBandWidget::createUI()
     setLayout(layout);
 
     connect(modeComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotModeComboBoxChanged() ) ) ;
-
 }
 
 void StatsFieldPerBandWidget::prepareChart(const int _log)

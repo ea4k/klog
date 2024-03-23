@@ -161,7 +161,6 @@ private:
 
     Utilities *util;
     QStringList columns;
-
    //LogViewSortFilterProxyModel *proxyModel;
    //bool sortingThroughProxyModel;
 };

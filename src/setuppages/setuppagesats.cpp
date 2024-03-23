@@ -90,14 +90,6 @@ SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
 
 
     setLayout(widgetLayout);
-
-
-
-    //connect(newSatPushButton, SIGNAL(clicked ( )), this, SLOT(slotNewButtonClicked() ) );
-    //QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
-    //connect(setupD, SIGNAL(newSatRequested(true)), this, slotNewButtonClicked() )
-
-
     createActions();
     updateSelectedSats();
        //qDebug() << "SetupPageSats::SetupPageSats - END";
@@ -345,6 +337,7 @@ void SetupPageSats::slotSatDoubleClicked(const QModelIndex & index)
     setSelectedSat((satsModel->index(row, 0)).data(0).toInt());
     slotEditButtonClicked();
 }
+
 void SetupPageSats::slotAnalyzeNewSatData(const QStringList _qs)
 {
     Q_UNUSED(_qs);
@@ -449,7 +442,6 @@ QStringList SetupPageSats::readSats()
     aux.clear();
     _sats.clear();
 
-
     aux = "SELECT id, satarrlid, satname, uplink, downlink, satmode FROM satellites";
 
     sqlOk = query.exec(aux);
@@ -485,7 +477,6 @@ QStringList SetupPageSats::readSats()
              aux2.append((query.value(nameCol)).toString());
 
              _sats.append(aux2);
-
          }
          return _sats;
      }
@@ -623,7 +614,6 @@ void SetupPageSats::slotExportButtonClicked()
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-
     }
     QDateTime *dateTime = new QDateTime();
     //dateTime->currentDateTime();

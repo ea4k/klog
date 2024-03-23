@@ -73,8 +73,6 @@ private:
     DebugLogLevel logLevel;
     int tipId, tipMax;
     QString description;
-
-
 };
 
 

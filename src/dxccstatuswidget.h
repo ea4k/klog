@@ -78,7 +78,6 @@ private:
 //    void showMenuRightButtonFromLogCreateActions();
 //    void righButtonFromLogMenu(const int trow);
 
-
     QTableWidget *dxccView;
     Awards *awards;
     World *world;
@@ -90,7 +89,6 @@ private:
     QPushButton *refreshButton;
     //QCheckBox *showAllLogsButton;
 
-
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
     QStringList bandNames, validBands;
     int logNumber, tempLog; // log in use in the log / log to be used in the widget
@@ -98,7 +96,6 @@ private:
 
     QAction *showDXCCWikipediaAct;
     int currentLog;
-
 };
 
 #endif // DXCCSTATUSWIDGET_H

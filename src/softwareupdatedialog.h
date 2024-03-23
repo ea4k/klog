@@ -45,7 +45,6 @@ private:
      QTextBrowser *textBrowser;
      QString text;
      QString _version;
-
 };
 
 #endif // SOFTWAREUPDATEDIALOG_H

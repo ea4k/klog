@@ -833,7 +833,6 @@
     layout->addWidget(licenseBrowser);
     layout->addWidget(aceptLicCheckBox);
     setLayout(layout);
-
  }
 
  int LicPage::nextId() const
@@ -1023,7 +1022,6 @@ void CTYPage::slotDownloadError(const int ret)
     else
     */
     if(errorCode == QNetworkReply::HostNotFoundError)
-
     {
         i = QMessageBox::warning(this, tr("KLog"),
                                        tr("I can't find the host. Please check your network and try again\n"

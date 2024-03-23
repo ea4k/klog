@@ -154,7 +154,6 @@ private:
 
     Utilities *util;
     bool showStationCallsignInHeader;
-
 };
 
 #endif // SEARCHWINDOW_H

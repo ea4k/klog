@@ -48,7 +48,6 @@ private:
     bool processConfigLine(const QString &_line);
     bool findInFile();
     bool renameFile(const QString &_oldName, const QString &_newName);
-
 };
 
 #endif // UPDATESETTINGS_H

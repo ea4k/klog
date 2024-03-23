@@ -157,9 +157,6 @@ private:
     QAction *qslRecRequestedAct;
 
     QTimer *delayInputTimer;
-
-
-
 };
 
 #endif // SEARCHWIDGET_H

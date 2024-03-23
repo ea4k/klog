@@ -318,7 +318,6 @@ int LoTWUtilities::download()
     startRequest(url);
      //qDebug() << "LoTWUtilities::download - END";
     return 1;
-
 }
 
 int LoTWUtilities::fullDownload()

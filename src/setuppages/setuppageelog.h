@@ -74,6 +74,7 @@ signals:
 protected:
     //void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
+
 private:
     void setDefaults();
     //QString defaultFileName;
@@ -110,8 +111,6 @@ private:
     Utilities *util;
 
     QPalette palRed, palBlack;
-
-
 };
 
 #endif // SETUPPAGEELOG_H

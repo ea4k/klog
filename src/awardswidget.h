@@ -48,13 +48,11 @@ public:
     void setYear(const int _year);
     void fillOperatingYears();
     void showAwards();
-
     void clear();
 
 private slots:
      void slotRecalculateAwardsButtonClicked();
      void slotOperatingYearComboBoxChanged();
-
 
 signals:
     //void actionQSODoubleClicked(const int _qsoid);
@@ -63,7 +61,6 @@ signals:
     //void recalculateAwardsSignal();
     void requireCurrentLogSignal();
     void requireCurrentYearSignal();
-
 
 private:
     void createUI();
@@ -89,8 +86,6 @@ private:
     DebugLogLevel logLevel;
 
     Awards *awards;
-
-
 };
 
 #endif // AWARDSWIDGET_H

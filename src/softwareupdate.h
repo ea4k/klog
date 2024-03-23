@@ -87,7 +87,6 @@ private:
     //bool toUpdate;
     bool repositoryFound;   // True when the versions have been checked to prevent multiple qmessagebox due to redirections
     bool messageShown;
-
 };
 
 #endif // SOFTWAREUPDATE_H

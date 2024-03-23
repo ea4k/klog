@@ -46,7 +46,6 @@ StatsQSOsPerYearBarChartWidget::~StatsQSOsPerYearBarChartWidget()
 
 void StatsQSOsPerYearBarChartWidget::createUI()
 {
-
     chartView->setRenderHint(QPainter::Antialiasing);
 
     QVBoxLayout *graphLayout = new QVBoxLayout;

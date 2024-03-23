@@ -76,7 +76,6 @@ private:
     QColor workedColor;
     QColor confirmedColor;
     QColor defaultColor;
-
 };
 
 #endif // MAPWINDOWWIDGET_H

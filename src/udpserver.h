@@ -117,8 +117,6 @@ signals:
 
 private slots:
     void slotReadPendingDatagrams();
-
-
 };
 
 #endif // UDPSERVER_H

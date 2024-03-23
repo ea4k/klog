@@ -86,14 +86,10 @@ private:
     StatsDXCCOnSatsWidget *w14;
     StatsFieldPerBandWidget *w15;
     StatsFieldPerBandWidget *w16;
+    DataProxy_SQLite *dataProxy;
 
-
-
-     DataProxy_SQLite *dataProxy;
-
-
-     QComboBox *statisticToShowComboBox, *logComboBox;
-     QStringList statisticsToShowList;
+    QComboBox *statisticToShowComboBox, *logComboBox;
+    QStringList statisticsToShowList;
 };
 
 

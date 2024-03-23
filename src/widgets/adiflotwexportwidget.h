@@ -35,7 +35,6 @@ class AdifLoTWExportWidget : public QWidget
 {
     Q_OBJECT
 
-
 public:
     explicit AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
     ~AdifLoTWExportWidget();
@@ -94,7 +93,6 @@ private:
     QDate currentStart, currentEnd;
     bool starting;
     QList<int> qsos;
-
 };
 
 

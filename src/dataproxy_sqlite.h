@@ -48,6 +48,7 @@ enum
 class DataProxy_SQLite : public QObject
 {
     Q_OBJECT
+
 public:
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();

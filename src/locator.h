@@ -31,8 +31,6 @@
 #include <QRegularExpression>
 #include "klogdefinitions.h"
 
-
-
 const double PI = 3.141592654; //http://en.wikipedia.org/wiki/Pi
 const bool LATITUDE = false;
 const bool LONGITUDE = true;
@@ -75,8 +73,6 @@ private:
   //QChar theChar;
   //double my_lon, my_lat, other_lon, other_lat, beam, testNumb;
   //int ideg, imin, isec;
-
-
 };
 
 #endif

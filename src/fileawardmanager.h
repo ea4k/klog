@@ -49,7 +49,6 @@ private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
     World *world;
-
 };
 
 #endif // FILEAWARDMANAGER_H

@@ -44,7 +44,6 @@ public slots:
 
 private:
     QString translate(QNetworkReply::NetworkError _error);
-
 };
 
 #endif // ONLINEMESSAGEWIDGET_H

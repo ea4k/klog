@@ -61,7 +61,6 @@ private:
     int dxcc, bandid, modeid, logn;
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
-
 };
 
 #endif // SEARCHMODEL_H

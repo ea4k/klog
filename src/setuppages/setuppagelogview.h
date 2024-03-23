@@ -56,7 +56,6 @@ private:
     QListWidget *fieldsListWidget;
 
     DataProxy_SQLite *dataProxy;
-
 };
 
 #endif // SETUPPAGELOGVIEW_H

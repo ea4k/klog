@@ -142,9 +142,6 @@ private:
     bool readOnlyMode;          // If true, KLog will not modify any parameter (freq/mode...) in the radio. KLog just will follow the radio.
     bool justEmitted;
     bool reading;   // Just a semaphore to prevent several readings
-    //bool active;
-
-    //QSerialPort *m_serial;
 };
 
 #endif // HAMLIBCLASS_H

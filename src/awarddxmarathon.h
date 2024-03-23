@@ -42,7 +42,6 @@ public:
 
 private:
     DataProxy_SQLite *dataProxy;
-
 };
 
 #endif // AWARDDXMARATHON_H

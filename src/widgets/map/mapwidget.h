@@ -66,7 +66,6 @@ private:
     int ColorRole = Qt::UserRole + 1002;
     Locator locator;
     //double lat, lon;
-
 };
 
 #endif // MAPWIDGET_H

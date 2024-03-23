@@ -52,7 +52,6 @@ private:
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
-
 };
 
 #endif // LOGMODEL_H

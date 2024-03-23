@@ -136,7 +136,6 @@ private:
 
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 
-
     //bool printQs(const QString &_q, const QStringList _line);
     bool printQs(const QStringList &_line);
     //int confirmed;
@@ -168,6 +167,5 @@ private:
 signals:
     void addQSOToList(QStringList _qso);
     void queryError(QString _functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
-
 };
 #endif // FILEMANAGER_H

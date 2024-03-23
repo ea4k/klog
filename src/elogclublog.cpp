@@ -202,23 +202,7 @@ void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
          //qDebug()<< "eLogClubLog::slotErrorManagement: " << QString::number(networkError);
     result = networkError;
-
-    /*if (result == QNetworkReply::NoError)
-    {
-    }
-    else
-    if (result == QNetworkReply::HostNotFoundError)
-    {
-              //qDebug()<< "eLogClubLog::slotErrorManagement: Host not found";
-    }
-    else
-    {
-              //qDebug()<< "eLogClubLog::slotErrorManagement: ERROR!";
-    }
-    */
-    //actionError(result);
 }
-
 
 int eLogClubLog::sendQSO(QStringList _qso)
 {
@@ -325,12 +309,10 @@ int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_p
         params.addQueryItem("api",api);
     }
 
-
     postData = params.query(QUrl::FullyEncoded).toUtf8();
 
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-
 
     //qDebug() << Q_FUNC_INFO << ": " << postData;
     manager->post(request, postData);
@@ -470,7 +452,6 @@ NOTES
         qso = qso + "<FREQ:" + QString::number((_q.at(9)).length()) + ">" + _q.at(9) + " ";
     }
 
-
        //qDebug()<< "eLogClubLog::getClubLogAdif: 90" ;
     qso = qso + "<QSL_RCVD:" + QString::number((_q.at(10)).length()) + ">" + _q.at(10) + " ";
        //qDebug()<< "eLogClubLog::getClubLogAdif: 100" ;
@@ -482,7 +463,6 @@ NOTES
     {
         qso = qso + "<DXCC:" + QString::number((_q.at(13)).length()) + ">" + _q.at(13) + " ";
     }
-
 
        //qDebug()<< "eLogClubLog::getClubLogAdif: 130'" ;
     if ((_q.at(14)).toInt()> 0)
@@ -508,8 +488,6 @@ void eLogClubLog::setDefaultCallsign(const QString &_defaultStationCallsign)
     stationCallsign = _defaultStationCallsign;
 }
 
-
-
 int eLogClubLog::deleteQSO(QStringList _qso)
 {
       //qDebug()<< "eLogClubLog::deleteQSO: length = " << QString::number(_qso.length());
@@ -534,7 +512,6 @@ int eLogClubLog::deleteQSO(QStringList _qso)
     {
         tempCall = stationCallsign;
     }
-
 
     dxcall = _qso.at(5);
     QDateTime dateTime;
@@ -570,9 +547,7 @@ int eLogClubLog::deleteQSO(QStringList _qso)
     //params.addQueryItem("adif",qso);
     uploadingFile = false;
     return sendDataParams(tempCall, params, false);
-
     //return sendData(qso);
-
 }
 
 QString eLogClubLog::prepareToTranslate(const QString &_m)
@@ -713,7 +688,6 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     if (file->open(QIODevice::ReadOnly))        /* Flawfinder: ignore */
     {
          blob = file->readAll();
-
     }
     else
     {

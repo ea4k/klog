@@ -93,7 +93,6 @@ private:
         4 - Confirmed: Worked in this band.
         5 - Confirmed: Confirmed in this band.
 */
-
 };
 
 #endif // SETUPPAGECOLORS_H

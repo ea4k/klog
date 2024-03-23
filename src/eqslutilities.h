@@ -87,6 +87,5 @@ signals:
     void showMessage(const QString &_t);
     void disableeQSLAction(const bool _b);
     void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
-
 };
 #endif // EQSLUTILITIES_H

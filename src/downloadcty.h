@@ -78,7 +78,5 @@ signals:
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
     void downloadStopped();
-
-
 };
 #endif // DOWNLOADCTY_H

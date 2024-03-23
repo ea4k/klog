@@ -62,20 +62,11 @@ tst_MainQSOEntryWidget::tst_MainQSOEntryWidget()
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
 }
 
-tst_MainQSOEntryWidget::~tst_MainQSOEntryWidget()
-{
+tst_MainQSOEntryWidget::~tst_MainQSOEntryWidget(){}
 
-}
+void tst_MainQSOEntryWidget::initTestCase(){}
 
-void tst_MainQSOEntryWidget::initTestCase()
-{
-
-}
-
-void tst_MainQSOEntryWidget::cleanupTestCase()
-{
-
-}
+void tst_MainQSOEntryWidget::cleanupTestCase(){}
 
 void tst_MainQSOEntryWidget::test_Constructor()
 {

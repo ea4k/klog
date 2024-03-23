@@ -117,6 +117,5 @@ private:
 
     OnlineMessageWidget *onlineMessage;
     //bool useQSOStationCallsign;
-
 };
 #endif // DOWNLOADCTY_H

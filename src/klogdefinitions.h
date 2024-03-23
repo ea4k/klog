@@ -64,11 +64,6 @@ struct Coordinate {
 #define QT_SKIP QString::SkipEmptyParts
 #define QT_ENDL endl
 #define QT_RETURNBYVALUE
- #endif
-
-
-//#if QT_VERSION>=0x041502
-//#else
-//#endif
+#endif
 
 #endif // KLOGDEFINITIONS_H

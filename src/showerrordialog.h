@@ -46,7 +46,6 @@ private:
      QTextBrowser *textBrowser;
      QString text;
      QLabel *txtLabel;
-
 };
 
 

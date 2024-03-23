@@ -241,8 +241,6 @@ void SetupPageSubdivisions::createLogsModel()
 
         nameCol = rec.indexOf("dxcc");
         logsModel->setHeaderData(nameCol, Qt::Horizontal, tr("DXCC"));
-
-
         logsModel->select();
 }
 
@@ -251,7 +249,6 @@ void SetupPageSubdivisions::slotLogSelected(const QModelIndex & index)
        //qDebug() << "SetupPageSubdivisions::slotLogSelected" ;
     int row = index.row();
     setSelectedLog((logsModel->index(row, 0)).data(0).toInt());
-
 }
 
 void SetupPageSubdivisions::createActions()
@@ -262,13 +259,11 @@ void SetupPageSubdivisions::createActions()
 
     connect(removePushButton, SIGNAL(clicked()), this, SLOT(slotRemoveButtonClicked() ) );
     connect(logsView, SIGNAL(clicked(QModelIndex)), this, SLOT(slotLogSelected(QModelIndex) ) );
-
 }
 
 QStringList SetupPageSubdivisions::readLogs()
 {
        //qDebug() << "SetupPageSubdivisions::readLogs";
-
     QString aux, aux2;
     QStringList _logs;
     QSqlQuery query;
@@ -279,7 +274,7 @@ QStringList SetupPageSubdivisions::readLogs()
     _logs.clear();
 
     aux = "SELECT DISTINCT dxcc from primary_subdivisions";
-    /int counter = 0;
+    //int counter = 0;
     sqlOk = query.exec(aux);
     if (sqlOk)
     {
@@ -305,8 +300,6 @@ QStringList SetupPageSubdivisions::readLogs()
         return _logs;
     }
 }
-
-
 
 void SetupPageSubdivisions::updateSelectedLogs()
 {
@@ -371,7 +364,6 @@ void SetupPageSubdivisions::setSelectedLog(const int _i)
         return;
     }
 }
-
 
 void SetupPageSubdivisions::showError(const QString &_errorC)
 {

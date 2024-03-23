@@ -82,7 +82,6 @@ private:
     int currentLog;
     bool imperialSystem;
     QString dxLocator, localLocator;
-
 };
 
 #endif // INFOWIDGET_H

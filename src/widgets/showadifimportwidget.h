@@ -65,7 +65,6 @@ private:
 
     QTableWidget *tableWidget;
     QHeaderView *hv, *hh;
-
 };
 
 

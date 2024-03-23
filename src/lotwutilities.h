@@ -103,7 +103,6 @@ private slots:
 
 signals:
     void actionProcessLoTWDownloadedFile(QString _fn);
-
 };
 
 #endif // LOTWUTILITIES_H

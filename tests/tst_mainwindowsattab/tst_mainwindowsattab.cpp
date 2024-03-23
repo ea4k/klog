@@ -58,20 +58,11 @@ tst_MainQSOEntryWidget::tst_MainQSOEntryWidget()
     mainWindowSattab = new MainWindowSatTab(dataProxy);
 }
 
-tst_MainQSOEntryWidget::~tst_MainQSOEntryWidget()
-{
+tst_MainQSOEntryWidget::~tst_MainQSOEntryWidget(){}
 
-}
+void tst_MainQSOEntryWidget::initTestCase(){}
 
-void tst_MainQSOEntryWidget::initTestCase()
-{
-
-}
-
-void tst_MainQSOEntryWidget::cleanupTestCase()
-{
-
-}
+void tst_MainQSOEntryWidget::cleanupTestCase(){}
 
 void tst_MainQSOEntryWidget::test_Constructor()
 {

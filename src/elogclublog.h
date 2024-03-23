@@ -87,6 +87,5 @@ signals:
     void showMessage(const QString &_t);
     void disableClubLogAction(const bool _b);
     void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
-
 };
 #endif // DOWNLOADCTY_H
