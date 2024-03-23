@@ -31,10 +31,10 @@
 #include <QNetworkInterface>
 #include "../utilities.h"
 
-
 class SetupPageUDP : public QWidget
 {
     Q_OBJECT
+
 public:
     SetupPageUDP(QWidget *parent = nullptr);
     ~SetupPageUDP();
@@ -80,8 +80,6 @@ public slots:
     //void slotAutoLogFromWSJTCheckBoxClicked();
     //void slotRealFromWSJTCheckBoxClicked();
     void slotUDPServerCheckBoxClicked();
-
-
 };
 
 #endif // SETUPPAGEUDP_H

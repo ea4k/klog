@@ -66,10 +66,8 @@ private slots:
     */
 
 
-
 private:
     HamLibSerialConfigWidget *serialHamLibWidget;
-
 };
 
 tst_SetupHamLibSerialWidget::tst_SetupHamLibSerialWidget()
@@ -82,16 +80,9 @@ tst_SetupHamLibSerialWidget::~tst_SetupHamLibSerialWidget(){}
 
 void tst_SetupHamLibSerialWidget::initTestCase(){}
 
-void tst_SetupHamLibSerialWidget::cleanupTestCase()
-{
+void tst_SetupHamLibSerialWidget::cleanupTestCase(){}
 
-}
-
-
-void tst_SetupHamLibSerialWidget::test_Constructor()
-{
-
-}
+void tst_SetupHamLibSerialWidget::test_Constructor(){}
 
 void tst_SetupHamLibSerialWidget::test_DataBits()
 {
@@ -161,8 +152,7 @@ void tst_SetupHamLibSerialWidget::test_SerialSpeed()
     QVERIFY2(serialHamLibWidget->getSerialBauds() == 1200, qPrintable(QString("Serial Speed default not OK")));
 }
 
-void tst_SetupHamLibSerialWidget::test_SerialPort()
-{}
+void tst_SetupHamLibSerialWidget::test_SerialPort(){}
 
 QTEST_MAIN(tst_SetupHamLibSerialWidget)
 

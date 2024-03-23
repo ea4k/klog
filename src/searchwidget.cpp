@@ -220,7 +220,6 @@ void SearchWidget::createUI()
     connect(searchWindow, SIGNAL( actionDeleteQSO(int)), this, SLOT( slotQsoDeleteFromSearch(int) ));
     connect(searchWindow, SIGNAL( updateSearchLineEdit()), this, SLOT( slotSearchBoxTextChanged() ));
     connect(searchWindow, SIGNAL( requestFocus()), this, SLOT( slotRequestFocus() ));
-
 }
 
 

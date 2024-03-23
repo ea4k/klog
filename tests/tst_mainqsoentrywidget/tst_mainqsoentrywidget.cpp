@@ -53,7 +53,6 @@ private slots:
 private:
     DataProxy_SQLite *dataProxy;
     MainQSOEntryWidget *mainQSOEntryWidget;
-
 };
 
 tst_MainQSOEntryWidget::tst_MainQSOEntryWidget()

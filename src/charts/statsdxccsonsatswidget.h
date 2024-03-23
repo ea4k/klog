@@ -39,11 +39,11 @@
 class StatsDXCCOnSatsWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsDXCCOnSatsWidget();
     void prepareChart(const int _log=-1) override;
-
 
 signals:
 
@@ -58,6 +58,5 @@ private:
     QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
     QLabel *numberLabel;
     int log;
-
 };
 #endif // STATSGRIDSONSATSWIDGET_H

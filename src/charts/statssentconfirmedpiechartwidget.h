@@ -39,6 +39,7 @@
 class StatsSentConfirmedPieChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsSentConfirmedPieChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsSentConfirmedPieChartWidget();
@@ -54,7 +55,6 @@ private:
 
     //QChart *chart;
     QChartView *chartView;
-
 };
 
 #endif // QSOSPERBANDBARCHARTWIDGET_H

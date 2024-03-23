@@ -42,11 +42,11 @@
 class StatsFieldPerBandWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent = nullptr);
     ~StatsFieldPerBandWidget();
     void prepareChart(const int _log=-1);
-
 
 signals:
 
@@ -64,6 +64,5 @@ private:
     QComboBox *modeComboBox;
     QString modeInUse;
     int log;
-
 };
 #endif // STATSFIELDPERBANDWIDGET_H

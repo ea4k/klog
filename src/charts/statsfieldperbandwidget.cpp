@@ -145,6 +145,5 @@ void StatsFieldPerBandWidget::slotModeComboBoxChanged()
     {
         modeInUse = modeComboBox->currentText ();
     }
-
     prepareChart (log);
 }

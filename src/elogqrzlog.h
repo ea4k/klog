@@ -45,6 +45,7 @@
 
 class eLogQrzLog : public QObject {
     Q_OBJECT
+
 public:
     explicit eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion);
     ~eLogQrzLog();
@@ -69,7 +70,6 @@ private slots:
     //void slotFileUploadFinished(QNetworkReply* data);
     void downloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
-
 
 signals:
     void actionReturnDownload(const int _i, const int _qsoId);

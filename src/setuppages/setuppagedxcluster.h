@@ -74,7 +74,6 @@ private:
 
     Utilities *util;
     //QStringList dxClusterServers;
-
 };
 
 #endif // SETUPPAGEDXCLUSTER_H

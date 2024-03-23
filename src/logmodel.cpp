@@ -39,7 +39,6 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-
 void LogModel::createlogModel(const int _i)
 {
 /*
@@ -78,7 +77,7 @@ This should be coherent with the logview
 }
 
  void LogModel::setColumns(const QStringList &_columns)
- {
+{
      //qDebug() << Q_FUNC_INFO ;
      //QString auxt;
      //foreach(auxt, _columns)
@@ -99,7 +98,6 @@ This should be coherent with the logview
      if (!sqlOK)
      {
          emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().nativeErrorCode(), q.lastQuery());
-
      }
      q.next();
      rec = q.record(); // Number of columns

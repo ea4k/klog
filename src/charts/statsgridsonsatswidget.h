@@ -39,6 +39,7 @@
 class StatsGridsOnSatsWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsGridsOnSatsWidget();
@@ -58,6 +59,5 @@ private:
     QCheckBox *confirmedOnlyCheckBox, *onlyLEOSatCheckBox;
     QLabel *numberLabel;
     int log;
-
 };
 #endif // STATSGRIDSONSATSWIDGET_H

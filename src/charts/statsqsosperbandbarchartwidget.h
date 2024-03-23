@@ -39,6 +39,7 @@
 class StatsQSOsPerBandBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsQSOsPerBandBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsQSOsPerBandBarChartWidget();
@@ -54,7 +55,6 @@ private:
 
     //QChart *chart;
     QChartView *chartView;
-
 };
 
 #endif // QSOSPERBANDBARCHARTWIDGET_H

@@ -9,6 +9,7 @@
 class HamLibSerialConfigWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit HamLibSerialConfigWidget(QWidget *parent = nullptr);
     void createUI();
@@ -31,7 +32,6 @@ private slots:
     void slotScanPorts();
 
 private:
-
     QStringList getAvailableSerialPorts();
     void fillSerialPortsComboBox();
 

@@ -33,6 +33,7 @@
 class StatsGeneralChartWidget : public QWidget
 {
         Q_OBJECT
+
 public:
     StatsGeneralChartWidget();
     StatsGeneralChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
@@ -40,7 +41,6 @@ public:
 
 private:
     virtual void createUI();
-
 };
 
 #endif // GENERALCHARTWIDGET_H

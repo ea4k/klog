@@ -39,6 +39,7 @@
 class StatsQSOsPerYearBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsQSOsPerYearBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsQSOsPerYearBarChartWidget();
@@ -54,7 +55,6 @@ private:
 
     //QChart *chart;
     QChartView *chartView;
-
 };
 
 #endif // QSOSPERYEARBARCHARTWIDGET_H

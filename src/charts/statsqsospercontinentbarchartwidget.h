@@ -39,6 +39,7 @@
 class StatsQSOsPerContinentBarChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsQSOsPerContinentBarChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsQSOsPerContinentBarChartWidget();
@@ -54,7 +55,6 @@ private:
 
     //QChart *chart;
     QChartView *chartView;
-
 };
 
 #endif // QSOSPERBANDBARCHARTWIDGET_H

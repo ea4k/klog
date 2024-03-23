@@ -111,9 +111,7 @@ public:
     6 - Default: Not applicable
     */
 
-
 private:
-
     void setAwardDXCC(const int _qsoId);
     //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
@@ -155,7 +153,6 @@ private:
     DataProxy_SQLite *dataProxy;
     DXMarathon *dxMarathon;
     Utilities *util;
-
 
     typedef QMultiHash<int, int> DXStatus;
 

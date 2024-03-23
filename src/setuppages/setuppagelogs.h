@@ -107,7 +107,6 @@ private:
     DataProxy_SQLite *dataProxy;
     int selectedLog;
     QString defaultStationCallSign, defaultOperators;
-
 };
 
 

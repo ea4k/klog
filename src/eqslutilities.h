@@ -40,6 +40,7 @@
 // https://www.eqsl.cc/qslcard/Programming.cfm
 class eQSLUtilities : public QObject {
     Q_OBJECT
+
 public:
     explicit eQSLUtilities(const QString &_parentFunction);
     ~eQSLUtilities();
@@ -51,7 +52,6 @@ public:
     //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
 
     void sendLogFile(const QString &_file, QList<int> _qso);
-
 
 private:
     //QString geteQSLAdif(const QStringList _q);

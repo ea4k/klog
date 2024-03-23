@@ -39,6 +39,7 @@
 class StatsWorkedSentPieChartWidget : public StatsGeneralChartWidget
 {
     Q_OBJECT
+
 public:
     StatsWorkedSentPieChartWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~StatsWorkedSentPieChartWidget();
@@ -54,7 +55,6 @@ private:
 
     //QChart *chart;
     QChartView *chartView;
-
 };
 
 #endif // QSOSPERBANDBARCHARTWIDGET_H

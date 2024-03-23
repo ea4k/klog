@@ -39,6 +39,7 @@
 
 class eLogClubLog : public QObject {
     Q_OBJECT
+
 public:
     explicit eLogClubLog();
     ~eLogClubLog();
