@@ -217,7 +217,6 @@ private:
     QMap<QString, QString> columnNames;
     bool validateCalls;
     QHash<QString, QString> ADIFHash; // Name, type
-
 };
 
 #endif // UTILITIES_H

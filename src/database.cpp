@@ -603,11 +603,11 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (country) REFERENCES entity, "
              "FOREIGN KEY (ant_path) REFERENCES ant_path_enumeration, "
              "FOREIGN KEY (arrl_sect) REFERENCES arrl_sect_enumeration, "
-             "FOREIGN KEY (band_rx) REFERENCES band, "
-             "FOREIGN KEY (modeid) REFERENCES mode, "
-             "FOREIGN KEY (submode) REFERENCES mode, "
-             "FOREIGN KEY (dxcc) REFERENCES entity, "
-             "FOREIGN KEY (bandid) REFERENCES band)");
+             "FOREIGN KEY (band_rx) REFERENCES band (id), "
+             "FOREIGN KEY (modeid) REFERENCES mode (id), "
+             "FOREIGN KEY (submode) REFERENCES mode (id), "
+             "FOREIGN KEY (dxcc) REFERENCES entity (dxcc), "
+             "FOREIGN KEY (bandid) REFERENCES band (id))");
 
          //qDebug() << "DataBase::createTableLog: " << stringQuery  ;
 
@@ -905,10 +905,10 @@ bool DataBase::createTableAwardDXCC()
                              "qsoid INTEGER NOT NULL, "
                              "lognumber INTEGER, "
                              "UNIQUE (dxcc, band, mode, lognumber), "
-                             "FOREIGN KEY (dxcc) REFERENCES entity, "
-                             "FOREIGN KEY (band) REFERENCES band, "
-                             "FOREIGN KEY (mode) REFERENCES mode, "
-                             "FOREIGN KEY (qsoid) REFERENCES log)");
+                             "FOREIGN KEY (dxcc) REFERENCES entity (dxcc), "
+                             "FOREIGN KEY (band) REFERENCES band (id), "
+                             "FOREIGN KEY (mode) REFERENCES mode (id), "
+                             "FOREIGN KEY (qsoid) REFERENCES log (id) )");
 
     /*
     In awarddxcc confirmed means:
@@ -939,9 +939,9 @@ bool DataBase::createTableAwardWAZ()
                            "qsoid INTEGER NOT NULL, "
                            "lognumber INTEGER, "
                            "UNIQUE (cqz, band, mode, lognumber), "
-                           "FOREIGN KEY (band) REFERENCES band, "
-                           "FOREIGN KEY (mode) REFERENCES mode, "
-                           "FOREIGN KEY (qsoid) REFERENCES log)");
+                           "FOREIGN KEY (band) REFERENCES band (id), "
+                           "FOREIGN KEY (mode) REFERENCES mode (id), "
+                           "FOREIGN KEY (qsoid) REFERENCES log (id))");
     /*
     In awardwaz confirmed means:
     confirmed = 0     Set as Worked
@@ -983,9 +983,9 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
         "end_date DATETIME, "
         "deleted VARCHAR, "
         "UNIQUE (id, shortname, name), "
-        "FOREIGN KEY (cqz) REFERENCES entity, "
-        "FOREIGN KEY (ituz) REFERENCES entity, "
-        "FOREIGN KEY (dxcc) REFERENCES entity)");
+        "FOREIGN KEY (cqz) REFERENCES entity (cqz), "
+        "FOREIGN KEY (ituz) REFERENCES entity (ituz), "
+        "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
 
     QString delS = QString();
     delS = "DROP TABLE IF exists " + table;

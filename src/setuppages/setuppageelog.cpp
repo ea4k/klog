@@ -330,7 +330,6 @@ void SetupPageELog::slotLoTWEmailDefineColor()
 
     lotwUserLineEdit->setText(aux.toUpper());
     lotwUserLineEdit->setCursorPosition(cursor);
-
 }
 
 void SetupPageELog::setDefaults()
@@ -439,7 +438,6 @@ void SetupPageELog::slotSelectTQSLClicked()
 
 void SetupPageELog::slotPathLineEditChanged(const QString &_q)
 {
-
     if (QFile::exists(_q))
     {
         lotwTQSLPathLineEdit->setPalette(palBlack);
@@ -469,7 +467,6 @@ void SetupPageELog::setQRZCOMActive(const bool _s)
 
 void SetupPageELog::slotQRZCOMActive(bool _s)
 {
-
      //qDebug() << "SetupPageELog::slotQRZCOMActive: "  << util->boolToQString(_s);
     QRZCOMUserLabel->setEnabled(_s);
      //qDebug() << "SetupPageELog::slotQRZCOMActive - 1";

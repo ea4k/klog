@@ -135,8 +135,8 @@ bool World::create(const QString &_worldFile)
         util->setSpecialCalls(dataProxy->getSpecialCallsigns());
         created = true;
         //qDebug() << Q_FUNC_INFO << " - TRUE" ;
-
-    }else
+    }
+    else
     {
         //qDebug() << Q_FUNC_INFO << " - 20" ;
         created = false;
@@ -660,7 +660,6 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
     else if (query.lastError().nativeErrorCode() == QString::number(19))
     {
         //qDebug() << Q_FUNC_INFO << "  :Prefix data NOT added: error19:  " <<  _pref ;
-
     }
     else
     {
@@ -730,7 +729,6 @@ bool World::readCTYCSV(const QString &_worldFile)
     int entN;
     //qDebug() << Q_FUNC_INFO << " - 60";
     while (!file.atEnd()) {
-
         progress.setValue(progressBarPosition);
         progressBarPosition++;
         if (progress.wasCanceled())
@@ -831,7 +829,6 @@ bool World::readCTYCSV(const QString &_worldFile)
                 }
             }
         }
-
         progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
         //qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
     }

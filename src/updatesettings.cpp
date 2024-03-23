@@ -32,7 +32,6 @@ UpdateSettings::UpdateSettings()
 
 UpdateSettings::~UpdateSettings()
 {
-
 }
 
 bool UpdateSettings::findInFile()
@@ -412,7 +411,6 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.setValue ("DXClusterServerToUse", value);
         settings.endGroup ();
     }else if (tab  =="DXCLUSTERSERVERPORT"){
-
         QList<QString> clusters;
         clusters.clear ();
         settings.beginGroup ("DXCluster");
@@ -437,7 +435,6 @@ bool UpdateSettings::processConfigLine(const QString &_line)
          }
         settings.endArray();
         settings.endGroup ();
-
     }else if (tab  =="DXCLUSTERSAVE"){
         settings.beginGroup ("DXCluster");
         settings.setValue ("DXClusterSave", util.trueOrFalse (value));

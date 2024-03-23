@@ -77,7 +77,8 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
        //qDebug() << "SetupPageMisc::SetupPageMisc - END";
 }
 
-SetupPageMisc::~SetupPageMisc(){
+SetupPageMisc::~SetupPageMisc()
+{
     delete(util);
        //qDebug() << "SetupPageMisc::~SetupPageMisc";
 }
@@ -210,9 +211,9 @@ void SetupPageMisc::fillDebugComboBox()
     debugLogLevelCombo->setCurrentIndex(0);
 }
 
-void SetupPageMisc::createActions(){
+void SetupPageMisc::createActions()
+{
 //void	itemDoubleClicked ( QListWidgetItem * item )
-
     connect(fileNameButton, SIGNAL(clicked() ), this, SLOT(slotOpenFileButtonClicked() ) );
     connect(useDefaultName, SIGNAL(stateChanged(int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
     connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
@@ -223,19 +224,19 @@ void SetupPageMisc::createActions(){
     //connect(UDPServerCheckBox, SIGNAL(clicked () ), this, SLOT(slotUDPServerCheckBoxClicked() ) );
 }
 
-void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t){
-
+void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t)
+{
     deleteAlwaysAdiFileCheckBox->setChecked(_t);
     //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t;
 }
 
-QString SetupPageMisc::getDeleteAlwaysAdiFile(){
-
+QString SetupPageMisc::getDeleteAlwaysAdiFile()
+{
     return util->boolToQString(deleteAlwaysAdiFileCheckBox->isChecked());
 }
 
-QString SetupPageMisc::getSendEQSLByDefault(){
-
+QString SetupPageMisc::getSendEQSLByDefault()
+{
     return util->boolToQString(sendEQSLByDefaultSearchCheckBox->isChecked());
 }
 
@@ -244,8 +245,8 @@ void SetupPageMisc::setSetEQSLByDefault(const QString &_t){
     sendEQSLByDefaultSearchCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
-QString SetupPageMisc::getRealTime(){
-
+QString SetupPageMisc::getRealTime()
+{
     return util->boolToQString(realTimeCheckbox->isChecked());
 }
 
@@ -264,8 +265,8 @@ void SetupPageMisc::setShowSeconds(const bool &_t)
     showSecondsCheckBox->setChecked (_t);
 }
 
-QString SetupPageMisc::getUTCTime(){
-
+QString SetupPageMisc::getUTCTime()
+{
     return util->boolToQString(UTCCheckbox->isChecked());
 }
 
@@ -336,7 +337,6 @@ void SetupPageMisc::setImperial(const QString &_t)
     imperialCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
-
 void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
 {
        //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged";
@@ -345,7 +345,6 @@ void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
     {
         defaultFileNameLineEdit->setEnabled(true);
         moveDBPushButton->setEnabled(true);
-
     }
     else
     {
@@ -487,7 +486,6 @@ void SetupPageMisc::slotDBButtonClicked()
         moveDBPushButton->setEnabled(true);
     }
     //setUseDefaultDBPath(dbDirNew);
-
 }
 
 void SetupPageMisc::slotDBLineEditChanged()
@@ -537,7 +535,6 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         }
         if (QFile::copy(source, target))
         {
-
             dbDirCurrent = dbDirNew;
             if (QFile::remove(source))
             {

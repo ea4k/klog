@@ -1149,7 +1149,6 @@ QString QSO::getPropMode()
 
 bool QSO::setSOTA_REF(const QString &_c)
 {// TODO: Check if the SOTA REF is Valid
-
     if (_c.length ()<=1)
         return false;
     sota_ref = _c;
@@ -1219,7 +1218,6 @@ bool QSO::setMyAntenna(const QString &_c)
         return false;
     my_antenna = _c;
     return true;
-
 }
 
 QString QSO::getMyAntenna()
@@ -2105,7 +2103,6 @@ bool QSO::setMyFists(const int _i)
         return true;
     }
     return false;
-
 }
 
 int QSO::getMyFists()

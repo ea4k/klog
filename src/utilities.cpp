@@ -518,7 +518,6 @@ QString Utilities::getKLogDefaultDatabaseFile()
 
 QString Utilities::getDBPath()
 {   //Returns the path (folder level) of the DB
-
     QSettings settings(getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     QString dbPath = settings.value ("DBPath").toString ();

@@ -49,7 +49,6 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
     createActions();
     setDefaultData();
     //qDebug() << "LogWindow::LogWindow: - END" ;
-
 }
 
 LogWindow::~LogWindow()
@@ -92,7 +91,6 @@ void LogWindow::createUI()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(logView);
     setLayout(layout);
-
 }
 
 void LogWindow::setDefaultData()
@@ -122,7 +120,6 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
     logView->sortByColumn(1, Qt::DescendingOrder);
-
 }
 
 void LogWindow::setColumnsOfLog(const QStringList &_columns)
@@ -457,7 +454,6 @@ void LogWindow::slotQSLSentViaDirectFromLog()
      int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
     dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
-
 }
 
 void LogWindow::slotQSLRecViaBureauFromLog()

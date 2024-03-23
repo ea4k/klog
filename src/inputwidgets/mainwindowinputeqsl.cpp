@@ -649,7 +649,6 @@ void MainWindowInputEQSL::setLOTWRecDate(const QDate _qs)
 {
     if (_qs.isValid())
     {
-
         lotwRecQDateEdit->setDate(_qs);
     }
     else

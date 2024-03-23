@@ -113,7 +113,6 @@ void DXClusterWidget::createActions()
     //checkQRZCOMFromLogAct->setShortcut(Qt::CTRL | Qt::Key_Q);
     checkQRZCOMFromLogAct->setStatusTip(tr("Check this callsign in QRZ.com"));
     connect(checkQRZCOMFromLogAct, SIGNAL(triggered()), this, SLOT( slotCheckQRZCom() ));
-
 }
 
 void DXClusterWidget::init()
@@ -158,7 +157,6 @@ void DXClusterWidget::setMyQRZ(const QString &_qrz)
     {
         myQrz = _qrz;
     }
-
 }
 
 void DXClusterWidget::addData()
@@ -401,7 +399,6 @@ void DXClusterWidget::slotClusterDataArrived()
                 }
             }
               //qDebug() << "DX de ->" << "Spotter: " << spotter << "Freq: "<< dxFrequency << "DX: " << dxCall;
-
         }
         else if ((tokens[0] == "To") && (tokens[1] == "ALL"))
         {
@@ -664,7 +661,6 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
 
         if ( (fields.at(0) == "DX" ) && (fields.at(1) == "de" ) )
         { // DX de EA0XXX: 21200.1 EA0K The comment 1550
-
             if ( world->getQRZARRLId(fields.at(4))> 0 )
             {
                    //qDebug() << Q_FUNC_INFO << "-  ARRLid: " << QString::number(world->getQRZARRLId(fields.at(4))) ;
@@ -697,7 +693,6 @@ QStringList DXClusterWidget::readItem(QListWidgetItem * item)
         //else if (( isAFrecuency(fields.at(0) ) ) && ( isACall(fields.at(1)) ) )
         else if ( (((fields.at(0)).toDouble()) > 0.0 )&& ( world->getQRZARRLId(fields.at(1))> 0 ) )
         { // 14205.0 EA0K   5-Mar-2012 1500Z    <EA0XXX>
-
             dxCallsign = (fields.at(1)).toUpper();
             dxFreq = fields.at(0);
             fields.clear();

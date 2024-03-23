@@ -48,9 +48,7 @@ enum
 class DataProxy_SQLite : public QObject
 {
     Q_OBJECT
-
 public:
-
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
     ~DataProxy_SQLite();
     void setLogLevel (const DebugLogLevel _l);
@@ -358,7 +356,6 @@ signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-
 };
 
 #endif //DATAPROXY_SQLITE_H

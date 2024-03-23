@@ -588,7 +588,6 @@ void MainQSOEntryWidget::setModes(const QStringList &_modes)
     modeComboBox->addItems(modes);
     selectDefaultMode(true);
     logEvent (Q_FUNC_INFO, "END", Debug);
-
 }
 
 QStringList MainQSOEntryWidget::getModes()

@@ -420,7 +420,6 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
             }
         }
     } // END OF WHILE
-
     //qDebug() << Q_FUNC_INFO << ":  End: " << QString::number(qsos.count());
     progress.setValue(numberOfQsos);
     return qsos;
@@ -444,7 +443,6 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
     if (_em == ModeLotW)
     {
         queryString = QString("call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_gridsquare, qso_date, prop_mode, sat_name, station_callsign");
-
     }
     else if (_em == ModeClubLog)
     {

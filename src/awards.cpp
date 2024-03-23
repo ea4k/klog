@@ -659,7 +659,6 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
                    //qDebug() << "Awards::dxccStatus: query valid OK";
                 if(((query.value(0)).toString() == "Y") || ((query.value(1)).toString() == "Y"))
                 {
-
                        //qDebug() << "Awards::dxccStatus: value = 1 - return 2";
                     query.finish();
                     return 2;
@@ -820,7 +819,6 @@ QString Awards::getDXStatusString (const int &_status)
     QString message = QString();
 
     switch (_status) {
-
     case 0:
         message = QObject::tr("New One, work it!");
         //message = QObject::tr("0-new One");
@@ -1576,7 +1574,6 @@ bool Awards::getIsDXCCConfirmed(const int _dxcc, const int _logNumber)
 {
   //  isDXCCConfirmed(const int _dxcc, const int _currentLog);
     return dataProxy->isDXCCConfirmed(_dxcc, _logNumber);
-
 }
 
 int Awards::getDXMarathonQSO(const int _year, const int _logNumber)

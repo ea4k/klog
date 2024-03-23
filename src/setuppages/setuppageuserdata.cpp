@@ -269,8 +269,6 @@ QString SetupPageUserDataPage::getMainCallsign()
     }
 }
 
-
-
 void SetupPageUserDataPage::slotEnterKeyPressed()
 {
     emit enterKey();
@@ -302,7 +300,6 @@ void SetupPageUserDataPage::slotQRZTextChanged()
         maincallsignLineEdit->setText(_a.remove(i-1, 1));
     }
 
-
     maincallsignLineEdit->setText(((maincallsignLineEdit->text())).simplified());
     maincallsignLineEdit->setText((maincallsignLineEdit->text()).toUpper());
 
@@ -325,11 +322,13 @@ void SetupPageUserDataPage::slotQRZTextChanged()
     slotQRZRunning = false;
 }
 
-int SetupPageUserDataPage::getCQz(){
+int SetupPageUserDataPage::getCQz()
+{
     return (cqzLineEdit->text()).toInt();
 }
 
-int SetupPageUserDataPage::getITUz(){
+int SetupPageUserDataPage::getITUz()
+{
     return (ituzLineEdit->text()).toInt();
 }
 
@@ -386,12 +385,10 @@ QString SetupPageUserDataPage::getStationLocator()
     {
         return (myLocatorLineEdit->text()).toUpper();
     }
-
 }
 
 bool SetupPageUserDataPage::setStationLocator(const QString &_loc)
 {
-
     if (!(locator->isValidLocator(_loc) ))
     {
         return false;
@@ -440,7 +437,6 @@ QString SetupPageUserDataPage::getAddress4()
 QString SetupPageUserDataPage::getRig1()
 {
     return rig1LineEdit->text();
-
 }
 
 QString SetupPageUserDataPage::getRig2()
@@ -492,57 +488,58 @@ bool SetupPageUserDataPage::setName (const QString &_aux)
     nameLineEdit->setText(_aux);
     return true;
 }
+
 bool SetupPageUserDataPage::setAddress (const QStringList _aux)
 {
-
     address1LineEdit->setText(_aux.at(0));
     address2LineEdit->setText(_aux.at(1));
     address3LineEdit->setText(_aux.at(2));
     address4LineEdit->setText(_aux.at(3));
     return true;
-
 }
 
 bool SetupPageUserDataPage::setAddress1 (const QString &_aux)
 {
     address1LineEdit->setText(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setAddress2 (const QString &_aux)
 {
     address2LineEdit->setText(_aux);
     return true;
-
 }
+
 bool SetupPageUserDataPage::setAddress3 (const QString &_aux)
 {
     address3LineEdit->setText(_aux);
     return true;
-
 }
+
 bool SetupPageUserDataPage::setAddress4 (const QString &_aux)
 {
     address4LineEdit->setText(_aux);
     return true;
-
 }
+
 bool SetupPageUserDataPage::setCity (const QString &_aux)
 {
     cityLineEdit->setText(_aux);
     return true;
 }
+
 bool SetupPageUserDataPage::setZipCode(const QString &_aux)
 {
     zipLineEdit->setText(_aux);
     return true;
 }
+
 bool SetupPageUserDataPage::setProvince (const QString &_aux)
 {
     provinceLineEdit->setText(_aux);
     return true;
 }
+
 bool SetupPageUserDataPage::setCountry (const QString &_aux)
 {
     countryLineEdit->setText(_aux);
@@ -557,6 +554,7 @@ QStringList SetupPageUserDataPage::getRigs()
     return a;
 
 }
+
 QStringList SetupPageUserDataPage::getAntennas()
 {
     QStringList a;
@@ -581,34 +579,30 @@ bool SetupPageUserDataPage::setRig1 (const QString &_aux)
 {
     rig1LineEdit->setText(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setRig2 (const QString &_aux)
 {
     rig2LineEdit->setText(_aux);
     return true;
-
 }
+
 bool SetupPageUserDataPage::setRig3 (const QString &_aux)
 {
     rig3LineEdit->setText(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setAntenna1 (const QString &_aux)
 {
     ant1LineEdit->setText(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setAntenna2 (const QString &_aux)
 {
     ant2LineEdit->setText(_aux);
     return true;
-
 }
 
 bool SetupPageUserDataPage::setAntenna3 (const QString &_aux)
@@ -649,7 +643,6 @@ void SetupPageUserDataPage::slotOperatorsChanged()
         //operatorsOK = world->checkQRZValidFormat(operators.at(ii));
     }
        //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged-04";
-
     if (operatorsOK)
     {
         //qDebug() << "SetupPageUserDataPage::slotOperatorsChanged: VALID FORMAT";
@@ -676,8 +669,8 @@ QString SetupPageUserDataPage::getOperators()
     {
         return QString();
     }
-
 }
+
 bool SetupPageUserDataPage::setOperators(const QString &_aux)
 {
     if (checkOperatorsLineQString(_aux))
@@ -685,9 +678,7 @@ bool SetupPageUserDataPage::setOperators(const QString &_aux)
         operatorsLineEdit->setText(_aux);
         return true;
     }
-
     return false;
-
 }
 
 bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
@@ -702,6 +693,7 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
     }
     return true;
 }
+
 void SetupPageUserDataPage::setStationFocus()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
