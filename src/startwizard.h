@@ -59,7 +59,6 @@ class CTYPage;
     void slotButtonFinishedClicked();
 
  private:
-
    //FileOrMemoryPage *fileOrMemoryPage;
    CTYPage *ctyPage;
    QString version;

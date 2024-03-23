@@ -43,7 +43,6 @@ MainWindowInputComment::~MainWindowInputComment(){}
 
 void MainWindowInputComment::createUI()
 {
-
     QLabel *commentLabel = new QLabel(tr("Comment"));
     commentLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
     commentLineEdit->setToolTip(tr("Add a comment for this QSO."));

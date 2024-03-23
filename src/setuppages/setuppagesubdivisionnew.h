@@ -64,7 +64,6 @@ signals:
     void cancelled(const bool _c); // Cancel button is clicked
 
 private:
-
     //bool isThereAnyNotManagedLog();
     void createWidget();
     void gatherAndSend();

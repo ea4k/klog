@@ -67,8 +67,8 @@ public:
 
 signals:
     void returnPressed();
-private slots:
 
+private slots:
     void slotQSLViaTextChanged();
     void slotQSLSentComboBoxChanged();
     void slotQSLRecvComboBoxChanged();
@@ -80,7 +80,6 @@ private slots:
     void slotLotwSentComboBoxChanged();
 */
 private:
-
     void createUI();
     void setDefaultData();
 

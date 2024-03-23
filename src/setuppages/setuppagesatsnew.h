@@ -70,7 +70,6 @@ signals:
     void cancelled(const bool _c); // Cancel button is clicked
 
 private:
-
     //bool isThereAnyNotManagedSat();
     void createUI();
     void gatherAndSend();

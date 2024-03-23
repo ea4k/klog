@@ -47,7 +47,6 @@ private slots:
 
 private:
     SetupPageELog *page;
-
 };
 
 tst_SetupPageELog::tst_SetupPageELog()
@@ -55,25 +54,13 @@ tst_SetupPageELog::tst_SetupPageELog()
     page = new SetupPageELog();
 }
 
-tst_SetupPageELog::~tst_SetupPageELog()
-{
+tst_SetupPageELog::~tst_SetupPageELog(){}
 
-}
+void tst_SetupPageELog::initTestCase(){}
 
-void tst_SetupPageELog::initTestCase()
-{
+void tst_SetupPageELog::cleanupTestCase(){}
 
-}
-
-void tst_SetupPageELog::cleanupTestCase()
-{
-
-}
-
-void tst_SetupPageELog::test_Constructor()
-{
-
-}
+void tst_SetupPageELog::test_Constructor(){}
 
 void tst_SetupPageELog::test_ClubLog()
 {

@@ -45,7 +45,6 @@ private slots:
 
 private:
     HamLibNetworkConfigWidget *netHamLibWidget;
-
 };
 
 tst_SetupHamLibNetworkWidget::tst_SetupHamLibNetworkWidget()
@@ -54,25 +53,13 @@ tst_SetupHamLibNetworkWidget::tst_SetupHamLibNetworkWidget()
     netHamLibWidget->createUI();
 }
 
-tst_SetupHamLibNetworkWidget::~tst_SetupHamLibNetworkWidget()
-{
+tst_SetupHamLibNetworkWidget::~tst_SetupHamLibNetworkWidget(){}
 
-}
+void tst_SetupHamLibNetworkWidget::initTestCase(){}
 
-void tst_SetupHamLibNetworkWidget::initTestCase()
-{
+void tst_SetupHamLibNetworkWidget::cleanupTestCase(){}
 
-}
-
-void tst_SetupHamLibNetworkWidget::cleanupTestCase()
-{
-
-}
-
-void tst_SetupHamLibNetworkWidget::test_Constructor()
-{
-
-}
+void tst_SetupHamLibNetworkWidget::test_Constructor(){}
 
 void tst_SetupHamLibNetworkWidget::test_Address()
 {

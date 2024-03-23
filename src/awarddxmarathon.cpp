@@ -34,7 +34,6 @@ DXMarathon::DXMarathon(DataProxy_SQLite *dp)
        //qDebug() << "DXMarathon::DXMarathon - END" ;
 }
 
-
 int DXMarathon::getDXMarathonQSO(const int _year, const int _logNumber)
 {
          //qDebug() << "DXMarathon::getDXMarathonQSO: " << QString::number(_year);
@@ -58,11 +57,9 @@ int DXMarathon::getDXMarathonScore(const int _year, const int _logNumber)
          //qDebug() << "DXMarathon::getDXMarathonScore: " << QString::number(_year);
 
     return ( getDXMarathonDXCC(_year, _logNumber) + getDXMarathonCQ(_year, _logNumber));
-
 }
 
 bool DXMarathon::neededForDXMarathon(const int _dxcc, const int _cq, const int _year, const int _logNumber)
 {
     return dataProxy->newDXMarathon(_dxcc, _cq, _year, _logNumber);
-
 }

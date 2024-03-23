@@ -28,7 +28,6 @@
 
 //#include <QDebug>
 
-
 SoftwareUpdateDialog::SoftwareUpdateDialog()
 {
       //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog" ;
@@ -42,16 +41,12 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
 
     QPushButton *acceptButton = new QPushButton(tr("Ok"));
 
-
     textBrowser->setOpenExternalLinks(true);
     //textBrowser->setHTML(url);
-
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(acceptButton);
 
-
-    ///
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(textBrowser);
     mainLayout->addLayout(buttonsLayout);
@@ -59,8 +54,6 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     setLayout(mainLayout);
 
     setWindowTitle(tr("KLog update"));
-
-    ///
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
      //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END" ;
@@ -74,7 +67,6 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
     {
         //text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://www.klog.xyz>https://www.klog.xyz</a></center>";
         text = tr("<center><h2>KLog new version (%1) is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://www.klog.xyz>https://www.klog.xyz</a></center>").arg(tversion);
-
     }
     else
     {
@@ -97,8 +89,6 @@ void SoftwareUpdateDialog::slotAcceptButtonClicked()
      //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END" ;
 }
 
-
-
 void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
 {
     //qDebug() << "SoftwareUpdateDialog::keyPressEvent" ;
@@ -107,7 +97,5 @@ void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
     {
         slotAcceptButtonClicked();
     }
-
-
     //qDebug() << "SoftwareUpdateDialog::keyPressEvent END" ;
 }

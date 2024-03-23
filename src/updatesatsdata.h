@@ -44,8 +44,6 @@ public:
     bool satDataFileRead(const QString& tfileName);
 
 private:
-
-
     Utilities *util;
     DataProxy_SQLite *dataProxy;
 

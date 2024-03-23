@@ -41,7 +41,6 @@ const double KM_IN_A_MILE = 1.609344;
 
 class Locator
 {
-
 public:
     Locator();
     ~Locator();
