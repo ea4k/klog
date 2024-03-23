@@ -61,7 +61,6 @@ private slots:
     void slotCheckDeletedDate();
     void slotCheckPrefixes();
 
-
 signals:
     void entityAdded(const QStringList _qs); // entity
 
@@ -93,7 +92,6 @@ private:
     //QPalette *paletteOrig, *paletteWrong;
     //QColor color;
     QPalette pal, palw;
-
 };
 
 

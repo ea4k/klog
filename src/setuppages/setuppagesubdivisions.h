@@ -117,8 +117,6 @@ private:
     int selectedLog;
 
     //QString defaultStationCallSign, defaultOperators;
-
-
 };
 
 #endif // SETUPPAGEREGIONALAWARDS_H

@@ -102,7 +102,6 @@ private:
     //nameLabel->setBuddy();
 
     bool checking; //, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
-
 };
 
 #endif // SETUPPAGEREGIONALAWARDSNEW_H

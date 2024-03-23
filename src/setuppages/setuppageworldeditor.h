@@ -63,7 +63,6 @@ private slots:
     void slotImportWorldButtonClicked();
 
 private:
-
     World *world;
     Utilities *util;
     DataProxy_SQLite *dataProxy;

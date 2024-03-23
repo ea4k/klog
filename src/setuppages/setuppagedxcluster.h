@@ -50,7 +50,6 @@ private slots:
     void slotDeleteButtonClicked();
 
 private:
-
     void createActions();
     bool checkIfValidDXCluster (const QString &tdxcluster);
     bool checkIfNewDXCluster (const QString &tdxcluster);

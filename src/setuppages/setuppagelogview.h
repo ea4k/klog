@@ -36,6 +36,7 @@
 class SetupPageLogView : public QWidget
 {
     Q_OBJECT
+
 public:
     SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageLogView();

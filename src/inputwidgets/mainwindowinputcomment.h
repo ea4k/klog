@@ -49,7 +49,6 @@ private:
     QString comment;
     QLineEdit *commentLineEdit;
     QCheckBox *keepThisDataForNextQSOQCheckbox;
-
 };
 
 #endif // MAINWINDOWINPUTCOMMENT_H

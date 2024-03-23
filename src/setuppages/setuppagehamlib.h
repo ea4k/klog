@@ -40,6 +40,7 @@
 class SetupPageHamLib : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     //QString getData();

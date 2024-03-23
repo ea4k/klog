@@ -8,6 +8,7 @@
 class HamLibNetworkConfigWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit HamLibNetworkConfigWidget(QWidget *parent = nullptr);
     void createUI();

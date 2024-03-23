@@ -89,7 +89,6 @@ private:
     QLabel *stationCallsignLabel, *operatorsLabel, *commentLabel, *dateLabel;
 
     bool checking; //, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;
-
 };
 
 #endif // SETUPPAGELOGSNEW_H

@@ -38,6 +38,7 @@
 class MainWindowInputQSL : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSL();

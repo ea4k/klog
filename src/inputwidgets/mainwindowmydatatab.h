@@ -41,6 +41,7 @@
 class MainWindowMyDataTab : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowMyDataTab();

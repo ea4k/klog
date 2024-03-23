@@ -53,12 +53,10 @@ class CTYPage;
     //~StartWizard();
 
  protected:
-
  private slots:
     void slotCancelWizard();
     //void slotRunInMemory(bool checked);
     void slotButtonFinishedClicked();
-
 
  private:
 
@@ -67,7 +65,6 @@ class CTYPage;
    QString version;
    //bool inMemory;
    QString klogDir;
-
 };
 
  class IntroPage : public QWizardPage
@@ -152,7 +149,6 @@ private slots:
 
 signals:
     void downloadTheFileSignal(const bool mem);
-
 
   private:
     //bool prepareTheDownload();

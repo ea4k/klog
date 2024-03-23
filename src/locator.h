@@ -39,9 +39,8 @@ const double RADIAN = 180.0/PI;
 const double DEG_TO_RAD = PI/180.0;
 const double KM_IN_A_MILE = 1.609344;
 
-
-
-class Locator{
+class Locator
+{
 
 public:
     Locator();

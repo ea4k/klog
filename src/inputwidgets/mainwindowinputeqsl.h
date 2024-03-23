@@ -37,6 +37,7 @@
 class MainWindowInputEQSL : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputEQSL();
@@ -76,7 +77,6 @@ public:
 
     void setQueueSentByDefault(const bool _b);
 
-
 signals:
 
 private slots:
@@ -100,7 +100,6 @@ private:
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;
     bool queueSentByDefault;
-
 };
 
 #endif // MAINWINDOWINPUTEQSL_H

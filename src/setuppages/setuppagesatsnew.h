@@ -102,7 +102,6 @@ private:
 
     QStringList satData;
     bool editing;
-
 };
 
 #endif // SETUPPAGESATSNEW_H

@@ -55,7 +55,6 @@ public:
     void loadSettings();
     void loadDarkMode(); // Reads the config to setup the DarkMode
 
-
 private slots:
     void slotNewOneColorButtonClicked();
     void slotConfirmedColorButtonClicked();
@@ -65,7 +64,6 @@ private slots:
     void slotWSJTXButtonClicked();
     void slotKLogButtonClicked();
     void slotSetDarkMode();
-
 
 private:
     Utilities *util;

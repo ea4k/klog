@@ -36,6 +36,7 @@
 class SetupPageBandMode : public QWidget
 {
     Q_OBJECT
+
 public:
     SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageBandMode();
@@ -60,7 +61,6 @@ private:
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;
-
 };
 
 #endif // SETUPPAGEBANDMODE_H

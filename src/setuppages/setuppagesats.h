@@ -35,8 +35,6 @@
 #include "../utilities.h"
 #include "../setuppages/setuppagesatsnew.h"
 
-
-
 class SetupPageSats : public QWidget {
     Q_OBJECT
 
@@ -48,7 +46,6 @@ public:
     void createNewSat();
     void setDefaultStationCallsign (const QString &_p);
     void setDefaultOperators(const QString &_p);
-
 
 private slots:
     void slotImportButtonClicked();

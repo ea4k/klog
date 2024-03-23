@@ -43,6 +43,7 @@ class QSslError;
 
 class DownLoadCTY : public QObject {
     Q_OBJECT
+
 public:
     explicit DownLoadCTY(const QString &_klogDir, const QString &_klogVersion);
     ~DownLoadCTY();
@@ -69,8 +70,6 @@ private slots:
     void slotDownloadFinished(QNetworkReply* reply);
     void slotDownloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
-
-
 
 signals:
     void actionReturnDownload(const int _i);

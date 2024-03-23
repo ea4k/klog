@@ -120,7 +120,6 @@ private:
     bool dbPathApplied;
 
     QComboBox *debugLogLevelCombo;
-    //QWidget *bandsWidget;
 };
 
 
