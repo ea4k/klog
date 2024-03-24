@@ -328,6 +328,7 @@ private:
     void readSettingsFile();    // Refactored from init()
     void checkVersions();       // Refactored from init()
     void checkHomeDir();        // Refactored from init()
+    void showWSJTXDuplicatedMSG();  //Refactored from slotWSJTXloggedQSO()
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);

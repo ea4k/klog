@@ -933,8 +933,6 @@ void MainWindow::slotTimeOutInfoBars()
     logEvent(Q_FUNC_INFO, "Start", Debug);
        //qDebug() << Q_FUNC_INFO << " -  - Start" ;
     slotShowInfoLabel(infoLabel1T);
-    //slotShowInfoLabel(infoLabel2T);
-    //infoLabel1->setText(infoLabel1T);
     infoLabel2->setText(infoLabel2T);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -1119,10 +1117,10 @@ void MainWindow::actionsJustAfterAddingOneQSO()
            }
            if ((clublogActive) && (clublogRealTime))
            {
-         //qDebug() << Q_FUNC_INFO << " -  (Modifiying ClubLog) Lastid: "<< QString::number(lastId) ;
-       // Delete QSO in CLubLog
+                //qDebug() << Q_FUNC_INFO << " -  (Modifiying ClubLog) Lastid: "<< QString::number(lastId) ;
+                // Delete QSO in CLubLog
                elogClublog->deleteQSO(clublogPrevQSO);
-       // Add modified QSO in ClubLog
+                // Add modified QSO in ClubLog
                elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
            }
            else
@@ -1135,13 +1133,13 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     }
     else
     {
-   //qDebug() << Q_FUNC_INFO << " -  Not Modifying " ;
+        //qDebug() << Q_FUNC_INFO << " -  Not Modifying " ;
         lastId = dataProxy->getLastQSOid();
         if (lastId>=0)
         {
-       //qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
+            //qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
             awards->setAwards(lastId);   //Update the DXCC award status
-    // Send to CLUBLOG if enabled
+            // Send to CLUBLOG if enabled
             if ((clublogActive) && (clublogRealTime))
             {
            //qDebug() << Q_FUNC_INFO << " -  (Sending ClubLog) Lastid: "<< QString::number(lastId) ;
@@ -1151,7 +1149,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
             {
            //qDebug() << Q_FUNC_INFO << " -  (No ClubLog) Lastid: "<< QString::number(lastId) ;
             }
-    //<CLUBLOG>
+            //<CLUBLOG>
         }
         else
         {
@@ -6043,7 +6041,14 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
 {
      //qDebug() << "MainWindow::slotWSJTX-loggedQSO" ;
     //logEvent(Q_FUNC_INFO, "Start", Debug);
-    bool logTheQso = false;
+
+
+    if (!_datetime.isValid() || !_datetime_off.isValid())
+    {
+   //qDebug() << Q_FUNC_INFO << " DATES NOT VALID " ;
+        return ;
+    }
+
     QString opCall = stationCallsign;
     if (util->isValidCall(_opCall))
     {
@@ -6053,12 +6058,6 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
     if (pwr<=0.0)
     {
         pwr = myDataTabWidget->getMyPower ();
-    }
-
-    if (!_datetime.isValid() || !_datetime_off.isValid())
-    {
-   //qDebug() << Q_FUNC_INFO << " DATES NOT VALID " ;
-        return ;
     }
 
      //qDebug() << Q_FUNC_INFO << " dxcall: " << _dxcall ;
@@ -6080,168 +6079,123 @@ void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mod
      //qDebug() << Q_FUNC_INFO << " exchange_rec: " << _exchangeRX ;
      //qDebug() << Q_FUNC_INFO << " MY_PWR: " << _mypwr ;
 
-
     if (wsjtxAutoLog)
     { // Log automatically, without confirmation
-        logTheQso = true;
+        //logTheQso = true;
    //qDebug() << Q_FUNC_INFO << " LogTheQSO = true"  ;
     }
     else
     { // Ask for confirmation before logging
-       //qDebug() << Q_FUNC_INFO << " LogTheQSO = false - we ask for confirmation"  ;
+            //qDebug() << Q_FUNC_INFO << " LogTheQSO = false - we ask for confirmation"  ;
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog - QSO received"));
             msgBox.setTextFormat(Qt::RichText);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
             msgBox.setDefaultButton(QMessageBox::Yes);
-            QString aux;
-            aux = tr("The following QSO data has been received from WSJT-X to be logged:") + "\n\n" +
-                    "<UL>" +
-                    "<LI>" +
-                    "<b>" + tr("Callsign") + ": " + "</b>" + _dxcall.toUpper() +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Freq") + ": " + "</b>" + QString::number(_freq) +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Mode") + ": " + "</b>" + _mode.toUpper() +
-                    "</LI>" +
-                    "<LI>" +
-            //"<b>" + tr("Time On") + ": " + "</b>" + (QDateTime::fromString(_time_on, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
-                    "<b>" + tr("Time On") + ": " + "</b>" + util->getDateTimeSQLiteStringFromDateTime(_datetime) +
-                    "</LI>" +
-                    "<LI>" +
-            //"<b>" + tr("Time Off") + ": " + "</b>" + (QDateTime::fromString(_time_off, "yyyyMMddhhmmss")).toString("yyyy/MM/dd - hh:mm:ss") +
-                    "<b>" + tr("Time Off") + ": " + "</b>" + util->getDateTimeSQLiteStringFromDateTime(_datetime_off) +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("RST TX") + ": " + "</b>" + _rstTX + " - <b>" + tr("RST RX") + ": " + "</b>" + _rstRX  +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Comment") + ": " + "</b>" + _comment  +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("DX-Grid") + ": " + "</b>" + _dxgrid.toUpper()  +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Local-Grid") + ": " + "</b>" + _mygrid.toUpper() +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Station Callsign") + ": " + "</b>" + _stationcallsign.toUpper() +
-                    "</LI>" +
-                    "<LI>" +
-                    "<b>" + tr("Operator Callsign") + ": " + "</b>" + opCall.toUpper() +
-                    "</LI>" +
-                    "</UL>" ;
+            QString aux  = QString("The following QSO data has been received from WSJT-X to be logged:\n\n"
+                                   "<UL>"
+                                   "<LI><b>Callsign:</b>%1</LI>"
+                                   "<LI><b>Freq:</b>%2</LI>"
+                                   "<LI><b>Mode:</b>%3</LI>"
+                                   "<LI><b>Time On:</b>%4</LI>"
+                                   "<LI><b>Time Off:</b>%5</LI>"
+                                   "<LI><b>RST TX:</b>%6</LI>"
+                                   "<LI><b>RST RX:</b>%7</LI>"
+                                   "<LI><b>Comment:</b>%8</LI>"
+                                   "<LI><b>DX-Grid:</b>%9</LI>"
+                                   "<LI><b>Local-Grid:</b>%10</LI>"
+                                   "<LI><b>Station Callsign:</b>%11</LI>"
+                                   "<LI><b>Operator Callsign:</b>%12</LI>").arg(_dxcall.toUpper())
+                    .arg(QString::number(_freq)).arg(_mode.toUpper()).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime))
+                    .arg(util->getDateTimeSQLiteStringFromDateTime(_datetime_off))
+                    .arg(_rstTX).arg(_rstRX)
+                    .arg(_comment).arg(_dxgrid.toUpper()).arg(_mygrid.toUpper())
+                    .arg(_stationcallsign.toUpper()).arg(opCall.toUpper());
 
             msgBox.setText(aux);
             int ret = msgBox.exec();
             switch (ret)
             {
-                case QMessageBox::Yes:
-                    logTheQso = true;
-                break;
+                //case QMessageBox::Yes:
+                //break;
                 case QMessageBox::No:
-                    logTheQso = false;
+                    //logTheQso = false;
+                    return;
                     break;
                 default:
         // should never be reached
-                logTheQso = false;
+                //logTheQso = false;
+                    return;
                 break;
             }
         }
-        //bool saveThisQSO = true;
-        if (logTheQso)
-        {
+
        //qDebug() << Q_FUNC_INFO << " QSO must be logged" ;
-            bool qsoLogged = false;
-            int dxcc = world->getQRZARRLId(_dxcall);
-            dxcc = util->getNormalizedDXCCValue (dxcc);
 
-            QString _myLoc = _mygrid;
-            if (!(locator->isValidLocator(_myLoc)))
-            {
-                _myLoc = myDataTabWidget->getMyLocator();
-            }
+        int dxcc = world->getQRZARRLId(_dxcall);
+        dxcc = util->getNormalizedDXCCValue (dxcc);
+        QString _myLoc = _mygrid;
 
-            if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, _dxcall, _datetime,  dataProxy->getBandIdFromFreq(_freq),  dataProxy->getIdFromModeName(_mode), dupeSlotInSeconds)).length()>1)
-            {
-                QMessageBox msgBox;
-                msgBox.setWindowTitle(tr("KLog - WSJTX Dupe QSO"));
+        if (!(locator->isValidLocator(_myLoc)))
+        {
+            _myLoc = myDataTabWidget->getMyLocator();
+        }
 
-                msgBox.setIcon(QMessageBox::Warning);
-                QString aux = tr("This QSO seems to be duplicated. Do you want to save or discard it?");
-                msgBox.setText(aux);
-                msgBox.setDetailedText(tr("Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings."));
-                msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard );
+        if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, _dxcall, _datetime,  dataProxy->getBandIdFromFreq(_freq),  dataProxy->getIdFromModeName(_mode), dupeSlotInSeconds)).length()>1)
+        {
+            showWSJTXDuplicatedMSG();
+        }
 
-                msgBox.setDefaultButton(QMessageBox::Save);
-                int ret = msgBox.exec();
-                switch (ret)
-                {
-                    case QMessageBox::Save:
-                        logEvent(Q_FUNC_INFO, "END-1", Debug);
-
-                    break;
-                    case QMessageBox::Discard:
-                        logEvent(Q_FUNC_INFO, "END-1", Debug);
-                        return; //No more error shown
-              //  break;
-                    default:
-            // should never be reached
-                        logEvent(Q_FUNC_INFO, "END-3", Debug);
-                    return;   // The user wants to keepseeing errors
-            //break;
-                }
-            }
-
-
-            qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall, _mode, _band,  _freq,
+        bool qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall, _mode, _band,  _freq,
                                                 _myLoc, _dxgrid, _rstTX, _rstRX,
                                                 _exchangeRX, _exchangeTX, _comment,
                                                 _stationcallsign, _name, opCall,
                                                 _datetime, _datetime_off, pwr, dxcc, currentLog, sendQSLByDefault);
 
-
-            if (qsoLogged)
-            {
-         //qDebug() << Q_FUNC_INFO << " Logged QSO OK: " << _dxcall ;
-                actionsJustAfterAddingOneQSO();
-                infoLabel1T = infoLabel1->text();
-                infoLabel2T = infoLabel2->text();
-                slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
-        //slotShowInfoLabel(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode, 2);
-        //infoLabel1->setText(tr("QSO logged from WSJT-X:"));
-                infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
-        //timerInfoBars->start(infoTimeout);
-
-        //actionsJustAfterAddingOneQSO();
-         //qDebug() << Q_FUNC_INFO;
-                slotClearButtonClicked(Q_FUNC_INFO);
-        //UDPLogServer->start();
-
-                if (clublogActive && clublogRealTime)
-                {
-                    elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(dataProxy->getLastQSOid()));
-                }
-            }
-            else
-            {
-           //qDebug() << Q_FUNC_INFO << " Logged QSO NOK: " << _dxcall ;
-            }
-        }
-        else
+        if (qsoLogged)
         {
-       //qDebug() << Q_FUNC_INFO << " QSO must NOT be logged ... ending" ;
-        }
-
+            //qDebug() << Q_FUNC_INFO << " Logged QSO OK: " << _dxcall ;
+            actionsJustAfterAddingOneQSO();
+            slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
+            infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
+            slotClearButtonClicked(Q_FUNC_INFO);
+    }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-       //qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
+void MainWindow::showWSJTXDuplicatedMSG()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - WSJTX Dupe QSO"));
 
+    msgBox.setIcon(QMessageBox::Warning);
+    QString aux = tr("This QSO seems to be duplicated. Do you want to save or discard it?");
+    msgBox.setText(aux);
+    msgBox.setDetailedText(tr("Duplicated QSOs have to match another existing QSO with the same call, band, mode, date and time, taking into account the period that can be defined in the settings."));
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard );
+
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+    switch (ret)
+    {
+        case QMessageBox::Save:
+            logEvent(Q_FUNC_INFO, "END-1", Debug);
+
+        break;
+        case QMessageBox::Discard:
+            logEvent(Q_FUNC_INFO, "END-1", Debug);
+            return; //No more error shown
+            //  break;
+        default:
+            // should never be reached
+            logEvent(Q_FUNC_INFO, "END-3", Debug);
+        return;   // The user wants to keepseeing errors
+    //break;
+    }
+}
 
 bool MainWindow::checkIfNewMode(const QString &_mode)
 {

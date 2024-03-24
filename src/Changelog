@@ -2,10 +2,12 @@
 TESTS to do before releasing:
 - ADIF log Import
 - LoTW log Import
-- Receive QSOs from WSJTX and check if they are properly imported to the log
+- Receive QSOs from WSJTX:
+    - check if they are properly imported to the log.
+    - Test a dupe QSO, a message should be shown
 
 
-Changelog 2.4
+TBD - 2.4
 - Enhancement: Ported from Qt5 to Qt6.
 - Enhancement: Refactoring of several classes.
 - Enhancement: SQLi protection of some queries.
