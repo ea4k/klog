@@ -423,7 +423,7 @@ private:
 
     void qsoToEdit (const int _qso);
     void setModifying(const bool _m);
-
+    void clearIfNotCompleted();                 // Refactored from completeWithPreviousQSO
     void completeWithPreviousQSO(const QString &_call);
 
     //void showAwards();

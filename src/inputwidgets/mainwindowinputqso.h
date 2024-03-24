@@ -49,13 +49,13 @@ public:
     void setPaletteRightDXLocator(const bool _ok);
 
     QString getDXLocator();
-    void setDXLocator(const QString &_loc);
+    void setDXLocator(const QString &_loc, bool _completing = false);
 
     QString getName();
-    void setName(const QString &_st);
+    void setName(const QString &_st, bool _completing = false);
 
     QString getQTH();
-    void setQTH(const QString &_st);
+    void setQTH(const QString &_st, bool _completing = false);
 
     void setRSTToMode(const QString &_m, const bool _reading = true);
 
@@ -123,7 +123,7 @@ private:
     bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
     QString propMode;
     double freqTX, freqRX;
-    bool modify;
+    bool modify, completedWithPreviousName, completedWithPreviousQTH, completedWithPreviousLocator;
 };
 
 #endif // MAINWINDOWINPUTQSO_H

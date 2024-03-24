@@ -246,7 +246,9 @@ void MainWindowInputQSO::setDefaultData()
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
     palWhite.setColor(QPalette::Text, Qt::white);
-
+    completedWithPreviousName = false;
+    completedWithPreviousQTH = false;
+    completedWithPreviousLocator = false;
     rxFreqBeingAutoChanged = false;
     txFreqBeingAutoChanged = false;
     isSATPropagation = false;
@@ -280,17 +282,20 @@ void MainWindowInputQSO::cleanQRZCOM(const bool _dataFromQRZCOM)
 void MainWindowInputQSO::clearName()
 {
     nameLineEdit->clear();
+    completedWithPreviousName = false;
 }
 
 void MainWindowInputQSO::clearQTH()
 {
     qthLineEdit->clear();
+    completedWithPreviousQTH = false;
 }
 
 void MainWindowInputQSO::clearDXLocator()
 {
     //qDebug() << Q_FUNC_INFO ;
     locatorLineEdit->clear ();
+    completedWithPreviousLocator = false;
 }
 
 void MainWindowInputQSO::slotReturnPressed()
@@ -335,13 +340,26 @@ QString MainWindowInputQSO::getDXLocator()
     return locatorLineEdit->text();
 }
 
-void MainWindowInputQSO::setDXLocator(const QString &_loc)
+void MainWindowInputQSO::setDXLocator(const QString &_loc, bool _completing)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    if (util->isValidGrid(_loc))
-    //if (util->isValidGrid (_loc))
+    if (!util->isValidGrid(_loc))
+       return;
+    if (_completing)
     {
         locatorLineEdit->setText (_loc.toUpper ());
+    }
+
+    if ((_loc.length()>=0) && ((getDXLocator()).length()<=0) )
+    {
+        setPaletteRightDXLocator (true);
+        locatorLineEdit->setText (_loc.toUpper ());
+        completedWithPreviousLocator=true;
+    }
+    else if (completedWithPreviousLocator && (_loc != getDXLocator()))
+    {
+        completedWithPreviousLocator = false;
+        setPaletteRightDXLocator(false);
     }
 }
 
@@ -350,9 +368,29 @@ QString MainWindowInputQSO::getName()
     return nameLineEdit->text ();
 }
 
-void MainWindowInputQSO::setName(const QString &_st)
+void MainWindowInputQSO::setName(const QString &_st, bool _completing)
 {
-    nameLineEdit->setText (_st);
+    // if _completing, I a completing with previous QSO
+    if (!_completing)
+    {
+        nameLineEdit->setText (_st);
+        completedWithPreviousName = false;
+        return;
+    }
+
+    if ((_st.length()>=0) && (getName().length()<=0) )
+    {
+        //qDebug() << Q_FUNC_INFO << ": name: 1" ;
+        nameLineEdit->setText (_st);
+        setPaletteRightName (true);
+        completedWithPreviousName = true;
+    }
+    else if (completedWithPreviousName && (_st != getName()))
+    {
+        //qDebug() << Q_FUNC_INFO << ": name: 2" ;
+        completedWithPreviousName = false;
+        setPaletteRightName (false);
+    }
 }
 
 double MainWindowInputQSO::getTXFreq()
@@ -412,9 +450,25 @@ QString MainWindowInputQSO::getQTH()
     return qthLineEdit->text();
 }
 
-void MainWindowInputQSO::setQTH(const QString &_st)
-{
-    qthLineEdit->setText(_st);
+void MainWindowInputQSO::setQTH(const QString &_st, bool _completing)
+{// if _completing, I a completing from a previous QSO
+    if (!_completing)
+    {
+        qthLineEdit->setText(_st);
+        return;
+    }
+
+    if ((_st.length()>=0) && (getQTH().length()<=0) )
+    {
+        setPaletteRightQTH (true);
+        completedWithPreviousQTH = true;
+        qthLineEdit->setText(_st);
+    }
+    else if (completedWithPreviousQTH && (_st != getQTH()))
+    {
+        completedWithPreviousQTH = false;
+        setPaletteRightQTH (false);
+    }
 }
 
 QString MainWindowInputQSO::getRSTTX()

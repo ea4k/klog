@@ -1078,22 +1078,18 @@ void MainWindow::slotQRZReturnPressed()
     //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
+        //qDebug() << Q_FUNC_INFO << ": Locator: " << lastLocator;
+        mapWindow->addLocator(qso->getGridSquare(), workedColor);
         qso->clear();
         actionsJustAfterAddingOneQSO();
     }
 
     // Just to prepare or some tasks before reading DATA from UI
-
-
     yearChangedDuringModification = false;
     readingTheUI = false;
-    QString lastLocator = dataProxy->getLocatorFromId(dataProxy->getLastQSOid());
-    //qDebug() << Q_FUNC_INFO << ": Locator: " << lastLocator;
-    mapWindow->addLocator(lastLocator, workedColor);
 
     //qDebug() << Q_FUNC_INFO << "Just before cleaning";
     slotClearButtonClicked(Q_FUNC_INFO);
-
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -1831,7 +1827,6 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
     {
         QSOTabWidget->cleanQRZCOM(true);
     }
-        completedWithPreviousName = false;
         completedWithPreviousName = false;
         completedWithPreviousLocator = false;
 }
@@ -5457,6 +5452,21 @@ void MainWindow::slotSetPropModeFromOther(const QString &_p)
     }
 }
 
+
+void MainWindow::clearIfNotCompleted()
+{
+    if (completedWithPreviousIOTA)
+    {
+        othersTabWidget->clearIOTA();
+        completedWithPreviousIOTA = false;
+    }
+    if (completedWithPreviousQSLVia)
+    {
+        QSLTabWidget->setQSLVia("");
+        completedWithPreviousQSLVia = false;
+    }
+}
+
 void MainWindow::completeWithPreviousQSO(const QString &_call)
 {
        //qDebug() << "MainWindow::completeWithPreviousQSO" ;
@@ -5467,31 +5477,10 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     {
    //qDebug() << "MainWindow::completeWithPreviousQSO NOT completing..." ;
-        if (completedWithPreviousName)
-        {
-            QSOTabWidget->clearName();
-            completedWithPreviousName = false;
-        }
-        if (completedWithPreviousQTH)
-        {
-            QSOTabWidget->clearQTH();
-            completedWithPreviousQTH = false;
-         }
-        if (completedWithPreviousLocator)
-        {
-            QSOTabWidget->clearDXLocator();
-            completedWithPreviousLocator = false;
-        }
-        if (completedWithPreviousIOTA)
-        {
-            othersTabWidget->clearIOTA();
-            completedWithPreviousIOTA = false;
-        }
-        if (completedWithPreviousQSLVia)
-        {
-            QSLTabWidget->setQSLVia("");
-            completedWithPreviousQSLVia = false;
-        }
+        QSOTabWidget->setName(QString());
+        QSOTabWidget->setQTH(QString());
+        QSOTabWidget->setDXLocator(QString());
+        clearIfNotCompleted();
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
@@ -5500,48 +5489,10 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
        //qDebug() << "MainWindow::completeWithPreviousQSO completing..." ;
     QString aux = QString();
 
-    aux = prevQSO.getName();
-    if ((aux.length()>=0) && (QSOTabWidget->getName().length()<=0) )
-    {
-   //qDebug() << "MainWindow::completeWithPreviousQSO name: 1" ;
-        QSOTabWidget->setName(aux);
-        QSOTabWidget->setPaletteRightName (true);
-        completedWithPreviousName = true;
-    }
-    else if (completedWithPreviousName && (aux != QSOTabWidget->getName()))
-    {
-   //qDebug() << "MainWindow::completeWithPreviousQSO name: 2" ;
-        completedWithPreviousName = false;
-        QSOTabWidget->setPaletteRightName (false);
-    }
-    else
-    {
-   //qDebug() << "MainWindow::completeWithPreviousQSO name: 3" ;
-    }
-    aux = prevQSO.getQTH();
-    if ((aux.length()>=0) && (QSOTabWidget->getQTH().length()<=0) )
-    {
-        QSOTabWidget->setPaletteRightQTH (true);
-        completedWithPreviousQTH = true;
-        QSOTabWidget->setQTH(aux);
-    }
-    else if (completedWithPreviousQTH && (aux != QSOTabWidget->getQTH()))
-    {
-        completedWithPreviousQTH = false;
-        QSOTabWidget->setPaletteRightQTH (false);
-    }
-    aux = prevQSO.getGridSquare();
-    if ((aux.length()>=0) && ((QSOTabWidget->getDXLocator()).length()<=0) )
-    {
-        QSOTabWidget->setPaletteRightDXLocator (true);
-        QSOTabWidget->setDXLocator(aux);
-        completedWithPreviousLocator=true;
-    }
-    else if (completedWithPreviousLocator && (aux != QSOTabWidget->getDXLocator()))
-    {
-        completedWithPreviousLocator = false;
-        QSOTabWidget->setPaletteRightDXLocator(false);
-    }
+    QSOTabWidget->setName(prevQSO.getName(), true);
+    QSOTabWidget->setQTH(prevQSO.getQTH(), true);
+    QSOTabWidget->setDXLocator(prevQSO.getGridSquare(), true);
+
     aux = prevQSO.getIOTA();
 
     if ((aux.length()>=0) && (othersTabWidget->isIOTAModified()) )

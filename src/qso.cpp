@@ -2956,7 +2956,7 @@ int QSO::getBandIdFromBandName(bool _rxBand)
 
 QString QSO::getBandNameFromBandId(int bandId)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(bandId);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(bandId);
     QSqlQuery query;
     //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
     bool ok = query.prepare ("SELECT name FROM band WHERE id=:id");
@@ -2978,7 +2978,7 @@ QString QSO::getBandNameFromBandId(int bandId)
     if (!query.isValid())
         return QString();
 
-    qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    //qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
 
@@ -3037,7 +3037,7 @@ int QSO::getModeIdFromModeName()
 
 QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
     QSqlQuery query;
     bool ok;
     if (_submode)
@@ -3067,7 +3067,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
     if (!query.isValid())
         return QString();
 
-    qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    //qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
 
@@ -3531,7 +3531,7 @@ bool QSO::fromDB(int _qsoId)
     clear();
     QSqlRecord rec = query.record();
 
-
+    //qDebug() << Q_FUNC_INFO << "  - 20";
     QString data = (query.value(rec.indexOf("qso_date"))).toString();
     setDateTimeOn(util->getDateTimeFromSQLiteString(data));
 
@@ -3555,7 +3555,7 @@ bool QSO::fromDB(int _qsoId)
     data = (query.value(rec.indexOf("modeid"))).toString();
     setMode(getModeNameFromModeId(data.toInt(), false));
     setSubmode(getModeNameFromModeId(data.toInt(), true));
-
+    //qDebug() << Q_FUNC_INFO << "  - 30";
     setCQZone((query.value(rec.indexOf("cqz"))).toInt());
     setItuZone((query.value(rec.indexOf("ituz"))).toInt());
     setDXCC((query.value(rec.indexOf("dxcc"))).toInt());
@@ -3575,7 +3575,7 @@ bool QSO::fromDB(int _qsoId)
 
     setCheck((query.value(rec.indexOf("checkcontest"))).toString());
     setClass((query.value(rec.indexOf("class"))).toString());
-
+    //qDebug() << Q_FUNC_INFO << "  - 40";
     data = (query.value(rec.indexOf("clublog_qso_upload_date"))).toString();
     setClubLogDate(util->getDateTimeFromSQLiteString(data).date());
     setClubLogStatus((query.value(rec.indexOf("clublog_qso_upload_status"))).toString());
@@ -3599,26 +3599,27 @@ bool QSO::fromDB(int _qsoId)
 
     data = (query.value(rec.indexOf("eqsl_qslsdate"))).toString();
     setEQSLQSLSDate(util->getDateTimeFromSQLiteString(data).date());
-
+    //qDebug() << Q_FUNC_INFO << "  - 50";
     setEQSLQSL_RCVD((query.value(rec.indexOf("eqsl_qsl_rcvd"))).toString());
     setEQSLQSL_SENT((query.value(rec.indexOf("eqsl_qsl_sent"))).toString());
-
     setFists((query.value(rec.indexOf("fists"))).toInt());
     setFistsCC((query.value(rec.indexOf("fists_cc"))).toInt());
     setForceInit(util->QStringToBool((query.value(rec.indexOf("force_init"))).toString()));
-
-    setFreq((query.value(rec.indexOf("freq_tx"))).toDouble());
+    setFreq((query.value(rec.indexOf("freq"))).toDouble());
     setFreqRX((query.value(rec.indexOf("freq_rx"))).toDouble());
     setGridSquare((query.value(rec.indexOf("gridsquare"))).toString());
-
     data = (query.value(rec.indexOf("hrdlog_qso_upload_date"))).toString();
     setHRDUpdateDate(util->getDateTimeFromSQLiteString(data).date());
+
+    //qDebug() << Q_FUNC_INFO << "  - 60";
     setHRDLogStatus((query.value(rec.indexOf("hrdlog_qso_upload_status"))).toString());
-
+    //qDebug() << Q_FUNC_INFO << "  - 61";
     setIOTA((query.value(rec.indexOf("iota"))).toString());
+    //qDebug() << Q_FUNC_INFO << "  - 62";
     setIotaID((query.value(rec.indexOf("iota_island_id"))).toInt());
+    //qDebug() << Q_FUNC_INFO << "  - 63";
     setK_Index((query.value(rec.indexOf("k_index"))).toInt());
-
+    //qDebug() << Q_FUNC_INFO << "  - 64";
     setLatitude((query.value(rec.indexOf("lat"))).toString());
     setLongitude((query.value(rec.indexOf("lon"))).toString());
 
@@ -3641,7 +3642,7 @@ bool QSO::fromDB(int _qsoId)
     setMyFists((query.value(rec.indexOf("my_fists"))).toInt());
     setMyGridSquare((query.value(rec.indexOf("my_gridsquare"))).toString());
     setMyIOTA((query.value(rec.indexOf("my_iota"))).toString());
-
+    //qDebug() << Q_FUNC_INFO << "  - 80";
     setMyLatitude((query.value(rec.indexOf("my_lat"))).toString());
     setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
 
@@ -3655,7 +3656,7 @@ bool QSO::fromDB(int _qsoId)
     setMyStreet((query.value(rec.indexOf("my_street"))).toString());
     setMyUsacaCounties((query.value(rec.indexOf("my_usaca_counties"))).toString());
     setMyVUCCGrids((query.value(rec.indexOf("my_vucc_grids"))).toString());
-
+    //qDebug() << Q_FUNC_INFO << "  - 90";
     setName((query.value(rec.indexOf("name"))).toString());
     setNotes((query.value(rec.indexOf("notes"))).toString());
 
@@ -3671,7 +3672,7 @@ bool QSO::fromDB(int _qsoId)
     data = (query.value(rec.indexOf("qrzcom_qso_upload_date"))).toString();
     setQRZCOMDate(util->getDateTimeFromSQLiteString(data).date());
     setQRZCOMStatus((query.value(rec.indexOf("qrzcom_qso_upload_status"))).toString());
-
+    //qDebug() << Q_FUNC_INFO << "  - 100";
     setQSLMsg((query.value(rec.indexOf("qslmsg"))).toString());
     data = (query.value(rec.indexOf("qslrdate"))).toString();
     setQSLRDate(util->getDateTimeFromSQLiteString(data).date());
@@ -3686,7 +3687,7 @@ bool QSO::fromDB(int _qsoId)
     setQSLVia((query.value(rec.indexOf("qsl_via"))).toString());
     setQSOComplete((query.value(rec.indexOf("qso_complete"))).toString());
     setQSORandom(util->QStringToBool((query.value(rec.indexOf("qso_random"))).toString()));
-
+    //qDebug() << Q_FUNC_INFO << "  - 120";
     setQTH((query.value(rec.indexOf("qth"))).toString());
     setRegion((query.value(rec.indexOf("region"))).toString());
     setRig((query.value(rec.indexOf("rig"))).toString());
@@ -3701,7 +3702,7 @@ bool QSO::fromDB(int _qsoId)
 
     setSilentKey(util->QStringToBool((query.value(rec.indexOf("silent_key"))).toString()));
     setSkcc((query.value(rec.indexOf("skcc"))).toString());
-
+    //qDebug() << Q_FUNC_INFO << "  - 130";
     setSOTA_REF((query.value(rec.indexOf("sota_ref"))).toString());
     setSrxString((query.value(rec.indexOf("srx_string"))).toString());
     setSrx((query.value(rec.indexOf("srx"))).toInt());
@@ -3718,12 +3719,12 @@ bool QSO::fromDB(int _qsoId)
     setVUCCGrids((query.value(rec.indexOf("vucc_grids"))).toString());
     setTenTen((query.value(rec.indexOf("ten_ten"))).toInt());
     setTXPwr((query.value(rec.indexOf("tx_pwr"))).toDouble());
-
+    //qDebug() << Q_FUNC_INFO << "  - 140";
     setWeb((query.value(rec.indexOf("web"))).toString());
     data = (query.value(rec.indexOf("qso_date_off"))).toString();
     setDateOff(util->getDateTimeFromSQLiteString(data).date());
     setLogId((query.value(rec.indexOf("lognumber"))).toInt());
-
+    //qDebug() << Q_FUNC_INFO << "  - 150";
     logEvent (Q_FUNC_INFO, "END", Debug);
     return false;
 }

@@ -75,12 +75,12 @@ tst_MainWindowInputQSO::~tst_MainWindowInputQSO(){}
 
 void tst_MainWindowInputQSO::initTestCase()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputQSO::cleanupTestCase()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputQSO::test_Constructor()
@@ -121,7 +121,7 @@ void tst_MainWindowInputQSO::test_WriteRead()
 void tst_MainWindowInputQSO::test_RST2Modes ()
 {
     //void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     mainWindowInputQSO->setRSTTX("56");
     QVERIFY2(mainWindowInputQSO->getRSTTX ()== "56", "Wrong RST TX");
     mainWindowInputQSO->setRSTRX("43");
@@ -166,7 +166,7 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
 
 void tst_MainWindowInputQSO::test_GridLineEdit()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QPalette palRed = mainWindowInputQSO->palRed;
     QPalette palBlack = mainWindowInputQSO->palBlack;
     QPalette palWhite = mainWindowInputQSO->palWhite;

@@ -2099,228 +2099,6 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
     return QStringList();
 }
 
-QString DataProxy_SQLite::getNameFromQRZ(const QString &_call)
-{
-    if (_call.length() <= 0)
-    {
-        //qDebug() << "DataProxy_SQLite::getNameFromQRZ return 0";
-        return QString();
-    }
-
-    QSqlQuery query;
-    QString queryString = QString("SELECT name FROM log WHERE call='%0'").arg(_call);
-
-    bool sqlOk = query.exec(queryString);
-
-    if (sqlOk)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                if (((query.value(0)).toString()).length()>0)
-                {
-                    //qDebug() << "DataProxy_SQLite::getNameFromQRZ: " <<  (query.value(0)).toString();
-                    QString v = (query.value(0)).toString();
-                    query.finish();
-                    return v;
-                }
-            }
-        }
-        query.finish();
-        //qDebug() << "DataProxy_SQLite::getNameFromQRZ: NO NAME" ;
-        return QString();
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return QString();
-    }
-}
-
-QString DataProxy_SQLite::getQTHFromQRZ(const QString &_call)
-{
-    if (_call.length() <= 0)
-    {
-        return QString();
-    }
-    QSqlQuery query;
-    QString queryString = QString("SELECT qth FROM log WHERE call='%0'").arg(_call);
-
-    bool sqlOk = query.exec(queryString);
-
-    if (sqlOk)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                if (((query.value(0)).toString()).length()>0)
-                {
-                    QString v = (query.value(0)).toString();
-                    query.finish();
-                    return v;
-                }
-            }
-        }
-        query.finish();
-        return QString();
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return QString();
-    }
-}
-
-QString DataProxy_SQLite::getLocatorFromQRZ(const QString &_call)
-{
-    if (_call.length() <= 0)
-    {
-        return QString();
-    }
-    QSqlQuery query;
-    QString queryString = QString("SELECT gridsquare FROM log WHERE call='%0'").arg(_call);
-
-    bool sqlOk = query.exec(queryString);
-
-    if (sqlOk)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                if (((query.value(0)).toString()).length()>0)
-                {
-                    QString v = (query.value(0)).toString();
-                    query.finish();
-                    return v;
-                }
-            }
-        }
-        query.finish();
-        return QString();
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return QString();
-    }
-}
-
-QString DataProxy_SQLite::getLocatorFromId (const int _id)
-{
-    if (_id <= 0)
-    {
-        return QString();
-    }
-    QSqlQuery query;
-    QString queryString = QString("SELECT gridsquare FROM log WHERE id='%0'").arg(_id);
-
-    bool sqlOk = query.exec(queryString);
-
-    if (sqlOk)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                if (((query.value(0)).toString()).length()>0)
-                {
-                    QString v = (query.value(0)).toString();
-                    query.finish();
-                    return v;
-                }
-            }
-        }
-        query.finish();
-        return QString();
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return QString();
-    }
-}
-
-
-QString DataProxy_SQLite::getIOTAFromQRZ(const QString &_call)
-{
-    if (_call.length() <= 0)
-    {
-        return QString();
-    }
-    QSqlQuery query;
-    QString queryString = QString("SELECT iota FROM log WHERE call='%0'").arg(_call);
-
-    bool sqlOk = query.exec(queryString);
-
-    if (sqlOk)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                if (((query.value(0)).toString()).length()>0)
-                {
-                    QString v = (query.value(0)).toString();
-                    query.finish();
-                    return v;
-                }
-            }
-        }
-        query.finish();
-        return QString();
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return QString();
-    }
-}
-
-
-QString DataProxy_SQLite::getQSLViaFromQRZ(const QString &_call)
-{
-    if (_call.length() <= 0)
-    {
-        return QString();
-    }
-    QSqlQuery query;
-    QString queryString = QString("SELECT DISTINCT qsl_via FROM log WHERE call='%0'").arg(_call);
-
-    bool sqlOk = query.exec(queryString);
-
-    if (sqlOk)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                if (((query.value(0)).toString()).length()>0)
-                {
-                    QString v = (query.value(0)).toString();
-                    query.finish();
-                    return v;
-                }
-            }
-        }
-        query.finish();
-        return QString();;
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return QString();
-    }
-}
-
 QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _band;
@@ -5531,10 +5309,10 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-      //qDebug() << Q_FUNC_ << QString::number(_qsoId);
+      //qDebug() << Q_FUNC_INFO << " " << QString::number(_qsoId);
     if (_qsoId <= 0)
     {
-           //qDebug() << Q_FUNC_INFO << ":  QSOid <=0 " << QString::number(_qsoId);
+           //qDebug() << Q_FUNC_INFO << "  QSOid <=0 " << QString::number(_qsoId);
         return false;
     }
     QList<int> values;
@@ -5550,7 +5328,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     //int _dxcc = getDXCCFromId(_qsoId);
     if (_dxcc <= 0)
     {
-           //qDebug() << Q_FUNC_INFO << ":  DXCC <= 0: DXCC: " << QString::number(_dxcc) << " - "  << QString::number(_qsoId);
+        //qDebug() << Q_FUNC_INFO << " : DXCC <= 0: DXCC: " << QString::number(_dxcc) << " - "  << QString::number(_qsoId);
         return false;
     }
 
@@ -5558,21 +5336,21 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     //int _band = getBandFromId(_qsoId);
     if (_band <= 0)
     {
-          //qDebug() << Q_FUNC_INFO << ":  Band <= 0: BAND: " << QString::number(_band) << " - "  << QString::number(_qsoId);
+          //qDebug() << Q_FUNC_INFO << "  Band <= 0: BAND: " << QString::number(_band) << " - "  << QString::number(_qsoId);
         return false;
     }
 
     int _mode = values.at(1);    //int _mode = getModeFromId(_qsoId);
     if (_mode <= 0)
     {
-          //qDebug() << Q_FUNC_INFO << ":  Mode <= 0: Mode: " << QString::number(_mode) << " - "  << QString::number(_qsoId);
+          //qDebug() << Q_FUNC_INFO << "  Mode <= 0: Mode: " << QString::number(_mode) << " - "  << QString::number(_qsoId);
         return false;
     }
     int _log = values.at(4);
     //int _log = getLogNumberFromQSOId(_qsoId);
     if (_log <= 0)
     {
-          //qDebug() << Q_FUNC_INFO << ":  Log <= 0: Log: " << QString::number(_log) << " - "  << QString::number(_qsoId);
+          //qDebug() << Q_FUNC_INFO << "  Log <= 0: Log: " << QString::number(_log) << " - "  << QString::number(_qsoId);
         return false;
     }
 
@@ -5585,17 +5363,10 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-    QString queryString = QString("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band=:band AND mode=:mode AND dxcc=:dxcc");
-    if (!query.prepare(queryString))
-    {
-        return false;
-    }
-    query.bindValue(":band", _band);
-    query.bindValue(":mode", _mode);
-    query.bindValue(":dxcc", _dxcc);
+    QString queryString = QString("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band='%1' AND mode='%2' AND dxcc='%3'").arg(_band).arg(_mode).arg(_dxcc);
 
     bool sqlOK = query.exec(queryString);
-      //qDebug() << Q_FUNC_INFO << ":  Queryexec-1: " << queryString;
+      //qDebug() << Q_FUNC_INFO << "  Queryexec-1: " << queryString;
     queryString.clear();
 
     if (sqlOK)
@@ -5606,9 +5377,11 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
         if (query.isValid())
         {
             int nameCol = rec.indexOf("id");
+            //qDebug() << Q_FUNC_INFO << "  - V-10";
             int __id = (query.value(nameCol)).toInt();
 
             nameCol = rec.indexOf("confirmed");
+            //qDebug() << Q_FUNC_INFO << "  - V-11";
             QString __confirmed = (query.value(nameCol)).toString();
             if (__confirmed == "1")
             {   // #1 - If the band/mode/log is already confirmed: Return true
@@ -5618,21 +5391,15 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             else if (__confirmed == "0")
             {
                 if (!isQSOConfirmed(_qsoId, true, true))
-                //if (!isQSLReceived((_qsoId)))
-                {// #2 - If the band/mode/log is already worked and status worked: Return true
+                {
+                    // #2 - If the band/mode/log is already worked and status worked: Return true
                     query.finish();
                     return true;
                 }
                 else
                 { // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
                     nameCol = rec.indexOf("qsoid");
-                    //int __qsoid = (query.value(nameCol)).toInt();
-                    queryString = QString("UPDATE awarddxcc SET confirmed = '1', qsoid = :qsoid WHERE id = :_id");
-                    query.finish();
-                    if (!query.prepare(queryString))
-                        return false;
-                    query.bindValue("qsoid", _qsoId);
-                    query.bindValue("_id", __id);
+                    queryString = QString("UPDATE awarddxcc SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
                 }
             }
             else
@@ -5640,6 +5407,9 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                 query.finish();
                 return true;
             }
+
+            query.finish();
+
             // #1 - If the band/mode/log is already confirmed: Return true
             // #2 - If the band/mode/log is already worked and status worked: Return true
             // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
@@ -5650,20 +5420,14 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             //#4 - If not worked: Add and Return true
             query.finish();
             // awarddxcc id dxcc band mode confirmed qsoid lognumber
-            //queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','0', '%4', '%5')").arg(_dxcc).arg(_band).arg(_mode).arg(_qsoId).arg(_log);
-            queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) "
-                                  "values(:dxcc, :band, :mode,'0', :qsoid, :logNumber)");
-            if (!query.prepare(queryString))
-                return false;
-            query.bindValue(":dxcc", _dxcc);
-            query.bindValue(":band", _band);
-            query.bindValue(":mode", _mode);
-            query.bindValue(":qsoid", _qsoId);
-            query.bindValue(":logNumber", _log);
+            queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','0', '%4', '%5')").arg(_dxcc).arg(_band).arg(_mode).arg(_qsoId).arg(_log);
         }
+
+        if (queryString.length()>5)
+        {
             if (query.exec(queryString))
             {
-                  //qDebug() << Q_FUNC_INFO << ": Queryexec-2: " << queryString;
+                  //qDebug() << Q_FUNC_INFO << " Queryexec-2: " << queryString;
                 query.finish();
                 return true;
             }
@@ -5676,6 +5440,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
                     return false;
                 }
             }
+        }
     }
     else
     {
@@ -5686,7 +5451,6 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     query.finish();
     return true;
 }
-
 
 bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
 {

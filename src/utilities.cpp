@@ -653,7 +653,14 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
     if (_dxcc >1000)
     {
         //qDebug() << Q_FUNC_INFO << QString(": Special: %1 / Normalized: %2").arg(_dxcc).arg(((QString::number(_dxcc)).last(3)).toInt());
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         return ((QString::number(_dxcc)).last(3)).toInt();
+#else
+        return ((QString::number(_dxcc)).rightRef(3)).toInt();  //To be replaced by .fromString in Qt6.0
+#endif
+
+
     }
     else
     {

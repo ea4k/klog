@@ -146,14 +146,6 @@ public:
 
     QString getCallFromId(const int _qsoId);
     QStringList getClubLogRealTimeFromId(const int _qsoId);
-    // Complete with previous
-    QString getNameFromQRZ(const QString &_call);
-    QString getQTHFromQRZ(const QString &_call);
-    QString getLocatorFromQRZ(const QString &_call);
-    QString getLocatorFromId (const int _id);
-    QString getIOTAFromQRZ(const QString &_call);
-    QString getQSLViaFromQRZ(const QString &_call);
-    // /Complete with previous
 
     QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
 
