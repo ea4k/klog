@@ -289,28 +289,8 @@ void MainWindow::setWindowSize(const QSize &_size)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::init()
+void MainWindow::checkDebugFile()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
-    logLevel = Debug;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (!QDir::setCurrent ( util->getHomeDir () )){
-        QDir d1(util->getHomeDir ());
-        if (d1.mkdir(util->getHomeDir ()))
-        {
-            if (!QDir::setCurrent ( util->getHomeDir () ))
-            {
-                QMessageBox msgBox;
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
-                QString aux = tr("It was not possible to define the KLog folder. Some functions may not work properly!");
-                msgBox.setText(aux);
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.setDefaultButton(QMessageBox::Ok);
-                msgBox.exec();
-            }
-        }
-    }
     QFile debugFile(util->getDebugLogFile());
     if (!debugFile.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
@@ -328,6 +308,38 @@ void MainWindow::init()
         debugFile.close();
         logEvent(Q_FUNC_INFO, "KLog started!", Debug);
     }
+}
+
+void MainWindow::checkHomeDir()
+{
+    if (!QDir::setCurrent ( util->getHomeDir () )){
+        QDir d1(util->getHomeDir ());
+        if (d1.mkdir(util->getHomeDir ()))
+        {
+            if (!QDir::setCurrent ( util->getHomeDir () ))
+            {
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
+                QString aux = tr("It was not possible to define the KLog folder. Some functions may not work properly!");
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+        }
+    }
+}
+
+void MainWindow::init()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    logLevel = Debug;
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    checkHomeDir();
+
+
+    checkDebugFile();
 
     //qDebug() << Q_FUNC_INFO << " -  00" ;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
@@ -453,7 +465,6 @@ void MainWindow::init()
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL | Qt::Key_L);
 
-
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
@@ -472,65 +483,9 @@ void MainWindow::init()
         newOneColor.setNamedColor("green");
 #endif
 
-
-
-
-
-     //qDebug() << Q_FUNC_INFO << " -  60" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    bool existingData = QFile::exists(util->getKLogDBFile());
-     //qDebug() << Q_FUNC_INFO << " -  60.1" ;
-    ctyDatFile = util->getCTYFile();
-     //qDebug() << Q_FUNC_INFO << " -  60.2" ;
-    if (!existingData)
-    {
-         //qDebug() << Q_FUNC_INFO << " -  61" ;
-        world->create(ctyDatFile);
-         //qDebug() << Q_FUNC_INFO << " -  62" ;
-    }
-    else if (!world->hasSpecialEntities())
-    {
-        QMessageBox msgBox;
-         msgBox.setIcon(QMessageBox::Question);
-
-        msgBox.setWindowTitle(tr("KLog - CTY.dat update"));
-        msgBox.setText(tr("KLog needs to update the Entities database."));
-        msgBox.setDetailedText(tr("You can update the entities database in Tools->Update cty.csv"));
-        msgBox.setInformativeText(tr("Do you want to update now?"));
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int ret = msgBox.exec();
-
-        switch (ret)
-        {
-            case QMessageBox::Yes :
-                slotUpdateCTYDAT();
-            break;
-        default:
-            break;
-        }
-         //qDebug() << Q_FUNC_INFO << " -  69" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    }
-
+    checkExistingData();
+    readSettingsFile();
      //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
-
-    //qDebug() << Q_FUNC_INFO << " -  Reading config file" ;
-    if (util->fileExists (util->getCfgFile ()))
-    {
-        UpdateSettings settingsUpdate;
-        if (settingsUpdate.updateFile ())
-        {
-            UpdateSettings settingsUpdate;
-            if (settingsUpdate.updateFile ())
-            {
-            //configured = loadSettings ();
-            }
-            configured = loadSettings ();
-        }
-    }
-
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    settings.setValue ("Version", softwareVersion);
-
     mapWindow->init();
 
     //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -555,16 +510,8 @@ void MainWindow::init()
     dxClusterWidget->setCurrentLog(currentLog);
 
      //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
-     //qDebug() << "MainWindow::Init: calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
-
-    if (checkNewVersions)
-    {//reportInfo
-        if (reportInfo)
-        {
-            softUpdate->addCall(stationCallsign);
-        }
-        softUpdate->needToUpdate();
-    }
+     //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
+    checkVersions();
 
      //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
@@ -596,6 +543,77 @@ void MainWindow::init()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainWindow::checkExistingData()
+{
+    //qDebug() << Q_FUNC_INFO << " - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    bool existingData = QFile::exists(util->getKLogDBFile());
+    //qDebug() << Q_FUNC_INFO << " -  1" ;
+    ctyDatFile = util->getCTYFile();
+    //qDebug() << Q_FUNC_INFO << " -  2" ;
+    if (!existingData)
+    {
+        //qDebug() << Q_FUNC_INFO << " -  3" ;
+       world->create(ctyDatFile);
+        //qDebug() << Q_FUNC_INFO << " -  4" ;
+    }
+    else if (!world->hasSpecialEntities())
+    {
+       QMessageBox msgBox;
+       msgBox.setIcon(QMessageBox::Question);
+
+       msgBox.setWindowTitle(tr("KLog - CTY.dat update"));
+       msgBox.setText(tr("KLog needs to update the Entities database."));
+       msgBox.setDetailedText(tr("You can update the entities database in Tools->Update cty.csv"));
+       msgBox.setInformativeText(tr("Do you want to update now?"));
+       msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+       msgBox.setDefaultButton(QMessageBox::Yes);
+       int ret = msgBox.exec();
+
+       switch (ret)
+       {
+           case QMessageBox::Yes :
+               slotUpdateCTYDAT();
+           break;
+       default:
+           break;
+       }
+        //qDebug() << Q_FUNC_INFO << " -  7" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    }
+}
+
+void MainWindow::readSettingsFile()
+{
+//qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
+    if (util->fileExists (util->getCfgFile ()))
+    {
+        UpdateSettings settingsUpdate;
+        if (settingsUpdate.updateFile ())
+        {
+            UpdateSettings settingsUpdate;
+            if (settingsUpdate.updateFile ())
+            {
+            //configured = loadSettings ();
+            }
+            configured = loadSettings ();
+        }
+    }
+
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    settings.setValue ("Version", softwareVersion);
+}
+
+void MainWindow::checkVersions()
+{
+    if (checkNewVersions)
+    {
+        if (reportInfo)
+        {
+            softUpdate->addCall(stationCallsign);
+        }
+        softUpdate->needToUpdate();
+    }
+}
 
 void MainWindow::createActionsCommon(){
 // Functional widgets connections

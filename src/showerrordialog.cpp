@@ -83,8 +83,8 @@ void ShowErrorDialog::slotAcceptButtonClicked()
 
 void ShowErrorDialog::keyPressEvent(QKeyEvent *event)
 {
-    switch (event->key()) {
-
+    switch (event->key())
+    {
         break;
 
     default:

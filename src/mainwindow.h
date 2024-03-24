@@ -323,7 +323,11 @@ private slots:
 
 private:
     //void setWidgetsOrder();
-
+    void checkDebugFile();      // Refactored from init()
+    void checkExistingData();   // Refactored from init()
+    void readSettingsFile();    // Refactored from init()
+    void checkVersions();       // Refactored from init()
+    void checkHomeDir();        // Refactored from init()
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
