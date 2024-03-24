@@ -8288,7 +8288,7 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setLoTWQSL_SENT(getADIFValueFromRec(rec, "lotw_qsl_sent"));
 
     aux = getADIFValueFromRec(rec, "clublog_qso_upload_date");
-    qso.setClublogQSOUpdateDate(util->getDateFromSQliteString(aux));
+    qso.setClubLogDate(util->getDateFromSQliteString(aux));
 
     qso.setClubLogStatus(getADIFValueFromRec(rec, "clublog_qso_upload_status"));
 

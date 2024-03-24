@@ -2,6 +2,9 @@
 TESTS to do before releasing:
 - ADIF log Import
 - LoTW log Import
+- Edit QSO. Check how data comes from DB to the UI.
+    - Attention to name
+
 - Receive QSOs from WSJTX:
     - check if they are properly imported to the log.
     - Test a dupe QSO, a message should be shown
@@ -17,7 +20,7 @@ TBD - 2.4
 - BugFix: Fixed the ISO name for Togo.
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.
-
+- Bugfix: ClubLog date was not properly managed.
 
 Mar 2024 - 2.3.4
 - BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #656, #659) (TNX N6PAZ, EA5WA)

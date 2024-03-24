@@ -124,11 +124,13 @@ public:
     bool setQSLMsg(const QString &_qs);
     QString getQSLMsg();
 
-
     // eQSL tab
-    bool setClubLogStatus(const QString &_c);
+    bool setClubLogStatus(const QString &_c);   
     QString getClubLogStatus();
+
     bool setClubLogDate(const QDate &_c);
+    bool setClubLogDate(const QString& data);
+
     QDate getClubLogDate();
 
     bool setEQSLQSL_RCVD(const QString &_c);
@@ -224,8 +226,6 @@ public:
     QString getCheck();
     bool setClass(const QString &_c);
     QString getClass();
-    bool setClublogQSOUpdateDate(const QDate &_c);
-    QDate getClublogQSOUpdateDate();
     bool setContinent(const QString &_c);
     QString getContinent();
     bool setDistance(const double _i);
@@ -380,6 +380,7 @@ public:
     bool setMyWwffRef(const QString &_c);
     QString getMyWwffRef();
     int toDB(int _qsoId = 0);
+    bool fromDB(int _qsoId);
     //bool add();
     //bool modify(const int _qsoId);
     bool isComplete();
@@ -398,7 +399,9 @@ private:
     QString getModifyQueryString();
     QSqlQuery getPreparedQuery(const QString &_s);
     int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX
-    int getModeIdFromModeName();
+    QString getBandNameFromBandId(int bandId);
+    int getModeIdFromModeName();                // It really returns submode
+    QString getModeNameFromModeId(int _modeId, bool _submode=true);
     void setBandFromFreq(const double _fr, bool TX = true);
     DataBase *db;
 
@@ -421,7 +424,7 @@ private:
     QDateTime qso_dateTime;
 
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
-    QDate eQSLRDate, eQSLSDate, clublogDate,clublogQSOUpdateDate, hrdlogUploadDate;
+    QDate eQSLRDate, eQSLSDate, clublogQSOUpdateDate, hrdlogUploadDate;
     QDate QRZComDate;
 
     bool backup, lotwUpdating, realTime, manualMode, silent_key;
@@ -469,7 +472,6 @@ private:
     bool setRXPwr(const QString& data);
     bool setTXPwr(const QString& data);
 
-    bool setClublogQSOUpdateDate(const QString& data);
     bool setEQSLQSLRDate(const QString& data);
     bool setEQSLQSLSDate(const QString& data);
     bool setForceInit(const QString& data);

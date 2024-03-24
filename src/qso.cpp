@@ -99,7 +99,6 @@ void QSO::clear()
     check = QString();
     clase = QString();
     clublogQSOUpdateDate = QDate();
-    clublogDate = QDate();
     clublog_status = QString();
     county = QString();
     comment = QString();
@@ -594,19 +593,19 @@ bool QSO::setClubLogDate(const QDate &_c)
 {
     if (_c.isValid())
     {
-        clublogDate = _c;
+        clublogQSOUpdateDate = _c;
         return true;
     }
     else
     {
-        clublogDate = QDate();
+        clublogQSOUpdateDate  = QDate();
         return false;
     }
 }
 
 QDate QSO::getClubLogDate()
 {
-    return clublogDate;
+    return clublogQSOUpdateDate ;
 }
 
 bool QSO::setQRZCOMStatus(const QString &_c)
@@ -633,12 +632,12 @@ bool QSO::setQRZCOMDate(const QDate &_c)
 {
     if (_c.isValid())
     {
-        clublogDate = _c;
+        QRZComDate = _c;
         return true;
     }
     else
     {
-        clublogDate = QDate();
+        QRZComDate = QDate();
         return false;
     }
 }
@@ -1549,25 +1548,6 @@ bool QSO::setClass(const QString &_c)
 QString QSO::getClass()
 {
     return clase;
-}
-
-bool QSO::setClublogQSOUpdateDate(const QDate &_c)
-{
-    if (_c.isValid())
-    {
-        clublogQSOUpdateDate = _c;
-        return true;
-    }
-    else
-    {
-        clublogQSOUpdateDate = QDate();
-        return false;
-    }
-}
-
-QDate QSO::getClublogQSOUpdateDate()
-{
-    return clublogQSOUpdateDate;
 }
 
 bool QSO::setContinent(const QString &_c)
@@ -2601,7 +2581,7 @@ bool QSO::setFreqRX(const QString& data) { return setFreqRX(data.toDouble()); }
 bool QSO::setRXPwr(const QString& data){ return setRXPwr(data.toDouble()); }
 bool QSO::setTXPwr(const QString& data){ return setTXPwr(data.toDouble()); }
 
-bool QSO::setClublogQSOUpdateDate(const QString& data) { return setClublogQSOUpdateDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setClubLogDate(const QString& data) { return setClubLogDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setEQSLQSLRDate(const QString& data) { return setEQSLQSLRDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setEQSLQSLSDate(const QString& data) { return setEQSLQSLSDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setForceInit(const QString& data) { return setForceInit(util->QStringToBool(data)); }
@@ -2650,7 +2630,7 @@ void QSO::InitializeHash() {
         {"CALL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setCall)},
         {"CHECK", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setCheck)},
         {"CLASS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClass)},
-        {"CLUBLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClublogQSOUpdateDate)},
+        {"CLUBLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClubLogDate)},
         {"CLUBLOG_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setClubLogStatus)},
         {"CNTY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setCounty)},
         {"COMMENT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setComment)},
@@ -2974,6 +2954,34 @@ int QSO::getBandIdFromBandName(bool _rxBand)
     return -1;
 }
 
+QString QSO::getBandNameFromBandId(int bandId)
+{
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(bandId);
+    QSqlQuery query;
+    //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
+    bool ok = query.prepare ("SELECT name FROM band WHERE id=:id");
+    if (!ok)
+    {
+        return QString();
+        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+    }
+    query.bindValue (":id", bandId);
+
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        return QString();
+    }
+
+    if (!query.next())
+        return QString();
+    if (!query.isValid())
+        return QString();
+
+    qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    return (query.value(0)).toString();
+}
+
 int QSO::getModeIdFromModeName()
 {
     // We need to save always the submode id
@@ -3027,6 +3035,42 @@ int QSO::getModeIdFromModeName()
     return -3;
 }
 
+QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
+{
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
+    QSqlQuery query;
+    bool ok;
+    if (_submode)
+    {
+        ok = query.prepare ("SELECT submode FROM mode WHERE id=:id");
+    }
+    else
+    {
+        ok = query.prepare ("SELECT name FROM mode WHERE id=:id");
+    }
+
+    if (!ok)
+    {
+        return QString();
+        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+    }
+    query.bindValue (":id", _modeId);
+
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        return QString();
+    }
+
+    if (!query.next())
+        return QString();
+    if (!query.isValid())
+        return QString();
+
+    qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    return (query.value(0)).toString();
+}
+
 QSqlQuery QSO::getPreparedQuery(const QString &_s)
 {
     QSqlQuery query;
@@ -3066,7 +3110,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":band_rx", getBandIdFromBandName(true));
     query.bindValue(":checkcontest", getCheck());
     query.bindValue(":class", getClass());
-    query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClublogQSOUpdateDate()));
+    query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClubLogDate()));
     query.bindValue(":clublog_qso_upload_status", getClubLogStatus());
 
     query.bindValue(":cont", getContinent ());
@@ -3244,7 +3288,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("class",  clase));
     adifStr.append(adif->getADIFField ("clublog_qso_upload_status", clublog_status ));
 
-    if ((clublogDate.isValid()) && ((clublog_status =="Y") || (clublog_status =="N")))
+    if ((clublogQSOUpdateDate .isValid()) && ((clublog_status =="Y") || (clublog_status =="N")))
         adifStr.append(adif->getADIFField ("clublog_qso_upload_date",  util->getADIFDateFromQDate(clublogQSOUpdateDate) ));
 
     adifStr.append(adif->getADIFField ("cont",  continent));
@@ -3460,4 +3504,226 @@ QString QSO::getBandNameFromFreq(const double _n)
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
+}
+
+bool QSO::fromDB(int _qsoId)
+{
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    QString queryString = "SELECT * FROM log WHERE id=:idQSO";
+    QSqlQuery query;
+    query.prepare(queryString);
+    query.bindValue(":idQSO", _qsoId);
+
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        logEvent (Q_FUNC_INFO, "END-1", Debug);
+        return false;
+    }
+    if (!query.next())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        logEvent (Q_FUNC_INFO, "END-2", Debug);
+        return false;
+    }
+    clear();
+    QSqlRecord rec = query.record();
+
+
+    QString data = (query.value(rec.indexOf("qso_date"))).toString();
+    setDateTimeOn(util->getDateTimeFromSQLiteString(data));
+
+    data = (query.value(rec.indexOf("call"))).toString();
+    setCall(data);
+
+    data = (query.value(rec.indexOf("rst_sent"))).toString();
+    setRSTTX(data);
+
+    data = (query.value(rec.indexOf("rst_rcvd"))).toString();
+    setRSTRX(data);
+
+    data = (query.value(rec.indexOf("bandid"))).toString();
+    data = getBandNameFromBandId(data.toInt());
+    setBand(data);
+
+    data = (query.value(rec.indexOf("band_rx"))).toString();
+    data = getBandNameFromBandId(data.toInt());
+    setBandRX(data);
+
+    data = (query.value(rec.indexOf("modeid"))).toString();
+    setMode(getModeNameFromModeId(data.toInt(), false));
+    setSubmode(getModeNameFromModeId(data.toInt(), true));
+
+    setCQZone((query.value(rec.indexOf("cqz"))).toInt());
+    setItuZone((query.value(rec.indexOf("ituz"))).toInt());
+    setDXCC((query.value(rec.indexOf("dxcc"))).toInt());
+
+    setAddress((query.value(rec.indexOf("address"))).toString());
+    setAge((query.value(rec.indexOf("age"))).toDouble());
+    setCounty((query.value(rec.indexOf("cnty"))).toString());
+
+    setA_Index((query.value(rec.indexOf("a_index"))).toInt());
+    setAnt_az((query.value(rec.indexOf("ant_az"))).toDouble());
+    setAnt_el((query.value(rec.indexOf("ant_el"))).toDouble());
+    setAnt_Path((query.value(rec.indexOf("ant_path"))).toString());
+
+    setARRL_Sect((query.value(rec.indexOf("arrl_sect"))).toString());
+    setAwardSubmitted((query.value(rec.indexOf("award_submitted"))).toString());
+    setAwardGranted((query.value(rec.indexOf("award_granted"))).toString());
+
+    setCheck((query.value(rec.indexOf("checkcontest"))).toString());
+    setClass((query.value(rec.indexOf("class"))).toString());
+
+    data = (query.value(rec.indexOf("clublog_qso_upload_date"))).toString();
+    setClubLogDate(util->getDateTimeFromSQLiteString(data).date());
+    setClubLogStatus((query.value(rec.indexOf("clublog_qso_upload_status"))).toString());
+
+    setContinent((query.value(rec.indexOf("cont"))).toString());
+    setContactedOperator((query.value(rec.indexOf("contacted_op"))).toString());
+    setContestID((query.value(rec.indexOf("contest_id"))).toString());
+
+    setCountry((query.value(rec.indexOf("country"))).toString());
+    setCreditSubmitted((query.value(rec.indexOf("credit_submitted"))).toString());
+    setCreditGranted((query.value(rec.indexOf("credit_granted"))).toString());
+
+    setDarcDok((query.value(rec.indexOf("darc_dok"))).toString());
+    setDistance((query.value(rec.indexOf("distance"))).toDouble());
+
+    setEmail((query.value(rec.indexOf("email"))).toString());
+    setEQ_Call((query.value(rec.indexOf("eq_call"))).toString());
+
+    data = (query.value(rec.indexOf("eqsl_qslrdate"))).toString();
+    setEQSLQSLRDate(util->getDateTimeFromSQLiteString(data).date());
+
+    data = (query.value(rec.indexOf("eqsl_qslsdate"))).toString();
+    setEQSLQSLSDate(util->getDateTimeFromSQLiteString(data).date());
+
+    setEQSLQSL_RCVD((query.value(rec.indexOf("eqsl_qsl_rcvd"))).toString());
+    setEQSLQSL_SENT((query.value(rec.indexOf("eqsl_qsl_sent"))).toString());
+
+    setFists((query.value(rec.indexOf("fists"))).toInt());
+    setFistsCC((query.value(rec.indexOf("fists_cc"))).toInt());
+    setForceInit(util->QStringToBool((query.value(rec.indexOf("force_init"))).toString()));
+
+    setFreq((query.value(rec.indexOf("freq_tx"))).toDouble());
+    setFreqRX((query.value(rec.indexOf("freq_rx"))).toDouble());
+    setGridSquare((query.value(rec.indexOf("gridsquare"))).toString());
+
+    data = (query.value(rec.indexOf("hrdlog_qso_upload_date"))).toString();
+    setHRDUpdateDate(util->getDateTimeFromSQLiteString(data).date());
+    setHRDLogStatus((query.value(rec.indexOf("hrdlog_qso_upload_status"))).toString());
+
+    setIOTA((query.value(rec.indexOf("iota"))).toString());
+    setIotaID((query.value(rec.indexOf("iota_island_id"))).toInt());
+    setK_Index((query.value(rec.indexOf("k_index"))).toInt());
+
+    setLatitude((query.value(rec.indexOf("lat"))).toString());
+    setLongitude((query.value(rec.indexOf("lon"))).toString());
+
+    data = (query.value(rec.indexOf("lotw_qslrdate"))).toString();
+    setLoTWQSLRDate(util->getDateTimeFromSQLiteString(data).date());
+    data = (query.value(rec.indexOf("lotw_qslsdate"))).toString();
+    setLoTWQSLSDate(util->getDateTimeFromSQLiteString(data).date());
+
+    setLoTWQSL_RCVD((query.value(rec.indexOf("lotw_qsl_rcvd"))).toString());
+    setLoTWQSL_SENT((query.value(rec.indexOf("lotw_qsl_sent"))).toString());
+
+    setMaxBursts((query.value(rec.indexOf("max_bursts"))).toInt());
+    setMsShower((query.value(rec.indexOf("ms_shower"))).toString());
+    setMyCity((query.value(rec.indexOf("my_city"))).toString());
+    setMyCounty((query.value(rec.indexOf("my_cnty"))).toString());
+    setMyCountry((query.value(rec.indexOf("my_country"))).toString());
+    setMyCQZone((query.value(rec.indexOf("my_cq_zone"))).toInt());
+    setMyITUZone((query.value(rec.indexOf("my_itu_zone"))).toInt());
+    setMyDXCC((query.value(rec.indexOf("my_dxcc"))).toInt());
+    setMyFists((query.value(rec.indexOf("my_fists"))).toInt());
+    setMyGridSquare((query.value(rec.indexOf("my_gridsquare"))).toString());
+    setMyIOTA((query.value(rec.indexOf("my_iota"))).toString());
+
+    setMyLatitude((query.value(rec.indexOf("my_lat"))).toString());
+    setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
+
+    setMyName((query.value(rec.indexOf("my_name"))).toString());
+    setMyPostalCode((query.value(rec.indexOf("my_postal_code"))).toString());
+    setMyRig((query.value(rec.indexOf("my_rig"))).toString());
+    setMySig((query.value(rec.indexOf("my_sig"))).toString());
+    setMySigInfo((query.value(rec.indexOf("my_sig_info"))).toString());
+    setMySOTA_REF((query.value(rec.indexOf("my_sota_ref"))).toString());
+    setMyState((query.value(rec.indexOf("my_state"))).toString());
+    setMyStreet((query.value(rec.indexOf("my_street"))).toString());
+    setMyUsacaCounties((query.value(rec.indexOf("my_usaca_counties"))).toString());
+    setMyVUCCGrids((query.value(rec.indexOf("my_vucc_grids"))).toString());
+
+    setName((query.value(rec.indexOf("name"))).toString());
+    setNotes((query.value(rec.indexOf("notes"))).toString());
+
+    setNrBursts((query.value(rec.indexOf("nr_bursts"))).toInt());
+    setNrPings((query.value(rec.indexOf("nr_pings"))).toInt());
+    setOperatorCallsign((query.value(rec.indexOf("operator"))).toString());
+    setOwnerCallsign((query.value(rec.indexOf("owner_callsign"))).toString());
+    setPrefix((query.value(rec.indexOf("pfx"))).toString());
+    setPrecedence((query.value(rec.indexOf("precedence"))).toString());
+    setPropMode((query.value(rec.indexOf("prop_mode"))).toString());
+    setPublicKey((query.value(rec.indexOf("public_key"))).toString());
+
+    data = (query.value(rec.indexOf("qrzcom_qso_upload_date"))).toString();
+    setQRZCOMDate(util->getDateTimeFromSQLiteString(data).date());
+    setQRZCOMStatus((query.value(rec.indexOf("qrzcom_qso_upload_status"))).toString());
+
+    setQSLMsg((query.value(rec.indexOf("qslmsg"))).toString());
+    data = (query.value(rec.indexOf("qslrdate"))).toString();
+    setQSLRDate(util->getDateTimeFromSQLiteString(data).date());
+    data = (query.value(rec.indexOf("qslsdate"))).toString();
+    setQSLSDate(util->getDateTimeFromSQLiteString(data).date());
+
+    setQSL_RCVD((query.value(rec.indexOf("qsl_rcvd"))).toString());
+    setQSL_SENT((query.value(rec.indexOf("qsl_sent"))).toString());
+    setQSLRecVia((query.value(rec.indexOf("qsl_rcvd_via"))).toString());
+    setQSLSenVia((query.value(rec.indexOf("qsl_sent_via"))).toString());
+
+    setQSLVia((query.value(rec.indexOf("qsl_via"))).toString());
+    setQSOComplete((query.value(rec.indexOf("qso_complete"))).toString());
+    setQSORandom(util->QStringToBool((query.value(rec.indexOf("qso_random"))).toString()));
+
+    setQTH((query.value(rec.indexOf("qth"))).toString());
+    setRegion((query.value(rec.indexOf("region"))).toString());
+    setRig((query.value(rec.indexOf("rig"))).toString());
+    setRXPwr((query.value(rec.indexOf("rig"))).toDouble());
+
+    setSatName((query.value(rec.indexOf("sat_name"))).toString());
+    setSatMode((query.value(rec.indexOf("sat_mode"))).toString());
+
+    setSFI((query.value(rec.indexOf("sfi"))).toInt());
+    setSig((query.value(rec.indexOf("sig"))).toString());
+    setSigInfo((query.value(rec.indexOf("sig_info"))).toString());
+
+    setSilentKey(util->QStringToBool((query.value(rec.indexOf("silent_key"))).toString()));
+    setSkcc((query.value(rec.indexOf("skcc"))).toString());
+
+    setSOTA_REF((query.value(rec.indexOf("sota_ref"))).toString());
+    setSrxString((query.value(rec.indexOf("srx_string"))).toString());
+    setSrx((query.value(rec.indexOf("srx"))).toInt());
+    setStxString((query.value(rec.indexOf("stx_string"))).toString());
+    setStx((query.value(rec.indexOf("stx"))).toInt());
+
+    setState((query.value(rec.indexOf("state"))).toString());
+    setStationCallsign((query.value(rec.indexOf("station_callsign"))).toString());
+
+    setSwl(util->QStringToBool((query.value(rec.indexOf("swl"))).toString()));
+    setUksmg((query.value(rec.indexOf("uksmg"))).toString());
+    setUsacaCounties((query.value(rec.indexOf("usaca_counties"))).toString());
+    setVeProv((query.value(rec.indexOf("ve_prov"))).toString());
+    setVUCCGrids((query.value(rec.indexOf("vucc_grids"))).toString());
+    setTenTen((query.value(rec.indexOf("ten_ten"))).toInt());
+    setTXPwr((query.value(rec.indexOf("tx_pwr"))).toDouble());
+
+    setWeb((query.value(rec.indexOf("web"))).toString());
+    data = (query.value(rec.indexOf("qso_date_off"))).toString();
+    setDateOff(util->getDateTimeFromSQLiteString(data).date());
+    setLogId((query.value(rec.indexOf("lognumber"))).toInt());
+
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return false;
 }

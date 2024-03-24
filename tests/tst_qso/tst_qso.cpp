@@ -283,8 +283,8 @@ void tst_QSO::test_AdifCreation()
     QString getCheck();
     bool setClass(const QString &_c);
     QString getClass();
-    bool setClublogQSOUpdateDate(const QDate &_c);
-    QDate getClublogQSOUpdateDate();
+    bool setClubLogDate(const QDate &_c);
+    QDate getClubLogDate();
     bool setContinent(const QString &_c);
     QString getContinent();
     bool setDistance(const double _i);
