@@ -4,6 +4,12 @@ TESTS to do before releasing:
 - LoTW log Import
 - Edit QSO. Check how data comes from DB to the UI.
     - Attention to name
+- CompleteWithPreviousQSO: Test that the following fields are reused:
+    - name
+    - QTH
+    - GridSquare
+    - IOTA
+    - QSLVia
 
 - Receive QSOs from WSJTX:
     - check if they are properly imported to the log.

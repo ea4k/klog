@@ -5462,8 +5462,8 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
        //qDebug() << "MainWindow::completeWithPreviousQSO" ;
     //This function completes: Name, QTH, Locator, Entity, Iota
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    if ((!completeWithPrevious) || (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
+    int previousQSOId = dataProxy->isWorkedB4(_call, -1);
+    if ((!completeWithPrevious) || (_call.length()<=0) || (previousQSOId<=0))
     //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
     {
    //qDebug() << "MainWindow::completeWithPreviousQSO NOT completing..." ;
@@ -5495,16 +5495,12 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
+    QSO prevQSO;
+    prevQSO.fromDB(previousQSOId);
        //qDebug() << "MainWindow::completeWithPreviousQSO completing..." ;
     QString aux = QString();
 
-    aux = dataProxy->getNameFromQRZ(_call);
-       //qDebug() << "MainWindow::completeWithPreviousQSO aux: " << aux ;
-       //qDebug() << "MainWindow::completeWithPreviousQSO nameLineEdit: " << QSOTabWidget->getName() ;
-
-       //qDebug() << "MainWindow::completeWithPreviousQSO aux length: " << QString::number(aux.length()) ;
-       //qDebug() << "MainWindow::completeWithPreviousQSO nameL length: " << QString::number((QSOTabWidget->getName()).length()) ;
-
+    aux = prevQSO.getName();
     if ((aux.length()>=0) && (QSOTabWidget->getName().length()<=0) )
     {
    //qDebug() << "MainWindow::completeWithPreviousQSO name: 1" ;
@@ -5522,8 +5518,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
     {
    //qDebug() << "MainWindow::completeWithPreviousQSO name: 3" ;
     }
-
-    aux = dataProxy->getQTHFromQRZ(_call);
+    aux = prevQSO.getQTH();
     if ((aux.length()>=0) && (QSOTabWidget->getQTH().length()<=0) )
     {
         QSOTabWidget->setPaletteRightQTH (true);
@@ -5535,8 +5530,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         completedWithPreviousQTH = false;
         QSOTabWidget->setPaletteRightQTH (false);
     }
-
-    aux = dataProxy->getLocatorFromQRZ(_call);
+    aux = prevQSO.getGridSquare();
     if ((aux.length()>=0) && ((QSOTabWidget->getDXLocator()).length()<=0) )
     {
         QSOTabWidget->setPaletteRightDXLocator (true);
@@ -5548,9 +5542,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         completedWithPreviousLocator = false;
         QSOTabWidget->setPaletteRightDXLocator(false);
     }
-
-    aux = dataProxy->getIOTAFromQRZ(_call);
-    //othersTabWidget->setIOTA(aux);
+    aux = prevQSO.getIOTA();
 
     if ((aux.length()>=0) && (othersTabWidget->isIOTAModified()) )
     {
@@ -5559,11 +5551,6 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         if ((aux.length())==6)
         {
             othersTabWidget->setIOTA(aux);
-    //TODO: Decide if it is better this way or like in : void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
-    //QStringList values = aux.split("-", QT_SKIP);
-    //iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
-    //iotaNumberLineEdit->setPalette(palRed);
-    //iotaNumberLineEdit->setText(values.at(1));
             completedWithPreviousIOTA=true;
         }
         else if (completedWithPreviousIOTA && (aux != othersTabWidget->getIOTA()))
@@ -5577,8 +5564,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         othersTabWidget->clearIOTA();
         completedWithPreviousIOTA = false;
     }
-
-    aux = dataProxy->getQSLViaFromQRZ(_call);
+    aux = prevQSO.getQSLVia();
     if ((aux.length()>=0) && ((QSLTabWidget->getQSLVia()).length()<=0) )
     {
         QSLTabWidget->setQSLVia(aux, Qt::red);
